@@ -1,0 +1,50 @@
+package org.citygml4j.impl.jaxb.citygml.texturedsurface._0_4;
+
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.CityGMLModule;
+import org.citygml4j.model.citygml.texturedsurface.TexturedSurfaceModule;
+import org.citygml4j.model.citygml.texturedsurface._TextureType;
+
+public enum _TextureTypeImpl implements _TextureType {
+    SPECIFIC("specific"),
+    TYPICAL("typical"),
+    UNKNOWN("unknown");
+    
+    private final String value;
+
+    _TextureTypeImpl(String v) {
+        value = v;
+    }
+
+    @Override
+    public String getValue() {
+        return value;
+    }
+
+    public static _TextureTypeImpl fromValue(String v) {
+    	v = v.trim().toLowerCase();
+    	
+        for (_TextureTypeImpl c: _TextureTypeImpl.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+
+        return UNKNOWN;
+    }
+
+	@Override
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass._TEXTURETYPE;
+	}
+
+	@Override
+	public final CityGMLModule getCityGMLModule() {
+		return TexturedSurfaceModule.v0_4_0;
+	}
+
+	public String toString() {
+		return value;
+	}
+	
+}

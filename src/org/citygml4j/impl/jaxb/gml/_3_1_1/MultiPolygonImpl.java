@@ -1,0 +1,92 @@
+package org.citygml4j.impl.jaxb.gml._3_1_1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.citygml4j.geometry.Point;
+import org.citygml4j.jaxb.gml._3_1_1.MultiPolygonType;
+import org.citygml4j.jaxb.gml._3_1_1.PolygonPropertyType;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.MultiPolygon;
+import org.citygml4j.model.gml.Polygon;
+import org.citygml4j.model.gml.PolygonProperty;
+
+public class MultiPolygonImpl extends AbstractGeometricAggregateImpl implements	MultiPolygon {
+	private MultiPolygonType multiPolygonType;
+
+	public MultiPolygonImpl() {
+		this(new MultiPolygonType());
+	}
+
+	public MultiPolygonImpl(MultiPolygonType multiPolygonType) {
+		super(multiPolygonType);
+		this.multiPolygonType = multiPolygonType;
+	}
+
+	@Override
+	public MultiPolygonType getJAXBObject() {
+		return multiPolygonType;
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTIPOLYGON;
+	}
+
+	@Override
+	public List<PolygonProperty> getPolygonMember() {
+		List<PolygonProperty> polygonPropertyList = new ArrayList<PolygonProperty>();
+		List<PolygonPropertyType> polygonPropertyTypeList = multiPolygonType.getPolygonMember();
+
+		for (PolygonPropertyType polygonPropertyType : polygonPropertyTypeList)
+			polygonPropertyList.add(new PolygonPropertyImpl(polygonPropertyType));
+
+		return polygonPropertyList;
+	}
+
+	@Override
+	public void calcBoundingBox(Point min, Point max) {
+		if (isSetPolygonMember()) {
+			for (PolygonProperty polygonProperty : getPolygonMember()) {
+				Polygon polygon = polygonProperty.getPolygon();
+				if (polygon != null)
+					polygon.calcBoundingBox(min, max);
+			}
+		}
+	}
+
+	@Override
+	public void addPolygonMember(PolygonProperty polygonMember) {
+		multiPolygonType.getPolygonMember().add(((PolygonPropertyImpl)polygonMember).getJAXBObject());
+	}
+
+	@Override
+	public boolean isSetPolygonMember() {
+		return multiPolygonType.isSetPolygonMember();
+	}
+
+	@Override
+	public void setPolygonMember(List<PolygonProperty> polygonMember) {
+		List<PolygonPropertyType> polygonPropertyList = new ArrayList<PolygonPropertyType>();
+
+		for (PolygonProperty polygon : polygonMember) 
+			polygonPropertyList.add(((PolygonPropertyImpl)polygon).getJAXBObject());
+
+		multiPolygonType.unsetPolygonMember();
+		multiPolygonType.getPolygonMember().addAll(polygonPropertyList);
+	}
+
+	@Override
+	public void unsetPolygonMember() {
+		multiPolygonType.unsetPolygonMember();
+	}
+
+	@Override
+	public boolean unsetPolygonMember(PolygonProperty polygonMember) {
+		if (multiPolygonType.isSetPolygonMember())
+			return multiPolygonType.getPolygonMember().remove(((PolygonPropertyImpl)polygonMember).getJAXBObject());
+		
+		return false;
+	}
+
+}

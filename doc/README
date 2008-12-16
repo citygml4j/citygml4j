@@ -1,0 +1,90 @@
+citygml4j - CityGML class library for Java
+
+  This program is free software and comes WITHOUT ANY WARRANTY. 
+  See the file LICENSE for more details. 
+
+
+0. Index
+--------
+
+1. Licence
+2. Copyright
+3. About
+4. System requirements
+5. How to use it
+6. Developers
+7. Contact
+8. Websites
+
+
+1. Licence
+----------
+
+The citygml4j Java class library is free software under
+the GNU Lesser General Public License Version 3.0. See the file LICENSE 
+for more details. For a copy of the GNU Lesser General Public License see 
+the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
+
+
+2. Copyright
+------------
+
+(c) 2007 - 2008
+Institute for Geodesy and Geoinformation Science (IGG)
+Technische Universitaet Berlin, Germany
+http://www.igg.tu-berlin.de/
+
+
+3. About
+--------
+
+citygml4j is a Java class library and API for facilitating work with the
+City Geography Markup Language (CityGML). It makes it easy to read, process,
+and write CityGML datasets, and to develop CityGML-aware software 
+applications.
+
+CityGML is a common information model for the representation of 3D urban 
+objects. It is realized as an open data model and XML-based format for the 
+storage and exchange of virtual 3D city models. 
+
+CityGML is implemented as an application schema for the Geography Markup 
+Language version 3.1.1 (GML3), the extendible international standard for 
+spatial data exchange issued by the Open Geospatial Consortium (OGC) and 
+the ISO TC211. CityGML is an official OGC Standard and can be used 
+free of charge.
+
+4. System requirements
+----------------------
+
+* Java JRE or JDK >= 1.6
+* Java Architecture for XML Binding (JAXB) >= 2.1.9
+
+5. How to use it
+----------------
+
+Simply modify your Java classpath to include the provided 
+citygml4j-<version>.jar file. Please make sure also to include the 
+required JAXB libraries on your application classpath. 
+   
+6. Developers
+-------------
+
+Claus Nagel <nagel@igg.tu-berlin.de>
+Alexandra Stadler <stadler@igg.tu-berlin.de>
+Gerhard Koenig <gerhard.koenig@tu-berlin.de>
+Prof. Dr. Thomas H. Kolbe <kolbe@igg.tu-berlin.de>
+
+
+7. Contact
+----------
+
+nagel@igg.tu-berlin.de
+
+
+8. Websites
+-----------
+
+http://www.igg.tu-berlin.de/
+http://www.citygml.org/
+http://www.citygmlwiki.org/
+http://www.opengeospatial.org/standards/citygml
