@@ -3,7 +3,6 @@ package org.citygml4j.util;
 import java.util.HashMap;
 
 import org.citygml4j.model.citygml.CityGMLModule;
-import org.citygml4j.model.citygml.CityGMLModuleType;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.citygml.core.CoreModule;
 
@@ -26,7 +25,7 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper {
 		prefixMap.put(CoreModule.v0_4_0.getNamespaceUri(), CoreModule.v0_4_0.getNamespacePrefix());
 		
 		// prefixes of all other modules
-		for (CityGMLModule module : CityGMLModuleType.getModules()) {
+		for (CityGMLModule module : CityGMLModules.getModules()) {
 			if (module.getModuleVersion() == CityGMLModuleVersion.v0_4_0)
 				continue;
 			

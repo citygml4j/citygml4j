@@ -1,6 +1,7 @@
 package org.citygml4j.model.citygml.core;
 
 import org.citygml4j.model.citygml.CityGMLModule;
+import org.citygml4j.model.citygml.CityGMLModuleDependencies;
 import org.citygml4j.model.citygml.CityGMLModuleType;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
 
@@ -18,6 +19,12 @@ public enum CoreModule implements CityGMLModule {
 		public CityGMLModuleVersion getModuleVersion() { return CityGMLModuleVersion.v1_0_0; }
 	};
 	
+	private final CityGMLModuleDependencies dependencies;
+	
+	CoreModule(CityGMLModule... dependencies) {
+		this.dependencies = new CityGMLModuleDependencies(dependencies);
+	}
+	
 	@Override
 	public abstract String getNamespaceUri();
 	@Override
@@ -30,5 +37,10 @@ public enum CoreModule implements CityGMLModule {
 	@Override
 	public CityGMLModuleType getModuleType() {
 		return CityGMLModuleType.CORE;
+	}
+	
+	@Override
+	public CityGMLModuleDependencies getModuleDependencies() {
+		return dependencies;
 	}
 }
