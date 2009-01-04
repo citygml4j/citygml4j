@@ -8,6 +8,11 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import org.citygml4j.builder.convert.citygml.CityGMLConvertBuilder;
+import org.citygml4j.builder.convert.citygml.CityGMLConvertContext;
+import org.citygml4j.factory.CityGMLFactory;
+import org.citygml4j.factory.GMLFactory;
+import org.citygml4j.factory.XALFactory;
 import org.citygml4j.impl.jaxb.ModelMapper;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.citygml.ade.ADE;
@@ -103,6 +108,18 @@ public class CityGMLContext {
 	
 	public XALFactory createXALFactory() {
 		return new XALFactory();
+	}
+	
+	public CityGMLConvertBuilder createCityGMLConvertBuilder() {
+		return new CityGMLConvertBuilder(this);
+	}
+	
+	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLConvertContext convertContext) {
+		return new CityGMLConvertBuilder(this, convertContext);
+	}
+	
+	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLModuleVersion version) {
+		return new CityGMLConvertBuilder(this, version);
 	}
 	
 	public JAXBNamespacePrefixMapper createNamespacePrefixMapper() {
