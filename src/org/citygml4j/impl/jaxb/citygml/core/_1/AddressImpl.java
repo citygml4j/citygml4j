@@ -144,7 +144,7 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 	public void unsetXalAddress() {
 		addressType.setXalAddress(null);
 	}
-	
+
 	@Override
 	public boolean unsetGenericApplicationPropertyOfAddress(ADEComponent adeObject) {
 		if (addressType.isSet_GenericApplicationPropertyOfAddress()) {
@@ -160,5 +160,5 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 
 		return false;
 	}
-	
+
 }

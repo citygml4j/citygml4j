@@ -124,7 +124,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public MultiCurveProperty getLod1TerainIntersection() {
+	public MultiCurveProperty getLod1TerrainIntersection() {
 		if (cityFurnitureType.isSetLod1TerrainIntersection())
 			return new MultiCurvePropertyImpl(cityFurnitureType.getLod1TerrainIntersection());
 
@@ -132,7 +132,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public MultiCurveProperty getLod2TerainIntersection() {
+	public MultiCurveProperty getLod2TerrainIntersection() {
 		if (cityFurnitureType.isSetLod2TerrainIntersection())
 			return new MultiCurvePropertyImpl(cityFurnitureType.getLod2TerrainIntersection());
 
@@ -140,7 +140,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public MultiCurveProperty getLod3TerainIntersection() {
+	public MultiCurveProperty getLod3TerrainIntersection() {
 		if (cityFurnitureType.isSetLod3TerrainIntersection())
 			return new MultiCurvePropertyImpl(cityFurnitureType.getLod3TerrainIntersection());
 
@@ -148,7 +148,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public MultiCurveProperty getLod4TerainIntersection() {
+	public MultiCurveProperty getLod4TerrainIntersection() {
 		if (cityFurnitureType.isSetLod4TerrainIntersection())
 			return new MultiCurvePropertyImpl(cityFurnitureType.getLod4TerrainIntersection());
 
@@ -215,22 +215,22 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public void setLod1TerainIntersection(MultiCurveProperty lod1TerrainIntersection) {
+	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection) {
 		cityFurnitureType.setLod1TerrainIntersection(((MultiCurvePropertyImpl)lod1TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod2TerainIntersection(MultiCurveProperty lod2TerrainIntersection) {
+	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection) {
 		cityFurnitureType.setLod2TerrainIntersection(((MultiCurvePropertyImpl)lod2TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod3TerainIntersection(MultiCurveProperty lod3TerrainIntersection) {
+	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection) {
 		cityFurnitureType.setLod3TerrainIntersection(((MultiCurvePropertyImpl)lod3TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod4TerainIntersection(MultiCurveProperty lod4TerrainIntersection) {
+	public void setLod4TerrainIntersection(MultiCurveProperty lod4TerrainIntersection) {
 		cityFurnitureType.setLod4TerrainIntersection(((MultiCurvePropertyImpl)lod4TerrainIntersection).getJAXBObject());
 	}
 
@@ -331,7 +331,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public boolean isSetLod1TerainIntersection() {
+	public boolean isSetLod1TerrainIntersection() {
 		return cityFurnitureType.isSetLod1TerrainIntersection();
 	}
 
@@ -346,7 +346,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public boolean isSetLod2TerainIntersection() {
+	public boolean isSetLod2TerrainIntersection() {
 		return cityFurnitureType.isSetLod2TerrainIntersection();
 	}
 
@@ -361,7 +361,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public boolean isSetLod3TerainIntersection() {
+	public boolean isSetLod3TerrainIntersection() {
 		return cityFurnitureType.isSetLod3TerrainIntersection();
 	}
 
@@ -376,7 +376,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public boolean isSetLod4TerainIntersection() {
+	public boolean isSetLod4TerrainIntersection() {
 		return cityFurnitureType.isSetLod4TerrainIntersection();
 	}
 
@@ -406,7 +406,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public void unsetLod1TerainIntersection() {
+	public void unsetLod1TerrainIntersection() {
 		cityFurnitureType.setLod1TerrainIntersection(null);
 	}
 
@@ -421,7 +421,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public void unsetLod2TerainIntersection() {
+	public void unsetLod2TerrainIntersection() {
 		cityFurnitureType.setLod2TerrainIntersection(null);
 	}
 
@@ -436,7 +436,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public void unsetLod3TerainIntersection() {
+	public void unsetLod3TerrainIntersection() {
 		cityFurnitureType.setLod3TerrainIntersection(null);
 	}
 
@@ -451,7 +451,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	}
 
 	@Override
-	public void unsetLod4TerainIntersection() {
+	public void unsetLod4TerrainIntersection() {
 		cityFurnitureType.setLod4TerrainIntersection(null);
 	}
 

@@ -174,7 +174,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public MultiCurveProperty getLod1TerainIntersection() {
+	public MultiCurveProperty getLod1TerrainIntersection() {
 		if (abstractBuilding.isSetLod1TerrainIntersection())
 			return new MultiCurvePropertyImpl(abstractBuilding.getLod1TerrainIntersection());
 
@@ -182,7 +182,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public MultiCurveProperty getLod2TerainIntersection() {
+	public MultiCurveProperty getLod2TerrainIntersection() {
 		if (abstractBuilding.isSetLod2TerrainIntersection())
 			return new MultiCurvePropertyImpl(abstractBuilding.getLod2TerrainIntersection());
 
@@ -190,7 +190,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public MultiCurveProperty getLod3TerainIntersection() {
+	public MultiCurveProperty getLod3TerrainIntersection() {
 		if (abstractBuilding.isSetLod3TerrainIntersection())
 			return new MultiCurvePropertyImpl(abstractBuilding.getLod3TerrainIntersection());
 
@@ -198,7 +198,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public MultiCurveProperty getLod4TerainIntersection() {
+	public MultiCurveProperty getLod4TerrainIntersection() {
 		if (abstractBuilding.isSetLod4TerrainIntersection())
 			return new MultiCurvePropertyImpl(abstractBuilding.getLod4TerrainIntersection());
 
@@ -643,7 +643,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void setLod1TerainIntersection(MultiCurveProperty lod1TerrainIntersection) {
+	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection) {
 		abstractBuilding.setLod1TerrainIntersection(((MultiCurvePropertyImpl)lod1TerrainIntersection).getJAXBObject());
 	}
 
@@ -653,7 +653,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void setLod2TerainIntersection(MultiCurveProperty lod2TerrainIntersection) {
+	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection) {
 		abstractBuilding.setLod2TerrainIntersection(((MultiCurvePropertyImpl)lod2TerrainIntersection).getJAXBObject());
 	}
 
@@ -663,7 +663,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void setLod3TerainIntersection(MultiCurveProperty lod3TerrainIntersection) {
+	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection) {
 		abstractBuilding.setLod3TerrainIntersection(((MultiCurvePropertyImpl)lod3TerrainIntersection).getJAXBObject());
 	}
 
@@ -673,7 +673,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void setLod4TerainIntersection(MultiCurveProperty lod4TerrainIntersection) {
+	public void setLod4TerrainIntersection(MultiCurveProperty lod4TerrainIntersection) {
 		abstractBuilding.setLod4TerrainIntersection(((MultiCurvePropertyImpl)lod4TerrainIntersection).getJAXBObject());
 	}
 
@@ -752,7 +752,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public boolean isSetLod1TerainIntersection() {
+	public boolean isSetLod1TerrainIntersection() {
 		return abstractBuilding.isSetLod1TerrainIntersection();
 	}
 
@@ -767,7 +767,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public boolean isSetLod2TerainIntersection() {
+	public boolean isSetLod2TerrainIntersection() {
 		return abstractBuilding.isSetLod2TerrainIntersection();
 	}
 
@@ -782,7 +782,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public boolean isSetLod3TerainIntersection() {
+	public boolean isSetLod3TerrainIntersection() {
 		return abstractBuilding.isSetLod3TerrainIntersection();
 	}
 
@@ -797,7 +797,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public boolean isSetLod4TerainIntersection() {
+	public boolean isSetLod4TerrainIntersection() {
 		return abstractBuilding.isSetLod4TerrainIntersection();
 	}
 
@@ -917,7 +917,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void unsetLod1TerainIntersection() {
+	public void unsetLod1TerrainIntersection() {
 		abstractBuilding.setLod1TerrainIntersection(null);
 	}
 
@@ -932,7 +932,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void unsetLod2TerainIntersection() {
+	public void unsetLod2TerrainIntersection() {
 		abstractBuilding.setLod2TerrainIntersection(null);
 	}
 
@@ -947,7 +947,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void unsetLod3TerainIntersection() {
+	public void unsetLod3TerrainIntersection() {
 		abstractBuilding.setLod3TerrainIntersection(null);
 	}
 
@@ -962,7 +962,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public void unsetLod4TerainIntersection() {
+	public void unsetLod4TerrainIntersection() {
 		abstractBuilding.setLod4TerrainIntersection(null);
 	}
 

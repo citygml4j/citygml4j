@@ -23,6 +23,18 @@ public class TransformationMatrix3x4Impl implements TransformationMatrix3x4 {
 				xy, yy, zy, ty,
 				xz, yz, zz, tz);
 	}
+	
+	public TransformationMatrix3x4Impl(List<Double> coordList) {
+		if (coordList.size() != 12)
+			throw new IllegalArgumentException();
+
+		matrix = new Matrix4(
+				coordList.get(0), coordList.get(1), coordList.get(2), coordList.get(3),
+				coordList.get(4), coordList.get(5), coordList.get(6), coordList.get(7),
+				coordList.get(8), coordList.get(9), coordList.get(10), coordList.get(11),
+				0.0, 0.0, 0.0, 0.0
+		);
+	}
 
 	@Override
 	public Matrix4 getTransformationMatrix3x4() {

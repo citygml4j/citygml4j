@@ -13,7 +13,7 @@ public interface TrafficArea extends TransportationObject {
 	public MultiSurfaceProperty getLod3MultiSurface();
 	public MultiSurfaceProperty getLod4MultiSurface();
 	public List<ADEComponent> getGenericApplicationPropertyOfTrafficArea();
-	public boolean isSetFuntion();
+	public boolean isSetFunction();
 	public boolean isSetUsage();
 	public boolean isSetSurfaceMaterial();
 	public boolean isSetLod2MultiSurface();

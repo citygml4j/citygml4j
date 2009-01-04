@@ -11,11 +11,8 @@ import org.citygml4j.impl.jaxb.ObjectFactory;
 import org.citygml4j.impl.jaxb.citygml.appearance._1.AppearanceMemberImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.AbstractFeatureCollectionImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.FeaturePropertyImpl;
-import org.citygml4j.jaxb.citygml._0_4._CityObjectType;
 import org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType;
-import org.citygml4j.jaxb.citygml.core._1.AbstractCityObjectType;
 import org.citygml4j.jaxb.citygml.core._1.CityModelType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
 import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.CityGMLModule;
@@ -62,7 +59,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 
 		for (JAXBElement<? extends FeaturePropertyType> featurePropertyTypeElem : featurePropertyTypeElemList) {
 			if (featurePropertyTypeElem.getValue() != null) {
-				if (!containsCityObject(featurePropertyTypeElem.getValue()) &&
+				if (!isCityObjectMemberElement(featurePropertyTypeElem) &&
 						!(featurePropertyTypeElem.getValue() instanceof AppearancePropertyType))
 					featurePropertyList.add(new FeaturePropertyImpl(featurePropertyTypeElem.getValue()));
 			}
@@ -154,7 +151,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 
 		for (JAXBElement<? extends FeaturePropertyType> featurePropertyTypeElem : featurePropertyTypeElemList)
 			if (featurePropertyTypeElem.getValue() != null)
-				if (containsCityObject(featurePropertyTypeElem.getValue()))
+				if (isCityObjectMemberElement(featurePropertyTypeElem))
 					featurePropertyList.add(new CityObjectMemberImpl(featurePropertyTypeElem.getValue()));
 
 		return featurePropertyList;
@@ -212,16 +209,10 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 		}
 	}
 
-	private boolean containsCityObject(FeaturePropertyType featureProperty) {
-		if (featureProperty.isSet_Feature()) {
-			JAXBElement<? extends AbstractFeatureType> featureType = featureProperty.get_Feature();
-			if (featureType.getValue() != null &&
-					(featureType.getValue() instanceof AbstractCityObjectType || 
-							featureType.getValue() instanceof _CityObjectType))
-				return true;
-		}
-
-		return false;
+	private boolean isCityObjectMemberElement(JAXBElement<? extends FeaturePropertyType> featurePropertyTypeElem) {
+		return ((featurePropertyTypeElem.getName().getNamespaceURI().equals(CoreModule.v0_4_0.getNamespaceUri()) ||
+				featurePropertyTypeElem.getName().getNamespaceURI().equals(CoreModule.v1_0_0.getNamespaceUri())) &&
+				featurePropertyTypeElem.getName().getLocalPart().equals("cityObjectMember"));
 	}
 
 	@Override
@@ -245,7 +236,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 
 			for (JAXBElement<? extends FeaturePropertyType> featurePropertyTypeElem : featurePropertyTypeElemList)
 				if (featurePropertyTypeElem.getValue() != null)
-					if (containsCityObject(featurePropertyTypeElem.getValue()))
+					if (isCityObjectMemberElement(featurePropertyTypeElem))
 						return true;
 		}
 
@@ -260,7 +251,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 			for (JAXBElement<? extends FeaturePropertyType> featurePropertyTypeElem : featurePropertyTypeElemList)
 				if (featurePropertyTypeElem.getValue() != null)
 					if (!(featurePropertyTypeElem.getValue() instanceof AppearancePropertyType) && 
-							!containsCityObject(featurePropertyTypeElem.getValue()))
+							!isCityObjectMemberElement(featurePropertyTypeElem))
 						return true;
 		}
 
@@ -294,7 +285,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 			while (iter.hasNext()) {
 				JAXBElement<? extends FeaturePropertyType> jaxbElem = iter.next();				
 				if (jaxbElem.getValue() != null)
-					if (containsCityObject(jaxbElem.getValue()))
+					if (isCityObjectMemberElement(jaxbElem))
 						iter.remove();						
 			}
 		}
@@ -309,7 +300,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 				JAXBElement<? extends FeaturePropertyType> jaxbElem = iter.next();				
 				if (jaxbElem.getValue() != null)
 					if (!(jaxbElem.getValue() instanceof AppearancePropertyType) &&
-							!containsCityObject(jaxbElem.getValue()))
+							!isCityObjectMemberElement(jaxbElem))
 						iter.remove();						
 			}
 		}

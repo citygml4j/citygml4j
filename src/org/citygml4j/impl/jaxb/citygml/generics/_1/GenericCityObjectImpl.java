@@ -80,7 +80,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public MultiCurveProperty getLod0TerainIntersection() {
+	public MultiCurveProperty getLod0TerrainIntersection() {
 		if (genericCityObjectType.isSetLod0TerrainIntersection())
 			return new MultiCurvePropertyImpl(genericCityObjectType.getLod0TerrainIntersection());
 
@@ -104,7 +104,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public MultiCurveProperty getLod1TerainIntersection() {
+	public MultiCurveProperty getLod1TerrainIntersection() {
 		if (genericCityObjectType.isSetLod1TerrainIntersection())
 			return new MultiCurvePropertyImpl(genericCityObjectType.getLod1TerrainIntersection());
 
@@ -128,7 +128,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public MultiCurveProperty getLod2TerainIntersection() {
+	public MultiCurveProperty getLod2TerrainIntersection() {
 		if (genericCityObjectType.isSetLod2TerrainIntersection())
 			return new MultiCurvePropertyImpl(genericCityObjectType.getLod2TerrainIntersection());
 
@@ -152,7 +152,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public MultiCurveProperty getLod3TerainIntersection() {
+	public MultiCurveProperty getLod3TerrainIntersection() {
 		if (genericCityObjectType.isSetLod3TerrainIntersection())
 			return new MultiCurvePropertyImpl(genericCityObjectType.getLod3TerrainIntersection());
 
@@ -176,7 +176,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public MultiCurveProperty getLod4TerainIntersection() {
+	public MultiCurveProperty getLod4TerrainIntersection() {
 		if (genericCityObjectType.isSetLod4TerrainIntersection())
 			return new MultiCurvePropertyImpl(genericCityObjectType.getLod4TerrainIntersection());
 
@@ -256,27 +256,27 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 	
 	@Override
-	public void setLod0TerainIntersection(MultiCurveProperty lod0TerrainIntersection) {
+	public void setLod0TerrainIntersection(MultiCurveProperty lod0TerrainIntersection) {
 		genericCityObjectType.setLod0TerrainIntersection(((MultiCurvePropertyImpl)lod0TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod1TerainIntersection(MultiCurveProperty lod1TerrainIntersection) {
+	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection) {
 		genericCityObjectType.setLod1TerrainIntersection(((MultiCurvePropertyImpl)lod1TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod2TerainIntersection(MultiCurveProperty lod2TerrainIntersection) {
+	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection) {
 		genericCityObjectType.setLod2TerrainIntersection(((MultiCurvePropertyImpl)lod2TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod3TerainIntersection(MultiCurveProperty lod3TerrainIntersection) {
+	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection) {
 		genericCityObjectType.setLod3TerrainIntersection(((MultiCurvePropertyImpl)lod3TerrainIntersection).getJAXBObject());
 	}
 
 	@Override
-	public void setLod4TerainIntersection(MultiCurveProperty lod4TerrainIntersection) {
+	public void setLod4TerrainIntersection(MultiCurveProperty lod4TerrainIntersection) {
 		genericCityObjectType.setLod4TerrainIntersection(((MultiCurvePropertyImpl)lod4TerrainIntersection).getJAXBObject());
 	}
 
@@ -336,7 +336,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public boolean isSetLod0TerainIntersection() {
+	public boolean isSetLod0TerrainIntersection() {
 		return genericCityObjectType.isSetLod0TerrainIntersection();
 	}
 
@@ -351,7 +351,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public boolean isSetLod1TerainIntersection() {
+	public boolean isSetLod1TerrainIntersection() {
 		return genericCityObjectType.isSetLod1TerrainIntersection();
 	}
 
@@ -381,7 +381,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public boolean isSetLod3TerainIntersection() {
+	public boolean isSetLod3TerrainIntersection() {
 		return genericCityObjectType.isSetLod3TerrainIntersection();
 	}
 
@@ -396,7 +396,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public boolean isSetLod4TerainIntersection() {
+	public boolean isSetLod4TerrainIntersection() {
 		return genericCityObjectType.isSetLod4TerrainIntersection();
 	}
 
@@ -426,7 +426,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public void unsetLod0TerainIntersection() {
+	public void unsetLod0TerrainIntersection() {
 		genericCityObjectType.setLod0TerrainIntersection(null);
 	}
 
@@ -441,7 +441,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public void unsetLod1TerainIntersection() {
+	public void unsetLod1TerrainIntersection() {
 		genericCityObjectType.setLod1TerrainIntersection(null);
 	}
 
@@ -456,7 +456,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public void unsetLod2TerainIntersection() {
+	public void unsetLod2TerrainIntersection() {
 		genericCityObjectType.setLod2TerrainIntersection(null);
 	}
 
@@ -471,7 +471,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public void unsetLod3TerainIntersection() {
+	public void unsetLod3TerrainIntersection() {
 		genericCityObjectType.setLod3TerrainIntersection(null);
 	}
 
@@ -486,7 +486,7 @@ public class GenericCityObjectImpl extends CityObjectImpl implements GenericCity
 	}
 
 	@Override
-	public void unsetLod4TerainIntersection() {
+	public void unsetLod4TerrainIntersection() {
 		genericCityObjectType.setLod4TerrainIntersection(null);
 	}
 

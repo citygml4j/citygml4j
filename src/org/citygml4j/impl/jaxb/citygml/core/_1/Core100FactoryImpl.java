@@ -94,6 +94,11 @@ public class Core100FactoryImpl extends AbstractCoreFactoryImpl {
 				xy, yy, zy, ty,
 				xz, yz, zz, tz);
 	}
+	
+	@Override
+	public TransformationMatrix3x4 createTransformationMatrix3x4(List<Double> coordList) {
+		return new TransformationMatrix3x4Impl(coordList);
+	}
 
 	@Override
 	public TransformationMatrix4x4 createTransformationMatrix4x4() {

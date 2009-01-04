@@ -64,6 +64,33 @@ public class GeometricComplexPropertyImpl extends GMLBaseImpl implements Geometr
 	@Override
 	public void setGeometricComplex(GeometricComplex geometricComplex) {
 		geometricComplexPropertyType.setGeometricComplex(((GeometricComplexImpl)geometricComplex).getJAXBObject());
+		geometricComplexPropertyType.setCompositeCurve(null);
+		geometricComplexPropertyType.setCompositeSolid(null);
+		geometricComplexPropertyType.setCompositeSurface(null);
+	}
+
+	@Override
+	public void setCompositeCurve(CompositeCurve compositeCurve) {
+		geometricComplexPropertyType.setCompositeCurve(((CompositeCurveImpl)compositeCurve).getJAXBObject());
+		geometricComplexPropertyType.setCompositeSolid(null);
+		geometricComplexPropertyType.setCompositeSurface(null);
+		geometricComplexPropertyType.setGeometricComplex(null);
+	}
+
+	@Override
+	public void setCompositeSolid(CompositeSolid compositeSolid) {
+		geometricComplexPropertyType.setCompositeSolid(((CompositeSolidImpl)compositeSolid).getJAXBObject());
+		geometricComplexPropertyType.setCompositeCurve(null);
+		geometricComplexPropertyType.setCompositeSurface(null);
+		geometricComplexPropertyType.setGeometricComplex(null);
+	}
+
+	@Override
+	public void setCompositeSurface(CompositeSurface compositeSurface) {
+		geometricComplexPropertyType.setCompositeSurface(((CompositeSurfaceImpl)compositeSurface).getJAXBObject());
+		geometricComplexPropertyType.setCompositeCurve(null);
+		geometricComplexPropertyType.setCompositeSolid(null);
+		geometricComplexPropertyType.setGeometricComplex(null);
 	}
 
 	@Override

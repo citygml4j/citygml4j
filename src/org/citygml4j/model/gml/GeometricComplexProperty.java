@@ -11,6 +11,9 @@ public interface GeometricComplexProperty extends GMLBase, AssociationAttributeG
 	public boolean isSetCompositeSolid();
 	
 	public void setGeometricComplex(GeometricComplex geometricComplex);
+	public void setCompositeCurve(CompositeCurve compositeCurve);
+	public void setCompositeSurface(CompositeSurface compositeSurface);
+	public void setCompositeSolid(CompositeSolid compositeSolid);
 	public void unsetGeometricComplex();
 	public void unsetCompositeCurve();
 	public void unsetCompositeSurface();

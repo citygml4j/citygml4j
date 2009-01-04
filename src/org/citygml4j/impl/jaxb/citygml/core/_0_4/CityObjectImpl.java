@@ -78,44 +78,36 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 
 	@Override
 	public List<ExternalReference> getExternalReference() {
-		if (cityObject.isSetExternalReference()) {
-			List<ExternalReference> extRefList = new ArrayList<ExternalReference>();
-			List<ExternalReferenceType> extRefTypeList = cityObject.getExternalReference();
+		List<ExternalReference> extRefList = new ArrayList<ExternalReference>();
+		List<ExternalReferenceType> extRefTypeList = cityObject.getExternalReference();
 
-			for (ExternalReferenceType extRefType : extRefTypeList)
-				extRefList.add(new ExternalReferenceImpl(extRefType));
+		for (ExternalReferenceType extRefType : extRefTypeList)
+			extRefList.add(new ExternalReferenceImpl(extRefType));
 
-			return extRefList;
-		}
-
-		return null;
+		return extRefList;
 	}
 
 	@Override
 	public List<GenericAttribute> getGenericAttribute() {
-		if (cityObject.isSet_GenericAttribute()) {
-			List<GenericAttribute> genericAttributeList = new ArrayList<GenericAttribute>();
-			List<JAXBElement<? extends _GenericAttributeType>> genericAttributeTypeList = cityObject.get_GenericAttribute();
+		List<GenericAttribute> genericAttributeList = new ArrayList<GenericAttribute>();
+		List<JAXBElement<? extends _GenericAttributeType>> genericAttributeTypeList = cityObject.get_GenericAttribute();
 
-			for (JAXBElement<? extends _GenericAttributeType> genericAttributeType : genericAttributeTypeList) {
-				if (genericAttributeType.getValue() != null) {
-					if (genericAttributeType.getValue() instanceof StringAttributeType)
-						genericAttributeList.add(new GenericStringAttributeImpl((StringAttributeType)genericAttributeType.getValue()));
-					else if (genericAttributeType.getValue() instanceof IntAttributeType)
-						genericAttributeList.add(new GenericIntAttributeImpl((IntAttributeType)genericAttributeType.getValue()));
-					else if (genericAttributeType.getValue() instanceof DoubleAttributeType)
-						genericAttributeList.add(new GenericDoubleAttributeImpl((DoubleAttributeType)genericAttributeType.getValue()));
-					else if (genericAttributeType.getValue() instanceof DateAttributeType)
-						genericAttributeList.add(new GenericDateAttributeImpl((DateAttributeType)genericAttributeType.getValue()));
-					else if (genericAttributeType.getValue() instanceof UriAttributeType)
-						genericAttributeList.add(new GenericUriAttributeImpl((UriAttributeType)genericAttributeType.getValue()));
-				}
+		for (JAXBElement<? extends _GenericAttributeType> genericAttributeType : genericAttributeTypeList) {
+			if (genericAttributeType.getValue() != null) {
+				if (genericAttributeType.getValue() instanceof StringAttributeType)
+					genericAttributeList.add(new GenericStringAttributeImpl((StringAttributeType)genericAttributeType.getValue()));
+				else if (genericAttributeType.getValue() instanceof IntAttributeType)
+					genericAttributeList.add(new GenericIntAttributeImpl((IntAttributeType)genericAttributeType.getValue()));
+				else if (genericAttributeType.getValue() instanceof DoubleAttributeType)
+					genericAttributeList.add(new GenericDoubleAttributeImpl((DoubleAttributeType)genericAttributeType.getValue()));
+				else if (genericAttributeType.getValue() instanceof DateAttributeType)
+					genericAttributeList.add(new GenericDateAttributeImpl((DateAttributeType)genericAttributeType.getValue()));
+				else if (genericAttributeType.getValue() instanceof UriAttributeType)
+					genericAttributeList.add(new GenericUriAttributeImpl((UriAttributeType)genericAttributeType.getValue()));
 			}
-
-			return genericAttributeList;
 		}
 
-		return null;
+		return genericAttributeList;
 	}
 
 	@Override
@@ -210,17 +202,13 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 
 	@Override
 	public List<GeneralizationRelation> getGeneralizesTo() {
-		if (cityObject.isSetGeneralizesTo()) {
-			List<GeneralizationRelation> genRelList = new ArrayList<GeneralizationRelation>();
-			List<GeneralizationRelationType> genRelTypeList = cityObject.getGeneralizesTo();
+		List<GeneralizationRelation> genRelList = new ArrayList<GeneralizationRelation>();
+		List<GeneralizationRelationType> genRelTypeList = cityObject.getGeneralizesTo();
 
-			for (GeneralizationRelationType genRelType : genRelTypeList)
-				genRelList.add(new GeneralizationRelationImpl(genRelType));
+		for (GeneralizationRelationType genRelType : genRelTypeList)
+			genRelList.add(new GeneralizationRelationImpl(genRelType));
 
-			return genRelList;
-		}
-
-		return null;
+		return genRelList;
 	}
 
 	@Override
@@ -241,17 +229,13 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 
 	@Override
 	public List<AppearanceProperty> getAppearance() {
-		if (cityObject.isSetAppearanceMember()) {
-			List<AppearanceProperty> appPropList = new ArrayList<AppearanceProperty>();
-			List<AppearancePropertyType> appPropTypeList = cityObject.getAppearanceMember();
+		List<AppearanceProperty> appPropList = new ArrayList<AppearanceProperty>();
+		List<AppearancePropertyType> appPropTypeList = cityObject.getAppearanceMember();
 
-			for (AppearancePropertyType appPropType : appPropTypeList)
-				appPropList.add(new AppearancePropertyImpl(appPropType));
+		for (AppearancePropertyType appPropType : appPropTypeList)
+			appPropList.add(new AppearancePropertyImpl(appPropType));
 
-			return appPropList;
-		}
-
-		return null;
+		return appPropList;
 	}
 
 	@Override
@@ -264,7 +248,7 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 		cityObject.unsetAppearanceMember();
 		cityObject.getAppearanceMember().addAll(appPropTypeList);
 	}
-	
+
 	@Override
 	public void addGenericApplicationPropertyOfCityObject(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
@@ -274,35 +258,30 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObject() {
-		if (cityObject.isSet_GenericApplicationPropertyOfCityObject()) {
-			List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-			List<JAXBElement<?>> elemList = cityObject.get_GenericApplicationPropertyOfCityObject();
-			
-			for (JAXBElement<?> elem : elemList) {
-				if (elem.getValue() != null) {
-					ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
-					if (ade != null)
-						adeList.add(ade);
-				}
+		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
+		List<JAXBElement<?>> elemList = cityObject.get_GenericApplicationPropertyOfCityObject();
+
+		for (JAXBElement<?> elem : elemList) {
+			if (elem.getValue() != null) {
+				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
+				if (ade != null)
+					adeList.add(ade);
 			}
-			
-			if (!adeList.isEmpty())
-				return adeList;
 		}
-		
-		return null;
+
+		return adeList;
 	}
 
 	@Override
 	public void setGenericApplicationPropertyOfCityObject(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
-		
+
 		for (ADEComponent ade : adeObject) {
 			JAXBElement<?> elem = ModelMapper.ADE.toJAXB(ade);
 			if (elem != null)
 				elemList.add(elem);
 		}
-		
+
 		if (!elemList.isEmpty()) {
 			cityObject.unset_GenericApplicationPropertyOfCityObject();
 			cityObject.get_GenericApplicationPropertyOfCityObject().addAll(elemList);
@@ -383,7 +362,7 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	public boolean unsetAppearance(AppearanceProperty appearanceMember) {
 		if (cityObject.isSetAppearanceMember())
 			return cityObject.getAppearanceMember().remove(((AppearancePropertyImpl)appearanceMember).getJAXBObject());
-		
+
 		return false;
 	}
 
@@ -391,7 +370,7 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	public boolean unsetExternalReference(ExternalReference externalReference) {
 		if (cityObject.isSetExternalReference())
 			return cityObject.getExternalReference().remove(((ExternalReferenceImpl)externalReference).getJAXBObject());
-		
+
 		return false;
 	}
 
@@ -399,7 +378,7 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	public boolean unsetGeneralizesTo(GeneralizationRelation generalizesTo) {
 		if (cityObject.isSetGeneralizesTo())
 			return cityObject.getGeneralizesTo().remove(((GeneralizationRelationImpl)generalizesTo).getJAXBObject());
-		
+
 		return false;
 	}
 
@@ -423,8 +402,8 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	public boolean unsetGenericAttribute(GenericAttribute genericAttribute) {
 		if (cityObject.isSet_GenericAttribute()) 
 			return cityObject.get_GenericAttribute().remove(((GenericAttributeImpl)genericAttribute).getJAXBObject());
-		
+
 		return false;
 	}
-	
+
 }

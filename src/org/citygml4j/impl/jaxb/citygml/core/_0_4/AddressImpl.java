@@ -20,16 +20,16 @@ import org.citygml4j.model.gml.MultiPointProperty;
 
 public class AddressImpl extends AbstractFeatureImpl implements	Address {
 	private AddressType addressType;
-	
+
 	public AddressImpl() {
 		this(new AddressType());
 	}
-	
+
 	public AddressImpl(AddressType addressType) {
 		super(addressType);
 		this.addressType = addressType;
 	}
-	
+
 	@Override
 	public AddressType getJAXBObject() {
 		return addressType;
@@ -39,7 +39,7 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 	public MultiPointProperty getMultiPoint() {
 		if (addressType.isSetMultiPoint())
 			return new MultiPointPropertyImpl(addressType.getMultiPoint());
-			
+
 		return null;
 	}
 
@@ -47,7 +47,7 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 	public XalAddressProperty getXalAddress() {
 		if (addressType.isSetXalAddress())
 			return new XalAddressPropertyImpl(addressType.getXalAddress());
-		
+
 		return null;
 	}
 
@@ -86,29 +86,29 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAddress() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-			List<JAXBElement<?>> elemList = addressType.get_GenericApplicationPropertyOfAddress();
-			
-			for (JAXBElement<?> elem : elemList) {
-				if (elem.getValue() != null) {
-					ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
-					if (ade != null)
-						adeList.add(ade);
-				}
+		List<JAXBElement<?>> elemList = addressType.get_GenericApplicationPropertyOfAddress();
+
+		for (JAXBElement<?> elem : elemList) {
+			if (elem.getValue() != null) {
+				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
+				if (ade != null)
+					adeList.add(ade);
 			}
-			
-			return adeList;
+		}
+
+		return adeList;
 	}
 
 	@Override
 	public void setGenericApplicationPropertyOfAddress(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
-		
+
 		for (ADEComponent ade : adeObject) {
 			JAXBElement<?> elem = ModelMapper.ADE.toJAXB(ade);
 			if (elem != null)
 				elemList.add(elem);
 		}
-		
+
 		if (!elemList.isEmpty()) {
 			addressType.unset_GenericApplicationPropertyOfAddress();
 			addressType.get_GenericApplicationPropertyOfAddress().addAll(elemList);
@@ -160,5 +160,5 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 
 		return false;
 	}
-	
+
 }

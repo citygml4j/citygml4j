@@ -7,6 +7,7 @@ public interface AbstractFeature extends AbstractGML {
 	public boolean isSetLocation();
 
 	public void setBoundedBy(BoundingShape boundingShape);
+	public void setLocation(LocationProperty location);
 	public void calcBoundedBy();
 	public void calcBoundedBy(AbstractGeometry abstractGeometry);
 	public void calcBoundedBy(AbstractFeature boundingShape);

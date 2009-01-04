@@ -5,8 +5,10 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.geometry.Point;
+import org.citygml4j.impl.jaxb.ObjectFactory;
 import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
 import org.citygml4j.jaxb.gml._3_1_1.LocationPropertyType;
+import org.citygml4j.jaxb.gml._3_1_1.PriorityLocationPropertyType;
 import org.citygml4j.model.gml.AbstractFeature;
 import org.citygml4j.model.gml.AbstractGeometry;
 import org.citygml4j.model.gml.BoundingShape;
@@ -44,8 +46,12 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 	public LocationProperty getLocation() {
 		if (abstractFeatureType.isSetLocation()) {
 			JAXBElement<? extends LocationPropertyType> locationPropertyElem = abstractFeatureType.getLocation();
-			if (locationPropertyElem.getValue() != null)
-				return new LocationPropertyImpl(locationPropertyElem.getValue());
+			if (locationPropertyElem.getValue() != null) {
+				if (locationPropertyElem.getValue() instanceof PriorityLocationPropertyType)
+					return new PriorityLocationPropertyImpl((PriorityLocationPropertyType)locationPropertyElem.getValue());
+				else
+					return new LocationPropertyImpl(locationPropertyElem.getValue());
+			}
 		}
 
 		return null;
@@ -54,6 +60,23 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 	@Override
 	public void setBoundedBy(BoundingShape boundingShape) {
 		abstractFeatureType.setBoundedBy(((BoundingShapeImpl)boundingShape).getJAXBObject());
+	}
+
+	@Override
+	public void setLocation(LocationProperty location) {
+		JAXBElement<? extends LocationPropertyType> jaxbElem = null;
+		
+		switch (location.getGMLClass()) {
+		case LOCATIONPROPERTY:
+			jaxbElem = ObjectFactory.GML.createLocation(((LocationPropertyImpl)location).getJAXBObject());
+			break;
+		case PRIORITYLOCATIONPROPERTY:
+			jaxbElem = ObjectFactory.GML.createPriorityLocation(((PriorityLocationPropertyImpl)location).getJAXBObject());
+			break;
+		}
+		
+		if (jaxbElem != null)
+			abstractFeatureType.setLocation(jaxbElem);
 	}
 
 	@Override

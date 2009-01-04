@@ -186,7 +186,7 @@ public class TrafficAreaImpl extends TransportationObjectImpl implements Traffic
 	}
 
 	@Override
-	public boolean isSetFuntion() {
+	public boolean isSetFunction() {
 		return trafficAreaType.isSetFunction();
 	}
 

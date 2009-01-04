@@ -20,6 +20,7 @@ public interface CoreFactory {
 			double xx, double yx, double zx, double tx,
 			double xy, double yy, double zy, double ty,
 			double xz, double yz, double zz, double tz);
+	public TransformationMatrix3x4 createTransformationMatrix3x4(List<Double> coordList);	
 	public TransformationMatrix4x4 createTransformationMatrix4x4();
 	public TransformationMatrix4x4 createTransformationMatrix4x4(
 			double xx, double yx, double zx, double tx,

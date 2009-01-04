@@ -80,6 +80,10 @@ public abstract class AbstractCoreFactoryImpl implements CoreFactory {
 			double ty, double xz, double yz, double zz, double tz);
 
 	@Override
+	public abstract TransformationMatrix3x4 createTransformationMatrix3x4(
+			List<Double> coordList);
+	
+	@Override
 	public abstract TransformationMatrix4x4 createTransformationMatrix4x4();
 
 	@Override
