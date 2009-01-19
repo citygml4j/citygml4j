@@ -44,9 +44,8 @@ public class RoofSurfaceImpl extends BoundarySurfaceImpl implements RoofSurface 
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRoofSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = roofSurfaceType.get_GenericApplicationPropertyOfRoofSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : roofSurfaceType.get_GenericApplicationPropertyOfRoofSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

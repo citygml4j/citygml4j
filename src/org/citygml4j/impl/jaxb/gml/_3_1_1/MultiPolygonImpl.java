@@ -36,9 +36,8 @@ public class MultiPolygonImpl extends AbstractGeometricAggregateImpl implements	
 	@Override
 	public List<PolygonProperty> getPolygonMember() {
 		List<PolygonProperty> polygonPropertyList = new ArrayList<PolygonProperty>();
-		List<PolygonPropertyType> polygonPropertyTypeList = multiPolygonType.getPolygonMember();
 
-		for (PolygonPropertyType polygonPropertyType : polygonPropertyTypeList)
+		for (PolygonPropertyType polygonPropertyType : multiPolygonType.getPolygonMember())
 			polygonPropertyList.add(new PolygonPropertyImpl(polygonPropertyType));
 
 		return polygonPropertyList;

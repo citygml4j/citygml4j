@@ -84,9 +84,8 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 	@Override
 	public List<CityObjectGroupMember> getGroupMember() {
 		List<CityObjectGroupMember> groupMemberList = new ArrayList<CityObjectGroupMember>();
-		List<CityObjectGroupMemberType> groupMemberTypeList = cityObjectGroupType.getGroupMember();
 
-		for (CityObjectGroupMemberType groupMemberType : groupMemberTypeList)
+		for (CityObjectGroupMemberType groupMemberType : cityObjectGroupType.getGroupMember())
 			groupMemberList.add(new CityObjectGroupMemberImpl(groupMemberType));
 
 		return groupMemberList;
@@ -176,9 +175,8 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObjectGroup() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = cityObjectGroupType.get_GenericApplicationPropertyOfCityObjectGroup();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : cityObjectGroupType.get_GenericApplicationPropertyOfCityObjectGroup()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

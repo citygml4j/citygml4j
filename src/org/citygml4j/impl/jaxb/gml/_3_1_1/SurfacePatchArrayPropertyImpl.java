@@ -56,9 +56,8 @@ public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements Surfac
 	@Override
 	public List<? extends AbstractSurfacePatch> getSurfacePatch() {
 		List<AbstractSurfacePatch> patchList = new ArrayList<AbstractSurfacePatch>();
-		List<JAXBElement<? extends AbstractSurfacePatchType>> patchElemList = surfacePatchArrayPropertyType.get_SurfacePatch();
 
-		for (JAXBElement<? extends AbstractSurfacePatchType> patchElem : patchElemList) {
+		for (JAXBElement<? extends AbstractSurfacePatchType> patchElem : surfacePatchArrayPropertyType.get_SurfacePatch()) {
 			// according to CityGML v0.4.0 and v1.0 we just support
 			// Rectangles and Triangles so far
 			if (patchElem.getValue() != null) {

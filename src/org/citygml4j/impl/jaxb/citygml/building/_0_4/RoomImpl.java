@@ -57,9 +57,8 @@ public class RoomImpl extends CityObjectImpl implements Room {
 	@Override
 	public List<BoundarySurfaceProperty> getBoundedBySurfaces() {
 		List<BoundarySurfaceProperty> boundarySurfacePropertyList = new ArrayList<BoundarySurfaceProperty>();
-		List<BoundarySurfacePropertyType> boundarySurfacePropertyTypeList = roomType.getBoundedBySurfaces();
 
-		for (BoundarySurfacePropertyType boundarySurfacePropertyType : boundarySurfacePropertyTypeList)
+		for (BoundarySurfacePropertyType boundarySurfacePropertyType : roomType.getBoundedBySurfaces())
 			boundarySurfacePropertyList.add(new BoundarySurfacePropertyImpl(boundarySurfacePropertyType));
 
 		return boundarySurfacePropertyList;
@@ -99,9 +98,8 @@ public class RoomImpl extends CityObjectImpl implements Room {
 	@Override
 	public List<InteriorFurnitureProperty> getInteriorFurniture() {
 		List<InteriorFurnitureProperty> interiorFurniturePropertyList = new ArrayList<InteriorFurnitureProperty>();
-		List<InteriorFurniturePropertyType> interiorFurniturePropertyTypeList = roomType.getInteriorFurniture();
 
-		for (InteriorFurniturePropertyType interiorFurniturePropertyType : interiorFurniturePropertyTypeList)
+		for (InteriorFurniturePropertyType interiorFurniturePropertyType : roomType.getInteriorFurniture())
 			interiorFurniturePropertyList.add(new InteriorFurniturePropertyImpl(interiorFurniturePropertyType));
 
 		return interiorFurniturePropertyList;
@@ -110,9 +108,8 @@ public class RoomImpl extends CityObjectImpl implements Room {
 	@Override
 	public List<IntBuildingInstallationProperty> getRoomInstallation() {
 		List<IntBuildingInstallationProperty> intBuildingInstallationPropertyList = new ArrayList<IntBuildingInstallationProperty>();
-		List<IntBuildingInstallationPropertyType> intBuildingInstallationPropertyTypeList = roomType.getRoomInstallation();
 
-		for (IntBuildingInstallationPropertyType intBuildingInstallationPropertyType : intBuildingInstallationPropertyTypeList)
+		for (IntBuildingInstallationPropertyType intBuildingInstallationPropertyType : roomType.getRoomInstallation())
 			intBuildingInstallationPropertyList.add(new IntBuildingInstallationPropertyImpl(intBuildingInstallationPropertyType));
 
 		return intBuildingInstallationPropertyList;
@@ -246,9 +243,8 @@ public class RoomImpl extends CityObjectImpl implements Room {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRoom() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = roomType.get_GenericApplicationPropertyOfRoom();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : roomType.get_GenericApplicationPropertyOfRoom()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

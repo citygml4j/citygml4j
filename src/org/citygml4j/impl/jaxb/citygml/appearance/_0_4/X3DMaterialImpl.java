@@ -182,9 +182,8 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfX3DMaterial() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = x3DMaterialType.get_GenericApplicationPropertyOfX3DMaterial();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : x3DMaterialType.get_GenericApplicationPropertyOfX3DMaterial()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

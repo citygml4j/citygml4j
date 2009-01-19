@@ -44,9 +44,8 @@ public class WaterClosureSurfaceImpl extends WaterBoundarySurfaceImpl implements
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterClosureSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = waterClosureSurfaceType.get_GenericApplicationPropertyOfWaterClosureSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : waterClosureSurfaceType.get_GenericApplicationPropertyOfWaterClosureSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

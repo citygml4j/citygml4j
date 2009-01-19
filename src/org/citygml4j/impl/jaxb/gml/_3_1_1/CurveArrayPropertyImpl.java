@@ -40,9 +40,8 @@ public class CurveArrayPropertyImpl extends GMLBaseImpl implements	CurveArrayPro
 	@Override
 	public List<AbstractCurve> getCurve() {
 		List<AbstractCurve> abstractCurveList = new ArrayList<AbstractCurve>();
-		List<JAXBElement<? extends AbstractCurveType>> abstractCurveTypeList = curveArrayPropertyType.get_Curve();
 
-		for (JAXBElement<? extends AbstractCurveType> abstractCurveType : abstractCurveTypeList) {
+		for (JAXBElement<? extends AbstractCurveType> abstractCurveType : curveArrayPropertyType.get_Curve()) {
 			if (abstractCurveType.getValue() != null) {
 				if (abstractCurveType.getValue() instanceof LineStringType)
 					abstractCurveList.add(new LineStringImpl((LineStringType)abstractCurveType.getValue()));

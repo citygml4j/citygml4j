@@ -44,9 +44,8 @@ public class WaterGroundSurfaceImpl extends WaterBoundarySurfaceImpl implements 
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterGroundSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = waterGroundSurfaceType.get_GenericApplicationPropertyOfWaterGroundSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : waterGroundSurfaceType.get_GenericApplicationPropertyOfWaterGroundSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

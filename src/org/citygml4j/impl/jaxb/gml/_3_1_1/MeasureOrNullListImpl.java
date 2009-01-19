@@ -36,9 +36,8 @@ public class MeasureOrNullListImpl extends GMLBaseImpl implements MeasureOrNullL
 	@Override
 	public List<Double> getValue() {
 		List<Double> valueList = new ArrayList<Double>();
-		List<String> valueTypeList = measureOrNullList.getValue();
 
-		for (String valueType : valueTypeList) {
+		for (String valueType : measureOrNullList.getValue()) {
 			if (valueType != null && valueType.trim().length() > 0) {
 				try {
 					valueList.add(Double.parseDouble(valueType));

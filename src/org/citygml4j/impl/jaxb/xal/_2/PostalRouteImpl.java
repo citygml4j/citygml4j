@@ -46,9 +46,8 @@ public class PostalRouteImpl extends XALBaseImpl implements PostalRoute {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = postalRoute.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : postalRoute.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -65,9 +64,8 @@ public class PostalRouteImpl extends XALBaseImpl implements PostalRoute {
 	@Override
 	public List<PostalRouteName> getPostalRouteName() {
 		List<PostalRouteName> postalRouteNameList = new ArrayList<PostalRouteName>();
-		List<PostalRouteType.PostalRouteName> postalRouteNameElemList = postalRoute.getPostalRouteName();
 
-		for (PostalRouteType.PostalRouteName postalRouteNameElem : postalRouteNameElemList)
+		for (PostalRouteType.PostalRouteName postalRouteNameElem : postalRoute.getPostalRouteName())
 			postalRouteNameList.add(new PostalRouteNameImpl(postalRouteNameElem));
 
 		return postalRouteNameList;

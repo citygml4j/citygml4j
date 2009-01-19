@@ -48,9 +48,8 @@ public abstract class WaterObjectImpl extends CityObjectImpl implements WaterObj
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = waterObjectType.get_GenericApplicationPropertyOfWaterObject();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : waterObjectType.get_GenericApplicationPropertyOfWaterObject()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

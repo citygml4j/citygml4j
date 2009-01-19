@@ -276,9 +276,8 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCityFurniture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = cityFurnitureType.get_GenericApplicationPropertyOfCityFurniture();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : cityFurnitureType.get_GenericApplicationPropertyOfCityFurniture()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

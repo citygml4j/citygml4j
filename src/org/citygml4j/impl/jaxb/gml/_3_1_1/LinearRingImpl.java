@@ -45,9 +45,8 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRep() {
 		List<GMLBase> posOrPointOrPointRepList = new ArrayList<GMLBase>();
-		List<JAXBElement<?>> pointList = linearRingType.getPosOrPointPropertyOrPointRep();
 
-		for (JAXBElement<?> pointElem : pointList) {
+		for (JAXBElement<?> pointElem : linearRingType.getPosOrPointPropertyOrPointRep()) {
 			if (pointElem.getValue() != null) {
 				if (pointElem.getValue() instanceof PointPropertyType) {
 					if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&
@@ -68,9 +67,8 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 	@Override
 	public List<Coord> getCoord() {
 		List<Coord> coordList = new ArrayList<Coord>();
-		List<CoordType> coordTypeList = linearRingType.getCoord();
 
-		for (CoordType coordType : coordTypeList)
+		for (CoordType coordType : linearRingType.getCoord())
 			coordList.add(new CoordImpl(coordType));
 
 		return coordList;

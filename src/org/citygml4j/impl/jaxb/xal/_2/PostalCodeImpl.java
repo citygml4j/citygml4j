@@ -51,9 +51,8 @@ public class PostalCodeImpl extends XALBaseImpl implements PostalCode {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = postalCode.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : postalCode.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;	
@@ -70,9 +69,8 @@ public class PostalCodeImpl extends XALBaseImpl implements PostalCode {
 	@Override
 	public List<PostalCodeNumber> getPostalCodeNumber() {
 		List<PostalCodeNumber> postalCodeNumberList = new ArrayList<PostalCodeNumber>();
-		List<PostalCodeElement.PostalCodeNumber> postalCodeNumberElemList = postalCode.getPostalCodeNumber();
 
-		for (PostalCodeElement.PostalCodeNumber postalCodeNumberElem : postalCodeNumberElemList)
+		for (PostalCodeElement.PostalCodeNumber postalCodeNumberElem : postalCode.getPostalCodeNumber())
 			postalCodeNumberList.add(new PostalCodeNumberImpl(postalCodeNumberElem));
 
 		return postalCodeNumberList;
@@ -81,9 +79,8 @@ public class PostalCodeImpl extends XALBaseImpl implements PostalCode {
 	@Override
 	public List<PostalCodeNumberExtension> getPostalCodeNumberExtension() {
 		List<PostalCodeNumberExtension> postalCodeNumberExList = new ArrayList<PostalCodeNumberExtension>();
-		List<PostalCodeElement.PostalCodeNumberExtension> postalCodeNumberExElemList = postalCode.getPostalCodeNumberExtension();
 
-		for (PostalCodeElement.PostalCodeNumberExtension postalCodeNumberExElem : postalCodeNumberExElemList)
+		for (PostalCodeElement.PostalCodeNumberExtension postalCodeNumberExElem : postalCode.getPostalCodeNumberExtension())
 			postalCodeNumberExList.add(new PostalCodeNumberExtensionImpl(postalCodeNumberExElem));
 
 		return postalCodeNumberExList;

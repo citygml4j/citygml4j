@@ -36,9 +36,8 @@ public class GeometricComplexImpl extends AbstractGeometryImpl implements Geomet
 	@Override
 	public List<GeometricPrimitiveProperty> getElement() {
 		List<GeometricPrimitiveProperty> geometricPrimitivePropertyList = new ArrayList<GeometricPrimitiveProperty>();
-		List<GeometricPrimitivePropertyType> geometricPrimitivePropertyTypeList = geometricComplexType.getElement();
 
-		for (GeometricPrimitivePropertyType geometricPrimitivePropertyType : geometricPrimitivePropertyTypeList)
+		for (GeometricPrimitivePropertyType geometricPrimitivePropertyType : geometricComplexType.getElement())
 			geometricPrimitivePropertyList.add(new GeometricPrimitivePropertyImpl(geometricPrimitivePropertyType));
 
 		return geometricPrimitivePropertyList;

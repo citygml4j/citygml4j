@@ -52,9 +52,8 @@ public class LocalityImpl extends XALBaseImpl implements Locality {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = locality.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : locality.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -84,9 +83,8 @@ public class LocalityImpl extends XALBaseImpl implements Locality {
 	@Override
 	public List<LocalityName> getLocalityName() {
 		List<LocalityName> localityNameList = new ArrayList<LocalityName>();
-		List<LocalityElement.LocalityName> localityNameElemList = locality.getLocalityName();
 
-		for (LocalityElement.LocalityName localityNameElem : localityNameElemList)
+		for (LocalityElement.LocalityName localityNameElem : locality.getLocalityName())
 			localityNameList.add(new LocalityNameImpl(localityNameElem));
 
 		return localityNameList;

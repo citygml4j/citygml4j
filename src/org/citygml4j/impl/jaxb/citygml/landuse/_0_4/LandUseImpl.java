@@ -198,9 +198,8 @@ public class LandUseImpl extends CityObjectImpl implements LandUse {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfLandUse() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = landUseType.get_GenericApplicationPropertyOfLandUse();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : landUseType.get_GenericApplicationPropertyOfLandUse()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

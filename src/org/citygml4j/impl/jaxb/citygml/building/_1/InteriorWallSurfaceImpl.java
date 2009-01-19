@@ -44,9 +44,8 @@ public class InteriorWallSurfaceImpl extends BoundarySurfaceImpl implements	Inte
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfInteriorWallSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = interiorWallSurfaceType.get_GenericApplicationPropertyOfInteriorWallSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : interiorWallSurfaceType.get_GenericApplicationPropertyOfInteriorWallSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

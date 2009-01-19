@@ -45,9 +45,8 @@ public class DoorImpl extends OpeningImpl implements Door {
 	@Override
 	public List<AddressProperty> getAddress() {
 		List<AddressProperty> addressPropertyList = new ArrayList<AddressProperty>();
-		List<AddressPropertyType> addressPropertyTypeList = doorType.getAddress();
 
-		for (AddressPropertyType addressPropertyType : addressPropertyTypeList)
+		for (AddressPropertyType addressPropertyType : doorType.getAddress())
 			addressPropertyList.add(new AddressPropertyImpl(addressPropertyType));
 
 		return addressPropertyList;
@@ -74,9 +73,8 @@ public class DoorImpl extends OpeningImpl implements Door {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfDoor() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = doorType.get_GenericApplicationPropertyOfDoor();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : doorType.get_GenericApplicationPropertyOfDoor()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

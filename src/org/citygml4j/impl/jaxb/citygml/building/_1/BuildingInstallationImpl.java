@@ -164,9 +164,8 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingInstallation() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = buildingInstallationType.get_GenericApplicationPropertyOfBuildingInstallation();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : buildingInstallationType.get_GenericApplicationPropertyOfBuildingInstallation()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

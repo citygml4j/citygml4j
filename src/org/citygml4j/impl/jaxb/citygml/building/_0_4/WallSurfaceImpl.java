@@ -44,9 +44,8 @@ public class WallSurfaceImpl extends BoundarySurfaceImpl implements WallSurface 
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWallSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = wallSurfaceType.get_GenericApplicationPropertyOfWallSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : wallSurfaceType.get_GenericApplicationPropertyOfWallSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

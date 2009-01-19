@@ -156,9 +156,8 @@ public class TrafficAreaImpl extends TransportationObjectImpl implements Traffic
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTrafficArea() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = trafficAreaType.get_GenericApplicationPropertyOfTrafficArea();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : trafficAreaType.get_GenericApplicationPropertyOfTrafficArea()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

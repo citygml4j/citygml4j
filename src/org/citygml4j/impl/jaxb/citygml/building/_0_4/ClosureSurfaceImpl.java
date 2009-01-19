@@ -44,9 +44,8 @@ public class ClosureSurfaceImpl extends BoundarySurfaceImpl implements ClosureSu
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfClosureSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = closureSurfaceType.get_GenericApplicationPropertyOfClosureSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : closureSurfaceType.get_GenericApplicationPropertyOfClosureSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

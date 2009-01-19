@@ -49,9 +49,8 @@ public class DependentThoroughfareImpl extends XALBaseImpl implements DependentT
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = dependentThoroughfare.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : dependentThoroughfare.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -68,9 +67,8 @@ public class DependentThoroughfareImpl extends XALBaseImpl implements DependentT
 	@Override
 	public List<ThoroughfareName> getThoroughfareName() {
 		List<ThoroughfareName> nameList = new ArrayList<ThoroughfareName>();
-		List<ThoroughfareNameType> nameElemList = dependentThoroughfare.getThoroughfareName();
 
-		for (ThoroughfareNameType nameElem : nameElemList)
+		for (ThoroughfareNameType nameElem : dependentThoroughfare.getThoroughfareName())
 			nameList.add(new ThoroughfareNameImpl(nameElem));
 
 		return nameList;

@@ -84,9 +84,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = premise.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : premise.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -95,9 +94,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<BuildingName> getBuildingName() {
 		List<BuildingName> buildingNameList = new ArrayList<BuildingName>();
-		List<BuildingNameType> buildingNameElemList = premise.getBuildingName();
 
-		for (BuildingNameType buildingNameElem : buildingNameElemList)
+		for (BuildingNameType buildingNameElem : premise.getBuildingName())
 			buildingNameList.add(new BuildingNameImpl(buildingNameElem));
 
 		return buildingNameList;
@@ -156,9 +154,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<PremiseName> getPremiseName() {
 		List<PremiseName> premiseNameList = new ArrayList<PremiseName>();
-		List<PremiseElement.PremiseName> premiseNameElemList = premise.getPremiseName();
 
-		for (PremiseElement.PremiseName premiseNameElem : premiseNameElemList)
+		for (PremiseElement.PremiseName premiseNameElem : premise.getPremiseName())
 			premiseNameList.add(new PremiseNameImpl(premiseNameElem));
 
 		return premiseNameList;
@@ -167,9 +164,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<PremiseNumber> getPremiseNumber() {
 		List<PremiseNumber> premiseNumberList = new ArrayList<PremiseNumber>();
-		List<PremiseNumberElement> premiseNumberElemList = premise.getPremiseNumber();
 
-		for (PremiseNumberElement premiseNumberElem : premiseNumberElemList)
+		for (PremiseNumberElement premiseNumberElem : premise.getPremiseNumber())
 			premiseNumberList.add(new PremiseNumberImpl(premiseNumberElem));
 
 		return premiseNumberList;
@@ -178,9 +174,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<PremiseNumberPrefix> getPremiseNumberPrefix() {
 		List<PremiseNumberPrefix> premiseNumberPrefixList = new ArrayList<PremiseNumberPrefix>();
-		List<PremiseNumberPrefixElement> premiseNumberPrefixElemList = premise.getPremiseNumberPrefix();
 
-		for (PremiseNumberPrefixElement premiseNumberPrefixElem : premiseNumberPrefixElemList)
+		for (PremiseNumberPrefixElement premiseNumberPrefixElem : premise.getPremiseNumberPrefix())
 			premiseNumberPrefixList.add(new PremiseNumberPrefixImpl(premiseNumberPrefixElem));
 
 		return premiseNumberPrefixList;
@@ -197,9 +192,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<PremiseNumberSuffix> getPremiseNumberSuffix() {
 		List<PremiseNumberSuffix> premiseNumberSuffixList = new ArrayList<PremiseNumberSuffix>();
-		List<PremiseNumberSuffixElement> premiseNumberSuffixElemList = premise.getPremiseNumberSuffix();
 
-		for (PremiseNumberSuffixElement premiseNumberSuffixElem : premiseNumberSuffixElemList)
+		for (PremiseNumberSuffixElement premiseNumberSuffixElem : premise.getPremiseNumberSuffix())
 			premiseNumberSuffixList.add(new PremiseNumberSuffixImpl(premiseNumberSuffixElem));
 
 		return premiseNumberSuffixList;
@@ -213,9 +207,8 @@ public class PremiseImpl extends XALBaseImpl implements Premise {
 	@Override
 	public List<SubPremise> getSubPremise() {
 		List<SubPremise> subPremiseList = new ArrayList<SubPremise>();
-		List<SubPremiseType> subPremiseElemList = premise.getSubPremise();
 
-		for (SubPremiseType subPremiseElem : subPremiseElemList)
+		for (SubPremiseType subPremiseElem : premise.getSubPremise())
 			subPremiseList.add(new SubPremiseImpl(subPremiseElem));
 
 		return subPremiseList;

@@ -36,9 +36,8 @@ public class MultiPointImpl extends AbstractGeometricAggregateImpl implements Mu
 	@Override
 	public List<PointProperty> getPointMember() {
 		List<PointProperty> pointPropertyList = new ArrayList<PointProperty>();
-		List<PointPropertyType> pointPropertyTypeList = multiPointType.getPointMember();
 
-		for (PointPropertyType pointPropertyType : pointPropertyTypeList)
+		for (PointPropertyType pointPropertyType : multiPointType.getPointMember())
 			pointPropertyList.add(new PointPropertyImpl(pointPropertyType));
 
 		return pointPropertyList;

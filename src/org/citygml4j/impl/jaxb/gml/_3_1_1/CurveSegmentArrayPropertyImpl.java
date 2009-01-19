@@ -51,9 +51,8 @@ public class CurveSegmentArrayPropertyImpl extends GMLBaseImpl implements CurveS
 	@Override
 	public List<AbstractCurveSegment> getCurveSegment() {
 		List<AbstractCurveSegment> segmentList = new ArrayList<AbstractCurveSegment>();
-		List<JAXBElement<? extends AbstractCurveSegmentType>> segmentTypeList = propertyType.get_CurveSegment();
 
-		for (JAXBElement<? extends AbstractCurveSegmentType> segmentElem : segmentTypeList) {
+		for (JAXBElement<? extends AbstractCurveSegmentType> segmentElem : propertyType.get_CurveSegment()) {
 			if (segmentElem.getValue() != null && segmentElem.getValue() instanceof LineStringSegmentType)
 				segmentList.add(new LineStringSegmentImpl((LineStringSegmentType)segmentElem.getValue()));
 		}

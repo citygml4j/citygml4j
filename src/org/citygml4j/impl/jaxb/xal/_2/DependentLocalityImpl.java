@@ -52,9 +52,8 @@ public class DependentLocalityImpl extends XALBaseImpl implements DependentLocal
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineInstList = dependentLocality.getAddressLine();
 
-		for (AddressLineElement addressLineInst : addressLineInstList)
+		for (AddressLineElement addressLineInst : dependentLocality.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineInst));
 
 		return addressLineList;
@@ -76,9 +75,8 @@ public class DependentLocalityImpl extends XALBaseImpl implements DependentLocal
 	@Override
 	public List<DependentLocalityName> getDependentLocalityName() {
 		List<DependentLocalityName> dependentLocalityNameList = new ArrayList<DependentLocalityName>();
-		List<DependentLocalityType.DependentLocalityName> dependentLocalityNameInstList = dependentLocality.getDependentLocalityName();
 
-		for (DependentLocalityType.DependentLocalityName dependentLocalityNameInst : dependentLocalityNameInstList)
+		for (DependentLocalityType.DependentLocalityName dependentLocalityNameInst : dependentLocality.getDependentLocalityName())
 			dependentLocalityNameList.add(new DependentLocalityNameImpl(dependentLocalityNameInst));
 
 		return dependentLocalityNameList;

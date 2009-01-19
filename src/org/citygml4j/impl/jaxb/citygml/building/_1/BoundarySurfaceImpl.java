@@ -70,9 +70,8 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 	@Override
 	public List<OpeningProperty> getOpening() {
 		List<OpeningProperty> openingPropertyList = new ArrayList<OpeningProperty>();
-		List<OpeningPropertyType> openingPropertyTypeList = boundarySurfaceType.getOpening();
 
-		for (OpeningPropertyType openingPropertyType : openingPropertyTypeList)
+		for (OpeningPropertyType openingPropertyType : boundarySurfaceType.getOpening())
 			openingPropertyList.add(new OpeningPropertyImpl(openingPropertyType));
 
 		return openingPropertyList;
@@ -147,9 +146,8 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBoundarySurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = boundarySurfaceType.get_GenericApplicationPropertyOfBoundarySurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : boundarySurfaceType.get_GenericApplicationPropertyOfBoundarySurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

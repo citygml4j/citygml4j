@@ -154,9 +154,8 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTexture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = abstractTextureType.get_GenericApplicationPropertyOfAbstractTexture();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : abstractTextureType.get_GenericApplicationPropertyOfAbstractTexture()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

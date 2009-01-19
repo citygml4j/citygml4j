@@ -44,9 +44,8 @@ public class GroundSurfaceImpl extends BoundarySurfaceImpl implements GroundSurf
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfGroundSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = groundSurfaceType.get_GenericApplicationPropertyOfGroundSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : groundSurfaceType.get_GenericApplicationPropertyOfGroundSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

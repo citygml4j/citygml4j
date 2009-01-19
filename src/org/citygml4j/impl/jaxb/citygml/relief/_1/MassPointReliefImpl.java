@@ -72,9 +72,8 @@ public class MassPointReliefImpl extends ReliefComponentImpl implements MassPoin
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfMassPointRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = massPointReliefType.get_GenericApplicationPropertyOfMassPointRelief();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : massPointReliefType.get_GenericApplicationPropertyOfMassPointRelief()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

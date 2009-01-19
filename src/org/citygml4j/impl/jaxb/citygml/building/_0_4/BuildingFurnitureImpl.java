@@ -138,9 +138,8 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingFurniture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = buildingFurnitureType.get_GenericApplicationPropertyOfBuildingFurniture();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : buildingFurnitureType.get_GenericApplicationPropertyOfBuildingFurniture()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

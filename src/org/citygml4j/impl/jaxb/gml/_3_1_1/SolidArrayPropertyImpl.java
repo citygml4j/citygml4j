@@ -33,9 +33,8 @@ public class SolidArrayPropertyImpl extends GMLBaseImpl implements SolidArrayPro
 	@Override
 	public List<AbstractSolid> getSolid() {
 		List<AbstractSolid> abstractSolidList = new ArrayList<AbstractSolid>();
-		List<JAXBElement<? extends AbstractSolidType>> abstractSolidTypeList = solidArrayPropertyType.get_Solid();
 
-		for (JAXBElement<? extends AbstractSolidType> abstractSolidType : abstractSolidTypeList) {
+		for (JAXBElement<? extends AbstractSolidType> abstractSolidType : solidArrayPropertyType.get_Solid()) {
 			if (abstractSolidType.getValue() != null) {
 				if (abstractSolidType.getValue() instanceof SolidType)
 					abstractSolidList.add(new SolidImpl((SolidType)abstractSolidType.getValue()));

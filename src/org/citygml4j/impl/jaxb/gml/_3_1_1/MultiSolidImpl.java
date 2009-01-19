@@ -37,9 +37,8 @@ public class MultiSolidImpl extends AbstractGeometricAggregateImpl implements Mu
 	@Override
 	public List<SolidProperty> getSolidMember() {
 		List<SolidProperty> solidPropertyList = new ArrayList<SolidProperty>();
-		List<SolidPropertyType> solidPropertyTypeList = multiSolidType.getSolidMember();
 
-		for (SolidPropertyType solidPropertyType : solidPropertyTypeList)
+		for (SolidPropertyType solidPropertyType : multiSolidType.getSolidMember())
 			solidPropertyList.add(new SolidPropertyImpl(solidPropertyType));
 
 		return solidPropertyList;

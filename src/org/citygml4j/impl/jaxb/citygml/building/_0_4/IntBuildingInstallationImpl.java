@@ -123,9 +123,8 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfIntBuildingInstallation() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = intBuildingInstallationType.get_GenericApplicationPropertyOfIntBuildingInstallation();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : intBuildingInstallationType.get_GenericApplicationPropertyOfIntBuildingInstallation()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

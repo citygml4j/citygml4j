@@ -44,9 +44,8 @@ public class WindowImpl extends OpeningImpl implements Window {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWindow() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = windowType.get_GenericApplicationPropertyOfWindow();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : windowType.get_GenericApplicationPropertyOfWindow()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

@@ -36,9 +36,8 @@ public class MultiLineStringImpl extends AbstractGeometricAggregateImpl	implemen
 	@Override
 	public List<LineStringProperty> getLineStringMember() {
 		List<LineStringProperty> lineStringPropertyList = new ArrayList<LineStringProperty>();
-		List<LineStringPropertyType> lineStringPropertyTypeList = multiLineStringType.getLineStringMember();
 
-		for (LineStringPropertyType lineStringPropertyType : lineStringPropertyTypeList)
+		for (LineStringPropertyType lineStringPropertyType : multiLineStringType.getLineStringMember())
 			lineStringPropertyList.add(new LineStringPropertyImpl(lineStringPropertyType));
 
 		return lineStringPropertyList;

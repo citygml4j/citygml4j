@@ -43,9 +43,8 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 	@Override
 	public List<TextureCoordinates> getTextureCoordinates() {
 		List<TextureCoordinates> texCoordList = new ArrayList<TextureCoordinates>();
-		List<TexCoordListType.TextureCoordinates> texCoordTypeList = texCoordListType.getTextureCoordinates();
 
-		for (TexCoordListType.TextureCoordinates texCoordType : texCoordTypeList)
+		for (TexCoordListType.TextureCoordinates texCoordType : texCoordListType.getTextureCoordinates())
 			texCoordList.add(new TextureCoordinatesImpl(texCoordType));
 
 		return texCoordList;
@@ -72,9 +71,8 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordList() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = texCoordListType.get_GenericApplicationPropertyOfTexCoordList();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : texCoordListType.get_GenericApplicationPropertyOfTexCoordList()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

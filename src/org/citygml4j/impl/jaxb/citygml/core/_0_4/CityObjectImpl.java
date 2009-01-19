@@ -79,9 +79,8 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	@Override
 	public List<ExternalReference> getExternalReference() {
 		List<ExternalReference> extRefList = new ArrayList<ExternalReference>();
-		List<ExternalReferenceType> extRefTypeList = cityObject.getExternalReference();
 
-		for (ExternalReferenceType extRefType : extRefTypeList)
+		for (ExternalReferenceType extRefType : cityObject.getExternalReference())
 			extRefList.add(new ExternalReferenceImpl(extRefType));
 
 		return extRefList;
@@ -90,9 +89,8 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	@Override
 	public List<GenericAttribute> getGenericAttribute() {
 		List<GenericAttribute> genericAttributeList = new ArrayList<GenericAttribute>();
-		List<JAXBElement<? extends _GenericAttributeType>> genericAttributeTypeList = cityObject.get_GenericAttribute();
 
-		for (JAXBElement<? extends _GenericAttributeType> genericAttributeType : genericAttributeTypeList) {
+		for (JAXBElement<? extends _GenericAttributeType> genericAttributeType : cityObject.get_GenericAttribute()) {
 			if (genericAttributeType.getValue() != null) {
 				if (genericAttributeType.getValue() instanceof StringAttributeType)
 					genericAttributeList.add(new GenericStringAttributeImpl((StringAttributeType)genericAttributeType.getValue()));
@@ -203,9 +201,8 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	@Override
 	public List<GeneralizationRelation> getGeneralizesTo() {
 		List<GeneralizationRelation> genRelList = new ArrayList<GeneralizationRelation>();
-		List<GeneralizationRelationType> genRelTypeList = cityObject.getGeneralizesTo();
 
-		for (GeneralizationRelationType genRelType : genRelTypeList)
+		for (GeneralizationRelationType genRelType : cityObject.getGeneralizesTo())
 			genRelList.add(new GeneralizationRelationImpl(genRelType));
 
 		return genRelList;
@@ -230,9 +227,8 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	@Override
 	public List<AppearanceProperty> getAppearance() {
 		List<AppearanceProperty> appPropList = new ArrayList<AppearanceProperty>();
-		List<AppearancePropertyType> appPropTypeList = cityObject.getAppearanceMember();
 
-		for (AppearancePropertyType appPropType : appPropTypeList)
+		for (AppearancePropertyType appPropType : cityObject.getAppearanceMember())
 			appPropList.add(new AppearancePropertyImpl(appPropType));
 
 		return appPropList;
@@ -259,9 +255,8 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = cityObject.get_GenericApplicationPropertyOfCityObject();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : cityObject.get_GenericApplicationPropertyOfCityObject()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

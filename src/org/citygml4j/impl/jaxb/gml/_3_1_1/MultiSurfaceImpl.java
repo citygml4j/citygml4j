@@ -37,9 +37,8 @@ public class MultiSurfaceImpl extends AbstractGeometricAggregateImpl implements 
 	@Override
 	public List<SurfaceProperty> getSurfaceMember() {
 		List<SurfaceProperty> surfacePropertyList = new ArrayList<SurfaceProperty>();
-		List<SurfacePropertyType> surfacePropertyTypeList = multiSurfaceType.getSurfaceMember();
 
-		for (SurfacePropertyType surfacePropertyType : surfacePropertyTypeList)
+		for (SurfacePropertyType surfacePropertyType : multiSurfaceType.getSurfaceMember())
 			surfacePropertyList.add(new SurfacePropertyImpl(surfacePropertyType));
 
 		return surfacePropertyList;

@@ -118,9 +118,8 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBoundarySurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = waterBoundarySurfaceType.get_GenericApplicationPropertyOfWaterBoundarySurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : waterBoundarySurfaceType.get_GenericApplicationPropertyOfWaterBoundarySurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

@@ -44,9 +44,8 @@ public class SolidImpl extends AbstractSolidImpl implements Solid {
 	@Override
 	public List<SurfaceProperty> getInterior() {
 		List<SurfaceProperty> surfacePropertyList = new ArrayList<SurfaceProperty>();
-		List<SurfacePropertyType> surfacePropertyTypeList = solidType.getInterior();
 
-		for (SurfacePropertyType surfacePropertyType : surfacePropertyTypeList)
+		for (SurfacePropertyType surfacePropertyType : solidType.getInterior())
 			surfacePropertyList.add(new SurfacePropertyImpl(surfacePropertyType));
 
 		return surfacePropertyList;

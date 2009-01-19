@@ -82,9 +82,8 @@ public abstract class ReliefComponentImpl extends CityObjectImpl implements Reli
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefComponent() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = reliefComponentType.get_GenericApplicationPropertyOfReliefComponent();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : reliefComponentType.get_GenericApplicationPropertyOfReliefComponent()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

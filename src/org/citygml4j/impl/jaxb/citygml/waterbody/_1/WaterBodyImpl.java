@@ -63,9 +63,8 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 	@Override
 	public List<BoundedByWaterSurfaceProperty> getBoundedBySurfaces() {
 		List<BoundedByWaterSurfaceProperty> waterSurfacePropertyList = new ArrayList<BoundedByWaterSurfaceProperty>();
-		List<BoundedByWaterSurfacePropertyType> waterSurfacePropertyTypeList = waterBodyType.getBoundedBySurfaces();
 
-		for (BoundedByWaterSurfacePropertyType waterSurfacePropertyType : waterSurfacePropertyTypeList)
+		for (BoundedByWaterSurfacePropertyType waterSurfacePropertyType : waterBodyType.getBoundedBySurfaces())
 			waterSurfacePropertyList.add(new BoundedByWaterSurfacePropertyImpl(waterSurfacePropertyType));
 
 		return waterSurfacePropertyList;
@@ -310,9 +309,8 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBody() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = waterBodyType.get_GenericApplicationPropertyOfWaterBody();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : waterBodyType.get_GenericApplicationPropertyOfWaterBody()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

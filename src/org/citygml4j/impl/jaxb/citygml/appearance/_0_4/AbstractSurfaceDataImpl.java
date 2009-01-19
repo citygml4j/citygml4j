@@ -63,9 +63,8 @@ public abstract class AbstractSurfaceDataImpl extends AbstractFeatureImpl implem
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSurfaceData() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = abstractSurfaceDataType.get_GenericApplicationPropertyOfAbstractSurfaceData();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : abstractSurfaceDataType.get_GenericApplicationPropertyOfAbstractSurfaceData()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

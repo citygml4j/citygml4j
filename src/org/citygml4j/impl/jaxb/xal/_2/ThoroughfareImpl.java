@@ -81,9 +81,8 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = thoroughfare.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : thoroughfare.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -160,9 +159,8 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 	@Override
 	public List<ThoroughfareName> getThoroughfareName() {
 		List<ThoroughfareName> nameList = new ArrayList<ThoroughfareName>();
-		List<ThoroughfareNameType> nameElemList = thoroughfare.getThoroughfareName();
 
-		for (ThoroughfareNameType nameElem : nameElemList)
+		for (ThoroughfareNameType nameElem : thoroughfare.getThoroughfareName())
 			nameList.add(new ThoroughfareNameImpl(nameElem));
 
 		return nameList;
@@ -171,9 +169,8 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 	@Override
 	public List<Object> getThoroughfareNumberOrThoroughfareNumberRange() {
 		List<Object> norList = new ArrayList<Object>();
-		List<Object> norElemList = thoroughfare.getThoroughfareNumberOrThoroughfareNumberRange();
 
-		for (Object object : norElemList) {
+		for (Object object : thoroughfare.getThoroughfareNumberOrThoroughfareNumberRange()) {
 			if (object instanceof ThoroughfareNumberElement)
 				norList.add(new ThoroughfareNumberImpl((ThoroughfareNumberElement)object));
 			else if (object instanceof ThoroughfareElement.ThoroughfareNumberRange)
@@ -186,9 +183,8 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 	@Override
 	public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix() {
 		List<ThoroughfareNumberPrefix> prefixList = new ArrayList<ThoroughfareNumberPrefix>();
-		List<ThoroughfareNumberPrefixElement> prefixElemList = thoroughfare.getThoroughfareNumberPrefix();
 
-		for (ThoroughfareNumberPrefixElement prefixElem : prefixElemList)
+		for (ThoroughfareNumberPrefixElement prefixElem : thoroughfare.getThoroughfareNumberPrefix())
 			prefixList.add(new ThoroughfareNumberPrefixImpl(prefixElem));
 
 		return prefixList;
@@ -197,9 +193,8 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 	@Override
 	public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix() {
 		List<ThoroughfareNumberSuffix> suffixList = new ArrayList<ThoroughfareNumberSuffix>();
-		List<ThoroughfareNumberSuffixElement> suffixElemList = thoroughfare.getThoroughfareNumberSuffix();
 
-		for (ThoroughfareNumberSuffixElement suffixElem : suffixElemList)
+		for (ThoroughfareNumberSuffixElement suffixElem : thoroughfare.getThoroughfareNumberSuffix())
 			suffixList.add(new ThoroughfareNumberSuffixImpl(suffixElem));
 
 		return suffixList;

@@ -45,9 +45,8 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRepOrCoord() {
 		List<GMLBase> posOrPointOrPointRepList = new ArrayList<GMLBase>();
-		List<JAXBElement<?>> pointList = lineStringType.getPosOrPointPropertyOrPointRep();
 
-		for (JAXBElement<?> pointElem : pointList) {
+		for (JAXBElement<?> pointElem : lineStringType.getPosOrPointPropertyOrPointRep()) {
 			if (pointElem.getValue() != null) {
 				if (pointElem.getValue() instanceof PointPropertyType) {
 					if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&

@@ -48,9 +48,8 @@ public abstract class TextureParameterizationImpl extends AbstractGMLImpl implem
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTextureParameterization() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = textureParameterizationType.get_GenericApplicationPropertyOfTextureParameterization();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : textureParameterizationType.get_GenericApplicationPropertyOfTextureParameterization()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

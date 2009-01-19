@@ -73,9 +73,8 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = subPremise.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : subPremise.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -84,9 +83,8 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 	@Override
 	public List<BuildingName> getBuildingName() {
 		List<BuildingName> buildingNameList = new ArrayList<BuildingName>();
-		List<BuildingNameType> buildingNameElemList = subPremise.getBuildingName();
 
-		for (BuildingNameType buildingNameElem : buildingNameElemList)
+		for (BuildingNameType buildingNameElem : subPremise.getBuildingName())
 			buildingNameList.add(new BuildingNameImpl(buildingNameElem));
 
 		return buildingNameList;
@@ -135,9 +133,8 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 	@Override
 	public List<SubPremiseName> getSubPremiseName() {
 		List<SubPremiseName> subPremiseNameList = new ArrayList<SubPremiseName>();
-		List<SubPremiseType.SubPremiseName> subPremiseNameElemList = subPremise.getSubPremiseName();
 
-		for (SubPremiseType.SubPremiseName subPremiseNameElem : subPremiseNameElemList)
+		for (SubPremiseType.SubPremiseName subPremiseNameElem : subPremise.getSubPremiseName())
 			subPremiseNameList.add(new SubPremiseNameImpl(subPremiseNameElem));
 
 		return subPremiseNameList;
@@ -146,9 +143,8 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 	@Override
 	public List<SubPremiseNumber> getSubPremiseNumber() {
 		List<SubPremiseNumber> subPremiseNumberList = new ArrayList<SubPremiseNumber>();
-		List<SubPremiseType.SubPremiseNumber> subPremiseNumberElemList = subPremise.getSubPremiseNumber();
 
-		for (SubPremiseType.SubPremiseNumber subPremiseNumberElem : subPremiseNumberElemList)
+		for (SubPremiseType.SubPremiseNumber subPremiseNumberElem : subPremise.getSubPremiseNumber())
 			subPremiseNumberList.add(new SubPremiseNumberImpl(subPremiseNumberElem));
 
 		return subPremiseNumberList;
@@ -157,9 +153,8 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 	@Override
 	public List<SubPremiseNumberPrefix> getSubPremiseNumberPrefix() {
 		List<SubPremiseNumberPrefix> subPremiseNumberPrefixList = new ArrayList<SubPremiseNumberPrefix>();
-		List<SubPremiseType.SubPremiseNumberPrefix> subPremiseNumberPrefixElemList = subPremise.getSubPremiseNumberPrefix();
 
-		for (SubPremiseType.SubPremiseNumberPrefix subPremiseNumberPrefixElem : subPremiseNumberPrefixElemList)
+		for (SubPremiseType.SubPremiseNumberPrefix subPremiseNumberPrefixElem : subPremise.getSubPremiseNumberPrefix())
 			subPremiseNumberPrefixList.add(new SubPremiseNumberPrefixImpl(subPremiseNumberPrefixElem));
 
 		return subPremiseNumberPrefixList;
@@ -168,9 +163,8 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 	@Override
 	public List<SubPremiseNumberSuffix> getSubPremiseNumberSuffix() {
 		List<SubPremiseNumberSuffix> subPremiseNumberSuffixList = new ArrayList<SubPremiseNumberSuffix>();
-		List<SubPremiseType.SubPremiseNumberSuffix> subPremiseNumberSuffixElemList = subPremise.getSubPremiseNumberSuffix();
 
-		for (SubPremiseType.SubPremiseNumberSuffix subPremiseNumberSuffixElem : subPremiseNumberSuffixElemList)
+		for (SubPremiseType.SubPremiseNumberSuffix subPremiseNumberSuffixElem : subPremise.getSubPremiseNumberSuffix())
 			subPremiseNumberSuffixList.add(new SubPremiseNumberSuffixImpl(subPremiseNumberSuffixElem));
 
 		return subPremiseNumberSuffixList;

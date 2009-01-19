@@ -44,9 +44,8 @@ public class BuildingImpl extends AbstractBuildingImpl implements Building {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuilding() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = buildingType.get_GenericApplicationPropertyOfBuilding();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : buildingType.get_GenericApplicationPropertyOfBuilding()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

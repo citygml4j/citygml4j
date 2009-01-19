@@ -48,9 +48,8 @@ public abstract class VegetationObjectImpl extends CityObjectImpl implements Veg
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfVegetationObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = vegetationObjectType.get_GenericApplicationPropertyOfVegetationObject();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : vegetationObjectType.get_GenericApplicationPropertyOfVegetationObject()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

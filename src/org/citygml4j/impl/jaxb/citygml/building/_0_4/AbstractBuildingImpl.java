@@ -264,9 +264,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<BoundarySurfaceProperty> getBoundedBySurfaces() {
 		List<BoundarySurfaceProperty> boundarySurfacePropertyList = new ArrayList<BoundarySurfaceProperty>();
-		List<BoundarySurfacePropertyType> boundarySurfacePropertyTypeList = abstractBuilding.getBoundedBySurfaces();
 
-		for (BoundarySurfacePropertyType boundarySurfacePropertyType : boundarySurfacePropertyTypeList)
+		for (BoundarySurfacePropertyType boundarySurfacePropertyType : abstractBuilding.getBoundedBySurfaces())
 			boundarySurfacePropertyList.add(new BoundarySurfacePropertyImpl(boundarySurfacePropertyType));
 
 		return boundarySurfacePropertyList;
@@ -275,9 +274,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<BuildingInstallationProperty> getOuterBuildingInstallation() {
 		List<BuildingInstallationProperty> buildingInstallationPropertyList = new ArrayList<BuildingInstallationProperty>();
-		List<BuildingInstallationPropertyType> buildingInstallationPropertyTypeList = abstractBuilding.getOuterBuildingInstallation();
 
-		for (BuildingInstallationPropertyType buildingInstallationPropertyType : buildingInstallationPropertyTypeList)
+		for (BuildingInstallationPropertyType buildingInstallationPropertyType : abstractBuilding.getOuterBuildingInstallation())
 			buildingInstallationPropertyList.add(new BuildingInstallationPropertyImpl(buildingInstallationPropertyType));
 
 		return buildingInstallationPropertyList;
@@ -286,9 +284,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<IntBuildingInstallationProperty> getInteriorBuildingInstallation() {
 		List<IntBuildingInstallationProperty> intBuildingInstallationPropertyList = new ArrayList<IntBuildingInstallationProperty>();
-		List<IntBuildingInstallationPropertyType> intBuildingInstallationPropertyTypeList = abstractBuilding.getInteriorBuildingInstallation();
 
-		for (IntBuildingInstallationPropertyType intBuildingInstallationPropertyType : intBuildingInstallationPropertyTypeList)
+		for (IntBuildingInstallationPropertyType intBuildingInstallationPropertyType : abstractBuilding.getInteriorBuildingInstallation())
 			intBuildingInstallationPropertyList.add(new IntBuildingInstallationPropertyImpl(intBuildingInstallationPropertyType));
 
 		return intBuildingInstallationPropertyList;
@@ -297,9 +294,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<BuildingPartProperty> getConsistsOfBuildingPart() {
 		List<BuildingPartProperty> buildingPartPropertyList = new ArrayList<BuildingPartProperty>();
-		List<BuildingPartPropertyType> buildingPartPropertyTypeList = abstractBuilding.getConsistsOfBuildingPart();
 
-		for (BuildingPartPropertyType buildingPartPropertyType : buildingPartPropertyTypeList)
+		for (BuildingPartPropertyType buildingPartPropertyType : abstractBuilding.getConsistsOfBuildingPart())
 			buildingPartPropertyList.add(new BuildingPartPropertyImpl(buildingPartPropertyType));
 
 		return buildingPartPropertyList;
@@ -308,9 +304,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<InteriorRoomProperty> getInteriorRoom() {
 		List<InteriorRoomProperty> interiorRoomPropertyList = new ArrayList<InteriorRoomProperty>();
-		List<InteriorRoomPropertyType> interiorRoomPropertyTypeList = abstractBuilding.getInteriorRoom();
 
-		for (InteriorRoomPropertyType interiorRoomPropertyType : interiorRoomPropertyTypeList)
+		for (InteriorRoomPropertyType interiorRoomPropertyType : abstractBuilding.getInteriorRoom())
 			interiorRoomPropertyList.add(new InteriorRoomPropertyImpl(interiorRoomPropertyType));
 
 		return interiorRoomPropertyList;
@@ -623,9 +618,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<AddressProperty> getAddress() {
 		List<AddressProperty> addressPropertyList = new ArrayList<AddressProperty>();
-		List<AddressPropertyType> addressPropertyTypeList = abstractBuilding.getAddress();
 
-		for (AddressPropertyType addressPropertyType : addressPropertyTypeList)
+		for (AddressPropertyType addressPropertyType : abstractBuilding.getAddress())
 			addressPropertyList.add(new AddressPropertyImpl(addressPropertyType));
 
 		return addressPropertyList;
@@ -687,9 +681,8 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAbstractBuilding() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = abstractBuilding.get_GenericApplicationPropertyOfAbstractBuilding();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : abstractBuilding.get_GenericApplicationPropertyOfAbstractBuilding()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

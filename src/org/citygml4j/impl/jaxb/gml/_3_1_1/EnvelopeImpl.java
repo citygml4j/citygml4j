@@ -38,9 +38,8 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 	@Override
 	public List<Coord> getCoord() {
 		List<Coord> coordList = new ArrayList<Coord>();
-		List<CoordType> coordTypeList = envelopeType.getCoord();
 
-		for (CoordType coordType : coordTypeList)
+		for (CoordType coordType : envelopeType.getCoord())
 			coordList.add(new CoordImpl(coordType));
 
 		return coordList;
@@ -65,9 +64,8 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 	@Override
 	public List<DirectPosition> getPos() {
 		List<DirectPosition> directPositionList = new ArrayList<DirectPosition>();
-		List<DirectPositionType> directPositionTypeList = envelopeType.getPos();
 
-		for (DirectPositionType directPositionType : directPositionTypeList)
+		for (DirectPositionType directPositionType : envelopeType.getPos())
 			directPositionList.add(new DirectPositionImpl(directPositionType));
 
 		return directPositionList;

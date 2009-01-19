@@ -33,9 +33,8 @@ public class PointArrayPropertyImpl extends GMLBaseImpl implements PointArrayPro
 	@Override
 	public List<Point> getPoint() {
 		List<Point> pointList = new ArrayList<Point>();
-		List<PointType> pointTypeList = pointArayPropertyType.getPoint();
 
-		for (PointType pointType : pointTypeList)
+		for (PointType pointType : pointArayPropertyType.getPoint())
 			pointList.add(new PointImpl(pointType));
 
 		return pointList;

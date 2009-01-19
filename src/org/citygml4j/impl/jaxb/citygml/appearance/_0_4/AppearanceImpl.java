@@ -52,9 +52,8 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 	@Override
 	public List<SurfaceDataProperty> getSurfaceDataMember() {
 		List<SurfaceDataProperty> surfaceDataPropList = new ArrayList<SurfaceDataProperty>();
-		List<SurfaceDataPropertyType> surfaceDataPropTypeList = appearanceType.getSurfaceDataMember();
 
-		for (SurfaceDataPropertyType surfDataPropType : surfaceDataPropTypeList)
+		for (SurfaceDataPropertyType surfDataPropType : appearanceType.getSurfaceDataMember())
 			surfaceDataPropList.add(new SurfaceDataPropertyImpl(surfDataPropType));
 
 		return surfaceDataPropList;
@@ -96,9 +95,8 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAppearance() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = appearanceType.get_GenericApplicationPropertyOfAppearance();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : appearanceType.get_GenericApplicationPropertyOfAppearance()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

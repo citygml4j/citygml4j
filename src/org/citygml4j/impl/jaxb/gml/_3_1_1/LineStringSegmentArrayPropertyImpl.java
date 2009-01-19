@@ -38,9 +38,8 @@ public class LineStringSegmentArrayPropertyImpl extends GMLBaseImpl implements L
 	@Override
 	public List<LineStringSegment> getLineStringSegment() {
 		List<LineStringSegment> segmentList = new ArrayList<LineStringSegment>();
-		List<LineStringSegmentType> segmentTypeList = propertyType.getLineStringSegment();
 
-		for (LineStringSegmentType segmentType : segmentTypeList)
+		for (LineStringSegmentType segmentType : propertyType.getLineStringSegment())
 			segmentList.add(new LineStringSegmentImpl(segmentType));
 
 		return segmentList;

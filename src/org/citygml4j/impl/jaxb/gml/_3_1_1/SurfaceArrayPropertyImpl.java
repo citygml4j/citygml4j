@@ -40,9 +40,8 @@ public class SurfaceArrayPropertyImpl extends GMLBaseImpl implements SurfaceArra
 	@Override
 	public List<AbstractSurface> getSurface() {
 		List<AbstractSurface> abstractSurfaceList = new ArrayList<AbstractSurface>();
-		List<JAXBElement<? extends AbstractSurfaceType>> abstractSurfaceTypeList = surfaceArrayPropertyType.get_Surface();
 
-		for (JAXBElement<? extends AbstractSurfaceType> abstractSurfaceType : abstractSurfaceTypeList) {
+		for (JAXBElement<? extends AbstractSurfaceType> abstractSurfaceType : surfaceArrayPropertyType.get_Surface()) {
 			if (abstractSurfaceType.getValue() != null) {
 				if (abstractSurfaceType.getValue() instanceof PolygonType)
 					abstractSurfaceList.add(new PolygonImpl((PolygonType)abstractSurfaceType.getValue()));

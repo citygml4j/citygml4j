@@ -44,9 +44,8 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 	@Override
 	public List<TextureAssociation> getTarget() {
 		List<TextureAssociation> texAssList = new ArrayList<TextureAssociation>();
-		List<TextureAssociationType> texAssTypeList = parameterizedTextureType.getTarget();
 
-		for (TextureAssociationType texAssType : texAssTypeList)
+		for (TextureAssociationType texAssType : parameterizedTextureType.getTarget())
 			texAssList.add(new TextureAssociationImpl(texAssType));
 
 		return texAssList;
@@ -73,9 +72,8 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfParameterizedTexture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = parameterizedTextureType.get_GenericApplicationPropertyOfParameterizedTexture();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : parameterizedTextureType.get_GenericApplicationPropertyOfParameterizedTexture()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

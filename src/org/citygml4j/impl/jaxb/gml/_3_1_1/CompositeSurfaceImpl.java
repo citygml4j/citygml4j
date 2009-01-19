@@ -31,9 +31,8 @@ public class CompositeSurfaceImpl extends AbstractSurfaceImpl implements Composi
 	@Override
 	public List<SurfaceProperty> getSurfaceMember() {
 		List<SurfaceProperty> surfacePropertyList = new ArrayList<SurfaceProperty>();
-		List<SurfacePropertyType> surfacePropertyTypeList = compositeSurfaceType.getSurfaceMember();
 
-		for (SurfacePropertyType surfacePropertyType : surfacePropertyTypeList)
+		for (SurfacePropertyType surfacePropertyType : compositeSurfaceType.getSurfaceMember())
 			surfacePropertyList.add(new SurfacePropertyImpl(surfacePropertyType));
 
 		return surfacePropertyList;

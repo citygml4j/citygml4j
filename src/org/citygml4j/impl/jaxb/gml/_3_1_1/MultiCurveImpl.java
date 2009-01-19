@@ -37,9 +37,8 @@ public class MultiCurveImpl extends AbstractGeometricAggregateImpl implements Mu
 	@Override
 	public List<CurveProperty> getCurveMember() {
 		List<CurveProperty> curvePropertyList = new ArrayList<CurveProperty>();
-		List<CurvePropertyType> curvePropertyTypeList = multiCurveType.getCurveMember();
 
-		for (CurvePropertyType curvePropertyType : curvePropertyTypeList)
+		for (CurvePropertyType curvePropertyType : multiCurveType.getCurveMember())
 			curvePropertyList.add(new CurvePropertyImpl(curvePropertyType));
 
 		return curvePropertyList;

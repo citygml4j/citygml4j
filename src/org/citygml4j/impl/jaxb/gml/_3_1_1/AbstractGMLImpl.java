@@ -42,9 +42,8 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 	@Override
 	public List<Code> getName() {
 		List<Code> codeList = new ArrayList<Code>();
-		List<JAXBElement<CodeType>> codeTypeList = abstractGMLType.getName();
 
-		for (JAXBElement<CodeType> codeType : codeTypeList) {
+		for (JAXBElement<CodeType> codeType : abstractGMLType.getName()) {
 			if (codeType.getValue() != null)
 				codeList.add(new CodeImpl(codeType.getValue()));
 		}

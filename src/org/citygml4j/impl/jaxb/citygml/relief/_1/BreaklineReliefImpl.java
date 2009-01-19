@@ -92,9 +92,8 @@ public class BreaklineReliefImpl extends ReliefComponentImpl implements Breaklin
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBreaklineRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = breaklineReliefType.get_GenericApplicationPropertyOfBreaklineRelief();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : breaklineReliefType.get_GenericApplicationPropertyOfBreaklineRelief()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

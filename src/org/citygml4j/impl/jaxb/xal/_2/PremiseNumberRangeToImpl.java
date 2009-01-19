@@ -59,9 +59,8 @@ public class PremiseNumberRangeToImpl extends XALBaseImpl implements PremiseNumb
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = premiseNumberRangeTo.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : premiseNumberRangeTo.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -70,9 +69,8 @@ public class PremiseNumberRangeToImpl extends XALBaseImpl implements PremiseNumb
 	@Override
 	public List<PremiseNumber> getPremiseNumber() {
 		List<PremiseNumber> premiseNumberList = new ArrayList<PremiseNumber>();
-		List<PremiseNumberElement> premiseNumberElemList = premiseNumberRangeTo.getPremiseNumber();
 
-		for (PremiseNumberElement premiseNumberElem : premiseNumberElemList)
+		for (PremiseNumberElement premiseNumberElem : premiseNumberRangeTo.getPremiseNumber())
 			premiseNumberList.add(new PremiseNumberImpl(premiseNumberElem));
 
 		return premiseNumberList;
@@ -81,9 +79,8 @@ public class PremiseNumberRangeToImpl extends XALBaseImpl implements PremiseNumb
 	@Override
 	public List<PremiseNumberPrefix> getPremiseNumberPrefix() {
 		List<PremiseNumberPrefix> prefixList = new ArrayList<PremiseNumberPrefix>();
-		List<PremiseNumberPrefixElement> prefixElemList = premiseNumberRangeTo.getPremiseNumberPrefix();
 
-		for (PremiseNumberPrefixElement prefixElem : prefixElemList)
+		for (PremiseNumberPrefixElement prefixElem : premiseNumberRangeTo.getPremiseNumberPrefix())
 			prefixList.add(new PremiseNumberPrefixImpl(prefixElem));
 
 		return prefixList;
@@ -92,9 +89,8 @@ public class PremiseNumberRangeToImpl extends XALBaseImpl implements PremiseNumb
 	@Override
 	public List<PremiseNumberSuffix> getPremiseNumberSuffix() {
 		List<PremiseNumberSuffix> suffixList = new ArrayList<PremiseNumberSuffix>();
-		List<PremiseNumberSuffixElement> suffixElemList = premiseNumberRangeTo.getPremiseNumberSuffix();
 
-		for (PremiseNumberSuffixElement suffixElem : suffixElemList)
+		for (PremiseNumberSuffixElement suffixElem : premiseNumberRangeTo.getPremiseNumberSuffix())
 			suffixList.add(new PremiseNumberSuffixImpl(suffixElem));
 
 		return suffixList;

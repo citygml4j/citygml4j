@@ -118,9 +118,8 @@ public class GeoreferencedTextureImpl extends AbstractTextureImpl implements Geo
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfGeoreferencedTexture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = georeferencedTextureType.get_GenericApplicationPropertyOfGeoreferencedTexture();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : georeferencedTextureType.get_GenericApplicationPropertyOfGeoreferencedTexture()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

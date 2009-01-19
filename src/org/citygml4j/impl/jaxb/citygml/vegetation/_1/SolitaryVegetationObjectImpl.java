@@ -260,9 +260,8 @@ public class SolitaryVegetationObjectImpl extends VegetationObjectImpl implement
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSolitaryVegetationObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = solitaryVegetationObjectType.get_GenericApplicationPropertyOfSolitaryVegetationObject();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : solitaryVegetationObjectType.get_GenericApplicationPropertyOfSolitaryVegetationObject()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

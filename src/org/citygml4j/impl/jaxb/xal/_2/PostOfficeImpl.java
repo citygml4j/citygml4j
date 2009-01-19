@@ -48,9 +48,8 @@ public class PostOfficeImpl extends XALBaseImpl implements PostOffice {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = postOffice.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : postOffice.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -72,9 +71,8 @@ public class PostOfficeImpl extends XALBaseImpl implements PostOffice {
 	@Override
 	public List<PostOfficeName> getPostOfficeName() {
 		List<PostOfficeName> postOfficeNameList = new ArrayList<PostOfficeName>();
-		List<PostOfficeElement.PostOfficeName> postOfficeNameElemList = postOffice.getPostOfficeName();
 
-		for (PostOfficeElement.PostOfficeName postOfficeNameElem : postOfficeNameElemList)
+		for (PostOfficeElement.PostOfficeName postOfficeNameElem : postOffice.getPostOfficeName())
 			postOfficeNameList.add(new PostOfficeNameImpl(postOfficeNameElem));
 
 		return postOfficeNameList;

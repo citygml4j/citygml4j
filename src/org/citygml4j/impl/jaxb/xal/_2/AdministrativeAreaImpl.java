@@ -48,9 +48,8 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineInstList = area.getAddressLine();
 
-		for (AddressLineElement addressLineInst : addressLineInstList)
+		for (AddressLineElement addressLineInst : area.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineInst));
 
 		return addressLineList;
@@ -59,9 +58,8 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 	@Override
 	public List<AdministrativeAreaName> getAdministrativeAreaName() {
 		List<AdministrativeAreaName> nameList = new ArrayList<AdministrativeAreaName>();
-		List<AdministrativeAreaElement.AdministrativeAreaName> nameInstList = area.getAdministrativeAreaName();
 
-		for (AdministrativeAreaElement.AdministrativeAreaName nameInst : nameInstList)
+		for (AdministrativeAreaElement.AdministrativeAreaName nameInst : area.getAdministrativeAreaName())
 			nameList.add(new AdministrativeAreaNameImpl(nameInst));
 
 		return nameList;

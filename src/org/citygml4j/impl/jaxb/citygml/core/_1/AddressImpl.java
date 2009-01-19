@@ -86,9 +86,8 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAddress() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = addressType.get_GenericApplicationPropertyOfAddress();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : addressType.get_GenericApplicationPropertyOfAddress()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

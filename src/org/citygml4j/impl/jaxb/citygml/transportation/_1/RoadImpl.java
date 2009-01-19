@@ -44,9 +44,8 @@ public class RoadImpl extends TransportationComplexImpl implements Road {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRoad() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = roadType.get_GenericApplicationPropertyOfRoad();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : roadType.get_GenericApplicationPropertyOfRoad()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

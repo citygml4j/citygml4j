@@ -48,9 +48,8 @@ public abstract class TransportationObjectImpl extends CityObjectImpl implements
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTransportationObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = transportationObjectType.get_GenericApplicationPropertyOfTransportationObject();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : transportationObjectType.get_GenericApplicationPropertyOfTransportationObject()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

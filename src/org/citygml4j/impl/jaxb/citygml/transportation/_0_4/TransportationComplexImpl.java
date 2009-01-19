@@ -72,9 +72,8 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	@Override
 	public List<AuxiliaryTrafficAreaProperty> getAuxiliaryTrafficArea() {
 		List<AuxiliaryTrafficAreaProperty> auxPropertyList = new ArrayList<AuxiliaryTrafficAreaProperty>();
-		List<AuxiliaryTrafficAreaPropertyType> auxPropertyTypeList = transportationComplexType.getAuxiliaryTrafficArea();
 
-		for (AuxiliaryTrafficAreaPropertyType auxPropertyType : auxPropertyTypeList)
+		for (AuxiliaryTrafficAreaPropertyType auxPropertyType : transportationComplexType.getAuxiliaryTrafficArea())
 			auxPropertyList.add(new AuxiliaryTrafficAreaPropertyImpl(auxPropertyType));
 
 		return auxPropertyList;
@@ -88,9 +87,8 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	@Override
 	public List<GeometricComplexProperty> getLod0Network() {
 		List<GeometricComplexProperty> geomPropertyList = new ArrayList<GeometricComplexProperty>();
-		List<GeometricComplexPropertyType> geomPropertyTypeList = transportationComplexType.getLod0Network();
 
-		for (GeometricComplexPropertyType geomPropertyType : geomPropertyTypeList)
+		for (GeometricComplexPropertyType geomPropertyType : transportationComplexType.getLod0Network())
 			geomPropertyList.add(new GeometricComplexPropertyImpl(geomPropertyType));
 
 		return geomPropertyList;
@@ -131,9 +129,8 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	@Override
 	public List<TrafficAreaProperty> getTrafficArea() {
 		List<TrafficAreaProperty> trafficPropertyList = new ArrayList<TrafficAreaProperty>();
-		List<TrafficAreaPropertyType> trafficPropertyTypeList = transportationComplexType.getTrafficArea();
 
-		for (TrafficAreaPropertyType trafficPropertyType : trafficPropertyTypeList)
+		for (TrafficAreaPropertyType trafficPropertyType : transportationComplexType.getTrafficArea())
 			trafficPropertyList.add(new TrafficAreaPropertyImpl(trafficPropertyType));
 
 		return trafficPropertyList;
@@ -297,9 +294,8 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTransportationComplex() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = transportationComplexType.get_GenericApplicationPropertyOfTransportationComplex();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : transportationComplexType.get_GenericApplicationPropertyOfTransportationComplex()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

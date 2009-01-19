@@ -61,9 +61,8 @@ public class ThoroughfareNumberFromImpl extends XALBaseImpl implements Thoroughf
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<Object> objectList = thoroughfareNumberFrom.getContent();
 
-		for (Object object : objectList)
+		for (Object object : thoroughfareNumberFrom.getContent())
 			if (object instanceof AddressLineElement)
 				addressLineList.add(new AddressLineImpl((AddressLineElement)object));
 
@@ -89,9 +88,8 @@ public class ThoroughfareNumberFromImpl extends XALBaseImpl implements Thoroughf
 	@Override
 	public List<ThoroughfareNumber> getThoroughfareNumber() {
 		List<ThoroughfareNumber> thoroughfareNumberList = new ArrayList<ThoroughfareNumber>();
-		List<Object> objectList = thoroughfareNumberFrom.getContent();
 
-		for (Object object : objectList)
+		for (Object object : thoroughfareNumberFrom.getContent())
 			if (object instanceof ThoroughfareNumberElement)
 				thoroughfareNumberList.add(new ThoroughfareNumberImpl((ThoroughfareNumberElement)object));
 
@@ -101,9 +99,8 @@ public class ThoroughfareNumberFromImpl extends XALBaseImpl implements Thoroughf
 	@Override
 	public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix() {
 		List<ThoroughfareNumberPrefix> thoroughfareNumberPrefixList = new ArrayList<ThoroughfareNumberPrefix>();
-		List<Object> objectList = thoroughfareNumberFrom.getContent();
 
-		for (Object object : objectList)
+		for (Object object : thoroughfareNumberFrom.getContent())
 			if (object instanceof ThoroughfareNumberPrefixElement)
 				thoroughfareNumberPrefixList.add(new ThoroughfareNumberPrefixImpl((ThoroughfareNumberPrefixElement)object));
 
@@ -113,9 +110,8 @@ public class ThoroughfareNumberFromImpl extends XALBaseImpl implements Thoroughf
 	@Override
 	public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix() {
 		List<ThoroughfareNumberSuffix> thoroughfareNumberSuffixList = new ArrayList<ThoroughfareNumberSuffix>();
-		List<Object> objectList = thoroughfareNumberFrom.getContent();
 
-		for (Object object : objectList)
+		for (Object object : thoroughfareNumberFrom.getContent())
 			if (object instanceof ThoroughfareNumberSuffixElement)
 				thoroughfareNumberSuffixList.add(new ThoroughfareNumberSuffixImpl((ThoroughfareNumberSuffixElement)object));
 

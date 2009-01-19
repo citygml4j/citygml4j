@@ -44,9 +44,8 @@ public class TrackImpl extends TransportationComplexImpl implements Track {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTrack() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = trackType.get_GenericApplicationPropertyOfTrack();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : trackType.get_GenericApplicationPropertyOfTrack()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

@@ -75,9 +75,8 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTinRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = tinReliefType.get_GenericApplicationPropertyOfTinRelief();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : tinReliefType.get_GenericApplicationPropertyOfTinRelief()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

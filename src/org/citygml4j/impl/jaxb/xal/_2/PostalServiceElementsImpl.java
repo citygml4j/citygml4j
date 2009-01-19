@@ -46,9 +46,8 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 	@Override
 	public List<AddressIdentifier> getAddressIdentifier() {
 		List<AddressIdentifier> addressIdentifierList = new ArrayList<AddressIdentifier>();
-		List<AddressDetails.PostalServiceElements.AddressIdentifier> addressIdentifierInstList = postalServiceElements.getAddressIdentifier();
 
-		for (AddressDetails.PostalServiceElements.AddressIdentifier addressIdentifierInst : addressIdentifierInstList)
+		for (AddressDetails.PostalServiceElements.AddressIdentifier addressIdentifierInst : postalServiceElements.getAddressIdentifier())
 			addressIdentifierList.add(new AddressIdentifierImpl(addressIdentifierInst));
 
 		return addressIdentifierList;
@@ -187,9 +186,8 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 	@Override
 	public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
 		List<SupplementaryPostalServiceData> suppList = new ArrayList<SupplementaryPostalServiceData>();
-		List<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData> suppInstList = postalServiceElements.getSupplementaryPostalServiceData();			
 
-		for (AddressDetails.PostalServiceElements.SupplementaryPostalServiceData suppInst : suppInstList)
+		for (AddressDetails.PostalServiceElements.SupplementaryPostalServiceData suppInst : postalServiceElements.getSupplementaryPostalServiceData())
 			suppList.add(new SupplementaryPostalServiceDataImpl(suppInst));
 
 		return suppList;

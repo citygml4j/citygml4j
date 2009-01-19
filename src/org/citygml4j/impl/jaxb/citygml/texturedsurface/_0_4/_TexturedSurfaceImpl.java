@@ -48,9 +48,8 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 	@Override
 	public List<_AppearanceProperty> getAppearance() {
 		List<_AppearanceProperty> appPropList = new ArrayList<_AppearanceProperty>();
-		List<_AppearancePropertyType> appPropTypeList = texturedSurfaceType.getAppearance();
 
-		for (_AppearancePropertyType appPropType : appPropTypeList)
+		for (_AppearancePropertyType appPropType : texturedSurfaceType.getAppearance())
 			appPropList.add(new _AppearancePropertyImpl(appPropType));
 
 		return appPropList;

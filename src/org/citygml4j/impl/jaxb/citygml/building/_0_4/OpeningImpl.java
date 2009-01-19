@@ -102,9 +102,8 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfOpening() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = openingType.get_GenericApplicationPropertyOfOpening();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : openingType.get_GenericApplicationPropertyOfOpening()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

@@ -44,9 +44,8 @@ public class CountryImpl extends XALBaseImpl implements Country {
 	@Override
 	public List<CountryName> getCountryName() {
 		List<CountryName> countryNameList = new ArrayList<CountryName>();
-		List<CountryNameElement> countryNameInstList = country.getCountryName();
 
-		for (CountryNameElement countryNameInst : countryNameInstList) 
+		for (CountryNameElement countryNameInst : country.getCountryName()) 
 			countryNameList.add(new CountryNameImpl(countryNameInst));
 
 		return countryNameList;
@@ -71,9 +70,8 @@ public class CountryImpl extends XALBaseImpl implements Country {
 	@Override
 	public List<CountryNameCode> getCountryNameCode() {
 		List<CountryNameCode> codeList = new ArrayList<CountryNameCode>();
-		List<AddressDetails.Country.CountryNameCode> countryNameCodeList = country.getCountryNameCode();
 
-		for (AddressDetails.Country.CountryNameCode code : countryNameCodeList)
+		for (AddressDetails.Country.CountryNameCode code : country.getCountryNameCode())
 			codeList.add(new CountryNameCodeImpl(code));
 
 		return codeList;
@@ -98,9 +96,8 @@ public class CountryImpl extends XALBaseImpl implements Country {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineInstList = country.getAddressLine();
 
-		for (AddressLineElement addressLineInst : addressLineInstList)
+		for (AddressLineElement addressLineInst : country.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineInst));
 
 		return addressLineList;

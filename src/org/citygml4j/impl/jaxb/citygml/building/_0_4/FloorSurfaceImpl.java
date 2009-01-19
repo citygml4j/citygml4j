@@ -44,9 +44,8 @@ public class FloorSurfaceImpl extends BoundarySurfaceImpl implements FloorSurfac
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfFloorSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = floorSurfaceType.get_GenericApplicationPropertyOfFloorSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : floorSurfaceType.get_GenericApplicationPropertyOfFloorSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

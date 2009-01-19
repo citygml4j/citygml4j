@@ -36,12 +36,11 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 	@Override
 	public List<SolidProperty> getSolidMember() {
 		List<SolidProperty> solidPropertyList = new ArrayList<SolidProperty>();
-			List<SolidPropertyType> solidPropertyTypeList = compositeSolidType.getSolidMember();
 
-			for (SolidPropertyType solidPropertyType : solidPropertyTypeList)
-				solidPropertyList.add(new SolidPropertyImpl(solidPropertyType));
+		for (SolidPropertyType solidPropertyType : compositeSolidType.getSolidMember())
+			solidPropertyList.add(new SolidPropertyImpl(solidPropertyType));
 
-			return solidPropertyList;
+		return solidPropertyList;
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 	public boolean unsetSolidMember(SolidProperty solidMember) {
 		if (compositeSolidType.isSetSolidMember())
 			return compositeSolidType.getSolidMember().remove(((SolidPropertyImpl)solidMember).getJAXBObject());
-		
+
 		return false;
 	}
 

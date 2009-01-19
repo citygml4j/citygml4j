@@ -30,12 +30,12 @@ public abstract class SiteImpl extends CityObjectImpl implements Site {
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.SITE;
 	}
-	
+
 	@Override
 	public CityGMLModule getCityGMLModule() {
 		return CoreModule.v1_0_0;
 	}
-	
+
 	@Override
 	public void addGenericApplicationPropertyOfSite(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
@@ -45,41 +45,35 @@ public abstract class SiteImpl extends CityObjectImpl implements Site {
 
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSite() {
-		if (site.isSet_GenericApplicationPropertyOfSite()) {
-			List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-			List<JAXBElement<?>> elemList = site.get_GenericApplicationPropertyOfSite();
-			
-			for (JAXBElement<?> elem : elemList) {
-				if (elem.getValue() != null) {
-					ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
-					if (ade != null)
-						adeList.add(ade);
-				}
+		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
+
+		for (JAXBElement<?> elem : site.get_GenericApplicationPropertyOfSite()) {
+			if (elem.getValue() != null) {
+				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
+				if (ade != null)
+					adeList.add(ade);
 			}
-			
-			if (!adeList.isEmpty())
-				return adeList;
 		}
-		
-		return null;
+
+		return adeList;
 	}
 
 	@Override
 	public void setGenericApplicationPropertyOfSite(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
-		
+
 		for (ADEComponent ade : adeObject) {
 			JAXBElement<?> elem = ModelMapper.ADE.toJAXB(ade);
 			if (elem != null)
 				elemList.add(elem);
 		}
-		
+
 		if (!elemList.isEmpty()) {
 			site.unset_GenericApplicationPropertyOfSite();
 			site.get_GenericApplicationPropertyOfSite().addAll(elemList);
 		}
 	}
-	
+
 	@Override
 	public boolean isSetGenericApplicationPropertyOfSite() {
 		return site.isSet_GenericApplicationPropertyOfSite();

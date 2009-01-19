@@ -46,9 +46,8 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = department.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : department.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -57,9 +56,8 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 	@Override
 	public List<DepartmentName> getDepartmentName() {
 		List<DepartmentName> departmentNameList = new ArrayList<DepartmentName>();
-		List<DepartmentElement.DepartmentName> departmentNameElemList = department.getDepartmentName();
 
-		for (DepartmentElement.DepartmentName departmentNameElem : departmentNameElemList)
+		for (DepartmentElement.DepartmentName departmentNameElem : department.getDepartmentName())
 			departmentNameList.add(new DepartmentNameImpl(departmentNameElem));
 
 		return departmentNameList;

@@ -49,9 +49,8 @@ public class RasterReliefImpl extends ReliefComponentImpl implements RasterRelie
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = rasterReliefType.get_GenericApplicationPropertyOfRasterRelief();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : rasterReliefType.get_GenericApplicationPropertyOfRasterRelief()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

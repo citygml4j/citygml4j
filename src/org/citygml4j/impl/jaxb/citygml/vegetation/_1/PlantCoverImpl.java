@@ -236,9 +236,8 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfPlantCover() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = plantCoverType.get_GenericApplicationPropertyOfPlantCover();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : plantCoverType.get_GenericApplicationPropertyOfPlantCover()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

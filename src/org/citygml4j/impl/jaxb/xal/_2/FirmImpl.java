@@ -53,9 +53,8 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = firmType.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : firmType.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -64,9 +63,8 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 	@Override
 	public List<Department> getDepartment() {
 		List<Department> departmentList = new ArrayList<Department>();
-		List<DepartmentElement> departmentElemList = firmType.getDepartment();
 
-		for (DepartmentElement depElem : departmentElemList)
+		for (DepartmentElement depElem : firmType.getDepartment())
 			departmentList.add(new DepartmentImpl(depElem));
 
 		return departmentList;
@@ -75,9 +73,8 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 	@Override
 	public List<FirmName> getFirmName() {
 		List<FirmName> firmNameList = new ArrayList<FirmName>();
-		List<FirmType.FirmName> firmNameElemList = firmType.getFirmName();
 
-		for (FirmType.FirmName firmNameElem : firmNameElemList)
+		for (FirmType.FirmName firmNameElem : firmType.getFirmName())
 			firmNameList.add(new FirmNameImpl(firmNameElem));
 
 		return firmNameList;

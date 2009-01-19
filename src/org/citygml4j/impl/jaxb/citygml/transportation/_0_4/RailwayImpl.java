@@ -44,9 +44,8 @@ public class RailwayImpl extends TransportationComplexImpl implements Railway {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRailway() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = railwayType.get_GenericApplicationPropertyOfRailway();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : railwayType.get_GenericApplicationPropertyOfRailway()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

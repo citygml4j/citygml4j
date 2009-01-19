@@ -47,9 +47,8 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 	@Override
 	public List<ReliefComponentProperty> getReliefComponent() {
 		List<ReliefComponentProperty> propertyList = new ArrayList<ReliefComponentProperty>();
-		List<ReliefComponentPropertyType> propertyTypeList = reliefFeatureType.getReliefComponent();
 
-		for (ReliefComponentPropertyType propertyType : propertyTypeList)
+		for (ReliefComponentPropertyType propertyType : reliefFeatureType.getReliefComponent())
 			propertyList.add(new ReliefComponentPropertyImpl(propertyType));
 
 		return propertyList;
@@ -104,9 +103,8 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefFeature() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = reliefFeatureType.get_GenericApplicationPropertyOfReliefFeature();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : reliefFeatureType.get_GenericApplicationPropertyOfReliefFeature()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

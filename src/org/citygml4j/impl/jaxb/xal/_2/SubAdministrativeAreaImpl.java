@@ -47,9 +47,8 @@ public class SubAdministrativeAreaImpl extends XALBaseImpl implements SubAdminis
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = subArea.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : subArea.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -87,9 +86,8 @@ public class SubAdministrativeAreaImpl extends XALBaseImpl implements SubAdminis
 	@Override
 	public List<SubAdministrativeAreaName> getSubAdministrativeAreaName() {
 		List<SubAdministrativeAreaName> subNameList = new ArrayList<SubAdministrativeAreaName>();
-		List<AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName> subNameElemList = subArea.getSubAdministrativeAreaName();
 
-		for (AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName subNameElem : subNameElemList)
+		for (AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName subNameElem : subArea.getSubAdministrativeAreaName())
 			subNameList.add(new SubAdministrativeAreaNameImpl(subNameElem));
 
 		return subNameList;

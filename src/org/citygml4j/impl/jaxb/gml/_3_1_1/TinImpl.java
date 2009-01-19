@@ -57,9 +57,8 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 	@Override
 	public List<LineStringSegmentArrayProperty> getBreakLines() {
 		List<LineStringSegmentArrayProperty> breakLines = new ArrayList<LineStringSegmentArrayProperty>();
-		List<LineStringSegmentArrayPropertyType> breakLinesType = tinType.getBreakLines();
 
-		for (LineStringSegmentArrayPropertyType breakLineType : breakLinesType)
+		for (LineStringSegmentArrayPropertyType breakLineType : tinType.getBreakLines())
 			breakLines.add(new LineStringSegmentArrayPropertyImpl(breakLineType));
 
 		return breakLines;
@@ -84,9 +83,8 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 	@Override
 	public List<LineStringSegmentArrayProperty> getStopLines() {
 		List<LineStringSegmentArrayProperty> stopLines = new ArrayList<LineStringSegmentArrayProperty>();
-		List<LineStringSegmentArrayPropertyType> stopLinesType = tinType.getStopLines();
 
-		for (LineStringSegmentArrayPropertyType stopLineType : stopLinesType)
+		for (LineStringSegmentArrayPropertyType stopLineType : tinType.getStopLines())
 			stopLines.add(new LineStringSegmentArrayPropertyImpl(stopLineType));
 
 		return stopLines;

@@ -58,9 +58,8 @@ public class TexCoordGenImpl extends TextureParameterizationImpl implements TexC
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordGen() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = texCoordGenType.get_GenericApplicationPropertyOfTexCoordGen();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : texCoordGenType.get_GenericApplicationPropertyOfTexCoordGen()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

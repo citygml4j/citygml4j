@@ -40,9 +40,8 @@ public class ControlPointImpl extends GMLBaseImpl implements ControlPoint {
 	@Override
 	public List<GeometricPositionGroup> getGeometricPositionGroup() {
 		List<GeometricPositionGroup> group = new ArrayList<GeometricPositionGroup>();
-		List<Object> objectGroup = controlPoint.getGeometricPositionGroup();
 
-		for (Object object : objectGroup) {
+		for (Object object : controlPoint.getGeometricPositionGroup()) {
 			if (object instanceof DirectPositionType)
 				group.add(new GeometricPositionGroupImpl((DirectPositionType)object));
 			else if (object instanceof PointPropertyType)

@@ -44,9 +44,8 @@ public class CeilingSurfaceImpl extends BoundarySurfaceImpl implements CeilingSu
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCeilingSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = ceilingSurfaceType.get_GenericApplicationPropertyOfCeilingSurface();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : ceilingSurfaceType.get_GenericApplicationPropertyOfCeilingSurface()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)

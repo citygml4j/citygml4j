@@ -31,9 +31,8 @@ public class CompositeCurveImpl extends AbstractCurveImpl implements CompositeCu
 	@Override
 	public List<CurveProperty> getCurveMember() {
 		List<CurveProperty> curvePropertyList = new ArrayList<CurveProperty>();
-		List<CurvePropertyType> curvePropertyTypeList = compositeCurveType.getCurveMember();
 
-		for (CurvePropertyType curvePropertyType : curvePropertyTypeList)
+		for (CurvePropertyType curvePropertyType : compositeCurveType.getCurveMember())
 			curvePropertyList.add(new CurvePropertyImpl(curvePropertyType));
 
 		return curvePropertyList;

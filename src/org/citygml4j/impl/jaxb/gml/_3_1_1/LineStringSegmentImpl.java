@@ -57,9 +57,8 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRep() {
 		List<GMLBase> posOrPointOrPointRepList = new ArrayList<GMLBase>();
-		List<JAXBElement<?>> pointList = lineStringSegmentType.getPosOrPointPropertyOrPointRep();
 
-		for (JAXBElement<?> pointElem : pointList) {
+		for (JAXBElement<?> pointElem : lineStringSegmentType.getPosOrPointPropertyOrPointRep()) {
 			if (pointElem.getValue() != null) {
 				if (pointElem.getValue() instanceof PointPropertyType) {
 					if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&

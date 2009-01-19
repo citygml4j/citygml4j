@@ -45,9 +45,8 @@ public class PostTownImpl extends XALBaseImpl implements PostTown {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = postTown.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : postTown.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;	
@@ -56,9 +55,8 @@ public class PostTownImpl extends XALBaseImpl implements PostTown {
 	@Override
 	public List<PostTownName> getPostTownName() {
 		List<PostTownName> postTownNameList = new ArrayList<PostTownName>();
-		List<PostalCodeElement.PostTown.PostTownName> postTownNameElemList = postTown.getPostTownName();
 
-		for (PostalCodeElement.PostTown.PostTownName postTownNameElem : postTownNameElemList)
+		for (PostalCodeElement.PostTown.PostTownName postTownNameElem : postTown.getPostTownName())
 			postTownNameList.add(new PostTownNameImpl(postTownNameElem));
 
 		return postTownNameList;

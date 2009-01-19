@@ -13,7 +13,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.transportation.Square;
 
 public class SquareImpl extends TransportationComplexImpl implements Square {
-	private SquareType suareType;
+	private SquareType squareType;
 
 	public SquareImpl() {
 		this(new SquareType());
@@ -21,12 +21,12 @@ public class SquareImpl extends TransportationComplexImpl implements Square {
 
 	public SquareImpl(SquareType suareType) {
 		super(suareType);
-		this.suareType = suareType;
+		this.squareType = suareType;
 	}
 
 	@Override
 	public SquareType getJAXBObject() {
-		return suareType;
+		return squareType;
 	}
 
 	@Override
@@ -38,15 +38,14 @@ public class SquareImpl extends TransportationComplexImpl implements Square {
 	public void addGenericApplicationPropertyOfSquare(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
-			suareType.get_GenericApplicationPropertyOfSquare().add(jaxbElem);
+			squareType.get_GenericApplicationPropertyOfSquare().add(jaxbElem);
 	}
 
 	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSquare() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
-		List<JAXBElement<?>> elemList = suareType.get_GenericApplicationPropertyOfSquare();
 
-		for (JAXBElement<?> elem : elemList) {
+		for (JAXBElement<?> elem : squareType.get_GenericApplicationPropertyOfSquare()) {
 			if (elem.getValue() != null) {
 				ADEComponent ade = ModelMapper.ADE.toADEComponent(elem.getValue(), elem.getName());
 				if (ade != null)
@@ -68,25 +67,25 @@ public class SquareImpl extends TransportationComplexImpl implements Square {
 		}
 
 		if (!elemList.isEmpty()) {
-			suareType.unset_GenericApplicationPropertyOfSquare();
-			suareType.get_GenericApplicationPropertyOfSquare().addAll(elemList);
+			squareType.unset_GenericApplicationPropertyOfSquare();
+			squareType.get_GenericApplicationPropertyOfSquare().addAll(elemList);
 		}
 	}
 
 	@Override
 	public boolean isSetGenericApplicationPropertyOfSquare() {
-		return suareType.isSet_GenericApplicationPropertyOfSquare();
+		return squareType.isSet_GenericApplicationPropertyOfSquare();
 	}
 
 	@Override
 	public void unsetGenericApplicationPropertyOfSquare() {
-		suareType.unset_GenericApplicationPropertyOfSquare();
+		squareType.unset_GenericApplicationPropertyOfSquare();
 	}
 
 	@Override
 	public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent adeObject) {
-		if (suareType.isSet_GenericApplicationPropertyOfSquare()) {
-			Iterator<JAXBElement<?>> iter = suareType.get_GenericApplicationPropertyOfSquare().iterator();
+		if (squareType.isSet_GenericApplicationPropertyOfSquare()) {
+			Iterator<JAXBElement<?>> iter = squareType.get_GenericApplicationPropertyOfSquare().iterator();
 			while (iter.hasNext()) {
 				JAXBElement<?> elem = iter.next();
 				if (elem.getValue() != null && elem.getValue().equals(adeObject.getJAXBObject())) {

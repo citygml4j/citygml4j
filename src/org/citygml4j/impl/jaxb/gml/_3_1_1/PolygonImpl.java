@@ -55,9 +55,8 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 	@Override
 	public List<AbstractRingProperty> getInterior() {
 		List<AbstractRingProperty> abstractRingPropertyList = new ArrayList<AbstractRingProperty>();
-		List<JAXBElement<AbstractRingPropertyType>> abstractRingPropertyTypeElemList = polygonType.getInterior();
 
-		for (JAXBElement<AbstractRingPropertyType> abstractRingPropertyTypeElem : abstractRingPropertyTypeElemList) {
+		for (JAXBElement<AbstractRingPropertyType> abstractRingPropertyTypeElem : polygonType.getInterior()) {
 			if (abstractRingPropertyTypeElem.getValue() != null)
 				abstractRingPropertyList.add(new InteriorImpl(abstractRingPropertyTypeElem.getValue()));
 		}

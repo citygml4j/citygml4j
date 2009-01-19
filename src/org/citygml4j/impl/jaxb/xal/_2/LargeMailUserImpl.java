@@ -56,9 +56,8 @@ public class LargeMailUserImpl extends XALBaseImpl implements LargeMailUser {
 	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
-		List<AddressLineElement> addressLineElemList = largeMailUser.getAddressLine();
 
-		for (AddressLineElement addressLineElem : addressLineElemList)
+		for (AddressLineElement addressLineElem : largeMailUser.getAddressLine())
 			addressLineList.add(new AddressLineImpl(addressLineElem));
 
 		return addressLineList;
@@ -67,9 +66,8 @@ public class LargeMailUserImpl extends XALBaseImpl implements LargeMailUser {
 	@Override
 	public List<BuildingName> getBuildingName() {
 		List<BuildingName> buildingNameList = new ArrayList<BuildingName>();
-		List<BuildingNameType> buildingNameElemList = largeMailUser.getBuildingName();
 
-		for (BuildingNameType buildingNameElem : buildingNameElemList)
+		for (BuildingNameType buildingNameElem : largeMailUser.getBuildingName())
 			buildingNameList.add(new BuildingNameImpl(buildingNameElem));
 
 		return buildingNameList;
@@ -94,9 +92,8 @@ public class LargeMailUserImpl extends XALBaseImpl implements LargeMailUser {
 	@Override
 	public List<LargeMailUserName> getLargeMailUserName() {
 		List<LargeMailUserName> largeMailUserNameList = new ArrayList<LargeMailUserName>();
-		List<LargeMailUserType.LargeMailUserName> largeMailUserNameElemList = largeMailUser.getLargeMailUserName();
 
-		for (LargeMailUserType.LargeMailUserName largeMailUserNameElem : largeMailUserNameElemList)
+		for (LargeMailUserType.LargeMailUserName largeMailUserNameElem : largeMailUser.getLargeMailUserName())
 			largeMailUserNameList.add(new LargeMailUserNameImpl(largeMailUserNameElem));
 
 		return largeMailUserNameList;
