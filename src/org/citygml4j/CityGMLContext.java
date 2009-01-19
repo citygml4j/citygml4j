@@ -49,7 +49,7 @@ public class CityGMLContext {
 		if (ade == null)
 			throw new IllegalArgumentException("ADE instance may not be null");
 		
-		if (ade.getNamespaceURI() == null || ade.getNamespaceURI().length() == 0)
+		if (ade.getNamespaceUri() == null || ade.getNamespaceUri().length() == 0)
 			throw new IllegalArgumentException("Invalid ADE namespace");
 
 		if (ade.getJAXBPackages() == null)
@@ -60,13 +60,13 @@ public class CityGMLContext {
 			throw new IllegalArgumentException("No ADEModelMapper provided");
 
 		// register ADE
-		adeMap.put(ade.getNamespaceURI(), ade);
+		adeMap.put(ade.getNamespaceUri(), ade);
 		
 		for (Package packageName : ade.getJAXBPackages())
 			contextSet.add(packageName.getName());
 		
 		for (ADEModelMapper mapper : mapperList)
-			ModelMapper.ADE.registerADEModelMapper(ade.getNamespaceURI(), mapper);
+			ModelMapper.ADE.registerADEModelMapper(ade.getNamespaceUri(), mapper);
 	}
 		
 	public void registerPackageName(String packageName) {

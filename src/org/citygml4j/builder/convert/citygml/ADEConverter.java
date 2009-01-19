@@ -15,7 +15,7 @@ public class ADEConverter {
 
 		for (ADE ade : builder.cityGMLcontext.getADEs()) {
 			if (ade.getADEConvertBuilder() != null) {
-				String namespaceURI = ade.getNamespaceURI();
+				String namespaceURI = ade.getNamespaceUri();
 				LinkedList<ADEConvertBuilder> adeBuilderList = adeConvertBuilderMap.get(namespaceURI);
 				if (adeBuilderList == null) {
 					adeBuilderList = new LinkedList<ADEConvertBuilder>();
