@@ -23,25 +23,12 @@ public class ADEModelMapperImpl implements ADEModelMapper {
 			modelMapperMap.put(namespaceURI, adeModelMapperList);
 		}
 
-		adeModelMapperList.addLast(adeModelMapper);
-	}
-
-	public void unregisterADEModelMapper(String namespaceURI, ADEModelMapper adeModelMapper) {
-		LinkedList<ADEModelMapper> adeModelMapperList = modelMapperMap.get(namespaceURI);
-		if (adeModelMapperList != null)
-			adeModelMapperList.remove(adeModelMapper);
+		if (!adeModelMapperList.contains(adeModelMapper))
+			adeModelMapperList.addLast(adeModelMapper);
 	}
 
 	public void unregisterADE(String namespaceURI) {
 		modelMapperMap.remove(namespaceURI);
-	}
-
-	public boolean containsADEModelMapper(String namespaceURI, ADEModelMapper adeModelMapper) {
-		LinkedList<ADEModelMapper> adeModelMapperList = modelMapperMap.get(namespaceURI);
-		if (adeModelMapperList != null)
-			return adeModelMapperList.contains(adeModelMapper);
-		
-		return false;
 	}
 	
 	@Override

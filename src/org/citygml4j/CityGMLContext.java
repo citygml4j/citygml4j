@@ -16,7 +16,6 @@ import org.citygml4j.factory.XALFactory;
 import org.citygml4j.impl.jaxb.ModelMapper;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.citygml.ade.ADE;
-import org.citygml4j.model.citygml.ade.ADEContext;
 import org.citygml4j.model.citygml.ade.ADEModelMapper;
 import org.citygml4j.util.JAXBNamespacePrefixMapper;
 
@@ -50,23 +49,24 @@ public class CityGMLContext {
 		if (ade == null)
 			throw new IllegalArgumentException("ADE instance may not be null");
 		
-		ADEContext ctx = ade.getADEContext();
-		if (ctx == null || ctx.getNamespaceURI() == null)
-			throw new IllegalArgumentException("ADEContext is not set up properly");
+		if (ade.getNamespaceURI() == null || ade.getNamespaceURI().length() == 0)
+			throw new IllegalArgumentException("Invalid ADE namespace");
 
-		Class<?> objectFactory = ade.getJAXBObjectFactory();
-		if (objectFactory == null)
-			throw new IllegalArgumentException("JAXBObjectFactory may not be null");
+		if (ade.getJAXBPackages() == null)
+			throw new IllegalArgumentException("No JAXB packages provided");
 		
 		List<ADEModelMapper> mapperList = ade.getADEModelMapper();
 		if (mapperList == null || mapperList.isEmpty())
 			throw new IllegalArgumentException("No ADEModelMapper provided");
 
 		// register ADE
-		adeMap.put(ade.getADEContext().getNamespaceURI(), ade);
-		contextSet.add(objectFactory.getPackage().getName());		
+		adeMap.put(ade.getNamespaceURI(), ade);
+		
+		for (Package packageName : ade.getJAXBPackages())
+			contextSet.add(packageName.getName());
+		
 		for (ADEModelMapper mapper : mapperList)
-			ModelMapper.ADE.registerADEModelMapper(ade.getADEContext().getNamespaceURI(), mapper);
+			ModelMapper.ADE.registerADEModelMapper(ade.getNamespaceURI(), mapper);
 	}
 		
 	public void registerPackageName(String packageName) {
