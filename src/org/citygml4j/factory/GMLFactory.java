@@ -62,6 +62,7 @@ import org.citygml4j.impl.jaxb.gml._3_1_1.RectangleImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.SolidArrayPropertyImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.SolidImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.SolidPropertyImpl;
+import org.citygml4j.impl.jaxb.gml._3_1_1.SpeedImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.StringOrRefImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.SurfaceArrayPropertyImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.SurfaceImpl;
@@ -134,6 +135,7 @@ import org.citygml4j.model.gml.Rectangle;
 import org.citygml4j.model.gml.Solid;
 import org.citygml4j.model.gml.SolidArrayProperty;
 import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.gml.Speed;
 import org.citygml4j.model.gml.StringOrRef;
 import org.citygml4j.model.gml.Surface;
 import org.citygml4j.model.gml.SurfaceArrayProperty;
@@ -401,6 +403,10 @@ public class GMLFactory {
 	
 	public SolidProperty createSolidProperty() {
 		return new SolidPropertyImpl();
+	}
+	
+	public Speed createSpeed() {
+		return new SpeedImpl();
 	}
 	
 	public StringOrRef createStringOrRef() {
