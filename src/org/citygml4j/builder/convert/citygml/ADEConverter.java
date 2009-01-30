@@ -3,7 +3,7 @@ package org.citygml4j.builder.convert.citygml;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import org.citygml4j.model.citygml.ade.ADE;
+import org.citygml4j.model.citygml.ade.ADEContext;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.ADEConvertBuilder;
 
@@ -13,9 +13,9 @@ public class ADEConverter {
 	protected ADEConverter(CityGMLConvertBuilder builder) {		
 		adeConvertBuilderMap = new HashMap<String, LinkedList<ADEConvertBuilder>>();
 
-		for (ADE ade : builder.cityGMLcontext.getADEs()) {
+		for (ADEContext ade : builder.cityGMLcontext.getADEContexts()) {
 			if (ade.getADEConvertBuilder() != null) {
-				String namespaceURI = ade.getNamespaceUri();
+				String namespaceURI = ade.getNamespaceURI();
 				LinkedList<ADEConvertBuilder> adeBuilderList = adeConvertBuilderMap.get(namespaceURI);
 				if (adeBuilderList == null) {
 					adeBuilderList = new LinkedList<ADEConvertBuilder>();

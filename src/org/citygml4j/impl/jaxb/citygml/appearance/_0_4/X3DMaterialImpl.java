@@ -306,9 +306,12 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 			Iterator<JAXBElement<?>> iter = x3DMaterialType.get_GenericApplicationPropertyOfX3DMaterial().iterator();
 			while (iter.hasNext()) {
 				JAXBElement<?> elem = iter.next();
-				if (elem.getValue() != null && elem.getValue().equals(adeObject.getJAXBObject())) {
-					iter.remove();
-					return true;
+				if (elem.getValue() != null && elem.getValue() != null) {
+					JAXBElement<?> ade = ModelMapper.ADE.toJAXB(adeObject);
+					if (ade != null && ade.getValue() != null && elem.getValue().equals(ade.getValue())) {
+						iter.remove();
+						return true;
+					}
 				}
 			}				
 		}

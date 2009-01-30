@@ -150,9 +150,12 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 			Iterator<JAXBElement<?>> iter = addressType.get_GenericApplicationPropertyOfAddress().iterator();
 			while (iter.hasNext()) {
 				JAXBElement<?> elem = iter.next();
-				if (elem.getValue() != null && elem.getValue().equals(adeObject.getJAXBObject())) {
-					iter.remove();
-					return true;
+				if (elem.getValue() != null && elem.getValue() != null) {
+					JAXBElement<?> ade = ModelMapper.ADE.toJAXB(adeObject);
+					if (ade != null && ade.getValue() != null && elem.getValue().equals(ade.getValue())) {
+						iter.remove();
+						return true;
+					}
 				}
 			}				
 		}

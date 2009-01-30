@@ -166,9 +166,12 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 			Iterator<JAXBElement<?>> iter = openingType.get_GenericApplicationPropertyOfOpening().iterator();
 			while (iter.hasNext()) {
 				JAXBElement<?> elem = iter.next();
-				if (elem.getValue() != null && elem.getValue().equals(adeObject.getJAXBObject())) {
-					iter.remove();
-					return true;
+				if (elem.getValue() != null && elem.getValue() != null) {
+					JAXBElement<?> ade = ModelMapper.ADE.toJAXB(adeObject);
+					if (ade != null && ade.getValue() != null && elem.getValue().equals(ade.getValue())) {
+						iter.remove();
+						return true;
+					}
 				}
 			}				
 		}

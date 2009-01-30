@@ -27,7 +27,7 @@ public class ADEModelMapperImpl implements ADEModelMapper {
 			adeModelMapperList.addLast(adeModelMapper);
 	}
 
-	public void unregisterADE(String namespaceURI) {
+	public void unregisterADEModelMapper(String namespaceURI) {
 		modelMapperMap.remove(namespaceURI);
 	}
 	

@@ -3,7 +3,6 @@ package org.citygml4j;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,17 +14,17 @@ import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.factory.XALFactory;
 import org.citygml4j.impl.jaxb.ModelMapper;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
-import org.citygml4j.model.citygml.ade.ADE;
+import org.citygml4j.model.citygml.ade.ADEContext;
 import org.citygml4j.model.citygml.ade.ADEModelMapper;
 import org.citygml4j.util.JAXBNamespacePrefixMapper;
 
 public class CityGMLContext {
 	private HashSet<String> contextSet;
-	private HashMap<String, ADE> adeMap;
+	private HashMap<String, ADEContext> adeContextMap;
 	
 	public CityGMLContext() {
 		contextSet = new HashSet<String>();
-		adeMap = new HashMap<String, ADE>();
+		adeContextMap = new HashMap<String, ADEContext>();
 		
 		contextSet.add("org.citygml4j.jaxb.citygml.app._1");
 		contextSet.add("org.citygml4j.jaxb.citygml.bldg._1");
@@ -44,54 +43,59 @@ public class CityGMLContext {
 		contextSet.add("org.citygml4j.jaxb.xal");
 	}
 
-	public void registerADE(ADE ade) {
+	public void registerADEContext(ADEContext adeContext) {
 		// check preconditions
-		if (ade == null)
+		if (adeContext == null)
 			throw new IllegalArgumentException("ADE instance may not be null");
 		
-		if (ade.getNamespaceUri() == null || ade.getNamespaceUri().length() == 0)
+		if (adeContext.getNamespaceURI() == null || adeContext.getNamespaceURI().length() == 0)
 			throw new IllegalArgumentException("Invalid ADE namespace");
 
-		if (ade.getJAXBPackages() == null)
+		if (adeContext.getJAXBPackages() == null || adeContext.getJAXBPackages().isEmpty())
 			throw new IllegalArgumentException("No JAXB packages provided");
 		
-		List<ADEModelMapper> mapperList = ade.getADEModelMapper();
-		if (mapperList == null || mapperList.isEmpty())
+		if (adeContext.getADEModelMapper() == null || adeContext.getADEModelMapper().isEmpty())
 			throw new IllegalArgumentException("No ADEModelMapper provided");
 
 		// register ADE
-		adeMap.put(ade.getNamespaceUri(), ade);
+		adeContextMap.put(adeContext.getNamespaceURI(), adeContext);
 		
-		for (Package packageName : ade.getJAXBPackages())
+		for (Package packageName : adeContext.getJAXBPackages())
 			contextSet.add(packageName.getName());
 		
-		for (ADEModelMapper mapper : mapperList)
-			ModelMapper.ADE.registerADEModelMapper(ade.getNamespaceUri(), mapper);
+		for (ADEModelMapper mapper : adeContext.getADEModelMapper())
+			ModelMapper.ADE.registerADEModelMapper(adeContext.getNamespaceURI(), mapper);
 	}
 		
 	public void registerPackageName(String packageName) {
 		contextSet.add(packageName);
 	}
 	
-	public void unregisterADE(String namespaceURI) {
-		ADE ade = adeMap.get(namespaceURI);
-		if (ade != null) {
+	public boolean unregisterADEContext(String namespaceURI) {
+		ADEContext adeContext = adeContextMap.get(namespaceURI);
+		if (adeContext != null) {
 			contextSet.remove(namespaceURI);
-			ModelMapper.ADE.unregisterADE(namespaceURI);
-			adeMap.remove(namespaceURI);
+			ModelMapper.ADE.unregisterADEModelMapper(namespaceURI);
+			adeContextMap.remove(namespaceURI);
 		}
+		
+		return adeContextMap.containsKey(namespaceURI);
 	}
 	
-	public void unregisterPackageName(String packageName) {
-		contextSet.remove(packageName);
+	public boolean unregisterADEContext(ADEContext adeContext) {
+		return unregisterADEContext(adeContext.getNamespaceURI());
 	}
 	
-	public ADE getADE(String namespaceURI) {
-		return adeMap.get(namespaceURI);
+	public boolean unregisterPackageName(String packageName) {
+		return contextSet.remove(packageName);
 	}
 	
-	public Collection<ADE> getADEs() {
-		return adeMap.values();
+	public ADEContext getADEContext(String namespaceURI) {
+		return adeContextMap.get(namespaceURI);
+	}
+	
+	public Collection<ADEContext> getADEContexts() {
+		return adeContextMap.values();
 	}
 	
 	public CityGMLFactory createCityGMLFactory() {
@@ -125,8 +129,8 @@ public class CityGMLContext {
 	public JAXBNamespacePrefixMapper createNamespacePrefixMapper() {
 		return new JAXBNamespacePrefixMapper();
 	}
-	
-	public JAXBContext createJAXBContext() throws JAXBException {
+		
+	public JAXBContext createJAXBContext(ClassLoader classLoader) throws JAXBException {
 		StringBuilder context = new StringBuilder();
 		
 		int i = 0;
@@ -136,6 +140,10 @@ public class CityGMLContext {
 				context.append(":");
 		}
 				
-		return JAXBContext.newInstance(context.toString(), Thread.currentThread().getContextClassLoader());
+		return JAXBContext.newInstance(context.toString(), classLoader);
+	}
+	
+	public JAXBContext createJAXBContext() throws JAXBException {
+		return createJAXBContext(Thread.currentThread().getContextClassLoader());
 	}
 }
