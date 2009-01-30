@@ -50,14 +50,16 @@ storage and exchange of virtual 3D city models.
 CityGML is implemented as an application schema for the Geography Markup 
 Language version 3.1.1 (GML3), the extendible international standard for 
 spatial data exchange issued by the Open Geospatial Consortium (OGC) and 
-the ISO TC211. CityGML is an official OGC Standard and can be used 
+the ISO TC211. CityGML is an official OGC standard and can be used 
 free of charge.
+
 
 4. System requirements
 ----------------------
 
-* Java JRE or JDK >= 1.6
+* Java JRE or JDK >= 1.6.0_05
 * Java Architecture for XML Binding (JAXB) >= 2.1.9
+
 
 5. How to use it
 ----------------
@@ -65,14 +67,12 @@ free of charge.
 Simply modify your Java classpath to include the provided 
 citygml4j-<version>.jar file. Please make sure also to include the 
 required JAXB libraries on your application classpath. 
+
    
 6. Developers
 -------------
 
 Claus Nagel <nagel@igg.tu-berlin.de>
-Alexandra Stadler <stadler@igg.tu-berlin.de>
-Gerhard Koenig <gerhard.koenig@tu-berlin.de>
-Prof. Dr. Thomas H. Kolbe <kolbe@igg.tu-berlin.de>
 
 
 7. Contact
