@@ -162,6 +162,10 @@ public class CityGMLConvertBuilder {
 		this.convertContext = convertContext;
 	}
 	
+	public GMLConvertBuilder getGMLConvertBuilder() {
+		return gml;
+	}
+	
 	// core
 	public AddressProperty convertAddressProperty(AddressProperty addressProperty) {
 		return core.convertAddressProperty(addressProperty);
