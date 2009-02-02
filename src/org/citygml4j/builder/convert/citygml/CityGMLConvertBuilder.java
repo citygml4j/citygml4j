@@ -22,6 +22,7 @@ import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.BoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
@@ -167,18 +168,22 @@ public class CityGMLConvertBuilder {
 	}
 	
 	// core
+	public Address convertAddress(Address address) {
+		return core.convertAddress(address);
+	}
+	
 	public AddressProperty convertAddressProperty(AddressProperty addressProperty) {
 		return core.convertAddressProperty(addressProperty);
+	}
+
+	public CityModel convertCityModel(CityModel cityModel) {
+		return core.convertCityModel(cityModel);
 	}
 
 	public CityObject convertCityObject(CityObject cityObject) {
 		return core.convertCityObject(cityObject);
 	}
 	
-	public CityModel convertCityModel(CityModel cityModel) {
-		return core.convertCityModel(cityModel);
-	}
-
 	public CityObjectMember convertCityObjectMember(CityObjectMember cityObjectMember) {
 		return core.convertCityObjectMember(cityObjectMember);
 	}
@@ -412,6 +417,10 @@ public class CityGMLConvertBuilder {
 	public Window convertWindow(Window window) {
 		return bldg.convertWindow(window);
 	}	
+	
+	public void convertAbstractBuilding(AbstractBuilding src, AbstractBuilding dest) {
+		bldg.convertAbstractBuilding(src, dest);
+	}
 	
 	public void convertBoundarySurface(BoundarySurface src, BoundarySurface dest) {
 		bldg.convertBoundarySurface(src, dest);
@@ -697,14 +706,14 @@ public class CityGMLConvertBuilder {
 		return veg.convertPlantCover(plantCover);
 	}
 
-	public void convertPlantCover(PlantCover src, PlantCover dest) {
-		veg.convertPlantCover(src, dest);
-	}
-
 	public SolitaryVegetationObject convertSolitaryVegetationObject(SolitaryVegetationObject solitaryVegetationObject) {
 		return veg.convertSolitaryVegetationObject(solitaryVegetationObject);
 	}
 
+	public void convertPlantCover(PlantCover src, PlantCover dest) {
+		veg.convertPlantCover(src, dest);
+	}
+	
 	public void convertSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObject dest) {
 		veg.convertSolitaryVegetationObject(src, dest);
 	}
