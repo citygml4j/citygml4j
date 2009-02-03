@@ -1,8 +1,10 @@
 package org.citygml4j;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,12 +17,14 @@ import org.citygml4j.factory.XALFactory;
 import org.citygml4j.impl.jaxb.ModelMapper;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.citygml.ade.ADEContext;
+import org.citygml4j.model.citygml.ade.ADEConvertBuilder;
 import org.citygml4j.model.citygml.ade.ADEModelMapper;
 import org.citygml4j.util.JAXBNamespacePrefixMapper;
 
 public class CityGMLContext {
 	private HashSet<String> contextSet;
 	private HashMap<String, ADEContext> adeContextMap;
+	private List<CityGMLConvertBuilder> cityGMLConvertBuilderList;
 	
 	public CityGMLContext() {
 		contextSet = new HashSet<String>();
@@ -65,6 +69,12 @@ public class CityGMLContext {
 		
 		for (ADEModelMapper mapper : adeContext.getADEModelMapper())
 			ModelMapper.ADE.registerADEModelMapper(adeContext.getNamespaceURI(), mapper);
+		
+		if (cityGMLConvertBuilderList != null && adeContext.getADEConvertBuilder() != null) {
+			for (CityGMLConvertBuilder cityGMLConvertBuilder : cityGMLConvertBuilderList)
+				for (ADEConvertBuilder adeConvertBuilder : adeContext.getADEConvertBuilder())
+					cityGMLConvertBuilder.registerADEConvertBuilder(adeContext.getNamespaceURI(), adeConvertBuilder);
+		}
 	}
 		
 	public void registerPackageName(String packageName) {
@@ -76,6 +86,10 @@ public class CityGMLContext {
 		if (adeContext != null) {
 			contextSet.remove(namespaceURI);
 			ModelMapper.ADE.unregisterADEModelMapper(namespaceURI);
+			if (cityGMLConvertBuilderList != null)
+				for (CityGMLConvertBuilder cityGMLConvertBuilder : cityGMLConvertBuilderList)
+					cityGMLConvertBuilder.unregisterADEConvertBuilder(namespaceURI);
+			
 			adeContextMap.remove(namespaceURI);
 		}
 		
@@ -114,16 +128,22 @@ public class CityGMLContext {
 		return new XALFactory();
 	}
 	
-	public CityGMLConvertBuilder createCityGMLConvertBuilder() {
-		return new CityGMLConvertBuilder(this);
-	}
-	
 	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLConvertContext convertContext) {
-		return new CityGMLConvertBuilder(this, convertContext);
+		CityGMLConvertBuilder builder = new CityGMLConvertBuilder(this, convertContext);
+		if (cityGMLConvertBuilderList == null)
+			cityGMLConvertBuilderList = new ArrayList<CityGMLConvertBuilder>();
+		
+		cityGMLConvertBuilderList.add(builder);		
+		return builder;		
 	}
 	
+	
+	public CityGMLConvertBuilder createCityGMLConvertBuilder() {
+		return createCityGMLConvertBuilder(new CityGMLConvertContext());
+	}
+		
 	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLModuleVersion version) {
-		return new CityGMLConvertBuilder(this, version);
+		return createCityGMLConvertBuilder(new CityGMLConvertContext(version));
 	}
 	
 	public JAXBNamespacePrefixMapper createNamespacePrefixMapper() {

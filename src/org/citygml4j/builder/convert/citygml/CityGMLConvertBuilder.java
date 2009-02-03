@@ -2,8 +2,8 @@ package org.citygml4j.builder.convert.citygml;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.convert.gml.GMLConvertBuilder;
-import org.citygml4j.model.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEConvertBuilder;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -109,7 +109,7 @@ import org.citygml4j.model.citygml.waterbody.WaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 
 public class CityGMLConvertBuilder {
-	protected CityGMLContext cityGMLcontext;
+	protected CityGMLContext cityGMLContext;
 	protected CityGMLConvertContext convertContext;
 	
 	protected CoreConverter core;
@@ -127,12 +127,8 @@ public class CityGMLConvertBuilder {
 	protected ADEConverter ade;
 	protected GMLConvertBuilder gml;
 	
-	public CityGMLConvertBuilder(CityGMLContext cityGMLcontext) {
-		this(cityGMLcontext, new CityGMLConvertContext());
-	}
-
-	public CityGMLConvertBuilder(CityGMLContext cityGMLcontext, CityGMLConvertContext convertContext) {
-		this.cityGMLcontext = cityGMLcontext;
+	public CityGMLConvertBuilder(CityGMLContext cityGMLContext, CityGMLConvertContext convertContext) {
+		this.cityGMLContext = cityGMLContext;
 		this.convertContext = convertContext;
 
 		core = new CoreConverter(this);
@@ -149,10 +145,6 @@ public class CityGMLConvertBuilder {
 		wtr = new WaterBodyConverter(this);
 		ade = new ADEConverter(this);		
 		gml = new GMLConvertBuilder(this);
-	}
-
-	public CityGMLConvertBuilder(CityGMLContext cityGMLcontext, CityGMLModuleVersion version) {
-		this(cityGMLcontext, new CityGMLConvertContext(version));
 	}
 
 	public CityGMLConvertContext getConvertContext() {
@@ -770,5 +762,13 @@ public class CityGMLConvertBuilder {
 	// ade
 	public ADEComponent convertADEComponent(ADEComponent adeComponent) {
 		return ade.convertADEComponent(adeComponent);
+	}
+	
+	public void registerADEConvertBuilder(String namespaceURI, ADEConvertBuilder adeConvertBuilder) {
+		ade.registerADEConvertBuilder(namespaceURI, adeConvertBuilder);
+	}
+	
+	public void unregisterADEConvertBuilder(String namespaceURI) {
+		ade.unregisterADEConvertBuilder(namespaceURI);
 	}
 }
