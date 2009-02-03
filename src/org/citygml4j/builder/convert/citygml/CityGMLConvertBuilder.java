@@ -4,6 +4,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.convert.gml.GMLConvertBuilder;
 import org.citygml4j.model.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEConvertBuilder;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -770,5 +771,13 @@ public class CityGMLConvertBuilder {
 	// ade
 	public ADEComponent convertADEComponent(ADEComponent adeComponent) {
 		return ade.convertADEComponent(adeComponent);
+	}
+	
+	public void registerADEConvertBuilder(String namespaceURI, ADEConvertBuilder adeConvertBuilder) {
+		ade.registerADEConvertBuilder(namespaceURI, adeConvertBuilder);
+	}
+	
+	public void unregisterADEConvertBuilder(String namespaceURI) {
+		ade.unregisterADEConvertBuilder(namespaceURI);
 	}
 }
