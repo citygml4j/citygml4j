@@ -128,15 +128,6 @@ public class CityGMLContext {
 		return new XALFactory();
 	}
 	
-	public CityGMLConvertBuilder createCityGMLConvertBuilder() {
-		CityGMLConvertBuilder builder =  new CityGMLConvertBuilder(this);
-		if (cityGMLConvertBuilderList == null)
-			cityGMLConvertBuilderList = new ArrayList<CityGMLConvertBuilder>();
-		
-		cityGMLConvertBuilderList.add(builder);		
-		return builder;
-	}
-	
 	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLConvertContext convertContext) {
 		CityGMLConvertBuilder builder = new CityGMLConvertBuilder(this, convertContext);
 		if (cityGMLConvertBuilderList == null)
@@ -146,13 +137,13 @@ public class CityGMLContext {
 		return builder;		
 	}
 	
-	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLModuleVersion version) {
-		CityGMLConvertBuilder builder =  new CityGMLConvertBuilder(this, version);
-		if (cityGMLConvertBuilderList == null)
-			cityGMLConvertBuilderList = new ArrayList<CityGMLConvertBuilder>();
+	
+	public CityGMLConvertBuilder createCityGMLConvertBuilder() {
+		return createCityGMLConvertBuilder(new CityGMLConvertContext());
+	}
 		
-		cityGMLConvertBuilderList.add(builder);		
-		return builder;
+	public CityGMLConvertBuilder createCityGMLConvertBuilder(CityGMLModuleVersion version) {
+		return createCityGMLConvertBuilder(new CityGMLConvertContext(version));
 	}
 	
 	public JAXBNamespacePrefixMapper createNamespacePrefixMapper() {

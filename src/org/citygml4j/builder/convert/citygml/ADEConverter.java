@@ -15,7 +15,7 @@ public class ADEConverter {
 		this.builder = builder;
 		adeConvertBuilderMap = new HashMap<String, LinkedList<ADEConvertBuilder>>();
 
-		for (ADEContext ade : builder.cityGMLcontext.getADEContexts()) {
+		for (ADEContext ade : builder.cityGMLContext.getADEContexts()) {
 			if (ade.getADEConvertBuilder() != null)
 				for (ADEConvertBuilder adeConvertBuilder : ade.getADEConvertBuilder())
 					registerADEConvertBuilder(ade.getNamespaceURI(), adeConvertBuilder);
