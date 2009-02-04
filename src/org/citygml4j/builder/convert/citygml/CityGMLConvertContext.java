@@ -45,6 +45,17 @@ public class CityGMLConvertContext {
 		}
 	}
 	
+	public boolean setModuleVersion(CityGMLModuleVersion version) {
+		switch (version) {
+		case v0_4_0:
+		case v1_0_0:
+			init(version);
+			return true;
+		default:
+			return false;
+		}
+	}
+	
 	public AppearanceModule getAppearanceModule() {
 		return appModule;
 	}
