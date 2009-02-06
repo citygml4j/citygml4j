@@ -111,7 +111,7 @@ import org.citygml4j.model.citygml.waterbody.WaterSurface;
 public class CityGMLConvertBuilder {
 	protected CityGMLContext cityGMLContext;
 	protected CityGMLConvertContext convertContext;
-	
+
 	protected CoreConverter core;
 	protected AppearanceConverter app;
 	protected BuildingConverter bldg;
@@ -126,7 +126,7 @@ public class CityGMLConvertBuilder {
 	protected WaterBodyConverter wtr;
 	protected ADEConverter ade;
 	protected GMLConvertBuilder gml;
-	
+
 	public CityGMLConvertBuilder(CityGMLContext cityGMLContext, CityGMLConvertContext convertContext) {
 		this.cityGMLContext = cityGMLContext;
 		this.convertContext = convertContext;
@@ -154,16 +154,16 @@ public class CityGMLConvertBuilder {
 	public void setConvertContext(CityGMLConvertContext convertContext) {
 		this.convertContext = convertContext;
 	}
-	
+
 	public GMLConvertBuilder getGMLConvertBuilder() {
 		return gml;
 	}
-	
+
 	// core
 	public Address convertAddress(Address address) {
 		return core.convertAddress(address);
 	}
-	
+
 	public AddressProperty convertAddressProperty(AddressProperty addressProperty) {
 		return core.convertAddressProperty(addressProperty);
 	}
@@ -175,7 +175,7 @@ public class CityGMLConvertBuilder {
 	public CityObject convertCityObject(CityObject cityObject) {
 		return core.convertCityObject(cityObject);
 	}
-	
+
 	public CityObjectMember convertCityObjectMember(CityObjectMember cityObjectMember) {
 		return core.convertCityObjectMember(cityObjectMember);
 	}
@@ -217,19 +217,23 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertAddress(Address src, Address dest) {
-		core.convertAddress(src, dest);
+		if (dest.getCityGMLModule() == convertContext.coreModule)
+			core.convertAddress(src, dest);
 	}
 
 	public void convertCityModel(CityModel src, CityModel dest) {
-		core.convertCityModel(src, dest);
+		if (dest.getCityGMLModule() == convertContext.coreModule)
+			core.convertCityModel(src, dest);
 	}
 
 	public void convertCityObject(CityObject src, CityObject dest) {
-		core.convertCityObject(src, dest);
+		if (dest.getCityGMLModule() == convertContext.coreModule)
+			core.convertCityObject(src, dest);
 	}
 
 	public void convertSite(Site src, Site dest) {
-		core.convertSite(src, dest);
+		if (dest.getCityGMLModule() == convertContext.coreModule)
+			core.convertSite(src, dest);
 	}
 
 	// appearance
@@ -298,46 +302,52 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertAbstractSurfaceData(AbstractSurfaceData src, AbstractSurfaceData dest) {
-		app.convertAbstractSurfaceData(src, dest);
+		if (dest.getCityGMLModule() == convertContext.appModule)
+			app.convertAbstractSurfaceData(src, dest);
 	}
 
 	public void convertAbstractTexture(AbstractTexture src, AbstractTexture dest) {
-		app.convertAbstractTexture(src, dest);
+		if (dest.getCityGMLModule() == convertContext.appModule)
+			app.convertAbstractTexture(src, dest);
 	}
 
 	public void convertAppearance(Appearance src, Appearance dest) {
-		app.convertAppearance(src, dest);
+		if (dest.getCityGMLModule() == convertContext.appModule)
+			app.convertAppearance(src, dest);
 	}
 
 	public void convertGeoreferencedTexture(GeoreferencedTexture src, GeoreferencedTexture dest) {
-		app.convertGeoreferencedTexture(src, dest);
+		if (dest.getCityGMLModule() == convertContext.appModule)
+			app.convertGeoreferencedTexture(src, dest);
 	}
 
 	public void convertParameterizedTexture(ParameterizedTexture src, ParameterizedTexture dest) {
-		app.convertParameterizedTexture(src, dest);
+		if (dest.getCityGMLModule() == convertContext.appModule)
+			app.convertParameterizedTexture(src, dest);
 	}
 
 	public void convertX3DMaterial(X3DMaterial src, X3DMaterial dest) {
-		app.convertX3DMaterial(src, dest);
+		if (dest.getCityGMLModule() == convertContext.appModule)
+			app.convertX3DMaterial(src, dest);
 	}
 
 	// building
 	public BoundarySurfaceProperty convertBoundarySurfaceProperty(BoundarySurfaceProperty boundarySurfaceProperty) {
 		return bldg.convertBoundarySurfaceProperty(boundarySurfaceProperty);
 	}	
-	
+
 	public Building convertBuilding(Building building) {
 		return bldg.convertBuilding(building);
 	}
-	
+
 	public BuildingFurniture convertBuildingFurniture(BuildingFurniture buildingFurniture) {
 		return bldg.convertBuildingFurniture(buildingFurniture);
 	}
-	
+
 	public BuildingInstallation convertBuildingInstallation(BuildingInstallation buildingInstallation) {
 		return bldg.convertBuildingInstallation(buildingInstallation);
 	}
-	
+
 	public BuildingInstallationProperty convertBuildingInstallationProperty(BuildingInstallationProperty buildingInstallationProperty) {
 		return bldg.convertBuildingInstallationProperty(buildingInstallationProperty);
 	}
@@ -345,141 +355,159 @@ public class CityGMLConvertBuilder {
 	public BuildingPart convertBuildingPart(BuildingPart buildingPart) {
 		return bldg.convertBuildingPart(buildingPart);
 	}
-	
+
 	public BuildingPartProperty convertBuildingPartProperty(BuildingPartProperty buildingPartProperty) {
 		return bldg.convertBuildingPartProperty(buildingPartProperty);
 	}
-	
+
 	public CeilingSurface convertCeilingSurface(CeilingSurface ceilingSurface) {
 		return bldg.convertCeilingSurface(ceilingSurface);
 	}
-	
+
 	public ClosureSurface convertClosureSurface(ClosureSurface closureSurface) {
 		return bldg.convertClosureSurface(closureSurface);
 	}
-	
+
 	public Door convertDoor(Door door) {
 		return bldg.convertDoor(door);
 	}
-	
+
 	public FloorSurface convertFloorSurface(FloorSurface floorSurface) {
 		return bldg.convertFloorSurface(floorSurface);
 	}
-	
+
 	public GroundSurface convertGroundSurface(GroundSurface groundSurface) {
 		return bldg.convertGroundSurface(groundSurface);
 	}
-	
+
 	public IntBuildingInstallation convertIntBuildingInstallation(IntBuildingInstallation intBuildingInstallation) {
 		return bldg.convertIntBuildingInstallation(intBuildingInstallation);
 	}
-	
+
 	public IntBuildingInstallationProperty convertIntBuildingInstallationProperty(IntBuildingInstallationProperty intBuildingInstallationProperty) {
 		return bldg.convertIntBuildingInstallationProperty(intBuildingInstallationProperty);
 	}
-	
+
 	public InteriorFurnitureProperty convertInteriorFurnitureProperty(InteriorFurnitureProperty interiorFurnitureProperty) {
 		return bldg.convertInteriorFurnitureProperty(interiorFurnitureProperty);
 	}
-	
+
 	public InteriorRoomProperty convertInteriorRoomProperty(InteriorRoomProperty interiorRoomProperty) {
 		return bldg.convertInteriorRoomProperty(interiorRoomProperty);
 	}
-	
+
 	public InteriorWallSurface convertInteriorWallSurface(InteriorWallSurface interiorWallSurface) {
 		return bldg.convertInteriorWallSurface(interiorWallSurface);
 	}
-	
+
 	public OpeningProperty convertOpeningProperty(OpeningProperty openingProperty) {
 		return bldg.convertOpeningProperty(openingProperty);
 	}
-	
+
 	public RoofSurface convertRoofSurface(RoofSurface roofSurface) {
 		return bldg.convertRoofSurface(roofSurface);
 	}
-	
+
 	public Room convertRoom(Room room) {
 		return bldg.convertRoom(room);
 	}
-	
+
 	public WallSurface convertWallSurface(WallSurface wallSurface) {
 		return bldg.convertWallSurface(wallSurface);
 	}
-	
+
 	public Window convertWindow(Window window) {
 		return bldg.convertWindow(window);
 	}	
-	
+
 	public void convertAbstractBuilding(AbstractBuilding src, AbstractBuilding dest) {
-		bldg.convertAbstractBuilding(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertAbstractBuilding(src, dest);
 	}
-	
+
 	public void convertBoundarySurface(BoundarySurface src, BoundarySurface dest) {
-		bldg.convertBoundarySurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertBoundarySurface(src, dest);
 	}
-	
+
 	public void convertBuilding(Building src, Building dest) {
-		bldg.convertBuilding(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertBuilding(src, dest);
 	}
-	
+
 	public void convertBuildingFurniture(BuildingFurniture src, BuildingFurniture dest) {
-		bldg.convertBuildingFurniture(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertBuildingFurniture(src, dest);
 	}
-	
+
 	public void convertBuildingInstallation(BuildingInstallation src, BuildingInstallation dest) {
-		bldg.convertBuildingInstallation(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertBuildingInstallation(src, dest);
 	}
-	
+
 	public void convertBuildingPart(BuildingPart src, BuildingPart dest) {
-		bldg.convertBuildingPart(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertBuildingPart(src, dest);
 	}
-	
+
 	public void convertCeilingSurface(CeilingSurface src, CeilingSurface dest) {
-		bldg.convertCeilingSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertCeilingSurface(src, dest);
 	}
-	
+
 	public void convertClosureSurface(ClosureSurface src, ClosureSurface dest) {
-		bldg.convertClosureSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertClosureSurface(src, dest);
 	}
-	
+
 	public void convertDoor(Door src, Door dest) {
-		bldg.convertDoor(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertDoor(src, dest);
 	}
-	
+
 	public void convertFloorSurface(FloorSurface src, FloorSurface dest) {
-		bldg.convertFloorSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertFloorSurface(src, dest);
 	}
-	
+
 	public void convertGroundSurface(GroundSurface src, GroundSurface dest) {
-		bldg.convertGroundSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertGroundSurface(src, dest);
 	}
-	
+
 	public void convertIntBuildingInstallation(IntBuildingInstallation src, IntBuildingInstallation dest) {
-		bldg.convertIntBuildingInstallation(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertIntBuildingInstallation(src, dest);
 	}
-	
+
 	public void convertInteriorWallSurface(InteriorWallSurface src, InteriorWallSurface dest) {
-		bldg.convertInteriorWallSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertInteriorWallSurface(src, dest);
 	}
-	
+
 	public void convertOpening(Opening src, Opening dest) {
-		bldg.convertOpening(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertOpening(src, dest);
 	}
-	
+
 	public void convertRoofSurface(RoofSurface src, RoofSurface dest) {
-		bldg.convertRoofSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertRoofSurface(src, dest);
 	}
-	
+
 	public void convertRoom(Room src, Room dest) {
-		bldg.convertRoom(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertRoom(src, dest);
 	}
-	
+
 	public void convertWallSurface(WallSurface src, WallSurface dest) {
-		bldg.convertWallSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertWallSurface(src, dest);
 	}
-	
+
 	public void convertWindow(Window src, Window dest) {
-		bldg.convertWindow(src, dest);
+		if (dest.getCityGMLModule() == convertContext.bldgModule)
+			bldg.convertWindow(src, dest);
 	}
 
 	// cityFurniture
@@ -488,7 +516,8 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertCityFurniture(CityFurniture src, CityFurniture dest) {
-		frn.convertCityFurniture(src, dest);
+		if (dest.getCityGMLModule() == convertContext.frnModule)
+			frn.convertCityFurniture(src, dest);
 	}
 
 	// cityObjectGroup
@@ -505,7 +534,8 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertCityObjectGroup(CityObjectGroup src, CityObjectGroup dest) {
-		grp.convertCityObjectGroup(src, dest);
+		if (dest.getCityGMLModule() == convertContext.grpModule)
+			grp.convertCityObjectGroup(src, dest);
 	}
 
 	// generics
@@ -534,7 +564,8 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertGenericCityobject(GenericCityObject src, GenericCityObject dest) {
-		gen.convertGenericCityobject(src, dest);
+		if (dest.getCityGMLModule() == convertContext.genModule)
+			gen.convertGenericCityobject(src, dest);
 	}
 
 	// landUse
@@ -543,7 +574,8 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertLandUse(LandUse src, LandUse dest) {
-		luse.convertLandUse(src, dest);
+		if (dest.getCityGMLModule() == convertContext.luseModule)
+			luse.convertLandUse(src, dest);
 	}
 
 	// relief
@@ -576,27 +608,33 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertReliefComponent(ReliefComponent src, ReliefComponent dest) {
-		dem.convertReliefComponent(src, dest);
+		if (dest.getCityGMLModule() == convertContext.demModule)
+			dem.convertReliefComponent(src, dest);
 	}
 
 	public void convertBreaklineRelief(BreaklineRelief src, BreaklineRelief dest) {
-		dem.convertBreaklineRelief(src, dest);
+		if (dest.getCityGMLModule() == convertContext.demModule)
+			dem.convertBreaklineRelief(src, dest);
 	}
 
 	public void convertMassPointRelief(MassPointRelief src, MassPointRelief dest) {
-		dem.convertMassPointRelief(src, dest);
+		if (dest.getCityGMLModule() == convertContext.demModule)
+			dem.convertMassPointRelief(src, dest);
 	}
 
 	public void convertRasterRelief(RasterRelief src, RasterRelief dest) {
-		dem.convertRasterRelief(src, dest);
+		if (dest.getCityGMLModule() == convertContext.demModule)
+			dem.convertRasterRelief(src, dest);
 	}
 
 	public void convertReliefFeature(ReliefFeature src, ReliefFeature dest) {
-		dem.convertReliefFeature(src, dest);
+		if (dest.getCityGMLModule() == convertContext.demModule)
+			dem.convertReliefFeature(src, dest);
 	}
 
 	public void convertTINRelief(TINRelief src, TINRelief dest) {
-		dem.convertTINRelief(src, dest);
+		if (dest.getCityGMLModule() == convertContext.demModule)
+			dem.convertTINRelief(src, dest);
 	}
 
 	// texturedSurface
@@ -619,7 +657,7 @@ public class CityGMLConvertBuilder {
 	public _TexturedSurface convert_TexturedSurface(_TexturedSurface _texturedSurface) {
 		return tex.convert_TexturedSurface(_texturedSurface);
 	}
-	
+
 	public _TextureType convert_TextureType(_TextureType _textureType) {
 		return tex.convert_TextureType(_textureType);
 	}
@@ -662,35 +700,43 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertAuxiliaryTrafficArea(AuxiliaryTrafficArea src, AuxiliaryTrafficArea dest) {
-		tran.convertAuxiliaryTrafficArea(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertAuxiliaryTrafficArea(src, dest);
 	}
 
 	public void convertRailway(Railway src, Railway dest) {
-		tran.convertRailway(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertRailway(src, dest);
 	}
 
 	public void convertRoad(Road src, Road dest) {
-		tran.convertRoad(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertRoad(src, dest);
 	}
 
 	public void convertSquare(Square src, Square dest) {
-		tran.convertSquare(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertSquare(src, dest);
 	}
 
 	public void convertTrack(Track src, Track dest) {
-		tran.convertTrack(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertTrack(src, dest);
 	}
 
 	public void convertTrafficArea(TrafficArea src, TrafficArea dest) {
-		tran.convertTrafficArea(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertTrafficArea(src, dest);
 	}
 
 	public void convertTransportationComplex(TransportationComplex src, TransportationComplex dest) {
-		tran.convertTransportationComplex(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertTransportationComplex(src, dest);
 	}
 
 	public void convertTransportationObject(TransportationObject src, TransportationObject dest) {
-		tran.convertTransportationObject(src, dest);
+		if (dest.getCityGMLModule() == convertContext.tranModule)
+			tran.convertTransportationObject(src, dest);
 	}
 
 	// vegetation
@@ -703,15 +749,18 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertPlantCover(PlantCover src, PlantCover dest) {
-		veg.convertPlantCover(src, dest);
+		if (dest.getCityGMLModule() == convertContext.vegModule)
+			veg.convertPlantCover(src, dest);
 	}
-	
+
 	public void convertSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObject dest) {
-		veg.convertSolitaryVegetationObject(src, dest);
+		if (dest.getCityGMLModule() == convertContext.vegModule)
+			veg.convertSolitaryVegetationObject(src, dest);
 	}
 
 	public void convertVegetationObject(VegetationObject src, VegetationObject dest) {
-		veg.convertVegetationObject(src, dest);
+		if (dest.getCityGMLModule() == convertContext.vegModule)
+			veg.convertVegetationObject(src, dest);
 	}
 
 	// waterBody
@@ -736,38 +785,44 @@ public class CityGMLConvertBuilder {
 	}
 
 	public void convertWaterBody(WaterBody src, WaterBody dest) {
-		wtr.convertWaterBody(src, dest);
+		if (dest.getCityGMLModule() == convertContext.wtrModule)
+			wtr.convertWaterBody(src, dest);
 	}
 
 	public void convertWaterBoundarySurface(WaterBoundarySurface src, WaterBoundarySurface dest) {
-		wtr.convertWaterBoundarySurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.wtrModule)
+			wtr.convertWaterBoundarySurface(src, dest);
 	}
 
 	public void convertWaterClosureSurface(WaterClosureSurface src, WaterClosureSurface dest) {
-		wtr.convertWaterClosureSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.wtrModule)
+			wtr.convertWaterClosureSurface(src, dest);
 	}
 
 	public void convertWaterGroundSurface(WaterGroundSurface src, WaterGroundSurface dest) {
-		wtr.convertWaterGroundSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.wtrModule)
+			wtr.convertWaterGroundSurface(src, dest);
 	}
 
 	public void convertWaterObject(WaterObject src, WaterObject dest) {
-		wtr.convertWaterObject(src, dest);
+		if (dest.getCityGMLModule() == convertContext.wtrModule)
+			wtr.convertWaterObject(src, dest);
 	}
 
 	public void convertWaterSurface(WaterSurface src, WaterSurface dest) {
-		wtr.convertWaterSurface(src, dest);
+		if (dest.getCityGMLModule() == convertContext.wtrModule)
+			wtr.convertWaterSurface(src, dest);
 	}
-	
+
 	// ade
 	public ADEComponent convertADEComponent(ADEComponent adeComponent) {
 		return ade.convertADEComponent(adeComponent);
 	}
-	
+
 	public void registerADEConvertBuilder(String namespaceURI, ADEConvertBuilder adeConvertBuilder) {
 		ade.registerADEConvertBuilder(namespaceURI, adeConvertBuilder);
 	}
-	
+
 	public void unregisterADEConvertBuilder(String namespaceURI) {
 		ade.unregisterADEConvertBuilder(namespaceURI);
 	}
