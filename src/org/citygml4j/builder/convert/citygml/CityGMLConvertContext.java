@@ -45,6 +45,21 @@ public class CityGMLConvertContext {
 		}
 	}
 	
+	public CityGMLConvertContext(CityGMLConvertContext ctx) {
+		appModule = ctx.appModule;
+		bldgModule = ctx.bldgModule;
+		frnModule = ctx.frnModule;
+		grpModule = ctx.grpModule;
+		coreModule = ctx.coreModule;
+		genModule = ctx.genModule;
+		luseModule = ctx.luseModule;
+		demModule = ctx.demModule;
+		texModule = ctx.texModule;
+		tranModule = ctx.tranModule;
+		vegModule = ctx.vegModule;
+		wtrModule = ctx.wtrModule;
+	}
+	
 	public boolean setModuleVersion(CityGMLModuleVersion version) {
 		switch (version) {
 		case v0_4_0:

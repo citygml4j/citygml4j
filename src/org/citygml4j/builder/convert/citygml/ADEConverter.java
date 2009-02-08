@@ -42,8 +42,9 @@ public class ADEConverter {
 		
 		LinkedList<ADEConvertBuilder> adeBuilderList = adeConvertBuilderMap.get(src.getADENamespaceURI());
 		if (adeBuilderList != null) {
+			CityGMLConvertContext convertCtx = new CityGMLConvertContext(builder.convertContext);
 			for (ADEConvertBuilder adeBuilder : adeBuilderList) {
-				tmp = adeBuilder.convert(src, builder.convertContext);
+				tmp = adeBuilder.convert(src, convertCtx);
 				if (tmp != null)
 					break;
 			}
