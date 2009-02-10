@@ -1,6 +1,6 @@
 citygml4j - CityGML class library for Java
 
-  This program is free software and comes WITHOUT ANY WARRANTY. 
+  This library is free software and comes WITHOUT ANY WARRANTY. 
   See the file LICENSE for more details. 
 
 
@@ -29,7 +29,7 @@ the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
 2. Copyright
 ------------
 
-(c) 2007 - 2008
+(c) 2007 - 2009
 Institute for Geodesy and Geoinformation Science (IGG)
 Technische Universitaet Berlin, Germany
 http://www.igg.tu-berlin.de/
