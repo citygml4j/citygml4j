@@ -43,6 +43,14 @@ City Geography Markup Language (CityGML). It makes it easy to read, process,
 and write CityGML datasets, and to develop CityGML-aware software 
 applications.
 
+Feature list:
+* Full support for CityGML version 1.0.0 and 0.4.0
+* Support for CityGML specific subset of GML 3.1.1
+* Support for the eXtensible Address Language (xAL)
+* Support for converting between different CityGML versions
+* Integration of user-defined CityGML Application Domain Extensions (ADE)
+* Implementation of XML data binding based on JAXB
+
 CityGML is a common information model for the representation of 3D urban 
 objects. It is realized as an open data model and XML-based format for the 
 storage and exchange of virtual 3D city models. 
