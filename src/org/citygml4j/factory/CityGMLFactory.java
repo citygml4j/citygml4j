@@ -1,9 +1,8 @@
 package org.citygml4j.factory;
 
-import java.util.List;
-
 import javax.xml.bind.JAXBElement;
 
+import org.citygml4j.geometry.Matrix;
 import org.citygml4j.impl.jaxb.ModelMapper;
 import org.citygml4j.impl.jaxb.citygml.AbstractAppearanceFactoryImpl;
 import org.citygml4j.impl.jaxb.citygml.AbstractBuildingFactoryImpl;
@@ -198,48 +197,24 @@ public class CityGMLFactory {
 		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix2x2();
 	}
 
-	public TransformationMatrix2x2 createTransformationMatrix2x2(
-			double xx, double yx, 
-			double xy, double yy,
-			CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix2x2(xx, yx, xy, yy);
-	}
-
-	public TransformationMatrix2x2 createTransformationMatrix2x2(List<Double> coordList, CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix2x2(coordList);
+	public TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix, CoreModule module) {
+		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix2x2(matrix);
 	}
 
 	public TransformationMatrix3x4 createTransformationMatrix3x4(CoreModule module) {
 		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix3x4();
 	}
-
-	public TransformationMatrix3x4 createTransformationMatrix3x4(
-			double xx, double yx, double zx, double tx, 
-			double xy, double yy, double zy, double ty, 
-			double xz, double yz, double zz, double tz,
-			CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix3x4(xx, yx, zx, tx, xy, yy, zy, ty, xz, yz, zz, tz);
-	}
 	
-	public TransformationMatrix3x4 createTransformationMatrix3x4(List<Double> coordList, CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix3x4(coordList);
+	public TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix, CoreModule module) {
+		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix3x4(matrix);
 	}
 
 	public TransformationMatrix4x4 createTransformationMatrix4x4(CoreModule module) {
 		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix4x4();
 	}
 
-	public TransformationMatrix4x4 createTransformationMatrix4x4(
-			double xx, double yx, double zx, double tx, 
-			double xy, double yy, double zy, double ty, 
-			double xz, double yz, double zz, double tz, 
-			double xt, double yt, double zt, double tt,
-			CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix4x4(xx, yx, zx, tx, xy, yy, zy, ty, xz, yz, zz, tz, xt, yt, zt, tt);
-	}
-
-	public TransformationMatrix4x4 createTransformationMatrix4x4(List<Double> coordList, CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix4x4(coordList);
+	public TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix, CoreModule module) {
+		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix4x4(matrix);
 	}
 
 	public XalAddressProperty createXalAddressProperty(CoreModule module) {
@@ -688,41 +663,24 @@ public class CityGMLFactory {
 		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix2x2();
 	}
 
-	public TransformationMatrix2x2 createTransformationMatrix2x2(
-			double xx, double yx, 
-			double xy, double yy) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix2x2(xx, yx, xy, yy);
-	}
-
-	public TransformationMatrix2x2 createTransformationMatrix2x2(List<Double> coordList) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix2x2(coordList);
+	public TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix) {
+		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix2x2(matrix);
 	}
 
 	public TransformationMatrix3x4 createTransformationMatrix3x4() {
 		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix3x4();
 	}
 
-	public TransformationMatrix3x4 createTransformationMatrix3x4(
-			double xx, double yx, double zx, double tx, 
-			double xy, double yy, double zy, double ty, 
-			double xz, double yz, double zz, double tz) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix3x4(xx, yx, zx, tx, xy, yy, zy, ty, xz, yz, zz, tz);
+	public TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix) {
+		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix3x4(matrix);
 	}
 
 	public TransformationMatrix4x4 createTransformationMatrix4x4() {
 		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix4x4();
 	}
 
-	public TransformationMatrix4x4 createTransformationMatrix4x4(
-			double xx, double yx, double zx, double tx, 
-			double xy, double yy, double zy, double ty, 
-			double xz, double yz, double zz, double tz, 
-			double xt, double yt, double zt, double tt) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix4x4(xx, yx, zx, tx, xy, yy, zy, ty, xz, yz, zz, tz, xt, yt, zt, tt);
-	}
-
-	public TransformationMatrix4x4 createTransformationMatrix4x4(List<Double> coordList) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix4x4(coordList);
+	public TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix) {
+		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix4x4(matrix);
 	}
 
 	public XalAddressProperty createXalAddressProperty() {

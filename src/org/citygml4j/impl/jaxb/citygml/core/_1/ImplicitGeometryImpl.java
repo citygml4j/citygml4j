@@ -1,6 +1,5 @@
 package org.citygml4j.impl.jaxb.citygml.core._1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.impl.jaxb.gml._3_1_1.AbstractGMLImpl;
@@ -61,18 +60,9 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	@Override
 	public TransformationMatrix4x4 getTransformationMatrix() {
 		if (implicitGeometryType.isSetTransformationMatrix()) {
-			List<Double> tm = implicitGeometryType.getTransformationMatrix();
-
-			if (tm.size() == 16) {
-				TransformationMatrix4x4 matrix = new TransformationMatrix4x4Impl(
-						tm.get(0), tm.get(1), tm.get(2), tm.get(3),
-						tm.get(4), tm.get(5), tm.get(6), tm.get(7),
-						tm.get(8), tm.get(9), tm.get(10), tm.get(11),
-						tm.get(12), tm.get(13), tm.get(14), tm.get(15)
-				);
-
-				return matrix;
-			}
+			List<Double> vals = implicitGeometryType.getTransformationMatrix();
+			if (vals.size() >= 16) 
+				return new TransformationMatrix4x4Impl(vals.subList(0, 16));
 		}
 
 		return null;
@@ -99,32 +89,9 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	}
 
 	@Override
-	public void setTransformationMatrix4x4(TransformationMatrix4x4 matrix) {
-		List<Double> transformationMatrix = new ArrayList<Double>();
-		double[][] m = matrix.getTransformationMatrix4x4().getMatrix();
-
-		transformationMatrix.add(m[0][0]);
-		transformationMatrix.add(m[0][1]);
-		transformationMatrix.add(m[0][2]);
-		transformationMatrix.add(m[0][3]);
-
-		transformationMatrix.add(m[1][0]);
-		transformationMatrix.add(m[1][1]);
-		transformationMatrix.add(m[1][2]);
-		transformationMatrix.add(m[1][3]);
-
-		transformationMatrix.add(m[2][0]);
-		transformationMatrix.add(m[2][1]);
-		transformationMatrix.add(m[2][2]);
-		transformationMatrix.add(m[2][3]);
-
-		transformationMatrix.add(m[3][0]);
-		transformationMatrix.add(m[3][1]);
-		transformationMatrix.add(m[3][2]);
-		transformationMatrix.add(m[3][3]);
-
+	public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix) {
 		implicitGeometryType.unsetTransformationMatrix();
-		implicitGeometryType.getTransformationMatrix().addAll(transformationMatrix);
+		implicitGeometryType.getTransformationMatrix().addAll(transformationMatrix.getMatrix().toRowPackedList());
 	}
 
 	@Override

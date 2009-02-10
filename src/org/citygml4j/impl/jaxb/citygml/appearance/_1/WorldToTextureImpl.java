@@ -1,10 +1,9 @@
 package org.citygml4j.impl.jaxb.citygml.appearance._1;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.citygml4j.geometry.Matrix4;
+import org.citygml4j.geometry.Matrix;
 import org.citygml4j.impl.jaxb.citygml.core._1.CityGMLBaseImpl;
 import org.citygml4j.jaxb.citygml.app._1.TexCoordGenType;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -39,17 +38,14 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 	}
 
 	@Override
-	public Matrix4 getTransformationMatrix3x4() {
+	public Matrix getMatrix() {
 		if (worldToTexture.isSetValue()) {
-			List<Double> matrix = worldToTexture.getValue();
-
-			if (matrix.size() == 12) {
-				Matrix4 m = new Matrix4(
-						matrix.get(0), matrix.get(1), matrix.get(2), matrix.get(3),
-						matrix.get(4), matrix.get(5), matrix.get(6), matrix.get(7),
-						matrix.get(8), matrix.get(9), matrix.get(10), matrix.get(11));
-
-				return m;
+			List<Double> vals = worldToTexture.getValue();
+			if (vals.size() >= 12) {
+				Matrix matrix = new Matrix(3, 4);
+				matrix.setMatrix(vals.subList(0, 12));
+				
+				return matrix;
 			}
 		}
 
@@ -57,32 +53,17 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 	}
 
 	@Override
-	public List<Double> toList() {
-		return worldToTexture.getValue();
+	public boolean isSetMatrix() {
+		return worldToTexture.isSetValue();
 	}
-
+	
 	@Override
-	public void setTransformationMatrix3x4(Matrix4 transformationMatrix) {
-		List<Double> worldToTextureMatrix = new ArrayList<Double>();
-		double[][] matrix = transformationMatrix.getMatrix();
-
-		worldToTextureMatrix.add(matrix[0][0]);
-		worldToTextureMatrix.add(matrix[0][1]);
-		worldToTextureMatrix.add(matrix[0][2]);
-		worldToTextureMatrix.add(matrix[0][3]);
-
-		worldToTextureMatrix.add(matrix[1][0]);
-		worldToTextureMatrix.add(matrix[1][1]);
-		worldToTextureMatrix.add(matrix[1][2]);
-		worldToTextureMatrix.add(matrix[1][3]);
-
-		worldToTextureMatrix.add(matrix[2][0]);
-		worldToTextureMatrix.add(matrix[2][1]);
-		worldToTextureMatrix.add(matrix[2][2]);
-		worldToTextureMatrix.add(matrix[2][3]);
+	public void setMatrix(Matrix matrix) {
+		if (matrix.getRowDimension() != 3 || matrix.getColumnDimension() != 4)
+			throw new IllegalArgumentException("Matrix dimensions must be 3x4.");
 
 		worldToTexture.unsetValue();
-		worldToTexture.getValue().addAll(worldToTextureMatrix);
+		worldToTexture.getValue().addAll(matrix.toRowPackedList());
 	}
 
 	@Override

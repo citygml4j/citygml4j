@@ -286,7 +286,7 @@ public class CoreConverter {
 			if (src.isSetTransformationMatrix()) {
 				TransformationMatrix4x4 tmp = convertTransformationMatrix4x4(src.getTransformationMatrix());
 				if (tmp != null)
-					dest.setTransformationMatrix4x4(tmp);
+					dest.setTransformationMatrix(tmp);
 			}
 
 			if (src.isSetLibraryObject())
@@ -321,15 +321,15 @@ public class CoreConverter {
 	}
 
 	protected TransformationMatrix2x2 convertTransformationMatrix2x2(TransformationMatrix2x2 src) {
-		return citygml.createTransformationMatrix2x2(src.toList(), builder.convertContext.coreModule);
+		return citygml.createTransformationMatrix2x2(src.getMatrix(), builder.convertContext.coreModule);
 	}
 
 	protected TransformationMatrix3x4 convertTransformationMatrix3x4(TransformationMatrix3x4 src) {
-		return citygml.createTransformationMatrix3x4(src.toList(), builder.convertContext.coreModule);
+		return citygml.createTransformationMatrix3x4(src.getMatrix(), builder.convertContext.coreModule);
 	}
 
 	protected TransformationMatrix4x4 convertTransformationMatrix4x4(TransformationMatrix4x4 src) {
-		return citygml.createTransformationMatrix4x4(src.toList(), builder.convertContext.coreModule);
+		return citygml.createTransformationMatrix4x4(src.getMatrix(), builder.convertContext.coreModule);
 	}
 
 	protected XalAddressProperty convertXalAddressProperty(XalAddressProperty src) {

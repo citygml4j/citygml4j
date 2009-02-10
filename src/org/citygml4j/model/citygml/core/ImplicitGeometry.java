@@ -17,7 +17,7 @@ public interface ImplicitGeometry extends CityGMLBase, AbstractGML {
 	public boolean isSetReferencePoint();
 	
 	public void setMimeType(String mimeType);
-	public void setTransformationMatrix4x4(TransformationMatrix4x4 matrix);
+	public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix);
 	public void setLibraryObject(String libraryObject);
 	public void setRelativeGeometry(GeometryProperty relativeGeometry);
 	public void setReferencePoint(PointProperty referencePoint);

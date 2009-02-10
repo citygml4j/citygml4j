@@ -1,7 +1,6 @@
 package org.citygml4j.builder.convert.citygml;
 
 import org.citygml4j.factory.CityGMLFactory;
-import org.citygml4j.geometry.Matrix4;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
@@ -261,9 +260,8 @@ public class AppearanceConverter {
 		if (dest != null) {
 			builder.gml.convertSRSReferenceGroup(src, dest);
 
-			Matrix4 matrix = src.getTransformationMatrix3x4();
-			if (matrix != null)
-				dest.setTransformationMatrix3x4(matrix);			
+			if (src.isSetMatrix())
+				dest.setMatrix(src.getMatrix());			
 		}
 
 		return dest;

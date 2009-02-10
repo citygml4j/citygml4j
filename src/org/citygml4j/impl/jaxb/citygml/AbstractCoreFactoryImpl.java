@@ -1,7 +1,6 @@
 package org.citygml4j.impl.jaxb.citygml;
 
-import java.util.List;
-
+import org.citygml4j.geometry.Matrix;
 import org.citygml4j.impl.jaxb.citygml.core._0_4.Core040FactoryImpl;
 import org.citygml4j.impl.jaxb.citygml.core._1.Core100FactoryImpl;
 import org.citygml4j.model.citygml.core.Address;
@@ -64,37 +63,19 @@ public abstract class AbstractCoreFactoryImpl implements CoreFactory {
 	public abstract TransformationMatrix2x2 createTransformationMatrix2x2();
 
 	@Override
-	public abstract TransformationMatrix2x2 createTransformationMatrix2x2(double xx,
-			double yx, double xy, double yy);
-
-	@Override
-	public abstract TransformationMatrix2x2 createTransformationMatrix2x2(
-			List<Double> coordList);
+	public abstract TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix);
 
 	@Override
 	public abstract TransformationMatrix3x4 createTransformationMatrix3x4();
 
 	@Override
-	public abstract TransformationMatrix3x4 createTransformationMatrix3x4(double xx,
-			double yx, double zx, double tx, double xy, double yy, double zy,
-			double ty, double xz, double yz, double zz, double tz);
-
-	@Override
-	public abstract TransformationMatrix3x4 createTransformationMatrix3x4(
-			List<Double> coordList);
+	public abstract TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix);
 	
 	@Override
 	public abstract TransformationMatrix4x4 createTransformationMatrix4x4();
 
 	@Override
-	public abstract TransformationMatrix4x4 createTransformationMatrix4x4(double xx,
-			double yx, double zx, double tx, double xy, double yy, double zy,
-			double ty, double xz, double yz, double zz, double tz, double xt,
-			double yt, double zt, double tt);
-
-	@Override
-	public abstract TransformationMatrix4x4 createTransformationMatrix4x4(
-			List<Double> coordList);
+	public abstract TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix);
 
 	@Override
 	public abstract XalAddressProperty createXalAddressProperty();

@@ -46,15 +46,9 @@ public class GeoreferencedTextureImpl extends AbstractTextureImpl implements Geo
 	@Override
 	public TransformationMatrix2x2 getOrientation() {
 		if (georeferencedTextureType.isSetOrientation()) {
-			List<Double> orientation = georeferencedTextureType.getOrientation();
-
-			if (orientation.size() == 4) {
-				TransformationMatrix2x2 matrix = new TransformationMatrix2x2Impl(
-						orientation.get(0), orientation.get(1),
-						orientation.get(2), orientation.get(3));
-
-				return matrix;
-			}
+			List<Double> vals = georeferencedTextureType.getOrientation();
+			if (vals.size() >= 4)
+				return new TransformationMatrix2x2Impl(vals.subList(0, 4));
 		}
 
 		return null;
@@ -80,16 +74,8 @@ public class GeoreferencedTextureImpl extends AbstractTextureImpl implements Geo
 
 	@Override
 	public void setOrientation(TransformationMatrix2x2 orientation) {
-		List<Double> transformationMatrix = new ArrayList<Double>();
-		double[][] orientationMatrix = orientation.getTransformationMatrix2x2().getMatrix();
-
-		transformationMatrix.add(orientationMatrix[0][0]);
-		transformationMatrix.add(orientationMatrix[0][1]);
-		transformationMatrix.add(orientationMatrix[1][0]);
-		transformationMatrix.add(orientationMatrix[1][1]);
-
 		georeferencedTextureType.unsetOrientation();
-		georeferencedTextureType.getOrientation().addAll(transformationMatrix);
+		georeferencedTextureType.getOrientation().addAll(orientation.getMatrix().toRowPackedList());
 	}
 
 	@Override
