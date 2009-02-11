@@ -66,7 +66,7 @@ free of charge.
 ----------------------
 
 * Java JRE or JDK >= 1.6.0_05
-* Java Architecture for XML Binding (JAXB) >= 2.1.9
+* Java Architecture for XML Binding (JAXB) >= 2.1.10
 
 
 5. How to use it
