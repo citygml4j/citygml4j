@@ -57,7 +57,7 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 	}
 
 	@Override
-	public MetaDataProperty getMetaDataPropery() {
+	public MetaDataProperty getMetaDataProperty() {
 		// TODO: To be implemented...
 		return null;
 	}
@@ -104,7 +104,7 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 	}
 
 	@Override
-	public boolean isSetMetaDataPropery() {
+	public boolean isSetMetaDataProperty() {
 		return abstractGMLType.isSetMetaDataProperty();
 	}
 
@@ -119,7 +119,7 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 	}
 
 	@Override
-	public void unsetMetaDataPropery() {
+	public void unsetMetaDataProperty() {
 		abstractGMLType.unsetMetaDataProperty();
 	}
 
