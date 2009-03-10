@@ -42,7 +42,7 @@ public enum CurveInterpolationImpl implements CurveInterpolation {
 
 	@Override
 	public GMLClass getGMLClass() {
-		return GMLClass.SURFACEINTERPOLATION;
+		return GMLClass.CURVEINTERPOLATION;
 	}
     
 	public String toString() {
