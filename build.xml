@@ -19,6 +19,7 @@
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
     <property name="dist" location="${app.name}-${app.version}"/>
+    <property name="dist.tmp" location="${dist}/tmp"/>
 	<property name="javadoc" location="javadoc"/>
 	<property name="CityGML" location="${schemas}/CityGML"/>
 	
@@ -56,6 +57,19 @@
         <!-- create the distribution directory -->
         <mkdir dir="${dist}"/>
 
+    	<!-- copy README and LICENSE templates -->
+        <copy todir="${dist.tmp}">
+        	<fileset dir="${resources.doc}" includes="**/*"/>
+        </copy>
+    	
+    	<!-- replace tokens in template files -->
+    	<replace file="${dist.tmp}/README" token="!app.name!" value="${app.name}"/>
+    	<replace file="${dist.tmp}/README" token="!app.version!" value="${app.version}"/>
+    	<replace file="${dist.tmp}/README" token="!app.title!" value="${app.title}"/>
+    	<replace file="${dist.tmp}/README" token="!app.jar!" value="${app.jar}"/>
+    	<replace file="${dist.tmp}/LICENSE" token="!app.name!" value="${app.name}"/>
+        <replace file="${dist.tmp}/LICENSE" token="!app.title!" value="${app.title}"/>
+    	
         <!-- set package variables -->
         <pathconvert property="manifest.classpath" dirsep="/" pathsep=" " refid="classpath">
             <map from="${basedir}${file.separator}lib${file.separator}" to=""/>
@@ -64,7 +78,7 @@
 
         <!-- put everything in ${build} into .jar file -->
         <jar jarfile="${dist}/${app.jar}" basedir="${build}/classes">
-        	<fileset dir="${resources.doc}" includes="**/*"/>
+        	<fileset dir="${dist.tmp}" includes="**/*"/>
             <manifest>
             	<attribute name="Built-Id" value="${user.name}-${app.name}-${app.version}"/>
                 <attribute name="Built-Date" value="${TODAY}"/>
@@ -74,6 +88,9 @@
                 <attribute name="Class-Path" value="${manifest.classpath}"/>
             </manifest>
         </jar>
+    	
+	    <!-- clean up template dir -->
+    	<delete dir="${dist.tmp}"/>
     </target>
 	
     <target name="compile_citygml" description="compile JAXB classes from CityGML schemas">

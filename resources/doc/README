@@ -1,4 +1,4 @@
-citygml4j - Java class library for CityGML
+!app.name! v!app.version! - !app.title!
 
   This library is free software and comes WITHOUT ANY WARRANTY. 
   See the file LICENSE for more details. 
@@ -20,7 +20,7 @@ citygml4j - Java class library for CityGML
 1. Licence
 ----------
 
-The citygml4j Java class library is free software under
+The !app.name! Java class library is free software under
 the GNU Lesser General Public License Version 3.0. See the file LICENSE 
 for more details. For a copy of the GNU Lesser General Public License see 
 the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
@@ -38,7 +38,7 @@ http://www.igg.tu-berlin.de/
 3. About
 --------
 
-citygml4j is a Java class library and API for facilitating work with the
+!app.name! is a Java class library and API for facilitating work with the
 City Geography Markup Language (CityGML). It makes it easy to read, process,
 and write CityGML datasets, and to develop CityGML-aware software 
 applications.
@@ -73,7 +73,7 @@ free of charge.
 ----------------
 
 Simply modify your Java classpath to include the provided 
-citygml4j-<version>.jar file. Please make sure also to include the 
+!app.jar! file. Please make sure also to include the 
 required JAXB libraries on your application classpath. 
 
    
@@ -92,7 +92,7 @@ nagel@igg.tu-berlin.de
 8. Websites
 -----------
 
-Official citygml4j website: 
+Official !app.name! website: 
 http://opportunity.bv.tu-berlin.de/software
 
 Related websites:
