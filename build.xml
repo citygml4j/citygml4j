@@ -62,7 +62,7 @@
         <!-- copy README and LICENSE templates -->
         <copy todir="${dist.tmp}">
             <fileset dir="${resources.doc}" includes="**/*"/>
-        	<fileset dir="${resources.license}" includes="**/*"/>
+            <fileset dir="${resources.license}" includes="**/*"/>
         </copy>
 
         <!-- replace tokens in template files -->
@@ -118,7 +118,9 @@
         <!-- copy overview.html and replace version token -->
         <copy file="${resources.javadoc}/overview.html"
             tofile="${resources.javadoc}/overview_adapted.html"/>
-        <replace file="${resources.javadoc}/overview_adapted.html" token="%version%"
+        <replace file="${resources.javadoc}/overview_adapted.html" token="!app.name!"
+            value="${app.name}"/>
+        <replace file="${resources.javadoc}/overview_adapted.html" token="!app.version!"
             value="${app.version}"/>
 
         <!-- create javadoc from source files -->
