@@ -6,7 +6,7 @@ import org.citygml4j.model.gml.CompositeSolidProperty;
 import org.citygml4j.model.gml.GMLClass;
 
 public class CompositeSolidPropertyImpl extends GMLBaseImpl implements CompositeSolidProperty {
-	CompositeSolidPropertyType compositeSolidPropertyType;
+	private CompositeSolidPropertyType compositeSolidPropertyType;
 
 	public CompositeSolidPropertyImpl() {
 		compositeSolidPropertyType = new CompositeSolidPropertyType();

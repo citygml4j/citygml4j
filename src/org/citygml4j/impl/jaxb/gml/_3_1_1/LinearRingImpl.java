@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.geometry.Point;
+import org.citygml4j.impl.jaxb.ObjectFactory;
 import org.citygml4j.jaxb.gml._3_1_1.CoordType;
 import org.citygml4j.jaxb.gml._3_1_1.DirectPositionType;
 import org.citygml4j.jaxb.gml._3_1_1.LinearRingType;
@@ -18,10 +19,10 @@ import org.citygml4j.model.gml.GMLBase;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.LinearRing;
 import org.citygml4j.model.gml.PointProperty;
+import org.citygml4j.model.gml.PointRep;
 
 public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 	private LinearRingType linearRingType;
-	private List<Double> pointList;
 
 	public LinearRingImpl() {
 		this(new LinearRingType());
@@ -44,24 +45,23 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 
 	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRep() {
-		List<GMLBase> posOrPointOrPointRepList = new ArrayList<GMLBase>();
+		List<GMLBase> posOrPointPropOrPointRepList = new ArrayList<GMLBase>();
 
 		for (JAXBElement<?> pointElem : linearRingType.getPosOrPointPropertyOrPointRep()) {
 			if (pointElem.getValue() != null) {
 				if (pointElem.getValue() instanceof PointPropertyType) {
 					if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&
-							pointElem.getName().getLocalPart().equals("pointProperty"))
-						posOrPointOrPointRepList.add(new PointPropertyImpl((PointPropertyType)pointElem.getValue()));
-					else if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&
 							pointElem.getName().getLocalPart().equals("pointRep"))
-						posOrPointOrPointRepList.add(new PointPropertyImpl((PointPropertyType)pointElem.getValue()));
-
+						posOrPointPropOrPointRepList.add(new PointRepImpl((PointPropertyType)pointElem.getValue()));
+					else
+						posOrPointPropOrPointRepList.add(new PointPropertyImpl((PointPropertyType)pointElem.getValue()));
+					
 				} else if (pointElem.getValue() instanceof DirectPositionType)
-					posOrPointOrPointRepList.add(new DirectPositionImpl((DirectPositionType)pointElem.getValue()));
+					posOrPointPropOrPointRepList.add(new DirectPositionImpl((DirectPositionType)pointElem.getValue()));
 			}			
 		}
 
-		return posOrPointOrPointRepList;
+		return posOrPointPropOrPointRepList;
 	}
 
 	@Override
@@ -118,11 +118,118 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		linearRingType.setPosList(((DirectPositionListImpl)posList).getJAXBObject());
 	}
 
-	public List<Double> toList() {
-		if (pointList == null)
-			generatePointList();
+	@Override
+	public void addPointProperty(PointProperty pointProperty) {
+		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)pointProperty).getJAXBObject());
+		linearRingType.getPosOrPointPropertyOrPointRep().add(elem);
+	}
+	
+	@Override
+	public void addPointRep(PointRep pointRep) {
+		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointRep(((PointRepImpl)pointRep).getJAXBObject());
+		linearRingType.getPosOrPointPropertyOrPointRep().add(elem);
+	}
 
-		return pointList;
+	@Override
+	public void addPos(DirectPosition pos) {
+		JAXBElement<DirectPositionType> elem = ObjectFactory.GML.createPos(((DirectPositionImpl)pos).getJAXBObject());
+		linearRingType.getPosOrPointPropertyOrPointRep().add(elem);		
+	}
+
+	@Override
+	public void setPosOrPointPropertyOrPointRep(List<GMLBase> controlPoints) {
+		List<JAXBElement<?>> posOrPointOrPointRepList = new ArrayList<JAXBElement<?>>();
+		
+		for (GMLBase controlPoint : controlPoints) {
+			JAXBElement<?> controlPointType = null;
+			
+			switch (controlPoint.getGMLClass()) {
+			case POINTPROPERTY:
+				controlPointType = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)controlPoint).getJAXBObject());
+				break;
+			case DIRECTPOSITION:
+				controlPointType = ObjectFactory.GML.createPos(((DirectPositionImpl)controlPoint).getJAXBObject());
+				break;
+			case POINTREP:
+				controlPointType = ObjectFactory.GML.createPointRep(((PointRepImpl)controlPoint).getJAXBObject());
+				break;
+			}
+			
+			if (controlPointType != null)
+				posOrPointOrPointRepList.add(controlPointType);
+		}
+		
+		linearRingType.unsetPosOrPointPropertyOrPointRep();
+		linearRingType.getPosOrPointPropertyOrPointRep().addAll(posOrPointOrPointRepList);
+	}
+
+	
+	@Override
+	public void addCoord(Coord coord) {
+		linearRingType.getCoord().add(((CoordImpl)coord).getJAXBObject());
+	}
+
+	@Override
+	public void setCoord(List<Coord> coord) {
+		List<CoordType> coordTypeList = new ArrayList<CoordType>();
+		
+		for (Coord item : coord)
+			coordTypeList.add(((CoordImpl)item).getJAXBObject());
+		
+		linearRingType.unsetCoord();
+		linearRingType.getCoord().addAll(coordTypeList);
+	}
+
+	@Override
+	public void setCoordinates(Coordinates coordinates) {
+		linearRingType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
+	}
+
+	public List<Double> toList() {
+		List<Double> tmp = new ArrayList<Double>();
+
+		if (isSetPosList()) {
+			List<Double> points = getPosList().toList();
+			if (points != null)
+				tmp.addAll(points);
+		}
+		
+		if (isSetPosOrPointPropertyOrPointRep()) {
+			for (GMLBase pointElem : getPosOrPointPropertyOrPointRep()) {
+				if (pointElem.getGMLClass() == GMLClass.DIRECTPOSITION) {
+					List<Double> point = ((DirectPosition)pointElem).toList();
+					if (point != null)
+						tmp.addAll(point);
+				} else if (pointElem.getGMLClass() == GMLClass.POINTPROPERTY ||
+						pointElem.getGMLClass() == GMLClass.POINTREP) {
+					org.citygml4j.model.gml.Point point = ((PointProperty)pointElem).getPoint();				
+					if (point != null) {
+						List<Double> coords = point.toList();
+						if (coords != null)
+							tmp.addAll(coords);
+					}
+				}
+			}
+		}
+
+		if (isSetCoord()) {
+			for (Coord coord : getCoord()) {
+				List<Double> point = coord.toList();
+				if (point != null)
+					tmp.addAll(point);
+			}
+		}
+		
+		if (isSetCoordinates()) {
+			List<Double> points = getCoordinates().toList();
+			if (points != null)
+				tmp.addAll(points);
+		}
+
+		if (tmp.size() != 0)
+			return tmp;
+				
+		return null;
 	}
 
 	public List<Double> toList(boolean reverseOrder) {
@@ -138,39 +245,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		}
 
 		return points;
-	}
-
-	private void generatePointList() {
-		if (pointList != null)
-			return;
-
-		List<Double> tmp = new ArrayList<Double>();
-
-		if (isSetPosOrPointPropertyOrPointRep()) {
-			for (GMLBase pointElem : getPosOrPointPropertyOrPointRep()) {
-				if (pointElem.getGMLClass() == GMLClass.DIRECTPOSITION) {
-					List<Double> point = ((DirectPosition)pointElem).toList();
-					if (point != null)
-						tmp.addAll(point);
-				} else if (pointElem.getGMLClass() == GMLClass.POINTPROPERTY) {
-					org.citygml4j.model.gml.Point point = ((PointProperty)pointElem).getPoint();				
-					if (point != null) {
-						List<Double> coords = point.toList();
-						if (coords != null)
-							tmp.addAll(coords);
-					}
-				}
-			}
-		}
-
-		if (isSetPosList()) {
-			List<Double> points = getPosList().toList();
-			if (points != null)
-				tmp.addAll(points);
-		}
-
-		if (tmp.size() != 0)
-			pointList = tmp;
 	}
 
 	@Override

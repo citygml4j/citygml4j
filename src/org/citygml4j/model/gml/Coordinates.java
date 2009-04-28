@@ -1,5 +1,7 @@
 package org.citygml4j.model.gml;
 
+import java.util.List;
+
 public interface Coordinates extends GMLBase {
 	public String getValue();
 	public String getDecimal();
@@ -9,6 +11,9 @@ public interface Coordinates extends GMLBase {
 	public boolean isSetDecimal();
 	public boolean isSetCs();
 	public boolean isSetTs();
+	
+	public List<Double> toList();
+	public List<Double> toList(boolean reverseOrder);
 	
 	public void setValue(String value);
 	public void setDecimal(String decimal);

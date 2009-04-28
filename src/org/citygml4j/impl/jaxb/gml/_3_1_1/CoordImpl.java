@@ -1,6 +1,8 @@
 package org.citygml4j.impl.jaxb.gml._3_1_1;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.citygml4j.jaxb.gml._3_1_1.CoordType;
 import org.citygml4j.model.gml.Coord;
@@ -12,7 +14,7 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 	public CoordImpl() {
 		coordType = new CoordType();
 	}
-	
+
 	public CoordImpl(CoordType coordType) {
 		this.coordType = coordType;
 	}
@@ -49,6 +51,22 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.COORD;
+	}
+
+	@Override
+	public List<Double> toList() {
+		List<Double> tmp = new ArrayList<Double>();
+
+		if (isSetX() && isSetY()) {
+			tmp.add(getX());
+			tmp.add(getY());
+			tmp.add(isSetZ() ? getZ() : 0.0);
+		}
+
+		if (tmp.size() != 0)
+			return tmp;
+
+		return null;
 	}
 
 	@Override
@@ -95,5 +113,5 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 	public void unsetZ() {
 		coordType.setZ(null);
 	}
-	
+
 }

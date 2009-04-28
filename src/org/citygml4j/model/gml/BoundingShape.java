@@ -9,7 +9,6 @@ public interface BoundingShape extends GMLBase {
 	public void setEnvelope(Envelope envelope);
 	public void setNull(String _null);
 	public boolean convertEnvelope();
-	public boolean convertEnvelope(boolean to3D);
 	public void unsetEnvelope();
 	public void unsetNull();
 }

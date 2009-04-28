@@ -127,11 +127,11 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		if (getTrianglePatches() != null && getTrianglePatches().isSetTriangle())
 			super.calcBoundingBox(min, max);
 
-		if (getControlPoint() != null) {
+		if (isSetControlPoint()) {
 			ControlPoint controlPoint = getControlPoint();
 			List<Double> points = new ArrayList<Double>();
 
-			if (controlPoint.getPosList() != null) {
+			if (controlPoint.isSetPosList()) {
 				List<Double> posList = controlPoint.getPosList().toList();
 				if (posList != null)
 					points.addAll(posList);
@@ -139,11 +139,11 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 				List<Double> point = new ArrayList<Double>();
 
 				for (GeometricPositionGroup group : controlPoint.getGeometricPositionGroup()) {
-					if (group.getPos() != null) {
+					if (group.isSetPos()) {
 						point = group.getPos().toList();
-					} else if (group.getPointProperty() != null) {
+					} else if (group.isSetPointProperty()) {
 						PointProperty pointProperty = group.getPointProperty();
-						if (pointProperty.getPoint() != null)
+						if (pointProperty.isSetPoint())
 							point = pointProperty.getPoint().toList();
 					}
 

@@ -4,7 +4,6 @@ import org.citygml4j.model.gml.GMLBase;
 import org.citygml4j.model.gml.GMLClass;
 
 public abstract class GMLBaseImpl implements GMLBase {
-
 	public abstract Object getJAXBObject();
 
 	@Override

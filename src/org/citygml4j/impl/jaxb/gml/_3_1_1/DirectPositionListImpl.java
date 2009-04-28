@@ -10,7 +10,6 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositionList {
 	private DirectPositionListType directPositionListType;
-	private List<Double> pointList;
 
 	public DirectPositionListImpl() {
 		directPositionListType = new DirectPositionListType();
@@ -116,10 +115,32 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 
 	@Override
 	public List<Double> toList() {
-		if (pointList == null)
-			generatePointList();
+		List<Double> tmp = new ArrayList<Double>();
 
-		return pointList;
+		if (isSetValue()) {
+			tmp.addAll(getValue());
+			
+			int dim = (getSrsDimension() != null && getSrsDimension() == 2) ? 2 : 3;
+			while (tmp.size() % dim != 0)
+				tmp.add(0.0);
+
+			if (dim == 2) {
+				List<Double> newPoints = new ArrayList<Double>();
+
+				// ok, what we do is adding 0.0
+				for (int i = 0; i < tmp.size(); i += 2) {
+					newPoints.addAll(tmp.subList(i, i + 2));
+					newPoints.add(0.0);
+				}
+
+				tmp = newPoints;
+			}
+		}
+
+		if (tmp.size() != 0)
+			return tmp;
+		
+		return null;
 	}
 
 	@Override
@@ -136,38 +157,6 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		}
 
 		return points;
-	}
-
-	private void generatePointList() {
-		if (pointList != null)
-			return;
-
-		List<Double> tmp = new ArrayList<Double>();
-
-		if (isSetValue()) {
-			List<Double> points = new ArrayList<Double>(getValue());
-
-			int dim = (getSrsDimension() != null && getSrsDimension() == 2) ? 2 : 3;
-			while (points.size() % dim != 0)
-				points.add(0.0);
-
-			if (dim == 2) {
-				List<Double> newPoints = new ArrayList<Double>();
-
-				// ok, what we do is adding 0.0
-				for (int i = 0; i < points.size(); i += 2) {
-					newPoints.addAll(points.subList(i, i + 2));
-					newPoints.add(0.0);
-				}
-
-				points = newPoints;
-			}
-
-			tmp.addAll(points);
-		}
-
-		if (tmp.size() != 0)
-			pointList = tmp;
 	}
 
 	@Override

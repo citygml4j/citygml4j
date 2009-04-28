@@ -4,7 +4,6 @@ import org.citygml4j.jaxb.gml._3_1_1.CodeType;
 import org.citygml4j.model.gml.Code;
 import org.citygml4j.model.gml.GMLClass;
 
-
 public class CodeImpl extends GMLBaseImpl implements Code {
 	private CodeType codeType;
 

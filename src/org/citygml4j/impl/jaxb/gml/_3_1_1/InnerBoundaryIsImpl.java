@@ -2,21 +2,21 @@ package org.citygml4j.impl.jaxb.gml._3_1_1;
 
 import org.citygml4j.jaxb.gml._3_1_1.AbstractRingPropertyType;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.Interior;
+import org.citygml4j.model.gml.InnerBoundaryIs;
 
-public class InteriorImpl extends AbstractRingPropertyImpl implements Interior {
+public class InnerBoundaryIsImpl extends AbstractRingPropertyImpl implements InnerBoundaryIs {
 
-	public InteriorImpl() {
+	public InnerBoundaryIsImpl() {
 		this(new AbstractRingPropertyType());
 	}
 
-	public InteriorImpl(AbstractRingPropertyType interiorType) {
+	public InnerBoundaryIsImpl(AbstractRingPropertyType interiorType) {
 		super(interiorType);
 	}
 
 	@Override
 	public GMLClass getGMLClass() {
-		return GMLClass.INTERIOR;
+		return GMLClass.INNERBOUNDARYIS;
 	}
 
 }

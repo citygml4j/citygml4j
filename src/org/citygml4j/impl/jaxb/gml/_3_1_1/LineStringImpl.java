@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.geometry.Point;
+import org.citygml4j.impl.jaxb.ObjectFactory;
 import org.citygml4j.jaxb.gml._3_1_1.CoordType;
 import org.citygml4j.jaxb.gml._3_1_1.DirectPositionType;
 import org.citygml4j.jaxb.gml._3_1_1.LineStringType;
@@ -18,10 +19,10 @@ import org.citygml4j.model.gml.GMLBase;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.LineString;
 import org.citygml4j.model.gml.PointProperty;
+import org.citygml4j.model.gml.PointRep;
 
 public class LineStringImpl extends AbstractCurveImpl implements LineString {
 	private LineStringType lineStringType;
-	private List<Double> pointList;
 
 	public LineStringImpl() {
 		this(new LineStringType());
@@ -50,12 +51,10 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 			if (pointElem.getValue() != null) {
 				if (pointElem.getValue() instanceof PointPropertyType) {
 					if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&
-							pointElem.getName().getLocalPart().equals("pointProperty"))
-						posOrPointOrPointRepList.add(new PointPropertyImpl((PointPropertyType)pointElem.getValue()));
-					else if (pointElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&
 							pointElem.getName().getLocalPart().equals("pointRep"))
+						posOrPointOrPointRepList.add(new PointRepImpl((PointPropertyType)pointElem.getValue()));
+					else
 						posOrPointOrPointRepList.add(new PointPropertyImpl((PointPropertyType)pointElem.getValue()));
-
 				} 
 				else if (pointElem.getValue() instanceof DirectPositionType)
 					posOrPointOrPointRepList.add(new DirectPositionImpl((DirectPositionType)pointElem.getValue()));
@@ -108,10 +107,46 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 
 	@Override
 	public List<Double> toList() {
-		if (pointList == null)
-			generatePointList();
+		List<Double> tmp = new ArrayList<Double>();
 
-		return pointList;
+		if (isSetPosList()) {
+			List<Double> points = getPosList().toList();
+			if (points != null)
+				tmp.addAll(points);
+		}
+		
+		if (isSetPosOrPointPropertyOrPointRepOrCoord()) {
+			for (GMLBase pointElem : getPosOrPointPropertyOrPointRepOrCoord()) {
+				if (pointElem.getGMLClass() == GMLClass.DIRECTPOSITION) {
+					List<Double> point = ((DirectPosition)pointElem).toList();
+					if (point != null)
+						tmp.addAll(point);
+				} else if (pointElem.getGMLClass() == GMLClass.POINTPROPERTY ||
+						pointElem.getGMLClass() == GMLClass.POINTREP) {
+					org.citygml4j.model.gml.Point point = ((PointProperty)pointElem).getPoint();				
+					if (point != null) {
+						List<Double> coords = point.toList();
+						if (coords != null)
+							tmp.addAll(coords);
+					}
+				} else if (pointElem.getGMLClass() == GMLClass.COORD) {
+					List<Double> coord = ((Coord)pointElem).toList();
+					if (coord != null)
+						tmp.addAll(coord);
+				}
+			}
+		}
+
+		if (isSetCoordinates()) {
+			List<Double> points = getCoordinates().toList();
+			if (points != null)
+				tmp.addAll(points);
+		}
+		
+		if (tmp.size() != 0)
+			return tmp;
+		
+		return null;
 	}
 
 	@Override
@@ -130,53 +165,68 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return points;
 	}
 
-	private void generatePointList() {
-		if (pointList != null)
-			return;
-
-		List<Double> tmp = new ArrayList<Double>();
-
-		if (isSetPosOrPointPropertyOrPointRepOrCoord()) {
-			for (GMLBase pointElem : getPosOrPointPropertyOrPointRepOrCoord()) {
-				if (pointElem.getGMLClass() == GMLClass.DIRECTPOSITION) {
-					List<Double> point = ((DirectPosition)pointElem).toList();
-					if (point != null)
-						tmp.addAll(point);
-				} else if (pointElem.getGMLClass() == GMLClass.POINTPROPERTY) {
-					org.citygml4j.model.gml.Point point = ((PointProperty)pointElem).getPoint();				
-					if (point != null) {
-						List<Double> coords = point.toList();
-						if (coords != null)
-							tmp.addAll(coords);
-					}
-				} else if (pointElem.getGMLClass() == GMLClass.COORD) {
-					Coord coord = (Coord)pointElem;
-					if (coord.getX() != null && coord.getY() != null) {
-						tmp.add(coord.getX());
-						tmp.add(coord.getY());
-
-						if (coord.getZ() != null)
-							tmp.add(coord.getZ());
-						else
-							tmp.add(0.0);
-					}
-				}
-			}
-		}
-
-		if (isSetPosList()) {
-			List<Double> points = getPosList().toList();
-			if (points != null)
-				tmp.addAll(points);
-		}
-
-		if (tmp.size() != 0)
-			pointList = tmp;
-	}
-
 	@Override
 	public void setPosList(DirectPositionList posList) {
 		lineStringType.setPosList(((DirectPositionListImpl)posList).getJAXBObject());
+	}
+
+	@Override
+	public void addCoord(Coord coord) {
+		JAXBElement<CoordType> elem = ObjectFactory.GML.createCoord(((CoordImpl)coord).getJAXBObject());
+		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);		
+	}
+
+	@Override
+	public void addPointProperty(PointProperty pointProperty) {
+		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)pointProperty).getJAXBObject());
+		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);
+	}
+
+	@Override
+	public void addPointRep(PointRep pointRep) {
+		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointRep(((PointRepImpl)pointRep).getJAXBObject());
+		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);
+	}
+
+	@Override
+	public void addPos(DirectPosition pos) {
+		JAXBElement<DirectPositionType> elem = ObjectFactory.GML.createPos(((DirectPositionImpl)pos).getJAXBObject());
+		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);
+	}
+
+	@Override
+	public void setCoordinates(Coordinates coordinates) {
+		lineStringType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
+	}
+
+	@Override
+	public void setPosOrPointPropertyOrPointRepOrCoord(List<GMLBase> controlPoints) {
+		List<JAXBElement<?>> posOrPointPropertyOrPointRepOrCoordList = new ArrayList<JAXBElement<?>>();
+		
+		for (GMLBase controlPoint : controlPoints) {
+			JAXBElement<?> controlPointType = null;
+			
+			switch (controlPoint.getGMLClass()) {
+			case POINTPROPERTY:
+				controlPointType = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)controlPoint).getJAXBObject());
+				break;
+			case DIRECTPOSITION:
+				controlPointType = ObjectFactory.GML.createPos(((DirectPositionImpl)controlPoint).getJAXBObject());
+				break;
+			case POINTREP:
+				controlPointType = ObjectFactory.GML.createPointRep(((PointRepImpl)controlPoint).getJAXBObject());
+				break;
+			case COORD:
+				controlPointType = ObjectFactory.GML.createCoord(((CoordImpl)controlPoint).getJAXBObject());
+				break;
+			}
+			
+			if (controlPointType != null)
+				posOrPointPropertyOrPointRepOrCoordList.add(controlPointType);
+		}
+		
+		lineStringType.unsetPosOrPointPropertyOrPointRep();
+		lineStringType.getPosOrPointPropertyOrPointRep().addAll(posOrPointPropertyOrPointRepOrCoordList);
 	}
 
 	@Override

@@ -16,6 +16,13 @@ public interface LinearRing extends AbstractRing {
 	public List<Double> toList(boolean reverseOrder);
 
 	public void setPosList(DirectPositionList posList);
+	public void addPointProperty(PointProperty pointProperty);
+	public void addPointRep(PointRep pointRep);
+	public void addPos(DirectPosition pos);
+	public void setPosOrPointPropertyOrPointRep(List<GMLBase> controlPoints);
+	public void setCoordinates(Coordinates coordinates);
+	public void addCoord(Coord coord);
+	public void setCoord(List<Coord> coord);
 	public void unsetPosOrPointPropertyOrPointRep();
 	public void unsetPosList();
 	public void unsetCoordinates();

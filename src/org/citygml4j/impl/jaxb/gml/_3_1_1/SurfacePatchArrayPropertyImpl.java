@@ -14,7 +14,6 @@ import org.citygml4j.model.gml.AbstractSurfacePatch;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.SurfacePatchArrayProperty;
 
-
 public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements SurfacePatchArrayProperty {
 	private SurfacePatchArrayPropertyType surfacePatchArrayPropertyType;
 

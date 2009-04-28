@@ -10,7 +10,6 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class DirectPositionImpl extends GMLBaseImpl implements DirectPosition {
 	private DirectPositionType directPositionType;
-	private List<Double> pointList;
 
 	public DirectPositionImpl() {
 		directPositionType = new DirectPositionType();
@@ -98,10 +97,18 @@ public class DirectPositionImpl extends GMLBaseImpl implements DirectPosition {
 
 	@Override
 	public List<Double> toList() {
-		if (pointList == null)
-			generatePointList();
+		List<Double> tmp = new ArrayList<Double>();
 
-		return pointList;
+		if (isSetValue()) {
+			tmp.addAll(getValue());
+			while (tmp.size() < 3)
+				tmp.add(0.0);
+		}
+
+		if (tmp.size() != 0)
+			return tmp.subList(0, 3);
+		
+		return null;
 	}
 
 	@Override
@@ -118,29 +125,6 @@ public class DirectPositionImpl extends GMLBaseImpl implements DirectPosition {
 		}
 
 		return points;
-	}
-
-	private void generatePointList() {
-		if (pointList != null)
-			return;
-
-		List<Double> tmp = new ArrayList<Double>();
-
-		if (isSetValue()) {
-			List<Double> point = new ArrayList<Double>(getValue());
-
-			if (point.size() != 3) {
-				while (point.size() < 3)
-					point.add(0.0);
-
-				point.subList(3, point.size()).clear();
-			}
-
-			tmp.addAll(point);
-		}
-
-		if (tmp.size() != 0)
-			pointList = tmp;
 	}
 
 	@Override
