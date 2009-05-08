@@ -26,21 +26,18 @@ public enum TexturedSurfaceModule implements CityGMLModule {
 		this.dependencies = new CityGMLModuleDependencies(dependencies);
 	}
 	
-	@Override
 	public abstract String getNamespaceUri();
-	@Override
+
 	public abstract String getNamespacePrefix();
-	@Override
+	
 	public abstract String getSchemaLocation();
-	@Override
+	
 	public abstract CityGMLModuleVersion getModuleVersion();
 	
-	@Override
 	public CityGMLModuleType getModuleType() {
 		return CityGMLModuleType.TEXTUREDSURFACE;
 	}
 	
-	@Override
 	public CityGMLModuleDependencies getModuleDependencies() {
 		return dependencies;
 	}
