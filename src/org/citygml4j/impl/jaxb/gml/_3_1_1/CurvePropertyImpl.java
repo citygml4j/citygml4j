@@ -34,7 +34,6 @@ public class CurvePropertyImpl extends GMLBaseImpl implements CurveProperty {
 		return GMLClass.CURVEPROPERTY;
 	}
 
-	@Override
 	public AbstractCurve getCurve() {
 		if (curvePropertyType.isSet_Curve()) {
 			JAXBElement<? extends AbstractCurveType> abstractCurveType = curvePropertyType.get_Curve();
@@ -53,7 +52,6 @@ public class CurvePropertyImpl extends GMLBaseImpl implements CurveProperty {
 		return null;
 	}
 
-	@Override
 	public void setCurve(AbstractCurve curve) {
 		JAXBElement<? extends AbstractCurveType> jaxbElem = null;
 		
@@ -76,172 +74,138 @@ public class CurvePropertyImpl extends GMLBaseImpl implements CurveProperty {
 			curvePropertyType.set_Curve(jaxbElem);
 	}
 
-	@Override
 	public String getActuate() {
 		return curvePropertyType.getActuate();
 	}
 
-	@Override
 	public String getArcrole() {
 		return curvePropertyType.getArcrole();
 	}
 
-	@Override
 	public String getHref() {
 		return curvePropertyType.getHref();
 	}
 
-	@Override
 	public String getRemoteSchema() {
 		return curvePropertyType.getRemoteSchema();
 	}
 
-	@Override
 	public String getRole() {
 		return curvePropertyType.getRole();
 	}
 
-	@Override
 	public String getShow() {
 		return curvePropertyType.getShow();
 	}
 
-	@Override
 	public String getTitle() {
 		return curvePropertyType.getTitle();
 	}
 
-	@Override
 	public String getType() {
 		return curvePropertyType.getType();
 	}
 
-	@Override
 	public void setActuate(String actuate) {
 		curvePropertyType.setActuate(actuate);
 	}
 
-	@Override
 	public void setArcrole(String arcrole) {
 		curvePropertyType.setArcrole(arcrole);
 	}
 
-	@Override
 	public void setHref(String href) {
 		curvePropertyType.setHref(href);
 	}
 
-	@Override
 	public void setRemoteSchema(String remoteSchema) {
 		curvePropertyType.setRemoteSchema(remoteSchema);
 	}
 
-	@Override
 	public void setRole(String role) {
 		curvePropertyType.setRole(role);
 	}
 
-	@Override
 	public void setShow(String show) {
 		curvePropertyType.setShow(show);
 	}
 
-	@Override
 	public void setTitle(String title) {
 		curvePropertyType.setTitle(title);
 	}
 
-	@Override
 	public void setType(String type) {
 		curvePropertyType.setType(type);
 	}
 	
-	@Override
 	public boolean isSetActuate() {
 		return curvePropertyType.isSetActuate();
 	}
 
-	@Override
 	public boolean isSetArcrole() {
 		return curvePropertyType.isSetArcrole();
 	}
 
-	@Override
 	public boolean isSetHref() {
 		return curvePropertyType.isSetHref();
 	}
 
-	@Override
 	public boolean isSetRemoteSchema() {
 		return curvePropertyType.isSetRemoteSchema();
 	}
 
-	@Override
 	public boolean isSetRole() {
 		return curvePropertyType.isSetRole();
 	}
 
-	@Override
 	public boolean isSetShow() {
 		return curvePropertyType.isSetShow();
 	}
 
-	@Override
 	public boolean isSetTitle() {
 		return curvePropertyType.isSetTitle();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return curvePropertyType.isSetType();
 	}
 
-	@Override
 	public void unsetActuate() {
 		curvePropertyType.setActuate(null);
 	}
 
-	@Override
 	public void unsetArcrole() {
 		curvePropertyType.setArcrole(null);
 	}
 
-	@Override
 	public void unsetHref() {
 		curvePropertyType.setHref(null);
 	}
 
-	@Override
 	public void unsetRemoteSchema() {
 		curvePropertyType.setRemoteSchema(null);
 	}
 
-	@Override
 	public void unsetRole() {
 		curvePropertyType.setRole(null);
 	}
 
-	@Override
 	public void unsetShow() {
 		curvePropertyType.setShow(null);
 	}
 
-	@Override
 	public void unsetTitle() {
 		curvePropertyType.setTitle(null);
 	}
 
-	@Override
 	public void unsetType() {
 		curvePropertyType.setType(null);
 	}
 
-	@Override
 	public boolean isSetCurve() {
 		return curvePropertyType.isSet_Curve();
 	}
 
-	@Override
 	public void unsetCurve() {
 		curvePropertyType.set_Curve(null);
 	}

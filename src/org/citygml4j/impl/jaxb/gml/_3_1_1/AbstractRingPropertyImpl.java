@@ -22,7 +22,6 @@ public abstract class AbstractRingPropertyImpl extends GMLBaseImpl implements Ab
 		return abstractRingPropertyType;
 	}
 
-	@Override
 	public AbstractRing getRing() {
 		if (abstractRingPropertyType.isSet_Ring()) {
 			JAXBElement<? extends AbstractRingType> abstractRingTypeElem = abstractRingPropertyType.get_Ring();
@@ -40,12 +39,10 @@ public abstract class AbstractRingPropertyImpl extends GMLBaseImpl implements Ab
 		return GMLClass.ABSTRACTRINGPROPERTY;
 	}
 
-	@Override
 	public boolean isSetRing() {
 		return abstractRingPropertyType.isSet_Ring();
 	}
 
-	@Override
 	public void setRing(AbstractRing abstractRing) {
 		JAXBElement<? extends AbstractRingType> jaxbElem = null;
 		
@@ -59,7 +56,6 @@ public abstract class AbstractRingPropertyImpl extends GMLBaseImpl implements Ab
 			abstractRingPropertyType.set_Ring(jaxbElem);
 	}
 
-	@Override
 	public void unsetRing() {
 		abstractRingPropertyType.set_Ring(null);
 	}

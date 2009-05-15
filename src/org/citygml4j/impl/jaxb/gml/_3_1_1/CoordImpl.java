@@ -24,7 +24,6 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 		return coordType;
 	}
 
-	@Override
 	public Double getX() {
 		if (coordType.isSetX())
 			return new Double(coordType.getX().doubleValue());
@@ -32,7 +31,6 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 		return null;
 	}
 
-	@Override
 	public Double getY() {
 		if (coordType.isSetY())
 			return new Double(coordType.getY().doubleValue());
@@ -40,7 +38,6 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 		return null;
 	}
 
-	@Override
 	public Double getZ() {
 		if (coordType.isSetZ())
 			return new Double(coordType.getZ().doubleValue());
@@ -53,7 +50,6 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 		return GMLClass.COORD;
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 
@@ -69,47 +65,38 @@ public class CoordImpl extends GMLBaseImpl implements Coord {
 		return null;
 	}
 
-	@Override
 	public boolean isSetX() {
 		return coordType.isSetX();
 	}
 
-	@Override
 	public boolean isSetY() {
 		return coordType.isSetY();
 	}
 
-	@Override
 	public boolean isSetZ() {
 		return coordType.isSetZ();
 	}
 
-	@Override
 	public void setX(Double x) {
 		coordType.setX(new BigDecimal(x));
 	}
 
-	@Override
 	public void setY(Double y) {
 		coordType.setY(new BigDecimal(y));
 	}
 
-	@Override
 	public void setZ(Double z) {
 		coordType.setZ(new BigDecimal(z));
 	}
 
-	@Override
 	public void unsetX() {
 		coordType.setX(null);
 	}
 
-	@Override
 	public void unsetY() {
 		coordType.setY(null);
 	}
 
-	@Override
 	public void unsetZ() {
 		coordType.setZ(null);
 	}

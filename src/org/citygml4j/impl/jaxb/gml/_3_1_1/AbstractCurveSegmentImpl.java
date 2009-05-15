@@ -23,7 +23,6 @@ public abstract class AbstractCurveSegmentImpl extends GMLBaseImpl implements Ab
 		return abstractCurveSegmentType;
 	}
 
-	@Override
 	public Integer getNumDerivativeInterior() {
 		if (abstractCurveSegmentType.isSetNumDerivativeInterior())
 			return abstractCurveSegmentType.getNumDerivativeInterior().intValue();
@@ -31,7 +30,6 @@ public abstract class AbstractCurveSegmentImpl extends GMLBaseImpl implements Ab
 		return null;
 	}
 
-	@Override
 	public Integer getNumDerivativesAtEnd() {
 		if (abstractCurveSegmentType.isSetNumDerivativesAtEnd())
 			return abstractCurveSegmentType.getNumDerivativesAtEnd().intValue();
@@ -39,7 +37,6 @@ public abstract class AbstractCurveSegmentImpl extends GMLBaseImpl implements Ab
 		return null;
 	}
 
-	@Override
 	public Integer getNumDerivativesAtStart() {
 		if (abstractCurveSegmentType.isSetNumDerivativesAtStart())
 			return abstractCurveSegmentType.getNumDerivativesAtStart().intValue();
@@ -47,47 +44,38 @@ public abstract class AbstractCurveSegmentImpl extends GMLBaseImpl implements Ab
 		return null;
 	}
 
-	@Override
 	public void setNumDerivativeInterior(Integer value) {
 		abstractCurveSegmentType.setNumDerivativeInterior(new BigInteger(String.valueOf(value)));
 	}
 
-	@Override
 	public void setNumDerivativesAtEnd(Integer value) {
 		abstractCurveSegmentType.setNumDerivativesAtEnd(new BigInteger(String.valueOf(value)));
 	}
 
-	@Override
 	public void setNumDerivativesAtStart(Integer value) {
 		abstractCurveSegmentType.setNumDerivativesAtStart(new BigInteger(String.valueOf(value)));
 	}
 
-	@Override
 	public boolean isSetNumDerivativeInterior() {
 		return abstractCurveSegmentType.isSetNumDerivativeInterior();
 	}
 
-	@Override
 	public boolean isSetNumDerivativesAtEnd() {
 		return abstractCurveSegmentType.isSetNumDerivativesAtEnd();
 	}
 
-	@Override
 	public boolean isSetNumDerivativesAtStart() {
 		return abstractCurveSegmentType.isSetNumDerivativesAtStart();
 	}
 
-	@Override
 	public void unsetNumDerivativeInterior() {
 		abstractCurveSegmentType.setNumDerivativeInterior(null);
 	}
 
-	@Override
 	public void unsetNumDerivativesAtEnd() {
 		abstractCurveSegmentType.setNumDerivativesAtEnd(null);
 	}
 
-	@Override
 	public void unsetNumDerivativesAtStart() {
 		abstractCurveSegmentType.setNumDerivativesAtStart(null);
 	}

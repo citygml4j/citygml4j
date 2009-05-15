@@ -37,7 +37,6 @@ public class CurveArrayPropertyImpl extends GMLBaseImpl implements	CurveArrayPro
 		return GMLClass.CURVEARRAYPROPERTY;
 	}
 
-	@Override
 	public List<AbstractCurve> getCurve() {
 		List<AbstractCurve> abstractCurveList = new ArrayList<AbstractCurve>();
 
@@ -57,7 +56,6 @@ public class CurveArrayPropertyImpl extends GMLBaseImpl implements	CurveArrayPro
 		return abstractCurveList;
 	}
 
-	@Override
 	public void addCurve(AbstractCurve abstractCurve) {
 		JAXBElement<? extends AbstractCurveType> jaxbElem = null;
 
@@ -80,12 +78,10 @@ public class CurveArrayPropertyImpl extends GMLBaseImpl implements	CurveArrayPro
 			curveArrayPropertyType.get_Curve().add(jaxbElem);
 	}
 
-	@Override
 	public boolean isSetCurve() {
 		return curveArrayPropertyType.isSet_Curve();
 	}
 
-	@Override
 	public void setCurve(List<AbstractCurve> abstractCurve) {
 		List<JAXBElement<? extends AbstractCurveType>> jaxbElemList = new ArrayList<JAXBElement<? extends AbstractCurveType>>();
 
@@ -117,12 +113,10 @@ public class CurveArrayPropertyImpl extends GMLBaseImpl implements	CurveArrayPro
 		}
 	}
 
-	@Override
 	public void unsetCurve() {
 		curveArrayPropertyType.unset_Curve();
 	}
 
-	@Override
 	public boolean unsetCurve(AbstractCurve abstractCurve) {
 		if (curveArrayPropertyType.isSet_Curve())
 			return curveArrayPropertyType.get_Curve().remove(((AbstractCurveImpl)abstractCurve).getJAXBObject());

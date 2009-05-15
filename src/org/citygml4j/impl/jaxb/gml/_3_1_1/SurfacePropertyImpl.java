@@ -39,7 +39,6 @@ public class SurfacePropertyImpl extends GMLBaseImpl implements SurfaceProperty 
 		return GMLClass.SURFACEPROPERTY;
 	}
 
-	@Override
 	public AbstractSurface getSurface() {
 		if (surfacePropertyType.isSet_Surface()) {
 			JAXBElement<? extends AbstractSurfaceType> abstractSurfaceType = surfacePropertyType.get_Surface();
@@ -66,87 +65,70 @@ public class SurfacePropertyImpl extends GMLBaseImpl implements SurfaceProperty 
 		return null;
 	}
 
-	@Override
 	public String getActuate() {
 		return surfacePropertyType.getActuate();
 	}
 
-	@Override
 	public String getArcrole() {
 		return surfacePropertyType.getArcrole();
 	}
 
-	@Override
 	public String getHref() {
 		return surfacePropertyType.getHref();
 	}
 
-	@Override
 	public String getRemoteSchema() {
 		return surfacePropertyType.getRemoteSchema();
 	}
 
-	@Override
 	public String getRole() {
 		return surfacePropertyType.getRole();
 	}
 
-	@Override
 	public String getShow() {
 		return surfacePropertyType.getShow();
 	}
 
-	@Override
 	public String getTitle() {
 		return surfacePropertyType.getTitle();
 	}
 
-	@Override
 	public String getType() {
 		return surfacePropertyType.getType();
 	}
 
-	@Override
 	public void setActuate(String actuate) {
 		surfacePropertyType.setActuate(actuate);
 	}
 
-	@Override
 	public void setArcrole(String arcrole) {
 		surfacePropertyType.setArcrole(arcrole);
 	}
 
-	@Override
 	public void setHref(String href) {
 		surfacePropertyType.setHref(href);
 	}
 
-	@Override
 	public void setRemoteSchema(String remoteSchema) {
 		surfacePropertyType.setRemoteSchema(remoteSchema);
 	}
 
-	@Override
 	public void setRole(String role) {
 		surfacePropertyType.setRole(role);
 	}
 
-	@Override
 	public void setShow(String show) {
 		surfacePropertyType.setShow(show);
 	}
 
-	@Override
 	public void setTitle(String title) {
 		surfacePropertyType.setTitle(title);
 	}
 
-	@Override
 	public void setType(String type) {
 		surfacePropertyType.setType(type);
 	}
 
-	@Override
 	public void setSurface(AbstractSurface abstractSurface) {
 		JAXBElement<? extends AbstractSurfaceType> jaxbElem = null;
 
@@ -184,92 +166,74 @@ public class SurfacePropertyImpl extends GMLBaseImpl implements SurfaceProperty 
 			surfacePropertyType.set_Surface(jaxbElem);
 	}
 
-	@Override
 	public boolean isSetActuate() {
 		return surfacePropertyType.isSetActuate();
 	}
 
-	@Override
 	public boolean isSetArcrole() {
 		return surfacePropertyType.isSetArcrole();
 	}
 
-	@Override
 	public boolean isSetHref() {
 		return surfacePropertyType.isSetHref();
 	}
 
-	@Override
 	public boolean isSetRemoteSchema() {
 		return surfacePropertyType.isSetRemoteSchema();
 	}
 
-	@Override
 	public boolean isSetRole() {
 		return surfacePropertyType.isSetRole();
 	}
 
-	@Override
 	public boolean isSetShow() {
 		return surfacePropertyType.isSetShow();
 	}
 
-	@Override
 	public boolean isSetTitle() {
 		return surfacePropertyType.isSetTitle();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return surfacePropertyType.isSetType();
 	}
 
-	@Override
 	public void unsetActuate() {
 		surfacePropertyType.setActuate(null);
 	}
 
-	@Override
 	public void unsetArcrole() {
 		surfacePropertyType.setArcrole(null);
 	}
 
-	@Override
 	public void unsetHref() {
 		surfacePropertyType.setHref(null);
 	}
 
-	@Override
 	public void unsetRemoteSchema() {
 		surfacePropertyType.setRemoteSchema(null);
 	}
 
-	@Override
 	public void unsetRole() {
 		surfacePropertyType.setRole(null);
 	}
 
-	@Override
 	public void unsetShow() {
 		surfacePropertyType.setShow(null);
 	}
 
-	@Override
 	public void unsetTitle() {
 		surfacePropertyType.setTitle(null);
 	}
 
-	@Override
 	public void unsetType() {
 		surfacePropertyType.setType(null);
 	}
 
-	@Override
 	public boolean isSetSurface() {
 		return surfacePropertyType.isSet_Surface();
 	}
 
-	@Override
 	public void unsetSurface() {
 		surfacePropertyType.set_Surface(null);
 	}

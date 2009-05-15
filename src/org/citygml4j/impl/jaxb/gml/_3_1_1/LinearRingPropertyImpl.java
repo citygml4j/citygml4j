@@ -26,7 +26,6 @@ public class LinearRingPropertyImpl extends GMLBaseImpl implements LinearRingPro
 		return GMLClass.LINEARRINGPROPERTY;
 	}
 
-	@Override
 	public LinearRing getLinearRing() {
 		if (linearRingPropertyType.isSetLinearRing())
 			return new LinearRingImpl(linearRingPropertyType.getLinearRing());
@@ -34,17 +33,14 @@ public class LinearRingPropertyImpl extends GMLBaseImpl implements LinearRingPro
 		return null;
 	}
 
-	@Override
 	public boolean isSetLinearRing() {
 		return linearRingPropertyType.isSetLinearRing();
 	}
 
-	@Override
 	public void setLinearRing(LinearRing linearRing) {
 		linearRingPropertyType.setLinearRing(((LinearRingImpl)linearRing).getJAXBObject());
 	}
 
-	@Override
 	public void unsetLinearRIng() {
 		linearRingPropertyType.setLinearRing(null);
 	}

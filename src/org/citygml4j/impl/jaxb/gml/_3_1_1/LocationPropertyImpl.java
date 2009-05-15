@@ -59,7 +59,6 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 		return locationPropertyType;
 	}
 
-	@Override
 	public AbstractGeometry getGeometry() {
 		if (locationPropertyType.isSet_Geometry()) {
 			JAXBElement<? extends AbstractGeometryType> abstractGeometryType = locationPropertyType.get_Geometry();
@@ -129,22 +128,18 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 		return null;
 	}
 
-	@Override
 	public String getActuate() {
 		return locationPropertyType.getActuate();
 	}
 
-	@Override
 	public String getArcrole() {
 		return locationPropertyType.getArcrole();
 	}
 
-	@Override
 	public String getHref() {
 		return locationPropertyType.getHref();
 	}
 
-	@Override
 	public Code getLocationKeyWord() {
 		if (locationPropertyType.isSetLocationKeyWord())
 			return new CodeImpl(locationPropertyType.getLocationKeyWord());
@@ -152,7 +147,6 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 		return null;
 	}
 
-	@Override
 	public StringOrRef getLocationString() {
 		if (locationPropertyType.isSetLocationString())
 			return new StringOrRefImpl(locationPropertyType.getLocationString());
@@ -160,7 +154,6 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 		return null;
 	}
 
-	@Override
 	public String getNull() {
 		if (locationPropertyType.isSetNull()) {
 			List<String> _nullList = locationPropertyType.getNull();
@@ -183,7 +176,6 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 		return null;
 	}
 
-	@Override
 	public void setGeometry(AbstractGeometry geometry) {
 		JAXBElement<? extends AbstractGeometryType> jaxbElem = null;
 
@@ -266,43 +258,35 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 			locationPropertyType.set_Geometry(jaxbElem);
 	}
 
-	@Override
 	public void setLocationKeyWord(Code locationKeyWord) {
 		locationPropertyType.setLocationKeyWord(((CodeImpl)locationKeyWord).getJAXBObject());
 	}
 
-	@Override
 	public void setLocationString(StringOrRef locationString) {
 		locationPropertyType.setLocationString(((StringOrRefImpl)locationString).getJAXBObject());
 	}
 
-	@Override
 	public void setNull(String _null) {
 		locationPropertyType.unsetNull();
 		locationPropertyType.getNull().add(_null);
 	}
 
-	@Override
 	public String getRemoteSchema() {
 		return locationPropertyType.getRemoteSchema();
 	}
 
-	@Override
 	public String getRole() {
 		return locationPropertyType.getRole();
 	}
 
-	@Override
 	public String getShow() {
 		return locationPropertyType.getShow();
 	}
 
-	@Override
 	public String getTitle() {
 		return locationPropertyType.getTitle();
 	}
 
-	@Override
 	public String getType() {
 		return locationPropertyType.getType();
 	}
@@ -312,162 +296,130 @@ public class LocationPropertyImpl extends GMLBaseImpl implements LocationPropert
 		return GMLClass.LOCATIONPROPERTY;
 	}
 
-	@Override
 	public void setActuate(String actuate) {
 		locationPropertyType.setActuate(actuate);
 	}
 
-	@Override
 	public void setArcrole(String arcrole) {
 		locationPropertyType.setArcrole(arcrole);
 	}
 
-	@Override
 	public void setHref(String href) {
 		locationPropertyType.setHref(href);
 	}
 
-	@Override
 	public void setRemoteSchema(String remoteSchema) {
 		locationPropertyType.setRemoteSchema(remoteSchema);
 	}
 
-	@Override
 	public void setRole(String role) {
 		locationPropertyType.setRole(role);
 	}
 
-	@Override
 	public void setShow(String show) {
 		locationPropertyType.setShow(show);
 	}
 
-	@Override
 	public void setTitle(String title) {
 		locationPropertyType.setTitle(title);
 	}
 
-	@Override
 	public void setType(String type) {
 		locationPropertyType.setType(type);
 	}
 	
-	@Override
 	public boolean isSetActuate() {
 		return locationPropertyType.isSetActuate();
 	}
 
-	@Override
 	public boolean isSetArcrole() {
 		return locationPropertyType.isSetArcrole();
 	}
 
-	@Override
 	public boolean isSetHref() {
 		return locationPropertyType.isSetHref();
 	}
 
-	@Override
 	public boolean isSetRemoteSchema() {
 		return locationPropertyType.isSetRemoteSchema();
 	}
 
-	@Override
 	public boolean isSetRole() {
 		return locationPropertyType.isSetRole();
 	}
 
-	@Override
 	public boolean isSetShow() {
 		return locationPropertyType.isSetShow();
 	}
 
-	@Override
 	public boolean isSetTitle() {
 		return locationPropertyType.isSetTitle();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return locationPropertyType.isSetType();
 	}
 
-	@Override
 	public void unsetActuate() {
 		locationPropertyType.setActuate(null);
 	}
 
-	@Override
 	public void unsetArcrole() {
 		locationPropertyType.setArcrole(null);
 	}
 
-	@Override
 	public void unsetHref() {
 		locationPropertyType.setHref(null);
 	}
 
-	@Override
 	public void unsetRemoteSchema() {
 		locationPropertyType.setRemoteSchema(null);
 	}
 
-	@Override
 	public void unsetRole() {
 		locationPropertyType.setRole(null);
 	}
 
-	@Override
 	public void unsetShow() {
 		locationPropertyType.setShow(null);
 	}
 
-	@Override
 	public void unsetTitle() {
 		locationPropertyType.setTitle(null);
 	}
 
-	@Override
 	public void unsetType() {
 		locationPropertyType.setType(null);
 	}
 
-	@Override
 	public boolean isSetGeometry() {
 		return locationPropertyType.isSet_Geometry();
 	}
 
-	@Override
 	public boolean isSetLocationKeyWord() {
 		return locationPropertyType.isSetLocationKeyWord();
 	}
 
-	@Override
 	public boolean isSetLocationString() {
 		return locationPropertyType.isSetLocationString();
 	}
 
-	@Override
 	public boolean isSetNull() {
 		return locationPropertyType.isSetNull();
 	}
 
-	@Override
 	public void unsetGeometry() {
 		locationPropertyType.set_Geometry(null);
 	}
 
-	@Override
 	public void unsetLocationKeyWord() {
 		locationPropertyType.setLocationKeyWord(null);
 	}
 
-	@Override
 	public void unsetLocationString() {
 		locationPropertyType.setLocationString(null);
 	}
 
-	@Override
 	public void unsetNull() {
 		locationPropertyType.unsetNull();
 	}

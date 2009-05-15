@@ -34,7 +34,6 @@ public class SurfaceImpl extends AbstractSurfaceImpl implements Surface {
 		return surfaceType;
 	}
 
-	@Override
 	public SurfacePatchArrayProperty getPatches() {
 		if (surfaceType.isSetPatches()) {
 			JAXBElement<? extends SurfacePatchArrayPropertyType> propertyElem = surfaceType.getPatches();
@@ -50,7 +49,6 @@ public class SurfaceImpl extends AbstractSurfaceImpl implements Surface {
 		return null;
 	}
 
-	@Override
 	public void setPatches(SurfacePatchArrayProperty patches) {
 		JAXBElement<? extends SurfacePatchArrayPropertyType> jaxbElem = null;
 		
@@ -66,7 +64,6 @@ public class SurfaceImpl extends AbstractSurfaceImpl implements Surface {
 			surfaceType.setPatches(jaxbElem);
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getPatches() != null) {
 			SurfacePatchArrayProperty arrayProperty = getPatches();
@@ -77,12 +74,10 @@ public class SurfaceImpl extends AbstractSurfaceImpl implements Surface {
 		}
 	}
 
-	@Override
 	public boolean isSetPatches() {
 		return surfaceType.isSetPatches();
 	}
 
-	@Override
 	public void unsetPatches() {
 		surfaceType.setPatches(null);
 	}

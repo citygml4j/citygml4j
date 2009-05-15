@@ -38,7 +38,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return lineStringSegmentType;
 	}
 
-	@Override
 	public Coordinates getCoordinates() {
 		if (lineStringSegmentType.isSetCoordinates())
 			return new CoordinatesImpl(lineStringSegmentType.getCoordinates());
@@ -46,7 +45,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return null;
 	}
 
-	@Override
 	public CurveInterpolation getInterpolation() {
 		// linear is fixed for gml:LineStringSegment
 		if (lineStringSegmentType.isSetInterpolation())
@@ -55,7 +53,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return null;
 	}
 
-	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRep() {
 		List<GMLBase> posOrPointOrPointRepList = new ArrayList<GMLBase>();
 
@@ -75,7 +72,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return posOrPointOrPointRepList;
 	}
 
-	@Override
 	public DirectPositionList getPosList() {
 		if (lineStringSegmentType.isSetPosList())
 			return new DirectPositionListImpl(lineStringSegmentType.getPosList());
@@ -83,41 +79,34 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return null;
 	}
 
-	@Override
 	public void setInterpolation(CurveInterpolation interpolation) {
 		// linear is fixed for gml:LineStringSegment
 		lineStringSegmentType.setInterpolation(CurveInterpolationType.LINEAR);
 	}
 
-	@Override
 	public void setPosList(DirectPositionList posList) {
 		lineStringSegmentType.setPosList(((DirectPositionListImpl)posList).getJAXBObject());
 	}
 
-	@Override
 	public void addPointProperty(PointProperty pointProperty) {
 		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)pointProperty).getJAXBObject());
 		lineStringSegmentType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 
-	@Override
 	public void addPointRep(PointRep pointRep) {
 		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointRep(((PointRepImpl)pointRep).getJAXBObject());
 		lineStringSegmentType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 
-	@Override
 	public void addPos(DirectPosition pos) {
 		JAXBElement<DirectPositionType> elem = ObjectFactory.GML.createPos(((DirectPositionImpl)pos).getJAXBObject());
 		lineStringSegmentType.getPosOrPointPropertyOrPointRep().add(elem);		
 	}
 
-	@Override
 	public void setCoordinates(Coordinates coordinates) {
 		lineStringSegmentType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
 	}
 
-	@Override
 	public void setPosOrPointPropertyOrPointRep(List<GMLBase> controlPoints) {
 		List<JAXBElement<?>> posOrPointOrPointRepList = new ArrayList<JAXBElement<?>>();
 		
@@ -144,7 +133,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		lineStringSegmentType.getPosOrPointPropertyOrPointRep().addAll(posOrPointOrPointRepList);
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 
@@ -184,7 +172,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return null;
 	}
 
-	@Override
 	public List<Double> toList(boolean reverseOrder) {
 		List<Double> points = toList();
 
@@ -200,7 +187,6 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return points;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		List<Double> points = toList();
 
@@ -228,42 +214,34 @@ public class LineStringSegmentImpl extends AbstractCurveSegmentImpl implements L
 		return GMLClass.LINESTRINGSEGMENT;
 	}
 
-	@Override
 	public boolean isSetCoordinates() {
 		return lineStringSegmentType.isSetCoordinates();
 	}
 
-	@Override
 	public boolean isSetInterpolation() {
 		return lineStringSegmentType.isSetInterpolation();
 	}
 
-	@Override
 	public boolean isSetPosList() {
 		return lineStringSegmentType.isSetPosList();
 	}
 
-	@Override
 	public boolean isSetPosOrPointPropertyOrPointRep() {
 		return lineStringSegmentType.isSetPosOrPointPropertyOrPointRep();
 	}
 
-	@Override
 	public void unsetCoordinates() {
 		lineStringSegmentType.setCoordinates(null);
 	}
 
-	@Override
 	public void unsetInterpolation() {
 		lineStringSegmentType.setInterpolation(null);
 	}
 
-	@Override
 	public void unsetPosList() {
 		lineStringSegmentType.setPosList(null);
 	}
 
-	@Override
 	public void unsetPosOrPointPropertyOrPointRep() {
 		lineStringSegmentType.unsetPosOrPointPropertyOrPointRep();
 	}

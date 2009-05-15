@@ -23,22 +23,18 @@ public class CoordinatesImpl extends GMLBaseImpl implements Coordinates {
 		return coordinatesType;
 	}
 
-	@Override
 	public String getCs() {
 		return coordinatesType.getCs();
 	}
 
-	@Override
 	public String getDecimal() {
 		return coordinatesType.getDecimal();
 	}
 
-	@Override
 	public String getTs() {
 		return coordinatesType.getTs();
 	}
 
-	@Override
 	public String getValue() {
 		return coordinatesType.getValue();
 	}
@@ -48,67 +44,54 @@ public class CoordinatesImpl extends GMLBaseImpl implements Coordinates {
 		return GMLClass.COORDINATES;
 	}
 
-	@Override
 	public boolean isSetCs() {
 		return coordinatesType.isSetCs();
 	}
 
-	@Override
 	public boolean isSetDecimal() {
 		return coordinatesType.isSetDecimal();
 	}
 
-	@Override
 	public boolean isSetTs() {
 		return coordinatesType.isSetTs();
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return coordinatesType.isSetValue();
 	}
 
-	@Override
 	public void setCs(String cs) {
 		coordinatesType.setCs(cs);
 	}
 
-	@Override
 	public void setDecimal(String decimal) {
 		coordinatesType.setDecimal(decimal);
 	}
 
-	@Override
 	public void setTs(String ts) {
 		coordinatesType.setTs(ts);
 	}
 
-	@Override
 	public void setValue(String value) {
 		coordinatesType.setValue(value);
 	}
 
-	@Override
 	public void unsetCs() {
 		coordinatesType.setCs(null);
 	}
 
-	@Override
 	public void unsetDecimal() {
 		coordinatesType.setDecimal(null);
 	}
 
-	@Override
 	public void unsetTs() {
 		coordinatesType.setTs(null);
 	}
 
-	@Override
 	public void unsetValue() {
 		coordinatesType.setValue(null);
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 		boolean isValid = false;
@@ -119,13 +102,13 @@ public class CoordinatesImpl extends GMLBaseImpl implements Coordinates {
 			String cs = getCs();
 			String ts = getTs();
 
-			if (decimal == null || decimal.isEmpty())
+			if (decimal == null || decimal.length() == 0)
 				decimal = ".";
 
-			if (cs == null || cs.isEmpty())
+			if (cs == null || cs.length() == 0)
 				cs = ",";
 
-			if (ts == null || ts.isEmpty())
+			if (ts == null || ts.length() == 0)
 				ts = " ";
 
 			isValid = true;
@@ -133,12 +116,12 @@ public class CoordinatesImpl extends GMLBaseImpl implements Coordinates {
 
 			String[] tupels = coordinates.split(prepareRegex(ts));
 			for (int i = 0; i < tupels.length && isValid ; ++i) {
-				if (tupels[i] != null && !tupels[i].trim().isEmpty()) {				
+				if (tupels[i] != null && tupels[i].trim().length() != 0) {				
 					String[] coords = tupels[i].split(prepareRegex(cs));
 					List<Double> point = new ArrayList<Double>();
 
 					for (int j = 0; j < coords.length && isValid; ++j) {
-						if (coords[j] != null && !coords[j].trim().isEmpty()) {
+						if (coords[j] != null && coords[j].trim().length() != 0) {
 							coords[j] = coords[j].replaceAll(decimal, ".");
 
 							try {
@@ -168,7 +151,6 @@ public class CoordinatesImpl extends GMLBaseImpl implements Coordinates {
 		return null;
 	}
 
-	@Override
 	public List<Double> toList(boolean reverseOrder) {
 		List<Double> points = toList();
 

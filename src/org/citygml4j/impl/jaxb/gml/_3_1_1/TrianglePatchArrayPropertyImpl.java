@@ -58,32 +58,26 @@ public class TrianglePatchArrayPropertyImpl extends SurfacePatchArrayPropertyImp
 		super.setSurfacePatch(trianglePatchList);
 	}
 
-	@Override
 	public void addTriangle(Triangle triangle) {
 		super.addSurfacePatch(triangle);
 	}
 
-	@Override
 	public List<Triangle> getTriangle() {
 		return getSurfacePatch();
 	}
 
-	@Override
 	public void setTriangle(List<Triangle> triangle) {
 		super.setSurfacePatch(triangle);
 	}
 
-	@Override
 	public boolean isSetTriangle() {
 		return trianglePatchArrayPropertyType.isSet_SurfacePatch();
 	}
 
-	@Override
 	public void unsetTriangle() {
 		trianglePatchArrayPropertyType.unset_SurfacePatch();
 	}
 
-	@Override
 	public boolean unsetTriangle(Triangle triangle) {
 		if (trianglePatchArrayPropertyType.isSet_SurfacePatch())
 			return trianglePatchArrayPropertyType.get_SurfacePatch().remove(((TriangleImpl)triangle).getJAXBObject());

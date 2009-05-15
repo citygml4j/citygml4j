@@ -32,12 +32,10 @@ public class ControlPointImpl extends GMLBaseImpl implements ControlPoint {
 		return controlPoint;
 	}
 
-	@Override
 	public void addGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
 		controlPoint.getGeometricPositionGroup().add(((GeometricPositionGroupImpl)geometricPositionGroup).getJAXBObject());
 	}
 
-	@Override
 	public List<GeometricPositionGroup> getGeometricPositionGroup() {
 		List<GeometricPositionGroup> group = new ArrayList<GeometricPositionGroup>();
 
@@ -51,7 +49,6 @@ public class ControlPointImpl extends GMLBaseImpl implements ControlPoint {
 		return group;
 	}
 
-	@Override
 	public DirectPositionList getPosList() {
 		if (controlPoint.isSetPosList())
 			return new DirectPositionListImpl(controlPoint.getPosList());
@@ -59,7 +56,6 @@ public class ControlPointImpl extends GMLBaseImpl implements ControlPoint {
 		return null;
 	}
 
-	@Override
 	public void setGeometricPositionGroup(List<GeometricPositionGroup> geometricPositionGroup) {
 		List<Object> objectGroup = new ArrayList<Object>();
 
@@ -70,32 +66,26 @@ public class ControlPointImpl extends GMLBaseImpl implements ControlPoint {
 		controlPoint.getGeometricPositionGroup().addAll(objectGroup);
 	}
 
-	@Override
 	public void setPosList(DirectPositionList posList) {
 		controlPoint.setPosList(((DirectPositionListImpl)posList).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetGeometricPositionGroup() {
 		return controlPoint.isSetGeometricPositionGroup();
 	}
 
-	@Override
 	public boolean isSetPosList() {
 		return controlPoint.isSetPosList();
 	}
 
-	@Override
 	public void unsetGeometricPositionGroup() {
 		controlPoint.unsetGeometricPositionGroup();
 	}
 
-	@Override
 	public void unsetPosList() {
 		controlPoint.setPosList(null);
 	}
 
-	@Override
 	public boolean unsetGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
 		if (controlPoint.isSetGeometricPositionGroup())
 			return controlPoint.getGeometricPositionGroup().remove(((GeometricPositionGroupImpl)geometricPositionGroup).getJAXBObject());

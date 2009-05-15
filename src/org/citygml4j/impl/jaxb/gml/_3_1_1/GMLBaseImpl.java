@@ -6,10 +6,8 @@ import org.citygml4j.model.gml.GMLClass;
 public abstract class GMLBaseImpl implements GMLBase {
 	public abstract Object getJAXBObject();
 
-	@Override
 	public abstract GMLClass getGMLClass();
 	
-	@Override
 	public boolean equals(GMLBase other) {
 		Object thisJAXB = getJAXBObject();
 		Object otherJAXB = ((GMLBaseImpl)other).getJAXBObject();

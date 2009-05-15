@@ -43,7 +43,6 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return GMLClass.LINESTRING;
 	}
 
-	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRepOrCoord() {
 		List<GMLBase> posOrPointOrPointRepList = new ArrayList<GMLBase>();
 
@@ -66,7 +65,6 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return posOrPointOrPointRepList;
 	}
 
-	@Override
 	public Coordinates getCoordinates() {
 		if (lineStringType.isSetCoordinates())
 			return new CoordinatesImpl(lineStringType.getCoordinates());
@@ -74,7 +72,6 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return null;
 	}
 
-	@Override
 	public DirectPositionList getPosList() {
 		if (lineStringType.isSetPosList())
 			return new DirectPositionListImpl(lineStringType.getPosList());
@@ -82,7 +79,6 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		List<Double> points = toList();
 
@@ -105,7 +101,6 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		}
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 
@@ -149,7 +144,6 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return null;
 	}
 
-	@Override
 	public List<Double> toList(boolean reverseOrder) {
 		List<Double> points = toList();
 
@@ -165,41 +159,34 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		return points;
 	}
 
-	@Override
 	public void setPosList(DirectPositionList posList) {
 		lineStringType.setPosList(((DirectPositionListImpl)posList).getJAXBObject());
 	}
 
-	@Override
 	public void addCoord(Coord coord) {
 		JAXBElement<CoordType> elem = ObjectFactory.GML.createCoord(((CoordImpl)coord).getJAXBObject());
 		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);		
 	}
 
-	@Override
 	public void addPointProperty(PointProperty pointProperty) {
 		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)pointProperty).getJAXBObject());
 		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 
-	@Override
 	public void addPointRep(PointRep pointRep) {
 		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointRep(((PointRepImpl)pointRep).getJAXBObject());
 		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 
-	@Override
 	public void addPos(DirectPosition pos) {
 		JAXBElement<DirectPositionType> elem = ObjectFactory.GML.createPos(((DirectPositionImpl)pos).getJAXBObject());
 		lineStringType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 
-	@Override
 	public void setCoordinates(Coordinates coordinates) {
 		lineStringType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
 	}
 
-	@Override
 	public void setPosOrPointPropertyOrPointRepOrCoord(List<GMLBase> controlPoints) {
 		List<JAXBElement<?>> posOrPointPropertyOrPointRepOrCoordList = new ArrayList<JAXBElement<?>>();
 		
@@ -229,32 +216,26 @@ public class LineStringImpl extends AbstractCurveImpl implements LineString {
 		lineStringType.getPosOrPointPropertyOrPointRep().addAll(posOrPointPropertyOrPointRepOrCoordList);
 	}
 
-	@Override
 	public boolean isSetCoordinates() {
 		return lineStringType.isSetCoordinates();
 	}
 
-	@Override
 	public boolean isSetPosList() {
 		return lineStringType.isSetPosList();
 	}
 
-	@Override
 	public boolean isSetPosOrPointPropertyOrPointRepOrCoord() {
 		return lineStringType.isSetPosOrPointPropertyOrPointRep();
 	}
 
-	@Override
 	public void unsetCoordinates() {
 		lineStringType.setCoordinates(null);
 	}
 
-	@Override
 	public void unsetPosList() {
 		lineStringType.setPosList(null);
 	}
 
-	@Override
 	public void unsetPosOrPointPropertyOrPointRepOrCoord() {
 		lineStringType.unsetPosOrPointPropertyOrPointRep();
 	}

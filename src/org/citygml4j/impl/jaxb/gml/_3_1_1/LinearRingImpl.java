@@ -43,7 +43,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return GMLClass.LINEARRING;
 	}
 
-	@Override
 	public List<GMLBase> getPosOrPointPropertyOrPointRep() {
 		List<GMLBase> posOrPointPropOrPointRepList = new ArrayList<GMLBase>();
 
@@ -64,7 +63,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return posOrPointPropOrPointRepList;
 	}
 
-	@Override
 	public List<Coord> getCoord() {
 		List<Coord> coordList = new ArrayList<Coord>();
 
@@ -74,7 +72,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return coordList;
 	}
 
-	@Override
 	public Coordinates getCoordinates() {
 		if (linearRingType.isSetCoordinates())
 			return new CoordinatesImpl(linearRingType.getCoordinates());
@@ -82,7 +79,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return null;
 	}
 
-	@Override
 	public DirectPositionList getPosList() {
 		if (linearRingType.isSetPosList())
 			return new DirectPositionListImpl(linearRingType.getPosList());
@@ -90,7 +86,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		List<Double> points = toList();
 
@@ -113,30 +108,25 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		}
 	}
 
-	@Override
 	public void setPosList(DirectPositionList posList) {
 		linearRingType.setPosList(((DirectPositionListImpl)posList).getJAXBObject());
 	}
 
-	@Override
 	public void addPointProperty(PointProperty pointProperty) {
 		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointProperty(((PointPropertyImpl)pointProperty).getJAXBObject());
 		linearRingType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 	
-	@Override
 	public void addPointRep(PointRep pointRep) {
 		JAXBElement<PointPropertyType> elem = ObjectFactory.GML.createPointRep(((PointRepImpl)pointRep).getJAXBObject());
 		linearRingType.getPosOrPointPropertyOrPointRep().add(elem);
 	}
 
-	@Override
 	public void addPos(DirectPosition pos) {
 		JAXBElement<DirectPositionType> elem = ObjectFactory.GML.createPos(((DirectPositionImpl)pos).getJAXBObject());
 		linearRingType.getPosOrPointPropertyOrPointRep().add(elem);		
 	}
 
-	@Override
 	public void setPosOrPointPropertyOrPointRep(List<GMLBase> controlPoints) {
 		List<JAXBElement<?>> posOrPointOrPointRepList = new ArrayList<JAXBElement<?>>();
 		
@@ -164,12 +154,10 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 	}
 
 	
-	@Override
 	public void addCoord(Coord coord) {
 		linearRingType.getCoord().add(((CoordImpl)coord).getJAXBObject());
 	}
 
-	@Override
 	public void setCoord(List<Coord> coord) {
 		List<CoordType> coordTypeList = new ArrayList<CoordType>();
 		
@@ -180,7 +168,6 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		linearRingType.getCoord().addAll(coordTypeList);
 	}
 
-	@Override
 	public void setCoordinates(Coordinates coordinates) {
 		linearRingType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
 	}
@@ -247,42 +234,34 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return points;
 	}
 
-	@Override
 	public boolean isSetCoord() {
 		return linearRingType.isSetCoord();
 	}
 
-	@Override
 	public boolean isSetCoordinates() {
 		return linearRingType.isSetCoordinates();
 	}
 
-	@Override
 	public boolean isSetPosList() {
 		return linearRingType.isSetPosList();
 	}
 
-	@Override
 	public boolean isSetPosOrPointPropertyOrPointRep() {
 		return linearRingType.isSetPosOrPointPropertyOrPointRep();
 	}
 
-	@Override
 	public void unsetCoord() {
 		linearRingType.unsetCoord();
 	}
 
-	@Override
 	public void unsetCoordinates() {
 		linearRingType.setCoordinates(null);
 	}
 
-	@Override
 	public void unsetPosList() {
 		linearRingType.setPosList(null);
 	}
 
-	@Override
 	public void unsetPosOrPointPropertyOrPointRep() {
 		linearRingType.unsetPosOrPointPropertyOrPointRep();
 	}

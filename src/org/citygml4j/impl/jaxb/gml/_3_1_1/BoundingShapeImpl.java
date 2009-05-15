@@ -31,7 +31,6 @@ public class BoundingShapeImpl extends GMLBaseImpl implements BoundingShape {
 		return boundingShapeType;
 	}
 
-	@Override
 	public Envelope getEnvelope() {
 		if (boundingShapeType.isSetEnvelope()) {
 			JAXBElement<? extends EnvelopeType> envelopeElem = boundingShapeType.getEnvelope();
@@ -42,7 +41,6 @@ public class BoundingShapeImpl extends GMLBaseImpl implements BoundingShape {
 		return null;
 	}
 
-	@Override
 	public String getNull() {
 		if (boundingShapeType.isSetNull()) {
 			List<String> _nullList = boundingShapeType.getNull();
@@ -70,19 +68,16 @@ public class BoundingShapeImpl extends GMLBaseImpl implements BoundingShape {
 		return GMLClass.BOUNDINGSHAPE;
 	}
 
-	@Override
 	public void setEnvelope(Envelope envelope) {
 		EnvelopeType envelopeType = ((EnvelopeImpl)envelope).getJAXBObject();
 		boundingShapeType.setEnvelope(ObjectFactory.GML.createEnvelope(envelopeType));
 	}
 
-	@Override
 	public void setNull(String _null) {
 		boundingShapeType.unsetNull();
 		boundingShapeType.getNull().add(_null);
 	}
 
-	@Override
 	public boolean convertEnvelope() {
 		Envelope envelope = getEnvelope();
 		if (envelope == null)
@@ -169,22 +164,18 @@ public class BoundingShapeImpl extends GMLBaseImpl implements BoundingShape {
 			return false;
 	}
 
-	@Override
 	public boolean isSetEnvelope() {
 		return boundingShapeType.isSetEnvelope();
 	}
 
-	@Override
 	public boolean isSetNull() {
 		return boundingShapeType.isSetNull();
 	}
 
-	@Override
 	public void unsetEnvelope() {
 		boundingShapeType.setEnvelope(null);
 	}
 
-	@Override
 	public void unsetNull() {
 		boundingShapeType.unsetNull();
 	}

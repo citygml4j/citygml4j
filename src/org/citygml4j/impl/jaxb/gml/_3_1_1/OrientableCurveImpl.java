@@ -29,7 +29,6 @@ public class OrientableCurveImpl extends AbstractCurveImpl implements Orientable
 		return orientableCurveType;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getBaseCurve() != null) {
 			CurveProperty curveProperty = getBaseCurve();
@@ -39,7 +38,6 @@ public class OrientableCurveImpl extends AbstractCurveImpl implements Orientable
 		}
 	}
 
-	@Override
 	public CurveProperty getBaseCurve() {
 		if (orientableCurveType.isSetBaseCurve())
 			return new CurvePropertyImpl(orientableCurveType.getBaseCurve());
@@ -47,37 +45,30 @@ public class OrientableCurveImpl extends AbstractCurveImpl implements Orientable
 		return null;
 	}
 
-	@Override
 	public String getOrientation() {
 		return orientableCurveType.getOrientation();
 	}
 
-	@Override
 	public boolean isSetBaseCurve() {
 		return orientableCurveType.isSetBaseCurve();
 	}
 
-	@Override
 	public boolean isSetOrientation() {
 		return orientableCurveType.isSetOrientation();
 	}
 
-	@Override
 	public void setBaseCurve(CurveProperty baseCurve) {
 		orientableCurveType.setBaseCurve(((CurvePropertyImpl)baseCurve).getJAXBObject());
 	}
 
-	@Override
 	public void setOrientation(String orientation) {
 		orientableCurveType.setOrientation(orientation);
 	}
 
-	@Override
 	public void unsetBaseCurve() {
 		orientableCurveType.setBaseCurve(null);
 	}
 
-	@Override
 	public void unsetOrientation() {
 		orientableCurveType.setOrientation(null);
 	}

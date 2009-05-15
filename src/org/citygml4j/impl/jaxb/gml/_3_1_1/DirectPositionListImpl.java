@@ -29,7 +29,6 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		return GMLClass.DIRECTPOSITIONLIST;
 	}
 
-	@Override
 	public Integer getCount() {
 		if (directPositionListType.isSetCount())
 			return new Integer(directPositionListType.getCount().intValue());
@@ -37,17 +36,14 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		return null;
 	}
 
-	@Override
 	public List<Double> getValue() {
 		return directPositionListType.getValue();
 	}
 
-	@Override
 	public List<String> getAxisLabels() {
 		return directPositionListType.getAxisLabels();
 	}
 
-	@Override
 	public Integer getSrsDimension() {
 		if (directPositionListType.isSetSrsDimension())
 			return new Integer(directPositionListType.getSrsDimension().intValue());
@@ -55,65 +51,53 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		return null;
 	}
 
-	@Override
 	public String getSrsName() {
 		return directPositionListType.getSrsName();
 	}
 
-	@Override
 	public List<String> getUomLabels() {
 		return directPositionListType.getUomLabels();
 	}
 
-	@Override
 	public void setSrsDimension(Integer srsDimension) {
 		directPositionListType.setSrsDimension(new BigInteger(String.valueOf(srsDimension)));
 	}
 
-	@Override
 	public void setSrsName(String srsName) {
 		directPositionListType.setSrsName(srsName);
 	}
 
-	@Override
 	public void addValue(Double value) {
 		directPositionListType.getValue().add(value);
 	}
 
-	@Override
 	public void setCount(Integer count) {
 		directPositionListType.setCount(new BigInteger(count.toString()));
 	}
 
-	@Override
 	public void setValue(List<Double> value) {
 		directPositionListType.unsetValue();
 		directPositionListType.getValue().addAll(value);
 	}
 
-	@Override
 	public void addAxisLabel(String axisLabel) {
 		directPositionListType.getAxisLabels().add(axisLabel);
 	}
 
-	@Override
 	public void addUomLabel(String uomLabel) {
 		directPositionListType.getUomLabels().add(uomLabel);
 	}
 
-	@Override
 	public void setAxisLabels(List<String> axisLabels) {
 		directPositionListType.unsetAxisLabels();
 		directPositionListType.getAxisLabels().addAll(axisLabels);
 	}
 
-	@Override
 	public void setUomLabels(List<String> uomLabels) {
 		directPositionListType.unsetUomLabels();
 		directPositionListType.getUomLabels().addAll(uomLabels);
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 
@@ -143,7 +127,6 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		return null;
 	}
 
-	@Override
 	public List<Double> toList(boolean reverseOrder) {
 		List<Double> points = toList();
 
@@ -159,67 +142,54 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		return points;
 	}
 
-	@Override
 	public boolean isSetCount() {
 		return directPositionListType.isSetCount();
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return directPositionListType.isSetValue();
 	}
 
-	@Override
 	public void unsetCount() {
 		directPositionListType.setCount(null);
 	}
 
-	@Override
 	public void unsetValue() {
 		directPositionListType.unsetValue();
 	}
 
-	@Override
 	public boolean isSetSrsDimension() {
 		return directPositionListType.isSetSrsDimension();
 	}
 
-	@Override
 	public boolean isSetSrsName() {
 		return directPositionListType.isSetSrsName();
 	}
 
-	@Override
 	public void unsetSrsDimension() {
 		directPositionListType.setSrsDimension(null);
 	}
 
-	@Override
 	public void unsetSrsName() {
 		directPositionListType.setSrsName(null);
 	}
 
-	@Override
 	public boolean isSetAxisLabels() {
 		return directPositionListType.isSetAxisLabels();
 	}
 
-	@Override
 	public boolean isSetUomLabels() {
 		return directPositionListType.isSetUomLabels();
 	}
 
-	@Override
 	public void unsetAxisLabels() {
 		directPositionListType.unsetAxisLabels();
 	}
 
-	@Override
 	public void unsetUomLabels() {
 		directPositionListType.unsetUomLabels();
 	}
 	
-	@Override
 	public boolean unsetAxisLabels(String axisLabel) {
 		if (directPositionListType.isSetAxisLabels())
 			return directPositionListType.getAxisLabels().remove(axisLabel);
@@ -227,7 +197,6 @@ public class DirectPositionListImpl extends GMLBaseImpl implements	DirectPositio
 		return false;
 	}
 
-	@Override
 	public boolean unsetUomLabels(String uomLabel) {
 		if (directPositionListType.isSetUomLabels())
 			return directPositionListType.getUomLabels().remove(uomLabel);

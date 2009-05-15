@@ -34,7 +34,6 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 		return abstractFeatureType;
 	}
 
-	@Override
 	public BoundingShape getBoundedBy() {
 		if (abstractFeatureType.isSetBoundedBy())
 			return new BoundingShapeImpl(abstractFeatureType.getBoundedBy());
@@ -42,7 +41,6 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 		return null;
 	}
 
-	@Override
 	public LocationProperty getLocation() {
 		if (abstractFeatureType.isSetLocation()) {
 			JAXBElement<? extends LocationPropertyType> locationPropertyElem = abstractFeatureType.getLocation();
@@ -57,12 +55,10 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 		return null;
 	}
 
-	@Override
 	public void setBoundedBy(BoundingShape boundingShape) {
 		abstractFeatureType.setBoundedBy(((BoundingShapeImpl)boundingShape).getJAXBObject());
 	}
 
-	@Override
 	public void setLocation(LocationProperty location) {
 		JAXBElement<? extends LocationPropertyType> jaxbElem = null;
 		
@@ -79,7 +75,6 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 			abstractFeatureType.setLocation(jaxbElem);
 	}
 
-	@Override
 	public void calcBoundedBy(AbstractFeature abstractFeature) {			
 		if (abstractFeature.getBoundedBy() == null || 
 				!abstractFeature.getBoundedBy().convertEnvelope())
@@ -126,7 +121,6 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 				upperCornerPoints.get(2)));
 	}
 
-	@Override
 	public void calcBoundedBy(AbstractGeometry abstractGeometry) {
 		if (abstractGeometry == null)
 			return;
@@ -158,27 +152,22 @@ public abstract class AbstractFeatureImpl extends AbstractGMLImpl implements Abs
 		envelope.calcUpperCorner(max);
 	}
 
-	@Override
 	public void calcBoundedBy() {
 		// do nothing by default
 	}
 
-	@Override
 	public boolean isSetBoundedBy() {
 		return abstractFeatureType.isSetBoundedBy();
 	}
 
-	@Override
 	public boolean isSetLocation() {
 		return abstractFeatureType.isSetLocation();
 	}
 
-	@Override
 	public void unsetBoundedBy() {
 		abstractFeatureType.setBoundedBy(null);
 	}
 
-	@Override
 	public void unsetLocation() {
 		abstractFeatureType.setLocation(null);
 	}

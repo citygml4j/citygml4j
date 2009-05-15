@@ -33,7 +33,6 @@ public class MultiPolygonImpl extends AbstractGeometricAggregateImpl implements	
 		return GMLClass.MULTIPOLYGON;
 	}
 
-	@Override
 	public List<PolygonProperty> getPolygonMember() {
 		List<PolygonProperty> polygonPropertyList = new ArrayList<PolygonProperty>();
 
@@ -43,7 +42,6 @@ public class MultiPolygonImpl extends AbstractGeometricAggregateImpl implements	
 		return polygonPropertyList;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetPolygonMember()) {
 			for (PolygonProperty polygonProperty : getPolygonMember()) {
@@ -54,17 +52,14 @@ public class MultiPolygonImpl extends AbstractGeometricAggregateImpl implements	
 		}
 	}
 
-	@Override
 	public void addPolygonMember(PolygonProperty polygonMember) {
 		multiPolygonType.getPolygonMember().add(((PolygonPropertyImpl)polygonMember).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetPolygonMember() {
 		return multiPolygonType.isSetPolygonMember();
 	}
 
-	@Override
 	public void setPolygonMember(List<PolygonProperty> polygonMember) {
 		List<PolygonPropertyType> polygonPropertyList = new ArrayList<PolygonPropertyType>();
 
@@ -75,12 +70,10 @@ public class MultiPolygonImpl extends AbstractGeometricAggregateImpl implements	
 		multiPolygonType.getPolygonMember().addAll(polygonPropertyList);
 	}
 
-	@Override
 	public void unsetPolygonMember() {
 		multiPolygonType.unsetPolygonMember();
 	}
 
-	@Override
 	public boolean unsetPolygonMember(PolygonProperty polygonMember) {
 		if (multiPolygonType.isSetPolygonMember())
 			return multiPolygonType.getPolygonMember().remove(((PolygonPropertyImpl)polygonMember).getJAXBObject());

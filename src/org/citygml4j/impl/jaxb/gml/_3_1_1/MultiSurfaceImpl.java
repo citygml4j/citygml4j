@@ -34,7 +34,6 @@ public class MultiSurfaceImpl extends AbstractGeometricAggregateImpl implements 
 		return GMLClass.MULTISURFACE;
 	}
 
-	@Override
 	public List<SurfaceProperty> getSurfaceMember() {
 		List<SurfaceProperty> surfacePropertyList = new ArrayList<SurfaceProperty>();
 
@@ -44,7 +43,6 @@ public class MultiSurfaceImpl extends AbstractGeometricAggregateImpl implements 
 		return surfacePropertyList;
 	}
 
-	@Override
 	public SurfaceArrayProperty getSurfaceMembers() {
 		if (multiSurfaceType.isSetSurfaceMembers())
 			return new SurfaceArrayPropertyImpl(multiSurfaceType.getSurfaceMembers());
@@ -52,7 +50,6 @@ public class MultiSurfaceImpl extends AbstractGeometricAggregateImpl implements 
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetSurfaceMember()) {
 			for (SurfaceProperty surfaceProperty : getSurfaceMember()) {
@@ -73,12 +70,10 @@ public class MultiSurfaceImpl extends AbstractGeometricAggregateImpl implements 
 		}
 	}
 
-	@Override
 	public void addSurfaceMember(SurfaceProperty surfaceMember) {
 		multiSurfaceType.getSurfaceMember().add(((SurfacePropertyImpl)surfaceMember).getJAXBObject());
 	}
 
-	@Override
 	public void setSurfaceMember(List<SurfaceProperty> surfaceMember) {
 		List<SurfacePropertyType> surfacePropertyList = new ArrayList<SurfacePropertyType>();
 
@@ -89,32 +84,26 @@ public class MultiSurfaceImpl extends AbstractGeometricAggregateImpl implements 
 		multiSurfaceType.getSurfaceMember().addAll(surfacePropertyList);
 	}
 
-	@Override
 	public void setSurfaceMembers(SurfaceArrayProperty surfaceMembers) {
 		multiSurfaceType.setSurfaceMembers(((SurfaceArrayPropertyImpl)surfaceMembers).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetSurfaceMember() {
 		return multiSurfaceType.isSetSurfaceMember();
 	}
 
-	@Override
 	public boolean isSetSurfaceMembers() {
 		return multiSurfaceType.isSetSurfaceMembers();
 	}
 
-	@Override
 	public void unsetSurfaceMember() {
 		multiSurfaceType.unsetSurfaceMember();
 	}
 
-	@Override
 	public void unsetSurfaceMembers() {
 		multiSurfaceType.setSurfaceMembers(null);
 	}
 
-	@Override
 	public boolean unsetSurfaceMember(SurfaceProperty surfaceMember) {
 		if (multiSurfaceType.isSetSurfaceMember())
 			return multiSurfaceType.getSurfaceMember().remove(((SurfacePropertyImpl)surfaceMember).getJAXBObject());

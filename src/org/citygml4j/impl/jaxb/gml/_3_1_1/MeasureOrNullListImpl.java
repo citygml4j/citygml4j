@@ -28,12 +28,10 @@ public class MeasureOrNullListImpl extends GMLBaseImpl implements MeasureOrNullL
 		return GMLClass.MEASUREORNULLLIST;
 	}
 
-	@Override
 	public String getUom() {
 		return measureOrNullList.getUom();
 	}
 
-	@Override
 	public List<Double> getValue() {
 		List<Double> valueList = new ArrayList<Double>();
 
@@ -50,17 +48,14 @@ public class MeasureOrNullListImpl extends GMLBaseImpl implements MeasureOrNullL
 		return valueList;
 	}
 
-	@Override
 	public void addValue(Double value) {
 		measureOrNullList.getValue().add(value.toString());
 	}
 
-	@Override
 	public void setUom(String uom) {
 		measureOrNullList.setUom(uom);
 	}
 
-	@Override
 	public void setValue(List<Double> value) {
 		List<String> valueList = new ArrayList<String>();
 		for (Double measure : value)
@@ -70,22 +65,18 @@ public class MeasureOrNullListImpl extends GMLBaseImpl implements MeasureOrNullL
 		measureOrNullList.getValue().addAll(valueList);
 	}
 
-	@Override
 	public boolean isSetUom() {
 		return measureOrNullList.isSetUom();
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return measureOrNullList.isSetValue();
 	}
 
-	@Override
 	public void unsetUom() {
 		measureOrNullList.setUom(null);
 	}
 
-	@Override
 	public void unsetValue() {
 		measureOrNullList.unsetValue();
 	}

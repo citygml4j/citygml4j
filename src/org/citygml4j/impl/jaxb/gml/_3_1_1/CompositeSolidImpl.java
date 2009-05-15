@@ -33,7 +33,6 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 		return GMLClass.COMPOSITESOLID;
 	}
 
-	@Override
 	public List<SolidProperty> getSolidMember() {
 		List<SolidProperty> solidPropertyList = new ArrayList<SolidProperty>();
 
@@ -43,7 +42,6 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 		return solidPropertyList;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetSolidMember()) {
 			for (SolidProperty solidProperty : getSolidMember()) {
@@ -54,12 +52,10 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 		}
 	}
 
-	@Override
 	public void addSolidMember(SolidProperty solidMember) {
 		compositeSolidType.getSolidMember().add(((SolidPropertyImpl)solidMember).getJAXBObject());
 	}
 
-	@Override
 	public void setSolidMember(List<SolidProperty> solidMember) {
 		List<SolidPropertyType> solidPropertyList = new ArrayList<SolidPropertyType>();
 
@@ -70,17 +66,14 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 		compositeSolidType.getSolidMember().addAll(solidPropertyList);
 	}
 
-	@Override
 	public boolean isSetSolidMember() {
 		return compositeSolidType.isSetSolidMember();
 	}
 
-	@Override
 	public void unsetSolidMember() {
 		compositeSolidType.unsetSolidMember();
 	}
 
-	@Override
 	public boolean unsetSolidMember(SolidProperty solidMember) {
 		if (compositeSolidType.isSetSolidMember())
 			return compositeSolidType.getSolidMember().remove(((SolidPropertyImpl)solidMember).getJAXBObject());

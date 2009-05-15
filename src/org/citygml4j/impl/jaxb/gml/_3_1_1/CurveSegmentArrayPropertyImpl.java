@@ -34,7 +34,6 @@ public class CurveSegmentArrayPropertyImpl extends GMLBaseImpl implements CurveS
 		return propertyType;
 	}
 
-	@Override
 	public void addCurveSegment(AbstractCurveSegment curveSegment) {
 		JAXBElement<? extends AbstractCurveSegmentType> elem = null;
 
@@ -48,7 +47,6 @@ public class CurveSegmentArrayPropertyImpl extends GMLBaseImpl implements CurveS
 			propertyType.get_CurveSegment().add(elem);
 	}
 
-	@Override
 	public List<AbstractCurveSegment> getCurveSegment() {
 		List<AbstractCurveSegment> segmentList = new ArrayList<AbstractCurveSegment>();
 
@@ -60,7 +58,6 @@ public class CurveSegmentArrayPropertyImpl extends GMLBaseImpl implements CurveS
 		return segmentList;
 	}
 
-	@Override
 	public void setCurveSegment(List<AbstractCurveSegment> curveSegment) {
 		List<JAXBElement<? extends AbstractCurveSegmentType>> segmentTypeList = new ArrayList<JAXBElement<? extends AbstractCurveSegmentType>>();
 
@@ -81,17 +78,14 @@ public class CurveSegmentArrayPropertyImpl extends GMLBaseImpl implements CurveS
 		propertyType.get_CurveSegment().addAll(segmentTypeList);
 	}
 
-	@Override
 	public boolean isSetCurveSegment() {
 		return propertyType.isSet_CurveSegment();
 	}
 
-	@Override
 	public void unsetCurveSegment() {
 		propertyType.unset_CurveSegment();
 	}
 
-	@Override
 	public boolean unsetCurveSegment(AbstractCurveSegment curveSegment) {
 		if (propertyType.isSet_CurveSegment())
 			return propertyType.get_CurveSegment().remove(((AbstractCurveSegmentImpl)curveSegment).getJAXBObject());

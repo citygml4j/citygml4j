@@ -33,7 +33,6 @@ public class GeometricComplexImpl extends AbstractGeometryImpl implements Geomet
 		return GMLClass.GEOMETRICCOMPLEX;
 	}
 
-	@Override
 	public List<GeometricPrimitiveProperty> getElement() {
 		List<GeometricPrimitiveProperty> geometricPrimitivePropertyList = new ArrayList<GeometricPrimitiveProperty>();
 
@@ -43,12 +42,10 @@ public class GeometricComplexImpl extends AbstractGeometryImpl implements Geomet
 		return geometricPrimitivePropertyList;
 	}
 
-	@Override
 	public void addElement(GeometricPrimitiveProperty geometricPrimitiveProperty) {
 		geometricComplexType.getElement().add(((GeometricPrimitivePropertyImpl)geometricPrimitiveProperty).getJAXBObject());
 	}
 
-	@Override
 	public void setElement(List<GeometricPrimitiveProperty> geometricPrimitiveProperty) {
 		List<GeometricPrimitivePropertyType> primitivePropertyTypeList = new ArrayList<GeometricPrimitivePropertyType>();
 
@@ -59,7 +56,6 @@ public class GeometricComplexImpl extends AbstractGeometryImpl implements Geomet
 		geometricComplexType.getElement().addAll(primitivePropertyTypeList);
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetElement()) {
 			for (GeometricPrimitiveProperty geometricPrimitiveProperty : getElement()) {
@@ -70,17 +66,14 @@ public class GeometricComplexImpl extends AbstractGeometryImpl implements Geomet
 		}
 	}
 
-	@Override
 	public boolean isSetElement() {
 		return geometricComplexType.isSetElement();
 	}
 
-	@Override
 	public void unsetElement() {
 		geometricComplexType.unsetElement();
 	}
 
-	@Override
 	public boolean unsetElement(GeometricPrimitiveProperty geometricPrimitiveProperty) {
 		if (geometricComplexType.isSetElement())
 			return geometricComplexType.getElement().remove(((GeometricPrimitivePropertyImpl)geometricPrimitiveProperty).getJAXBObject());

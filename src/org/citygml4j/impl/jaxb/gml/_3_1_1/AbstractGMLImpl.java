@@ -26,7 +26,6 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 		return abstractGMLType;
 	}
 
-	@Override
 	public StringOrRef getDescription() {
 		if (abstractGMLType.isSetDescription())
 			return new StringOrRefImpl(abstractGMLType.getDescription());
@@ -34,12 +33,10 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 		return null;
 	}
 
-	@Override
 	public String getId() {
 		return abstractGMLType.getId();
 	}
 
-	@Override
 	public List<Code> getName() {
 		List<Code> codeList = new ArrayList<Code>();
 
@@ -56,24 +53,20 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 		return GMLClass.ABSTRACTGML;
 	}
 
-	@Override
 	public MetaDataProperty getMetaDataProperty() {
 		// TODO: To be implemented...
 		return null;
 	}
 
-	@Override
 	public void setId(String id) {
 		abstractGMLType.setId(id);
 	}
 
-	@Override
 	public void addName(Code name) {
 		JAXBElement<CodeType> codeType = ObjectFactory.GML.createName(((CodeImpl)name).getJAXBObject());
 		abstractGMLType.getName().add(codeType);
 	}
 
-	@Override
 	public void setName(List<Code> names) {
 		List<JAXBElement<CodeType>> codeTypeList = new ArrayList<JAXBElement<CodeType>>();
 		for (Code name : names)
@@ -83,52 +76,42 @@ public abstract class AbstractGMLImpl extends GMLBaseImpl implements AbstractGML
 		abstractGMLType.getName().addAll(codeTypeList);
 	}
 
-	@Override
 	public void setDescription(StringOrRef description) {
 		abstractGMLType.setDescription(((StringOrRefImpl)description).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetId() {
 		return abstractGMLType.isSetId();
 	}
 
-	@Override
 	public void unsetId() {
 		abstractGMLType.setId(null);
 	}
 
-	@Override
 	public boolean isSetDescription() {
 		return abstractGMLType.isSetDescription();
 	}
 
-	@Override
 	public boolean isSetMetaDataProperty() {
 		return abstractGMLType.isSetMetaDataProperty();
 	}
 
-	@Override
 	public boolean isSetName() {
 		return abstractGMLType.isSetName();
 	}
 
-	@Override
 	public void unsetDescription() {
 		abstractGMLType.setDescription(null);
 	}
 
-	@Override
 	public void unsetMetaDataProperty() {
 		abstractGMLType.unsetMetaDataProperty();
 	}
 
-	@Override
 	public void unsetName() {
 		abstractGMLType.unsetName();
 	}
 
-	@Override
 	public boolean unsetName(Code name) {
 		if (abstractGMLType.isSetName())
 			return abstractGMLType.getName().remove(((CodeImpl)name).getJAXBObject());

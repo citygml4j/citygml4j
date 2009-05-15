@@ -33,7 +33,6 @@ public class SolidImpl extends AbstractSolidImpl implements Solid {
 		return GMLClass.SOLID;
 	}
 
-	@Override
 	public SurfaceProperty getExterior() {
 		if (solidType.isSetExterior())
 			return new SurfacePropertyImpl(solidType.getExterior());
@@ -41,7 +40,6 @@ public class SolidImpl extends AbstractSolidImpl implements Solid {
 		return null;
 	}
 
-	@Override
 	public List<SurfaceProperty> getInterior() {
 		List<SurfaceProperty> surfacePropertyList = new ArrayList<SurfaceProperty>();
 
@@ -51,7 +49,6 @@ public class SolidImpl extends AbstractSolidImpl implements Solid {
 		return surfacePropertyList;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getExterior() != null) {
 			SurfaceProperty exteriorSurface = getExterior();
@@ -62,27 +59,22 @@ public class SolidImpl extends AbstractSolidImpl implements Solid {
 		}
 	}
 
-	@Override
 	public void setExterior(SurfaceProperty exterior) {
 		solidType.setExterior(((SurfacePropertyImpl)exterior).getJAXBObject());
 	}
 
-	@Override
 	public void addInterior(SurfaceProperty interior) {
 		solidType.getInterior().add(((SurfacePropertyImpl)interior).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetExterior() {
 		return solidType.isSetExterior();
 	}
 
-	@Override
 	public boolean isSetInterior() {
 		return solidType.isSetInterior();
 	}
 
-	@Override
 	public void setInterior(List<SurfaceProperty> interior) {
 		List<SurfacePropertyType> surfacePropertyTypeList = new ArrayList<SurfacePropertyType>();
 
@@ -93,17 +85,14 @@ public class SolidImpl extends AbstractSolidImpl implements Solid {
 		solidType.getInterior().addAll(surfacePropertyTypeList);
 	}
 
-	@Override
 	public void unsetExterior() {
 		solidType.setExterior(null);
 	}
 
-	@Override
 	public void unsetInterior() {
 		solidType.unsetInterior();
 	}
 
-	@Override
 	public boolean unsetInterior(SurfaceProperty interior) {
 		if (solidType.isSetInterior())
 			return solidType.getInterior().remove(((SurfacePropertyImpl)interior).getJAXBObject());

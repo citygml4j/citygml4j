@@ -32,7 +32,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return GMLClass.POINT;
 	}
 
-	@Override
 	public Coord getCoord() {
 		if (pointType.isSetCoord())
 			return new CoordImpl(pointType.getCoord());
@@ -40,7 +39,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public Coordinates getCoordinates() {
 		if (pointType.isSetCoordinates())
 			return new CoordinatesImpl(pointType.getCoordinates());
@@ -48,7 +46,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public DirectPosition getPos() {
 		if (pointType.isSetPos())
 			return new DirectPositionImpl(pointType.getPos());
@@ -56,7 +53,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(org.citygml4j.geometry.Point min, org.citygml4j.geometry.Point max) {
 		List<Double> point = toList();
 
@@ -79,22 +75,18 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		}
 	}
 
-	@Override
 	public void setPos(DirectPosition pos) {
 		pointType.setPos(((DirectPositionImpl)pos).getJAXBObject());
 	}
 
-	@Override
 	public void setCoord(Coord coord) {
 		pointType.setCoord(((CoordImpl)coord).getJAXBObject());
 	}
 
-	@Override
 	public void setCoordinates(Coordinates coordinates) {
 		pointType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 
@@ -122,32 +114,26 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public boolean isSetCoord() {
 		return pointType.isSetCoord();
 	}
 
-	@Override
 	public boolean isSetCoordinates() {
 		return pointType.isSetCoordinates();
 	}
 
-	@Override
 	public boolean isSetPos() {
 		return pointType.isSetPos();
 	}
 
-	@Override
 	public void unsetCoord() {
 		pointType.setCoord(null);
 	}
 
-	@Override
 	public void unsetCoordinates() {
 		pointType.setCoordinates(null);
 	}
 
-	@Override
 	public void unsetPos() {
 		pointType.setPos(null);
 	}
