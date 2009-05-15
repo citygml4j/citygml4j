@@ -25,62 +25,50 @@ public class AddressLongitudeDirectionImpl extends XALBaseImpl implements Addres
 		return XALClass.ADDRESSLATITUDEDIRECTION;
 	}
 
-	@Override
 	public String getContent() {
 		return addressLongitudeDirection.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return addressLongitudeDirection.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		addressLongitudeDirection.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		addressLongitudeDirection.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return addressLongitudeDirection.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		addressLongitudeDirection.setCode(code);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return addressLongitudeDirection.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		addressLongitudeDirection.setCode(null);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return addressLongitudeDirection.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return addressLongitudeDirection.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		addressLongitudeDirection.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		addressLongitudeDirection.setType(null);
 	}

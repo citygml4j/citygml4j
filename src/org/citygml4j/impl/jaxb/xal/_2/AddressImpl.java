@@ -25,62 +25,50 @@ public class AddressImpl extends XALBaseImpl implements Address {
 		return XALClass.ADDRESS;
 	}
 
-	@Override
 	public String getContent() {
 		return address.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return address.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		address.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		address.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return address.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		address.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return address.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return address.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		address.setCode(null);
 	}
 
-	@Override
 	public void unsetType() {
 		address.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return address.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		address.setCode(null);
 	}

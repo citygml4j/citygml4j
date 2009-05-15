@@ -25,62 +25,50 @@ public class SubAdministrativeAreaNameImpl extends XALBaseImpl implements SubAdm
 		return XALClass.SUBADMINISTRATIVEAREANAME;
 	}
 
-	@Override
 	public String getContent() {
 		return subAreaName.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return subAreaName.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		subAreaName.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		subAreaName.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return subAreaName.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		subAreaName.setCode(code);
 	}
 	
-	@Override
 	public boolean isSetContent() {
 		return subAreaName.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return subAreaName.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		subAreaName.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		subAreaName.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return subAreaName.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		subAreaName.setCode(null);
 	}

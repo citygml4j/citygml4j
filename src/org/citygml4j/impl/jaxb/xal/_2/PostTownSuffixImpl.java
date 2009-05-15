@@ -25,42 +25,34 @@ public class PostTownSuffixImpl extends XALBaseImpl implements PostTownSuffix {
 		return XALClass.POSTTOWNSUFFIX;
 	}
 
-	@Override
 	public String getContent() {
 		return postTownSuffix.getContent();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postTownSuffix.setContent(content);
 	}
 
-	@Override
 	public String getCode() {
 		return postTownSuffix.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		postTownSuffix.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postTownSuffix.isSetContent();
 	}
 
-	@Override
 	public void unsetContent() {
 		postTownSuffix.setContent(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return postTownSuffix.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		postTownSuffix.setCode(null);
 	}

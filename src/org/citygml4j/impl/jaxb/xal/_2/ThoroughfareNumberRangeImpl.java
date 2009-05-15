@@ -32,12 +32,10 @@ public class ThoroughfareNumberRangeImpl extends XALBaseImpl implements Thorough
 		return XALClass.THOROUGHFARENUMBERRANGE;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		numberRange.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -47,32 +45,26 @@ public class ThoroughfareNumberRangeImpl extends XALBaseImpl implements Thorough
 		return addressLineList;
 	}
 
-	@Override
 	public String getIndicator() {
 		return numberRange.getIndicator();
 	}
 
-	@Override
 	public String getIndicatorOccurrence() {
 		return numberRange.getIndicatorOccurrence();
 	}
 
-	@Override
 	public String getNumberRangeOccurrence() {
 		return numberRange.getNumberRangeOccurrence();
 	}
 
-	@Override
 	public String getRangeType() {
 		return numberRange.getRangeType();
 	}
 
-	@Override
 	public String getSeparator() {
 		return numberRange.getSeparator();
 	}
 
-	@Override
 	public ThoroughfareNumberFrom getThoroughfareNumberFrom() {
 		if (numberRange.isSetThoroughfareNumberFrom())
 			return new ThoroughfareNumberFromImpl(numberRange.getThoroughfareNumberFrom());
@@ -80,7 +72,6 @@ public class ThoroughfareNumberRangeImpl extends XALBaseImpl implements Thorough
 		return null;
 	}
 
-	@Override
 	public ThoroughfareNumberTo getThoroughfareNumberTo() {
 		if (numberRange.isSetThoroughfareNumberTo())
 			return new ThoroughfareNumberToImpl(numberRange.getThoroughfareNumberTo());
@@ -88,12 +79,10 @@ public class ThoroughfareNumberRangeImpl extends XALBaseImpl implements Thorough
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return numberRange.getType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -104,18 +93,15 @@ public class ThoroughfareNumberRangeImpl extends XALBaseImpl implements Thorough
 		numberRange.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public void setIndicator(String indicator) {
 		numberRange.setIndicator(indicator);
 	}
 
-	@Override
 	public void setIndicatorOccurrence(String indicatorOccurrence) {
 		if (indicatorOccurrence.equals("Before") || numberRange.equals("After"))
 			numberRange.setIndicatorOccurrence(indicatorOccurrence);
 	}
 
-	@Override
 	public void setNumberRangeOccurrence(String numberRangeOccurrence) {
 		if (numberRangeOccurrence.equals("BeforeName") || 
 				numberRangeOccurrence.equals("AfterName") ||
@@ -124,143 +110,115 @@ public class ThoroughfareNumberRangeImpl extends XALBaseImpl implements Thorough
 			numberRange.setNumberRangeOccurrence(numberRangeOccurrence);
 	}
 
-	@Override
 	public void setRangeType(String rangeType) {
 		if (rangeType.equals("Odd") || rangeType.equals("Even"))
 			numberRange.setRangeType(rangeType);
 	}
 
-	@Override
 	public void setSeparator(String separator) {
 		numberRange.setSeparator(separator);
 	}
 
-	@Override
 	public void setThoroughfareNumberFrom(ThoroughfareNumberFrom thoroughfareNumberFrom) {
 		numberRange.setThoroughfareNumberFrom(((ThoroughfareNumberFromImpl)thoroughfareNumberFrom).getJAXBObject());
 	}
 
-	@Override
 	public void setThoroughfareNumberTo(ThoroughfareNumberTo thoroughfareNumberTo) {
 		numberRange.setThoroughfareNumberTo(((ThoroughfareNumberToImpl)thoroughfareNumberTo).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		numberRange.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return numberRange.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		numberRange.setCode(code);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return numberRange.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetIndicator() {
 		return numberRange.isSetIndicator();
 	}
 
-	@Override
 	public boolean isSetIndicatorOccurrence() {
 		return numberRange.isSetIndicatorOccurrence();
 	}
 
-	@Override
 	public boolean isSetNumberRangeOccurrence() {
 		return numberRange.isSetNumberRangeOccurrence();
 	}
 
-	@Override
 	public boolean isSetRangeType() {
 		return numberRange.isSetRangeType();
 	}
 
-	@Override
 	public boolean isSetSeparator() {
 		return numberRange.isSetSeparator();
 	}
 
-	@Override
 	public boolean isSetThoroughfareNumberFrom() {
 		return numberRange.isSetThoroughfareNumberFrom();
 	}
 
-	@Override
 	public boolean isSetThoroughfareNumberTo() {
 		return numberRange.isSetThoroughfareNumberTo();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return numberRange.isSetType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		numberRange.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetIndicator() {
 		numberRange.setIndicator(null);
 	}
 
-	@Override
 	public void unsetIndicatorOccurrence() {
 		numberRange.setIndicatorOccurrence(null);
 	}
 
-	@Override
 	public void unsetNumberRangeOccurrence() {
 		numberRange.setNumberRangeOccurrence(null);
 	}
 
-	@Override
 	public void unsetRangeType() {
 		numberRange.setRangeType(null);
 	}
 
-	@Override
 	public void unsetSeparator() {
 		numberRange.setSeparator(null);
 	}
 
-	@Override
 	public void unsetThoroughfareNumberFrom() {
 		numberRange.setThoroughfareNumberFrom(null);
 	}
 
-	@Override
 	public void unsetThoroughfareNumberTo() {
 		numberRange.setThoroughfareNumberTo(null);
 	}
 
-	@Override
 	public void unsetType() {
 		numberRange.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return numberRange.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		numberRange.setCode(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (numberRange.isSetAddressLine())
 			return numberRange.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());

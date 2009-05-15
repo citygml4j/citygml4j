@@ -25,62 +25,50 @@ public class MailStopNameImpl extends XALBaseImpl implements MailStopName {
 		return XALClass.MAILSTOPNAME;
 	}
 
-	@Override
 	public String getCode() {
 		return mailStopName.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		mailStopName.setCode(code);
 	}
 
-	@Override
 	public String getContent() {
 		return mailStopName.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return mailStopName.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		mailStopName.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		mailStopName.setType(type);		
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return mailStopName.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return mailStopName.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		mailStopName.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		mailStopName.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return mailStopName.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		mailStopName.setCode(null);
 	}

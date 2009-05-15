@@ -36,12 +36,10 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return XALClass.COUNTRY;
 	}
 
-	@Override
 	public void addCountryName(CountryName countryName) {
 		country.getCountryName().add(((CountryNameImpl)countryName).getJAXBObject());
 	}
 
-	@Override
 	public List<CountryName> getCountryName() {
 		List<CountryName> countryNameList = new ArrayList<CountryName>();
 
@@ -51,7 +49,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return countryNameList;
 	}
 
-	@Override
 	public void setCountryName(List<CountryName> countryName) {
 		List<CountryNameElement> countryNameInstList = new ArrayList<CountryNameElement>();
 
@@ -62,12 +59,10 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		country.getCountryName().addAll(countryNameInstList);
 	}
 
-	@Override
 	public void addCountryNameCode(CountryNameCode countryNameCode) {
 		country.getCountryNameCode().add(((CountryNameCodeImpl)countryNameCode).getJAXBObject());
 	}
 
-	@Override
 	public List<CountryNameCode> getCountryNameCode() {
 		List<CountryNameCode> codeList = new ArrayList<CountryNameCode>();
 
@@ -77,7 +72,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return codeList;
 	}
 
-	@Override
 	public void setCountryNameCode(List<CountryNameCode> countryNameCode) {
 		List<AddressDetails.Country.CountryNameCode> countryNameCodeList = new ArrayList<AddressDetails.Country.CountryNameCode>();
 
@@ -88,12 +82,10 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		country.getCountryNameCode().addAll(countryNameCodeList);
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		country.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -103,7 +95,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return addressLineList;
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -114,7 +105,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		country.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public AdministrativeArea getAdministrativeArea() {
 		if (country.isSetAdministrativeArea())
 			return new AdministrativeAreaImpl(country.getAdministrativeArea());
@@ -122,7 +112,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return null;
 	}
 
-	@Override
 	public Locality getLocality() {
 		if (country.isSetLocality())
 			return new LocalityImpl(country.getLocality());
@@ -130,7 +119,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return null;
 	}
 
-	@Override
 	public Thoroughfare getThoroughfare() {
 		if (country.isSetThoroughfare())
 			return  new ThoroughfareImpl(country.getThoroughfare());
@@ -138,72 +126,58 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return null;
 	}
 
-	@Override
 	public void setAdministrativeArea(AdministrativeArea administrativeArea) {
 		country.setAdministrativeArea(((AdministrativeAreaImpl)administrativeArea).getJAXBObject());		
 	}
 
-	@Override
 	public void setLocality(Locality locality) {
 		country.setLocality(((LocalityImpl)locality).getJAXBObject());
 	}
 
-	@Override
 	public void setThoroughfare(Thoroughfare thoroughfare) {
 		country.setThoroughfare(((ThoroughfareImpl)thoroughfare).getJAXBObject());	
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return country.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetAdministrativeArea() {
 		return country.isSetAdministrativeArea();
 	}
 
-	@Override
 	public boolean isSetCountryName() {
 		return country.isSetCountryName();
 	}
 
-	@Override
 	public boolean isSetCountryNameCode() {
 		return country.isSetCountryNameCode();
 	}
 
-	@Override
 	public boolean isSetLocality() {
 		return country.isSetLocality();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		country.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetAdministrativeArea() {
 		country.setAdministrativeArea(null);
 	}
 
-	@Override
 	public void unsetCountryName() {
 		country.unsetCountryName();
 	}
 
-	@Override
 	public void unsetCountryNameCode() {
 		country.unsetCountryNameCode();
 	}
 
-	@Override
 	public void unsetLocality() {
 		country.setLocality(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (country.isSetAddressLine())
 			return country.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());
@@ -211,7 +185,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return false;
 	}
 
-	@Override
 	public boolean unsetCountryName(CountryName countryName) {
 		if (country.isSetCountryName())
 			return country.getCountryName().remove(((CountryNameImpl)countryName).getJAXBObject());
@@ -219,7 +192,6 @@ public class CountryImpl extends XALBaseImpl implements Country {
 		return false;
 	}
 
-	@Override
 	public boolean unsetCountryNameCode(CountryNameCode countryNameCode) {
 		if (country.isSetCountryNameCode())
 			return country.getCountryNameCode().remove(((CountryNameCodeImpl)countryNameCode).getJAXBObject());

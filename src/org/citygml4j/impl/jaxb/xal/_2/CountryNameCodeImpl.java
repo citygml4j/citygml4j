@@ -25,62 +25,50 @@ public class CountryNameCodeImpl extends XALBaseImpl implements CountryNameCode 
 		return XALClass.COUNTRYNAMECODE;
 	}
 
-	@Override
 	public String getContent() {
 		return countryNameCode.getContent();
 	}
 
-	@Override
 	public String getScheme() {
 		return countryNameCode.getScheme();
 	}
 
-	@Override
 	public void setContent(String content) {
 		countryNameCode.setContent(content);
 	}
 
-	@Override
 	public void setScheme(String scheme) {
 		countryNameCode.setScheme(scheme);
 	}
 
-	@Override
 	public String getCode() {
 		return countryNameCode.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		countryNameCode.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return countryNameCode.isSetContent();
 	}
 
-	@Override
 	public boolean isSetScheme() {
 		return countryNameCode.isSetScheme();
 	}
 
-	@Override
 	public void unsetContent() {
 		countryNameCode.setContent(null);
 	}
 
-	@Override
 	public void unsetScheme() {
 		countryNameCode.setScheme(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return countryNameCode.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		countryNameCode.setCode(null);
 	}

@@ -25,62 +25,50 @@ public class ThoroughfarePostDirectionImpl extends XALBaseImpl implements Thorou
 		return XALClass.THOROUGHFAREPOSTDIRECTION;
 	}
 
-	@Override
 	public String getContent() {
 		return thoroughfarePostDirectionType.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return thoroughfarePostDirectionType.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		thoroughfarePostDirectionType.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		thoroughfarePostDirectionType.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return thoroughfarePostDirectionType.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		thoroughfarePostDirectionType.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return thoroughfarePostDirectionType.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return thoroughfarePostDirectionType.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		thoroughfarePostDirectionType.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		thoroughfarePostDirectionType.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return thoroughfarePostDirectionType.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		thoroughfarePostDirectionType.setCode(null);
 	}

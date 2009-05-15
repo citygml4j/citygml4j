@@ -25,62 +25,50 @@ public class AdministrativeAreaNameImpl extends XALBaseImpl implements Administr
 		return XALClass.ADMINISTRATIVEAREANAME;
 	}
 
-	@Override
 	public String getContent() {
 		return areaName.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return areaName.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		areaName.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		areaName.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return areaName.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		areaName.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return areaName.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return areaName.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		areaName.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		areaName.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return areaName.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		areaName.setCode(null);
 	}

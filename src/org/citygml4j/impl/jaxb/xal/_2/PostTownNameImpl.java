@@ -25,62 +25,50 @@ public class PostTownNameImpl extends XALBaseImpl implements PostTownName {
 		return XALClass.POSTTOWNNAME;
 	}
 
-	@Override
 	public String getContent() {
 		return postTownName.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return postTownName.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postTownName.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		postTownName.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return postTownName.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		postTownName.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postTownName.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return postTownName.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		postTownName.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		postTownName.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return postTownName.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		postTownName.setCode(null);
 	}

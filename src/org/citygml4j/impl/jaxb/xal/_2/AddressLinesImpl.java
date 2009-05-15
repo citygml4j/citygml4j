@@ -30,12 +30,10 @@ public class AddressLinesImpl extends XALBaseImpl implements AddressLines {
 		return XALClass.ADDRESSLINES;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		addressLines.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -45,7 +43,6 @@ public class AddressLinesImpl extends XALBaseImpl implements AddressLines {
 		return addressLineList;
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -56,17 +53,14 @@ public class AddressLinesImpl extends XALBaseImpl implements AddressLines {
 		addressLines.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return addressLines.isSetAddressLine();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		addressLines.unsetAddressLine();
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (addressLines.isSetAddressLine())
 			return addressLines.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());

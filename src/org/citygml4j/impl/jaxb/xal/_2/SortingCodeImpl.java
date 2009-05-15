@@ -25,42 +25,34 @@ public class SortingCodeImpl extends XALBaseImpl implements SortingCode {
 		return XALClass.SORTINGCODE;
 	}
 
-	@Override
 	public String getType() {
 		return sortingCode.getType();
 	}
 
-	@Override
 	public void setType(String type) {
 		sortingCode.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return sortingCode.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		sortingCode.setCode(code);
 	}
 
-	@Override
 	public boolean isSetType() {
 		return sortingCode.isSetType();
 	}
 
-	@Override
 	public void unsetType() {
 		sortingCode.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return sortingCode.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		sortingCode.setCode(null);
 	}

@@ -25,42 +25,34 @@ public class PostBoxNumberImpl extends XALBaseImpl implements PostBoxNumber {
 		return XALClass.POSTBOXNUMBER;
 	}
 
-	@Override
 	public String getContent() {
 		return postBoxNumber.getContent();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postBoxNumber.setContent(content);
 	}
 
-	@Override
 	public String getCode() {
 		return postBoxNumber.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		postBoxNumber.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postBoxNumber.isSetContent();
 	}
 
-	@Override
 	public void unsetContent() {
 		postBoxNumber.setContent(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return postBoxNumber.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		postBoxNumber.setCode(null);
 	}

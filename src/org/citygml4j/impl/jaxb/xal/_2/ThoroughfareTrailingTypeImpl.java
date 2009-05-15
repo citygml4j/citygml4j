@@ -25,62 +25,50 @@ public class ThoroughfareTrailingTypeImpl extends XALBaseImpl implements Thoroug
 		return XALClass.THOROUGHFARELEADINGTYPE;
 	}
 
-	@Override
 	public String getCode() {
 		return thoroughfareTrailingType.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		thoroughfareTrailingType.setCode(code);
 	}
 
-	@Override
 	public String getContent() {
 		return thoroughfareTrailingType.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return thoroughfareTrailingType.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		thoroughfareTrailingType.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		thoroughfareTrailingType.setType(type);
 	}
 	
-	@Override
 	public boolean isSetContent() {
 		return thoroughfareTrailingType.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return thoroughfareTrailingType.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		thoroughfareTrailingType.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		thoroughfareTrailingType.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return thoroughfareTrailingType.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		thoroughfareTrailingType.setCode(null);
 	}

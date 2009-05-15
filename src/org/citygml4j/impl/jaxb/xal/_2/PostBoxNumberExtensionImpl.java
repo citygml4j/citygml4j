@@ -25,42 +25,34 @@ public class PostBoxNumberExtensionImpl extends XALBaseImpl implements PostBoxNu
 		return XALClass.POSTBOXNUMBEREXTENSION;
 	}
 
-	@Override
 	public String getContent() {
 		return postBoxNumberExtension.getContent();
 	}
 
-	@Override
 	public String getNumberExtensionSeparator() {
 		return postBoxNumberExtension.getNumberExtensionSeparator();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postBoxNumberExtension.setContent(content);
 	}
 
-	@Override
 	public void setNumberExtensionSeparator(String numberExtensionSeparator) {
 		postBoxNumberExtension.setNumberExtensionSeparator(numberExtensionSeparator);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postBoxNumberExtension.isSetContent();
 	}
 
-	@Override
 	public boolean isSetNumberExtensionSeparator() {
 		return postBoxNumberExtension.isSetNumberExtensionSeparator();
 	}
 
-	@Override
 	public void unsetContent() {
 		postBoxNumberExtension.setContent(null);
 	}
 
-	@Override
 	public void unsetNumberExtensionSeparator() {
 		postBoxNumberExtension.setNumberExtensionSeparator(null);
 	}

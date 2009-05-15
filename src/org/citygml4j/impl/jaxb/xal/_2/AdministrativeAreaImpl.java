@@ -35,17 +35,14 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return XALClass.ADMINISTRATIVEAREA;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		area.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public void addAdministrativeAreaName(AdministrativeAreaName administrativeAreaName) {
 		area.getAdministrativeAreaName().add(((AdministrativeAreaNameImpl)administrativeAreaName).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -55,7 +52,6 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return addressLineList;
 	}
 
-	@Override
 	public List<AdministrativeAreaName> getAdministrativeAreaName() {
 		List<AdministrativeAreaName> nameList = new ArrayList<AdministrativeAreaName>();
 
@@ -65,12 +61,10 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return nameList;
 	}
 
-	@Override
 	public String getIndicator() {
 		return area.getIndicator();
 	}
 
-	@Override
 	public Locality getLocality() {
 		if (area.isSetLocality())
 			return new LocalityImpl(area.getLocality());
@@ -78,7 +72,6 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return null;
 	}
 
-	@Override
 	public PostOffice getPostOffice() {
 		if (area.isSetPostOffice())
 			return new PostOfficeImpl(area.getPostOffice());
@@ -86,7 +79,6 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return null;
 	}
 
-	@Override
 	public PostalCode getPostalCode() {
 		if (area.isSetPostalCode())
 			return new PostalCodeImpl(area.getPostalCode());
@@ -94,7 +86,6 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return null;
 	}
 
-	@Override
 	public SubAdministrativeArea getSubAdministrativeArea() {
 		if (area.isSetSubAdministrativeArea())
 			return new SubAdministrativeAreaImpl(area.getSubAdministrativeArea());
@@ -102,17 +93,14 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return area.getType();
 	}
 
-	@Override
 	public String getUsageType() {
 		return area.getUsageType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineInstList = new ArrayList<AddressLineElement>();
 
@@ -123,7 +111,6 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		area.getAddressLine().addAll(addressLineInstList);
 	}
 
-	@Override
 	public void setAdministrativeAreaName(List<AdministrativeAreaName> administrativeAreaName) {
 		List<AdministrativeAreaElement.AdministrativeAreaName> nameElemList = new ArrayList<AdministrativeAreaElement.AdministrativeAreaName>();
 
@@ -134,132 +121,106 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		area.getAdministrativeAreaName().addAll(nameElemList);
 	}
 
-	@Override
 	public void setIndicator(String indicator) {
 		area.setIndicator(indicator);
 	}
 
-	@Override
 	public void setLocality(Locality locality) {
 		area.setLocality(((LocalityImpl)locality).getJAXBObject());
 	}
 
-	@Override
 	public void setPostOffice(PostOffice postOffice) {
 		area.setPostOffice(((PostOfficeImpl)postOffice).getJAXBObject());
 	}
 
-	@Override
 	public void setPostalCode(PostalCode postalCode) {
 		area.setPostalCode(((PostalCodeImpl)postalCode).getJAXBObject());
 	}
 
-	@Override
 	public void setSubAdministrativeArea(SubAdministrativeArea subAdministrativeArea) {
 		area.setSubAdministrativeArea(((SubAdministrativeAreaImpl)subAdministrativeArea).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		area.setType(type);
 	}
 
-	@Override
 	public void setUsageType(String usageType) {
 		area.setUsageType(usageType);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return area.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetAdministrativeAreaName() {
 		return area.isSetAdministrativeAreaName();
 	}
 
-	@Override
 	public boolean isSetIndicator() {
 		return area.isSetIndicator();
 	}
 
-	@Override
 	public boolean isSetLocality() {
 		return area.isSetLocality();
 	}
 
-	@Override
 	public boolean isSetPostalCode() {
 		return area.isSetPostalCode();
 	}
 
-	@Override
 	public boolean isSetPostOffice() {
 		return area.isSetPostOffice();
 	}
 
-	@Override
 	public boolean isSetSubAdministrativeArea() {
 		return area.isSetSubAdministrativeArea();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return area.isSetType();
 	}
 
-	@Override
 	public boolean isSetUsageType() {
 		return area.isSetUsageType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		area.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetAdministrativeAreaName() {
 		area.unsetAdministrativeAreaName();
 	}
 
-	@Override
 	public void unsetIndicator() {
 		area.setIndicator(null);
 	}
 
-	@Override
 	public void unsetLocality() {
 		area.setLocality(null);
 	}
 
-	@Override
 	public void unsetPostalCode() {
 		area.setPostalCode(null);
 	}
 
-	@Override
 	public void unsetPostOffice() {
 		area.setPostOffice(null);
 	}
 
-	@Override
 	public void unsetSubAdministrativeArea() {
 		area.setSubAdministrativeArea(null);
 	}
 
-	@Override
 	public void unsetType() {
 		area.setType(null);
 	}
 
-	@Override
 	public void unsetUsageType() {
 		area.setUsageType(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (area.isSetAddressLine())
 			return area.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());
@@ -267,7 +228,6 @@ public class AdministrativeAreaImpl extends XALBaseImpl implements Administrativ
 		return false;
 	}
 
-	@Override
 	public boolean unsetAdministrativeAreaName(AdministrativeAreaName administrativeAreaName) {
 		if (area.isSetAdministrativeAreaName())
 			return area.getAdministrativeAreaName().remove(((AdministrativeAreaNameImpl)administrativeAreaName).getJAXBObject());

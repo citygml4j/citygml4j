@@ -25,62 +25,50 @@ public class PostalCodeNumberImpl extends XALBaseImpl implements PostalCodeNumbe
 		return XALClass.POSTALCODENUMBER;
 	}
 
-	@Override
 	public String getContent() {
 		return postalCodeNumber.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return postalCodeNumber.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postalCodeNumber.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		postalCodeNumber.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return postalCodeNumber.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		postalCodeNumber.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postalCodeNumber.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return postalCodeNumber.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		postalCodeNumber.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		postalCodeNumber.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return postalCodeNumber.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		postalCodeNumber.setCode(null);
 	}

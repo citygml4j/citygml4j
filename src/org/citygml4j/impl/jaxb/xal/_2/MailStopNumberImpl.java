@@ -25,62 +25,50 @@ public class MailStopNumberImpl extends XALBaseImpl implements MailStopNumber {
 		return XALClass.MAILSTOPNUMBER;
 	}
 
-	@Override
 	public String getContent() {
 		return mailStopNumber.getContent();
 	}
 
-	@Override
 	public String getNameNumberSeparator() {
 		return mailStopNumber.getNameNumberSeparator();
 	}
 
-	@Override
 	public void setContent(String content) {
 		mailStopNumber.setContent(content);
 	}
 
-	@Override
 	public void setNameNumberSeparator(String nameNumberSeparator) {
 		mailStopNumber.setNameNumberSeparator(nameNumberSeparator);
 	}
 
-	@Override
 	public String getCode() {
 		return mailStopNumber.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		mailStopNumber.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return mailStopNumber.isSetContent();
 	}
 
-	@Override
 	public boolean isSetNameNumberSeparator() {
 		return mailStopNumber.isSetNameNumberSeparator();
 	}
 
-	@Override
 	public void unsetContent() {
 		mailStopNumber.setContent(null);
 	}
 
-	@Override
 	public void unsetNameNumberSeparator() {
 		mailStopNumber.setNameNumberSeparator(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return mailStopNumber.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		mailStopNumber.setCode(null);
 	}
