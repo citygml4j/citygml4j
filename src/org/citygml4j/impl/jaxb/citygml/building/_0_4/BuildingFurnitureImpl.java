@@ -47,17 +47,14 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public String getClazz() {
 		return buildingFurnitureType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return buildingFurnitureType.getFunction();
 	}
 
-	@Override
 	public GeometryProperty getLod4Geometry() {
 		if (buildingFurnitureType.isSetLod4Geometry())
 			return new GeometryPropertyImpl(buildingFurnitureType.getLod4Geometry());
@@ -65,7 +62,6 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return null;
 	}
 
-	@Override
 	public List<String> getUsage() {
 		return buildingFurnitureType.getUsage();
 	}
@@ -83,39 +79,32 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		}
 	}
 
-	@Override
 	public void addFunction(String function) {
 		buildingFurnitureType.getFunction().add(function);
 	}
 
-	@Override
 	public void addUsage(String usage) {
 		buildingFurnitureType.getUsage().add(usage);
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		buildingFurnitureType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		buildingFurnitureType.unsetFunction();
 		buildingFurnitureType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setUsage(List<String> usage) {
 		buildingFurnitureType.unsetUsage();
 		buildingFurnitureType.getUsage().addAll(usage);
 	}
 
-	@Override
 	public void setLod4Geometry(GeometryProperty lod4Geometry) {
 		buildingFurnitureType.setLod4Geometry(((GeometryPropertyImpl)lod4Geometry).getJAXBObject());
 	}
 
-	@Override
 	public ImplicitRepresentationProperty getLoD4ImplicitRepresentation() {
 		if (buildingFurnitureType.isSetLod4ImplicitRepresentation())
 			return new ImplicitRepresentationPropertyImpl(buildingFurnitureType.getLod4ImplicitRepresentation());
@@ -123,19 +112,16 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return null;
 	}
 
-	@Override
 	public void setLoD4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
 		buildingFurnitureType.setLod4ImplicitRepresentation(((ImplicitRepresentationPropertyImpl)lod4ImplicitRepresentation).getJAXBObject());
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfBuildingFurniture(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			buildingFurnitureType.get_GenericApplicationPropertyOfBuildingFurniture().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingFurniture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -150,7 +136,6 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfBuildingFurniture(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -166,67 +151,54 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		}
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return buildingFurnitureType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return buildingFurnitureType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfBuildingFurniture() {
 		return buildingFurnitureType.isSet_GenericApplicationPropertyOfBuildingFurniture();
 	}
 
-	@Override
 	public boolean isSetLod4Geometry() {
 		return buildingFurnitureType.isSetLod4Geometry();
 	}
 
-	@Override
 	public boolean isSetLoD4ImplicitRepresentation() {
 		return buildingFurnitureType.isSetLod4ImplicitRepresentation();
 	}
 
-	@Override
 	public boolean isSetUsage() {
 		return buildingFurnitureType.isSetUsage();
 	}
 
-	@Override
 	public void unsetClazz() {
 		buildingFurnitureType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		buildingFurnitureType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfBuildingFurniture() {
 		buildingFurnitureType.unset_GenericApplicationPropertyOfBuildingFurniture();
 	}
 
-	@Override
 	public void unsetLod4Geometry() {
 		buildingFurnitureType.setLod4Geometry(null);
 	}
 
-	@Override
 	public void unsetLoD4ImplicitRepresentation() {
 		buildingFurnitureType.setLod4ImplicitRepresentation(null);
 	}
 
-	@Override
 	public void unsetUsage() {
 		buildingFurnitureType.unsetUsage();
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (buildingFurnitureType.isSetFunction())
 			return buildingFurnitureType.getFunction().remove(function);
@@ -234,7 +206,6 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfBuildingFurniture(ADEComponent adeObject) {
 		if (buildingFurnitureType.isSet_GenericApplicationPropertyOfBuildingFurniture()) {
 			Iterator<JAXBElement<?>> iter = buildingFurnitureType.get_GenericApplicationPropertyOfBuildingFurniture().iterator();
@@ -253,7 +224,6 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return false;
 	}
 
-	@Override
 	public boolean unsetUsage(String usage) {
 		if (buildingFurnitureType.isSetUsage())
 			return buildingFurnitureType.getUsage().remove(usage);

@@ -26,7 +26,6 @@ public class Generics100ModelMapperImpl extends AbstractCityGMLModelMapperImpl {
 			return ade2jaxb((ADEComponent)genericCityObject, GenericCityObjectType.class);
 	}
 	
-	@Override
 	public CityGMLBase toCityGML(JAXBElement<?> jaxbElem) {
 		CityGMLBase cityGMLBase = null;
 		
@@ -41,7 +40,6 @@ public class Generics100ModelMapperImpl extends AbstractCityGMLModelMapperImpl {
 		return cityGMLBase;
 	}
 
-	@Override
 	public JAXBElement<?> toJAXB(CityGMLBase cityGML) {
 		JAXBElement<?> jaxbElem = null;
 		

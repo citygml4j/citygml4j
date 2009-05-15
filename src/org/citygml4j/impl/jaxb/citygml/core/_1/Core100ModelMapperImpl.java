@@ -72,7 +72,6 @@ public class Core100ModelMapperImpl extends AbstractCityGMLModelMapperImpl {
 		return null;
 	}
 	
-	@Override
 	public CityGMLBase toCityGML(JAXBElement<?> jaxbElem) {
 		CityGMLBase cityGMLBase = null;
 		
@@ -93,7 +92,6 @@ public class Core100ModelMapperImpl extends AbstractCityGMLModelMapperImpl {
 		return cityGMLBase;
 	}
 
-	@Override
 	public JAXBElement<?> toJAXB(CityGMLBase cityGML) {
 		JAXBElement<?> jaxbElem = null;
 		

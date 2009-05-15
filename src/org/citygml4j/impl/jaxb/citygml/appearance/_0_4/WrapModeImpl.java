@@ -18,7 +18,6 @@ public enum WrapModeImpl implements WrapMode {
 		value = v;
 	}
 
-	@Override
 	public String getValue() {
 		return value;
 	}
@@ -35,12 +34,10 @@ public enum WrapModeImpl implements WrapMode {
 		return NONE;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WRAPMODE;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v0_4_0;
 	}

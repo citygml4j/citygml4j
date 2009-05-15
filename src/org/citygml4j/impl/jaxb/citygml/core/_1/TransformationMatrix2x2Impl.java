@@ -30,12 +30,10 @@ public class TransformationMatrix2x2Impl implements TransformationMatrix2x2 {
 		matrix.setMatrix(vals);
 	}
 
-	@Override
 	public Matrix getMatrix() {
 		return matrix;
 	}
 
-	@Override
 	public void setMatrix(Matrix matrix) {
 		if (matrix.getRowDimension() != 2 || matrix.getColumnDimension() != 2)
 			throw new IllegalArgumentException("Matrix dimensions must be 2x2.");
@@ -43,12 +41,10 @@ public class TransformationMatrix2x2Impl implements TransformationMatrix2x2 {
 		this.matrix = matrix;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSFORMATIONMATRIX2X2;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v1_0_0;
 	}

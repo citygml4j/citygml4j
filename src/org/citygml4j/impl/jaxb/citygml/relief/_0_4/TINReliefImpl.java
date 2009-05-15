@@ -36,7 +36,6 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 		return tinReliefType;
 	}
 
-	@Override
 	public TinProperty getTin() {
 		if (tinReliefType.isSetTin())
 			return new TinPropertyImpl(tinReliefType.getTin());
@@ -44,7 +43,6 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 		return null;
 	}
 
-	@Override
 	public void setTin(TinProperty tin) {
 		tinReliefType.setTin(((TinPropertyImpl)tin).getJAXBObject());
 	}
@@ -65,14 +63,12 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfTinRelief(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			tinReliefType.get_GenericApplicationPropertyOfTinRelief().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTinRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -87,7 +83,6 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfTinRelief(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -103,27 +98,22 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfTinRelief() {
 		return tinReliefType.isSet_GenericApplicationPropertyOfTinRelief();
 	}
 
-	@Override
 	public boolean isSetTin() {
 		return tinReliefType.isSetTin();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfTinRelief() {
 		tinReliefType.unset_GenericApplicationPropertyOfTinRelief();
 	}
 
-	@Override
 	public void unsetTin() {
 		tinReliefType.setTin(null);
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfTinRelief(ADEComponent adeObject) {
 		if (tinReliefType.isSet_GenericApplicationPropertyOfTinRelief()) {
 			Iterator<JAXBElement<?>> iter = tinReliefType.get_GenericApplicationPropertyOfTinRelief().iterator();

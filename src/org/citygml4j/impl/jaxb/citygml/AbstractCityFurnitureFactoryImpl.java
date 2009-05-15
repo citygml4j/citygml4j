@@ -19,7 +19,6 @@ public abstract class AbstractCityFurnitureFactoryImpl implements CityFurnitureF
 		}
 	}
 	
-	@Override
 	public abstract CityFurniture createCityFurniture();
 
 }

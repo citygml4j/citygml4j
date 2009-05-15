@@ -25,12 +25,10 @@ public class TrafficAreaPropertyImpl extends AssociationImpl<TrafficArea> implem
 		this.trafficAreaPropertyType = trafficAreaPropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRAFFICAREAPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return TransportationModule.v1_0_0;
 	}
@@ -40,7 +38,6 @@ public class TrafficAreaPropertyImpl extends AssociationImpl<TrafficArea> implem
 		return trafficAreaPropertyType;
 	}
 
-	@Override
 	public TrafficArea getObject() {
 		if (trafficAreaPropertyType.isSet_Object()) {
 			JAXBElement<?> trafficArea = trafficAreaPropertyType.get_Object();
@@ -57,7 +54,6 @@ public class TrafficAreaPropertyImpl extends AssociationImpl<TrafficArea> implem
 		return null;
 	}
 
-	@Override
 	public void setObject(TrafficArea object) {
 		JAXBElement<?> jaxbElem = ModelMapper.TRAN_1.toJAXB(object);
 		trafficAreaPropertyType.set_Object(jaxbElem);

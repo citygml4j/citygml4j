@@ -25,12 +25,10 @@ public class AuxiliaryTrafficAreaPropertyImpl extends AssociationImpl<AuxiliaryT
 		this.auxiliaryTrafficAreaPropertyType = auxiliaryTrafficAreaPropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.AUXILIARYTRAFFICAREAPROPERTY;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return TransportationModule.v0_4_0;
 	}
@@ -40,7 +38,6 @@ public class AuxiliaryTrafficAreaPropertyImpl extends AssociationImpl<AuxiliaryT
 		return auxiliaryTrafficAreaPropertyType;
 	}
 
-	@Override
 	public AuxiliaryTrafficArea getObject() {
 		if (auxiliaryTrafficAreaPropertyType.isSet_Object()) {
 			JAXBElement<?> auxiliaryTrafficArea = auxiliaryTrafficAreaPropertyType.get_Object();
@@ -57,7 +54,6 @@ public class AuxiliaryTrafficAreaPropertyImpl extends AssociationImpl<AuxiliaryT
 		return null;
 	}
 
-	@Override
 	public void setObject(AuxiliaryTrafficArea object) {
 		JAXBElement<?> jaxbElem = ModelMapper.TRAN_0_4.toJAXB(object);
 		auxiliaryTrafficAreaPropertyType.set_Object(jaxbElem);

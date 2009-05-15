@@ -39,14 +39,12 @@ public class RasterReliefImpl extends ReliefComponentImpl implements RasterRelie
 		super.calcBoundedBy();
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfRasterRelief(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			rasterReliefType.get_GenericApplicationPropertyOfRasterRelief().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -61,7 +59,6 @@ public class RasterReliefImpl extends ReliefComponentImpl implements RasterRelie
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfRasterRelief(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -77,17 +74,14 @@ public class RasterReliefImpl extends ReliefComponentImpl implements RasterRelie
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfRasterRelief() {
 		return rasterReliefType.isSet_GenericApplicationPropertyOfRasterRelief();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfRasterRelief() {
 		rasterReliefType.unset_GenericApplicationPropertyOfRasterRelief();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfRasterRelief(ADEComponent adeObject) {
 		if (rasterReliefType.isSet_GenericApplicationPropertyOfRasterRelief()) {
 			Iterator<JAXBElement<?>> iter = rasterReliefType.get_GenericApplicationPropertyOfRasterRelief().iterator();

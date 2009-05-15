@@ -34,14 +34,12 @@ public class InteriorWallSurfaceImpl extends BoundarySurfaceImpl implements	Inte
 		return CityGMLClass.INTERIORWALLSURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfInteriorWallSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			interiorWallSurfaceType.get_GenericApplicationPropertyOfInteriorWallSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfInteriorWallSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class InteriorWallSurfaceImpl extends BoundarySurfaceImpl implements	Inte
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfInteriorWallSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class InteriorWallSurfaceImpl extends BoundarySurfaceImpl implements	Inte
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfInteriorWallSurface() {
 		return interiorWallSurfaceType.isSet_GenericApplicationPropertyOfInteriorWallSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfInteriorWallSurface() {
 		interiorWallSurfaceType.unset_GenericApplicationPropertyOfInteriorWallSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfInteriorWallSurface(ADEComponent adeObject) {
 		if (interiorWallSurfaceType.isSet_GenericApplicationPropertyOfInteriorWallSurface()) {
 			Iterator<JAXBElement<?>> iter = interiorWallSurfaceType.get_GenericApplicationPropertyOfInteriorWallSurface().iterator();

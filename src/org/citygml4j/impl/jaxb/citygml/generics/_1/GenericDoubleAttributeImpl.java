@@ -21,7 +21,6 @@ public class GenericDoubleAttributeImpl extends GenericAttributeImpl implements	
 		return doubleAttributeType;
 	}
 
-	@Override
 	public Double getValue() {
 		return new Double(doubleAttributeType.getValue());
 	}
@@ -31,17 +30,14 @@ public class GenericDoubleAttributeImpl extends GenericAttributeImpl implements	
 		return CityGMLClass.DOUBLEATTRIBUTE;
 	}
 
-	@Override
 	public void setValue(Double value) {
 		doubleAttributeType.setValue(value);
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return doubleAttributeType.isSetValue();
 	}
 
-	@Override
 	public void unsetValue() {
 		doubleAttributeType.setValue(null);
 	}

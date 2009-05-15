@@ -35,7 +35,6 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 		return addressType;
 	}
 
-	@Override
 	public MultiPointProperty getMultiPoint() {
 		if (addressType.isSetMultiPoint())
 			return new MultiPointPropertyImpl(addressType.getMultiPoint());
@@ -43,7 +42,6 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 		return null;
 	}
 
-	@Override
 	public XalAddressProperty getXalAddress() {
 		if (addressType.isSetXalAddress())
 			return new XalAddressPropertyImpl(addressType.getXalAddress());
@@ -51,22 +49,18 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 		return null;
 	}
 
-	@Override
 	public void setMultiPoint(MultiPointProperty multiPoint) {
 		addressType.setMultiPoint(((MultiPointPropertyImpl)multiPoint).getJAXBObject());
 	}
 
-	@Override
 	public void setXalAddress(XalAddressProperty xalAddressProperty) {
 		addressType.setXalAddress(((XalAddressPropertyImpl)xalAddressProperty).getJAXBObject());
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ADDRESS;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v1_0_0;
 	}
@@ -76,14 +70,12 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 		// we don't need that here
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfAddress(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			addressType.get_GenericApplicationPropertyOfAddress().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAddress() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -98,7 +90,6 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfAddress(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -114,37 +105,30 @@ public class AddressImpl extends AbstractFeatureImpl implements	Address {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfAddress() {
 		return addressType.isSet_GenericApplicationPropertyOfAddress();
 	}
 
-	@Override
 	public boolean isSetMultiPoint() {
 		return addressType.isSetMultiPoint();
 	}
 
-	@Override
 	public boolean isSetXalAddress() {
 		return addressType.isSetXalAddress();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfAddress() {
 		addressType.unset_GenericApplicationPropertyOfAddress();
 	}
 
-	@Override
 	public void unsetMultiPoint() {
 		addressType.setMultiPoint(null);
 	}
 
-	@Override
 	public void unsetXalAddress() {
 		addressType.setXalAddress(null);
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfAddress(ADEComponent adeObject) {
 		if (addressType.isSet_GenericApplicationPropertyOfAddress()) {
 			Iterator<JAXBElement<?>> iter = addressType.get_GenericApplicationPropertyOfAddress().iterator();

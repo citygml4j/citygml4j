@@ -54,7 +54,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public List<BoundarySurfaceProperty> getBoundedBySurfaces() {
 		List<BoundarySurfaceProperty> boundarySurfacePropertyList = new ArrayList<BoundarySurfaceProperty>();
 
@@ -64,17 +63,14 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return boundarySurfacePropertyList;
 	}
 
-	@Override
 	public String getClazz() {
 		return roomType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return roomType.getFunction();
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod4MultiSurface() {
 		if (roomType.isSetLod4MultiSurface())
 			return new MultiSurfacePropertyImpl(roomType.getLod4MultiSurface());
@@ -82,7 +78,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return null;
 	}
 
-	@Override
 	public SolidProperty getLod4Solid() {
 		if (roomType.isSetLod4Solid())
 			return new SolidPropertyImpl(roomType.getLod4Solid());
@@ -90,12 +85,10 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return null;
 	}
 
-	@Override
 	public List<String> getUsage() {
 		return roomType.getUsage();
 	}
 
-	@Override
 	public List<InteriorFurnitureProperty> getInteriorFurniture() {
 		List<InteriorFurnitureProperty> interiorFurniturePropertyList = new ArrayList<InteriorFurnitureProperty>();
 
@@ -105,7 +98,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return interiorFurniturePropertyList;
 	}
 
-	@Override
 	public List<IntBuildingInstallationProperty> getRoomInstallation() {
 		List<IntBuildingInstallationProperty> intBuildingInstallationPropertyList = new ArrayList<IntBuildingInstallationProperty>();
 
@@ -148,39 +140,32 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		}
 	}
 
-	@Override
 	public void addFunction(String function) {
 		roomType.getFunction().add(function);
 	}
 
-	@Override
 	public void addUsage(String usage) {
 		roomType.getUsage().add(usage);
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		roomType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		roomType.unsetFunction();
 		roomType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setUsage(List<String> usage) {
 		roomType.unsetUsage();
 		roomType.getUsage().addAll(usage);
 	}
 
-	@Override
 	public void addRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
 		roomType.getRoomInstallation().add(((IntBuildingInstallationPropertyImpl)roomInstallation).getJAXBObject());
 	}
 
-	@Override
 	public void setRoomInstallation(List<IntBuildingInstallationProperty> roomInstallation) {
 		List<IntBuildingInstallationPropertyType> intInstPropList = new ArrayList<IntBuildingInstallationPropertyType>();
 
@@ -191,12 +176,10 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		roomType.getRoomInstallation().addAll(intInstPropList);
 	}
 
-	@Override
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
 		roomType.getBoundedBySurfaces().add(((BoundarySurfacePropertyImpl)boundedBySurface).getJAXBObject());
 	}
 
-	@Override
 	public void setBoundedBySurfaces(List<BoundarySurfaceProperty> boundedBySurfaces) {
 		List<BoundarySurfacePropertyType> boundSurfPropTypeList = new ArrayList<BoundarySurfacePropertyType>();
 
@@ -207,22 +190,18 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		roomType.getBoundedBySurfaces().addAll(boundSurfPropTypeList);
 	}
 
-	@Override
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
 		roomType.setLod4MultiSurface(((MultiSurfacePropertyImpl)lod4MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4Solid(SolidProperty lod4Solid) {
 		roomType.setLod4Solid(((SolidPropertyImpl)lod4Solid).getJAXBObject());
 	}
 
-	@Override
 	public void addInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
 		roomType.getInteriorFurniture().add(((InteriorFurniturePropertyImpl)interiorFurniture).getJAXBObject());
 	}
 
-	@Override
 	public void setInteriorFurniture(List<InteriorFurnitureProperty> interiorFurniture) {
 		List<InteriorFurniturePropertyType> intFurniturePropTypeList = new ArrayList<InteriorFurniturePropertyType>();
 
@@ -233,14 +212,12 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		roomType.getInteriorFurniture().addAll(intFurniturePropTypeList);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfRoom(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			roomType.get_GenericApplicationPropertyOfRoom().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRoom() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -255,7 +232,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfRoom(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -271,97 +247,78 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		}
 	}
 
-	@Override
 	public boolean isSetBoundedBySurfaces() {
 		return roomType.isSetBoundedBySurfaces();
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return roomType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return roomType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfRoom() {
 		return roomType.isSet_GenericApplicationPropertyOfRoom();
 	}
 
-	@Override
 	public boolean isSetInteriorFurniture() {
 		return roomType.isSetInteriorFurniture();
 	}
 
-	@Override
 	public boolean isSetLod4MultiSurface() {
 		return roomType.isSetLod4MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod4Solid() {
 		return roomType.isSetLod4Solid();
 	}
 
-	@Override
 	public boolean isSetRoomInstallation() {
 		return roomType.isSetRoomInstallation();
 	}
 
-	@Override
 	public boolean isSetUsage() {
 		return roomType.isSetUsage();
 	}
 
-	@Override
 	public void unsetBoundedBySurfaces() {
 		roomType.unsetBoundedBySurfaces();
 	}
 
-	@Override
 	public void unsetClazz() {
 		roomType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		roomType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfRoom() {
 		roomType.unset_GenericApplicationPropertyOfRoom();
 	}
 
-	@Override
 	public void unsetInteriorFurniture() {
 		roomType.unsetInteriorFurniture();
 	}
 
-	@Override
 	public void unsetLod4MultiSurface() {
 		roomType.setLod4MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod4Solid() {
 		roomType.setLod4Solid(null);
 	}
 
-	@Override
 	public void unsetRoomInstallation() {
 		roomType.unsetRoomInstallation();
 	}
 
-	@Override
 	public void unsetUsage() {
 		roomType.unsetUsage();
 	}
 
-	@Override
 	public boolean unsetBoundedBySurfaces(BoundarySurfaceProperty boundedBySurface) {
 		if (roomType.isSetBoundedBySurfaces())
 			return roomType.getBoundedBySurfaces().remove(((BoundarySurfacePropertyImpl)boundedBySurface).getJAXBObject());
@@ -369,7 +326,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return false;
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (roomType.isSetFunction())
 			return roomType.getFunction().remove(function);
@@ -377,7 +333,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfRoom(ADEComponent adeObject) {
 		if (roomType.isSet_GenericApplicationPropertyOfRoom()) {
 			Iterator<JAXBElement<?>> iter = roomType.get_GenericApplicationPropertyOfRoom().iterator();
@@ -396,7 +351,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return false;
 	}
 
-	@Override
 	public boolean unsetInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
 		if (roomType.isSetInteriorFurniture())
 			return roomType.getInteriorFurniture().remove(((InteriorFurniturePropertyImpl)interiorFurniture).getJAXBObject());
@@ -404,7 +358,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return false;
 	}
 
-	@Override
 	public boolean unsetRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
 		if (roomType.isSetRoomInstallation())
 			return roomType.getRoomInstallation().remove(((IntBuildingInstallationPropertyImpl)roomInstallation).getJAXBObject());
@@ -412,7 +365,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return false;
 	}
 
-	@Override
 	public boolean unsetUsage(String usage) {
 		if (roomType.isSetUsage())
 			return roomType.getUsage().remove(usage);

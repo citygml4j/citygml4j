@@ -44,7 +44,6 @@ public class BoundarySurfacePropertyImpl extends AssociationImpl<BoundarySurface
 		return boundarySurfacePropertyType;
 	}
 
-	@Override
 	public BoundarySurface getObject() {
 		if (boundarySurfacePropertyType.isSet_Object()) {
 			JAXBElement<?> boundarySurface = boundarySurfacePropertyType.get_Object();
@@ -75,17 +74,14 @@ public class BoundarySurfacePropertyImpl extends AssociationImpl<BoundarySurface
 		return null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BOUNDARYSURFACEPROPERTY;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public void setObject(BoundarySurface object) {
 		JAXBElement<?> jaxbElem = null;
 

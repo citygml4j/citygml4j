@@ -33,12 +33,10 @@ public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent
 		this.reliefComponentPropertyType = reliefComponentPropertyType;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELIEFCOMPONENTPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return ReliefModule.v0_4_0;
 	}
@@ -48,7 +46,6 @@ public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent
 		return reliefComponentPropertyType;
 	}
 
-	@Override
 	public ReliefComponent getObject() {
 		if (reliefComponentPropertyType.isSet_Object()) {
 			JAXBElement<?> reliefComponent = reliefComponentPropertyType.get_Object();
@@ -73,7 +70,6 @@ public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent
 		return null;
 	}
 
-	@Override
 	public void setObject(ReliefComponent object) {
 		JAXBElement<?> jaxbElem = null;
 		

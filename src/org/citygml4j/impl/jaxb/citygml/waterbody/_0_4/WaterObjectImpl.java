@@ -38,14 +38,12 @@ public abstract class WaterObjectImpl extends CityObjectImpl implements WaterObj
 		return WaterBodyModule.v0_4_0;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWaterObject(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			waterObjectType.get_GenericApplicationPropertyOfWaterObject().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -60,7 +58,6 @@ public abstract class WaterObjectImpl extends CityObjectImpl implements WaterObj
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWaterObject(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -76,17 +73,14 @@ public abstract class WaterObjectImpl extends CityObjectImpl implements WaterObj
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWaterObject() {
 		return waterObjectType.isSet_GenericApplicationPropertyOfWaterObject();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWaterObject() {
 		waterObjectType.unset_GenericApplicationPropertyOfWaterObject();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWaterObject(ADEComponent adeObject) {
 		if (waterObjectType.isSet_GenericApplicationPropertyOfWaterObject()) {
 			Iterator<JAXBElement<?>> iter = waterObjectType.get_GenericApplicationPropertyOfWaterObject().iterator();

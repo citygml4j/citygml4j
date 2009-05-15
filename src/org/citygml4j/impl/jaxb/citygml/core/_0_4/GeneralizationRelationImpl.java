@@ -29,18 +29,15 @@ public class GeneralizationRelationImpl extends AssociationImpl<CityObject> impl
 		return generalizationRelationType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GENERALIZATIONRELATION;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v0_4_0;
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public CityObject getObject() {
 		CityObject cityObject = null;
 		
@@ -55,7 +52,6 @@ public class GeneralizationRelationImpl extends AssociationImpl<CityObject> impl
 		return cityObject;
 	}
 	
-	@Override
 	public void setObject(CityObject object) {
 		JAXBElement<?> cityObjectElem = ModelMapper.CITYOBJECT_0_4.toJAXB(object);		
 		if (cityObjectElem != null)

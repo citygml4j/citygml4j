@@ -29,17 +29,14 @@ public class ImplicitRepresentationPropertyImpl extends AssociationImpl<Implicit
 		return implicitPropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.IMPLICITREPRESENTATIONPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v1_0_0;
 	}
 
-	@Override
 	public ImplicitGeometry getObject() {
 		if (implicitPropertyType.isSet_Object()) {
 			JAXBElement<?> elem = implicitPropertyType.get_Object();
@@ -52,7 +49,6 @@ public class ImplicitRepresentationPropertyImpl extends AssociationImpl<Implicit
 		return null;
 	}
 
-	@Override
 	public void setObject(ImplicitGeometry object) {
 		JAXBElement<?> jaxbElem = ObjectFactory.CORE_1.createImplicitGeometry(((ImplicitGeometryImpl)object).getJAXBObject());
 		implicitPropertyType.set_Object(jaxbElem);

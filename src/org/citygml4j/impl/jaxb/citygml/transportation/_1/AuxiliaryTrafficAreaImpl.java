@@ -37,17 +37,14 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		return auxiliaryTrafficAreaType;
 	}
 
-	@Override
 	public void addFunction(String function) {
 		auxiliaryTrafficAreaType.getFunction().add(function);
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return auxiliaryTrafficAreaType.getFunction();
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod2MultiSurface() {
 		if (auxiliaryTrafficAreaType.isSetLod2MultiSurface())
 			return new MultiSurfacePropertyImpl(auxiliaryTrafficAreaType.getLod2MultiSurface());
@@ -55,7 +52,6 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod3MultiSurface() {
 		if (auxiliaryTrafficAreaType.isSetLod3MultiSurface())
 			return new MultiSurfacePropertyImpl(auxiliaryTrafficAreaType.getLod3MultiSurface());
@@ -63,7 +59,6 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod4MultiSurface() {
 		if (auxiliaryTrafficAreaType.isSetLod4MultiSurface())
 			return new MultiSurfacePropertyImpl(auxiliaryTrafficAreaType.getLod4MultiSurface());
@@ -71,33 +66,27 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		return null;
 	}
 
-	@Override
 	public String getSurfaceMaterial() {
 		return auxiliaryTrafficAreaType.getSurfaceMaterial();
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		auxiliaryTrafficAreaType.unsetFunction();
 		auxiliaryTrafficAreaType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
 		auxiliaryTrafficAreaType.setLod2MultiSurface(((MultiSurfacePropertyImpl)lod2MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
 		auxiliaryTrafficAreaType.setLod3MultiSurface(((MultiSurfacePropertyImpl)lod3MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
 		auxiliaryTrafficAreaType.setLod4MultiSurface(((MultiSurfacePropertyImpl)lod4MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setSurfaceMaterial(String surfaceMaterial) {
 		auxiliaryTrafficAreaType.setSurfaceMaterial(surfaceMaterial);
 	}
@@ -130,14 +119,12 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfAuxiliaryTrafficArea(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			auxiliaryTrafficAreaType.get_GenericApplicationPropertyOfAuxiliaryTrafficArea().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAuxiliaryTrafficArea() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -152,7 +139,6 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfAuxiliaryTrafficArea(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -168,67 +154,54 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		}
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return auxiliaryTrafficAreaType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfAuxiliaryTrafficArea() {
 		return auxiliaryTrafficAreaType.isSet_GenericApplicationPropertyOfAuxiliaryTrafficArea();
 	}
 
-	@Override
 	public boolean isSetLod2MultiSurface() {
 		return auxiliaryTrafficAreaType.isSetLod2MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod3MultiSurface() {
 		return auxiliaryTrafficAreaType.isSetLod3MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod4MultiSurface() {
 		return auxiliaryTrafficAreaType.isSetLod4MultiSurface();
 	}
 
-	@Override
 	public boolean isSetSurfaceMaterial() {
 		return auxiliaryTrafficAreaType.isSetSurfaceMaterial();
 	}
 
-	@Override
 	public void unsetFunction() {
 		auxiliaryTrafficAreaType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfAuxiliaryTrafficArea() {
 		auxiliaryTrafficAreaType.unset_GenericApplicationPropertyOfAuxiliaryTrafficArea();
 	}
 
-	@Override
 	public void unsetLod2MultiSurface() {
 		auxiliaryTrafficAreaType.setLod2MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod3MultiSurface() {
 		auxiliaryTrafficAreaType.setLod3MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod4MultiSurface() {
 		auxiliaryTrafficAreaType.setLod4MultiSurface(null);
 	}
 
-	@Override
 	public void unsetSurfaceMaterial() {
 		auxiliaryTrafficAreaType.setSurfaceMaterial(null);
 	}
 	
-	@Override
 	public boolean unsetFunction(String function) {
 		if (auxiliaryTrafficAreaType.isSetFunction())
 			return auxiliaryTrafficAreaType.getFunction().remove(function);
@@ -236,7 +209,6 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfAuxiliaryTrafficArea(ADEComponent adeObject) {
 		if (auxiliaryTrafficAreaType.isSet_GenericApplicationPropertyOfAuxiliaryTrafficArea()) {
 			Iterator<JAXBElement<?>> iter = auxiliaryTrafficAreaType.get_GenericApplicationPropertyOfAuxiliaryTrafficArea().iterator();

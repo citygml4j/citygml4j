@@ -45,22 +45,18 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return waterBodyType;
 	}
 
-	@Override
 	public void addBoundedBySurface(BoundedByWaterSurfaceProperty boundedBySurface) {
 		waterBodyType.getBoundedBySurfaces().add(((BoundedByWaterSurfacePropertyImpl)boundedBySurface).getJAXBObject());
 	}
 
-	@Override
 	public void addFunction(String function) {
 		waterBodyType.getFunction().add(function);
 	}
 
-	@Override
 	public void addUsage(String usage) {
 		waterBodyType.getUsage().add(usage);
 	}
 
-	@Override
 	public List<BoundedByWaterSurfaceProperty> getBoundedBySurfaces() {
 		List<BoundedByWaterSurfaceProperty> waterSurfacePropertyList = new ArrayList<BoundedByWaterSurfaceProperty>();
 
@@ -70,17 +66,14 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return waterSurfacePropertyList;
 	}
 
-	@Override
 	public String getClazz() {
 		return waterBodyType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return waterBodyType.getFunction();
 	}
 
-	@Override
 	public MultiCurveProperty getLod0MultiCurve() {
 		if (waterBodyType.isSetLod0MultiCurve())
 			return new MultiCurvePropertyImpl(waterBodyType.getLod0MultiCurve());
@@ -88,7 +81,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod0MultiSurface() {
 		if (waterBodyType.isSetLod0MultiSurface())
 			return new MultiSurfacePropertyImpl(waterBodyType.getLod0MultiSurface());
@@ -96,7 +88,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public MultiCurveProperty getLod1MultiCurve() {
 		if (waterBodyType.isSetLod1MultiCurve())
 			return new MultiCurvePropertyImpl(waterBodyType.getLod1MultiCurve());
@@ -104,7 +95,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod1MultiSurface() {
 		if (waterBodyType.isSetLod1MultiSurface())
 			return new MultiSurfacePropertyImpl(waterBodyType.getLod1MultiSurface());
@@ -112,7 +102,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public SolidProperty getLod1Solid() {
 		if (waterBodyType.isSetLod1Solid())
 			return new SolidPropertyImpl(waterBodyType.getLod1Solid());
@@ -120,7 +109,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public SolidProperty getLod2Solid() {
 		if (waterBodyType.isSetLod2Solid())
 			return new SolidPropertyImpl(waterBodyType.getLod2Solid());
@@ -128,7 +116,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public SolidProperty getLod3Solid() {
 		if (waterBodyType.isSetLod3Solid())
 			return new SolidPropertyImpl(waterBodyType.getLod3Solid());
@@ -136,7 +123,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public SolidProperty getLod4Solid() {
 		if (waterBodyType.isSetLod4Solid())
 			return new SolidPropertyImpl(waterBodyType.getLod4Solid());
@@ -144,12 +130,10 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return null;
 	}
 
-	@Override
 	public List<String> getUsage() {
 		return waterBodyType.getUsage();
 	}
 
-	@Override
 	public void setBoundedBySurfaces(List<BoundedByWaterSurfaceProperty> boundedBySurfaces) {
 		List<BoundedByWaterSurfacePropertyType> waterSurfacePropertyTypeList = new ArrayList<BoundedByWaterSurfacePropertyType>();
 
@@ -160,58 +144,47 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		waterBodyType.getBoundedBySurfaces().addAll(waterSurfacePropertyTypeList);
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		waterBodyType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		waterBodyType.unsetFunction();
 		waterBodyType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve) {
 		waterBodyType.setLod0MultiCurve(((MultiCurvePropertyImpl)lod0MultiCurve).getJAXBObject());
 	}
 
-	@Override
 	public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface) {
 		waterBodyType.setLod0MultiSurface(((MultiSurfacePropertyImpl)lod0MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod1MultiCurve(MultiCurveProperty lod1MultiCurve) {
 		waterBodyType.setLod1MultiCurve(((MultiCurvePropertyImpl)lod1MultiCurve).getJAXBObject());
 	}
 
-	@Override
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
 		waterBodyType.setLod1MultiSurface(((MultiSurfacePropertyImpl)lod1MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod1Solid(SolidProperty lod1Solid) {
 		waterBodyType.setLod1Solid(((SolidPropertyImpl)lod1Solid).getJAXBObject());
 	}
 
-	@Override
 	public void setLod2Solid(SolidProperty lod2Solid) {
 		waterBodyType.setLod2Solid(((SolidPropertyImpl)lod2Solid).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3Solid(SolidProperty lod3Solid) {
 		waterBodyType.setLod3Solid(((SolidPropertyImpl)lod3Solid).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4Solid(SolidProperty lod4Solid) {
 		waterBodyType.setLod4Solid(((SolidPropertyImpl)lod4Solid).getJAXBObject());
 	}
 
-	@Override
 	public void setUsage(List<String> usage) {
 		waterBodyType.unsetUsage();
 		waterBodyType.getUsage().addAll(usage);
@@ -299,14 +272,12 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWaterBody(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			waterBodyType.get_GenericApplicationPropertyOfWaterBody().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBody() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -321,7 +292,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWaterBody(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -337,137 +307,110 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		}
 	}
 
-	@Override
 	public boolean isSetBoundedBySurfaces() {
 		return waterBodyType.isSetBoundedBySurfaces();
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return waterBodyType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return waterBodyType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWaterBody() {
 		return waterBodyType.isSet_GenericApplicationPropertyOfWaterBody();
 	}
 
-	@Override
 	public boolean isSetLod0MultiCurve() {
 		return waterBodyType.isSetLod0MultiCurve();
 	}
 
-	@Override
 	public boolean isSetLod0MultiSurface() {
 		return waterBodyType.isSetLod0MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod1MultiCurve() {
 		return waterBodyType.isSetLod1MultiCurve();
 	}
 
-	@Override
 	public boolean isSetLod1MultiSurface() {
 		return waterBodyType.isSetLod1MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod1Solid() {
 		return waterBodyType.isSetLod1Solid();
 	}
 
-	@Override
 	public boolean isSetLod2Solid() {
 		return waterBodyType.isSetLod2Solid();
 	}
 
-	@Override
 	public boolean isSetLod3Solid() {
 		return waterBodyType.isSetLod3Solid();
 	}
 
-	@Override
 	public boolean isSetLod4Solid() {
 		return waterBodyType.isSetLod4Solid();
 	}
 
-	@Override
 	public boolean isSetUsage() {
 		return waterBodyType.isSetUsage();
 	}
 
-	@Override
 	public void unsetBoundedBySurfaces() {
 		waterBodyType.unsetBoundedBySurfaces();
 	}
 
-	@Override
 	public void unsetClazz() {
 		waterBodyType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		waterBodyType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWaterBody() {
 		waterBodyType.unset_GenericApplicationPropertyOfWaterBody();
 	}
 
-	@Override
 	public void unsetLod0MultiCurve() {
 		waterBodyType.setLod0MultiCurve(null);
 	}
 
-	@Override
 	public void unsetLod0MultiSurface() {
 		waterBodyType.setLod0MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod1MultiCurve() {
 		waterBodyType.setLod1MultiCurve(null);
 	}
 
-	@Override
 	public void unsetLod1MultiSurface() {
 		waterBodyType.setLod1MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod1Solid() {
 		waterBodyType.setLod1Solid(null);
 	}
 
-	@Override
 	public void unsetLod2Solid() {
 		waterBodyType.setLod2Solid(null);
 	}
 
-	@Override
 	public void unsetLod3Solid() {
 		waterBodyType.setLod3Solid(null);
 	}
 
-	@Override
 	public void unsetLod4Solid() {
 		waterBodyType.setLod4Solid(null);
 	}
 
-	@Override
 	public void unsetUsage() {
 		waterBodyType.unsetUsage();
 	}
 	
-	@Override
 	public boolean unsetBoundedBySurfaces(BoundedByWaterSurfaceProperty boundedBySurface) {
 		if (waterBodyType.isSetBoundedBySurfaces())
 			return waterBodyType.getBoundedBySurfaces().remove(((BoundedByWaterSurfacePropertyImpl)boundedBySurface).getJAXBObject());
@@ -475,7 +418,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return false;
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (waterBodyType.isSetFunction())
 			return waterBodyType.getFunction().remove(function);
@@ -483,7 +425,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWaterBody(ADEComponent adeObject) {
 		if (waterBodyType.isSet_GenericApplicationPropertyOfWaterBody()) {
 			Iterator<JAXBElement<?>> iter = waterBodyType.get_GenericApplicationPropertyOfWaterBody().iterator();
@@ -502,7 +443,6 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 		return false;
 	}
 
-	@Override
 	public boolean unsetUsage(String usage) {
 		if (waterBodyType.isSetUsage())
 			return waterBodyType.getUsage().remove(usage);

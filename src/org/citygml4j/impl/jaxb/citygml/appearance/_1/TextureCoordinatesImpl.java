@@ -25,27 +25,22 @@ public class TextureCoordinatesImpl extends CityGMLBaseImpl implements TextureCo
 		return textureCoordinates;
 	}
 
-	@Override
 	public void addValue(Double value) {
 		textureCoordinates.getValue().add(value);
 	}
 
-	@Override
 	public String getRing() {
 		return textureCoordinates.getRing();
 	}
 
-	@Override
 	public List<Double> getValue() {
 		return textureCoordinates.getValue();
 	}
 
-	@Override
 	public void setRing(String ring) {
 		textureCoordinates.setRing(ring);
 	}
 
-	@Override
 	public void setValue(List<Double> value) {
 		textureCoordinates.unsetValue();
 		textureCoordinates.getValue().addAll(value);
@@ -61,22 +56,18 @@ public class TextureCoordinatesImpl extends CityGMLBaseImpl implements TextureCo
 		return AppearanceModule.v1_0_0;
 	}
 
-	@Override
 	public boolean isSetRing() {
 		return textureCoordinates.isSetRing();
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return textureCoordinates.isSetValue();
 	}
 
-	@Override
 	public void unsetRing() {
 		textureCoordinates.setRing(null);
 	}
 
-	@Override
 	public void unsetValue() {
 		textureCoordinates.unsetValue();
 	}

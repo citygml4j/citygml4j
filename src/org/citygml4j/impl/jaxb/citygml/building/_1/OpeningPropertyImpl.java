@@ -34,7 +34,6 @@ public class OpeningPropertyImpl extends AssociationImpl<Opening> implements Ope
 		return openingPropertyType;
 	}
 
-	@Override
 	public Opening getObject() {
 		if (openingPropertyType.isSet_Object()) {
 			JAXBElement<?> opening = openingPropertyType.get_Object();
@@ -55,17 +54,14 @@ public class OpeningPropertyImpl extends AssociationImpl<Opening> implements Ope
 		return null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.OPENINGPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return BuildingModule.v1_0_0;
 	}
 
-	@Override
 	public void setObject(Opening object) {
 		JAXBElement<?> jaxbElem = null;
 

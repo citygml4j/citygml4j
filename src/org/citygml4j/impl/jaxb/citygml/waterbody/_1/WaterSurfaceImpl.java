@@ -29,12 +29,10 @@ public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterS
 		return CityGMLClass.WATERSURFACE;
 	}
 
-	@Override
 	public String getWaterLevel() {
 		return waterSurfaceType.getWaterLevel();
 	}
 
-	@Override
 	public void setWaterLevel(String waterLevel) {
 		waterSurfaceType.setWaterLevel(waterLevel);
 	}
@@ -44,14 +42,12 @@ public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterS
 		return waterSurfaceType;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWaterSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			waterSurfaceType.get_GenericApplicationPropertyOfWaterSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -66,7 +62,6 @@ public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterS
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWaterSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -82,27 +77,22 @@ public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterS
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWaterSurface() {
 		return waterSurfaceType.isSet_GenericApplicationPropertyOfWaterSurface();
 	}
 
-	@Override
 	public boolean isSetWaterLevel() {
 		return waterSurfaceType.isSetWaterLevel();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWaterSurface() {
 		waterSurfaceType.unset_GenericApplicationPropertyOfWaterSurface();
 	}
 
-	@Override
 	public void unsetWaterLevel() {
 		waterSurfaceType.setWaterLevel(null);
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWaterSurface(ADEComponent adeObject) {
 		if (waterSurfaceType.isSet_GenericApplicationPropertyOfWaterSurface()) {
 			Iterator<JAXBElement<?>> iter = waterSurfaceType.get_GenericApplicationPropertyOfWaterSurface().iterator();

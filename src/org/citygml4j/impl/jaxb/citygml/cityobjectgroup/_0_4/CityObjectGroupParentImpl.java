@@ -24,12 +24,10 @@ public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> imple
 		this.cityObjectGroupParentType = cityObjectGroupParentType;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITYOBJECTGROUPMEMBER;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CityObjectGroupModule.v0_4_0;
 	}
@@ -40,7 +38,6 @@ public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> imple
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public CityObject getObject() {
 		CityObject cityObject = null;
 		
@@ -55,7 +52,6 @@ public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> imple
 		return cityObject;
 	}
 
-	@Override
 	public void setObject(CityObject object) {
 		JAXBElement<?> cityObjectElem = ModelMapper.CITYOBJECT_0_4.toJAXB(object);		
 		if (cityObjectElem != null)

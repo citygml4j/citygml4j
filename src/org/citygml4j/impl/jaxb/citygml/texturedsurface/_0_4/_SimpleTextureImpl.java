@@ -30,22 +30,18 @@ public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTextur
 		return simpleTextureType;
 	}
 
-	@Override
 	public Boolean getRepeat() {
 		return simpleTextureType.isRepeat();
 	}
 
-	@Override
 	public List<Double> getTextureCoordinates() {
 		return simpleTextureType.getTextureCoordinates();
 	}
 
-	@Override
 	public String getTextureMap() {
 		return simpleTextureType.getTextureMap();
 	}
 
-	@Override
 	public _TextureType getTextureType() {
 		if (simpleTextureType.isSetTextureType()) {
 			_TextureType textureType = null;
@@ -62,23 +58,19 @@ public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTextur
 		return null;
 	}
 
-	@Override
 	public void setRepeat(Boolean repeat) {
 		simpleTextureType.setRepeat(repeat);
 	}
 
-	@Override
 	public void setTextureCoordinates(List<Double> textureCoordinates) {
 		simpleTextureType.unsetTextureCoordinates();
 		simpleTextureType.getTextureCoordinates().addAll(textureCoordinates);
 	}
 
-	@Override
 	public void setTextureMap(String textureMap) {
 		simpleTextureType.setTextureMap(textureMap);
 	}
 
-	@Override
 	public void setTextureType(_TextureType textureType) {
 		TextureTypeType textureTypeType = null;
 
@@ -92,32 +84,26 @@ public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTextur
 			simpleTextureType.setTextureType(textureTypeType);
 	}
 
-	@Override
 	public boolean isSetRepeat() {
 		return simpleTextureType.isSetRepeat();
 	}
 
-	@Override
 	public boolean isSetTextureCoordinates() {
 		return simpleTextureType.isSetTextureCoordinates();
 	}
 
-	@Override
 	public boolean isSetTextureMap() {
 		return simpleTextureType.isSetTextureMap();
 	}
 
-	@Override
 	public boolean isSetTextureType() {
 		return simpleTextureType.isSetTextureType();
 	}
 
-	@Override
 	public void unsetRepeat() {
 		simpleTextureType.setRepeat(null);
 	}
 
-	@Override
 	public void unsetTextureType() {
 		simpleTextureType.setTextureType(null);
 	}

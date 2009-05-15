@@ -34,7 +34,6 @@ public class XalAddressPropertyImpl extends CityGMLBaseImpl implements XalAddres
 		return xalAddressPropertyType;
 	}
 
-	@Override
 	public AddressDetails getAddressDetails() {
 		if (xalAddressPropertyType.isSetAddressDetails())
 			return new AddressDetailsImpl(xalAddressPropertyType.getAddressDetails());
@@ -42,17 +41,14 @@ public class XalAddressPropertyImpl extends CityGMLBaseImpl implements XalAddres
 		return null;
 	}
 
-	@Override
 	public void setAddressDetails(AddressDetails addressDetails) {
 		xalAddressPropertyType.setAddressDetails(((AddressDetailsImpl)addressDetails).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetAddressDetails() {
 		return xalAddressPropertyType.isSetAddressDetails();
 	}
 
-	@Override
 	public void unsetAddressDetails() {
 		xalAddressPropertyType.setAddressDetails(null);
 	}

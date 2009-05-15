@@ -34,14 +34,12 @@ public class RoofSurfaceImpl extends BoundarySurfaceImpl implements RoofSurface 
 		return CityGMLClass.ROOFSURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfRoofSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			roofSurfaceType.get_GenericApplicationPropertyOfRoofSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRoofSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class RoofSurfaceImpl extends BoundarySurfaceImpl implements RoofSurface 
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfRoofSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class RoofSurfaceImpl extends BoundarySurfaceImpl implements RoofSurface 
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfRoofSurface() {
 		return roofSurfaceType.isSet_GenericApplicationPropertyOfRoofSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfRoofSurface() {
 		roofSurfaceType.unset_GenericApplicationPropertyOfRoofSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfRoofSurface(ADEComponent adeObject) {
 		if (roofSurfaceType.isSet_GenericApplicationPropertyOfRoofSurface()) {
 			Iterator<JAXBElement<?>> iter = roofSurfaceType.get_GenericApplicationPropertyOfRoofSurface().iterator();

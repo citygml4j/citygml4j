@@ -35,17 +35,14 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 		return GMLClass._TEXTUREDSURFACE;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return TexturedSurfaceModule.v0_4_0;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._TEXTUREDSURFACE;
 	}
 
-	@Override
 	public List<_AppearanceProperty> getAppearance() {
 		List<_AppearanceProperty> appPropList = new ArrayList<_AppearanceProperty>();
 
@@ -55,7 +52,6 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 		return appPropList;
 	}
 
-	@Override
 	public void setAppearance(List<_AppearanceProperty> appearance) {
 		List<_AppearancePropertyType> appPropTypeList = new ArrayList<_AppearancePropertyType>();
 
@@ -66,22 +62,18 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 		texturedSurfaceType.getAppearance().addAll(appPropTypeList);
 	}
 
-	@Override
 	public void addAppearance(_AppearanceProperty appearance) {
 		texturedSurfaceType.getAppearance().add(((_AppearancePropertyImpl)appearance).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetAppearance() {
 		return texturedSurfaceType.isSetAppearance();
 	}
 
-	@Override
 	public void unsetAppearance() {
 		texturedSurfaceType.unsetAppearance();
 	}
 
-	@Override
 	public boolean unsetAppearance(_AppearanceProperty appearance) {
 		if (texturedSurfaceType.isSetAppearance())
 			return texturedSurfaceType.getAppearance().remove(((_AppearancePropertyImpl)appearance).getJAXBObject());

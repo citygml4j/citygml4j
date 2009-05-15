@@ -40,22 +40,18 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 		this(new ColorImpl(red, green, blue), 1.0);
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.COLORPLUSOPACITY;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v0_4_0;
 	}
 
-	@Override
 	public Double getBlue() {
 		return color.getBlue();
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> colorPlusOpacity = new ArrayList<Double>();
 
@@ -67,37 +63,30 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 		return colorPlusOpacity;
 	}
 
-	@Override
 	public Double getGreen() {
 		return color.getGreen();
 	}
 
-	@Override
 	public Double getOpacity() {
 		return opacity;
 	}
 
-	@Override
 	public Double getRed() {
 		return color.getRed();
 	}
 
-	@Override
 	public void setBlue(Double blue) {
 		color.setBlue(blue);
 	}
 
-	@Override
 	public Color getColor() {
 		return color;
 	}
 
-	@Override
 	public void setColor(Color color) {
 		this.color = color;
 	}
 	
-	@Override
 	public void setColorPlusOpacity(List<Double> colorPlusOpacity) {
 		if (colorPlusOpacity.size() >= 3) {
 			color.setRed(colorPlusOpacity.get(0));
@@ -110,23 +99,19 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 		}
 	}
 
-	@Override
 	public void setGreen(Double green) {
 		color.setGreen(green);
 	}
 
-	@Override
 	public void setOpacity(Double opacity) {
 		if (opacity >= 0.0 && opacity <= 1.0)
 			this.opacity = opacity;
 	}
 
-	@Override
 	public void setRed(Double red) {
 		color.setRed(red);
 	}
 
-	@Override
 	public boolean equals(ColorPlusOpacity colorPlusOpacity) {
 		if (color.equals(colorPlusOpacity.getColor()) &&
 				opacity.doubleValue() == colorPlusOpacity.getOpacity().doubleValue())

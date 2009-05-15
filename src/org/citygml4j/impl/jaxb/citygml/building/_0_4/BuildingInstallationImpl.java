@@ -45,17 +45,14 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public String getClazz() {
 		return buildingInstallationType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return buildingInstallationType.getFunction();
 	}
 
-	@Override
 	public GeometryProperty getLod2Geometry() {
 		if (buildingInstallationType.isSetLod2Geometry())
 			return new GeometryPropertyImpl(buildingInstallationType.getLod2Geometry());
@@ -63,7 +60,6 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return null;
 	}
 
-	@Override
 	public GeometryProperty getLod3Geometry() {
 		if (buildingInstallationType.isSetLod3Geometry())
 			return new GeometryPropertyImpl(buildingInstallationType.getLod3Geometry());
@@ -71,7 +67,6 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return null;
 	}
 
-	@Override
 	public GeometryProperty getLod4Geometry() {
 		if (buildingInstallationType.isSetLod4Geometry())
 			return new GeometryPropertyImpl(buildingInstallationType.getLod4Geometry());
@@ -79,7 +74,6 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return null;
 	}
 
-	@Override
 	public List<String> getUsage() {
 		return buildingInstallationType.getUsage();
 	}
@@ -112,56 +106,46 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		}
 	}
 
-	@Override
 	public void addFunction(String function) {
 		buildingInstallationType.getFunction().add(function);
 	}
 
-	@Override
 	public void addUsage(String usage) {
 		buildingInstallationType.getUsage().add(usage);
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		buildingInstallationType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		buildingInstallationType.unsetFunction();
 		buildingInstallationType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setUsage(List<String> usage) {
 		buildingInstallationType.unsetUsage();
 		buildingInstallationType.getUsage().addAll(usage);
 	}
 
-	@Override
 	public void setLod2Geometry(GeometryProperty lod2Geometry) {
 		buildingInstallationType.setLod2Geometry(((GeometryPropertyImpl)lod2Geometry).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3Geometry(GeometryProperty lod3Geometry) {
 		buildingInstallationType.setLod3Geometry(((GeometryPropertyImpl)lod3Geometry).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4Geometry(GeometryProperty lod4Geometry) {
 		buildingInstallationType.setLod4Geometry(((GeometryPropertyImpl)lod4Geometry).getJAXBObject());
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfBuildingInstallation(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			buildingInstallationType.get_GenericApplicationPropertyOfBuildingInstallation().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingInstallation() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -176,7 +160,6 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfBuildingInstallation(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -192,77 +175,62 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		}
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return buildingInstallationType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return buildingInstallationType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfBuildingInstallation() {
 		return buildingInstallationType.isSet_GenericApplicationPropertyOfBuildingInstallation();
 	}
 
-	@Override
 	public boolean isSetLod2Geometry() {
 		return buildingInstallationType.isSetLod2Geometry();
 	}
 
-	@Override
 	public boolean isSetLod3Geometry() {
 		return buildingInstallationType.isSetLod3Geometry();
 	}
 
-	@Override
 	public boolean isSetLod4Geometry() {
 		return buildingInstallationType.isSetLod4Geometry();
 	}
 
-	@Override
 	public boolean isSetUsage() {
 		return buildingInstallationType.isSetUsage();
 	}
 
-	@Override
 	public void unsetClazz() {
 		buildingInstallationType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		buildingInstallationType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfBuildingInstallation() {
 		buildingInstallationType.unset_GenericApplicationPropertyOfBuildingInstallation();
 	}
 
-	@Override
 	public void unsetLod2Geometry() {
 		buildingInstallationType.setLod2Geometry(null);
 	}
 
-	@Override
 	public void unsetLod3Geometry() {
 		buildingInstallationType.setLod3Geometry(null);
 	}
 
-	@Override
 	public void unsetLod4Geometry() {
 		buildingInstallationType.setLod4Geometry(null);
 	}
 
-	@Override
 	public void unsetUsage() {
 		buildingInstallationType.unsetUsage();
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (buildingInstallationType.isSetFunction())
 			return buildingInstallationType.getFunction().remove(function);
@@ -270,7 +238,6 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfBuildingInstallation(ADEComponent adeObject) {
 		if (buildingInstallationType.isSet_GenericApplicationPropertyOfBuildingInstallation()) {
 			Iterator<JAXBElement<?>> iter = buildingInstallationType.get_GenericApplicationPropertyOfBuildingInstallation().iterator();
@@ -289,7 +256,6 @@ public class BuildingInstallationImpl extends CityObjectImpl implements	Building
 		return false;
 	}
 
-	@Override
 	public boolean unsetUsage(String usage) {
 		if (buildingInstallationType.isSetUsage())
 			return buildingInstallationType.getUsage().remove(usage);

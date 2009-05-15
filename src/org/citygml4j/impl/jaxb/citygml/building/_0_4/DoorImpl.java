@@ -37,12 +37,10 @@ public class DoorImpl extends OpeningImpl implements Door {
 		return CityGMLClass.DOOR;
 	}
 
-	@Override
 	public void addAddress(AddressProperty address) {
 		doorType.getAddress().add(((AddressPropertyImpl)address).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressProperty> getAddress() {
 		List<AddressProperty> addressPropertyList = new ArrayList<AddressProperty>();
 
@@ -52,7 +50,6 @@ public class DoorImpl extends OpeningImpl implements Door {
 		return addressPropertyList;
 	}
 
-	@Override
 	public void setAddress(List<AddressProperty> address) {
 		List<AddressPropertyType> addressPropertyTypeList = new ArrayList<AddressPropertyType>();
 
@@ -63,14 +60,12 @@ public class DoorImpl extends OpeningImpl implements Door {
 		doorType.getAddress().addAll(addressPropertyTypeList);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfDoor(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			doorType.get_GenericApplicationPropertyOfDoor().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfDoor() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -85,7 +80,6 @@ public class DoorImpl extends OpeningImpl implements Door {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfDoor(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -101,27 +95,22 @@ public class DoorImpl extends OpeningImpl implements Door {
 		}
 	}
 
-	@Override
 	public boolean isSetAddress() {
 		return doorType.isSetAddress();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfDoor() {
 		return doorType.isSet_GenericApplicationPropertyOfDoor();
 	}
 
-	@Override
 	public void unsetAddress() {
 		doorType.unsetAddress();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfDoor() {
 		doorType.unset_GenericApplicationPropertyOfDoor();
 	}
 
-	@Override
 	public boolean unsetAddress(AddressProperty address) {
 		if (doorType.isSetAddress())
 			return doorType.getAddress().remove(((AddressPropertyImpl)address).getJAXBObject());
@@ -129,7 +118,6 @@ public class DoorImpl extends OpeningImpl implements Door {
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfDoor(ADEComponent adeObject) {
 		if (doorType.isSet_GenericApplicationPropertyOfDoor()) {
 			Iterator<JAXBElement<?>> iter = doorType.get_GenericApplicationPropertyOfDoor().iterator();

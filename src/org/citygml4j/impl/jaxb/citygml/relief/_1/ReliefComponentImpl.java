@@ -40,7 +40,6 @@ public abstract class ReliefComponentImpl extends CityObjectImpl implements Reli
 		return ReliefModule.v1_0_0;
 	}
 
-	@Override
 	public PolygonProperty getExtent() {
 		if (reliefComponentType.isSetExtent())
 			return new PolygonPropertyImpl(reliefComponentType.getExtent());
@@ -48,17 +47,14 @@ public abstract class ReliefComponentImpl extends CityObjectImpl implements Reli
 		return null;
 	}
 
-	@Override
 	public int getLod() {
 		return reliefComponentType.getLod();
 	}
 
-	@Override
 	public void setExtent(PolygonProperty extent) {
 		reliefComponentType.setExtent(((PolygonPropertyImpl)extent).getJAXBObject());
 	}
 
-	@Override
 	public void setLod(int lod) {
 		reliefComponentType.setLod(lod);
 	}
@@ -72,14 +68,12 @@ public abstract class ReliefComponentImpl extends CityObjectImpl implements Reli
 		}	
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfReliefComponent(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			reliefComponentType.get_GenericApplicationPropertyOfReliefComponent().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefComponent() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -94,7 +88,6 @@ public abstract class ReliefComponentImpl extends CityObjectImpl implements Reli
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfReliefComponent(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -110,32 +103,26 @@ public abstract class ReliefComponentImpl extends CityObjectImpl implements Reli
 		}
 	}
 
-	@Override
 	public boolean isSetExtent() {
 		return reliefComponentType.isSetExtent();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfReliefComponent() {
 		return reliefComponentType.isSet_GenericApplicationPropertyOfReliefComponent();
 	}
 
-	@Override
 	public boolean isSetLod() {
 		return reliefComponentType.isSetLod();
 	}
 
-	@Override
 	public void unsetExtent() {
 		reliefComponentType.setExtent(null);
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfReliefComponent() {
 		reliefComponentType.unset_GenericApplicationPropertyOfReliefComponent();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfReliefComponent(ADEComponent adeObject) {
 		if (reliefComponentType.isSet_GenericApplicationPropertyOfReliefComponent()) {
 			Iterator<JAXBElement<?>> iter = reliefComponentType.get_GenericApplicationPropertyOfReliefComponent().iterator();

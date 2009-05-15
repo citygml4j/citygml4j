@@ -21,13 +21,10 @@ public abstract class AbstractCityObjectGroupFactoryImpl implements CityObjectGr
 		}
 	}
 	
-	@Override
 	public abstract CityObjectGroup createCityObjectGroup();
 
-	@Override
 	public abstract CityObjectGroupMember createCityObjectGroupMember();
 
-	@Override
 	public abstract CityObjectGroupParent createCityObjectGroupParent();
 
 }

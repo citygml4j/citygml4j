@@ -23,7 +23,6 @@ public class GenericIntAttributeImpl extends GenericAttributeImpl implements Gen
 		return intAttributeType;
 	}
 
-	@Override
 	public Integer getValue() {
 		return new Integer(intAttributeType.getValue().intValue());
 	}
@@ -33,17 +32,14 @@ public class GenericIntAttributeImpl extends GenericAttributeImpl implements Gen
 		return CityGMLClass.INTATTRIBUTE;
 	}
 
-	@Override
 	public void setValue(Integer value) {
 		intAttributeType.setValue(new BigInteger(value.toString()));
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return intAttributeType.isSetValue();
 	}
 
-	@Override
 	public void unsetValue() {
 		intAttributeType.setValue(null);
 	}

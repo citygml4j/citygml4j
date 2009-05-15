@@ -48,32 +48,26 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return CityObjectGroupModule.v0_4_0;
 	}
 
-	@Override
 	public void addFunction(String function) {
 		cityObjectGroupType.getFunction().add(function);
 	}
 
-	@Override
 	public void addGroupMember(CityObjectGroupMember groupMember) {
 		cityObjectGroupType.getGroupMember().add(((CityObjectGroupMemberImpl)groupMember).getJAXBObject());
 	}
 
-	@Override
 	public void addUsage(String usage) {
 		cityObjectGroupType.getUsage().add(usage);
 	}
 
-	@Override
 	public String getClazz() {
 		return cityObjectGroupType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return cityObjectGroupType.getFunction();
 	}
 
-	@Override
 	public GeometryProperty getGeometry() {
 		if (cityObjectGroupType.isSetGeometry())
 			return new GeometryPropertyImpl(cityObjectGroupType.getGeometry());
@@ -81,7 +75,6 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return null;
 	}
 
-	@Override
 	public List<CityObjectGroupMember> getGroupMember() {
 		List<CityObjectGroupMember> groupMemberList = new ArrayList<CityObjectGroupMember>();
 
@@ -91,7 +84,6 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return groupMemberList;
 	}
 
-	@Override
 	public CityObjectGroupParent getParent() {
 		if (cityObjectGroupType.isSetParent())
 			return new CityObjectGroupParentImpl(cityObjectGroupType.getParent());
@@ -99,28 +91,23 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return null;
 	}
 
-	@Override
 	public List<String> getUsage() {
 		return cityObjectGroupType.getUsage();
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		cityObjectGroupType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		cityObjectGroupType.unsetFunction();
 		cityObjectGroupType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setGeometry(GeometryProperty geometry) {
 		cityObjectGroupType.setGeometry(((GeometryPropertyImpl)geometry).getJAXBObject());
 	}
 
-	@Override
 	public void setGroupMember(List<CityObjectGroupMember> groupMember) {
 		List<CityObjectGroupMemberType> groupMemberTypeList = new ArrayList<CityObjectGroupMemberType>();
 
@@ -131,12 +118,10 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		cityObjectGroupType.getGroupMember().addAll(groupMemberTypeList);
 	}
 
-	@Override
 	public void setParent(CityObjectGroupParent parent) {
 		cityObjectGroupType.setParent(((CityObjectGroupParentImpl)parent).getJAXBObject());
 	}
 
-	@Override
 	public void setUsage(List<String> usage) {
 		cityObjectGroupType.unsetUsage();
 		cityObjectGroupType.getUsage().addAll(usage);
@@ -165,14 +150,12 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfCityObjectGroup(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			cityObjectGroupType.get_GenericApplicationPropertyOfCityObjectGroup().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObjectGroup() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -187,7 +170,6 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfCityObjectGroup(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -203,77 +185,62 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		}
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return cityObjectGroupType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return cityObjectGroupType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfCityObjectGroup() {
 		return cityObjectGroupType.isSet_GenericApplicationPropertyOfCityObjectGroup();
 	}
 
-	@Override
 	public boolean isSetGeometry() {
 		return cityObjectGroupType.isSetGeometry();
 	}
 
-	@Override
 	public boolean isSetGroupMember() {
 		return cityObjectGroupType.isSetGroupMember();
 	}
 
-	@Override
 	public boolean isSetParent() {
 		return cityObjectGroupType.isSetParent();
 	}
 
-	@Override
 	public boolean isSetUsage() {
 		return cityObjectGroupType.isSetUsage();
 	}
 
-	@Override
 	public void unsetClazz() {
 		cityObjectGroupType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		cityObjectGroupType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfCityObjectGroup() {
 		cityObjectGroupType.unset_GenericApplicationPropertyOfCityObjectGroup();
 	}
 
-	@Override
 	public void unsetGeometry() {
 		cityObjectGroupType.setGeometry(null);
 	}
 
-	@Override
 	public void unsetGroupMember() {
 		cityObjectGroupType.unsetGroupMember();
 	}
 
-	@Override
 	public void unsetParent() {
 		cityObjectGroupType.setParent(null);
 	}
 
-	@Override
 	public void unsetUsage() {
 		cityObjectGroupType.unsetUsage();
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (cityObjectGroupType.isSetFunction())
 			return cityObjectGroupType.getFunction().remove(function);
@@ -281,7 +248,6 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfCityObjectGroup(ADEComponent adeObject) {
 		if (cityObjectGroupType.isSet_GenericApplicationPropertyOfCityObjectGroup()) {
 			Iterator<JAXBElement<?>> iter = cityObjectGroupType.get_GenericApplicationPropertyOfCityObjectGroup().iterator();
@@ -300,7 +266,6 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return false;
 	}
 
-	@Override
 	public boolean unsetGroupMember(CityObjectGroupMember groupMember) {
 		if (cityObjectGroupType.isSetGroupMember())
 			return cityObjectGroupType.getGroupMember().remove(((CityObjectGroupMemberImpl)groupMember).getJAXBObject());
@@ -308,7 +273,6 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return false;
 	}
 
-	@Override
 	public boolean unsetUsage(String usage) {
 		if (cityObjectGroupType.isSetUsage())
 			return cityObjectGroupType.getUsage().remove(usage);

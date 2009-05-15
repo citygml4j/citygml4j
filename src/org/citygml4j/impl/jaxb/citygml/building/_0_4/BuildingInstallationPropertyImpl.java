@@ -30,17 +30,14 @@ public class BuildingInstallationPropertyImpl extends AssociationImpl<BuildingIn
 		return buildingInstallationPropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BUILDINGINSTALLATIONPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public BuildingInstallation getObject() {
 		if (buildingInstallationPropertyType.isSet_Object()) {
 			JAXBElement<?> buildingInstallation = buildingInstallationPropertyType.get_Object();
@@ -57,7 +54,6 @@ public class BuildingInstallationPropertyImpl extends AssociationImpl<BuildingIn
 		return null;
 	}
 
-	@Override
 	public void setObject(BuildingInstallation object) {
 		JAXBElement<?> jaxbElem = ModelMapper.BLDG_0_4.toJAXB(object);
 		buildingInstallationPropertyType.set_Object(jaxbElem);

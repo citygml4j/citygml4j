@@ -8,10 +8,8 @@ import org.citygml4j.model.gml.GMLClass;
 
 public abstract class CityGMLBaseImpl extends GMLBaseImpl implements CityGMLBase {
 
-	@Override
 	public abstract CityGMLClass getCityGMLClass();
 
-	@Override
 	public abstract CityGMLModule getCityGMLModule();
 
 	@Override

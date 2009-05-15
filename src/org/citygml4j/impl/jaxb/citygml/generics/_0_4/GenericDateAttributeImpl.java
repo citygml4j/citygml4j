@@ -28,22 +28,18 @@ public class GenericDateAttributeImpl extends GenericAttributeImpl implements Ge
 		return CityGMLClass.DATEATTRIBUTE;
 	}
 
-	@Override
 	public XMLGregorianCalendar getValue() {
 		return dateAttributeType.getValue();
 	}
 
-	@Override
 	public void setValue(XMLGregorianCalendar value) {
 		dateAttributeType.setValue(value);
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return dateAttributeType.isSetValue();
 	}
 
-	@Override
 	public void unsetValue() {
 		dateAttributeType.setValue(null);
 	}

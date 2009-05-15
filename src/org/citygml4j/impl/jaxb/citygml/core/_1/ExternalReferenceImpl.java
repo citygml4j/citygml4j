@@ -33,12 +33,10 @@ public class ExternalReferenceImpl extends CityGMLBaseImpl implements ExternalRe
 		return CoreModule.v1_0_0;
 	}
 
-	@Override
 	public String getInformationSystem() {
 		return externalReference.getInformationSystem();
 	}
 
-	@Override
 	public ExternalObjectImpl getExternalObject() {
 		if (externalReference.isSetExternalObject())
 			return new ExternalObjectImpl(externalReference.getExternalObject());
@@ -46,32 +44,26 @@ public class ExternalReferenceImpl extends CityGMLBaseImpl implements ExternalRe
 		return null;
 	}
 
-	@Override
 	public void setExternalObject(ExternalObject externalObject) {
 		externalReference.setExternalObject(((ExternalObjectImpl)externalObject).getJAXBObject());
 	}
 
-	@Override
 	public void setInformationSystem(String informationSystem) {
 		externalReference.setInformationSystem(informationSystem);
 	}
 
-	@Override
 	public boolean isSetExternalObject() {
 		return externalReference.isSetExternalObject();
 	}
 
-	@Override
 	public boolean isSetInformationSystem() {
 		return externalReference.isSetInformationSystem();
 	}
 
-	@Override
 	public void unsetInformationSystem() {
 		externalReference.setInformationSystem(null);
 	}
 
-	@Override
 	public void unsetExternalObject() {
 		externalReference.setExternalObject(null);
 	}

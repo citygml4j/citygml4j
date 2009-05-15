@@ -104,7 +104,6 @@ import org.citygml4j.model.citygml.waterbody.WaterSurface;
 
 public class CityObjectMapperImpl implements CityObjectMapper {
 
-	@Override
 	public CityObject toCityGML(JAXBElement<? extends AbstractFeatureType> abstractFeature) {
 		CityObject cityObject = null;
 		
@@ -230,7 +229,6 @@ public class CityObjectMapperImpl implements CityObjectMapper {
 		return cityObject;
 	}
 
-	@Override
 	public JAXBElement<? extends AbstractFeatureType> toJAXB(CityObject cityObject) {
 		JAXBElement<? extends _CityObjectType> cityObjectElem = null;
 

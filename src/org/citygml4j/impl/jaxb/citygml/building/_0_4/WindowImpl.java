@@ -34,14 +34,12 @@ public class WindowImpl extends OpeningImpl implements Window {
 		return CityGMLClass.WINDOW;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWindow(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			windowType.get_GenericApplicationPropertyOfWindow().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWindow() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class WindowImpl extends OpeningImpl implements Window {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWindow(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class WindowImpl extends OpeningImpl implements Window {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWindow() {
 		return windowType.isSet_GenericApplicationPropertyOfWindow();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWindow() {
 		windowType.unset_GenericApplicationPropertyOfWindow();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWindow(ADEComponent adeObject) {
 		if (windowType.isSet_GenericApplicationPropertyOfWindow()) {
 			Iterator<JAXBElement<?>> iter = windowType.get_GenericApplicationPropertyOfWindow().iterator();

@@ -34,14 +34,12 @@ public class SquareImpl extends TransportationComplexImpl implements Square {
 		return CityGMLClass.SQUARE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfSquare(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			squareType.get_GenericApplicationPropertyOfSquare().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSquare() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class SquareImpl extends TransportationComplexImpl implements Square {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfSquare(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class SquareImpl extends TransportationComplexImpl implements Square {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfSquare() {
 		return squareType.isSet_GenericApplicationPropertyOfSquare();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfSquare() {
 		squareType.unset_GenericApplicationPropertyOfSquare();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent adeObject) {
 		if (squareType.isSet_GenericApplicationPropertyOfSquare()) {
 			Iterator<JAXBElement<?>> iter = squareType.get_GenericApplicationPropertyOfSquare().iterator();

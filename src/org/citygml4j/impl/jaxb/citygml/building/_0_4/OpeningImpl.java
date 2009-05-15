@@ -41,7 +41,6 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod3MultiSurface() {
 		if (openingType.isSetLod3MultiSurface())
 			return new MultiSurfacePropertyImpl(openingType.getLod3MultiSurface());
@@ -49,7 +48,6 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod4MultiSurface() {
 		if (openingType.isSetLod4MultiSurface())
 			return new MultiSurfacePropertyImpl(openingType.getLod4MultiSurface());
@@ -82,24 +80,20 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 		}
 	}
 
-	@Override
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
 		openingType.setLod3MultiSurface(((MultiSurfacePropertyImpl)lod3MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
 		openingType.setLod4MultiSurface(((MultiSurfacePropertyImpl)lod4MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfOpening(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			openingType.get_GenericApplicationPropertyOfOpening().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfOpening() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -114,7 +108,6 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfOpening(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -130,37 +123,30 @@ public abstract class OpeningImpl extends CityObjectImpl implements Opening {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfOpening() {
 		return openingType.isSet_GenericApplicationPropertyOfOpening();
 	}
 
-	@Override
 	public boolean isSetLod3MultiSurface() {
 		return openingType.isSetLod3MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod4MultiSurface() {
 		return openingType.isSetLod4MultiSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfOpening() {
 		openingType.unset_GenericApplicationPropertyOfOpening();
 	}
 
-	@Override
 	public void unsetLod3MultiSurface() {
 		openingType.setLod3MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod4MultiSurface() {
 		openingType.setLod4MultiSurface(null);
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent adeObject) {
 		if (openingType.isSet_GenericApplicationPropertyOfOpening()) {
 			Iterator<JAXBElement<?>> iter = openingType.get_GenericApplicationPropertyOfOpening().iterator();

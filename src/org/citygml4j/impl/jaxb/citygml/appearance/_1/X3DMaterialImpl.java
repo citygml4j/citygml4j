@@ -35,17 +35,14 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		return x3DMaterialType;
 	}
 
-	@Override
 	public void addTarget(String target) {
 		x3DMaterialType.getTarget().add(target);
 	}
 
-	@Override
 	public Double getAmbientIntensity() {
 		return x3DMaterialType.getAmbientIntensity();
 	}
 
-	@Override
 	public Color getDiffuseColor() {
 		if (x3DMaterialType.isSetDiffuseColor()) {
 			Color diffuseColor = new ColorImpl(0.8);
@@ -63,7 +60,6 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		return null;
 	}
 
-	@Override
 	public Color getEmissiveColor() {
 		if (x3DMaterialType.isSetEmissiveColor()) {
 			Color emissiveColor = new ColorImpl(0.0);
@@ -81,17 +77,14 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		return null;
 	}
 
-	@Override
 	public Boolean getIsSmooth() {
 		return x3DMaterialType.isIsSmooth();
 	}
 
-	@Override
 	public Double getShininess() {
 		return x3DMaterialType.getShininess();
 	}
 
-	@Override
 	public Color getSpecularColor() {
 		if (x3DMaterialType.isSetSpecularColor()) {
 			Color specularColor = new ColorImpl(1.0);
@@ -109,17 +102,14 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		return null;
 	}
 
-	@Override
 	public List<String> getTarget() {
 		return x3DMaterialType.getTarget();
 	}
 
-	@Override
 	public Double getTransparency() {
 		return x3DMaterialType.getTransparency();
 	}
 
-	@Override
 	public void setAmbientIntensity(Double ambientIntensity) {
 		if (ambientIntensity >= 0.0 && ambientIntensity <= 1.0)
 			x3DMaterialType.setAmbientIntensity(ambientIntensity);
@@ -127,24 +117,20 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 			x3DMaterialType.setAmbientIntensity(0.2);
 	}
 
-	@Override
 	public void setDiffuseColor(Color diffuseColor) {
 		x3DMaterialType.unsetDiffuseColor();
 		x3DMaterialType.getDiffuseColor().addAll(diffuseColor.toList());
 	}
 
-	@Override
 	public void setEmissiveColor(Color emissiveColor) {
 		x3DMaterialType.unsetEmissiveColor();
 		x3DMaterialType.getEmissiveColor().addAll(emissiveColor.toList());
 	}
 
-	@Override
 	public void setIsSmooth(Boolean isSmooth) {
 		x3DMaterialType.setIsSmooth(isSmooth);
 	}
 
-	@Override
 	public void setShininess(Double shininess) {
 		if (shininess >= 0.0 && shininess <= 1.0)
 			x3DMaterialType.setShininess(shininess);
@@ -152,19 +138,16 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 			x3DMaterialType.setShininess(0.2);
 	}
 
-	@Override
 	public void setSpecularColor(Color specularColor) {
 		x3DMaterialType.unsetSpecularColor();
 		x3DMaterialType.getSpecularColor().addAll(specularColor.toList());
 	}
 
-	@Override
 	public void setTarget(List<String> target) {
 		x3DMaterialType.unsetTarget();
 		x3DMaterialType.getTarget().addAll(target);
 	}
 
-	@Override
 	public void setTransparency(Double transparency) {
 		if (transparency >= 0.0 && transparency <= 1.0)
 			x3DMaterialType.setTransparency(transparency);
@@ -172,14 +155,12 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 			x3DMaterialType.setTransparency(0.0);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfX3DMaterial(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			x3DMaterialType.get_GenericApplicationPropertyOfX3DMaterial().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfX3DMaterial() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -194,7 +175,6 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfX3DMaterial(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -210,97 +190,78 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		}
 	}
 
-	@Override
 	public boolean isSetAmbientIntensity() {
 		return x3DMaterialType.isSetAmbientIntensity();
 	}
 
-	@Override
 	public boolean isSetDiffuseColor() {
 		return x3DMaterialType.isSetDiffuseColor();
 	}
 
-	@Override
 	public boolean isSetEmissiveColor() {
 		return x3DMaterialType.isSetEmissiveColor();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfX3DMaterial() {
 		return x3DMaterialType.isSet_GenericApplicationPropertyOfX3DMaterial();
 	}
 
-	@Override
 	public boolean isSetIsSmooth() {
 		return x3DMaterialType.isSetIsSmooth();
 	}
 
-	@Override
 	public boolean isSetShininess() {
 		return x3DMaterialType.isSetShininess();
 	}
 
-	@Override
 	public boolean isSetSpecularColor() {
 		return x3DMaterialType.isSetSpecularColor();
 	}
 
-	@Override
 	public boolean isSetTarget() {
 		return x3DMaterialType.isSetTarget();
 	}
 
-	@Override
 	public boolean isSetTransparency() {
 		return x3DMaterialType.isSetTransparency();
 	}
 
-	@Override
 	public void unsetAmbientIntensity() {
 		x3DMaterialType.setAmbientIntensity(null);
 	}
 
-	@Override
 	public void unsetDiffuseColor() {
 		x3DMaterialType.unsetDiffuseColor();
 	}
 
-	@Override
 	public void unsetEmissiveColor() {
 		x3DMaterialType.unsetEmissiveColor();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfX3DMaterial() {
 		x3DMaterialType.unset_GenericApplicationPropertyOfX3DMaterial();
 	}
 
-	@Override
 	public void unsetIsSmooth() {
 		x3DMaterialType.setIsSmooth(null);
 	}
 
-	@Override
 	public void unsetShininess() {
 		x3DMaterialType.setShininess(null);
 	}
 
-	@Override
 	public void unsetSpecularColor() {
 		x3DMaterialType.unsetSpecularColor();
 	}
 
-	@Override
 	public void unsetTarget() {
 		x3DMaterialType.unsetTarget();
 	}
 
-	@Override
 	public void unsetTransparency() {
 		x3DMaterialType.setTransparency(null);
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfX3DMaterial(ADEComponent adeObject) {
 		if (x3DMaterialType.isSet_GenericApplicationPropertyOfX3DMaterial()) {
 			Iterator<JAXBElement<?>> iter = x3DMaterialType.get_GenericApplicationPropertyOfX3DMaterial().iterator();
@@ -319,7 +280,6 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		return false;
 	}
 
-	@Override
 	public boolean unsetTarget(String target) {
 		if (x3DMaterialType.isSetTarget())
 			return x3DMaterialType.getTarget().remove(target);

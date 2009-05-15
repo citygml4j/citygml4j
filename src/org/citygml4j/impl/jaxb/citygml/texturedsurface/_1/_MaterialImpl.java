@@ -29,12 +29,10 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 		return materialType;
 	}
 
-	@Override
 	public Double getAmbientIntensity() {
 		return materialType.getAmbientIntensity();
 	}
 
-	@Override
 	public _Color getDiffuseColor() {
 		if (materialType.isSetDiffuseColor()) {
 			_Color diffuseColor = new _ColorImpl(0.8);
@@ -52,7 +50,6 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 		return null;
 	}
 
-	@Override
 	public _Color getEmissiveColor() {
 		if (materialType.isSetEmissiveColor()) {
 			_Color emissiveColor = new _ColorImpl(0.0);
@@ -70,12 +67,10 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 		return null;
 	}
 
-	@Override
 	public Double getShininess() {
 		return materialType.getShininess();
 	}
 
-	@Override
 	public _Color getSpecularColor() {
 		if (materialType.isSetSpecularColor()) {
 			_Color specularColor = new _ColorImpl(1.0);
@@ -93,12 +88,10 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 		return null;
 	}
 
-	@Override
 	public Double getTransparency() {
 		return materialType.getTransparency();
 	}
 
-	@Override
 	public void setAmbientIntensity(Double ambientIntensity) {
 		if (ambientIntensity >= 0.0 && ambientIntensity <= 1.0)
 			materialType.setAmbientIntensity(ambientIntensity);
@@ -106,19 +99,16 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 			materialType.setAmbientIntensity(0.0);
 	}
 
-	@Override
 	public void setDiffuseColor(_Color diffuseColor) {
 		materialType.unsetDiffuseColor();
 		materialType.getDiffuseColor().addAll(diffuseColor.toList());
 	}
 
-	@Override
 	public void setEmissiveColor(_Color emissiveColor) {
 		materialType.unsetEmissiveColor();
 		materialType.getEmissiveColor().addAll(emissiveColor.toList());
 	}
 
-	@Override
 	public void setShininess(Double shininess) {
 		if (shininess >= 0.0 && shininess <= 1.0)
 			materialType.setShininess(shininess);
@@ -126,13 +116,11 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 			materialType.setShininess(0.0);
 	}
 
-	@Override
 	public void setSpecularColor(_Color specularColor) {
 		materialType.unsetSpecularColor();
 		materialType.getSpecularColor().addAll(specularColor.toList());
 	}
 
-	@Override
 	public void setTransparency(Double transparency) {
 		if (transparency >= 0.0 && transparency <= 1.0)
 			materialType.setTransparency(transparency);
@@ -140,62 +128,50 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 			materialType.setTransparency(0.0);
 	}
 
-	@Override
 	public boolean isSetAmbientIntensity() {
 		return materialType.isSetAmbientIntensity();
 	}
 
-	@Override
 	public boolean isSetDiffuseColor() {
 		return materialType.isSetDiffuseColor();
 	}
 
-	@Override
 	public boolean isSetEmissiveColor() {
 		return materialType.isSetEmissiveColor();
 	}
 
-	@Override
 	public boolean isSetShininess() {
 		return materialType.isSetShininess();
 	}
 
-	@Override
 	public boolean isSetSpecularColor() {
 		return materialType.isSetSpecularColor();
 	}
 
-	@Override
 	public boolean isSetTransparency() {
 		return materialType.isSetTransparency();
 	}
 
-	@Override
 	public void unsetAmbientIntensity() {
 		materialType.setAmbientIntensity(null);
 	}
 
-	@Override
 	public void unsetDiffuseColor() {
 		materialType.unsetDiffuseColor();
 	}
 
-	@Override
 	public void unsetEmissiveColor() {
 		materialType.unsetEmissiveColor();
 	}
 
-	@Override
 	public void unsetShininess() {
 		materialType.setShininess(null);
 	}
 
-	@Override
 	public void unsetSpecularColor() {
 		materialType.unsetSpecularColor();
 	}
 
-	@Override
 	public void unsetTransparency() {
 		materialType.setTransparency(null);
 	}

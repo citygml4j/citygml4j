@@ -45,17 +45,14 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		return BuildingModule.v1_0_0;
 	}
 
-	@Override
 	public String getClazz() {
 		return intBuildingInstallationType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return intBuildingInstallationType.getFunction();
 	}
 
-	@Override
 	public GeometryProperty getLod4Geometry() {
 		if (intBuildingInstallationType.isSetLod4Geometry())
 			return new GeometryPropertyImpl(intBuildingInstallationType.getLod4Geometry());
@@ -63,7 +60,6 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		return null;
 	}
 
-	@Override
 	public List<String> getUsage() {
 		return intBuildingInstallationType.getUsage();
 	}
@@ -81,46 +77,38 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		}
 	}
 
-	@Override
 	public void addFunction(String function) {
 		intBuildingInstallationType.getFunction().add(function);
 	}
 
-	@Override
 	public void addUsage(String usage) {
 		intBuildingInstallationType.getUsage().add(usage);
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		intBuildingInstallationType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		intBuildingInstallationType.unsetFunction();
 		intBuildingInstallationType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setUsage(List<String> usage) {
 		intBuildingInstallationType.unsetUsage();
 		intBuildingInstallationType.getUsage().addAll(usage);
 	}
 
-	@Override
 	public void setLod4Geometry(GeometryProperty lod4Geometry) {
 		intBuildingInstallationType.setLod4Geometry(((GeometryPropertyImpl)lod4Geometry).getJAXBObject());
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfIntBuildingInstallation(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			intBuildingInstallationType.get_GenericApplicationPropertyOfIntBuildingInstallation().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfIntBuildingInstallation() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -135,7 +123,6 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfIntBuildingInstallation(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -151,57 +138,46 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		}
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return intBuildingInstallationType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return intBuildingInstallationType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfIntBuildingInstallation() {
 		return intBuildingInstallationType.isSet_GenericApplicationPropertyOfIntBuildingInstallation();
 	}
 
-	@Override
 	public boolean isSetLod4Geometry() {
 		return intBuildingInstallationType.isSetLod4Geometry();
 	}
 
-	@Override
 	public boolean isSetUsage() {
 		return intBuildingInstallationType.isSetUsage();
 	}
 
-	@Override
 	public void unsetClazz() {
 		intBuildingInstallationType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		intBuildingInstallationType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfIntBuildingInstallation() {
 		intBuildingInstallationType.unset_GenericApplicationPropertyOfIntBuildingInstallation();
 	}
 
-	@Override
 	public void unsetLod4Geometry() {
 		intBuildingInstallationType.setLod4Geometry(null);
 	}
 
-	@Override
 	public void unsetUsage() {
 		intBuildingInstallationType.unsetUsage();
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (intBuildingInstallationType.isSetFunction())
 			return intBuildingInstallationType.getFunction().remove(function);
@@ -209,7 +185,6 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfIntBuildingInstallation(ADEComponent adeObject) {
 		if (intBuildingInstallationType.isSet_GenericApplicationPropertyOfIntBuildingInstallation()) {
 			Iterator<JAXBElement<?>> iter = intBuildingInstallationType.get_GenericApplicationPropertyOfIntBuildingInstallation().iterator();
@@ -228,7 +203,6 @@ public class IntBuildingInstallationImpl extends CityObjectImpl implements IntBu
 		return false;
 	}
 
-	@Override
 	public boolean unsetUsage(String usage) {
 		if (intBuildingInstallationType.isSetUsage())
 			return intBuildingInstallationType.getUsage().remove(usage);

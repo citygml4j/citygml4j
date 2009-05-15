@@ -30,17 +30,14 @@ public class InteriorFurniturePropertyImpl extends AssociationImpl<BuildingFurni
 		return interiorFurniturePropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIORFURNITUREPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return BuildingModule.v1_0_0;
 	}
 
-	@Override
 	public BuildingFurniture getObject() {
 		if (interiorFurniturePropertyType.isSet_Object()) {
 			JAXBElement<?> interiorFurniture = interiorFurniturePropertyType.get_Object();
@@ -57,7 +54,6 @@ public class InteriorFurniturePropertyImpl extends AssociationImpl<BuildingFurni
 		return null;
 	}
 
-	@Override
 	public void setObject(BuildingFurniture object) {
 		JAXBElement<?> jaxbElem = ModelMapper.BLDG_1.toJAXB(object);
 		interiorFurniturePropertyType.set_Object(jaxbElem);

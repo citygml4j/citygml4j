@@ -37,7 +37,6 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 		return worldToTexture;
 	}
 
-	@Override
 	public Matrix getMatrix() {
 		if (worldToTexture.isSetValue()) {
 			List<Double> vals = worldToTexture.getValue();
@@ -52,12 +51,10 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 		return null;
 	}
 
-	@Override
 	public boolean isSetMatrix() {
 		return worldToTexture.isSetValue();
 	}
 	
-	@Override
 	public void setMatrix(Matrix matrix) {
 		if (matrix.getRowDimension() != 3 || matrix.getColumnDimension() != 4)
 			throw new IllegalArgumentException("Matrix dimensions must be 3x4.");
@@ -66,12 +63,10 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 		worldToTexture.getValue().addAll(matrix.toRowPackedList());
 	}
 
-	@Override
 	public List<String> getAxisLabels() {
 		return worldToTexture.getAxisLabels();
 	}
 
-	@Override
 	public Integer getSrsDimension() {
 		if (worldToTexture.isSetSrsDimension())
 			return new Integer(worldToTexture.getSrsDimension().intValue());
@@ -79,89 +74,72 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 		return null;
 	}
 
-	@Override
 	public String getSrsName() {
 		return worldToTexture.getSrsName();
 	}
 
-	@Override
 	public List<String> getUomLabels() {
 		return worldToTexture.getUomLabels();
 	}
 
-	@Override
 	public void setSrsDimension(Integer srsDimension) {
 		worldToTexture.setSrsDimension(new BigInteger(String.valueOf(srsDimension)));
 	}
 
-	@Override
 	public void setSrsName(String srsName) {
 		worldToTexture.setSrsName(srsName);
 	}
 
-	@Override
 	public void addAxisLabel(String axisLabel) {
 		worldToTexture.getAxisLabels().add(axisLabel);
 	}
 
-	@Override
 	public void addUomLabel(String uomLabel) {
 		worldToTexture.getUomLabels().add(uomLabel);
 	}
 
-	@Override
 	public void setAxisLabels(List<String> axisLabels) {
 		worldToTexture.unsetAxisLabels();
 		worldToTexture.getAxisLabels().addAll(axisLabels);
 	}
 
-	@Override
 	public void setUomLabels(List<String> uomLabels) {
 		worldToTexture.unsetUomLabels();
 		worldToTexture.getUomLabels().addAll(uomLabels);
 	}
 
-	@Override
 	public boolean isSetSrsDimension() {
 		return worldToTexture.isSetSrsDimension();
 	}
 
-	@Override
 	public boolean isSetSrsName() {
 		return worldToTexture.isSetSrsName();
 	}
 
-	@Override
 	public void unsetSrsDimension() {
 		worldToTexture.setSrsDimension(null);
 	}
 
-	@Override
 	public void unsetSrsName() {
 		worldToTexture.setSrsName(null);
 	}
 
-	@Override
 	public boolean isSetAxisLabels() {
 		return worldToTexture.isSetAxisLabels();
 	}
 
-	@Override
 	public boolean isSetUomLabels() {
 		return worldToTexture.isSetUomLabels();
 	}
 
-	@Override
 	public void unsetAxisLabels() {
 		worldToTexture.unsetAxisLabels();
 	}
 
-	@Override
 	public void unsetUomLabels() {
 		worldToTexture.unsetUomLabels();
 	}
 	
-	@Override
 	public boolean unsetAxisLabels(String axisLabel) {
 		if (worldToTexture.isSetAxisLabels())
 			return worldToTexture.getAxisLabels().remove(axisLabel);
@@ -169,7 +147,6 @@ public class WorldToTextureImpl extends CityGMLBaseImpl implements WorldToTextur
 		return false;
 	}
 
-	@Override
 	public boolean unsetUomLabels(String uomLabel) {
 		if (worldToTexture.isSetUomLabels())
 			return worldToTexture.getUomLabels().remove(uomLabel);

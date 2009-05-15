@@ -25,25 +25,18 @@ public abstract class AbstractReliefFactoryImpl implements ReliefFactory {
 		}
 	}
 	
-	@Override
 	public abstract BreaklineRelief createBreaklineRelief();
 
-	@Override
 	public abstract MassPointRelief createMassPointRelief();
 
-	@Override
 	public abstract RasterRelief createRasterRelief();
 
-	@Override
 	public abstract ReliefComponentProperty createReliefComponentProperty();
 
-	@Override
 	public abstract ReliefFeature createReliefFeature();
 
-	@Override
 	public abstract TINRelief createTINRelief();
 
-	@Override
 	public abstract TinProperty createTinProperty();
 
 }

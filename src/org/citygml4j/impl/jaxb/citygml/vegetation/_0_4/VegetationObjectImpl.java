@@ -38,14 +38,12 @@ public abstract class VegetationObjectImpl extends CityObjectImpl implements Veg
 		return VegetationModule.v0_4_0;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfVegetationObject(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			vegetationObjectType.get_GenericApplicationPropertyOfVegetationObject().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfVegetationObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -60,7 +58,6 @@ public abstract class VegetationObjectImpl extends CityObjectImpl implements Veg
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfVegetationObject(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -76,17 +73,14 @@ public abstract class VegetationObjectImpl extends CityObjectImpl implements Veg
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfVegetationObject() {
 		return vegetationObjectType.isSet_GenericApplicationPropertyOfVegetationObject();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfVegetationObject() {
 		vegetationObjectType.unset_GenericApplicationPropertyOfVegetationObject();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfVegetationObject(ADEComponent adeObject) {
 		if (vegetationObjectType.isSet_GenericApplicationPropertyOfVegetationObject()) {
 			Iterator<JAXBElement<?>> iter = vegetationObjectType.get_GenericApplicationPropertyOfVegetationObject().iterator();
