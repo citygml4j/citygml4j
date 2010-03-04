@@ -1,0 +1,47 @@
+<?xml version="1.0" standalone="yes"?>
+<project basedir="." default="simple">
+	<description>
+
+	</description>
+	<property name="lib" value="../../../lib" />
+	<property name="datasets" value="../../../samples/datasets" />
+	<path id="classpath">
+		<pathelement path="src" />
+		<pathelement path="classes" />
+		<pathelement path="${datasets}" />
+		<fileset dir="${lib}" includes="*.jar" />
+	</path>
+
+	<!--compile Java source files-->
+	<target name="compile" description="compile all java source files">
+		<echo message="Compiling the Java source files..." />
+		<mkdir dir="classes" />
+		<javac destdir="classes" debug="on">
+			<src path="src" />
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<!-- run sample app -->
+	<target name="simple" depends="compile" description="run the sample app">
+		<echo message="Running sample citygml4j application..." />
+		<java classname="ValidatingCityGMLWriter" fork="true">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<!-- run sample app -->
+	<target name="model" depends="compile" description="run the sample app">
+		<echo message="Running sample citygml4j application..." />
+		<java classname="ValidatingCityModelWriter" fork="true">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<!-- clean up -->
+	<target name="clean" description="Deletes all the generated artifacts">
+		<delete dir="classes" />
+		<delete file="Simple_but_invalid_building_v040.xml" />
+		<delete file="LOD2_SubsurfaceStructureADE_invalid_v100.xml" />		
+	</target>
+</project>

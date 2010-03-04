@@ -2,14 +2,14 @@ package org.citygml4j.model.citygml.appearance;
 
 import java.util.List;
 
-import org.citygml4j.model.citygml.core.CityGMLBase;
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
 
-public interface Color extends CityGMLBase {
+public interface Color extends AppearanceModuleComponent, Child, Copyable {
 	public Double getRed();
 	public Double getGreen();
 	public Double getBlue();
 	public List<Double> toList();
-	public boolean equals(Color color);
 
 	public void setRed(Double red);
 	public void setGreen(Double green);

@@ -12,10 +12,10 @@ public interface TexCoordList extends TextureParameterization {
 	
 	public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates);
 	public void addTextureCoordinates(TextureCoordinates textureCoordinates);	
-	public void addGenericApplicationPropertyOfTexCoordList(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTexCoordList(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfTexCoordList(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTexCoordList(List<ADEComponent> ade);
 	public void unsetTextureCoordinates();
 	public boolean unsetTextureCoordinates(TextureCoordinates textureCoordinates);
 	public void unsetGenericApplicationPropertyOfTexCoordList();
-	public boolean unsetGenericApplicationPropertyOfTexCoordList(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTexCoordList(ADEComponent ade);
 }

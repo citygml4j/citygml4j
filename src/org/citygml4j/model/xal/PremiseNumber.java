@@ -1,6 +1,11 @@
 package org.citygml4j.model.xal;
 
-public interface PremiseNumber extends XALBase, GrPostal {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PremiseNumber extends XAL, GrPostal, Child, Copyable {
 	public String getContent();
 	public String getNumberType();
 	public String getType();
@@ -16,6 +21,7 @@ public interface PremiseNumber extends XALBase, GrPostal {
 	
 	public void setContent(String content);
 	public void setNumberType(String numberType);
+	public void setType(String type);
 	public void setIndicator(String indicator);
 	public void setIndicatorOccurrence(String indicatorOccurrence);
 	public void setNumberTypeOccurrence(String numberTypeOccurrence);
@@ -25,4 +31,7 @@ public interface PremiseNumber extends XALBase, GrPostal {
 	public void unsetIndicator();
 	public void unsetIndicatorOccurrence();
 	public void unsetNumberTypeOccurrence();
+
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

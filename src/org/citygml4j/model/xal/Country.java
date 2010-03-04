@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface Country extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface Country extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<CountryNameCode> getCountryNameCode();
 	public List<CountryName> getCountryName();
@@ -14,6 +19,7 @@ public interface Country extends XALBase {
 	public boolean isSetCountryName();
 	public boolean isSetAdministrativeArea();
 	public boolean isSetLocality();
+	public boolean isSetThoroughfare();
 	
 	public void setAddressLine(List<AddressLine> addressLine);
 	public void addAddressLine(AddressLine addressLine);
@@ -32,4 +38,8 @@ public interface Country extends XALBase {
 	public boolean unsetCountryName(CountryName countryName);
 	public void unsetAdministrativeArea();
 	public void unsetLocality();
+	public void unsetThoroughfare();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

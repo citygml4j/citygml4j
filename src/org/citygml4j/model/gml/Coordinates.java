@@ -2,7 +2,10 @@ package org.citygml4j.model.gml;
 
 import java.util.List;
 
-public interface Coordinates extends GMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface Coordinates extends GML, Child, Copyable {
 	public String getValue();
 	public String getDecimal();
 	public String getCs();
@@ -12,8 +15,8 @@ public interface Coordinates extends GMLBase {
 	public boolean isSetCs();
 	public boolean isSetTs();
 	
-	public List<Double> toList();
-	public List<Double> toList(boolean reverseOrder);
+	public List<Double> toList3d();
+	public List<Double> toList3d(boolean reverseOrder);
 	
 	public void setValue(String value);
 	public void setDecimal(String decimal);

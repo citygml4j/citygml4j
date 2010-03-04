@@ -8,8 +8,8 @@ public interface FloorSurface extends BoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfFloorSurface();
 	public boolean isSetGenericApplicationPropertyOfFloorSurface();
 	
-	public void addGenericApplicationPropertyOfFloorSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfFloorSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfFloorSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfFloorSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfFloorSurface();
-	public boolean unsetGenericApplicationPropertyOfFloorSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfFloorSurface(ADEComponent ade);
 }

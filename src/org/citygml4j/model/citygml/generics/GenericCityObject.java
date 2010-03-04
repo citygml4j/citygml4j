@@ -7,7 +7,7 @@ import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.gml.GeometryProperty;
 import org.citygml4j.model.gml.MultiCurveProperty;
 
-public interface GenericCityObject extends CityObject {
+public interface GenericCityObject extends GenericsModuleComponent, CityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
@@ -36,7 +36,7 @@ public interface GenericCityObject extends CityObject {
 	public boolean isSetLod4Geometry();
 	public boolean isSetLod0TerrainIntersection();
 	public boolean isSetLod1TerrainIntersection();
-	public boolean isSetLod2TerainIntersection();
+	public boolean isSetLod2TerrainIntersection();
 	public boolean isSetLod3TerrainIntersection();
 	public boolean isSetLod4TerrainIntersection();
 	public boolean isSetLod0ImplicitRepresentation();

@@ -42,8 +42,8 @@ public interface TransportationComplex extends TransportationObject {
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface);
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
-	public void addGenericApplicationPropertyOfTransportationComplex(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTransportationComplex(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfTransportationComplex(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTransportationComplex(List<ADEComponent> ade);
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
 	public void unsetUsage();
@@ -59,5 +59,5 @@ public interface TransportationComplex extends TransportationObject {
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
 	public void unsetGenericApplicationPropertyOfTransportationComplex();
-	public boolean unsetGenericApplicationPropertyOfTransportationComplex(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTransportationComplex(ADEComponent ade);
 }

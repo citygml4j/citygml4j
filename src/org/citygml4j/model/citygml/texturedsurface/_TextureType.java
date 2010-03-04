@@ -1,11 +1,60 @@
 package org.citygml4j.model.citygml.texturedsurface;
 
-import org.citygml4j.model.citygml.core.CityGMLBase;
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
-public interface _TextureType extends CityGMLBase {
-	public static String SPECIFIC = "specific";
-	public static String TYPICAL = "typical";
-    public static String UNKNOWN = "unknown";
+public enum _TextureType implements TexturedSurfaceModuleComponent, Copyable {
+    SPECIFIC("specific"),
+    TYPICAL("typical"),
+    UNKNOWN("unknown");
     
-	public String getValue();
+    private final String value;
+    private TexturedSurfaceModule module;
+
+    _TextureType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public static _TextureType fromValue(String v) {
+    	v = v.trim().toLowerCase();
+    	
+        for (_TextureType c: _TextureType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+
+        return UNKNOWN;
+    }
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass._TEXTURETYPE;
+	}
+
+	public final TexturedSurfaceModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	public String toString() {
+		return value;
+	}
+	
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		return (target == null) ? UNKNOWN : this;
+	}
+	
+	public Object copy(CopyBuilder copyBuilder) {
+		return this;
+	}
+	
 }

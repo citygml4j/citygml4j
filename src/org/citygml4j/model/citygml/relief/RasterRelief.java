@@ -8,8 +8,8 @@ public interface RasterRelief extends ReliefComponent {
 	public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief();
 	public boolean isSetGenericApplicationPropertyOfRasterRelief();
 	
-	public void addGenericApplicationPropertyOfRasterRelief(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfRasterRelief(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfRasterRelief(ADEComponent ade);
+	public void setGenericApplicationPropertyOfRasterRelief(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfRasterRelief();
-	public boolean unsetGenericApplicationPropertyOfRasterRelief(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfRasterRelief(ADEComponent ade);
 }

@@ -1,6 +1,11 @@
 package org.citygml4j.model.xal;
 
-public interface PostBoxNumberSuffix extends XALBase, GrPostal {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PostBoxNumberSuffix extends XAL, GrPostal, Child, Copyable {
 	public String getContent();
 	public String getNumberSuffixSeparator();
 	public boolean isSetContent();
@@ -10,4 +15,7 @@ public interface PostBoxNumberSuffix extends XALBase, GrPostal {
 	public void setNumberSuffixSeparator(String numberSuffixSeparator);
 	public void unsetContent();
 	public void unsetNumberSuffixSeparator();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

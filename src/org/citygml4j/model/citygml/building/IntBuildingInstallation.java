@@ -6,7 +6,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.gml.GeometryProperty;
 
-public interface IntBuildingInstallation extends CityObject {
+public interface IntBuildingInstallation extends BuildingModuleComponent, CityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
@@ -24,8 +24,8 @@ public interface IntBuildingInstallation extends CityObject {
 	public void setUsage(List<String> usage);
 	public void addUsage(String usage);
 	public void setLod4Geometry(GeometryProperty lod4Geometry);	
-	public void addGenericApplicationPropertyOfIntBuildingInstallation(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfIntBuildingInstallation(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfIntBuildingInstallation(ADEComponent ade);
+	public void setGenericApplicationPropertyOfIntBuildingInstallation(List<ADEComponent> ade);
 	public void unsetClazz();
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
@@ -33,5 +33,5 @@ public interface IntBuildingInstallation extends CityObject {
 	public boolean unsetUsage(String usage);
 	public void unsetLod4Geometry();
 	public void unsetGenericApplicationPropertyOfIntBuildingInstallation();
-	public boolean unsetGenericApplicationPropertyOfIntBuildingInstallation(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfIntBuildingInstallation(ADEComponent ade);
 }

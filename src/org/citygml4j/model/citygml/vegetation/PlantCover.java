@@ -42,8 +42,8 @@ public interface PlantCover extends VegetationObject {
 	public void setLod1MultiSolid(MultiSolidProperty lod1MultiSolid);
 	public void setLod2MultiSolid(MultiSolidProperty lod2MultiSolid);
 	public void setLod3MultiSolid(MultiSolidProperty lod3MultiSolid);	
-	public void addGenericApplicationPropertyOfPlantCover(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfPlantCover(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfPlantCover(ADEComponent ade);
+	public void setGenericApplicationPropertyOfPlantCover(List<ADEComponent> ade);
 	public void unsetClazz();
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
@@ -56,5 +56,5 @@ public interface PlantCover extends VegetationObject {
 	public void unsetLod2MultiSolid();
 	public void unsetLod3MultiSolid();
 	public void unsetGenericApplicationPropertyOfPlantCover();
-	public boolean unsetGenericApplicationPropertyOfPlantCover(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfPlantCover(ADEComponent ade);
 }

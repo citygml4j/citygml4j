@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface MultiSolidProperty extends GMLBase, AssociationAttributeGroup {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface MultiSolidProperty extends GML, AssociationAttributeGroup, Child, Copyable {
 	public MultiSolid getMultiSolid();
 	public boolean isSetMultiSolid();
 	

@@ -12,9 +12,9 @@ public interface MassPointRelief extends ReliefComponent {
 	public boolean isSetGenericApplicationPropertyOfMassPointRelief();
 	
 	public void setReliefPoints(MultiPointProperty reliefPoints);
-	public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfMassPointRelief(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent ade);
+	public void setGenericApplicationPropertyOfMassPointRelief(List<ADEComponent> ade);
 	public void unsetReliefPoints();
 	public void unsetGenericApplicationPropertyOfMassPointRelief();
-	public boolean unsetGenericApplicationPropertyOfMassPointRelief(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfMassPointRelief(ADEComponent ade);
 }

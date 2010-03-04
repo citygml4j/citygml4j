@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface GeometryProperty extends GMLBase, AssociationAttributeGroup {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface GeometryProperty extends GML, AssociationAttributeGroup, Child, Copyable {
 	public AbstractGeometry getGeometry();
 	public boolean isSetGeometry();
 

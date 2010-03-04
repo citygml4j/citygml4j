@@ -1,6 +1,11 @@
 package org.citygml4j.model.xal;
 
-public interface PostalCodeNumberExtension extends XALBase, GrPostal {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PostalCodeNumberExtension extends XAL, GrPostal, Child, Copyable {
 	public String getContent();
 	public String getNumberExtensionSeparator();
 	public String getType();
@@ -14,4 +19,7 @@ public interface PostalCodeNumberExtension extends XALBase, GrPostal {
 	public void unsetContent();
 	public void unsetNumberExtensionSeparator();
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

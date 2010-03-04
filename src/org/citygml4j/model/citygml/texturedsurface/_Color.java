@@ -2,9 +2,10 @@ package org.citygml4j.model.citygml.texturedsurface;
 
 import java.util.List;
 
-import org.citygml4j.model.citygml.core.CityGMLBase;
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
 
-public interface _Color extends CityGMLBase {
+public interface _Color extends TexturedSurfaceModuleComponent, Child, Copyable {
 	public Double getRed();
 	public Double getGreen();
 	public Double getBlue();

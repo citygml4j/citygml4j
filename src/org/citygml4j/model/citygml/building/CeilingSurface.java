@@ -8,8 +8,8 @@ public interface CeilingSurface extends BoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfCeilingSurface();
 	public boolean isSetGenericApplicationPropertyOfCeilingSurface();
 	
-	public void addGenericApplicationPropertyOfCeilingSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfCeilingSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfCeilingSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfCeilingSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfCeilingSurface();
-	public boolean unsetGenericApplicationPropertyOfCeilingSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfCeilingSurface(ADEComponent ade);
 }

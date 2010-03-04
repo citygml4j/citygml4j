@@ -8,7 +8,8 @@ public interface Site extends CityObject {
 	public List<ADEComponent> getGenericApplicationPropertyOfSite();
 	public boolean isSetGenericApplicationPropertyOfSite();
 	
-	public void addGenericApplicationPropertyOfSite(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfSite(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfSite(ADEComponent ade);
+	public void setGenericApplicationPropertyOfSite(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfSite();
+	public boolean unsetGenericApplicationPropertyOfSite(ADEComponent ade);
 }

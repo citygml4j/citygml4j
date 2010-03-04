@@ -29,7 +29,7 @@ the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
 2. Copyright
 ------------
 
-(c) 2007 - 2009
+(c) 2007 - 2010
 Institute for Geodesy and Geoinformation Science (IGG)
 Technische Universitaet Berlin, Germany
 http://www.igg.tu-berlin.de/
@@ -47,9 +47,7 @@ Feature list:
 * Full support for CityGML version 1.0.0 and 0.4.0
 * Support for CityGML specific subset of GML 3.1.1
 * Support for the eXtensible Address Language (xAL)
-* Support for converting between different CityGML versions
-* Integration of user-defined CityGML Application Domain Extensions (ADE)
-* Implementation of XML data binding based on JAXB
+* Support for user-defined CityGML Application Domain Extensions (ADE)
 
 CityGML is a common information model for the representation of 3D urban 
 objects. It is realized as an open data model and XML-based format for the 
@@ -65,7 +63,7 @@ free of charge.
 4. System requirements
 ----------------------
 
-* Java JRE or JDK >= 1.6.0_05
+* Java JRE or JDK >= 1.5
 * Java Architecture for XML Binding (JAXB) >= 2.1.10
 
 
@@ -86,7 +84,7 @@ Claus Nagel <nagel@igg.tu-berlin.de>
 7. Contact
 ----------
 
-nagel@igg.tu-berlin.de
+claus.nagel@tu-berlin.de
 
 
 8. Websites

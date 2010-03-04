@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface Premise extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface Premise extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<PremiseName> getPremiseName();
 	public PremiseLocation getPremiseLocation();
@@ -86,4 +91,7 @@ public interface Premise extends XALBase {
 	public void unsetPremiseDependency();
 	public void unsetPremiseDependencyType();
 	public void unsetPremiseThoroughfareConnector();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

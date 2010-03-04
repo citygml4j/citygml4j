@@ -8,7 +8,7 @@ import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.gml.GeometryProperty;
 import org.citygml4j.model.gml.MultiCurveProperty;
 
-public interface CityFurniture extends CityObject {
+public interface CityFurniture extends CityFurnitureModuleComponent, CityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public GeometryProperty getLod1Geometry();
@@ -55,8 +55,8 @@ public interface CityFurniture extends CityObject {
 	public void setLod2ImplicitRepresentation(ImplicitRepresentationProperty lod2ImplicitRepresentation);
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation);
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);	
-	public void addGenericApplicationPropertyOfCityFurniture(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfCityFurniture(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfCityFurniture(ADEComponent ade);
+	public void setGenericApplicationPropertyOfCityFurniture(List<ADEComponent> ade);
 	public void unsetClazz();
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
@@ -73,5 +73,5 @@ public interface CityFurniture extends CityObject {
 	public void unsetLod3ImplicitRepresentation();
 	public void unsetLod4ImplicitRepresentation();
 	public void unsetGenericApplicationPropertyOfCityFurniture();
-	public boolean unsetGenericApplicationPropertyOfCityFurniture(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfCityFurniture(ADEComponent ade);
 }

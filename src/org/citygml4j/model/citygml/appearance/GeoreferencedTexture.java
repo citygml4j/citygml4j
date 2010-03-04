@@ -23,13 +23,13 @@ public interface GeoreferencedTexture extends AbstractTexture {
 	public void setOrientation(TransformationMatrix2x2 orientation);
 	public void setTarget(List<String> target);
 	public void addTarget(String target);	
-	public void addGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfGeoreferencedTexture(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade);
+	public void setGenericApplicationPropertyOfGeoreferencedTexture(List<ADEComponent> ade);
 	public void unsetPreferWorldFile();
 	public void unsetReferencePoint();
 	public void unsetOrientation();
 	public void unsetTarget();
 	public boolean unsetTarget(String target);
 	public void unsetGenericApplicationPropertyOfGeoreferencedTexture();
-	public boolean unsetGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade);
 }

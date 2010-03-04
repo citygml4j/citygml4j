@@ -2,12 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_22"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-impl.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-xjc.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb1-impl.jar"/>
 	<classpathentry kind="lib" path="lib/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="lib/sjsxp.jar"/>
+	<classpathentry kind="lib" path="resources/xml"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -25,8 +25,8 @@ public interface AuxiliaryTrafficArea extends TransportationObject {
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface);
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
-	public void addGenericApplicationPropertyOfAuxiliaryTrafficArea(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfAuxiliaryTrafficArea(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfAuxiliaryTrafficArea(ADEComponent ade);
+	public void setGenericApplicationPropertyOfAuxiliaryTrafficArea(List<ADEComponent> ade);
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
 	public void unsetSurfaceMaterial();
@@ -34,5 +34,5 @@ public interface AuxiliaryTrafficArea extends TransportationObject {
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
 	public void unsetGenericApplicationPropertyOfAuxiliaryTrafficArea();
-	public boolean unsetGenericApplicationPropertyOfAuxiliaryTrafficArea(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfAuxiliaryTrafficArea(ADEComponent ade);
 }

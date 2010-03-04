@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface PostalServiceElements extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PostalServiceElements extends XAL, Child, Copyable {
 	public List<AddressIdentifier> getAddressIdentifier();
 	public EndorsementLineCode getEndorsementLineCode();
 	public KeyLineCode getKeyLineCode();
@@ -52,4 +57,7 @@ public interface PostalServiceElements extends XALBase {
 	public void unsetSupplementaryPostalServiceData();
 	public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData);
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

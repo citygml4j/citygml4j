@@ -6,7 +6,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.gml.SurfaceProperty;
 
-public interface WaterBoundarySurface extends CityObject {
+public interface WaterBoundarySurface extends WaterBodyModuleComponent, CityObject {
 	public SurfaceProperty getLod2Surface();
 	public SurfaceProperty getLod3Surface();
 	public SurfaceProperty getLod4Surface();
@@ -19,11 +19,11 @@ public interface WaterBoundarySurface extends CityObject {
 	public void setLod2Surface(SurfaceProperty lod2Surface);
 	public void setLod3Surface(SurfaceProperty lod3Surface);
 	public void setLod4Surface(SurfaceProperty lod4Surface);	
-	public void addGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfWaterBoundarySurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfWaterBoundarySurface(List<ADEComponent> ade);
 	public void unsetLod2Surface();
 	public void unsetLod3Surface();
 	public void unsetLod4Surface();
 	public void unsetGenericApplicationPropertyOfWaterBoundarySurface();
-	public boolean unsetGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent ade);
 }

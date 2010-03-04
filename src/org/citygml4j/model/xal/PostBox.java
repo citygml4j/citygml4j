@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface PostBox extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PostBox extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public PostBoxNumber getPostBoxNumber();
 	public PostBoxNumberPrefix getPostBoxNumberPrefix();
@@ -42,4 +47,7 @@ public interface PostBox extends XALBase {
 	public void unsetPostalCode();
 	public void unsetType();
 	public void unsetIndicator();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

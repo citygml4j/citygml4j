@@ -8,8 +8,8 @@ public interface GroundSurface extends BoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfGroundSurface();
 	public boolean isSetGenericApplicationPropertyOfGroundSurface();
 	
-	public void addGenericApplicationPropertyOfGroundSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfGroundSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfGroundSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfGroundSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfGroundSurface();
-	public boolean unsetGenericApplicationPropertyOfGroundSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfGroundSurface(ADEComponent ade);
 }

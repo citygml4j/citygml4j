@@ -1,6 +1,6 @@
 package org.citygml4j.model.gml;
 
-public interface AssociationAttributeGroup extends GMLBase {
+public interface AssociationAttributeGroup extends GML {
 	public String getRemoteSchema();
 	public String getType();
 	public String getHref();

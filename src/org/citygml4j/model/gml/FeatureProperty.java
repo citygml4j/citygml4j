@@ -1,9 +1,17 @@
 package org.citygml4j.model.gml;
 
-public interface FeatureProperty extends GMLBase, AssociationAttributeGroup {
-	public AbstractFeature getFeature();
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+
+public interface FeatureProperty<T extends AbstractFeature> extends GML, AssociationAttributeGroup, Child, Copyable {
+	public T getFeature();
+	public ADEComponent getGenericADEComponent();
 	public boolean isSetFeature();
+	public boolean isSetGenericADEComponent();
 	
-	public void setFeature(AbstractFeature abstractFeature);
+	public void setFeature(T feature);
+	public void setGenericADEComponent(ADEComponent genericADEComponent);
 	public void unsetFeature();
+	public void unsetGenericADEComponent();
 }

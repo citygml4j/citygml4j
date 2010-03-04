@@ -8,8 +8,8 @@ public interface ClosureSurface extends BoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfClosureSurface();
 	public boolean isSetGenericApplicationPropertyOfClosureSurface();
 	
-	public void addGenericApplicationPropertyOfClosureSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfClosureSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfClosureSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfClosureSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfClosureSurface();
-	public boolean unsetGenericApplicationPropertyOfClosureSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfClosureSurface(ADEComponent ade);
 }

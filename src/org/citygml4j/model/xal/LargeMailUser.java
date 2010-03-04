@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface LargeMailUser extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface LargeMailUser extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<LargeMailUserName> getLargeMailUserName();
 	public LargeMailUserIdentifier getLargeMailUserIdentifier();
@@ -46,4 +51,7 @@ public interface LargeMailUser extends XALBase {
 	public void unsetThoroughfare(); 
 	public void unsetPostalCode();
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

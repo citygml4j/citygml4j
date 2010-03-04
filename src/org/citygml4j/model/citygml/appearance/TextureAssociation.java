@@ -1,9 +1,10 @@
 package org.citygml4j.model.citygml.appearance;
 
-import org.citygml4j.model.citygml.core.CityGMLBase;
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
 import org.citygml4j.model.gml.AssociationAttributeGroup;
 
-public interface TextureAssociation extends CityGMLBase, AssociationAttributeGroup {
+public interface TextureAssociation extends AppearanceModuleComponent, AssociationAttributeGroup, Child, Copyable {
 	public TextureParameterization getTextureParameterization();
 	public String getUri();
 	public boolean isSetTextureParameterization();

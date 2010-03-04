@@ -29,10 +29,10 @@ public interface TrafficArea extends TransportationObject {
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface);
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
-	public void addGenericApplicationPropertyOfTrafficArea(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTrafficArea(List<ADEComponent> adeObject);
-	public void unsetFuntion();
-	public boolean unsetFuntion(String function);
+	public void addGenericApplicationPropertyOfTrafficArea(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTrafficArea(List<ADEComponent> ade);
+	public void unsetFunction();
+	public boolean unsetFunction(String function);
 	public void unsetUsage();
 	public boolean unsetUsage(String usage);
 	public void unsetSurfaceMaterial();
@@ -40,5 +40,5 @@ public interface TrafficArea extends TransportationObject {
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
 	public void unsetGenericApplicationPropertyOfTrafficArea();
-	public boolean unsetGenericApplicationPropertyOfTrafficArea(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTrafficArea(ADEComponent ade);
 }

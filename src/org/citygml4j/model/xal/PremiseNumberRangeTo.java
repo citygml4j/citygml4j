@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface PremiseNumberRangeTo extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PremiseNumberRangeTo extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<PremiseNumberPrefix> getPremiseNumberPrefix();
 	public List<PremiseNumber> getPremiseNumber();
@@ -28,4 +33,7 @@ public interface PremiseNumberRangeTo extends XALBase {
 	public boolean unsetPremiseNumber(PremiseNumber premiseNumber);
 	public void unsetPremiseNumberSuffix();
 	public boolean unsetPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix);
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

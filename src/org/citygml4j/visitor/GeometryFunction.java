@@ -1,0 +1,51 @@
+package org.citygml4j.visitor;
+
+import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.gml.CompositeCurve;
+import org.citygml4j.model.gml.CompositeSolid;
+import org.citygml4j.model.gml.CompositeSurface;
+import org.citygml4j.model.gml.Curve;
+import org.citygml4j.model.gml.GeometricComplex;
+import org.citygml4j.model.gml.LineString;
+import org.citygml4j.model.gml.LinearRing;
+import org.citygml4j.model.gml.MultiCurve;
+import org.citygml4j.model.gml.MultiLineString;
+import org.citygml4j.model.gml.MultiPoint;
+import org.citygml4j.model.gml.MultiPolygon;
+import org.citygml4j.model.gml.MultiSolid;
+import org.citygml4j.model.gml.MultiSurface;
+import org.citygml4j.model.gml.OrientableCurve;
+import org.citygml4j.model.gml.OrientableSurface;
+import org.citygml4j.model.gml.Point;
+import org.citygml4j.model.gml.Polygon;
+import org.citygml4j.model.gml.Ring;
+import org.citygml4j.model.gml.Solid;
+import org.citygml4j.model.gml.Surface;
+import org.citygml4j.model.gml.Tin;
+import org.citygml4j.model.gml.TriangulatedSurface;
+
+public interface GeometryFunction<T> {
+	public T accept(CompositeCurve compositeCurve);
+	public T accept(CompositeSolid compositeSolid);
+	public T accept(CompositeSurface compositeSurface);
+	public T accept(Curve curve);
+	public T accept(GeometricComplex geometricComplex);
+	public T accept(LinearRing linearRing);
+	public T accept(LineString lineString);
+	public T accept(MultiCurve multiCurve);
+	public T accept(MultiLineString multiLineString);
+	public T accept(MultiPoint multiPoint);
+	public T accept(MultiPolygon multiPolygon);
+	public T accept(MultiSolid multiSolid);
+	public T accept(MultiSurface multiSurface);
+	public T accept(OrientableCurve orientableCurve);
+	public T accept(OrientableSurface orientableSurface);
+	public T accept(_TexturedSurface texturedSurface);
+	public T accept(Point point);
+	public T accept(Polygon polygon);
+	public T accept(Ring ring);
+	public T accept(Solid solid);
+	public T accept(Surface surface);
+	public T accept(Tin tin);
+	public T accept(TriangulatedSurface triangulatedSurface);
+}

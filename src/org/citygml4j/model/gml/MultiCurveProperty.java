@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface MultiCurveProperty extends GMLBase, AssociationAttributeGroup {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface MultiCurveProperty extends GML, AssociationAttributeGroup, Child, Copyable {
 	public MultiCurve getMultiCurve();
 	public boolean isSetMultiCurve();
 	

@@ -6,7 +6,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.gml.MultiSurfaceProperty;
 
-public interface Opening extends CityObject {
+public interface Opening extends BuildingModuleComponent, CityObject {
 	public MultiSurfaceProperty getLod3MultiSurface();
 	public MultiSurfaceProperty getLod4MultiSurface();
 	public List<ADEComponent> getGenericApplicationPropertyOfOpening();
@@ -16,10 +16,10 @@ public interface Opening extends CityObject {
 	
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
-	public void addGenericApplicationPropertyOfOpening(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfOpening(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfOpening(ADEComponent ade);
+	public void setGenericApplicationPropertyOfOpening(List<ADEComponent> ade);
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
 	public void unsetGenericApplicationPropertyOfOpening();
-	public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent ade);
 }

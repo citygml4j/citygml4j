@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface CompositeCurveProperty extends GMLBase, AssociationAttributeGroup {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface CompositeCurveProperty extends GML, AssociationAttributeGroup, Child, Copyable {
 	public CompositeCurve getCompositeCurve();
 	public boolean isSetCompositeCurve();
 	

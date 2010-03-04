@@ -1,6 +1,11 @@
 package org.citygml4j.model.xal;
 
-public interface ThoroughfareNumber extends XALBase, GrPostal {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface ThoroughfareNumber extends XAL, GrPostal, Child, Copyable {
 	public String getContent();
 	public String getNumberType();
 	public String getType();
@@ -26,4 +31,7 @@ public interface ThoroughfareNumber extends XALBase, GrPostal {
 	public void unsetIndicator();
 	public void unsetIndicatorOccurrence();
 	public void unsetNumberOccurrence();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

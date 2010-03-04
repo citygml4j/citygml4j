@@ -1,0 +1,51 @@
+package org.citygml4j.visitor;
+
+import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.gml.CompositeCurve;
+import org.citygml4j.model.gml.CompositeSolid;
+import org.citygml4j.model.gml.CompositeSurface;
+import org.citygml4j.model.gml.Curve;
+import org.citygml4j.model.gml.GeometricComplex;
+import org.citygml4j.model.gml.LineString;
+import org.citygml4j.model.gml.LinearRing;
+import org.citygml4j.model.gml.MultiCurve;
+import org.citygml4j.model.gml.MultiLineString;
+import org.citygml4j.model.gml.MultiPoint;
+import org.citygml4j.model.gml.MultiPolygon;
+import org.citygml4j.model.gml.MultiSolid;
+import org.citygml4j.model.gml.MultiSurface;
+import org.citygml4j.model.gml.OrientableCurve;
+import org.citygml4j.model.gml.OrientableSurface;
+import org.citygml4j.model.gml.Point;
+import org.citygml4j.model.gml.Polygon;
+import org.citygml4j.model.gml.Ring;
+import org.citygml4j.model.gml.Solid;
+import org.citygml4j.model.gml.Surface;
+import org.citygml4j.model.gml.Tin;
+import org.citygml4j.model.gml.TriangulatedSurface;
+
+public interface GeometryVisitor {
+	public void accept(CompositeCurve compositeCurve);
+	public void accept(CompositeSolid compositeSolid);
+	public void accept(CompositeSurface compositeSurface);
+	public void accept(Curve curve);
+	public void accept(GeometricComplex geometricComplex);
+	public void accept(LinearRing linearRing);
+	public void accept(LineString lineString);
+	public void accept(MultiCurve multiCurve);
+	public void accept(MultiLineString multiLineString);
+	public void accept(MultiPoint multiPoint);
+	public void accept(MultiPolygon multiPolygon);
+	public void accept(MultiSolid multiSolid);
+	public void accept(MultiSurface multiSurface);
+	public void accept(OrientableCurve orientableCurve);
+	public void accept(OrientableSurface orientableSurface);
+	public void accept(_TexturedSurface texturedSurface);
+	public void accept(Point point);
+	public void accept(Polygon polygon);
+	public void accept(Ring ring);
+	public void accept(Solid solid);
+	public void accept(Surface surface);
+	public void accept(Tin tin);
+	public void accept(TriangulatedSurface triangulatedSurface);
+}

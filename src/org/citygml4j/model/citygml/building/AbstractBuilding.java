@@ -1,8 +1,7 @@
 package org.citygml4j.model.citygml.building;
 
+import java.util.GregorianCalendar;
 import java.util.List;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AddressProperty;
@@ -13,12 +12,12 @@ import org.citygml4j.model.gml.MultiCurveProperty;
 import org.citygml4j.model.gml.MultiSurfaceProperty;
 import org.citygml4j.model.gml.SolidProperty;
 
-public interface AbstractBuilding extends Site {
+public interface AbstractBuilding extends BuildingModuleComponent, Site {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
-	public XMLGregorianCalendar getYearOfConstruction();
-	public XMLGregorianCalendar getYearOfDemolition();
+	public GregorianCalendar getYearOfConstruction();
+	public GregorianCalendar getYearOfDemolition();
 	public String getRoofType();
 	public Length getMeasuredHeight();
 	public Integer getStoreysAboveGround();
@@ -42,7 +41,7 @@ public interface AbstractBuilding extends Site {
 	public MultiSurfaceProperty getLod4MultiSurface();
 	public List<BuildingInstallationProperty> getOuterBuildingInstallation();
 	public List<IntBuildingInstallationProperty> getInteriorBuildingInstallation();
-	public List<BoundarySurfaceProperty> getBoundedBySurfaces();
+	public List<BoundarySurfaceProperty> getBoundedBySurface();
 	public List<BuildingPartProperty> getConsistsOfBuildingPart();
 	public List<InteriorRoomProperty> getInteriorRoom();
 	public List<AddressProperty> getAddress();
@@ -76,7 +75,7 @@ public interface AbstractBuilding extends Site {
 	public boolean isSetLod4MultiSurface();
 	public boolean isSetOuterBuildingInstallation();
 	public boolean isSetInteriorBuildingInstallation();
-	public boolean isSetBoundedBySurfaces();
+	public boolean isSetBoundedBySurface();
 	public boolean isSetConsistsOfBuildingPart();
 	public boolean isSetInteriorRoom();
 	public boolean isSetAddress();
@@ -87,14 +86,14 @@ public interface AbstractBuilding extends Site {
 	public void addFunction(String function);
 	public void setUsage(List<String> usage);
 	public void addUsage(String usage);
-	public void setYearOfConstruction(XMLGregorianCalendar yearOfConstruction);
-	public void setYearOfDemolition(XMLGregorianCalendar yearOfDemolition);
+	public void setYearOfConstruction(GregorianCalendar yearOfConstruction);
+	public void setYearOfDemolition(GregorianCalendar yearOfDemolition);
 	public void setRoofType(String roofType);
-	public void setMeasuredHeight(Length length);
+	public void setMeasuredHeight(Length measuredHeight);
 	public void setStoreysAboveGround(Integer storeysAboveGround);
 	public void setStoreysBelowGround(Integer storeysBelowGround);
-	public void setStoreyHeightsAboveGround(MeasureOrNullList storeysHeightsAboveGround);
-	public void setStoreyHeightsBelowGround(MeasureOrNullList storeysBelowAboveGround);
+	public void setStoreyHeightsAboveGround(MeasureOrNullList storeyHeightsAboveGround);
+	public void setStoreyHeightsBelowGround(MeasureOrNullList storeyHeightsBelowGround);
 	public void setLod1Solid(SolidProperty lod1Solid);
 	public void setLod2Solid(SolidProperty lod2Solid);
 	public void setLod3Solid(SolidProperty lod3Solid);
@@ -114,7 +113,7 @@ public interface AbstractBuilding extends Site {
 	public void addOuterBuildingInstallation(BuildingInstallationProperty outerBuildingInstallation);
 	public void setInteriorBuildingInstallation(List<IntBuildingInstallationProperty> interiorBuildingInstallation);
 	public void addInteriorBuildingInstallation(IntBuildingInstallationProperty interiorBuildingInstallation);
-	public void setBoundedBySurfaces(List<BoundarySurfaceProperty> boundedBySurfaces);
+	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface);
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface);
 	public void setInteriorRoom(List<InteriorRoomProperty> interiorRoom);
 	public void addInteriorRoom(InteriorRoomProperty interiorRoom);
@@ -122,8 +121,8 @@ public interface AbstractBuilding extends Site {
 	public void addConsistsOfBuildingPart(BuildingPartProperty buildingPart);
 	public void setAddress(List<AddressProperty> address);
 	public void addAddress(AddressProperty address);	
-	public void addGenericApplicationPropertyOfAbstractBuilding(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfAbstractBuilding(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfAbstractBuilding(ADEComponent ade);
+	public void setGenericApplicationPropertyOfAbstractBuilding(List<ADEComponent> ade);
 	
 	public void unsetClazz();
 	public void unsetFunction();
@@ -157,8 +156,8 @@ public interface AbstractBuilding extends Site {
 	public boolean unsetOuterBuildingInstallation(BuildingInstallationProperty outerBuildingInstallation);
 	public void unsetInteriorBuildingInstallation();
 	public boolean unsetInteriorBuildingInstallation(IntBuildingInstallationProperty interiorBuildingInstallation);
-	public void unsetBoundedBySurfaces();
-	public boolean unsetBoundedBySurfaces(BoundarySurfaceProperty boundedBySurface);
+	public void unsetBoundedBySurface();
+	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface);
 	public void unsetConsistsOfBuildingPart();
 	public boolean unsetConsistsOfBuildingPart(BuildingPartProperty buildingPart);
 	public void unsetInteriorRoom();
@@ -166,5 +165,5 @@ public interface AbstractBuilding extends Site {
 	public void unsetAddress();
 	public boolean unsetAddress(AddressProperty address);
 	public void unsetGenericApplicationPropertyOfAbstractBuilding();
-	public boolean unsetGenericApplicationPropertyOfAbstractBuilding(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfAbstractBuilding(ADEComponent ade);
 }

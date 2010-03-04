@@ -33,8 +33,8 @@ public interface X3DMaterial extends AbstractSurfaceData {
 	public void setIsSmooth(Boolean isSmooth);
 	public void setTarget(List<String> target);
 	public void addTarget(String target);	
-	public void addGenericApplicationPropertyOfX3DMaterial(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfX3DMaterial(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfX3DMaterial(ADEComponent ade);
+	public void setGenericApplicationPropertyOfX3DMaterial(List<ADEComponent> ade);
 	public void unsetAmbientIntensity();
 	public void unsetDiffuseColor();
 	public void unsetEmissiveColor();
@@ -45,5 +45,5 @@ public interface X3DMaterial extends AbstractSurfaceData {
 	public void unsetTarget();
 	public boolean unsetTarget(String target);
 	public void unsetGenericApplicationPropertyOfX3DMaterial();
-	public boolean unsetGenericApplicationPropertyOfX3DMaterial(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfX3DMaterial(ADEComponent ade);
 }

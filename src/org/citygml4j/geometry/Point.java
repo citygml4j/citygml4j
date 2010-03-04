@@ -1,5 +1,7 @@
 package org.citygml4j.geometry;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+
 public class Point implements Geometry {
 	private double x;
 	private double y;
@@ -23,10 +25,6 @@ public class Point implements Geometry {
 
 	public Point(double singleValue) {
 		x = y = z = singleValue;
-	}
-
-	public Point clone() {
-		return new Point(this);
 	}
 
 	public double getX() {
@@ -55,4 +53,19 @@ public class Point implements Geometry {
 	public boolean isEqual(double x, double y, double z) {
 		return (this.x == x && this.y == y && this.z == z);
 	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new Point(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		Point copy = (target == null) ? new Point() : (Point)target;
+		
+		copy.setX(copyBuilder.copy(x));		
+		copy.setY(copyBuilder.copy(y));		
+		copy.setZ(copyBuilder.copy(z));
+		
+		return copy;
+	}
+	
 }

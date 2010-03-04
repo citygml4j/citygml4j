@@ -2,34 +2,30 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface ThoroughfareNumberTo extends XALBase, GrPostal {
-	public String getContent();
-	public List<AddressLine> getAddressLine();
-	public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix();
-	public List<ThoroughfareNumber> getThoroughfareNumber();
-	public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix();
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface ThoroughfareNumberTo extends XAL, GrPostal, Child, Copyable {
+	public List<ThoroughfareNumberToContent> getContent();
 	public boolean isSetContent();
-	public boolean isSetAddressLine();
-	public boolean isSetThoroughfareNumberPrefix();
-	public boolean isSetThoroughfareNumber();
-	public boolean isSetThoroughfareNumberSuffix();
 	
-	public void addContent(String content);
+	public void addContent(ThoroughfareNumberToContent content);
+	public void setContent(List<ThoroughfareNumberToContent> content);
 	public void addAddressLine(AddressLine addressLine);
-	public void setAddressLine(List<AddressLine> addressLine);
 	public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix);
-	public void setThoroughfareNumberPrefix(List<ThoroughfareNumberPrefix> thoroughfareNumberPrefix);
 	public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber);
-	public void setThoroughfareNumber(List<ThoroughfareNumber> thoroughfareNumber);
 	public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix);
-	public void setThoroughfareNumberSuffix(List<ThoroughfareNumberSuffix> thoroughfareNumberSuffix);
+	public void addString(String string);
 	public void unsetContent();
-	public void unsetAddressLine();
+	public boolean unsetContent(ThoroughfareNumberToContent content);
 	public boolean unsetAddressLine(AddressLine addressLine);
-	public void unsetThoroughfareNumberPrefix();
 	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix);
-	public void unsetThoroughfareNumber();
 	public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber);
-	public void unsetThoroughfareNumberSuffix();
 	public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix);
+	public boolean unsetString(String string);
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

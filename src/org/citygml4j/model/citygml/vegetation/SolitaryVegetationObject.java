@@ -54,8 +54,8 @@ public interface SolitaryVegetationObject extends VegetationObject {
 	public void setLod2ImplicitRepresentation(ImplicitRepresentationProperty lod2ImplicitRepresentation);
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation);
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);	
-	public void addGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfSolitaryVegetationObject(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent ade);
+	public void setGenericApplicationPropertyOfSolitaryVegetationObject(List<ADEComponent> ade);
 	public void unsetClazz();
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
@@ -72,5 +72,5 @@ public interface SolitaryVegetationObject extends VegetationObject {
 	public void unsetLod3ImplicitRepresentation();
 	public void unsetLod4ImplicitRepresentation();
 	public void unsetGenericApplicationPropertyOfSolitaryVegetationObject();
-	public boolean unsetGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent ade);
 }

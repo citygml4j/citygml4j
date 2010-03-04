@@ -8,8 +8,8 @@ public interface Track extends TransportationComplex {
 	public List<ADEComponent> getGenericApplicationPropertyOfTrack();
 	public boolean isSetGenericApplicationPropertyOfTrack();
 	
-	public void addGenericApplicationPropertyOfTrack(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTrack(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfTrack(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTrack(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfTrack();
-	public boolean unsetGenericApplicationPropertyOfTrack(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTrack(ADEComponent ade);
 }

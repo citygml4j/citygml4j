@@ -11,7 +11,7 @@ public interface AbstractTexture extends AbstractSurfaceData {
 	public WrapMode getWrapMode();
 	public ColorPlusOpacity getBorderColor();
 	public List<ADEComponent> getGenericApplicationPropertyOfTexture();
-	public boolean isSetImageUri();
+	public boolean isSetImageURI();
 	public boolean isSetMimeType();
 	public boolean isSetTextureType();
 	public boolean isSetWrapMode();
@@ -23,13 +23,13 @@ public interface AbstractTexture extends AbstractSurfaceData {
 	public void setTextureType(TextureType textureType);
 	public void setWrapMode(WrapMode wrapMode);
 	public void setBorderColor(ColorPlusOpacity borderColor);	
-	public void addGenericApplicationPropertyOfTexture(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTexture(List<ADEComponent> adeObject);
-	public void unsetImageUri();
+	public void addGenericApplicationPropertyOfTexture(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTexture(List<ADEComponent> ade);
+	public void unsetImageURI();
 	public void unsetMimeType();
 	public void unsetTextureType();
 	public void unsetWrapMode();
 	public void unsetBorderColor();
 	public void unsetGenericApplicationPropertyOfTexture();
-	public boolean unsetGenericApplicationPropertyOfTexture(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTexture(ADEComponent ade);
 }

@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface SubPremise extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface SubPremise extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<SubPremiseName> getSubPremiseName();
 	public SubPremiseLocation getSubPremiseLocation();
@@ -64,4 +69,7 @@ public interface SubPremise extends XALBase {
 	public void unsetPostalCode();
 	public void unsetSubPremise();
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

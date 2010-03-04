@@ -15,10 +15,10 @@ public interface BreaklineRelief extends ReliefComponent {
 	
 	public void setRidgeOrValleyLines(MultiCurveProperty ridgeOrValleyLines);
 	public void setBreaklines(MultiCurveProperty breaklines);	
-	public void addGenericApplicationPropertyOfBreaklineRelief(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfBreaklineRelief(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade);
+	public void setGenericApplicationPropertyOfBreaklineRelief(List<ADEComponent> ade);
 	public void unsetRidgeOrValleyLines();
 	public void unsetBreaklines();
 	public void unsetGenericApplicationPropertyOfBreaklineRelief();
-	public boolean unsetGenericApplicationPropertyOfBreaklineRelief(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade);
 }

@@ -11,9 +11,9 @@ public interface WaterSurface extends WaterBoundarySurface {
 	public boolean isSetGenericApplicationPropertyOfWaterSurface();
 
 	public void setWaterLevel(String waterLevel);	
-	public void addGenericApplicationPropertyOfWaterSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfWaterSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfWaterSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfWaterSurface(List<ADEComponent> ade);
 	public void unsetWaterLevel();
 	public void unsetGenericApplicationPropertyOfWaterSurface();
-	public boolean unsetGenericApplicationPropertyOfWaterSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfWaterSurface(ADEComponent ade);
 }

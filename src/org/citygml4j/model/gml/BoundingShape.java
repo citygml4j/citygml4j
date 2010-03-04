@@ -1,14 +1,19 @@
 package org.citygml4j.model.gml;
 
-public interface BoundingShape extends GMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.geometry.BoundingBox;
+
+public interface BoundingShape extends GML, Child, Copyable {
 	public Envelope getEnvelope();
-	public String getNull();
+	public Null getNull();
 	public boolean isSetEnvelope();
 	public boolean isSetNull();
 
+	public void setEnvelope(BoundingBox boundingBox);	
 	public void setEnvelope(Envelope envelope);
-	public void setNull(String _null);
-	public boolean convertEnvelope();
+	public void updateEnvelope(BoundingBox boundingBox);
+	public void setNull(Null _null);
 	public void unsetEnvelope();
 	public void unsetNull();
 }

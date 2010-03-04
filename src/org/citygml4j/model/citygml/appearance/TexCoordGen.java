@@ -11,9 +11,9 @@ public interface TexCoordGen extends TextureParameterization {
 	public boolean isSetGenericApplicationPropertyOfTexCoordGen();
 	
 	public void setWorldToTexture(WorldToTexture worldToTexture);	
-	public void addGenericApplicationPropertyOfTexCoordGen(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTexCoordGen(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfTexCoordGen(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTexCoordGen(List<ADEComponent> ade);
 	public void unsetWorldToTexture();
 	public void unsetGenericApplicationPropertyOfTexCoordGen();
-	public boolean unsetGenericApplicationPropertyOfTexCoordGen(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTexCoordGen(ADEComponent ade);
 }

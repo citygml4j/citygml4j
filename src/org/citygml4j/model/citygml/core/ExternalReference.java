@@ -1,6 +1,9 @@
 package org.citygml4j.model.citygml.core;
 
-public interface ExternalReference extends CityGMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface ExternalReference extends CoreModuleComponent, Child, Copyable {
 	public String getInformationSystem();
 	public ExternalObject getExternalObject();
 	public boolean isSetInformationSystem();

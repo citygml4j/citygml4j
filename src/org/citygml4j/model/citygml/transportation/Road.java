@@ -8,8 +8,8 @@ public interface Road extends TransportationComplex {
 	public List<ADEComponent> getGenericApplicationPropertyOfRoad();
 	public boolean isSetGenericApplicationPropertyOfRoad();
 	
-	public void addGenericApplicationPropertyOfRoad(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfRoad(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfRoad(ADEComponent ade);
+	public void setGenericApplicationPropertyOfRoad(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfRoad();
-	public boolean unsetGenericApplicationPropertyOfRoad(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfRoad(ADEComponent ade);
 }

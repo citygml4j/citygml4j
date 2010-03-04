@@ -1,5 +1,7 @@
 package org.citygml4j.geometry;
 
-public interface Geometry {
-	public Geometry clone();
+import org.citygml4j.builder.copy.Copyable;
+
+public interface Geometry extends Copyable {
+
 }

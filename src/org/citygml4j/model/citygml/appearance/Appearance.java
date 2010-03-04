@@ -3,10 +3,9 @@ package org.citygml4j.model.citygml.appearance;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityGMLBase;
 import org.citygml4j.model.gml.AbstractFeature;
 
-public interface Appearance extends CityGMLBase, AbstractFeature {
+public interface Appearance extends AppearanceModuleComponent, AbstractFeature {
 	public String getTheme();
 	public List<SurfaceDataProperty> getSurfaceDataMember();
 	public List<ADEComponent> getGenericApplicationPropertyOfAppearance();
@@ -17,11 +16,11 @@ public interface Appearance extends CityGMLBase, AbstractFeature {
 	public void setTheme(String theme);
 	public void setSurfaceDataMember(List<SurfaceDataProperty> surfaceDataMember);
 	public void addSurfaceDataMember(SurfaceDataProperty surfaceDataMember);	
-	public void addGenericApplicationPropertyOfAppearance(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfAppearance(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfAppearance(ADEComponent ade);
+	public void setGenericApplicationPropertyOfAppearance(List<ADEComponent> ade);
 	public void unsetTheme();
 	public void unsetSurfaceDataMember();
 	public boolean unsetSurfaceDataMember(SurfaceDataProperty surfaceDataMember);
 	public void unsetGenericApplicationPropertyOfAppearance();
-	public boolean unsetGenericApplicationPropertyOfAppearance(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfAppearance(ADEComponent ade);
 }

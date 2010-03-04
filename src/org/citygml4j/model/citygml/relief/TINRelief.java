@@ -11,9 +11,9 @@ public interface TINRelief extends ReliefComponent {
 	public boolean isSetGenericApplicationPropertyOfTinRelief();
 
 	public void setTin(TinProperty tin);	
-	public void addGenericApplicationPropertyOfTinRelief(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfTinRelief(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfTinRelief(ADEComponent ade);
+	public void setGenericApplicationPropertyOfTinRelief(List<ADEComponent> ade);
 	public void unsetTin();
 	public void unsetGenericApplicationPropertyOfTinRelief();
-	public boolean unsetGenericApplicationPropertyOfTinRelief(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfTinRelief(ADEComponent ade);
 }

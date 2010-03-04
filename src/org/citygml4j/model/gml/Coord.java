@@ -2,11 +2,14 @@ package org.citygml4j.model.gml;
 
 import java.util.List;
 
-public interface Coord extends GMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface Coord extends GML, Child, Copyable {
 	public Double getX();
 	public Double getY();
 	public Double getZ();
-	public List<Double> toList();
+	public List<Double> toList3d();
 	public boolean isSetX();
 	public boolean isSetY();
 	public boolean isSetZ();

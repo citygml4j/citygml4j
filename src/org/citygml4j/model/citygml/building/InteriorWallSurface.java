@@ -8,8 +8,8 @@ public interface InteriorWallSurface extends BoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfInteriorWallSurface();
 	public boolean isSetGenericApplicationPropertyOfInteriorWallSurface();
 	
-	public void addGenericApplicationPropertyOfInteriorWallSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfInteriorWallSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfInteriorWallSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfInteriorWallSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfInteriorWallSurface();
-	public boolean unsetGenericApplicationPropertyOfInteriorWallSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfInteriorWallSurface(ADEComponent ade);
 }

@@ -1,16 +1,54 @@
 package org.citygml4j.model.gml;
 
-public interface SurfaceInterpolation extends GMLBase {
-	public static String NONE = "none";
-	public static String PLANAR = "planar";
-	public static String SPHERICAL = "spherical";
-	public static String ELLIPTICAL = "elliptical";
-	public static String CONIC = "conic";
-	public static String TIN = "tin";
-	public static String PARAMETRIC_CURVE = "parametricCurve";
-	public static String POLYNOMIAL_SPLINE = "polynomialSpline";
-	public static String RATIONAL_SPLINE = "rationalSpline";
-	public static String TRIANGULATED_SPLINE = "triangulatedSpline";
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.builder.copy.Copyable;
+
+public enum SurfaceInterpolation implements GML, Copyable {
+	NONE("none"),
+	PLANAR("planar"),
+	SPHERICAL("spherical"),
+	ELLIPTICAL("elliptical"),
+	CONIC("conic"),
+	TIN("tin"),
+	PARAMETRIC_CURVE("parametricCurve"),
+	POLYNOMIAL_SPLINE("polynomialSpline"),
+	RATIONAL_SPLINE("rationalSpline"),
+	TRIANGULATED_SPLINE("triangulatedSpline");
+
+	private final String value;
+
+	SurfaceInterpolation(String v) {
+		value = v;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SURFACEINTERPOLATION;
+	}
+
+	public static SurfaceInterpolation fromValue(String v) {
+		v = v.trim();
+
+		for (SurfaceInterpolation c: SurfaceInterpolation.values())
+			if (c.value.equals(v))
+				return c;
+
+		return NONE;
+	}
+
+	public String toString() {
+		return value;
+	}
 	
-	public String getValue();
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		return (target == null) ? NONE : this;
+	}
+	
+	public Object copy(CopyBuilder copyBuilder) {
+		return this;
+	}
+
 }

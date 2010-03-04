@@ -1,6 +1,11 @@
 package org.citygml4j.model.xal;
 
-public interface AddressDetails extends XALBase, GrPostal {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface AddressDetails extends XAL, GrPostal, Child, Copyable {
 	public PostalServiceElements getPostalServiceElements();
 	public Address getAddress();
 	public AddressLines getAddressLines();	
@@ -54,4 +59,7 @@ public interface AddressDetails extends XALBase, GrPostal {
 	public void unsetValidToDate();
 	public void unsetUsage();
 	public void unsetAddressDetailsKey();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

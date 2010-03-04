@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface SolidProperty extends GMLBase, AssociationAttributeGroup {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface SolidProperty extends GML, AssociationAttributeGroup, Child, Copyable {
 	public AbstractSolid getSolid();
 	public boolean isSetSolid();
 	

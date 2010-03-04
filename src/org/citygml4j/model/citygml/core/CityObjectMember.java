@@ -2,7 +2,7 @@ package org.citygml4j.model.citygml.core;
 
 import org.citygml4j.model.gml.FeatureProperty;
 
-public interface CityObjectMember extends CityGMLBase, FeatureProperty {
+public interface CityObjectMember extends CoreModuleComponent, FeatureProperty<CityObject> {
 	public CityObject getCityObject();
 	public boolean isSetCityObject();
 	

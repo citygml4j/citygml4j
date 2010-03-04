@@ -13,10 +13,10 @@ public interface Door extends Opening {
 	
 	public void setAddress(List<AddressProperty> address);
 	public void addAddress(AddressProperty address);	
-	public void addGenericApplicationPropertyOfDoor(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfDoor(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfDoor(ADEComponent ade);
+	public void setGenericApplicationPropertyOfDoor(List<ADEComponent> ade);
 	public void unsetAddress();
 	public boolean unsetAddress(AddressProperty address);
 	public void unsetGenericApplicationPropertyOfDoor();
-	public boolean unsetGenericApplicationPropertyOfDoor(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfDoor(ADEComponent ade);
 }

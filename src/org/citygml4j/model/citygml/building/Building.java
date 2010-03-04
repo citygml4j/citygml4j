@@ -8,8 +8,8 @@ public interface Building extends AbstractBuilding {
 	public List<ADEComponent> getGenericApplicationPropertyOfBuilding();
 	public boolean isSetGenericApplicationPropertyOfBuilding();
 	
-	public void addGenericApplicationPropertyOfBuilding(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfBuilding(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfBuilding(ADEComponent ade);
+	public void setGenericApplicationPropertyOfBuilding(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfBuilding();
-	public boolean unsetGenericApplicationPropertyOfBuilding(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfBuilding(ADEComponent ade);
 }

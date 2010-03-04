@@ -8,8 +8,8 @@ public interface BuildingPart extends AbstractBuilding {
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingPart();
 	public boolean isSetGenericApplicationPropertyOfBuildingPart();
 	
-	public void addGenericApplicationPropertyOfBuildingPart(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfBuildingPart(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfBuildingPart(ADEComponent ade);
+	public void setGenericApplicationPropertyOfBuildingPart(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfBuildingPart();
-	public boolean unsetGenericApplicationPropertyOfBuildingPart(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfBuildingPart(ADEComponent ade);
 }

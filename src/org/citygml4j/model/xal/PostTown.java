@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface PostTown extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PostTown extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<PostTownName> getPostTownName();
 	public PostTownSuffix getPostTownSuffix();
@@ -24,4 +29,7 @@ public interface PostTown extends XALBase {
 	public boolean unsetPostTownName(PostTownName postTownName);
 	public void unsetPostTownSuffix();
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

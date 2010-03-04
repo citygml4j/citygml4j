@@ -4,7 +4,7 @@ import org.citygml4j.model.gml.AbstractGML;
 import org.citygml4j.model.gml.GeometryProperty;
 import org.citygml4j.model.gml.PointProperty;
 
-public interface ImplicitGeometry extends CityGMLBase, AbstractGML {
+public interface ImplicitGeometry extends CoreModuleComponent, AbstractGML {
 	public String getMimeType();
 	public TransformationMatrix4x4 getTransformationMatrix();
 	public String getLibraryObject();

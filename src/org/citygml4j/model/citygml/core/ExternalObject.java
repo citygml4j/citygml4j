@@ -1,6 +1,9 @@
 package org.citygml4j.model.citygml.core;
 
-public interface ExternalObject extends CityGMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface ExternalObject extends CoreModuleComponent, Child, Copyable {
 	public String getName();
 	public String getUri();
 	public boolean isSetName();

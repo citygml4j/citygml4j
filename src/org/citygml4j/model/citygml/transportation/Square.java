@@ -8,8 +8,8 @@ public interface Square extends TransportationComplex {
 	public List<ADEComponent> getGenericApplicationPropertyOfSquare();
 	public boolean isSetGenericApplicationPropertyOfSquare();
 	
-	public void addGenericApplicationPropertyOfSquare(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfSquare(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfSquare(ADEComponent ade);
+	public void setGenericApplicationPropertyOfSquare(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfSquare();
-	public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent ade);
 }

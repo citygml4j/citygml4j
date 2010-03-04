@@ -8,8 +8,8 @@ public interface WaterClosureSurface extends WaterBoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterClosureSurface();
 	public boolean isSetGenericApplicationPropertyOfWaterClosureSurface();
 	
-	public void addGenericApplicationPropertyOfWaterClosureSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfWaterClosureSurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfWaterClosureSurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfWaterClosureSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfWaterClosureSurface();
-	public boolean unsetGenericApplicationPropertyOfWaterClosureSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfWaterClosureSurface(ADEComponent ade);
 }

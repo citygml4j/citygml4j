@@ -6,7 +6,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.gml.MultiSurfaceProperty;
 
-public interface LandUse extends CityObject {
+public interface LandUse extends LandUseModuleComponent, CityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
@@ -36,8 +36,8 @@ public interface LandUse extends CityObject {
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface);
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
-	public void addGenericApplicationPropertyOfLandUse(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfLandUse(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfLandUse(ADEComponent ade);
+	public void setGenericApplicationPropertyOfLandUse(List<ADEComponent> ade);
 	public void unsetClazz();
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
@@ -49,5 +49,5 @@ public interface LandUse extends CityObject {
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
 	public void unsetGenericApplicationPropertyOfLandUse();
-	public boolean unsetGenericApplicationPropertyOfLandUse(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfLandUse(ADEComponent ade);
 }

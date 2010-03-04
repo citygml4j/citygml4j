@@ -12,10 +12,10 @@ public interface ParameterizedTexture extends AbstractTexture {
 	
     public void setTarget(List<TextureAssociation> target);
     public void addTarget(TextureAssociation target);	
-	public void addGenericApplicationPropertyOfParameterizedTexture(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfParameterizedTexture(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade);
+	public void setGenericApplicationPropertyOfParameterizedTexture(List<ADEComponent> ade);
 	public void unsetTarget();
 	public boolean unsetTarget(TextureAssociation target);
 	public void unsetGenericApplicationPropertyOfParameterizedTexture();
-	public boolean unsetGenericApplicationPropertyOfParameterizedTexture(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade);
 }

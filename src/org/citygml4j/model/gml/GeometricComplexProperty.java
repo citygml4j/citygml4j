@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface GeometricComplexProperty extends GMLBase, AssociationAttributeGroup {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface GeometricComplexProperty extends GML, AssociationAttributeGroup, Child, Copyable {
 	public GeometricComplex getGeometricComplex();
 	public CompositeCurve getCompositeCurve();
 	public CompositeSurface getCompositeSurface();

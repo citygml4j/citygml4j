@@ -2,7 +2,7 @@ package org.citygml4j.model.gml;
 
 import java.util.List;
 
-public interface SRSInformationGroup extends GMLBase {
+public interface SRSInformationGroup extends GML {
 	public List<String> getAxisLabels();
 	public List<String> getUomLabels();
 	public boolean isSetAxisLabels();

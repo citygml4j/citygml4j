@@ -6,7 +6,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.gml.MultiSurfaceProperty;
 
-public interface BoundarySurface extends CityObject {
+public interface BoundarySurface extends BuildingModuleComponent, CityObject {
 	public MultiSurfaceProperty getLod2MultiSurface();
 	public MultiSurfaceProperty getLod3MultiSurface();
 	public MultiSurfaceProperty getLod4MultiSurface();
@@ -23,13 +23,13 @@ public interface BoundarySurface extends CityObject {
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);
 	public void setOpening(List<OpeningProperty> opening);
 	public void addOpening(OpeningProperty opening);	
-	public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfBoundarySurface(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent ade);
+	public void setGenericApplicationPropertyOfBoundarySurface(List<ADEComponent> ade);
 	public void unsetLod2MultiSurface();
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
 	public void unsetOpening();
 	public boolean unsetOpening(OpeningProperty opening);
 	public void unsetGenericApplicationPropertyOfBoundarySurface();
-	public boolean unsetGenericApplicationPropertyOfBoundarySurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfBoundarySurface(ADEComponent ade);
 }

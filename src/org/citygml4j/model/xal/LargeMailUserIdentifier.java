@@ -1,6 +1,11 @@
 package org.citygml4j.model.xal;
 
-public interface LargeMailUserIdentifier extends XALBase, GrPostal {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface LargeMailUserIdentifier extends XAL, GrPostal, Child, Copyable {
 	public String getContent();
 	public String getType();
 	public String getIndicator();
@@ -14,4 +19,7 @@ public interface LargeMailUserIdentifier extends XALBase, GrPostal {
 	public void unsetContent();
 	public void unsetType();
 	public void unsetIndicator();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

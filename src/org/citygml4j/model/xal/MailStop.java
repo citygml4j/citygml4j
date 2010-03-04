@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface MailStop extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface MailStop extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public MailStopName getMailStopName();
 	public MailStopNumber getMailStopNumber();
@@ -22,4 +27,7 @@ public interface MailStop extends XALBase {
 	public void unsetMailStopName();
 	public void unsetMailStopNumber();
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

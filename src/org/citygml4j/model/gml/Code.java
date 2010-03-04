@@ -1,6 +1,9 @@
 package org.citygml4j.model.gml;
 
-public interface Code extends GMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface Code extends GML, Child, Copyable {
 	public String getValue();
 	public String getCodeSpace();
 	public boolean isSetValue();

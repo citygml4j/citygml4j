@@ -14,7 +14,7 @@ public interface _SimpleTexture extends _Appearance {
 
 	public void setTextureMap(String textureMap);
 	public void setTextureCoordinates(List<Double> textureCoordinates);
-	public void setTextureType(_TextureType textureType);
+	public void setTextureType(_TextureType _textureType);
 	public void setRepeat(Boolean repeat);
 	public void unsetTextureType();
 	public void unsetRepeat();

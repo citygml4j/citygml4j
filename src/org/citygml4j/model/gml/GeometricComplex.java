@@ -6,8 +6,8 @@ public interface GeometricComplex extends AbstractGeometry {
 	public List<GeometricPrimitiveProperty> getElement();
 	public boolean isSetElement();
 	
-	public void addElement(GeometricPrimitiveProperty geometricPrimitiveProperty);
-	public void setElement(List<GeometricPrimitiveProperty> geometricPrimitiveProperty);
+	public void addElement(GeometricPrimitiveProperty element);
+	public void setElement(List<GeometricPrimitiveProperty> element);
 	public void unsetElement();
-	public boolean unsetElement(GeometricPrimitiveProperty geometricPrimitiveProperty);
+	public boolean unsetElement(GeometricPrimitiveProperty element);
 }

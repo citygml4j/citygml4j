@@ -2,7 +2,12 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface PostalRoute extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface PostalRoute extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
 	public List<PostalRouteName> getPostalRouteName();
 	public PostalRouteNumber getPostalRouteNumber();
@@ -28,4 +33,7 @@ public interface PostalRoute extends XALBase {
 	public void unsetPostalRouteNumber();
 	public void unsetPostBox();
 	public void unsetType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

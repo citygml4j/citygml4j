@@ -1,0 +1,125 @@
+package org.citygml4j.impl.citygml.texturedsurface;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
+import org.citygml4j.model.citygml.texturedsurface._TextureType;
+import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+import org.citygml4j.visitor.GMLFunction;
+import org.citygml4j.visitor.GMLVisitor;
+
+public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTexture {
+	private String textureMap;
+	private List<Double> textureCoordinates;
+	private _TextureType _textureType;
+	private Boolean repeat;
+	
+	public _SimpleTextureImpl() {
+		
+	}
+	
+	public _SimpleTextureImpl(TexturedSurfaceModule module) {
+		super(module);
+	}
+	
+	public Boolean getRepeat() {
+		return repeat;
+	}
+
+	public List<Double> getTextureCoordinates() {
+		if (textureCoordinates == null)
+			textureCoordinates = new ArrayList<Double>();
+		
+		return textureCoordinates;
+	}
+
+	public String getTextureMap() {
+		return textureMap;
+	}
+
+	public _TextureType getTextureType() {
+		return _textureType;
+	}
+
+	public boolean isSetRepeat() {
+		return repeat != null;
+	}
+
+	public boolean isSetTextureCoordinates() {
+		return textureCoordinates != null && !textureCoordinates.isEmpty();
+	}
+
+	public boolean isSetTextureMap() {
+		return textureMap != null;
+	}
+
+	public boolean isSetTextureType() {
+		return _textureType != null;
+	}
+
+	public void setRepeat(Boolean repeat) {
+		this.repeat = repeat;
+	}
+
+	public void setTextureCoordinates(List<Double> textureCoordinates) {
+		this.textureCoordinates = textureCoordinates;
+	}
+
+	public void setTextureMap(String textureMap) {
+		this.textureMap = textureMap;
+	}
+
+	public void setTextureType(_TextureType _textureType) {
+		this._textureType = _textureType;
+	}
+
+	public void unsetRepeat() {
+		repeat = null;
+	}
+
+	public void unsetTextureType() {
+		_textureType = null;
+	}
+
+	@Override
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass._SIMPLETEXTURE;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new _SimpleTextureImpl(), copyBuilder);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		_SimpleTexture copy = (target == null) ? new _SimpleTextureImpl() : (_SimpleTexture)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetTextureMap())
+			copy.setTextureMap(copyBuilder.copy(textureMap));
+		
+		if (isSetTextureCoordinates())
+			copy.setTextureCoordinates((List<Double>)copyBuilder.copy(textureCoordinates));
+		
+		if (isSetTextureType())
+			copy.setTextureType((_TextureType)copyBuilder.copy(_textureType));
+		
+		if (isSetRepeat())
+			copy.setRepeat(copyBuilder.copy(repeat));
+		
+		return copy;
+	}
+	
+	public void visit(GMLVisitor visitor) {
+		visitor.accept(this);
+	}
+	
+	public <T> T apply(GMLFunction<T> visitor) {
+		return visitor.accept(this);
+	}
+
+}

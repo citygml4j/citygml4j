@@ -1,29 +1,98 @@
 package org.citygml4j.factory;
 
-import javax.xml.bind.JAXBElement;
-
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.impl.jaxb.ModelMapper;
-import org.citygml4j.impl.jaxb.citygml.AbstractAppearanceFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractBuildingFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractCityFurnitureFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractCityObjectGroupFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractCoreFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractGenericsFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractLandUseFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractReliefFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractTexturedSurfaceFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractTransportationFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractVegetationFactoryImpl;
-import org.citygml4j.impl.jaxb.citygml.AbstractWaterBodyFactoryImpl;
-import org.citygml4j.model.citygml.CityGMLModelMapper;
-import org.citygml4j.model.citygml.CityGMLModule;
-import org.citygml4j.model.citygml.CityGMLModuleType;
-import org.citygml4j.model.citygml.CityGMLModuleVersion;
+import org.citygml4j.impl.citygml.appearance.AppearanceImpl;
+import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
+import org.citygml4j.impl.citygml.appearance.AppearancePropertyImpl;
+import org.citygml4j.impl.citygml.appearance.ColorImpl;
+import org.citygml4j.impl.citygml.appearance.ColorPlusOpacityImpl;
+import org.citygml4j.impl.citygml.appearance.GeoreferencedTextureImpl;
+import org.citygml4j.impl.citygml.appearance.ParameterizedTextureImpl;
+import org.citygml4j.impl.citygml.appearance.SurfaceDataPropertyImpl;
+import org.citygml4j.impl.citygml.appearance.TexCoordGenImpl;
+import org.citygml4j.impl.citygml.appearance.TexCoordListImpl;
+import org.citygml4j.impl.citygml.appearance.TextureAssociationImpl;
+import org.citygml4j.impl.citygml.appearance.TextureCoordinatesImpl;
+import org.citygml4j.impl.citygml.appearance.WorldToTextureImpl;
+import org.citygml4j.impl.citygml.appearance.X3DMaterialImpl;
+import org.citygml4j.impl.citygml.building.BoundarySurfacePropertyImpl;
+import org.citygml4j.impl.citygml.building.BuildingFurnitureImpl;
+import org.citygml4j.impl.citygml.building.BuildingImpl;
+import org.citygml4j.impl.citygml.building.BuildingInstallationImpl;
+import org.citygml4j.impl.citygml.building.BuildingInstallationPropertyImpl;
+import org.citygml4j.impl.citygml.building.BuildingPartImpl;
+import org.citygml4j.impl.citygml.building.BuildingPartPropertyImpl;
+import org.citygml4j.impl.citygml.building.CeilingSurfaceImpl;
+import org.citygml4j.impl.citygml.building.ClosureSurfaceImpl;
+import org.citygml4j.impl.citygml.building.DoorImpl;
+import org.citygml4j.impl.citygml.building.FloorSurfaceImpl;
+import org.citygml4j.impl.citygml.building.GroundSurfaceImpl;
+import org.citygml4j.impl.citygml.building.IntBuildingInstallationImpl;
+import org.citygml4j.impl.citygml.building.IntBuildingInstallationPropertyImpl;
+import org.citygml4j.impl.citygml.building.InteriorFurniturePropertyImpl;
+import org.citygml4j.impl.citygml.building.InteriorRoomPropertyImpl;
+import org.citygml4j.impl.citygml.building.InteriorWallSurfaceImpl;
+import org.citygml4j.impl.citygml.building.OpeningPropertyImpl;
+import org.citygml4j.impl.citygml.building.RoofSurfaceImpl;
+import org.citygml4j.impl.citygml.building.RoomImpl;
+import org.citygml4j.impl.citygml.building.WallSurfaceImpl;
+import org.citygml4j.impl.citygml.building.WindowImpl;
+import org.citygml4j.impl.citygml.cityfurniture.CityFurnitureImpl;
+import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupImpl;
+import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupMemberImpl;
+import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupParentImpl;
+import org.citygml4j.impl.citygml.core.AddressImpl;
+import org.citygml4j.impl.citygml.core.AddressPropertyImpl;
+import org.citygml4j.impl.citygml.core.CityModelImpl;
+import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
+import org.citygml4j.impl.citygml.core.ExternalObjectImpl;
+import org.citygml4j.impl.citygml.core.ExternalReferenceImpl;
+import org.citygml4j.impl.citygml.core.GeneralizationRelationImpl;
+import org.citygml4j.impl.citygml.core.ImplicitGeometryImpl;
+import org.citygml4j.impl.citygml.core.ImplicitRepresentationPropertyImpl;
+import org.citygml4j.impl.citygml.core.TransformationMatrix2x2Impl;
+import org.citygml4j.impl.citygml.core.TransformationMatrix3x4Impl;
+import org.citygml4j.impl.citygml.core.TransformationMatrix4x4Impl;
+import org.citygml4j.impl.citygml.core.XalAddressPropertyImpl;
+import org.citygml4j.impl.citygml.generics.DateAttributeImpl;
+import org.citygml4j.impl.citygml.generics.DoubleAttributeImpl;
+import org.citygml4j.impl.citygml.generics.GenericCityObjectImpl;
+import org.citygml4j.impl.citygml.generics.IntAttributeImpl;
+import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
+import org.citygml4j.impl.citygml.generics.UriAttributeImpl;
+import org.citygml4j.impl.citygml.landuse.LandUseImpl;
+import org.citygml4j.impl.citygml.relief.BreaklineReliefImpl;
+import org.citygml4j.impl.citygml.relief.MassPointReliefImpl;
+import org.citygml4j.impl.citygml.relief.RasterReliefImpl;
+import org.citygml4j.impl.citygml.relief.ReliefComponentPropertyImpl;
+import org.citygml4j.impl.citygml.relief.ReliefFeatureImpl;
+import org.citygml4j.impl.citygml.relief.TINReliefImpl;
+import org.citygml4j.impl.citygml.relief.TinPropertyImpl;
+import org.citygml4j.impl.citygml.texturedsurface._AppearancePropertyImpl;
+import org.citygml4j.impl.citygml.texturedsurface._ColorImpl;
+import org.citygml4j.impl.citygml.texturedsurface._MaterialImpl;
+import org.citygml4j.impl.citygml.texturedsurface._SimpleTextureImpl;
+import org.citygml4j.impl.citygml.texturedsurface._TexturedSurfaceImpl;
+import org.citygml4j.impl.citygml.transportation.AuxiliaryTrafficAreaImpl;
+import org.citygml4j.impl.citygml.transportation.AuxiliaryTrafficAreaPropertyImpl;
+import org.citygml4j.impl.citygml.transportation.RailwayImpl;
+import org.citygml4j.impl.citygml.transportation.RoadImpl;
+import org.citygml4j.impl.citygml.transportation.SquareImpl;
+import org.citygml4j.impl.citygml.transportation.TrackImpl;
+import org.citygml4j.impl.citygml.transportation.TrafficAreaImpl;
+import org.citygml4j.impl.citygml.transportation.TrafficAreaPropertyImpl;
+import org.citygml4j.impl.citygml.transportation.TransportationComplexImpl;
+import org.citygml4j.impl.citygml.vegetation.PlantCoverImpl;
+import org.citygml4j.impl.citygml.vegetation.SolitaryVegetationObjectImpl;
+import org.citygml4j.impl.citygml.waterbody.BoundedByWaterSurfacePropertyImpl;
+import org.citygml4j.impl.citygml.waterbody.WaterBodyImpl;
+import org.citygml4j.impl.citygml.waterbody.WaterClosureSurfaceImpl;
+import org.citygml4j.impl.citygml.waterbody.WaterGroundSurfaceImpl;
+import org.citygml4j.impl.citygml.waterbody.WaterSurfaceImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
-import org.citygml4j.model.citygml.appearance.AppearanceModule;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.appearance.Color;
 import org.citygml4j.model.citygml.appearance.ColorPlusOpacity;
@@ -34,16 +103,15 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.TextureType;
+import org.citygml4j.model.citygml.appearance.TextureParameterization;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
-import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.building.BoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.BuildingModule;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.BuildingPartProperty;
 import org.citygml4j.model.citygml.building.CeilingSurface;
@@ -56,23 +124,21 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
+import org.citygml4j.model.citygml.building.Opening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
-import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModule;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
-import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModule;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
-import org.citygml4j.model.citygml.core.CityGMLBase;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.citygml.core.CoreModule;
 import org.citygml4j.model.citygml.core.ExternalObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
@@ -82,29 +148,26 @@ import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
+import org.citygml4j.model.citygml.generics.DateAttribute;
+import org.citygml4j.model.citygml.generics.DoubleAttribute;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
-import org.citygml4j.model.citygml.generics.GenericDateAttribute;
-import org.citygml4j.model.citygml.generics.GenericDoubleAttribute;
-import org.citygml4j.model.citygml.generics.GenericIntAttribute;
-import org.citygml4j.model.citygml.generics.GenericStringAttribute;
-import org.citygml4j.model.citygml.generics.GenericUriAttribute;
-import org.citygml4j.model.citygml.generics.GenericsModule;
+import org.citygml4j.model.citygml.generics.IntAttribute;
+import org.citygml4j.model.citygml.generics.StringAttribute;
+import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.citygml.landuse.LandUse;
-import org.citygml4j.model.citygml.landuse.LandUseModule;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
+import org.citygml4j.model.citygml.relief.ReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
-import org.citygml4j.model.citygml.relief.ReliefModule;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
-import org.citygml4j.model.citygml.texturedsurface.TexturedSurfaceModule;
+import org.citygml4j.model.citygml.texturedsurface._Appearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
-import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
@@ -115,1038 +178,728 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.citygml.transportation.TransportationModule;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
-import org.citygml4j.model.citygml.vegetation.VegetationModule;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterBodyModule;
+import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
-import org.citygml4j.util.CityGMLModules;
+import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.xal.AddressDetails;
+import org.w3c.dom.Element;
 
 public class CityGMLFactory {
-	private AppearanceModule appModule;
-	private BuildingModule bldgModule;
-	private CityFurnitureModule frnModule;
-	private CityObjectGroupModule grpModule;
-	private CoreModule coreModule;
-	private GenericsModule genModule;
-	private LandUseModule luseModule;
-	private ReliefModule demModule;
-	private TexturedSurfaceModule texModule;
-	private TransportationModule tranModule;
-	private VegetationModule vegModule;
-	private WaterBodyModule wtrModule;
 
 	public CityGMLFactory() {
-		this(CityGMLModuleVersion.v1_0_0);
-	}
-	
-	public CityGMLFactory(CityGMLModuleVersion version) {
-		switch (version) {
-		case v0_4_0:
-		case v1_0_0:
-			init(version);
-			break;
-		default:
-			throw new IllegalArgumentException("illegal CityGML module version");
-		}
-	}
-	
-	// Factory methods supporting versioning
-	public Address createAddress(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createAddress();
-	}
-
-	public AddressProperty createAddressProperty(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createAddressProperty();
-	}
-
-	public CityModel createCityModel(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createCityModel();
-	}
-
-	public CityObjectMember createCityObjectMember(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createCityObjectMember();
-	}
-
-	public ExternalObject createExternalObject(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createExternalObject();
-	}
-
-	public ExternalReference createExternalReference(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createExternalReference();
-	}
-
-	public GeneralizationRelation createGeneralizationRelation(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createGeneralizationRelation();
-	}
-
-	public ImplicitGeometry createImplicitGeometry(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createImplicitGeometry();
-	}
-
-	public ImplicitRepresentationProperty createImplicitRepresentationProperty(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createImplicitRepresentationProperty();
-	}
-
-	public TransformationMatrix2x2 createTransformationMatrix2x2(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix2x2();
-	}
-
-	public TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix, CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix2x2(matrix);
-	}
-
-	public TransformationMatrix3x4 createTransformationMatrix3x4(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix3x4();
-	}
-	
-	public TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix, CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix3x4(matrix);
-	}
-
-	public TransformationMatrix4x4 createTransformationMatrix4x4(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix4x4();
-	}
-
-	public TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix, CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createTransformationMatrix4x4(matrix);
-	}
-
-	public XalAddressProperty createXalAddressProperty(CoreModule module) {
-		return (AbstractCoreFactoryImpl.getInstance(module)).createXalAddressProperty();
-	}
-	
-	public Appearance createAppearance(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createAppearance();
-	}
-
-	public AppearanceMember createAppearanceMember(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createAppearanceMember();
-	}
-
-	public AppearanceProperty createAppearanceProperty(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createAppearanceProperty();
-	}
-
-	public Color createColor(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColor();
-	}
-
-	public Color createColor(Double red, Double green, Double blue, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColor(red, green, blue);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColorPlusOpacity();
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Color color, Double opacity, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColorPlusOpacity(color, opacity);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue, Double opacity, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColorPlusOpacity(defaultColorValue, opacity);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Double defaulColorValue, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColorPlusOpacity(defaulColorValue);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Double red, Double green, Double blue, Double opacity, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColorPlusOpacity(red, green, blue, opacity);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Double red, Double green, Double blue, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createColorPlusOpacity(red, green, blue);
-	}
-
-	public GeoreferencedTexture createGeoreferencedTexture(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createGeoreferencedTexture();
-	}
-
-	public ParameterizedTexture createParameterizedTexture(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createParameterizedTexture();
-	}
-
-	public SurfaceDataProperty createSurfaceDataProperty(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createSurfaceDataProperty();
-	}
-
-	public TexCoordGen createTexCoordGen(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createTexCoordGen();
-	}
-
-	public TexCoordList createTexCoordList(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createTexCoordList();
-	}
-
-	public TextureAssociation createTextureAssociation(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createTextureAssociation();
-	}
-
-	public TextureCoordinates createTextureCoordinates(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createTextureCoordinates();
-	}
-
-	public TextureType createTextureType(String textureType, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createTextureType(textureType);
-	}
-
-	public WorldToTexture createWorldToTexture(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createWorldToTexture();
-	}
-
-	public WrapMode createWrapMode(String wrapMode, AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createWrapMode(wrapMode);
-	}
-
-	public X3DMaterial createX3DMaterial(AppearanceModule module) {
-		return (AbstractAppearanceFactoryImpl.getInstance(module)).createX3DMaterial();
-	}
-	
-	public BoundarySurfaceProperty createBoundarySurfaceProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBoundarySurfaceProperty();
-	}
-
-	public Building createBuilding(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBuilding();
-	}
-
-	public BuildingFurniture createBuildingFurniture(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBuildingFurniture();
-	}
-
-	public BuildingInstallation createBuildingInstallation(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBuildingInstallation();
-	}
-
-	public BuildingInstallationProperty createBuildingInstallationProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBuildingInstallationProperty();
-	}
-
-	public BuildingPart createBuildingPart(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBuildingPart();
-	}
-
-	public BuildingPartProperty createBuildingPartProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createBuildingPartProperty();
-	}
-
-	public CeilingSurface createCeilingSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createCeilingSurface();
-	}
-
-	public ClosureSurface createClosureSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createClosureSurface();
-	}
-
-	public Door createDoor(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createDoor();
-	}
-
-	public FloorSurface createFloorSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createFloorSurface();
-	}
-
-	public GroundSurface createGroundSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createGroundSurface();
-	}
-
-	public IntBuildingInstallation createIntBuildingInstallation(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createIntBuildingInstallation();
-	}
-
-	public IntBuildingInstallationProperty createIntBuildingInstallationProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createIntBuildingInstallationProperty();
-	}
-
-	public InteriorFurnitureProperty createInteriorFurnitureProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createInteriorFurnitureProperty();
-	}
-
-	public InteriorRoomProperty createInteriorRoomProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createInteriorRoomProperty();
-	}
-
-	public InteriorWallSurface createInteriorWallSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createInteriorWallSurface();
-	}
-
-	public OpeningProperty createOpeningProperty(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createOpeningProperty();
-	}
-
-	public RoofSurface createRoofSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createRoofSurface();
-	}
-
-	public Room createRoom(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createRoom();
-	}
-
-	public WallSurface createWallSurface(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createWallSurface();
-	}
-
-	public Window createWindow(BuildingModule module) {
-		return (AbstractBuildingFactoryImpl.getInstance(module)).createWindow();
-	}
-
-	public CityFurniture createCityFurniture(CityFurnitureModule module) {
-		return (AbstractCityFurnitureFactoryImpl.getInstance(module)).createCityFurniture();
-	}
-
-	public CityObjectGroup createCityObjectGroup(CityObjectGroupModule module) {
-		return (AbstractCityObjectGroupFactoryImpl.getInstance(module)).createCityObjectGroup();
-	}
-
-	public CityObjectGroupMember createCityObjectGroupMember(CityObjectGroupModule module) {
-		return (AbstractCityObjectGroupFactoryImpl.getInstance(module)).createCityObjectGroupMember();
-	}
-
-	public CityObjectGroupParent createCityObjectGroupParent(CityObjectGroupModule module) {
-		return (AbstractCityObjectGroupFactoryImpl.getInstance(module)).createCityObjectGroupParent();
-	}
-
-	public GenericCityObject createGenericCityObject(GenericsModule module) {
-		return (AbstractGenericsFactoryImpl.getInstance(module)).createGenericCityObject();
-	}
-
-	public GenericDateAttribute createGenericDateAttribute(GenericsModule module) {
-		return (AbstractGenericsFactoryImpl.getInstance(module)).createGenericDateAttribute();
-	}
-
-	public GenericDoubleAttribute createGenericDoubleAttribute(GenericsModule module) {
-		return (AbstractGenericsFactoryImpl.getInstance(module)).createGenericDoubleAttribute();
-	}
-
-	public GenericIntAttribute createGenericIntAttribute(GenericsModule module) {
-		return (AbstractGenericsFactoryImpl.getInstance(module)).createGenericIntAttribute();
-	}
-
-	public GenericStringAttribute createGenericStringAttribute(GenericsModule module) {
-		return (AbstractGenericsFactoryImpl.getInstance(module)).createGenericStringAttribute();
-	}
-
-	public GenericUriAttribute createGenericUriAttribute(GenericsModule module) {
-		return (AbstractGenericsFactoryImpl.getInstance(module)).createGenericUriAttribute();
-	}
-
-	public LandUse createLandUse(LandUseModule module) {
-		return (AbstractLandUseFactoryImpl.getInstance(module)).createLandUse();
-	}
-
-	public BreaklineRelief createBreaklineRelief(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createBreaklineRelief();
-	}
-
-	public MassPointRelief createMassPointRelief(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createMassPointRelief();
-	}
-
-	public RasterRelief createRasterRelief(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createRasterRelief();
-	}
-
-	public ReliefComponentProperty createReliefComponentProperty(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createReliefComponentProperty();
-	}
-
-	public ReliefFeature createReliefFeature(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createReliefFeature();
-	}
-
-	public TINRelief createTINRelief(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createTINRelief();
-	}
-
-	public TinProperty createTinProperty(ReliefModule module) {
-		return (AbstractReliefFactoryImpl.getInstance(module)).createTinProperty();
-	}
-
-	public AuxiliaryTrafficArea createAuxiliaryTrafficArea(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createAuxiliaryTrafficArea();
-	}
-
-	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createAuxiliaryTrafficAreaProperty();
-	}
-
-	public Railway createRailway(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createRailway();
-	}
-
-	public Road createRoad(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createRoad();
-	}
-
-	public Square createSquare(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createSquare();
-	}
-
-	public Track createTrack(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createTrack();
-	}
-
-	public TrafficArea createTrafficArea(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createTrafficArea();
-	}
-
-	public TrafficAreaProperty createTrafficAreaProperty(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createTrafficAreaProperty();
-	}
-
-	public TransportationComplex createTransportationComplex(TransportationModule module) {
-		return (AbstractTransportationFactoryImpl.getInstance(module)).createTransportationComplex();
-	}
-
-	public PlantCover createPlantCover(VegetationModule module) {
-		return (AbstractVegetationFactoryImpl.getInstance(module)).createPlantCover();
-	}
-
-	public SolitaryVegetationObject createSolitaryVegetationObject(VegetationModule module) {
-		return (AbstractVegetationFactoryImpl.getInstance(module)).createSolitaryVegetationObject();
-	}
-
-	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(WaterBodyModule module) {
-		return (AbstractWaterBodyFactoryImpl.getInstance(module)).createBoundedByWaterSurfaceProperty();
-	}
-
-	public WaterBody createWaterBody(WaterBodyModule module) {
-		return (AbstractWaterBodyFactoryImpl.getInstance(module)).createWaterBody();
-	}
-
-	public WaterClosureSurface createWaterClosureSurface(WaterBodyModule module) {
-		return (AbstractWaterBodyFactoryImpl.getInstance(module)).createWaterClosureSurface();
-	}
-
-	public WaterGroundSurface createWaterGroundSurface(WaterBodyModule module) {
-		return (AbstractWaterBodyFactoryImpl.getInstance(module)).createWaterGroundSurface();
-	}
-
-	public WaterSurface createWaterSurface(WaterBodyModule module) {
-		return (AbstractWaterBodyFactoryImpl.getInstance(module)).createWaterSurface();
-	}
-
-	public _AppearanceProperty create_AppearanceProperty(TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_AppearanceProperty();
-	}
-
-	public _Material create_Material(TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_Material();
-	}
-
-	public _SimpleTexture create_SimpleTexture(TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_SimpleTexture();
-	}
-
-	public _TexturedSurface create_TexturedSurface(TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_TexturedSurface();
-	}
-
-	public _Color create_Color(TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_Color();
-	}
-
-	public _Color create_Color(Double red, Double green, Double blue, TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_Color(red, green, blue);
-	}
-
-	public _TextureType create_TextureType(String _textureType, TexturedSurfaceModule module) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(module)).create_TextureType(_textureType);
-	}
-
-	public JAXBElement<?> cityGML2jaxb(CityGMLBase cityGML) {
-		JAXBElement<?> jaxbElem = null;
 		
-		CityGMLModelMapper mapper = ModelMapper.getModelMapperInstance(
-				cityGML.getCityGMLModule().getModuleType(), 
-				cityGML.getCityGMLModule().getModuleVersion());
-		
-		if (mapper != null)
-			jaxbElem = mapper.toJAXB(cityGML);
-		
-		return jaxbElem;
 	}
 
-	public CityGMLBase jaxb2cityGML(JAXBElement<?> jaxbElem) {
-		CityGMLBase cityGMLClass = null;
-		CityGMLModule moduleFactory = CityGMLModules.getModuleByNamespaceUri(jaxbElem.getName().getNamespaceURI());
-				
-		if (moduleFactory != null) {			
-			// for CityGML v0.4.0 all modules share the same namespace uri.
-			// thus, we need to check all model mapper...
-			if (moduleFactory == CoreModule.v0_4_0) {
-				cityGMLClass = ModelMapper.APP_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.BLDG_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.CORE_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.DEM_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.FRN_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.GEN_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.GRP_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.LUSE_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.TRAN_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.VEG_0_4.toCityGML(jaxbElem);
-				if (cityGMLClass == null)
-					cityGMLClass = ModelMapper.WTR_0_4.toCityGML(jaxbElem);
-			}
-			
-			else {
-				CityGMLModelMapper mapper = ModelMapper.getModelMapperInstance(
-						moduleFactory.getModuleType(), 
-						moduleFactory.getModuleVersion());
-				if (mapper != null)
-					cityGMLClass = mapper.toCityGML(jaxbElem);
-			}				
-		} else {
-			// ADEs typically define their own namespace. Thus, they need to be treated separately
-			ADEComponent ade = ModelMapper.ADE.toADEComponent(jaxbElem, jaxbElem.getName());
-			if (ade instanceof CityGMLBase)
-				cityGMLClass = (CityGMLBase)ade;
-		}
-		
-		return cityGMLClass;
-	}
-	
-	// Factory methods using default factories
-	public Address createAddress() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createAddress();
-	}
-
-	public AddressProperty createAddressProperty() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createAddressProperty();
-	}
-
-	public CityModel createCityModel() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createCityModel();
-	}
-
-	public CityObjectMember createCityObjectMember() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createCityObjectMember();
-	}
-
-	public ExternalObject createExternalObject() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createExternalObject();
-	}
-
-	public ExternalReference createExternalReference() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createExternalReference();
-	}
-
-	public GeneralizationRelation createGeneralizationRelation() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createGeneralizationRelation();
-	}
-
-	public ImplicitGeometry createImplicitGeometry() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createImplicitGeometry();
-	}
-
-	public ImplicitRepresentationProperty createImplicitRepresentationProperty() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createImplicitRepresentationProperty();
-	}
-
-	public TransformationMatrix2x2 createTransformationMatrix2x2() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix2x2();
-	}
-
-	public TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix2x2(matrix);
-	}
-
-	public TransformationMatrix3x4 createTransformationMatrix3x4() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix3x4();
-	}
-
-	public TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix3x4(matrix);
-	}
-
-	public TransformationMatrix4x4 createTransformationMatrix4x4() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix4x4();
-	}
-
-	public TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix) {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createTransformationMatrix4x4(matrix);
-	}
-
-	public XalAddressProperty createXalAddressProperty() {
-		return (AbstractCoreFactoryImpl.getInstance(coreModule)).createXalAddressProperty();
-	}
+	// Appearance module
 	
 	public Appearance createAppearance() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createAppearance();
+		return new AppearanceImpl();
 	}
 
 	public AppearanceMember createAppearanceMember() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createAppearanceMember();
+		return new AppearanceMemberImpl();
+	}
+	
+	public AppearanceMember createAppearanceMember(Appearance appearance) {
+		AppearanceMember appearanceMember = new AppearanceMemberImpl();
+		appearanceMember.setAppearance(appearance);
+		return appearanceMember;
+	}
+	
+	public AppearanceMember createAppearanceMember(String xlink) {
+		AppearanceMember appearanceMember = new AppearanceMemberImpl();
+		appearanceMember.setHref(xlink);
+		return appearanceMember;
 	}
 
 	public AppearanceProperty createAppearanceProperty() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createAppearanceProperty();
+		return new AppearancePropertyImpl();
+	}
+	
+	public AppearanceProperty createAppearanceProperty(Appearance appearance) {
+		AppearanceProperty appearanceProperty = new AppearancePropertyImpl();
+		appearanceProperty.setAppearance(appearance);
+		return appearanceProperty;
+	}
+	
+	public AppearanceProperty createAppearanceProperty(String xlink) {
+		AppearanceProperty appearanceProperty = new AppearancePropertyImpl();
+		appearanceProperty.setHref(xlink);
+		return appearanceProperty;
 	}
 
 	public Color createColor() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColor();
+		return new ColorImpl();
 	}
 
 	public Color createColor(Double red, Double green, Double blue) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColor(red, green, blue);
+		return new ColorImpl(red, green, blue);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColorPlusOpacity();
+		return new ColorPlusOpacityImpl();
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Color color, Double opacity) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColorPlusOpacity(color, opacity);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue, Double opacity) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColorPlusOpacity(defaultColorValue, opacity);
-	}
-
-	public ColorPlusOpacity createColorPlusOpacity(Double defaulColorValue) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColorPlusOpacity(defaulColorValue);
+		return new ColorPlusOpacityImpl(color, opacity);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Double red, Double green, Double blue, Double opacity) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColorPlusOpacity(red, green, blue, opacity);
+		return new ColorPlusOpacityImpl(red, green, blue, opacity);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Double red, Double green, Double blue) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createColorPlusOpacity(red, green, blue);
+		return new ColorPlusOpacityImpl(red, green, blue);
+	}
+
+	public ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue, Double opacity) {
+		return new ColorPlusOpacityImpl(defaultColorValue, opacity);
+	}
+
+	public ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue) {
+		return new ColorPlusOpacityImpl(defaultColorValue);
 	}
 
 	public GeoreferencedTexture createGeoreferencedTexture() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createGeoreferencedTexture();
+		return new GeoreferencedTextureImpl();
 	}
 
 	public ParameterizedTexture createParameterizedTexture() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createParameterizedTexture();
+		return new ParameterizedTextureImpl();
 	}
 
 	public SurfaceDataProperty createSurfaceDataProperty() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createSurfaceDataProperty();
+		return new SurfaceDataPropertyImpl();
+	}
+	
+	public SurfaceDataProperty createSurfaceDataProperty(AbstractSurfaceData abstractSurfaceData) {
+		SurfaceDataProperty surfaceDataProperty = new SurfaceDataPropertyImpl();
+		surfaceDataProperty.setSurfaceData(abstractSurfaceData);
+		return surfaceDataProperty;
+	}
+	
+	public SurfaceDataProperty createSurfaceDataProperty(String xlink) {
+		SurfaceDataProperty surfaceDataProperty = new SurfaceDataPropertyImpl();
+		surfaceDataProperty.setHref(xlink);
+		return surfaceDataProperty;
 	}
 
 	public TexCoordGen createTexCoordGen() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createTexCoordGen();
+		return new TexCoordGenImpl();
 	}
 
 	public TexCoordList createTexCoordList() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createTexCoordList();
+		return new TexCoordListImpl();
 	}
 
 	public TextureAssociation createTextureAssociation() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createTextureAssociation();
+		return new TextureAssociationImpl();
+	}
+	
+	public TextureAssociation createTextureAssociation(TextureParameterization textureParameterization) {
+		TextureAssociation textureAssociation = new TextureAssociationImpl();
+		textureAssociation.setTextureParameterization(textureParameterization);
+		return textureAssociation;
+	}
+	
+	public TextureAssociation createTextureAssociation(String xlink) {
+		TextureAssociation textureAssociation = new TextureAssociationImpl();
+		textureAssociation.setHref(xlink);
+		return textureAssociation;
 	}
 
 	public TextureCoordinates createTextureCoordinates() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createTextureCoordinates();
-	}
-
-	public TextureType createTextureType(String textureType) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createTextureType(textureType);
+		return new TextureCoordinatesImpl();
 	}
 
 	public WorldToTexture createWorldToTexture() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createWorldToTexture();
-	}
-
-	public WrapMode createWrapMode(String wrapMode) {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createWrapMode(wrapMode);
+		return new WorldToTextureImpl();
 	}
 
 	public X3DMaterial createX3DMaterial() {
-		return (AbstractAppearanceFactoryImpl.getInstance(appModule)).createX3DMaterial();
+		return new X3DMaterialImpl();
 	}
+
+	// Building module
 	
 	public BoundarySurfaceProperty createBoundarySurfaceProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBoundarySurfaceProperty();
+		return new BoundarySurfacePropertyImpl();
+	}
+	
+	public BoundarySurfaceProperty createBoundarySurfaceProperty(BoundarySurface boundarySurface) {
+		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfacePropertyImpl();
+		boundarySurfaceProperty.setBoundarySurface(boundarySurface);
+		return boundarySurfaceProperty;
+	}
+	
+	public BoundarySurfaceProperty createBoundarySurfaceProperty(String xlink) {
+		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfacePropertyImpl();
+		boundarySurfaceProperty.setHref(xlink);
+		return boundarySurfaceProperty;
 	}
 
 	public Building createBuilding() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBuilding();
+		return new BuildingImpl();
 	}
 
 	public BuildingFurniture createBuildingFurniture() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBuildingFurniture();
+		return new BuildingFurnitureImpl();
 	}
 
 	public BuildingInstallation createBuildingInstallation() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBuildingInstallation();
+		return new BuildingInstallationImpl();
 	}
 
 	public BuildingInstallationProperty createBuildingInstallationProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBuildingInstallationProperty();
+		return new BuildingInstallationPropertyImpl();
+	}
+	
+	public BuildingInstallationProperty createBuildingInstallationProperty(BuildingInstallation buildingInstallation) {
+		BuildingInstallationProperty buildingInstallationProperty = new BuildingInstallationPropertyImpl();
+		buildingInstallationProperty.setBuildingInstallation(buildingInstallation);
+		return buildingInstallationProperty;
+	}
+	
+	public BuildingInstallationProperty createBuildingInstallationProperty(String xlink) {
+		BuildingInstallationProperty buildingInstallationProperty = new BuildingInstallationPropertyImpl();
+		buildingInstallationProperty.setHref(xlink);
+		return buildingInstallationProperty;
 	}
 
 	public BuildingPart createBuildingPart() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBuildingPart();
+		return new BuildingPartImpl();
 	}
 
 	public BuildingPartProperty createBuildingPartProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createBuildingPartProperty();
+		return new BuildingPartPropertyImpl();
+	}
+	
+	public BuildingPartProperty createBuildingPartProperty(BuildingPart buildingPart) {
+		BuildingPartProperty buildingPartProperty = new BuildingPartPropertyImpl();
+		buildingPartProperty.setBuildingPart(buildingPart);
+		return buildingPartProperty;
+	}
+	
+	public BuildingPartProperty createBuildingPartProperty(String xlink) {
+		BuildingPartProperty buildingPartProperty = new BuildingPartPropertyImpl();
+		buildingPartProperty.setHref(xlink);
+		return buildingPartProperty;
 	}
 
 	public CeilingSurface createCeilingSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createCeilingSurface();
+		return new CeilingSurfaceImpl();
 	}
 
 	public ClosureSurface createClosureSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createClosureSurface();
+		return new ClosureSurfaceImpl();
 	}
 
 	public Door createDoor() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createDoor();
+		return new DoorImpl();
 	}
 
 	public FloorSurface createFloorSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createFloorSurface();
+		return new FloorSurfaceImpl();
 	}
 
 	public GroundSurface createGroundSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createGroundSurface();
+		return new GroundSurfaceImpl();
 	}
 
 	public IntBuildingInstallation createIntBuildingInstallation() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createIntBuildingInstallation();
+		return new IntBuildingInstallationImpl();
 	}
 
 	public IntBuildingInstallationProperty createIntBuildingInstallationProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createIntBuildingInstallationProperty();
+		return new IntBuildingInstallationPropertyImpl();
+	}
+	
+	public IntBuildingInstallationProperty createIntBuildingInstallationProperty(IntBuildingInstallation intBuildingInstallation) {
+		IntBuildingInstallationProperty intBuildingInstallationProperty = new IntBuildingInstallationPropertyImpl();
+		intBuildingInstallationProperty.setIntBuildingInstallation(intBuildingInstallation);
+		return intBuildingInstallationProperty;
+	}
+	
+	public IntBuildingInstallationProperty createIntBuildingInstallationProperty(String xlink) {
+		IntBuildingInstallationProperty intBuildingInstallationProperty = new IntBuildingInstallationPropertyImpl();
+		intBuildingInstallationProperty.setHref(xlink);
+		return intBuildingInstallationProperty;
 	}
 
 	public InteriorFurnitureProperty createInteriorFurnitureProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createInteriorFurnitureProperty();
+		return new InteriorFurniturePropertyImpl();
+	}
+	
+	public InteriorFurnitureProperty createInteriorFurnitureProperty(BuildingFurniture buildingFurniture) {
+		InteriorFurnitureProperty interiorFurnitureProperty = new InteriorFurniturePropertyImpl();
+		interiorFurnitureProperty.setBuildingFurniture(buildingFurniture);
+		return interiorFurnitureProperty;
+	}
+	
+	public InteriorFurnitureProperty createInteriorFurnitureProperty(String xlink) {
+		InteriorFurnitureProperty interiorFurnitureProperty = new InteriorFurniturePropertyImpl();
+		interiorFurnitureProperty.setHref(xlink);
+		return interiorFurnitureProperty;
 	}
 
 	public InteriorRoomProperty createInteriorRoomProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createInteriorRoomProperty();
+		return new InteriorRoomPropertyImpl();
+	}
+	
+	public InteriorRoomProperty createInteriorRoomProperty(Room room) {
+		InteriorRoomProperty interiorRoomProperty = new InteriorRoomPropertyImpl();
+		interiorRoomProperty.setRoom(room);
+		return interiorRoomProperty;
+	}
+	
+	public InteriorRoomProperty createInteriorRoomProperty(String xlink) {
+		InteriorRoomProperty interiorRoomProperty = new InteriorRoomPropertyImpl();
+		interiorRoomProperty.setHref(xlink);
+		return interiorRoomProperty;
 	}
 
 	public InteriorWallSurface createInteriorWallSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createInteriorWallSurface();
+		return new InteriorWallSurfaceImpl();
 	}
 
 	public OpeningProperty createOpeningProperty() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createOpeningProperty();
+		return new OpeningPropertyImpl();
+	}
+	
+	public OpeningProperty createOpeningProperty(Opening opening) {
+		OpeningProperty openingProperty = new OpeningPropertyImpl();
+		openingProperty.setOpening(opening);
+		return openingProperty;
+	}
+	
+	public OpeningProperty createOpeningProperty(String xlink) {
+		OpeningProperty openingProperty = new OpeningPropertyImpl();
+		openingProperty.setHref(xlink);
+		return openingProperty;
 	}
 
 	public RoofSurface createRoofSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createRoofSurface();
+		return new RoofSurfaceImpl();
 	}
 
 	public Room createRoom() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createRoom();
+		return new RoomImpl();
 	}
 
 	public WallSurface createWallSurface() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createWallSurface();
+		return new WallSurfaceImpl();
 	}
 
 	public Window createWindow() {
-		return (AbstractBuildingFactoryImpl.getInstance(bldgModule)).createWindow();
+		return new WindowImpl();
 	}
 
+	// CityFurniture module
+	
 	public CityFurniture createCityFurniture() {
-		return (AbstractCityFurnitureFactoryImpl.getInstance(frnModule)).createCityFurniture();
+		return new CityFurnitureImpl();
 	}
 
+	// CityObjectGroup module
+	
 	public CityObjectGroup createCityObjectGroup() {
-		return (AbstractCityObjectGroupFactoryImpl.getInstance(grpModule)).createCityObjectGroup();
+		return new CityObjectGroupImpl();
 	}
 
 	public CityObjectGroupMember createCityObjectGroupMember() {
-		return (AbstractCityObjectGroupFactoryImpl.getInstance(grpModule)).createCityObjectGroupMember();
+		return new CityObjectGroupMemberImpl();
+	}
+	
+	public CityObjectGroupMember createCityObjectGroupMember(CityObject cityObject) {
+		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMemberImpl();
+		cityObjectGroupMember.setCityObject(cityObject);
+		return cityObjectGroupMember;
+	}
+	
+	public CityObjectGroupMember createCityObjectGroupMember(String xlink) {
+		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMemberImpl();
+		cityObjectGroupMember.setHref(xlink);
+		return cityObjectGroupMember;
 	}
 
 	public CityObjectGroupParent createCityObjectGroupParent() {
-		return (AbstractCityObjectGroupFactoryImpl.getInstance(grpModule)).createCityObjectGroupParent();
+		return new CityObjectGroupParentImpl();
+	}
+	
+	public CityObjectGroupParent createCityObjectGroupParent(CityObject cityObject) {
+		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParentImpl();
+		cityObjectGroupParent.setCityObject(cityObject);
+		return cityObjectGroupParent;
+	}
+	
+	public CityObjectGroupParent createCityObjectGroupParent(String xlink) {
+		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParentImpl();
+		cityObjectGroupParent.setHref(xlink);
+		return cityObjectGroupParent;
 	}
 
+	// Core module
+
+	public Address createAddress() {
+		return new AddressImpl();
+	}
+
+	public AddressProperty createAddressProperty() {
+		return new AddressPropertyImpl();
+	}
+	
+	public AddressProperty createAddressProperty(Address address) {
+		AddressProperty addressProperty = new AddressPropertyImpl();
+		addressProperty.setAddress(address);
+		return addressProperty;
+	}
+	
+	public AddressProperty createAddressProperty(String xlink) {
+		AddressProperty addressProperty = new AddressPropertyImpl();
+		addressProperty.setHref(xlink);
+		return addressProperty;
+	}
+
+	public CityModel createCityModel() {
+		return new CityModelImpl();
+	}
+
+	public CityObjectMember createCityObjectMember() {
+		return new CityObjectMemberImpl();
+	}
+	
+	public CityObjectMember createCityObjectMember(CityObject cityObject) {
+		CityObjectMember cityObjectMember = new CityObjectMemberImpl();
+		cityObjectMember.setCityObject(cityObject);
+		return cityObjectMember;
+	}
+	
+	public CityObjectMember createCityObjectMember(String xlink) {
+		CityObjectMember cityObjectMember = new CityObjectMemberImpl();
+		cityObjectMember.setHref(xlink);
+		return cityObjectMember;
+	}
+
+	public ExternalObject createExternalObject() {
+		return new ExternalObjectImpl();
+	}
+
+	public ExternalReference createExternalReference() {
+		return new ExternalReferenceImpl();
+	}
+
+	public GeneralizationRelation createGeneralizationRelation() {
+		return new GeneralizationRelationImpl();
+	}
+	
+	public GeneralizationRelation createGeneralizationRelation(CityObject cityObject) {
+		GeneralizationRelation generalizationRelation = new GeneralizationRelationImpl();
+		generalizationRelation.setCityObject(cityObject);
+		return generalizationRelation;
+	}
+	
+	public GeneralizationRelation createGeneralizationRelation(String xlink) {
+		GeneralizationRelation generalizationRelation = new GeneralizationRelationImpl();
+		generalizationRelation.setHref(xlink);
+		return generalizationRelation;
+	}
+	
+	public ADEComponent createADEComponent() {
+		return new ADEComponent();
+	}
+
+	public ADEComponent createADEComponent(Element content) {
+		return new ADEComponent(content);
+	}
+	
+	public ImplicitGeometry createImplicitGeometry() {
+		return new ImplicitGeometryImpl();
+	}
+
+	public ImplicitRepresentationProperty createImplicitRepresentationProperty() {
+		return new ImplicitRepresentationPropertyImpl();
+	}
+	
+	public ImplicitRepresentationProperty createImplicitRepresentationProperty(ImplicitGeometry implicitGeometry) {
+		ImplicitRepresentationProperty implicitRepresentationProperty = new ImplicitRepresentationPropertyImpl();
+		implicitRepresentationProperty.setImplicitGeometry(implicitGeometry);
+		return implicitRepresentationProperty;
+	}
+	
+	public ImplicitRepresentationProperty createImplicitRepresentationProperty(String xlink) {
+		ImplicitRepresentationProperty implicitRepresentationProperty = new ImplicitRepresentationPropertyImpl();
+		implicitRepresentationProperty.setHref(xlink);
+		return implicitRepresentationProperty;
+	}
+
+	public TransformationMatrix2x2 createTransformationMatrix2x2() {
+		return new TransformationMatrix2x2Impl();
+	}
+
+	public TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix) {
+		return new TransformationMatrix2x2Impl(matrix);
+	}
+
+	public TransformationMatrix3x4 createTransformationMatrix3x4() {
+		return new TransformationMatrix3x4Impl();
+	}
+
+	public TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix) {
+		return new TransformationMatrix3x4Impl(matrix);
+	}
+
+	public TransformationMatrix4x4 createTransformationMatrix4x4() {
+		return new TransformationMatrix4x4Impl();
+	}
+
+	public TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix) {
+		return new TransformationMatrix4x4Impl(matrix);
+	}
+
+	public XalAddressProperty createXalAddressProperty() {
+		return new XalAddressPropertyImpl();
+	}
+	
+	public XalAddressProperty createXalAddressProperty(AddressDetails addressDetails) {
+		XalAddressProperty xalAddressProperty = new XalAddressPropertyImpl();
+		xalAddressProperty.setAddressDetails(addressDetails);
+		return xalAddressProperty;
+	}
+
+	// Generics module
+	
 	public GenericCityObject createGenericCityObject() {
-		return (AbstractGenericsFactoryImpl.getInstance(genModule)).createGenericCityObject();
+		return new GenericCityObjectImpl();
 	}
 
-	public GenericDateAttribute createGenericDateAttribute() {
-		return (AbstractGenericsFactoryImpl.getInstance(genModule)).createGenericDateAttribute();
+	public DateAttribute createDateAttribute() {
+		return new DateAttributeImpl();
 	}
 
-	public GenericDoubleAttribute createGenericDoubleAttribute() {
-		return (AbstractGenericsFactoryImpl.getInstance(genModule)).createGenericDoubleAttribute();
+	public DoubleAttribute createDoubleAttribute() {
+		return new DoubleAttributeImpl();
 	}
 
-	public GenericIntAttribute createGenericIntAttribute() {
-		return (AbstractGenericsFactoryImpl.getInstance(genModule)).createGenericIntAttribute();
+	public IntAttribute createIntAttribute() {
+		return new IntAttributeImpl();
 	}
 
-	public GenericStringAttribute createGenericStringAttribute() {
-		return (AbstractGenericsFactoryImpl.getInstance(genModule)).createGenericStringAttribute();
+	public StringAttribute createStringAttribute() {
+		return new StringAttributeImpl();
 	}
 
-	public GenericUriAttribute createGenericUriAttribute() {
-		return (AbstractGenericsFactoryImpl.getInstance(genModule)).createGenericUriAttribute();
+	public UriAttribute createUriAttribute() {
+		return new UriAttributeImpl();
 	}
 
+	// LandUse module
+	
 	public LandUse createLandUse() {
-		return (AbstractLandUseFactoryImpl.getInstance(luseModule)).createLandUse();
+		return new LandUseImpl();
 	}
 
+	// Relief module
+	
 	public BreaklineRelief createBreaklineRelief() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createBreaklineRelief();
+		return new BreaklineReliefImpl();
 	}
 
 	public MassPointRelief createMassPointRelief() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createMassPointRelief();
+		return new MassPointReliefImpl();
 	}
 
 	public RasterRelief createRasterRelief() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createRasterRelief();
+		return new RasterReliefImpl();
 	}
 
 	public ReliefComponentProperty createReliefComponentProperty() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createReliefComponentProperty();
+		return new ReliefComponentPropertyImpl();
+	}
+	
+	public ReliefComponentProperty createReliefComponentProperty(ReliefComponent reliefComponent) {
+		ReliefComponentProperty reliefComponentProperty = new ReliefComponentPropertyImpl();
+		reliefComponentProperty.setReliefComponent(reliefComponent);
+		return reliefComponentProperty;
+	}
+	
+	public ReliefComponentProperty createReliefComponentProperty(String xlink) {
+		ReliefComponentProperty reliefComponentProperty = new ReliefComponentPropertyImpl();
+		reliefComponentProperty.setHref(xlink);
+		return reliefComponentProperty;
 	}
 
 	public ReliefFeature createReliefFeature() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createReliefFeature();
-	}
-
-	public TINRelief createTINRelief() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createTINRelief();
+		return new ReliefFeatureImpl();
 	}
 
 	public TinProperty createTinProperty() {
-		return (AbstractReliefFactoryImpl.getInstance(demModule)).createTinProperty();
+		return new TinPropertyImpl();
+	}
+	
+	public TinProperty createTinProperty(TriangulatedSurface triangulatedSurface) {
+		TinProperty tinProperty = new TinPropertyImpl();
+		tinProperty.setTriangulatedSurface(triangulatedSurface);
+		return tinProperty;
+	}
+	
+	public TinProperty createTinProperty(String xlink) {
+		TinProperty tinProperty = new TinPropertyImpl();
+		tinProperty.setHref(xlink);
+		return tinProperty;
 	}
 
-	public AuxiliaryTrafficArea createAuxiliaryTrafficArea() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createAuxiliaryTrafficArea();
+	public TINRelief createTINRelief() {
+		return new TINReliefImpl();
 	}
 
-	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createAuxiliaryTrafficAreaProperty();
-	}
-
-	public Railway createRailway() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createRailway();
-	}
-
-	public Road createRoad() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createRoad();
-	}
-
-	public Square createSquare() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createSquare();
-	}
-
-	public Track createTrack() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createTrack();
-	}
-
-	public TrafficArea createTrafficArea() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createTrafficArea();
-	}
-
-	public TrafficAreaProperty createTrafficAreaProperty() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createTrafficAreaProperty();
-	}
-
-	public TransportationComplex createTransportationComplex() {
-		return (AbstractTransportationFactoryImpl.getInstance(tranModule)).createTransportationComplex();
-	}
-
-	public PlantCover createPlantCover() {
-		return (AbstractVegetationFactoryImpl.getInstance(vegModule)).createPlantCover();
-	}
-
-	public SolitaryVegetationObject createSolitaryVegetationObject() {
-		return (AbstractVegetationFactoryImpl.getInstance(vegModule)).createSolitaryVegetationObject();
-	}
-
-	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty() {
-		return (AbstractWaterBodyFactoryImpl.getInstance(wtrModule)).createBoundedByWaterSurfaceProperty();
-	}
-
-	public WaterBody createWaterBody() {
-		return (AbstractWaterBodyFactoryImpl.getInstance(wtrModule)).createWaterBody();
-	}
-
-	public WaterClosureSurface createWaterClosureSurface() {
-		return (AbstractWaterBodyFactoryImpl.getInstance(wtrModule)).createWaterClosureSurface();
-	}
-
-	public WaterGroundSurface createWaterGroundSurface() {
-		return (AbstractWaterBodyFactoryImpl.getInstance(wtrModule)).createWaterGroundSurface();
-	}
-
-	public WaterSurface createWaterSurface() {
-		return (AbstractWaterBodyFactoryImpl.getInstance(wtrModule)).createWaterSurface();
-	}
-
+	// TexturedSurface module
+	
 	public _AppearanceProperty create_AppearanceProperty() {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_AppearanceProperty();
+		return new _AppearancePropertyImpl();
 	}
-
-	public _Material create_Material() {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_Material();
+	
+	public _AppearanceProperty create_AppearanceProperty(_Appearance appearance) {
+		_AppearanceProperty appearanceProperty = new _AppearancePropertyImpl();
+		appearanceProperty.setAppearance(appearance);
+		return appearanceProperty;
 	}
-
-	public _SimpleTexture create_SimpleTexture() {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_SimpleTexture();
-	}
-
-	public _TexturedSurface create_TexturedSurface() {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_TexturedSurface();
+	
+	public _AppearanceProperty create_AppearanceProperty(String xlink) {
+		_AppearanceProperty appearanceProperty = new _AppearancePropertyImpl();
+		appearanceProperty.setHref(xlink);
+		return appearanceProperty;
 	}
 
 	public _Color create_Color() {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_Color();
+		return new _ColorImpl();
 	}
 
 	public _Color create_Color(Double red, Double green, Double blue) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_Color(red, green, blue);
+		return new _ColorImpl(red, green, blue);
 	}
 
-	public _TextureType create_TextureType(String _textureType) {
-		return (AbstractTexturedSurfaceFactoryImpl.getInstance(texModule)).create_TextureType(_textureType);
+	public _Material create_Material() {
+		return new _MaterialImpl();
+	}
+
+	public _SimpleTexture create_SimpleTexture() {
+		return new _SimpleTextureImpl();
+	}
+
+	public _TexturedSurface create_TexturedSurface() {
+		return new _TexturedSurfaceImpl();
+	}
+
+	// Transportation module
+	
+	public AuxiliaryTrafficArea createAuxiliaryTrafficArea() {
+		return new AuxiliaryTrafficAreaImpl();
+	}
+
+	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty() {
+		return new AuxiliaryTrafficAreaPropertyImpl();
 	}
 	
-	// getters and setters
-	public AppearanceModule getAppearanceModule() {
-		return appModule;
-	}
-
-	public void setAppearanceModule(AppearanceModule appearanceModule) {
-		appModule = appearanceModule;
-	}
-
-	public BuildingModule getBuildingModule() {
-		return bldgModule;
-	}
-
-	public void setBuildingModule(BuildingModule buildingModule) {
-		bldgModule = buildingModule;
-	}
-
-	public CityFurnitureModule getCityFurnitureModule() {
-		return frnModule;
-	}
-
-	public void setCityFurnitureModule(CityFurnitureModule cityFurnitureModule) {
-		frnModule = cityFurnitureModule;
-	}
-
-	public CityObjectGroupModule getCityObjectGroupModule() {
-		return grpModule;
-	}
-
-	public void setCityObjectGroupModule(CityObjectGroupModule cityObjectGroupModule) {
-		grpModule = cityObjectGroupModule;
-	}
-
-	public CoreModule getCoreModule() {
-		return coreModule;
-	}
-
-	public void setCoreModule(CoreModule coreModule) {
-		this.coreModule = coreModule;
-	}
-
-	public GenericsModule getGenericsModule() {
-		return genModule;
-	}
-
-	public void setGenericsModule(GenericsModule genericsModule) {
-		genModule = genericsModule;
-	}
-
-	public LandUseModule getLandUseModule() {
-		return luseModule;
-	}
-
-	public void setLandUseModule(LandUseModule landUseModule) {
-		luseModule = landUseModule;
-	}
-
-	public ReliefModule getReliefModule() {
-		return demModule;
-	}
-
-	public void setReliefModule(ReliefModule reliefModule) {
-		demModule = reliefModule;
-	}
-
-	public TexturedSurfaceModule getTexturedSurfaceModule() {
-		return texModule;
-	}
-
-	public void setTexturedSurfaceModule(TexturedSurfaceModule texturedSurfaceModule) {
-		texModule = texturedSurfaceModule;
-	}
-
-	public TransportationModule getTransportationModule() {
-		return tranModule;
-	}
-
-	public void setTransportationModule(TransportationModule transportationModule) {
-		tranModule = transportationModule;
-	}
-
-	public VegetationModule getVegetationModule() {
-		return vegModule;
-	}
-
-	public void setVegetationModule(VegetationModule vegetationModule) {
-		vegModule = vegetationModule;
-	}
-
-	public WaterBodyModule getWaterBodyModule() {
-		return wtrModule;
-	}
-
-	public void setWaterBodyModule(WaterBodyModule waterBodyModule) {
-		wtrModule = waterBodyModule;
+	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+		AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty = new AuxiliaryTrafficAreaPropertyImpl();
+		auxiliaryTrafficAreaProperty.setAuxiliaryTrafficArea(auxiliaryTrafficArea);
+		return auxiliaryTrafficAreaProperty;
 	}
 	
-	public void setCityGMLModuleVersion(CityGMLModuleVersion version) {
-		switch (version) {
-		case v0_4_0:
-		case v1_0_0:
-			init(version);
-			break;
-		default:
-			throw new IllegalArgumentException("illegal CityGML module version");
-		}
+	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty(String xlink) {
+		AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty = new AuxiliaryTrafficAreaPropertyImpl();
+		auxiliaryTrafficAreaProperty.setHref(xlink);
+		return auxiliaryTrafficAreaProperty;
+	}
+
+	public Railway createRailway() {
+		return new RailwayImpl();
+	}
+
+	public Road createRoad() {
+		return new RoadImpl();
+	}
+
+	public Square createSquare() {
+		return new SquareImpl();
+	}
+
+	public Track createTrack() {
+		return new TrackImpl();
+	}
+
+	public TrafficArea createTrafficArea() {
+		return new TrafficAreaImpl();
+	}
+
+	public TrafficAreaProperty createTrafficAreaProperty() {
+		return new TrafficAreaPropertyImpl();
 	}
 	
-	private void init(CityGMLModuleVersion version) {
-		appModule = (AppearanceModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.APPEARANCE, version);
-		bldgModule = (BuildingModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.BUILDING, version);
-		frnModule = (CityFurnitureModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.CITYFURNITURE, version);
-		grpModule = (CityObjectGroupModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.CITYOBJECTGROUP, version);
-		coreModule = (CoreModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.CORE, version);
-		genModule = (GenericsModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.GENERICS, version);
-		luseModule = (LandUseModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.LANDUSE, version);
-		demModule = (ReliefModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.RELIEF, version);
-		texModule = (TexturedSurfaceModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.TEXTUREDSURFACE, version);
-		tranModule = (TransportationModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.TRANSPORTATION, version);
-		vegModule = (VegetationModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.VEGETATION, version);
-		wtrModule = (WaterBodyModule)CityGMLModules.getModuleByTypeAndVersion(CityGMLModuleType.WATERBODY, version);
+	public TrafficAreaProperty createTrafficAreaProperty(TrafficArea trafficArea) {
+		TrafficAreaProperty trafficAreaProperty = new TrafficAreaPropertyImpl();
+		trafficAreaProperty.setTrafficArea(trafficArea);
+		return trafficAreaProperty;
 	}
+	
+	public TrafficAreaProperty createTrafficAreaProperty(String xlink) {
+		TrafficAreaProperty trafficAreaProperty = new TrafficAreaPropertyImpl();
+		trafficAreaProperty.setHref(xlink);
+		return trafficAreaProperty;
+	}
+
+	public TransportationComplex createTransportationComplex() {
+		return new TransportationComplexImpl();
+	}
+	
+	// Vegetation module
+
+	public PlantCover createPlantCover() {
+		return new PlantCoverImpl();
+	}
+
+	public SolitaryVegetationObject createSolitaryVegetationObject() {
+		return new SolitaryVegetationObjectImpl();
+	}
+
+	// WaterBody module
+	
+	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty() {
+		return new BoundedByWaterSurfacePropertyImpl();
+	}
+	
+	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(WaterBoundarySurface waterBoundarySurface) {
+		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfacePropertyImpl();
+		boundedByWaterSurfaceProperty.setWaterBoundarySurface(waterBoundarySurface);
+		return boundedByWaterSurfaceProperty;
+	}
+	
+	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(String xlink) {
+		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfacePropertyImpl();
+		boundedByWaterSurfaceProperty.setHref(xlink);
+		return boundedByWaterSurfaceProperty;
+	}
+
+	public WaterBody createWaterBody() {
+		return new WaterBodyImpl();
+	}
+
+	public WaterClosureSurface createWaterClosureSurface() {
+		return new WaterClosureSurfaceImpl();
+	}
+
+	public WaterGroundSurface createWaterGroundSurface() {
+		return new WaterGroundSurfaceImpl();
+	}
+
+	public WaterSurface createWaterSurface() {
+		return new WaterSurfaceImpl();
+	}
+		
 }

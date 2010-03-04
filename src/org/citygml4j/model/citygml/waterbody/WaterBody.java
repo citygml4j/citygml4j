@@ -19,7 +19,7 @@ public interface WaterBody extends WaterObject {
 	public SolidProperty getLod2Solid();
 	public SolidProperty getLod3Solid();
 	public SolidProperty getLod4Solid();
-	public List<BoundedByWaterSurfaceProperty> getBoundedBySurfaces();
+	public List<BoundedByWaterSurfaceProperty> getBoundedBySurface();
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBody();
 	public boolean isSetClazz();
 	public boolean isSetFunction();
@@ -32,7 +32,7 @@ public interface WaterBody extends WaterObject {
 	public boolean isSetLod2Solid();
 	public boolean isSetLod3Solid();
 	public boolean isSetLod4Solid();
-	public boolean isSetBoundedBySurfaces();
+	public boolean isSetBoundedBySurface();
 	public boolean isSetGenericApplicationPropertyOfWaterBody();
 	
 	public void setClazz(String clazz);
@@ -48,10 +48,10 @@ public interface WaterBody extends WaterObject {
 	public void setLod2Solid(SolidProperty lod2Solid);
 	public void setLod3Solid(SolidProperty lod3Solid);
 	public void setLod4Solid(SolidProperty lod4Solid);
-	public void setBoundedBySurfaces(List<BoundedByWaterSurfaceProperty> boundedBySurfaces);
+	public void setBoundedBySurface(List<BoundedByWaterSurfaceProperty> boundedBySurface);
 	public void addBoundedBySurface(BoundedByWaterSurfaceProperty boundedBySurface);	
-	public void addGenericApplicationPropertyOfWaterBody(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfWaterBody(List<ADEComponent> adeObject);
+	public void addGenericApplicationPropertyOfWaterBody(ADEComponent ade);
+	public void setGenericApplicationPropertyOfWaterBody(List<ADEComponent> ade);
 	public void unsetClazz();
 	public void unsetFunction();
 	public boolean unsetFunction(String function);
@@ -65,8 +65,8 @@ public interface WaterBody extends WaterObject {
 	public void unsetLod2Solid();
 	public void unsetLod3Solid();
 	public void unsetLod4Solid();
-	public void unsetBoundedBySurfaces();
-	public boolean unsetBoundedBySurfaces(BoundedByWaterSurfaceProperty boundedBySurface);
+	public void unsetBoundedBySurface();
+	public boolean unsetBoundedBySurface(BoundedByWaterSurfaceProperty boundedBySurface);
 	public void unsetGenericApplicationPropertyOfWaterBody();
-	public boolean unsetGenericApplicationPropertyOfWaterBody(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfWaterBody(ADEComponent ade);
 }

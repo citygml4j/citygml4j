@@ -1,87 +1,91 @@
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.jaxb.xal._2.AddressDetailsImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressIdentifierImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressLatitudeDirectionImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressLatitudeImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressLineImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressLinesImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressLongitudeDirectionImpl;
-import org.citygml4j.impl.jaxb.xal._2.AddressLongitudeImpl;
-import org.citygml4j.impl.jaxb.xal._2.AdministrativeAreaImpl;
-import org.citygml4j.impl.jaxb.xal._2.AdministrativeAreaNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.BarcodeImpl;
-import org.citygml4j.impl.jaxb.xal._2.BuildingNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.CountryImpl;
-import org.citygml4j.impl.jaxb.xal._2.CountryNameCodeImpl;
-import org.citygml4j.impl.jaxb.xal._2.CountryNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.DepartmentImpl;
-import org.citygml4j.impl.jaxb.xal._2.DepartmentNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.DependentLocalityImpl;
-import org.citygml4j.impl.jaxb.xal._2.DependentLocalityNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.DependentLocalityNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.DependentThoroughfareImpl;
-import org.citygml4j.impl.jaxb.xal._2.EndorsementLineCodeImpl;
-import org.citygml4j.impl.jaxb.xal._2.FirmImpl;
-import org.citygml4j.impl.jaxb.xal._2.FirmNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.KeyLineCodeImpl;
-import org.citygml4j.impl.jaxb.xal._2.LargeMailUserIdentifierImpl;
-import org.citygml4j.impl.jaxb.xal._2.LargeMailUserImpl;
-import org.citygml4j.impl.jaxb.xal._2.LocalityImpl;
-import org.citygml4j.impl.jaxb.xal._2.LocalityNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.MailStopImpl;
-import org.citygml4j.impl.jaxb.xal._2.MailStopNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.MailStopNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostBoxImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostBoxNumberExtensionImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostBoxNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostBoxNumberPrefixImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostBoxNumberSuffixImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostOfficeImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostOfficeNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostOfficeNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostTownImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostTownNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostTownSuffixImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalCodeImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalCodeNumberExtensionImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalCodeNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalRouteImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalRouteNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalRouteNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.PostalServiceElementsImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseLocationImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNumberPrefixImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNumberRangeFromImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNumberRangeImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNumberRangeToImpl;
-import org.citygml4j.impl.jaxb.xal._2.PremiseNumberSuffixImpl;
-import org.citygml4j.impl.jaxb.xal._2.SortingCodeImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubAdministrativeAreaImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubAdministrativeAreaNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubPremiseImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubPremiseLocationImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubPremiseNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubPremiseNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubPremiseNumberPrefixImpl;
-import org.citygml4j.impl.jaxb.xal._2.SubPremiseNumberSuffixImpl;
-import org.citygml4j.impl.jaxb.xal._2.SupplementaryPostalServiceDataImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareLeadingTypeImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNameImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNumberFromImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNumberImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNumberPrefixImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNumberRangeImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNumberSuffixImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareNumberToImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfarePostDirectionImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfarePreDirectionImpl;
-import org.citygml4j.impl.jaxb.xal._2.ThoroughfareTrailingTypeImpl;
+import org.citygml4j.impl.xal.AddressDetailsImpl;
+import org.citygml4j.impl.xal.AddressIdentifierImpl;
+import org.citygml4j.impl.xal.AddressImpl;
+import org.citygml4j.impl.xal.AddressLatitudeDirectionImpl;
+import org.citygml4j.impl.xal.AddressLatitudeImpl;
+import org.citygml4j.impl.xal.AddressLineImpl;
+import org.citygml4j.impl.xal.AddressLinesImpl;
+import org.citygml4j.impl.xal.AddressLongitudeDirectionImpl;
+import org.citygml4j.impl.xal.AddressLongitudeImpl;
+import org.citygml4j.impl.xal.AdministrativeAreaImpl;
+import org.citygml4j.impl.xal.AdministrativeAreaNameImpl;
+import org.citygml4j.impl.xal.BarcodeImpl;
+import org.citygml4j.impl.xal.BuildingNameImpl;
+import org.citygml4j.impl.xal.CountryImpl;
+import org.citygml4j.impl.xal.CountryNameCodeImpl;
+import org.citygml4j.impl.xal.CountryNameImpl;
+import org.citygml4j.impl.xal.DepartmentImpl;
+import org.citygml4j.impl.xal.DepartmentNameImpl;
+import org.citygml4j.impl.xal.DependentLocalityImpl;
+import org.citygml4j.impl.xal.DependentLocalityNameImpl;
+import org.citygml4j.impl.xal.DependentLocalityNumberImpl;
+import org.citygml4j.impl.xal.DependentThoroughfareImpl;
+import org.citygml4j.impl.xal.EndorsementLineCodeImpl;
+import org.citygml4j.impl.xal.FirmImpl;
+import org.citygml4j.impl.xal.FirmNameImpl;
+import org.citygml4j.impl.xal.KeyLineCodeImpl;
+import org.citygml4j.impl.xal.LargeMailUserIdentifierImpl;
+import org.citygml4j.impl.xal.LargeMailUserImpl;
+import org.citygml4j.impl.xal.LargeMailUserNameImpl;
+import org.citygml4j.impl.xal.LocalityImpl;
+import org.citygml4j.impl.xal.LocalityNameImpl;
+import org.citygml4j.impl.xal.MailStopImpl;
+import org.citygml4j.impl.xal.MailStopNameImpl;
+import org.citygml4j.impl.xal.MailStopNumberImpl;
+import org.citygml4j.impl.xal.PostBoxImpl;
+import org.citygml4j.impl.xal.PostBoxNumberExtensionImpl;
+import org.citygml4j.impl.xal.PostBoxNumberImpl;
+import org.citygml4j.impl.xal.PostBoxNumberPrefixImpl;
+import org.citygml4j.impl.xal.PostBoxNumberSuffixImpl;
+import org.citygml4j.impl.xal.PostOfficeImpl;
+import org.citygml4j.impl.xal.PostOfficeNameImpl;
+import org.citygml4j.impl.xal.PostOfficeNumberImpl;
+import org.citygml4j.impl.xal.PostTownImpl;
+import org.citygml4j.impl.xal.PostTownNameImpl;
+import org.citygml4j.impl.xal.PostTownSuffixImpl;
+import org.citygml4j.impl.xal.PostalCodeImpl;
+import org.citygml4j.impl.xal.PostalCodeNumberExtensionImpl;
+import org.citygml4j.impl.xal.PostalCodeNumberImpl;
+import org.citygml4j.impl.xal.PostalRouteImpl;
+import org.citygml4j.impl.xal.PostalRouteNameImpl;
+import org.citygml4j.impl.xal.PostalRouteNumberImpl;
+import org.citygml4j.impl.xal.PostalServiceElementsImpl;
+import org.citygml4j.impl.xal.PremiseImpl;
+import org.citygml4j.impl.xal.PremiseLocationImpl;
+import org.citygml4j.impl.xal.PremiseNameImpl;
+import org.citygml4j.impl.xal.PremiseNumberImpl;
+import org.citygml4j.impl.xal.PremiseNumberPrefixImpl;
+import org.citygml4j.impl.xal.PremiseNumberRangeFromImpl;
+import org.citygml4j.impl.xal.PremiseNumberRangeImpl;
+import org.citygml4j.impl.xal.PremiseNumberRangeToImpl;
+import org.citygml4j.impl.xal.PremiseNumberSuffixImpl;
+import org.citygml4j.impl.xal.SortingCodeImpl;
+import org.citygml4j.impl.xal.SubAdministrativeAreaImpl;
+import org.citygml4j.impl.xal.SubAdministrativeAreaNameImpl;
+import org.citygml4j.impl.xal.SubPremiseImpl;
+import org.citygml4j.impl.xal.SubPremiseLocationImpl;
+import org.citygml4j.impl.xal.SubPremiseNameImpl;
+import org.citygml4j.impl.xal.SubPremiseNumberImpl;
+import org.citygml4j.impl.xal.SubPremiseNumberPrefixImpl;
+import org.citygml4j.impl.xal.SubPremiseNumberSuffixImpl;
+import org.citygml4j.impl.xal.SupplementaryPostalServiceDataImpl;
+import org.citygml4j.impl.xal.ThoroughfareImpl;
+import org.citygml4j.impl.xal.ThoroughfareLeadingTypeImpl;
+import org.citygml4j.impl.xal.ThoroughfareNameImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberFromContentImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberFromImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberOrRangeImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberPrefixImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberRangeImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberSuffixImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberToContentImpl;
+import org.citygml4j.impl.xal.ThoroughfareNumberToImpl;
+import org.citygml4j.impl.xal.ThoroughfarePostDirectionImpl;
+import org.citygml4j.impl.xal.ThoroughfarePreDirectionImpl;
+import org.citygml4j.impl.xal.ThoroughfareTrailingTypeImpl;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressDetails;
 import org.citygml4j.model.xal.AddressIdentifier;
@@ -110,6 +114,7 @@ import org.citygml4j.model.xal.FirmName;
 import org.citygml4j.model.xal.KeyLineCode;
 import org.citygml4j.model.xal.LargeMailUser;
 import org.citygml4j.model.xal.LargeMailUserIdentifier;
+import org.citygml4j.model.xal.LargeMailUserName;
 import org.citygml4j.model.xal.Locality;
 import org.citygml4j.model.xal.LocalityName;
 import org.citygml4j.model.xal.MailStop;
@@ -157,10 +162,13 @@ import org.citygml4j.model.xal.ThoroughfareLeadingType;
 import org.citygml4j.model.xal.ThoroughfareName;
 import org.citygml4j.model.xal.ThoroughfareNumber;
 import org.citygml4j.model.xal.ThoroughfareNumberFrom;
+import org.citygml4j.model.xal.ThoroughfareNumberFromContent;
+import org.citygml4j.model.xal.ThoroughfareNumberOrRange;
 import org.citygml4j.model.xal.ThoroughfareNumberPrefix;
 import org.citygml4j.model.xal.ThoroughfareNumberRange;
 import org.citygml4j.model.xal.ThoroughfareNumberSuffix;
 import org.citygml4j.model.xal.ThoroughfareNumberTo;
+import org.citygml4j.model.xal.ThoroughfareNumberToContent;
 import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
@@ -281,6 +289,10 @@ public class XALFactory {
 	
 	public LargeMailUser createLargeMailUser() {
 		return new LargeMailUserImpl();
+	}
+	
+	public LargeMailUserName createLargeMailUserName() {
+		return new LargeMailUserNameImpl();
 	}
 	
 	public Locality createLocality() {
@@ -467,8 +479,69 @@ public class XALFactory {
 		return new ThoroughfareNumberFromImpl();
 	}
 	
+	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent() {
+		return new ThoroughfareNumberFromContentImpl();
+	}
+	
+	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(AddressLine addressLine) {
+		return new ThoroughfareNumberFromContentImpl(addressLine);
+	}
+	
+	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(ThoroughfareNumber thoroughfareNumber) {
+		return new ThoroughfareNumberFromContentImpl(thoroughfareNumber);
+	}
+	
+	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+		return new ThoroughfareNumberFromContentImpl(thoroughfareNumberPrefix);
+	}
+	
+	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+		return new ThoroughfareNumberFromContentImpl(thoroughfareNumberSuffix);
+	}
+	
+	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(String string) {
+		return new ThoroughfareNumberFromContentImpl(string);
+	}
+	
+	public ThoroughfareNumberToContent createThoroughfareNumberToContent() {
+		return new ThoroughfareNumberToContentImpl();
+	}
+	
+	public ThoroughfareNumberToContent createThoroughfareNumberToContent(AddressLine addressLine) {
+		return new ThoroughfareNumberToContentImpl(addressLine);
+	}
+	
+	public ThoroughfareNumberToContent createThoroughfareNumberToContent(ThoroughfareNumber thoroughfareNumber) {
+		return new ThoroughfareNumberToContentImpl(thoroughfareNumber);
+	}
+	
+	public ThoroughfareNumberToContent createThoroughfareNumberToContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+		return new ThoroughfareNumberToContentImpl(thoroughfareNumberPrefix);
+	}
+	
+	public ThoroughfareNumberToContent createThoroughfareNumberToContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+		return new ThoroughfareNumberToContentImpl(thoroughfareNumberSuffix);
+	}
+	
+	public ThoroughfareNumberToContent createThoroughfareNumberToContent(String string) {
+		return new ThoroughfareNumberToContentImpl(string);
+	}
+	
+	
 	public ThoroughfareNumber createThoroughfareNumber() {
 		return new ThoroughfareNumberImpl();
+	}
+	
+	public ThoroughfareNumberOrRange createThoroughfareNumberOrRange() {
+		return new ThoroughfareNumberOrRangeImpl();
+	}
+	
+	public ThoroughfareNumberOrRange createThoroughfareNumberOrRange(ThoroughfareNumber thoroughfareNumber) {
+		return new ThoroughfareNumberOrRangeImpl(thoroughfareNumber);
+	}
+	
+	public ThoroughfareNumberOrRange createThoroughfareNumberOrRange(ThoroughfareNumberRange thoroughfareNumberRange) {
+		return new ThoroughfareNumberOrRangeImpl(thoroughfareNumberRange);
 	}
 	
 	public ThoroughfareNumberPrefix createThoroughfareNumberPrefix() {
@@ -498,5 +571,6 @@ public class XALFactory {
 	public ThoroughfareTrailingType createThoroughfareTrailingType() {
 		return new ThoroughfareTrailingTypeImpl();
 	}
+	
 }
 

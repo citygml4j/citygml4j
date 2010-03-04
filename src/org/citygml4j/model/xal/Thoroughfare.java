@@ -2,9 +2,14 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-public interface Thoroughfare extends XALBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+import org.citygml4j.visitor.XALFunction;
+import org.citygml4j.visitor.XALVisitor;
+
+public interface Thoroughfare extends XAL, Child, Copyable {
 	public List<AddressLine> getAddressLine();
-	public List<Object> getThoroughfareNumberOrThoroughfareNumberRange();
+	public List<ThoroughfareNumberOrRange> getThoroughfareNumberOrThoroughfareNumberRange();
 	public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix();
 	public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix();
 	public ThoroughfarePreDirection getThoroughfarePreDirection();
@@ -46,6 +51,8 @@ public interface Thoroughfare extends XALBase {
 	public void setAddressLine(List<AddressLine> addressLine);
 	public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber);
 	public void addThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange);
+	public void addThoroughfareNumberOrThoroughfareNumberRange(ThoroughfareNumberOrRange numberOrRange);
+	public void setThoroughfareNumberOrThoroughfareNumberRange(List<ThoroughfareNumberOrRange> numberOrRange);
 	public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix);
 	public void setThoroughfareNumberPrefix(List<ThoroughfareNumberPrefix> thoroughfareNumberPrefix);
 	public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix);
@@ -69,6 +76,9 @@ public interface Thoroughfare extends XALBase {
 	public void unsetAddressLine();
 	public boolean unsetAddressLine(AddressLine addressLine);
 	public void unsetThoroughfareNumberOrThoroughfareNumberRange();
+	public boolean unsetThoroughfareNumberOrThoroughfareNumberRange(ThoroughfareNumberOrRange thoroughfareNumberOrRange);
+	public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber);
+	public boolean unsetThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange);
 	public void unsetThoroughfareNumberPrefix();
 	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix);
 	public void unsetThoroughfareNumberSuffix();
@@ -89,4 +99,7 @@ public interface Thoroughfare extends XALBase {
 	public void unsetDependentThoroughfaresIndicator();
 	public void unsetDependentThoroughfaresConnector();
 	public void unsetDependentThoroughfaresType();
+	
+	public void visit(XALVisitor visitor);
+	public <T> T visit(XALFunction<T> visitor);
 }

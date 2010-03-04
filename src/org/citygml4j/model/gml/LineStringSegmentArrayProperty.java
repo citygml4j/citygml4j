@@ -2,7 +2,10 @@ package org.citygml4j.model.gml;
 
 import java.util.List;
 
-public interface LineStringSegmentArrayProperty extends GMLBase {
+import org.citygml4j.builder.copy.Copyable;
+import org.citygml4j.commons.child.Child;
+
+public interface LineStringSegmentArrayProperty extends GML, Child, Copyable {
 	public List<LineStringSegment> getLineStringSegment();
 	public boolean isSetLineStringSegment();
 	

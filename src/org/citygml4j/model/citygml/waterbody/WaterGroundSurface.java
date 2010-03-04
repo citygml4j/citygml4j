@@ -9,7 +9,7 @@ public interface WaterGroundSurface extends WaterBoundarySurface {
 	public boolean isSetGenericApplicationPropertyOfWaterGroundSurface();
 	
 	public void addGenericApplicationPropertyOfWaterGroundSurface(ADEComponent adeObject);
-	public void setGenericApplicationPropertyOfWaterGroundSurface(List<ADEComponent> adeObject);
+	public void setGenericApplicationPropertyOfWaterGroundSurface(List<ADEComponent> ade);
 	public void unsetGenericApplicationPropertyOfWaterGroundSurface();
-	public boolean unsetGenericApplicationPropertyOfWaterGroundSurface(ADEComponent adeObject);
+	public boolean unsetGenericApplicationPropertyOfWaterGroundSurface(ADEComponent ade);
 }
