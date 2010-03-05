@@ -1,5 +1,7 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
@@ -27,18 +29,23 @@ import org.citygml4j.xml.io.writer.CityModelWriter;
 public class AddingLOD1Geometry {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 	
 		GMLFactory gml = new GMLFactory();
 		GMLGeometryFactory geom = new GMLGeometryFactory();
 		
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.xml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
 			
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.xml"));
 		
+		System.out.println(df.format(new Date()) + "opening CityGML 0.4.0 writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
 		out.setCityGMLVersion(CityGMLVersion.v0_4_0);
 
@@ -55,6 +62,7 @@ public class AddingLOD1Geometry {
 			
 			if (feature.getCityGMLClass() == CityGMLClass.BUILDING) {
 				Building building = (Building)feature;
+				System.out.println(df.format(new Date()) + "adding LOD1 geometry representation to building " + building.getId());
 				
 				BoundingShape boundingShape = building.calcBoundedBy(false);
 				building.setBoundedBy(boundingShape);
@@ -91,6 +99,9 @@ public class AddingLOD1Geometry {
 		
 		reader.close();
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "CityGML file LOD1_and_LOD2_Buildings_v040.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

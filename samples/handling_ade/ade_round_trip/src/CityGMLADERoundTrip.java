@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
@@ -15,12 +17,17 @@ import org.citygml4j.xml.schema.SchemaHandler;
 public class CityGMLADERoundTrip {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 		
+		System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-NoiseADE-0-5-0.xsd");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-NoiseADE-0-5-0.xsd"));
 		
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setSchemaHandler(schemaHandler);
 		
@@ -28,7 +35,8 @@ public class CityGMLADERoundTrip {
 		CityGML citygml = reader.nextFeature();
 		reader.close();
 		
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
+		System.out.println(df.format(new Date()) + "writing citygml4j object tree without modification");
+		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0, schemaHandler);
 		
 		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_v100.xml"), "ISO-8859-15");
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
@@ -39,6 +47,9 @@ public class CityGMLADERoundTrip {
 		
 		writer.write((AbstractFeature)citygml);
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD0_Railway_NoiseADE_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	
 }

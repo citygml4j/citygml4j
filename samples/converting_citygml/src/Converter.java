@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
@@ -16,14 +18,19 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 public class Converter {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+		
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 		
+		System.out.println(df.format(new Date()) + "reading CityGML 1.0.0 file LOD2_Buildings_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		CityGMLReader reader = in.createCityGMLReader(new File("../datasets/LOD2_Buildings_v100.xml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
+		System.out.println(df.format(new Date()) + "features and their CityGML version contained in the document:");
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
@@ -41,8 +48,7 @@ public class Converter {
 		
 		cityModel.visit(walker);
 		
-		System.out.println("\nConverting to CityGML 0.4.0");
-		
+		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 0.4.0 document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
 		out.setCityGMLVersion(CityGMLVersion.v0_4_0);
 		
@@ -54,6 +60,9 @@ public class Converter {
 		
 		writer.write(cityModel);
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_v040.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

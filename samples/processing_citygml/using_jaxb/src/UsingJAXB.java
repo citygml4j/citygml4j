@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -31,9 +33,13 @@ public class UsingJAXB {
 
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext cityGMLCtx = new CityGMLContext();
 		JAXBBuilder builder = cityGMLCtx.createJAXBBuilder();
 		
+		System.out.println(df.format(new Date()) + "creating JAXB Unmarshaller instance");
 		JAXBContext ctx = builder.getJAXBContext();		
 		Unmarshaller unmarshaller = ctx.createUnmarshaller();
 		Marshaller marshaller = ctx.createMarshaller();
@@ -43,8 +49,10 @@ public class UsingJAXB {
 		GMLFactory gml = new GMLFactory();
 		CityGMLFactory citygml = new CityGMLFactory();
 
+		System.out.println(df.format(new Date()) + "unmarshalling CityGML file LOD2_Building_v100.xml to JAXB objects");
 		JAXBElement<?> cityModelElem = (JAXBElement<?>)unmarshaller.unmarshal(new File("../../datasets/LOD2_Building_v100.xml"));
 
+		System.out.println(df.format(new Date()) + "iterating through JAXB object tree searching for boundary surfaces");
 		if (cityModelElem != null && cityModelElem.getValue() instanceof CityModelType) {
 			CityModelType cityModelType = (CityModelType)cityModelElem.getValue();
 
@@ -81,16 +89,19 @@ public class UsingJAXB {
 				}
 			}
 			
+			System.out.println(df.format(new Date()) + "creating citygml4j CityFurniture object");
 			CityFurniture cityFurniture = citygml.createCityFurniture();
 			StringOrRef description = gml.createStringOrRef();
 			description.setValue("processed by citygml4j");
 			cityFurniture.setDescription(description);
 			CityObjectMember member = citygml.createCityObjectMember(cityFurniture);
 			
+			System.out.println(df.format(new Date()) + "unmarshalling citygml4j CityFurniture object to JAXB and inserting it into JAXB object tree");
 			JAXBElement<? extends FeaturePropertyType> memberElem = (JAXBElement<? extends FeaturePropertyType>)jaxbMarshaller.marshalJAXBElement(member);
 			cityModelType.getFeatureMember().add(memberElem);
 		}		
 		
+		System.out.println(df.format(new Date()) + "marshalling JAXB object tree as CityGML 1.0.0 document");
 		JAXBNamespacePrefixMapper nsMapper = new JAXBNamespacePrefixMapper();
 		nsMapper.setNamespacePrefixMapping(CoreModule.v1_0_0.getNamespaceURI(), "");
 
@@ -104,7 +115,9 @@ public class UsingJAXB {
 
 		// marshal object tree to CityGML instance document
 		marshaller.marshal(cityModelElem, new File("LOD2_JAXB_result_v100.xml"));
-		System.out.println("Sample CityGML document written to 'LOD2_JAXB_result_v100.xml'.");
+		
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_JAXB_result_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

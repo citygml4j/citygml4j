@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
@@ -25,12 +27,17 @@ import org.citygml4j.xml.schema.SchemaHandler;
 public class SplittingFeature {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
+		System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setSchemaHandler(schemaHandler);
 
@@ -38,13 +45,16 @@ public class SplittingFeature {
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
+		System.out.println(df.format(new Date()) + "splitting CityGML document into single features");
 		FeatureSplitter splitter = new FeatureSplitter(schemaHandler, new GMLIdCreator());
 		splitter.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE);
 		splitter.exlcude(RoofSurface.class);
 		
+		// uncomment to see differences!
 		//splitter.exlcude(ADEComponent.class);
 		//splitter.setSplitCopy(true);
 
+		System.out.println(df.format(new Date()) + "splitting result:");
 		List<CityGML> splitResult = splitter.split(cityModel);
 		for (CityGML item : splitResult) {
 			if (item.getCityGMLClass() == CityGMLClass.ADECOMPONENT) {
@@ -54,6 +64,7 @@ public class SplittingFeature {
 				System.out.println("Split CityGML feature: " + item.getCityGMLClass());
 		}
 		
+		System.out.println(df.format(new Date()) + "writing splitting result as CityGML 1.0.0 document LOD2_SubsurfaceStructureADE_split_v100.xml");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 		out.setSchemaHandler(schemaHandler);
 
@@ -71,10 +82,16 @@ public class SplittingFeature {
 		modelWriter.writeEndDocument();		
 		modelWriter.close();
 		
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_split_v100.xml written");
+		
+		System.out.println(df.format(new Date()) + "writing original document as LOD2_SubsurfaceStructureADE_orig_v100.xml");
 		CityGMLWriter cityGMLWriter = out.createCityGMLWriter(new File("LOD2_SubsurfaceStructureADE_orig_v100.xml"));
 		setContext(cityGMLWriter);
 		cityGMLWriter.write(cityModel);	
 		cityGMLWriter.close();
+		
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_orig_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	
 	private static void setContext(AbstractCityGMLWriter writer) {

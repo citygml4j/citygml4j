@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
@@ -22,27 +24,33 @@ import com.sun.xml.xsom.XSType;
 public class ReadingRemoteADE {
 	
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v100.xml");
+		System.out.println(df.format(new Date()) + "remote ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_from_Web_v100.xml"));
 		CityGML citygml = reader.nextFeature();
 		reader.close();
 
+		System.out.println(df.format(new Date()) + "exploring ADE content of Railway element");
 		CityModel cityModel = (CityModel)citygml;
 		Railway railway = (Railway)cityModel.getCityObjectMember().get(0).getCityObject();
-		
-		SchemaHandler schemaHandler = in.getSchemaHandler();
 		
 		if (railway.isSetGenericApplicationPropertyOfRailway()) {
 			System.out.println("Found ADE content for Railway instance:\n");
 
 			List<ADEComponent> ades = railway.getGenericApplicationPropertyOfRailway();
 			for (ADEComponent ade : ades)
-				checkADE(schemaHandler, ade.getContent(), null, 0);
+				checkADE(in.getSchemaHandler(), ade.getContent(), null, 0);
 		}
+		
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 	static void checkADE(SchemaHandler schemaHandler, Element element, ElementDecl parent, int level) {		

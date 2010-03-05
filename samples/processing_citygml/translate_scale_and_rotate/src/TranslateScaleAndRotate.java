@@ -1,5 +1,7 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
@@ -25,15 +27,20 @@ import org.citygml4j.xml.io.writer.CityModelWriter;
 public class TranslateScaleAndRotate {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Building_v100.xml"));
 
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		Building building = (Building)cityModel.getCityObjectMember().get(0).getCityObject();
 
+		System.out.println(df.format(new Date()) + "deep copying building object");
 		DeepCopyBuilder copyBuilder = new DeepCopyBuilder();
 		Building copy = (Building)building.copy(copyBuilder);
 
@@ -41,9 +48,11 @@ public class TranslateScaleAndRotate {
 		BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
 		double width = bbox.getUpperCorner().getX() - bbox.getLowerCorner().getX();
 		
+		System.out.println(df.format(new Date()) + "translating, scaling, and rotating building");
 		GMLVisitor gmlVisitor = new GMLVisitor(2 * width, 2, 90);
 		copy.visit(gmlVisitor);
 
+		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 1.0.0 document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 		
 		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_Building_v100.xml"));
@@ -58,6 +67,9 @@ public class TranslateScaleAndRotate {
 		writer.writeEndDocument();
 		
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 	private static class GMLVisitor extends GMLWalker {

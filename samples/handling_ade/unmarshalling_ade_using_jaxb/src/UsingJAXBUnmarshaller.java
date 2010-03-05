@@ -1,5 +1,7 @@
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -25,7 +27,6 @@ import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.writer.CityModelWriter;
-import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 
 import ade.sub.jaxb.AbstractBoundarySurfaceType;
@@ -42,14 +43,15 @@ import ade.sub.jaxb.WallSurfaceType;
 public class UsingJAXBUnmarshaller {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		final SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
-
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
+		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		in.setSchemaHandler(schemaHandler);
 
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.xml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
@@ -58,19 +60,22 @@ public class UsingJAXBUnmarshaller {
 		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEComponent();
 
 		JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
-		unmarshaller.setFreeJAXBElements(false);
+		unmarshaller.setReleaseJAXBElementsFromMemory(false);
 		
 		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
 		GMLFactory gml = new GMLFactory();
 		
+		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
 		ObjectFactory jaxbFactory = new ObjectFactory();
 		String contextPath = JAXBContextPath.getContextPath(CityGMLVersion.v1_0_0, "ade.sub.jaxb");
 		JAXBContext jaxbCtx = JAXBContext.newInstance(contextPath);
 		Unmarshaller jaxbUmarshaller = jaxbCtx.createUnmarshaller();
 		
+		System.out.println(df.format(new Date()) + "unmarshalling ADE content using JAXB Unmarshaller");
 		JAXBElement<?> element = (JAXBElement<?>)jaxbUmarshaller.unmarshal(ade.getContent());
 		System.out.println("Unmarshalled JAXBElement: " + element.getName());
 	
+		System.out.println(df.format(new Date()) + "processing ADE feature sub:Tunnel by using JAXBUnmarshaller and JAXBMarshaller to modify ADE content");
 		if (element.getValue() instanceof TunnelType) {
 			TunnelType tunnel = (TunnelType)element.getValue();
 			System.out.println("ADE feature: Tunnel, gml:id='" + tunnel.getId() + "'");
@@ -115,8 +120,8 @@ public class UsingJAXBUnmarshaller {
 			cityModel.getCityObjectMember().get(3).setGenericADEComponent(newADE);
 		}
 		
+		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
-		out.setSchemaHandler(schemaHandler);
 		
 		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_JAXBUnmarshaller_v100.xml"));
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
@@ -133,6 +138,9 @@ public class UsingJAXBUnmarshaller {
 		
 		writer.writeEndDocument();		
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_JAXBUnmarshaller_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

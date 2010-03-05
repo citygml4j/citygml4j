@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
@@ -21,9 +23,13 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 public class FeatureVisitor {
 
 	public static void main(String[] args) throws Exception {
+		final SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Building_v100.xml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
@@ -32,10 +38,13 @@ public class FeatureVisitor {
 		final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 		final CityGMLFactory citygml = new CityGMLFactory();
 
+		System.out.println(df.format(new Date()) + "using FeatureWalker to walk through document and to process boundary surface features");
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
 			public void accept(BoundarySurface boundarySurface) {
+				System.out.println(df.format(new Date()) + "adding X3DMaterial information to " + boundarySurface.getId());
+
 				MultiSurface multiSurface = boundarySurface.getLod2MultiSurface().getMultiSurface();
 				String id = multiSurface.getId();
 				if (id == null || id.length() == 0) {
@@ -71,6 +80,7 @@ public class FeatureVisitor {
 
 		cityModel.visit(walker);
 
+		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 1.0.0 document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 
 		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_colorized_v100.xml"));
@@ -82,6 +92,8 @@ public class FeatureVisitor {
 		writer.write(cityModel);
 
 		writer.close();
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_colorized_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

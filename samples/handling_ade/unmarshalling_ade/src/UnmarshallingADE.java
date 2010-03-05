@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
@@ -23,19 +25,20 @@ import org.w3c.dom.Element;
 public class UnmarshallingADE {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		final SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
-
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		in.setSchemaHandler(schemaHandler);
-
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
+		CityGMLInputFactory in = builder.createCityGMLInputFactory();		
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.xml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
+		System.out.println(df.format(new Date()) + "unmarshalling geometries of ADE features to citygml4j objects");
+		SchemaHandler schemaHandler = in.getSchemaHandler();
 		final JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller(schemaHandler);
 		final JAXBMarshaller marshaller = builder.createJAXBMarshaller();
 		final GMLFactory gml = new GMLFactory();
@@ -71,6 +74,7 @@ public class UnmarshallingADE {
 
 		cityModel.visit(walker);
 
+		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 		out.setSchemaHandler(schemaHandler);
 		
@@ -89,6 +93,9 @@ public class UnmarshallingADE {
 		
 		writer.writeEndDocument();		
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_processed_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

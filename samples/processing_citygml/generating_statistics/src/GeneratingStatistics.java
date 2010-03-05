@@ -19,11 +19,12 @@ public class GeneratingStatistics {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
-		System.out.println(df.format(new Date()));
-		
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Ettenheim_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Ettenheim_v100.xml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
@@ -31,7 +32,8 @@ public class GeneratingStatistics {
 	
 		final HashMap<CityGMLClass, Integer> features = new HashMap<CityGMLClass, Integer>();
 		final HashMap<GMLClass, Integer> geometries = new HashMap<GMLClass, Integer>();
-		
+
+		System.out.println(df.format(new Date()) + "walking through document and counting features/geometries");
 		GMLWalker walker = new GMLWalker() {
 
 			@Override
@@ -57,7 +59,8 @@ public class GeneratingStatistics {
 		};
 		
 		cityModel.visit(walker);
-		
+
+		System.out.println(df.format(new Date()) + "LOD3_Ettenheim_v100.xml contains:");
 		System.out.println("Features:");
 		for (CityGMLClass feature : features.keySet())
 			System.out.println(feature + ": " + features.get(feature));
@@ -66,6 +69,6 @@ public class GeneratingStatistics {
 		for (GMLClass geometry : geometries.keySet())
 			System.out.println(geometry + ": " + geometries.get(geometry));
 		
-		System.out.println(df.format(new Date()));
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 }
