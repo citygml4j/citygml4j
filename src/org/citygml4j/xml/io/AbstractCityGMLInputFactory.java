@@ -200,10 +200,6 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		schemaHandler.parseSchema(namespaceURI, schemaLocation);	
 	}
 
-	public void parseSchema(String schemaLocation) throws SAXException {
-		schemaHandler.parseSchema(schemaLocation);
-	}
-
 	public void parseSchema(Element element) throws SAXException {
 		schemaHandler.parseSchema(element);
 	}

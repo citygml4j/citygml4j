@@ -1,43 +1,28 @@
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Stack;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartElement;
-import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
-import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.reader.ParentInfo;
-import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-public class JAXBChunkReader implements CityGMLReader {
-	private final XMLStreamReader reader;
-
-	JAXBInputFactory factory;
-	SchemaHandler schemaHandler;
-	JAXBUnmarshaller jaxbUnmarshaller;
-	XMLUtil util;
-
-	boolean useValidation;
-	ValidationSchemaHandler validationSchemaHandler;
-	ValidationEventHandler validationEventHandler;
-
+public class JAXBChunkReader extends AbstractJAXBReader {
 	private CityGML tmp;
 	private Stack<XMLChunk> chunks;
 	private XMLChunk chunk;
@@ -48,60 +33,31 @@ public class JAXBChunkReader implements CityGMLReader {
 
 	private boolean isInited = false;
 	private boolean setXLink = false;
-	private boolean parseSchema;
 
 	@SuppressWarnings("unchecked")
-	public JAXBChunkReader(XMLStreamReader reader, JAXBInputFactory factory) throws CityGMLReadException {
-		this.reader = reader;
-		this.factory = factory;
+	public JAXBChunkReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+		super(reader, factory, baseURI);
 
-		schemaHandler = factory.getSchemaHandler();
-		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
-		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
-
-		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
 		jaxbUnmarshaller.setParseSchema(false);
 
 		chunks = new Stack<XMLChunk>();
-		util = XMLUtil.getInstance();
 		elementInfos = new Stack<ElementInfo>();
 		elementChecker = new XMLElementChecker(schemaHandler, 
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
 				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
 				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING));
-
-		if (useValidation) {
-			validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
-			validationEventHandler = factory.getValidationEventHandler();
-		}
 	}
 
 	public void close() throws CityGMLReadException {
-		try {
-			factory = null;
-			schemaHandler = null;
-			jaxbUnmarshaller = null;
-			util = null;	
+		super.close();
 
-			validationSchemaHandler = null;
-			validationEventHandler = null;	
-			
-			elementChecker = null;
-			elementInfos.clear();
-			elementInfo = null;
-
-			tmp = null;
-			chunks.clear();
-			chunk = null;
-
-			isInited = false;
-			setXLink = false;
-
-			if (reader != null)
-				reader.close();
-		} catch (XMLStreamException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
+		tmp = null;
+		chunks.clear();
+		chunk = null;
+		
+		elementChecker = null;
+		elementInfos.clear();
+		elementInfo = null;
 	}
 
 	public boolean hasNextFeature() throws CityGMLReadException {
@@ -128,7 +84,7 @@ public class JAXBChunkReader implements CityGMLReader {
 					if (event == XMLStreamConstants.START_ELEMENT && parseSchema) {
 						for (int i = 0; i < reader.getAttributeCount(); i++) {
 							if (reader.getAttributeLocalName(i).equals("schemaLocation"))
-								schemaHandler.parseSchema(reader.getAttributeValue(i));					
+								parseSchema(reader.getAttributeValue(i));					
 							else if (reader.getAttributeLocalName(i).equals("noNamespaceSchemaLocation"))
 								schemaHandler.parseSchema("", reader.getAttributeValue(i));
 						}

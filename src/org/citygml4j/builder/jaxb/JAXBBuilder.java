@@ -3,6 +3,7 @@ package org.citygml4j.builder.jaxb;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
@@ -19,7 +20,7 @@ import org.citygml4j.xml.validation.CityGMLValidateException;
 import org.citygml4j.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
-public class JAXBBuilder {
+public class JAXBBuilder implements CityGMLBuilder {
 	private final JAXBContext context;
 	
 	public JAXBBuilder() throws JAXBException {

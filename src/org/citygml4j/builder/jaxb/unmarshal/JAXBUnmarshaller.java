@@ -21,7 +21,7 @@ public class JAXBUnmarshaller {
 	private final JAXBBuilder jaxbBuilder;
 	private final SchemaHandler schemaHandler;
 	private boolean parseSchema = true;
-	private boolean freeJAXBElements = true;
+	private boolean releaseJAXBElements = true;
 
 	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler) {
 		this.jaxbBuilder = jaxbBuilder;
@@ -41,7 +41,7 @@ public class JAXBUnmarshaller {
 			dest = xal.unmarshal(src);
 
 		// release memory
-		if (freeJAXBElements)
+		if (releaseJAXBElements)
 			src.setValue(null);
 
 		return dest;
@@ -106,12 +106,12 @@ public class JAXBUnmarshaller {
 		this.parseSchema = parseSchema;
 	}
 
-	public boolean isFreeJAXBElements() {
-		return freeJAXBElements;
+	public boolean isReleaseJAXBElementsFromMemory() {
+		return releaseJAXBElements;
 	}
 
-	public void setFreeJAXBElements(boolean freeJAXBElements) {
-		this.freeJAXBElements = freeJAXBElements;
+	public void setReleaseJAXBElementsFromMemory(boolean releaseJAXBElements) {
+		this.releaseJAXBElements = releaseJAXBElements;
 	}	
 
 }

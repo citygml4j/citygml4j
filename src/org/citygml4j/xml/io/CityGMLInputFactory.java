@@ -2,11 +2,9 @@ package org.citygml4j.xml.io;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.Reader;
 
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.transform.Source;
 
 import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
@@ -36,15 +34,10 @@ public interface CityGMLInputFactory {
 	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation);
 	public void parseSchema(File schemaLocation) throws SAXException;
 	public void parseSchema(String namespaceURI, String schemaLocation) throws SAXException;
-	public void parseSchema(String schemaLocation) throws SAXException;
 	public void parseSchema(Element element) throws SAXException;
 	
 	public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException;	
-	public CityGMLReader createCityGMLReader(InputStream in) throws CityGMLReadException;	
-	public CityGMLReader createCityGMLReader(Reader reader) throws CityGMLReadException;
-	public CityGMLReader createCityGMLReader(Source source) throws CityGMLReadException;
 	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException;
-	public CityGMLReader createCityGMLReader(InputStream in, String encoding) throws CityGMLReadException;
-	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException;
-	public CityGMLReader createCityGMLReader(String systemId, Reader reader) throws CityGMLReadException;	
+	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException;	
+	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException;
 }

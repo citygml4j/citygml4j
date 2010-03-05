@@ -48,11 +48,11 @@ public class SchemaHandler {
 			instance.parse(schemaURL.toString());
 		}
 
-		SchemaHandler schemaInfo = new SchemaHandler();
-		schemaInfo.schemaSets.addAll(instance.schemaSets);
-		schemaInfo.visited.putAll(instance.visited);
+		SchemaHandler schemaHandler = new SchemaHandler();
+		schemaHandler.schemaSets.addAll(instance.schemaSets);
+		schemaHandler.visited.putAll(instance.visited);
 
-		return schemaInfo;
+		return schemaHandler;
 	}
 
 	private SchemaHandler() {
@@ -63,6 +63,16 @@ public class SchemaHandler {
 		schemas = new HashMap<String, Schema>();
 	}
 
+	public void reset() {
+		schemaSets.clear();
+		schemaLocations.clear();
+		visited.clear();
+		schemas.clear();
+		
+		schemaSets.addAll(instance.schemaSets);
+		visited.putAll(instance.visited);
+	}
+	
 	public Schema getSchema(String namespaceURI) {
 		Schema schema = schemas.get(namespaceURI);
 		if (schema != null)
@@ -110,20 +120,17 @@ public class SchemaHandler {
 		return true;
 	}
 
-	public void parseSchema(String schemaLocation) throws SAXException {
-		String[] split = schemaLocation.trim().split("\\s+");
-		if (split.length % 2 == 0)	
-			for (int i = 0; i < split.length; i += 2) 
-				parseSchema(split[i], split[i+1]);
-	}
-
 	public void parseSchema(Element element) throws SAXException {
 		String schemaLocation = element.getAttributeNS(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "schemaLocation");
 		if (schemaLocation.length() == 0)
 			schemaLocation = element.getAttribute("schemaLocation");
 
-		if (schemaLocation.length() > 0)
-			parseSchema(schemaLocation);
+		if (schemaLocation.length() > 0) {
+			String[] split = schemaLocation.trim().split("\\s+");
+			if (split.length % 2 == 0)	
+				for (int i = 0; i < split.length; i += 2) 
+					parseSchema(split[i], split[i+1]);
+		}
 	}
 
 	public void parseSchema(File schemaLocation) throws SAXException {

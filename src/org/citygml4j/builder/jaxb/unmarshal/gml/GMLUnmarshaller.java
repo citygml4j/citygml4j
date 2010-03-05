@@ -556,7 +556,7 @@ public class GMLUnmarshaller {
 					}
 
 					// release memory
-					if (jaxb.isFreeJAXBElements())
+					if (jaxb.isReleaseJAXBElementsFromMemory())
 						elem.setValue(null);
 				}
 			}
@@ -1219,7 +1219,7 @@ public class GMLUnmarshaller {
 					dest.addFeature((AbstractFeature)abstractFeature);
 
 				// release memory
-				if (jaxb.isFreeJAXBElements())
+				if (jaxb.isReleaseJAXBElementsFromMemory())
 					elem.setValue(null);
 			}
 		}

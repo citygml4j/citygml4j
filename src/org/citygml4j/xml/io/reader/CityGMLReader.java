@@ -4,8 +4,11 @@ import org.citygml4j.model.citygml.CityGML;
 
 public interface CityGMLReader {
 	public boolean hasNextFeature() throws CityGMLReadException;	
-	public CityGML nextFeature() throws CityGMLReadException;
 	public boolean isSetParentInfo();
+
+	public CityGML nextFeature() throws CityGMLReadException;
 	public ParentInfo getParentInfo();	
+	public String getBaseURI();	
+	
 	public void close() throws CityGMLReadException;
 }
