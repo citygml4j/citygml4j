@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 
@@ -14,12 +17,16 @@ import org.citygml4j.xml.validation.Validator;
 public class ObjectTreeValidation {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 		
 		CityGMLFactory citygml = new CityGMLFactory();
 		
 		// creating example (and simple) CityGML object tree
+		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
 		Building building = citygml.createBuilding();
 		building.setId("1st-Building");
 		
@@ -31,6 +38,7 @@ public class ObjectTreeValidation {
 		cityModel.addCityObjectMember(citygml.createCityObjectMember(building));
 		cityModel.addCityObjectMember(citygml.createCityObjectMember(buildingPart));
 		
+		System.out.println(df.format(new Date()) + "creating citygml4j Validator and validating city model against CityGML 0.4.0");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		Validator validator = builder.createValidator(schemaHandler);
 		
@@ -42,6 +50,7 @@ public class ObjectTreeValidation {
 		});		
 		
 		validator.validate(cityModel, CityGMLVersion.v0_4_0);
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

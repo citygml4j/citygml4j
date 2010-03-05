@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
@@ -13,28 +15,34 @@ import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.writer.AbstractCityGMLWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.FeatureWriteMode;
-import org.citygml4j.xml.schema.SchemaHandler;
 
 
 public class WritingCityGML {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
-		
-		SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-NoiseADE-0-5-0.xsd"));
-		
-		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
+				
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v100.xml");
+		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
+		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v100.xml"));
-		
+		in.parseSchema(new File("../../datasets/schemas/CityGML-NoiseADE-0-5-0.xsd"));
+
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(schemaHandler);
+		System.out.println(df.format(new Date()) + "creating CityGML 1.0.0 writer");
+		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(in.getSchemaHandler());
 		ModuleContext moduleContext = new ModuleContext(CityGMLVersion.v1_0_0);
 		
+		System.out.println(df.format(new Date()) + "input file is split per feature member whilst writing");
 		FeatureWriteMode writeMode = FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER;
+		
+		// set to true and check the differences
 		boolean splitOnCopy = false;
 		
 		out.setModuleContext(moduleContext);
@@ -44,17 +52,24 @@ public class WritingCityGML {
 		
 		//out.setProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING, ADEComponent.class);
 		
+		System.out.println(df.format(new Date()) + "writing split result");
 		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_split_v100.xml"), "utf-8");
 		setContext(writer, moduleContext, writeMode, splitOnCopy);
 		
 		writer.write(cityModel);
 		writer.close();
-		
+
+		System.out.println(df.format(new Date()) + "CityGML file LOD0_Railway_NoiseADE_split_v100.xml written");
+
+		System.out.println(df.format(new Date()) + "writing remaining original object tree");
 		writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_orig_v100.xml"), "utf-8");
 		setContext(writer, moduleContext, writeMode, splitOnCopy);
 		
 		writer.write(cityModel);
 		writer.close();
+		
+		System.out.println(df.format(new Date()) + "CityGML file LOD0_Railway_NoiseADE_orig_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	
 	private static void setContext(AbstractCityGMLWriter writer, 

@@ -3,6 +3,7 @@
 	<description>
 
 	</description>
+	<property name="mem.size.max" value="180m" />
 	<property name="lib" value="../../../lib" />
 	<property name="datasets" value="../../../samples/datasets" />
 	<path id="classpath">
@@ -27,6 +28,7 @@
 		<echo message="Running sample citygml4j application..." />
 		<java classname="MixedVersionsWriter" fork="true">
 			<classpath refid="classpath" />
+			<jvmarg value="-Xmx${mem.size.max}" />
 		</java>
 	</target>
 

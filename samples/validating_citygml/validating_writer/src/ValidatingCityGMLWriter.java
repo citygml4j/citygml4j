@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
@@ -17,12 +19,16 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 public class ValidatingCityGMLWriter {
 
 	public static void main(String[] args) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 		
 		CityGMLFactory citygml = new CityGMLFactory();
 		
 		// creating example (and simple) CityGML object tree
+		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
 		Building building = citygml.createBuilding();
 		building.setId("1st-Building");
 		
@@ -36,6 +42,7 @@ public class ValidatingCityGMLWriter {
 		
 		CityGMLVersion version = CityGMLVersion.v0_4_0;
 		
+		System.out.println(df.format(new Date()) + "creating validating CityGML 0.4.0 writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(version);
 		out.setProperty(CityGMLOutputFactory.USE_VALIDATION, true);
 		out.setValidationEventHandler(new ValidationEventHandler() {
@@ -45,16 +52,19 @@ public class ValidatingCityGMLWriter {
 			}
 		});		
 		
+		System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
 		CityGMLWriter writer = out.createCityGMLWriter(new File("Simple_but_invalid_building_v040.xml"));
 		writer.setPrefixes(version);
 		writer.setDefaultNamespace(CoreModule.v0_4_0);
 		writer.setSchemaLocations(version);
 		writer.setIndentString("  ");
 		
-		System.out.println("Validating citygml4j in-memory object tree whilst writing to file...\n");		
 		writer.write(cityModel);
 		
 		writer.close();
+
+		System.out.println(df.format(new Date()) + "CityGML file Simple_but_invalid_building_v040.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }

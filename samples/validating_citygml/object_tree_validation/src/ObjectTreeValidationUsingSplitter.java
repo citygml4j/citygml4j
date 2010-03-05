@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
@@ -36,12 +38,17 @@ public class ObjectTreeValidationUsingSplitter {
 		 * valid CityGML documents!
 		 */
 		
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 		
+		System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.NO_SPLIT);
 
@@ -49,6 +56,7 @@ public class ObjectTreeValidationUsingSplitter {
 		CityGML citygml = reader.nextFeature();		
 		reader.close();
 		
+		System.out.println(df.format(new Date()) + "creating citygml4j Validator");
 		Validator validator = builder.createValidator(schemaHandler);		
 		validator.setValidationEventHandler(new ValidationEventHandler() {
 			public boolean handleEvent(ValidationEvent event) {
@@ -57,10 +65,12 @@ public class ObjectTreeValidationUsingSplitter {
 			}
 		});
 		
+		System.out.println(df.format(new Date()) + "creating citygml4j FeatureSplitter and splitting document into single features");
 		FeatureSplitter splitter = new FeatureSplitter(schemaHandler);
 		splitter.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE);
 		splitter.setSplitCopy(true);
 		
+		System.out.println(df.format(new Date()) + "iterating over splitting result and validating features against CityGML 0.4.0");
 		for (CityGML feature : splitter.split(citygml)) {
 			
 			String type = null;
@@ -73,6 +83,8 @@ public class ObjectTreeValidationUsingSplitter {
 			System.out.println("Validating " + type);
 			validator.validate(feature, CityGMLVersion.v0_4_0);
 		}
+		
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	
 }

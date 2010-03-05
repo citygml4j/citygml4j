@@ -1,4 +1,6 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
@@ -37,17 +39,23 @@ public class ValidatingCityModelWriter {
 		 * valid CityGML documents!
 		 */
 		
+		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
+		System.out.println(df.format(new Date()) + "creating SchemaHandler and parsing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");		
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
 
+		System.out.println(df.format(new Date()) + "creating validating CityGML 1.0.0 chunk-writer");
 		CityGMLVersion version = CityGMLVersion.v1_0_0;
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(version, schemaHandler);
 		out.setProperty(CityGMLOutputFactory.FEATURE_WRITE_MODE, FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER);
@@ -60,6 +68,7 @@ public class ValidatingCityModelWriter {
 			}
 		});		
 		
+		System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
 		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
 		writer.setPrefixes(version);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
@@ -67,7 +76,6 @@ public class ValidatingCityModelWriter {
 		writer.setSchemaLocation("http://www.citygml.org/ade/sub/0.9.0", "../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
 		writer.setIndentString("  ");
 		
-		System.out.println("Validating citygml4j in-memory object tree whilst writing to file...\n");
 		writer.writeStartDocument();
 		
 		while (reader.hasNextFeature()) {
@@ -83,6 +91,9 @@ public class ValidatingCityModelWriter {
 		
 		reader.close();
 		writer.close();
+
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml written");
+		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
 }
