@@ -64,21 +64,25 @@ free of charge.
 ----------------------
 
 * Java JRE or JDK >= 1.5
-* Java Architecture for XML Binding (JAXB) >= 2.1.10
+* Java Architecture for XML Binding (JAXB) >= 2.1.12
+* Sun Java Streaming XML Parser >= 1.0
 
 
 5. How to use it
 ----------------
 
 Simply modify your Java classpath to include the provided 
-!app.jar! file. Please make sure also to include the 
-required JAXB libraries on your application classpath. 
+Java library files in the subfolder "lib". This folder contains the
+!app.name! library file as well as all its mandatory dependencies.
+
+Please find a collection of sample !app.name! programs in
+the subfolder "samples".
 
    
 6. Developers
 -------------
 
-Claus Nagel <nagel@igg.tu-berlin.de>
+Claus Nagel <claus.nagel@tu-berlin.de>
 
 
 7. Contact

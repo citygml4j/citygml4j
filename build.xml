@@ -31,6 +31,7 @@
 	<property name="dist.javadoc" location="${dist}/javadoc" />
 	<property name="dist.tmp" location="${dist}/tmp" />
 	<property name="dist.samples" location="${dist}/samples" />
+	<property name="dist.license" location="${dist}/license" />
 
 	<property name="jaxb.schemas" location="${resources.jaxb}/schemas" />
 	<property name="jaxb.xjc-plugins" location="${resources.jaxb}/xjc-plugins" />
@@ -130,7 +131,7 @@
 		<delete dir="${dist.lib}" />
 		<mkdir dir="${dist.lib}" />
 
-		<!-- copy README and LICENSE templates -->
+		<!-- copy README and LICENSE templates to tmp folder -->
 		<copy todir="${dist.tmp}">
 			<fileset dir="${resources.doc}" includes="**/*" />
 			<fileset dir="${resources.license}" includes="**/*" />
@@ -144,6 +145,16 @@
 		<replace file="${dist.tmp}/LICENSE" token="!app.name!" value="${app.name}" />
 		<replace file="${dist.tmp}/LICENSE" token="!app.title!" value="${app.title}" />
 
+		<!-- copy README template to dist folder -->
+		<copy todir="${dist}">
+			<fileset dir="${dist.tmp}" includes="README" />
+		</copy>
+
+		<!-- copy LICENSE template to license folder -->
+		<copy todir="${dist.license}">
+			<fileset dir="${dist.tmp}" excludes="README" />
+		</copy>
+
 		<!-- copy schema files -->
 		<copy todir="${build.schemas}">
 			<fileset dir="${resources.schemas}" includes="**/*" />
@@ -156,7 +167,7 @@
 		<buildnumber file="build.num" />
 
 		<!-- put everything in ${build} into .jar file -->
-		<jar jarfile="${dist.lib}/${app.jar}" basedir="${build}/classes">
+		<jar jarfile="${dist.lib}/${app.jar}" basedir="${build.classes}">
 			<fileset dir="${dist.tmp}" includes="**/*" />
 			<manifest>
 				<attribute name="Built-Id" value="${user.name}-${app.name}-${app.version}" />
