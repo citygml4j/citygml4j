@@ -70,7 +70,7 @@ public class ObjectTreeValidationUsingSplitter {
 		splitter.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE);
 		splitter.setSplitCopy(true);
 		
-		System.out.println(df.format(new Date()) + "iterating over splitting result and validating features against CityGML 0.4.0");
+		System.out.println(df.format(new Date()) + "iterating over splitting result and validating features against CityGML 1.0.0");
 		for (CityGML feature : splitter.split(citygml)) {
 			
 			String type = null;
@@ -81,7 +81,7 @@ public class ObjectTreeValidationUsingSplitter {
 				type = feature.getCityGMLClass().toString();
 			
 			System.out.println("Validating " + type);
-			validator.validate(feature, CityGMLVersion.v0_4_0);
+			validator.validate(feature, CityGMLVersion.v1_0_0);
 		}
 		
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
