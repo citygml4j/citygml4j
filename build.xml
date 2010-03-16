@@ -26,7 +26,7 @@
 	<property name="build.classes" location="${build}/classes" />
 	<property name="build.schemas" location="${build.classes}/schemas" />
 
-	<property name="dist" location="${app.name}" />
+	<property name="dist" location="${app.name}-${app.version}" />
 	<property name="dist.lib" location="${dist}/lib" />
 	<property name="dist.javadoc" location="${dist}/javadoc" />
 	<property name="dist.tmp" location="${dist}/tmp" />
