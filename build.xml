@@ -4,7 +4,7 @@
 	<!-- application specific variables -->
 	<property name="app.name" value="citygml4j" />
 	<property name="app.version" value="1.0ea" />
-	<property name="app.jar" value="${app.name}-${app.version}.jar" />
+	<property name="app.jar" value="${app.name}.jar" />
 	<property name="app.title" value="Java class library for CityGML" />
 	<property name="app.vendor" value="IGG, Technical University Berlin, Germany, http://www.igg.tu-berlin.de" />
 
@@ -26,7 +26,7 @@
 	<property name="build.classes" location="${build}/classes" />
 	<property name="build.schemas" location="${build.classes}/schemas" />
 
-	<property name="dist" location="${app.name}-${app.version}" />
+	<property name="dist" location="${app.name}" />
 	<property name="dist.lib" location="${dist}/lib" />
 	<property name="dist.javadoc" location="${dist}/javadoc" />
 	<property name="dist.tmp" location="${dist}/tmp" />
