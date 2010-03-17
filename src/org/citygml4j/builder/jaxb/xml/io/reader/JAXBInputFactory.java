@@ -10,7 +10,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.util.xml.SystemIDResolver;
+import org.citygml4j.internal.util.xml.SystemIDResolver;
 import org.citygml4j.xml.io.AbstractCityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
