@@ -54,6 +54,7 @@ import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.GenericAttribute;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class Core100Unmarshaller {
 	private final CoreModule module = CoreModule.v1_0_0;
@@ -65,11 +66,11 @@ public class Core100Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -99,7 +100,7 @@ public class Core100Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalCityObject(AbstractCityObjectType src, CityObject dest) {
+	public void unmarshalCityObject(AbstractCityObjectType src, CityObject dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate())
@@ -132,11 +133,11 @@ public class Core100Unmarshaller {
 		}
 	}
 	
-	public void unmarshalSite(AbstractSiteType src, Site dest) {
+	public void unmarshalSite(AbstractSiteType src, Site dest) throws MissingADESchemaException {
 		unmarshalCityObject(src, dest);
 	}
 
-	public void unmarshalAddress(AddressType src, Address dest) {
+	public void unmarshalAddress(AddressType src, Address dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 
 		if (src.isSetXalAddress())
@@ -146,14 +147,14 @@ public class Core100Unmarshaller {
 			dest.setMultiPoint(jaxb.getGMLUnmarshaller().unmarshalMultiPointProperty(src.getMultiPoint()));
 	}
 
-	public Address unmarshalAddress(AddressType src) {
+	public Address unmarshalAddress(AddressType src) throws MissingADESchemaException {
 		Address dest = new AddressImpl(module);
 		unmarshalAddress(src, dest);
 
 		return dest;
 	}
 
-	public AddressProperty unmarshalAddressProperty(AddressPropertyType src) {
+	public AddressProperty unmarshalAddressProperty(AddressPropertyType src) throws MissingADESchemaException {
 		AddressProperty dest = new AddressPropertyImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
 
@@ -166,18 +167,18 @@ public class Core100Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalCityModel(CityModelType src, CityModel dest) {
+	public void unmarshalCityModel(CityModelType src, CityModel dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeatureCollection(src, dest);
 	}
 
-	public CityModel unmarshalCityModel(CityModelType src) {
+	public CityModel unmarshalCityModel(CityModelType src) throws MissingADESchemaException {
 		CityModel dest = new CityModelImpl(module);
 		unmarshalCityModel(src, dest);
 
 		return dest;
 	}
 
-	public CityObjectMember unmarshalCityObjectMember(FeaturePropertyType src) {
+	public CityObjectMember unmarshalCityObjectMember(FeaturePropertyType src) throws MissingADESchemaException {
 		CityObjectMember dest = new CityObjectMemberImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
@@ -220,7 +221,7 @@ public class Core100Unmarshaller {
 		return dest;
 	}
 
-	public GeneralizationRelation unmarshalGeneralizationRelation(GeneralizationRelationType src) {
+	public GeneralizationRelation unmarshalGeneralizationRelation(GeneralizationRelationType src) throws MissingADESchemaException {
 		GeneralizationRelation dest = new GeneralizationRelationImpl(module);
 
 		if (src.isSet_CityObject()) {
@@ -285,7 +286,7 @@ public class Core100Unmarshaller {
 		return dest;
 	}
 
-	public ImplicitRepresentationProperty unmarshalImplicitRepresentationProperty(ImplicitRepresentationPropertyType src) {
+	public ImplicitRepresentationProperty unmarshalImplicitRepresentationProperty(ImplicitRepresentationPropertyType src) throws MissingADESchemaException {
 		ImplicitRepresentationProperty dest = new ImplicitRepresentationPropertyImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
 

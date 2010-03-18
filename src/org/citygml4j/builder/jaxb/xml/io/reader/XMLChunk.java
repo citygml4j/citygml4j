@@ -28,6 +28,7 @@ import org.citygml4j.model.gml.LocationProperty;
 import org.citygml4j.model.gml.MetaDataProperty;
 import org.citygml4j.model.gml.StringOrRef;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
@@ -216,6 +217,8 @@ public class XMLChunk {
 				//
 			} catch (SAXException e) {
 				//
+			} catch (MissingADESchemaException e) {
+				//
 			}
 
 		}
@@ -223,14 +226,14 @@ public class XMLChunk {
 		return featureInfo;
 	}
 
-	public CityGML unmarshal() throws JAXBException, SAXException {
+	public CityGML unmarshal() throws JAXBException, SAXException, MissingADESchemaException {
 		if (!buffer.isEmpty() && citygmlResolved.compareAndSet(false, true))
 			citygml = unmarshal(buffer, chunkReader.useValidation);
 
 		return citygml;
 	}	
 
-	private CityGML unmarshal(SAXEventBuffer buffer, boolean useValidation) throws JAXBException, SAXException {
+	private CityGML unmarshal(SAXEventBuffer buffer, boolean useValidation) throws JAXBException, SAXException, MissingADESchemaException {
 		CityGML citygml = null;
 		QName fakeRoot = getFakeRoot();
 

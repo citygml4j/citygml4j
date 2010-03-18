@@ -12,8 +12,11 @@ import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 
+import util.SchemaEntityResolver;
+import util.SchemaParseErrorHandler;
 
-public class CatchingSchemaParseErrors {
+
+public class WrongSchemaLocation {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
@@ -27,6 +30,7 @@ public class CatchingSchemaParseErrors {
 		schemaHandler.setSchemaEntityResolver(new SchemaEntityResolver());
 		schemaHandler.setErrorHandler(new SchemaParseErrorHandler());
 		
+		// register false schema location in order to provoke a schema parse error
 		schemaHandler.registerSchemaLocation("http://www.citygml.org/ade/noise_de", 
 				new File("/nowhere/nofile.xsd"));
 

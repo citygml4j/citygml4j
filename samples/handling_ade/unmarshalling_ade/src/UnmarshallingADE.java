@@ -17,6 +17,7 @@ import org.citygml4j.visitor.walker.GMLWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -42,7 +43,7 @@ public class UnmarshallingADE {
 		final JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller(schemaHandler);
 		final JAXBMarshaller marshaller = builder.createJAXBMarshaller();
 		final GMLFactory gml = new GMLFactory();
-		
+
 		GMLWalker walker = new GMLWalker(schemaHandler) {
 
 			@Override
@@ -50,22 +51,27 @@ public class UnmarshallingADE {
 
 				if (decl.isGeometry()) {
 					System.out.print("  Processing geometry: ");
-					
-					AbstractGeometry geometry = (AbstractGeometry)unmarshaller.unmarshal(element);
-					if (geometry != null) {
-						System.out.println(geometry.getGMLClass());
-						
-						StringOrRef description = gml.createStringOrRef();
-						description.setValue("processed by citygml4j");
-						geometry.setDescription(description);
-						
-						Element processed = marshaller.marshalDOMElement(geometry, element.getOwnerDocument()); 
-						element.getParentNode().replaceChild(processed, element);
+
+					try {
+						AbstractGeometry geometry = (AbstractGeometry)unmarshaller.unmarshal(element);
+						if (geometry != null) {
+							System.out.println(geometry.getGMLClass());
+
+							StringOrRef description = gml.createStringOrRef();
+							description.setValue("processed by citygml4j");
+							geometry.setDescription(description);
+
+							Element processed = marshaller.marshalDOMElement(geometry, element.getOwnerDocument()); 
+							element.getParentNode().replaceChild(processed, element);
+						}
+					} catch (MissingADESchemaException e) {
+						//
 					}
+
 				} else {
 					if (decl.isFeature())
 						System.out.println("ADE feature: " + element.getLocalName());
-					
+
 					super.accept(element, decl);
 				}
 			}
@@ -77,7 +83,7 @@ public class UnmarshallingADE {
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 		out.setSchemaHandler(schemaHandler);
-		
+
 		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_processed_v100.xml"));
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
@@ -86,14 +92,14 @@ public class UnmarshallingADE {
 		writer.setIndentString("  ");
 
 		writer.writeStartDocument();
-		
+
 		for (CityObjectMember member : cityModel.getCityObjectMember())
 			if (member.isSetGenericADEComponent())
 				writer.writeFeatureMember(member.getGenericADEComponent());
-		
+
 		writer.writeEndDocument();		
 		writer.close();
-		
+
 		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_processed_v100.xml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}

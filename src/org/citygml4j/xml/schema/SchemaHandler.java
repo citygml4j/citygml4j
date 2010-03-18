@@ -15,6 +15,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.citygml.CityGMLModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
@@ -68,11 +69,11 @@ public class SchemaHandler {
 		schemaLocations.clear();
 		visited.clear();
 		schemas.clear();
-		
+
 		schemaSets.addAll(instance.schemaSets);
 		visited.putAll(instance.visited);
 	}
-	
+
 	public Schema getSchema(String namespaceURI) {
 		Schema schema = schemas.get(namespaceURI);
 		if (schema != null)
@@ -163,8 +164,35 @@ public class SchemaHandler {
 		}
 	}
 
+	public void resolveAndParseSchema(String namespaceURI) throws SAXException, MissingADESchemaException {
+		if (visited.containsKey(namespaceURI))
+			return;
+		
+		InputSource is = null;
+
+		if (schemaEntityResolver != null) {
+			try {
+				is = schemaEntityResolver.resolveEntity(namespaceURI, null);				
+			} catch (IOException e) {
+				throw new SAXException(e);
+			}
+		}
+		
+		if (is == null)
+			throw new MissingADESchemaException("Failed to resolve ADE Schema document for target namespace " + namespaceURI);
+		
+		parse(is);
+	}
+
 	private void parse(String schemaLocation) throws SAXException {
 		if (schemaLocation == null)
+			return;
+		
+		parse(new InputSource(schemaLocation));
+	}
+	
+	private void parse(InputSource is) throws SAXException {
+		if (is == null)
 			return;
 
 		XSOMParser parser = new XSOMParser();
@@ -195,7 +223,7 @@ public class SchemaHandler {
 		if (schemaErrorHandler != null)
 			parser.setErrorHandler(schemaErrorHandler);
 
-		parser.parse(schemaLocation);
+		parser.parse(is);
 		XSSchemaSet schemaSet = parser.getResult();
 
 		if (schemaSet != null) {			
@@ -227,11 +255,11 @@ public class SchemaHandler {
 	public Set<String> getTargetNamespaces() {
 		return visited.keySet();
 	}
-	
+
 	public int size() {
 		return visited.size();
 	}
-	
+
 	public boolean isEmpty() {
 		return visited.isEmpty();
 	}
@@ -261,5 +289,5 @@ public class SchemaHandler {
 
 		return null;
 	}
-	
+
 }

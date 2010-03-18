@@ -43,6 +43,7 @@ import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class CityGMLUnmarshaller {
 	private final JAXBUnmarshaller jaxb;	
@@ -103,7 +104,7 @@ public class CityGMLUnmarshaller {
 		wtr040 = new WaterBody040Unmarshaller(this);
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		final String namespaceURI = src.getName().getNamespaceURI();
 
 		CityGML dest = null;
@@ -164,7 +165,7 @@ public class CityGMLUnmarshaller {
 		return dest;
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 			

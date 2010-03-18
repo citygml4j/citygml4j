@@ -17,6 +17,7 @@ import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -45,6 +46,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		elementChecker = new XMLElementChecker(schemaHandler, 
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
 				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
+				parseSchema,
 				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING));
 	}
 
@@ -60,7 +62,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		elementInfo = null;
 	}
 
-	public boolean hasNextFeature() throws CityGMLReadException {
+	public boolean hasNextFeature() throws CityGMLReadException, MissingADESchemaException {
 		if (tmp == null) {
 			try {
 				tmp = nextFeature();
@@ -72,7 +74,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		return tmp != null;
 	}
 
-	public CityGML nextFeature() throws CityGMLReadException {
+	public CityGML nextFeature() throws CityGMLReadException, MissingADESchemaException {
 		CityGML next = tmp;
 
 		if (next == null) {
@@ -152,7 +154,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		}
 	}	
 
-	private CityGML unmarshalChunk() throws JAXBException, SAXException {
+	private CityGML unmarshalChunk() throws JAXBException, SAXException, MissingADESchemaException {
 		CityGML next = chunk.unmarshal();
 
 		if (!chunks.isEmpty()) {

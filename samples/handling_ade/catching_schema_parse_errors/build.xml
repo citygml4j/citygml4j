@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes"?>
-<project basedir="." default="run">
+<project basedir="." default="wrong">
 	<description>
 
 	</description>
@@ -23,9 +23,16 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="run" depends="compile" description="run the sample app">
+	<target name="wrong" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="CatchingSchemaParseErrors" fork="true">
+		<java classname="WrongSchemaLocation" fork="true">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<target name="missing" depends="compile" description="run the sample app">
+		<echo message="Running sample citygml4j ADE application..." />
+		<java classname="MissingSchemaReference" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>

@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class TexturedSurface100Unmarshaller {
 	private final TexturedSurfaceModule module = TexturedSurfaceModule.v1_0_0;
@@ -34,17 +35,17 @@ public class TexturedSurface100Unmarshaller {
 	public TexturedSurface100Unmarshaller(CityGMLUnmarshaller citygml) {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
-	
+
 	public CityGML unmarshal(JAXBElement<?> src) {
 		return unmarshal(src.getValue());
 	}
-	
+
 	public CityGML unmarshal(Object src) {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
-		
+
 		CityGML dest = null;
-				
+
 		if (src instanceof AppearancePropertyType)
 			dest = unmarshalAppearanceProperty((AppearancePropertyType)src);
 		else if (src instanceof MaterialType)
@@ -55,10 +56,10 @@ public class TexturedSurface100Unmarshaller {
 			dest = unmarshalTexturedSurface((TexturedSurfaceType)src);		
 		else if (src instanceof TextureTypeType)
 			dest = unmarshalTextureType((TextureTypeType)src);
-		
+
 		return dest;
 	}
-	
+
 	public void unmarshalAppearance(AbstractAppearanceType src, _Appearance dest) {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 	}
@@ -68,13 +69,17 @@ public class TexturedSurface100Unmarshaller {
 
 		if (src.isSetOrientation())
 			dest.setOrientation(src.getOrientation());
-		
+
 		if (src.isSet_Appearance()) {
-			Object appearance = jaxb.unmarshal(src.get_Appearance());
-			if (appearance instanceof _Appearance)
-				dest.setAppearance((_Appearance)appearance);
+			try {
+				Object appearance = jaxb.unmarshal(src.get_Appearance());
+				if (appearance instanceof _Appearance)
+					dest.setAppearance((_Appearance)appearance);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
-		
+
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -101,59 +106,59 @@ public class TexturedSurface100Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public _Color unmarshalColor(List<Double> src) {
 		_Color  dest = new _ColorImpl(module);
 		dest.setColor(src);
 
 		return dest;
 	}
-	
+
 	public void unmarshalMaterial(MaterialType src, _Material dest) {
 		unmarshalAppearance(src, dest);
-		
+
 		if (src.isSetShininess())
 			dest.setShininess(src.getShininess());
-		
+
 		if (src.isSetTransparency())
 			dest.setTransparency(src.getTransparency());
-		
+
 		if (src.isSetAmbientIntensity())
 			dest.setAmbientIntensity(src.getAmbientIntensity());
-		
+
 		if (src.isSetSpecularColor())
 			dest.setSpecularColor(unmarshalColor(src.getSpecularColor()));
-		
+
 		if (src.isSetDiffuseColor())
 			dest.setDiffuseColor(unmarshalColor(src.getDiffuseColor()));
-		
+
 		if (src.isSetEmissiveColor())
 			dest.setEmissiveColor(unmarshalColor(src.getEmissiveColor()));
 	}
-	
+
 	public _Material unmarshalMaterial(MaterialType src) {
 		_Material dest = new _MaterialImpl(module);
 		unmarshalMaterial(src, dest);
 
 		return dest;
 	}
-	
+
 	public void unmarshalSimpleTexture(SimpleTextureType src, _SimpleTexture dest) {
 		unmarshalAppearance(src, dest);
-		
+
 		if (src.isSetTextureMap())
 			dest.setTextureMap(src.getTextureMap());
-		
+
 		if (src.isSetTextureCoordinates())
 			dest.setTextureCoordinates(src.getTextureCoordinates());
-		
+
 		if (src.isSetTextureType())
 			dest.setTextureType(unmarshalTextureType(src.getTextureType()));
-		
+
 		if (src.isSetRepeat())
 			dest.setRepeat(src.isRepeat());
 	}
-	
+
 	public _SimpleTexture unmarshalSimpleTexture(SimpleTextureType src) {
 		_SimpleTexture dest = new _SimpleTextureImpl(module);
 		unmarshalSimpleTexture(src, dest);
@@ -163,22 +168,22 @@ public class TexturedSurface100Unmarshaller {
 
 	public void unmarshalTexturedSurface(TexturedSurfaceType src, _TexturedSurface dest) {
 		jaxb.getGMLUnmarshaller().unmarshalOrientableSurface(src, dest);
-		
+
 		if (src.isSetAppearance()) {
 			for (AppearancePropertyType appearanceProperty : src.getAppearance())
 				dest.addAppearance(unmarshalAppearanceProperty(appearanceProperty));
 		}
 	}
-	
+
 	public _TexturedSurface unmarshalTexturedSurface(TexturedSurfaceType src) {
 		_TexturedSurface dest = new _TexturedSurfaceImpl(module);
 		unmarshalTexturedSurface(src, dest);
 
 		return dest;
 	}
-	
+
 	public _TextureType unmarshalTextureType(TextureTypeType src) {
 		return _TextureType.fromValue(src.value());
 	}
-	
+
 }

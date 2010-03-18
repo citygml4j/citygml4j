@@ -13,6 +13,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.gml.AbstractFeature;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.xml.sax.SAXException;
 
@@ -29,7 +30,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 		tmp = null;
 	}
 
-	public boolean hasNextFeature() throws CityGMLReadException {
+	public boolean hasNextFeature() throws CityGMLReadException, MissingADESchemaException {
 		if (tmp == null) {
 			try {
 				tmp = nextFeature();
@@ -41,7 +42,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 		return tmp != null;
 	}
 
-	public CityGML nextFeature() throws CityGMLReadException {
+	public CityGML nextFeature() throws CityGMLReadException, MissingADESchemaException {
 		CityGML next = tmp;
 
 		if (next == null) {

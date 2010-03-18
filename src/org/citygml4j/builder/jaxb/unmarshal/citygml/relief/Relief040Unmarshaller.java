@@ -32,6 +32,7 @@ import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.gml.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class Relief040Unmarshaller {
 	private final ReliefModule module = ReliefModule.v0_4_0;
@@ -43,11 +44,11 @@ public class Relief040Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -71,7 +72,7 @@ public class Relief040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalReliefComponent(_ReliefComponentType src, ReliefComponent dest) {
+	public void unmarshalReliefComponent(_ReliefComponentType src, ReliefComponent dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetLod())
@@ -81,7 +82,7 @@ public class Relief040Unmarshaller {
 			dest.setExtent(jaxb.getGMLUnmarshaller().unmarshalPolygonProperty(src.getExtent()));
 	}
 
-	public void unmarshalBreaklineRelief(BreaklineReliefType src, BreaklineRelief dest) {
+	public void unmarshalBreaklineRelief(BreaklineReliefType src, BreaklineRelief dest) throws MissingADESchemaException {
 		unmarshalReliefComponent(src, dest);
 
 		if (src.isSetRidgeOrValleyLines())
@@ -91,39 +92,39 @@ public class Relief040Unmarshaller {
 			dest.setBreaklines(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getBreaklines()));
 	}
 
-	public BreaklineRelief unmarshalBreaklineRelief(BreaklineReliefType src) {
+	public BreaklineRelief unmarshalBreaklineRelief(BreaklineReliefType src) throws MissingADESchemaException {
 		BreaklineRelief dest = new BreaklineReliefImpl(module);
 		unmarshalBreaklineRelief(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalMassPointRelief(MassPointReliefType src, MassPointRelief dest) {
+	public void unmarshalMassPointRelief(MassPointReliefType src, MassPointRelief dest) throws MissingADESchemaException {
 		unmarshalReliefComponent(src, dest);
 
 		if (src.isSetReliefPoints())
 			dest.setReliefPoints(jaxb.getGMLUnmarshaller().unmarshalMultiPointProperty(src.getReliefPoints()));
 	}
 
-	public MassPointRelief unmarshalMassPointRelief(MassPointReliefType src) {
+	public MassPointRelief unmarshalMassPointRelief(MassPointReliefType src) throws MissingADESchemaException {
 		MassPointRelief dest = new MassPointReliefImpl(module);
 		unmarshalMassPointRelief(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalRasterRelief(RasterReliefType src, RasterRelief dest) {
+	public void unmarshalRasterRelief(RasterReliefType src, RasterRelief dest) throws MissingADESchemaException {
 		unmarshalReliefComponent(src, dest);
 	}
 
-	public RasterRelief unmarshalRasterRelief(RasterReliefType src) {
+	public RasterRelief unmarshalRasterRelief(RasterReliefType src) throws MissingADESchemaException {
 		RasterRelief dest = new RasterReliefImpl(module);
 		unmarshalRasterRelief(src, dest);
 
 		return dest;
 	}
 
-	public ReliefComponentProperty unmarshalReliefComponentProperty(ReliefComponentPropertyType src) {
+	public ReliefComponentProperty unmarshalReliefComponentProperty(ReliefComponentPropertyType src) throws MissingADESchemaException {
 		ReliefComponentProperty dest = new ReliefComponentPropertyImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
 
@@ -136,7 +137,7 @@ public class Relief040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalReliefFeature(ReliefFeatureType src, ReliefFeature dest) {
+	public void unmarshalReliefFeature(ReliefFeatureType src, ReliefFeature dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetLod())
@@ -148,14 +149,14 @@ public class Relief040Unmarshaller {
 		}
 	}
 
-	public ReliefFeature unmarshalReliefFeature(ReliefFeatureType src) {
+	public ReliefFeature unmarshalReliefFeature(ReliefFeatureType src) throws MissingADESchemaException {
 		ReliefFeature dest = new ReliefFeatureImpl(module);
 		unmarshalReliefFeature(src, dest);
 
 		return dest;
 	}
 
-	public TinProperty unmarshalTinProperty(TinPropertyType src) {
+	public TinProperty unmarshalTinProperty(TinPropertyType src) throws MissingADESchemaException {
 		TinProperty dest = new TinPropertyImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
 
@@ -168,14 +169,14 @@ public class Relief040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalTINRelief(TINReliefType src, TINRelief dest) {
+	public void unmarshalTINRelief(TINReliefType src, TINRelief dest) throws MissingADESchemaException {
 		unmarshalReliefComponent(src, dest);
 
 		if (src.isSetTin())
 			dest.setTin(unmarshalTinProperty(src.getTin()));
 	}
 
-	public TINRelief unmarshalTINRelief(TINReliefType src) {
+	public TINRelief unmarshalTINRelief(TINReliefType src) throws MissingADESchemaException {
 		TINRelief dest = new TINReliefImpl(module);
 		unmarshalTINRelief(src, dest);
 

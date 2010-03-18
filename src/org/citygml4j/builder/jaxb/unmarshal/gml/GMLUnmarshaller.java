@@ -269,6 +269,7 @@ import org.citygml4j.model.gml.TrianglePatchArrayProperty;
 import org.citygml4j.model.gml.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.w3c.dom.Element;
@@ -280,7 +281,7 @@ public class GMLUnmarshaller {
 		this.jaxb = jaxb;
 	}
 
-	public GML unmarshal(JAXBElement<?> src) {
+	public GML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		final String namespaceURI = src.getName().getNamespaceURI();
 		final String localPart = src.getName().getLocalPart();
 		final Object value = src.getValue();
@@ -305,7 +306,7 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public GML unmarshal(Object src) {
+	public GML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -478,16 +479,20 @@ public class GMLUnmarshaller {
 			dest.setNumDerivativesAtStart(src.getNumDerivativesAtStart().intValue());
 	}
 
-	public void unmarshalAbstractFeature(AbstractFeatureType src, AbstractFeature dest) {
+	public void unmarshalAbstractFeature(AbstractFeatureType src, AbstractFeature dest) throws MissingADESchemaException {
 		unmarshalAbstractGML(src, dest);
 
 		if (src.isSetBoundedBy())
 			dest.setBoundedBy(unmarshalBoundingShape(src.getBoundedBy()));
 
 		if (src.isSetLocation()) {
-			Object location = jaxb.unmarshal(src.getLocation());
-			if (location instanceof LocationProperty)
-				dest.setLocation((LocationProperty)location);
+			try {
+				Object location = jaxb.unmarshal(src.getLocation());
+				if (location instanceof LocationProperty)
+					dest.setLocation((LocationProperty)location);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSet_ADEComponent()) {
@@ -514,7 +519,7 @@ public class GMLUnmarshaller {
 		}
 	}
 
-	public void unmarshalAbstractFeatureCollection(AbstractFeatureCollectionType src, AbstractFeatureCollection dest) {
+	public void unmarshalAbstractFeatureCollection(AbstractFeatureCollectionType src, AbstractFeatureCollection dest) throws MissingADESchemaException {
 		unmarshalAbstractFeature(src, dest);
 
 		CityModel cityModel = null;
@@ -580,9 +585,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSetName()) {
 			for (JAXBElement<CodeType> elem : src.getName()) {
-				Object name = jaxb.unmarshal(elem);
-				if (name instanceof Code)
-					dest.addName((Code)name);
+				try {
+					Object name = jaxb.unmarshal(elem);
+					if (name instanceof Code)
+						dest.addName((Code)name);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -620,9 +629,13 @@ public class GMLUnmarshaller {
 
 	public void unmarshalAbstractRingProperty(AbstractRingPropertyType src, AbstractRingProperty dest) {
 		if (src.isSet_Ring()) {
-			Object abstractRing = jaxb.unmarshal(src.get_Ring());
-			if (abstractRing instanceof AbstractRing)
-				dest.setRing((AbstractRing)abstractRing);
+			try {
+				Object abstractRing = jaxb.unmarshal(src.get_Ring());
+				if (abstractRing instanceof AbstractRing)
+					dest.setRing((AbstractRing)abstractRing);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 	}
 
@@ -638,7 +651,7 @@ public class GMLUnmarshaller {
 		// nothing to do here...
 	}
 
-	public void unmarshalAssociation(AssociationType src, Association<? extends AbstractGML> dest) {
+	public void unmarshalAssociation(AssociationType src, Association<? extends AbstractGML> dest) throws MissingADESchemaException {
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -667,7 +680,7 @@ public class GMLUnmarshaller {
 			dest.setActuate(src.getActuate());
 	}
 
-	public void unmarshalFeatureProperty(FeaturePropertyType src, FeatureProperty<? extends AbstractFeature> dest) {
+	public void unmarshalFeatureProperty(FeaturePropertyType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -698,9 +711,13 @@ public class GMLUnmarshaller {
 
 	public void unmarshalLocationProperty(LocationPropertyType src, LocationProperty dest) {
 		if (src.isSet_Geometry()) {
-			Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
-			if (abstractGeometry instanceof AbstractGeometry)
-				dest.setGeometry((AbstractGeometry)abstractGeometry);
+			try { 
+				Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
+				if (abstractGeometry instanceof AbstractGeometry)
+					dest.setGeometry((AbstractGeometry)abstractGeometry);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetLocationKeyWord())
@@ -798,18 +815,26 @@ public class GMLUnmarshaller {
 		unmarshalAbstractSurface(src, dest);
 
 		if (src.isSetPatches()) {
-			Object surfacePatchArrayProperty = jaxb.unmarshal(src.getPatches());
-			if (surfacePatchArrayProperty instanceof SurfacePatchArrayProperty)
-				dest.setPatches((SurfacePatchArrayProperty)surfacePatchArrayProperty);
+			try {
+				Object surfacePatchArrayProperty = jaxb.unmarshal(src.getPatches());
+				if (surfacePatchArrayProperty instanceof SurfacePatchArrayProperty)
+					dest.setPatches((SurfacePatchArrayProperty)surfacePatchArrayProperty);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 	}
 
 	public void unmarshalSurfacePatchArrayProperty(SurfacePatchArrayPropertyType src, SurfacePatchArrayProperty dest) {
 		if (src.isSet_SurfacePatch()) {
 			for (JAXBElement<? extends AbstractSurfacePatchType> elem : src.get_SurfacePatch()) {
-				Object abstractSurfacePatch = jaxb.unmarshal(elem);
-				if (abstractSurfacePatch instanceof AbstractSurfacePatch)
-					dest.addSurfacePatch((AbstractSurfacePatch)abstractSurfacePatch);
+				try {
+					Object abstractSurfacePatch = jaxb.unmarshal(elem);
+					if (abstractSurfacePatch instanceof AbstractSurfacePatch)
+						dest.addSurfacePatch((AbstractSurfacePatch)abstractSurfacePatch);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 	}
@@ -822,9 +847,13 @@ public class GMLUnmarshaller {
 		BoundingShape dest = new BoundingShapeImpl();
 
 		if (src.isSetEnvelope()) {
-			Object envelope = jaxb.unmarshal(src.getEnvelope());
-			if (envelope instanceof Envelope)
-				dest.setEnvelope((Envelope)envelope);
+			try {
+				Object envelope = jaxb.unmarshal(src.getEnvelope());
+				if (envelope instanceof Envelope)
+					dest.setEnvelope((Envelope)envelope);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetNull()) {
@@ -998,11 +1027,15 @@ public class GMLUnmarshaller {
 
 		if (src.isSetGeometricPositionGroup()) {
 			for (Object geometricPositionGroup : src.getGeometricPositionGroup()) {
-				GML controlPoint = unmarshal(geometricPositionGroup);
-				if (controlPoint instanceof DirectPosition)
-					dest.addGeometricPositionGroup(new GeometricPositionGroupImpl((DirectPosition)controlPoint));
-				else if (controlPoint instanceof PointProperty)
-					dest.addGeometricPositionGroup(new GeometricPositionGroupImpl((PointProperty)controlPoint));
+				try {
+					GML controlPoint = unmarshal(geometricPositionGroup);
+					if (controlPoint instanceof DirectPosition)
+						dest.addGeometricPositionGroup(new GeometricPositionGroupImpl((DirectPosition)controlPoint));
+					else if (controlPoint instanceof PointProperty)
+						dest.addGeometricPositionGroup(new GeometricPositionGroupImpl((PointProperty)controlPoint));
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -1057,9 +1090,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Curve()) {
 			for (JAXBElement<? extends AbstractCurveType> elem : src.get_Curve()) {			
-				Object abstractCurve = jaxb.unmarshal(elem);
-				if (abstractCurve instanceof AbstractCurve)
-					dest.addCurve((AbstractCurve)abstractCurve);
+				try {
+					Object abstractCurve = jaxb.unmarshal(elem);
+					if (abstractCurve instanceof AbstractCurve)
+						dest.addCurve((AbstractCurve)abstractCurve);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -1074,9 +1111,13 @@ public class GMLUnmarshaller {
 		CurveProperty dest = new CurvePropertyImpl();
 
 		if (src.isSet_Curve()) {
-			Object abstractCurve = jaxb.unmarshal(src.get_Curve());
-			if (abstractCurve instanceof AbstractCurve)
-				dest.setCurve((AbstractCurve)abstractCurve);
+			try {
+				Object abstractCurve = jaxb.unmarshal(src.get_Curve());
+				if (abstractCurve instanceof AbstractCurve)
+					dest.setCurve((AbstractCurve)abstractCurve);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetRemoteSchema())
@@ -1111,9 +1152,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_CurveSegment()) {
 			for (JAXBElement<? extends AbstractCurveSegmentType> elem : src.get_CurveSegment()) {
-				Object abstractCurveSegment = jaxb.unmarshal(elem);
-				if (abstractCurveSegment instanceof AbstractCurveSegment)
-					dest.addCurveSegment((AbstractCurveSegment)abstractCurveSegment);
+				try {
+					Object abstractCurveSegment = jaxb.unmarshal(elem);
+					if (abstractCurveSegment instanceof AbstractCurveSegment)
+						dest.addCurveSegment((AbstractCurveSegment)abstractCurveSegment);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -1209,7 +1254,7 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public FeatureArrayProperty unmarshalFeatureArrayProperty(FeatureArrayPropertyType src) {
+	public FeatureArrayProperty unmarshalFeatureArrayProperty(FeatureArrayPropertyType src) throws MissingADESchemaException {
 		FeatureArrayProperty dest = new FeatureArrayPropertyImpl();
 
 		if (src.isSet_Feature()) {
@@ -1232,7 +1277,7 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public FeatureProperty<? extends AbstractFeature> unmarshalFeatureProperty(FeaturePropertyType src) {
+	public FeatureProperty<? extends AbstractFeature> unmarshalFeatureProperty(FeaturePropertyType src) throws MissingADESchemaException {
 		FeatureProperty<AbstractFeature> dest = new FeaturePropertyImpl<AbstractFeature>();
 		unmarshalFeatureProperty(src, dest);
 
@@ -1303,9 +1348,13 @@ public class GMLUnmarshaller {
 		GeometricPrimitiveProperty dest = new GeometricPrimitivePropertyImpl();
 
 		if (src.isSet_GeometricPrimitive()) {
-			Object abstractGeometricPrimitive = jaxb.unmarshal(src.get_GeometricPrimitive());
-			if (abstractGeometricPrimitive instanceof AbstractGeometricPrimitive)
-				dest.setGeometricPrimitive((AbstractGeometricPrimitive)abstractGeometricPrimitive);
+			try {
+				Object abstractGeometricPrimitive = jaxb.unmarshal(src.get_GeometricPrimitive());
+				if (abstractGeometricPrimitive instanceof AbstractGeometricPrimitive)
+					dest.setGeometricPrimitive((AbstractGeometricPrimitive)abstractGeometricPrimitive);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetRemoteSchema())
@@ -1339,9 +1388,13 @@ public class GMLUnmarshaller {
 		GeometryProperty dest = new GeometryPropertyImpl();
 
 		if (src.isSet_Geometry()) {
-			Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
-			if (abstractGeometry instanceof AbstractGeometry)
-				dest.setGeometry((AbstractGeometry)abstractGeometry);
+			try {
+				Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
+				if (abstractGeometry instanceof AbstractGeometry)
+					dest.setGeometry((AbstractGeometry)abstractGeometry);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetRemoteSchema())
@@ -1409,13 +1462,17 @@ public class GMLUnmarshaller {
 
 		if (src.isSetPosOrPointPropertyOrPointRep()) {
 			for (JAXBElement<?> elem : src.getPosOrPointPropertyOrPointRep()) {
-				Object controlPoint = jaxb.unmarshal(elem);
-				if (controlPoint instanceof DirectPosition)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
-				else if (controlPoint instanceof PointRep)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointRep)controlPoint));
-				else if (controlPoint instanceof PointProperty)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointProperty)controlPoint));
+				try {
+					Object controlPoint = jaxb.unmarshal(elem);
+					if (controlPoint instanceof DirectPosition)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
+					else if (controlPoint instanceof PointRep)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointRep)controlPoint));
+					else if (controlPoint instanceof PointProperty)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointProperty)controlPoint));
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -1443,15 +1500,19 @@ public class GMLUnmarshaller {
 
 		if (src.isSetPosOrPointPropertyOrPointRep()) {
 			for (JAXBElement<?> elem : src.getPosOrPointPropertyOrPointRep()) {
-				Object controlPoint = jaxb.unmarshal(elem);
-				if (controlPoint instanceof DirectPosition)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((DirectPosition)controlPoint));
-				else if (controlPoint instanceof PointRep)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((PointRep)controlPoint));
-				else if (controlPoint instanceof PointProperty)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((PointProperty)controlPoint));
-				else if (controlPoint instanceof Coord)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((Coord)controlPoint));
+				try {
+					Object controlPoint = jaxb.unmarshal(elem);
+					if (controlPoint instanceof DirectPosition)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((DirectPosition)controlPoint));
+					else if (controlPoint instanceof PointRep)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((PointRep)controlPoint));
+					else if (controlPoint instanceof PointProperty)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((PointProperty)controlPoint));
+					else if (controlPoint instanceof Coord)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((Coord)controlPoint));
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -1506,13 +1567,17 @@ public class GMLUnmarshaller {
 
 		if (src.isSetPosOrPointPropertyOrPointRep()) {
 			for (JAXBElement<?> elem : src.getPosOrPointPropertyOrPointRep()) {
-				Object controlPoint = jaxb.unmarshal(elem);
-				if (controlPoint instanceof DirectPosition)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
-				else if (controlPoint instanceof PointRep)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointRep)controlPoint));
-				else if (controlPoint instanceof PointProperty)
-					dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointProperty)controlPoint));
+				try{
+					Object controlPoint = jaxb.unmarshal(elem);
+					if (controlPoint instanceof DirectPosition)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
+					else if (controlPoint instanceof PointRep)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointRep)controlPoint));
+					else if (controlPoint instanceof PointProperty)
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointProperty)controlPoint));
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -1966,16 +2031,24 @@ public class GMLUnmarshaller {
 		unmarshalAbstractSurface(src, dest);
 
 		if (src.isSetExterior()) {
-			Object exterior = jaxb.unmarshal(src.getExterior());
-			if (exterior instanceof AbstractRingProperty)
-				dest.setExterior((AbstractRingProperty)exterior);
+			try {
+				Object exterior = jaxb.unmarshal(src.getExterior());
+				if (exterior instanceof AbstractRingProperty)
+					dest.setExterior((AbstractRingProperty)exterior);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetInterior()) {
 			for (JAXBElement<? extends AbstractRingPropertyType> elem : src.getInterior()) {
-				Object interior = jaxb.unmarshal(elem);
-				if (interior instanceof AbstractRingProperty)
-					dest.addInterior((AbstractRingProperty)interior);
+				try {
+					Object interior = jaxb.unmarshal(elem);
+					if (interior instanceof AbstractRingProperty)
+						dest.addInterior((AbstractRingProperty)interior);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -2030,9 +2103,13 @@ public class GMLUnmarshaller {
 		unmarshalAbstractSurfacePatch(src, dest);
 
 		if (src.isSetExterior()) {
-			Object exterior = jaxb.unmarshal(src.getExterior());
-			if (exterior instanceof AbstractRingProperty)
-				dest.setExterior((AbstractRingProperty)exterior);
+			try {
+				Object exterior = jaxb.unmarshal(src.getExterior());
+				if (exterior instanceof AbstractRingProperty)
+					dest.setExterior((AbstractRingProperty)exterior);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetInterpolation())
@@ -2073,9 +2150,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Solid()) {
 			for (JAXBElement<? extends AbstractSolidType> elem : src.get_Solid()) {
-				Object abstractSolid = jaxb.unmarshal(elem);
-				if (abstractSolid instanceof AbstractSolid)
-					dest.addSolid((AbstractSolid)abstractSolid);
+				try {
+					Object abstractSolid = jaxb.unmarshal(elem);
+					if (abstractSolid instanceof AbstractSolid)
+						dest.addSolid((AbstractSolid)abstractSolid);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -2086,9 +2167,13 @@ public class GMLUnmarshaller {
 		SolidProperty dest = new SolidPropertyImpl();
 
 		if (src.isSet_Solid()) {
-			Object abstractSolid = jaxb.unmarshal(src.get_Solid());
-			if (abstractSolid instanceof AbstractSolid)
-				dest.setSolid((AbstractSolid)abstractSolid);
+			try {
+				Object abstractSolid = jaxb.unmarshal(src.get_Solid());
+				if (abstractSolid instanceof AbstractSolid)
+					dest.setSolid((AbstractSolid)abstractSolid);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetRemoteSchema())
@@ -2170,9 +2255,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Surface()) {
 			for (JAXBElement<? extends AbstractSurfaceType> elem : src.get_Surface()) {
-				Object abstractSurface = jaxb.unmarshal(elem);
-				if (abstractSurface instanceof AbstractSurface)
-					dest.addSurface((AbstractSurface)abstractSurface);
+				try {
+					Object abstractSurface = jaxb.unmarshal(elem);
+					if (abstractSurface instanceof AbstractSurface)
+						dest.addSurface((AbstractSurface)abstractSurface);
+				} catch (MissingADESchemaException e) {
+					//
+				}
 			}
 		}
 
@@ -2194,9 +2283,13 @@ public class GMLUnmarshaller {
 		SurfaceProperty dest = new SurfacePropertyImpl();
 
 		if (src.isSet_Surface()) {
-			Object abstractSurface = jaxb.unmarshal(src.get_Surface());
-			if (abstractSurface instanceof AbstractSurface)
-				dest.setSurface((AbstractSurface)abstractSurface);
+			try {
+				Object abstractSurface = jaxb.unmarshal(src.get_Surface());
+				if (abstractSurface instanceof AbstractSurface)
+					dest.setSurface((AbstractSurface)abstractSurface);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetRemoteSchema())
@@ -2255,9 +2348,13 @@ public class GMLUnmarshaller {
 		unmarshalAbstractSurfacePatch(src, dest);
 
 		if (src.isSetExterior()) {
-			Object exterior = jaxb.unmarshal(src.getExterior());
-			if (exterior instanceof AbstractRingProperty)
-				dest.setExterior((AbstractRingProperty)exterior);
+			try {
+				Object exterior = jaxb.unmarshal(src.getExterior());
+				if (exterior instanceof AbstractRingProperty)
+					dest.setExterior((AbstractRingProperty)exterior);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetInterpolation())

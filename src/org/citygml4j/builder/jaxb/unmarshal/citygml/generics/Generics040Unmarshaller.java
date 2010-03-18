@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.generics.IntAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class Generics040Unmarshaller {
 	private final GenericsModule module = GenericsModule.v0_4_0;
@@ -37,11 +38,11 @@ public class Generics040Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -68,7 +69,7 @@ public class Generics040Unmarshaller {
 			dest.setName(src.getName());
 	}
 
-	public void unmarshalGenericCityObject(GenericCityObjectType src, GenericCityObject dest) {
+	public void unmarshalGenericCityObject(GenericCityObjectType src, GenericCityObject dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
@@ -126,7 +127,7 @@ public class Generics040Unmarshaller {
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 	}
 
-	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src) {
+	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src) throws MissingADESchemaException {
 		GenericCityObject dest = new GenericCityObjectImpl(module);
 		unmarshalGenericCityObject(src, dest);
 

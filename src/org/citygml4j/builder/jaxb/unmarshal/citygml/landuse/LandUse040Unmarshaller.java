@@ -11,6 +11,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.module.citygml.LandUseModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class LandUse040Unmarshaller {
 	private final LandUseModule module = LandUseModule.v0_4_0;
@@ -22,11 +23,11 @@ public class LandUse040Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -38,7 +39,7 @@ public class LandUse040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalLandUse(LandUseType src, LandUse dest) {
+	public void unmarshalLandUse(LandUseType src, LandUse dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
@@ -66,7 +67,7 @@ public class LandUse040Unmarshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));	
 	}
 
-	public LandUse unmarshalLandUse(LandUseType src) {
+	public LandUse unmarshalLandUse(LandUseType src) throws MissingADESchemaException {
 		LandUse dest = new LandUseImpl(module);
 		unmarshalLandUse(src, dest);
 

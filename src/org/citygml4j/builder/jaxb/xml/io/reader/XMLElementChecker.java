@@ -14,9 +14,11 @@ import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.citygml4j.xml.schema.SchemaHandler;
+import org.xml.sax.SAXException;
 
 public class XMLElementChecker {
 	private static final HashSet<String> cityGMLCollectionProperties = new HashSet<String>();
@@ -31,16 +33,19 @@ public class XMLElementChecker {
 	private final SchemaHandler schemaHandler;
 	private final FeatureReadMode featureReadMode;
 	private final boolean keepInlineAppearance;
+	private final boolean parseSchema;
 	private final Set<Class<? extends CityGML>> excludes;
 	private final XMLUtil util;
 
 	XMLElementChecker(SchemaHandler schemaHandler, 
 			FeatureReadMode featureReadMode, 
 			boolean keepInlineAppearance,
+			boolean parseSchema,
 			Set<Class<? extends CityGML>> exlcudes) {
 		this.schemaHandler = schemaHandler;
 		this.featureReadMode = featureReadMode;
 		this.keepInlineAppearance = keepInlineAppearance;
+		this.parseSchema = parseSchema;
 		this.excludes = exlcudes;
 
 		util = XMLUtil.getInstance();
@@ -159,10 +164,21 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	private ElementInfo getADEElementInfo(String localName, String namespaceURI, ElementInfo lastElementInfo, boolean checkForFeature) {
+	private ElementInfo getADEElementInfo(String localName, String namespaceURI, ElementInfo lastElementInfo, boolean checkForFeature) throws MissingADESchemaException {
 		ElementInfo elementInfo = null;
 
 		Schema schema = schemaHandler.getSchema(namespaceURI);
+		
+		// try and resolve unknown ADE schema
+		if (schema == null && parseSchema) {
+			try {
+				schemaHandler.resolveAndParseSchema(namespaceURI);
+				schema = schemaHandler.getSchema(namespaceURI);
+			} catch (SAXException e) {
+				//
+			}
+		}
+		
 		if (schema != null) {
 			ElementDecl parent = lastElementInfo != null ? lastElementInfo.elementDecl : null;
 			ElementDecl elementDecl = schema.getElementDecl(localName, parent);
@@ -192,7 +208,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getElementInfo(QName name, XMLChunk currentChunk, ElementInfo lastElementInfo) {
+	public ElementInfo getElementInfo(QName name, XMLChunk currentChunk, ElementInfo lastElementInfo) throws MissingADESchemaException {
 		if (lastElementInfo != null && lastElementInfo.skipNestedElements)
 			return lastElementInfo;
 

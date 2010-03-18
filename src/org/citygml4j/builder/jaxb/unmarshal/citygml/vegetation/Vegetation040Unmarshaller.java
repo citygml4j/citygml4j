@@ -16,6 +16,7 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.citygml.vegetation.VegetationObject;
 import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class Vegetation040Unmarshaller {
 	private final VegetationModule module = VegetationModule.v0_4_0;
@@ -27,11 +28,11 @@ public class Vegetation040Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -45,11 +46,11 @@ public class Vegetation040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalVegetationObject(_VegetationObjectType src, VegetationObject dest) {
+	public void unmarshalVegetationObject(_VegetationObjectType src, VegetationObject dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 	}
 
-	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) {
+	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) throws MissingADESchemaException {
 		unmarshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
@@ -83,14 +84,14 @@ public class Vegetation040Unmarshaller {
 			dest.setLod3MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod3MultiSolid()));	
 	}
 
-	public PlantCover unmarshalPlantCover(PlantCoverType src) {
+	public PlantCover unmarshalPlantCover(PlantCoverType src) throws MissingADESchemaException {
 		PlantCover dest = new PlantCoverImpl(module);
 		unmarshalPlantCover(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) {
+	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) throws MissingADESchemaException {
 		unmarshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
@@ -136,7 +137,7 @@ public class Vegetation040Unmarshaller {
 			dest.setLod4ImplicitRepresentation(citygml.getCore040Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 	}
 
-	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) {
+	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) throws MissingADESchemaException {
 		SolitaryVegetationObject dest = new SolitaryVegetationObjectImpl(module);
 		unmarshalSolitaryVegetationObject(src, dest);
 

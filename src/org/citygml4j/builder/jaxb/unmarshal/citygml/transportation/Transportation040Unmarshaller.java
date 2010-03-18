@@ -38,6 +38,7 @@ import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.citygml.transportation.TransportationObject;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class Transportation040Unmarshaller {
 	private final TransportationModule module = TransportationModule.v0_4_0;
@@ -49,11 +50,11 @@ public class Transportation040Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -81,11 +82,11 @@ public class Transportation040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalTransportationObject(_TransportationObjectType src, TransportationObject dest) {
+	public void unmarshalTransportationObject(_TransportationObjectType src, TransportationObject dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 	}
 
-	public void unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src, AuxiliaryTrafficArea dest) {
+	public void unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src, AuxiliaryTrafficArea dest) throws MissingADESchemaException {
 		unmarshalTransportationObject(src, dest);
 
 		if (src.isSetFunction())
@@ -104,14 +105,14 @@ public class Transportation040Unmarshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 	}
 
-	public AuxiliaryTrafficArea unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src) {
+	public AuxiliaryTrafficArea unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src) throws MissingADESchemaException {
 		AuxiliaryTrafficArea dest =  new AuxiliaryTrafficAreaImpl(module);
 		unmarshalAuxiliaryTrafficArea(src, dest);
 
 		return dest;
 	}
 
-	public AuxiliaryTrafficAreaProperty unmarshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaPropertyType src) {
+	public AuxiliaryTrafficAreaProperty unmarshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaPropertyType src) throws MissingADESchemaException {
 		AuxiliaryTrafficAreaProperty dest = new AuxiliaryTrafficAreaPropertyImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
 
@@ -124,51 +125,51 @@ public class Transportation040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalRailway(RailwayType src, Railway dest) {
+	public void unmarshalRailway(RailwayType src, Railway dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
 	}
 
-	public Railway unmarshalRailway(RailwayType src) {
+	public Railway unmarshalRailway(RailwayType src) throws MissingADESchemaException {
 		Railway dest = new RailwayImpl(module);
 		unmarshalRailway(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalRoad(RoadType src, Road dest) {
+	public void unmarshalRoad(RoadType src, Road dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
 	}
 
-	public Road unmarshalRoad(RoadType src) {
+	public Road unmarshalRoad(RoadType src) throws MissingADESchemaException {
 		Road dest = new RoadImpl(module);
 		unmarshalRoad(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalSquare(SquareType src, Square dest) {
+	public void unmarshalSquare(SquareType src, Square dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
 	}
 
-	public Square unmarshalSquare(SquareType src) {
+	public Square unmarshalSquare(SquareType src) throws MissingADESchemaException {
 		Square dest = new SquareImpl(module);
 		unmarshalSquare(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalTrack(TrackType src, Track dest) {
+	public void unmarshalTrack(TrackType src, Track dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
 	}
 
-	public Track unmarshalTrack(TrackType src) {
+	public Track unmarshalTrack(TrackType src) throws MissingADESchemaException {
 		Track dest = new TrackImpl(module);
 		unmarshalTrack(src, dest);
 
 		return dest;
 	}
 
-	public void unmarshalTrafficArea(TrafficAreaType src, TrafficArea dest) {
+	public void unmarshalTrafficArea(TrafficAreaType src, TrafficArea dest) throws MissingADESchemaException {
 		unmarshalTransportationObject(src, dest);
 
 		if (src.isSetFunction())
@@ -190,14 +191,14 @@ public class Transportation040Unmarshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));	
 	}
 
-	public TrafficArea unmarshalTrafficArea(TrafficAreaType src) {
+	public TrafficArea unmarshalTrafficArea(TrafficAreaType src) throws MissingADESchemaException {
 		TrafficArea dest = new TrafficAreaImpl(module);
 		unmarshalTrafficArea(src, dest);
 
 		return dest;
 	}
 
-	public TrafficAreaProperty unmarshalTrafficAreaProperty(TrafficAreaPropertyType src) {
+	public TrafficAreaProperty unmarshalTrafficAreaProperty(TrafficAreaPropertyType src) throws MissingADESchemaException {
 		TrafficAreaProperty dest = new TrafficAreaPropertyImpl(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
 
@@ -210,7 +211,7 @@ public class Transportation040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalTransportationComplex(TransportationComplexType src, TransportationComplex dest) {
+	public void unmarshalTransportationComplex(TransportationComplexType src, TransportationComplex dest) throws MissingADESchemaException {
 		unmarshalTransportationObject(src, dest);
 
 		if (src.isSetFunction())
@@ -247,7 +248,7 @@ public class Transportation040Unmarshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 	}
 
-	public TransportationComplex unmarshalTransportationComplex(TransportationComplexType src) {
+	public TransportationComplex unmarshalTransportationComplex(TransportationComplexType src) throws MissingADESchemaException {
 		TransportationComplex dest = new TransportationComplexImpl(module);
 		unmarshalTransportationComplex(src, dest);
 

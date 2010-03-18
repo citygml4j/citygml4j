@@ -11,6 +11,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class CityFurniture100Unmarshaller {
 	private final CityFurnitureModule module = CityFurnitureModule.v1_0_0;
@@ -22,11 +23,11 @@ public class CityFurniture100Unmarshaller {
 		jaxb = citygml.getJAXBUnmarshaller();
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
@@ -38,7 +39,7 @@ public class CityFurniture100Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) {
+	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
@@ -84,7 +85,7 @@ public class CityFurniture100Unmarshaller {
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 	}
 
-	public CityFurniture unmarshalCityFurniture(CityFurnitureType src) {
+	public CityFurniture unmarshalCityFurniture(CityFurnitureType src) throws MissingADESchemaException {
 		CityFurniture dest = new CityFurnitureImpl(module);
 		unmarshalCityFurniture(src, dest);
 

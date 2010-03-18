@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class TexturedSurface040Unmarshaller {
 	private final TexturedSurfaceModule module = TexturedSurfaceModule.v0_4_0;
@@ -70,9 +71,13 @@ public class TexturedSurface040Unmarshaller {
 			dest.setOrientation(src.getOrientation());
 
 		if (src.isSet_Appearance()) {
-			Object appearance = jaxb.unmarshal(src.get_Appearance());
-			if (appearance instanceof _Appearance)
-				dest.setAppearance((_Appearance)appearance);
+			try { 
+				Object appearance = jaxb.unmarshal(src.get_Appearance());
+				if (appearance instanceof _Appearance)
+					dest.setAppearance((_Appearance)appearance);
+			} catch (MissingADESchemaException e) {
+				//
+			}
 		}
 
 		if (src.isSetRemoteSchema())
