@@ -30,7 +30,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 		tmp = null;
 	}
 
-	public boolean hasNextFeature() throws CityGMLReadException, MissingADESchemaException {
+	public boolean hasNextFeature() throws CityGMLReadException {
 		if (tmp == null) {
 			try {
 				tmp = nextFeature();
@@ -42,7 +42,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 		return tmp != null;
 	}
 
-	public CityGML nextFeature() throws CityGMLReadException, MissingADESchemaException {
+	public CityGML nextFeature() throws CityGMLReadException {
 		CityGML next = tmp;
 
 		if (next == null) {
@@ -94,6 +94,8 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 			} catch (JAXBException e) {
 				throw new CityGMLReadException("Caused by: ", e);
 			} catch (SAXException e) {
+				throw new CityGMLReadException("Caused by: ", e);
+			} catch (MissingADESchemaException e) {
 				throw new CityGMLReadException("Caused by: ", e);
 			}
 		}
