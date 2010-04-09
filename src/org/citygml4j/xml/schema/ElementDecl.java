@@ -21,8 +21,8 @@ public class ElementDecl {
 	private final EnumSet<TypeFlag> typeFlag;
 
 	private enum TypeFlag {
-		ABSTRACT_GML, FEATURE, CITY_OBJECT, GEOMETRY, FEATURE_PROPERTY, GEOMETRY_PROPERTY, XLINK,
-		NO_ABSTRACT_GML, NO_FEATURE, NO_CITY_OBJECT, NO_GEOMETRY, NO_FEATURE_PROPERTY, NO_GEOMETRY_PROPERTY, NO_XLINK
+		ABSTRACT_GML, FEATURE, FEATURE_COLLECTION, CITY_OBJECT, GEOMETRY, FEATURE_PROPERTY, GEOMETRY_PROPERTY, XLINK,
+		NO_ABSTRACT_GML, NO_FEATURE, NO_FEATURE_COLLECTION, NO_CITY_OBJECT, NO_GEOMETRY, NO_FEATURE_PROPERTY, NO_GEOMETRY_PROPERTY, NO_XLINK
 	}
 
 	public ElementDecl(XSElementDecl decl, Schema schema) {
@@ -144,6 +144,7 @@ public class ElementDecl {
 		} else {
 			typeFlag.add(TypeFlag.NO_ABSTRACT_GML);
 			typeFlag.add(TypeFlag.NO_FEATURE);
+			typeFlag.add(TypeFlag.NO_FEATURE_COLLECTION);
 			typeFlag.add(TypeFlag.NO_CITY_OBJECT);
 			typeFlag.add(TypeFlag.NO_GEOMETRY);
 		}		
@@ -182,6 +183,40 @@ public class ElementDecl {
 		}		
 
 		return isFeature;
+	}
+	
+	public boolean isFeatureCollection() {
+		if (typeFlag.contains(TypeFlag.FEATURE_COLLECTION))
+			return true;
+		else if (typeFlag.contains(TypeFlag.NO_FEATURE_COLLECTION))
+			return false;
+
+		boolean isFeatureCollection = false;
+		for (GMLCoreModule module : GMLCoreModule.getInstances()) {
+			XSSchema gml = schema.schemaSet.getSchema(module.getNamespaceURI());
+			if (gml == null)
+				continue;
+
+			switch (module.getVersion()) {
+			case v3_1_1:
+				isFeatureCollection = isDerivedFromComplexType(gml, module.getNamespaceURI(), "AbstractFeatureCollectionType");
+				break;
+			}
+
+			if (isFeatureCollection)
+				break;
+		}
+
+		if (isFeatureCollection) {
+			typeFlag.add(TypeFlag.ABSTRACT_GML);
+			typeFlag.add(TypeFlag.FEATURE);
+			typeFlag.add(TypeFlag.FEATURE_COLLECTION);
+		} else {
+			typeFlag.add(TypeFlag.NO_FEATURE);
+			typeFlag.add(TypeFlag.NO_FEATURE_COLLECTION);
+		}		
+
+		return isFeatureCollection;
 	}
 
 	public boolean isGeometry() {
@@ -380,6 +415,7 @@ public class ElementDecl {
 			if (base.isSimpleType()) {
 				typeFlag.add(TypeFlag.NO_ABSTRACT_GML);
 				typeFlag.add(TypeFlag.NO_FEATURE);
+				typeFlag.add(TypeFlag.NO_FEATURE_COLLECTION);
 				typeFlag.add(TypeFlag.NO_CITY_OBJECT);
 				typeFlag.add(TypeFlag.NO_GEOMETRY);
 				typeFlag.add(TypeFlag.NO_FEATURE_PROPERTY);
