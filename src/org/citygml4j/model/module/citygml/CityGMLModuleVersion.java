@@ -15,9 +15,5 @@ public enum CityGMLModuleVersion implements ModuleVersion {
 	public String toString() {
 		return value;
 	}
-
-	public CityGMLModuleVersion getVersion() {
-		return this;
-	}
 	
 }

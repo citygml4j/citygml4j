@@ -14,9 +14,5 @@ public enum XALModuleVersion implements ModuleVersion {
 	public String toString() {
 		return value;
 	}
-
-	public XALModuleVersion getVersion() {
-		return this;
-	}
 	
 }
