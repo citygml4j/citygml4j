@@ -34,14 +34,12 @@ public class RoadImpl extends TransportationComplexImpl implements Road {
 		return CityGMLClass.ROAD;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfRoad(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			roadType.get_GenericApplicationPropertyOfRoad().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRoad() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class RoadImpl extends TransportationComplexImpl implements Road {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfRoad(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class RoadImpl extends TransportationComplexImpl implements Road {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfRoad() {
 		return roadType.isSet_GenericApplicationPropertyOfRoad();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfRoad() {
 		roadType.unset_GenericApplicationPropertyOfRoad();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfRoad(ADEComponent adeObject) {
 		if (roadType.isSet_GenericApplicationPropertyOfRoad()) {
 			Iterator<JAXBElement<?>> iter = roadType.get_GenericApplicationPropertyOfRoad().iterator();

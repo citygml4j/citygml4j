@@ -36,12 +36,10 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		return parameterizedTextureType;
 	}
 
-	@Override
 	public void addTarget(TextureAssociation target) {
 		parameterizedTextureType.getTarget().add(((TextureAssociationImpl)target).getJAXBObject());
 	}
 
-	@Override
 	public List<TextureAssociation> getTarget() {
 		List<TextureAssociation> texAssList = new ArrayList<TextureAssociation>();
 
@@ -51,7 +49,6 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		return texAssList;
 	}
 
-	@Override
 	public void setTarget(List<TextureAssociation> target) {
 		List<TextureAssociationType> texAssTypeList = new ArrayList<TextureAssociationType>();
 
@@ -62,14 +59,12 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		parameterizedTextureType.getTarget().addAll(texAssTypeList);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfParameterizedTexture(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			parameterizedTextureType.get_GenericApplicationPropertyOfParameterizedTexture().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfParameterizedTexture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -84,7 +79,6 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfParameterizedTexture(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -100,27 +94,22 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfParameterizedTexture() {
 		return parameterizedTextureType.isSet_GenericApplicationPropertyOfParameterizedTexture();
 	}
 
-	@Override
 	public boolean isSetTarget() {
 		return parameterizedTextureType.isSetTarget();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfParameterizedTexture() {
 		parameterizedTextureType.unset_GenericApplicationPropertyOfParameterizedTexture();
 	}
 
-	@Override
 	public void unsetTarget() {
 		parameterizedTextureType.unsetTarget();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfParameterizedTexture(ADEComponent adeObject) {
 		if (parameterizedTextureType.isSet_GenericApplicationPropertyOfParameterizedTexture()) {
 			Iterator<JAXBElement<?>> iter = parameterizedTextureType.get_GenericApplicationPropertyOfParameterizedTexture().iterator();
@@ -139,7 +128,6 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		return false;
 	}
 
-	@Override
 	public boolean unsetTarget(TextureAssociation target) {
 		if (parameterizedTextureType.isSetTarget())
 			return parameterizedTextureType.getTarget().remove(((TextureAssociationImpl)target).getJAXBObject());

@@ -37,7 +37,6 @@ public class MassPointReliefImpl extends ReliefComponentImpl implements MassPoin
 		return massPointReliefType;
 	}
 
-	@Override
 	public MultiPointProperty getReliefPoints() {
 		if (massPointReliefType.isSetReliefPoints())
 			return new MultiPointPropertyImpl(massPointReliefType.getReliefPoints());
@@ -45,7 +44,6 @@ public class MassPointReliefImpl extends ReliefComponentImpl implements MassPoin
 		return null;
 	}
 
-	@Override
 	public void setReliefPoints(MultiPointProperty reliefPoints) {
 		massPointReliefType.setReliefPoints(((MultiPointPropertyImpl)reliefPoints).getJAXBObject());
 	}
@@ -62,14 +60,12 @@ public class MassPointReliefImpl extends ReliefComponentImpl implements MassPoin
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			massPointReliefType.get_GenericApplicationPropertyOfMassPointRelief().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfMassPointRelief() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -84,7 +80,6 @@ public class MassPointReliefImpl extends ReliefComponentImpl implements MassPoin
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfMassPointRelief(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -100,27 +95,22 @@ public class MassPointReliefImpl extends ReliefComponentImpl implements MassPoin
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfMassPointRelief() {
 		return massPointReliefType.isSet_GenericApplicationPropertyOfMassPointRelief();
 	}
 
-	@Override
 	public boolean isSetReliefPoints() {
 		return massPointReliefType.isSetReliefPoints();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfMassPointRelief() {
 		massPointReliefType.unset_GenericApplicationPropertyOfMassPointRelief();
 	}
 
-	@Override
 	public void unsetReliefPoints() {
 		massPointReliefType.setReliefPoints(null);
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfMassPointRelief(ADEComponent adeObject) {
 		if (massPointReliefType.isSet_GenericApplicationPropertyOfMassPointRelief()) {
 			Iterator<JAXBElement<?>> iter = massPointReliefType.get_GenericApplicationPropertyOfMassPointRelief().iterator();

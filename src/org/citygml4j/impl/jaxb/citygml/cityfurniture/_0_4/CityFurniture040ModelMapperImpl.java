@@ -26,7 +26,6 @@ public class CityFurniture040ModelMapperImpl extends AbstractCityGMLModelMapperI
 			return ade2jaxb((ADEComponent)cityFurniture, CityFurnitureType.class);
 	}
 	
-	@Override
 	public CityGMLBase toCityGML(JAXBElement<?> jaxbElem) {
 		CityGMLBase cityGMLBase = null;
 		
@@ -41,7 +40,6 @@ public class CityFurniture040ModelMapperImpl extends AbstractCityGMLModelMapperI
 		return cityGMLBase;
 	}
 
-	@Override
 	public JAXBElement<?> toJAXB(CityGMLBase cityGML) {
 		JAXBElement<?> jaxbElem = null;
 		

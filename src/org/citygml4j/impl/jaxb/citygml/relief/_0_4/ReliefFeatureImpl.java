@@ -34,17 +34,14 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 		return reliefFeatureType;
 	}
 
-	@Override
 	public void addReliefComponent(ReliefComponentProperty reliefComponent) {
 		reliefFeatureType.getReliefComponent().add(((ReliefComponentPropertyImpl)reliefComponent).getJAXBObject());
 	}
 
-	@Override
 	public int getLod() {
 		return reliefFeatureType.getLod();
 	}
 
-	@Override
 	public List<ReliefComponentProperty> getReliefComponent() {
 		List<ReliefComponentProperty> propertyList = new ArrayList<ReliefComponentProperty>();
 
@@ -54,12 +51,10 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 		return propertyList;
 	}
 
-	@Override
 	public void setLod(int lod) {
 		reliefFeatureType.setLod(lod);
 	}
 
-	@Override
 	public void setReliefComponent(List<ReliefComponentProperty> reliefComponent) {
 		List<ReliefComponentPropertyType> propertyTypeList = new ArrayList<ReliefComponentPropertyType>();
 
@@ -93,14 +88,12 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 		return ReliefModule.v0_4_0;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfReliefFeature(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			reliefFeatureType.get_GenericApplicationPropertyOfReliefFeature().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefFeature() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -115,7 +108,6 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfReliefFeature(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -131,32 +123,26 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfReliefFeature() {
 		return reliefFeatureType.isSet_GenericApplicationPropertyOfReliefFeature();
 	}
 
-	@Override
 	public boolean isSetLod() {
 		return reliefFeatureType.isSetLod();
 	}
 
-	@Override
 	public boolean isSetReliefComponent() {
 		return reliefFeatureType.isSetReliefComponent();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfReliefFeature() {
 		reliefFeatureType.unset_GenericApplicationPropertyOfReliefFeature();
 	}
 
-	@Override
 	public void unsetReliefComponent() {
 		reliefFeatureType.unsetReliefComponent();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfReliefFeature(ADEComponent adeObject) {
 		if (reliefFeatureType.isSet_GenericApplicationPropertyOfReliefFeature()) {
 			Iterator<JAXBElement<?>> iter = reliefFeatureType.get_GenericApplicationPropertyOfReliefFeature().iterator();
@@ -175,7 +161,6 @@ public class ReliefFeatureImpl extends CityObjectImpl implements ReliefFeature {
 		return false;
 	}
 
-	@Override
 	public boolean unsetReliefComponent(ReliefComponentProperty reliefComponent) {
 		if (reliefFeatureType.isSetReliefComponent())
 			return reliefFeatureType.getReliefComponent().remove(((ReliefComponentPropertyImpl)reliefComponent).getJAXBObject());

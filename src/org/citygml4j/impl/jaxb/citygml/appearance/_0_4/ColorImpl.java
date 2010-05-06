@@ -33,22 +33,18 @@ public class ColorImpl implements Color {
 			this.blue = blue;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.COLOR;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v0_4_0;
 	}
 
-	@Override
 	public Double getBlue() {
 		return blue;
 	}
 
-	@Override
 	public List<Double> toList() {
 		List<Double> color = new ArrayList<Double>();
 
@@ -59,23 +55,19 @@ public class ColorImpl implements Color {
 		return color;
 	}
 
-	@Override
 	public Double getGreen() {
 		return green;
 	}
 
-	@Override
 	public Double getRed() {
 		return red;
 	}
 
-	@Override
 	public void setBlue(Double blue) {
 		if (blue >= 0.0 && blue <= 1.0)
 			this.blue = blue;
 	}
 
-	@Override
 	public void setColor(List<Double> color) {
 		if (color.size() >= 3) {
 			if (color.get(0) >= 0.0 && color.get(0) <= 1.0)
@@ -89,19 +81,16 @@ public class ColorImpl implements Color {
 		}
 	}
 
-	@Override
 	public void setGreen(Double green) {
 		if (green >= 0.0 && green <= 1.0)
 			this.green = green;
 	}
 
-	@Override
 	public void setRed(Double red) {
 		if (red >= 0.0 && red <= 1.0)
 			this.red = red;
 	}
 
-	@Override
 	public boolean equals(Color color) {
 		if (red.doubleValue() == color.getRed().doubleValue() &&
 				green.doubleValue() == color.getGreen().doubleValue() &&

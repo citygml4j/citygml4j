@@ -34,14 +34,12 @@ public class BuildingPartImpl extends AbstractBuildingImpl implements BuildingPa
 		return CityGMLClass.BUILDINGPART;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfBuildingPart(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			buildingPart.get_GenericApplicationPropertyOfBuildingPart().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingPart() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class BuildingPartImpl extends AbstractBuildingImpl implements BuildingPa
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfBuildingPart(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class BuildingPartImpl extends AbstractBuildingImpl implements BuildingPa
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfBuildingPart() {
 		return buildingPart.isSet_GenericApplicationPropertyOfBuildingPart();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfBuildingPart() {
 		buildingPart.unset_GenericApplicationPropertyOfBuildingPart();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfBuildingPart(ADEComponent adeObject) {
 		if (buildingPart.isSet_GenericApplicationPropertyOfBuildingPart()) {
 			Iterator<JAXBElement<?>> iter = buildingPart.get_GenericApplicationPropertyOfBuildingPart().iterator();

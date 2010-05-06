@@ -34,14 +34,12 @@ public class ClosureSurfaceImpl extends BoundarySurfaceImpl implements ClosureSu
 		return CityGMLClass.CLOSURESURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfClosureSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			closureSurfaceType.get_GenericApplicationPropertyOfClosureSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfClosureSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class ClosureSurfaceImpl extends BoundarySurfaceImpl implements ClosureSu
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfClosureSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class ClosureSurfaceImpl extends BoundarySurfaceImpl implements ClosureSu
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfClosureSurface() {
 		return closureSurfaceType.isSet_GenericApplicationPropertyOfClosureSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfClosureSurface() {
 		closureSurfaceType.unset_GenericApplicationPropertyOfClosureSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfClosureSurface(ADEComponent adeObject) {
 		if (closureSurfaceType.isSet_GenericApplicationPropertyOfClosureSurface()) {
 			Iterator<JAXBElement<?>> iter = closureSurfaceType.get_GenericApplicationPropertyOfClosureSurface().iterator();

@@ -43,7 +43,6 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		return BuildingModule.v1_0_0;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod2MultiSurface() {
 		if (boundarySurfaceType.isSetLod2MultiSurface())
 			return new MultiSurfacePropertyImpl(boundarySurfaceType.getLod2MultiSurface());
@@ -51,7 +50,6 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod3MultiSurface() {
 		if (boundarySurfaceType.isSetLod3MultiSurface())
 			return new MultiSurfacePropertyImpl(boundarySurfaceType.getLod3MultiSurface());
@@ -59,7 +57,6 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod4MultiSurface() {
 		if (boundarySurfaceType.isSetLod4MultiSurface())
 			return new MultiSurfacePropertyImpl(boundarySurfaceType.getLod4MultiSurface());
@@ -67,7 +64,6 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		return null;
 	}
 
-	@Override
 	public List<OpeningProperty> getOpening() {
 		List<OpeningProperty> openingPropertyList = new ArrayList<OpeningProperty>();
 
@@ -105,27 +101,22 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		}
 	}
 
-	@Override
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
 		boundarySurfaceType.setLod2MultiSurface(((MultiSurfacePropertyImpl)lod2MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
 		boundarySurfaceType.setLod3MultiSurface(((MultiSurfacePropertyImpl)lod3MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
 		boundarySurfaceType.setLod4MultiSurface(((MultiSurfacePropertyImpl)lod4MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void addOpening(OpeningProperty opening) {
 		boundarySurfaceType.getOpening().add(((OpeningPropertyImpl)opening).getJAXBObject());
 	}
 
-	@Override
 	public void setOpening(List<OpeningProperty> opening) {
 		List<OpeningPropertyType> openingPropertyTypeList = new ArrayList<OpeningPropertyType>();
 
@@ -136,14 +127,12 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		boundarySurfaceType.getOpening().addAll(openingPropertyTypeList);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			boundarySurfaceType.get_GenericApplicationPropertyOfBoundarySurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBoundarySurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -158,7 +147,6 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfBoundarySurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -174,57 +162,46 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfBoundarySurface() {
 		return boundarySurfaceType.isSet_GenericApplicationPropertyOfBoundarySurface();
 	}
 
-	@Override
 	public boolean isSetLod2MultiSurface() {
 		return boundarySurfaceType.isSetLod2MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod3MultiSurface() {
 		return boundarySurfaceType.isSetLod3MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod4MultiSurface() {
 		return boundarySurfaceType.isSetLod4MultiSurface();
 	}
 
-	@Override
 	public boolean isSetOpening() {
 		return boundarySurfaceType.isSetOpening();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfBoundarySurface() {
 		boundarySurfaceType.unset_GenericApplicationPropertyOfBoundarySurface();
 	}
 
-	@Override
 	public void unsetLod2MultiSurface() {
 		boundarySurfaceType.setLod2MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod3MultiSurface() {
 		boundarySurfaceType.setLod3MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod4MultiSurface() {
 		boundarySurfaceType.setLod4MultiSurface(null);
 	}
 
-	@Override
 	public void unsetOpening() {
 		boundarySurfaceType.unsetOpening();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfBoundarySurface(ADEComponent adeObject) {
 		if (boundarySurfaceType.isSet_GenericApplicationPropertyOfBoundarySurface()) {
 			Iterator<JAXBElement<?>> iter = boundarySurfaceType.get_GenericApplicationPropertyOfBoundarySurface().iterator();
@@ -243,7 +220,6 @@ public abstract class BoundarySurfaceImpl extends CityObjectImpl implements Boun
 		return false;
 	}
 
-	@Override
 	public boolean unsetOpening(OpeningProperty opening) {
 		if (boundarySurfaceType.isSetOpening())
 			return boundarySurfaceType.getOpening().remove(((OpeningPropertyImpl)opening).getJAXBObject());

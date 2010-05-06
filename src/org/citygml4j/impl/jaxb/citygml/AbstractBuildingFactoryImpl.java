@@ -40,70 +40,48 @@ public abstract class AbstractBuildingFactoryImpl implements BuildingFactory {
 		}
 	}
 	
-	@Override
 	public abstract BoundarySurfaceProperty createBoundarySurfaceProperty();
 
-	@Override
 	public abstract Building createBuilding();
 
-	@Override
 	public abstract BuildingFurniture createBuildingFurniture();
 
-	@Override
 	public abstract BuildingInstallation createBuildingInstallation();
 
-	@Override
 	public abstract BuildingInstallationProperty createBuildingInstallationProperty();
 
-	@Override
 	public abstract BuildingPart createBuildingPart();
 
-	@Override
 	public abstract BuildingPartProperty createBuildingPartProperty();
 
-	@Override
 	public abstract CeilingSurface createCeilingSurface();
 
-	@Override
 	public abstract ClosureSurface createClosureSurface();
 
-	@Override
 	public abstract Door createDoor();
 
-	@Override
 	public abstract FloorSurface createFloorSurface();
 
-	@Override
 	public abstract GroundSurface createGroundSurface();
 
-	@Override
 	public abstract IntBuildingInstallation createIntBuildingInstallation();
 
-	@Override
 	public abstract IntBuildingInstallationProperty createIntBuildingInstallationProperty();
 
-	@Override
 	public abstract InteriorFurnitureProperty createInteriorFurnitureProperty();
 
-	@Override
 	public abstract InteriorRoomProperty createInteriorRoomProperty();
 
-	@Override
 	public abstract InteriorWallSurface createInteriorWallSurface();
 
-	@Override
 	public abstract OpeningProperty createOpeningProperty();
 
-	@Override
 	public abstract RoofSurface createRoofSurface();
 
-	@Override
 	public abstract Room createRoom();
 
-	@Override
 	public abstract WallSurface createWallSurface();
 
-	@Override
 	public abstract Window createWindow();
 
 }

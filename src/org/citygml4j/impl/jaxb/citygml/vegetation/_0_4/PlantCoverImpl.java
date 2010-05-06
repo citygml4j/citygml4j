@@ -42,12 +42,10 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return plantCoverType;
 	}
 
-	@Override
 	public void addFunction(String function) {
 		plantCoverType.getFunction().add(function);
 	}
 
-	@Override
 	public Length getAverageHeight() {
 		if (plantCoverType.isSetAverageHeight())
 			return new LengthImpl(plantCoverType.getAverageHeight());
@@ -55,17 +53,14 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public String getClazz() {
 		return plantCoverType.getClazz();
 	}
 
-	@Override
 	public List<String> getFunction() {
 		return plantCoverType.getFunction();
 	}
 
-	@Override
 	public MultiSolidProperty getLod1MultiSolid() {
 		if (plantCoverType.isSetLod1MultiSolid())
 			return new MultiSolidPropertyImpl(plantCoverType.getLod1MultiSolid());
@@ -73,7 +68,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod1MultiSurface() {
 		if (plantCoverType.isSetLod1MultiSurface())
 			return new MultiSurfacePropertyImpl(plantCoverType.getLod1MultiSurface());
@@ -81,7 +75,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public MultiSolidProperty getLod2MultiSolid() {
 		if (plantCoverType.isSetLod2MultiSolid())
 			return new MultiSolidPropertyImpl(plantCoverType.getLod2MultiSolid());
@@ -89,7 +82,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod2MultiSurface() {
 		if (plantCoverType.isSetLod2MultiSurface())
 			return new MultiSurfacePropertyImpl(plantCoverType.getLod2MultiSurface());
@@ -97,7 +89,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public MultiSolidProperty getLod3MultiSolid() {
 		if (plantCoverType.isSetLod3MultiSolid())
 			return new MultiSolidPropertyImpl(plantCoverType.getLod3MultiSolid());
@@ -105,7 +96,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod3MultiSurface() {
 		if (plantCoverType.isSetLod3MultiSurface())
 			return new MultiSurfacePropertyImpl(plantCoverType.getLod3MultiSurface());
@@ -113,7 +103,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public MultiSurfaceProperty getLod4MultiSurface() {
 		if (plantCoverType.isSetLod4MultiSurface())
 			return new MultiSurfacePropertyImpl(plantCoverType.getLod4MultiSurface());
@@ -121,53 +110,43 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return null;
 	}
 
-	@Override
 	public void setAverageHeight(Length averageHeight) {
 		plantCoverType.setAverageHeight(((LengthImpl)averageHeight).getJAXBObject());
 	}
 
-	@Override
 	public void setClazz(String clazz) {
 		plantCoverType.setClazz(clazz);
 	}
 
-	@Override
 	public void setFunction(List<String> function) {
 		plantCoverType.unsetFunction();
 		plantCoverType.getFunction().addAll(function);
 	}
 
-	@Override
 	public void setLod1MultiSolid(MultiSolidProperty lod1MultiSolid) {
 		plantCoverType.setLod1MultiSolid(((MultiSolidPropertyImpl)lod1MultiSolid).getJAXBObject());
 	}
 
-	@Override
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
 		plantCoverType.setLod1MultiSurface(((MultiSurfacePropertyImpl)lod1MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod2MultiSolid(MultiSolidProperty lod2MultiSolid) {
 		plantCoverType.setLod2MultiSolid(((MultiSolidPropertyImpl)lod2MultiSolid).getJAXBObject());
 	}
 
-	@Override
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
 		plantCoverType.setLod2MultiSurface(((MultiSurfacePropertyImpl)lod2MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3MultiSolid(MultiSolidProperty lod3MultiSolid) {
 		plantCoverType.setLod3MultiSolid(((MultiSolidPropertyImpl)lod3MultiSolid).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
 		plantCoverType.setLod3MultiSurface(((MultiSurfacePropertyImpl)lod3MultiSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
 		plantCoverType.setLod4MultiSurface(((MultiSurfacePropertyImpl)lod4MultiSurface).getJAXBObject());
 	}
@@ -226,14 +205,12 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfPlantCover(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			plantCoverType.get_GenericApplicationPropertyOfPlantCover().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfPlantCover() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -248,7 +225,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfPlantCover(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -264,117 +240,94 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		}
 	}
 
-	@Override
 	public boolean isSetAverageHeight() {
 		return plantCoverType.isSetAverageHeight();
 	}
 
-	@Override
 	public boolean isSetClazz() {
 		return plantCoverType.isSetClazz();
 	}
 
-	@Override
 	public boolean isSetFunction() {
 		return plantCoverType.isSetFunction();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfPlantCover() {
 		return plantCoverType.isSet_GenericApplicationPropertyOfPlantCover();
 	}
 
-	@Override
 	public boolean isSetLod1MultiSolid() {
 		return plantCoverType.isSetLod1MultiSolid();
 	}
 
-	@Override
 	public boolean isSetLod1MultiSurface() {
 		return plantCoverType.isSetLod1MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod2MultiSolid() {
 		return plantCoverType.isSetLod2MultiSolid();
 	}
 
-	@Override
 	public boolean isSetLod2MultiSurface() {
 		return plantCoverType.isSetLod2MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod3MultiSolid() {
 		return plantCoverType.isSetLod3MultiSolid();
 	}
 
-	@Override
 	public boolean isSetLod3MultiSurface() {
 		return plantCoverType.isSetLod3MultiSurface();
 	}
 
-	@Override
 	public boolean isSetLod4MultiSurface() {
 		return plantCoverType.isSetLod4MultiSurface();
 	}
 
-	@Override
 	public void unsetAverageHeight() {
 		plantCoverType.setAverageHeight(null);
 	}
 
-	@Override
 	public void unsetClazz() {
 		plantCoverType.setClazz(null);
 	}
 
-	@Override
 	public void unsetFunction() {
 		plantCoverType.unsetFunction();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfPlantCover() {
 		plantCoverType.unset_GenericApplicationPropertyOfPlantCover();
 	}
 
-	@Override
 	public void unsetLod1MultiSolid() {
 		plantCoverType.setLod1MultiSolid(null);
 	}
 
-	@Override
 	public void unsetLod1MultiSurface() {
 		plantCoverType.setLod1MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod2MultiSolid() {
 		plantCoverType.setLod2MultiSolid(null);
 	}
 
-	@Override
 	public void unsetLod2MultiSurface() {
 		plantCoverType.setLod2MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod3MultiSolid() {
 		plantCoverType.setLod3MultiSolid(null);
 	}
 
-	@Override
 	public void unsetLod3MultiSurface() {
 		plantCoverType.setLod3MultiSurface(null);
 	}
 
-	@Override
 	public void unsetLod4MultiSurface() {
 		plantCoverType.setLod4MultiSurface(null);
 	}
 
-	@Override
 	public boolean unsetFunction(String function) {
 		if (plantCoverType.isSetFunction())
 			return plantCoverType.getFunction().remove(function);
@@ -382,7 +335,6 @@ public class PlantCoverImpl extends VegetationObjectImpl implements PlantCover {
 		return false;
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfPlantCover(ADEComponent adeObject) {
 		if (plantCoverType.isSet_GenericApplicationPropertyOfPlantCover()) {
 			Iterator<JAXBElement<?>> iter = plantCoverType.get_GenericApplicationPropertyOfPlantCover().iterator();

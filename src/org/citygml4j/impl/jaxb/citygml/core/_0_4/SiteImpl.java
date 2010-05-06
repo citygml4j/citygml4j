@@ -36,14 +36,12 @@ public abstract class SiteImpl extends CityObjectImpl implements Site {
 		return CoreModule.v0_4_0;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfSite(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			site.get_GenericApplicationPropertyOfSite().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSite() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -58,7 +56,6 @@ public abstract class SiteImpl extends CityObjectImpl implements Site {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfSite(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -74,12 +71,10 @@ public abstract class SiteImpl extends CityObjectImpl implements Site {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfSite() {
 		return site.isSet_GenericApplicationPropertyOfSite();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfSite() {
 		site.unset_GenericApplicationPropertyOfSite();
 	}

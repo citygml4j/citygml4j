@@ -20,12 +20,10 @@ public abstract class _AppearanceImpl extends AbstractGMLImpl implements _Appear
 		return _appearanceType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._APPEARANCE;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return TexturedSurfaceModule.v0_4_0;
 	}

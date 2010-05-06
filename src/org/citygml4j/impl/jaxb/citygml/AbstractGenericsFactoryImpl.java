@@ -24,22 +24,16 @@ public abstract class AbstractGenericsFactoryImpl implements GenericsFactory {
 		}
 	}
 	
-	@Override
 	public abstract GenericCityObject createGenericCityObject();
 
-	@Override
 	public abstract GenericDateAttribute createGenericDateAttribute();
 
-	@Override
 	public abstract GenericDoubleAttribute createGenericDoubleAttribute();
 
-	@Override
 	public abstract GenericIntAttribute createGenericIntAttribute();
 
-	@Override
 	public abstract GenericStringAttribute createGenericStringAttribute();
 
-	@Override
 	public abstract GenericUriAttribute createGenericUriAttribute();
 
 }

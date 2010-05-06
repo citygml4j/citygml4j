@@ -34,22 +34,18 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		return appearanceType;
 	}
 
-	@Override
 	public String getTheme() {
 		return appearanceType.getTheme();
 	}
 
-	@Override
 	public void setTheme(String theme) {
 		appearanceType.setTheme(theme);
 	}
 
-	@Override
 	public void addSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
 		appearanceType.getSurfaceDataMember().add(((SurfaceDataPropertyImpl)surfaceDataMember).getJAXBObject());
 	}
 
-	@Override
 	public List<SurfaceDataProperty> getSurfaceDataMember() {
 		List<SurfaceDataProperty> surfaceDataPropList = new ArrayList<SurfaceDataProperty>();
 
@@ -59,7 +55,6 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		return surfaceDataPropList;
 	}
 
-	@Override
 	public void setSurfaceDataMember(List<SurfaceDataProperty> surfaceDataMember) {
 		List<SurfaceDataPropertyType> surfaceDataPropTypeList = new ArrayList<SurfaceDataPropertyType>();
 
@@ -70,12 +65,10 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		appearanceType.getSurfaceDataMember().addAll(surfaceDataPropTypeList);
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.APPEARANCE;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v0_4_0;
 	}
@@ -85,14 +78,12 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		// we do not need this here?!
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfAppearance(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			appearanceType.get_GenericApplicationPropertyOfAppearance().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfAppearance() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -107,7 +98,6 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfAppearance(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -123,37 +113,30 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfAppearance() {
 		return appearanceType.isSet_GenericApplicationPropertyOfAppearance();
 	}
 
-	@Override
 	public boolean isSetSurfaceDataMember() {
 		return appearanceType.isSetSurfaceDataMember();
 	}
 
-	@Override
 	public boolean isSetTheme() {
 		return appearanceType.isSetTheme();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfAppearance() {
 		appearanceType.unset_GenericApplicationPropertyOfAppearance();
 	}
 
-	@Override
 	public void unsetSurfaceDataMember() {
 		appearanceType.unsetSurfaceDataMember();
 	}
 
-	@Override
 	public void unsetTheme() {
 		appearanceType.setTheme(null);
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfAppearance(ADEComponent adeObject) {
 		if (appearanceType.isSet_GenericApplicationPropertyOfAppearance()) {
 			Iterator<JAXBElement<?>> iter = appearanceType.get_GenericApplicationPropertyOfAppearance().iterator();
@@ -172,7 +155,6 @@ public class AppearanceImpl extends AbstractFeatureImpl implements Appearance {
 		return false;
 	}
 
-	@Override
 	public boolean unsetSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
 		if (appearanceType.isSetSurfaceDataMember())
 			return appearanceType.getSurfaceDataMember().remove(((SurfaceDataPropertyImpl)surfaceDataMember).getJAXBObject());

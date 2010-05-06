@@ -35,12 +35,10 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		return texCoordListType;
 	}
 
-	@Override
 	public void addTextureCoordinates(TextureCoordinates textureCoordinates) {
 		texCoordListType.getTextureCoordinates().add(((TextureCoordinatesImpl)textureCoordinates).getJAXBObject());
 	}
 
-	@Override
 	public List<TextureCoordinates> getTextureCoordinates() {
 		List<TextureCoordinates> texCoordList = new ArrayList<TextureCoordinates>();
 
@@ -50,7 +48,6 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		return texCoordList;
 	}
 
-	@Override
 	public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates) {
 		List<TexCoordListType.TextureCoordinates> texCoordTypeList = new ArrayList<TexCoordListType.TextureCoordinates>();
 
@@ -61,14 +58,12 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		texCoordListType.getTextureCoordinates().addAll(texCoordTypeList);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfTexCoordList(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			texCoordListType.get_GenericApplicationPropertyOfTexCoordList().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordList() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -83,7 +78,6 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfTexCoordList(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -99,27 +93,22 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfTexCoordList() {
 		return texCoordListType.isSet_GenericApplicationPropertyOfTexCoordList();
 	}
 
-	@Override
 	public boolean isSetTextureCoordinates() {
 		return texCoordListType.isSetTextureCoordinates();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfTexCoordList() {
 		texCoordListType.unset_GenericApplicationPropertyOfTexCoordList();
 	}
 
-	@Override
 	public void unsetTextureCoordinates() {
 		texCoordListType.unsetTextureCoordinates();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfTexCoordList(ADEComponent adeObject) {
 		if (texCoordListType.isSet_GenericApplicationPropertyOfTexCoordList()) {
 			Iterator<JAXBElement<?>> iter = texCoordListType.get_GenericApplicationPropertyOfTexCoordList().iterator();
@@ -138,7 +127,6 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		return false;
 	}
 
-	@Override
 	public boolean unsetTextureCoordinates(TextureCoordinates textureCoordinates) {
 		if (texCoordListType.isSetTextureCoordinates())
 			return texCoordListType.getTextureCoordinates().remove(((TextureCoordinatesImpl)textureCoordinates).getJAXBObject());

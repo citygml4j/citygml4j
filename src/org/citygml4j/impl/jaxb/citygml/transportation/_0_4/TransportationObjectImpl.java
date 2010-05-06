@@ -38,14 +38,12 @@ public abstract class TransportationObjectImpl extends CityObjectImpl implements
 		return TransportationModule.v0_4_0;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfTransportationObject(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			transportationObjectType.get_GenericApplicationPropertyOfTransportationObject().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTransportationObject() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -60,7 +58,6 @@ public abstract class TransportationObjectImpl extends CityObjectImpl implements
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfTransportationObject(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -76,17 +73,14 @@ public abstract class TransportationObjectImpl extends CityObjectImpl implements
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfTransportationObject() {
 		return transportationObjectType.isSet_GenericApplicationPropertyOfTransportationObject();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfTransportationObject() {
 		transportationObjectType.unset_GenericApplicationPropertyOfTransportationObject();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfTransportationObject(ADEComponent adeObject) {
 		if (transportationObjectType.isSet_GenericApplicationPropertyOfTransportationObject()) {
 			Iterator<JAXBElement<?>> iter = transportationObjectType.get_GenericApplicationPropertyOfTransportationObject().iterator();

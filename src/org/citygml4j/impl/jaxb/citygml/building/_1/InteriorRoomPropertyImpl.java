@@ -30,17 +30,14 @@ public class InteriorRoomPropertyImpl extends AssociationImpl<Room> implements I
 		return interiorRoomPropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIORROOMPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return BuildingModule.v1_0_0;
 	}
 
-	@Override
 	public Room getObject() {
 		if (interiorRoomPropertyType.isSet_Object()) {
 			JAXBElement<?> interiorRoom = interiorRoomPropertyType.get_Object();
@@ -57,7 +54,6 @@ public class InteriorRoomPropertyImpl extends AssociationImpl<Room> implements I
 		return null;
 	}
 
-	@Override
 	public void setObject(Room object) {
 		JAXBElement<?> jaxbElem = ModelMapper.BLDG_1.toJAXB(object);
 		interiorRoomPropertyType.set_Object(jaxbElem);

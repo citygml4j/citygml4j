@@ -34,14 +34,12 @@ public class GroundSurfaceImpl extends BoundarySurfaceImpl implements GroundSurf
 		return CityGMLClass.GROUNDSURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfGroundSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			groundSurfaceType.get_GenericApplicationPropertyOfGroundSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfGroundSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class GroundSurfaceImpl extends BoundarySurfaceImpl implements GroundSurf
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfGroundSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class GroundSurfaceImpl extends BoundarySurfaceImpl implements GroundSurf
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfGroundSurface() {
 		return groundSurfaceType.isSet_GenericApplicationPropertyOfGroundSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfGroundSurface() {
 		groundSurfaceType.unset_GenericApplicationPropertyOfGroundSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfGroundSurface(ADEComponent adeObject) {
 		if (groundSurfaceType.isSet_GenericApplicationPropertyOfGroundSurface()) {
 			Iterator<JAXBElement<?>> iter = groundSurfaceType.get_GenericApplicationPropertyOfGroundSurface().iterator();

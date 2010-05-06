@@ -24,12 +24,10 @@ public abstract class GenericAttributeImpl extends CityGMLBaseImpl implements Ge
 		return CityGMLClass.GENERICATTRIBUTE;
 	}
 
-	@Override
 	public String getName() {
 		return genericAttributeType.getName();
 	}
 
-	@Override
 	public void setName(String name) {
 		genericAttributeType.setName(name);
 	}
@@ -39,12 +37,10 @@ public abstract class GenericAttributeImpl extends CityGMLBaseImpl implements Ge
 		return GenericsModule.v1_0_0;
 	}
 
-	@Override
 	public boolean isSetName() {
 		return genericAttributeType.isSetName();
 	}
 
-	@Override
 	public void unsetName() {
 		genericAttributeType.setName(null);
 	}

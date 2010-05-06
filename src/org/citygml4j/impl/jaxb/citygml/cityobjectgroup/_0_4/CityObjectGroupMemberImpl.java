@@ -24,12 +24,10 @@ public class CityObjectGroupMemberImpl extends AssociationImpl<CityObject> imple
 		this.cityObjectGroupMemberType = cityObjectGroupMemberType;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITYOBJECTGROUPMEMBER;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CityObjectGroupModule.v0_4_0;
 	}
@@ -39,18 +37,15 @@ public class CityObjectGroupMemberImpl extends AssociationImpl<CityObject> imple
 		return cityObjectGroupMemberType;
 	}
 
-	@Override
 	public String getGroupRole() {
 		return cityObjectGroupMemberType.getGroupRole();
 	}
 
-	@Override
 	public void setGroupRole(String groupRole) {
 		cityObjectGroupMemberType.setGroupRole(groupRole);
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public CityObject getObject() {
 		CityObject cityObject = null;
 		
@@ -65,19 +60,16 @@ public class CityObjectGroupMemberImpl extends AssociationImpl<CityObject> imple
 		return cityObject;
 	}
 
-	@Override
 	public void setObject(CityObject object) {
 		JAXBElement<?> cityObjectElem = ModelMapper.CITYOBJECT_0_4.toJAXB(object);		
 		if (cityObjectElem != null)
 			cityObjectGroupMemberType.set_Object(cityObjectElem);
 	}
 
-	@Override
 	public boolean isSetGroupRole() {
 		return cityObjectGroupMemberType.isSetGroupRole();
 	}
 
-	@Override
 	public void unsetGroupRole() {
 		cityObjectGroupMemberType.setGroupRole(null);
 	}

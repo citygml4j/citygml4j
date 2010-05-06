@@ -34,14 +34,12 @@ public class BuildingImpl extends AbstractBuildingImpl implements Building {
 		return CityGMLClass.BUILDING;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfBuilding(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			buildingType.get_GenericApplicationPropertyOfBuilding().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfBuilding() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class BuildingImpl extends AbstractBuildingImpl implements Building {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfBuilding(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class BuildingImpl extends AbstractBuildingImpl implements Building {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfBuilding() {
 		return buildingType.isSet_GenericApplicationPropertyOfBuilding();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfBuilding() {
 		buildingType.unset_GenericApplicationPropertyOfBuilding();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfBuilding(ADEComponent adeObject) {
 		if (buildingType.isSet_GenericApplicationPropertyOfBuilding()) {
 			Iterator<JAXBElement<?>> iter = buildingType.get_GenericApplicationPropertyOfBuilding().iterator();

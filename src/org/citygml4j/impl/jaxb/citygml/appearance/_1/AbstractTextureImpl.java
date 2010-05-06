@@ -35,7 +35,6 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		return CityGMLClass.ABSTRACTTEXTURE;
 	}
 
-	@Override
 	public ColorPlusOpacity getBorderColor() {
 		if (abstractTextureType.isSetBorderColor()) {
 			ColorPlusOpacity colorPlusOpacity = new ColorPlusOpacityImpl();
@@ -56,17 +55,14 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		return null;
 	}
 
-	@Override
 	public String getImageURI() {
 		return abstractTextureType.getImageURI();
 	}
 
-	@Override
 	public String getMimeType() {
 		return abstractTextureType.getMimeType();
 	}
 
-	@Override
 	public TextureType getTextureType() {
 		if (abstractTextureType.isSetTextureType()) {
 			TextureType textureType = null;
@@ -83,7 +79,6 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		return null;
 	}
 
-	@Override
 	public WrapMode getWrapMode() {
 		if (abstractTextureType.isSetWrapMode()) {
 			WrapMode wrapMode = null;
@@ -100,17 +95,14 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		return null;
 	}
 
-	@Override
 	public void setImageURI(String imageURI) {
 		abstractTextureType.setImageURI(imageURI);
 	}
 
-	@Override
 	public void setMimeType(String mimeType) {
 		abstractTextureType.setMimeType(mimeType);
 	}
 
-	@Override
 	public void setTextureType(TextureType textureType) {
 		TextureTypeType textureTypeType = null;
 
@@ -124,13 +116,11 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 			abstractTextureType.setTextureType(textureTypeType);
 	}
 
-	@Override
 	public void setBorderColor(ColorPlusOpacity borderColor) {
 		abstractTextureType.unsetBorderColor();
 		abstractTextureType.getBorderColor().addAll(borderColor.toList());
 	}
 
-	@Override
 	public void setWrapMode(WrapMode wrapMode) {
 		WrapModeType wrapModeType = null;
 
@@ -144,14 +134,12 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 			abstractTextureType.setWrapMode(wrapModeType);
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfTexture(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			abstractTextureType.get_GenericApplicationPropertyOfTexture().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTexture() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -166,7 +154,6 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfTexture(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -182,67 +169,54 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		}
 	}
 
-	@Override
 	public boolean isSetBorderColor() {
 		return abstractTextureType.isSetBorderColor();
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfTexture() {
 		return abstractTextureType.isSet_GenericApplicationPropertyOfTexture();
 	}
 
-	@Override
 	public boolean isSetImageUri() {
 		return abstractTextureType.isSetImageURI();
 	}
 
-	@Override
 	public boolean isSetMimeType() {
 		return abstractTextureType.isSetMimeType();
 	}
 
-	@Override
 	public boolean isSetTextureType() {
 		return abstractTextureType.isSetTextureType();
 	}
 
-	@Override
 	public boolean isSetWrapMode() {
 		return abstractTextureType.isSetWrapMode();
 	}
 
-	@Override
 	public void unsetBorderColor() {
 		abstractTextureType.unsetBorderColor();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfTexture() {
 		abstractTextureType.unset_GenericApplicationPropertyOfTexture();
 	}
 
-	@Override
 	public void unsetMimeType() {
 		abstractTextureType.setMimeType(null);
 	}
 
-	@Override
 	public void unsetTextureType() {
 		abstractTextureType.setTextureType(null);
 	}
 
-	@Override
 	public void unsetWrapMode() {
 		abstractTextureType.setWrapMode(null);
 	}
 
-	@Override
 	public void unsetImageUri() {
 		abstractTextureType.setImageURI(null);
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfTexture(ADEComponent adeObject) {
 		if (abstractTextureType.isSet_GenericApplicationPropertyOfTexture()) {
 			Iterator<JAXBElement<?>> iter = abstractTextureType.get_GenericApplicationPropertyOfTexture().iterator();

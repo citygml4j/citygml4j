@@ -41,7 +41,6 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		return WaterBodyModule.v1_0_0;
 	}
 
-	@Override
 	public SurfaceProperty getLod2Surface() {
 		if (waterBoundarySurfaceType.isSetLod2Surface())
 			return new SurfacePropertyImpl(waterBoundarySurfaceType.getLod2Surface());
@@ -49,7 +48,6 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		return null;
 	}
 
-	@Override
 	public SurfaceProperty getLod3Surface() {
 		if (waterBoundarySurfaceType.isSetLod3Surface())
 			return new SurfacePropertyImpl(waterBoundarySurfaceType.getLod3Surface());
@@ -57,7 +55,6 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		return null;
 	}
 
-	@Override
 	public SurfaceProperty getLod4Surface() {
 		if (waterBoundarySurfaceType.isSetLod4Surface())
 			return new SurfacePropertyImpl(waterBoundarySurfaceType.getLod4Surface());
@@ -65,17 +62,14 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		return null;
 	}
 
-	@Override
 	public void setLod2Surface(SurfaceProperty lod2Surface) {
 		waterBoundarySurfaceType.setLod2Surface(((SurfacePropertyImpl)lod2Surface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod3Surface(SurfaceProperty lod3Surface) {
 		waterBoundarySurfaceType.setLod3Surface(((SurfacePropertyImpl)lod3Surface).getJAXBObject());
 	}
 
-	@Override
 	public void setLod4Surface(SurfaceProperty lod4Surface) {
 		waterBoundarySurfaceType.setLod4Surface(((SurfacePropertyImpl)lod4Surface).getJAXBObject());
 	}
@@ -108,14 +102,12 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		}
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			waterBoundarySurfaceType.get_GenericApplicationPropertyOfWaterBoundarySurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBoundarySurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -130,7 +122,6 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWaterBoundarySurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -146,47 +137,38 @@ public abstract class WaterBoundarySurfaceImpl extends CityObjectImpl implements
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWaterBoundarySurface() {
 		return waterBoundarySurfaceType.isSet_GenericApplicationPropertyOfWaterBoundarySurface();
 	}
 
-	@Override
 	public boolean isSetLod2Surface() {
 		return waterBoundarySurfaceType.isSetLod2Surface();
 	}
 
-	@Override
 	public boolean isSetLod3Surface() {
 		return waterBoundarySurfaceType.isSetLod3Surface();
 	}
 
-	@Override
 	public boolean isSetLod4Surface() {
 		return waterBoundarySurfaceType.isSetLod4Surface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWaterBoundarySurface() {
 		waterBoundarySurfaceType.unset_GenericApplicationPropertyOfWaterBoundarySurface();
 	}
 
-	@Override
 	public void unsetLod2Surface() {
 		waterBoundarySurfaceType.setLod2Surface(null);
 	}
 
-	@Override
 	public void unsetLod3Surface() {
 		waterBoundarySurfaceType.setLod3Surface(null);
 	}
 
-	@Override
 	public void unsetLod4Surface() {
 		waterBoundarySurfaceType.setLod4Surface(null);
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent adeObject) {
 		if (waterBoundarySurfaceType.isSet_GenericApplicationPropertyOfWaterBoundarySurface()) {
 			Iterator<JAXBElement<?>> iter = waterBoundarySurfaceType.get_GenericApplicationPropertyOfWaterBoundarySurface().iterator();

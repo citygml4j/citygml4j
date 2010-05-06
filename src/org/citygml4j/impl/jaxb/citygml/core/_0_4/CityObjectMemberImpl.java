@@ -37,7 +37,6 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl implements CityObj
 			setCityObject((CityObject)abstractFeature);
 	}
 
-	@Override
 	public CityObject getCityObject() {
 		CityObject cityObject = null;
 		
@@ -52,7 +51,6 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl implements CityObj
 		return cityObject;
 	}
 
-	@Override
 	public void setCityObject(CityObject cityObject) {
 		JAXBElement<? extends AbstractFeatureType> cityObjectElem = null;
 		
@@ -64,12 +62,10 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl implements CityObj
 			cityObjectMember.set_Feature(cityObjectElem);
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITYOBJECTMEMBER;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v0_4_0;
 	}
@@ -79,12 +75,10 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl implements CityObj
 		return cityObjectMember;
 	}
 
-	@Override
 	public boolean isSetCityObject() {
 		return cityObjectMember.isSet_Feature();
 	}
 
-	@Override
 	public void unsetCityObject() {
 		cityObjectMember.set_Feature(null);
 	}

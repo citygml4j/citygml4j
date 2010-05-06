@@ -26,22 +26,18 @@ public class GenericStringAttributeImpl extends GenericAttributeImpl implements	
 		return CityGMLClass.STRINGATTRIBUTE;
 	}
 
-	@Override
 	public String getValue() {
 		return stringAttributeType.getValue();
 	}
 
-	@Override
 	public void setValue(String value) {
 		stringAttributeType.setValue(value);
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return stringAttributeType.isSetValue();
 	}
 
-	@Override
 	public void unsetValue() {
 		stringAttributeType.setValue(null);
 	}

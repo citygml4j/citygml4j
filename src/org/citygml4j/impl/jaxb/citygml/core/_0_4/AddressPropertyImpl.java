@@ -24,12 +24,10 @@ public class AddressPropertyImpl extends AssociationImpl<Address> implements Add
 		this.addressPropertyType = addressPropertyType;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ADDRESSPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v0_4_0;
 	}
@@ -39,7 +37,6 @@ public class AddressPropertyImpl extends AssociationImpl<Address> implements Add
 		return addressPropertyType;
 	}
 
-	@Override
 	public Address getObject() {
 		if (addressPropertyType.get_Object() != null) {
 			JAXBElement<?> elem = addressPropertyType.get_Object();
@@ -50,7 +47,6 @@ public class AddressPropertyImpl extends AssociationImpl<Address> implements Add
 		return null;
 	}
 
-	@Override
 	public void setObject(Address object) {
 		addressPropertyType.set_Object(ObjectFactory.CITYGML_0_4.createAddress(((AddressImpl)object).getJAXBObject()));
 	}

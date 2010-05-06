@@ -21,7 +21,6 @@ public class GenericUriAttributeImpl extends GenericAttributeImpl implements Gen
 		return uriAttributeType;
 	}
 
-	@Override
 	public String getValue() {
 		return uriAttributeType.getValue();
 	}
@@ -31,17 +30,14 @@ public class GenericUriAttributeImpl extends GenericAttributeImpl implements Gen
 		return CityGMLClass.URIATTRIBUTE;
 	}
 
-	@Override
 	public void setValue(String value) {
 		uriAttributeType.setValue(value);
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return uriAttributeType.isSetValue();
 	}
 
-	@Override
 	public void unsetValue() {
 		uriAttributeType.setValue(null);
 	}

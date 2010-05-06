@@ -35,7 +35,6 @@ public class TexCoordGenImpl extends TextureParameterizationImpl implements TexC
 		return texCoordGenType;
 	}
 
-	@Override
 	public WorldToTexture getWorldToTexture() {
 		if (texCoordGenType.isSetWorldToTexture())
 			return new WorldToTextureImpl(texCoordGenType.getWorldToTexture());
@@ -43,19 +42,16 @@ public class TexCoordGenImpl extends TextureParameterizationImpl implements TexC
 		return null;
 	}
 
-	@Override
 	public void setWorldToTexture(WorldToTexture worldToTexture) {
 		texCoordGenType.setWorldToTexture(((WorldToTextureImpl)worldToTexture).getJAXBObject());
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfTexCoordGen(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			texCoordGenType.get_GenericApplicationPropertyOfTexCoordGen().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordGen() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -70,7 +66,6 @@ public class TexCoordGenImpl extends TextureParameterizationImpl implements TexC
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfTexCoordGen(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -86,27 +81,22 @@ public class TexCoordGenImpl extends TextureParameterizationImpl implements TexC
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfTexCoordGen() {
 		return texCoordGenType.isSet_GenericApplicationPropertyOfTexCoordGen();
 	}
 
-	@Override
 	public boolean isSetWorldToTexture() {
 		return texCoordGenType.isSetWorldToTexture();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfTexCoordGen() {
 		texCoordGenType.unset_GenericApplicationPropertyOfTexCoordGen();
 	}
 
-	@Override
 	public void unsetWorldToTexture() {
 		texCoordGenType.setWorldToTexture(null);
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfTexCoordGen(ADEComponent adeObject) {
 		if (texCoordGenType.isSet_GenericApplicationPropertyOfTexCoordGen()) {
 			Iterator<JAXBElement<?>> iter = texCoordGenType.get_GenericApplicationPropertyOfTexCoordGen().iterator();

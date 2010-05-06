@@ -30,12 +30,10 @@ public class TransformationMatrix4x4Impl implements TransformationMatrix4x4 {
 		matrix.setMatrix(vals);
 	}
 
-	@Override
 	public Matrix getMatrix() {
 		return matrix;
 	}
 
-	@Override
 	public void setMatrix(Matrix matrix) {
 		if (matrix.getRowDimension() != 4 || matrix.getColumnDimension() != 4)
 			throw new IllegalArgumentException("Matrix dimensions must be 4x4.");
@@ -43,12 +41,10 @@ public class TransformationMatrix4x4Impl implements TransformationMatrix4x4 {
 		this.matrix = matrix;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSFORMATIONMATRIX4X4;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return CoreModule.v0_4_0;
 	}

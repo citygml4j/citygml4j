@@ -34,73 +34,51 @@ public abstract class AbstractAppearanceFactoryImpl implements AppearanceFactory
 		}
 	}
 	
-	@Override
 	public abstract Appearance createAppearance();
 
-	@Override
 	public abstract AppearanceMember createAppearanceMember();
 
-	@Override
 	public abstract AppearanceProperty createAppearanceProperty();
 
-	@Override
 	public abstract Color createColor();
 
-	@Override
 	public abstract Color createColor(Double red, Double green, Double blue);
 
-	@Override
 	public abstract ColorPlusOpacity createColorPlusOpacity();
 
-	@Override
 	public abstract ColorPlusOpacity createColorPlusOpacity(Color color, Double opacity);
 
-	@Override
 	public abstract ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue,
 			Double opacity);
 
-	@Override
 	public abstract ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue);
 
-	@Override
 	public abstract ColorPlusOpacity createColorPlusOpacity(Double red, Double green,
 			Double blue, Double opacity);
 
-	@Override
 	public abstract ColorPlusOpacity createColorPlusOpacity(Double red, Double green,
 			Double blue);
 
-	@Override
 	public abstract GeoreferencedTexture createGeoreferencedTexture();
 
-	@Override
 	public abstract ParameterizedTexture createParameterizedTexture();
 
-	@Override
 	public abstract SurfaceDataProperty createSurfaceDataProperty();
 
-	@Override
 	public abstract TexCoordGen createTexCoordGen();
 
-	@Override
 	public abstract TexCoordList createTexCoordList();
 
-	@Override
 	public abstract TextureAssociation createTextureAssociation();
 
-	@Override
 	public abstract TextureCoordinates createTextureCoordinates();
 
-	@Override
 	public abstract TextureType createTextureType(String textureType);
 
-	@Override
 	public abstract WorldToTexture createWorldToTexture();
 
-	@Override
 	public abstract WrapMode createWrapMode(String wrapMode);
 
-	@Override
 	public abstract X3DMaterial createX3DMaterial();
 
 }

@@ -34,14 +34,12 @@ public class WallSurfaceImpl extends BoundarySurfaceImpl implements WallSurface 
 		return CityGMLClass.WALLSURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWallSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			wallSurfaceType.get_GenericApplicationPropertyOfWallSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWallSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class WallSurfaceImpl extends BoundarySurfaceImpl implements WallSurface 
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWallSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class WallSurfaceImpl extends BoundarySurfaceImpl implements WallSurface 
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWallSurface() {
 		return wallSurfaceType.isSet_GenericApplicationPropertyOfWallSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWallSurface() {
 		wallSurfaceType.unset_GenericApplicationPropertyOfWallSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWallSurface(ADEComponent adeObject) {
 		if (wallSurfaceType.isSet_GenericApplicationPropertyOfWallSurface()) {
 			Iterator<JAXBElement<?>> iter = wallSurfaceType.get_GenericApplicationPropertyOfWallSurface().iterator();

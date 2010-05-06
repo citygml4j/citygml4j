@@ -36,17 +36,14 @@ public class BoundedByWaterSurfacePropertyImpl extends AssociationImpl<WaterBoun
 		return boundedByType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BOUNDEDBYWATERSURFACEPROPERTY;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return WaterBodyModule.v1_0_0;
 	}
 	
-	@Override
 	public WaterBoundarySurface getObject() {
 		if (boundedByType.isSet_Object()) {
 			JAXBElement<?> waterBoundarySurface = boundedByType.get_Object();
@@ -69,7 +66,6 @@ public class BoundedByWaterSurfacePropertyImpl extends AssociationImpl<WaterBoun
 		return null;
 	}
 
-	@Override
 	public void setObject(WaterBoundarySurface object) {
 		JAXBElement<?> jaxbElem = null;
 

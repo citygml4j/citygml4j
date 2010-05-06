@@ -27,31 +27,22 @@ public abstract class AbstractTransportationFactoryImpl implements Transportatio
 		}
 	}
 	
-	@Override
 	public abstract AuxiliaryTrafficArea createAuxiliaryTrafficArea();
 
-	@Override
 	public abstract AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty();
 
-	@Override
 	public abstract Railway createRailway();
 
-	@Override
 	public abstract Road createRoad();
 
-	@Override
 	public abstract Square createSquare();
 
-	@Override
 	public abstract Track createTrack();
 
-	@Override
 	public abstract TrafficArea createTrafficArea();
 
-	@Override
 	public abstract TrafficAreaProperty createTrafficAreaProperty();
 
-	@Override
 	public abstract TransportationComplex createTransportationComplex();
 
 }

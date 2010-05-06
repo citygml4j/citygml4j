@@ -23,19 +23,14 @@ public abstract class AbstractWaterBodyFactoryImpl implements WaterBodyFactory {
 		}
 	}
 	
-	@Override
 	public abstract BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty();
 
-	@Override
 	public abstract WaterBody createWaterBody();
 
-	@Override
 	public abstract WaterClosureSurface createWaterClosureSurface();
 
-	@Override
 	public abstract WaterGroundSurface createWaterGroundSurface();
 
-	@Override
 	public abstract WaterSurface createWaterSurface();
 
 }

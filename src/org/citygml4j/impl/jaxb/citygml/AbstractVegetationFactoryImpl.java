@@ -20,10 +20,8 @@ public abstract class AbstractVegetationFactoryImpl implements VegetationFactory
 		}
 	}
 	
-	@Override
 	public abstract PlantCover createPlantCover();
 
-	@Override
 	public abstract SolitaryVegetationObject createSolitaryVegetationObject();
 
 }

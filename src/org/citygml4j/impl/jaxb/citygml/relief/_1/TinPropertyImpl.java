@@ -27,12 +27,10 @@ public class TinPropertyImpl extends AssociationImpl<TriangulatedSurface> implem
 		this.tinPropertyType = tinPropertyType;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TINPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return ReliefModule.v1_0_0;
 	}
@@ -42,7 +40,6 @@ public class TinPropertyImpl extends AssociationImpl<TriangulatedSurface> implem
 		return tinPropertyType;
 	}
 
-	@Override
 	public TriangulatedSurface getObject() {
 		if (tinPropertyType.isSet_Object()) {
 			JAXBElement<?> elem = tinPropertyType.get_Object();
@@ -57,7 +54,6 @@ public class TinPropertyImpl extends AssociationImpl<TriangulatedSurface> implem
 		return null;
 	}
 
-	@Override
 	public void setObject(TriangulatedSurface object) {
 		JAXBElement<?> jaxbElem = null;
 		

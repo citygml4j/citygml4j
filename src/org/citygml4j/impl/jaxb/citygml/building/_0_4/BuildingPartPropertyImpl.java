@@ -30,17 +30,14 @@ public class BuildingPartPropertyImpl extends AssociationImpl<BuildingPart> impl
 		return buildingPartPropertyType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BUILDINGPARTPROPERTY;
 	}
 	
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return BuildingModule.v0_4_0;
 	}
 
-	@Override
 	public BuildingPart getObject() {
 		if (buildingPartPropertyType.get_Object() != null) {
 			JAXBElement<?> buildingPart = buildingPartPropertyType.get_Object();
@@ -57,7 +54,6 @@ public class BuildingPartPropertyImpl extends AssociationImpl<BuildingPart> impl
 		return null;
 	}
 
-	@Override
 	public void setObject(BuildingPart object) {
 		JAXBElement<?> jaxbElem = ModelMapper.BLDG_0_4.toJAXB(object);
 		buildingPartPropertyType.set_Object(jaxbElem);

@@ -28,22 +28,18 @@ public abstract class AbstractSurfaceDataImpl extends AbstractFeatureImpl implem
 		return abstractSurfaceDataType;
 	}
 
-	@Override
 	public Boolean getIsFront() {
 		return abstractSurfaceDataType.isIsFront();
 	}
 
-	@Override
 	public void setIsFront(Boolean isFront) {
 		abstractSurfaceDataType.setIsFront(isFront);
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ABSTRACTSURFACEDATA;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v1_0_0;
 	}
@@ -53,14 +49,12 @@ public abstract class AbstractSurfaceDataImpl extends AbstractFeatureImpl implem
 		// we do not need this here
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfSurfaceData(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			abstractSurfaceDataType.get_GenericApplicationPropertyOfSurfaceData().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfSurfaceData() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -75,7 +69,6 @@ public abstract class AbstractSurfaceDataImpl extends AbstractFeatureImpl implem
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfSurfaceData(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -91,27 +84,22 @@ public abstract class AbstractSurfaceDataImpl extends AbstractFeatureImpl implem
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfSurfaceData() {
 		return abstractSurfaceDataType.isSet_GenericApplicationPropertyOfSurfaceData();
 	}
 
-	@Override
 	public boolean isSetIsFront() {
 		return abstractSurfaceDataType.isSetIsFront();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfSurfaceData() {
 		abstractSurfaceDataType.unset_GenericApplicationPropertyOfSurfaceData();
 	}
 
-	@Override
 	public void unsetIsFront() {
 		abstractSurfaceDataType.setIsFront(null);
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfSurfaceData(ADEComponent adeObject) {
 		if (abstractSurfaceDataType.isSet_GenericApplicationPropertyOfSurfaceData()) {
 			Iterator<JAXBElement<?>> iter = abstractSurfaceDataType.get_GenericApplicationPropertyOfSurfaceData().iterator();

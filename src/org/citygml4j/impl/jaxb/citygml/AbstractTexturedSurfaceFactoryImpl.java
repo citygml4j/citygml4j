@@ -24,25 +24,18 @@ public abstract class AbstractTexturedSurfaceFactoryImpl implements TexturedSurf
 		}
 	}
 	
-	@Override
 	public abstract _AppearanceProperty create_AppearanceProperty();
 
-	@Override
 	public abstract _Color create_Color();
 
-	@Override
 	public abstract _Color create_Color(Double red, Double green, Double blue);
 
-	@Override
 	public abstract _Material create_Material();
 
-	@Override
 	public abstract _SimpleTexture create_SimpleTexture();
 
-	@Override
 	public abstract _TextureType create_TextureType(String _textureType);
 
-	@Override
 	public abstract _TexturedSurface create_TexturedSurface();
 
 }

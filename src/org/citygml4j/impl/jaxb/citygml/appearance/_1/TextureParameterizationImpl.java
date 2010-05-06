@@ -28,24 +28,20 @@ public abstract class TextureParameterizationImpl extends AbstractGMLImpl implem
 		return textureParameterizationType;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEXTUREPARAMETERIZATION;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v1_0_0;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfTextureParameterization(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			textureParameterizationType.get_GenericApplicationPropertyOfTextureParameterization().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfTextureParameterization() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -60,7 +56,6 @@ public abstract class TextureParameterizationImpl extends AbstractGMLImpl implem
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfTextureParameterization(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -76,17 +71,14 @@ public abstract class TextureParameterizationImpl extends AbstractGMLImpl implem
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfTextureParameterization() {
 		return textureParameterizationType.isSet_GenericApplicationPropertyOfTextureParameterization();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfTextureParameterization() {
 		textureParameterizationType.unset_GenericApplicationPropertyOfTextureParameterization();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfTextureParameterization(ADEComponent adeObject) {
 		if (textureParameterizationType.isSet_GenericApplicationPropertyOfTextureParameterization()) {
 			Iterator<JAXBElement<?>> iter = textureParameterizationType.get_GenericApplicationPropertyOfTextureParameterization().iterator();

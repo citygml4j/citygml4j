@@ -32,42 +32,34 @@ public class ExternalObjectImpl extends CityGMLBaseImpl implements ExternalObjec
 		return CoreModule.v1_0_0;
 	}
 	
-	@Override
 	public String getName() {
 		return externalObject.getName();
 	}
 
-	@Override
 	public String getUri() {
 		return externalObject.getUri();
 	}
 
-	@Override
 	public void setName(String name) {
 		externalObject.setName(name);
 	}
 
-	@Override
 	public void setUri(String uri) {
 		externalObject.setUri(uri);
 	}
 	
-	@Override
 	public boolean isSetName() {
 		return externalObject.isSetName();
 	}
 
-	@Override
 	public boolean isSetUri() {
 		return externalObject.isSetUri();
 	}
 
-	@Override
 	public void unsetName() {
 		externalObject.setName(null);
 	}
 
-	@Override
 	public void unsetUri() {
 		externalObject.setUri(null);
 	}

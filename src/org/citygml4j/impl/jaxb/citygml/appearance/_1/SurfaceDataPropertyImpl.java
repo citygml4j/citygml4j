@@ -47,7 +47,6 @@ public class SurfaceDataPropertyImpl extends CityGMLBaseImpl implements SurfaceD
 		return AppearanceModule.v1_0_0;
 	}
 
-	@Override
 	public AbstractSurfaceData getSurfaceData() {
 		if (surfaceDataPropertyType.isSet_SurfaceData()) {
 			JAXBElement<? extends AbstractSurfaceDataType> abstractSurfaceData = surfaceDataPropertyType.get_SurfaceData();
@@ -72,7 +71,6 @@ public class SurfaceDataPropertyImpl extends CityGMLBaseImpl implements SurfaceD
 		return null;
 	}
 
-	@Override
 	public void setSurfaceData(AbstractSurfaceData surfaceData) {
 		JAXBElement<? extends AbstractSurfaceDataType> jaxbElem = null;
 
@@ -91,172 +89,138 @@ public class SurfaceDataPropertyImpl extends CityGMLBaseImpl implements SurfaceD
 			surfaceDataPropertyType.set_SurfaceData(jaxbElem);
 	}
 
-	@Override
 	public String getActuate() {
 		return surfaceDataPropertyType.getActuate();
 	}
 
-	@Override
 	public String getArcrole() {
 		return surfaceDataPropertyType.getArcrole();
 	}
 
-	@Override
 	public String getHref() {
 		return surfaceDataPropertyType.getHref();
 	}
 
-	@Override
 	public String getRemoteSchema() {
 		return surfaceDataPropertyType.getRemoteSchema();
 	}
 
-	@Override
 	public String getRole() {
 		return surfaceDataPropertyType.getRole();
 	}
 
-	@Override
 	public String getShow() {
 		return surfaceDataPropertyType.getShow();
 	}
 
-	@Override
 	public String getTitle() {
 		return surfaceDataPropertyType.getTitle();
 	}
 
-	@Override
 	public String getType() {
 		return surfaceDataPropertyType.getType();
 	}
 
-	@Override
 	public void setActuate(String actuate) {
 		surfaceDataPropertyType.setActuate(actuate);
 	}
 
-	@Override
 	public void setArcrole(String arcrole) {
 		surfaceDataPropertyType.setArcrole(arcrole);
 	}
 
-	@Override
 	public void setHref(String href) {
 		surfaceDataPropertyType.setHref(href);
 	}
 
-	@Override
 	public void setRemoteSchema(String remoteSchema) {
 		surfaceDataPropertyType.setRemoteSchema(remoteSchema);
 	}
 
-	@Override
 	public void setRole(String role) {
 		surfaceDataPropertyType.setRole(role);
 	}
 
-	@Override
 	public void setShow(String show) {
 		surfaceDataPropertyType.setShow(show);
 	}
 
-	@Override
 	public void setTitle(String title) {
 		surfaceDataPropertyType.setTitle(title);
 	}
 
-	@Override
 	public void setType(String type) {
 		surfaceDataPropertyType.setType(type);
 	}
 
-	@Override
 	public boolean isSetSurfaceData() {
 		return surfaceDataPropertyType.isSet_SurfaceData();
 	}
 
-	@Override
 	public void unsetSurfaceData() {
 		surfaceDataPropertyType.set_SurfaceData(null);
 	}
 	
-	@Override
 	public boolean isSetActuate() {
 		return surfaceDataPropertyType.isSetActuate();
 	}
 
-	@Override
 	public boolean isSetArcrole() {
 		return surfaceDataPropertyType.isSetArcrole();
 	}
 
-	@Override
 	public boolean isSetHref() {
 		return surfaceDataPropertyType.isSetHref();
 	}
 
-	@Override
 	public boolean isSetRemoteSchema() {
 		return surfaceDataPropertyType.isSetRemoteSchema();
 	}
 
-	@Override
 	public boolean isSetRole() {
 		return surfaceDataPropertyType.isSetRole();
 	}
 
-	@Override
 	public boolean isSetShow() {
 		return surfaceDataPropertyType.isSetShow();
 	}
 
-	@Override
 	public boolean isSetTitle() {
 		return surfaceDataPropertyType.isSetTitle();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return surfaceDataPropertyType.isSetType();
 	}
 
-	@Override
 	public void unsetActuate() {
 		surfaceDataPropertyType.setActuate(null);
 	}
 
-	@Override
 	public void unsetArcrole() {
 		surfaceDataPropertyType.setArcrole(null);
 	}
 
-	@Override
 	public void unsetHref() {
 		surfaceDataPropertyType.setHref(null);
 	}
 
-	@Override
 	public void unsetRemoteSchema() {
 		surfaceDataPropertyType.setRemoteSchema(null);
 	}
 
-	@Override
 	public void unsetRole() {
 		surfaceDataPropertyType.setRole(null);
 	}
 
-	@Override
 	public void unsetShow() {
 		surfaceDataPropertyType.setShow(null);
 	}
 
-	@Override
 	public void unsetTitle() {
 		surfaceDataPropertyType.setTitle(null);
 	}
 
-	@Override
 	public void unsetType() {
 		surfaceDataPropertyType.setType(null);
 	}

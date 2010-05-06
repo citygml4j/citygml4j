@@ -44,7 +44,6 @@ public class AppearancePropertyImpl extends FeaturePropertyImpl implements Appea
 			setAppearance((Appearance)abstractFeature);
 	}
 
-	@Override
 	public Appearance getAppearance() {
 		if (appearancePropertyType.isSetAppearance())
 			return new AppearanceImpl(appearancePropertyType.getAppearance());
@@ -52,17 +51,14 @@ public class AppearancePropertyImpl extends FeaturePropertyImpl implements Appea
 		return null;
 	}
 
-	@Override
 	public void setAppearance(Appearance appearance) {
 		appearancePropertyType.setAppearance(((AppearanceImpl)appearance).getJAXBObject());
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.APPEARANCEPROPERTY;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v1_0_0;
 	}
@@ -72,12 +68,10 @@ public class AppearancePropertyImpl extends FeaturePropertyImpl implements Appea
 		return appearancePropertyType;
 	}
 
-	@Override
 	public boolean isSetAppearance() {
 		return appearancePropertyType.isSetAppearance();
 	}
 
-	@Override
 	public void unsetAppearance() {
 		appearancePropertyType.setAppearance(null);
 	}

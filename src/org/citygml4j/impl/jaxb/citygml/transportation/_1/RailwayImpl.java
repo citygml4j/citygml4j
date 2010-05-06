@@ -34,14 +34,12 @@ public class RailwayImpl extends TransportationComplexImpl implements Railway {
 		return CityGMLClass.RAILWAY;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfRailway(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			railwayType.get_GenericApplicationPropertyOfRailway().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfRailway() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class RailwayImpl extends TransportationComplexImpl implements Railway {
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfRailway(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class RailwayImpl extends TransportationComplexImpl implements Railway {
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfRailway() {
 		return railwayType.isSet_GenericApplicationPropertyOfRailway();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfRailway() {
 		railwayType.unset_GenericApplicationPropertyOfRailway();
 	}
 	
-	@Override
 	public boolean unsetGenericApplicationPropertyOfRailway(ADEComponent adeObject) {
 		if (railwayType.isSet_GenericApplicationPropertyOfRailway()) {
 			Iterator<JAXBElement<?>> iter = railwayType.get_GenericApplicationPropertyOfRailway().iterator();

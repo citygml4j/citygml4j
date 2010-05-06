@@ -34,14 +34,12 @@ public class CeilingSurfaceImpl extends BoundarySurfaceImpl implements CeilingSu
 		return CityGMLClass.CEILINGSURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfCeilingSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			ceilingSurfaceType.get_GenericApplicationPropertyOfCeilingSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfCeilingSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class CeilingSurfaceImpl extends BoundarySurfaceImpl implements CeilingSu
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfCeilingSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class CeilingSurfaceImpl extends BoundarySurfaceImpl implements CeilingSu
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfCeilingSurface() {
 		return ceilingSurfaceType.isSet_GenericApplicationPropertyOfCeilingSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfCeilingSurface() {
 		ceilingSurfaceType.unset_GenericApplicationPropertyOfCeilingSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfCeilingSurface(ADEComponent adeObject) {
 		if (ceilingSurfaceType.isSet_GenericApplicationPropertyOfCeilingSurface()) {
 			Iterator<JAXBElement<?>> iter = ceilingSurfaceType.get_GenericApplicationPropertyOfCeilingSurface().iterator();

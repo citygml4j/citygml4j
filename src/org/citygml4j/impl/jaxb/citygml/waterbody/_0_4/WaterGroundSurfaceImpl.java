@@ -34,14 +34,12 @@ public class WaterGroundSurfaceImpl extends WaterBoundarySurfaceImpl implements 
 		return CityGMLClass.WATERGROUNDSURFACE;
 	}
 
-	@Override
 	public void addGenericApplicationPropertyOfWaterGroundSurface(ADEComponent adeObject) {
 		JAXBElement<?> jaxbElem = ModelMapper.ADE.toJAXB(adeObject);
 		if (jaxbElem != null)
 			waterGroundSurfaceType.get_GenericApplicationPropertyOfWaterGroundSurface().add(jaxbElem);
 	}
 
-	@Override
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterGroundSurface() {
 		List<ADEComponent> adeList = new ArrayList<ADEComponent>();
 
@@ -56,7 +54,6 @@ public class WaterGroundSurfaceImpl extends WaterBoundarySurfaceImpl implements 
 		return adeList;
 	}
 
-	@Override
 	public void setGenericApplicationPropertyOfWaterGroundSurface(List<ADEComponent> adeObject) {
 		List<JAXBElement<?>> elemList = new ArrayList<JAXBElement<?>>();
 
@@ -72,17 +69,14 @@ public class WaterGroundSurfaceImpl extends WaterBoundarySurfaceImpl implements 
 		}
 	}
 
-	@Override
 	public boolean isSetGenericApplicationPropertyOfWaterGroundSurface() {
 		return waterGroundSurfaceType.isSet_GenericApplicationPropertyOfWaterGroundSurface();
 	}
 
-	@Override
 	public void unsetGenericApplicationPropertyOfWaterGroundSurface() {
 		waterGroundSurfaceType.unset_GenericApplicationPropertyOfWaterGroundSurface();
 	}
 
-	@Override
 	public boolean unsetGenericApplicationPropertyOfWaterGroundSurface(ADEComponent adeObject) {
 		if (waterGroundSurfaceType.isSet_GenericApplicationPropertyOfWaterGroundSurface()) {
 			Iterator<JAXBElement<?>> iter = waterGroundSurfaceType.get_GenericApplicationPropertyOfWaterGroundSurface().iterator();

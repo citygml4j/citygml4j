@@ -16,7 +16,6 @@ public enum TextureTypeImpl implements TextureType {
         value = v;
     }
 
-    @Override
     public String getValue() {
         return value;
     }
@@ -33,12 +32,10 @@ public enum TextureTypeImpl implements TextureType {
         return UNKNOWN;
     }
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEXTURETYPE;
 	}
 
-	@Override
 	public final CityGMLModule getCityGMLModule() {
 		return AppearanceModule.v0_4_0;
 	}

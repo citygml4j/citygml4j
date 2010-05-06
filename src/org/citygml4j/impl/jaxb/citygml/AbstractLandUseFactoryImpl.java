@@ -19,7 +19,6 @@ public abstract class AbstractLandUseFactoryImpl implements LandUseFactory {
 		}
 	}
 	
-	@Override
 	public abstract LandUse createLandUse();
 
 }
