@@ -60,7 +60,6 @@ public class GeometryPropertyImpl extends GMLBaseImpl implements GeometryPropert
 		return GMLClass.GEOMETRYPROPERTY;
 	}
 
-	@Override
 	public AbstractGeometry getGeometry() {
 		if (geometryPropertyType.isSet_Geometry()) {
 			JAXBElement<? extends AbstractGeometryType> abstractGeometryType = geometryPropertyType.get_Geometry();
@@ -130,87 +129,70 @@ public class GeometryPropertyImpl extends GMLBaseImpl implements GeometryPropert
 		return null;
 	}
 
-	@Override
 	public String getActuate() {
 		return geometryPropertyType.getActuate();
 	}
 
-	@Override
 	public String getArcrole() {
 		return geometryPropertyType.getArcrole();
 	}
 
-	@Override
 	public String getHref() {
 		return geometryPropertyType.getHref();
 	}
 
-	@Override
 	public String getRemoteSchema() {
 		return geometryPropertyType.getRemoteSchema();
 	}
 
-	@Override
 	public String getRole() {
 		return geometryPropertyType.getRole();
 	}
 
-	@Override
 	public String getShow() {
 		return geometryPropertyType.getShow();
 	}
 
-	@Override
 	public String getTitle() {
 		return geometryPropertyType.getTitle();
 	}
 
-	@Override
 	public String getType() {
 		return geometryPropertyType.getType();
 	}
 
-	@Override
 	public void setActuate(String actuate) {
 		geometryPropertyType.setActuate(actuate);
 	}
 
-	@Override
 	public void setArcrole(String arcrole) {
 		geometryPropertyType.setArcrole(arcrole);
 	}
 
-	@Override
 	public void setHref(String href) {
 		geometryPropertyType.setHref(href);
 	}
 
-	@Override
 	public void setRemoteSchema(String remoteSchema) {
 		geometryPropertyType.setRemoteSchema(remoteSchema);
 	}
 
-	@Override
 	public void setRole(String role) {
 		geometryPropertyType.setRole(role);
 	}
 
-	@Override
 	public void setShow(String show) {
 		geometryPropertyType.setShow(show);
 	}
 
-	@Override
 	public void setTitle(String title) {
 		geometryPropertyType.setTitle(title);
 	}
 
-	@Override
 	public void setType(String type) {
 		geometryPropertyType.setType(type);
 	}
 
-	@Override
 	public void setGeometry(AbstractGeometry geometry) {
 		JAXBElement<? extends AbstractGeometryType> jaxbElem = null;
 
@@ -293,92 +275,74 @@ public class GeometryPropertyImpl extends GMLBaseImpl implements GeometryPropert
 			geometryPropertyType.set_Geometry(jaxbElem);
 	}
 
-	@Override
 	public boolean isSetActuate() {
 		return geometryPropertyType.isSetActuate();
 	}
 
-	@Override
 	public boolean isSetArcrole() {
 		return geometryPropertyType.isSetArcrole();
 	}
 
-	@Override
 	public boolean isSetHref() {
 		return geometryPropertyType.isSetHref();
 	}
 
-	@Override
 	public boolean isSetRemoteSchema() {
 		return geometryPropertyType.isSetRemoteSchema();
 	}
 
-	@Override
 	public boolean isSetRole() {
 		return geometryPropertyType.isSetRole();
 	}
 
-	@Override
 	public boolean isSetShow() {
 		return geometryPropertyType.isSetShow();
 	}
 
-	@Override
 	public boolean isSetTitle() {
 		return geometryPropertyType.isSetTitle();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return geometryPropertyType.isSetType();
 	}
 
-	@Override
 	public void unsetActuate() {
 		geometryPropertyType.setActuate(null);
 	}
 
-	@Override
 	public void unsetArcrole() {
 		geometryPropertyType.setArcrole(null);
 	}
 
-	@Override
 	public void unsetHref() {
 		geometryPropertyType.setHref(null);
 	}
 
-	@Override
 	public void unsetRemoteSchema() {
 		geometryPropertyType.setRemoteSchema(null);
 	}
 
-	@Override
 	public void unsetRole() {
 		geometryPropertyType.setRole(null);
 	}
 
-	@Override
 	public void unsetShow() {
 		geometryPropertyType.setShow(null);
 	}
 
-	@Override
 	public void unsetTitle() {
 		geometryPropertyType.setTitle(null);
 	}
 
-	@Override
 	public void unsetType() {
 		geometryPropertyType.setType(null);
 	}
 
-	@Override
 	public boolean isSetGeometry() {
 		return geometryPropertyType.isSet_Geometry();
 	}
 
-	@Override
 	public void unsetGeometry() {
 		geometryPropertyType.set_Geometry(null);
 	}

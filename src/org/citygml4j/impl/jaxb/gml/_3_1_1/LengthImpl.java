@@ -5,7 +5,6 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.Length;
 
 public class LengthImpl extends MeasureImpl implements Length {
-
 	private LengthType length;
 
 	public LengthImpl() {

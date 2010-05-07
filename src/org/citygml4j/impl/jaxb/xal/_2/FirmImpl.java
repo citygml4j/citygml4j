@@ -35,22 +35,18 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return XALClass.FIRM;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		firmType.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public void addDepartment(Department department) {
 		firmType.getDepartment().add(((DepartmentImpl)department).getJAXBObject());
 	}
 
-	@Override
 	public void addFirmName(FirmName firmName) {
 		firmType.getFirmName().add(((FirmNameImpl)firmName).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -60,7 +56,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return addressLineList;
 	}
 
-	@Override
 	public List<Department> getDepartment() {
 		List<Department> departmentList = new ArrayList<Department>();
 
@@ -70,7 +65,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return departmentList;
 	}
 
-	@Override
 	public List<FirmName> getFirmName() {
 		List<FirmName> firmNameList = new ArrayList<FirmName>();
 
@@ -80,7 +74,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return firmNameList;
 	}
 
-	@Override
 	public MailStop getMailStop() {
 		if (firmType.isSetMailStop())
 			return new MailStopImpl(firmType.getMailStop());
@@ -88,7 +81,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return null;
 	}
 
-	@Override
 	public PostalCode getPostalCode() {
 		if (firmType.isSetPostalCode())
 			return new PostalCodeImpl(firmType.getPostalCode());
@@ -96,12 +88,10 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return firmType.getType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -112,7 +102,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		firmType.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public void setDepartment(List<Department> department) {
 		List<DepartmentElement> depElemList = new ArrayList<DepartmentElement>();
 
@@ -123,7 +112,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		firmType.getDepartment().addAll(depElemList);
 	}
 
-	@Override
 	public void setFirmName(List<FirmName> firmName) {
 		List<FirmType.FirmName> firmNameElemList = new ArrayList<FirmType.FirmName>();
 
@@ -134,82 +122,66 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		firmType.getFirmName().addAll(firmNameElemList);
 	}
 
-	@Override
 	public void setMailStop(MailStop mailStop) {
 		firmType.setMailStop(((MailStopImpl)mailStop).getJAXBObject());
 	}
 
-	@Override
 	public void setPostalCode(PostalCode postalCode) {
 		firmType.setPostalCode(((PostalCodeImpl)postalCode).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		firmType.setType(type);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return firmType.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetDepartment() {
 		return firmType.isSetDepartment();
 	}
 
-	@Override
 	public boolean isSetFirmName() {
 		return firmType.isSetFirmName();
 	}
 
-	@Override
 	public boolean isSetMailStop() {
 		return firmType.isSetMailStop();
 	}
 
-	@Override
 	public boolean isSetPostalCode() {
 		return firmType.isSetPostalCode();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return firmType.isSetType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		firmType.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetDepartment() {
 		firmType.unsetDepartment();
 	}
 
-	@Override
 	public void unsetFirmName() {
 		firmType.unsetFirmName();
 	}
 
-	@Override
 	public void unsetMailStop() {
 		firmType.setMailStop(null);
 	}
 
-	@Override
 	public void unsetPostalCode() {
 		firmType.setPostalCode(null);
 	}
 
-	@Override
 	public void unsetType() {
 		firmType.setType(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (firmType.isSetAddressLine())
 			return firmType.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());
@@ -217,7 +189,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return false;
 	}
 
-	@Override
 	public boolean unsetDepartment(Department department) {
 		if (firmType.isSetDepartment())
 			return firmType.getDepartment().remove(((DepartmentImpl)department).getJAXBObject());
@@ -225,7 +196,6 @@ public class FirmImpl extends XALBaseImpl implements Firm {
 		return false;
 	}
 
-	@Override
 	public boolean unsetFirmName(FirmName firmName) {
 		if (firmType.isSetFirmName())
 			return firmType.getFirmName().remove(((FirmNameImpl)firmName).getJAXBObject());

@@ -14,7 +14,6 @@ import org.citygml4j.model.gml.AbstractSurfacePatch;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.SurfacePatchArrayProperty;
 
-
 public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements SurfacePatchArrayProperty {
 	private SurfacePatchArrayPropertyType surfacePatchArrayPropertyType;
 
@@ -36,7 +35,6 @@ public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements Surfac
 		return surfacePatchArrayPropertyType;
 	}
 
-	@Override
 	public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
 		JAXBElement<? extends AbstractSurfacePatchType> jaxbElem = null;
 
@@ -53,7 +51,6 @@ public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements Surfac
 			surfacePatchArrayPropertyType.get_SurfacePatch().add(jaxbElem);
 	}
 
-	@Override
 	public List<? extends AbstractSurfacePatch> getSurfacePatch() {
 		List<AbstractSurfacePatch> patchList = new ArrayList<AbstractSurfacePatch>();
 
@@ -71,7 +68,6 @@ public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements Surfac
 		return patchList;
 	}
 
-	@Override
 	public void setSurfacePatch(List<? extends AbstractSurfacePatch> surfacePatch) {
 		List<JAXBElement<? extends AbstractSurfacePatchType>> jaxbElemList = new ArrayList<JAXBElement<? extends AbstractSurfacePatchType>>();
 
@@ -97,17 +93,14 @@ public class SurfacePatchArrayPropertyImpl extends GMLBaseImpl implements Surfac
 		}
 	}
 
-	@Override
 	public boolean isSetSurfacePatch() {
 		return surfacePatchArrayPropertyType.isSet_SurfacePatch();
 	}
 
-	@Override
 	public void unsetSurfacePatch() {
 		surfacePatchArrayPropertyType.unset_SurfacePatch();
 	}
 
-	@Override
 	public boolean unsetSurfacePatch(AbstractSurfacePatch surfacePatch) {
 		if (surfacePatchArrayPropertyType.isSet_SurfacePatch())
 			return surfacePatchArrayPropertyType.get_SurfacePatch().remove(((AbstractSurfacePatchImpl)surfacePatch).getJAXBObject());

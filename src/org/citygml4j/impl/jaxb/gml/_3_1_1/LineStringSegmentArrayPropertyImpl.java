@@ -30,12 +30,10 @@ public class LineStringSegmentArrayPropertyImpl extends GMLBaseImpl implements L
 		return propertyType;
 	}
 
-	@Override
 	public void addLineStringSegment(LineStringSegment lineStringSegment) {
 		propertyType.getLineStringSegment().add(((LineStringSegmentImpl)lineStringSegment).getJAXBObject());
 	}
 
-	@Override
 	public List<LineStringSegment> getLineStringSegment() {
 		List<LineStringSegment> segmentList = new ArrayList<LineStringSegment>();
 
@@ -45,7 +43,6 @@ public class LineStringSegmentArrayPropertyImpl extends GMLBaseImpl implements L
 		return segmentList;
 	}
 
-	@Override
 	public void setLineStringSegment(List<LineStringSegment> lineStringSegment) {
 		List<LineStringSegmentType> segmentTypeList = new ArrayList<LineStringSegmentType>();
 
@@ -56,17 +53,14 @@ public class LineStringSegmentArrayPropertyImpl extends GMLBaseImpl implements L
 		propertyType.getLineStringSegment().addAll(segmentTypeList);
 	}
 
-	@Override
 	public boolean isSetLineStringSegment() {
 		return propertyType.isSetLineStringSegment();
 	}
 
-	@Override
 	public void unsetLineStringSegment() {
 		propertyType.unsetLineStringSegment();
 	}
 
-	@Override
 	public boolean unsetLineStringSegment(LineStringSegment lineStringSegment) {
 		if (propertyType.isSetLineStringSegment())
 			return propertyType.getLineStringSegment().remove(((LineStringSegmentImpl)lineStringSegment).getJAXBObject());

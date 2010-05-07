@@ -29,7 +29,6 @@ public class OrientableSurfaceImpl extends AbstractSurfaceImpl implements Orient
 		return GMLClass.ORIENTABLESURFACE;
 	}
 
-	@Override
 	public SurfaceProperty getBaseSurface() {
 		if (orientableSurfaceType.isSetBaseSurface())
 			return new SurfacePropertyImpl(orientableSurfaceType.getBaseSurface());
@@ -37,23 +36,19 @@ public class OrientableSurfaceImpl extends AbstractSurfaceImpl implements Orient
 		return null;
 	}
 
-	@Override
 	public String getOrientation() {
 		return orientableSurfaceType.getOrientation();
 	}
 
-	@Override
 	public void setBaseSurface(SurfaceProperty baseSurface) {
 		orientableSurfaceType.setBaseSurface(((SurfacePropertyImpl)baseSurface).getJAXBObject());
 	}
 
-	@Override
 	public void setOrientation(String orientation) {
 		if (orientation.equals("+") || orientation.equals("-"))
 			orientableSurfaceType.setOrientation(orientation);
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getBaseSurface() != null) {
 			SurfaceProperty surfaceProperty = getBaseSurface();
@@ -63,22 +58,18 @@ public class OrientableSurfaceImpl extends AbstractSurfaceImpl implements Orient
 		}
 	}
 
-	@Override
 	public boolean isSetBaseSurface() {
 		return orientableSurfaceType.isSetBaseSurface();
 	}
 
-	@Override
 	public boolean isSetOrientation() {
 		return orientableSurfaceType.isSetOrientation();
 	}
 
-	@Override
 	public void unsetBaseSurface() {
 		orientableSurfaceType.setBaseSurface(null);
 	}
 
-	@Override
 	public void unsetOrientation() {
 		orientableSurfaceType.setOrientation(null);
 	}

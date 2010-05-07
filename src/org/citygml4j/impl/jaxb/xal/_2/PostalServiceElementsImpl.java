@@ -38,12 +38,10 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return XALClass.POSTALSERVICEELEMENTS;
 	}
 
-	@Override
 	public void addAddressIdentifier(AddressIdentifier addressIdentifier) {
 		postalServiceElements.getAddressIdentifier().add(((AddressIdentifierImpl)addressIdentifier).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressIdentifier> getAddressIdentifier() {
 		List<AddressIdentifier> addressIdentifierList = new ArrayList<AddressIdentifier>();
 
@@ -53,7 +51,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return addressIdentifierList;
 	}
 
-	@Override
 	public AddressLatitude getAddressLatitude() {
 		if (postalServiceElements.isSetAddressLatitude())
 			return new AddressLatitudeImpl(postalServiceElements.getAddressLatitude());
@@ -61,7 +58,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public AddressLatitudeDirection getAddressLatitudeDirection() {
 		if (postalServiceElements.isSetAddressLatitudeDirection())
 			return new AddressLatitudeDirectionImpl(postalServiceElements.getAddressLatitudeDirection());
@@ -69,7 +65,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public AddressLongitude getAddressLongitude() {
 		if (postalServiceElements.isSetAddressLongitude())
 			return new AddressLongitudeImpl(postalServiceElements.getAddressLongitude());
@@ -77,7 +72,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public AddressLongitudeDirection getAddressLongitudeDirection() {
 		if (postalServiceElements.isSetAddressLongitudeDirection())
 			return new AddressLongitudeDirectionImpl(postalServiceElements.getAddressLongitudeDirection());
@@ -85,7 +79,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public Barcode getBarcode() {
 		if (postalServiceElements.isSetBarcode())
 			return new BarcodeImpl(postalServiceElements.getBarcode());
@@ -93,7 +86,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public EndorsementLineCode getEndorsementLineCode() {
 		if (postalServiceElements.isSetEndorsementLineCode())
 			return new EndorsementLineCodeImpl(postalServiceElements.getEndorsementLineCode());
@@ -101,7 +93,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public KeyLineCode getKeyLineCode() {
 		if (postalServiceElements.isSetKeyLineCode())
 			return new KeyLineCodeImpl(postalServiceElements.getKeyLineCode());
@@ -109,7 +100,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public SortingCode getSortingCode() {
 		if (postalServiceElements.isSetSortingCode())
 			return new SortingCodeImpl(postalServiceElements.getSortingCode());
@@ -117,12 +107,10 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return postalServiceElements.getType();
 	}
 
-	@Override
 	public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier) {
 		List<AddressDetails.PostalServiceElements.AddressIdentifier> addressIdentifierInstList = new ArrayList<AddressDetails.PostalServiceElements.AddressIdentifier>();
 
@@ -133,57 +121,46 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		postalServiceElements.getAddressIdentifier().addAll(addressIdentifierInstList);
 	}
 
-	@Override
 	public void setAddressLatitude(AddressLatitude addressLatitude) {
 		postalServiceElements.setAddressLatitude(((AddressLatitudeImpl)addressLatitude).getJAXBObject());
 	}
 
-	@Override
 	public void setAddressLatitudeDirection(AddressLatitudeDirection addressLatitudeDirection) {
 		postalServiceElements.setAddressLatitudeDirection(((AddressLatitudeDirectionImpl)addressLatitudeDirection).getJAXBObject());
 	}
 
-	@Override
 	public void setAddressLongitude(AddressLongitude addressLongitude) {
 		postalServiceElements.setAddressLongitude(((AddressLongitudeImpl)addressLongitude).getJAXBObject());
 	}
 
-	@Override
 	public void setAddressLongitudeDirection(AddressLongitudeDirection addressLongitudeDirection) {
 		postalServiceElements.setAddressLongitudeDirection(((AddressLongitudeDirectionImpl)addressLongitudeDirection).getJAXBObject());
 	}
 
-	@Override
 	public void setBarcode(Barcode barcode) {
 		postalServiceElements.setBarcode(((BarcodeImpl)barcode).getJAXBObject());
 	}
 
-	@Override
 	public void setEndorsementLineCode(EndorsementLineCode endorsementLineCode) {
 		postalServiceElements.setEndorsementLineCode(((EndorsementLineCodeImpl)endorsementLineCode).getJAXBObject());
 	}
 
-	@Override
 	public void setKeyLineCode(KeyLineCode keyLineCode) {
 		postalServiceElements.setKeyLineCode(((KeyLineCodeImpl)keyLineCode).getJAXBObject());
 	}
 
-	@Override
 	public void setSortingCode(SortingCode sortingCode) {
 		postalServiceElements.setSortingCode(((SortingCodeImpl)sortingCode).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		postalServiceElements.setType(type);
 	}
 
-	@Override
 	public void addSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
 		postalServiceElements.getSupplementaryPostalServiceData().add(((SupplementaryPostalServiceDataImpl)supplementaryPostalServiceData).getJAXBObject());
 	}
 
-	@Override
 	public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
 		List<SupplementaryPostalServiceData> suppList = new ArrayList<SupplementaryPostalServiceData>();
 
@@ -193,7 +170,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return suppList;
 	}
 
-	@Override
 	public void setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData> supplementaryPostalServiceData) {
 		List<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData> suppInstList = new ArrayList<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData>();
 
@@ -204,117 +180,94 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		postalServiceElements.getSupplementaryPostalServiceData().addAll(suppInstList);
 	}
 
-	@Override
 	public boolean isSetAddressIdentifier() {
 		return postalServiceElements.isSetAddressIdentifier();
 	}
 
-	@Override
 	public boolean isSetAddressLatitude() {
 		return postalServiceElements.isSetAddressLatitude();
 	}
 
-	@Override
 	public boolean isSetAddressLatitudeDirection() {
 		return postalServiceElements.isSetAddressLatitudeDirection();
 	}
 
-	@Override
 	public boolean isSetAddressLongitude() {
 		return postalServiceElements.isSetAddressLongitude();
 	}
 
-	@Override
 	public boolean isSetAddressLongitudeDirection() {
 		return postalServiceElements.isSetAddressLongitudeDirection();
 	}
 
-	@Override
 	public boolean isSetBarcode() {
 		return postalServiceElements.isSetBarcode();
 	}
 
-	@Override
 	public boolean isSetEndorsementLineCode() {
 		return postalServiceElements.isSetEndorsementLineCode();
 	}
 
-	@Override
 	public boolean isSetKeyLineCode() {
 		return postalServiceElements.isSetKeyLineCode();
 	}
 
-	@Override
 	public boolean isSetSortingCode() {
 		return postalServiceElements.isSetSortingCode();
 	}
 
-	@Override
 	public boolean isSetSupplementaryPostalServiceData() {
 		return postalServiceElements.isSetSupplementaryPostalServiceData();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return postalServiceElements.isSetType();
 	}
 
-	@Override
 	public void unsetAddressIdentifier() {
 		postalServiceElements.unsetAddressIdentifier();
 	}
 
-	@Override
 	public void unsetAddressLatitude() {
 		postalServiceElements.setAddressLatitude(null);
 	}
 
-	@Override
 	public void unsetAddressLatitudeDirection() {
 		postalServiceElements.setAddressLatitudeDirection(null);
 	}
 
-	@Override
 	public void unsetAddressLongitude() {
 		postalServiceElements.setAddressLongitude(null);
 	}
 
-	@Override
 	public void unsetAddressLongitudeDirection() {
 		postalServiceElements.setAddressLongitudeDirection(null);
 	}
 
-	@Override
 	public void unsetBarcode() {
 		postalServiceElements.setBarcode(null);
 	}
 
-	@Override
 	public void unsetEndorsementLineCode() {
 		postalServiceElements.setEndorsementLineCode(null);
 	}
 
-	@Override
 	public void unsetKeyLineCode() {
 		postalServiceElements.setKeyLineCode(null);
 	}
 
-	@Override
 	public void unsetSortingCode() {
 		postalServiceElements.setSortingCode(null);
 	}
 
-	@Override
 	public void unsetSupplementaryPostalServiceData() {
 		postalServiceElements.unsetSupplementaryPostalServiceData();
 	}
 
-	@Override
 	public void unsetType() {
 		postalServiceElements.setType(null);
 	}
 
-	@Override
 	public boolean unsetAddressIdentifier(AddressIdentifier addressIdentifier) {
 		if (postalServiceElements.isSetAddressIdentifier())
 			return postalServiceElements.getAddressIdentifier().remove(((AddressIdentifierImpl)addressIdentifier).getJAXBObject());
@@ -322,7 +275,6 @@ public class PostalServiceElementsImpl extends XALBaseImpl implements PostalServ
 		return false;
 	}
 
-	@Override
 	public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
 		if (postalServiceElements.isSetSupplementaryPostalServiceData())
 			return postalServiceElements.getSupplementaryPostalServiceData().remove(((SupplementaryPostalServiceDataImpl)supplementaryPostalServiceData).getJAXBObject());

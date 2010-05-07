@@ -8,10 +8,8 @@ public abstract class XALBaseImpl implements XALBase {
 
 	public abstract Object getJAXBObject();
 	
-	@Override
 	public abstract XALClass getXALClass();
 	
-	@Override
 	public boolean hasGrPostalGroup() {
 		return this instanceof GrPostal;
 	}

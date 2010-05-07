@@ -25,62 +25,50 @@ public class SupplementaryPostalServiceDataImpl extends XALBaseImpl implements S
 		return XALClass.ADDRESSLATITUDEDIRECTION;
 	}
 
-	@Override
 	public String getContent() {
 		return supplementaryPostalServiceData.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return supplementaryPostalServiceData.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		supplementaryPostalServiceData.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		supplementaryPostalServiceData.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return supplementaryPostalServiceData.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		supplementaryPostalServiceData.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return supplementaryPostalServiceData.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return supplementaryPostalServiceData.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		supplementaryPostalServiceData.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		supplementaryPostalServiceData.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return supplementaryPostalServiceData.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		supplementaryPostalServiceData.setCode(null);
 	}

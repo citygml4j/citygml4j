@@ -33,7 +33,6 @@ public class MultiLineStringImpl extends AbstractGeometricAggregateImpl	implemen
 		return GMLClass.MULTILINESTRING;
 	}
 
-	@Override
 	public List<LineStringProperty> getLineStringMember() {
 		List<LineStringProperty> lineStringPropertyList = new ArrayList<LineStringProperty>();
 
@@ -43,7 +42,6 @@ public class MultiLineStringImpl extends AbstractGeometricAggregateImpl	implemen
 		return lineStringPropertyList;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetLineStringMember()) {
 			for (LineStringProperty lineStringProperty : getLineStringMember()) {
@@ -54,17 +52,14 @@ public class MultiLineStringImpl extends AbstractGeometricAggregateImpl	implemen
 		}
 	}
 
-	@Override
 	public void addLineStringMember(LineStringProperty lineStringMember) {
 		multiLineStringType.getLineStringMember().add(((LineStringPropertyImpl)lineStringMember).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetLineStringMember() {
 		return multiLineStringType.isSetLineStringMember();
 	}
 
-	@Override
 	public void setLineStringMember(List<LineStringProperty> lineStringMember) {
 		List<LineStringPropertyType> propertyTypeList = new ArrayList<LineStringPropertyType>();
 
@@ -75,12 +70,10 @@ public class MultiLineStringImpl extends AbstractGeometricAggregateImpl	implemen
 		multiLineStringType.getLineStringMember().addAll(propertyTypeList);
 	}
 
-	@Override
 	public void unsetLineStringMember() {
 		multiLineStringType.unsetLineStringMember();
 	}
 
-	@Override
 	public boolean unsetLineStringMember(LineStringProperty lineStringMember) {
 		if (multiLineStringType.isSetLineStringMember())
 			return multiLineStringType.getLineStringMember().remove(((LineStringPropertyImpl)lineStringMember).getJAXBObject());

@@ -33,7 +33,6 @@ public class MultiPointImpl extends AbstractGeometricAggregateImpl implements Mu
 		return GMLClass.MULTIPOINT;
 	}
 
-	@Override
 	public List<PointProperty> getPointMember() {
 		List<PointProperty> pointPropertyList = new ArrayList<PointProperty>();
 
@@ -43,7 +42,6 @@ public class MultiPointImpl extends AbstractGeometricAggregateImpl implements Mu
 		return pointPropertyList;
 	}
 
-	@Override
 	public PointArrayProperty getPointMembers() {
 		if (multiPointType.isSetPointMembers())
 			return new PointArrayPropertyImpl(multiPointType.getPointMembers());
@@ -51,7 +49,6 @@ public class MultiPointImpl extends AbstractGeometricAggregateImpl implements Mu
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(org.citygml4j.geometry.Point min, org.citygml4j.geometry.Point max) {
 		if (isSetPointMember()) {
 			for (PointProperty pointProperty : getPointMember()) {
@@ -72,12 +69,10 @@ public class MultiPointImpl extends AbstractGeometricAggregateImpl implements Mu
 		}
 	}
 
-	@Override
 	public void addPointMember(PointProperty pointMember) {
 		multiPointType.getPointMember().add(((PointPropertyImpl)pointMember).getJAXBObject());
 	}
 
-	@Override
 	public void setPointMember(List<PointProperty> pointMember) {
 		List<PointPropertyType> pointPropertyList = new ArrayList<PointPropertyType>();
 
@@ -88,32 +83,26 @@ public class MultiPointImpl extends AbstractGeometricAggregateImpl implements Mu
 		multiPointType.getPointMember().addAll(pointPropertyList);
 	}
 
-	@Override
 	public void setPointMembers(PointArrayProperty pointMembers) {
 		multiPointType.setPointMembers(((PointArrayPropertyImpl)pointMembers).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetPointMember() {
 		return multiPointType.isSetPointMember();
 	}
 
-	@Override
 	public boolean isSetPointMembers() {
 		return multiPointType.isSetPointMembers();
 	}
 
-	@Override
 	public void unsetPointMember() {
 		multiPointType.unsetPointMember();
 	}
 
-	@Override
 	public void unsetPointMembers() {
 		multiPointType.setPointMembers(null);
 	}
 
-	@Override
 	public boolean unsetPointMember(PointProperty pointMember) {
 		if (multiPointType.isSetPointMember())
 			return multiPointType.getPointMember().remove(((PointPropertyImpl)pointMember).getJAXBObject());

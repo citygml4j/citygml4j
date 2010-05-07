@@ -25,62 +25,50 @@ public class KeyLineCodeImpl extends XALBaseImpl implements KeyLineCode {
 		return XALClass.KEYLINECODE;
 	}
 
-	@Override
 	public String getContent() {
 		return keyLineCode.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return keyLineCode.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		keyLineCode.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		keyLineCode.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return keyLineCode.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		keyLineCode.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return keyLineCode.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return keyLineCode.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		keyLineCode.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		keyLineCode.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return keyLineCode.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		keyLineCode.setCode(null);
 	}

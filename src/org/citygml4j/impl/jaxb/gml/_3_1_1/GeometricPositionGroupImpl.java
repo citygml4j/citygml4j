@@ -41,7 +41,6 @@ public class GeometricPositionGroupImpl extends GMLBaseImpl implements Geometric
 		return (posType != null) ? posType : pointPropertyType;		
 	}
 
-	@Override
 	public PointProperty getPointProperty() {
 		if (pointPropertyType != null)
 			return new PointPropertyImpl(pointPropertyType);
@@ -49,7 +48,6 @@ public class GeometricPositionGroupImpl extends GMLBaseImpl implements Geometric
 		return null;
 	}
 
-	@Override
 	public DirectPosition getPos() {
 		if (posType != null)
 			return new DirectPositionImpl(posType);
@@ -57,34 +55,28 @@ public class GeometricPositionGroupImpl extends GMLBaseImpl implements Geometric
 		return null;
 	}
 
-	@Override
 	public void setPointProperty(PointProperty pointProperty) {
 		pointPropertyType = ((PointPropertyImpl)pointProperty).getJAXBObject();
 		posType = null;
 	}
 
-	@Override
 	public void setPos(DirectPosition pos) {
 		posType = ((DirectPositionImpl)pos).getJAXBObject();
 		pointPropertyType = null;
 	}
 
-	@Override
 	public boolean isSetPointProperty() {
 		return pointPropertyType != null;
 	}
 
-	@Override
 	public boolean isSetPos() {
 		return posType != null;
 	}
 
-	@Override
 	public void unsetPointProperty() {
 		pointPropertyType = null;
 	}
 
-	@Override
 	public void unsetPos() {
 		posType = null;
 	}

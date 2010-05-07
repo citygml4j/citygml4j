@@ -34,7 +34,6 @@ public class MultiSolidImpl extends AbstractGeometricAggregateImpl implements Mu
 		return GMLClass.MULTISOLID;
 	}
 
-	@Override
 	public List<SolidProperty> getSolidMember() {
 		List<SolidProperty> solidPropertyList = new ArrayList<SolidProperty>();
 
@@ -44,7 +43,6 @@ public class MultiSolidImpl extends AbstractGeometricAggregateImpl implements Mu
 		return solidPropertyList;
 	}
 
-	@Override
 	public SolidArrayProperty getSolidMembers() {
 		if (multiSolidType.isSetSolidMembers())
 			return new SolidArrayPropertyImpl(multiSolidType.getSolidMembers());
@@ -52,7 +50,6 @@ public class MultiSolidImpl extends AbstractGeometricAggregateImpl implements Mu
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetSolidMember()) {
 			for (SolidProperty solidProperty : getSolidMember()) {
@@ -73,12 +70,10 @@ public class MultiSolidImpl extends AbstractGeometricAggregateImpl implements Mu
 		}
 	}
 
-	@Override
 	public void addSolidMember(SolidProperty solidMember) {
 		multiSolidType.getSolidMember().add(((SolidPropertyImpl)solidMember).getJAXBObject());
 	}
 
-	@Override
 	public void setSolidMember(List<SolidProperty> solidMember) {
 		List<SolidPropertyType> solidPropertyList = new ArrayList<SolidPropertyType>();
 
@@ -89,32 +84,26 @@ public class MultiSolidImpl extends AbstractGeometricAggregateImpl implements Mu
 		multiSolidType.getSolidMember().addAll(solidPropertyList);
 	}
 
-	@Override
 	public void setSolidMembers(SolidArrayProperty solidMembers) {
 		multiSolidType.setSolidMembers(((SolidArrayPropertyImpl)solidMembers).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetSolidMember() {
 		return multiSolidType.isSetSolidMember();
 	}
 
-	@Override
 	public boolean isSetSolidMembers() {
 		return multiSolidType.isSetSolidMembers();
 	}
 
-	@Override
 	public void unsetSolidMember() {
 		multiSolidType.unsetSolidMember();
 	}
 
-	@Override
 	public void unsetSolidMembers() {
 		multiSolidType.setSolidMembers(null);
 	}
 
-	@Override
 	public boolean unsetSolidMember(SolidProperty solidMember) {
 		if (multiSolidType.isSetSolidMember())
 			return multiSolidType.getSolidMember().remove(((SolidPropertyImpl)solidMember).getJAXBObject());

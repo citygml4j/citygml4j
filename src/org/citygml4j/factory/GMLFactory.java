@@ -26,6 +26,7 @@ import org.citygml4j.impl.jaxb.gml._3_1_1.GeometricComplexPropertyImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.GeometricPositionGroupImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.GeometricPrimitivePropertyImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.GeometryPropertyImpl;
+import org.citygml4j.impl.jaxb.gml._3_1_1.InnerBoundaryIsImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.InteriorImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.LengthImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.LineStringImpl;
@@ -55,6 +56,7 @@ import org.citygml4j.impl.jaxb.gml._3_1_1.OuterBoundaryIsImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.PointArrayPropertyImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.PointImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.PointPropertyImpl;
+import org.citygml4j.impl.jaxb.gml._3_1_1.PointRepImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.PolygonImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.PolygonPropertyImpl;
 import org.citygml4j.impl.jaxb.gml._3_1_1.PriorityLocationPropertyImpl;
@@ -99,6 +101,7 @@ import org.citygml4j.model.gml.GeometricComplexProperty;
 import org.citygml4j.model.gml.GeometricPositionGroup;
 import org.citygml4j.model.gml.GeometricPrimitiveProperty;
 import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.gml.InnerBoundaryIs;
 import org.citygml4j.model.gml.Interior;
 import org.citygml4j.model.gml.Length;
 import org.citygml4j.model.gml.LineString;
@@ -128,6 +131,7 @@ import org.citygml4j.model.gml.OuterBoundaryIs;
 import org.citygml4j.model.gml.Point;
 import org.citygml4j.model.gml.PointArrayProperty;
 import org.citygml4j.model.gml.PointProperty;
+import org.citygml4j.model.gml.PointRep;
 import org.citygml4j.model.gml.Polygon;
 import org.citygml4j.model.gml.PolygonProperty;
 import org.citygml4j.model.gml.PriorityLocationProperty;
@@ -261,6 +265,10 @@ public class GMLFactory {
 		return new GeometryPropertyImpl();
 	}
 	
+	public InnerBoundaryIs createInnerBoundaryIs() {
+		return new InnerBoundaryIsImpl();
+	}
+	
 	public Interior createInterior() {
 		return new InteriorImpl();
 	}
@@ -375,6 +383,10 @@ public class GMLFactory {
 	
 	public PointProperty createPointProperty() {
 		return new PointPropertyImpl();
+	}
+	
+	public PointRep createPointRep() {
+		return new PointRepImpl();
 	}
 	
 	public Polygon createPolygon() {

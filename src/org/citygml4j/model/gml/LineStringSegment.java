@@ -17,6 +17,11 @@ public interface LineStringSegment extends AbstractCurveSegment {
 	
 	public void setInterpolation(CurveInterpolation interpolation);
 	public void setPosList(DirectPositionList posList);
+	public void addPointProperty(PointProperty pointProperty);
+	public void addPointRep(PointRep pointRep);
+	public void addPos(DirectPosition pos);
+	public void setPosOrPointPropertyOrPointRep(List<GMLBase> controlPoints);
+	public void setCoordinates(Coordinates coordinates);
 	public void unsetInterpolation();
 	public void unsetPosOrPointPropertyOrPointRep();
 	public void unsetPosList();

@@ -44,17 +44,14 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return tinType;
 	}
 
-	@Override
 	public void addBreakLines(LineStringSegmentArrayProperty breakLines) {
 		tinType.getBreakLines().add(((LineStringSegmentArrayPropertyImpl)breakLines).getJAXBObject());
 	}
 
-	@Override
 	public void addStopLines(LineStringSegmentArrayProperty stopLines) {
 		tinType.getBreakLines().add(((LineStringSegmentArrayPropertyImpl)stopLines).getJAXBObject());
 	}
 
-	@Override
 	public List<LineStringSegmentArrayProperty> getBreakLines() {
 		List<LineStringSegmentArrayProperty> breakLines = new ArrayList<LineStringSegmentArrayProperty>();
 
@@ -64,7 +61,6 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return breakLines;
 	}
 
-	@Override
 	public ControlPoint getControlPoint() {
 		if (tinType.isSetControlPoint())
 			return new ControlPointImpl(tinType.getControlPoint());
@@ -72,7 +68,6 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return null;
 	}
 
-	@Override
 	public Length getMaxLength() {
 		if (tinType.isSetMaxLength())
 			return new LengthImpl(tinType.getMaxLength());
@@ -80,7 +75,6 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return null;
 	}
 
-	@Override
 	public List<LineStringSegmentArrayProperty> getStopLines() {
 		List<LineStringSegmentArrayProperty> stopLines = new ArrayList<LineStringSegmentArrayProperty>();
 
@@ -90,7 +84,6 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return stopLines;
 	}
 
-	@Override
 	public void setBreakLines(List<LineStringSegmentArrayProperty> breakLines) {
 		List<LineStringSegmentArrayPropertyType> breakLinesType = new ArrayList<LineStringSegmentArrayPropertyType>();
 
@@ -101,17 +94,14 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		tinType.getBreakLines().addAll(breakLinesType);
 	}
 
-	@Override
 	public void setControlPoint(ControlPoint controlPoint) {
 		tinType.setControlPoint(((ControlPointImpl)controlPoint).getJAXBObject());
 	}
 
-	@Override
 	public void setMaxLength(Length maxLength) {
 		tinType.setMaxLength(((LengthImpl)maxLength).getJAXBObject());
 	}
 
-	@Override
 	public void setStopLines(List<LineStringSegmentArrayProperty> stopLines) {
 		List<LineStringSegmentArrayPropertyType> stopLinesType = new ArrayList<LineStringSegmentArrayPropertyType>();
 
@@ -127,11 +117,11 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		if (getTrianglePatches() != null && getTrianglePatches().isSetTriangle())
 			super.calcBoundingBox(min, max);
 
-		if (getControlPoint() != null) {
+		if (isSetControlPoint()) {
 			ControlPoint controlPoint = getControlPoint();
 			List<Double> points = new ArrayList<Double>();
 
-			if (controlPoint.getPosList() != null) {
+			if (controlPoint.isSetPosList()) {
 				List<Double> posList = controlPoint.getPosList().toList();
 				if (posList != null)
 					points.addAll(posList);
@@ -139,11 +129,11 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 				List<Double> point = new ArrayList<Double>();
 
 				for (GeometricPositionGroup group : controlPoint.getGeometricPositionGroup()) {
-					if (group.getPos() != null) {
+					if (group.isSetPos()) {
 						point = group.getPos().toList();
-					} else if (group.getPointProperty() != null) {
+					} else if (group.isSetPointProperty()) {
 						PointProperty pointProperty = group.getPointProperty();
-						if (pointProperty.getPoint() != null)
+						if (pointProperty.isSetPoint())
 							point = pointProperty.getPoint().toList();
 					}
 
@@ -182,47 +172,38 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		tinType.setPatches(null);
 	}
 
-	@Override
 	public boolean isSetBreakLines() {
 		return tinType.isSetBreakLines();
 	}
 
-	@Override
 	public boolean isSetControlPoint() {
 		return tinType.isSetControlPoint();
 	}
 
-	@Override
 	public boolean isSetMaxLength() {
 		return tinType.isSetMaxLength();
 	}
 
-	@Override
 	public boolean isSetStopLines() {
 		return tinType.isSetStopLines();
 	}
 
-	@Override
 	public void unsetBreakLines() {
 		tinType.unsetBreakLines();
 	}
 
-	@Override
 	public void unsetControlPoint() {
 		tinType.setControlPoint(null);
 	}
 
-	@Override
 	public void unsetMaxLength() {
 		tinType.setMaxLength(null);
 	}
 
-	@Override
 	public void unsetStopLines() {
 		tinType.unsetStopLines();
 	}
 
-	@Override
 	public boolean unsetBreakLines(LineStringSegmentArrayProperty breakLines) {
 		if (tinType.isSetBreakLines())
 			return tinType.getBreakLines().remove(((LineStringSegmentArrayPropertyImpl)breakLines).getJAXBObject());
@@ -230,7 +211,6 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return false;
 	}
 
-	@Override
 	public boolean unsetStopLines(LineStringSegmentArrayProperty stopLines) {
 		if (tinType.isSetStopLines())
 			return tinType.getStopLines().remove(((LineStringSegmentArrayPropertyImpl)stopLines).getJAXBObject());

@@ -34,7 +34,6 @@ public class MultiCurveImpl extends AbstractGeometricAggregateImpl implements Mu
 		return GMLClass.MULTICURVE;
 	}
 
-	@Override
 	public List<CurveProperty> getCurveMember() {
 		List<CurveProperty> curvePropertyList = new ArrayList<CurveProperty>();
 
@@ -44,7 +43,6 @@ public class MultiCurveImpl extends AbstractGeometricAggregateImpl implements Mu
 		return curvePropertyList;
 	}
 
-	@Override
 	public CurveArrayProperty getCurveMembers() {
 		if (multiCurveType.isSetCurveMembers())
 			return new CurveArrayPropertyImpl(multiCurveType.getCurveMembers());
@@ -52,12 +50,10 @@ public class MultiCurveImpl extends AbstractGeometricAggregateImpl implements Mu
 		return null;
 	}
 
-	@Override
 	public void addCurveMember(CurveProperty curveMember) {
 		multiCurveType.getCurveMember().add(((CurvePropertyImpl)curveMember).getJAXBObject());
 	}
 
-	@Override
 	public void setCurveMember(List<CurveProperty> curveMember) {
 		List<CurvePropertyType> curvePropertyTypeList = new ArrayList<CurvePropertyType>();
 
@@ -68,12 +64,10 @@ public class MultiCurveImpl extends AbstractGeometricAggregateImpl implements Mu
 		multiCurveType.getCurveMember().addAll(curvePropertyTypeList);
 	}
 
-	@Override
 	public void setCurveMembers(CurveArrayProperty curveMembers) {
 		multiCurveType.setCurveMembers(((CurveArrayPropertyImpl)curveMembers).getJAXBObject());
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetCurveMember()) {
 			for (CurveProperty curveProperty : getCurveMember()) {
@@ -94,27 +88,22 @@ public class MultiCurveImpl extends AbstractGeometricAggregateImpl implements Mu
 		}
 	}
 
-	@Override
 	public boolean isSetCurveMember() {
 		return multiCurveType.isSetCurveMember();
 	}
 
-	@Override
 	public boolean isSetCurveMembers() {
 		return multiCurveType.isSetCurveMembers();
 	}
 
-	@Override
 	public void unsetCurveMember() {
 		multiCurveType.unsetCurveMember();
 	}
 
-	@Override
 	public void unsetCurveMembers() {
 		multiCurveType.setCurveMembers(null);
 	}
 
-	@Override
 	public boolean unsetCurveMember(CurveProperty curveMember) {
 		if (multiCurveType.isSetCurveMember())
 			return multiCurveType.getCurveMember().remove(((CurvePropertyImpl)curveMember).getJAXBObject());

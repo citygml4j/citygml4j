@@ -33,17 +33,14 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		return XALClass.DEPARTMENT;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		department.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public void addDepartmentName(DepartmentName departmentName) {
 		department.getDepartmentName().add(((DepartmentNameImpl)departmentName).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -53,7 +50,6 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		return addressLineList;
 	}
 
-	@Override
 	public List<DepartmentName> getDepartmentName() {
 		List<DepartmentName> departmentNameList = new ArrayList<DepartmentName>();
 
@@ -63,7 +59,6 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		return departmentNameList;
 	}
 
-	@Override
 	public MailStop getMailStop() {
 		if (department.isSetMailStop())
 			return new MailStopImpl(department.getMailStop());
@@ -71,7 +66,6 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		return null;
 	}
 
-	@Override
 	public PostalCode getPostalCode() {
 		if (department.isSetPostalCode())
 			return new PostalCodeImpl(department.getPostalCode());
@@ -79,12 +73,10 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return department.getType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -95,7 +87,6 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		department.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public void setDepartmentName(List<DepartmentName> departmentName) {
 		List<DepartmentElement.DepartmentName> departmentNameElemList = new ArrayList<DepartmentElement.DepartmentName>();
 
@@ -106,72 +97,58 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		department.getDepartmentName().addAll(departmentNameElemList);
 	}
 
-	@Override
 	public void setMailStop(MailStop mailStop) {
 		department.setMailStop(((MailStopImpl)mailStop).getJAXBObject());
 	}
 
-	@Override
 	public void setPostalCode(PostalCode postalCode) {
 		department.setPostalCode(((PostalCodeImpl)postalCode).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		department.setType(type);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return department.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetDepartmentName() {
 		return department.isSetDepartmentName();
 	}
 
-	@Override
 	public boolean isSetMailStop() {
 		return department.isSetMailStop();
 	}
 
-	@Override
 	public boolean isSetPostalCode() {
 		return department.isSetPostalCode();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return department.isSetType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		department.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetDepartmentName() {
 		department.unsetDepartmentName();
 	}
 
-	@Override
 	public void unsetMailStop() {
 		department.setMailStop(null);
 	}
 
-	@Override
 	public void unsetPostalCode() {
 		department.setPostalCode(null);
 	}
 
-	@Override
 	public void unsetType() {
 		department.setType(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (department.isSetAddressLine())
 			return department.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());
@@ -179,7 +156,6 @@ public class DepartmentImpl extends XALBaseImpl implements Department {
 		return false;
 	}
 
-	@Override
 	public boolean unsetDepartmentName(DepartmentName departmentName) {
 		if (department.isSetDepartmentName())
 			return department.getDepartmentName().remove(((DepartmentNameImpl)departmentName).getJAXBObject());

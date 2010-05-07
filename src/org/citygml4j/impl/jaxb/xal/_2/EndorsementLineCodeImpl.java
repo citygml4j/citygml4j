@@ -25,62 +25,50 @@ public class EndorsementLineCodeImpl extends XALBaseImpl implements EndorsementL
 		return XALClass.ENDORSEMENTLINECODE;
 	}
 
-	@Override
 	public String getContent() {
 		return endorsementLineCode.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return endorsementLineCode.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		endorsementLineCode.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		endorsementLineCode.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return endorsementLineCode.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		endorsementLineCode.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return endorsementLineCode.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return endorsementLineCode.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		endorsementLineCode.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		endorsementLineCode.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return endorsementLineCode.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		endorsementLineCode.setCode(null);
 	}

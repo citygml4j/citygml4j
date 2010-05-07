@@ -25,82 +25,66 @@ public class SubPremiseNumberSuffixImpl extends XALBaseImpl implements SubPremis
 		return XALClass.SUBPREMISENUMBERSUFFIX;
 	}
 
-	@Override
 	public String getContent() {
 		return subPremiseNumberSuffix.getContent();
 	}
 
-	@Override
 	public String getNumberSuffixSeparator() {
 		return subPremiseNumberSuffix.getNumberSuffixSeparator();
 	}
 
-	@Override
 	public String getType() {
 		return subPremiseNumberSuffix.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		subPremiseNumberSuffix.setContent(content);
 	}
 
-	@Override
 	public void setNumberSuffixSeparator(String numberSuffixSeparator) {
 		subPremiseNumberSuffix.setNumberSuffixSeparator(numberSuffixSeparator);
 	}
 
-	@Override
 	public void setType(String type) {
 		subPremiseNumberSuffix.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return subPremiseNumberSuffix.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		subPremiseNumberSuffix.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return subPremiseNumberSuffix.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return subPremiseNumberSuffix.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		subPremiseNumberSuffix.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		subPremiseNumberSuffix.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return subPremiseNumberSuffix.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		subPremiseNumberSuffix.setCode(null);
 	}
 
-	@Override
 	public boolean isSetNumberSuffixSeparator() {
 		return subPremiseNumberSuffix.isSetNumberSuffixSeparator();
 	}
 
-	@Override
 	public void unsetNumberSuffixSeparator() {
 		subPremiseNumberSuffix.setNumberSuffixSeparator(null);
 	}

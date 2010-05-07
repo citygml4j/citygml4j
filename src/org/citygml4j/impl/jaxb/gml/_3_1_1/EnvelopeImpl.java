@@ -30,12 +30,10 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return envelopeType;
 	}
 
-	@Override
 	public List<String> getAxisLabels() {
 		return envelopeType.getAxisLabels();
 	}
 
-	@Override
 	public List<Coord> getCoord() {
 		List<Coord> coordList = new ArrayList<Coord>();
 
@@ -45,7 +43,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return coordList;
 	}
 
-	@Override
 	public DirectPosition getLowerCorner() {
 		if (envelopeType.isSetLowerCorner())
 			return new DirectPositionImpl(envelopeType.getLowerCorner());
@@ -53,7 +50,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return null;
 	}
 
-	@Override
 	public Coordinates getCoordinates() {
 		if (envelopeType.isSetCoordinates())
 			return new CoordinatesImpl(envelopeType.getCoordinates());
@@ -61,7 +57,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return null;
 	}
 
-	@Override
 	public List<DirectPosition> getPos() {
 		List<DirectPosition> directPositionList = new ArrayList<DirectPosition>();
 
@@ -71,7 +66,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return directPositionList;
 	}
 
-	@Override
 	public Integer getSrsDimension() {
 		if (envelopeType.isSetSrsDimension())
 			return new Integer(envelopeType.getSrsDimension().intValue());
@@ -79,17 +73,14 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return null;
 	}
 
-	@Override
 	public String getSrsName() {
 		return envelopeType.getSrsName();
 	}
 
-	@Override
 	public List<String> getUomLabels() {
 		return envelopeType.getUomLabels();
 	}
 
-	@Override
 	public DirectPosition getUpperCorner() {
 		if (envelopeType.isSetUpperCorner())
 			return new DirectPositionImpl(envelopeType.getUpperCorner());
@@ -103,7 +94,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 	}
 
 	// Setters
-	@Override
 	public void setLowerCorner(Point lowerCorner) {
 		DirectPositionType lowerCornerType = envelopeType.getLowerCorner();
 
@@ -118,7 +108,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		lowerCornerType.getValue().add(lowerCorner.getZ());
 	}
 
-	@Override
 	public void setUpperCorner(Point upperCorner) {
 		DirectPositionType upperCornerType = envelopeType.getUpperCorner();
 
@@ -133,7 +122,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		upperCornerType.getValue().add(upperCorner.getZ());
 	}
 
-	@Override
 	public void calcLowerCorner(Point lowerCorner) {
 		DirectPositionType lowerCornerType = envelopeType.getLowerCorner();
 
@@ -154,7 +142,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 			lowerCornerList.set(2, lowerCorner.getZ());
 	}
 
-	@Override
 	public void calcUpperCorner(Point upperCorner) {
 		DirectPositionType upperCornerType = envelopeType.getUpperCorner();
 
@@ -175,129 +162,104 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 			upperCornerList.set(2, upperCorner.getZ());
 	}
 
-	@Override
 	public void setSrsDimension(Integer srsDimension) {
 		envelopeType.setSrsDimension(new BigInteger(String.valueOf(srsDimension)));
 	}
 
-	@Override
 	public void setSrsName(String srsName) {
 		envelopeType.setSrsName(srsName);
 	}
 
-	@Override
 	public void addAxisLabel(String axisLabel) {
 		envelopeType.getAxisLabels().add(axisLabel);
 	}
 
-	@Override
 	public void addUomLabel(String uomLabel) {
 		envelopeType.getUomLabels().add(uomLabel);
 	}
 
-	@Override
 	public void setAxisLabels(List<String> axisLabels) {
 		envelopeType.unsetAxisLabels();
 		envelopeType.getAxisLabels().addAll(axisLabels);
 	}
 
-	@Override
 	public void setUomLabels(List<String> uomLabels) {
 		envelopeType.unsetUomLabels();
 		envelopeType.getUomLabels().addAll(uomLabels);
 	}
 
-	@Override
 	public void unsetPos() {
 		envelopeType.unsetPos();
 	}
 
-	@Override
 	public void unsetCoord() {
 		envelopeType.unsetCoord();
 	}
 
-	@Override
 	public void unsetCoordinates() {
 		envelopeType.setCoordinates(null);
 	}
 
-	@Override
 	public boolean isSetCoord() {
 		return envelopeType.isSetCoord();
 	}
 
-	@Override
 	public boolean isSetCoordinates() {
 		return envelopeType.isSetCoordinates();
 	}
 
-	@Override
 	public boolean isSetLowerCorner() {
 		return envelopeType.isSetLowerCorner();
 	}
 
-	@Override
 	public boolean isSetPos() {
 		return envelopeType.isSetPos();
 	}
 
-	@Override
 	public boolean isSetUpperCorner() {
 		return envelopeType.isSetUpperCorner();
 	}
 
-	@Override
 	public void unsetLowerCorner() {
 		envelopeType.setLowerCorner(null);
 	}
 
-	@Override
 	public void unsetUpperCorner() {
 		envelopeType.setUpperCorner(null);
 	}
 
-	@Override
 	public boolean isSetSrsDimension() {
 		return envelopeType.isSetSrsDimension();
 	}
 
-	@Override
 	public boolean isSetSrsName() {
 		return envelopeType.isSetSrsName();
 	}
 
-	@Override
 	public void unsetSrsDimension() {
 		envelopeType.setSrsDimension(null);
 	}
 
-	@Override
 	public void unsetSrsName() {
 		envelopeType.setSrsName(null);
 	}
 
-	@Override
 	public boolean isSetAxisLabels() {
 		return envelopeType.isSetAxisLabels();
 	}
 
-	@Override
 	public boolean isSetUomLabels() {
 		return envelopeType.isSetUomLabels();
 	}
 
-	@Override
 	public void unsetAxisLabels() {
 		envelopeType.unsetAxisLabels();
 	}
 
-	@Override
 	public void unsetUomLabels() {
 		envelopeType.unsetUomLabels();
 	}
 
-	@Override
 	public boolean unsetAxisLabels(String axisLabel) {
 		if (envelopeType.isSetAxisLabels())
 			return envelopeType.getAxisLabels().remove(axisLabel);
@@ -305,7 +267,6 @@ public class EnvelopeImpl extends GMLBaseImpl implements Envelope {
 		return false;
 	}
 
-	@Override
 	public boolean unsetUomLabels(String uomLabel) {
 		if (envelopeType.isSetUomLabels())
 			return envelopeType.getUomLabels().remove(uomLabel);

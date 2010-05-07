@@ -359,8 +359,16 @@ public abstract class CityObjectImpl extends AbstractFeatureImpl implements City
 	}
 
 	public boolean unsetGenericAttribute(GenericAttribute genericAttribute) {
-		if (cityObject.isSet_GenericAttribute()) 
-			return cityObject.get_GenericAttribute().remove(((GenericAttributeImpl)genericAttribute).getJAXBObject());
+		if (cityObject.isSet_GenericAttribute()) {
+			Iterator<JAXBElement<? extends _GenericAttributeType>> iter = cityObject.get_GenericAttribute().iterator();
+			while (iter.hasNext()) {
+				JAXBElement<?> elem = iter.next();
+				if (elem.getValue() != null && elem.getValue().equals(((GenericAttributeImpl)genericAttribute).getJAXBObject())) {
+					iter.remove();
+					return true;
+				}
+			}
+		}
 
 		return false;
 	}

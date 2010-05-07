@@ -25,62 +25,50 @@ public class PostBoxNumberPrefixImpl extends XALBaseImpl implements PostBoxNumbe
 		return XALClass.POSTBOXNUMBERPREFIX;
 	}
 
-	@Override
 	public String getContent() {
 		return postBoxNumberPrefix.getContent();
 	}
 
-	@Override
 	public String getNumberPrefixSeparator() {
 		return postBoxNumberPrefix.getNumberPrefixSeparator();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postBoxNumberPrefix.setContent(content);
 	}
 
-	@Override
 	public void setNumberPrefixSeparator(String numberPrefixSeparator) {
 		postBoxNumberPrefix.setNumberPrefixSeparator(numberPrefixSeparator);
 	}
 
-	@Override
 	public String getCode() {
 		return postBoxNumberPrefix.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		postBoxNumberPrefix.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postBoxNumberPrefix.isSetContent();
 	}
 
-	@Override
 	public boolean isSetNumberPrefixSeparator() {
 		return postBoxNumberPrefix.isSetNumberPrefixSeparator();
 	}
 
-	@Override
 	public void unsetContent() {
 		postBoxNumberPrefix.setContent(null);
 	}
 
-	@Override
 	public void unsetNumberPrefixSeparator() {
 		postBoxNumberPrefix.setNumberPrefixSeparator(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return postBoxNumberPrefix.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		postBoxNumberPrefix.setCode(null);
 	}

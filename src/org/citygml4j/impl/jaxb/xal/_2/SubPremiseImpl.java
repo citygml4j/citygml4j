@@ -40,37 +40,30 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return XALClass.SUBPREMISE;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		subPremise.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public void addBuildingName(BuildingName buildingName) {
 		subPremise.getBuildingName().add(((BuildingNameImpl)buildingName).getJAXBObject());
 	}
 
-	@Override
 	public void addSubPremiseName(SubPremiseName subPremiseName) {
 		subPremise.getSubPremiseName().add(((SubPremiseNameImpl)subPremiseName).getJAXBObject());
 	}
 
-	@Override
 	public void addSubPremiseNumber(SubPremiseNumber subPremiseNumber) {
 		subPremise.getSubPremiseNumber().add(((SubPremiseNumberImpl)subPremiseNumber).getJAXBObject());
 	}
 
-	@Override
 	public void addSubPremiseNumberPrefix(SubPremiseNumberPrefix subPremiseNumberPrefix) {
 		subPremise.getSubPremiseNumberPrefix().add(((SubPremiseNumberPrefixImpl)subPremiseNumberPrefix).getJAXBObject());
 	}
 
-	@Override
 	public void addSubPremiseNumberSuffix(SubPremiseNumberSuffix subPremiseNumberSuffix) {
 		subPremise.getSubPremiseNumberSuffix().add(((SubPremiseNumberSuffixImpl)subPremiseNumberSuffix).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -80,7 +73,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return addressLineList;
 	}
 
-	@Override
 	public List<BuildingName> getBuildingName() {
 		List<BuildingName> buildingNameList = new ArrayList<BuildingName>();
 
@@ -90,7 +82,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return buildingNameList;
 	}
 
-	@Override
 	public Firm getFirm() {
 		if (subPremise.isSetFirm())
 			return new FirmImpl(subPremise.getFirm());
@@ -98,7 +89,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return null;
 	}
 
-	@Override
 	public MailStop getMailStop() {
 		if (subPremise.isSetMailStop())
 			return new MailStopImpl(subPremise.getMailStop());
@@ -106,7 +96,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return null;
 	}
 
-	@Override
 	public PostalCode getPostalCode() {
 		if (subPremise.isSetPostalCode())
 			return new PostalCodeImpl(subPremise.getPostalCode());
@@ -114,7 +103,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return null;
 	}
 
-	@Override
 	public SubPremise getSubPremise() {
 		if (subPremise.isSetSubPremise())
 			return new SubPremiseImpl(subPremise.getSubPremise());
@@ -122,7 +110,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return null;
 	}
 
-	@Override
 	public SubPremiseLocation getSubPremiseLocation() {
 		if (subPremise.isSetSubPremiseLocation())
 			return new SubPremiseLocationImpl(subPremise.getSubPremiseLocation());
@@ -130,7 +117,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return null;
 	}
 
-	@Override
 	public List<SubPremiseName> getSubPremiseName() {
 		List<SubPremiseName> subPremiseNameList = new ArrayList<SubPremiseName>();
 
@@ -140,7 +126,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return subPremiseNameList;
 	}
 
-	@Override
 	public List<SubPremiseNumber> getSubPremiseNumber() {
 		List<SubPremiseNumber> subPremiseNumberList = new ArrayList<SubPremiseNumber>();
 
@@ -150,7 +135,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return subPremiseNumberList;
 	}
 
-	@Override
 	public List<SubPremiseNumberPrefix> getSubPremiseNumberPrefix() {
 		List<SubPremiseNumberPrefix> subPremiseNumberPrefixList = new ArrayList<SubPremiseNumberPrefix>();
 
@@ -160,7 +144,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return subPremiseNumberPrefixList;
 	}
 
-	@Override
 	public List<SubPremiseNumberSuffix> getSubPremiseNumberSuffix() {
 		List<SubPremiseNumberSuffix> subPremiseNumberSuffixList = new ArrayList<SubPremiseNumberSuffix>();
 
@@ -170,12 +153,10 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return subPremiseNumberSuffixList;
 	}
 
-	@Override
 	public String getType() {
 		return subPremise.getType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -186,7 +167,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		subPremise.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public void setBuildingName(List<BuildingName> buildingName) {
 		List<BuildingNameType> buildingNameList = new ArrayList<BuildingNameType>();
 
@@ -197,32 +177,26 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		subPremise.getBuildingName().addAll(buildingNameList);
 	}
 
-	@Override
 	public void setFirm(Firm firm) {
 		subPremise.setFirm(((FirmImpl)firm).getJAXBObject());
 	}
 
-	@Override
 	public void setMailStop(MailStop mailStop) {
 		subPremise.setMailStop(((MailStopImpl)mailStop).getJAXBObject());
 	}
 
-	@Override
 	public void setPostalCode(PostalCode postalCode) {
 		subPremise.setPostalCode(((PostalCodeImpl)postalCode).getJAXBObject());
 	}
 
-	@Override
 	public void setSubPremise(SubPremise subPremise) {
 		this.subPremise.setSubPremise(((SubPremiseImpl)subPremise).getJAXBObject());
 	}
 
-	@Override
 	public void setSubPremiseLocation(SubPremiseLocation subPremiseLocation) {
 		subPremise.setSubPremiseLocation(((SubPremiseLocationImpl)subPremiseLocation).getJAXBObject());
 	}
 
-	@Override
 	public void setSubPremiseName(List<SubPremiseName> subPremiseName) {
 		List<SubPremiseType.SubPremiseName> subPremiseNameList = new ArrayList<SubPremiseType.SubPremiseName>();
 
@@ -233,7 +207,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		subPremise.getSubPremiseName().addAll(subPremiseNameList);
 	}
 
-	@Override
 	public void setSubPremiseNumber(List<SubPremiseNumber> subPremiseNumber) {
 		List<SubPremiseType.SubPremiseNumber> subPremiseNumberList = new ArrayList<SubPremiseType.SubPremiseNumber>();
 
@@ -244,7 +217,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		subPremise.getSubPremiseNumber().addAll(subPremiseNumberList);
 	}
 
-	@Override
 	public void setSubPremiseNumberPrefix(List<SubPremiseNumberPrefix> subPremiseNumberPrefix) {
 		List<SubPremiseType.SubPremiseNumberPrefix> subPremiseNumberPrefixList = new ArrayList<SubPremiseType.SubPremiseNumberPrefix>();
 
@@ -255,7 +227,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		subPremise.getSubPremiseNumberPrefix().addAll(subPremiseNumberPrefixList);
 	}
 
-	@Override
 	public void setSubPremiseNumberSuffix(List<SubPremiseNumberSuffix> subPremiseNumberSuffix) {
 		List<SubPremiseType.SubPremiseNumberSuffix> subPremiseNumberSuffixList = new ArrayList<SubPremiseType.SubPremiseNumberSuffix>();
 
@@ -266,132 +237,106 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		subPremise.getSubPremiseNumberSuffix().addAll(subPremiseNumberSuffixList);
 	}
 
-	@Override
 	public void setType(String type) {
 		subPremise.setType(type);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return subPremise.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetBuildingName() {
 		return subPremise.isSetBuildingName();
 	}
 
-	@Override
 	public boolean isSetFirm() {
 		return subPremise.isSetFirm();
 	}
 
-	@Override
 	public boolean isSetMailStop() {
 		return subPremise.isSetMailStop();
 	}
 
-	@Override
 	public boolean isSetPostalCode() {
 		return subPremise.isSetPostalCode();
 	}
 
-	@Override
 	public boolean isSetSubPremise() {
 		return subPremise.isSetSubPremise();
 	}
 
-	@Override
 	public boolean isSetSubPremiseLocation() {
 		return subPremise.isSetSubPremiseLocation();
 	}
 
-	@Override
 	public boolean isSetSubPremiseName() {
 		return subPremise.isSetSubPremiseName();
 	}
 
-	@Override
 	public boolean isSetSubPremiseNumber() {
 		return subPremise.isSetSubPremiseNumber();
 	}
 
-	@Override
 	public boolean isSetSubPremiseNumberPrefix() {
 		return subPremise.isSetSubPremiseNumberPrefix();
 	}
 
-	@Override
 	public boolean isSetSubPremiseNumberSuffix() {
 		return subPremise.isSetSubPremiseNumberSuffix();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return subPremise.isSetType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		subPremise.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetBuildingName() {
 		subPremise.unsetBuildingName();
 	}
 
-	@Override
 	public void unsetFirm() {
 		subPremise.setFirm(null);
 	}
 
-	@Override
 	public void unsetMailStop() {
 		subPremise.setMailStop(null);
 	}
 
-	@Override
 	public void unsetPostalCode() {
 		subPremise.setPostalCode(null);
 	}
 
-	@Override
 	public void unsetSubPremise() {
 		subPremise.setSubPremise(null);
 	}
 
-	@Override
 	public void unsetSubPremiseLocation() {
 		subPremise.setSubPremiseLocation(null);
 	}
 
-	@Override
 	public void unsetSubPremiseName() {
 		subPremise.unsetSubPremiseName();
 	}
 
-	@Override
 	public void unsetSubPremiseNumber() {
 		subPremise.unsetSubPremiseNumber();
 	}
 
-	@Override
 	public void unsetSubPremiseNumberPrefix() {
 		subPremise.unsetSubPremiseNumberPrefix();
 	}
 
-	@Override
 	public void unsetSubPremiseNumberSuffix() {
 		subPremise.unsetSubPremiseNumberSuffix();
 	}
 
-	@Override
 	public void unsetType() {
 		subPremise.setType(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (subPremise.isSetAddressLine())
 			return subPremise.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());
@@ -399,7 +344,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return false;
 	}
 
-	@Override
 	public boolean unsetBuildingName(BuildingName buildingName) {
 		if (subPremise.isSetBuildingName())
 			return subPremise.getBuildingName().remove(((BuildingNameImpl)buildingName).getJAXBObject());
@@ -407,7 +351,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return false;
 	}
 
-	@Override
 	public boolean unsetSubPremiseName(SubPremiseName subPremiseName) {
 		if (subPremise.isSetSubPremiseName())
 			return subPremise.getSubPremiseName().remove(((SubPremiseNameImpl)subPremiseName).getJAXBObject());
@@ -415,7 +358,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return false;
 	}
 
-	@Override
 	public boolean unsetSubPremiseNumber(SubPremiseNumber subPremiseNumber) {
 		if (subPremise.isSetSubPremiseNumberPrefix())
 			return subPremise.getSubPremiseNumberPrefix().remove(((SubPremiseNumberPrefixImpl)subPremiseNumber).getJAXBObject());
@@ -423,7 +365,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return false;
 	}
 
-	@Override
 	public boolean unsetSubPremiseNumberPrefix(SubPremiseNumberPrefix subPremiseNumberPrefix) {
 		if (subPremise.isSetSubPremiseNumberPrefix())
 			return subPremise.getSubPremiseNumberPrefix().remove(((SubPremiseNumberPrefixImpl)subPremiseNumberPrefix).getJAXBObject());
@@ -431,7 +372,6 @@ public class SubPremiseImpl extends XALBaseImpl implements SubPremise {
 		return false;
 	}
 
-	@Override
 	public boolean unsetSubPremiseNumberSuffix(SubPremiseNumberSuffix subPremiseNumberSuffix) {
 		if (subPremise.isSetSubPremiseNumberSuffix())
 			return subPremise.getSubPremiseNumberSuffix().remove(((SubPremiseNumberSuffixImpl)subPremiseNumberSuffix).getJAXBObject());

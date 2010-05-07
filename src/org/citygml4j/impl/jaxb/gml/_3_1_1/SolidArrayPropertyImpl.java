@@ -30,7 +30,6 @@ public class SolidArrayPropertyImpl extends GMLBaseImpl implements SolidArrayPro
 		return solidArrayPropertyType;
 	}
 
-	@Override
 	public List<AbstractSolid> getSolid() {
 		List<AbstractSolid> abstractSolidList = new ArrayList<AbstractSolid>();
 
@@ -51,7 +50,6 @@ public class SolidArrayPropertyImpl extends GMLBaseImpl implements SolidArrayPro
 		return GMLClass.SOLIDARRAYPROPERTY;
 	}
 
-	@Override
 	public void addSolid(AbstractSolid abstractSolid) {
 		JAXBElement<? extends AbstractSolidType> jaxbElem = null;
 
@@ -68,7 +66,6 @@ public class SolidArrayPropertyImpl extends GMLBaseImpl implements SolidArrayPro
 			solidArrayPropertyType.get_Solid().add(jaxbElem);
 	}
 
-	@Override
 	public void setSolid(List<AbstractSolid> abstractSolid) {
 		List<JAXBElement<? extends AbstractSolidType>> jaxbElemList = new ArrayList<JAXBElement<? extends AbstractSolidType>>();
 
@@ -87,17 +84,14 @@ public class SolidArrayPropertyImpl extends GMLBaseImpl implements SolidArrayPro
 		solidArrayPropertyType.get_Solid().addAll(jaxbElemList);
 	}
 
-	@Override
 	public boolean isSetSolid() {
 		return solidArrayPropertyType.isSet_Solid();
 	}
 
-	@Override
 	public void unsetSolid() {
 		solidArrayPropertyType.unset_Solid();
 	}
 
-	@Override
 	public boolean unsetSolid(AbstractSolid abstractSolid) {
 		if (solidArrayPropertyType.isSet_Solid())
 			return solidArrayPropertyType.get_Solid().remove(((AbstractSolidImpl)abstractSolid).getJAXBObject());

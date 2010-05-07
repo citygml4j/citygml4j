@@ -22,22 +22,18 @@ public abstract class AbstractFeatureCollectionImpl extends AbstractFeatureImpl	
 		return GMLClass.ABSTRACTFEATURECOLLECTION;
 	}
 
-	@Override
 	public boolean isSetFeatureMember() {
 		return abstractFeatureCollectionType.isSetFeatureMember();
 	}
 
-	@Override
 	public boolean isSetFeatureMembers() {
 		return abstractFeatureCollectionType.isSetFeatureMembers();
 	}
 
-	@Override
 	public void unsetFeatureMember() {
 		abstractFeatureCollectionType.unsetFeatureMember();
 	}
 
-	@Override
 	public void unsetFeatureMembers() {
 		abstractFeatureCollectionType.setFeatureMembers(null);
 	}

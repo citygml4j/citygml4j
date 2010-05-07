@@ -45,22 +45,18 @@ public class TriangulatedSurfaceImpl extends SurfaceImpl implements Triangulated
 			super.setPatches(patches);
 	}
 
-	@Override
 	public TrianglePatchArrayProperty getTrianglePatches() {
 		return getPatches();
 	}
 
-	@Override
 	public void setTrianglePatches(TrianglePatchArrayProperty trianglePatches) {
 		super.setPatches(trianglePatches);
 	}
 
-	@Override
 	public boolean isSetTrianglePatches() {
 		return triangulatedSurfaceType.isSetPatches();
 	}
 
-	@Override
 	public void unsetTrianglePatches() {
 		triangulatedSurfaceType.setPatches(null);
 	}

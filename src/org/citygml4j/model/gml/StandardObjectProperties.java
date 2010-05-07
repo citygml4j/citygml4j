@@ -5,10 +5,10 @@ import java.util.List;
 public interface StandardObjectProperties extends GMLBase {
 	public List<Code> getName();
 	public StringOrRef getDescription();
-	public MetaDataProperty getMetaDataPropery();
+	public MetaDataProperty getMetaDataProperty();
 	public boolean isSetName();
 	public boolean isSetDescription();
-	public boolean isSetMetaDataPropery();
+	public boolean isSetMetaDataProperty();
 
 	public void setName(List<Code> names);
 	public void addName(Code name);
@@ -16,5 +16,5 @@ public interface StandardObjectProperties extends GMLBase {
 	public void unsetName();
 	public boolean unsetName(Code name);
 	public void unsetDescription();
-	public void unsetMetaDataPropery();
+	public void unsetMetaDataProperty();
 }

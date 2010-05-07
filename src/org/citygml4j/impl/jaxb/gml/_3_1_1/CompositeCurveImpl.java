@@ -28,7 +28,6 @@ public class CompositeCurveImpl extends AbstractCurveImpl implements CompositeCu
 		return compositeCurveType;
 	}
 
-	@Override
 	public List<CurveProperty> getCurveMember() {
 		List<CurveProperty> curvePropertyList = new ArrayList<CurveProperty>();
 
@@ -43,7 +42,6 @@ public class CompositeCurveImpl extends AbstractCurveImpl implements CompositeCu
 		return GMLClass.COMPOSITECURVE;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetCurveMember()) {
 			for (CurveProperty curvePropery : getCurveMember()) {
@@ -54,17 +52,14 @@ public class CompositeCurveImpl extends AbstractCurveImpl implements CompositeCu
 		}
 	}
 
-	@Override
 	public void addCurveMember(CurveProperty curveMember) {
 		compositeCurveType.getCurveMember().add(((CurvePropertyImpl)curveMember).getJAXBObject());
 	}
 
-	@Override
 	public boolean isSetCurveMember() {
 		return compositeCurveType.isSetCurveMember();
 	}
 
-	@Override
 	public void setCurveMember(List<CurveProperty> curveMember) {
 		List<CurvePropertyType> curvePropList = new ArrayList<CurvePropertyType>();
 
@@ -75,12 +70,10 @@ public class CompositeCurveImpl extends AbstractCurveImpl implements CompositeCu
 		compositeCurveType.getCurveMember().addAll(curvePropList);
 	}
 
-	@Override
 	public void unsetCurveMember() {
 		compositeCurveType.unsetCurveMember();
 	}
 
-	@Override
 	public boolean unsetCurveMember(CurveProperty curveMember) {
 		if (compositeCurveType.isSetCurveMember())
 			return compositeCurveType.getCurveMember().remove(((CurvePropertyImpl)curveMember).getJAXBObject());

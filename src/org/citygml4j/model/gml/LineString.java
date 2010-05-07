@@ -14,6 +14,12 @@ public interface LineString extends AbstractCurve {
 	public List<Double> toList(boolean reverseOrder);
 	
 	public void setPosList(DirectPositionList posList);
+	public void addPointProperty(PointProperty pointProperty);
+	public void addPointRep(PointRep pointRep);
+	public void addPos(DirectPosition pos);
+	public void addCoord(Coord coord);	
+	public void setPosOrPointPropertyOrPointRepOrCoord(List<GMLBase> controlPoints);
+	public void setCoordinates(Coordinates coordinates);
 	public void unsetPosOrPointPropertyOrPointRepOrCoord();
 	public void unsetPosList();
 	public void unsetCoordinates();

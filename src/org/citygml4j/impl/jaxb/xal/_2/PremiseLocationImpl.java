@@ -25,42 +25,34 @@ public class PremiseLocationImpl extends XALBaseImpl implements PremiseLocation 
 		return XALClass.PREMISELOCATION;
 	}
 
-	@Override
 	public String getContent() {
 		return premiseLocation.getContent();
 	}
 
-	@Override
 	public void setContent(String content) {
 		premiseLocation.setContent(content);
 	}
 
-	@Override
 	public String getCode() {
 		return premiseLocation.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		premiseLocation.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return premiseLocation.isSetContent();
 	}
 
-	@Override
 	public void unsetContent() {
 		premiseLocation.setContent(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return premiseLocation.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		premiseLocation.setCode(null);
 	}

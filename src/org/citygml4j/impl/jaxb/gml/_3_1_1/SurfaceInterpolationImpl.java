@@ -22,7 +22,6 @@ public enum SurfaceInterpolationImpl implements SurfaceInterpolation {
         value = v;
     }
 
-    @Override
     public String getValue() {
         return value;
     }
@@ -39,7 +38,6 @@ public enum SurfaceInterpolationImpl implements SurfaceInterpolation {
         return NONE;
     }
 
-	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.SURFACEINTERPOLATION;
 	}
@@ -48,7 +46,6 @@ public enum SurfaceInterpolationImpl implements SurfaceInterpolation {
 		return value;
 	}
 	
-	@Override
 	public boolean equals(GMLBase other) {
 		return super.equals(other);
 	}

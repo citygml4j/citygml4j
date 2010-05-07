@@ -25,62 +25,50 @@ public class LocalityNameImpl extends XALBaseImpl implements LocalityName {
 		return XALClass.LOCALITYNAME;
 	}
 
-	@Override
 	public String getContent() {
 		return localityName.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return localityName.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		localityName.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		localityName.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return localityName.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		localityName.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return localityName.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return localityName.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		localityName.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		localityName.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return localityName.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		localityName.setCode(null);
 	}

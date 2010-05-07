@@ -48,37 +48,30 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return XALClass.THOROUGHFARE;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		thoroughfare.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public void addThoroughfareName(ThoroughfareName thoroughfareName) {
 		thoroughfare.getThoroughfareName().add(((ThoroughfareNameImpl)thoroughfareName).getJAXBObject());
 	}
 
-	@Override
 	public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
 		thoroughfare.getThoroughfareNumberOrThoroughfareNumberRange().add(((ThoroughfareNumberImpl)thoroughfareNumber).getJAXBObject());
 	}
 
-	@Override
 	public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
 		thoroughfare.getThoroughfareNumberPrefix().add(((ThoroughfareNumberPrefixImpl)thoroughfareNumberPrefix).getJAXBObject());
 	}
 
-	@Override
 	public void addThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange) {
 		thoroughfare.getThoroughfareNumberOrThoroughfareNumberRange().add(((ThoroughfareNumberRangeImpl)thoroughfareNumberRange).getJAXBObject());
 	}
 
-	@Override
 	public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
 		thoroughfare.getThoroughfareNumberSuffix().add(((ThoroughfareNumberSuffixImpl)thoroughfareNumberSuffix).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -88,7 +81,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return addressLineList;
 	}
 
-	@Override
 	public DependentLocality getDependentLocality() {
 		if (thoroughfare.isSetDependentLocality())
 			return new DependentLocalityImpl(thoroughfare.getDependentLocality());
@@ -96,7 +88,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public DependentThoroughfare getDependentThoroughfare() {
 		if (thoroughfare.isSetDependentThoroughfare())
 			return new DependentThoroughfareImpl(thoroughfare.getDependentThoroughfare());
@@ -104,27 +95,22 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public String getDependentThoroughfares() {
 		return thoroughfare.getDependentThoroughfares();
 	}
 
-	@Override
 	public String getDependentThoroughfaresConnector() {
 		return thoroughfare.getDependentThoroughfaresConnector();
 	}
 
-	@Override
 	public String getDependentThoroughfaresIndicator() {
 		return thoroughfare.getDependentThoroughfaresIndicator();
 	}
 
-	@Override
 	public String getDependentThoroughfaresType() {
 		return thoroughfare.getDependentThoroughfaresType();
 	}
 
-	@Override
 	public Firm getFirm() {
 		if (thoroughfare.isSetFirm())
 			return new FirmImpl(thoroughfare.getFirm());
@@ -132,7 +118,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public PostalCode getPostalCode() {
 		if (thoroughfare.isSetPostalCode())
 			return new PostalCodeImpl(thoroughfare.getPostalCode());
@@ -140,7 +125,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public Premise getPremise() {
 		if (thoroughfare.isSetPremise())
 			return new PremiseImpl(thoroughfare.getPremise());
@@ -148,7 +132,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public ThoroughfareLeadingType getThoroughfareLeadingType() {
 		if (thoroughfare.isSetThoroughfareLeadingType())
 			return new ThoroughfareLeadingTypeImpl(thoroughfare.getThoroughfareLeadingType());
@@ -156,7 +139,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public List<ThoroughfareName> getThoroughfareName() {
 		List<ThoroughfareName> nameList = new ArrayList<ThoroughfareName>();
 
@@ -166,7 +148,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return nameList;
 	}
 
-	@Override
 	public List<Object> getThoroughfareNumberOrThoroughfareNumberRange() {
 		List<Object> norList = new ArrayList<Object>();
 
@@ -180,7 +161,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return norList;
 	}
 
-	@Override
 	public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix() {
 		List<ThoroughfareNumberPrefix> prefixList = new ArrayList<ThoroughfareNumberPrefix>();
 
@@ -190,7 +170,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return prefixList;
 	}
 
-	@Override
 	public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix() {
 		List<ThoroughfareNumberSuffix> suffixList = new ArrayList<ThoroughfareNumberSuffix>();
 
@@ -200,7 +179,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return suffixList;
 	}
 
-	@Override
 	public ThoroughfarePostDirection getThoroughfarePostDirection() {
 		if (thoroughfare.isSetThoroughfarePostDirection())
 			return new ThoroughfarePostDirectionImpl(thoroughfare.getThoroughfarePostDirection());
@@ -208,7 +186,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public ThoroughfarePreDirection getThoroughfarePreDirection() {
 		if (thoroughfare.isSetThoroughfarePreDirection())
 			return new ThoroughfarePreDirectionImpl(thoroughfare.getThoroughfarePreDirection());
@@ -216,7 +193,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public ThoroughfareTrailingType getThoroughfareTrailingType() {
 		if (thoroughfare.isSetThoroughfareTrailingType())
 			return new ThoroughfareTrailingTypeImpl(thoroughfare.getThoroughfareTrailingType());
@@ -224,12 +200,10 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return thoroughfare.getType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -240,58 +214,47 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		thoroughfare.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public void setDependentLocality(DependentLocality dependentLocality) {
 		thoroughfare.setDependentLocality(((DependentLocalityImpl)dependentLocality).getJAXBObject());
 	}
 
-	@Override
 	public void setDependentThoroughfare(DependentThoroughfare dependentThoroughfare) {
 		thoroughfare.setDependentThoroughfare(((DependentThoroughfareImpl)dependentThoroughfare).getJAXBObject());
 	}
 
-	@Override
 	public void setDependentThoroughfares(String dependentThoroughfares) {
 		if (dependentThoroughfares.equals("Yes") || dependentThoroughfares.equals("No"))
 			thoroughfare.setDependentThoroughfares(dependentThoroughfares);
 	}
 
-	@Override
 	public void setDependentThoroughfaresConnector(String dependentThoroughfaresConnector) {
 		thoroughfare.setDependentThoroughfaresConnector(dependentThoroughfaresConnector);
 	}
 
-	@Override
 	public void setDependentThoroughfaresIndicator(String dependentThoroughfaresIndicator) {
 		thoroughfare.setDependentThoroughfaresIndicator(dependentThoroughfaresIndicator);
 	}
 
-	@Override
 	public void setDependentThoroughfaresType(String dependentThoroughfaresType) {
 		thoroughfare.setDependentThoroughfaresType(dependentThoroughfaresType);
 	}
 
-	@Override
 	public void setFirm(Firm firm) {
 		thoroughfare.setFirm(((FirmImpl)firm).getJAXBObject());
 	}
 
-	@Override
 	public void setPostalCode(PostalCode postalCode) {
 		thoroughfare.setPostalCode(((PostalCodeImpl)postalCode).getJAXBObject());
 	}
 
-	@Override
 	public void setPremise(Premise premise) {
 		thoroughfare.setPremise(((PremiseImpl)premise).getJAXBObject());
 	}
 
-	@Override
 	public void setThoroughfareLeadingType(ThoroughfareLeadingType thoroughfareLeadingType) {
 		thoroughfare.setThoroughfareLeadingType(((ThoroughfareLeadingTypeImpl)thoroughfareLeadingType).getJAXBObject());
 	}
 
-	@Override
 	public void setThoroughfareName(List<ThoroughfareName> thoroughfareName) {
 		List<ThoroughfareNameType> nameElemList = new ArrayList<ThoroughfareNameType>();
 
@@ -302,7 +265,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		thoroughfare.getThoroughfareName().addAll(nameElemList);
 	}
 
-	@Override
 	public void setThoroughfareNumberPrefix(List<ThoroughfareNumberPrefix> thoroughfareNumberPrefix) {
 		List<ThoroughfareNumberPrefixElement> prefixElemList = new ArrayList<ThoroughfareNumberPrefixElement>();
 
@@ -313,7 +275,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		thoroughfare.getThoroughfareNumberPrefix().addAll(prefixElemList);
 	}
 
-	@Override
 	public void setThoroughfareNumberSuffix(List<ThoroughfareNumberSuffix> thoroughfareNumberSuffix) {
 		List<ThoroughfareNumberSuffixElement> suffixElemList = new ArrayList<ThoroughfareNumberSuffixElement>();
 
@@ -324,217 +285,174 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		thoroughfare.getThoroughfareNumberSuffix().addAll(suffixElemList);
 	}
 
-	@Override
 	public void setThoroughfarePostDirection(ThoroughfarePostDirection thoroughfarePostDirection) {
 		thoroughfare.setThoroughfarePostDirection(((ThoroughfarePostDirectionImpl)thoroughfarePostDirection).getJAXBObject());
 	}
 
-	@Override
 	public void setThoroughfarePreDirection(ThoroughfarePreDirection thoroughfarePreDirection) {
 		thoroughfare.setThoroughfarePreDirection(((ThoroughfarePreDirectionImpl)thoroughfarePreDirection).getJAXBObject());
 	}
 
-	@Override
 	public void setThoroughfareTrailingType(ThoroughfareTrailingType thoroughfareTrailingType) {
 		thoroughfare.setThoroughfareTrailingType(((ThoroughfareTrailingTypeImpl)thoroughfareTrailingType).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		thoroughfare.setType(type);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return thoroughfare.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetDependentLocality() {
 		return thoroughfare.isSetDependentLocality();
 	}
 
-	@Override
 	public boolean isSetDependentThoroughfare() {
 		return thoroughfare.isSetDependentThoroughfare();
 	}
 
-	@Override
 	public boolean isSetDependentThoroughfares() {
 		return thoroughfare.isSetDependentThoroughfares();
 	}
 
-	@Override
 	public boolean isSetDependentThoroughfaresConnector() {
 		return thoroughfare.isSetDependentThoroughfaresConnector();
 	}
 
-	@Override
 	public boolean isSetDependentThoroughfaresIndicator() {
 		return thoroughfare.isSetDependentThoroughfaresIndicator();
 	}
 
-	@Override
 	public boolean isSetDependentThoroughfaresType() {
 		return thoroughfare.isSetDependentThoroughfaresType();
 	}
 
-	@Override
 	public boolean isSetFirm() {
 		return thoroughfare.isSetFirm();
 	}
 
-	@Override
 	public boolean isSetPostalCode() {
 		return thoroughfare.isSetPostalCode();
 	}
 
-	@Override
 	public boolean isSetPremise() {
 		return thoroughfare.isSetPremise();
 	}
 
-	@Override
 	public boolean isSetThoroughfareLeadingType() {
 		return thoroughfare.isSetThoroughfareLeadingType();
 	}
 
-	@Override
 	public boolean isSetThoroughfareName() {
 		return thoroughfare.isSetThoroughfareName();
 	}
 
-	@Override
 	public boolean isSetThoroughfareNumberOrThoroughfareNumberRange() {
 		return thoroughfare.isSetThoroughfareNumberOrThoroughfareNumberRange();
 	}
 
-	@Override
 	public boolean isSetThoroughfareNumberPrefix() {
 		return thoroughfare.isSetThoroughfareNumberPrefix();
 	}
 
-	@Override
 	public boolean isSetThoroughfareNumberSuffix() {
 		return thoroughfare.isSetThoroughfareNumberSuffix();
 	}
 
-	@Override
 	public boolean isSetThoroughfarePostDirection() {
 		return thoroughfare.isSetThoroughfarePostDirection();
 	}
 
-	@Override
 	public boolean isSetThoroughfarePreDirection() {
 		return thoroughfare.isSetThoroughfarePreDirection();
 	}
 
-	@Override
 	public boolean isSetThoroughfareTrailingType() {
 		return thoroughfare.isSetThoroughfareTrailingType();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return thoroughfare.isSetType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		thoroughfare.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetDependentLocality() {
 		thoroughfare.setDependentLocality(null);
 	}
 
-	@Override
 	public void unsetDependentThoroughfare() {
 		thoroughfare.setDependentThoroughfare(null);
 	}
 
-	@Override
 	public void unsetDependentThoroughfares() {
 		thoroughfare.setDependentThoroughfares(null);
 	}
 
-	@Override
 	public void unsetDependentThoroughfaresConnector() {
 		thoroughfare.setDependentThoroughfaresConnector(null);
 	}
 
-	@Override
 	public void unsetDependentThoroughfaresIndicator() {
 		thoroughfare.setDependentThoroughfaresIndicator(null);
 	}
 
-	@Override
 	public void unsetDependentThoroughfaresType() {
 		thoroughfare.setDependentThoroughfaresType(null);
 	}
 
-	@Override
 	public void unsetFirm() {
 		thoroughfare.setFirm(null);
 	}
 
-	@Override
 	public void unsetPostalCode() {
 		thoroughfare.setPostalCode(null);
 	}
 
-	@Override
 	public void unsetPremise() {
 		thoroughfare.setPremise(null);
 	}
 
-	@Override
 	public void unsetThoroughfareLeadingType() {
 		thoroughfare.setThoroughfareLeadingType(null);
 	}
 
-	@Override
 	public void unsetThoroughfareName() {
 		thoroughfare.unsetThoroughfareName();
 	}
 
-	@Override
 	public void unsetThoroughfareNumberOrThoroughfareNumberRange() {
 		thoroughfare.unsetThoroughfareNumberOrThoroughfareNumberRange();
 	}
 
-	@Override
 	public void unsetThoroughfareNumberPrefix() {
 		thoroughfare.unsetThoroughfareNumberPrefix();
 	}
 
-	@Override
 	public void unsetThoroughfareNumberSuffix() {
 		thoroughfare.unsetThoroughfareNumberSuffix();
 	}
 
-	@Override
 	public void unsetThoroughfarePostDirection() {
 		thoroughfare.setThoroughfarePostDirection(null);
 	}
 
-	@Override
 	public void unsetThoroughfarePreDirection() {
 		thoroughfare.setThoroughfarePreDirection(null);
 	}
 
-	@Override
 	public void unsetThoroughfareTrailingType() {
 		thoroughfare.setThoroughfareTrailingType(null);
 	}
 
-	@Override
 	public void unsetType() {
 		thoroughfare.setType(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (thoroughfare.isSetAddressLine())
 			return thoroughfare.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());
@@ -542,7 +460,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return false;
 	}
 
-	@Override
 	public boolean unsetThoroughfareName(ThoroughfareName thoroughfareName) {
 		if (thoroughfare.isSetThoroughfareName())
 			return thoroughfare.getThoroughfareName().remove(((ThoroughfareNameImpl)thoroughfareName).getJAXBObject());
@@ -550,7 +467,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return false;
 	}
 
-	@Override
 	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
 		if (thoroughfare.isSetThoroughfareNumberPrefix())
 			return thoroughfare.getThoroughfareNumberPrefix().remove(((ThoroughfareNumberPrefixImpl)thoroughfareNumberPrefix).getJAXBObject());
@@ -558,7 +474,6 @@ public class ThoroughfareImpl extends XALBaseImpl implements Thoroughfare {
 		return false;
 	}
 
-	@Override
 	public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
 		if (thoroughfare.isSetThoroughfareNumberSuffix())
 			return thoroughfare.getThoroughfareNumberSuffix().remove(((ThoroughfareNumberSuffixImpl)thoroughfareNumberSuffix).getJAXBObject());

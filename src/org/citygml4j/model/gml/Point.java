@@ -12,6 +12,8 @@ public interface Point extends AbstractGeometricPrimitive {
 	public boolean isSetCoord();
 	
 	public void setPos(DirectPosition pos);
+	public void setCoord(Coord coord);
+	public void setCoordinates(Coordinates coordinates);
 	public void unsetPos();
 	public void unsetCoordinates();
 	public void unsetCoord();

@@ -48,7 +48,6 @@ public class GeometricPrimitivePropertyImpl extends GMLBaseImpl implements	Geome
 		return GMLClass.GEOMETRICPRIMITIVEPROPERTY;
 	}
 
-	@Override
 	public AbstractGeometricPrimitive getGeometricPrimitive() {
 		if (geometricPrimitivePropertyType.isSet_GeometricPrimitive()) {
 			JAXBElement<? extends AbstractGeometricPrimitiveType> abstractGeometricPrimitiveType = geometricPrimitivePropertyType.get_GeometricPrimitive();
@@ -93,7 +92,6 @@ public class GeometricPrimitivePropertyImpl extends GMLBaseImpl implements	Geome
 		return null;
 	}
 
-	@Override
 	public void setGeometricPrimitive(AbstractGeometricPrimitive geometry) {
 		JAXBElement<? extends AbstractGeometricPrimitiveType> jaxbElem = null;
 
@@ -149,172 +147,138 @@ public class GeometricPrimitivePropertyImpl extends GMLBaseImpl implements	Geome
 			geometricPrimitivePropertyType.set_GeometricPrimitive(jaxbElem);
 	}
 
-	@Override
 	public String getActuate() {
 		return geometricPrimitivePropertyType.getActuate();
 	}
 
-	@Override
 	public String getArcrole() {
 		return geometricPrimitivePropertyType.getArcrole();
 	}
 
-	@Override
 	public String getHref() {
 		return geometricPrimitivePropertyType.getHref();
 	}
 
-	@Override
 	public String getRemoteSchema() {
 		return geometricPrimitivePropertyType.getRemoteSchema();
 	}
 
-	@Override
 	public String getRole() {
 		return geometricPrimitivePropertyType.getRole();
 	}
 
-	@Override
 	public String getShow() {
 		return geometricPrimitivePropertyType.getShow();
 	}
 
-	@Override
 	public String getTitle() {
 		return geometricPrimitivePropertyType.getTitle();
 	}
 
-	@Override
 	public String getType() {
 		return geometricPrimitivePropertyType.getType();
 	}
 
-	@Override
 	public void setActuate(String actuate) {
 		geometricPrimitivePropertyType.setActuate(actuate);
 	}
 
-	@Override
 	public void setArcrole(String arcrole) {
 		geometricPrimitivePropertyType.setArcrole(arcrole);
 	}
 
-	@Override
 	public void setHref(String href) {
 		geometricPrimitivePropertyType.setHref(href);
 	}
 
-	@Override
 	public void setRemoteSchema(String remoteSchema) {
 		geometricPrimitivePropertyType.setRemoteSchema(remoteSchema);
 	}
 
-	@Override
 	public void setRole(String role) {
 		geometricPrimitivePropertyType.setRole(role);
 	}
 
-	@Override
 	public void setShow(String show) {
 		geometricPrimitivePropertyType.setShow(show);
 	}
 
-	@Override
 	public void setTitle(String title) {
 		geometricPrimitivePropertyType.setTitle(title);
 	}
 
-	@Override
 	public void setType(String type) {
 		geometricPrimitivePropertyType.setType(type);
 	}
 	
-	@Override
 	public boolean isSetActuate() {
 		return geometricPrimitivePropertyType.isSetActuate();
 	}
 
-	@Override
 	public boolean isSetArcrole() {
 		return geometricPrimitivePropertyType.isSetArcrole();
 	}
 
-	@Override
 	public boolean isSetHref() {
 		return geometricPrimitivePropertyType.isSetHref();
 	}
 
-	@Override
 	public boolean isSetRemoteSchema() {
 		return geometricPrimitivePropertyType.isSetRemoteSchema();
 	}
 
-	@Override
 	public boolean isSetRole() {
 		return geometricPrimitivePropertyType.isSetRole();
 	}
 
-	@Override
 	public boolean isSetShow() {
 		return geometricPrimitivePropertyType.isSetShow();
 	}
 
-	@Override
 	public boolean isSetTitle() {
 		return geometricPrimitivePropertyType.isSetTitle();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return geometricPrimitivePropertyType.isSetType();
 	}
 
-	@Override
 	public void unsetActuate() {
 		geometricPrimitivePropertyType.setActuate(null);
 	}
 
-	@Override
 	public void unsetArcrole() {
 		geometricPrimitivePropertyType.setArcrole(null);
 	}
 
-	@Override
 	public void unsetHref() {
 		geometricPrimitivePropertyType.setHref(null);
 	}
 
-	@Override
 	public void unsetRemoteSchema() {
 		geometricPrimitivePropertyType.setRemoteSchema(null);
 	}
 
-	@Override
 	public void unsetRole() {
 		geometricPrimitivePropertyType.setRole(null);
 	}
 
-	@Override
 	public void unsetShow() {
 		geometricPrimitivePropertyType.setShow(null);
 	}
 
-	@Override
 	public void unsetTitle() {
 		geometricPrimitivePropertyType.setTitle(null);
 	}
 
-	@Override
 	public void unsetType() {
 		geometricPrimitivePropertyType.setType(null);
 	}
 
-	@Override
 	public boolean isSetGeometricPrimitive() {
 		return geometricPrimitivePropertyType.isSet_GeometricPrimitive();
 	}
 
-	@Override
 	public void unsetGeometricPrimitive() {
 		geometricPrimitivePropertyType.set_GeometricPrimitive(null);
 	}

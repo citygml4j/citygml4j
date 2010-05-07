@@ -12,7 +12,6 @@ import org.citygml4j.model.gml.Point;
 
 public class PointImpl extends AbstractGeometryImpl implements Point {
 	private PointType pointType;
-	private List<Double> pointList;
 
 	public PointImpl() {
 		this(new PointType());
@@ -33,7 +32,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return GMLClass.POINT;
 	}
 
-	@Override
 	public Coord getCoord() {
 		if (pointType.isSetCoord())
 			return new CoordImpl(pointType.getCoord());
@@ -41,7 +39,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public Coordinates getCoordinates() {
 		if (pointType.isSetCoordinates())
 			return new CoordinatesImpl(pointType.getCoordinates());
@@ -49,7 +46,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public DirectPosition getPos() {
 		if (pointType.isSetPos())
 			return new DirectPositionImpl(pointType.getPos());
@@ -57,7 +53,6 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		return null;
 	}
 
-	@Override
 	public void calcBoundingBox(org.citygml4j.geometry.Point min, org.citygml4j.geometry.Point max) {
 		List<Double> point = toList();
 
@@ -80,80 +75,65 @@ public class PointImpl extends AbstractGeometryImpl implements Point {
 		}
 	}
 
-	@Override
 	public void setPos(DirectPosition pos) {
 		pointType.setPos(((DirectPositionImpl)pos).getJAXBObject());
 	}
 
-	@Override
-	public List<Double> toList() {
-		if (pointList == null)
-			generatePointList();
-
-		return pointList;
+	public void setCoord(Coord coord) {
+		pointType.setCoord(((CoordImpl)coord).getJAXBObject());
 	}
 
-	private void generatePointList() {
-		if (pointList != null)
-			return;
+	public void setCoordinates(Coordinates coordinates) {
+		pointType.setCoordinates(((CoordinatesImpl)coordinates).getJAXBObject());
+	}
 
+	public List<Double> toList() {
 		List<Double> tmp = new ArrayList<Double>();
 
-		if (getPos() != null) {
-			List<Double> point = new ArrayList<Double>(getPos().toList());
+		if (isSetPos()) {
+			List<Double> point = getPos().toList();
 			if (point != null)
 				tmp.addAll(point);
 		}
 
-		else if (getCoord() != null) {
-			Coord coords = getCoord();
-
-			if (coords.getX() != null)
-				tmp.add(coords.getX());
-			else
-				tmp.add(0.0);
-
-			if (coords.getY() != null)
-				tmp.add(coords.getY());
-			else
-				tmp.add(0.0);
-
-			if (coords.getZ() != null)
-				tmp.add(coords.getZ());
-			else
-				tmp.add(0.0);
+		else if (isSetCoord()) {
+			List<Double> point = getCoord().toList();
+			if (point != null)
+				tmp.addAll(point);
 		}
 
+		else if (isSetCoordinates()) {
+			List<Double> points = getCoordinates().toList();
+			if (points != null)
+				tmp.addAll(points.subList(0, 3));
+		}
+		
 		if (tmp.size() != 0)
-			pointList = tmp;
+			return tmp;
+		
+		return null;
 	}
 
-	@Override
 	public boolean isSetCoord() {
 		return pointType.isSetCoord();
 	}
 
-	@Override
 	public boolean isSetCoordinates() {
 		return pointType.isSetCoordinates();
 	}
 
-	@Override
 	public boolean isSetPos() {
 		return pointType.isSetPos();
 	}
 
-	@Override
 	public void unsetCoord() {
 		pointType.setCoord(null);
 	}
 
-	@Override
 	public void unsetCoordinates() {
 		pointType.setCoordinates(null);
 	}
 
-	@Override
 	public void unsetPos() {
 		pointType.setPos(null);
 	}

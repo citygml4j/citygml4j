@@ -25,82 +25,66 @@ public class PostalCodeNumberExtensionImpl extends XALBaseImpl implements Postal
 		return XALClass.POSTALCODENUMBEREXTENSION;
 	}
 
-	@Override
 	public String getContent() {
 		return postalCodeNumberExtension.getContent();
 	}
 
-	@Override
 	public String getNumberExtensionSeparator() {
 		return postalCodeNumberExtension.getNumberExtensionSeparator();
 	}
 
-	@Override
 	public String getType() {
 		return postalCodeNumberExtension.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		postalCodeNumberExtension.setContent(content);
 	}
 
-	@Override
 	public void setNumberExtensionSeparator(String numberExtensionSeparator) {
 		postalCodeNumberExtension.setNumberExtensionSeparator(numberExtensionSeparator);
 	}
 
-	@Override
 	public void setType(String type) {
 		postalCodeNumberExtension.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return postalCodeNumberExtension.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		postalCodeNumberExtension.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return postalCodeNumberExtension.isSetContent();
 	}
 
-	@Override
 	public boolean isSetNumberExtensionSeparator() {
 		return postalCodeNumberExtension.isSetNumberExtensionSeparator();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return postalCodeNumberExtension.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		postalCodeNumberExtension.setContent(null);
 	}
 
-	@Override
 	public void unsetNumberExtensionSeparator() {
 		postalCodeNumberExtension.setNumberExtensionSeparator(null);
 	}
 
-	@Override
 	public void unsetType() {
 		postalCodeNumberExtension.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return postalCodeNumberExtension.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		postalCodeNumberExtension.setCode(null);
 	}

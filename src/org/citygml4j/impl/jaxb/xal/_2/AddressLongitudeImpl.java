@@ -25,62 +25,50 @@ public class AddressLongitudeImpl extends XALBaseImpl implements AddressLongitud
 		return XALClass.ADDRESSLONGITUDE;
 	}
 
-	@Override
 	public String getContent() {
 		return addressLongitude.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return addressLongitude.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		addressLongitude.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		addressLongitude.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return addressLongitude.getCode();
 	}
 	
-	@Override
 	public void setCode(String code) {
 		addressLongitude.setCode(code);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return addressLongitude.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		addressLongitude.setCode(null);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return addressLongitude.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return addressLongitude.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		addressLongitude.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		addressLongitude.setType(null);
 	}

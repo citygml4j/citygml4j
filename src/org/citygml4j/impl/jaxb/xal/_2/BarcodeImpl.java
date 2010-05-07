@@ -25,62 +25,50 @@ public class BarcodeImpl extends XALBaseImpl implements Barcode {
 		return XALClass.BARCODE;
 	}
 
-	@Override
 	public String getContent() {
 		return barcode.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return barcode.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		barcode.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		barcode.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return barcode.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		barcode.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return barcode.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return barcode.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		barcode.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		barcode.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return barcode.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		barcode.setCode(null);
 	}

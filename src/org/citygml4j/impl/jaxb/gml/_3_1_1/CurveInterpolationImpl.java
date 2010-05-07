@@ -23,7 +23,6 @@ public enum CurveInterpolationImpl implements CurveInterpolation {
         value = v;
     }
 
-    @Override
     public String getValue() {
         return value;
     }
@@ -40,16 +39,14 @@ public enum CurveInterpolationImpl implements CurveInterpolation {
         return LINEAR;
     }
 
-	@Override
 	public GMLClass getGMLClass() {
-		return GMLClass.SURFACEINTERPOLATION;
+		return GMLClass.CURVEINTERPOLATION;
 	}
     
 	public String toString() {
 		return value;
 	}
 
-	@Override
 	public boolean equals(GMLBase other) {
 		return super.equals(other);
 	}

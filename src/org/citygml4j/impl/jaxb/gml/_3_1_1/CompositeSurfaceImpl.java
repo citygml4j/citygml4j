@@ -28,7 +28,6 @@ public class CompositeSurfaceImpl extends AbstractSurfaceImpl implements Composi
 		return compositeSurfaceType;
 	}
 
-	@Override
 	public List<SurfaceProperty> getSurfaceMember() {
 		List<SurfaceProperty> surfacePropertyList = new ArrayList<SurfaceProperty>();
 
@@ -43,7 +42,6 @@ public class CompositeSurfaceImpl extends AbstractSurfaceImpl implements Composi
 		return GMLClass.COMPOSITESURFACE;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (isSetSurfaceMember()) {
 			for (SurfaceProperty surfaceProperty : getSurfaceMember()) {
@@ -54,12 +52,10 @@ public class CompositeSurfaceImpl extends AbstractSurfaceImpl implements Composi
 		}
 	}
 
-	@Override
 	public void addSurfaceMember(SurfaceProperty surfaceMember) {
 		compositeSurfaceType.getSurfaceMember().add(((SurfacePropertyImpl)surfaceMember).getJAXBObject());
 	}
 
-	@Override
 	public void setSurfaceMember(List<SurfaceProperty> surfaceMember) {
 		List<SurfacePropertyType> surfacePropertyList = new ArrayList<SurfacePropertyType>();
 
@@ -70,17 +66,14 @@ public class CompositeSurfaceImpl extends AbstractSurfaceImpl implements Composi
 		compositeSurfaceType.getSurfaceMember().addAll(surfacePropertyList);
 	}
 
-	@Override
 	public boolean isSetSurfaceMember() {
 		return compositeSurfaceType.isSetSurfaceMember();
 	}
 
-	@Override
 	public void unsetSurfaceMember() {
 		compositeSurfaceType.unsetSurfaceMember();
 	}
 
-	@Override
 	public boolean unsetSurfaceMember(SurfaceProperty surfaceMember) {
 		if (compositeSurfaceType.isSetSurfaceMember())
 			return compositeSurfaceType.getSurfaceMember().remove(((SurfacePropertyImpl)surfaceMember).getJAXBObject());

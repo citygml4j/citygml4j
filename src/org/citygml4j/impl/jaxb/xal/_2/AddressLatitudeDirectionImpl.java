@@ -25,62 +25,50 @@ public class AddressLatitudeDirectionImpl extends XALBaseImpl implements Address
 		return XALClass.ADDRESSLATITUDEDIRECTION;
 	}
 
-	@Override
 	public String getContent() {
 		return addressLatitudeDirection.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return addressLatitudeDirection.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		addressLatitudeDirection.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		addressLatitudeDirection.setType(type);
 	}
 
-	@Override
 	public String getCode() {
 		return addressLatitudeDirection.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		addressLatitudeDirection.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return addressLatitudeDirection.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return addressLatitudeDirection.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		addressLatitudeDirection.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		addressLatitudeDirection.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return addressLatitudeDirection.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		addressLatitudeDirection.setCode(null);
 	}

@@ -24,62 +24,51 @@ public class DependentLocalityNameImpl extends XALBaseImpl implements DependentL
 	public XALClass getXALClass() {
 		return XALClass.DEPENDENTLOCALITYNAME;
 	}
-	@Override
+	
 	public String getContent() {
 		return dependentLocalityName.getContent();
 	}
 
-	@Override
 	public String getType() {
 		return dependentLocalityName.getType();
 	}
 
-	@Override
 	public void setContent(String content) {
 		dependentLocalityName.setContent(content);
 	}
 
-	@Override
 	public void setType(String type) {
 		dependentLocalityName.setType(type);
 	}
 	
-	@Override
 	public String getCode() {
 		return dependentLocalityName.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		dependentLocalityName.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return dependentLocalityName.isSetContent();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return dependentLocalityName.isSetType();
 	}
 
-	@Override
 	public void unsetContent() {
 		dependentLocalityName.setContent(null);
 	}
 
-	@Override
 	public void unsetType() {
 		dependentLocalityName.setType(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return dependentLocalityName.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		dependentLocalityName.setCode(null);
 	}

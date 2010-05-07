@@ -35,7 +35,6 @@ public class TriangleImpl extends AbstractSurfacePatchImpl implements Triangle {
 		return GMLClass.TRIANGLE;
 	}
 
-	@Override
 	public AbstractRingProperty getExterior() {
 		if (triangleType.isSetExterior()) {
 			JAXBElement<AbstractRingPropertyType> abstractRingPropertyElem = triangleType.getExterior();
@@ -51,7 +50,6 @@ public class TriangleImpl extends AbstractSurfacePatchImpl implements Triangle {
 		return null;
 	}
 
-	@Override
 	public SurfaceInterpolation getInterpolation() {
 		// planar is fixed for gml:Triangle
 		if (triangleType.isSetInterpolation())
@@ -60,7 +58,6 @@ public class TriangleImpl extends AbstractSurfacePatchImpl implements Triangle {
 		return null;
 	}
 
-	@Override
 	public void setExterior(AbstractRingProperty exterior) {
 		JAXBElement<AbstractRingPropertyType> jaxbElem = null;
 
@@ -77,13 +74,11 @@ public class TriangleImpl extends AbstractSurfacePatchImpl implements Triangle {
 			triangleType.setExterior(jaxbElem);
 	}
 
-	@Override
 	public void setInterpolation(SurfaceInterpolation interpolation) {
 		// planar is fixed for gml:Triangle
 		triangleType.setInterpolation(SurfaceInterpolationType.PLANAR);
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getExterior() != null) {
 			LinearRing exteriorLinearRing = (LinearRing)getExterior().getRing();
@@ -93,22 +88,18 @@ public class TriangleImpl extends AbstractSurfacePatchImpl implements Triangle {
 		}
 	}
 
-	@Override
 	public boolean isSetExterior() {
 		return triangleType.isSetExterior();
 	}
 
-	@Override
 	public boolean isSetInterpolation() {
 		return triangleType.isSetInterpolation();
 	}
 
-	@Override
 	public void unsetExterior() {
 		triangleType.setExterior(null);
 	}
 
-	@Override
 	public void unsetInterpolation() {
 		triangleType.setInterpolation(null);
 	}

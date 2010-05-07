@@ -36,12 +36,10 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return XALClass.POSTBOX;
 	}
 
-	@Override
 	public void addAddressLine(AddressLine addressLine) {
 		postBox.getAddressLine().add(((AddressLineImpl)addressLine).getJAXBObject());
 	}
 
-	@Override
 	public List<AddressLine> getAddressLine() {
 		List<AddressLine> addressLineList = new ArrayList<AddressLine>();
 
@@ -51,7 +49,6 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return addressLineList;
 	}
 
-	@Override
 	public Firm getFirm() {
 		if (postBox.isSetFirm())
 			return new FirmImpl(postBox.getFirm());
@@ -59,12 +56,10 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return null;
 	}
 
-	@Override
 	public String getIndicator() {
 		return postBox.getIndicator();
 	}
 
-	@Override
 	public PostBoxNumber getPostBoxNumber() {
 		if (postBox.isSetPostBoxNumber())
 			return new PostBoxNumberImpl(postBox.getPostBoxNumber());
@@ -72,7 +67,6 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return null;
 	}
 
-	@Override
 	public PostBoxNumberExtension getPostBoxNumberExtension() {
 		if (postBox.isSetPostBoxNumberExtension())
 			return new PostBoxNumberExtensionImpl(postBox.getPostBoxNumberExtension());
@@ -80,7 +74,6 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return null;
 	}
 
-	@Override
 	public PostBoxNumberPrefix getPostBoxNumberPrefix() {
 		if (postBox.isSetPostBoxNumberPrefix())
 			return new PostBoxNumberPrefixImpl(postBox.getPostBoxNumberPrefix());
@@ -88,7 +81,6 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return null;
 	}
 
-	@Override
 	public PostBoxNumberSuffix getPostBoxNumberSuffix() {
 		if (postBox.isSetPostBoxNumberSuffix())
 			return new PostBoxNumberSuffixImpl(postBox.getPostBoxNumberSuffix());
@@ -96,7 +88,6 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return null;
 	}
 
-	@Override
 	public PostalCode getPostalCode() {
 		if (postBox.isSetPostalCode())
 			return new PostalCodeImpl(postBox.getPostalCode());
@@ -104,12 +95,10 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		return null;
 	}
 
-	@Override
 	public String getType() {
 		return postBox.getType();
 	}
 
-	@Override
 	public void setAddressLine(List<AddressLine> addressLine) {
 		List<AddressLineElement> addressLineElemList = new ArrayList<AddressLineElement>();
 
@@ -120,137 +109,110 @@ public class PostBoxImpl extends XALBaseImpl implements PostBox {
 		postBox.getAddressLine().addAll(addressLineElemList);
 	}
 
-	@Override
 	public void setFirm(Firm firm) {
 		postBox.setFirm(((FirmImpl)firm).getJAXBObject());
 	}
 
-	@Override
 	public void setIndicator(String indicator) {
 		postBox.setIndicator(indicator);
 	}
 
-	@Override
 	public void setPostBoxNumber(PostBoxNumber postBoxNumber) {
 		postBox.setPostBoxNumber(((PostBoxNumberImpl)postBoxNumber).getJAXBObject());
 	}
 
-	@Override
 	public void setPostBoxNumberExtension(PostBoxNumberExtension postBoxNumberExtension) {
 		postBox.setPostBoxNumberExtension(((PostBoxNumberExtensionImpl)postBoxNumberExtension).getJAXBObject());
 	}
 
-	@Override
 	public void setPostBoxNumberPrefix(PostBoxNumberPrefix postBoxNumberPrefix) {
 		postBox.setPostBoxNumberPrefix(((PostBoxNumberPrefixImpl)postBoxNumberPrefix).getJAXBObject());
 	}
 
-	@Override
 	public void setPostBoxNumberSuffix(PostBoxNumberSuffix postBoxNumberSuffix) {
 		postBox.setPostBoxNumberSuffix(((PostBoxNumberSuffixImpl)postBoxNumberSuffix).getJAXBObject());
 	}
 
-	@Override
 	public void setPostalCode(PostalCode postalCode) {
 		postBox.setPostalCode(((PostalCodeImpl)postalCode).getJAXBObject());
 	}
 
-	@Override
 	public void setType(String type) {
 		postBox.setType(type);
 	}
 
-	@Override
 	public boolean isSetAddressLine() {
 		return postBox.isSetAddressLine();
 	}
 
-	@Override
 	public boolean isSetIndicator() {
 		return postBox.isSetIndicator();
 	}
 
-	@Override
 	public boolean isSetFirm() {
 		return postBox.isSetFirm();
 	}
 
-	@Override
 	public boolean isSetPostalCode() {
 		return postBox.isSetPostalCode();
 	}
 
-	@Override
 	public boolean isSetPostBoxNumber() {
 		return postBox.isSetPostBoxNumber();
 	}
 
-	@Override
 	public boolean isSetPostBoxNumberExtension() {
 		return postBox.isSetPostBoxNumberExtension();
 	}
 
-	@Override
 	public boolean isSetPostBoxNumberPrefix() {
 		return postBox.isSetPostBoxNumberPrefix();
 	}
 
-	@Override
 	public boolean isSetPostBoxNumberSuffix() {
 		return postBox.isSetPostBoxNumberSuffix();
 	}
 
-	@Override
 	public boolean isSetType() {
 		return postBox.isSetType();
 	}
 
-	@Override
 	public void unsetAddressLine() {
 		postBox.unsetAddressLine();
 	}
 
-	@Override
 	public void unsetIndicator() {
 		postBox.setIndicator(null);
 	}
 
-	@Override
 	public void unsetFirm() {
 		postBox.setFirm(null);
 	}
 
-	@Override
 	public void unsetPostalCode() {
 		postBox.setPostalCode(null);
 	}
 
-	@Override
 	public void unsetPostBoxNumber() {
 		postBox.setPostBoxNumber(null);
 	}
 
-	@Override
 	public void unsetPostBoxNumberExtension() {
 		postBox.setPostBoxNumberExtension(null);
 	}
 
-	@Override
 	public void unsetPostBoxNumberPrefix() {
 		postBox.setPostBoxNumberPrefix(null);
 	}
 
-	@Override
 	public void unsetPostBoxNumberSuffix() {
 		postBox.setPostBoxNumberSuffix(null);
 	}
 
-	@Override
 	public void unsetType() {
 		postBox.setType(null);
 	}
 
-	@Override
 	public boolean unsetAddressLine(AddressLine addressLine) {
 		if (postBox.isSetAddressLine())
 			return postBox.getAddressLine().remove(((AddressLineImpl)addressLine).getJAXBObject());

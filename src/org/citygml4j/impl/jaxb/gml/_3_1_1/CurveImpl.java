@@ -29,7 +29,6 @@ public class CurveImpl extends AbstractCurveImpl implements Curve {
 		return curveType;
 	}
 
-	@Override
 	public CurveSegmentArrayProperty getSegments() {
 		if (curveType.isSetSegments())
 			return new CurveSegmentArrayPropertyImpl(curveType.getSegments());
@@ -37,12 +36,10 @@ public class CurveImpl extends AbstractCurveImpl implements Curve {
 		return null;
 	}
 
-	@Override
 	public void setSegments(CurveSegmentArrayProperty segments) {
 		curveType.setSegments(((CurveSegmentArrayPropertyImpl)segments).getJAXBObject());
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getSegments() != null) {
 			CurveSegmentArrayProperty arrayProperty = getSegments();
@@ -53,12 +50,10 @@ public class CurveImpl extends AbstractCurveImpl implements Curve {
 		}
 	}
 
-	@Override
 	public boolean isSetSegments() {
 		return curveType.isSetSegments();
 	}
 
-	@Override
 	public void unsetSegments() {
 		curveType.setSegments(null);
 	}

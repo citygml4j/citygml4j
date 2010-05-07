@@ -25,42 +25,34 @@ public class SubPremiseLocationImpl extends XALBaseImpl implements SubPremiseLoc
 		return XALClass.SUBPREMISELOCATION;
 	}
 
-	@Override
 	public String getContent() {
 		return subPremiseLocation.getContent();
 	}
 
-	@Override
 	public void setContent(String content) {
 		subPremiseLocation.setContent(content);
 	}
 
-	@Override
 	public String getCode() {
 		return subPremiseLocation.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		subPremiseLocation.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return subPremiseLocation.isSetContent();
 	}
 
-	@Override
 	public void unsetContent() {
 		subPremiseLocation.setContent(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return subPremiseLocation.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		subPremiseLocation.setCode(null);
 	}

@@ -36,7 +36,6 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 		return GMLClass.POLYGON;
 	}
 
-	@Override
 	public AbstractRingProperty getExterior() {
 		if (polygonType.isSetExterior()) {
 			JAXBElement<AbstractRingPropertyType> abstractRingPropertyElem = polygonType.getExterior();
@@ -52,19 +51,22 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 		return null;
 	}
 
-	@Override
 	public List<AbstractRingProperty> getInterior() {
 		List<AbstractRingProperty> abstractRingPropertyList = new ArrayList<AbstractRingProperty>();
 
 		for (JAXBElement<AbstractRingPropertyType> abstractRingPropertyTypeElem : polygonType.getInterior()) {
-			if (abstractRingPropertyTypeElem.getValue() != null)
-				abstractRingPropertyList.add(new InteriorImpl(abstractRingPropertyTypeElem.getValue()));
+			if (abstractRingPropertyTypeElem.getValue() != null) {
+				if (abstractRingPropertyTypeElem.getName().getNamespaceURI().equals("http://www.opengis.net/gml") &&
+						abstractRingPropertyTypeElem.getName().getLocalPart().equals("innerBoundaryIs"))
+					abstractRingPropertyList.add(new InnerBoundaryIsImpl(abstractRingPropertyTypeElem.getValue()));
+				else
+					abstractRingPropertyList.add(new InteriorImpl(abstractRingPropertyTypeElem.getValue()));
+			}
 		}
 
 		return abstractRingPropertyList;
 	}
 
-	@Override
 	public void calcBoundingBox(Point min, Point max) {
 		if (getExterior() != null) {
 			LinearRing exteriorLinearRing = (LinearRing)getExterior().getRing();
@@ -74,7 +76,6 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 		}
 	}
 
-	@Override
 	public void addInterior(AbstractRingProperty abstractRingProperty) {
 		JAXBElement<AbstractRingPropertyType> jaxbElem = null;
 
@@ -82,13 +83,15 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 		case INTERIOR:
 			jaxbElem = ObjectFactory.GML.createInterior(((InteriorImpl)abstractRingProperty).getJAXBObject());
 			break;
+		case INNERBOUNDARYIS:
+			jaxbElem = ObjectFactory.GML.createInnerBoundaryIs(((InnerBoundaryIsImpl)abstractRingProperty).getJAXBObject());
+			break;
 		}
 
 		if (jaxbElem != null)
 			polygonType.getInterior().add(jaxbElem);
 	}
 
-	@Override
 	public void setExterior(AbstractRingProperty abstractRingProperty) {
 		JAXBElement<AbstractRingPropertyType> jaxbElem = null;
 
@@ -105,16 +108,18 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 			polygonType.setExterior(jaxbElem);
 	}
 
-	@Override
 	public void setInterior(List<AbstractRingProperty> abstractRingProperty) {
 		List<JAXBElement<AbstractRingPropertyType>> interiorJaxbElems = new ArrayList<JAXBElement<AbstractRingPropertyType>>();
 
-		for (AbstractRingProperty abstractRingPop : abstractRingProperty) {
+		for (AbstractRingProperty abstractRingProp : abstractRingProperty) {
 			JAXBElement<AbstractRingPropertyType> jaxbElem = null;
 
-			switch (abstractRingPop.getGMLClass()) {
+			switch (abstractRingProp.getGMLClass()) {
 			case INTERIOR:
-				jaxbElem = ObjectFactory.GML.createInterior(((InteriorImpl)abstractRingPop).getJAXBObject());
+				jaxbElem = ObjectFactory.GML.createInterior(((InteriorImpl)abstractRingProp).getJAXBObject());
+				break;
+			case INNERBOUNDARYIS:
+				jaxbElem = ObjectFactory.GML.createInnerBoundaryIs(((InnerBoundaryIsImpl)abstractRingProp).getJAXBObject());
 				break;
 			}
 
@@ -126,27 +131,22 @@ public class PolygonImpl extends AbstractSurfaceImpl implements Polygon {
 		polygonType.getInterior().addAll(interiorJaxbElems);
 	}
 
-	@Override
 	public boolean isSetExterior() {
 		return polygonType.isSetExterior();
 	}
 
-	@Override
 	public boolean isSetInterior() {
 		return polygonType.isSetInterior();
 	}
 
-	@Override
 	public void unsetExterior() {
 		polygonType.setExterior(null);
 	}
 
-	@Override
 	public void unsetInterior() {
 		polygonType.unsetInterior();
 	}
 
-	@Override
 	public boolean unsetInterior(AbstractRingProperty abstractRingProperty) {
 		if (polygonType.isSetInterior())
 			return polygonType.getInterior().remove(((AbstractRingPropertyImpl)abstractRingProperty).getJAXBObject());

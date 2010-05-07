@@ -25,37 +25,30 @@ public class MeasureImpl extends GMLBaseImpl implements Measure {
 		return GMLClass.MEASURE;
 	}
 
-	@Override
 	public String getUom() {
 		return measure.getUom();
 	}
 
-	@Override
 	public Double getValue() {
 		return new Double(measure.getValue());
 	}
 
-	@Override
 	public void setUom(String uom) {
 		measure.setUom(uom);
 	}
 
-	@Override
 	public void setValue(Double value) {
 		measure.setValue(value);
 	}
 
-	@Override
 	public boolean isSetUom() {
 		return measure.isSetUom();
 	}
 
-	@Override
 	public boolean isSetValue() {
 		return measure.isSetValue();
 	}
 
-	@Override
 	public void unsetUom() {
 		measure.setUom(null);
 	}

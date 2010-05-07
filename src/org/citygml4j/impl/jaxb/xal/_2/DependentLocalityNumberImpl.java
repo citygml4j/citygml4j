@@ -25,63 +25,51 @@ public class DependentLocalityNumberImpl extends XALBaseImpl implements Dependen
 		return XALClass.DEPENDENTLOCALITYNUMBER;
 	}
 
-	@Override
 	public String getContent() {
 		return dependentLocalityNumber.getContent();
 	}
 
-	@Override
 	public String getNameNumberOccurrence() {
 		return dependentLocalityNumber.getNameNumberOccurrence();
 	}
 
-	@Override
 	public void setContent(String content) {
 		dependentLocalityNumber.setContent(content);
 	}
 
-	@Override
 	public void setNameNumberOccurrence(String nameNumberOccurrence) {
 		if (nameNumberOccurrence.equals("Before") || nameNumberOccurrence.equals("After"))
 			dependentLocalityNumber.setNameNumberOccurrence(nameNumberOccurrence);
 	}
 
-	@Override
 	public String getCode() {
 		return dependentLocalityNumber.getCode();
 	}
 
-	@Override
 	public void setCode(String code) {
 		dependentLocalityNumber.setCode(code);
 	}
 
-	@Override
 	public boolean isSetContent() {
 		return dependentLocalityNumber.isSetContent();
 	}
 
-	@Override
 	public boolean isSetNameNumberOccurrence() {
 		return dependentLocalityNumber.isSetNameNumberOccurrence();
 	}
 
-	@Override
 	public void unsetContent() {
 		dependentLocalityNumber.setContent(null);
 	}
 
-	@Override
 	public void unsetNameNumberOccurrence() {
 		dependentLocalityNumber.setNameNumberOccurrence(null);
 	}
 
-	@Override
 	public boolean isSetCode() {
 		return dependentLocalityNumber.isSetCode();
 	}
 
-	@Override
 	public void unsetCode() {
 		dependentLocalityNumber.setCode(null);
 	}
