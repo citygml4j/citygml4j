@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jaxb:bindings jaxb:version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!-- Specific settings for the citygml4j mapping file -->
     <jaxb:bindings schemaLocation="citygml4j_profile.xsd" node="/xs:schema">
