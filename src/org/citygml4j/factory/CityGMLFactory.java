@@ -104,7 +104,9 @@ import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
 import org.citygml4j.model.citygml.appearance.TextureParameterization;
+import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
+import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.citygml.building.BoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
@@ -317,9 +319,17 @@ public class CityGMLFactory {
 	public TextureCoordinates createTextureCoordinates() {
 		return new TextureCoordinatesImpl();
 	}
+	
+	public TextureType createTextureType(String textureType) {
+		return TextureType.fromValue(textureType);
+	}
 
 	public WorldToTexture createWorldToTexture() {
 		return new WorldToTextureImpl();
+	}
+	
+	public WrapMode createWrapMode(String wrapMode) {
+		return WrapMode.fromValue(wrapMode);
 	}
 
 	public X3DMaterial createX3DMaterial() {
