@@ -21,7 +21,7 @@ public class SAXEventBuffer implements ContentHandler {
 	final NamespaceSupport namespaces;
 	final boolean trackLocation;
 
-	private final LocatorImpl locator;
+	private LocatorImpl locator;
 	private SAXEvent head;
 	private SAXEvent tail;
 
@@ -115,6 +115,10 @@ public class SAXEventBuffer implements ContentHandler {
 	public void clear() {
 		head = tail = null;
 		namespaces.reset();
+		locator = trackLocation ? new LocatorImpl() : null;
+		lastElementEvent = EventType.END_ELEMENT;
+		parentStartElements = new Stack<StartElement>();
+		lastStartElement = null;		
 	}
 
 	public void addEvent(SAXEvent event) {
