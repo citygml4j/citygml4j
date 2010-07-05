@@ -10,7 +10,7 @@ import java.util.Map;
 public class DeepCopyBuilder extends CopyBuilder {
 	private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object copy(final Object target) {
 		if (isNullCopy(target))
@@ -38,7 +38,7 @@ public class DeepCopyBuilder extends CopyBuilder {
 		return copy;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Object copy(Collection collection) {
 		final Collection copy = new ArrayList(collection.size());
 		
@@ -50,7 +50,7 @@ public class DeepCopyBuilder extends CopyBuilder {
 		return copy;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Object copy(Map map) {
 		final Map copy = new HashMap(map.size());
 		

@@ -4,21 +4,20 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class EndElement implements SAXEvent, Locatable {
+public final class EndElement extends SAXEvent {
 	private final String uri;
 	private final String localName;
-	private final String qName;
 	private Location location;
 
-	public EndElement(String uri, String localName, String qName, Location location) {
+	public EndElement(String uri, String localName, Location location) {
+		super(EventType.END_ELEMENT);
 		this.uri = uri;
 		this.localName = localName;
-		this.qName = qName;
 		this.location = location;
 	}
 
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.endElement(uri, localName, qName);
+		contentHandler.endElement(uri, localName, null);
 	}
 	
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
@@ -38,10 +37,6 @@ public final class EndElement implements SAXEvent, Locatable {
 
 	public String getLocalName() {
 		return localName;
-	}
-
-	public String getQName() {
-		return qName;
 	}
 	
 	public Location getLocation() {

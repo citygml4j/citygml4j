@@ -4,16 +4,13 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class Characters implements SAXEvent, Locatable {
+public final class Characters extends SAXEvent implements Locatable {
 	private final char[] ch;
 	private Location location;
 	
 	public Characters(char[] ch, int start, int length, Location location) {
-		// make a copy of the char array ch.
-		// we do not want to have a reference to potentially large arrays
-
-		this.ch = new char[length];
-		System.arraycopy(ch, start, this.ch, 0, length);
+		super(EventType.CHARACTERS);
+		this.ch = ch;
 		this.location = location;
 	}
 

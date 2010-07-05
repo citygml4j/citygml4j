@@ -48,30 +48,25 @@ public class StAXStream2SAX {
 
 		do {
 			len = reader.getTextCharacters(start, buf, 0, buf.length);
-			start += len;
-			try {
-				buffer.characters(buf, 0, len);
-			} catch (SAXException e) {
-				throw new XMLStreamException(e);
-			}
+			start += len;			
 		} while (len == buf.length);
+		
+		try {
+			buffer.characters(buf, 0, len);
+		} catch (SAXException e) {
+			throw new XMLStreamException(e);
+		}
 	}
 
 	private void handleEndElement(XMLStreamReader reader) throws XMLStreamException {
 		try {
 			QName name = reader.getName();
 			String prefix = name.getPrefix();
-			String rawname;
-
-			if (prefix == null || prefix.length() == 0)
-				rawname = name.getLocalPart();
-			else
-				rawname = prefix + ':' + name.getLocalPart();
 
 			buffer.endElement(
 					name.getNamespaceURI(),
 					name.getLocalPart(),
-					rawname);
+					null);
 
 			for (int i = reader.getNamespaceCount() - 1; i >= 0; i--) {
 				prefix = reader.getNamespacePrefix(i);
@@ -102,19 +97,12 @@ public class StAXStream2SAX {
 			}
 
 			QName name = reader.getName();
-			String prefix = name.getPrefix();
-			String rawname;
-
-			if (prefix == null || prefix.length() == 0)
-				rawname = name.getLocalPart();
-			else
-				rawname = prefix + ':' + name.getLocalPart();
-
 			Attributes attrs = getAttributes(reader);
+			
 			buffer.startElement(
 					name.getNamespaceURI(),
 					name.getLocalPart(),
-					rawname,
+					null,
 					attrs);
 
 		} catch (SAXException e) {
@@ -149,18 +137,10 @@ public class StAXStream2SAX {
 				uri="";
 
 			String localName = reader.getAttributeLocalName(i);
-			String prefix = reader.getAttributePrefix(i);
-			String name;
-
-			if (prefix == null || prefix.length() == 0)
-				name = localName;
-			else
-				name = prefix + ':' + localName;
-
 			String type = reader.getAttributeType(i);
 			String value = reader.getAttributeValue(i);
 
-			attrs.addAttribute(uri, localName, name, type, value);
+			attrs.addAttribute(uri, localName, null, type, value);
 		}
 
 		return attrs;

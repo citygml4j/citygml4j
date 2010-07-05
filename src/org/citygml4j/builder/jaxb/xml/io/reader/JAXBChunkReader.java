@@ -176,15 +176,14 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		setXLink = false;
 
 		if (!chunks.isEmpty()) {
-			XMLChunk previous = chunks.peek();
-			StartElement propertyElement = previous.getLastStartElement();
+			StartElement propertyElement = chunks.peek().getLastStartElement();
 			if (propertyElement == null)
 				return;			
 
 			StartElement feature = chunk.getFirstStartElement();
 			String gmlId = null;	
 
-			Attributes featureAtts = feature.getAtts();
+			Attributes featureAtts = feature.getAttributes();
 			for (int i = 0; i < featureAtts.getLength(); i++) {
 				if (featureAtts.getLocalName(i).equals("id")) {
 					gmlId = featureAtts.getValue(i);
@@ -196,16 +195,10 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 				gmlId = factory.getGMLIdManager().generateGmlId();
 				AttributesImpl atts = new AttributesImpl(featureAtts);
 				atts.addAttribute(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", "id", "CDATA", gmlId);
-
-				chunk.replaceFirstStartElement(new StartElement(
-						feature.getURI(), 
-						feature.getLocalName(), 
-						feature.getQName(), 
-						atts, 
-						null));
+				feature.setAttributes(atts);
 			}
 
-			Attributes featurePropertyAtts = propertyElement.getAtts();
+			Attributes featurePropertyAtts = propertyElement.getAttributes();
 			AttributesImpl atts = new AttributesImpl();
 			for (int i = 0; i < featurePropertyAtts.getLength(); i++) {
 				if (featurePropertyAtts.getURI(i).equals("http://www.w3.org/1999/xlink"))
@@ -219,12 +212,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 			}
 
 			atts.addAttribute("http://www.w3.org/1999/xlink", "href", "href", "CDATA", '#' + gmlId);
-			previous.replaceLastStartElement(new StartElement(
-					propertyElement.getURI(), 
-					propertyElement.getLocalName(), 
-					propertyElement.getQName(), 
-					atts, 
-					null));
+			propertyElement.setAttributes(atts);
 		}		
 	}
 

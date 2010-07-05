@@ -4,11 +4,12 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class StartDocument implements SAXEvent {
+public final class StartDocument extends SAXEvent {
 	public static final StartDocument SINGLETON = new StartDocument();
 
 	private StartDocument() {
 		// just to thwart instantiation
+		super(EventType.START_DOCUMENT);
 	}
 
 	public void send(ContentHandler contentHandler) throws SAXException {

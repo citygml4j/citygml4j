@@ -50,7 +50,9 @@ public class ChildInfo {
 		while ((parent = getParentFeature(child)) != null) {
 			if (parent instanceof CityObject)
 				return (CityObject)parent;
-			else if (parent == null)
+			else if (parent instanceof Child)
+				child = (Child)parent;
+			else 
 				break;
 
 			child = (Child)parent;

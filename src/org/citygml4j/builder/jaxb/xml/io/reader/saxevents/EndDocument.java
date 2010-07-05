@@ -4,11 +4,12 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class EndDocument implements SAXEvent {
+public final class EndDocument extends SAXEvent {
 	public static final EndDocument SINGLETON = new EndDocument();
 
 	private EndDocument() {
 		// just to thwart instantiation
+		super(EventType.END_DOCUMENT);
 	}
 
 	public void send(ContentHandler contentHandler) throws SAXException {
@@ -18,5 +19,5 @@ public final class EndDocument implements SAXEvent {
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		send(contentHandler);
 	}
-
+	
 }

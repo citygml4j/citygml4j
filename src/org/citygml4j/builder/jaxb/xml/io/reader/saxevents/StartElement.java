@@ -3,26 +3,24 @@ package org.citygml4j.builder.jaxb.xml.io.reader.saxevents;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class StartElement implements SAXEvent, Locatable {
+public final class StartElement extends SAXEvent implements Locatable {
 	private final String uri;
 	private final String localName;
-	private final String qName;
-	private final Attributes atts;
+	private Attributes attributes;
 	private Location location;
 
-	public StartElement(String uri, String localName, String qName, Attributes atts, Location location) {
+	public StartElement(String uri, String localName, Attributes attributes, Location location) {
+		super(EventType.START_ELEMENT);
 		this.uri = uri;
 		this.localName = localName;
-		this.qName = qName;
-		this.atts = new AttributesImpl(atts);
+		this.attributes = attributes;
 		this.location = location;
 	}
 
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.startElement(uri, localName, qName, atts);
+		contentHandler.startElement(uri, localName, null, attributes);
 	}
 	
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
@@ -44,14 +42,14 @@ public final class StartElement implements SAXEvent, Locatable {
 		return localName;
 	}
 
-	public String getQName() {
-		return qName;
-	}
-
-	public Attributes getAtts() {
-		return atts;
+	public Attributes getAttributes() {
+		return attributes;
 	}
 	
+	public void setAttributes(Attributes attributes) {
+		this.attributes = attributes;
+	}
+
 	public Location getLocation() {
 		return location;
 	}

@@ -4,10 +4,11 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class EndPrefixMapping implements SAXEvent {
+public final class EndPrefixMapping extends SAXEvent {
 	private final String prefix;
-
+	
 	public EndPrefixMapping(String prefix) {
+		super(EventType.END_PREFIX_MAPPING);
 		this.prefix = prefix;
 	}
 

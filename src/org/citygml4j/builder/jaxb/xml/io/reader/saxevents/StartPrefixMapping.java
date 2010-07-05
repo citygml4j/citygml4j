@@ -4,11 +4,12 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class StartPrefixMapping implements SAXEvent {
+public final class StartPrefixMapping extends SAXEvent {
 	private final String prefix;
 	private final String uri;
 
 	public StartPrefixMapping(String prefix, String uri) {
+		super(EventType.START_PREFIX_MAPPING);
 		this.prefix = prefix;
 		this.uri = uri;
 	}
