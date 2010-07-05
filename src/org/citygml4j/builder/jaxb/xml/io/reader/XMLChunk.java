@@ -200,7 +200,7 @@ public class XMLChunk {
 		do {
 			event.send(handler, locator);
 			if (freeBuffer)
-				buffer.setFirstEvent(event);
+				buffer.removeFirstEvent();
 		} while ((event = event.next()) != null);
 
 		// emulate end of a document

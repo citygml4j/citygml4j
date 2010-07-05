@@ -69,14 +69,13 @@ public class SAXEventBuffer implements ContentHandler {
 	}
 
 	public void startDocument() throws SAXException {
-		addEvent(StartDocument.SINGLETON);
+		addEvent(new StartDocument());
 	}
 
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 		StartElement element = new StartElement(uri, localName, atts, getLocation());		
 		if (lastElementEvent == EventType.START_ELEMENT) {
 			parentStartElements.push(lastStartElement);
-			lastStartElement.setNext(element);
 			tail = lastStartElement;
 		}
 
@@ -92,7 +91,7 @@ public class SAXEventBuffer implements ContentHandler {
 	}
 
 	public void endDocument() throws SAXException {
-		addEvent(EndDocument.SINGLETON);
+		addEvent(new EndDocument());
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -158,8 +157,8 @@ public class SAXEventBuffer implements ContentHandler {
 		return null;
 	}
 
-	public void setFirstEvent(SAXEvent event) {
-		head = event;
+	public void removeFirstEvent() {
+		head = head.next();
 	}
 
 	public SAXEvent getLastEvent() {

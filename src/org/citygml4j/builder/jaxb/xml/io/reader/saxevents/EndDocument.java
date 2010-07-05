@@ -5,10 +5,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
 public final class EndDocument extends SAXEvent {
-	public static final EndDocument SINGLETON = new EndDocument();
 
-	private EndDocument() {
-		// just to thwart instantiation
+	public EndDocument() {
 		super(EventType.END_DOCUMENT);
 	}
 
