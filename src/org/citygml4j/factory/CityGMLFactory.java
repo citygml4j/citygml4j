@@ -62,6 +62,7 @@ import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
 import org.citygml4j.impl.citygml.generics.UriAttributeImpl;
 import org.citygml4j.impl.citygml.landuse.LandUseImpl;
 import org.citygml4j.impl.citygml.relief.BreaklineReliefImpl;
+import org.citygml4j.impl.citygml.relief.GridPropertyImpl;
 import org.citygml4j.impl.citygml.relief.MassPointReliefImpl;
 import org.citygml4j.impl.citygml.relief.RasterReliefImpl;
 import org.citygml4j.impl.citygml.relief.ReliefComponentPropertyImpl;
@@ -158,6 +159,7 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
+import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
 import org.citygml4j.model.citygml.relief.ReliefComponent;
@@ -188,6 +190,7 @@ import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.gml.RectifiedGridCoverage;
 import org.citygml4j.model.gml.TriangulatedSurface;
 import org.citygml4j.model.xal.AddressDetails;
 import org.w3c.dom.Element;
@@ -718,6 +721,16 @@ public class CityGMLFactory {
 	
 	public BreaklineRelief createBreaklineRelief() {
 		return new BreaklineReliefImpl();
+	}
+	
+	public GridProperty createGridProperty() {
+		return new GridPropertyImpl();
+	}
+	
+	public GridProperty createGridProperty(RectifiedGridCoverage rectifiedGridCoverage) {
+		GridProperty gridProperty = new GridPropertyImpl();
+		gridProperty.setRectifiedGridCoverage(rectifiedGridCoverage);
+		return gridProperty;
 	}
 
 	public MassPointRelief createMassPointRelief() {

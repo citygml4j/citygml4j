@@ -27,6 +27,7 @@ import org.citygml4j.model.gml.GeometricComplex;
 import org.citygml4j.model.gml.GeometricComplexProperty;
 import org.citygml4j.model.gml.GeometricPrimitiveProperty;
 import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.gml.Grid;
 import org.citygml4j.model.gml.LineString;
 import org.citygml4j.model.gml.LineStringProperty;
 import org.citygml4j.model.gml.LinearRing;
@@ -53,6 +54,7 @@ import org.citygml4j.model.gml.Polygon;
 import org.citygml4j.model.gml.PolygonProperty;
 import org.citygml4j.model.gml.PriorityLocationProperty;
 import org.citygml4j.model.gml.Rectangle;
+import org.citygml4j.model.gml.RectifiedGrid;
 import org.citygml4j.model.gml.Ring;
 import org.citygml4j.model.gml.Solid;
 import org.citygml4j.model.gml.SolidArrayProperty;
@@ -323,6 +325,10 @@ public abstract class GeometryWalker implements GeometryVisitor, Walker {
 		
 		accept((AbstractGeometry)geometricComplex);
 	}
+	
+	public void accept(Grid grid) {
+		accept((AbstractGeometry)grid);
+	}
 
 	public void accept(LinearRing linearRing) {
 		accept((AbstractRing)linearRing);
@@ -424,6 +430,13 @@ public abstract class GeometryWalker implements GeometryVisitor, Walker {
 				accept(interior);
 		
 		accept((AbstractSurface)polygon);
+	}
+	
+	public void accept(RectifiedGrid rectifiedGrid) {
+		if (rectifiedGrid.isSetOrigin())
+			accept(rectifiedGrid.getOrigin());
+		
+		accept((Grid)rectifiedGrid);
 	}
 
 	public void accept(Ring ring) {

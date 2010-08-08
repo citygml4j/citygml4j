@@ -88,7 +88,9 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.gml.AbstractCoverage;
 import org.citygml4j.model.gml.AbstractCurve;
+import org.citygml4j.model.gml.AbstractDiscreteCoverage;
 import org.citygml4j.model.gml.AbstractFeature;
 import org.citygml4j.model.gml.AbstractFeatureCollection;
 import org.citygml4j.model.gml.AbstractGML;
@@ -107,15 +109,18 @@ import org.citygml4j.model.gml.CompositeSolid;
 import org.citygml4j.model.gml.CompositeSolidProperty;
 import org.citygml4j.model.gml.CompositeSurface;
 import org.citygml4j.model.gml.CompositeSurfaceProperty;
+import org.citygml4j.model.gml.CompositeValue;
 import org.citygml4j.model.gml.Curve;
 import org.citygml4j.model.gml.CurveArrayProperty;
 import org.citygml4j.model.gml.CurveProperty;
 import org.citygml4j.model.gml.FeatureArrayProperty;
 import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.GenericValueObject;
 import org.citygml4j.model.gml.GeometricComplex;
 import org.citygml4j.model.gml.GeometricComplexProperty;
 import org.citygml4j.model.gml.GeometricPrimitiveProperty;
 import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.gml.Grid;
 import org.citygml4j.model.gml.LineString;
 import org.citygml4j.model.gml.LineStringProperty;
 import org.citygml4j.model.gml.LinearRing;
@@ -141,7 +146,11 @@ import org.citygml4j.model.gml.PointProperty;
 import org.citygml4j.model.gml.Polygon;
 import org.citygml4j.model.gml.PolygonProperty;
 import org.citygml4j.model.gml.PriorityLocationProperty;
+import org.citygml4j.model.gml.RangeSet;
 import org.citygml4j.model.gml.Rectangle;
+import org.citygml4j.model.gml.RectifiedGrid;
+import org.citygml4j.model.gml.RectifiedGridCoverage;
+import org.citygml4j.model.gml.RectifiedGridDomain;
 import org.citygml4j.model.gml.Ring;
 import org.citygml4j.model.gml.Solid;
 import org.citygml4j.model.gml.SolidArrayProperty;
@@ -154,6 +163,11 @@ import org.citygml4j.model.gml.Tin;
 import org.citygml4j.model.gml.Triangle;
 import org.citygml4j.model.gml.TrianglePatchArrayProperty;
 import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.Value;
+import org.citygml4j.model.gml.ValueArray;
+import org.citygml4j.model.gml.ValueArrayProperty;
+import org.citygml4j.model.gml.ValueObject;
+import org.citygml4j.model.gml.ValueProperty;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
@@ -161,6 +175,7 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public abstract class GMLWalker implements GMLVisitor, Walker {
 	private Set<Object> visited = new HashSet<Object>();
@@ -168,6 +183,11 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	private SchemaHandler schemaHandler;
 
 	public GMLWalker() {
+		try {
+			schemaHandler = SchemaHandler.newInstance();
+		} catch (SAXException e) {
+			//
+		}
 	}
 
 	public GMLWalker(SchemaHandler schemaHandler) {
@@ -206,6 +226,22 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void accept(AbstractGML abstractGML) {
 	}
 
+	public void accept(AbstractCoverage abstractCoverage) {
+		if (abstractCoverage.isSetRangeSet()) {
+			RangeSet rangeSet = abstractCoverage.getRangeSet();
+			if (rangeSet.isSetValueArray()) {
+				for (ValueArray valueArray : rangeSet.getValueArray())
+					accept(valueArray);
+			}
+		}
+
+		accept((AbstractFeature)abstractCoverage);
+	}
+	
+	public void accept(AbstractDiscreteCoverage abstractDiscreteCoverage) {
+		accept((AbstractCoverage)abstractDiscreteCoverage);
+	}
+	
 	public void accept(AbstractFeature abstractFeature) {
 		if (abstractFeature.isSetLocation())
 			accept(abstractFeature.getLocation());
@@ -460,7 +496,40 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 	public void accept(_Appearance appearance) {
 		accept((AbstractGML)appearance);
-	}	
+	}
+	
+	public void accept(CompositeValue compositeValue) {
+		if (compositeValue.isSetValueComponent()) {
+			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
+				if (valueProperty.isSetValue())
+					accept(valueProperty.getValue());
+			}
+		}
+
+		if (compositeValue.isSetValueComponents()) {
+			ValueArrayProperty valueArrayProperty = compositeValue.getValueComponents();
+			if (valueArrayProperty.isSetValue()) {
+				for (Value value : valueArrayProperty.getValue())
+					accept(value);
+			}
+		}
+		
+		accept((AbstractGML)compositeValue);
+	}
+
+	public void accept(ValueArray valueArray) {
+		accept((CompositeValue)valueArray);
+	}
+	
+	public void accept(RectifiedGridCoverage rectifiedGridCoverage) {
+		if (rectifiedGridCoverage.isSetRectifiedGridDomain()) {
+			RectifiedGridDomain rectifiedGridDomain = rectifiedGridCoverage.getRectifiedGridDomain();
+			if (rectifiedGridDomain.isSetGeometry() && shouldWalk && visited.add(rectifiedGridDomain.getGeometry()))
+				rectifiedGridDomain.getGeometry().visit(this);
+		}
+		
+		accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
+	}
 
 	public void accept(TextureParameterization textureParameterization) {
 		if (textureParameterization.isSetGenericApplicationPropertyOfTextureParameterization())
@@ -901,6 +970,9 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	}
 
 	public void accept(RasterRelief rasterRelief) {
+		if (rasterRelief.isSetGrid())
+			accept(rasterRelief.getGrid());
+		
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				accept(ade);
@@ -1311,7 +1383,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		if (abstractRingProperty.isSetRing() && shouldWalk && visited.add(abstractRingProperty.getRing()))
 			abstractRingProperty.getRing().visit(this);
 	}
-
+	
 	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
 		if (surfacePatchArrayProperty.isSetSurfacePatch())
 			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
@@ -1378,6 +1450,10 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 				accept(geometricPrimitiveProperty);
 
 		accept((AbstractGeometry)geometricComplex);
+	}
+	
+	public void accept(Grid grid) {
+		accept((AbstractGeometry)grid);
 	}
 
 	public void accept(LinearRing linearRing) {
@@ -1487,6 +1563,13 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 		accept((AbstractSurface)polygon);
 	}
+	
+	public void accept(RectifiedGrid rectifiedGrid) {
+		if (rectifiedGrid.isSetOrigin())
+			accept(rectifiedGrid.getOrigin());
+		
+		accept((Grid)rectifiedGrid);
+	}
 
 	public void accept(Ring ring) {
 		if (ring.isSetCurveMember())
@@ -1556,6 +1639,22 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		for (Element child : children)
 			if (shouldWalk && visited.add(child))
 				adeComponent((Element)child, decl);
+	}
+	
+	protected void accept(Value value) {
+		if (value.isSetGMLObject()) {
+			AbstractGML abstractGML = value.getGMLObject();
+			if (abstractGML instanceof AbstractFeature && shouldWalk && visited.add(abstractGML))
+				((AbstractFeature)abstractGML).visit(this);		
+		} else if (value.isSetValueObject()) {
+			ValueObject valueObject = value.getValueObject();
+			if (valueObject.isSetCompositeValue())
+				accept((CompositeValue)valueObject.getCompositeValue());
+		} else if (value.isSetGenericValueObject()) {
+			GenericValueObject genericValueObject = value.getGenericValueObject();
+			if (genericValueObject.isSetContent() && shouldWalk && visited.add(genericValueObject.getContent()))
+				adeComponent(genericValueObject.getContent(), null);
+		}
 	}
 
 }

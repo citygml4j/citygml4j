@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBElement;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.jaxb.citygml._0_4.BreaklineReliefType;
+import org.citygml4j.jaxb.citygml._0_4.GridPropertyType;
 import org.citygml4j.jaxb.citygml._0_4.MassPointReliefType;
 import org.citygml4j.jaxb.citygml._0_4.ObjectFactory;
 import org.citygml4j.jaxb.citygml._0_4.RasterReliefType;
@@ -13,9 +14,11 @@ import org.citygml4j.jaxb.citygml._0_4.ReliefFeatureType;
 import org.citygml4j.jaxb.citygml._0_4.TINReliefType;
 import org.citygml4j.jaxb.citygml._0_4.TinPropertyType;
 import org.citygml4j.jaxb.citygml._0_4._ReliefComponentType;
+import org.citygml4j.jaxb.gml._3_1_1.RectifiedGridCoverageType;
 import org.citygml4j.jaxb.gml._3_1_1.TriangulatedSurfaceType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
+import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
 import org.citygml4j.model.citygml.relief.ReliefComponent;
@@ -60,6 +63,8 @@ public class Relief040Marshaller {
 
 		if (src instanceof BreaklineRelief)
 			dest = marshalBreaklineRelief((BreaklineRelief)src);
+		else if (src instanceof GridProperty)
+			dest = marshalGridProperty((GridProperty)src);
 		else if (src instanceof MassPointRelief)
 			dest = marshalMassPointRelief((MassPointRelief)src);
 		else if (src instanceof RasterRelief)
@@ -107,7 +112,20 @@ public class Relief040Marshaller {
 					dest.get_GenericApplicationPropertyOfBreaklineRelief().add(citygml.ade2jaxbElement(adeComponent));
 		}
 	}
+	
+	public GridPropertyType marshalGridProperty(GridProperty src) {
+		GridPropertyType dest = dem.createGridPropertyType();
+		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
 
+		if (src.isSetRectifiedGridCoverage()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRectifiedGridCoverage());
+			if (elem != null && elem.getValue() instanceof RectifiedGridCoverageType)
+				dest.set_Object((JAXBElement<?>)elem);
+		}
+
+		return dest;
+	}
+	
 	public BreaklineReliefType marshalBreaklineRelief(BreaklineRelief src) {
 		BreaklineReliefType dest = dem.createBreaklineReliefType();
 		marshalBreaklineRelief(src, dest);
@@ -138,6 +156,9 @@ public class Relief040Marshaller {
 	public void marshalRasterRelief(RasterRelief src, RasterReliefType dest) {
 		marshalReliefComponent(src, dest);
 
+		if (src.isSetGrid())
+			dest.setGrid(marshalGridProperty(src.getGrid()));
+		
 		if (src.isSetGenericApplicationPropertyOfRasterRelief()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRasterRelief())
 				if (adeComponent.isSetContent())

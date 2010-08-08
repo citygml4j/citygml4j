@@ -1,272 +1,20 @@
 package org.citygml4j.builder.jaxb.unmarshal.gml;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
-import org.citygml4j.impl.gml.CodeImpl;
-import org.citygml4j.impl.gml.CompositeCurveImpl;
-import org.citygml4j.impl.gml.CompositeCurvePropertyImpl;
-import org.citygml4j.impl.gml.CompositeSolidImpl;
-import org.citygml4j.impl.gml.CompositeSolidPropertyImpl;
-import org.citygml4j.impl.gml.CompositeSurfaceImpl;
-import org.citygml4j.impl.gml.CompositeSurfacePropertyImpl;
-import org.citygml4j.impl.gml.ControlPointImpl;
-import org.citygml4j.impl.gml.CoordImpl;
-import org.citygml4j.impl.gml.CoordinatesImpl;
-import org.citygml4j.impl.gml.CurveArrayPropertyImpl;
-import org.citygml4j.impl.gml.CurveImpl;
-import org.citygml4j.impl.gml.CurvePropertyImpl;
-import org.citygml4j.impl.gml.CurveSegmentArrayPropertyImpl;
-import org.citygml4j.impl.gml.DirectPositionImpl;
-import org.citygml4j.impl.gml.DirectPositionListImpl;
-import org.citygml4j.impl.gml.DoubleOrNullImpl;
-import org.citygml4j.impl.gml.EnvelopeImpl;
-import org.citygml4j.impl.gml.ExteriorImpl;
-import org.citygml4j.impl.gml.FeatureArrayPropertyImpl;
-import org.citygml4j.impl.gml.FeaturePropertyImpl;
-import org.citygml4j.impl.gml.GeometricComplexImpl;
-import org.citygml4j.impl.gml.GeometricComplexPropertyImpl;
-import org.citygml4j.impl.gml.GeometricPositionGroupImpl;
-import org.citygml4j.impl.gml.GeometricPrimitivePropertyImpl;
-import org.citygml4j.impl.gml.GeometryPropertyImpl;
-import org.citygml4j.impl.gml.InnerBoundaryIsImpl;
-import org.citygml4j.impl.gml.InteriorImpl;
-import org.citygml4j.impl.gml.LengthImpl;
-import org.citygml4j.impl.gml.LineStringImpl;
-import org.citygml4j.impl.gml.LineStringPropertyImpl;
-import org.citygml4j.impl.gml.LineStringSegmentArrayPropertyImpl;
-import org.citygml4j.impl.gml.LineStringSegmentImpl;
-import org.citygml4j.impl.gml.LinearRingImpl;
-import org.citygml4j.impl.gml.LinearRingPropertyImpl;
-import org.citygml4j.impl.gml.LocationPropertyImpl;
-import org.citygml4j.impl.gml.MeasureImpl;
-import org.citygml4j.impl.gml.MeasureOrNullListImpl;
-import org.citygml4j.impl.gml.MetaDataPropertyImpl;
-import org.citygml4j.impl.gml.MultiCurveImpl;
-import org.citygml4j.impl.gml.MultiCurvePropertyImpl;
-import org.citygml4j.impl.gml.MultiLineStringImpl;
-import org.citygml4j.impl.gml.MultiLineStringPropertyImpl;
-import org.citygml4j.impl.gml.MultiPointImpl;
-import org.citygml4j.impl.gml.MultiPointPropertyImpl;
-import org.citygml4j.impl.gml.MultiPolygonImpl;
-import org.citygml4j.impl.gml.MultiPolygonPropertyImpl;
-import org.citygml4j.impl.gml.MultiSolidImpl;
-import org.citygml4j.impl.gml.MultiSolidPropertyImpl;
-import org.citygml4j.impl.gml.MultiSurfaceImpl;
-import org.citygml4j.impl.gml.MultiSurfacePropertyImpl;
-import org.citygml4j.impl.gml.NullImpl;
-import org.citygml4j.impl.gml.OrientableCurveImpl;
-import org.citygml4j.impl.gml.OrientableSurfaceImpl;
-import org.citygml4j.impl.gml.OuterBoundaryIsImpl;
-import org.citygml4j.impl.gml.PointArrayPropertyImpl;
-import org.citygml4j.impl.gml.PointImpl;
-import org.citygml4j.impl.gml.PointPropertyImpl;
-import org.citygml4j.impl.gml.PointRepImpl;
-import org.citygml4j.impl.gml.PolygonImpl;
-import org.citygml4j.impl.gml.PolygonPropertyImpl;
-import org.citygml4j.impl.gml.PosOrPointPropertyOrPointRepImpl;
-import org.citygml4j.impl.gml.PosOrPointPropertyOrPointRepOrCoordImpl;
-import org.citygml4j.impl.gml.PriorityLocationPropertyImpl;
-import org.citygml4j.impl.gml.RectangleImpl;
-import org.citygml4j.impl.gml.RingImpl;
-import org.citygml4j.impl.gml.SolidArrayPropertyImpl;
-import org.citygml4j.impl.gml.SolidImpl;
-import org.citygml4j.impl.gml.SolidPropertyImpl;
-import org.citygml4j.impl.gml.SpeedImpl;
-import org.citygml4j.impl.gml.StringOrRefImpl;
-import org.citygml4j.impl.gml.SurfaceArrayPropertyImpl;
-import org.citygml4j.impl.gml.SurfaceImpl;
-import org.citygml4j.impl.gml.SurfacePatchArrayPropertyImpl;
-import org.citygml4j.impl.gml.SurfacePropertyImpl;
-import org.citygml4j.impl.gml.TinImpl;
-import org.citygml4j.impl.gml.TriangleImpl;
-import org.citygml4j.impl.gml.TrianglePatchArrayPropertyImpl;
-import org.citygml4j.impl.gml.TriangulatedSurfaceImpl;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractCurveSegmentType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureCollectionType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGMLType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGeometricAggregateType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGeometricPrimitiveType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGeometryType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractRingPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractRingType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractSolidType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractSurfacePatchType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.AssociationType;
-import org.citygml4j.jaxb.gml._3_1_1.BoundingShapeType;
-import org.citygml4j.jaxb.gml._3_1_1.CodeType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeCurvePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSolidPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSolidType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSurfacePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.CoordType;
-import org.citygml4j.jaxb.gml._3_1_1.CoordinatesType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveInterpolationType;
-import org.citygml4j.jaxb.gml._3_1_1.CurvePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveSegmentArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveType;
-import org.citygml4j.jaxb.gml._3_1_1.DirectPositionListType;
-import org.citygml4j.jaxb.gml._3_1_1.DirectPositionType;
-import org.citygml4j.jaxb.gml._3_1_1.EnvelopeType;
-import org.citygml4j.jaxb.gml._3_1_1.FeatureArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometricComplexPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometricComplexType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometricPrimitivePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometryPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LengthType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringSegmentArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringSegmentType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringType;
-import org.citygml4j.jaxb.gml._3_1_1.LinearRingPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LinearRingType;
-import org.citygml4j.jaxb.gml._3_1_1.LocationPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MeasureOrNullListType;
-import org.citygml4j.jaxb.gml._3_1_1.MeasureType;
-import org.citygml4j.jaxb.gml._3_1_1.MetaDataPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiCurvePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiLineStringPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiLineStringType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPointPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPointType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPolygonPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPolygonType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSolidPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSolidType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSurfacePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.OrientableCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.OrientableSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.PointArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.PointPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.PointType;
-import org.citygml4j.jaxb.gml._3_1_1.PolygonPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.PolygonType;
-import org.citygml4j.jaxb.gml._3_1_1.PriorityLocationPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.RectangleType;
-import org.citygml4j.jaxb.gml._3_1_1.RingType;
-import org.citygml4j.jaxb.gml._3_1_1.SolidArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SolidPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SolidType;
-import org.citygml4j.jaxb.gml._3_1_1.SpeedType;
-import org.citygml4j.jaxb.gml._3_1_1.StringOrRefType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfaceArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfaceInterpolationType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfacePatchArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfacePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.TinType;
-import org.citygml4j.jaxb.gml._3_1_1.TrianglePatchArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.TriangleType;
-import org.citygml4j.jaxb.gml._3_1_1.TriangulatedSurfaceType;
+import org.citygml4j.impl.gml.*;
+import org.citygml4j.jaxb.gml._3_1_1.*;
+import org.citygml4j.jaxb.gml._3_1_1.SequenceRuleNames;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.AbstractCurve;
-import org.citygml4j.model.gml.AbstractCurveSegment;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.AbstractFeatureCollection;
-import org.citygml4j.model.gml.AbstractGML;
-import org.citygml4j.model.gml.AbstractGeometricAggregate;
-import org.citygml4j.model.gml.AbstractGeometricPrimitive;
-import org.citygml4j.model.gml.AbstractGeometry;
-import org.citygml4j.model.gml.AbstractRing;
-import org.citygml4j.model.gml.AbstractRingProperty;
-import org.citygml4j.model.gml.AbstractSolid;
-import org.citygml4j.model.gml.AbstractSurface;
-import org.citygml4j.model.gml.AbstractSurfacePatch;
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.Code;
-import org.citygml4j.model.gml.CompositeCurve;
-import org.citygml4j.model.gml.CompositeCurveProperty;
-import org.citygml4j.model.gml.CompositeSolid;
-import org.citygml4j.model.gml.CompositeSolidProperty;
-import org.citygml4j.model.gml.CompositeSurface;
-import org.citygml4j.model.gml.CompositeSurfaceProperty;
-import org.citygml4j.model.gml.ControlPoint;
-import org.citygml4j.model.gml.Coord;
-import org.citygml4j.model.gml.Coordinates;
-import org.citygml4j.model.gml.Curve;
-import org.citygml4j.model.gml.CurveArrayProperty;
-import org.citygml4j.model.gml.CurveInterpolation;
-import org.citygml4j.model.gml.CurveProperty;
-import org.citygml4j.model.gml.CurveSegmentArrayProperty;
-import org.citygml4j.model.gml.DirectPosition;
-import org.citygml4j.model.gml.DirectPositionList;
-import org.citygml4j.model.gml.DoubleOrNull;
-import org.citygml4j.model.gml.Envelope;
-import org.citygml4j.model.gml.Exterior;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
-import org.citygml4j.model.gml.GML;
-import org.citygml4j.model.gml.GeometricComplex;
-import org.citygml4j.model.gml.GeometricComplexProperty;
-import org.citygml4j.model.gml.GeometricPrimitiveProperty;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.InnerBoundaryIs;
-import org.citygml4j.model.gml.Interior;
-import org.citygml4j.model.gml.Length;
-import org.citygml4j.model.gml.LineString;
-import org.citygml4j.model.gml.LineStringProperty;
-import org.citygml4j.model.gml.LineStringSegment;
-import org.citygml4j.model.gml.LineStringSegmentArrayProperty;
-import org.citygml4j.model.gml.LinearRing;
-import org.citygml4j.model.gml.LinearRingProperty;
-import org.citygml4j.model.gml.LocationProperty;
-import org.citygml4j.model.gml.Measure;
-import org.citygml4j.model.gml.MeasureOrNullList;
-import org.citygml4j.model.gml.MetaData;
-import org.citygml4j.model.gml.MetaDataProperty;
-import org.citygml4j.model.gml.MultiCurve;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiLineString;
-import org.citygml4j.model.gml.MultiLineStringProperty;
-import org.citygml4j.model.gml.MultiPoint;
-import org.citygml4j.model.gml.MultiPointProperty;
-import org.citygml4j.model.gml.MultiPolygon;
-import org.citygml4j.model.gml.MultiPolygonProperty;
-import org.citygml4j.model.gml.MultiSolid;
-import org.citygml4j.model.gml.MultiSolidProperty;
-import org.citygml4j.model.gml.MultiSurface;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.Null;
-import org.citygml4j.model.gml.OrientableCurve;
-import org.citygml4j.model.gml.OrientableSurface;
-import org.citygml4j.model.gml.OuterBoundaryIs;
-import org.citygml4j.model.gml.Point;
-import org.citygml4j.model.gml.PointArrayProperty;
-import org.citygml4j.model.gml.PointProperty;
-import org.citygml4j.model.gml.PointRep;
-import org.citygml4j.model.gml.Polygon;
-import org.citygml4j.model.gml.PolygonProperty;
-import org.citygml4j.model.gml.PriorityLocationProperty;
-import org.citygml4j.model.gml.Rectangle;
-import org.citygml4j.model.gml.Ring;
-import org.citygml4j.model.gml.Solid;
-import org.citygml4j.model.gml.SolidArrayProperty;
-import org.citygml4j.model.gml.SolidProperty;
-import org.citygml4j.model.gml.Speed;
-import org.citygml4j.model.gml.StringOrRef;
-import org.citygml4j.model.gml.Surface;
-import org.citygml4j.model.gml.SurfaceArrayProperty;
-import org.citygml4j.model.gml.SurfaceInterpolation;
-import org.citygml4j.model.gml.SurfacePatchArrayProperty;
-import org.citygml4j.model.gml.SurfaceProperty;
-import org.citygml4j.model.gml.Tin;
-import org.citygml4j.model.gml.Triangle;
-import org.citygml4j.model.gml.TrianglePatchArrayProperty;
-import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.*;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -316,6 +64,10 @@ public class GMLUnmarshaller {
 			dest = unmarshalBoundingShape((BoundingShapeType)src);
 		else if (src instanceof CodeType)
 			dest = unmarshalCode((CodeType)src);
+		else if (src instanceof CategoryExtentType)
+			dest = unmarshalCategoryExtent((CategoryExtentType)src);
+		else if (src instanceof CodeOrNullListType)
+			dest = unmarshalCodeOrNullList((CodeOrNullListType)src);
 		else if (src instanceof CompositeCurveType)
 			dest = unmarshalCompositeCurve((CompositeCurveType)src);
 		else if (src instanceof CompositeCurvePropertyType)
@@ -328,12 +80,18 @@ public class GMLUnmarshaller {
 			dest = unmarshalCompositeSurface((CompositeSurfaceType)src);
 		else if (src instanceof CompositeSurfacePropertyType)
 			dest = unmarshalCompositeSurfaceProperty((CompositeSurfacePropertyType)src);
+		else if (src instanceof ValueArrayType)
+			dest = unmarshalValueArray((ValueArrayType)src);
+		else if (src instanceof CompositeValueType)
+			dest = unmarshalCompositeValue((CompositeValueType)src);
 		else if (src instanceof TinType.ControlPoint)
 			dest = unmarshalControlPoint((TinType.ControlPoint)src);
 		else if (src instanceof CoordType)
 			dest = unmarshalCoord((CoordType)src);
 		else if (src instanceof CoordinatesType)
 			dest = unmarshalCoordinates((CoordinatesType)src);
+		else if (src instanceof CoverageFunctionType)
+			dest = unmarshalCoverageFunction((CoverageFunctionType)src);
 		else if (src instanceof CurveType)
 			dest = unmarshalCurve((CurveType)src);
 		else if (src instanceof CurveArrayPropertyType)
@@ -344,6 +102,8 @@ public class GMLUnmarshaller {
 			dest = unmarshalCurveProperty((CurvePropertyType)src);
 		else if (src instanceof CurveSegmentArrayPropertyType)
 			dest = unmarshalCurveSegmentArrayProperty((CurveSegmentArrayPropertyType)src);
+		else if (src instanceof DataBlockType)
+			dest = unmarshalDataBlock((DataBlockType)src);
 		else if (src instanceof DirectPositionType)
 			dest = unmarshalDirectPosition((DirectPositionType)src);
 		else if (src instanceof DirectPositionListType)
@@ -354,6 +114,10 @@ public class GMLUnmarshaller {
 			dest = unmarshalFeatureArrayProperty((FeatureArrayPropertyType)src);
 		else if (src instanceof FeaturePropertyType)
 			dest = unmarshalFeatureProperty((FeaturePropertyType)src);
+		else if (src instanceof FileType)
+			dest = unmarshalFile((FileType)src);
+		else if (src instanceof FileValueModelType)
+			dest = unmarshalFileValueModel((FileValueModelType)src);
 		else if (src instanceof GeometricComplexType)
 			dest = unmarshalGeometricComplex((GeometricComplexType)src);
 		else if (src instanceof GeometricComplexPropertyType)
@@ -362,6 +126,18 @@ public class GMLUnmarshaller {
 			dest = unmarshalGeometricPrimitiveProperty((GeometricPrimitivePropertyType)src);
 		else if (src instanceof GeometryPropertyType)
 			dest = unmarshalGeometryProperty((GeometryPropertyType)src);
+		else if (src instanceof RectifiedGridType)
+			dest = unmarshalRectifiedGrid((RectifiedGridType)src);
+		else if (src instanceof GridType)
+			dest = unmarshalGrid((GridType)src);
+		else if (src instanceof GridEnvelopeType)
+			dest = unmarshalGridEnvelope((GridEnvelopeType)src);
+		else if (src instanceof IndexMapType)
+			dest = unmarshalIndexMap((IndexMapType)src);
+		else if (src instanceof GridFunctionType)
+			dest = unmarshalGridFunction((GridFunctionType)src);
+		else if (src instanceof GridLimitsType)
+			dest = unmarshalGridLimits((GridLimitsType)src);
 		else if (src instanceof LengthType)
 			dest = unmarshalLength((LengthType)src);
 		else if (src instanceof LinearRingType)
@@ -384,6 +160,8 @@ public class GMLUnmarshaller {
 			dest = unmarshalSpeed((SpeedType)src);
 		else if (src instanceof MeasureType)
 			dest = unmarshalMeasure((MeasureType)src);
+		else if (src instanceof QuantityExtentType)
+			dest = unmarshalQuantityExtent((QuantityExtentType)src);
 		else if (src instanceof MeasureOrNullListType)
 			dest = unmarshalMeasureOrNullList((MeasureOrNullListType)src);
 		else if (src instanceof MetaDataPropertyType)
@@ -430,8 +208,20 @@ public class GMLUnmarshaller {
 			dest = unmarshalPolygon((PolygonType)src);
 		else if (src instanceof PolygonPropertyType)
 			dest = unmarshalPolygonProperty((PolygonPropertyType)src);
+		else if (src instanceof RangeParametersType)
+			dest = unmarshalRangeParameters((RangeParametersType)src);
+		else if (src instanceof RangeSetType)
+			dest = unmarshalRangeSet((RangeSetType)src);
 		else if (src instanceof RectangleType)
 			dest = unmarshalRectangle((RectangleType)src);
+		else if (src instanceof RectifiedGridCoverageType)
+			dest = unmarshalRectifiedGridCoverage((RectifiedGridCoverageType)src);
+		else if (src instanceof RectifiedGridDomainType)
+			dest = unmarshalRectifiedGridDomain((RectifiedGridDomainType)src);
+		else if (src instanceof SequenceRuleNames)
+			dest = unmarshalSequenceRuleNames((SequenceRuleNames)src);
+		else if (src instanceof SequenceRuleType)
+			dest = unmarshalSequenceRule((SequenceRuleType)src);
 		else if (src instanceof RingType)
 			dest = unmarshalRing((RingType)src);
 		else if (src instanceof SolidType)
@@ -460,14 +250,41 @@ public class GMLUnmarshaller {
 			dest = unmarshalSurfacePatchArrayProperty((SurfacePatchArrayPropertyType)src);
 		else if (src instanceof SurfacePropertyType)
 			dest = unmarshalSurfaceProperty((SurfacePropertyType)src);
+		else if (src instanceof ValueArrayPropertyType)
+			dest = unmarshalValueArrayProperty((ValueArrayPropertyType)src);
+		else if (src instanceof ValuePropertyType)
+			dest = unmarshalValueProperty((ValuePropertyType)src);
+		else if (src instanceof VectorType)
+			dest = unmarshalVector((VectorType)src);
 
 		return dest;
+	}
+	
+	public void unmarshalAbstractCoverage(AbstractCoverageType src, AbstractCoverage dest) {
+		try {
+			unmarshalAbstractFeature(src, dest);
+		} catch (MissingADESchemaException e) {
+			//
+		}
+		
+		if (src.isSetRangeSet())
+			dest.setRangeSet(unmarshalRangeSet(src.getRangeSet()));
+		
+		if (src.isSetDimension())
+			dest.setDimension(src.getDimension().intValue());
 	}
 
 	public void unmarshalAbstractCurve(AbstractCurveType src, AbstractCurve dest) {
 		unmarshalAbstractGeometricPrimitive(src, dest);
 	}
 
+	public void unmarshalAbstractDiscreteCoverage(AbstractDiscreteCoverageType src, AbstractDiscreteCoverage dest) {
+		unmarshalAbstractCoverage(src, dest);
+		
+		if (src.isSetCoverageFunction())
+			dest.setCoverageFunction(unmarshalCoverageFunction(src.getCoverageFunction()));
+	}
+	
 	public void unmarshalAbstractCurveSegment(AbstractCurveSegmentType src, AbstractCurveSegment dest) {
 		if (src.isSetNumDerivativeInterior())
 			dest.setNumDerivativeInterior(src.getNumDerivativeInterior().intValue());
@@ -680,6 +497,77 @@ public class GMLUnmarshaller {
 			dest.setActuate(src.getActuate());
 	}
 
+	public void unmarshalCodeOrNullList(CodeOrNullListType src, CodeOrNullList dest) {
+		if (src.isSetCodeSpace())
+			dest.setCodeSpace(src.getCodeSpace());
+
+		if (src.isSetValue()) {
+			for (String value : src.getValue()) {
+				if (value == null)
+					continue;
+
+				NameOrNull nameOrNull = new NameOrNullImpl();				
+				Null _null = new NullImpl();
+				_null.setValue(value);
+
+				if (_null.isSetValue())
+					nameOrNull.setNull(_null);
+				else
+					nameOrNull.setName(value);
+
+				dest.addNameOrNull(nameOrNull);
+			}
+		}
+	}
+
+	public void unmarshalCompositeValue(CompositeValueType src, CompositeValue dest) {
+		unmarshalAbstractGML(src, dest);
+
+		if (src.isSetValueComponent()) {
+			for (ValuePropertyType valueComponent : src.getValueComponent())
+				dest.addValueComponent(unmarshalValueProperty(valueComponent));
+		}
+
+		if (src.isSetValueComponents())
+			dest.setValueComponents(unmarshalValueArrayProperty(src.getValueComponents()));
+	}
+	
+	public void unmarshalDomainSet(DomainSetType src, DomainSet dest) {
+		if (src.isSet_Geometry()) {
+			try {
+				Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
+				if (abstractGeometry instanceof AbstractGeometry)
+					dest.setGeometry((AbstractGeometry)abstractGeometry);
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
+		
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+	}
+
 	public void unmarshalFeatureProperty(FeaturePropertyType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
@@ -708,6 +596,29 @@ public class GMLUnmarshaller {
 		if (src.isSetActuate())
 			dest.setActuate(src.getActuate());
 	}
+	
+	public void unmarshalGrid(GridType src, Grid dest) {
+		unmarshalAbstractGeometry(src, dest);
+		
+		if (src.isSetLimits())
+			dest.setLimits(unmarshalGridLimits(src.getLimits()));
+		
+		if (src.isSetAxisName())
+			dest.setAxisName(src.getAxisName());
+		
+		if (src.isSetDimension())
+			dest.setDimension(src.getDimension().intValue());		
+	}
+	
+	public void unmarshalGridFunction(GridFunctionType src, GridFunction dest) {
+		if (src.isSetSequenceRule())
+			dest.setSequenceRule(unmarshalSequenceRule(src.getSequenceRule()));
+		
+		if (src.isSetStartPoint()) {
+			for (BigInteger startPoint : src.getStartPoint())
+				dest.addStartPoint(startPoint.intValue());
+		}
+	}
 
 	public void unmarshalLocationProperty(LocationPropertyType src, LocationProperty dest) {
 		if (src.isSet_Geometry()) {
@@ -726,18 +637,8 @@ public class GMLUnmarshaller {
 		if (src.isSetLocationString())
 			dest.setLocationString(unmarshalStringOrRef(src.getLocationString()));
 
-		if (src.isSetNull()) {
-			StringBuilder builder = new StringBuilder();
-			for (String value : src.getNull())
-				if (value != null)
-					builder.append(value);
-
-			Null _null = new NullImpl();
-			_null.setValue(builder.toString());
-
-			if (_null.isSetValue())
-				dest.setNull(_null);
-		}
+		if (src.isSetNull())
+			dest.setNull(unmarshalNull(src.getNull()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -770,6 +671,14 @@ public class GMLUnmarshaller {
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
+	}
+
+	public void unmarshalMeasureOrNullList(MeasureOrNullListType src, MeasureOrNullList dest) {
+		if (src.isSetUom())
+			dest.setUom(src.getUom());
+
+		if (src.isSetValue())
+			dest.setDoubleOrNull(unmarshalDoubleOrNullList(src.getValue()));
 	}
 
 	public void unmarshalOrientableSurface(OrientableSurfaceType src, OrientableSurface dest) {
@@ -841,6 +750,36 @@ public class GMLUnmarshaller {
 
 	public void unmarshalTriangulatedSurface(TriangulatedSurfaceType src, TriangulatedSurface dest) {
 		unmarshalSurface(src, dest);
+	}	
+
+	private List<BooleanOrNull> unmarshalBooleanOrNullList(List<String> src) {
+		List<BooleanOrNull> dest = new ArrayList<BooleanOrNull>();
+		if (!src.isEmpty()) {
+			for (String value : src) {
+				if (value == null)
+					continue;
+
+				BooleanOrNull booleanOrNull = new BooleanOrNullImpl();
+				
+				if (value.toLowerCase().equals("true"))
+					booleanOrNull.setBoolean(Boolean.TRUE);
+				else if (value.toLowerCase().equals("false"))
+					booleanOrNull.setBoolean(Boolean.FALSE);
+				
+				if (!booleanOrNull.isSetBoolean()) {
+					Null _null = new NullImpl();
+					_null.setValue(value);
+
+					if (_null.isSetValue()) {
+						booleanOrNull.setNull(_null);
+						dest.add(booleanOrNull);
+					}
+				} else
+					dest.add(booleanOrNull);
+			}
+		}
+
+		return dest;
 	}
 
 	public BoundingShape unmarshalBoundingShape(BoundingShapeType src) {
@@ -856,18 +795,15 @@ public class GMLUnmarshaller {
 			}
 		}
 
-		if (src.isSetNull()) {
-			StringBuilder builder = new StringBuilder();
-			for (String value : src.getNull())
-				if (value != null)
-					builder.append(value);
+		if (src.isSetNull())
+			dest.setNull(unmarshalNull(src.getNull()));
 
-			Null _null = new NullImpl();
-			_null.setValue(builder.toString());
+		return dest;
+	}
 
-			if (_null.isSetValue())
-				dest.setNull(_null);
-		}
+	public CategoryExtent unmarshalCategoryExtent(CategoryExtentType src) {
+		CategoryExtent dest = new CategoryExtentImpl();
+		unmarshalCodeOrNullList(src, dest);
 
 		return dest;
 	}
@@ -880,6 +816,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSetCodeSpace())
 			dest.setCodeSpace(src.getCodeSpace());
+
+		return dest;
+	}
+
+	public CodeOrNullList unmarshalCodeOrNullList(CodeOrNullListType src) {
+		CodeOrNullList dest = new CodeOrNullListImpl();
+		unmarshalCodeOrNullList(src, dest);
 
 		return dest;
 	}
@@ -1019,6 +962,13 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
+	public CompositeValue unmarshalCompositeValue(CompositeValueType src) {
+		CompositeValue dest = new CompositeValueImpl();
+		unmarshalCompositeValue(src, dest);
+
+		return dest;
+	}
+
 	public ControlPoint unmarshalControlPoint(TinType.ControlPoint src) {
 		ControlPoint dest = new ControlPointImpl();
 
@@ -1072,6 +1022,25 @@ public class GMLUnmarshaller {
 		if (src.isSetTs())
 			dest.setTs(src.getTs());
 
+		return dest;
+	}
+	
+	public CoverageFunction unmarshalCoverageFunction(CoverageFunctionType src) {
+		CoverageFunction dest = new CoverageFunctionImpl();
+		
+		if (src.isSetMappingRule())
+			dest.setMappingRule(unmarshalStringOrRef(src.getMappingRule()));
+		
+		if (src.isSetGridFunction()) {
+			try {
+				Object gridFunction = jaxb.unmarshal(src.getGridFunction());
+				if (gridFunction instanceof GridFunction)
+					dest.setGridFunction((GridFunction)gridFunction);
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
+		
 		return dest;
 	}
 
@@ -1164,6 +1133,23 @@ public class GMLUnmarshaller {
 
 		return dest;
 	}
+	
+	public DataBlock unmarshalDataBlock(DataBlockType src) {
+		DataBlock dest = new DataBlockImpl();
+		
+		if (src.isSetRangeParameters())
+			dest.setRangeParameters(unmarshalRangeParameters(src.getRangeParameters()));
+		
+		if (src.isSetTupleList())
+			dest.setTupleList(unmarshalCoordinates(src.getTupleList()));
+		else if (src.isSetDoubleOrNullTupleList()) {
+			DoubleOrNullList doubleOrNullList = new DoubleOrNullListImpl();
+			doubleOrNullList.setDoubleOrNull(unmarshalDoubleOrNullList(src.getDoubleOrNullTupleList()));
+			dest.setDoubleOrNullTupleList(doubleOrNullList);
+		}
+		
+		return dest;
+	}
 
 	public DirectPosition unmarshalDirectPosition(DirectPositionType src) {
 		DirectPosition dest = new DirectPositionImpl();
@@ -1206,6 +1192,33 @@ public class GMLUnmarshaller {
 
 		if (src.isSetUomLabels())
 			dest.setUomLabels(src.getUomLabels());
+
+		return dest;
+	}
+
+	private List<DoubleOrNull> unmarshalDoubleOrNullList(List<String> src) {
+		List<DoubleOrNull> dest = new ArrayList<DoubleOrNull>();
+		if (!src.isEmpty()) {
+			for (String value : src) {
+				if (value == null)
+					continue;
+
+				DoubleOrNull doubleOrNull = new DoubleOrNullImpl();
+
+				try {
+					doubleOrNull.setDouble(Double.parseDouble(value));
+				} catch (NumberFormatException e) {
+					Null _null = new NullImpl();
+					_null.setValue(value);
+
+					if (_null.isSetValue())
+						doubleOrNull.setNull(_null);
+				}
+
+				if (doubleOrNull.isSetDouble() || doubleOrNull.isSetNull())
+					dest.add(doubleOrNull);
+			}
+		}
 
 		return dest;
 	}
@@ -1288,6 +1301,31 @@ public class GMLUnmarshaller {
 		}
 
 		return dest;
+	}
+	
+	public File unmarshalFile(FileType src) {
+		File dest = new FileImpl();
+		
+		if (src.isSetRangeParameters())
+			dest.setRangeParameters(unmarshalRangeParameters(src.getRangeParameters()));
+		
+		if (src.isSetCompression())
+			dest.setCompression(src.getCompression());
+		
+		if (src.isSetFileName())
+			dest.setFileName(src.getFileName());
+		
+		if (src.isSetFileStructure())
+			dest.setFileStructure(unmarshalFileValueModel(src.getFileStructure()));
+		
+		if (src.isSetMimeType())
+			dest.setMimeType(src.getMimeType());
+		
+		return dest;
+	}
+	
+	public FileValueModel unmarshalFileValueModel(FileValueModelType src) {
+		return FileValueModel.fromValue(src.value());
 	}
 
 	public GeometricComplex unmarshalGeometricComplex(GeometricComplexType src) {
@@ -1423,10 +1461,88 @@ public class GMLUnmarshaller {
 
 		return dest;
 	}
+	
+	public Grid unmarshalGrid(GridType src) {
+		Grid dest = new GridImpl();
+		unmarshalGrid(src, dest);
+		
+		return dest;
+	}
+	
+	public GridEnvelope unmarshalGridEnvelope(GridEnvelopeType src) {
+		GridEnvelope dest = new GridEnvelopeImpl();
+		
+		if (src.isSetHigh()) {
+			for (BigInteger high : src.getHigh())
+				dest.addHigh(high.intValue());
+		}
+		
+		if (src.isSetLow()) {
+			for (BigInteger low : src.getLow())
+				dest.addLow(low.intValue());
+		}
+		
+		return dest;
+	}
+	
+	public GridFunction unmarshalGridFunction(GridFunctionType src) {
+		GridFunction dest = new GridFunctionImpl();
+		unmarshalGridFunction(src, dest);
+		
+		return dest;
+	}
+	
+	public GridLimits unmarshalGridLimits(GridLimitsType src) {
+		GridLimits dest = new GridLimitsImpl();
+		
+		if (src.isSetGridEnvelope())
+			dest.setGridEnvelope(unmarshalGridEnvelope(src.getGridEnvelope()));
+		
+		return dest;
+	}
+	
+	public IndexMap unmarshalIndexMap(IndexMapType src) {
+		IndexMap dest = new IndexMapImpl();
+		unmarshalGridFunction(src, dest);
+		
+		if (src.isSetLookUpTable()) {
+			for (BigInteger index : src.getLookUpTable())
+				dest.addLookUpIndex(index.intValue());
+		}
+		
+		return dest;
+	}
 
 	public InnerBoundaryIs unmarshalInnerBoundaryIs(AbstractRingPropertyType src) {
 		InnerBoundaryIs dest = new InnerBoundaryIsImpl();
 		unmarshalAbstractRingProperty(src, dest);
+
+		return dest;
+	}
+
+	private List<IntegerOrNull> unmarshalIntegerOrNullList(List<String> src) {
+		List<IntegerOrNull> dest = new ArrayList<IntegerOrNull>();
+		if (!src.isEmpty()) {
+			for (String value : src) {
+				if (value == null)
+					continue;
+
+				IntegerOrNull integerOrNull = new IntegerOrNullImpl();
+
+				try {
+					integerOrNull.setInteger(Integer.parseInt(value));
+				} catch (NumberFormatException e) {
+					Null _null = new NullImpl();
+					_null.setValue(value);
+
+					if (_null.isSetValue())
+						integerOrNull.setNull(_null);
+				}
+
+				if (integerOrNull.isSetInteger() || integerOrNull.isSetNull())
+					dest.add(integerOrNull);
+			}
+		}
 
 		return dest;
 	}
@@ -1611,31 +1727,7 @@ public class GMLUnmarshaller {
 
 	public MeasureOrNullList unmarshalMeasureOrNullList(MeasureOrNullListType src) {
 		MeasureOrNullList dest = new MeasureOrNullListImpl();
-
-		if (src.isSetUom())
-			dest.setUom(src.getUom());
-
-		if (src.isSetValue()) {
-			for (String value : src.getValue()) {
-				if (value == null)
-					continue;
-
-				DoubleOrNull doubleOrNull = new DoubleOrNullImpl();
-
-				try {
-					doubleOrNull.setDouble(Double.parseDouble(value));
-				} catch (NumberFormatException e) {
-					Null _null = new NullImpl();
-					_null.setValue(value);
-
-					if (_null.isSetValue())
-						doubleOrNull.setNull(_null);
-				}
-
-				if (doubleOrNull.isSetDouble() || doubleOrNull.isSetNull())
-					dest.addDoubleOrNull(doubleOrNull);
-			}
-		}
+		unmarshalMeasureOrNullList(src, dest);
 
 		return dest;
 	}
@@ -1958,6 +2050,18 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
+	private Null unmarshalNull(List<String> src) {
+		StringBuilder builder = new StringBuilder();
+		for (String value : src)
+			if (value != null)
+				builder.append(value);
+
+		Null _null = new NullImpl();
+		_null.setValue(builder.toString());
+
+		return _null.isSetValue() ? _null : null;
+	}
+
 	public OrientableCurve unmarshalOrientableCurve(OrientableCurveType src) {
 		OrientableCurve dest = new OrientableCurveImpl();
 		unmarshalAbstractCurve(src, dest);
@@ -2098,6 +2202,151 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
+	public QuantityExtent unmarshalQuantityExtent(QuantityExtentType src) {
+		QuantityExtent dest = new QuantityExtentImpl();
+		unmarshalMeasureOrNullList(src, dest);
+
+		return dest;
+	}
+
+	public RangeParameters unmarshalRangeParameters(RangeParametersType src) {
+		RangeParameters dest = new RangeParametersImpl();
+		ValueObject valueObject = new ValueObjectImpl();
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
+		ScalarValue scalarValue = null;		
+		if (src.isSetBoolean())
+			scalarValue = new ScalarValueImpl(src.isBoolean());
+		else if (src.isSetCategory())
+			scalarValue = new ScalarValueImpl(unmarshalCode(src.getCategory()));
+		else if (src.isSetQuantity())
+			scalarValue = new ScalarValueImpl(unmarshalMeasure(src.getQuantity()));
+		else if (src.isSetCount())
+			scalarValue = new ScalarValueImpl(src.getCount().intValue());
+
+		if (scalarValue != null) {
+			valueObject.setScalarValue(scalarValue);
+			dest.setValueObject(valueObject);
+			return dest;
+		}
+
+		ScalarValueList scalarValueList = null;
+		if (src.isSetBooleanList()) {
+			scalarValueList = new ScalarValueListImpl();			
+			BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+			booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList(src.getBooleanList()));
+			scalarValueList.setBooleanList(booleanOrNullList);
+		} else if (src.isSetCountList()) {
+			scalarValueList = new ScalarValueListImpl();			
+			IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+			integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountList()));
+			scalarValueList.setCountList(integerOrNullList);
+		} else if (src.isSetCategoryList())
+			scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList(src.getCategoryList()));
+		else if (src.isSetQuantityList())
+			scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList(src.getQuantityList()));
+
+		if (scalarValueList != null) {
+			valueObject.setScalarValueList(scalarValueList);
+			dest.setValueObject(valueObject);
+			return dest;
+		}
+
+		ValueExtent valueExtent = null;
+		if (src.isSetCountExtent()) {
+			valueExtent = new ValueExtentImpl();
+			CountExtent countExtent = new CountExtentImpl();
+			countExtent.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountList()));
+			valueExtent.setCountExtent(countExtent);
+		} else if (src.isSetCategoryExtent())
+			valueExtent = new ValueExtentImpl(unmarshalCategoryExtent(src.getCategoryExtent()));
+		else if (src.isSetQuantityExtent())
+			valueExtent = new ValueExtentImpl(unmarshalQuantityExtent(src.getQuantityExtent()));
+
+		if (valueExtent != null) {
+			valueObject.setValueExtent(valueExtent);
+			dest.setValueObject(valueObject);
+			return dest;
+		}
+
+		if (src.isSetCompositeValue()) {
+			try {
+				Object compositeValue = jaxb.unmarshal(src.getCompositeValue());
+				if (compositeValue instanceof CompositeValue) {
+					valueObject.setCompositeValue((CompositeValue)compositeValue);
+					dest.setValueObject(valueObject);
+					return dest;
+				}	
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
+
+		return dest;
+	}
+
+	@SuppressWarnings("unchecked")
+	public RangeSet unmarshalRangeSet(RangeSetType src) {
+		RangeSet dest = new RangeSetImpl();
+
+		if (src.isSetValueArray()) {
+			for (ValueArrayType valueArray : src.getValueArray())
+				dest.addValueArray(unmarshalValueArray(valueArray));
+		} else if (src.isSetScalarValueList()) {
+			for (JAXBElement<?> elem : src.getScalarValueList()) {
+				Object elemValue = elem.getValue();
+				String localName = elem.getName().getLocalPart();
+
+				ScalarValueList scalarValueList = null;
+				if (localName.equals("BooleanList")) {
+					scalarValueList = new ScalarValueListImpl();			
+					BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+					booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList((List<String>)elemValue));
+					scalarValueList.setBooleanList(booleanOrNullList);
+				} else if (localName.equals("CountList")) {
+					scalarValueList = new ScalarValueListImpl();			
+					IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+					integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList((List<String>)elemValue));
+					scalarValueList.setCountList(integerOrNullList);
+				} else if (elemValue instanceof CodeOrNullListType)
+					scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList((CodeOrNullListType)elemValue));
+				else if (elemValue instanceof MeasureOrNullListType)
+					scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList((MeasureOrNullListType)elemValue));
+
+				if (scalarValueList != null)
+					dest.addScalarValueList(scalarValueList);
+			}
+		} else if (src.isSetDataBlock())
+			dest.setDataBlock(unmarshalDataBlock(src.getDataBlock()));
+		else if (src.isSetFile())
+			dest.setFile(unmarshalFile(src.getFile()));
+
+		return dest;
+	}
+
 	public Rectangle unmarshalRectangle(RectangleType src) {
 		Rectangle dest = new RectangleImpl();
 		unmarshalAbstractSurfacePatch(src, dest);
@@ -2115,6 +2364,61 @@ public class GMLUnmarshaller {
 		if (src.isSetInterpolation())
 			dest.setInterpolation(unmarshalSurfaceInterpolation(src.getInterpolation()));
 
+		return dest;
+	}
+	
+	public RectifiedGrid unmarshalRectifiedGrid(RectifiedGridType src) {
+		RectifiedGrid dest = new RectifiedGridImpl();
+		unmarshalGrid(src, dest);
+		
+		if (src.isSetOrigin())
+			dest.setOrigin(unmarshalPointProperty(src.getOrigin()));
+		
+		if (src.isSetOffsetVector()) {
+			for (VectorType offsetVector : src.getOffsetVector())
+				dest.addOffsetVector(unmarshalVector(offsetVector));
+		}
+		
+		return dest;
+	}
+	
+	public RectifiedGridCoverage unmarshalRectifiedGridCoverage(RectifiedGridCoverageType src) {
+		RectifiedGridCoverage dest = new RectifiedGridCoverageImpl();
+		unmarshalAbstractDiscreteCoverage(src, dest);
+		
+		if (src.isSetDomainSet()) {
+			try {
+				Object rectifiedGridDomain = jaxb.unmarshal(src.getDomainSet());
+				if (rectifiedGridDomain instanceof RectifiedGridDomain)
+					dest.setRectifiedGridDomain((RectifiedGridDomain)rectifiedGridDomain);
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
+		
+		return dest;
+	}
+	
+	public RectifiedGridDomain unmarshalRectifiedGridDomain(RectifiedGridDomainType src) {
+		RectifiedGridDomain dest = new RectifiedGridDomainImpl();
+		unmarshalDomainSet(src, dest);
+		
+		return dest;
+	}
+	
+	public org.citygml4j.model.gml.SequenceRuleNames unmarshalSequenceRuleNames(SequenceRuleNames src) {
+		return org.citygml4j.model.gml.SequenceRuleNames.fromValue(src.value());
+	}
+	
+	public SequenceRule unmarshalSequenceRule(SequenceRuleType src) {
+		SequenceRule dest = new SequenceRuleImpl();
+		
+		if (src.isSetValue())
+			dest.setValue(unmarshalSequenceRuleNames(src.getValue()));
+		
+		if (src.isSetOrder())
+			dest.setOrder(IncrementOrder.fromValue(src.getOrder()));
+		
 		return dest;
 	}
 
@@ -2373,6 +2677,274 @@ public class GMLUnmarshaller {
 	public TriangulatedSurface unmarshalTriangulatedSurface(TriangulatedSurfaceType src) {
 		TriangulatedSurface dest = new TriangulatedSurfaceImpl();
 		unmarshalTriangulatedSurface(src, dest);
+
+		return dest;
+	}
+
+	public ValueArray unmarshalValueArray(ValueArrayType src) {
+		ValueArray dest = new ValueArrayImpl();
+		unmarshalCompositeValue(src, dest);
+
+		if (src.isSetCodeSpace())
+			dest.setCodeSpace(src.getCodeSpace());
+
+		if (src.isSetUom())
+			dest.setUom(src.getUom());
+
+		return dest;		
+	}
+
+	@SuppressWarnings("unchecked")
+	public ValueArrayProperty unmarshalValueArrayProperty(ValueArrayPropertyType src) {
+		ValueArrayProperty dest = new ValueArrayPropertyImpl();
+
+		if (src.isSetValue()) {
+			for (Object object : src.getValue()) {
+				Value value = new ValueImpl();
+
+				if (object instanceof JAXBElement<?>) {
+					JAXBElement<?> elem = (JAXBElement<?>)object;
+					Object elemValue = elem.getValue();
+					String localName = elem.getName().getLocalPart();					
+
+					ScalarValue scalarValue = null;		
+					if (elemValue instanceof Boolean)
+						scalarValue = new ScalarValueImpl((Boolean)elemValue);
+					else if (elemValue instanceof CodeType)
+						scalarValue = new ScalarValueImpl(unmarshalCode((CodeType)elemValue));
+					else if (elemValue instanceof MeasureType)
+						scalarValue = new ScalarValueImpl(unmarshalMeasure((MeasureType)elemValue));
+					else if (elemValue instanceof BigInteger)
+						scalarValue = new ScalarValueImpl(((BigInteger)elemValue).intValue());
+
+					if (scalarValue != null) {
+						ValueObject valueObject = new ValueObjectImpl(scalarValue);
+						value.setValueObject(valueObject);
+						dest.addValue(value);
+						continue;
+					}
+
+					ScalarValueList scalarValueList = null;
+					if (localName.equals("BooleanList")) {
+						scalarValueList = new ScalarValueListImpl();			
+						BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+						booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList((List<String>)elemValue));
+						scalarValueList.setBooleanList(booleanOrNullList);
+					} else if (localName.equals("CountList")) {
+						scalarValueList = new ScalarValueListImpl();			
+						IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+						integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList((List<String>)elemValue));
+						scalarValueList.setCountList(integerOrNullList);
+					} else if (elemValue instanceof CodeOrNullListType)
+						scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList((CodeOrNullListType)elemValue));
+					else if (elemValue instanceof MeasureOrNullListType)
+						scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList((MeasureOrNullListType)elemValue));
+
+					if (scalarValueList != null) {
+						ValueObject valueObject = new ValueObjectImpl(scalarValueList);
+						value.setValueObject(valueObject);
+						dest.addValue(value);
+						continue;
+					}
+
+					ValueExtent valueExtent = null;
+					if (localName.equals("CountExtent")) {
+						valueExtent = new ValueExtentImpl();
+						CountExtent countExtent = new CountExtentImpl();
+						countExtent.setIntegerOrNull(unmarshalIntegerOrNullList((List<String>)elemValue));
+						valueExtent.setCountExtent(countExtent);
+					} else if (elemValue instanceof CategoryExtentType)
+						valueExtent = new ValueExtentImpl(unmarshalCategoryExtent((CategoryExtentType)elemValue));
+					else if (elemValue instanceof QuantityExtentType)
+						valueExtent = new ValueExtentImpl(unmarshalQuantityExtent((QuantityExtentType)elemValue));
+
+					if (valueExtent != null) {
+						ValueObject valueObject = new ValueObjectImpl(valueExtent);
+						value.setValueObject(valueObject);
+						dest.addValue(value);
+						continue;
+					}
+
+					if (localName.equals("Null")) {
+						value.setNull(unmarshalNull((List<String>)elemValue));
+						dest.addValue(value);
+						continue;
+					}
+
+					else if (elemValue instanceof AbstractGMLType) {
+						try {
+							Object abstractGML = jaxb.unmarshal(elem);
+							if (abstractGML instanceof CompositeValue) {
+								ValueObject valueObject = new ValueObjectImpl((CompositeValue)abstractGML);
+								value.setValueObject(valueObject);
+								dest.addValue(value);
+								continue;
+							} else if (abstractGML instanceof AbstractGML) {
+								value.setGMLObject((AbstractGML)abstractGML);
+								dest.addValue(value);
+								continue;
+							}
+						} catch (MissingADESchemaException e) {
+							//
+						}
+					}
+
+				} else if (object instanceof Element) {
+					value.setGenericValueObject(new GenericValueObject((Element)object));
+					dest.addValue(value);
+					continue;
+				}
+			}
+		}
+
+		return dest;
+	}
+
+	public ValueProperty unmarshalValueProperty(ValuePropertyType src) {
+		ValueProperty dest = new ValuePropertyImpl();
+		Value value = new ValueImpl();		
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
+		ScalarValue scalarValue = null;		
+		if (src.isSetBoolean())
+			scalarValue = new ScalarValueImpl(src.isBoolean());
+		else if (src.isSetCategory())
+			scalarValue = new ScalarValueImpl(unmarshalCode(src.getCategory()));
+		else if (src.isSetQuantity())
+			scalarValue = new ScalarValueImpl(unmarshalMeasure(src.getQuantity()));
+		else if (src.isSetCount())
+			scalarValue = new ScalarValueImpl(src.getCount().intValue());
+
+		if (scalarValue != null) {
+			ValueObject valueObject = new ValueObjectImpl(scalarValue);
+			value.setValueObject(valueObject);
+			dest.setValue(value);
+			return dest;
+		}
+
+		ScalarValueList scalarValueList = null;
+		if (src.isSetBooleanList()) {
+			scalarValueList = new ScalarValueListImpl();			
+			BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+			booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList(src.getBooleanList()));
+			scalarValueList.setBooleanList(booleanOrNullList);
+		} else if (src.isSetCountList()) {
+			scalarValueList = new ScalarValueListImpl();			
+			IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+			integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountList()));
+			scalarValueList.setCountList(integerOrNullList);
+		} else if (src.isSetCategoryList())
+			scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList(src.getCategoryList()));
+		else if (src.isSetQuantityList())
+			scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList(src.getQuantityList()));
+
+		if (scalarValueList != null) {
+			ValueObject valueObject = new ValueObjectImpl(scalarValueList);
+			value.setValueObject(valueObject);
+			dest.setValue(value);
+			return dest;
+		}
+
+		ValueExtent valueExtent = null;
+		if (src.isSetCountExtent()) {
+			valueExtent = new ValueExtentImpl();
+			CountExtent countExtent = new CountExtentImpl();
+			countExtent.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountExtent()));
+			valueExtent.setCountExtent(countExtent);
+		} else if (src.isSetCategoryExtent())
+			valueExtent = new ValueExtentImpl(unmarshalCategoryExtent(src.getCategoryExtent()));
+		else if (src.isSetQuantityExtent())
+			valueExtent = new ValueExtentImpl(unmarshalQuantityExtent(src.getQuantityExtent()));
+
+		if (valueExtent != null) {
+			ValueObject valueObject = new ValueObjectImpl(valueExtent);
+			value.setValueObject(valueObject);
+			dest.setValue(value);
+			return dest;
+		}
+
+		if (src.isSetCompositeValue()) {
+			try {
+				Object compositeValue = jaxb.unmarshal(src.getCompositeValue());
+				if (compositeValue instanceof CompositeValue) {
+					ValueObject valueObject = new ValueObjectImpl((CompositeValue)compositeValue);
+					value.setValueObject(valueObject);
+					dest.setValue(value);
+					return dest;
+				}				
+			} catch (MissingADESchemaException e) {
+				// 
+			}
+		}
+
+		else if (src.isSet_GML()) {
+			try {
+				Object abstractGML = jaxb.unmarshal(src.get_GML());
+				if (abstractGML instanceof AbstractGML) {
+					value.setGMLObject((AbstractGML)abstractGML);
+					dest.setValue(value);
+					return dest;
+				}
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
+
+		else if (src.isSet_ADEComponent()) {
+			value.setGenericValueObject(new GenericValueObject(src.get_ADEComponent()));
+			dest.setValue(value);
+			return dest;
+		}
+
+		else if (src.isSetNull()) {
+			value.setNull(unmarshalNull(src.getNull()));
+			dest.setValue(value);
+			return dest;
+		}
+
+		return dest;
+	}
+
+	public Vector unmarshalVector(VectorType src) {
+		Vector dest = new VectorImpl();
+
+		if (src.isSetValue())
+			dest.setValue(src.getValue());
+
+		if (src.isSetSrsName())
+			dest.setSrsName(src.getSrsName());
+
+		if (src.isSetSrsDimension())
+			dest.setSrsDimension(src.getSrsDimension().intValue());
+
+		if (src.isSetAxisLabels())
+			dest.setAxisLabels(src.getAxisLabels());
+
+		if (src.isSetUomLabels())
+			dest.setUomLabels(src.getUomLabels());
 
 		return dest;
 	}

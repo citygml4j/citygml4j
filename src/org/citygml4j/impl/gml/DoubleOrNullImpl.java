@@ -19,7 +19,7 @@ public class DoubleOrNullImpl implements DoubleOrNull {
 	}
 	
 	public DoubleOrNullImpl(Null _null) {
-		this._null = _null;
+		setNull(_null);
 	}
 	
 	public GMLClass getGMLClass() {

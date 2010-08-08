@@ -44,6 +44,7 @@ import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.gml.RectifiedGridCoverage;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.w3c.dom.Element;
 
@@ -80,6 +81,7 @@ public interface FeatureFunction<T> {
 	public T accept(TINRelief tinRelief);
 	public T accept(AuxiliaryTrafficArea auxiliaryTrafficArea);
 	public T accept(Railway railway);
+	public T accept(RectifiedGridCoverage rectifiedGridCoverage);
 	public T accept(Road road);
 	public T accept(Square square);
 	public T accept(Track track);

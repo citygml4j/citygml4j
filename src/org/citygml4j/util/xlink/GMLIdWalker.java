@@ -87,7 +87,9 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.gml.AbstractCoverage;
 import org.citygml4j.model.gml.AbstractCurve;
+import org.citygml4j.model.gml.AbstractDiscreteCoverage;
 import org.citygml4j.model.gml.AbstractFeature;
 import org.citygml4j.model.gml.AbstractFeatureCollection;
 import org.citygml4j.model.gml.AbstractGML;
@@ -103,15 +105,18 @@ import org.citygml4j.model.gml.Association;
 import org.citygml4j.model.gml.CompositeCurve;
 import org.citygml4j.model.gml.CompositeSolid;
 import org.citygml4j.model.gml.CompositeSurface;
+import org.citygml4j.model.gml.CompositeValue;
 import org.citygml4j.model.gml.Curve;
 import org.citygml4j.model.gml.CurveArrayProperty;
 import org.citygml4j.model.gml.CurveProperty;
 import org.citygml4j.model.gml.FeatureArrayProperty;
 import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.GenericValueObject;
 import org.citygml4j.model.gml.GeometricComplex;
 import org.citygml4j.model.gml.GeometricComplexProperty;
 import org.citygml4j.model.gml.GeometricPrimitiveProperty;
 import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.gml.Grid;
 import org.citygml4j.model.gml.LineString;
 import org.citygml4j.model.gml.LineStringProperty;
 import org.citygml4j.model.gml.LinearRing;
@@ -133,7 +138,11 @@ import org.citygml4j.model.gml.PointArrayProperty;
 import org.citygml4j.model.gml.PointProperty;
 import org.citygml4j.model.gml.Polygon;
 import org.citygml4j.model.gml.PolygonProperty;
+import org.citygml4j.model.gml.RangeSet;
 import org.citygml4j.model.gml.Rectangle;
+import org.citygml4j.model.gml.RectifiedGrid;
+import org.citygml4j.model.gml.RectifiedGridCoverage;
+import org.citygml4j.model.gml.RectifiedGridDomain;
 import org.citygml4j.model.gml.Ring;
 import org.citygml4j.model.gml.Solid;
 import org.citygml4j.model.gml.SolidArrayProperty;
@@ -146,6 +155,11 @@ import org.citygml4j.model.gml.Tin;
 import org.citygml4j.model.gml.Triangle;
 import org.citygml4j.model.gml.TrianglePatchArrayProperty;
 import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.Value;
+import org.citygml4j.model.gml.ValueArray;
+import org.citygml4j.model.gml.ValueArrayProperty;
+import org.citygml4j.model.gml.ValueObject;
+import org.citygml4j.model.gml.ValueProperty;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.xml.schema.ElementDecl;
@@ -163,6 +177,29 @@ public class GMLIdWalker implements GMLFunction<Object> {
 
 	public Object accept(AbstractGML abstractGML) {
 		return (abstractGML.isSetId() && gmlId.equals(abstractGML.getId())) ? abstractGML : null;
+	}
+	
+	public Object accept(AbstractCoverage abstractCoverage) {
+		Object object = accept((AbstractFeature)abstractCoverage);
+		if (object != null)
+			return object;
+		
+		if (abstractCoverage.isSetRangeSet()) {
+			RangeSet rangeSet = abstractCoverage.getRangeSet();
+			if (rangeSet.isSetValueArray()) {
+				for (ValueArray valueArray : rangeSet.getValueArray()) {
+					object = accept(valueArray);
+					if (object != null)
+						return object;
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	public Object accept(AbstractDiscreteCoverage abstractDiscreteCoverage) {
+		return accept((AbstractCoverage)abstractDiscreteCoverage);
 	}
 
 	public Object accept(AbstractFeature abstractFeature) {
@@ -661,6 +698,56 @@ public class GMLIdWalker implements GMLFunction<Object> {
 		return accept((AbstractGML)appearance);
 	}
 
+	public Object accept(CompositeValue compositeValue) {
+		Object object = accept((AbstractGML)compositeValue);
+		if (object != null)
+			return object;
+		
+		if (compositeValue.isSetValueComponent()) {
+			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
+				if (valueProperty.isSetValue()) {
+					object = accept(valueProperty.getValue());
+					if (object != null)
+						return object;
+				}
+			}
+		}
+
+		if (compositeValue.isSetValueComponents()) {
+			ValueArrayProperty valueArrayProperty = compositeValue.getValueComponents();
+			if (valueArrayProperty.isSetValue()) {
+				for (Value value : valueArrayProperty.getValue()) {
+					object = accept(value);
+					if (object != null)
+						return object;
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	public Object accept(ValueArray valueArray) {
+		return accept((CompositeValue)valueArray);
+	}
+	
+	public Object accept(RectifiedGridCoverage rectifiedGridCoverage) {
+		Object object = accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
+		if (object != null)
+			return object;
+		
+		if (rectifiedGridCoverage.isSetRectifiedGridDomain()) {
+			RectifiedGridDomain rectifiedGridDomain = rectifiedGridCoverage.getRectifiedGridDomain();
+			if (rectifiedGridDomain.isSetGeometry() && visited.add(rectifiedGridDomain.getGeometry())) {
+				object = rectifiedGridDomain.getGeometry().apply(this);
+				if (object != null)
+					return object;
+			}
+		}
+		
+		return null;
+	}
+	
 	public Object accept(AbstractGeometry abstractGeometry) {
 		return accept((AbstractGML)abstractGeometry);
 	}
@@ -1062,6 +1149,10 @@ public class GMLIdWalker implements GMLFunction<Object> {
 
 		return null;
 	}
+	
+	public Object accept(Grid grid) {
+		return accept((AbstractGeometry)grid);
+	}
 
 	public Object accept(LinearRing linearRing) {
 		return accept((AbstractRing)linearRing);
@@ -1260,6 +1351,20 @@ public class GMLIdWalker implements GMLFunction<Object> {
 			}
 		}
 
+		return null;
+	}
+	
+	public Object accept(RectifiedGrid rectifiedGrid) {
+		Object object = accept((Grid)rectifiedGrid);
+		if (object != null)
+			return object;
+		
+		if (rectifiedGrid.isSetOrigin()) {
+			object = accept(rectifiedGrid.getOrigin());
+			if (object != null)
+				return object;
+		}
+		
 		return null;
 	}
 
@@ -2107,6 +2212,12 @@ public class GMLIdWalker implements GMLFunction<Object> {
 		if (object != null)
 			return object;
 
+		if (rasterRelief.isSetGrid()) {
+			object = accept(rasterRelief.getGrid());
+			if (object != null)
+				return object;
+		}
+		
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief()) {
 			for (ADEComponent ade : rasterRelief.getGenericApplicationPropertyOfRasterRelief()) {
 				object = accept(ade);
@@ -2706,6 +2817,33 @@ public class GMLIdWalker implements GMLFunction<Object> {
 			}
 		}
 
+		return null;
+	}
+	
+	protected Object accept(Value value) {
+		if (value.isSetGMLObject()) {
+			AbstractGML abstractGML = value.getGMLObject();
+			if (abstractGML instanceof AbstractFeature && visited.add(abstractGML)) {
+				Object object = ((AbstractFeature)abstractGML).apply(this);
+				if (object != null)
+					return object;
+			}
+		} else if (value.isSetValueObject()) {
+			ValueObject valueObject = value.getValueObject();
+			if (valueObject.isSetCompositeValue()) {
+				Object object = accept((CompositeValue)valueObject.getCompositeValue());
+				if (object != null)
+					return object;
+			}
+		} else if (value.isSetGenericValueObject()) {
+			GenericValueObject genericValueObject = value.getGenericValueObject();
+			if (genericValueObject.isSetContent() && visited.add(genericValueObject.getContent())) {
+				Object object = adeComponent(genericValueObject.getContent(), (Element)null);
+				if (object != null)
+					return object;
+			}
+		}
+		
 		return null;
 	}
 }

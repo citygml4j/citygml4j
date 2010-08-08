@@ -5,8 +5,12 @@ import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
+import org.citygml4j.model.gml.CompositeValue;
+import org.citygml4j.model.gml.ValueArray;
 
 public interface GMLFunction<T> extends FeatureFunction<T>, GeometryFunction<T> {
+	public T accept(CompositeValue compositeValue);
+	public T accept(ValueArray valueArray);
 	public T accept(TexCoordGen texCoordGen);
 	public T accept(TexCoordList texCoordList);
 	public T accept(ImplicitGeometry implicitGeometry);

@@ -6,6 +6,7 @@ import javax.xml.namespace.QName;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.impl.citygml.relief.BreaklineReliefImpl;
+import org.citygml4j.impl.citygml.relief.GridPropertyImpl;
 import org.citygml4j.impl.citygml.relief.MassPointReliefImpl;
 import org.citygml4j.impl.citygml.relief.RasterReliefImpl;
 import org.citygml4j.impl.citygml.relief.ReliefComponentPropertyImpl;
@@ -13,6 +14,7 @@ import org.citygml4j.impl.citygml.relief.ReliefFeatureImpl;
 import org.citygml4j.impl.citygml.relief.TINReliefImpl;
 import org.citygml4j.impl.citygml.relief.TinPropertyImpl;
 import org.citygml4j.jaxb.citygml._0_4.BreaklineReliefType;
+import org.citygml4j.jaxb.citygml._0_4.GridPropertyType;
 import org.citygml4j.jaxb.citygml._0_4.MassPointReliefType;
 import org.citygml4j.jaxb.citygml._0_4.RasterReliefType;
 import org.citygml4j.jaxb.citygml._0_4.ReliefComponentPropertyType;
@@ -23,6 +25,7 @@ import org.citygml4j.jaxb.citygml._0_4._ReliefComponentType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
+import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
 import org.citygml4j.model.citygml.relief.ReliefComponent;
@@ -30,6 +33,7 @@ import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
+import org.citygml4j.model.gml.RectifiedGridCoverage;
 import org.citygml4j.model.gml.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -56,6 +60,8 @@ public class Relief040Unmarshaller {
 
 		if (src instanceof BreaklineReliefType)
 			dest = unmarshalBreaklineRelief((BreaklineReliefType)dest);
+		else if (src instanceof GridPropertyType)
+			dest = unmarshalGridProperty((GridPropertyType)src);
 		else if (src instanceof MassPointReliefType)
 			dest = unmarshalMassPointRelief((MassPointReliefType)src);
 		else if (src instanceof RasterReliefType)
@@ -98,6 +104,19 @@ public class Relief040Unmarshaller {
 
 		return dest;
 	}
+	
+	public GridProperty unmarshalGridProperty(GridPropertyType src) throws MissingADESchemaException {
+		GridProperty dest = new GridPropertyImpl();
+		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
+		
+		if (src.isSet_Object()) {
+			Object object = jaxb.unmarshal(src.get_Object());
+			if (object instanceof RectifiedGridCoverage)
+				dest.setObject((RectifiedGridCoverage)object);
+		}
+		
+		return dest;
+	}
 
 	public void unmarshalMassPointRelief(MassPointReliefType src, MassPointRelief dest) throws MissingADESchemaException {
 		unmarshalReliefComponent(src, dest);
@@ -115,6 +134,9 @@ public class Relief040Unmarshaller {
 
 	public void unmarshalRasterRelief(RasterReliefType src, RasterRelief dest) throws MissingADESchemaException {
 		unmarshalReliefComponent(src, dest);
+		
+		if (src.isSetGrid())
+			dest.setGrid(unmarshalGridProperty(src.getGrid()));
 	}
 
 	public RasterRelief unmarshalRasterRelief(RasterReliefType src) throws MissingADESchemaException {

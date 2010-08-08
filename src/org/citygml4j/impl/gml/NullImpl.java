@@ -1,5 +1,6 @@
 package org.citygml4j.impl.gml;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.regex.Matcher;
@@ -37,9 +38,14 @@ public class NullImpl implements Null {
 			else {
 				try {
 					URI uri = new URI(value);
-					this.value = uri.toString();
+					if (uri.toURL() != null)
+						this.value = uri.toString();
 				} catch (URISyntaxException e) {
 					// 
+				} catch (MalformedURLException e) {
+					//
+				} catch (IllegalArgumentException e) {
+					//
 				}
 			}
 		}
@@ -75,12 +81,12 @@ public class NullImpl implements Null {
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		Null copy = (target == null) ? new NullImpl() : (Null)target;
-		
+
 		if (isSetValue())
 			copy.setValue(copyBuilder.copy(value));
-		
+
 		copy.unsetParent();
-		
+
 		return copy;
 	}
 

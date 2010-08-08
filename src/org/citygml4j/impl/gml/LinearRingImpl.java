@@ -35,10 +35,8 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		BoundingBox bbox = new BoundingBox();
 		List<Double> points = toList3d();
 
-		for (int i = 0; i < points.size(); i += 3) {
-			bbox.updateLowerCorner(points.get(i), points.get(i + 1), points.get(i + 2));
-			bbox.updateUpperCorner(points.get(i), points.get(i + 1), points.get(i + 2));
-		}
+		for (int i = 0; i < points.size(); i += 3)
+			bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
 
 		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
 				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))

@@ -1,5 +1,6 @@
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
@@ -50,7 +51,7 @@ public class StAXStream2SAX {
 			len = reader.getTextCharacters(start, buf, 0, buf.length);
 			start += len;			
 		} while (len == buf.length);
-		
+
 		try {
 			buffer.characters(buf, 0, len);
 		} catch (SAXException e) {
@@ -98,7 +99,7 @@ public class StAXStream2SAX {
 
 			QName name = reader.getName();
 			Attributes attrs = getAttributes(reader);
-			
+
 			buffer.startElement(
 					name.getNamespaceURI(),
 					name.getLocalPart(),
@@ -115,32 +116,32 @@ public class StAXStream2SAX {
 
 		for (int i = 0; i < reader.getNamespaceCount(); i++) {
 			String uri = reader.getNamespaceURI(i);
-			if (uri==null) 
-				uri="";
+			if (uri == null) 
+				uri = "";
 
 			String prefix = reader.getNamespacePrefix(i);
-			if (prefix==null) 
-				prefix="";
+			if (prefix == null) 
+				prefix = "";
 
-			String name = "xmlns";
+			String name = XMLConstants.XMLNS_ATTRIBUTE;
 			if (prefix.length() == 0)
 				prefix = name;
 			else
 				name += ':' + prefix;
 
-			attrs.addAttribute("http://www.w3.org/2000/xmlns/", prefix, name, "CDATA", uri);                
+			attrs.addAttribute(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, prefix, name, "CDATA", uri);                
 		}
 
 		for (int i = 0; i < reader.getAttributeCount(); i++) {
 			String uri = reader.getAttributeNamespace(i);
 			if (uri == null)   
-				uri="";
+				uri = "";
 
 			String localName = reader.getAttributeLocalName(i);
 			String type = reader.getAttributeType(i);
 			String value = reader.getAttributeValue(i);
-
-			attrs.addAttribute(uri, localName, null, type, value);
+			
+			attrs.addAttribute(uri, localName, localName, type, value);
 		}
 
 		return attrs;

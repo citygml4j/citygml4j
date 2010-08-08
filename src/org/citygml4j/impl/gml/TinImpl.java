@@ -137,10 +137,8 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 			List<Double> points = controlPoint.toList3d();
 
 			if (!points.isEmpty()) {
-				for (int i = 0; i < points.size(); i += 3) {
-					bbox.updateLowerCorner(points.get(i), points.get(i + 1), points.get(i + 2));
-					bbox.updateUpperCorner(points.get(i), points.get(i + 1), points.get(i + 2));
-				}
+				for (int i = 0; i < points.size(); i += 3)
+					bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
 			}
 		}
 		

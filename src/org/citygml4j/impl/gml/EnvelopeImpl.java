@@ -391,25 +391,20 @@ public class EnvelopeImpl implements Envelope {
 			for (DirectPosition directPosition : pos)
 				if (directPosition.isSetValue()) {
 					List<Double> value = directPosition.toList3d();
-					bbox.updateLowerCorner(value.get(0), value.get(1), value.get(2));
-					bbox.updateUpperCorner(value.get(0), value.get(1), value.get(2));
+					bbox.update(value.get(0), value.get(1), value.get(2));
 				}
 		}
 
 		if (isSetCoord()) {
 			for (Coord coord : this.coord)
-				if (coord.isSetX() && coord.isSetY()) {
-					bbox.updateLowerCorner(coord.getX(), coord.getY(), coord.isSetZ() ? coord.getZ() : 0.0);	
-					bbox.updateUpperCorner(coord.getX(), coord.getY(), coord.isSetZ() ? coord.getZ() : 0.0);	
-				}
+				if (coord.isSetX() && coord.isSetY())
+					bbox.update(coord.getX(), coord.getY(), coord.isSetZ() ? coord.getZ() : 0.0);	
 		}
 
 		if (isSetCoordinates()) {
 			List<Double> coordinates = this.coordinates.toList3d();
-			for (int i = 0; i < coordinates.size(); i += 3) {
-				bbox.updateLowerCorner(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
-				bbox.updateUpperCorner(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
-			}
+			for (int i = 0; i < coordinates.size(); i += 3)
+				bbox.update(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
 		}
 
 		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 

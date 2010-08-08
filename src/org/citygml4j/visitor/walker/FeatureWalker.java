@@ -82,11 +82,23 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.gml.AbstractCoverage;
+import org.citygml4j.model.gml.AbstractDiscreteCoverage;
 import org.citygml4j.model.gml.AbstractFeature;
 import org.citygml4j.model.gml.AbstractFeatureCollection;
+import org.citygml4j.model.gml.AbstractGML;
 import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.CompositeValue;
 import org.citygml4j.model.gml.FeatureArrayProperty;
 import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.GenericValueObject;
+import org.citygml4j.model.gml.RangeSet;
+import org.citygml4j.model.gml.RectifiedGridCoverage;
+import org.citygml4j.model.gml.Value;
+import org.citygml4j.model.gml.ValueArray;
+import org.citygml4j.model.gml.ValueArrayProperty;
+import org.citygml4j.model.gml.ValueObject;
+import org.citygml4j.model.gml.ValueProperty;
 import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
@@ -94,46 +106,68 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	private Set<Object> visited = new HashSet<Object>();
 	private boolean shouldWalk = true; 
 	private SchemaHandler schemaHandler;
-	
-	public FeatureWalker() {		
+
+	public FeatureWalker() {
+		try {
+			schemaHandler = SchemaHandler.newInstance();
+		} catch (SAXException e) {
+			//
+		}
 	}
-	
+
 	public FeatureWalker(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 	}
-	
+
 	public void reset() {
 		visited.clear();
 		shouldWalk = true;
 	}
-	
+
 	public boolean shouldWalk() {
 		return shouldWalk;
 	}
-	
+
 	public void setShouldWalk(boolean shouldWalk) {
 		this.shouldWalk = shouldWalk;
 	}
-	
+
 	public void setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 	}
-	
+
 	public SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
-	
+
 	public boolean addToVisited(Object object) {
 		return visited.add(object);
 	}
 
 	public boolean hasVisited(Object object) {
 		return visited.contains(object);
+	}
+
+	public void accept(AbstractCoverage abstractCoverage) {
+		if (abstractCoverage.isSetRangeSet()) {
+			RangeSet rangeSet = abstractCoverage.getRangeSet();
+			if (rangeSet.isSetValueArray()) {
+				for (ValueArray valueArray : rangeSet.getValueArray())
+					accept(valueArray);
+			}
+		}
+
+		accept((AbstractFeature)abstractCoverage);
+	}
+	
+	public void accept(AbstractDiscreteCoverage abstractDiscreteCoverage) {
+		accept((AbstractCoverage)abstractDiscreteCoverage);
 	}
 
 	public void accept(AbstractFeature abstractFeature) {
@@ -311,6 +345,10 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			accept(association.getGenericADEComponent());
 	}
 	
+	public void accept(RectifiedGridCoverage rectifiedGridCoverage) {
+		accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
+	}
+
 	public void accept(Appearance appearance) {
 		if (appearance.isSetSurfaceDataMember())
 			for (SurfaceDataProperty surfaceDataProperty : new ArrayList<SurfaceDataProperty>(appearance.getSurfaceDataMember()))
@@ -589,6 +627,9 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	}
 
 	public void accept(RasterRelief rasterRelief) {
+		if (rasterRelief.isSetGrid())
+			accept(rasterRelief.getGrid());
+		
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				accept(ade);
@@ -631,7 +672,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 
 		accept((TransportationComplex)railway);
 	}
-
+	
 	public void accept(Road road) {
 		if (road.isSetGenericApplicationPropertyOfRoad())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(road.getGenericApplicationPropertyOfRoad()))
@@ -735,7 +776,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	public void accept(Element element, ElementDecl decl) {
 		iterateNodeList(element, decl);
 	}
-	
+
 	public void accept(ADEComponent adeComponent) {
 		if (adeComponent.isSetContent() && shouldWalk && visited.add(adeComponent.getContent()) && schemaHandler != null)
 			adeComponent(adeComponent.getContent(), null); 
@@ -743,7 +784,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 
 	protected void adeComponent(Element element, ElementDecl decl) {
 		Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
-		
+
 		if (schema != null) {
 			decl = schema.getElementDecl(element.getLocalName(), decl);
 			if (decl != null && decl.isFeature())
@@ -752,20 +793,52 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				iterateNodeList(element, decl);
 		}		
 	}
-	
+
 	protected void iterateNodeList(Element element, ElementDecl decl) {
 		NodeList nodeList = element.getChildNodes();
-		
+
 		List<Element> children = new ArrayList<Element>(nodeList.getLength());
 		for (int i = 0; i < nodeList.getLength(); ++i) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE)
 				children.add((Element)node);
 		}	
-		
+
 		for (Element child : children)
 			if (shouldWalk && visited.add(child))
 				adeComponent((Element)child, decl);
 	}
 
+	protected void accept(CompositeValue compositeValue) {
+		if (compositeValue.isSetValueComponent()) {
+			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
+				if (valueProperty.isSetValue())
+					accept(valueProperty.getValue());
+			}
+		}
+
+		if (compositeValue.isSetValueComponents()) {
+			ValueArrayProperty valueArrayProperty = compositeValue.getValueComponents();
+			if (valueArrayProperty.isSetValue()) {
+				for (Value value : valueArrayProperty.getValue())
+					accept(value);
+			}
+		}
+	}
+	
+	protected void accept(Value value) {
+		if (value.isSetGMLObject()) {
+			AbstractGML abstractGML = value.getGMLObject();
+			if (abstractGML instanceof AbstractFeature && shouldWalk && visited.add(abstractGML))
+				((AbstractFeature)abstractGML).visit(this);		
+		} else if (value.isSetValueObject()) {
+			ValueObject valueObject = value.getValueObject();
+			if (valueObject.isSetCompositeValue())
+				accept((CompositeValue)valueObject.getCompositeValue());
+		} else if (value.isSetGenericValueObject()) {
+			GenericValueObject genericValueObject = value.getGenericValueObject();
+			if (genericValueObject.isSetContent() && shouldWalk && visited.add(genericValueObject.getContent()))
+				adeComponent(genericValueObject.getContent(), null);
+		}
+	}
 }
