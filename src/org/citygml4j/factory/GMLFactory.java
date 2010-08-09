@@ -1155,8 +1155,8 @@ public class GMLFactory {
 		return new ValueImpl(valueObject);
 	}
 	
-	public Value createValue(AbstractGML gmlObject) {
-		return new ValueImpl(gmlObject);
+	public Value createValue(AbstractGeometry geometry) {
+		return new ValueImpl(geometry);
 	}
 	
 	public Value createValue(GenericValueObject genericValueObject) {

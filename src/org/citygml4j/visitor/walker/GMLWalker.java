@@ -115,7 +115,6 @@ import org.citygml4j.model.gml.CurveArrayProperty;
 import org.citygml4j.model.gml.CurveProperty;
 import org.citygml4j.model.gml.FeatureArrayProperty;
 import org.citygml4j.model.gml.FeatureProperty;
-import org.citygml4j.model.gml.GenericValueObject;
 import org.citygml4j.model.gml.GeometricComplex;
 import org.citygml4j.model.gml.GeometricComplexProperty;
 import org.citygml4j.model.gml.GeometricPrimitiveProperty;
@@ -175,7 +174,6 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public abstract class GMLWalker implements GMLVisitor, Walker {
 	private Set<Object> visited = new HashSet<Object>();
@@ -183,11 +181,6 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	private SchemaHandler schemaHandler;
 
 	public GMLWalker() {
-		try {
-			schemaHandler = SchemaHandler.newInstance();
-		} catch (SAXException e) {
-			//
-		}
 	}
 
 	public GMLWalker(SchemaHandler schemaHandler) {
@@ -237,11 +230,11 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 		accept((AbstractFeature)abstractCoverage);
 	}
-	
+
 	public void accept(AbstractDiscreteCoverage abstractDiscreteCoverage) {
 		accept((AbstractCoverage)abstractDiscreteCoverage);
 	}
-	
+
 	public void accept(AbstractFeature abstractFeature) {
 		if (abstractFeature.isSetLocation())
 			accept(abstractFeature.getLocation());
@@ -497,7 +490,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void accept(_Appearance appearance) {
 		accept((AbstractGML)appearance);
 	}
-	
+
 	public void accept(CompositeValue compositeValue) {
 		if (compositeValue.isSetValueComponent()) {
 			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
@@ -513,21 +506,21 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 					accept(value);
 			}
 		}
-		
+
 		accept((AbstractGML)compositeValue);
 	}
 
 	public void accept(ValueArray valueArray) {
 		accept((CompositeValue)valueArray);
 	}
-	
+
 	public void accept(RectifiedGridCoverage rectifiedGridCoverage) {
 		if (rectifiedGridCoverage.isSetRectifiedGridDomain()) {
 			RectifiedGridDomain rectifiedGridDomain = rectifiedGridCoverage.getRectifiedGridDomain();
 			if (rectifiedGridDomain.isSetGeometry() && shouldWalk && visited.add(rectifiedGridDomain.getGeometry()))
 				rectifiedGridDomain.getGeometry().visit(this);
 		}
-		
+
 		accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
 	}
 
@@ -972,7 +965,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void accept(RasterRelief rasterRelief) {
 		if (rasterRelief.isSetGrid())
 			accept(rasterRelief.getGrid());
-		
+
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				accept(ade);
@@ -1383,7 +1376,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		if (abstractRingProperty.isSetRing() && shouldWalk && visited.add(abstractRingProperty.getRing()))
 			abstractRingProperty.getRing().visit(this);
 	}
-	
+
 	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
 		if (surfacePatchArrayProperty.isSetSurfacePatch())
 			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
@@ -1451,7 +1444,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 		accept((AbstractGeometry)geometricComplex);
 	}
-	
+
 	public void accept(Grid grid) {
 		accept((AbstractGeometry)grid);
 	}
@@ -1563,11 +1556,11 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 		accept((AbstractSurface)polygon);
 	}
-	
+
 	public void accept(RectifiedGrid rectifiedGrid) {
 		if (rectifiedGrid.isSetOrigin())
 			accept(rectifiedGrid.getOrigin());
-		
+
 		accept((Grid)rectifiedGrid);
 	}
 
@@ -1625,35 +1618,29 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 				iterateNodeList(element, decl);
 		}
 	}
-	
+
 	protected void iterateNodeList(Element element, ElementDecl decl) {
 		NodeList nodeList = element.getChildNodes();
-		
+
 		List<Element> children = new ArrayList<Element>(nodeList.getLength());
 		for (int i = 0; i < nodeList.getLength(); ++i) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE)
 				children.add((Element)node);
 		}	
-		
+
 		for (Element child : children)
 			if (shouldWalk && visited.add(child))
 				adeComponent((Element)child, decl);
 	}
-	
+
 	protected void accept(Value value) {
-		if (value.isSetGMLObject()) {
-			AbstractGML abstractGML = value.getGMLObject();
-			if (abstractGML instanceof AbstractFeature && shouldWalk && visited.add(abstractGML))
-				((AbstractFeature)abstractGML).visit(this);		
+		if (value.isSetGeometry() && shouldWalk && visited.add(value.getGeometry())) {
+			value.getGeometry().visit(this);		
 		} else if (value.isSetValueObject()) {
 			ValueObject valueObject = value.getValueObject();
 			if (valueObject.isSetCompositeValue())
 				accept((CompositeValue)valueObject.getCompositeValue());
-		} else if (value.isSetGenericValueObject()) {
-			GenericValueObject genericValueObject = value.getGenericValueObject();
-			if (genericValueObject.isSetContent() && shouldWalk && visited.add(genericValueObject.getContent()))
-				adeComponent(genericValueObject.getContent(), null);
 		}
 	}
 

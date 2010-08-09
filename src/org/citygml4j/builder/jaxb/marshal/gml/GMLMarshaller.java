@@ -860,9 +860,9 @@ public class GMLMarshaller {
 		if (src.isSetValueObject())
 			marshalValueObject(src.getValueObject(), dest);
 		
-		else if (src.isSetGMLObject()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGMLObject());
-			if (elem != null && elem.getValue() instanceof AbstractGMLType)
+		else if (src.isSetGeometry()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
+			if (elem != null && elem.getValue() instanceof AbstractGeometryType)
 				dest.set_GML((JAXBElement<? extends AbstractGMLType>)elem);
 		}
 		
@@ -923,9 +923,9 @@ public class GMLMarshaller {
 			}			
 		}
 		
-		else if (src.isSetGMLObject()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGMLObject());
-			if (elem != null && elem.getValue() instanceof AbstractGMLType)
+		else if (src.isSetGeometry()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
+			if (elem != null && elem.getValue() instanceof AbstractGeometryType)
 				dest = elem;
 		}
 		

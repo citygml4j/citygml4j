@@ -111,7 +111,6 @@ import org.citygml4j.model.gml.CurveArrayProperty;
 import org.citygml4j.model.gml.CurveProperty;
 import org.citygml4j.model.gml.FeatureArrayProperty;
 import org.citygml4j.model.gml.FeatureProperty;
-import org.citygml4j.model.gml.GenericValueObject;
 import org.citygml4j.model.gml.GeometricComplex;
 import org.citygml4j.model.gml.GeometricComplexProperty;
 import org.citygml4j.model.gml.GeometricPrimitiveProperty;
@@ -178,12 +177,12 @@ public class GMLIdWalker implements GMLFunction<Object> {
 	public Object accept(AbstractGML abstractGML) {
 		return (abstractGML.isSetId() && gmlId.equals(abstractGML.getId())) ? abstractGML : null;
 	}
-	
+
 	public Object accept(AbstractCoverage abstractCoverage) {
 		Object object = accept((AbstractFeature)abstractCoverage);
 		if (object != null)
 			return object;
-		
+
 		if (abstractCoverage.isSetRangeSet()) {
 			RangeSet rangeSet = abstractCoverage.getRangeSet();
 			if (rangeSet.isSetValueArray()) {
@@ -197,7 +196,7 @@ public class GMLIdWalker implements GMLFunction<Object> {
 
 		return null;
 	}
-	
+
 	public Object accept(AbstractDiscreteCoverage abstractDiscreteCoverage) {
 		return accept((AbstractCoverage)abstractDiscreteCoverage);
 	}
@@ -702,7 +701,7 @@ public class GMLIdWalker implements GMLFunction<Object> {
 		Object object = accept((AbstractGML)compositeValue);
 		if (object != null)
 			return object;
-		
+
 		if (compositeValue.isSetValueComponent()) {
 			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
 				if (valueProperty.isSetValue()) {
@@ -723,19 +722,19 @@ public class GMLIdWalker implements GMLFunction<Object> {
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
 	public Object accept(ValueArray valueArray) {
 		return accept((CompositeValue)valueArray);
 	}
-	
+
 	public Object accept(RectifiedGridCoverage rectifiedGridCoverage) {
 		Object object = accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
 		if (object != null)
 			return object;
-		
+
 		if (rectifiedGridCoverage.isSetRectifiedGridDomain()) {
 			RectifiedGridDomain rectifiedGridDomain = rectifiedGridCoverage.getRectifiedGridDomain();
 			if (rectifiedGridDomain.isSetGeometry() && visited.add(rectifiedGridDomain.getGeometry())) {
@@ -744,10 +743,10 @@ public class GMLIdWalker implements GMLFunction<Object> {
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public Object accept(AbstractGeometry abstractGeometry) {
 		return accept((AbstractGML)abstractGeometry);
 	}
@@ -1149,7 +1148,7 @@ public class GMLIdWalker implements GMLFunction<Object> {
 
 		return null;
 	}
-	
+
 	public Object accept(Grid grid) {
 		return accept((AbstractGeometry)grid);
 	}
@@ -1353,18 +1352,18 @@ public class GMLIdWalker implements GMLFunction<Object> {
 
 		return null;
 	}
-	
+
 	public Object accept(RectifiedGrid rectifiedGrid) {
 		Object object = accept((Grid)rectifiedGrid);
 		if (object != null)
 			return object;
-		
+
 		if (rectifiedGrid.isSetOrigin()) {
 			object = accept(rectifiedGrid.getOrigin());
 			if (object != null)
 				return object;
 		}
-		
+
 		return null;
 	}
 
@@ -2217,7 +2216,7 @@ public class GMLIdWalker implements GMLFunction<Object> {
 			if (object != null)
 				return object;
 		}
-		
+
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief()) {
 			for (ADEComponent ade : rasterRelief.getGenericApplicationPropertyOfRasterRelief()) {
 				object = accept(ade);
@@ -2819,15 +2818,12 @@ public class GMLIdWalker implements GMLFunction<Object> {
 
 		return null;
 	}
-	
+
 	protected Object accept(Value value) {
-		if (value.isSetGMLObject()) {
-			AbstractGML abstractGML = value.getGMLObject();
-			if (abstractGML instanceof AbstractFeature && visited.add(abstractGML)) {
-				Object object = ((AbstractFeature)abstractGML).apply(this);
-				if (object != null)
-					return object;
-			}
+		if (value.isSetGeometry() && visited.add(value.getGeometry())) {
+			Object object = value.getGeometry().apply(this);
+			if (object != null)
+				return object;
 		} else if (value.isSetValueObject()) {
 			ValueObject valueObject = value.getValueObject();
 			if (valueObject.isSetCompositeValue()) {
@@ -2835,15 +2831,8 @@ public class GMLIdWalker implements GMLFunction<Object> {
 				if (object != null)
 					return object;
 			}
-		} else if (value.isSetGenericValueObject()) {
-			GenericValueObject genericValueObject = value.getGenericValueObject();
-			if (genericValueObject.isSetContent() && visited.add(genericValueObject.getContent())) {
-				Object object = adeComponent(genericValueObject.getContent(), (Element)null);
-				if (object != null)
-					return object;
-			}
 		}
-		
+
 		return null;
 	}
 }

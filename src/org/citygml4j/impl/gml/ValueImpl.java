@@ -1,7 +1,7 @@
 package org.citygml4j.impl.gml;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.gml.AbstractGML;
+import org.citygml4j.model.gml.AbstractGeometry;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.GenericValueObject;
 import org.citygml4j.model.gml.Null;
@@ -10,7 +10,7 @@ import org.citygml4j.model.gml.ValueObject;
 
 public class ValueImpl implements Value {
 	private ValueObject valueObject;
-	private AbstractGML gmlObject;
+	private AbstractGeometry geometry;
 	private GenericValueObject genericValueObject;
 	private Null _null;
 	private Object parent;
@@ -23,8 +23,8 @@ public class ValueImpl implements Value {
 		setValueObject(valueObject);
 	}
 	
-	public ValueImpl(AbstractGML gmlObject) {
-		setGMLObject(gmlObject);
+	public ValueImpl(AbstractGeometry geometry) {
+		setGeometry(geometry);
 	}
 	
 	public ValueImpl(GenericValueObject genericValueObject) {
@@ -43,8 +43,8 @@ public class ValueImpl implements Value {
 		return valueObject;
 	}
 
-	public AbstractGML getGMLObject() {
-		return gmlObject;
+	public AbstractGeometry getGeometry() {
+		return geometry;
 	}
 
 	public GenericValueObject getGenericValueObject() {
@@ -59,8 +59,8 @@ public class ValueImpl implements Value {
 		return valueObject != null;
 	}
 
-	public boolean isSetGMLObject() {
-		return gmlObject != null;
+	public boolean isSetGeometry() {
+		return geometry != null;
 	}
 
 	public boolean isSetGenericValueObject() {
@@ -77,16 +77,16 @@ public class ValueImpl implements Value {
 		
 		this.valueObject = valueObject;
 		
-		unsetGMLObject();
+		unsetGeometry();
 		unsetNull();
 		unsetGenericValueObject();
 	}
 
-	public void setGMLObject(AbstractGML gmlObject) {
-		if (gmlObject != null)
-			gmlObject.setParent(this);
+	public void setGeometry(AbstractGeometry geometry) {
+		if (geometry != null)
+			geometry.setParent(this);
 		
-		this.gmlObject = gmlObject;
+		this.geometry = geometry;
 		
 		unsetNull();
 		unsetValueObject();
@@ -99,7 +99,7 @@ public class ValueImpl implements Value {
 		
 		this.genericValueObject = genericValueObject;
 		
-		unsetGMLObject();
+		unsetGeometry();
 		unsetNull();
 		unsetValueObject();
 	}
@@ -110,7 +110,7 @@ public class ValueImpl implements Value {
 		
 		this._null = _null;
 		
-		unsetGMLObject();
+		unsetGeometry();
 		unsetValueObject();
 		unsetGenericValueObject();
 	}
@@ -122,11 +122,11 @@ public class ValueImpl implements Value {
 		valueObject = null;
 	}
 
-	public void unsetGMLObject() {
-		if (isSetGMLObject())
-			gmlObject.unsetParent();
+	public void unsetGeometry() {
+		if (isSetGeometry())
+			geometry.unsetParent();
 		
-		gmlObject = null;
+		geometry = null;
 	}
 
 	public void unsetGenericValueObject() {
@@ -168,10 +168,10 @@ public class ValueImpl implements Value {
 				valueObject.setParent(this);
 		}
 		
-		if (isSetGMLObject()) {
-			copy.setGMLObject((AbstractGML)copyBuilder.copy(gmlObject));
-			if (copy.getGMLObject() == gmlObject)
-				gmlObject.setParent(this);
+		if (isSetGeometry()) {
+			copy.setGeometry((AbstractGeometry)copyBuilder.copy(geometry));
+			if (copy.getGeometry() == geometry)
+				geometry.setParent(this);
 		}
 		
 		if (isSetGenericValueObject()) {

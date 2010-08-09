@@ -86,19 +86,10 @@ import org.citygml4j.model.gml.AbstractCoverage;
 import org.citygml4j.model.gml.AbstractDiscreteCoverage;
 import org.citygml4j.model.gml.AbstractFeature;
 import org.citygml4j.model.gml.AbstractFeatureCollection;
-import org.citygml4j.model.gml.AbstractGML;
 import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.CompositeValue;
 import org.citygml4j.model.gml.FeatureArrayProperty;
 import org.citygml4j.model.gml.FeatureProperty;
-import org.citygml4j.model.gml.GenericValueObject;
-import org.citygml4j.model.gml.RangeSet;
 import org.citygml4j.model.gml.RectifiedGridCoverage;
-import org.citygml4j.model.gml.Value;
-import org.citygml4j.model.gml.ValueArray;
-import org.citygml4j.model.gml.ValueArrayProperty;
-import org.citygml4j.model.gml.ValueObject;
-import org.citygml4j.model.gml.ValueProperty;
 import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
@@ -106,7 +97,6 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	private Set<Object> visited = new HashSet<Object>();
@@ -114,11 +104,6 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	private SchemaHandler schemaHandler;
 
 	public FeatureWalker() {
-		try {
-			schemaHandler = SchemaHandler.newInstance();
-		} catch (SAXException e) {
-			//
-		}
 	}
 
 	public FeatureWalker(SchemaHandler schemaHandler) {
@@ -155,14 +140,6 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	}
 
 	public void accept(AbstractCoverage abstractCoverage) {
-		if (abstractCoverage.isSetRangeSet()) {
-			RangeSet rangeSet = abstractCoverage.getRangeSet();
-			if (rangeSet.isSetValueArray()) {
-				for (ValueArray valueArray : rangeSet.getValueArray())
-					accept(valueArray);
-			}
-		}
-
 		accept((AbstractFeature)abstractCoverage);
 	}
 	
@@ -808,37 +785,5 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			if (shouldWalk && visited.add(child))
 				adeComponent((Element)child, decl);
 	}
-
-	protected void accept(CompositeValue compositeValue) {
-		if (compositeValue.isSetValueComponent()) {
-			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
-				if (valueProperty.isSetValue())
-					accept(valueProperty.getValue());
-			}
-		}
-
-		if (compositeValue.isSetValueComponents()) {
-			ValueArrayProperty valueArrayProperty = compositeValue.getValueComponents();
-			if (valueArrayProperty.isSetValue()) {
-				for (Value value : valueArrayProperty.getValue())
-					accept(value);
-			}
-		}
-	}
 	
-	protected void accept(Value value) {
-		if (value.isSetGMLObject()) {
-			AbstractGML abstractGML = value.getGMLObject();
-			if (abstractGML instanceof AbstractFeature && shouldWalk && visited.add(abstractGML))
-				((AbstractFeature)abstractGML).visit(this);		
-		} else if (value.isSetValueObject()) {
-			ValueObject valueObject = value.getValueObject();
-			if (valueObject.isSetCompositeValue())
-				accept((CompositeValue)valueObject.getCompositeValue());
-		} else if (value.isSetGenericValueObject()) {
-			GenericValueObject genericValueObject = value.getGenericValueObject();
-			if (genericValueObject.isSetContent() && shouldWalk && visited.add(genericValueObject.getContent()))
-				adeComponent(genericValueObject.getContent(), null);
-		}
-	}
 }

@@ -2779,8 +2779,8 @@ public class GMLUnmarshaller {
 								value.setValueObject(valueObject);
 								dest.addValue(value);
 								continue;
-							} else if (abstractGML instanceof AbstractGML) {
-								value.setGMLObject((AbstractGML)abstractGML);
+							} else if (abstractGML instanceof AbstractGeometry) {
+								value.setGeometry((AbstractGeometry)abstractGML);
 								dest.addValue(value);
 								continue;
 							}
@@ -2903,8 +2903,8 @@ public class GMLUnmarshaller {
 		else if (src.isSet_GML()) {
 			try {
 				Object abstractGML = jaxb.unmarshal(src.get_GML());
-				if (abstractGML instanceof AbstractGML) {
-					value.setGMLObject((AbstractGML)abstractGML);
+				if (abstractGML instanceof AbstractGeometry) {
+					value.setGeometry((AbstractGeometry)abstractGML);
 					dest.setValue(value);
 					return dest;
 				}
