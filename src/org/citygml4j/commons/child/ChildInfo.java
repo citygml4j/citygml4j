@@ -1,9 +1,9 @@
 package org.citygml4j.commons.child;
 
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.core.CityObject;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.AbstractGeometry;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public class ChildInfo {
 
@@ -44,12 +44,12 @@ public class ChildInfo {
 		return root;	
 	}
 
-	public CityObject getParentCityObject(Child child) {
+	public AbstractCityObject getParentCityObject(Child child) {
 		AbstractFeature parent = null;
 
 		while ((parent = getParentFeature(child)) != null) {
-			if (parent instanceof CityObject)
-				return (CityObject)parent;
+			if (parent instanceof AbstractCityObject)
+				return (AbstractCityObject)parent;
 			else if (parent instanceof Child)
 				child = (Child)parent;
 			else 
@@ -62,7 +62,7 @@ public class ChildInfo {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends CityObject> T getParentCityObject(Child child, Class<T> type) {
+	public <T extends AbstractCityObject> T getParentCityObject(Child child, Class<T> type) {
 		while ((child = getParentCityObject(child)) != null)
 			if (type.isInstance(child)) 
 				return (T)child;
@@ -70,9 +70,9 @@ public class ChildInfo {
 		return null;
 	}
 
-	public CityObject getRootCityObject(Child child) {
-		CityObject parent = null;
-		CityObject root = null;
+	public AbstractCityObject getRootCityObject(Child child) {
+		AbstractCityObject parent = null;
+		AbstractCityObject root = null;
 
 		while ((parent = getParentCityObject(child)) != null)
 			child = root = parent;

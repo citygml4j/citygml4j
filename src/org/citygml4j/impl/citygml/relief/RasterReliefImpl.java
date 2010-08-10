@@ -4,19 +4,19 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.gml.BoundingShape;
+import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class RasterReliefImpl extends ReliefComponentImpl implements RasterRelief {
+public class RasterReliefImpl extends AbstractReliefComponentImpl implements RasterRelief {
 	private GridProperty grid;
 	private List<ADEComponent> ade;
 	
@@ -85,7 +85,7 @@ public class RasterReliefImpl extends ReliefComponentImpl implements RasterRelie
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RASTERRELIEF;
+		return CityGMLClass.RASTER_RELIEF;
 	}
 	
 	@Override

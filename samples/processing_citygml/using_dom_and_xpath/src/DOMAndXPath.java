@@ -23,7 +23,7 @@ import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.gml.StringOrRef;
+import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.CityGMLNamespaceContext;

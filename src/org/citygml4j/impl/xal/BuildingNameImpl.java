@@ -63,7 +63,7 @@ public class BuildingNameImpl implements BuildingName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.BUILDINGNAME;
+		return XALClass.BUILDING_NAME;
 	}
 
 	public String getCode() {

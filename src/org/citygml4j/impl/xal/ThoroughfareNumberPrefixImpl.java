@@ -62,7 +62,7 @@ public class ThoroughfareNumberPrefixImpl implements ThoroughfareNumberPrefix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARENUMBERPREFIX;
+		return XALClass.THOROUGHFARE_NUMBER_PREFIX;
 	}
 
 	public String getCode() {

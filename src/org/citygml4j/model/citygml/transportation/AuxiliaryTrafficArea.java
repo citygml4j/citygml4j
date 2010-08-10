@@ -3,9 +3,9 @@ package org.citygml4j.model.citygml.transportation;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 
-public interface AuxiliaryTrafficArea extends TransportationObject {
+public interface AuxiliaryTrafficArea extends AbstractTransportationObject {
 	public List<String> getFunction();
 	public String getSurfaceMaterial();
 	public MultiSurfaceProperty getLod2MultiSurface();

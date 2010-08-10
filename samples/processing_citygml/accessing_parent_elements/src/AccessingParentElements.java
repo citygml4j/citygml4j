@@ -7,11 +7,11 @@ import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.commons.child.ChildInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.building.Building;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.landuse.LandUse;
-import org.citygml4j.model.gml.AbstractGeometry;
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.util.xlink.XLinkResolver;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -47,7 +47,7 @@ public class AccessingParentElements {
 		System.out.println("Direct parent geometry: " + parentGeometry.getGMLClass()
 				+ ", gml:id='" + parentGeometry.getId() + "'");
 		
-		CityObject parentCityObject = info.getParentCityObject(geometry);
+		AbstractCityObject parentCityObject = info.getParentCityObject(geometry);
 		System.out.println("Direct parent CityObject: " + parentCityObject.getCityGMLClass()
 				+ ", gml:id='" + parentCityObject.getId() + "'");
 		
@@ -58,7 +58,7 @@ public class AccessingParentElements {
 		LandUse noParent = info.getParentCityObject(geometry, LandUse.class);
 		System.out.println("Transitive parent CityObject of type LandUse: " + noParent);
 
-		CityObject rootCityObject = info.getRootCityObject(geometry);
+		AbstractCityObject rootCityObject = info.getRootCityObject(geometry);
 		System.out.println("Root CityObject: " + rootCityObject.getCityGMLClass()
 				+ ", gml:id='" + rootCityObject.getId() + "'");
 		

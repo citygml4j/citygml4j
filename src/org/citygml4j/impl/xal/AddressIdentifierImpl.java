@@ -62,7 +62,7 @@ public class AddressIdentifierImpl implements AddressIdentifier {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADDRESSIDENTIFIER;
+		return XALClass.ADDRESS_IDENTIFIER;
 	}
 
 	public String getCode() {

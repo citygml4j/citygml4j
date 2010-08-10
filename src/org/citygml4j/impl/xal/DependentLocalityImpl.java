@@ -366,7 +366,7 @@ public class DependentLocalityImpl implements DependentLocality {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.DEPENDENTLOCALITY;
+		return XALClass.DEPENDENT_LOCALITY;
 	}
 
 	public Object getParent() {

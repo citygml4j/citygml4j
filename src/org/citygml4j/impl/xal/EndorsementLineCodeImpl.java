@@ -45,7 +45,7 @@ public class EndorsementLineCodeImpl implements EndorsementLineCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ENDORSEMENTLINECODE;
+		return XALClass.ENDORSEMENT_LINE_CODE;
 	}
 
 	public String getCode() {

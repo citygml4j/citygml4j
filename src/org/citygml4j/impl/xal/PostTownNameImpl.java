@@ -45,7 +45,7 @@ public class PostTownNameImpl implements PostTownName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTTOWNNAME;
+		return XALClass.POST_TOWN_NAME;
 	}
 
 	public String getCode() {

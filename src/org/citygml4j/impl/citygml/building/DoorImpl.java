@@ -14,7 +14,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class DoorImpl extends OpeningImpl implements Door {
+public class DoorImpl extends AbstractOpeningImpl implements Door {
 	private List<AddressProperty> address;
 	private List<ADEComponent> ade;
 	

@@ -8,6 +8,7 @@ import java.util.Set;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
@@ -16,10 +17,10 @@ import org.citygml4j.model.citygml.appearance.SurfaceDataProperty;
 import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
-import org.citygml4j.model.citygml.appearance.TextureParameterization;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.BoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -37,7 +38,6 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.Opening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
@@ -46,22 +46,23 @@ import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
-import org.citygml4j.model.citygml.core.Site;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.landuse.LandUse;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.ReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.Railway;
@@ -71,25 +72,24 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.citygml.transportation.TransportationObject;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
-import org.citygml4j.model.citygml.vegetation.VegetationObject;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
-import org.citygml4j.model.gml.AbstractCoverage;
-import org.citygml4j.model.gml.AbstractDiscreteCoverage;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.AbstractFeatureCollection;
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
-import org.citygml4j.model.gml.RectifiedGridCoverage;
+import org.citygml4j.model.gml.coverage.AbstractCoverage;
+import org.citygml4j.model.gml.coverage.AbstractDiscreteCoverage;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
@@ -155,39 +155,31 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 
 	public void accept(AbstractFeatureCollection abstractFeatureCollection) {
 		if (abstractFeatureCollection.isSetFeatureMember())
-			for (FeatureProperty<? extends AbstractFeature> member : new ArrayList<FeatureProperty<? extends AbstractFeature>>(abstractFeatureCollection.getFeatureMember()))
+			for (FeatureMember member : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember()))
 				accept(member);
 
-		if (abstractFeatureCollection.isSetFeatureMembers()) {
-			FeatureArrayProperty featureProperty = abstractFeatureCollection.getFeatureMembers();
-			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureProperty.getFeature()))
-				if (feature != null && shouldWalk && visited.add(feature))
-					feature.visit(this);
-
-			if (featureProperty.isSetGenericADEComponent())
-				for (ADEComponent ade : new ArrayList<ADEComponent>(featureProperty.getGenericADEComponent()))
-					accept(ade);
-		}
+		if (abstractFeatureCollection.isSetFeatureMembers())
+			accept(abstractFeatureCollection.getFeatureMembers());
 
 		accept((AbstractFeature)abstractFeatureCollection);
 	}
 
-	public void accept(CityObject cityObject) {
-		if (cityObject.isSetGeneralizesTo()) {
-			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(cityObject.getGeneralizesTo()))
+	public void accept(AbstractCityObject abstractCityObject) {
+		if (abstractCityObject.isSetGeneralizesTo()) {
+			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo()))
 				accept(generalizationRelation);
 		}
 
-		if (cityObject.isSetAppearance()) {
-			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(cityObject.getAppearance()))
+		if (abstractCityObject.isSetAppearance()) {
+			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance()))
 				accept(appearanceProperty);
 		}
 
-		if (cityObject.isSetGenericApplicationPropertyOfCityObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObject.getGenericApplicationPropertyOfCityObject()))
+		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
 				accept(ade);
 
-		accept((AbstractFeature)cityObject);
+		accept((AbstractFeature)abstractCityObject);
 	}
 
 	public void accept(AbstractSurfaceData abstractSurfaceData) {
@@ -206,12 +198,12 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		accept((AbstractSurfaceData)abstractTexture);
 	}	
 
-	public void accept(Site site) {
-		if (site.isSetGenericApplicationPropertyOfSite())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(site.getGenericApplicationPropertyOfSite()))
+	public void accept(AbstractSite abstractSite) {
+		if (abstractSite.isSetGenericApplicationPropertyOfSite())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
 				accept(ade);
 
-		accept((CityObject)site);
+		accept((AbstractCityObject)abstractSite);
 	}
 
 	public void accept(AbstractBuilding abstractBuilding) {
@@ -243,83 +235,67 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()))
 				accept(ade);
 
-		accept((Site)abstractBuilding);
+		accept((AbstractSite)abstractBuilding);
 	}
 
-	public void accept(BoundarySurface boundarySurface) {
-		if (boundarySurface.isSetOpening())
-			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(boundarySurface.getOpening()))
+	public void accept(AbstractBoundarySurface abstractBoundarySurface) {
+		if (abstractBoundarySurface.isSetOpening())
+			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(abstractBoundarySurface.getOpening()))
 				accept(openingProperty);
 
-		if (boundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(boundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
+		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				accept(ade);
 
-		accept((CityObject)boundarySurface);
+		accept((AbstractCityObject)abstractBoundarySurface);
 	}
 
-	public void accept(Opening opening) {
-		if (opening.isSetGenericApplicationPropertyOfOpening())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(opening.getGenericApplicationPropertyOfOpening()))
+	public void accept(AbstractOpening abstractOpening) {
+		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				accept(ade);
 
-		accept((CityObject)opening);
+		accept((AbstractCityObject)abstractOpening);
 	}
 
-	public void accept(ReliefComponent reliefComponent) {
-		if (reliefComponent.isSetGenericApplicationPropertyOfReliefComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefComponent.getGenericApplicationPropertyOfReliefComponent()))
+	public void accept(AbstractReliefComponent abstractReliefComponent) {
+		if (abstractReliefComponent.isSetGenericApplicationPropertyOfReliefComponent())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()))
 				accept(ade);
 
-		accept((CityObject)reliefComponent);
+		accept((AbstractCityObject)abstractReliefComponent);
 	}
 
-	public void accept(TransportationObject transportationObject) {
-		if (transportationObject.isSetGenericApplicationPropertyOfTransportationObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationObject.getGenericApplicationPropertyOfTransportationObject()))
+	public void accept(AbstractTransportationObject abstractTransportationObject) {
+		if (abstractTransportationObject.isSetGenericApplicationPropertyOfTransportationObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()))
 				accept(ade);
 
-		accept((CityObject)transportationObject);
+		accept((AbstractCityObject)abstractTransportationObject);
 	}
 
-	public void accept(VegetationObject vegetationObject) {
-		if (vegetationObject.isSetGenericApplicationPropertyOfVegetationObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(vegetationObject.getGenericApplicationPropertyOfVegetationObject()))
+	public void accept(AbstractVegetationObject abstractVegetationObject) {
+		if (abstractVegetationObject.isSetGenericApplicationPropertyOfVegetationObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				accept(ade);
 
-		accept((CityObject)vegetationObject);
+		accept((AbstractCityObject)abstractVegetationObject);
 	}
 
-	public void accept(WaterObject waterObject) {
-		if (waterObject.isSetGenericApplicationPropertyOfWaterObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(waterObject.getGenericApplicationPropertyOfWaterObject()))
+	public void accept(AbstractWaterObject abstractWaterObject) {
+		if (abstractWaterObject.isSetGenericApplicationPropertyOfWaterObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterObject.getGenericApplicationPropertyOfWaterObject()))
 				accept(ade);
 
-		accept((CityObject)waterObject);
+		accept((AbstractCityObject)abstractWaterObject);
 	}
 
-	public void accept(WaterBoundarySurface waterBoundarySurface) {
-		if (waterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
+	public void accept(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
+		if (abstractWaterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
 				accept(ade);
 
-		accept((CityObject)waterBoundarySurface);
-	}
-
-	public void accept(FeatureProperty<? extends AbstractFeature> featureProperty) {
-		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
-			featureProperty.getFeature().visit(this);
-
-		if (featureProperty.isSetGenericADEComponent())
-			accept(featureProperty.getGenericADEComponent());
-	}
-
-	public void accept(Association<? extends AbstractFeature> association) {
-		if (association.isSetObject() && shouldWalk && visited.add(association.getObject()))
-			association.getObject().visit(this);
-
-		if (association.isSetGenericADEComponent())
-			accept(association.getGenericADEComponent());
+		accept((AbstractCityObject)abstractWaterBoundarySurface);
 	}
 	
 	public void accept(RectifiedGridCoverage rectifiedGridCoverage) {
@@ -350,7 +326,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		if (parameterizedTexture.isSetTarget()) {
 			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget())) {
 				if (textureAssociation.isSetTextureParameterization() && shouldWalk && visited.add(textureAssociation.getTextureParameterization())) {
-					TextureParameterization textureParameterization = textureAssociation.getTextureParameterization();
+					AbstractTextureParameterization textureParameterization = textureAssociation.getTextureParameterization();
 
 					if (textureParameterization instanceof TexCoordGen) {
 						TexCoordGen texCoordGen = (TexCoordGen)textureParameterization;
@@ -397,7 +373,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()))
 				accept(ade);
 
-		accept((CityObject)buildingFurniture);
+		accept((AbstractCityObject)buildingFurniture);
 	}
 
 	public void accept(Building building) {
@@ -413,7 +389,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation()))
 				accept(ade);
 
-		accept((CityObject)buildingInstallation);
+		accept((AbstractCityObject)buildingInstallation);
 	}
 
 	public void accept(BuildingPart buildingPart) {
@@ -429,7 +405,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)ceilingSurface);
+		accept((AbstractBoundarySurface)ceilingSurface);
 	}
 
 	public void accept(ClosureSurface closureSurface) {
@@ -437,7 +413,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)closureSurface);
+		accept((AbstractBoundarySurface)closureSurface);
 	}
 
 	public void accept(Door door) {
@@ -449,7 +425,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
 				accept(ade);
 
-		accept((Opening)door);
+		accept((AbstractOpening)door);
 	}
 
 	public void accept(FloorSurface floorSurface) {
@@ -457,7 +433,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)floorSurface);
+		accept((AbstractBoundarySurface)floorSurface);
 	}
 
 	public void accept(GroundSurface groundSurface) {
@@ -465,7 +441,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)groundSurface);
+		accept((AbstractBoundarySurface)groundSurface);
 	}
 
 	public void accept(IntBuildingInstallation intBuildingInstallation) {
@@ -473,7 +449,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()))
 				accept(ade);
 
-		accept((CityObject)intBuildingInstallation);
+		accept((AbstractCityObject)intBuildingInstallation);
 	}
 
 	public void accept(InteriorWallSurface interiorWallSurface) {
@@ -481,7 +457,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)interiorWallSurface);
+		accept((AbstractBoundarySurface)interiorWallSurface);
 	}
 
 	public void accept(RoofSurface roofSurface) {
@@ -489,7 +465,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)roofSurface);
+		accept((AbstractBoundarySurface)roofSurface);
 	}
 
 	public void accept(Room room) {
@@ -509,7 +485,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(room.getGenericApplicationPropertyOfRoom()))
 				accept(ade);
 
-		accept((CityObject)room);
+		accept((AbstractCityObject)room);
 	}
 
 	public void accept(WallSurface wallSurface) {
@@ -517,7 +493,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)wallSurface);
+		accept((AbstractBoundarySurface)wallSurface);
 	}
 
 	public void accept(Window window) {
@@ -525,7 +501,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow()))
 				accept(ade);
 
-		accept((Opening)window);
+		accept((AbstractOpening)window);
 	}
 
 	public void accept(CityFurniture cityFurniture) {
@@ -533,7 +509,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityFurniture.getGenericApplicationPropertyOfCityFurniture()))
 				accept(ade);
 
-		accept((CityObject)cityFurniture);
+		accept((AbstractCityObject)cityFurniture);
 	}
 
 	public void accept(CityObjectGroup cityObjectGroup) {
@@ -548,7 +524,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup()))
 				accept(ade);
 
-		accept((CityObject)cityObjectGroup);
+		accept((AbstractCityObject)cityObjectGroup);
 	}
 
 	public void accept(Address address) {
@@ -576,7 +552,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	}
 
 	public void accept(GenericCityObject genericCityObject) {
-		accept((CityObject)genericCityObject);
+		accept((AbstractCityObject)genericCityObject);
 	}
 
 	public void accept(LandUse landUse) {
@@ -584,7 +560,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(landUse.getGenericApplicationPropertyOfLandUse()))
 				accept(ade);
 
-		accept((CityObject)landUse);
+		accept((AbstractCityObject)landUse);
 	}
 
 	public void accept(BreaklineRelief breaklineRelief) {
@@ -592,7 +568,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)breaklineRelief);
+		accept((AbstractReliefComponent)breaklineRelief);
 	}
 
 	public void accept(MassPointRelief massPointRelief) {
@@ -600,7 +576,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(massPointRelief.getGenericApplicationPropertyOfMassPointRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)massPointRelief);
+		accept((AbstractReliefComponent)massPointRelief);
 	}
 
 	public void accept(RasterRelief rasterRelief) {
@@ -611,7 +587,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)rasterRelief);
+		accept((AbstractReliefComponent)rasterRelief);
 	}
 
 	public void accept(ReliefFeature reliefFeature) {
@@ -623,7 +599,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefFeature.getGenericApplicationPropertyOfReliefFeature()))
 				accept(ade);
 
-		accept((CityObject)reliefFeature);
+		accept((AbstractCityObject)reliefFeature);
 	}
 
 	public void accept(TINRelief tinRelief) {
@@ -631,7 +607,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tinRelief.getGenericApplicationPropertyOfTinRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)tinRelief);
+		accept((AbstractReliefComponent)tinRelief);
 	}
 
 	public void accept(AuxiliaryTrafficArea auxiliaryTrafficArea) {
@@ -639,7 +615,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea()))
 				accept(ade);
 
-		accept((TransportationObject)auxiliaryTrafficArea);
+		accept((AbstractTransportationObject)auxiliaryTrafficArea);
 	}
 
 	public void accept(Railway railway) {
@@ -679,7 +655,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(trafficArea.getGenericApplicationPropertyOfTrafficArea()))
 				accept(ade);
 
-		accept((TransportationObject)trafficArea);
+		accept((AbstractTransportationObject)trafficArea);
 	}
 
 	public void accept(TransportationComplex transportationComplex) {
@@ -695,7 +671,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationComplex.getGenericApplicationPropertyOfTransportationComplex()))
 				accept(ade);
 
-		accept((TransportationObject)transportationComplex);
+		accept((AbstractTransportationObject)transportationComplex);
 	}
 
 	public void accept(PlantCover plantCover) {
@@ -703,7 +679,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(plantCover.getGenericApplicationPropertyOfPlantCover()))
 				accept(ade);
 
-		accept((VegetationObject)plantCover);
+		accept((AbstractVegetationObject)plantCover);
 	}
 
 	public void accept(SolitaryVegetationObject solitaryVegetationObject) {
@@ -711,7 +687,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(solitaryVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				accept(ade);
 
-		accept((VegetationObject)solitaryVegetationObject);
+		accept((AbstractVegetationObject)solitaryVegetationObject);
 	}
 
 	public void accept(WaterBody waterBody) {
@@ -723,7 +699,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBody.getGenericApplicationPropertyOfWaterBody()))
 				accept(ade);
 
-		accept((WaterObject)waterBody);
+		accept((AbstractWaterObject)waterBody);
 	}
 
 	public void accept(WaterClosureSurface waterClosureSurface) {
@@ -731,7 +707,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface()))
 				accept(ade);
 
-		accept((WaterBoundarySurface)waterClosureSurface);
+		accept((AbstractWaterBoundarySurface)waterClosureSurface);
 	}
 
 	public void accept(WaterGroundSurface waterGroundSurface) {
@@ -739,7 +715,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface()))
 				accept(ade);
 
-		accept((WaterBoundarySurface)waterGroundSurface);
+		accept((AbstractWaterBoundarySurface)waterGroundSurface);
 	}
 
 	public void accept(WaterSurface waterSurface) {
@@ -747,9 +723,29 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface()))
 				accept(ade);
 
-		accept((WaterBoundarySurface)waterSurface);
+		accept((AbstractWaterBoundarySurface)waterSurface);
 	}
 
+	public void accept(FeatureProperty<? extends AbstractFeature> featureProperty) {
+		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
+			featureProperty.getFeature().visit(this);
+
+		if (featureProperty.isSetGenericADEComponent())
+			accept(featureProperty.getGenericADEComponent());
+	}
+	
+	public void accept(FeatureArrayProperty featureArrayProperty) {
+		if (featureArrayProperty.isSetFeature()) {
+			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
+				if (shouldWalk && visited.add(feature))
+					feature.visit(this);
+
+			if (featureArrayProperty.isSetGenericADEComponent())
+				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent()))
+					accept(ade);
+		}
+	}
+	
 	public void accept(Element element, ElementDecl decl) {
 		iterateNodeList(element, decl);
 	}

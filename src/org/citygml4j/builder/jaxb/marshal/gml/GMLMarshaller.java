@@ -11,8 +11,144 @@ import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.jaxb.gml._3_1_1.*;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
-import org.citygml4j.model.gml.*;
-import org.citygml4j.model.gml.SequenceRuleNames;
+import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.Associable;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.gml.base.MetaData;
+import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.basicTypes.CodeOrNullList;
+import org.citygml4j.model.gml.basicTypes.Coordinates;
+import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
+import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
+import org.citygml4j.model.gml.basicTypes.Measure;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
+import org.citygml4j.model.gml.basicTypes.NameOrNull;
+import org.citygml4j.model.gml.coverage.AbstractCoverage;
+import org.citygml4j.model.gml.coverage.AbstractDiscreteCoverage;
+import org.citygml4j.model.gml.coverage.CoverageFunction;
+import org.citygml4j.model.gml.coverage.DataBlock;
+import org.citygml4j.model.gml.coverage.DomainSet;
+import org.citygml4j.model.gml.coverage.File;
+import org.citygml4j.model.gml.coverage.FileValueModel;
+import org.citygml4j.model.gml.coverage.GridFunction;
+import org.citygml4j.model.gml.coverage.IndexMap;
+import org.citygml4j.model.gml.coverage.RangeParameters;
+import org.citygml4j.model.gml.coverage.RangeSet;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
+import org.citygml4j.model.gml.coverage.RectifiedGridDomain;
+import org.citygml4j.model.gml.coverage.SequenceRule;
+import org.citygml4j.model.gml.coverage.SequenceRuleNames;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.gml.feature.LocationProperty;
+import org.citygml4j.model.gml.feature.PriorityLocationProperty;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygonProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurveProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolidProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurfacePatch;
+import org.citygml4j.model.gml.geometry.primitives.ControlPoint;
+import org.citygml4j.model.gml.geometry.primitives.Coord;
+import org.citygml4j.model.gml.geometry.primitives.Curve;
+import org.citygml4j.model.gml.geometry.primitives.CurveArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.CurveInterpolation;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
+import org.citygml4j.model.gml.geometry.primitives.CurveSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
+import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
+import org.citygml4j.model.gml.geometry.primitives.Envelope;
+import org.citygml4j.model.gml.geometry.primitives.Exterior;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPositionGroup;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+import org.citygml4j.model.gml.geometry.primitives.InnerBoundaryIs;
+import org.citygml4j.model.gml.geometry.primitives.Interior;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegment;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.LinearRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
+import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
+import org.citygml4j.model.gml.geometry.primitives.OuterBoundaryIs;
+import org.citygml4j.model.gml.geometry.primitives.Point;
+import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointRep;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
+import org.citygml4j.model.gml.geometry.primitives.Rectangle;
+import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.Surface;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceInterpolation;
+import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.Tin;
+import org.citygml4j.model.gml.geometry.primitives.Triangle;
+import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.primitives.Vector;
+import org.citygml4j.model.gml.grids.Grid;
+import org.citygml4j.model.gml.grids.GridEnvelope;
+import org.citygml4j.model.gml.grids.GridLimits;
+import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.gml.valueObjects.CategoryExtent;
+import org.citygml4j.model.gml.valueObjects.CompositeValue;
+import org.citygml4j.model.gml.valueObjects.GenericValueObject;
+import org.citygml4j.model.gml.valueObjects.QuantityExtent;
+import org.citygml4j.model.gml.valueObjects.ScalarValue;
+import org.citygml4j.model.gml.valueObjects.ScalarValueList;
+import org.citygml4j.model.gml.valueObjects.Value;
+import org.citygml4j.model.gml.valueObjects.ValueArray;
+import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
+import org.citygml4j.model.gml.valueObjects.ValueExtent;
+import org.citygml4j.model.gml.valueObjects.ValueObject;
+import org.citygml4j.model.gml.valueObjects.ValueProperty;
 
 public class GMLMarshaller {
 	private final JAXBMarshaller jaxb;
@@ -45,6 +181,10 @@ public class GMLMarshaller {
 			dest = gml.createBoundedBy((BoundingShapeType)src);
 		else if (src instanceof CodeType)
 			dest = gml.createName((CodeType)src);
+		else if (src instanceof CategoryExtentType)
+			dest = gml.createCategoryExtent((CategoryExtentType)src);
+		else if (src instanceof CodeOrNullListType)
+			dest = gml.createCategoryList((CodeOrNullListType)src);
 		else if (src instanceof CompositeCurveType)
 			dest = gml.createCompositeCurve((CompositeCurveType)src);
 		else if (src instanceof CompositeSolidType)
@@ -152,6 +292,10 @@ public class GMLMarshaller {
 			dest = gml.createPolygon((PolygonType)src);
 		else if (src instanceof PolygonPropertyType)
 			dest = gml.createPolygonProperty((PolygonPropertyType)src);
+		else if (src instanceof QuantityExtentType)
+			dest = gml.createQuantityExtent((QuantityExtentType)src);
+		else if (src instanceof MeasureOrNullListType)
+			dest = gml.createQuantityList((MeasureOrNullListType)src);
 		else if (src instanceof RangeParametersType)
 			dest = gml.createRangeParameters((RangeParametersType)src);
 		else if (src instanceof RangeSetType)
@@ -188,13 +332,16 @@ public class GMLMarshaller {
 			dest = gml.createSurfaceArrayProperty((SurfaceArrayPropertyType)src);
 		else if (src instanceof SurfacePropertyType)
 			dest = gml.createSurfaceProperty((SurfacePropertyType)src);
+		else if (src instanceof ValueArrayPropertyType)
+			dest = gml.createValueComponents((ValueArrayPropertyType)src);
 		else if (src instanceof ValuePropertyType)
-			dest = gml.createValueProperty((ValuePropertyType)src);
+			dest = gml.createValueComponent((ValuePropertyType)src);
+		else if (src instanceof VectorType)
+			dest = gml.createVector((VectorType)src);
 
 		return dest;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Object marshal(Object src) {
 		Object dest = null;
 
@@ -254,7 +401,7 @@ public class GMLMarshaller {
 			else if (src instanceof FeatureArrayProperty)
 				dest = marshalFeatureArrayProperty((FeatureArrayProperty)src);
 			else if (src instanceof FeatureProperty)
-				dest = marshalFeatureProperty((FeatureProperty<? extends AbstractFeature>)src);
+				dest = marshalFeatureProperty((FeatureProperty<?>)src);
 			else if (src instanceof File)
 				dest = marshalFile((File)src);
 			else if (src instanceof FileValueModel)
@@ -265,8 +412,6 @@ public class GMLMarshaller {
 				dest = marshalGeometricComplexProperty((GeometricComplexProperty)src);
 			else if (src instanceof GeometricPrimitiveProperty)
 				dest = marshalGeometricPrimitiveProperty((GeometricPrimitiveProperty)src);
-			else if (src instanceof GeometryProperty)
-				dest = marshalGeometryProperty((GeometryProperty)src);
 			else if (src instanceof RectifiedGrid)
 				dest = marshalRectifiedGrid((RectifiedGrid)src);
 			else if (src instanceof Grid)
@@ -395,6 +540,8 @@ public class GMLMarshaller {
 				dest = marshalValueProperty((ValueProperty)src);
 			else if (src instanceof Vector)
 				dest = marshalVector((Vector)src);
+			else if (src instanceof GeometryProperty)
+				dest = marshalGeometryProperty((GeometryProperty<?>)src);
 		}
 
 		return dest;
@@ -457,7 +604,7 @@ public class GMLMarshaller {
 		marshalAbstractFeature(src, dest);
 
 		if (src.isSetFeatureMember()) {
-			for (FeatureProperty<? extends AbstractFeature> member : src.getFeatureMember()) {
+			for (FeatureMember member : src.getFeatureMember()) {
 				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
 				if (elem != null && elem.getValue() instanceof FeaturePropertyType)
 					dest.getFeatureMember().add((JAXBElement<? extends FeaturePropertyType>)elem);
@@ -531,14 +678,8 @@ public class GMLMarshaller {
 	public void marshalAbstractSurfacePatch(AbstractSurfacePatch src, AbstractSurfacePatchType dest) {
 		// nothing to do here...
 	}
-
-	public void marshalAssociation(Association<? extends AbstractGML> src, AssociationType dest) {
-		if (src.isSetGenericADEComponent()) {
-			ADEComponent adeComponent = src.getGenericADEComponent();
-			if (adeComponent.isSetContent())
-				dest.set_ADEComponent(adeComponent.getContent());
-		}
-
+	
+	public void marshalAssociationByRepOrRef(AssociationByRepOrRef<? extends Associable> src, AssociationType dest) {
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -590,14 +731,7 @@ public class GMLMarshaller {
 			dest.setValueComponents(marshalValueArrayProperty(src.getValueComponents()));
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void marshalDomainSet(DomainSet src, DomainSetType dest) {
-		if (src.isSetGeometry()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
-			if (elem != null && elem.getValue() instanceof AbstractGeometryType)
-				dest.set_Geometry((JAXBElement<? extends AbstractGeometryType>)elem);
-		}
-		
+	public void marshalDomainSet(DomainSet<? extends AbstractGeometry> src, DomainSetType dest) {		
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -621,6 +755,13 @@ public class GMLMarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(src.getActuate());
+	}
+	
+	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, AssociationType dest) {
+		marshalAssociationByRepOrRef(src, dest);
+		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
 	}
 
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, FeaturePropertyType dest) {
@@ -1570,7 +1711,7 @@ public class GMLMarshaller {
 	}
 
 	@SuppressWarnings("unchecked")
-	public GeometryPropertyType marshalGeometryProperty(GeometryProperty src) {
+	public GeometryPropertyType marshalGeometryProperty(GeometryProperty<? extends AbstractGeometry> src) {
 		GeometryPropertyType dest = gml.createGeometryPropertyType();
 
 		if (src.isSetGeometry()) {
@@ -2427,9 +2568,16 @@ public class GMLMarshaller {
 		return dest;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public RectifiedGridDomainType marshalRectifiedGridDomain(RectifiedGridDomain src) {
 		RectifiedGridDomainType dest = gml.createRectifiedGridDomainType();
 		marshalDomainSet(src, dest);
+		
+		if (src.isSetGeometry()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
+			if (elem != null && elem.getValue() instanceof RectifiedGridType)
+				dest.set_Geometry((JAXBElement<? extends AbstractGeometryType>)elem);
+		}
 		
 		return dest;
 	}

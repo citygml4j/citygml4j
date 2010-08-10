@@ -45,7 +45,7 @@ public class PostalRouteNameImpl implements PostalRouteName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALROUTENAME;
+		return XALClass.POSTAL_ROUTE_NAME;
 	}
 
 	public String getCode() {

@@ -3,7 +3,7 @@ package org.citygml4j.xml.io.writer;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.gml.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 
 public interface CityModelWriter extends AbstractCityGMLWriter {
 	public void writeStartDocument() throws CityGMLWriteException;

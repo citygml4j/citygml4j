@@ -37,7 +37,7 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.TextureParameterization;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
@@ -146,7 +146,7 @@ public class Appearance100Marshaller {
 		}
 	}
 
-	public void marshalTextureParameterization(TextureParameterization src, AbstractTextureParameterizationType dest) {
+	public void marshalTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTextureParameterization()) {

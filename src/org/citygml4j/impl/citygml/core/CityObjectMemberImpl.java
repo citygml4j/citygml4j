@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.FeaturePropertyImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.core.CityObject;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.module.citygml.CoreModule;
 
-public class CityObjectMemberImpl extends FeaturePropertyImpl<CityObject> implements CityObjectMember {
+public class CityObjectMemberImpl extends FeaturePropertyImpl<AbstractCityObject> implements CityObjectMember {
 	private CoreModule module;
 	
 	public CityObjectMemberImpl() {
@@ -18,7 +18,7 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl<CityObject> implem
 		this.module = module;
 	}
 	
-	public CityObject getCityObject() {
+	public AbstractCityObject getCityObject() {
 		return super.getFeature();
 	}
 
@@ -26,7 +26,7 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl<CityObject> implem
 		return super.isSetFeature();
 	}
 
-	public void setCityObject(CityObject cityObject) {
+	public void setCityObject(AbstractCityObject cityObject) {
 		super.setFeature(cityObject);
 	}
 
@@ -35,7 +35,7 @@ public class CityObjectMemberImpl extends FeaturePropertyImpl<CityObject> implem
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITYOBJECTMEMBER;
+		return CityGMLClass.CITY_OBJECT_MEMBER;
 	}
 
 	public CoreModule getCityGMLModule() {

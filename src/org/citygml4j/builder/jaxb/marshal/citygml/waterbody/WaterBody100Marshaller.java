@@ -16,10 +16,10 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterObject;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 
 public class WaterBody100Marshaller {
@@ -67,7 +67,7 @@ public class WaterBody100Marshaller {
 		return dest;
 	}
 	
-	public void marshalWaterObject(WaterObject src, AbstractWaterObjectType dest) {
+	public void marshalWaterObject(AbstractWaterObject src, AbstractWaterObjectType dest) {
 		citygml.getCore100Marshaller().marshalCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
@@ -77,7 +77,7 @@ public class WaterBody100Marshaller {
 		}
 	}
 	
-	public void marshalWaterBoundarySurface(WaterBoundarySurface src, AbstractWaterBoundarySurfaceType dest) {
+	public void marshalWaterBoundarySurface(AbstractWaterBoundarySurface src, AbstractWaterBoundarySurfaceType dest) {
 		citygml.getCore100Marshaller().marshalCityObject(src, dest);
 		
 		if (src.isSetLod2Surface())
@@ -98,7 +98,7 @@ public class WaterBody100Marshaller {
 	
 	public BoundedByWaterSurfacePropertyType marshalBoundedByWaterSurfaceProperty(BoundedByWaterSurfaceProperty src) {
 		BoundedByWaterSurfacePropertyType dest = wtr.createBoundedByWaterSurfacePropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetWaterBoundarySurface()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getWaterBoundarySurface());

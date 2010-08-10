@@ -184,7 +184,7 @@ public class ThoroughfareNumberToImpl implements ThoroughfareNumberTo {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARENUMBERTO;
+		return XALClass.THOROUGHFARE_NUMBER_TO;
 	}
 
 	public String getCode() {

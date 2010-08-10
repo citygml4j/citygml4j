@@ -45,7 +45,7 @@ public class AddressLineImpl implements AddressLine {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADDRESSLINE;
+		return XALClass.ADDRESS_LINE;
 	}
 
 	public String getCode() {

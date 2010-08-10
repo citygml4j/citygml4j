@@ -45,7 +45,7 @@ public class ThoroughfareLeadingTypeImpl implements ThoroughfareLeadingType {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARELEADINGTYPE;
+		return XALClass.THOROUGHFARE_LEADING_TYPE;
 	}
 
 	public String getCode() {

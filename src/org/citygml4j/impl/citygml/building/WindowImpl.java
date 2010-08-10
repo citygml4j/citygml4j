@@ -13,7 +13,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class WindowImpl extends OpeningImpl implements Window {
+public class WindowImpl extends AbstractOpeningImpl implements Window {
 	private List<ADEComponent> ade;
 	
 	public WindowImpl() {

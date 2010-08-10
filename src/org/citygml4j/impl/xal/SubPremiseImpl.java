@@ -359,7 +359,7 @@ public class SubPremiseImpl implements SubPremise {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBPREMISE;
+		return XALClass.SUB_PREMISE;
 	}
 
 	public Object getParent() {

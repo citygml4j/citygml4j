@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.building;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.building.BoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
-public class BoundarySurfacePropertyImpl extends AssociationImpl<BoundarySurface> implements BoundarySurfaceProperty {
+public class BoundarySurfacePropertyImpl extends FeaturePropertyImpl<AbstractBoundarySurface> implements BoundarySurfaceProperty {
 	private BuildingModule module;
 	
 	public BoundarySurfacePropertyImpl() {
@@ -18,7 +18,7 @@ public class BoundarySurfacePropertyImpl extends AssociationImpl<BoundarySurface
 		this.module = module;
 	}
 	
-	public BoundarySurface getBoundarySurface() {
+	public AbstractBoundarySurface getBoundarySurface() {
 		return super.getObject();
 	}
 
@@ -26,7 +26,7 @@ public class BoundarySurfacePropertyImpl extends AssociationImpl<BoundarySurface
 		return super.isSetObject();
 	}
 
-	public void setBoundarySurface(BoundarySurface boundarySurface) {
+	public void setBoundarySurface(AbstractBoundarySurface boundarySurface) {
 		super.setObject(boundarySurface);
 	}
 
@@ -35,7 +35,7 @@ public class BoundarySurfacePropertyImpl extends AssociationImpl<BoundarySurface
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BOUNDARYSURFACEPROPERTY;
+		return CityGMLClass.BOUNDARY_SURFACE_PROPERTY;
 	}
 
 	public final BuildingModule getCityGMLModule() {

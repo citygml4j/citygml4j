@@ -292,7 +292,7 @@ public class PostalServiceElementsImpl implements PostalServiceElements {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALSERVICEELEMENTS;
+		return XALClass.POSTAL_SERVICE_ELEMENTS;
 	}
 
 	public Object getParent() {

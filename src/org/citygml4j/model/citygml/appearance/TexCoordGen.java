@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface TexCoordGen extends TextureParameterization {
+public interface TexCoordGen extends AbstractTextureParameterization {
 	public WorldToTexture getWorldToTexture();
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordGen();
 	public boolean isSetWorldToTexture();

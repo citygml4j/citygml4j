@@ -45,7 +45,7 @@ public class PostalCodeNumberImpl implements PostalCodeNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALCODENUMBER;
+		return XALClass.POSTAL_CODE_NUMBER;
 	}
 
 	public String getCode() {

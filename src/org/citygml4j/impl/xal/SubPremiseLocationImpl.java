@@ -28,7 +28,7 @@ public class SubPremiseLocationImpl implements SubPremiseLocation {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBPREMISELOCATION;
+		return XALClass.SUB_PREMISE_LOCATION;
 	}
 
 	public String getCode() {

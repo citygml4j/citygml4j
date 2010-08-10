@@ -3,11 +3,11 @@ package org.citygml4j.model.citygml.vegetation;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.gml.Length;
-import org.citygml4j.model.gml.MultiSolidProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.measures.Length;
 
-public interface PlantCover extends VegetationObject {
+public interface PlantCover extends AbstractVegetationObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public Length getAverageHeight();

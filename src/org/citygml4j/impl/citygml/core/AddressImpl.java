@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.AbstractFeatureImpl;
+import org.citygml4j.impl.gml.feature.AbstractFeatureImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
-import org.citygml4j.model.gml.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;

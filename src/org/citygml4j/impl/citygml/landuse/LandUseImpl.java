@@ -5,20 +5,20 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.landuse.LandUse;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class LandUseImpl extends CityObjectImpl implements LandUse {
+public class LandUseImpl extends AbstractCityObjectImpl implements LandUse {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
@@ -259,7 +259,7 @@ public class LandUseImpl extends CityObjectImpl implements LandUse {
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.LANDUSE;
+		return CityGMLClass.LAND_USE;
 	}
 
 	public final LandUseModule getCityGMLModule() {

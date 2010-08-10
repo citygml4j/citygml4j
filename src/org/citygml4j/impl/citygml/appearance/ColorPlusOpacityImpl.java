@@ -109,7 +109,7 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.COLORPLUSOPACITY;
+		return CityGMLClass.COLOR_PLUS_OPACITY;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

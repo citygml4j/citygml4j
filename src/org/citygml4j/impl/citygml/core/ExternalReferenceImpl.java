@@ -59,7 +59,7 @@ public class ExternalReferenceImpl implements ExternalReference {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.EXTERNALREFERENCE;
+		return CityGMLClass.EXTERNAL_REFERENCE;
 	}
 
 	public final CoreModule getCityGMLModule() {

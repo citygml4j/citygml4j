@@ -52,7 +52,7 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.TextureParameterization;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
@@ -137,7 +137,7 @@ public class Appearance100Unmarshaller {
 			dest.setBorderColor(unmarshalColorPlusOpacity(src.getBorderColor()));
 	}
 
-	public void unmarshalTextureParameterization(AbstractTextureParameterizationType src, TextureParameterization dest) throws MissingADESchemaException {
+	public void unmarshalTextureParameterization(AbstractTextureParameterizationType src, AbstractTextureParameterization dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
 		if (src.isSet_ADEComponent()) {
@@ -319,8 +319,8 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSet_TextureParameterization()) {
 			Object textureParameterization = jaxb.unmarshal(src.get_TextureParameterization());
-			if (textureParameterization instanceof TextureParameterization)
-				dest.setTextureParameterization((TextureParameterization)textureParameterization);
+			if (textureParameterization instanceof AbstractTextureParameterization)
+				dest.setTextureParameterization((AbstractTextureParameterization)textureParameterization);
 		}
 
 		if (src.isSetUri())
@@ -450,8 +450,8 @@ public class Appearance100Unmarshaller {
 			((AbstractSurfaceData)dest).addGenericApplicationPropertyOfSurfaceData(genericProperty);
 		else if (dest instanceof AbstractTexture && name.equals("_GenericApplicationPropertyOfTexture"))
 			((AbstractTexture)dest).addGenericApplicationPropertyOfTexture(genericProperty);
-		else if (dest instanceof TextureParameterization && name.equals("_GenericApplicationPropertyOfTextureParameterization"))
-			((TextureParameterization)dest).addGenericApplicationPropertyOfTextureParameterization(genericProperty);
+		else if (dest instanceof AbstractTextureParameterization && name.equals("_GenericApplicationPropertyOfTextureParameterization"))
+			((AbstractTextureParameterization)dest).addGenericApplicationPropertyOfTextureParameterization(genericProperty);
 		else if (dest instanceof Appearance && name.equals("_GenericApplicationPropertyOfAppearance"))
 			((Appearance)dest).addGenericApplicationPropertyOfAppearance(genericProperty);
 		else if (dest instanceof GeoreferencedTexture && name.equals("_GenericApplicationPropertyOfGeoreferencedTexture"))

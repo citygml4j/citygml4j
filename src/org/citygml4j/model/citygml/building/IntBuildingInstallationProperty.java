@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.building;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
-public interface IntBuildingInstallationProperty extends BuildingModuleComponent, Association<IntBuildingInstallation> {
+public interface IntBuildingInstallationProperty extends BuildingModuleComponent, FeatureProperty<IntBuildingInstallation> {
 	public IntBuildingInstallation getIntBuildingInstallation();
 	public boolean isSetIntBuildingInstallation();
 	

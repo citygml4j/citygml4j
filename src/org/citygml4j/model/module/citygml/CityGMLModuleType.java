@@ -6,15 +6,15 @@ public enum CityGMLModuleType implements ModuleType {
 	CORE("Core"),
 	APPEARANCE("Appearance"),
 	BUILDING("Building"),
-	CITYFURNITURE("CityFurniture"),
-	CITYOBJECTGROUP("CityObjectGroup"),
+	CITY_FURNITURE("CityFurniture"),
+	CITY_OBJECT_GROUP("CityObjectGroup"),
 	GENERICS("Generics"),
-	LANDUSE("LandUse"),
+	LAND_USE("LandUse"),
 	RELIEF("Relief"),
 	TRANSPORTATION("Transportation"),
 	VEGETATION("Vegetation"),
-	WATERBODY("WaterBody"),
-	TEXTUREDSURFACE("TexturedSurface");
+	WATER_BODY("WaterBody"),
+	TEXTURED_SURFACE("TexturedSurface");
 
 	private final String value;
 

@@ -117,7 +117,7 @@ public class ThoroughfareNumberImpl implements ThoroughfareNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARENUMBER;
+		return XALClass.THOROUGHFARE_NUMBER;
 	}
 
 	public String getCode() {

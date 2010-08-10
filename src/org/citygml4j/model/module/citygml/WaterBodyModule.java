@@ -31,7 +31,7 @@ public class WaterBodyModule extends AbstractCityGMLModule {
 
 	static {
 		v1_0_0 = new WaterBodyModule (
-				CityGMLModuleType.WATERBODY,
+				CityGMLModuleType.WATER_BODY,
 				CityGMLModuleVersion.v1_0_0,
 				"http://www.opengis.net/citygml/waterbody/1.0",
 				"wtr",
@@ -39,7 +39,7 @@ public class WaterBodyModule extends AbstractCityGMLModule {
 				CoreModule.v1_0_0);
 
 		v0_4_0 = new WaterBodyModule (
-				CityGMLModuleType.WATERBODY,
+				CityGMLModuleType.WATER_BODY,
 				CoreModule.v0_4_0.getVersion(),
 				CoreModule.v0_4_0.getNamespaceURI(),
 				CoreModule.v0_4_0.getNamespacePrefix(),

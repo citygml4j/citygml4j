@@ -45,7 +45,7 @@ public class AddressImpl implements Address {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADDRESSLONGITUDE;
+		return XALClass.ADDRESS_LONGITUDE;
 	}
 
 	public String getCode() {

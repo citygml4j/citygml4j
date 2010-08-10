@@ -13,7 +13,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class InteriorWallSurfaceImpl extends BoundarySurfaceImpl implements InteriorWallSurface {
+public class InteriorWallSurfaceImpl extends AbstractBoundarySurfaceImpl implements InteriorWallSurface {
 	private List<ADEComponent> ade;
 
 	public InteriorWallSurfaceImpl() {
@@ -59,7 +59,7 @@ public class InteriorWallSurfaceImpl extends BoundarySurfaceImpl implements Inte
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIORWALLSURFACE;
+		return CityGMLClass.INTERIOR_WALL_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

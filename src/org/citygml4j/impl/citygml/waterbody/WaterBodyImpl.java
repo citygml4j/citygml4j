@@ -5,22 +5,22 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
+public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
@@ -363,7 +363,7 @@ public class WaterBodyImpl extends WaterObjectImpl implements WaterBody {
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WATERBODY;
+		return CityGMLClass.WATER_BODY;
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class AdministrativeAreaNameImpl implements AdministrativeAreaName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADMINISTRATIVEAREANAME;
+		return XALClass.ADMINISTRATIVE_AREA_NAME;
 	}
 
 	public String getCode() {

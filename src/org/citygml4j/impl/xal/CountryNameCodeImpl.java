@@ -45,7 +45,7 @@ public class CountryNameCodeImpl implements CountryNameCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.COUNTRYNAMECODE;
+		return XALClass.COUNTRY_NAME_CODE;
 	}
 
 	public String getCode() {

@@ -45,7 +45,7 @@ public class PostBoxNumberPrefixImpl implements PostBoxNumberPrefix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOXNUMBERPREFIX;
+		return XALClass.POST_BOX_NUMBER_PREFIX;
 	}
 
 	public String getCode() {

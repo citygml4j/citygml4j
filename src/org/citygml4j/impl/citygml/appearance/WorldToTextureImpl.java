@@ -36,7 +36,7 @@ public class WorldToTextureImpl extends TransformationMatrix3x4Impl implements W
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WORLDTOTEXTURE;
+		return CityGMLClass.WORLD_TO_TEXTURE;
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class WorldToTextureImpl extends TransformationMatrix3x4Impl implements W
 	}
 
 	public GMLClass getGMLClass() {
-		return GMLClass.CITYGMLCLASS;
+		return GMLClass.CITYGML_CLASS;
 	}
 
 	@Override

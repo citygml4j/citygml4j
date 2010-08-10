@@ -62,7 +62,7 @@ public class LargeMailUserIdentifierImpl implements LargeMailUserIdentifier {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.LARGEMAILUSERIDENTIFIER;
+		return XALClass.LARGE_MAIL_USER_IDENTIFIER;
 	}
 
 	public String getCode() {

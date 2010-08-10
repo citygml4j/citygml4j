@@ -26,8 +26,8 @@ import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
-import org.citygml4j.model.citygml.transportation.TransportationObject;
-import org.citygml4j.model.gml.GeometricComplexProperty;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 
 public class Transportation040Marshaller {
 	private final ObjectFactory tran;
@@ -90,7 +90,7 @@ public class Transportation040Marshaller {
 		return dest;
 	}
 
-	public void marshalTransportationObject(TransportationObject src, _TransportationObjectType dest) {
+	public void marshalTransportationObject(AbstractTransportationObject src, _TransportationObjectType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 	}
 
@@ -128,7 +128,7 @@ public class Transportation040Marshaller {
 
 	public AuxiliaryTrafficAreaPropertyType marshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaProperty src) {
 		AuxiliaryTrafficAreaPropertyType dest = tran.createAuxiliaryTrafficAreaPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetAuxiliaryTrafficArea()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getAuxiliaryTrafficArea());
@@ -244,7 +244,7 @@ public class Transportation040Marshaller {
 
 	public TrafficAreaPropertyType marshalTrafficAreaProperty(TrafficAreaProperty src) {
 		TrafficAreaPropertyType dest = tran.createTrafficAreaPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetTrafficArea()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getTrafficArea());

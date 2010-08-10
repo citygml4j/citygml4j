@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface WaterSurface extends WaterBoundarySurface {
+public interface WaterSurface extends AbstractWaterBoundarySurface {
 	public String getWaterLevel();
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterSurface();
 	public boolean isSetWaterLevel();

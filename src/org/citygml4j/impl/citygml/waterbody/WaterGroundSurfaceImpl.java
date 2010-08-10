@@ -13,7 +13,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class WaterGroundSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterGroundSurface {
+public class WaterGroundSurfaceImpl extends AbstractWaterBoundarySurfaceImpl implements WaterGroundSurface {
 	private List<ADEComponent> ade;
 
 	public WaterGroundSurfaceImpl() {
@@ -59,7 +59,7 @@ public class WaterGroundSurfaceImpl extends WaterBoundarySurfaceImpl implements 
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WATERGROUNDSURFACE;
+		return CityGMLClass.WATER_GROUND_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

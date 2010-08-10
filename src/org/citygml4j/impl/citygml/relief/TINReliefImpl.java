@@ -4,19 +4,19 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
-import org.citygml4j.model.gml.BoundingShape;
+import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
+public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRelief {
 	private TinProperty tin;
 	private List<ADEComponent> ade;
 	
@@ -85,7 +85,7 @@ public class TINReliefImpl extends ReliefComponentImpl implements TINRelief {
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TINRELIEF;
+		return CityGMLClass.TIN_RELIEF;
 	}
 
 	@Override

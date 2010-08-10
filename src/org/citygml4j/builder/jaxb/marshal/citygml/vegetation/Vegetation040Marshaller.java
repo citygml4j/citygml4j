@@ -12,7 +12,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
-import org.citygml4j.model.citygml.vegetation.VegetationObject;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 
 public class Vegetation040Marshaller {
 	private final ObjectFactory veg;
@@ -51,7 +51,7 @@ public class Vegetation040Marshaller {
 		return dest;
 	}
 
-	public void marshalVegetationObject(VegetationObject src, _VegetationObjectType dest) {
+	public void marshalVegetationObject(AbstractVegetationObject src, _VegetationObjectType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfVegetationObject()) {

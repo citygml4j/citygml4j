@@ -1,6 +1,6 @@
 package org.citygml4j.model.citygml.appearance;
 
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public interface AppearanceProperty extends AppearanceModuleComponent, FeatureProperty<Appearance> {
 	public Appearance getAppearance();

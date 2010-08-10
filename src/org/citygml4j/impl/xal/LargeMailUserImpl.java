@@ -255,7 +255,7 @@ public class LargeMailUserImpl implements LargeMailUser {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.LARGEMAILUSER;
+		return XALClass.LARGE_MAIL_USER;
 	}
 
 	public Object getParent() {

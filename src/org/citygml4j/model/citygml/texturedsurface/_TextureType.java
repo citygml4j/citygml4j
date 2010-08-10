@@ -34,7 +34,7 @@ public enum _TextureType implements TexturedSurfaceModuleComponent, Copyable {
     }
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._TEXTURETYPE;
+		return CityGMLClass._TEXTURE_TYPE;
 	}
 
 	public final TexturedSurfaceModule getCityGMLModule() {

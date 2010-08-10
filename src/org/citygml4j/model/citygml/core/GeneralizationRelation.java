@@ -1,11 +1,11 @@
 package org.citygml4j.model.citygml.core;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
-public interface GeneralizationRelation extends CoreModuleComponent, Association<CityObject> {
-	public CityObject getCityObject();
+public interface GeneralizationRelation extends CoreModuleComponent, FeatureProperty<AbstractCityObject> {
+	public AbstractCityObject getCityObject();
 	public boolean isSetCityObject();
 	
-	public void setCityObject(CityObject cityObject);
+	public void setCityObject(AbstractCityObject cityObject);
 	public void unsetCityObject();
 }

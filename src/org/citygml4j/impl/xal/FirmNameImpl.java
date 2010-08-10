@@ -45,7 +45,7 @@ public class FirmNameImpl implements FirmName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.FIRMNAME;
+		return XALClass.FIRM_NAME;
 	}
 
 	public String getCode() {

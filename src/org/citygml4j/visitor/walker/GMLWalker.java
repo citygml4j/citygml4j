@@ -8,6 +8,7 @@ import java.util.Set;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
@@ -16,10 +17,10 @@ import org.citygml4j.model.citygml.appearance.SurfaceDataProperty;
 import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
-import org.citygml4j.model.citygml.appearance.TextureParameterization;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.BoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -37,7 +38,6 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.Opening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
@@ -46,28 +46,29 @@ import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
-import org.citygml4j.model.citygml.core.Site;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.landuse.LandUse;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.ReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
-import org.citygml4j.model.citygml.texturedsurface._Appearance;
+import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.Railway;
@@ -77,96 +78,83 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.citygml.transportation.TransportationObject;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
-import org.citygml4j.model.citygml.vegetation.VegetationObject;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
-import org.citygml4j.model.gml.AbstractCoverage;
-import org.citygml4j.model.gml.AbstractCurve;
-import org.citygml4j.model.gml.AbstractDiscreteCoverage;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.AbstractFeatureCollection;
-import org.citygml4j.model.gml.AbstractGML;
-import org.citygml4j.model.gml.AbstractGeometricAggregate;
-import org.citygml4j.model.gml.AbstractGeometricPrimitive;
-import org.citygml4j.model.gml.AbstractGeometry;
-import org.citygml4j.model.gml.AbstractRing;
-import org.citygml4j.model.gml.AbstractRingProperty;
-import org.citygml4j.model.gml.AbstractSolid;
-import org.citygml4j.model.gml.AbstractSurface;
-import org.citygml4j.model.gml.AbstractSurfacePatch;
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.CompositeCurve;
-import org.citygml4j.model.gml.CompositeCurveProperty;
-import org.citygml4j.model.gml.CompositeSolid;
-import org.citygml4j.model.gml.CompositeSolidProperty;
-import org.citygml4j.model.gml.CompositeSurface;
-import org.citygml4j.model.gml.CompositeSurfaceProperty;
-import org.citygml4j.model.gml.CompositeValue;
-import org.citygml4j.model.gml.Curve;
-import org.citygml4j.model.gml.CurveArrayProperty;
-import org.citygml4j.model.gml.CurveProperty;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
-import org.citygml4j.model.gml.GeometricComplex;
-import org.citygml4j.model.gml.GeometricComplexProperty;
-import org.citygml4j.model.gml.GeometricPrimitiveProperty;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.Grid;
-import org.citygml4j.model.gml.LineString;
-import org.citygml4j.model.gml.LineStringProperty;
-import org.citygml4j.model.gml.LinearRing;
-import org.citygml4j.model.gml.LinearRingProperty;
-import org.citygml4j.model.gml.LocationProperty;
-import org.citygml4j.model.gml.MultiCurve;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiLineString;
-import org.citygml4j.model.gml.MultiLineStringProperty;
-import org.citygml4j.model.gml.MultiPoint;
-import org.citygml4j.model.gml.MultiPointProperty;
-import org.citygml4j.model.gml.MultiPolygon;
-import org.citygml4j.model.gml.MultiPolygonProperty;
-import org.citygml4j.model.gml.MultiSolid;
-import org.citygml4j.model.gml.MultiSolidProperty;
-import org.citygml4j.model.gml.MultiSurface;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.OrientableCurve;
-import org.citygml4j.model.gml.OrientableSurface;
-import org.citygml4j.model.gml.Point;
-import org.citygml4j.model.gml.PointArrayProperty;
-import org.citygml4j.model.gml.PointProperty;
-import org.citygml4j.model.gml.Polygon;
-import org.citygml4j.model.gml.PolygonProperty;
-import org.citygml4j.model.gml.PriorityLocationProperty;
-import org.citygml4j.model.gml.RangeSet;
-import org.citygml4j.model.gml.Rectangle;
-import org.citygml4j.model.gml.RectifiedGrid;
-import org.citygml4j.model.gml.RectifiedGridCoverage;
-import org.citygml4j.model.gml.RectifiedGridDomain;
-import org.citygml4j.model.gml.Ring;
-import org.citygml4j.model.gml.Solid;
-import org.citygml4j.model.gml.SolidArrayProperty;
-import org.citygml4j.model.gml.SolidProperty;
-import org.citygml4j.model.gml.Surface;
-import org.citygml4j.model.gml.SurfaceArrayProperty;
-import org.citygml4j.model.gml.SurfacePatchArrayProperty;
-import org.citygml4j.model.gml.SurfaceProperty;
-import org.citygml4j.model.gml.Tin;
-import org.citygml4j.model.gml.Triangle;
-import org.citygml4j.model.gml.TrianglePatchArrayProperty;
-import org.citygml4j.model.gml.TriangulatedSurface;
-import org.citygml4j.model.gml.Value;
-import org.citygml4j.model.gml.ValueArray;
-import org.citygml4j.model.gml.ValueArrayProperty;
-import org.citygml4j.model.gml.ValueObject;
-import org.citygml4j.model.gml.ValueProperty;
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.AssociationByRep;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.gml.coverage.AbstractCoverage;
+import org.citygml4j.model.gml.coverage.AbstractDiscreteCoverage;
+import org.citygml4j.model.gml.coverage.DataBlock;
+import org.citygml4j.model.gml.coverage.File;
+import org.citygml4j.model.gml.coverage.RangeSet;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurfacePatch;
+import org.citygml4j.model.gml.geometry.primitives.Curve;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
+import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
+import org.citygml4j.model.gml.geometry.primitives.Point;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+import org.citygml4j.model.gml.geometry.primitives.Rectangle;
+import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.Surface;
+import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.Tin;
+import org.citygml4j.model.gml.geometry.primitives.Triangle;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
+import org.citygml4j.model.gml.grids.Grid;
+import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.valueObjects.CompositeValue;
+import org.citygml4j.model.gml.valueObjects.Value;
+import org.citygml4j.model.gml.valueObjects.ValueArray;
+import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
+import org.citygml4j.model.gml.valueObjects.ValueObject;
+import org.citygml4j.model.gml.valueObjects.ValueProperty;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
@@ -215,7 +203,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public boolean hasVisited(Object object) {
 		return visited.contains(object);
 	}
-
+	
 	public void accept(AbstractGML abstractGML) {
 	}
 
@@ -223,8 +211,20 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		if (abstractCoverage.isSetRangeSet()) {
 			RangeSet rangeSet = abstractCoverage.getRangeSet();
 			if (rangeSet.isSetValueArray()) {
-				for (ValueArray valueArray : rangeSet.getValueArray())
+				for (ValueArray valueArray : new ArrayList<ValueArray>(rangeSet.getValueArray()))
 					accept(valueArray);
+			}
+			
+			else if (rangeSet.isSetDataBlock()) {
+				DataBlock dataBlock = rangeSet.getDataBlock();
+				if (dataBlock.isSetRangeParameters() && dataBlock.getRangeParameters().isSetValueObject())
+					accept(dataBlock.getRangeParameters().getValueObject());
+			}
+			
+			else if (rangeSet.isSetFile()) {
+				File file = rangeSet.getFile();
+				if (file.isSetRangeParameters() && file.getRangeParameters().isSetValueObject())
+					accept(file.getRangeParameters().getValueObject());
 			}
 		}
 
@@ -248,39 +248,31 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 	public void accept(AbstractFeatureCollection abstractFeatureCollection) {
 		if (abstractFeatureCollection.isSetFeatureMember())
-			for (FeatureProperty<? extends AbstractFeature> member : new ArrayList<FeatureProperty<? extends AbstractFeature>>(abstractFeatureCollection.getFeatureMember()))
+			for (FeatureMember member : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember()))
 				accept(member);
 
-		if (abstractFeatureCollection.isSetFeatureMembers()) {
-			FeatureArrayProperty featureProperty = abstractFeatureCollection.getFeatureMembers();
-			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureProperty.getFeature()))
-				if (feature != null && shouldWalk && visited.add(feature))
-					feature.visit(this);
-
-			if (featureProperty.isSetGenericADEComponent())
-				for (ADEComponent ade : new ArrayList<ADEComponent>(featureProperty.getGenericADEComponent()))
-					accept(ade);
-		}
+		if (abstractFeatureCollection.isSetFeatureMembers())
+			accept(abstractFeatureCollection.getFeatureMembers());
 
 		accept((AbstractFeature)abstractFeatureCollection);
 	}
 
-	public void accept(CityObject cityObject) {
-		if (cityObject.isSetGeneralizesTo()) {
-			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(cityObject.getGeneralizesTo()))
+	public void accept(AbstractCityObject abstractCityObject) {
+		if (abstractCityObject.isSetGeneralizesTo()) {
+			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo()))
 				accept(generalizationRelation);
 		}
 
-		if (cityObject.isSetAppearance()) {
-			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(cityObject.getAppearance()))
+		if (abstractCityObject.isSetAppearance()) {
+			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance()))
 				accept(appearanceProperty);
 		}
 
-		if (cityObject.isSetGenericApplicationPropertyOfCityObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObject.getGenericApplicationPropertyOfCityObject()))
+		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
 				accept(ade);
 
-		accept((AbstractFeature)cityObject);		
+		accept((AbstractFeature)abstractCityObject);		
 	}
 
 	public void accept(AbstractBuilding abstractBuilding) {
@@ -357,69 +349,69 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()))
 				accept(ade);
 
-		accept((Site)abstractBuilding);
+		accept((AbstractSite)abstractBuilding);
 	}
 
-	public void accept(TransportationObject transportationObject) {
-		if (transportationObject.isSetGenericApplicationPropertyOfTransportationObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationObject.getGenericApplicationPropertyOfTransportationObject()))
+	public void accept(AbstractTransportationObject abstractTransportationObject) {
+		if (abstractTransportationObject.isSetGenericApplicationPropertyOfTransportationObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()))
 				accept(ade);
 
-		accept((CityObject)transportationObject);
+		accept((AbstractCityObject)abstractTransportationObject);
 	}
 
-	public void accept(ReliefComponent reliefComponent) {
-		if (reliefComponent.isSetExtent())
-			accept(reliefComponent.getExtent());
+	public void accept(AbstractReliefComponent abstractReliefComponent) {
+		if (abstractReliefComponent.isSetExtent())
+			accept(abstractReliefComponent.getExtent());
 
-		if (reliefComponent.isSetGenericApplicationPropertyOfReliefComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefComponent.getGenericApplicationPropertyOfReliefComponent()))
+		if (abstractReliefComponent.isSetGenericApplicationPropertyOfReliefComponent())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()))
 				accept(ade);
 
-		accept((CityObject)reliefComponent);
+		accept((AbstractCityObject)abstractReliefComponent);
 	}
 
-	public void accept(Site site) {
-		if (site.isSetGenericApplicationPropertyOfSite())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(site.getGenericApplicationPropertyOfSite()))
+	public void accept(AbstractSite abstractSite) {
+		if (abstractSite.isSetGenericApplicationPropertyOfSite())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
 				accept(ade);
 
-		accept((CityObject)site);
+		accept((AbstractCityObject)abstractSite);
 	}
 
-	public void accept(BoundarySurface boundarySurface) {
-		if (boundarySurface.isSetOpening())
-			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(boundarySurface.getOpening()))
+	public void accept(AbstractBoundarySurface abstractBoundarySurface) {
+		if (abstractBoundarySurface.isSetOpening())
+			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(abstractBoundarySurface.getOpening()))
 				accept(openingProperty);
 
-		if (boundarySurface.isSetLod2MultiSurface())
-			accept(boundarySurface.getLod2MultiSurface());
+		if (abstractBoundarySurface.isSetLod2MultiSurface())
+			accept(abstractBoundarySurface.getLod2MultiSurface());
 
-		if (boundarySurface.isSetLod3MultiSurface())
-			accept(boundarySurface.getLod3MultiSurface());
+		if (abstractBoundarySurface.isSetLod3MultiSurface())
+			accept(abstractBoundarySurface.getLod3MultiSurface());
 
-		if (boundarySurface.isSetLod4MultiSurface())
-			accept(boundarySurface.getLod4MultiSurface());
+		if (abstractBoundarySurface.isSetLod4MultiSurface())
+			accept(abstractBoundarySurface.getLod4MultiSurface());
 
-		if (boundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(boundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
+		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				accept(ade);
 
-		accept((CityObject)boundarySurface);
+		accept((AbstractCityObject)abstractBoundarySurface);
 	}
 
-	public void accept(Opening opening) {
-		if (opening.isSetGenericApplicationPropertyOfOpening())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(opening.getGenericApplicationPropertyOfOpening()))
+	public void accept(AbstractOpening abstractOpening) {
+		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				accept(ade);
 
-		if (opening.isSetLod3MultiSurface())
-			accept(opening.getLod3MultiSurface());
+		if (abstractOpening.isSetLod3MultiSurface())
+			accept(abstractOpening.getLod3MultiSurface());
 
-		if (opening.isSetLod4MultiSurface())
-			accept(opening.getLod4MultiSurface());
+		if (abstractOpening.isSetLod4MultiSurface())
+			accept(abstractOpening.getLod4MultiSurface());
 
-		accept((CityObject)opening);
+		accept((AbstractCityObject)abstractOpening);
 	}
 
 	public void accept(AbstractSurfaceData abstractSurfaceData) {
@@ -437,63 +429,60 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 		accept((AbstractSurfaceData)abstractTexture);
 	}
-
-	public void accept(VegetationObject vegetationObject) {
-		if (vegetationObject.isSetGenericApplicationPropertyOfVegetationObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(vegetationObject.getGenericApplicationPropertyOfVegetationObject()))
+	
+	public void accept(AbstractTextureParameterization abstractTextureParameterization) {
+		if (abstractTextureParameterization.isSetGenericApplicationPropertyOfTextureParameterization())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericApplicationPropertyOfTextureParameterization()))
 				accept(ade);
 
-		accept((CityObject)vegetationObject);
+		if (abstractTextureParameterization.isSetGenericADEComponent())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericADEComponent()))
+				accept(ade);		
+
+		accept((AbstractGML)abstractTextureParameterization);
 	}
 
-	public void accept(WaterObject waterObject) {
-		if (waterObject.isSetGenericApplicationPropertyOfWaterObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(waterObject.getGenericApplicationPropertyOfWaterObject()))
+
+	public void accept(AbstractVegetationObject abstractVegetationObject) {
+		if (abstractVegetationObject.isSetGenericApplicationPropertyOfVegetationObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				accept(ade);
 
-		accept((CityObject)waterObject);
+		accept((AbstractCityObject)abstractVegetationObject);
 	}
 
-	public void accept(WaterBoundarySurface waterBoundarySurface) {
-		if (waterBoundarySurface.isSetLod2Surface())
-			accept(waterBoundarySurface.getLod2Surface());
-
-		if (waterBoundarySurface.isSetLod3Surface())
-			accept(waterBoundarySurface.getLod3Surface());
-
-		if (waterBoundarySurface.isSetLod3Surface())
-			accept(waterBoundarySurface.getLod3Surface());
-
-		if (waterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
+	public void accept(AbstractWaterObject abstractWaterObject) {
+		if (abstractWaterObject.isSetGenericApplicationPropertyOfWaterObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterObject.getGenericApplicationPropertyOfWaterObject()))
 				accept(ade);
 
-		accept((CityObject)waterBoundarySurface);
+		accept((AbstractCityObject)abstractWaterObject);
 	}
 
-	public void accept(FeatureProperty<? extends AbstractFeature> featureProperty) {
-		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
-			featureProperty.getFeature().visit(this);
+	public void accept(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
+		if (abstractWaterBoundarySurface.isSetLod2Surface())
+			accept(abstractWaterBoundarySurface.getLod2Surface());
 
-		if (featureProperty.isSetGenericADEComponent())
-			accept(featureProperty.getGenericADEComponent());
+		if (abstractWaterBoundarySurface.isSetLod3Surface())
+			accept(abstractWaterBoundarySurface.getLod3Surface());
+
+		if (abstractWaterBoundarySurface.isSetLod3Surface())
+			accept(abstractWaterBoundarySurface.getLod3Surface());
+
+		if (abstractWaterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
+				accept(ade);
+
+		accept((AbstractCityObject)abstractWaterBoundarySurface);
 	}
 
-	public void accept(Association<? extends AbstractGML> association) {
-		if (association.isSetObject() && shouldWalk && visited.add(association.getObject()))
-			association.getObject().visit(this);
-
-		if (association.isSetGenericADEComponent())
-			accept(association.getGenericADEComponent());
-	}
-
-	public void accept(_Appearance appearance) {
-		accept((AbstractGML)appearance);
+	public void accept(_AbstractAppearance abstractAppearance) {
+		accept((AbstractGML)abstractAppearance);
 	}
 
 	public void accept(CompositeValue compositeValue) {
 		if (compositeValue.isSetValueComponent()) {
-			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
+			for (ValueProperty valueProperty : new ArrayList<ValueProperty>(compositeValue.getValueComponent())) {
 				if (valueProperty.isSetValue())
 					accept(valueProperty.getValue());
 			}
@@ -502,7 +491,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		if (compositeValue.isSetValueComponents()) {
 			ValueArrayProperty valueArrayProperty = compositeValue.getValueComponents();
 			if (valueArrayProperty.isSetValue()) {
-				for (Value value : valueArrayProperty.getValue())
+				for (Value value : new ArrayList<Value>(valueArrayProperty.getValue()))
 					accept(value);
 			}
 		}
@@ -515,61 +504,20 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	}
 
 	public void accept(RectifiedGridCoverage rectifiedGridCoverage) {
-		if (rectifiedGridCoverage.isSetRectifiedGridDomain()) {
-			RectifiedGridDomain rectifiedGridDomain = rectifiedGridCoverage.getRectifiedGridDomain();
-			if (rectifiedGridDomain.isSetGeometry() && shouldWalk && visited.add(rectifiedGridDomain.getGeometry()))
-				rectifiedGridDomain.getGeometry().visit(this);
-		}
+		if (rectifiedGridCoverage.isSetRectifiedGridDomain())
+			accept(rectifiedGridCoverage.getRectifiedGridDomain());
 
 		accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
 	}
-
-	public void accept(TextureParameterization textureParameterization) {
-		if (textureParameterization.isSetGenericApplicationPropertyOfTextureParameterization())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericApplicationPropertyOfTextureParameterization()))
-				accept(ade);
-
-		if (textureParameterization.isSetGenericADEComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericADEComponent()))
-				accept(ade);		
-
-		accept((AbstractGML)textureParameterization);
-	}
-
-	public void accept(TexCoordGen texCoordGen) {
-		if (texCoordGen.isSetGenericApplicationPropertyOfTexCoordGen())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordGen.getGenericApplicationPropertyOfTexCoordGen()))
-				accept(ade);
-
-		accept((TextureParameterization)texCoordGen);
-	}
-
-	public void accept(TexCoordList texCoordList) {
-		if (texCoordList.isSetGenericApplicationPropertyOfTexCoordList())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordList.getGenericApplicationPropertyOfTexCoordList()))
-				accept(ade);
-
-		accept((TextureParameterization)texCoordList);
-	}
-
-	public void accept(ImplicitGeometry implicitGeometry) {
-		if (implicitGeometry.isSetRelativeGMLGeometry())
-			accept(implicitGeometry.getRelativeGMLGeometry());
-
-		if (implicitGeometry.isSetReferencePoint())
-			accept(implicitGeometry.getReferencePoint());
-
-		accept((AbstractGML)implicitGeometry);
-	}
-
+	
 	public void accept(_Material material) {
-		accept((_Appearance)material);
+		accept((_AbstractAppearance)material);
 	}
 
 	public void accept(_SimpleTexture simpleTexture) {
-		accept((_Appearance)simpleTexture);
-	}	
-
+		accept((_AbstractAppearance)simpleTexture);
+	}
+	
 	public void accept(Appearance appearance) {
 		if (appearance.isSetSurfaceDataMember())
 			for (SurfaceDataProperty surfaceDataProperty : new ArrayList<SurfaceDataProperty>(appearance.getSurfaceDataMember()))
@@ -580,6 +528,22 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 				accept(ade);
 
 		accept((AbstractFeature)appearance);
+	}
+
+	public void accept(TexCoordGen texCoordGen) {
+		if (texCoordGen.isSetGenericApplicationPropertyOfTexCoordGen())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordGen.getGenericApplicationPropertyOfTexCoordGen()))
+				accept(ade);
+
+		accept((AbstractTextureParameterization)texCoordGen);
+	}
+
+	public void accept(TexCoordList texCoordList) {
+		if (texCoordList.isSetGenericApplicationPropertyOfTexCoordList())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordList.getGenericApplicationPropertyOfTexCoordList()))
+				accept(ade);
+
+		accept((AbstractTextureParameterization)texCoordList);
 	}
 
 	public void accept(GeoreferencedTexture georeferencedTexture) {
@@ -594,12 +558,9 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	}
 
 	public void accept(ParameterizedTexture parameterizedTexture) {
-		if (parameterizedTexture.isSetTarget()) {
-			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget())) {
-				if (textureAssociation.isSetTextureParameterization() && shouldWalk && visited.add(textureAssociation.getTextureParameterization()))
-					textureAssociation.getTextureParameterization().visit(this);
-			}
-		}
+		if (parameterizedTexture.isSetTarget())
+			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget()))
+				accept(textureAssociation);
 
 		if (parameterizedTexture.isSetGenericApplicationPropertyOfParameterizedTexture())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(parameterizedTexture.getGenericApplicationPropertyOfParameterizedTexture()))
@@ -627,7 +588,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()))
 				accept(ade);
 
-		accept((CityObject)buildingFurniture);
+		accept((AbstractCityObject)buildingFurniture);
 	}
 
 	public void accept(Building building) {
@@ -652,7 +613,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation()))
 				accept(ade);
 
-		accept((CityObject)buildingInstallation);
+		accept((AbstractCityObject)buildingInstallation);
 	}
 
 	public void accept(BuildingPart buildingPart) {
@@ -668,7 +629,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)ceilingSurface);
+		accept((AbstractBoundarySurface)ceilingSurface);
 	}
 
 	public void accept(ClosureSurface closureSurface) {
@@ -676,7 +637,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)closureSurface);
+		accept((AbstractBoundarySurface)closureSurface);
 	}
 
 	public void accept(Door door) {
@@ -688,7 +649,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
 				accept(ade);
 
-		accept((Opening)door);
+		accept((AbstractOpening)door);
 	}
 
 	public void accept(FloorSurface floorSurface) {
@@ -696,7 +657,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)floorSurface);
+		accept((AbstractBoundarySurface)floorSurface);
 	}
 
 	public void accept(GroundSurface groundSurface) {
@@ -704,7 +665,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)groundSurface);
+		accept((AbstractBoundarySurface)groundSurface);
 	}
 
 	public void accept(IntBuildingInstallation intBuildingInstallation) {
@@ -715,7 +676,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()))
 				accept(ade);
 
-		accept((CityObject)intBuildingInstallation);
+		accept((AbstractCityObject)intBuildingInstallation);
 	}
 
 	public void accept(InteriorWallSurface interiorWallSurface) {
@@ -723,7 +684,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)interiorWallSurface);
+		accept((AbstractBoundarySurface)interiorWallSurface);
 	}
 
 	public void accept(RoofSurface roofSurface) {
@@ -731,7 +692,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)roofSurface);
+		accept((AbstractBoundarySurface)roofSurface);
 	}
 
 	public void accept(Room room) {
@@ -757,7 +718,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(room.getGenericApplicationPropertyOfRoom()))
 				accept(ade);
 
-		accept((CityObject)room);
+		accept((AbstractCityObject)room);
 	}
 
 	public void accept(WallSurface wallSurface) {
@@ -765,7 +726,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface()))
 				accept(ade);
 
-		accept((BoundarySurface)wallSurface);
+		accept((AbstractBoundarySurface)wallSurface);
 	}
 
 	public void accept(Window window) {
@@ -773,7 +734,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow()))
 				accept(ade);
 
-		accept((Opening)window);
+		accept((AbstractOpening)window);
 	}
 
 	public void accept(CityFurniture cityFurniture) {
@@ -817,7 +778,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityFurniture.getGenericApplicationPropertyOfCityFurniture()))
 				accept(ade);
 
-		accept((CityObject)cityFurniture);
+		accept((AbstractCityObject)cityFurniture);
 	}
 
 	public void accept(CityObjectGroup cityObjectGroup) {
@@ -835,7 +796,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup()))
 				accept(ade);
 
-		accept((CityObject)cityObjectGroup);
+		accept((AbstractCityObject)cityObjectGroup);
 	}
 
 	public void accept(Address address) {
@@ -847,6 +808,16 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 				accept(ade);
 
 		accept((AbstractFeature)address);
+	}
+	
+	public void accept(ImplicitGeometry implicitGeometry) {
+		if (implicitGeometry.isSetRelativeGMLGeometry())
+			accept(implicitGeometry.getRelativeGMLGeometry());
+
+		if (implicitGeometry.isSetReferencePoint())
+			accept(implicitGeometry.getReferencePoint());
+
+		accept((AbstractGML)implicitGeometry);
 	}
 
 	public void accept(CityModel cityModel) {
@@ -911,7 +882,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		if (genericCityObject.isSetLod4ImplicitRepresentation())
 			accept(genericCityObject.getLod4ImplicitRepresentation());
 
-		accept((CityObject)genericCityObject);
+		accept((AbstractCityObject)genericCityObject);
 	}
 
 	public void accept(LandUse landUse) {
@@ -934,7 +905,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(landUse.getGenericApplicationPropertyOfLandUse()))
 				accept(ade);
 
-		accept((CityObject)landUse);
+		accept((AbstractCityObject)landUse);
 	}
 
 	public void accept(BreaklineRelief breaklineRelief) {
@@ -948,7 +919,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)breaklineRelief);
+		accept((AbstractReliefComponent)breaklineRelief);
 	}
 
 	public void accept(MassPointRelief massPointRelief) {
@@ -959,7 +930,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(massPointRelief.getGenericApplicationPropertyOfMassPointRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)massPointRelief);
+		accept((AbstractReliefComponent)massPointRelief);
 	}
 
 	public void accept(RasterRelief rasterRelief) {
@@ -970,7 +941,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)rasterRelief);
+		accept((AbstractReliefComponent)rasterRelief);
 	}
 
 	public void accept(ReliefFeature reliefFeature) {
@@ -982,7 +953,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefFeature.getGenericApplicationPropertyOfReliefFeature()))
 				accept(ade);
 
-		accept((CityObject)reliefFeature);
+		accept((AbstractCityObject)reliefFeature);
 	}
 
 	public void accept(TINRelief tinRelief) {
@@ -993,7 +964,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tinRelief.getGenericApplicationPropertyOfTinRelief()))
 				accept(ade);
 
-		accept((ReliefComponent)tinRelief);
+		accept((AbstractReliefComponent)tinRelief);
 	}
 
 	public void accept(AuxiliaryTrafficArea auxiliaryTrafficArea) {
@@ -1010,7 +981,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea()))
 				accept(ade);
 
-		accept((TransportationObject)auxiliaryTrafficArea);
+		accept((AbstractTransportationObject)auxiliaryTrafficArea);
 	}
 
 	public void accept(Railway railway) {
@@ -1059,7 +1030,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(trafficArea.getGenericApplicationPropertyOfTrafficArea()))
 				accept(ade);
 
-		accept((TransportationObject)trafficArea);
+		accept((AbstractTransportationObject)trafficArea);
 	}
 
 	public void accept(TransportationComplex transportationComplex) {
@@ -1091,7 +1062,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationComplex.getGenericApplicationPropertyOfTransportationComplex()))
 				accept(ade);
 
-		accept((TransportationObject)transportationComplex);
+		accept((AbstractTransportationObject)transportationComplex);
 	}
 
 	public void accept(PlantCover plantCover) {
@@ -1120,7 +1091,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(plantCover.getGenericApplicationPropertyOfPlantCover()))
 				accept(ade);
 
-		accept((VegetationObject)plantCover);
+		accept((AbstractVegetationObject)plantCover);
 	}
 
 	public void accept(SolitaryVegetationObject solitaryVegetationObject) {
@@ -1149,7 +1120,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(solitaryVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				accept(ade);
 
-		accept((VegetationObject)solitaryVegetationObject);
+		accept((AbstractVegetationObject)solitaryVegetationObject);
 	}
 
 	public void accept(WaterBody waterBody) {
@@ -1185,7 +1156,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBody.getGenericApplicationPropertyOfWaterBody()))
 				accept(ade);
 
-		accept((WaterObject)waterBody);
+		accept((AbstractWaterObject)waterBody);
 	}
 
 	public void accept(WaterClosureSurface waterClosureSurface) {
@@ -1193,7 +1164,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface()))
 				accept(ade);
 
-		accept((WaterBoundarySurface)waterClosureSurface);
+		accept((AbstractWaterBoundarySurface)waterClosureSurface);
 	}
 
 	public void accept(WaterGroundSurface waterGroundSurface) {
@@ -1201,7 +1172,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface()))
 				accept(ade);
 
-		accept((WaterBoundarySurface)waterGroundSurface);
+		accept((AbstractWaterBoundarySurface)waterGroundSurface);
 	}
 
 	public void accept(WaterSurface waterSurface) {
@@ -1209,7 +1180,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface()))
 				accept(ade);
 
-		accept((WaterBoundarySurface)waterSurface);
+		accept((AbstractWaterBoundarySurface)waterSurface);
 	}
 
 	public void accept(AbstractGeometry abstractGeometry) {
@@ -1238,168 +1209,6 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 	public void accept(AbstractRing abstractRing) {
 		accept((AbstractGeometry)abstractRing);
-	}
-
-	public void accept(PointProperty pointProperty) {
-		if (pointProperty.isSetPoint() && shouldWalk && visited.add(pointProperty.getPoint()))
-			pointProperty.getPoint().visit(this);
-	}
-
-	public void accept(CurveProperty curveProperty) {
-		if (curveProperty.isSetCurve() && shouldWalk && visited.add(curveProperty.getCurve()))
-			curveProperty.getCurve().visit(this);
-	}
-
-	public void accept(PolygonProperty polygonProperty) {
-		if (polygonProperty.isSetPolygon() && shouldWalk && visited.add(polygonProperty.getPolygon()))
-			polygonProperty.getPolygon().visit(this);
-	}
-
-	public void accept(SurfaceProperty surfaceProperty) {
-		if (surfaceProperty.isSetSurface() && shouldWalk && visited.add(surfaceProperty.getSurface()))
-			surfaceProperty.getSurface().visit(this);
-	}	
-
-	public void accept(SolidProperty solidProperty) {
-		if (solidProperty.isSetSolid() && shouldWalk && visited.add(solidProperty.getSolid()))
-			solidProperty.getSolid().visit(this);
-	}
-
-	public void accept(CompositeCurveProperty compositeCurveProperty) {
-		if (compositeCurveProperty.isSetCompositeCurve() && shouldWalk && visited.add(compositeCurveProperty.getCompositeCurve()))
-			compositeCurveProperty.getCompositeCurve().visit(this);
-	}
-
-	public void accept(CompositeSolidProperty compositeSolidProperty) {
-		if (compositeSolidProperty.isSetCompositeSolid() && shouldWalk && visited.add(compositeSolidProperty.getCompositeSolid()))
-			compositeSolidProperty.getCompositeSolid().visit(this);
-	}
-
-	public void accept(CompositeSurfaceProperty compositeSurfaceProperty) {
-		if (compositeSurfaceProperty.isSetCompositeSurface() && shouldWalk && visited.add(compositeSurfaceProperty.getCompositeSurface()))
-			compositeSurfaceProperty.getCompositeSurface().visit(this);
-	}
-
-	public void accept(MultiPointProperty multiPointProperty) {
-		if (multiPointProperty.isSetMultiPoint() && shouldWalk && visited.add(multiPointProperty.getMultiPoint()))
-			multiPointProperty.getMultiPoint().visit(this);
-	}
-
-	public void accept(MultiCurveProperty multiCurveProperty) {
-		if (multiCurveProperty.isSetMultiCurve() && shouldWalk && visited.add(multiCurveProperty.getMultiCurve()))
-			multiCurveProperty.getMultiCurve().visit(this);
-	}
-
-	public void accept(MultiLineStringProperty multiLineStringProperty) {
-		if (multiLineStringProperty.isSetMultiLineString() && shouldWalk && visited.add(multiLineStringProperty.getMultiLineString()))
-			multiLineStringProperty.getMultiLineString().visit(this);
-	}
-
-	public void accept(MultiSurfaceProperty multiSurfaceProperty) {
-		if (multiSurfaceProperty.isSetMultiSurface() && shouldWalk && visited.add(multiSurfaceProperty.getMultiSurface()))
-			multiSurfaceProperty.getMultiSurface().visit(this);
-	}
-
-	public void accept(MultiPolygonProperty multiPolygonProperty) {
-		if (multiPolygonProperty.isSetMultiPolygon() && shouldWalk && visited.add(multiPolygonProperty.getMultiPolygon()))
-			multiPolygonProperty.getMultiPolygon().visit(this);
-	}
-
-	public void accept(MultiSolidProperty multiSolidProperty) {
-		if (multiSolidProperty.isSetMultiSolid() && shouldWalk && visited.add(multiSolidProperty.getMultiSolid()))
-			multiSolidProperty.getMultiSolid().visit(this);
-	}
-
-	public void accept(GeometryProperty geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
-			geometryProperty.getGeometry().visit(this);
-	}
-
-	public void accept(GeometricPrimitiveProperty geometricPrimitiveProperty) {
-		if (geometricPrimitiveProperty.isSetGeometricPrimitive() && shouldWalk && visited.add(geometricPrimitiveProperty.getGeometricPrimitive()))
-			geometricPrimitiveProperty.getGeometricPrimitive().visit(this);
-	}
-
-	public void accept(GeometricComplexProperty geometricComplexProperty) {
-		if (geometricComplexProperty.isSetGeometricComplex() && shouldWalk && visited.add(geometricComplexProperty.getGeometricComplex()))
-			geometricComplexProperty.getGeometricComplex().visit(this);
-
-		if (geometricComplexProperty.isSetCompositeCurve() && shouldWalk && visited.add(geometricComplexProperty.getCompositeCurve()))
-			geometricComplexProperty.getCompositeCurve().visit(this);
-
-		if (geometricComplexProperty.isSetCompositeSolid() && shouldWalk && visited.add(geometricComplexProperty.getCompositeSolid()))
-			geometricComplexProperty.getCompositeSolid().visit(this);
-
-		if (geometricComplexProperty.isSetCompositeSurface() && shouldWalk && visited.add(geometricComplexProperty.getCompositeSurface()))
-			geometricComplexProperty.getCompositeSurface().visit(this);
-	}
-
-	public void accept(CurveArrayProperty curveArrayProperty) {
-		if (curveArrayProperty.isSetCurve())
-			for (AbstractCurve abstractCurve : new ArrayList<AbstractCurve>(curveArrayProperty.getCurve()))
-				if (shouldWalk && visited.add(abstractCurve))
-					abstractCurve.visit(this);
-	}
-
-	public void accept(LinearRingProperty linearRingProperty) {
-		if (linearRingProperty.isSetLinearRing() && shouldWalk && visited.add(linearRingProperty.getLinearRing()))
-			linearRingProperty.getLinearRing().visit(this);
-	}
-
-	public void accept(LineStringProperty lineStringProperty) {
-		if (lineStringProperty.isSetLineString() && shouldWalk && visited.add(lineStringProperty.getLineString()))
-			lineStringProperty.getLineString().visit(this);
-	}
-
-	public void accept(PointArrayProperty pointArrayProperty) {
-		if (pointArrayProperty.isSetPoint())
-			for (Point point : new ArrayList<Point>(pointArrayProperty.getPoint()))
-				if (shouldWalk && visited.add(point))
-					point.visit(this);
-	}
-
-	public void accept(SolidArrayProperty solidArrayProperty) {
-		if (solidArrayProperty.isSetSolid())
-			for (AbstractSolid abstractSolid : new ArrayList<AbstractSolid>(solidArrayProperty.getSolid()))
-				if (shouldWalk && visited.add(abstractSolid))
-					abstractSolid.visit(this);
-	}
-
-	public void accept(SurfaceArrayProperty surfaceArrayProperty) {
-		if (surfaceArrayProperty.isSetSurface())
-			for (AbstractSurface abstractSurface : new ArrayList<AbstractSurface>(surfaceArrayProperty.getSurface()))
-				if (shouldWalk && visited.add(abstractSurface))
-					abstractSurface.visit(this);
-	}
-
-	public void accept(AbstractRingProperty abstractRingProperty) {
-		if (abstractRingProperty.isSetRing() && shouldWalk && visited.add(abstractRingProperty.getRing()))
-			abstractRingProperty.getRing().visit(this);
-	}
-
-	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
-		if (surfacePatchArrayProperty.isSetSurfacePatch())
-			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
-				if (shouldWalk && visited.add(abstractSurfacePatch)) {
-					if (abstractSurfacePatch instanceof Triangle)
-						accept((Triangle)abstractSurfacePatch);
-					else if (abstractSurfacePatch instanceof Rectangle)
-						accept((Rectangle)abstractSurfacePatch);
-				}
-			}
-	}
-
-	public void accept(TrianglePatchArrayProperty trianglePatchArrayProperty) {
-		accept((SurfacePatchArrayProperty)trianglePatchArrayProperty);
-	}
-
-	public void accept(LocationProperty locationProperty) {
-		if (locationProperty.isSetGeometry() && shouldWalk && visited.add(locationProperty.getGeometry()))
-			locationProperty.getGeometry().visit(this);
-	}
-
-	public void accept(PriorityLocationProperty priorityLocationProperty) {
-		accept((LocationProperty)priorityLocationProperty);
 	}
 
 	public void accept(Triangle triangle) {
@@ -1534,10 +1343,8 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 
 	public void accept(_TexturedSurface texturedSurface) {
 		if (texturedSurface.isSetAppearance())
-			for (_AppearanceProperty appearanceProperty : new ArrayList<_AppearanceProperty>(texturedSurface.getAppearance())) {
-				if (appearanceProperty.isSetAppearance() && shouldWalk && visited.add(appearanceProperty.getAppearance()))
-					appearanceProperty.getAppearance().visit(this);
-			}
+			for (_AppearanceProperty appearanceProperty : new ArrayList<_AppearanceProperty>(texturedSurface.getAppearance()))
+				accept(appearanceProperty);
 
 		accept((OrientableSurface)texturedSurface);
 	}
@@ -1597,6 +1404,62 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void accept(TriangulatedSurface triangulatedSurface) {
 		accept((Surface)triangulatedSurface);
 	}
+	
+	public void accept(AssociationByRep<? extends AbstractGML> association) {
+		if (association.isSetObject() && shouldWalk && visited.add(association.getObject()))
+			association.getObject().visit(this);
+	}
+
+	public void accept(AssociationByRepOrRef<? extends AbstractGML> association) {
+		accept((AssociationByRep<? extends AbstractGML>)association);
+	}
+
+	public void accept(FeatureProperty<? extends AbstractFeature> featureProperty) {
+		if (featureProperty.isSetGenericADEComponent())
+			accept(featureProperty.getGenericADEComponent());
+
+		accept((AssociationByRepOrRef<? extends AbstractFeature>)featureProperty);		
+	}
+	
+	public void accept(FeatureArrayProperty featureArrayProperty) {
+		if (featureArrayProperty.isSetFeature()) {
+			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
+				if (shouldWalk && visited.add(feature))
+					feature.visit(this);
+
+			if (featureArrayProperty.isSetGenericADEComponent())
+				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent()))
+					accept(ade);
+		}
+	}
+
+	public void accept(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
+		accept((AssociationByRepOrRef<? extends AbstractGeometry>)geometryProperty);
+	}
+
+	public void accept(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
+		accept((AssociationByRep<? extends AbstractGeometry>)geometryProperty);
+	}
+	
+	public void accept(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
+		if (geometryArrayProperty.isSetGeometry()) {
+			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry()))
+				if (shouldWalk && visited.add(abstractGeometry))
+					abstractGeometry.visit(this);
+		}
+	}
+
+	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
+		if (surfacePatchArrayProperty.isSetSurfacePatch())
+			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
+				if (shouldWalk && visited.add(abstractSurfacePatch)) {
+					if (abstractSurfacePatch instanceof Triangle)
+						accept((Triangle)abstractSurfacePatch);
+					else if (abstractSurfacePatch instanceof Rectangle)
+						accept((Rectangle)abstractSurfacePatch);
+				}
+			}
+	}
 
 	public void accept(Element element, ElementDecl decl) {
 		iterateNodeList(element, decl);
@@ -1635,13 +1498,15 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	}
 
 	protected void accept(Value value) {
-		if (value.isSetGeometry() && shouldWalk && visited.add(value.getGeometry())) {
+		if (value.isSetGeometry() && shouldWalk && visited.add(value.getGeometry()))
 			value.getGeometry().visit(this);		
-		} else if (value.isSetValueObject()) {
-			ValueObject valueObject = value.getValueObject();
-			if (valueObject.isSetCompositeValue())
-				accept((CompositeValue)valueObject.getCompositeValue());
-		}
+		else if (value.isSetValueObject())
+			accept(value.getValueObject());
+	}
+	
+	protected void accept(ValueObject valueObject) {
+		if (valueObject.isSetCompositeValue())
+			valueObject.getCompositeValue().visit(this);
 	}
 
 }

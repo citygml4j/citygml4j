@@ -28,7 +28,7 @@ public class PremiseLocationImpl implements PremiseLocation {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.PREMISELOCATION;
+		return XALClass.PREMISE_LOCATION;
 	}
 
 	public String getCode() {

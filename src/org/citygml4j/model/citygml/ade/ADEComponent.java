@@ -52,7 +52,7 @@ public class ADEComponent implements CityGML, Child, Copyable {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADECOMPONENT;
+		return CityGMLClass.ADE_COMPONENT;
 	}
 
 	public CityGMLModule getCityGMLModule() {

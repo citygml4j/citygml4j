@@ -281,7 +281,7 @@ public class AddressDetailsImpl implements AddressDetails {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADDRESSDETAILS;
+		return XALClass.ADDRESS_DETAILS;
 	}
 
 	public String getCode() {

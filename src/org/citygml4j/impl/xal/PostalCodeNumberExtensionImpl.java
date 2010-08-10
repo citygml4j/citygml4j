@@ -62,7 +62,7 @@ public class PostalCodeNumberExtensionImpl implements PostalCodeNumberExtension 
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALCODENUMBEREXTENSION;
+		return XALClass.POSTAL_CODE_NUMBER_EXTENSION;
 	}
 
 	public String getCode() {

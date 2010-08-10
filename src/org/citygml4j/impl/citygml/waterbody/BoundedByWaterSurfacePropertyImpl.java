@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.waterbody;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 
-public class BoundedByWaterSurfacePropertyImpl extends AssociationImpl<WaterBoundarySurface> implements BoundedByWaterSurfaceProperty {
+public class BoundedByWaterSurfacePropertyImpl extends FeaturePropertyImpl<AbstractWaterBoundarySurface> implements BoundedByWaterSurfaceProperty {
 	private WaterBodyModule module;
 	
 	public BoundedByWaterSurfacePropertyImpl() {
@@ -18,7 +18,7 @@ public class BoundedByWaterSurfacePropertyImpl extends AssociationImpl<WaterBoun
 		this.module = module;
 	}
 	
-	public WaterBoundarySurface getWaterBoundarySurface() {
+	public AbstractWaterBoundarySurface getWaterBoundarySurface() {
 		return super.getObject();
 	}
 
@@ -26,7 +26,7 @@ public class BoundedByWaterSurfacePropertyImpl extends AssociationImpl<WaterBoun
 		return super.isSetObject();
 	}
 
-	public void setWaterBoundarySurface(WaterBoundarySurface waterBoundarySurface) {
+	public void setWaterBoundarySurface(AbstractWaterBoundarySurface waterBoundarySurface) {
 		super.setObject(waterBoundarySurface);
 	}
 
@@ -35,7 +35,7 @@ public class BoundedByWaterSurfacePropertyImpl extends AssociationImpl<WaterBoun
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BOUNDEDBYWATERSURFACEPROPERTY;
+		return CityGMLClass.BOUNDED_BY_WATER_SURFACE_PROPERTY;
 	}
 
 	public final WaterBodyModule getCityGMLModule() {

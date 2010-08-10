@@ -9,7 +9,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
-import org.citygml4j.model.gml.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
@@ -159,7 +159,7 @@ public class GeoreferencedTextureImpl extends AbstractTextureImpl implements Geo
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GEOREFERENCEDTEXTURE;
+		return CityGMLClass.GEOREFERENCED_TEXTURE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

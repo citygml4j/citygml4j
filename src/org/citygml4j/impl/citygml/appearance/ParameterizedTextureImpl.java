@@ -94,7 +94,7 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.PARAMETERIZEDTEXTURE;
+		return CityGMLClass.PARAMETERIZED_TEXTURE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

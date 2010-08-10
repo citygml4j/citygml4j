@@ -63,7 +63,7 @@ public class PostOfficeNumberImpl implements PostOfficeNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTOFFICENUMBER;
+		return XALClass.POST_OFFICE_NUMBER;
 	}
 
 	public String getCode() {

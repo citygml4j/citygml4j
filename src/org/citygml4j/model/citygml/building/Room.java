@@ -3,11 +3,11 @@ package org.citygml4j.model.citygml.building;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityObject;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 
-public interface Room extends BuildingModuleComponent, CityObject {
+public interface Room extends BuildingModuleComponent, AbstractCityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();

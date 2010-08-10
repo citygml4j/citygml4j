@@ -5,68 +5,52 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
-import org.citygml4j.model.gml.AbstractCurve;
-import org.citygml4j.model.gml.AbstractGeometricAggregate;
-import org.citygml4j.model.gml.AbstractGeometricPrimitive;
-import org.citygml4j.model.gml.AbstractGeometry;
-import org.citygml4j.model.gml.AbstractRing;
-import org.citygml4j.model.gml.AbstractRingProperty;
-import org.citygml4j.model.gml.AbstractSolid;
-import org.citygml4j.model.gml.AbstractSurface;
-import org.citygml4j.model.gml.AbstractSurfacePatch;
-import org.citygml4j.model.gml.CompositeCurve;
-import org.citygml4j.model.gml.CompositeCurveProperty;
-import org.citygml4j.model.gml.CompositeSolid;
-import org.citygml4j.model.gml.CompositeSolidProperty;
-import org.citygml4j.model.gml.CompositeSurface;
-import org.citygml4j.model.gml.CompositeSurfaceProperty;
-import org.citygml4j.model.gml.Curve;
-import org.citygml4j.model.gml.CurveArrayProperty;
-import org.citygml4j.model.gml.CurveProperty;
-import org.citygml4j.model.gml.GeometricComplex;
-import org.citygml4j.model.gml.GeometricComplexProperty;
-import org.citygml4j.model.gml.GeometricPrimitiveProperty;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.Grid;
-import org.citygml4j.model.gml.LineString;
-import org.citygml4j.model.gml.LineStringProperty;
-import org.citygml4j.model.gml.LinearRing;
-import org.citygml4j.model.gml.LinearRingProperty;
-import org.citygml4j.model.gml.LocationProperty;
-import org.citygml4j.model.gml.MultiCurve;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiLineString;
-import org.citygml4j.model.gml.MultiLineStringProperty;
-import org.citygml4j.model.gml.MultiPoint;
-import org.citygml4j.model.gml.MultiPointProperty;
-import org.citygml4j.model.gml.MultiPolygon;
-import org.citygml4j.model.gml.MultiPolygonProperty;
-import org.citygml4j.model.gml.MultiSolid;
-import org.citygml4j.model.gml.MultiSolidProperty;
-import org.citygml4j.model.gml.MultiSurface;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.OrientableCurve;
-import org.citygml4j.model.gml.OrientableSurface;
-import org.citygml4j.model.gml.Point;
-import org.citygml4j.model.gml.PointArrayProperty;
-import org.citygml4j.model.gml.PointProperty;
-import org.citygml4j.model.gml.Polygon;
-import org.citygml4j.model.gml.PolygonProperty;
-import org.citygml4j.model.gml.PriorityLocationProperty;
-import org.citygml4j.model.gml.Rectangle;
-import org.citygml4j.model.gml.RectifiedGrid;
-import org.citygml4j.model.gml.Ring;
-import org.citygml4j.model.gml.Solid;
-import org.citygml4j.model.gml.SolidArrayProperty;
-import org.citygml4j.model.gml.SolidProperty;
-import org.citygml4j.model.gml.Surface;
-import org.citygml4j.model.gml.SurfaceArrayProperty;
-import org.citygml4j.model.gml.SurfacePatchArrayProperty;
-import org.citygml4j.model.gml.SurfaceProperty;
-import org.citygml4j.model.gml.Tin;
-import org.citygml4j.model.gml.Triangle;
-import org.citygml4j.model.gml.TrianglePatchArrayProperty;
-import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurfacePatch;
+import org.citygml4j.model.gml.geometry.primitives.Curve;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
+import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
+import org.citygml4j.model.gml.geometry.primitives.Point;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+import org.citygml4j.model.gml.geometry.primitives.Rectangle;
+import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.Surface;
+import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.Tin;
+import org.citygml4j.model.gml.geometry.primitives.Triangle;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
+import org.citygml4j.model.gml.grids.Grid;
+import org.citygml4j.model.gml.grids.RectifiedGrid;
 import org.citygml4j.visitor.GeometryVisitor;
 
 public abstract class GeometryWalker implements GeometryVisitor, Walker {
@@ -121,168 +105,6 @@ public abstract class GeometryWalker implements GeometryVisitor, Walker {
 		accept((AbstractGeometry)abstractRing);
 	}
 	
-	public void accept(PointProperty pointProperty) {
-		if (pointProperty.isSetPoint() && shouldWalk && visited.add(pointProperty.getPoint()))
-			pointProperty.getPoint().visit(this);
-	}
-
-	public void accept(CurveProperty curveProperty) {
-		if (curveProperty.isSetCurve() && shouldWalk && visited.add(curveProperty.getCurve()))
-			curveProperty.getCurve().visit(this);
-	}
-
-	public void accept(PolygonProperty polygonProperty) {
-		if (polygonProperty.isSetPolygon() && shouldWalk && visited.add(polygonProperty.getPolygon()))
-			polygonProperty.getPolygon().visit(this);
-	}
-
-	public void accept(SurfaceProperty surfaceProperty) {
-		if (surfaceProperty.isSetSurface() && shouldWalk && visited.add(surfaceProperty.getSurface()))
-			surfaceProperty.getSurface().visit(this);
-	}	
-
-	public void accept(SolidProperty solidProperty) {
-		if (solidProperty.isSetSolid() && shouldWalk && visited.add(solidProperty.getSolid()))
-			solidProperty.getSolid().visit(this);
-	}
-	
-	public void accept(CompositeCurveProperty compositeCurveProperty) {
-		if (compositeCurveProperty.isSetCompositeCurve() && shouldWalk && visited.add(compositeCurveProperty.getCompositeCurve()))
-			compositeCurveProperty.getCompositeCurve().visit(this);
-	}
-	
-	public void accept(CompositeSolidProperty compositeSolidProperty) {
-		if (compositeSolidProperty.isSetCompositeSolid() && shouldWalk && visited.add(compositeSolidProperty.getCompositeSolid()))
-			compositeSolidProperty.getCompositeSolid().visit(this);
-	}
-	
-	public void accept(CompositeSurfaceProperty compositeSurfaceProperty) {
-		if (compositeSurfaceProperty.isSetCompositeSurface() && shouldWalk && visited.add(compositeSurfaceProperty.getCompositeSurface()))
-			compositeSurfaceProperty.getCompositeSurface().visit(this);
-	}
-
-	public void accept(MultiPointProperty multiPointProperty) {
-		if (multiPointProperty.isSetMultiPoint() && shouldWalk && visited.add(multiPointProperty.getMultiPoint()))
-			multiPointProperty.getMultiPoint().visit(this);
-	}
-	
-	public void accept(MultiCurveProperty multiCurveProperty) {
-		if (multiCurveProperty.isSetMultiCurve() && shouldWalk && visited.add(multiCurveProperty.getMultiCurve()))
-			multiCurveProperty.getMultiCurve().visit(this);
-	}
-	
-	public void accept(MultiLineStringProperty multiLineStringProperty) {
-		if (multiLineStringProperty.isSetMultiLineString() && shouldWalk && visited.add(multiLineStringProperty.getMultiLineString()))
-			multiLineStringProperty.getMultiLineString().visit(this);
-	}
-	
-	public void accept(MultiSurfaceProperty multiSurfaceProperty) {
-		if (multiSurfaceProperty.isSetMultiSurface() && shouldWalk && visited.add(multiSurfaceProperty.getMultiSurface()))
-			multiSurfaceProperty.getMultiSurface().visit(this);
-	}
-	
-	public void accept(MultiPolygonProperty multiPolygonProperty) {
-		if (multiPolygonProperty.isSetMultiPolygon() && shouldWalk && visited.add(multiPolygonProperty.getMultiPolygon()))
-			multiPolygonProperty.getMultiPolygon().visit(this);
-	}
-		
-	public void accept(MultiSolidProperty multiSolidProperty) {
-		if (multiSolidProperty.isSetMultiSolid() && shouldWalk && visited.add(multiSolidProperty.getMultiSolid()))
-			multiSolidProperty.getMultiSolid().visit(this);
-	}
-	
-	public void accept(GeometryProperty geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
-			geometryProperty.getGeometry().visit(this);
-	}
-	
-	public void accept(GeometricPrimitiveProperty geometricPrimitiveProperty) {
-		if (geometricPrimitiveProperty.isSetGeometricPrimitive() && shouldWalk && visited.add(geometricPrimitiveProperty.getGeometricPrimitive()))
-			geometricPrimitiveProperty.getGeometricPrimitive().visit(this);
-	}
-	
-	public void accept(GeometricComplexProperty geometricComplexProperty) {
-		if (geometricComplexProperty.isSetGeometricComplex() && shouldWalk && visited.add(geometricComplexProperty.getGeometricComplex()))
-			geometricComplexProperty.getGeometricComplex().visit(this);
-		
-		if (geometricComplexProperty.isSetCompositeCurve() && shouldWalk && visited.add(geometricComplexProperty.getCompositeCurve()))
-			geometricComplexProperty.getCompositeCurve().visit(this);
-		
-		if (geometricComplexProperty.isSetCompositeSolid() && shouldWalk && visited.add(geometricComplexProperty.getCompositeSolid()))
-			geometricComplexProperty.getCompositeSolid().visit(this);
-		
-		if (geometricComplexProperty.isSetCompositeSurface() && shouldWalk && visited.add(geometricComplexProperty.getCompositeSurface()))
-			geometricComplexProperty.getCompositeSurface().visit(this);
-	}
-
-	public void accept(CurveArrayProperty curveArrayProperty) {
-		if (curveArrayProperty.isSetCurve())
-			for (AbstractCurve abstractCurve : new ArrayList<AbstractCurve>(curveArrayProperty.getCurve()))
-				if (shouldWalk && visited.add(abstractCurve))
-					abstractCurve.visit(this);
-	}
-
-	public void accept(LinearRingProperty linearRingProperty) {
-		if (linearRingProperty.isSetLinearRing() && shouldWalk && visited.add(linearRingProperty.getLinearRing()))
-			linearRingProperty.getLinearRing().visit(this);
-	}
-	
-	public void accept(LineStringProperty lineStringProperty) {
-		if (lineStringProperty.isSetLineString() && shouldWalk && visited.add(lineStringProperty.getLineString()))
-			lineStringProperty.getLineString().visit(this);
-	}
-
-	public void accept(PointArrayProperty pointArrayProperty) {
-		if (pointArrayProperty.isSetPoint())
-			for (Point point : new ArrayList<Point>(pointArrayProperty.getPoint()))
-				if (shouldWalk && visited.add(point))
-					point.visit(this);
-	}
-
-	public void accept(SolidArrayProperty solidArrayProperty) {
-		if (solidArrayProperty.isSetSolid())
-			for (AbstractSolid abstractSolid : new ArrayList<AbstractSolid>(solidArrayProperty.getSolid()))
-				if (shouldWalk && visited.add(abstractSolid))
-					abstractSolid.visit(this);
-	}
-
-	public void accept(SurfaceArrayProperty surfaceArrayProperty) {
-		if (surfaceArrayProperty.isSetSurface())
-			for (AbstractSurface abstractSurface : new ArrayList<AbstractSurface>(surfaceArrayProperty.getSurface()))
-				if (shouldWalk && visited.add(abstractSurface))
-					abstractSurface.visit(this);
-	}
-
-	public void accept(AbstractRingProperty abstractRingProperty) {
-		if (abstractRingProperty.isSetRing() && shouldWalk && visited.add(abstractRingProperty.getRing()))
-			abstractRingProperty.getRing().visit(this);
-	}
-
-	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
-		if (surfacePatchArrayProperty.isSetSurfacePatch())
-			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
-				if (shouldWalk && visited.add(abstractSurfacePatch)) {
-					if (abstractSurfacePatch instanceof Triangle)
-						accept((Triangle)abstractSurfacePatch);
-					else if (abstractSurfacePatch instanceof Rectangle)
-						accept((Rectangle)abstractSurfacePatch);
-				}
-			}
-	}
-
-	public void accept(TrianglePatchArrayProperty trianglePatchArrayProperty) {
-		accept((SurfacePatchArrayProperty)trianglePatchArrayProperty);
-	}
-	
-	public void accept(LocationProperty locationProperty) {
-		if (locationProperty.isSetGeometry() && shouldWalk && visited.add(locationProperty.getGeometry()))
-			locationProperty.getGeometry().visit(this);
-	}
-	
-	public void accept(PriorityLocationProperty priorityLocationProperty) {
-		accept((LocationProperty)priorityLocationProperty);
-	}
-
 	public void accept(Triangle triangle) {
 		if (triangle.isSetExterior())
 			accept(triangle.getExterior());
@@ -471,6 +293,36 @@ public abstract class GeometryWalker implements GeometryVisitor, Walker {
 
 	public void accept(TriangulatedSurface triangulatedSurface) {
 		accept((Surface)triangulatedSurface);
+	}
+	
+	public void accept(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
+		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
+			geometryProperty.getGeometry().visit(this);
+	}
+	
+	public void accept(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
+		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
+			geometryProperty.getGeometry().visit(this);
+	}
+
+	public void accept(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
+		if (geometryArrayProperty.isSetGeometry()) {
+			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry()))
+				if (shouldWalk && visited.add(abstractGeometry))
+					abstractGeometry.visit(this);
+		}
+	}
+	
+	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
+		if (surfacePatchArrayProperty.isSetSurfacePatch())
+			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
+				if (shouldWalk && visited.add(abstractSurfacePatch)) {
+					if (abstractSurfacePatch instanceof Triangle)
+						accept((Triangle)abstractSurfacePatch);
+					else if (abstractSurfacePatch instanceof Rectangle)
+						accept((Rectangle)abstractSurfacePatch);
+				}
+			}
 	}
 
 }

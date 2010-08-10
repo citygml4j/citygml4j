@@ -3,16 +3,17 @@ package org.citygml4j.model.citygml.building;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityObject;
-import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface BuildingInstallation extends BuildingModuleComponent, CityObject {
+public interface BuildingInstallation extends BuildingModuleComponent, AbstractCityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
-	public GeometryProperty getLod2Geometry();
-	public GeometryProperty getLod3Geometry();
-	public GeometryProperty getLod4Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod3Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry();
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingInstallation();
 	public boolean isSetClazz();
 	public boolean isSetFunction();
@@ -27,9 +28,9 @@ public interface BuildingInstallation extends BuildingModuleComponent, CityObjec
 	public void addFunction(String function);
 	public void setUsage(List<String> usage);
 	public void addUsage(String usage);
-	public void setLod2Geometry(GeometryProperty lod2Geometry);
-	public void setLod3Geometry(GeometryProperty lod3Geometry);
-	public void setLod4Geometry(GeometryProperty lod4Geometry);	
+	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry);
+	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry);
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry);	
 	public void addGenericApplicationPropertyOfBuildingInstallation(ADEComponent ade);
 	public void setGenericApplicationPropertyOfBuildingInstallation(List<ADEComponent> ade);
 	public void unsetClazz();

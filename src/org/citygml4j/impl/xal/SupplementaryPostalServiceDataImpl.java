@@ -45,7 +45,7 @@ public class SupplementaryPostalServiceDataImpl implements SupplementaryPostalSe
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUPPLEMENTARYPOSTALSERVICEDATA;
+		return XALClass.SUPPLEMENTARY_POSTAL_SERVICE_DATA;
 	}
 
 	public String getCode() {

@@ -21,7 +21,7 @@ import org.citygml4j.jaxb.citygml._0_4.UriAttributeType;
 import org.citygml4j.jaxb.citygml._0_4._GenericAttributeType;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.GenericAttribute;
+import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
 import org.citygml4j.model.citygml.generics.IntAttribute;
@@ -81,7 +81,7 @@ public class Generics040Marshaller {
 		return dest;
 	}
 	
-	public void marshalGenericAttribute(GenericAttribute src, _GenericAttributeType dest) {
+	public void marshalGenericAttribute(AbstractGenericAttribute src, _GenericAttributeType dest) {
 		if (src.isSetName())
 			dest.setName(src.getName());
 	}

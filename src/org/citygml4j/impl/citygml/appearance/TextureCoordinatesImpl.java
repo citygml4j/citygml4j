@@ -65,7 +65,7 @@ public class TextureCoordinatesImpl implements TextureCoordinates {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXTURECOORDINATES;
+		return CityGMLClass.TEXTURE_COORDINATES;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

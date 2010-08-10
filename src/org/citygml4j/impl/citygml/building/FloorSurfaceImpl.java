@@ -13,7 +13,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class FloorSurfaceImpl extends BoundarySurfaceImpl implements FloorSurface {
+public class FloorSurfaceImpl extends AbstractBoundarySurfaceImpl implements FloorSurface {
 	private List<ADEComponent> ade;
 
 	public FloorSurfaceImpl() {
@@ -59,7 +59,7 @@ public class FloorSurfaceImpl extends BoundarySurfaceImpl implements FloorSurfac
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.FLOORSURFACE;
+		return CityGMLClass.FLOOR_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

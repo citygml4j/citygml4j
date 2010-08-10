@@ -63,7 +63,7 @@ public class SubPremiseNameImpl implements SubPremiseName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBPREMISENAME;
+		return XALClass.SUB_PREMISE_NAME;
 	}
 
 	public String getCode() {

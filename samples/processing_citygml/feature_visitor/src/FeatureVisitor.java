@@ -9,9 +9,9 @@ import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
-import org.citygml4j.model.citygml.building.BoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.MultiSurface;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.visitor.walker.FeatureWalker;
@@ -42,7 +42,7 @@ public class FeatureVisitor {
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
-			public void accept(BoundarySurface boundarySurface) {
+			public void accept(AbstractBoundarySurface boundarySurface) {
 				System.out.println(df.format(new Date()) + "adding X3DMaterial information to " + boundarySurface.getId());
 
 				MultiSurface multiSurface = boundarySurface.getLod2MultiSurface().getMultiSurface();
@@ -54,10 +54,10 @@ public class FeatureVisitor {
 
 				Double red, green, blue;
 				switch (boundarySurface.getCityGMLClass()) {
-				case ROOFSURFACE:
+				case ROOF_SURFACE:
 					red = 1.0; green = 0.0; blue = 0.0;
 					break;
-				case WALLSURFACE:
+				case WALL_SURFACE:
 					red = 0.5; green = 0.5; blue = 0.5;
 					break;
 				default:

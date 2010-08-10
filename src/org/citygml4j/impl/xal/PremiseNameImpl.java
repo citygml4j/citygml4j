@@ -63,7 +63,7 @@ public class PremiseNameImpl implements PremiseName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.PREMISENAME;
+		return XALClass.PREMISE_NAME;
 	}
 
 	public String getCode() {

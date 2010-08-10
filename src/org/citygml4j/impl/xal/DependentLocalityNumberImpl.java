@@ -46,7 +46,7 @@ public class DependentLocalityNumberImpl implements DependentLocalityNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.DEPENDENTLOCALITYNUMBER;
+		return XALClass.DEPENDENT_LOCALITY_NUMBER;
 	}
 
 	public String getCode() {

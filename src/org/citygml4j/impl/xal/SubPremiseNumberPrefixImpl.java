@@ -62,7 +62,7 @@ public class SubPremiseNumberPrefixImpl implements SubPremiseNumberPrefix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBPREMISENUMBERPREFIX;
+		return XALClass.SUB_PREMISE_NUMBER_PREFIX;
 	}
 
 	public String getCode() {

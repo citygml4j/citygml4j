@@ -11,7 +11,7 @@ import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 
-public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTexture {
+public class _SimpleTextureImpl extends _AbstractAppearanceImpl implements _SimpleTexture {
 	private String textureMap;
 	private List<Double> textureCoordinates;
 	private _TextureType _textureType;
@@ -86,7 +86,7 @@ public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTextur
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._SIMPLETEXTURE;
+		return CityGMLClass._SIMPLE_TEXTURE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

@@ -21,10 +21,10 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterObject;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -63,11 +63,11 @@ public class WaterBody040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalWaterObject(_WaterObjectType src, WaterObject dest) throws MissingADESchemaException {
+	public void unmarshalWaterObject(_WaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 	}
 
-	public void unmarshalWaterBoundarySurface(_WaterBoundarySurfaceType src, WaterBoundarySurface dest) throws MissingADESchemaException {
+	public void unmarshalWaterBoundarySurface(_WaterBoundarySurfaceType src, AbstractWaterBoundarySurface dest) throws MissingADESchemaException {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetLod2Surface())
@@ -82,12 +82,12 @@ public class WaterBody040Unmarshaller {
 
 	public BoundedByWaterSurfaceProperty unmarshalBoundedByWaterSurfaceProperty(BoundedByWaterSurfacePropertyType src) throws MissingADESchemaException {
 		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfacePropertyImpl(module);
-		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
+		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
 			Object object = jaxb.unmarshal(src.get_Object());
-			if (object instanceof WaterBoundarySurface)
-				dest.setObject((WaterBoundarySurface)object);
+			if (object instanceof AbstractWaterBoundarySurface)
+				dest.setObject((AbstractWaterBoundarySurface)object);
 		}
 
 		return dest;
@@ -182,10 +182,10 @@ public class WaterBody040Unmarshaller {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		
-		if (dest instanceof WaterObject && name.equals("_GenericApplicationPropertyOfWaterObject"))
-			((WaterObject)dest).addGenericApplicationPropertyOfWaterObject(genericProperty);		
-		else if (dest instanceof WaterBoundarySurface && name.equals("_GenericApplicationPropertyOfWaterBoundarySurface"))
-			((WaterBoundarySurface)dest).addGenericApplicationPropertyOfWaterBoundarySurface(genericProperty);		
+		if (dest instanceof AbstractWaterObject && name.equals("_GenericApplicationPropertyOfWaterObject"))
+			((AbstractWaterObject)dest).addGenericApplicationPropertyOfWaterObject(genericProperty);		
+		else if (dest instanceof AbstractWaterBoundarySurface && name.equals("_GenericApplicationPropertyOfWaterBoundarySurface"))
+			((AbstractWaterBoundarySurface)dest).addGenericApplicationPropertyOfWaterBoundarySurface(genericProperty);		
 		else if (dest instanceof WaterBody && name.equals("_GenericApplicationPropertyOfWaterBody"))
 			((WaterBody)dest).addGenericApplicationPropertyOfWaterBody(genericProperty);		
 		else if (dest instanceof WaterClosureSurface && name.equals("_GenericApplicationPropertyOfWaterClosureSurface"))

@@ -14,7 +14,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
-import org.citygml4j.model.citygml.vegetation.VegetationObject;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -46,7 +46,7 @@ public class Vegetation100Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalVegetationObject(AbstractVegetationObjectType src, VegetationObject dest) throws MissingADESchemaException {
+	public void unmarshalVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
 	}
 
@@ -148,8 +148,8 @@ public class Vegetation100Unmarshaller {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		
-		if (dest instanceof VegetationObject && name.equals("_GenericApplicationPropertyOfVegetationObject"))
-			((VegetationObject)dest).addGenericApplicationPropertyOfVegetationObject(genericProperty);		
+		if (dest instanceof AbstractVegetationObject && name.equals("_GenericApplicationPropertyOfVegetationObject"))
+			((AbstractVegetationObject)dest).addGenericApplicationPropertyOfVegetationObject(genericProperty);		
 		else if (dest instanceof PlantCover && name.equals("_GenericApplicationPropertyOfPlantCover"))
 			((PlantCover)dest).addGenericApplicationPropertyOfPlantCover(genericProperty);		
 		else if (dest instanceof SolitaryVegetationObject && name.equals("_GenericApplicationPropertyOfSolitaryVegetationObject"))

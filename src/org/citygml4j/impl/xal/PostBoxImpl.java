@@ -226,7 +226,7 @@ public class PostBoxImpl implements PostBox {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOX;
+		return XALClass.POST_BOX;
 	}
 
 	public Object getParent() {

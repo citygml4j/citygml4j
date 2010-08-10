@@ -6,8 +6,8 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.building.Opening;
-import org.citygml4j.model.gml.AbstractFeature;
+import org.citygml4j.model.citygml.building.AbstractOpening;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -48,7 +48,7 @@ public class WritingCityModel {
 
 		System.out.println(df.format(new Date()) + "splitting citygml4j object by feature members whilst writing to file");
 		FeatureWriteMode writeMode = FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER;
-		Class<?>[] excludeList = new Class<?>[]{Opening.class};
+		Class<?>[] excludeList = new Class<?>[]{AbstractOpening.class};
 		boolean splitOnCopy = false;
 
 		out.setCityGMLVersion(version);
@@ -74,7 +74,7 @@ public class WritingCityModel {
 
 			if (!isInited) {
 				ParentInfo parentInfo = reader.getParentInfo();
-				if (parentInfo != null && parentInfo.getCityGMLClass() == CityGMLClass.CITYMODEL) {
+				if (parentInfo != null && parentInfo.getCityGMLClass() == CityGMLClass.CITY_MODEL) {
 					System.out.println(df.format(new Date()) + "setting original CityModel attributes for new CityModel");
 					CityModelInfo cityModelInfo = new CityModelInfo(parentInfo);
 

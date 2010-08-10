@@ -45,7 +45,7 @@ public class ThoroughfareTrailingTypeImpl implements ThoroughfareTrailingType {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARETRAILINGTYPE;
+		return XALClass.THOROUGHFARE_TRAILING_TYPE;
 	}
 
 	public String getCode() {

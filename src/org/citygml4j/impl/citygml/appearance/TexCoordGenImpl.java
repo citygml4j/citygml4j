@@ -12,7 +12,7 @@ import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 
-public class TexCoordGenImpl extends TextureParameterizationImpl implements TexCoordGen {
+public class TexCoordGenImpl extends AbstractTextureParameterizationImpl implements TexCoordGen {
 	private WorldToTexture worldToTexture;
 	private List<ADEComponent> ade;
 	
@@ -81,7 +81,7 @@ public class TexCoordGenImpl extends TextureParameterizationImpl implements TexC
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXCOORDGEN;
+		return CityGMLClass.TEX_COORD_GEN;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

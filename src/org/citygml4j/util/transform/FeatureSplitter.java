@@ -19,10 +19,10 @@ import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.model.module.gml.XLinkModule;
 import org.citygml4j.visitor.walker.FeatureWalker;
@@ -168,7 +168,7 @@ public class FeatureSplitter {
 				return copy;
 
 			if (target instanceof AbstractFeature ||
-					target instanceof Association<?> ||
+					target instanceof AssociationByRepOrRef<?> ||
 					target instanceof FeatureProperty<?> ||
 					target instanceof FeatureArrayProperty)
 				copy = ((Copyable)target).copy(this);
@@ -216,14 +216,7 @@ public class FeatureSplitter {
 			boolean addToResult = false;
 
 			if (parent != null) {
-				if (parent instanceof Association<?>) {
-					Association<?> association = (Association<?>)parent;
-					association.setHref('#' + getAndSetGmlId(feature));
-					association.unsetObject();
-					addToResult = true;
-				}
-
-				else if (parent instanceof FeatureProperty<?>) {
+				if (parent instanceof FeatureProperty<?>) {
 					FeatureProperty<?> property = (FeatureProperty<?>)parent;				
 					property.setHref('#' + getAndSetGmlId(feature));
 					property.unsetFeature();
@@ -262,18 +255,10 @@ public class FeatureSplitter {
 				if (parent != null) {
 					Schema schema = schemaHandler.getSchema(adeComponent.getNamespaceURI());
 					if (schema != null) {
-
 						ElementDecl elementDecl = schema.getElementDecl(adeComponent.getLocalName(), null);
-						if (elementDecl != null && splitElement(elementDecl)) {							
-
-							if (parent instanceof Association<?>) {
-								Association<?> association = (Association<?>)parent;
-								association.setHref('#' + getAndSetGmlId(adeComponent.getContent()));
-								association.unsetGenericADEComponent();
-								addToResult = true;
-							}
-
-							else if (parent instanceof FeatureProperty<?>) {
+						
+						if (elementDecl != null && splitElement(elementDecl)) {
+							if (parent instanceof FeatureProperty<?>) {
 								FeatureProperty<?> property = (FeatureProperty<?>)parent;				
 								property.setHref('#' + getAndSetGmlId(adeComponent.getContent()));
 								property.unsetGenericADEComponent();

@@ -45,7 +45,7 @@ public class PostBoxNumberSuffixImpl implements PostBoxNumberSuffix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOXNUMBERSUFFIX;
+		return XALClass.POST_BOX_NUMBER_SUFFIX;
 	}
 
 	public String getCode() {

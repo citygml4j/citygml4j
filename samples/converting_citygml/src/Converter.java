@@ -6,7 +6,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.visitor.walker.FeatureWalker;

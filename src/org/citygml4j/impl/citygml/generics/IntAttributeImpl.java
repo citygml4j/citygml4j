@@ -5,7 +5,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.generics.IntAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
-public class IntAttributeImpl extends GenericAttributeImpl implements IntAttribute {
+public class IntAttributeImpl extends AbstractGenericAttributeImpl implements IntAttribute {
 	private Integer value;
 	
 	public IntAttributeImpl() {
@@ -34,7 +34,7 @@ public class IntAttributeImpl extends GenericAttributeImpl implements IntAttribu
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTATTRIBUTE;
+		return CityGMLClass.INT_ATTRIBUTE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

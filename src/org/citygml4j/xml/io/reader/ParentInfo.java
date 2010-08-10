@@ -3,11 +3,11 @@ package org.citygml4j.xml.io.reader;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.Code;
-import org.citygml4j.model.gml.LocationProperty;
-import org.citygml4j.model.gml.MetaDataProperty;
-import org.citygml4j.model.gml.StringOrRef;
+import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.LocationProperty;
 
 public interface ParentInfo {
 	public boolean isSetParentInfo();

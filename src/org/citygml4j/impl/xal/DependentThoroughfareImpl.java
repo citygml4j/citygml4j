@@ -196,7 +196,7 @@ public class DependentThoroughfareImpl implements DependentThoroughfare {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.DEPENDENTTHOROUGHFARE;
+		return XALClass.DEPENDENT_THOROUGHFARE;
 	}
 
 	public Object getParent() {

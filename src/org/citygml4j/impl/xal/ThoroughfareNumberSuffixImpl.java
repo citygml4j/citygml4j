@@ -62,7 +62,7 @@ public class ThoroughfareNumberSuffixImpl implements ThoroughfareNumberSuffix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARENUMBERSUFFIX;
+		return XALClass.THOROUGHFARE_NUMBER_SUFFIX;
 	}
 
 	public String getCode() {

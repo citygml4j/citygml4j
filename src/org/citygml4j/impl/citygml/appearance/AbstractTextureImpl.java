@@ -149,7 +149,7 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACTTEXTURE;
+		return CityGMLClass.ABSTRACT_TEXTURE;
 	}
 
 	@Override

@@ -104,12 +104,12 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.TextureParameterization;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
-import org.citygml4j.model.citygml.building.BoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -127,7 +127,7 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.Opening;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
@@ -140,7 +140,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.ExternalObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
@@ -162,12 +162,12 @@ import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.ReliefComponent;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
-import org.citygml4j.model.citygml.texturedsurface._Appearance;
+import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
@@ -186,12 +186,12 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
-import org.citygml4j.model.gml.RectifiedGridCoverage;
-import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.xal.AddressDetails;
 import org.w3c.dom.Element;
 
@@ -307,7 +307,7 @@ public class CityGMLFactory {
 		return new TextureAssociationImpl();
 	}
 	
-	public TextureAssociation createTextureAssociation(TextureParameterization textureParameterization) {
+	public TextureAssociation createTextureAssociation(AbstractTextureParameterization textureParameterization) {
 		TextureAssociation textureAssociation = new TextureAssociationImpl();
 		textureAssociation.setTextureParameterization(textureParameterization);
 		return textureAssociation;
@@ -345,7 +345,7 @@ public class CityGMLFactory {
 		return new BoundarySurfacePropertyImpl();
 	}
 	
-	public BoundarySurfaceProperty createBoundarySurfaceProperty(BoundarySurface boundarySurface) {
+	public BoundarySurfaceProperty createBoundarySurfaceProperty(AbstractBoundarySurface boundarySurface) {
 		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfacePropertyImpl();
 		boundarySurfaceProperty.setBoundarySurface(boundarySurface);
 		return boundarySurfaceProperty;
@@ -485,7 +485,7 @@ public class CityGMLFactory {
 		return new OpeningPropertyImpl();
 	}
 	
-	public OpeningProperty createOpeningProperty(Opening opening) {
+	public OpeningProperty createOpeningProperty(AbstractOpening opening) {
 		OpeningProperty openingProperty = new OpeningPropertyImpl();
 		openingProperty.setOpening(opening);
 		return openingProperty;
@@ -529,7 +529,7 @@ public class CityGMLFactory {
 		return new CityObjectGroupMemberImpl();
 	}
 	
-	public CityObjectGroupMember createCityObjectGroupMember(CityObject cityObject) {
+	public CityObjectGroupMember createCityObjectGroupMember(AbstractCityObject cityObject) {
 		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMemberImpl();
 		cityObjectGroupMember.setCityObject(cityObject);
 		return cityObjectGroupMember;
@@ -545,7 +545,7 @@ public class CityGMLFactory {
 		return new CityObjectGroupParentImpl();
 	}
 	
-	public CityObjectGroupParent createCityObjectGroupParent(CityObject cityObject) {
+	public CityObjectGroupParent createCityObjectGroupParent(AbstractCityObject cityObject) {
 		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParentImpl();
 		cityObjectGroupParent.setCityObject(cityObject);
 		return cityObjectGroupParent;
@@ -587,7 +587,7 @@ public class CityGMLFactory {
 		return new CityObjectMemberImpl();
 	}
 	
-	public CityObjectMember createCityObjectMember(CityObject cityObject) {
+	public CityObjectMember createCityObjectMember(AbstractCityObject cityObject) {
 		CityObjectMember cityObjectMember = new CityObjectMemberImpl();
 		cityObjectMember.setCityObject(cityObject);
 		return cityObjectMember;
@@ -611,7 +611,7 @@ public class CityGMLFactory {
 		return new GeneralizationRelationImpl();
 	}
 	
-	public GeneralizationRelation createGeneralizationRelation(CityObject cityObject) {
+	public GeneralizationRelation createGeneralizationRelation(AbstractCityObject cityObject) {
 		GeneralizationRelation generalizationRelation = new GeneralizationRelationImpl();
 		generalizationRelation.setCityObject(cityObject);
 		return generalizationRelation;
@@ -745,7 +745,7 @@ public class CityGMLFactory {
 		return new ReliefComponentPropertyImpl();
 	}
 	
-	public ReliefComponentProperty createReliefComponentProperty(ReliefComponent reliefComponent) {
+	public ReliefComponentProperty createReliefComponentProperty(AbstractReliefComponent reliefComponent) {
 		ReliefComponentProperty reliefComponentProperty = new ReliefComponentPropertyImpl();
 		reliefComponentProperty.setReliefComponent(reliefComponent);
 		return reliefComponentProperty;
@@ -787,7 +787,7 @@ public class CityGMLFactory {
 		return new _AppearancePropertyImpl();
 	}
 	
-	public _AppearanceProperty create_AppearanceProperty(_Appearance appearance) {
+	public _AppearanceProperty create_AppearanceProperty(_AbstractAppearance appearance) {
 		_AppearanceProperty appearanceProperty = new _AppearancePropertyImpl();
 		appearanceProperty.setAppearance(appearance);
 		return appearanceProperty;
@@ -897,7 +897,7 @@ public class CityGMLFactory {
 		return new BoundedByWaterSurfacePropertyImpl();
 	}
 	
-	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(WaterBoundarySurface waterBoundarySurface) {
+	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(AbstractWaterBoundarySurface waterBoundarySurface) {
 		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfacePropertyImpl();
 		boundedByWaterSurfaceProperty.setWaterBoundarySurface(waterBoundarySurface);
 		return boundedByWaterSurfaceProperty;

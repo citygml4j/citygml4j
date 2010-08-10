@@ -5,7 +5,7 @@ import java.util.Date;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.building.Opening;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -24,7 +24,7 @@ public class FeatureChunkReader {
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v100.xml feature by feature");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
-		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new Class[]{Opening.class, Address.class});
+		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new Class[]{AbstractOpening.class, Address.class});
 
 		// see difference when setting to true
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);

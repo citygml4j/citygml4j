@@ -5,26 +5,27 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class BuildingInstallationImpl extends CityObjectImpl implements BuildingInstallation {
+public class BuildingInstallationImpl extends AbstractCityObjectImpl implements BuildingInstallation {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
-	private GeometryProperty lod2Geometry;
-	private GeometryProperty lod3Geometry;
-	private GeometryProperty lod4Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod2Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod3Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
 	private List<ADEComponent> ade;
 	private BuildingModule module;
 	
@@ -75,15 +76,15 @@ public class BuildingInstallationImpl extends CityObjectImpl implements Building
 		return ade;
 	}
 
-	public GeometryProperty getLod2Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry() {
 		return lod2Geometry;
 	}
 
-	public GeometryProperty getLod3Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod3Geometry() {
 		return lod3Geometry;
 	}
 
-	public GeometryProperty getLod4Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry() {
 		return lod4Geometry;
 	}
 
@@ -134,21 +135,21 @@ public class BuildingInstallationImpl extends CityObjectImpl implements Building
 		this.ade = new ChildList<ADEComponent>(this, ade);
 	}
 
-	public void setLod2Geometry(GeometryProperty lod2Geometry) {
+	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry) {
 		if (lod2Geometry != null)
 			lod2Geometry.setParent(this);
 		
 		this.lod2Geometry = lod2Geometry;
 	}
 
-	public void setLod3Geometry(GeometryProperty lod3Geometry) {
+	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry) {
 		if (lod3Geometry != null)
 			lod3Geometry.setParent(this);
 		
 		this.lod3Geometry = lod3Geometry;
 	}
 
-	public void setLod4Geometry(GeometryProperty lod4Geometry) {
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
 		if (lod4Geometry != null)
 			lod4Geometry.setParent(this);
 		
@@ -213,7 +214,7 @@ public class BuildingInstallationImpl extends CityObjectImpl implements Building
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDINGINSTALLATION;
+		return CityGMLClass.BUILDING_INSTALLATION;
 	}
 
 	public final BuildingModule getCityGMLModule() {
@@ -227,7 +228,7 @@ public class BuildingInstallationImpl extends CityObjectImpl implements Building
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShapeImpl();
-		GeometryProperty geometryProperty = null;
+		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 
 		for (int lod = 2; lod < 5; lod++) {
 			switch (lod) {
@@ -280,19 +281,19 @@ public class BuildingInstallationImpl extends CityObjectImpl implements Building
 			copy.setFunction((List<String>)copyBuilder.copy(usage));
 		
 		if (isSetLod2Geometry()) {
-			copy.setLod2Geometry((GeometryProperty)copyBuilder.copy(lod2Geometry));
+			copy.setLod2Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod2Geometry));
 			if (copy.getLod2Geometry() == lod2Geometry)
 				lod2Geometry.setParent(this);
 		}
 		
 		if (isSetLod3Geometry()) {
-			copy.setLod3Geometry((GeometryProperty)copyBuilder.copy(lod3Geometry));
+			copy.setLod3Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod3Geometry));
 			if (copy.getLod3Geometry() == lod3Geometry)
 				lod3Geometry.setParent(this);
 		}
 		
 		if (isSetLod4Geometry()) {
-			copy.setLod4Geometry((GeometryProperty)copyBuilder.copy(lod4Geometry));
+			copy.setLod4Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod4Geometry));
 			if (copy.getLod4Geometry() == lod4Geometry)
 				lod4Geometry.setParent(this);
 		}

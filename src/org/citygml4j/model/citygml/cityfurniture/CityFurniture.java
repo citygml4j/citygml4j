@@ -3,18 +3,19 @@ package org.citygml4j.model.citygml.cityfurniture;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityObject;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 
-public interface CityFurniture extends CityFurnitureModuleComponent, CityObject {
+public interface CityFurniture extends CityFurnitureModuleComponent, AbstractCityObject {
 	public String getClazz();
 	public List<String> getFunction();
-	public GeometryProperty getLod1Geometry();
-	public GeometryProperty getLod2Geometry();
-	public GeometryProperty getLod3Geometry();
-	public GeometryProperty getLod4Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod1Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod3Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry();
 	public MultiCurveProperty getLod1TerrainIntersection();
 	public MultiCurveProperty getLod2TerrainIntersection();
 	public MultiCurveProperty getLod3TerrainIntersection();
@@ -43,10 +44,10 @@ public interface CityFurniture extends CityFurnitureModuleComponent, CityObject 
 	public void setClazz(String clazz);
 	public void setFunction(List<String> function);
 	public void addFunction(String function);
-	public void setLod1Geometry(GeometryProperty lod1Geometry);
-	public void setLod2Geometry(GeometryProperty lod2Geometry);
-	public void setLod3Geometry(GeometryProperty lod3Geometry);
-	public void setLod4Geometry(GeometryProperty lod4Geometry);
+	public void setLod1Geometry(GeometryProperty<? extends AbstractGeometry> lod1Geometry);
+	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry);
+	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry);
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry);
 	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection);
 	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection);
 	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection);

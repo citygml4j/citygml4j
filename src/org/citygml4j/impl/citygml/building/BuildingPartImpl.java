@@ -59,7 +59,7 @@ public class BuildingPartImpl extends AbstractBuildingImpl implements BuildingPa
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDINGPART;
+		return CityGMLClass.BUILDING_PART;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

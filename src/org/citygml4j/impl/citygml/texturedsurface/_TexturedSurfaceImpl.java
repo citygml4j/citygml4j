@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.OrientableSurfaceImpl;
+import org.citygml4j.impl.gml.geometry.primitives.OrientableSurfaceImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
@@ -61,12 +61,12 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._TEXTUREDSURFACE;
+		return CityGMLClass._TEXTURED_SURFACE;
 	}
 
 	@Override
 	public GMLClass getGMLClass() {
-		return GMLClass._TEXTUREDSURFACE;
+		return GMLClass._TEXTURED_SURFACE;
 	}
 
 	public final TexturedSurfaceModule getCityGMLModule() {

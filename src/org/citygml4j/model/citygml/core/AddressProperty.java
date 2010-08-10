@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.core;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
-public interface AddressProperty extends CoreModuleComponent, Association<Address> {
+public interface AddressProperty extends CoreModuleComponent, FeatureProperty<Address> {
 	public Address getAddress();
 	public boolean isSetAddress();
 	

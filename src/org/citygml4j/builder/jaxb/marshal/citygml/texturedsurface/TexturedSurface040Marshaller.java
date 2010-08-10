@@ -14,7 +14,7 @@ import org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._AppearancePropertyType;
 import org.citygml4j.jaxb.citygml._0_4._AppearanceType;
 import org.citygml4j.model.citygml.texturedsurface.TexturedSurfaceModuleComponent;
-import org.citygml4j.model.citygml.texturedsurface._Appearance;
+import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
@@ -67,7 +67,7 @@ public class TexturedSurface040Marshaller {
 		return dest;
 	}
 
-	public void marshalAppearance(_Appearance src, _AppearanceType dest) {
+	public void marshalAppearance(_AbstractAppearance src, _AppearanceType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 	}
 

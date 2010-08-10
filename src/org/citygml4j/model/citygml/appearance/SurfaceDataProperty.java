@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.appearance;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
-public interface SurfaceDataProperty extends AppearanceModuleComponent, Association<AbstractSurfaceData> {
+public interface SurfaceDataProperty extends AppearanceModuleComponent, FeatureProperty<AbstractSurfaceData> {
 	public AbstractSurfaceData getSurfaceData();
 	public boolean isSetSurfaceData();
 	

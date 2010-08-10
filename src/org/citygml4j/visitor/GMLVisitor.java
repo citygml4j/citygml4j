@@ -5,8 +5,8 @@ import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
-import org.citygml4j.model.gml.CompositeValue;
-import org.citygml4j.model.gml.ValueArray;
+import org.citygml4j.model.gml.valueObjects.CompositeValue;
+import org.citygml4j.model.gml.valueObjects.ValueArray;
 
 public interface GMLVisitor extends FeatureVisitor, GeometryVisitor {
 	public void accept(CompositeValue compositeValue);

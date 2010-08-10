@@ -62,7 +62,7 @@ public class PremiseNumberPrefixImpl implements PremiseNumberPrefix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.PREMISENUMBERPREFIX;
+		return XALClass.PREMISE_NUMBER_PREFIX;
 	}
 
 	public String getCode() {

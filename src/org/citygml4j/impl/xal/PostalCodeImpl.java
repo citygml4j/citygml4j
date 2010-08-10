@@ -159,7 +159,7 @@ public class PostalCodeImpl implements PostalCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALCODE;
+		return XALClass.POSTAL_CODE;
 	}
 
 	public Object getParent() {

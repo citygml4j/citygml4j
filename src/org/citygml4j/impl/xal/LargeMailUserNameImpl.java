@@ -45,7 +45,7 @@ public class LargeMailUserNameImpl implements LargeMailUserName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.LARGEMAILUSERNAME;
+		return XALClass.LARGE_MAIL_USER_NAME;
 	}
 
 	public String getCode() {

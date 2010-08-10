@@ -24,7 +24,7 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 
 	static {
 		v1_0_0 = new TexturedSurfaceModule (
-				CityGMLModuleType.TEXTUREDSURFACE,
+				CityGMLModuleType.TEXTURED_SURFACE,
 				CityGMLModuleVersion.v1_0_0,
 				"http://www.opengis.net/citygml/texturedsurface/1.0",
 				"tex",
@@ -32,7 +32,7 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 				CoreModule.v1_0_0);
 
 		v0_4_0 = new TexturedSurfaceModule (
-				CityGMLModuleType.TEXTUREDSURFACE,
+				CityGMLModuleType.TEXTURED_SURFACE,
 				CoreModule.v0_4_0.getVersion(),
 				CoreModule.v0_4_0.getNamespaceURI(),
 				CoreModule.v0_4_0.getNamespacePrefix(),

@@ -28,7 +28,7 @@ public class PostalRouteNumberImpl implements PostalRouteNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALROUTENUMBER;
+		return XALClass.POSTAL_ROUTE_NUMBER;
 	}
 
 	public String getCode() {

@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
@@ -39,11 +39,11 @@ public class MixedVersionsWriter {
 		ModuleContext moduleContext040 = new ModuleContext(CityGMLVersion.v0_4_0);
 		
 		HashMap<CityGMLModuleType, ModuleContext> convertContext = new HashMap<CityGMLModuleType, ModuleContext>();
-		convertContext.put(CityGMLModuleType.CITYFURNITURE, moduleContext100);
+		convertContext.put(CityGMLModuleType.CITY_FURNITURE, moduleContext100);
 		convertContext.put(CityGMLModuleType.TRANSPORTATION, moduleContext100);
-		convertContext.put(CityGMLModuleType.WATERBODY, moduleContext100);
+		convertContext.put(CityGMLModuleType.WATER_BODY, moduleContext100);
 		convertContext.put(CityGMLModuleType.GENERICS, moduleContext100);
-		convertContext.put(CityGMLModuleType.LANDUSE, moduleContext100);
+		convertContext.put(CityGMLModuleType.LAND_USE, moduleContext100);
 		convertContext.put(CityGMLModuleType.RELIEF, moduleContext040);
 		convertContext.put(CityGMLModuleType.BUILDING, moduleContext040);
 		convertContext.put(CityGMLModuleType.VEGETATION, moduleContext100);		
@@ -65,7 +65,7 @@ public class MixedVersionsWriter {
 		
 		for (CityObjectMember member : cityModel.getCityObjectMember()) {
 			if (member.isSetCityObject()) {
-				CityObject cityObject = member.getCityObject();
+				AbstractCityObject cityObject = member.getCityObject();
 				writer.setModuleContext(convertContext.get(cityObject.getCityGMLModule().getType()));
 
 				writer.writeFeatureMember(cityObject);

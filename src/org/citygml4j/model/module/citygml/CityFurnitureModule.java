@@ -27,7 +27,7 @@ public class CityFurnitureModule extends AbstractCityGMLModule {
 
 	static {
 		v1_0_0 = new CityFurnitureModule (
-				CityGMLModuleType.CITYFURNITURE,
+				CityGMLModuleType.CITY_FURNITURE,
 				CityGMLModuleVersion.v1_0_0,
 				"http://www.opengis.net/citygml/cityfurniture/1.0",
 				"frn",
@@ -35,7 +35,7 @@ public class CityFurnitureModule extends AbstractCityGMLModule {
 				CoreModule.v1_0_0);
 
 		v0_4_0 = new CityFurnitureModule (
-				CityGMLModuleType.CITYFURNITURE,
+				CityGMLModuleType.CITY_FURNITURE,
 				CoreModule.v0_4_0.getVersion(),
 				CoreModule.v0_4_0.getNamespaceURI(),
 				CoreModule.v0_4_0.getNamespacePrefix(),

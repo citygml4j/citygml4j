@@ -45,7 +45,7 @@ public class ThoroughfarePreDirectionImpl implements ThoroughfarePreDirection {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFAREPREDIRECTION;
+		return XALClass.THOROUGHFARE_PRE_DIRECTION;
 	}
 
 	public String getCode() {

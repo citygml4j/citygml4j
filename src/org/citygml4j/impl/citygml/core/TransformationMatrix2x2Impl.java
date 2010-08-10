@@ -62,7 +62,7 @@ public class TransformationMatrix2x2Impl implements TransformationMatrix2x2 {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TRANSFORMATIONMATRIX2X2;
+		return CityGMLClass.TRANSFORMATION_MATRIX_2X2;
 	}
 
 	public CityGMLModule getCityGMLModule() {

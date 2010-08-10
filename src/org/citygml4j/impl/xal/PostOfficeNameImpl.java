@@ -45,7 +45,7 @@ public class PostOfficeNameImpl implements PostOfficeName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTOFFICENAME;
+		return XALClass.POST_OFFICE_NAME;
 	}
 
 	public String getCode() {

@@ -36,7 +36,7 @@ public enum WrapMode implements AppearanceModuleComponent, Copyable {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WRAPMODE;
+		return CityGMLClass.WRAP_MODE;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

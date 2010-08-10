@@ -62,7 +62,7 @@ public class PremiseNumberSuffixImpl implements PremiseNumberSuffix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.PREMISENUMBERSUFFIX;
+		return XALClass.PREMISE_NUMBER_SUFFIX;
 	}
 
 	public String getCode() {

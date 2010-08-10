@@ -213,7 +213,7 @@ public class PostOfficeImpl implements PostOffice {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTOFFICE;
+		return XALClass.POST_OFFICE;
 	}
 
 	public Object getParent() {

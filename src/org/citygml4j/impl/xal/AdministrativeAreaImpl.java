@@ -230,7 +230,7 @@ public class AdministrativeAreaImpl implements AdministrativeArea {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADMINISTRATIVEAREA;
+		return XALClass.ADMINISTRATIVE_AREA;
 	}
 
 	public Object getParent() {

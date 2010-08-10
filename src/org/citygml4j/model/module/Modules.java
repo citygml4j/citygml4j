@@ -35,15 +35,15 @@ public class Modules {
 		modules.put(CityGMLModuleType.CORE, CoreModule.getInstances());
 		modules.put(CityGMLModuleType.APPEARANCE, AppearanceModule.getInstances());
 		modules.put(CityGMLModuleType.BUILDING, BuildingModule.getInstances());
-		modules.put(CityGMLModuleType.CITYFURNITURE, CityFurnitureModule.getInstances());
-		modules.put(CityGMLModuleType.CITYOBJECTGROUP, CityObjectGroupModule.getInstances());
+		modules.put(CityGMLModuleType.CITY_FURNITURE, CityFurnitureModule.getInstances());
+		modules.put(CityGMLModuleType.CITY_OBJECT_GROUP, CityObjectGroupModule.getInstances());
 		modules.put(CityGMLModuleType.GENERICS, GenericsModule.getInstances());
-		modules.put(CityGMLModuleType.LANDUSE, LandUseModule.getInstances());
+		modules.put(CityGMLModuleType.LAND_USE, LandUseModule.getInstances());
 		modules.put(CityGMLModuleType.RELIEF, ReliefModule.getInstances());
 		modules.put(CityGMLModuleType.TRANSPORTATION, TransportationModule.getInstances());
 		modules.put(CityGMLModuleType.VEGETATION, VegetationModule.getInstances());
-		modules.put(CityGMLModuleType.WATERBODY, WaterBodyModule.getInstances());
-		modules.put(CityGMLModuleType.TEXTUREDSURFACE, TexturedSurfaceModule.getInstances());
+		modules.put(CityGMLModuleType.WATER_BODY, WaterBodyModule.getInstances());
+		modules.put(CityGMLModuleType.TEXTURED_SURFACE, TexturedSurfaceModule.getInstances());
 
 		modules.put(GMLModuleType.CORE, GMLCoreModule.getInstances());
 		modules.put(GMLModuleType.XLINK, XLinkModule.getInstances());

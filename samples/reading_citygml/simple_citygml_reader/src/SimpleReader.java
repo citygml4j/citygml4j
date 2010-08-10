@@ -6,8 +6,8 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -31,14 +31,14 @@ public class SimpleReader {
 			System.out.println("Found " + citygml.getCityGMLClass() + 
 					" version " + citygml.getCityGMLModule().getVersion());
 			
-			if (citygml.getCityGMLClass() == CityGMLClass.CITYMODEL) {
+			if (citygml.getCityGMLClass() == CityGMLClass.CITY_MODEL) {
 				CityModel cityModel = (CityModel)citygml;
 
 				System.out.println(df.format(new Date()) + "going through city model and counting building instances");
 
 				int count = 0;
 				for (CityObjectMember cityObjectMember : cityModel.getCityObjectMember()) {
-					CityObject cityObject = cityObjectMember.getCityObject();
+					AbstractCityObject cityObject = cityObjectMember.getCityObject();
 					if (cityObject.getCityGMLClass() == CityGMLClass.BUILDING)
 						count++;
 				}

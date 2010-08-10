@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface WallSurface extends BoundarySurface {
+public interface WallSurface extends AbstractBoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfWallSurface();
 	public boolean isSetGenericApplicationPropertyOfWallSurface();
 	

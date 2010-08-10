@@ -8,7 +8,7 @@ import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 
-public class _MaterialImpl extends _AppearanceImpl implements _Material {
+public class _MaterialImpl extends _AbstractAppearanceImpl implements _Material {
 	private Double shininess;
 	private Double transparency;
 	private Double ambientIntensity;

@@ -45,7 +45,7 @@ public class ThoroughfarePostDirectionImpl implements ThoroughfarePostDirection 
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFAREPOSTDIRECTION;
+		return XALClass.THOROUGHFARE_POST_DIRECTION;
 	}
 
 	public String getCode() {

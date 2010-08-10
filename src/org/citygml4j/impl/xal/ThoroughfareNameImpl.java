@@ -45,7 +45,7 @@ public class ThoroughfareNameImpl implements ThoroughfareName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARENAME;
+		return XALClass.THOROUGHFARE_NAME;
 	}
 
 	public String getCode() {

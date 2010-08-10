@@ -3,15 +3,16 @@ package org.citygml4j.model.citygml.building;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityObject;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface BuildingFurniture extends BuildingModuleComponent, CityObject {
+public interface BuildingFurniture extends BuildingModuleComponent, AbstractCityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
-	public GeometryProperty getLod4Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry();
 	public ImplicitRepresentationProperty getLod4ImplicitRepresentation();
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingFurniture();
 	public boolean isSetClazz();
@@ -26,7 +27,7 @@ public interface BuildingFurniture extends BuildingModuleComponent, CityObject {
 	public void addFunction(String function);
 	public void setUsage(List<String> usage);
 	public void addUsage(String usage);
-	public void setLod4Geometry(GeometryProperty lod4Geometry);
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry);
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);	
 	public void addGenericApplicationPropertyOfBuildingFurniture(ADEComponent ade);
 	public void setGenericApplicationPropertyOfBuildingFurniture(List<ADEComponent> ade);

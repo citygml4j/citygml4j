@@ -28,7 +28,7 @@ public class PostBoxNumberExtensionImpl implements PostBoxNumberExtension {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOXNUMBEREXTENSION;
+		return XALClass.POST_BOX_NUMBER_EXTENSION;
 	}
 
 	public String getNumberExtensionSeparator() {

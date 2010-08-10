@@ -28,7 +28,7 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 
 	static {
 		v1_0_0 = new CityObjectGroupModule (
-				CityGMLModuleType.CITYOBJECTGROUP,
+				CityGMLModuleType.CITY_OBJECT_GROUP,
 				CityGMLModuleVersion.v1_0_0,
 				"http://www.opengis.net/citygml/cityobjectgroup/1.0",
 				"grp",
@@ -36,7 +36,7 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 				CoreModule.v1_0_0);
 
 		v0_4_0 = new CityObjectGroupModule (
-				CityGMLModuleType.CITYOBJECTGROUP,
+				CityGMLModuleType.CITY_OBJECT_GROUP,
 				CoreModule.v0_4_0.getVersion(),
 				CoreModule.v0_4_0.getNamespaceURI(),
 				CoreModule.v0_4_0.getNamespacePrefix(),

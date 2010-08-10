@@ -5,28 +5,29 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.MultiCurveProperty;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.GMLFunction;
+import org.citygml4j.visitor.GMLVisitor;
 
-public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
+public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFurniture {
 	private String clazz;
 	private List<String> function;
-	private GeometryProperty lod1Geometry;
-	private GeometryProperty lod2Geometry;
-	private GeometryProperty lod3Geometry;
-	private GeometryProperty lod4Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod1Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod2Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod3Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
 	private MultiCurveProperty lod1TerrainIntersection;
 	private MultiCurveProperty lod2TerrainIntersection;
 	private MultiCurveProperty lod3TerrainIntersection;
@@ -78,7 +79,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		return ade;
 	}
 
-	public GeometryProperty getLod1Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod1Geometry() {
 		return lod1Geometry;
 	}
 
@@ -90,7 +91,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		return lod1TerrainIntersection;
 	}
 
-	public GeometryProperty getLod2Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry() {
 		return lod2Geometry;
 	}
 
@@ -102,7 +103,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		return lod2TerrainIntersection;
 	}
 
-	public GeometryProperty getLod3Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod3Geometry() {
 		return lod3Geometry;
 	}
 
@@ -114,7 +115,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		return lod3TerrainIntersection;
 	}
 
-	public GeometryProperty getLod4Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry() {
 		return lod4Geometry;
 	}
 
@@ -198,7 +199,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		this.ade = new ChildList<ADEComponent>(this, ade);
 	}
 
-	public void setLod1Geometry(GeometryProperty lod1Geometry) {
+	public void setLod1Geometry(GeometryProperty<? extends AbstractGeometry> lod1Geometry) {
 		if (lod1Geometry != null)
 			lod1Geometry.setParent(this);
 		
@@ -219,7 +220,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		this.lod1TerrainIntersection = lod1TerrainIntersection;
 	}
 
-	public void setLod2Geometry(GeometryProperty lod2Geometry) {
+	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry) {
 		if (lod2Geometry != null)
 			lod2Geometry.setParent(this);
 		
@@ -240,7 +241,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		this.lod2TerrainIntersection = lod2TerrainIntersection;
 	}
 
-	public void setLod3Geometry(GeometryProperty lod3Geometry) {
+	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry) {
 		if (lod3Geometry != null)
 			lod3Geometry.setParent(this);
 		
@@ -261,7 +262,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 		this.lod3TerrainIntersection = lod3TerrainIntersection;
 	}
 
-	public void setLod4Geometry(GeometryProperty lod4Geometry) {
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
 		if (lod4Geometry != null)
 			lod4Geometry.setParent(this);
 		
@@ -391,7 +392,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITYFURNITURE;
+		return CityGMLClass.CITY_FURNITURE;
 	}
 	
 	public final CityFurnitureModule getCityGMLModule() {
@@ -405,7 +406,7 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShapeImpl();
-		GeometryProperty geometryProperty = null;
+		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 
 		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {
@@ -458,25 +459,25 @@ public class CityFurnitureImpl extends CityObjectImpl implements CityFurniture {
 			copy.setFunction((List<String>)copyBuilder.copy(function));
 		
 		if (isSetLod1Geometry()) {
-			copy.setLod1Geometry((GeometryProperty)copyBuilder.copy(lod1Geometry));
+			copy.setLod1Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod1Geometry));
 			if (copy.getLod1Geometry() == lod1Geometry)
 				lod1Geometry.setParent(this);
 		}
 
 		if (isSetLod2Geometry()) {
-			copy.setLod2Geometry((GeometryProperty)copyBuilder.copy(lod2Geometry));
+			copy.setLod2Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod2Geometry));
 			if (copy.getLod2Geometry() == lod2Geometry)
 				lod2Geometry.setParent(this);
 		}
 		
 		if (isSetLod3Geometry()) {
-			copy.setLod3Geometry((GeometryProperty)copyBuilder.copy(lod3Geometry));
+			copy.setLod3Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod3Geometry));
 			if (copy.getLod3Geometry() == lod3Geometry)
 				lod3Geometry.setParent(this);
 		}
 		
 		if (isSetLod4Geometry()) {
-			copy.setLod4Geometry((GeometryProperty)copyBuilder.copy(lod4Geometry));
+			copy.setLod4Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod4Geometry));
 			if (copy.getLod4Geometry() == lod4Geometry)
 				lod4Geometry.setParent(this);
 		}

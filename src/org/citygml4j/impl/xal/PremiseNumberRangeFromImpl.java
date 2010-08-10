@@ -153,7 +153,7 @@ public class PremiseNumberRangeFromImpl implements PremiseNumberRangeFrom {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.PREMISENUMBERRANGEFROM;
+		return XALClass.PREMISE_NUMBER_RANGE_FROM;
 	}
 
 	public Object getParent() {

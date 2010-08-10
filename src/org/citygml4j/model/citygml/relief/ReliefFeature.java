@@ -3,9 +3,9 @@ package org.citygml4j.model.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityObject;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 
-public interface ReliefFeature extends ReliefModuleComponent, CityObject {
+public interface ReliefFeature extends ReliefModuleComponent, AbstractCityObject {
 	public int getLod();
 	public List<ReliefComponentProperty> getReliefComponent();
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefFeature();

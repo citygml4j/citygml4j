@@ -13,7 +13,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class RoofSurfaceImpl extends BoundarySurfaceImpl implements RoofSurface {
+public class RoofSurfaceImpl extends AbstractBoundarySurfaceImpl implements RoofSurface {
 	private List<ADEComponent> ade;
 
 	public RoofSurfaceImpl() {
@@ -59,7 +59,7 @@ public class RoofSurfaceImpl extends BoundarySurfaceImpl implements RoofSurface 
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ROOFSURFACE;
+		return CityGMLClass.ROOF_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

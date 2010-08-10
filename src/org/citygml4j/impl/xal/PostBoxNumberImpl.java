@@ -28,7 +28,7 @@ public class PostBoxNumberImpl implements PostBoxNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOXNUMBER;
+		return XALClass.POST_BOX_NUMBER;
 	}
 
 	public String getCode() {

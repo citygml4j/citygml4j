@@ -45,7 +45,7 @@ public class KeyLineCodeImpl implements KeyLineCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.KEYLINECODE;
+		return XALClass.KEY_LINE_CODE;
 	}
 
 	public String getCode() {

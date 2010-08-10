@@ -13,7 +13,7 @@ import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class CeilingSurfaceImpl extends BoundarySurfaceImpl implements CeilingSurface {
+public class CeilingSurfaceImpl extends AbstractBoundarySurfaceImpl implements CeilingSurface {
 	private List<ADEComponent> ade;
 
 	public CeilingSurfaceImpl() {
@@ -59,7 +59,7 @@ public class CeilingSurfaceImpl extends BoundarySurfaceImpl implements CeilingSu
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CEILINGSURFACE;
+		return CityGMLClass.CEILING_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

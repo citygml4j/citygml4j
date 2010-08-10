@@ -203,7 +203,7 @@ public class ThoroughfareNumberRangeImpl implements ThoroughfareNumberRange {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARENUMBERRANGE;
+		return XALClass.THOROUGHFARE_NUMBER_RANGE;
 	}
 
 	public String getCode() {

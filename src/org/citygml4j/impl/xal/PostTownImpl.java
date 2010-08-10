@@ -124,7 +124,7 @@ public class PostTownImpl implements PostTown {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTTOWN;
+		return XALClass.POST_TOWN;
 	}
 
 	public Object getParent() {

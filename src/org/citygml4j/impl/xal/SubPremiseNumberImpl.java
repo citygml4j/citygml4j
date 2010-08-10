@@ -115,7 +115,7 @@ public class SubPremiseNumberImpl implements SubPremiseNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBPREMISENUMBER;
+		return XALClass.SUB_PREMISE_NUMBER;
 	}
 
 	public String getCode() {

@@ -45,7 +45,7 @@ public class MailStopNameImpl implements MailStopName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.MAILSTOPNAME;
+		return XALClass.MAIL_STOP_NAME;
 	}
 
 	public String getCode() {

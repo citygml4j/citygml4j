@@ -5,8 +5,249 @@ import java.util.List;
 
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.impl.gml.*;
-import org.citygml4j.model.gml.*;
+import org.citygml4j.impl.gml.base.MetaDataPropertyImpl;
+import org.citygml4j.impl.gml.base.StringOrRefImpl;
+import org.citygml4j.impl.gml.basicTypes.BooleanOrNullImpl;
+import org.citygml4j.impl.gml.basicTypes.BooleanOrNullListImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeOrNullListImpl;
+import org.citygml4j.impl.gml.basicTypes.CoordinatesImpl;
+import org.citygml4j.impl.gml.basicTypes.DoubleOrNullImpl;
+import org.citygml4j.impl.gml.basicTypes.DoubleOrNullListImpl;
+import org.citygml4j.impl.gml.basicTypes.IntegerOrNullImpl;
+import org.citygml4j.impl.gml.basicTypes.IntegerOrNullListImpl;
+import org.citygml4j.impl.gml.basicTypes.MeasureImpl;
+import org.citygml4j.impl.gml.basicTypes.MeasureOrNullListImpl;
+import org.citygml4j.impl.gml.basicTypes.NameOrNullImpl;
+import org.citygml4j.impl.gml.basicTypes.NullImpl;
+import org.citygml4j.impl.gml.coverage.CoverageFunctionImpl;
+import org.citygml4j.impl.gml.coverage.DataBlockImpl;
+import org.citygml4j.impl.gml.coverage.DomainSetImpl;
+import org.citygml4j.impl.gml.coverage.FileImpl;
+import org.citygml4j.impl.gml.coverage.GridFunctionImpl;
+import org.citygml4j.impl.gml.coverage.IndexMapImpl;
+import org.citygml4j.impl.gml.coverage.RangeParametersImpl;
+import org.citygml4j.impl.gml.coverage.RangeSetImpl;
+import org.citygml4j.impl.gml.coverage.RectifiedGridCoverageImpl;
+import org.citygml4j.impl.gml.coverage.RectifiedGridDomainImpl;
+import org.citygml4j.impl.gml.coverage.SequenceRuleImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.FeatureArrayPropertyImpl;
+import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
+import org.citygml4j.impl.gml.feature.LocationPropertyImpl;
+import org.citygml4j.impl.gml.feature.PriorityLocationPropertyImpl;
+import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiCurveImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiCurvePropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringPropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiPointImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiPointPropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiPolygonImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiPolygonPropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiSolidImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiSolidPropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiSurfaceImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiSurfacePropertyImpl;
+import org.citygml4j.impl.gml.geometry.complexes.CompositeCurveImpl;
+import org.citygml4j.impl.gml.geometry.complexes.CompositeCurvePropertyImpl;
+import org.citygml4j.impl.gml.geometry.complexes.CompositeSolidImpl;
+import org.citygml4j.impl.gml.geometry.complexes.CompositeSolidPropertyImpl;
+import org.citygml4j.impl.gml.geometry.complexes.CompositeSurfaceImpl;
+import org.citygml4j.impl.gml.geometry.complexes.CompositeSurfacePropertyImpl;
+import org.citygml4j.impl.gml.geometry.complexes.GeometricComplexImpl;
+import org.citygml4j.impl.gml.geometry.complexes.GeometricComplexPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.ControlPointImpl;
+import org.citygml4j.impl.gml.geometry.primitives.CoordImpl;
+import org.citygml4j.impl.gml.geometry.primitives.CurveArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.CurveImpl;
+import org.citygml4j.impl.gml.geometry.primitives.CurvePropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.CurveSegmentArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.DirectPositionImpl;
+import org.citygml4j.impl.gml.geometry.primitives.DirectPositionListImpl;
+import org.citygml4j.impl.gml.geometry.primitives.EnvelopeImpl;
+import org.citygml4j.impl.gml.geometry.primitives.ExteriorImpl;
+import org.citygml4j.impl.gml.geometry.primitives.GeometricPositionGroupImpl;
+import org.citygml4j.impl.gml.geometry.primitives.GeometricPrimitivePropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.InnerBoundaryIsImpl;
+import org.citygml4j.impl.gml.geometry.primitives.InteriorImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LineStringImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LineStringPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LineStringSegmentArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LineStringSegmentImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LinearRingImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LinearRingPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.OrientableCurveImpl;
+import org.citygml4j.impl.gml.geometry.primitives.OrientableSurfaceImpl;
+import org.citygml4j.impl.gml.geometry.primitives.OuterBoundaryIsImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PointArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PointImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PointPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PointRepImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PolygonImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PolygonPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PosOrPointPropertyOrPointRepImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoordImpl;
+import org.citygml4j.impl.gml.geometry.primitives.RectangleImpl;
+import org.citygml4j.impl.gml.geometry.primitives.RingImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SolidArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SolidImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SolidPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SurfaceArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SurfaceImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SurfacePatchArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.SurfacePropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.TinImpl;
+import org.citygml4j.impl.gml.geometry.primitives.TriangleImpl;
+import org.citygml4j.impl.gml.geometry.primitives.TrianglePatchArrayPropertyImpl;
+import org.citygml4j.impl.gml.geometry.primitives.TriangulatedSurfaceImpl;
+import org.citygml4j.impl.gml.geometry.primitives.VectorImpl;
+import org.citygml4j.impl.gml.grids.GridEnvelopeImpl;
+import org.citygml4j.impl.gml.grids.GridImpl;
+import org.citygml4j.impl.gml.grids.GridLimitsImpl;
+import org.citygml4j.impl.gml.grids.RectifiedGridImpl;
+import org.citygml4j.impl.gml.measures.LengthImpl;
+import org.citygml4j.impl.gml.measures.SpeedImpl;
+import org.citygml4j.impl.gml.valueObjects.CategoryExtentImpl;
+import org.citygml4j.impl.gml.valueObjects.CompositeValueImpl;
+import org.citygml4j.impl.gml.valueObjects.CountExtentImpl;
+import org.citygml4j.impl.gml.valueObjects.QuantityExtentImpl;
+import org.citygml4j.impl.gml.valueObjects.ScalarValueImpl;
+import org.citygml4j.impl.gml.valueObjects.ScalarValueListImpl;
+import org.citygml4j.impl.gml.valueObjects.ValueArrayImpl;
+import org.citygml4j.impl.gml.valueObjects.ValueArrayPropertyImpl;
+import org.citygml4j.impl.gml.valueObjects.ValueExtentImpl;
+import org.citygml4j.impl.gml.valueObjects.ValueImpl;
+import org.citygml4j.impl.gml.valueObjects.ValueObjectImpl;
+import org.citygml4j.impl.gml.valueObjects.ValuePropertyImpl;
+import org.citygml4j.model.gml.base.MetaData;
+import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.basicTypes.CodeOrNullList;
+import org.citygml4j.model.gml.basicTypes.Coordinates;
+import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
+import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
+import org.citygml4j.model.gml.basicTypes.Measure;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
+import org.citygml4j.model.gml.basicTypes.NameOrNull;
+import org.citygml4j.model.gml.basicTypes.Null;
+import org.citygml4j.model.gml.coverage.CoverageFunction;
+import org.citygml4j.model.gml.coverage.DataBlock;
+import org.citygml4j.model.gml.coverage.DomainSet;
+import org.citygml4j.model.gml.coverage.File;
+import org.citygml4j.model.gml.coverage.GridFunction;
+import org.citygml4j.model.gml.coverage.IndexMap;
+import org.citygml4j.model.gml.coverage.RangeParameters;
+import org.citygml4j.model.gml.coverage.RangeSet;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
+import org.citygml4j.model.gml.coverage.RectifiedGridDomain;
+import org.citygml4j.model.gml.coverage.SequenceRule;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.gml.feature.LocationProperty;
+import org.citygml4j.model.gml.feature.PriorityLocationProperty;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygonProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurveProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolidProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurfacePatch;
+import org.citygml4j.model.gml.geometry.primitives.ControlPoint;
+import org.citygml4j.model.gml.geometry.primitives.Coord;
+import org.citygml4j.model.gml.geometry.primitives.Curve;
+import org.citygml4j.model.gml.geometry.primitives.CurveArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
+import org.citygml4j.model.gml.geometry.primitives.CurveSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
+import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
+import org.citygml4j.model.gml.geometry.primitives.Envelope;
+import org.citygml4j.model.gml.geometry.primitives.Exterior;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPositionGroup;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+import org.citygml4j.model.gml.geometry.primitives.InnerBoundaryIs;
+import org.citygml4j.model.gml.geometry.primitives.Interior;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegment;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.LinearRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
+import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
+import org.citygml4j.model.gml.geometry.primitives.OuterBoundaryIs;
+import org.citygml4j.model.gml.geometry.primitives.Point;
+import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointRep;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
+import org.citygml4j.model.gml.geometry.primitives.Rectangle;
+import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.Surface;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.Tin;
+import org.citygml4j.model.gml.geometry.primitives.Triangle;
+import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.primitives.Vector;
+import org.citygml4j.model.gml.grids.Grid;
+import org.citygml4j.model.gml.grids.GridEnvelope;
+import org.citygml4j.model.gml.grids.GridLimits;
+import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.gml.valueObjects.CategoryExtent;
+import org.citygml4j.model.gml.valueObjects.CompositeValue;
+import org.citygml4j.model.gml.valueObjects.CountExtent;
+import org.citygml4j.model.gml.valueObjects.GenericValueObject;
+import org.citygml4j.model.gml.valueObjects.QuantityExtent;
+import org.citygml4j.model.gml.valueObjects.ScalarValue;
+import org.citygml4j.model.gml.valueObjects.ScalarValueList;
+import org.citygml4j.model.gml.valueObjects.Value;
+import org.citygml4j.model.gml.valueObjects.ValueArray;
+import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
+import org.citygml4j.model.gml.valueObjects.ValueExtent;
+import org.citygml4j.model.gml.valueObjects.ValueObject;
+import org.citygml4j.model.gml.valueObjects.ValueProperty;
 
 public class GMLFactory {
 
@@ -24,6 +265,10 @@ public class GMLFactory {
 	
 	public BooleanOrNull createBooleanOrNull(Null _null) {
 		return new BooleanOrNullImpl(_null);
+	}
+	
+	public BooleanOrNullList createBooleanOrNullList() {
+		return new BooleanOrNullListImpl();
 	}
 	
 	public BoundingShape createBoundingShape() {
@@ -254,8 +499,8 @@ public class GMLFactory {
 		return new DirectPositionListImpl();
 	}
 	
-	public DomainSet createDomainSet() {
-		return new DomainSetImpl();
+	public <T extends AbstractGeometry> DomainSet<T> createDomainSet() {
+		return new DomainSetImpl<T>();
 	}
 	
 	public DoubleOrNull createDoubleOrNull() {
@@ -323,6 +568,22 @@ public class GMLFactory {
 		FeatureProperty<T> featureProperty = new FeaturePropertyImpl<T>();
 		featureProperty.setHref(xlink);
 		return featureProperty;
+	}
+	
+	public FeatureMember createFeatureMember() {
+		return new FeatureMemberImpl();
+	}
+	
+	public FeatureMember createFeatureMember(AbstractFeature feature) {
+		FeatureMember featureMember = new FeatureMemberImpl();
+		featureMember.setFeature(feature);
+		return featureMember;
+	}
+	
+	public FeatureMember createFeatureMember(String xlink) {
+		FeatureMember featureMember = new FeatureMemberImpl();
+		featureMember.setHref(xlink);
+		return featureMember;
 	}
 	
 	public File createFile() {
@@ -393,20 +654,24 @@ public class GMLFactory {
 		return geometricPrimitiveProperty;
 	}
 	
-	public GeometryProperty createGeometryProperty() {
-		return new GeometryPropertyImpl();
+	public <T extends AbstractGeometry> GeometryProperty<T> createGeometryProperty() {
+		return new GeometryPropertyImpl<T>();
 	}
 	
-	public GeometryProperty createGeometryProperty(AbstractGeometry abstractGeometry) {
-		GeometryProperty geometryProperty = new GeometryPropertyImpl();
+	public <T extends AbstractGeometry> GeometryProperty<T> createGeometryProperty(T abstractGeometry) {
+		GeometryProperty<T> geometryProperty = new GeometryPropertyImpl<T>();
 		geometryProperty.setGeometry(abstractGeometry);
 		return geometryProperty;
 	}
 	
-	public GeometryProperty createGeometryProperty(String xlink) {
-		GeometryProperty geometryProperty = new GeometryPropertyImpl();
+	public <T extends AbstractGeometry> GeometryProperty<T> createGeometryProperty(String xlink) {
+		GeometryProperty<T> geometryProperty = new GeometryPropertyImpl<T>();
 		geometryProperty.setHref(xlink);
 		return geometryProperty;
+	}
+	
+	public Grid createGrid() {
+		return new GridImpl();
 	}
 	
 	public GridEnvelope createGridEnvelope() {

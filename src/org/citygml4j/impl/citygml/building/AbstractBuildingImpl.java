@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.SiteImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractSiteImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
@@ -17,15 +17,15 @@ import org.citygml4j.model.citygml.building.BuildingPartProperty;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.core.AddressProperty;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.Length;
-import org.citygml4j.model.gml.MeasureOrNullList;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
-public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractBuilding {
+public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements AbstractBuilding {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
@@ -863,7 +863,7 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACTBUILDING;
+		return CityGMLClass.ABSTRACT_BUILDING;
 	}
 
 	@Override

@@ -116,7 +116,7 @@ public class PremiseNumberImpl implements PremiseNumber {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.PREMISENUMBER;
+		return XALClass.PREMISE_NUMBER;
 	}
 
 	public String getCode() {

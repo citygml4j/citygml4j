@@ -113,7 +113,7 @@ public class MailStopImpl implements MailStop {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.MAILSTOP;
+		return XALClass.MAIL_STOP;
 	}
 
 	public Object getParent() {

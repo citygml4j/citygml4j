@@ -45,7 +45,7 @@ public class LocalityNameImpl implements LocalityName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.LOCALITYNAME;
+		return XALClass.LOCALITY_NAME;
 	}
 
 	public String getCode() {

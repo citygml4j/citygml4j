@@ -48,7 +48,7 @@ public class AddressLinesImpl implements AddressLines {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADDRESSLINES;
+		return XALClass.ADDRESS_LINES;
 	}
 
 	public Object getParent() {

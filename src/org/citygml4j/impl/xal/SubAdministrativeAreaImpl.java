@@ -206,7 +206,7 @@ public class SubAdministrativeAreaImpl implements SubAdministrativeArea {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBADMINISTRATIVEAREA;
+		return XALClass.SUB_ADMINISTRATIVE_AREA;
 	}
 
 	public Object getParent() {

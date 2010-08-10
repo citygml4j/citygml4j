@@ -17,7 +17,7 @@ public class AppearanceMemberImpl extends AppearancePropertyImpl implements Appe
 	
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.APPEARANCEMEMBER;
+		return CityGMLClass.APPEARANCE_MEMBER;
 	}
 
 	@Override

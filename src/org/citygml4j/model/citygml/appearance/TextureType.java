@@ -34,7 +34,7 @@ public enum TextureType implements AppearanceModuleComponent, Copyable {
     }
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXTURETYPE;
+		return CityGMLClass.TEXTURE_TYPE;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

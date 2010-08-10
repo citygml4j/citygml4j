@@ -1,9 +1,9 @@
 package org.citygml4j.model.citygml.relief;
 
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 
-public interface TinProperty extends ReliefModuleComponent, Association<TriangulatedSurface> {
+public interface TinProperty extends ReliefModuleComponent, GeometryProperty<TriangulatedSurface> {
 	public TriangulatedSurface getTriangulatedSurface();
 	public boolean isSetTriangulatedSurface();
 	

@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.relief;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.relief.GridProperty;
-import org.citygml4j.model.gml.RectifiedGridCoverage;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.module.citygml.ReliefModule;
 
-public class GridPropertyImpl extends AssociationImpl<RectifiedGridCoverage> implements GridProperty {
+public class GridPropertyImpl extends FeaturePropertyImpl<RectifiedGridCoverage> implements GridProperty {
 	private ReliefModule module;
 	
 	public GridPropertyImpl() {
@@ -35,7 +35,7 @@ public class GridPropertyImpl extends AssociationImpl<RectifiedGridCoverage> imp
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GRIDPROPERTY;
+		return CityGMLClass.GRID_PROPERTY;
 	}
 
 	public boolean isSetCityGMLModule() {

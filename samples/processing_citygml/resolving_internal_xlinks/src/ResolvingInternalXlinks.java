@@ -7,12 +7,12 @@ import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.transportation.Road;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
-import org.citygml4j.model.gml.MultiSurface;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.util.xlink.XLinkResolver;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -38,13 +38,13 @@ public class ResolvingInternalXlinks {
 		
 		for (CityObjectMember member : cityModel.getCityObjectMember()) {
 			if (member.isSetCityObject() && 
-					member.getCityObject().getCityGMLClass() == CityGMLClass.CITYOBJECTGROUP) {
+					member.getCityObject().getCityGMLClass() == CityGMLClass.CITY_OBJECT_GROUP) {
 				CityObjectGroup group = (CityObjectGroup)member.getCityObject();
 				
 				for (CityObjectGroupMember groupMember : group.getGroupMember()) {
 					System.out.println(df.format(new Date()) + "processing group member with role: " + groupMember.getGroupRole());					
 					System.out.println(df.format(new Date()) + "resolving XLink to " + groupMember.getHref());
-					CityObject cityObject = xLinkResolver.getAbstractGML(groupMember.getHref(), cityModel, CityObject.class);
+					AbstractCityObject cityObject = xLinkResolver.getAbstractGML(groupMember.getHref(), cityModel, AbstractCityObject.class);
 					System.out.println("   Referenced city object: " + cityObject.getCityGMLClass() + 
 							", gml:id='" + cityObject.getId() +"'");
 					 

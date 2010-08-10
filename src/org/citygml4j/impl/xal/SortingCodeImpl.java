@@ -28,7 +28,7 @@ public class SortingCodeImpl implements SortingCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SORTINGCODE;
+		return XALClass.SORTING_CODE;
 	}
 
 	public String getCode() {

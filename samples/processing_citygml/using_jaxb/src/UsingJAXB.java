@@ -23,7 +23,7 @@ import org.citygml4j.jaxb.gml._3_1_1.ObjectFactory;
 import org.citygml4j.jaxb.gml._3_1_1.StringOrRefType;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.gml.StringOrRef;
+import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;

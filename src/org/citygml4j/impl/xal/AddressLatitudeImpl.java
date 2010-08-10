@@ -45,7 +45,7 @@ public class AddressLatitudeImpl implements AddressLatitude {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.ADDRESSLATITUDE;
+		return XALClass.ADDRESS_LATITUDE;
 	}
 
 	public String getCode() {

@@ -62,7 +62,7 @@ public class TransformationMatrix4x4Impl implements TransformationMatrix4x4 {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TRANSFORMATIONMATRIX4X4;
+		return CityGMLClass.TRANSFORMATION_MATRIX_4X4;
 	}
 
 	public CityGMLModule getCityGMLModule() {

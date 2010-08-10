@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.AbstractFeatureCollectionImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.AbstractFeatureCollectionImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
@@ -134,7 +134,7 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITYMODEL;
+		return CityGMLClass.CITY_MODEL;
 	}
 
 	public final CoreModule getCityGMLModule() {

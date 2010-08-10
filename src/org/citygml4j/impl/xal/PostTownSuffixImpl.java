@@ -28,7 +28,7 @@ public class PostTownSuffixImpl implements PostTownSuffix {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTTOWNSUFFIX;
+		return XALClass.POST_TOWN_SUFFIX;
 	}
 
 	public String getCode() {

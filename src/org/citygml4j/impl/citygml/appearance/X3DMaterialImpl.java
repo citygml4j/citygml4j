@@ -253,7 +253,7 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.X3DMATERIAL;
+		return CityGMLClass.X3D_MATERIAL;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

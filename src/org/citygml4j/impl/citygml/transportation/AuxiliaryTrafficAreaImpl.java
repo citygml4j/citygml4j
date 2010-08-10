@@ -5,19 +5,19 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.visitor.GMLFunction;
 import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
 
-public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implements AuxiliaryTrafficArea {
+public class AuxiliaryTrafficAreaImpl extends AbstractTransportationObjectImpl implements AuxiliaryTrafficArea {
 	private List<String> function;
 	private String surfaceMaterial;
 	private MultiSurfaceProperty lod2MultiSurface;
@@ -180,7 +180,7 @@ public class AuxiliaryTrafficAreaImpl extends TransportationObjectImpl implement
 	
 	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.AUXILIARYTRAFFICAREA;
+		return CityGMLClass.AUXILIARY_TRAFFIC_AREA;
 	}
 	
 	@Override

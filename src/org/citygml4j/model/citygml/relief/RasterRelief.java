@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface RasterRelief extends ReliefComponent {
+public interface RasterRelief extends AbstractReliefComponent {
 	public GridProperty getGrid();
 	public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief();
 	public boolean isSetGrid();

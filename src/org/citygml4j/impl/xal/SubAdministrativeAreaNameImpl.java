@@ -45,7 +45,7 @@ public class SubAdministrativeAreaNameImpl implements SubAdministrativeAreaName 
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SUBADMINISTRATIVEAREANAME;
+		return XALClass.SUB_ADMINISTRATIVE_AREA_NAME;
 	}
 
 	public String getCode() {

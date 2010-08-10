@@ -45,7 +45,7 @@ public class DepartmentNameImpl implements DepartmentName {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.DEPARTMENTNAME;
+		return XALClass.DEPARTMENT_NAME;
 	}
 
 	public String getCode() {

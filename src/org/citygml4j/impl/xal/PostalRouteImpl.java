@@ -148,7 +148,7 @@ public class PostalRouteImpl implements PostalRoute {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTALROUTE;
+		return XALClass.POSTAL_ROUTE;
 	}
 
 	public Object getParent() {
