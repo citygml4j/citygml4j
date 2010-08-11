@@ -2,12 +2,7 @@ package org.citygml4j.model.gml.base;
 
 import java.util.List;
 
-import org.citygml4j.builder.copy.Copyable;
-import org.citygml4j.commons.child.Child;
-import org.citygml4j.model.gml.GML;
-
-
-public interface ArrayAssociation<T extends Associable> extends GML, Child, Copyable {
+public interface ArrayAssociation<T extends Associable> extends Association<T> {
 	public List<T> getObject();
 	public boolean isSetObject();
 	
