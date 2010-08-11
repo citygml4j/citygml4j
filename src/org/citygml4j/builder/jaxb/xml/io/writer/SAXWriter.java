@@ -1,6 +1,5 @@
 package org.citygml4j.builder.jaxb.xml.io.writer;
 
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -26,25 +25,25 @@ import com.sun.xml.stream.writers.UTF8OutputStreamWriter;
 import com.sun.xml.stream.writers.XMLWriter;
 
 public class SAXWriter extends XMLFilterImpl {
-	private static final String OPEN_COMMENT = "<!--";
-	private static final String END_COMMENT = "-->";
-	private static final String XML_DECL_ENCODING = " encoding=";
-	private static final String XML_DECL_VERSION = " version=\"1.0\"";
-	private static final String XML_DECL_STANDALONE = " standalone=\"yes\"";
-	private static final String OPEN_XML_DECL = "<?xml";
-	private static final String CLOSE_XML_DECL = "?>";
-	private static final char CLOSE_START_TAG = '>';
-	private static final char OPEN_START_TAG = '<';
-	private static final String OPEN_END_TAG = "</";
-	private static final char CLOSE_END_TAG = '>';
-	private static final String OPEN_PI = "<?";
-	private static final String CLOSE_PI = "?>";	
-	private static final String CLOSE_EMPTY_ELEMENT = "/>";
-	private static final String SPACE = " ";
-	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-	private static final String SCHEMA_LOCATION_NS = XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI;
-	private static final String SCHEMA_LOCATION = "schemaLocation";
-	private static final String SCHEMA_LOCATION_NS_PREFIX = "xsi";
+	private final String OPEN_COMMENT = "<!--";
+	private final String END_COMMENT = "-->";
+	private final String XML_DECL_ENCODING = " encoding=";
+	private final String XML_DECL_VERSION = " version=\"1.0\"";
+	private final String XML_DECL_STANDALONE = " standalone=\"yes\"";
+	private final String OPEN_XML_DECL = "<?xml";
+	private final String CLOSE_XML_DECL = "?>";
+	private final char CLOSE_START_TAG = '>';
+	private final char OPEN_START_TAG = '<';
+	private final String OPEN_END_TAG = "</";
+	private final char CLOSE_END_TAG = '>';
+	private final String OPEN_PI = "<?";
+	private final String CLOSE_PI = "?>";	
+	private final String CLOSE_EMPTY_ELEMENT = "/>";
+	private final String SPACE = " ";
+	private final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private final String SCHEMA_LOCATION_NS = XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI;
+	private final String SCHEMA_LOCATION = "schemaLocation";
+	private final String SCHEMA_LOCATION_NS_PREFIX = "xsi";
 
 	private Writer writer;
 	private CharsetEncoder charsetEncoder;
