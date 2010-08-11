@@ -149,7 +149,8 @@ public class XMLChunk {
 				if (root != null) {
 					tmp.addEvent(new EndElement(
 							root.getURI(), 
-							root.getLocalName(), 
+							root.getLocalName(),
+							null,
 							null));
 
 					CityGML citygml = unmarshal(tmp, false, false);

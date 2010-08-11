@@ -67,7 +67,7 @@ public class StAXStream2SAX {
 			buffer.endElement(
 					name.getNamespaceURI(),
 					name.getLocalPart(),
-					null);
+					(prefix != null && prefix.length() > 0) ? prefix + ':' + name.getLocalPart() : name.getLocalPart());
 
 			for (int i = reader.getNamespaceCount() - 1; i >= 0; i--) {
 				prefix = reader.getNamespacePrefix(i);
@@ -98,12 +98,13 @@ public class StAXStream2SAX {
 			}
 
 			QName name = reader.getName();
+			String prefix = reader.getPrefix();
 			Attributes attrs = getAttributes(reader);
 
 			buffer.startElement(
 					name.getNamespaceURI(),
 					name.getLocalPart(),
-					null,
+					(prefix != null && prefix.length() > 0) ? prefix + ':' + name.getLocalPart() : name.getLocalPart(),
 					attrs);
 
 		} catch (SAXException e) {

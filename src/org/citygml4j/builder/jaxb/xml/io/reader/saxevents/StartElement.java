@@ -8,19 +8,23 @@ import org.xml.sax.helpers.LocatorImpl;
 public final class StartElement extends SAXEvent implements Locatable {
 	private final String uri;
 	private final String localName;
+	private final String prefix;
 	private Attributes attributes;
 	private Location location;
 
-	public StartElement(String uri, String localName, Attributes attributes, Location location) {
+	public StartElement(String uri, String localName, String prefix, Attributes attributes, Location location) {
 		super(EventType.START_ELEMENT);
 		this.uri = uri;
 		this.localName = localName;
 		this.attributes = attributes;
 		this.location = location;
+
+		int index = prefix.indexOf(':');
+		this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
 	}
 
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.startElement(uri, localName, null, attributes);
+		contentHandler.startElement(uri, localName, prefix != null ? prefix + ':' + localName : localName, attributes);
 	}
 	
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {

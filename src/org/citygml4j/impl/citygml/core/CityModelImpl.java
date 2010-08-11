@@ -13,12 +13,12 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 import org.citygml4j.visitor.FeatureFunction;
 import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.GMLFunction;
+import org.citygml4j.visitor.GMLVisitor;
 
 public class CityModelImpl extends AbstractFeatureCollectionImpl implements CityModel {
 	private List<CityObjectMember> cityObjectMember;
@@ -160,9 +160,9 @@ public class CityModelImpl extends AbstractFeatureCollectionImpl implements City
 		}
 		
 		if (isSetFeatureMember()) {
-			for (FeatureProperty<? extends AbstractFeature> featureProperty : getFeatureMember()) {
-				if (featureProperty.isSetFeature()) {
-					calcBoundedBy(boundedBy, featureProperty.getFeature(), setBoundedBy);
+			for (FeatureMember featureMember : getFeatureMember()) {
+				if (featureMember.isSetFeature()) {
+					calcBoundedBy(boundedBy, featureMember.getFeature(), setBoundedBy);
 				} else {
 					// xlink
 				}

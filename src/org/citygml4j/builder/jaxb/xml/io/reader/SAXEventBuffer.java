@@ -73,7 +73,7 @@ public class SAXEventBuffer implements ContentHandler {
 	}
 
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-		StartElement element = new StartElement(uri, localName, atts, getLocation());		
+		StartElement element = new StartElement(uri, localName, qName, atts, getLocation());		
 		if (lastElementEvent == EventType.START_ELEMENT) {
 			parentStartElements.push(lastStartElement);
 			tail = lastStartElement;
@@ -98,7 +98,7 @@ public class SAXEventBuffer implements ContentHandler {
 		if (lastElementEvent == EventType.END_ELEMENT)
 			parentStartElements.pop();
 
-		addEvent(new EndElement(uri, localName, getLocation()));
+		addEvent(new EndElement(uri, localName, qName, getLocation()));
 		lastElementEvent = EventType.END_ELEMENT;
 	}
 

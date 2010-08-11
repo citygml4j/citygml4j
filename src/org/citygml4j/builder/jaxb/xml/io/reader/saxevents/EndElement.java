@@ -7,17 +7,21 @@ import org.xml.sax.helpers.LocatorImpl;
 public final class EndElement extends SAXEvent {
 	private final String uri;
 	private final String localName;
+	private final String prefix;
 	private Location location;
 
-	public EndElement(String uri, String localName, Location location) {
+	public EndElement(String uri, String localName, String prefix, Location location) {
 		super(EventType.END_ELEMENT);
 		this.uri = uri;
 		this.localName = localName;
 		this.location = location;
+
+		int index = prefix.indexOf(':');
+		this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
 	}
 
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.endElement(uri, localName, null);
+		contentHandler.endElement(uri, localName, prefix != null ? prefix + ':' + localName : localName);
 	}
 	
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
