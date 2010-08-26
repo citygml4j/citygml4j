@@ -7,7 +7,6 @@ import java.util.List;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.copy.DeepCopyBuilder;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.commons.gmlid.DefaultGMLIdManager;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.building.Building;
@@ -18,7 +17,8 @@ import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
 import org.citygml4j.model.gml.geometry.primitives.LinearRing;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.walker.GMLWalker;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.walker.GMLWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -50,7 +50,7 @@ public class TranslateScaleAndRotate {
 		
 		System.out.println(df.format(new Date()) + "translating, scaling, and rotating building");
 		GMLVisitor gmlVisitor = new GMLVisitor(2 * width, 2, 90);
-		copy.visit(gmlVisitor);
+		copy.accept(gmlVisitor);
 
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 1.0.0 document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
@@ -99,15 +99,15 @@ public class TranslateScaleAndRotate {
 		}
 		
 		@Override
-		public void accept(AbstractGML abstractGML) {
+		public void visit(AbstractGML abstractGML) {
 			if (abstractGML.isSetId())
 				abstractGML.setId(DefaultGMLIdManager.getInstance().generateGmlId());
 			
-			super.accept(abstractGML);
+			super.visit(abstractGML);
 		}
 
 		@Override
-		public void accept(LinearRing linearRing) {
+		public void visit(LinearRing linearRing) {
 
 			if (linearRing.isSetPosList()) {
 				DirectPositionList posList = linearRing.getPosList();
@@ -128,7 +128,7 @@ public class TranslateScaleAndRotate {
 				posList.setValue(newPoints);
 			}
 
-			super.accept(linearRing);
+			super.visit(linearRing);
 		}
 	}
 }

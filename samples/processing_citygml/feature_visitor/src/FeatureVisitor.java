@@ -4,8 +4,6 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.commons.gmlid.DefaultGMLIdManager;
-import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
@@ -14,7 +12,9 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.walker.FeatureWalker;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
+import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -42,7 +42,7 @@ public class FeatureVisitor {
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
-			public void accept(AbstractBoundarySurface boundarySurface) {
+			public void visit(AbstractBoundarySurface boundarySurface) {
 				System.out.println(df.format(new Date()) + "adding X3DMaterial information to " + boundarySurface.getId());
 
 				MultiSurface multiSurface = boundarySurface.getLod2MultiSurface().getMultiSurface();
@@ -73,12 +73,12 @@ public class FeatureVisitor {
 				appearance.addSurfaceDataMember(citygml.createSurfaceDataProperty(material));
 
 				boundarySurface.addAppearance(citygml.createAppearanceProperty(appearance));
-				super.accept(boundarySurface);
+				super.visit(boundarySurface);
 			}
 
 		};
 
-		cityModel.visit(walker);
+		cityModel.accept(walker);
 
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 1.0.0 document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);

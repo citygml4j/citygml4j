@@ -13,7 +13,7 @@ import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.walker.GMLWalker;
+import org.citygml4j.util.walker.GMLWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -47,7 +47,7 @@ public class UnmarshallingADE {
 		GMLWalker walker = new GMLWalker(schemaHandler) {
 
 			@Override
-			public void accept(Element element, ElementDecl decl) {
+			public void visit(Element element, ElementDecl decl) {
 
 				if (decl.isGeometry()) {
 					System.out.print("  Processing geometry: ");
@@ -72,13 +72,13 @@ public class UnmarshallingADE {
 					if (decl.isFeature())
 						System.out.println("ADE feature: " + element.getLocalName());
 
-					super.accept(element, decl);
+					super.visit(element, decl);
 				}
 			}
 
 		};
 
-		cityModel.visit(walker);
+		cityModel.accept(walker);
 
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);

@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.commons.child.ChildInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -12,6 +11,7 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.xlink.XLinkResolver;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
