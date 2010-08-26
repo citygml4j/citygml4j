@@ -72,7 +72,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 
 		if (input instanceof CityModel) {
 			cityModel = new CityModelInfo((CityModel)input).toCityModel();
-			origModel = (CityModel)results.get(results.size() - 1);
+			origModel = (CityModel)results.get(0);
 			gmlIds = new HashSet<String>();
 		} else
 			cityModel = new CityModelImpl();
