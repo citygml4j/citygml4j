@@ -1,12 +1,13 @@
 package org.citygml4j.model.gml.valueObjects;
 
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
-import org.citygml4j.model.gml.base.Associable;
 import org.citygml4j.model.gml.basicTypes.Null;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
-
-public interface Value extends GML, Associable {
+public interface Value extends GML, Associable, Child, Copyable {
 	public ValueObject getValueObject();
 	public AbstractGeometry getGeometry();
 	public GenericValueObject getGenericValueObject();

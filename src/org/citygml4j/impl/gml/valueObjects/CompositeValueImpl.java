@@ -3,14 +3,14 @@ package org.citygml4j.impl.gml.valueObjects;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.base.AbstractGMLImpl;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
 public class CompositeValueImpl extends AbstractGMLImpl implements CompositeValue {
 	private List<ValueProperty> valueComponent;
@@ -104,12 +104,12 @@ public class CompositeValueImpl extends AbstractGMLImpl implements CompositeValu
 		return copyTo(new CompositeValueImpl(), copyBuilder);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

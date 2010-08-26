@@ -1,10 +1,11 @@
 package org.citygml4j.model.gml.valueObjects;
 
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
-import org.citygml4j.model.gml.base.Associable;
 
-
-public interface ValueObject extends GML, Associable {
+public interface ValueObject extends GML, Associable, Child, Copyable {
 	public ScalarValue getScalarValue();
 	public ScalarValueList getScalarValueList();
 	public ValueExtent getValueExtent();

@@ -14,7 +14,7 @@ public class XLinkResolver {
 			return null;
 		
 		GMLIdWalker walker = new GMLIdWalker(clipGMLId(target));
-		return root.apply(walker);
+		return root.accept(walker);
 	}
 	
 	public AbstractGeometry getGeometry(String target, AbstractGML root) {

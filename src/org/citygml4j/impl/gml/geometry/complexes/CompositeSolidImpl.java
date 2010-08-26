@@ -3,16 +3,16 @@ package org.citygml4j.impl.gml.geometry.complexes;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.impl.gml.geometry.primitives.AbstractSolidImpl;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.GeometryFunction;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSolid {
 	private List<SolidProperty> solidMember;
@@ -92,20 +92,20 @@ public class CompositeSolidImpl extends AbstractSolidImpl implements CompositeSo
 		return copy;
 	}
 	
-	public void visit(GeometryVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GeometryFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

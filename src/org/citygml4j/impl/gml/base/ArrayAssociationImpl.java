@@ -3,12 +3,13 @@ package org.citygml4j.impl.gml.base;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
-import org.citygml4j.model.gml.base.Associable;
 
-public abstract class ArrayAssociationImpl<T extends Associable> implements ArrayAssociation<T> {
+public abstract class ArrayAssociationImpl<T extends Associable & Child> implements ArrayAssociation<T> {
 	private List<T> object;
 	private Object parent;
 	

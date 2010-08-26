@@ -3,13 +3,16 @@ package org.citygml4j.impl.citygml.waterbody;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 
@@ -174,6 +177,31 @@ public abstract class AbstractWaterBoundarySurfaceImpl extends AbstractCityObjec
 			return boundedBy;
 		} else
 			return null;
+	}
+	
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		GeometryProperty<? extends AbstractGeometry> property = null;		
+		for (int lod = 2; lod < 5; lod++) {
+			switch (lod) {
+			case 2:
+				property = lod2Surface;
+				break;
+			case 3:
+				property = lod3Surface;
+				break;
+			case 4:
+				property = lod4Surface;
+				break;
+			}
+
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		return lodRepresentation;
 	}
 
 	@Override

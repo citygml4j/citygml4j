@@ -3,9 +3,9 @@ package org.citygml4j.impl.gml.feature;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.base.AbstractGMLImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;

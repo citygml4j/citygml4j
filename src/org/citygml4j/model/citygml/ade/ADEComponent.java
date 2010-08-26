@@ -1,14 +1,14 @@
 package org.citygml4j.model.citygml.ade;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.builder.copy.Copyable;
 import org.citygml4j.builder.copy.DeepCopyBuilder;
-import org.citygml4j.commons.child.Child;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.module.citygml.CityGMLModule;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 import org.w3c.dom.Element;
 
 public class ADEComponent implements CityGML, Child, Copyable {
@@ -99,11 +99,11 @@ public class ADEComponent implements CityGML, Child, Copyable {
 	}
 
 	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T apply(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
 }

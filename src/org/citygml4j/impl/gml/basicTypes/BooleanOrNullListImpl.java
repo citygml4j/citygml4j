@@ -3,7 +3,7 @@ package org.citygml4j.impl.gml.basicTypes;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;

@@ -1,11 +1,14 @@
 package org.citygml4j.model.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 import org.w3c.dom.Element;
 
-public class MetaData implements GML, Associable {
+public class MetaData implements GML, Associable, Child, Copyable {
 	private Element content;
 	private Object parent;
 	

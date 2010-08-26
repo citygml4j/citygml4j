@@ -2,8 +2,8 @@ package org.citygml4j.model.gml.coverage;
 
 import java.util.List;
 
-import org.citygml4j.builder.copy.Copyable;
-import org.citygml4j.commons.child.Child;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.valueObjects.ScalarValueList;
 import org.citygml4j.model.gml.valueObjects.ValueArray;

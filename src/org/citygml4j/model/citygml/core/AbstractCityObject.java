@@ -24,6 +24,8 @@ public interface AbstractCityObject extends CoreModuleComponent, AbstractFeature
 	public boolean isSetAppearance();
 	public boolean isSetGenericApplicationPropertyOfCityObject();
 
+	public LodRepresentation getLodRepresentation();
+	
 	public void setCreationDate(GregorianCalendar creationDate);
 	public void setTerminationDate(GregorianCalendar terminationDate);
 	public void setGenericAttribute(List<AbstractGenericAttribute> genericAttribute);

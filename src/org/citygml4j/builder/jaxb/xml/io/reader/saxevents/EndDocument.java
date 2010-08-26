@@ -10,10 +10,17 @@ public final class EndDocument extends SAXEvent {
 		super(EventType.END_DOCUMENT);
 	}
 
+	@Override
+	public EndDocument shallowCopy() {
+		return new EndDocument();
+	}
+
+	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
 		contentHandler.endDocument();
 	}
 	
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		send(contentHandler);
 	}

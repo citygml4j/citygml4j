@@ -3,11 +3,11 @@ package org.citygml4j.impl.citygml.transportation;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.module.citygml.TransportationModule;
 
 public abstract class AbstractTransportationObjectImpl extends AbstractCityObjectImpl implements AbstractTransportationObject {

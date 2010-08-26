@@ -5,12 +5,12 @@ import org.citygml4j.impl.gml.base.AbstractGMLImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
 public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeometry {
 	private String mimeType;
@@ -175,12 +175,12 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		return copy;
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

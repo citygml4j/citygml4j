@@ -3,7 +3,7 @@ package org.citygml4j.impl.gml.base;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.MetaDataProperty;

@@ -1,7 +1,8 @@
-package org.citygml4j.commons.child;
+package org.citygml4j.util.child;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 

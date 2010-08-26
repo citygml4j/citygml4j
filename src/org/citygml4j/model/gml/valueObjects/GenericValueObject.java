@@ -1,12 +1,14 @@
 package org.citygml4j.model.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.base.Associable;
 import org.w3c.dom.Element;
 
-public class GenericValueObject implements GML, Associable {
+public class GenericValueObject implements GML, Associable, Child, Copyable {
 	private Element content;
 	private Object parent;
 	

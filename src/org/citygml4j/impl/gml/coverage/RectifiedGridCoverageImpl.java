@@ -2,14 +2,14 @@ package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.gml.coverage.RectifiedGridDomain;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
 public class RectifiedGridCoverageImpl extends AbstractDiscreteCoverageImpl implements RectifiedGridCoverage {
 	private RectifiedGridDomain rectifiedGridDomain;
@@ -75,20 +75,20 @@ public class RectifiedGridCoverageImpl extends AbstractDiscreteCoverageImpl impl
 		return copyTo(new RectifiedGridCoverageImpl(), copyBuilder);
 	}
 
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

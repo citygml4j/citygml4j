@@ -1,4 +1,4 @@
-package org.citygml4j.commons.child;
+package org.citygml4j.model.common.child;
 
 public interface Child {
 	public Object getParent();

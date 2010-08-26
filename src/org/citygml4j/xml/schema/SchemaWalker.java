@@ -3,7 +3,7 @@ package org.citygml4j.xml.schema;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.citygml4j.visitor.walker.Walker;
+import org.citygml4j.util.walker.Walker;
 
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.XSAttGroupDecl;

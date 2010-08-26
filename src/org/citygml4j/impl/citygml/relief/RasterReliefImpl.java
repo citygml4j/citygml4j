@@ -3,31 +3,34 @@ package org.citygml4j.impl.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.RasterRelief;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
 public class RasterReliefImpl extends AbstractReliefComponentImpl implements RasterRelief {
 	private GridProperty grid;
 	private List<ADEComponent> ade;
-	
+
 	public RasterReliefImpl() {
-		
+
 	}
-	
+
 	public RasterReliefImpl(ReliefModule module) {
 		super(module);
 	}
-	
+
 	public void addGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
 		if (this.ade == null)
 			this.ade = new ChildList<ADEComponent>(this);
@@ -61,7 +64,7 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 	public void setGrid(GridProperty grid) {
 		if (grid != null)
 			grid.setParent(this);
-		
+
 		this.grid = grid;
 	}
 
@@ -79,7 +82,7 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 	public void unsetGrid() {
 		if (isSetGrid())
 			grid.unsetParent();
-		
+
 		grid = null;
 	}
 
@@ -87,13 +90,13 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RASTER_RELIEF;
 	}
-	
+
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = super.calcBoundedBy(false);
 		if (boundedBy == null)
 			boundedBy = new BoundingShapeImpl();
-		
+
 		if (isSetGrid()) {
 			if (grid.isSetObject()) {
 				calcBoundedBy(boundedBy, grid.getObject(), setBoundedBy);
@@ -111,6 +114,19 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 			return null;
 	}
 
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+
+		if (isSetGrid() && grid.isSetObject() && grid.getObject().isSetRectifiedGridDomain()) {
+			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+			if (propertyList != null) 
+				propertyList.add(grid.getObject().getRectifiedGridDomain());
+		}
+
+		return lodRepresentation;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new RasterReliefImpl(), copyBuilder);
 	}
@@ -119,13 +135,13 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		RasterRelief copy = (target == null) ? new RasterReliefImpl() : (RasterReliefImpl)target;
 		super.copyTo(copy, copyBuilder);
-		
+
 		if (isSetGrid()) {
 			copy.setGrid((GridProperty)copyBuilder.copy(grid));
 			if (copy.getGrid() == grid)
 				grid.setParent(this);
 		}
-		
+
 		if (isSetGenericApplicationPropertyOfRasterRelief()) {
 			for (ADEComponent part : ade) {
 				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
@@ -138,21 +154,21 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 
 		return copy;
 	}
-	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
-	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

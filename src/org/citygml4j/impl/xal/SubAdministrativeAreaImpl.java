@@ -3,7 +3,9 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.AddressLine;
 import org.citygml4j.model.xal.Locality;
 import org.citygml4j.model.xal.PostOffice;
@@ -11,8 +13,6 @@ import org.citygml4j.model.xal.PostalCode;
 import org.citygml4j.model.xal.SubAdministrativeArea;
 import org.citygml4j.model.xal.SubAdministrativeAreaName;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class SubAdministrativeAreaImpl implements SubAdministrativeArea {
 	private List<AddressLine> addressLine;
@@ -285,11 +285,11 @@ public class SubAdministrativeAreaImpl implements SubAdministrativeArea {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

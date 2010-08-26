@@ -1,12 +1,12 @@
 package org.citygml4j.impl.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
-import org.citygml4j.visitor.GeometryFunction;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public class TriangulatedSurfaceImpl extends SurfaceImpl implements TriangulatedSurface {
 
@@ -53,12 +53,12 @@ public class TriangulatedSurfaceImpl extends SurfaceImpl implements Triangulated
 		return super.copyTo(copy, copyBuilder);
 	}
 	
-	public void visit(GeometryVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GeometryFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

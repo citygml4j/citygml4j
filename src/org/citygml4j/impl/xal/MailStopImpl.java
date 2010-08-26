@@ -3,14 +3,14 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.AddressLine;
 import org.citygml4j.model.xal.MailStop;
 import org.citygml4j.model.xal.MailStopName;
 import org.citygml4j.model.xal.MailStopNumber;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class MailStopImpl implements MailStop {
 	private List<AddressLine> addressLine;
@@ -170,11 +170,11 @@ public class MailStopImpl implements MailStop {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

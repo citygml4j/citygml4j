@@ -7,6 +7,8 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.citygml4j.model.common.copy.Copyable;
+
 public class DeepCopyBuilder extends CopyBuilder {
 	private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
 	

@@ -1,10 +1,12 @@
-package org.citygml4j.visitor.walker;
+package org.citygml4j.util.walker;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -51,276 +53,284 @@ import org.citygml4j.model.gml.geometry.primitives.Triangle;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public abstract class GeometryWalker implements GeometryVisitor, Walker {
 	private Set<Object> visited = new HashSet<Object>();
 	private boolean shouldWalk = true; 
-	
+
 	public void reset() {
 		visited.clear();
 		shouldWalk = true;
 	}
-	
+
 	public boolean shouldWalk() {
 		return shouldWalk;
 	}
-	
+
 	public void setShouldWalk(boolean shouldWalk) {
 		this.shouldWalk = shouldWalk;
 	}
-	
+
 	public boolean addToVisited(Object object) {
 		return visited.add(object);
 	}
-	
+
 	public boolean hasVisited(Object object) {
 		return visited.contains(object);
 	}
-	
-	public void accept(AbstractGeometry abstractGeometry) {
+
+	public void visit(AbstractGeometry abstractGeometry) {
 	}
 
-	public void accept(AbstractGeometricPrimitive abstractGeometricPrimitive) {
-		accept((AbstractGeometry)abstractGeometricPrimitive);
+	public void visit(LodRepresentation lodRepresentation) {
+		if (lodRepresentation != null) {
+			for (int lod = 0; lod < 5; lod++) {
+				if (lodRepresentation.isSetLodRepresentation(lod))
+					for (GeometryProperty<? extends AbstractGeometry> geometryProperty : lodRepresentation.getLodRepresentation(lod))
+						visit(geometryProperty);
+			}
+		}
 	}
 
-	public void accept(AbstractGeometricAggregate abstractGeometricAggregate) {
-		accept((AbstractGeometry)abstractGeometricAggregate);
+	public void visit(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+		visit((AbstractGeometry)abstractGeometricPrimitive);
 	}
 
-	public void accept(AbstractCurve abstractCurve) {
-		accept((AbstractGeometricPrimitive)abstractCurve);
+	public void visit(AbstractGeometricAggregate abstractGeometricAggregate) {
+		visit((AbstractGeometry)abstractGeometricAggregate);
 	}
 
-	public void accept(AbstractSolid abstractSolid) {
-		accept((AbstractGeometricPrimitive)abstractSolid);
+	public void visit(AbstractCurve abstractCurve) {
+		visit((AbstractGeometricPrimitive)abstractCurve);
 	}
 
-	public void accept(AbstractSurface abstractSurface) {
-		accept((AbstractGeometricPrimitive)abstractSurface);
+	public void visit(AbstractSolid abstractSolid) {
+		visit((AbstractGeometricPrimitive)abstractSolid);
 	}
 
-	public void accept(AbstractRing abstractRing) {
-		accept((AbstractGeometry)abstractRing);
+	public void visit(AbstractSurface abstractSurface) {
+		visit((AbstractGeometricPrimitive)abstractSurface);
 	}
-	
-	public void accept(Triangle triangle) {
+
+	public void visit(AbstractRing abstractRing) {
+		visit((AbstractGeometry)abstractRing);
+	}
+
+	public void visit(Triangle triangle) {
 		if (triangle.isSetExterior())
-			accept(triangle.getExterior());
+			visit(triangle.getExterior());
 	}
 
-	public void accept(Rectangle rectangle) {
+	public void visit(Rectangle rectangle) {
 		if (rectangle.isSetExterior())
-			accept(rectangle.getExterior());
+			visit(rectangle.getExterior());
 	}
 
-	public void accept(CompositeCurve compositeCurve) {
+	public void visit(CompositeCurve compositeCurve) {
+		visit((AbstractCurve)compositeCurve);
+
 		for (CurveProperty curveProperty : new ArrayList<CurveProperty>(compositeCurve.getCurveMember()))
-			accept(curveProperty);
-		
-		accept((AbstractCurve)compositeCurve);
+			visit(curveProperty);
 	}
 
-	public void accept(CompositeSolid compositeSolid) {
+	public void visit(CompositeSolid compositeSolid) {
+		visit((AbstractSolid)compositeSolid);
+
 		for (SolidProperty solidProperty : new ArrayList<SolidProperty>(compositeSolid.getSolidMember()))
-			accept(solidProperty);
-		
-		accept((AbstractSolid)compositeSolid);
+			visit(solidProperty);
 	}
 
-	public void accept(CompositeSurface compositeSurface) {
+	public void visit(CompositeSurface compositeSurface) {
+		visit((AbstractSurface)compositeSurface);
+
 		for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(compositeSurface.getSurfaceMember()))
-			accept(surfaceProperty);
-		
-		accept((AbstractSurface)compositeSurface);
+			visit(surfaceProperty);
 	}
 
-	public void accept(Curve curve) {
-		accept((AbstractCurve)curve);
+	public void visit(Curve curve) {
+		visit((AbstractCurve)curve);
 	}
 
-	public void accept(GeometricComplex geometricComplex) {
+	public void visit(GeometricComplex geometricComplex) {
+		visit((AbstractGeometry)geometricComplex);
+
 		if (geometricComplex.isSetElement())
 			for (GeometricPrimitiveProperty geometricPrimitiveProperty : new ArrayList<GeometricPrimitiveProperty>(geometricComplex.getElement()))
-				accept(geometricPrimitiveProperty);
-		
-		accept((AbstractGeometry)geometricComplex);
-	}
-	
-	public void accept(Grid grid) {
-		accept((AbstractGeometry)grid);
+				visit(geometricPrimitiveProperty);
 	}
 
-	public void accept(LinearRing linearRing) {
-		accept((AbstractRing)linearRing);
+	public void visit(Grid grid) {
+		visit((AbstractGeometry)grid);
 	}
 
-	public void accept(LineString lineString) {
-		accept((AbstractCurve)lineString);
+	public void visit(LinearRing linearRing) {
+		visit((AbstractRing)linearRing);
 	}
 
-	public void accept(MultiCurve multiCurve) {
+	public void visit(LineString lineString) {
+		visit((AbstractCurve)lineString);
+	}
+
+	public void visit(MultiCurve multiCurve) {
+		visit((AbstractGeometricAggregate)multiCurve);
+
 		if (multiCurve.isSetCurveMember())
 			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(multiCurve.getCurveMember()))
-				accept(curveProperty);
+				visit(curveProperty);
 
 		if (multiCurve.isSetCurveMembers())
-			accept(multiCurve.getCurveMembers());
-		
-		accept((AbstractGeometricAggregate)multiCurve);
+			visit(multiCurve.getCurveMembers());
 	}
 
-	public void accept(MultiLineString multiLineString) {
+	public void visit(MultiLineString multiLineString) {
+		visit((AbstractGeometricAggregate)multiLineString);
+
 		if (multiLineString.isSetLineStringMember())
 			for (LineStringProperty lineStringProperty : new ArrayList<LineStringProperty>(multiLineString.getLineStringMember()))
-				accept(lineStringProperty);
-		
-		accept((AbstractGeometricAggregate)multiLineString);
+				visit(lineStringProperty);
 	}
 
-	public void accept(MultiPoint multiPoint) {
+	public void visit(MultiPoint multiPoint) {
+		visit((AbstractGeometricAggregate)multiPoint);
+
 		if (multiPoint.isSetPointMember())
 			for (PointProperty pointProperty : new ArrayList<PointProperty>(multiPoint.getPointMember()))
-				accept(pointProperty);
+				visit(pointProperty);
 
 		if (multiPoint.isSetPointMembers())
-			accept(multiPoint.getPointMembers());
-		
-		accept((AbstractGeometricAggregate)multiPoint);
+			visit(multiPoint.getPointMembers());
 	}
 
-	public void accept(MultiPolygon multiPolygon) {
+	public void visit(MultiPolygon multiPolygon) {
+		visit((AbstractGeometricAggregate)multiPolygon);
+
 		if (multiPolygon.isSetPolygonMember())
 			for (PolygonProperty polygonProperty : new ArrayList<PolygonProperty>(multiPolygon.getPolygonMember()))
-				accept(polygonProperty);
-		
-		accept((AbstractGeometricAggregate)multiPolygon);
+				visit(polygonProperty);
 	}
 
-	public void accept(MultiSolid multiSolid) {
+	public void visit(MultiSolid multiSolid) {
+		visit((AbstractGeometricAggregate)multiSolid);
+
 		if (multiSolid.isSetSolidMember())
 			for (SolidProperty solidProperty : new ArrayList<SolidProperty>(multiSolid.getSolidMember()))
-				accept(solidProperty);
+				visit(solidProperty);
 
 		if (multiSolid.isSetSolidMembers())
-			accept(multiSolid.getSolidMembers());
-		
-		accept((AbstractGeometricAggregate)multiSolid);
+			visit(multiSolid.getSolidMembers());
 	}
 
-	public void accept(MultiSurface multiSurface) {
+	public void visit(MultiSurface multiSurface) {
+		visit((AbstractGeometricAggregate)multiSurface);
+
 		if (multiSurface.isSetSurfaceMember())
 			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(multiSurface.getSurfaceMember()))
-				accept(surfaceProperty);
+				visit(surfaceProperty);
 
 		if (multiSurface.isSetSurfaceMembers())
-			accept(multiSurface.getSurfaceMembers());
-		
-		accept((AbstractGeometricAggregate)multiSurface);
+			visit(multiSurface.getSurfaceMembers());
 	}
 
-	public void accept(OrientableCurve orientableCurve) {
+	public void visit(OrientableCurve orientableCurve) {
+		visit((AbstractCurve)orientableCurve);
+
 		if (orientableCurve.isSetBaseCurve())
-			accept(orientableCurve.getBaseCurve());
-		
-		accept((AbstractCurve)orientableCurve);
-
+			visit(orientableCurve.getBaseCurve());
 	}
 
-	public void accept(OrientableSurface orientableSurface) {
+	public void visit(OrientableSurface orientableSurface) {
+		visit((AbstractSurface)orientableSurface);
+
 		if (orientableSurface.isSetBaseSurface())
-			accept(orientableSurface.getBaseSurface());
-		
-		accept((AbstractSurface)orientableSurface);
-	}
-	
-	public void accept(_TexturedSurface texturedSurface) {
-		accept((OrientableSurface)texturedSurface);
+			visit(orientableSurface.getBaseSurface());
 	}
 
-	public void accept(Point point) {
-		accept((AbstractGeometricPrimitive)point);
+	public void visit(_TexturedSurface texturedSurface) {
+		visit((OrientableSurface)texturedSurface);
 	}
 
-	public void accept(Polygon polygon) {
+	public void visit(Point point) {
+		visit((AbstractGeometricPrimitive)point);
+	}
+
+	public void visit(Polygon polygon) {
+		visit((AbstractSurface)polygon);
+
 		if (polygon.isSetExterior())
-			accept(polygon.getExterior());
+			visit(polygon.getExterior());
 
 		if (polygon.isSetInterior())
 			for (AbstractRingProperty interior : new ArrayList<AbstractRingProperty>(polygon.getInterior()))
-				accept(interior);
-		
-		accept((AbstractSurface)polygon);
-	}
-	
-	public void accept(RectifiedGrid rectifiedGrid) {
-		if (rectifiedGrid.isSetOrigin())
-			accept(rectifiedGrid.getOrigin());
-		
-		accept((Grid)rectifiedGrid);
+				visit(interior);
 	}
 
-	public void accept(Ring ring) {
+	public void visit(RectifiedGrid rectifiedGrid) {
+		visit((Grid)rectifiedGrid);
+
+		if (rectifiedGrid.isSetOrigin())
+			visit(rectifiedGrid.getOrigin());
+	}
+
+	public void visit(Ring ring) {
+		visit((AbstractRing)ring);
+
 		if (ring.isSetCurveMember())
 			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(ring.getCurveMember()))
-				accept(curveProperty);
-		
-		accept((AbstractRing)ring);
+				visit(curveProperty);
 	}
 
-	public void accept(Solid solid) {
+	public void visit(Solid solid) {
+		visit((AbstractSolid)solid);
+
 		if (solid.isSetExterior())
-			accept(solid.getExterior());
+			visit(solid.getExterior());
 
 		if (solid.isSetInterior())
 			for (SurfaceProperty interior : new ArrayList<SurfaceProperty>(solid.getInterior()))
-				accept(interior);
-		
-		accept((AbstractSolid)solid);
+				visit(interior);
 	}
 
-	public void accept(Surface surface) {
+	public void visit(Surface surface) {
+		visit((AbstractSurface)surface);
+
 		if (surface.isSetPatches())
-			accept(surface.getPatches());
-		
-		accept((AbstractSurface)surface);
+			visit(surface.getPatches());
 	}
 
-	public void accept(Tin tin) {
-		accept((TriangulatedSurface)tin);
+	public void visit(Tin tin) {
+		visit((TriangulatedSurface)tin);
 	}
 
-	public void accept(TriangulatedSurface triangulatedSurface) {
-		accept((Surface)triangulatedSurface);
+	public void visit(TriangulatedSurface triangulatedSurface) {
+		visit((Surface)triangulatedSurface);
 	}
-	
-	public void accept(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
+
+	public void visit(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
 		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
-			geometryProperty.getGeometry().visit(this);
-	}
-	
-	public void accept(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
-			geometryProperty.getGeometry().visit(this);
+			geometryProperty.getGeometry().accept(this);
 	}
 
-	public void accept(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
+	public void visit(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
+		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
+			geometryProperty.getGeometry().accept(this);
+	}
+
+	public void visit(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
 			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry()))
 				if (shouldWalk && visited.add(abstractGeometry))
-					abstractGeometry.visit(this);
+					abstractGeometry.accept(this);
 		}
 	}
-	
-	public void accept(SurfacePatchArrayProperty surfacePatchArrayProperty) {
+
+	public void visit(SurfacePatchArrayProperty surfacePatchArrayProperty) {
 		if (surfacePatchArrayProperty.isSetSurfacePatch())
 			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
 				if (shouldWalk && visited.add(abstractSurfacePatch)) {
 					if (abstractSurfacePatch instanceof Triangle)
-						accept((Triangle)abstractSurfacePatch);
+						visit((Triangle)abstractSurfacePatch);
 					else if (abstractSurfacePatch instanceof Rectangle)
-						accept((Rectangle)abstractSurfacePatch);
+						visit((Rectangle)abstractSurfacePatch);
 				}
 			}
 	}

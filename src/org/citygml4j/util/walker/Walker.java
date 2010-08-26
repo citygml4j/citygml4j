@@ -1,4 +1,4 @@
-package org.citygml4j.visitor.walker;
+package org.citygml4j.util.walker;
 
 public interface Walker {
 	public void reset();

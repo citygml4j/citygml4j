@@ -3,17 +3,17 @@ package org.citygml4j.impl.citygml.texturedsurface;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.geometry.primitives.OrientableSurfaceImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.GeometryFunction;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _TexturedSurface {
 	private List<_AppearanceProperty> appearance;
@@ -101,23 +101,23 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 	}
 
 	@Override
-	public <T> T apply(GeometryFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 	@Override
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 	@Override
-	public void visit(GeometryVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
 	}
 
 	@Override
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}	
 
 }

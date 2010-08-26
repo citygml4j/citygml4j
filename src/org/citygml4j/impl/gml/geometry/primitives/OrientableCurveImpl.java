@@ -2,13 +2,13 @@ package org.citygml4j.impl.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.GeometryFunction;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public class OrientableCurveImpl extends AbstractCurveImpl implements OrientableCurve {
 	private CurveProperty baseCurve;
@@ -94,20 +94,20 @@ public class OrientableCurveImpl extends AbstractCurveImpl implements Orientable
 		return copy;
 	}
 	
-	public void visit(GeometryVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GeometryFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.citygml.core.AbstractSiteImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -17,8 +16,12 @@ import org.citygml4j.model.citygml.building.BuildingPartProperty;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -982,6 +985,73 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			return boundedBy;
 		} else
 			return null;
+	}
+	
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		GeometryProperty<? extends AbstractGeometry> property = null;		
+		for (int lod = 1; lod < 5; lod++) {
+			switch (lod) {
+			case 1:
+				property = lod1Solid;
+				break;
+			case 2:
+				property = lod2Solid;
+				break;
+			case 3:
+				property = lod3Solid;
+				break;
+			case 4:
+				property = lod4Solid;
+				break;
+			}
+			
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		property = null;
+		for (int lod = 1; lod < 5; lod++) {
+			switch (lod) {
+			case 1:
+				property = lod1MultiSurface;
+				break;
+			case 2:
+				property = lod2MultiSurface;
+				break;
+			case 3:
+				property = lod3MultiSurface;
+				break;
+			case 4:
+				property = lod4MultiSurface;
+				break;
+			}
+			
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		property = null;
+		for (int lod = 2; lod < 5; lod++) {
+			switch (lod) {
+			case 2:
+				property = lod2MultiCurve;
+				break;
+			case 3:
+				property = lod3MultiCurve;
+				break;
+			case 4:
+				property = lod3MultiCurve;
+				break;
+			}
+			
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		return lodRepresentation;
 	}
 
 	@SuppressWarnings("unchecked")

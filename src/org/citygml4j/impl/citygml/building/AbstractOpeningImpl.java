@@ -3,13 +3,16 @@ package org.citygml4j.impl.citygml.building;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractOpening;
+import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
@@ -150,6 +153,28 @@ public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl impleme
 			return null;
 	}
 
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		GeometryProperty<? extends AbstractGeometry> property = null;		
+		for (int lod = 3; lod < 5; lod++) {
+			switch (lod) {
+			case 3:
+				property = lod3MultiSurface;
+				break;
+			case 4:
+				property = lod4MultiSurface;
+				break;
+			}
+
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		return lodRepresentation;
+	}
+	
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)

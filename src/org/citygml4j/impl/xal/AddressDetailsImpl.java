@@ -1,6 +1,8 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressDetails;
 import org.citygml4j.model.xal.AddressLines;
@@ -10,8 +12,6 @@ import org.citygml4j.model.xal.Locality;
 import org.citygml4j.model.xal.PostalServiceElements;
 import org.citygml4j.model.xal.Thoroughfare;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class AddressDetailsImpl implements AddressDetails {
 	private PostalServiceElements postalServiceElements;
@@ -392,11 +392,11 @@ public class AddressDetailsImpl implements AddressDetails {
 	}
 
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

@@ -1,11 +1,12 @@
 package org.citygml4j.impl.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.base.Associable;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
-public abstract class AssociationByRepOrRefImpl<T extends Associable> implements AssociationByRepOrRef<T> {
+public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> implements AssociationByRepOrRef<T> {
 	private T object;
 	private String actuate;
 	private String arcrole;

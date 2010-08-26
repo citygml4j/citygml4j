@@ -7,9 +7,9 @@ import java.io.Writer;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.CityModelWriter;

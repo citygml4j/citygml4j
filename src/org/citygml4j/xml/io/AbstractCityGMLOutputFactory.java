@@ -6,11 +6,11 @@ import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
 
-import org.citygml4j.commons.gmlid.DefaultGMLIdManager;
-import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.writer.FeatureWriteMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 

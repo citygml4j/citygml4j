@@ -3,31 +3,34 @@ package org.citygml4j.impl.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
 public class MassPointReliefImpl extends AbstractReliefComponentImpl implements MassPointRelief {
 	private MultiPointProperty reliefPoints;
 	private List<ADEComponent> ade;
-	
+
 	public MassPointReliefImpl() {
-		
+
 	}
-	
+
 	public MassPointReliefImpl(ReliefModule module) {
 		super(module);
 	}
-	
+
 	public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
 		if (this.ade == null)
 			this.ade = new ChildList<ADEComponent>(this);
@@ -61,7 +64,7 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 	public void setReliefPoints(MultiPointProperty reliefPoints) {
 		if (reliefPoints != null)
 			reliefPoints.setParent(this);
-		
+
 		this.reliefPoints = reliefPoints;
 	}
 
@@ -79,7 +82,7 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 	public void unsetReliefPoints() {
 		if (isSetReliefPoints())
 			reliefPoints.unsetParent();
-		
+
 		reliefPoints = null;
 	}
 
@@ -87,13 +90,13 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.MASSPOINT_RELIEF;
 	}
-	
+
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = super.calcBoundedBy(false);
 		if (boundedBy == null)
 			boundedBy = new BoundingShapeImpl();
-		
+
 		if (isSetReliefPoints()) {
 			if (reliefPoints.isSetMultiPoint()) {
 				calcBoundedBy(boundedBy, reliefPoints.getMultiPoint());
@@ -116,16 +119,29 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 	}
 
 	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+
+		if (isSetReliefPoints()) {
+			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+			if (propertyList != null)
+				propertyList.add(reliefPoints);
+		}
+
+		return lodRepresentation;
+	}
+
+	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		MassPointRelief copy = (target == null) ? new MassPointReliefImpl() : (MassPointRelief)target;
 		super.copyTo(copy, copyBuilder);
-		
+
 		if (isSetReliefPoints()) {
 			copy.setReliefPoints((MultiPointProperty)copyBuilder.copy(reliefPoints));
 			if (copy.getReliefPoints() == reliefPoints)
 				reliefPoints.setParent(this);
 		}
-		
+
 		if (isSetGenericApplicationPropertyOfMassPointRelief()) {
 			for (ADEComponent part : ade) {
 				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
@@ -138,21 +154,21 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 
 		return copy;
 	}
-	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
-	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

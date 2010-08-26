@@ -3,7 +3,9 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.AddressIdentifier;
 import org.citygml4j.model.xal.AddressLatitude;
 import org.citygml4j.model.xal.AddressLatitudeDirection;
@@ -16,8 +18,6 @@ import org.citygml4j.model.xal.PostalServiceElements;
 import org.citygml4j.model.xal.SortingCode;
 import org.citygml4j.model.xal.SupplementaryPostalServiceData;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class PostalServiceElementsImpl implements PostalServiceElements {
 	private List<AddressIdentifier> addressIdentifier;
@@ -395,11 +395,11 @@ public class PostalServiceElementsImpl implements PostalServiceElements {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

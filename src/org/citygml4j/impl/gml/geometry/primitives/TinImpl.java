@@ -3,14 +3,14 @@ package org.citygml4j.impl.gml.geometry.primitives;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.geometry.primitives.ControlPoint;
 import org.citygml4j.model.gml.geometry.primitives.LineStringSegmentArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.Tin;
 import org.citygml4j.model.gml.measures.Length;
-import org.citygml4j.visitor.GeometryFunction;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 	private List<LineStringSegmentArrayProperty> stopLines;
@@ -194,12 +194,12 @@ public class TinImpl extends TriangulatedSurfaceImpl implements Tin {
 		return copy;
 	}
 	
-	public void visit(GeometryVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GeometryFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

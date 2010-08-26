@@ -5,8 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
 import org.citygml4j.model.gml.geometry.primitives.Coord;
@@ -16,10 +20,6 @@ import org.citygml4j.model.gml.geometry.primitives.LinearRing;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.GeometryFunction;
-import org.citygml4j.visitor.GeometryVisitor;
 
 public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 	private List<PosOrPointPropertyOrPointRep> controlPoints;
@@ -311,20 +311,20 @@ public class LinearRingImpl extends AbstractRingImpl implements LinearRing {
 		return copyTo(new LinearRingImpl(), copyBuilder);
 	}
 	
-	public void visit(GeometryVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
 	}
 
-	public <T> T apply(GeometryFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

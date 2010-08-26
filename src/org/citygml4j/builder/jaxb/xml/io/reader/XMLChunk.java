@@ -15,10 +15,13 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.EndElement;
 import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.SAXEvent;
+import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.SAXEvent.EventType;
 import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartElement;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.MetaDataProperty;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -41,10 +44,10 @@ public class XMLChunk {
 
 	private CityGML citygml;
 	private ParentInfo featureInfo;	
-	private AtomicBoolean infoResolved = new AtomicBoolean(false);
+	private AtomicBoolean parentInfoResolved = new AtomicBoolean(false);
 	private AtomicBoolean citygmlResolved = new AtomicBoolean(false);
 
-	int depth = 0;
+	private int depth = 0;
 
 	XMLChunk(JAXBChunkReader chunkReader, XMLChunk parentChunk) {
 		this.chunkReader = chunkReader;
@@ -95,68 +98,55 @@ public class XMLChunk {
 	}
 
 	public ParentInfo unmarshalFeatureInfo() {
-		if (!buffer.isEmpty() && infoResolved.compareAndSet(false, true)) {
+		if (!buffer.isEmpty() && parentInfoResolved.compareAndSet(false, true)) {
 			try {
 				SAXEventBuffer tmp = new SAXEventBuffer();
-				StartElement root = null;
+				SAXEvent event = buffer.getFirstStartElement();
+				tmp.addEvent(event.shallowCopy());
 
-				SAXEvent event = buffer.getFirstEvent();
-				boolean isInited = false;
+				StartElement element = null;
+				boolean isParentInfoElement = false;
+				int depth = 0;
 
-				do {
-					if (!isInited) {
-						tmp.addEvent(event);
-						if (event instanceof StartElement) {
-							root = (StartElement)event;
-							isInited = true;
+				while ((event = event.next()) != null) {					
+					if (event.getType() == EventType.START_ELEMENT) {
+						if (depth == 0) {
+							element = (StartElement)event;
+							isParentInfoElement = chunkReader.util.isParentInfoElement(
+									element.getURI(), 
+									element.getLocalName());
 						}
 
-						continue;
+						depth++;
 					}
 
-					if (event instanceof StartElement) {
-						StartElement startElement = (StartElement)event;
+					else if (event.getType() == EventType.END_ELEMENT)
+						depth--;
 
-						if (!chunkReader.util.isGMLElement(startElement.getURI()))
-							break;
-						else if (chunkReader.util.isFeatureInfo(startElement.getURI(), startElement.getLocalName())) {
-							tmp.addEvent(event);
+					if (isParentInfoElement)
+						tmp.addEvent(event.shallowCopy());					
+				}
 
-							while ((event = event.next()) != null) {
-								tmp.addEvent(event);
-
-								if (event instanceof EndElement) {
-									EndElement endElement = (EndElement)event;
-									if (endElement.getURI().equals(startElement.getURI()) &&
-											endElement.getLocalName().equals(startElement.getLocalName()))
-										break;
-								}
-							}
-						}
-
-					} else if (event instanceof EndElement) {
-						EndElement endElement = (EndElement)event;
-
-						if (chunkReader.util.isCityGMLElement(endElement.getURI()))
-							break;
-
-						if (endElement.getURI().equals(root.getURI()) &&
-								endElement.getLocalName().equals(root.getLocalName()))
-							break;
-					}
-				} while ((event = event.next()) != null);
-
-				if (root != null) {
+				// add EndElement in case we found an unclosed StartElement
+				if (isParentInfoElement) {
 					tmp.addEvent(new EndElement(
-							root.getURI(), 
-							root.getLocalName(),
+							element.getURI(), 
+							element.getLocalName(),
 							null,
 							null));
+				}
 
-					CityGML citygml = unmarshal(tmp, false, false);
-					if (citygml instanceof AbstractFeature)
-						featureInfo = new FeatureInfoImpl((AbstractFeature)citygml);
-				} 
+				// close root element
+				element = tmp.getFirstStartElement();					
+				tmp.addEvent(new EndElement(
+						element.getURI(), 
+						element.getLocalName(),
+						null,
+						null));
+
+				CityGML citygml = unmarshal(tmp, false);
+				if (citygml instanceof AbstractFeature)
+					featureInfo = new FeatureInfoImpl((AbstractFeature)citygml);
 
 			} catch (JAXBException e) {
 				//
@@ -173,12 +163,12 @@ public class XMLChunk {
 
 	public CityGML unmarshal() throws JAXBException, SAXException, MissingADESchemaException {
 		if (!buffer.isEmpty() && citygmlResolved.compareAndSet(false, true))
-			citygml = unmarshal(buffer, chunkReader.useValidation, true);
+			citygml = unmarshal(buffer, chunkReader.useValidation);
 
 		return citygml;
 	}	
 
-	private CityGML unmarshal(SAXEventBuffer buffer, boolean useValidation, boolean freeBuffer) throws JAXBException, SAXException, MissingADESchemaException {
+	private CityGML unmarshal(SAXEventBuffer buffer, boolean useValidation) throws JAXBException, SAXException, MissingADESchemaException {
 		CityGML citygml = null;
 		QName fakeRoot = getFakeRoot();
 
@@ -200,8 +190,7 @@ public class XMLChunk {
 		SAXEvent event = buffer.getFirstEvent();
 		do {
 			event.send(handler, locator);
-			if (freeBuffer)
-				buffer.removeFirstEvent();
+			buffer.removeFirstEvent();
 		} while ((event = event.next()) != null);
 
 		// emulate end of a document
@@ -338,6 +327,24 @@ public class XMLChunk {
 
 		public LocationProperty getLocation() {
 			return feature.getLocation();
+		}
+
+		public boolean isSetAppearance() {
+			if (feature instanceof AbstractCityObject)
+				return ((AbstractCityObject)feature).isSetAppearance();
+			else if (feature instanceof CityModel)
+				return ((CityModel)feature).isSetAppearanceMember();
+
+			return false;
+		}
+
+		public List<? extends AppearanceProperty> getAppearance() {
+			if (feature instanceof AbstractCityObject)
+				return ((AbstractCityObject)feature).getAppearance();
+			else if (feature instanceof CityModel)
+				return ((CityModel)feature).getAppearanceMember();
+
+			return null;
 		}
 
 		public CityGMLClass getCityGMLClass() {

@@ -1,10 +1,12 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
-import org.citygml4j.model.gml.base.Associable;
 
-public interface AbstractCurveSegment extends GML, Associable {
+public interface AbstractCurveSegment extends GML, Associable, Child, Copyable {
 	public Integer getNumDerivativesAtStart();
 	public Integer getNumDerivativesAtEnd();
 	public Integer getNumDerivativeInterior();

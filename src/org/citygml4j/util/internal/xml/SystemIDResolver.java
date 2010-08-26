@@ -1,4 +1,4 @@
-package org.citygml4j.internal.util.xml;
+package org.citygml4j.util.internal.xml;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

@@ -6,27 +6,48 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
 public final class StartElement extends SAXEvent implements Locatable {
-	private final String uri;
-	private final String localName;
-	private final String prefix;
+	private String uri;
+	private String localName;
+	private String prefix;
 	private Attributes attributes;
 	private Location location;
+	
+	private StartElement() {
+		super(EventType.START_ELEMENT);
+	}
 
 	public StartElement(String uri, String localName, String prefix, Attributes attributes, Location location) {
-		super(EventType.START_ELEMENT);
+		this();
 		this.uri = uri;
 		this.localName = localName;
 		this.attributes = attributes;
 		this.location = location;
 
-		int index = prefix.indexOf(':');
-		this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
+		if (prefix != null) {
+			int index = prefix.indexOf(':');
+			this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
+		} else
+			this.prefix = prefix;
 	}
 
+	@Override
+	public StartElement shallowCopy() {
+		StartElement startElement = new StartElement();
+		startElement.uri = uri;
+		startElement.localName = localName;
+		startElement.prefix = prefix;
+		startElement.attributes = attributes;
+		startElement.location = location;
+		
+		return startElement;
+	}
+
+	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
 		contentHandler.startElement(uri, localName, prefix != null ? prefix + ':' + localName : localName, attributes);
 	}
-	
+
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		if (location != null) {
 			locator.setLineNumber(location.getLineNumber());
@@ -34,7 +55,7 @@ public final class StartElement extends SAXEvent implements Locatable {
 			locator.setSystemId(location.getSystemId());
 			locator.setPublicId(location.getPublicId());
 		}
-		
+
 		send(contentHandler);
 	}
 
@@ -49,7 +70,7 @@ public final class StartElement extends SAXEvent implements Locatable {
 	public Attributes getAttributes() {
 		return attributes;
 	}
-	
+
 	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
@@ -57,9 +78,9 @@ public final class StartElement extends SAXEvent implements Locatable {
 	public Location getLocation() {
 		return location;
 	}
-	
+
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 }

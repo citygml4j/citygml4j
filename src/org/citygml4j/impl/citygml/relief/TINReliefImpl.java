@@ -3,31 +3,34 @@ package org.citygml4j.impl.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
 public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRelief {
 	private TinProperty tin;
 	private List<ADEComponent> ade;
-	
+
 	public TINReliefImpl() {
-		
+
 	}
-	
+
 	public TINReliefImpl(ReliefModule module) {
 		super(module);
 	}
-	
+
 	public void addGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
 		if (this.ade == null)
 			this.ade = new ChildList<ADEComponent>(this);
@@ -61,7 +64,7 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 	public void setTin(TinProperty tin) {
 		if (tin != null)
 			tin.setParent(this);
-		
+
 		this.tin = tin;
 	}
 
@@ -79,7 +82,7 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 	public void unsetTin() {
 		if (isSetTin())
 			tin.unsetParent();
-		
+
 		tin = null;
 	}
 
@@ -93,7 +96,7 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 		BoundingShape boundedBy = super.calcBoundedBy(false);
 		if (boundedBy == null)
 			boundedBy = new BoundingShapeImpl();
-		
+
 		if (isSetTin()) {
 			if (tin.isSetObject()) {
 				calcBoundedBy(boundedBy, tin.getObject());
@@ -111,6 +114,19 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 			return null;
 	}
 
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+
+		if (isSetTin()) {
+			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+			if (propertyList != null)
+				propertyList.add(tin);
+		}
+
+		return lodRepresentation;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new TINReliefImpl(), copyBuilder);
 	}
@@ -119,13 +135,13 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		TINRelief copy = (target == null) ? new TINReliefImpl() : (TINRelief)target;
 		super.copyTo(copy, copyBuilder);
-		
+
 		if (isSetTin()) {
 			copy.setTin((TinProperty)copyBuilder.copy(tin));
 			if (copy.getTin() == tin)
 				tin.setParent(this);
 		}
-		
+
 		if (isSetGenericApplicationPropertyOfTinRelief()) {
 			for (ADEComponent part : ade) {
 				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
@@ -138,21 +154,21 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 
 		return copy;
 	}
-	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
-	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

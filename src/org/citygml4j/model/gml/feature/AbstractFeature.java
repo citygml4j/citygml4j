@@ -3,9 +3,9 @@ package org.citygml4j.model.gml.feature;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.gml.base.AbstractGML;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
 public interface AbstractFeature extends AbstractGML {
 	public BoundingShape calcBoundedBy(boolean setBoundedBy);
@@ -25,6 +25,6 @@ public interface AbstractFeature extends AbstractGML {
 	public void unsetGenericADEComponent();
 	public boolean unsetGenericADEComponent(ADEComponent genericADEComponent);
 	
-	public void visit(FeatureVisitor visitor);
-	public <T> T apply(FeatureFunction<T> visitor);
+	public void accept(FeatureVisitor visitor);
+	public <T> T accept(FeatureFunctor<T> visitor);
 }

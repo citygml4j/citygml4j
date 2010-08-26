@@ -5,19 +5,34 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
 public final class Characters extends SAXEvent implements Locatable {
-	private final char[] ch;
+	private char[] ch;
 	private Location location;
 	
-	public Characters(char[] ch, int start, int length, Location location) {
+	private Characters() {
 		super(EventType.CHARACTERS);
+	}
+	
+	public Characters(char[] ch, int start, int length, Location location) {
+		this();
 		this.ch = ch;
 		this.location = location;
 	}
 
+	@Override
+	public Characters shallowCopy() {
+		Characters characters = new Characters();
+		characters.ch = ch;
+		characters.location = location;
+		
+		return characters;
+	}
+	
+	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
 		contentHandler.characters(ch, 0, ch.length);
 	}
-
+	
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		if (location != null) {
 			locator.setLineNumber(location.getLineNumber());

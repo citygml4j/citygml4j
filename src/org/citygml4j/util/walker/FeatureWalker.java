@@ -1,4 +1,4 @@
-package org.citygml4j.visitor.walker;
+package org.citygml4j.util.walker;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -82,6 +82,7 @@ import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.gml.coverage.AbstractCoverage;
 import org.citygml4j.model.gml.coverage.AbstractDiscreteCoverage;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
@@ -90,7 +91,6 @@ import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
 import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -139,190 +139,192 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		return visited.contains(object);
 	}
 
-	public void accept(AbstractCoverage abstractCoverage) {
-		accept((AbstractFeature)abstractCoverage);
+	public void visit(AbstractCoverage abstractCoverage) {
+		visit((AbstractFeature)abstractCoverage);
 	}
 	
-	public void accept(AbstractDiscreteCoverage abstractDiscreteCoverage) {
-		accept((AbstractCoverage)abstractDiscreteCoverage);
+	public void visit(AbstractDiscreteCoverage abstractDiscreteCoverage) {
+		visit((AbstractCoverage)abstractDiscreteCoverage);
 	}
 
-	public void accept(AbstractFeature abstractFeature) {
+	public void visit(AbstractFeature abstractFeature) {
 		if (abstractFeature.isSetGenericADEComponent())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEComponent()))
-				accept(ade);
+				visit(ade);
 	}
 
-	public void accept(AbstractFeatureCollection abstractFeatureCollection) {
+	public void visit(AbstractFeatureCollection abstractFeatureCollection) {
+		visit((AbstractFeature)abstractFeatureCollection);
+
 		if (abstractFeatureCollection.isSetFeatureMember())
 			for (FeatureMember member : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember()))
-				accept(member);
+				visit(member);
 
 		if (abstractFeatureCollection.isSetFeatureMembers())
-			accept(abstractFeatureCollection.getFeatureMembers());
-
-		accept((AbstractFeature)abstractFeatureCollection);
+			visit(abstractFeatureCollection.getFeatureMembers());
 	}
 
-	public void accept(AbstractCityObject abstractCityObject) {
+	public void visit(AbstractCityObject abstractCityObject) {
+		visit((AbstractFeature)abstractCityObject);
+
 		if (abstractCityObject.isSetGeneralizesTo()) {
 			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo()))
-				accept(generalizationRelation);
+				visit(generalizationRelation);
 		}
 
 		if (abstractCityObject.isSetAppearance()) {
 			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance()))
-				accept(appearanceProperty);
+				visit(appearanceProperty);
 		}
 
 		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
-				accept(ade);
-
-		accept((AbstractFeature)abstractCityObject);
+				visit(ade);
 	}
 
-	public void accept(AbstractSurfaceData abstractSurfaceData) {
+	public void visit(AbstractSurfaceData abstractSurfaceData) {
+		visit((AbstractFeature)abstractSurfaceData);
+
 		if (abstractSurfaceData.isSetGenericApplicationPropertyOfSurfaceData())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()))
-				accept(ade);
-
-		accept((AbstractFeature)abstractSurfaceData);
+				visit(ade);
 	}
 
-	public void accept(AbstractTexture abstractTexture) {
+	public void visit(AbstractTexture abstractTexture) {
+		visit((AbstractSurfaceData)abstractTexture);
+
 		if (abstractTexture.isSetGenericApplicationPropertyOfTexture())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture()))
-				accept(ade);
-
-		accept((AbstractSurfaceData)abstractTexture);
+				visit(ade);
 	}	
 
-	public void accept(AbstractSite abstractSite) {
+	public void visit(AbstractSite abstractSite) {
+		visit((AbstractCityObject)abstractSite);
+
 		if (abstractSite.isSetGenericApplicationPropertyOfSite())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractSite);
+				visit(ade);
 	}
 
-	public void accept(AbstractBuilding abstractBuilding) {
+	public void visit(AbstractBuilding abstractBuilding) {
+		visit((AbstractSite)abstractBuilding);
+
 		if (abstractBuilding.isSetOuterBuildingInstallation())
 			for (BuildingInstallationProperty buildingInstallationProperty : new ArrayList<BuildingInstallationProperty>(abstractBuilding.getOuterBuildingInstallation()))
-				accept(buildingInstallationProperty);
+				visit(buildingInstallationProperty);
 
 		if (abstractBuilding.isSetInteriorBuildingInstallation())
 			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(abstractBuilding.getInteriorBuildingInstallation())) 
-				accept(intBuildingInstallationProperty);
+				visit(intBuildingInstallationProperty);
 
 		if (abstractBuilding.isSetBoundedBySurface())
 			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(abstractBuilding.getBoundedBySurface()))
-				accept(boundarySurfaceProperty);
+				visit(boundarySurfaceProperty);
 
 		if (abstractBuilding.isSetConsistsOfBuildingPart())
 			for (BuildingPartProperty buildingPartProperty : new ArrayList<BuildingPartProperty>(abstractBuilding.getConsistsOfBuildingPart()))
-				accept(buildingPartProperty);
+				visit(buildingPartProperty);
 
 		if (abstractBuilding.isSetInteriorRoom())
 			for (InteriorRoomProperty interiorRoomProperty : new ArrayList<InteriorRoomProperty>(abstractBuilding.getInteriorRoom()))
-				accept(interiorRoomProperty);
+				visit(interiorRoomProperty);
 
 		if (abstractBuilding.isSetAddress())
 			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(abstractBuilding.getAddress()))
-				accept(addressProperty);
+				visit(addressProperty);
 
 		if (abstractBuilding.isSetGenericApplicationPropertyOfAbstractBuilding())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()))
-				accept(ade);
-
-		accept((AbstractSite)abstractBuilding);
+				visit(ade);
 	}
 
-	public void accept(AbstractBoundarySurface abstractBoundarySurface) {
+	public void visit(AbstractBoundarySurface abstractBoundarySurface) {
+		visit((AbstractCityObject)abstractBoundarySurface);
+
 		if (abstractBoundarySurface.isSetOpening())
 			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(abstractBoundarySurface.getOpening()))
-				accept(openingProperty);
+				visit(openingProperty);
 
 		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractBoundarySurface);
+				visit(ade);
 	}
 
-	public void accept(AbstractOpening abstractOpening) {
+	public void visit(AbstractOpening abstractOpening) {
+		visit((AbstractCityObject)abstractOpening);
+
 		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractOpening);
+				visit(ade);
 	}
 
-	public void accept(AbstractReliefComponent abstractReliefComponent) {
+	public void visit(AbstractReliefComponent abstractReliefComponent) {
+		visit((AbstractCityObject)abstractReliefComponent);
+
 		if (abstractReliefComponent.isSetGenericApplicationPropertyOfReliefComponent())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractReliefComponent);
+				visit(ade);
 	}
 
-	public void accept(AbstractTransportationObject abstractTransportationObject) {
+	public void visit(AbstractTransportationObject abstractTransportationObject) {
+		visit((AbstractCityObject)abstractTransportationObject);
+
 		if (abstractTransportationObject.isSetGenericApplicationPropertyOfTransportationObject())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractTransportationObject);
+				visit(ade);
 	}
 
-	public void accept(AbstractVegetationObject abstractVegetationObject) {
+	public void visit(AbstractVegetationObject abstractVegetationObject) {
+		visit((AbstractCityObject)abstractVegetationObject);
+
 		if (abstractVegetationObject.isSetGenericApplicationPropertyOfVegetationObject())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractVegetationObject);
+				visit(ade);
 	}
 
-	public void accept(AbstractWaterObject abstractWaterObject) {
+	public void visit(AbstractWaterObject abstractWaterObject) {
+		visit((AbstractCityObject)abstractWaterObject);
+
 		if (abstractWaterObject.isSetGenericApplicationPropertyOfWaterObject())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterObject.getGenericApplicationPropertyOfWaterObject()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractWaterObject);
+				visit(ade);
 	}
 
-	public void accept(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
+	public void visit(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
+		visit((AbstractCityObject)abstractWaterBoundarySurface);
+
 		if (abstractWaterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
-				accept(ade);
-
-		accept((AbstractCityObject)abstractWaterBoundarySurface);
+				visit(ade);
 	}
 	
-	public void accept(RectifiedGridCoverage rectifiedGridCoverage) {
-		accept((AbstractDiscreteCoverage)rectifiedGridCoverage);
+	public void visit(RectifiedGridCoverage rectifiedGridCoverage) {
+		visit((AbstractDiscreteCoverage)rectifiedGridCoverage);
 	}
 
-	public void accept(Appearance appearance) {
+	public void visit(Appearance appearance) {
+		visit((AbstractFeature)appearance);
+
 		if (appearance.isSetSurfaceDataMember())
 			for (SurfaceDataProperty surfaceDataProperty : new ArrayList<SurfaceDataProperty>(appearance.getSurfaceDataMember()))
-				accept(surfaceDataProperty);
+				visit(surfaceDataProperty);
 
 		if (appearance.isSetGenericApplicationPropertyOfAppearance())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(appearance.getGenericApplicationPropertyOfAppearance()))
-				accept(ade);
-
-		accept((AbstractFeature)appearance);
+				visit(ade);
 	}	
 
-	public void accept(GeoreferencedTexture georeferencedTexture) {
+	public void visit(GeoreferencedTexture georeferencedTexture) {
+		visit((AbstractTexture)georeferencedTexture);	
+
 		if (georeferencedTexture.isSetGenericApplicationPropertyOfGeoreferencedTexture())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(georeferencedTexture.getGenericApplicationPropertyOfGeoreferencedTexture()))
-				accept(ade);
-
-		accept((AbstractTexture)georeferencedTexture);	
+				visit(ade);
 	}
 
-	public void accept(ParameterizedTexture parameterizedTexture) {
+	public void visit(ParameterizedTexture parameterizedTexture) {
+		visit((AbstractTexture)parameterizedTexture);
+
 		if (parameterizedTexture.isSetTarget()) {
 			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget())) {
 				if (textureAssociation.isSetTextureParameterization() && shouldWalk && visited.add(textureAssociation.getTextureParameterization())) {
@@ -332,425 +334,423 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 						TexCoordGen texCoordGen = (TexCoordGen)textureParameterization;
 						if (texCoordGen.isSetGenericApplicationPropertyOfTexCoordGen()) 
 							for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordGen.getGenericApplicationPropertyOfTexCoordGen()))
-								accept(ade);
+								visit(ade);
 					} 
 
 					else if (textureParameterization instanceof TexCoordList) {
 						TexCoordList texCoordList = (TexCoordList)textureParameterization;
 						if (texCoordList.isSetGenericApplicationPropertyOfTexCoordList()) 
 							for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordList.getGenericApplicationPropertyOfTexCoordList()))
-								accept(ade);
+								visit(ade);
 					}
 
 					if (textureParameterization.isSetGenericADEComponent())
 						for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericADEComponent()))
-							accept(ade);
+							visit(ade);
 
 					if (textureParameterization.isSetGenericApplicationPropertyOfTextureParameterization()) 
 						for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericApplicationPropertyOfTextureParameterization()))
-							accept(ade);
+							visit(ade);
 				}
 			}
 		}
 
 		if (parameterizedTexture.isSetGenericApplicationPropertyOfParameterizedTexture())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(parameterizedTexture.getGenericApplicationPropertyOfParameterizedTexture()))
-				accept(ade);
-
-		accept((AbstractTexture)parameterizedTexture);
+				visit(ade);
 	}
 
-	public void accept(X3DMaterial x3dMaterial) {
+	public void visit(X3DMaterial x3dMaterial) {
+		visit((AbstractSurfaceData)x3dMaterial);
+
 		if (x3dMaterial.isSetGenericApplicationPropertyOfX3DMaterial())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(x3dMaterial.getGenericApplicationPropertyOfX3DMaterial()))
-				accept(ade);
-
-		accept((AbstractSurfaceData)x3dMaterial);
+				visit(ade);
 	}
 
-	public void accept(BuildingFurniture buildingFurniture) {
+	public void visit(BuildingFurniture buildingFurniture) {
+		visit((AbstractCityObject)buildingFurniture);
+
 		if (buildingFurniture.isSetGenericApplicationPropertyOfBuildingFurniture())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()))
-				accept(ade);
-
-		accept((AbstractCityObject)buildingFurniture);
+				visit(ade);
 	}
 
-	public void accept(Building building) {
+	public void visit(Building building) {
+		visit((AbstractBuilding)building);
+
 		if (building.isSetGenericApplicationPropertyOfBuilding())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(building.getGenericApplicationPropertyOfBuilding()))
-				accept(ade);
-
-		accept((AbstractBuilding)building);
+				visit(ade);
 	}
 
-	public void accept(BuildingInstallation buildingInstallation) {
+	public void visit(BuildingInstallation buildingInstallation) {
+		visit((AbstractCityObject)buildingInstallation);
+
 		if (buildingInstallation.isSetGenericApplicationPropertyOfBuildingInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation()))
-				accept(ade);
-
-		accept((AbstractCityObject)buildingInstallation);
+				visit(ade);
 	}
 
-	public void accept(BuildingPart buildingPart) {
+	public void visit(BuildingPart buildingPart) {
+		visit((AbstractBuilding)buildingPart);
+
 		if (buildingPart.isSetGenericApplicationPropertyOfBuildingPart())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingPart.getGenericApplicationPropertyOfBuildingPart()))
-				accept(ade);
-
-		accept((AbstractBuilding)buildingPart);
+				visit(ade);
 	}
 
-	public void accept(CeilingSurface ceilingSurface) {
+	public void visit(CeilingSurface ceilingSurface) {
+		visit((AbstractBoundarySurface)ceilingSurface);
+
 		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)ceilingSurface);
+				visit(ade);
 	}
 
-	public void accept(ClosureSurface closureSurface) {
+	public void visit(ClosureSurface closureSurface) {
+		visit((AbstractBoundarySurface)closureSurface);
+
 		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)closureSurface);
+				visit(ade);
 	}
 
-	public void accept(Door door) {
+	public void visit(Door door) {
+		visit((AbstractOpening)door);
+
 		if (door.isSetAddress())
 			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(door.getAddress()))
-				accept(addressProperty);
+				visit(addressProperty);
 
 		if (door.isSetGenericApplicationPropertyOfDoor())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
-				accept(ade);
-
-		accept((AbstractOpening)door);
+				visit(ade);
 	}
 
-	public void accept(FloorSurface floorSurface) {
+	public void visit(FloorSurface floorSurface) {
+		visit((AbstractBoundarySurface)floorSurface);
+
 		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)floorSurface);
+				visit(ade);
 	}
 
-	public void accept(GroundSurface groundSurface) {
+	public void visit(GroundSurface groundSurface) {
+		visit((AbstractBoundarySurface)groundSurface);
+
 		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)groundSurface);
+				visit(ade);
 	}
 
-	public void accept(IntBuildingInstallation intBuildingInstallation) {
+	public void visit(IntBuildingInstallation intBuildingInstallation) {
+		visit((AbstractCityObject)intBuildingInstallation);
+
 		if (intBuildingInstallation.isSetGenericApplicationPropertyOfIntBuildingInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()))
-				accept(ade);
-
-		accept((AbstractCityObject)intBuildingInstallation);
+				visit(ade);
 	}
 
-	public void accept(InteriorWallSurface interiorWallSurface) {
+	public void visit(InteriorWallSurface interiorWallSurface) {
+		visit((AbstractBoundarySurface)interiorWallSurface);
+
 		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)interiorWallSurface);
+				visit(ade);
 	}
 
-	public void accept(RoofSurface roofSurface) {
+	public void visit(RoofSurface roofSurface) {
+		visit((AbstractBoundarySurface)roofSurface);
+
 		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)roofSurface);
+				visit(ade);
 	}
 
-	public void accept(Room room) {
+	public void visit(Room room) {
+		visit((AbstractCityObject)room);
+
 		if (room.isSetBoundedBySurface())
 			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(room.getBoundedBySurface()))
-				accept(boundarySurfaceProperty);
+				visit(boundarySurfaceProperty);
 
 		if (room.isSetInteriorFurniture())
 			for (InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<InteriorFurnitureProperty>(room.getInteriorFurniture()))
-				accept(interiorFurnitureProperty);
+				visit(interiorFurnitureProperty);
 
 		if (room.isSetRoomInstallation())
 			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(room.getRoomInstallation()))
-				accept(intBuildingInstallationProperty);
+				visit(intBuildingInstallationProperty);
 
 		if (room.isSetGenericApplicationPropertyOfRoom())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(room.getGenericApplicationPropertyOfRoom()))
-				accept(ade);
-
-		accept((AbstractCityObject)room);
+				visit(ade);
 	}
 
-	public void accept(WallSurface wallSurface) {
+	public void visit(WallSurface wallSurface) {
+		visit((AbstractBoundarySurface)wallSurface);
+
 		if (wallSurface.isSetGenericApplicationPropertyOfWallSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface()))
-				accept(ade);
-
-		accept((AbstractBoundarySurface)wallSurface);
+				visit(ade);
 	}
 
-	public void accept(Window window) {
+	public void visit(Window window) {
+		visit((AbstractOpening)window);
+
 		if (window.isSetGenericApplicationPropertyOfWindow())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow()))
-				accept(ade);
-
-		accept((AbstractOpening)window);
+				visit(ade);
 	}
 
-	public void accept(CityFurniture cityFurniture) {
+	public void visit(CityFurniture cityFurniture) {
+		visit((AbstractCityObject)cityFurniture);
+
 		if (cityFurniture.isSetGenericApplicationPropertyOfCityFurniture())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityFurniture.getGenericApplicationPropertyOfCityFurniture()))
-				accept(ade);
-
-		accept((AbstractCityObject)cityFurniture);
+				visit(ade);
 	}
 
-	public void accept(CityObjectGroup cityObjectGroup) {
+	public void visit(CityObjectGroup cityObjectGroup) {
+		visit((AbstractCityObject)cityObjectGroup);
+
 		if (cityObjectGroup.isSetGroupMember())
 			for (CityObjectGroupMember cityObjectGroupMember : new ArrayList<CityObjectGroupMember>(cityObjectGroup.getGroupMember()))
-				accept(cityObjectGroupMember);
+				visit(cityObjectGroupMember);
 
 		if (cityObjectGroup.isSetGroupParent())
-			accept(cityObjectGroup.getGroupParent());
+			visit(cityObjectGroup.getGroupParent());
 
 		if (cityObjectGroup.isSetGenericApplicationPropertyOfCityObjectGroup())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup()))
-				accept(ade);
-
-		accept((AbstractCityObject)cityObjectGroup);
+				visit(ade);
 	}
 
-	public void accept(Address address) {
+	public void visit(Address address) {
+		visit((AbstractFeature)address);
+
 		if (address.isSetGenericApplicationPropertyOfAddress())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(address.getGenericApplicationPropertyOfAddress()))
-				accept(ade);
-
-		accept((AbstractFeature)address);
+				visit(ade);
 	}
 
-	public void accept(CityModel cityModel) {
+	public void visit(CityModel cityModel) {
+		visit((AbstractFeatureCollection)cityModel);
+
 		if (cityModel.isSetCityObjectMember())
 			for (CityObjectMember member : new ArrayList<CityObjectMember>(cityModel.getCityObjectMember()))
-				accept(member);
+				visit(member);
 
 		if (cityModel.isSetAppearanceMember())
 			for (AppearanceProperty member : new ArrayList<AppearanceProperty>(cityModel.getAppearanceMember()))
-				accept(member);
+				visit(member);
 
 		if (cityModel.isSetGenericApplicationPropertyOfCityModel())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(cityModel.getGenericApplicationPropertyOfCityModel()))
-				accept(ade);
-
-		accept((AbstractFeatureCollection)cityModel);
+				visit(ade);
 	}
 
-	public void accept(GenericCityObject genericCityObject) {
-		accept((AbstractCityObject)genericCityObject);
+	public void visit(GenericCityObject genericCityObject) {
+		visit((AbstractCityObject)genericCityObject);
 	}
 
-	public void accept(LandUse landUse) {
+	public void visit(LandUse landUse) {
+		visit((AbstractCityObject)landUse);
+
 		if (landUse.isSetGenericApplicationPropertyOfLandUse())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(landUse.getGenericApplicationPropertyOfLandUse()))
-				accept(ade);
-
-		accept((AbstractCityObject)landUse);
+				visit(ade);
 	}
 
-	public void accept(BreaklineRelief breaklineRelief) {
+	public void visit(BreaklineRelief breaklineRelief) {
+		visit((AbstractReliefComponent)breaklineRelief);
+
 		if (breaklineRelief.isSetGenericApplicationPropertyOfBreaklineRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief()))
-				accept(ade);
-
-		accept((AbstractReliefComponent)breaklineRelief);
+				visit(ade);
 	}
 
-	public void accept(MassPointRelief massPointRelief) {
+	public void visit(MassPointRelief massPointRelief) {
+		visit((AbstractReliefComponent)massPointRelief);
+
 		if (massPointRelief.isSetGenericApplicationPropertyOfMassPointRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(massPointRelief.getGenericApplicationPropertyOfMassPointRelief()))
-				accept(ade);
-
-		accept((AbstractReliefComponent)massPointRelief);
+				visit(ade);
 	}
 
-	public void accept(RasterRelief rasterRelief) {
+	public void visit(RasterRelief rasterRelief) {
+		visit((AbstractReliefComponent)rasterRelief);
+
 		if (rasterRelief.isSetGrid())
-			accept(rasterRelief.getGrid());
+			visit(rasterRelief.getGrid());
 		
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
-				accept(ade);
-
-		accept((AbstractReliefComponent)rasterRelief);
+				visit(ade);
 	}
 
-	public void accept(ReliefFeature reliefFeature) {
+	public void visit(ReliefFeature reliefFeature) {
+		visit((AbstractCityObject)reliefFeature);
+
 		if (reliefFeature.isSetReliefComponent())
 			for (ReliefComponentProperty reliefComponentProperty : new ArrayList<ReliefComponentProperty>(reliefFeature.getReliefComponent()))
-				accept(reliefComponentProperty);
+				visit(reliefComponentProperty);
 
 		if (reliefFeature.isSetGenericApplicationPropertyOfReliefFeature())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefFeature.getGenericApplicationPropertyOfReliefFeature()))
-				accept(ade);
-
-		accept((AbstractCityObject)reliefFeature);
+				visit(ade);
 	}
 
-	public void accept(TINRelief tinRelief) {
+	public void visit(TINRelief tinRelief) {
+		visit((AbstractReliefComponent)tinRelief);
+
 		if (tinRelief.isSetGenericApplicationPropertyOfTinRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tinRelief.getGenericApplicationPropertyOfTinRelief()))
-				accept(ade);
-
-		accept((AbstractReliefComponent)tinRelief);
+				visit(ade);
 	}
 
-	public void accept(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+	public void visit(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+		visit((AbstractTransportationObject)auxiliaryTrafficArea);
+
 		if (auxiliaryTrafficArea.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea()))
-				accept(ade);
-
-		accept((AbstractTransportationObject)auxiliaryTrafficArea);
+				visit(ade);
 	}
 
-	public void accept(Railway railway) {
+	public void visit(Railway railway) {
+		visit((TransportationComplex)railway);
+
 		if (railway.isSetGenericApplicationPropertyOfRailway())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(railway.getGenericApplicationPropertyOfRailway()))
-				accept(ade);
-
-		accept((TransportationComplex)railway);
+				visit(ade);
 	}
 	
-	public void accept(Road road) {
+	public void visit(Road road) {
+		visit((TransportationComplex)road);
+
 		if (road.isSetGenericApplicationPropertyOfRoad())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(road.getGenericApplicationPropertyOfRoad()))
-				accept(ade);
-
-		accept((TransportationComplex)road);
+				visit(ade);
 	}
 
-	public void accept(Square square) {
+	public void visit(Square square) {
+		visit((TransportationComplex)square);
+
 		if (square.isSetGenericApplicationPropertyOfSquare())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(square.getGenericApplicationPropertyOfSquare()))
-				accept(ade);
-
-		accept((TransportationComplex)square);
+				visit(ade);
 	}
 
-	public void accept(Track track) {
+	public void visit(Track track) {
+		visit((TransportationComplex)track);
+
 		if (track.isSetGenericApplicationPropertyOfTrack())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(track.getGenericApplicationPropertyOfTrack()))
-				accept(ade);
-
-		accept((TransportationComplex)track);
+				visit(ade);
 	}
 
-	public void accept(TrafficArea trafficArea) {
+	public void visit(TrafficArea trafficArea) {
+		visit((AbstractTransportationObject)trafficArea);
+
 		if (trafficArea.isSetGenericApplicationPropertyOfTrafficArea())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(trafficArea.getGenericApplicationPropertyOfTrafficArea()))
-				accept(ade);
-
-		accept((AbstractTransportationObject)trafficArea);
+				visit(ade);
 	}
 
-	public void accept(TransportationComplex transportationComplex) {
+	public void visit(TransportationComplex transportationComplex) {
+		visit((AbstractTransportationObject)transportationComplex);
+
 		if (transportationComplex.isSetTrafficArea())
 			for (TrafficAreaProperty trafficAreaProperty : new ArrayList<TrafficAreaProperty>(transportationComplex.getTrafficArea()))
-				accept(trafficAreaProperty);
+				visit(trafficAreaProperty);
 
 		if (transportationComplex.isSetAuxiliaryTrafficArea())
 			for (AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty : new ArrayList<AuxiliaryTrafficAreaProperty>(transportationComplex.getAuxiliaryTrafficArea()))
-				accept(auxiliaryTrafficAreaProperty);
+				visit(auxiliaryTrafficAreaProperty);
 
 		if (transportationComplex.isSetGenericApplicationPropertyOfTransportationComplex())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationComplex.getGenericApplicationPropertyOfTransportationComplex()))
-				accept(ade);
-
-		accept((AbstractTransportationObject)transportationComplex);
+				visit(ade);
 	}
 
-	public void accept(PlantCover plantCover) {
+	public void visit(PlantCover plantCover) {
+		visit((AbstractVegetationObject)plantCover);
+
 		if (plantCover.isSetGenericApplicationPropertyOfPlantCover())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(plantCover.getGenericApplicationPropertyOfPlantCover()))
-				accept(ade);
-
-		accept((AbstractVegetationObject)plantCover);
+				visit(ade);
 	}
 
-	public void accept(SolitaryVegetationObject solitaryVegetationObject) {
+	public void visit(SolitaryVegetationObject solitaryVegetationObject) {
+		visit((AbstractVegetationObject)solitaryVegetationObject);
+
 		if (solitaryVegetationObject.isSetGenericApplicationPropertyOfSolitaryVegetationObject())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(solitaryVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
-				accept(ade);
-
-		accept((AbstractVegetationObject)solitaryVegetationObject);
+				visit(ade);
 	}
 
-	public void accept(WaterBody waterBody) {
+	public void visit(WaterBody waterBody) {
+		visit((AbstractWaterObject)waterBody);
+
 		if (waterBody.isSetBoundedBySurface())
 			for (BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty : new ArrayList<BoundedByWaterSurfaceProperty>(waterBody.getBoundedBySurface()))
-				accept(boundedByWaterSurfaceProperty);
+				visit(boundedByWaterSurfaceProperty);
 
 		if (waterBody.isSetGenericApplicationPropertyOfWaterBody())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBody.getGenericApplicationPropertyOfWaterBody()))
-				accept(ade);
-
-		accept((AbstractWaterObject)waterBody);
+				visit(ade);
 	}
 
-	public void accept(WaterClosureSurface waterClosureSurface) {
+	public void visit(WaterClosureSurface waterClosureSurface) {
+		visit((AbstractWaterBoundarySurface)waterClosureSurface);
+
 		if (waterClosureSurface.isSetGenericApplicationPropertyOfWaterClosureSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface()))
-				accept(ade);
-
-		accept((AbstractWaterBoundarySurface)waterClosureSurface);
+				visit(ade);
 	}
 
-	public void accept(WaterGroundSurface waterGroundSurface) {
+	public void visit(WaterGroundSurface waterGroundSurface) {
+		visit((AbstractWaterBoundarySurface)waterGroundSurface);
+
 		if (waterGroundSurface.isSetGenericApplicationPropertyOfWaterGroundSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface()))
-				accept(ade);
-
-		accept((AbstractWaterBoundarySurface)waterGroundSurface);
+				visit(ade);
 	}
 
-	public void accept(WaterSurface waterSurface) {
+	public void visit(WaterSurface waterSurface) {
+		visit((AbstractWaterBoundarySurface)waterSurface);
+
 		if (waterSurface.isSetGenericApplicationPropertyOfWaterSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface()))
-				accept(ade);
-
-		accept((AbstractWaterBoundarySurface)waterSurface);
+				visit(ade);
 	}
 
-	public void accept(FeatureProperty<? extends AbstractFeature> featureProperty) {
+	public void visit(FeatureProperty<? extends AbstractFeature> featureProperty) {
 		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
-			featureProperty.getFeature().visit(this);
+			featureProperty.getFeature().accept(this);
 
 		if (featureProperty.isSetGenericADEComponent())
-			accept(featureProperty.getGenericADEComponent());
+			visit(featureProperty.getGenericADEComponent());
 	}
 	
-	public void accept(FeatureArrayProperty featureArrayProperty) {
+	public void visit(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
 			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
 				if (shouldWalk && visited.add(feature))
-					feature.visit(this);
+					feature.accept(this);
 
 			if (featureArrayProperty.isSetGenericADEComponent())
 				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent()))
-					accept(ade);
+					visit(ade);
 		}
 	}
 	
-	public void accept(Element element, ElementDecl decl) {
+	public void visit(Element element, ElementDecl decl) {
 		iterateNodeList(element, decl);
 	}
 
-	public void accept(ADEComponent adeComponent) {
+	public void visit(ADEComponent adeComponent) {
 		if (adeComponent.isSetContent() && shouldWalk && visited.add(adeComponent.getContent()) && schemaHandler != null)
 			adeComponent(adeComponent.getContent(), null); 
 	}
@@ -761,7 +761,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		if (schema != null) {
 			decl = schema.getElementDecl(element.getLocalName(), decl);
 			if (decl != null && decl.isFeature())
-				accept(element, decl);
+				visit(element, decl);
 			else
 				iterateNodeList(element, decl);
 		}		

@@ -1,4 +1,4 @@
-package org.citygml4j.visitor;
+package org.citygml4j.model.common.visitor;
 
 import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
@@ -9,11 +9,11 @@ import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.ValueArray;
 
 public interface GMLVisitor extends FeatureVisitor, GeometryVisitor {
-	public void accept(CompositeValue compositeValue);
-	public void accept(ValueArray valueArray);
-	public void accept(TexCoordGen texCoordGen);
-	public void accept(TexCoordList texCoordList);
-	public void accept(ImplicitGeometry implicitGeometry);
-	public void accept(_Material material);
-	public void accept(_SimpleTexture simpleTexture);
+	public void visit(CompositeValue compositeValue);
+	public void visit(ValueArray valueArray);
+	public void visit(TexCoordGen texCoordGen);
+	public void visit(TexCoordList texCoordList);
+	public void visit(ImplicitGeometry implicitGeometry);
+	public void visit(_Material material);
+	public void visit(_SimpleTexture simpleTexture);
 }

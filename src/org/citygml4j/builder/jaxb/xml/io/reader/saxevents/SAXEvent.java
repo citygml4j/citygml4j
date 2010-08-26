@@ -22,6 +22,7 @@ public abstract class SAXEvent {
 		this.type = type;
 	}
 	
+	public abstract SAXEvent shallowCopy();
 	public abstract void send(ContentHandler contentHandler) throws SAXException;
 	public abstract void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException;
 

@@ -5,17 +5,31 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
 public final class EndPrefixMapping extends SAXEvent {
-	private final String prefix;
+	private String prefix;
+	
+	private EndPrefixMapping() {
+		super(EventType.END_PREFIX_MAPPING);
+	}
 	
 	public EndPrefixMapping(String prefix) {
-		super(EventType.END_PREFIX_MAPPING);
+		this();
 		this.prefix = prefix;
 	}
 
+	@Override
+	public EndPrefixMapping shallowCopy() {
+		EndPrefixMapping endPrefixMapping = new EndPrefixMapping();
+		endPrefixMapping.prefix = prefix;
+		
+		return endPrefixMapping;
+	}
+
+	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
 		contentHandler.endPrefixMapping(prefix);
 	}
 	
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		send(contentHandler);
 	}

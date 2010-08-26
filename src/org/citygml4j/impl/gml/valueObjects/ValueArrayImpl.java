@@ -1,10 +1,10 @@
 package org.citygml4j.impl.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.valueObjects.ValueArray;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
 public class ValueArrayImpl extends CompositeValueImpl implements ValueArray {
 	private String codeSpace;
@@ -67,13 +67,13 @@ public class ValueArrayImpl extends CompositeValueImpl implements ValueArray {
 	}
 
 	@Override
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 
 	@Override
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

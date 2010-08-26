@@ -1,4 +1,4 @@
-package org.citygml4j.commons.gmlid;
+package org.citygml4j.util.gmlid;
 
 import java.util.UUID;
 

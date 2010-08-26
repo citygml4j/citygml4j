@@ -3,6 +3,7 @@ package org.citygml4j.xml.io.reader;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.gml.base.MetaDataProperty;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -24,6 +25,8 @@ public interface ParentInfo {
 	public boolean isSetBoundedBy();
 	public BoundingShape getBoundedBy();
 	public boolean isSetLocation();
-	public LocationProperty getLocation();	
+	public LocationProperty getLocation();
+	public boolean isSetAppearance();
+	public List<? extends AppearanceProperty> getAppearance();
 	public CityGMLClass getCityGMLClass();
 }

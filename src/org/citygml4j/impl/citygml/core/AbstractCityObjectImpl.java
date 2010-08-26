@@ -4,7 +4,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.impl.gml.feature.AbstractFeatureImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -12,7 +11,9 @@ import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 
 public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl implements AbstractCityObject {
@@ -233,6 +234,11 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 	public boolean isSetCityGMLModule() {
 		// return false by default
 		return false;
+	}
+
+	public LodRepresentation getLodRepresentation() {
+		// return empty LodRepresentation instance by default
+		return new LodRepresentation();
 	}
 
 	@Override

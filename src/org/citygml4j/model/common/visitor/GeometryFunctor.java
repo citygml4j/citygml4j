@@ -1,5 +1,6 @@
-package org.citygml4j.visitor;
+package org.citygml4j.model.common.visitor;
 
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
@@ -26,30 +27,32 @@ import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
-public interface GeometryVisitor {
-	public void accept(CompositeCurve compositeCurve);
-	public void accept(CompositeSolid compositeSolid);
-	public void accept(CompositeSurface compositeSurface);
-	public void accept(Curve curve);
-	public void accept(GeometricComplex geometricComplex);
-	public void accept(Grid grid);
-	public void accept(LinearRing linearRing);
-	public void accept(LineString lineString);
-	public void accept(MultiCurve multiCurve);
-	public void accept(MultiLineString multiLineString);
-	public void accept(MultiPoint multiPoint);
-	public void accept(MultiPolygon multiPolygon);
-	public void accept(MultiSolid multiSolid);
-	public void accept(MultiSurface multiSurface);
-	public void accept(OrientableCurve orientableCurve);
-	public void accept(OrientableSurface orientableSurface);
-	public void accept(_TexturedSurface texturedSurface);
-	public void accept(Point point);
-	public void accept(Polygon polygon);
-	public void accept(RectifiedGrid rectifiedGrid);
-	public void accept(Ring ring);
-	public void accept(Solid solid);
-	public void accept(Surface surface);
-	public void accept(Tin tin);
-	public void accept(TriangulatedSurface triangulatedSurface);
+public interface GeometryFunctor<T> {
+	public T visit(LodRepresentation lodRepresentation);
+	
+	public T apply(CompositeCurve compositeCurve);
+	public T apply(CompositeSolid compositeSolid);
+	public T apply(CompositeSurface compositeSurface);
+	public T apply(Curve curve);
+	public T apply(GeometricComplex geometricComplex);
+	public T apply(Grid grid);
+	public T apply(LinearRing linearRing);
+	public T apply(LineString lineString);
+	public T apply(MultiCurve multiCurve);
+	public T apply(MultiLineString multiLineString);
+	public T apply(MultiPoint multiPoint);
+	public T apply(MultiPolygon multiPolygon);
+	public T apply(MultiSolid multiSolid);
+	public T apply(MultiSurface multiSurface);
+	public T apply(OrientableCurve orientableCurve);
+	public T apply(OrientableSurface orientableSurface);
+	public T apply(_TexturedSurface texturedSurface);
+	public T apply(Point point);
+	public T apply(Polygon polygon);
+	public T apply(RectifiedGrid rectifiedGrid);
+	public T apply(Ring ring);
+	public T apply(Solid solid);
+	public T apply(Surface surface);
+	public T apply(Tin tin);
+	public T apply(TriangulatedSurface triangulatedSurface);
 }
