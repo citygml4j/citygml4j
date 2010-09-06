@@ -92,7 +92,6 @@ public class ParameterizedTextureImpl extends AbstractTextureImpl implements Par
 		return isSetTarget() ? this.target.remove(target) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.PARAMETERIZED_TEXTURE;
 	}

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.common.child.ChildList;
@@ -53,11 +52,6 @@ public abstract class AbstractVegetationObjectImpl extends AbstractCityObjectImp
 
 	public boolean unsetGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfVegetationObject() ? this.ade.remove(ade) : false;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_VEGETATION_OBJECT;
 	}
 
 	public final VegetationModule getCityGMLModule() {

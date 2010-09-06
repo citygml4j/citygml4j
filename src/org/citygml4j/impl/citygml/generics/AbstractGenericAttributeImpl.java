@@ -1,7 +1,6 @@
 package org.citygml4j.impl.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
@@ -32,10 +31,6 @@ public abstract class AbstractGenericAttributeImpl implements AbstractGenericAtt
 
 	public void unsetName() {
 		name = null;
-	}
-
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_GENERIC_ATTRIBUTE;
 	}
 
 	public final GenericsModule getCityGMLModule() {

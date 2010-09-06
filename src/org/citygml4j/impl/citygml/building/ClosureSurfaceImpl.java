@@ -57,7 +57,6 @@ public class ClosureSurfaceImpl extends AbstractBoundarySurfaceImpl implements C
 		return isSetGenericApplicationPropertyOfClosureSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CLOSURE_SURFACE;
 	}

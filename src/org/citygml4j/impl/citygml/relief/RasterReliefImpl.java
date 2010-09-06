@@ -86,7 +86,6 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 		grid = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RASTER_RELIEF;
 	}

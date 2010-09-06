@@ -226,7 +226,6 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITY_OBJECT_GROUP;
 	}

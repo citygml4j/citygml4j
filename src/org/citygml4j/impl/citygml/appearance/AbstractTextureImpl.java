@@ -3,7 +3,6 @@ package org.citygml4j.impl.citygml.appearance;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.ColorPlusOpacity;
@@ -145,11 +144,6 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 
 	public void unsetWrapMode() {
 		wrapMode = null;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_TEXTURE;
 	}
 
 	@Override

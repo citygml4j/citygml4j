@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.common.child.ChildList;
@@ -63,11 +62,6 @@ public abstract class AbstractWaterObjectImpl extends AbstractCityObjectImpl imp
 		return module != null;
 	}
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_WATER_OBJECT;
-	}
-	
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)

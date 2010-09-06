@@ -57,7 +57,6 @@ public class BuildingImpl extends AbstractBuildingImpl implements Building {
 		return isSetGenericApplicationPropertyOfBuilding() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BUILDING;
 	}

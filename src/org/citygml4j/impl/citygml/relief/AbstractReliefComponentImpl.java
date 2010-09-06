@@ -5,7 +5,6 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.common.child.ChildList;
@@ -114,11 +113,6 @@ public abstract class AbstractReliefComponentImpl extends AbstractCityObjectImpl
 			return boundedBy;
 		} else
 			return null;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_RELIEF_COMPONENT;
 	}
 
 	public final ReliefModule getCityGMLModule() {

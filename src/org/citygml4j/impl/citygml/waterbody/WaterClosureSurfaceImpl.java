@@ -57,7 +57,6 @@ public class WaterClosureSurfaceImpl extends AbstractWaterBoundarySurfaceImpl im
 		return isSetGenericApplicationPropertyOfWaterClosureSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WATER_CLOSURE_SURFACE;
 	}

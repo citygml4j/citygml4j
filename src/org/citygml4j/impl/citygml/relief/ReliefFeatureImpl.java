@@ -110,7 +110,6 @@ public class ReliefFeatureImpl extends AbstractCityObjectImpl implements ReliefF
 		return isSetReliefComponent() ? this.reliefComponent.remove(reliefComponent) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELIEF_FEATURE;
 	}

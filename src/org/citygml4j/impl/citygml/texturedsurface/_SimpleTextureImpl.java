@@ -84,7 +84,6 @@ public class _SimpleTextureImpl extends _AbstractAppearanceImpl implements _Simp
 		_textureType = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._SIMPLE_TEXTURE;
 	}

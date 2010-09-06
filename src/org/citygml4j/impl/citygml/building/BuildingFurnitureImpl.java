@@ -191,7 +191,6 @@ public class BuildingFurnitureImpl extends AbstractCityObjectImpl implements Bui
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BUILDING_FURNITURE;
 	}

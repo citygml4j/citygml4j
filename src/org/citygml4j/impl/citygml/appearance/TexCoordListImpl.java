@@ -90,7 +90,6 @@ public class TexCoordListImpl extends AbstractTextureParameterizationImpl implem
 		return isSetTextureCoordinates() ? this.textureCoordinates.remove(textureCoordinates) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEX_COORD_LIST;
 	}

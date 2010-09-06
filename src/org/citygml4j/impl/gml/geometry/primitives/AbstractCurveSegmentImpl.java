@@ -1,7 +1,6 @@
 package org.citygml4j.impl.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
 
 public abstract class AbstractCurveSegmentImpl implements AbstractCurveSegment {
@@ -10,10 +9,6 @@ public abstract class AbstractCurveSegmentImpl implements AbstractCurveSegment {
 	private Integer numDerivativeInterior;	
 	private Object parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_CURVE_SEGMENT;
-	}
-	
 	public Integer getNumDerivativeInterior() {
 		if (!isSetNumDerivativeInterior())
 			return 0;

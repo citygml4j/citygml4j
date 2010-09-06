@@ -456,7 +456,6 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GENERIC_CITY_OBJECT;
 	}

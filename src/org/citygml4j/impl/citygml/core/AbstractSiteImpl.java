@@ -3,7 +3,6 @@ package org.citygml4j.impl.citygml.core;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.common.child.ChildList;
@@ -42,11 +41,6 @@ public abstract class AbstractSiteImpl extends AbstractCityObjectImpl implements
 
 	public boolean unsetGenericApplicationPropertyOfSite(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfSite() ? this.ade.remove(ade) : false;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_SITE;
 	}
 
 	@Override

@@ -57,7 +57,6 @@ public class FloorSurfaceImpl extends AbstractBoundarySurfaceImpl implements Flo
 		return isSetGenericApplicationPropertyOfFloorSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.FLOOR_SURFACE;
 	}

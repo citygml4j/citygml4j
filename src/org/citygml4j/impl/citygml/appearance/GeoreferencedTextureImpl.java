@@ -157,7 +157,6 @@ public class GeoreferencedTextureImpl extends AbstractTextureImpl implements Geo
 		return isSetTarget() ? this.target.remove(target) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GEOREFERENCED_TEXTURE;
 	}

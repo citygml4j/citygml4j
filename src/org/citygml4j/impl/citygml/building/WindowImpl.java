@@ -57,7 +57,6 @@ public class WindowImpl extends AbstractOpeningImpl implements Window {
 		return isSetGenericApplicationPropertyOfWindow() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WINDOW;
 	}

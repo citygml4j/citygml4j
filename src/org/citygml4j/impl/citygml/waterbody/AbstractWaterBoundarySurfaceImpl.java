@@ -5,7 +5,6 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
@@ -128,11 +127,6 @@ public abstract class AbstractWaterBoundarySurfaceImpl extends AbstractCityObjec
 			lod4Surface.unsetParent();
 		
 		lod4Surface = null;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_WATER_BOUNDARY_SURFACE;
 	}
 
 	public final WaterBodyModule getCityGMLModule() {

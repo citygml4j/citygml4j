@@ -2,7 +2,6 @@ package org.citygml4j.impl.citygml.texturedsurface;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.base.AbstractGMLImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
@@ -17,10 +16,6 @@ public abstract class _AbstractAppearanceImpl extends AbstractGMLImpl implements
 		this.module = module;
 	}
 	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._ABSTRACT_APPEARANCE;
-	}
-
 	public final TexturedSurfaceModule getCityGMLModule() {
 		return module;
 	}

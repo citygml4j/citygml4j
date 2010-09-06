@@ -1,7 +1,6 @@
 package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.coverage.AbstractDiscreteCoverage;
 import org.citygml4j.model.gml.coverage.CoverageFunction;
 
@@ -28,11 +27,6 @@ public abstract class AbstractDiscreteCoverageImpl extends AbstractCoverageImpl 
 			coverageFunction.unsetParent();
 		
 		coverageFunction = null;
-	}
-
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_DISCRETE_COVERAGE;
 	}
 
 	@Override

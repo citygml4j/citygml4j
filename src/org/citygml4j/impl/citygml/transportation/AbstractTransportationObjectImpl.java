@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.common.child.ChildList;
@@ -53,11 +52,6 @@ public abstract class AbstractTransportationObjectImpl extends AbstractCityObjec
 
 	public boolean unsetGenericApplicationPropertyOfTransportationObject(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfTransportationObject() ? this.ade.remove(ade) : false;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_TRANSPORTATION_OBJECT;
 	}
 
 	public final TransportationModule getCityGMLModule() {

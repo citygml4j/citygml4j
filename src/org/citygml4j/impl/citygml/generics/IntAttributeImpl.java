@@ -32,7 +32,6 @@ public class IntAttributeImpl extends AbstractGenericAttributeImpl implements In
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INT_ATTRIBUTE;
 	}

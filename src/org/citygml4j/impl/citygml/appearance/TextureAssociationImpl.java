@@ -3,9 +3,8 @@ package org.citygml4j.impl.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.base.AssociationByRepOrRefImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
-import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class TextureAssociationImpl extends AssociationByRepOrRefImpl<AbstractTextureParameterization> implements TextureAssociation {
@@ -62,10 +61,6 @@ public class TextureAssociationImpl extends AssociationByRepOrRefImpl<AbstractTe
 
 	public boolean isSetCityGMLModule() {
 		return module != null;
-	}
-
-	public GMLClass getGMLClass() {
-		return GMLClass.CITYGML_CLASS;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

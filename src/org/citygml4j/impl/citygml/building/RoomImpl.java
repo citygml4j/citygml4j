@@ -303,7 +303,6 @@ public class RoomImpl extends AbstractCityObjectImpl implements Room {
 		return module != null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ROOM;
 	}

@@ -36,7 +36,6 @@ public class RectifiedGridCoverageImpl extends AbstractDiscreteCoverageImpl impl
 		rectifiedGridDomain = null;
 	}
 	
-	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.RECTIFIED_GRID_COVERAGE;
 	}

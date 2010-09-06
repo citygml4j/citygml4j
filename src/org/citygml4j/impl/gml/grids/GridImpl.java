@@ -109,7 +109,6 @@ public class GridImpl extends AbstractGeometryImpl implements Grid {
 		return bbox;	
 	}	
 
-	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.GRID;
 	}

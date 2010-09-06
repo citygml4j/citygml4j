@@ -364,7 +364,6 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WATER_BODY;
 	}

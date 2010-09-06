@@ -79,7 +79,6 @@ public class TexCoordGenImpl extends AbstractTextureParameterizationImpl impleme
 		worldToTexture = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEX_COORD_GEN;
 	}

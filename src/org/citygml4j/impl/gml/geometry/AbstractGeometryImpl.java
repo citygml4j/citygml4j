@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.base.AbstractGMLImpl;
-import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public abstract class AbstractGeometryImpl extends AbstractGMLImpl implements AbstractGeometry {
@@ -15,11 +14,6 @@ public abstract class AbstractGeometryImpl extends AbstractGMLImpl implements Ab
 	private List<String> axisLabels;
 	private List<String> uomLabels;
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_GEOMETRY;
-	}
-	
 	public String getGid() {
 		return gid;
 	}

@@ -391,7 +391,6 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		lod4TerrainIntersection = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITY_FURNITURE;
 	}

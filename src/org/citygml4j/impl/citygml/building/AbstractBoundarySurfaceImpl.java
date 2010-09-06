@@ -5,7 +5,6 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
@@ -163,11 +162,6 @@ public abstract class AbstractBoundarySurfaceImpl extends AbstractCityObjectImpl
 
 	public boolean unsetOpening(OpeningProperty opening) {
 		return isSetOpening() ? this.opening.remove(opening) : false;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_BOUNDARY_SURFACE;
 	}
 
 	public final BuildingModule getCityGMLModule() {

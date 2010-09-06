@@ -2,6 +2,7 @@ package org.citygml4j.model.xal;
 
 public enum XALClass {
 	UNDEFINED,
+
 	ADDRESS,
 	ADDRESS_DETAILS,
 	ADDRESS_LATITUDE,

@@ -34,7 +34,6 @@ public class DateAttributeImpl extends AbstractGenericAttributeImpl implements D
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.DATE_ATTRIBUTE;
 	}

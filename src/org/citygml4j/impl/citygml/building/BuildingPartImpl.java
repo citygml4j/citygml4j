@@ -57,7 +57,6 @@ public class BuildingPartImpl extends AbstractBuildingImpl implements BuildingPa
 		return isSetGenericApplicationPropertyOfBuildingPart() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BUILDING_PART;
 	}

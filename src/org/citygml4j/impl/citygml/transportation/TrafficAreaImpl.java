@@ -212,7 +212,6 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRAFFIC_AREA;
 	}

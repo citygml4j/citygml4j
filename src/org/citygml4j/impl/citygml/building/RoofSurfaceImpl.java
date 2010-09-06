@@ -57,7 +57,6 @@ public class RoofSurfaceImpl extends AbstractBoundarySurfaceImpl implements Roof
 		return isSetGenericApplicationPropertyOfRoofSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ROOF_SURFACE;
 	}

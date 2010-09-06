@@ -5,7 +5,6 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -105,11 +104,6 @@ public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl impleme
 			lod4MultiSurface.unsetParent();
 
 		lod4MultiSurface = null;
-	}
-
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_OPENING;
 	}
 
 	public final BuildingModule getCityGMLModule() {

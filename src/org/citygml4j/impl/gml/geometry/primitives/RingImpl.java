@@ -65,7 +65,6 @@ public class RingImpl extends AbstractRingImpl implements Ring {
 			return bbox;
 	}
 
-	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.RING;
 	}

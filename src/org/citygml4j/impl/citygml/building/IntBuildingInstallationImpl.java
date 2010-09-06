@@ -167,7 +167,6 @@ public class IntBuildingInstallationImpl extends AbstractCityObjectImpl implemen
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INT_BUILDING_INSTALLATION;
 	}

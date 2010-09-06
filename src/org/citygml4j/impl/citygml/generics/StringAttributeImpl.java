@@ -32,7 +32,6 @@ public class StringAttributeImpl extends AbstractGenericAttributeImpl implements
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.STRING_ATTRIBUTE;
 	}

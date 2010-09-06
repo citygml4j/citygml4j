@@ -56,7 +56,6 @@ public class WallSurfaceImpl extends AbstractBoundarySurfaceImpl implements Wall
 		return isSetGenericApplicationPropertyOfWallSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WALL_SURFACE;
 	}

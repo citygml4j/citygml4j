@@ -86,7 +86,6 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 		reliefPoints = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.MASSPOINT_RELIEF;
 	}

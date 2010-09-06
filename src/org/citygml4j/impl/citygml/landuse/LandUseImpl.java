@@ -260,7 +260,6 @@ public class LandUseImpl extends AbstractCityObjectImpl implements LandUse {
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.LAND_USE;
 	}

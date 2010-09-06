@@ -17,10 +17,6 @@ public abstract class AbstractGMLImpl implements AbstractGML {
 	private List<MetaDataProperty> metaDataProperty;
 	private Object parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_GML;
-	}
-	
 	public String getId() {
 		return id;
 	}
@@ -139,6 +135,10 @@ public abstract class AbstractGMLImpl implements AbstractGML {
 
 	public void unsetParent() {
 		parent = null;
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.ABSTRACT_GML;
 	}
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {

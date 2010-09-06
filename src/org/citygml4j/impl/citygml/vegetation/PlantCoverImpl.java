@@ -406,7 +406,6 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		return lodRepresentation;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.PLANT_COVER;
 	}

@@ -3,8 +3,8 @@ package org.citygml4j.impl.citygml.waterbody;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 
 public class BoundedByWaterSurfacePropertyImpl extends FeaturePropertyImpl<AbstractWaterBoundarySurface> implements BoundedByWaterSurfaceProperty {

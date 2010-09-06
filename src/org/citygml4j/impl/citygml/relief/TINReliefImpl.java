@@ -86,7 +86,6 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 		tin = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TIN_RELIEF;
 	}

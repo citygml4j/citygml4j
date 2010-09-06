@@ -2,7 +2,6 @@ package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.feature.AbstractFeatureImpl;
-import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.coverage.AbstractCoverage;
 import org.citygml4j.model.gml.coverage.RangeSet;
 
@@ -49,11 +48,6 @@ public abstract class AbstractCoverageImpl extends AbstractFeatureImpl implement
 		dimension = null;
 	}
 	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_COVERAGE;
-	}
-
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)

@@ -181,7 +181,6 @@ public class AuxiliaryTrafficAreaImpl extends AbstractTransportationObjectImpl i
 		surfaceMaterial = null;
 	}
 	
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.AUXILIARY_TRAFFIC_AREA;
 	}

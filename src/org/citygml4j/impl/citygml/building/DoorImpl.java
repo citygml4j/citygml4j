@@ -92,7 +92,6 @@ public class DoorImpl extends AbstractOpeningImpl implements Door {
 		return isSetGenericApplicationPropertyOfDoor() ? this.ade.remove(ade) : false;
 	}	
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.DOOR;
 	}

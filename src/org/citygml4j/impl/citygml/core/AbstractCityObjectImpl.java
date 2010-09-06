@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.feature.AbstractFeatureImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -220,10 +219,6 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 
 	public void unsetTerminationDate() {
 		terminationDate = null;
-	}
-
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_CITY_OBJECT;
 	}
 
 	public CityGMLModule getCityGMLModule() {

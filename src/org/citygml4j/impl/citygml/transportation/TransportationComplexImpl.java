@@ -327,7 +327,6 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSPORTATION_COMPLEX;
 	}

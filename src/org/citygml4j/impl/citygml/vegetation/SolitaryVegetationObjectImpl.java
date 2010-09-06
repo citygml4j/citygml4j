@@ -507,7 +507,6 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		return lodRepresentation;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.SOLITARY_VEGETATION_OBJECT;
 	}

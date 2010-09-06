@@ -32,7 +32,6 @@ public class DoubleAttributeImpl extends AbstractGenericAttributeImpl implements
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.DOUBLE_ATTRIBUTE;
 	}

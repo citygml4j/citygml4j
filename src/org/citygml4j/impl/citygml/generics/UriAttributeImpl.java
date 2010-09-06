@@ -32,7 +32,6 @@ public class UriAttributeImpl extends AbstractGenericAttributeImpl implements Ur
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.URI_ATTRIBUTE;
 	}

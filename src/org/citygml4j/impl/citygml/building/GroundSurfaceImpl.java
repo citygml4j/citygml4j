@@ -57,7 +57,6 @@ public class GroundSurfaceImpl extends AbstractBoundarySurfaceImpl implements Gr
 		return isSetGenericApplicationPropertyOfGroundSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GROUND_SURFACE;
 	}

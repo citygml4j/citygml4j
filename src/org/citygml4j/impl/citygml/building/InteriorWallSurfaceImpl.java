@@ -57,7 +57,6 @@ public class InteriorWallSurfaceImpl extends AbstractBoundarySurfaceImpl impleme
 		return isSetGenericApplicationPropertyOfInteriorWallSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIOR_WALL_SURFACE;
 	}

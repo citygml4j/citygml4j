@@ -74,7 +74,6 @@ public class WaterSurfaceImpl extends AbstractWaterBoundarySurfaceImpl implement
 		waterLevel = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WATER_SURFACE;
 	}

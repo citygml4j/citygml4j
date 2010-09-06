@@ -138,7 +138,6 @@ public class _MaterialImpl extends _AbstractAppearanceImpl implements _Material 
 		transparency = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._MATERIAL;
 	}

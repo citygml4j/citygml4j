@@ -57,7 +57,6 @@ public class CeilingSurfaceImpl extends AbstractBoundarySurfaceImpl implements C
 		return isSetGenericApplicationPropertyOfCeilingSurface() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CEILING_SURFACE;
 	}

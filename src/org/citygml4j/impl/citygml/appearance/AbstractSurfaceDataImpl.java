@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.feature.AbstractFeatureImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.common.child.ChildList;
@@ -73,10 +72,6 @@ public abstract class AbstractSurfaceDataImpl extends AbstractFeatureImpl implem
 
 	public void unsetIsFront() {
 		isFront = null;
-	}
-
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACT_SURFACE_DATA;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

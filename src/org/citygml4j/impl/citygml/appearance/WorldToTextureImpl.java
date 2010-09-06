@@ -143,7 +143,7 @@ public class WorldToTextureImpl extends TransformationMatrix3x4Impl implements W
 	}
 
 	public GMLClass getGMLClass() {
-		return GMLClass.CITYGML_CLASS;
+		return GMLClass.SRS_REFERENCE_GROUP;
 	}
 
 	@Override

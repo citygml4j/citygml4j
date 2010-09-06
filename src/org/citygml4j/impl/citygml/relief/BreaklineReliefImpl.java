@@ -109,7 +109,6 @@ public class BreaklineReliefImpl extends AbstractReliefComponentImpl implements 
 		ridgeOrValleyLines = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BREAKLINE_RELIEF;
 	}

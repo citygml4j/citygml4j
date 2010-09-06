@@ -251,7 +251,6 @@ public class X3DMaterialImpl extends AbstractSurfaceDataImpl implements X3DMater
 		transparency = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.X3D_MATERIAL;
 	}

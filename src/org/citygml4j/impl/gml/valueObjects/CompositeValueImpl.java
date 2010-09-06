@@ -71,7 +71,6 @@ public class CompositeValueImpl extends AbstractGMLImpl implements CompositeValu
 		valueComponents = null;
 	}
 
-	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.COMPOSITE_VALUE;
 	}
