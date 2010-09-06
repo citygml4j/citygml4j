@@ -305,17 +305,17 @@ public abstract class GeometryWalker implements GeometryVisitor, Walker {
 		visit((Surface)triangulatedSurface);
 	}
 
-	public void visit(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
+	public <T extends AbstractGeometry> void visit(GeometryProperty<T> geometryProperty) {
 		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
 			geometryProperty.getGeometry().accept(this);
 	}
 
-	public void visit(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
+	public <T extends AbstractGeometry> void visit(InlineGeometryProperty<T> geometryProperty) {
 		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
 			geometryProperty.getGeometry().accept(this);
 	}
 
-	public void visit(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
+	public <T extends AbstractGeometry> void visit(GeometryArrayProperty<T> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
 			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry()))
 				if (shouldWalk && visited.add(abstractGeometry))

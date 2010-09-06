@@ -726,7 +726,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(ade);
 	}
 
-	public void visit(FeatureProperty<? extends AbstractFeature> featureProperty) {
+	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
 		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
 			featureProperty.getFeature().accept(this);
 

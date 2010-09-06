@@ -171,7 +171,7 @@ public class GMLIdWalker implements GMLFunctor<Object> {
 	}
 
 	public Object visit(LodRepresentation lodRepresentation) {
-		// we do not need to implement this method here
+		// no need to implement this method here
 		return null;
 	}
 	
@@ -2473,7 +2473,7 @@ public class GMLIdWalker implements GMLFunctor<Object> {
 		return apply((Surface)triangulatedSurface);
 	}
 
-	public Object apply(AssociationByRep<? extends AbstractGML> association) {
+	public <T extends AbstractGML> Object apply(AssociationByRep<T> association) {
 		if (association.isSetObject() && visited.add(association.getObject())) {
 			Object object = association.getObject().accept(this);
 			if (object != null)
@@ -2483,12 +2483,12 @@ public class GMLIdWalker implements GMLFunctor<Object> {
 		return null;
 	}
 
-	public Object apply(AssociationByRepOrRef<? extends AbstractGML> association) {
-		return apply((AssociationByRep<? extends AbstractGML>)association);
+	public <T extends AbstractGML> Object apply(AssociationByRepOrRef<T> association) {
+		return apply((AssociationByRep<T>)association);
 	}
 
-	public Object apply(FeatureProperty<? extends AbstractFeature> featureProperty) {
-		Object object = apply((AssociationByRepOrRef<? extends AbstractFeature>)featureProperty);
+	public <T extends AbstractFeature> Object apply(FeatureProperty<T> featureProperty) {
+		Object object = apply((AssociationByRepOrRef<T>)featureProperty);
 		if (object != null)
 			return object;
 
@@ -2522,15 +2522,15 @@ public class GMLIdWalker implements GMLFunctor<Object> {
 		return null;
 	}
 
-	public Object apply(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
-		return apply((AssociationByRepOrRef<? extends AbstractGeometry>)geometryProperty);
+	public <T extends AbstractGeometry> Object apply(GeometryProperty<T> geometryProperty) {
+		return apply((AssociationByRepOrRef<T>)geometryProperty);
 	}
 
-	public Object apply(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
-		return apply((AssociationByRep<? extends AbstractGeometry>)geometryProperty);
+	public <T extends AbstractGeometry> Object apply(InlineGeometryProperty<T> geometryProperty) {
+		return apply((AssociationByRep<T>)geometryProperty);
 	}
 
-	public Object apply(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
+	public <T extends AbstractGeometry> Object apply(GeometryArrayProperty<T> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
 			for (AbstractGeometry abstractGeometry : geometryArrayProperty.getGeometry())
 				if (visited.add(abstractGeometry)) {

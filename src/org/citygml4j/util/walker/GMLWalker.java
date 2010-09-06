@@ -1415,17 +1415,17 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		visit((Surface)triangulatedSurface);
 	}
 
-	public void visit(AssociationByRep<? extends AbstractGML> association) {
+	public <T extends AbstractGML> void visit(AssociationByRep<T> association) {
 		if (association.isSetObject() && shouldWalk && visited.add(association.getObject()))
 			association.getObject().accept(this);
 	}
 
-	public void visit(AssociationByRepOrRef<? extends AbstractGML> association) {
-		visit((AssociationByRep<? extends AbstractGML>)association);
+	public <T extends AbstractGML> void visit(AssociationByRepOrRef<T> association) {
+		visit((AssociationByRep<T>)association);
 	}
 
-	public void visit(FeatureProperty<? extends AbstractFeature> featureProperty) {
-		visit((AssociationByRepOrRef<? extends AbstractFeature>)featureProperty);		
+	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
+		visit((AssociationByRepOrRef<T>)featureProperty);		
 
 		if (featureProperty.isSetGenericADEComponent())
 			visit(featureProperty.getGenericADEComponent());
@@ -1443,15 +1443,15 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		}
 	}
 
-	public void visit(GeometryProperty<? extends AbstractGeometry> geometryProperty) {
-		visit((AssociationByRepOrRef<? extends AbstractGeometry>)geometryProperty);
+	public <T extends AbstractGeometry> void visit(GeometryProperty<T> geometryProperty) {
+		visit((AssociationByRepOrRef<T>)geometryProperty);
 	}
 
-	public void visit(InlineGeometryProperty<? extends AbstractGeometry> geometryProperty) {
-		visit((AssociationByRep<? extends AbstractGeometry>)geometryProperty);
+	public <T extends AbstractGeometry> void visit(InlineGeometryProperty<T> geometryProperty) {
+		visit((AssociationByRep<T>)geometryProperty);
 	}
 
-	public void visit(GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty) {
+	public <T extends AbstractGeometry> void visit(GeometryArrayProperty<T> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
 			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry()))
 				if (shouldWalk && visited.add(abstractGeometry))
