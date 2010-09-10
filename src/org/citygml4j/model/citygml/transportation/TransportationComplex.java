@@ -3,10 +3,10 @@ package org.citygml4j.model.citygml.transportation;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.gml.GeometricComplexProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 
-public interface TransportationComplex extends TransportationObject {
+public interface TransportationComplex extends AbstractTransportationObject {
 	public List<String> getFunction();
 	public List<String> getUsage();
 	public List<TrafficAreaProperty> getTrafficArea();

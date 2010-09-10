@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.relief;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.relief.TinProperty;
-import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.ReliefModule;
 
-public class TinPropertyImpl extends AssociationImpl<TriangulatedSurface> implements TinProperty {
+public class TinPropertyImpl extends GeometryPropertyImpl<TriangulatedSurface> implements TinProperty {
 	private ReliefModule module;
 	
 	public TinPropertyImpl() {
@@ -35,7 +35,7 @@ public class TinPropertyImpl extends AssociationImpl<TriangulatedSurface> implem
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TINPROPERTY;
+		return CityGMLClass.TIN_PROPERTY;
 	}
 
 	public final ReliefModule getCityGMLModule() {

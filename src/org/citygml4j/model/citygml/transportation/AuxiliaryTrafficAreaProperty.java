@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.transportation;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
-public interface AuxiliaryTrafficAreaProperty extends TransportationModuleComponent, Association<AuxiliaryTrafficArea> {
+public interface AuxiliaryTrafficAreaProperty extends TransportationModuleComponent, FeatureProperty<AuxiliaryTrafficArea> {
 	public AuxiliaryTrafficArea getAuxiliaryTrafficArea();
 	public boolean isSetAuxiliaryTrafficArea();
 	

@@ -1,15 +1,14 @@
 package org.citygml4j.impl.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.impl.gml.base.AssociationByRepImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.xal.AddressDetails;
 
-public class XalAddressPropertyImpl implements XalAddressProperty {
-	private AddressDetails addressDetails;
+public class XalAddressPropertyImpl extends AssociationByRepImpl<AddressDetails> implements XalAddressProperty {
 	private CoreModule module;
-	private Object parent;
 
 	public XalAddressPropertyImpl() {
 		
@@ -20,29 +19,23 @@ public class XalAddressPropertyImpl implements XalAddressProperty {
 	}
 	
 	public AddressDetails getAddressDetails() {
-		return addressDetails;
+		return super.getObject();
 	}
 
 	public boolean isSetAddressDetails() {
-		return addressDetails != null;
+		return super.isSetObject();
 	}
 
 	public void setAddressDetails(AddressDetails addressDetails) {
-		if (addressDetails != null)
-			addressDetails.setParent(this);
-
-		this.addressDetails = addressDetails;
+		super.setObject(addressDetails);
 	}
 
 	public void unsetAddressDetails() {
-		if (isSetAddressDetails())
-			addressDetails.unsetParent();
-
-		addressDetails = null;
+		super.unsetObject();
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.XALADDRESSPROPERTYTYPE;
+		return CityGMLClass.XAL_ADDRESS_PROPERTY_TYPE;
 	}
 
 	public final CoreModule getCityGMLModule() {
@@ -52,22 +45,6 @@ public class XalAddressPropertyImpl implements XalAddressProperty {
 	public boolean isSetCityGMLModule() {
 		return module != null;
 	}
-	
-	public Object getParent() {
-		return parent;
-	}
-
-	public void setParent(Object parent) {
-		this.parent = parent;
-	}
-
-	public boolean isSetParent() {
-		return parent != null;
-	}
-
-	public void unsetParent() {
-		parent = null;
-	}
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new XalAddressPropertyImpl(), copyBuilder);
@@ -75,16 +52,7 @@ public class XalAddressPropertyImpl implements XalAddressProperty {
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		XalAddressProperty copy = (target == null) ? new XalAddressPropertyImpl() : (XalAddressProperty)target;
-
-		if (isSetAddressDetails()) {
-			copy.setAddressDetails((AddressDetails)copyBuilder.copy(addressDetails));
-			if (copy.getAddressDetails() == addressDetails)
-				addressDetails.setParent(this);
-		}
-
-		copy.unsetParent();
-
-		return copy;
+		return super.copyTo(copy, copyBuilder);
 	}
 
 }

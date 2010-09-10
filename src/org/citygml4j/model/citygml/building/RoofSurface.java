@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface RoofSurface extends BoundarySurface {
+public interface RoofSurface extends AbstractBoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfRoofSurface();
 	public boolean isSetGenericApplicationPropertyOfRoofSurface();
 	

@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.core;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
-public interface ImplicitRepresentationProperty extends CoreModuleComponent, Association<ImplicitGeometry> {
+public interface ImplicitRepresentationProperty extends CoreModuleComponent, AssociationByRepOrRef<ImplicitGeometry> {
 	public ImplicitGeometry getImplicitGeometry();
 	public boolean isSetImplicitGeometry();
 	

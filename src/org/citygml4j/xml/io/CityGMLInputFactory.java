@@ -6,7 +6,7 @@ import java.io.InputStream;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLInputFactory;
 
-import org.citygml4j.commons.gmlid.GMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.schema.SchemaHandler;

@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBElement;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.jaxb.citygml._0_4.BreaklineReliefType;
+import org.citygml4j.jaxb.citygml._0_4.GridPropertyType;
 import org.citygml4j.jaxb.citygml._0_4.MassPointReliefType;
 import org.citygml4j.jaxb.citygml._0_4.ObjectFactory;
 import org.citygml4j.jaxb.citygml._0_4.RasterReliefType;
@@ -13,12 +14,14 @@ import org.citygml4j.jaxb.citygml._0_4.ReliefFeatureType;
 import org.citygml4j.jaxb.citygml._0_4.TINReliefType;
 import org.citygml4j.jaxb.citygml._0_4.TinPropertyType;
 import org.citygml4j.jaxb.citygml._0_4._ReliefComponentType;
+import org.citygml4j.jaxb.gml._3_1_1.RectifiedGridCoverageType;
 import org.citygml4j.jaxb.gml._3_1_1.TriangulatedSurfaceType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
+import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.ReliefComponent;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
@@ -60,6 +63,8 @@ public class Relief040Marshaller {
 
 		if (src instanceof BreaklineRelief)
 			dest = marshalBreaklineRelief((BreaklineRelief)src);
+		else if (src instanceof GridProperty)
+			dest = marshalGridProperty((GridProperty)src);
 		else if (src instanceof MassPointRelief)
 			dest = marshalMassPointRelief((MassPointRelief)src);
 		else if (src instanceof RasterRelief)
@@ -76,7 +81,7 @@ public class Relief040Marshaller {
 		return dest;
 	}
 
-	public void marshalReliefComponent(ReliefComponent src, _ReliefComponentType dest) {
+	public void marshalReliefComponent(AbstractReliefComponent src, _ReliefComponentType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetLod())
@@ -107,7 +112,20 @@ public class Relief040Marshaller {
 					dest.get_GenericApplicationPropertyOfBreaklineRelief().add(citygml.ade2jaxbElement(adeComponent));
 		}
 	}
+	
+	public GridPropertyType marshalGridProperty(GridProperty src) {
+		GridPropertyType dest = dem.createGridPropertyType();
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
+		if (src.isSetRectifiedGridCoverage()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRectifiedGridCoverage());
+			if (elem != null && elem.getValue() instanceof RectifiedGridCoverageType)
+				dest.set_Object((JAXBElement<?>)elem);
+		}
+
+		return dest;
+	}
+	
 	public BreaklineReliefType marshalBreaklineRelief(BreaklineRelief src) {
 		BreaklineReliefType dest = dem.createBreaklineReliefType();
 		marshalBreaklineRelief(src, dest);
@@ -138,6 +156,9 @@ public class Relief040Marshaller {
 	public void marshalRasterRelief(RasterRelief src, RasterReliefType dest) {
 		marshalReliefComponent(src, dest);
 
+		if (src.isSetGrid())
+			dest.setGrid(marshalGridProperty(src.getGrid()));
+		
 		if (src.isSetGenericApplicationPropertyOfRasterRelief()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRasterRelief())
 				if (adeComponent.isSetContent())
@@ -154,7 +175,7 @@ public class Relief040Marshaller {
 
 	public ReliefComponentPropertyType marshalReliefComponentProperty(ReliefComponentProperty src) {
 		ReliefComponentPropertyType dest = dem.createReliefComponentPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetReliefComponent()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getReliefComponent());
@@ -192,7 +213,7 @@ public class Relief040Marshaller {
 
 	public TinPropertyType marshalTinProperty(TinProperty src) {
 		TinPropertyType dest = dem.createTinPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalAssociationByRepOrRef(src, dest);
 
 		if (src.isSetTriangulatedSurface()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getTriangulatedSurface());

@@ -3,18 +3,18 @@ package org.citygml4j.impl.citygml.building;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.Door;
 import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.citygml.BuildingModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class DoorImpl extends OpeningImpl implements Door {
+public class DoorImpl extends AbstractOpeningImpl implements Door {
 	private List<AddressProperty> address;
 	private List<ADEComponent> ade;
 	
@@ -92,7 +92,6 @@ public class DoorImpl extends OpeningImpl implements Door {
 		return isSetGenericApplicationPropertyOfDoor() ? this.ade.remove(ade) : false;
 	}	
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.DOOR;
 	}
@@ -129,20 +128,20 @@ public class DoorImpl extends OpeningImpl implements Door {
 		return copy;
 	}
 	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

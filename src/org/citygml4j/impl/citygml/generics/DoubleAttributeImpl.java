@@ -5,7 +5,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
-public class DoubleAttributeImpl extends GenericAttributeImpl implements DoubleAttribute {
+public class DoubleAttributeImpl extends AbstractGenericAttributeImpl implements DoubleAttribute {
 	private Double value;
 
 	public DoubleAttributeImpl() {
@@ -32,9 +32,8 @@ public class DoubleAttributeImpl extends GenericAttributeImpl implements DoubleA
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.DOUBLEATTRIBUTE;
+		return CityGMLClass.DOUBLE_ATTRIBUTE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

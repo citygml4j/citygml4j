@@ -48,7 +48,7 @@ public class BoundingBox implements Geometry {
 		upperCorner.setY(y);
 		upperCorner.setZ(z);
 	}
-
+	
 	public void updateLowerCorner(double x, double y, double z) {
 		if (x < lowerCorner.getX())
 			lowerCorner.setX(x);
@@ -79,6 +79,15 @@ public class BoundingBox implements Geometry {
 		updateUpperCorner(upperCorner.getX(), upperCorner.getY(), upperCorner.getZ());
 	}
 
+	public void update(double x, double y, double z) {
+		updateLowerCorner(x, y, z);
+		updateUpperCorner(x, y, z);
+	}
+	
+	public void update(Point point) {
+		update(point.getX(), point.getY(), point.getZ());
+	}
+	
 	public void update(BoundingBox boundingBox) {
 		if (boundingBox != null) {
 			updateLowerCorner(boundingBox.getLowerCorner());

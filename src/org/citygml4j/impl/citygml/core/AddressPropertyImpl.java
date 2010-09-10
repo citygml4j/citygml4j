@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 
-public class AddressPropertyImpl extends AssociationImpl<Address> implements AddressProperty {
+public class AddressPropertyImpl extends FeaturePropertyImpl<Address> implements AddressProperty {
 	private CoreModule module;
 	
 	public AddressPropertyImpl() {
@@ -35,7 +35,7 @@ public class AddressPropertyImpl extends AssociationImpl<Address> implements Add
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADDRESSPROPERTY;
+		return CityGMLClass.ADDRESS_PROPERTY;
 	}
 
 	public final CoreModule getCityGMLModule() {

@@ -4,26 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFurniture {
+public class BuildingFurnitureImpl extends AbstractCityObjectImpl implements BuildingFurniture {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
-	private GeometryProperty lod4Geometry;
+	private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<ADEComponent> ade;
 	private BuildingModule module;
@@ -79,7 +81,7 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return lod4ImplicitRepresentation;
 	}
 
-	public GeometryProperty getLod4Geometry() {
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry() {
 		return lod4Geometry;
 	}
 
@@ -133,7 +135,7 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
 	}
 
-	public void setLod4Geometry(GeometryProperty lod4Geometry) {
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
 		if (lod4Geometry != null)
 			lod4Geometry.setParent(this);
 		
@@ -189,9 +191,8 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDINGFURNITURE;
+		return CityGMLClass.BUILDING_FURNITURE;
 	}
 
 	public final BuildingModule getCityGMLModule() {
@@ -223,6 +224,16 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 			return null;
 	}
 
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		if (isSetLod4Geometry())
+			lodRepresentation.getLod4Representation().add(lod4Geometry);
+		
+		return lodRepresentation;
+	}
+	
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new BuildingFurnitureImpl(), copyBuilder);
 	}
@@ -249,7 +260,7 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		}
 		
 		if (isSetLod4Geometry()) {
-			copy.setLod4Geometry((GeometryProperty)copyBuilder.copy(lod4Geometry));
+			copy.setLod4Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod4Geometry));
 			if (copy.getLod4Geometry() == lod4Geometry)
 				lod4Geometry.setParent(this);
 		}
@@ -267,20 +278,20 @@ public class BuildingFurnitureImpl extends CityObjectImpl implements BuildingFur
 		return copy;
 	}
 	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

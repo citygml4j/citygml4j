@@ -1,7 +1,7 @@
 package org.citygml4j.impl.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.FeaturePropertyImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -35,7 +35,7 @@ public class AppearancePropertyImpl extends FeaturePropertyImpl<Appearance> impl
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.APPEARANCEPROPERTY;
+		return CityGMLClass.APPEARANCE_PROPERTY;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

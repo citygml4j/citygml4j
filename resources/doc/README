@@ -64,7 +64,7 @@ free of charge.
 ----------------------
 
 * Java JRE or JDK >= 1.5
-* Java Architecture for XML Binding (JAXB) >= 2.1.12
+* Java Architecture for XML Binding (JAXB) >= 2.1.13
 * Sun Java Streaming XML Parser >= 1.0
 
 

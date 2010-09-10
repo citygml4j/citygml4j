@@ -35,19 +35,19 @@ public class Modules {
 		modules.put(CityGMLModuleType.CORE, CoreModule.getInstances());
 		modules.put(CityGMLModuleType.APPEARANCE, AppearanceModule.getInstances());
 		modules.put(CityGMLModuleType.BUILDING, BuildingModule.getInstances());
-		modules.put(CityGMLModuleType.CITYFURNITURE, CityFurnitureModule.getInstances());
-		modules.put(CityGMLModuleType.CITYOBJECTGROUP, CityObjectGroupModule.getInstances());
+		modules.put(CityGMLModuleType.CITY_FURNITURE, CityFurnitureModule.getInstances());
+		modules.put(CityGMLModuleType.CITY_OBJECT_GROUP, CityObjectGroupModule.getInstances());
 		modules.put(CityGMLModuleType.GENERICS, GenericsModule.getInstances());
-		modules.put(CityGMLModuleType.LANDUSE, LandUseModule.getInstances());
+		modules.put(CityGMLModuleType.LAND_USE, LandUseModule.getInstances());
 		modules.put(CityGMLModuleType.RELIEF, ReliefModule.getInstances());
 		modules.put(CityGMLModuleType.TRANSPORTATION, TransportationModule.getInstances());
 		modules.put(CityGMLModuleType.VEGETATION, VegetationModule.getInstances());
-		modules.put(CityGMLModuleType.WATERBODY, WaterBodyModule.getInstances());
-		modules.put(CityGMLModuleType.TEXTUREDSURFACE, TexturedSurfaceModule.getInstances());
+		modules.put(CityGMLModuleType.WATER_BODY, WaterBodyModule.getInstances());
+		modules.put(CityGMLModuleType.TEXTURED_SURFACE, TexturedSurfaceModule.getInstances());
 
 		modules.put(GMLModuleType.CORE, GMLCoreModule.getInstances());
 		modules.put(GMLModuleType.XLINK, XLinkModule.getInstances());
-		
+
 		modules.put(XALModuleType.CORE, XALCoreModule.getInstances());
 	}
 
@@ -75,15 +75,15 @@ public class Modules {
 
 		return null;
 	}
-	
+
 	public static List<Module> getModules() {
 		List<Module> all = new ArrayList<Module>();
 		for (List<? extends Module> moduleList : modules.values())
 			all.addAll(moduleList);
-		
+
 		return all;
 	}
-	
+
 	public static List<CityGMLModule> getCityGMLModules() {
 		List<CityGMLModule> citygml = new ArrayList<CityGMLModule>();
 		for (ModuleType type : modules.keySet())
@@ -91,10 +91,19 @@ public class Modules {
 				for (Module module : modules.get(type))
 					if (module instanceof CityGMLModule)
 						citygml.add((CityGMLModule)module);
-		
+
 		return citygml;
 	}
-	
+
+	public static List<CityGMLModule> getCityGMLModules(CityGMLModuleType type) {
+		List<CityGMLModule> citygml = new ArrayList<CityGMLModule>();
+		for (Module module : modules.get(type))
+			if (module instanceof CityGMLModule)
+				citygml.add((CityGMLModule)module);
+
+		return citygml;
+	}
+
 	public static List<GMLModule> getGMLModules() {
 		List<GMLModule> gml = new ArrayList<GMLModule>();
 		for (ModuleType type : modules.keySet())
@@ -102,10 +111,19 @@ public class Modules {
 				for (Module module : modules.get(type))
 					if (module instanceof GMLModule)
 						gml.add((GMLModule)module);
-		
+
 		return gml;
 	}
-	
+
+	public static List<GMLModule> getGMLModules(GMLModuleType type) {
+		List<GMLModule> gml = new ArrayList<GMLModule>();
+		for (Module module : modules.get(type))
+			if (module instanceof GMLModule)
+				gml.add((GMLModule)module);
+
+		return gml;
+	}
+
 	public static List<XALModule> getXALModules() {
 		List<XALModule> xal = new ArrayList<XALModule>();
 		for (ModuleType type : modules.keySet())
@@ -113,7 +131,16 @@ public class Modules {
 				for (Module module : modules.get(type))
 					if (module instanceof XALModule)
 						xal.add((XALModule)module);
-		
+
+		return xal;
+	}
+
+	public static List<XALModule> getXALModules(XALModuleType type) {
+		List<XALModule> xal = new ArrayList<XALModule>();
+		for (Module module : modules.get(type))
+			if (module instanceof XALModule)
+				xal.add((XALModule)module);
+
 		return xal;
 	}
 

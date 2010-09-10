@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.SurfaceDataProperty;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
-public class SurfaceDataPropertyImpl extends AssociationImpl<AbstractSurfaceData> implements SurfaceDataProperty {
+public class SurfaceDataPropertyImpl extends FeaturePropertyImpl<AbstractSurfaceData> implements SurfaceDataProperty {
 	private AppearanceModule module;
 	
 	public SurfaceDataPropertyImpl() {
@@ -35,7 +35,7 @@ public class SurfaceDataPropertyImpl extends AssociationImpl<AbstractSurfaceData
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.SURFACEDATAPROPERTY;
+		return CityGMLClass.SURFACE_DATA_PROPERTY;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

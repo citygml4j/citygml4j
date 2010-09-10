@@ -134,7 +134,7 @@ public class CityGMLMarshaller {
 		}
 		
 		if (dest == null) {
-			CityFurnitureModule frn = (CityFurnitureModule)moduleContext.getModule(CityGMLModuleType.CITYFURNITURE);
+			CityFurnitureModule frn = (CityFurnitureModule)moduleContext.getModule(CityGMLModuleType.CITY_FURNITURE);
 			if (frn.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = frn100.marshalJAXBElement(src);
 			else if (frn.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -142,7 +142,7 @@ public class CityGMLMarshaller {
 		}
 
 		if (dest == null) {
-			CityObjectGroupModule grp = (CityObjectGroupModule)moduleContext.getModule(CityGMLModuleType.CITYOBJECTGROUP);
+			CityObjectGroupModule grp = (CityObjectGroupModule)moduleContext.getModule(CityGMLModuleType.CITY_OBJECT_GROUP);
 			if (grp.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = grp100.marshalJAXBElement(src);
 			else if (grp.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -158,7 +158,7 @@ public class CityGMLMarshaller {
 		}
 		
 		if (dest == null) {
-			LandUseModule luse = (LandUseModule)moduleContext.getModule(CityGMLModuleType.LANDUSE);
+			LandUseModule luse = (LandUseModule)moduleContext.getModule(CityGMLModuleType.LAND_USE);
 			if (luse.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = luse100.marshalJAXBElement(src);
 			else if (luse.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -174,7 +174,7 @@ public class CityGMLMarshaller {
 		}
 		
 		if (dest == null) {
-			TexturedSurfaceModule tex = (TexturedSurfaceModule)moduleContext.getModule(CityGMLModuleType.TEXTUREDSURFACE);
+			TexturedSurfaceModule tex = (TexturedSurfaceModule)moduleContext.getModule(CityGMLModuleType.TEXTURED_SURFACE);
 			if (tex.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = tex100.marshalJAXBElement(src);
 			else if (tex.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -198,7 +198,7 @@ public class CityGMLMarshaller {
 		}
 		
 		if (dest == null) {
-			WaterBodyModule wtr = (WaterBodyModule)moduleContext.getModule(CityGMLModuleType.WATERBODY);
+			WaterBodyModule wtr = (WaterBodyModule)moduleContext.getModule(CityGMLModuleType.WATER_BODY);
 			if (wtr.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = wtr100.marshalJAXBElement(src);
 			else if (wtr.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -237,7 +237,7 @@ public class CityGMLMarshaller {
 		}
 
 		else if (src instanceof CityFurnitureModuleComponent) {
-			CityFurnitureModule frn = (CityFurnitureModule)moduleContext.getModule(CityGMLModuleType.CITYFURNITURE);
+			CityFurnitureModule frn = (CityFurnitureModule)moduleContext.getModule(CityGMLModuleType.CITY_FURNITURE);
 			if (frn.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = frn100.marshal(src);
 			else if (frn.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -245,7 +245,7 @@ public class CityGMLMarshaller {
 		}
 		
 		else if (src instanceof CityObjectGroupModuleComponent) {
-			CityObjectGroupModule grp = (CityObjectGroupModule)moduleContext.getModule(CityGMLModuleType.CITYOBJECTGROUP);
+			CityObjectGroupModule grp = (CityObjectGroupModule)moduleContext.getModule(CityGMLModuleType.CITY_OBJECT_GROUP);
 			if (grp.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = grp100.marshal(src);
 			else if (grp.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -261,7 +261,7 @@ public class CityGMLMarshaller {
 		}
 		
 		else if (src instanceof LandUseModuleComponent) {
-			LandUseModule luse = (LandUseModule)moduleContext.getModule(CityGMLModuleType.LANDUSE);
+			LandUseModule luse = (LandUseModule)moduleContext.getModule(CityGMLModuleType.LAND_USE);
 			if (luse.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = luse100.marshal(src);
 			else if (luse.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -277,7 +277,7 @@ public class CityGMLMarshaller {
 		}
 		
 		else if (src instanceof TexturedSurfaceModuleComponent) {
-			TexturedSurfaceModule tex = (TexturedSurfaceModule)moduleContext.getModule(CityGMLModuleType.TEXTUREDSURFACE);
+			TexturedSurfaceModule tex = (TexturedSurfaceModule)moduleContext.getModule(CityGMLModuleType.TEXTURED_SURFACE);
 			if (tex.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = tex100.marshal(src);
 			else if (tex.getVersion() == CityGMLModuleVersion.v0_4_0)
@@ -301,7 +301,7 @@ public class CityGMLMarshaller {
 		}
 
 		else if (src instanceof WaterBodyModuleComponent) {
-			WaterBodyModule wtr = (WaterBodyModule)moduleContext.getModule(CityGMLModuleType.WATERBODY);
+			WaterBodyModule wtr = (WaterBodyModule)moduleContext.getModule(CityGMLModuleType.WATER_BODY);
 			if (wtr.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = wtr100.marshal(src);
 			else if (wtr.getVersion() == CityGMLModuleVersion.v0_4_0)

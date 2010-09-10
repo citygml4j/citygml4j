@@ -5,7 +5,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
-public class UriAttributeImpl extends GenericAttributeImpl implements UriAttribute {
+public class UriAttributeImpl extends AbstractGenericAttributeImpl implements UriAttribute {
 	private String value;
 	
 	public UriAttributeImpl() {
@@ -32,9 +32,8 @@ public class UriAttributeImpl extends GenericAttributeImpl implements UriAttribu
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.URIATTRIBUTE;
+		return CityGMLClass.URI_ATTRIBUTE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

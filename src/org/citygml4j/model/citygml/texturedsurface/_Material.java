@@ -1,6 +1,6 @@
 package org.citygml4j.model.citygml.texturedsurface;
 
-public interface _Material extends _Appearance {
+public interface _Material extends _AbstractAppearance {
 	public Double getShininess();
 	public Double getTransparency();
 	public Double getAmbientIntensity();

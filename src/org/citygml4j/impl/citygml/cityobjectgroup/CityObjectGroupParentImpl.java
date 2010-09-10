@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.cityobjectgroup;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
-import org.citygml4j.model.citygml.core.CityObject;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 
-public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> implements CityObjectGroupParent {
+public class CityObjectGroupParentImpl extends FeaturePropertyImpl<AbstractCityObject> implements CityObjectGroupParent {
 	private CityObjectGroupModule module;
 	
 	public CityObjectGroupParentImpl() {
@@ -18,7 +18,7 @@ public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> imple
 		this.module = module;
 	}
 	
-	public CityObject getCityObject() {
+	public AbstractCityObject getCityObject() {
 		return super.getObject();
 	}
 
@@ -26,7 +26,7 @@ public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> imple
 		return super.isSetObject();
 	}
 
-	public void setCityObject(CityObject cityObject) {
+	public void setCityObject(AbstractCityObject cityObject) {
 		super.setObject(cityObject);
 	}
 
@@ -35,7 +35,7 @@ public class CityObjectGroupParentImpl extends AssociationImpl<CityObject> imple
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITYOBJECTGROUPPARENT;
+		return CityGMLClass.CITY_OBJECT_GROUP_PARENT;
 	}
 
 	public final CityObjectGroupModule getCityGMLModule() {

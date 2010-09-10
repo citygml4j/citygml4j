@@ -1,10 +1,10 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.SortingCode;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class SortingCodeImpl implements SortingCode {
 	private String type;
@@ -28,7 +28,7 @@ public class SortingCodeImpl implements SortingCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.SORTINGCODE;
+		return XALClass.SORTING_CODE;
 	}
 
 	public String getCode() {
@@ -82,11 +82,11 @@ public class SortingCodeImpl implements SortingCode {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

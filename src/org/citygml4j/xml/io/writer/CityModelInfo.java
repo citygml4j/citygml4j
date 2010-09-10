@@ -7,11 +7,11 @@ import org.citygml4j.builder.copy.DeepCopyBuilder;
 import org.citygml4j.impl.citygml.core.CityModelImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.Code;
-import org.citygml4j.model.gml.LocationProperty;
-import org.citygml4j.model.gml.MetaDataProperty;
-import org.citygml4j.model.gml.StringOrRef;
+import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.xml.io.reader.ParentInfo;
 
 public class CityModelInfo {

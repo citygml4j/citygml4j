@@ -1,10 +1,10 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.KeyLineCode;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class KeyLineCodeImpl implements KeyLineCode {
 	private String content;
@@ -45,7 +45,7 @@ public class KeyLineCodeImpl implements KeyLineCode {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.KEYLINECODE;
+		return XALClass.KEY_LINE_CODE;
 	}
 
 	public String getCode() {
@@ -102,11 +102,11 @@ public class KeyLineCodeImpl implements KeyLineCode {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

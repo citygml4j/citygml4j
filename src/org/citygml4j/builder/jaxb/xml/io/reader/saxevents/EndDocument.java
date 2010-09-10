@@ -4,19 +4,25 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class EndDocument implements SAXEvent {
-	public static final EndDocument SINGLETON = new EndDocument();
+public final class EndDocument extends SAXEvent {
 
-	private EndDocument() {
-		// just to thwart instantiation
+	public EndDocument() {
+		super(EventType.END_DOCUMENT);
 	}
 
+	@Override
+	public EndDocument shallowCopy() {
+		return new EndDocument();
+	}
+
+	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
 		contentHandler.endDocument();
 	}
 	
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		send(contentHandler);
 	}
-
+	
 }

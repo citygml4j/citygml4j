@@ -54,7 +54,7 @@ public class ExternalObjectImpl implements ExternalObject {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.EXTERNALOBJECT;
+		return CityGMLClass.EXTERNAL_OBJECT;
 	}
 
 	public final CoreModule getCityGMLModule() {

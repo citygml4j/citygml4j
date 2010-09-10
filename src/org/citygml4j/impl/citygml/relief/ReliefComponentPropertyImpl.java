@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.relief;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.relief.ReliefComponent;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
 
-public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent> implements ReliefComponentProperty {
+public class ReliefComponentPropertyImpl extends FeaturePropertyImpl<AbstractReliefComponent> implements ReliefComponentProperty {
 	private ReliefModule module;
 	
 	public ReliefComponentPropertyImpl() {
@@ -18,7 +18,7 @@ public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent
 		this.module = module;
 	}
 	
-	public ReliefComponent getReliefComponent() {
+	public AbstractReliefComponent getReliefComponent() {
 		return super.getObject();
 	}
 
@@ -26,7 +26,7 @@ public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent
 		return super.isSetObject();
 	}
 
-	public void setReliefComponent(ReliefComponent reliefComponent) {
+	public void setReliefComponent(AbstractReliefComponent reliefComponent) {
 		super.setObject(reliefComponent);
 	}
 
@@ -35,7 +35,7 @@ public class ReliefComponentPropertyImpl extends AssociationImpl<ReliefComponent
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RELIEFCOMPONENTPROPERTY;
+		return CityGMLClass.RELIEF_COMPONENT_PROPERTY;
 	}
 
 	public final ReliefModule getCityGMLModule() {

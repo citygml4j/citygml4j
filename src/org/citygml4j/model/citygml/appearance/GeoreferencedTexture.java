@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
-import org.citygml4j.model.gml.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 
 public interface GeoreferencedTexture extends AbstractTexture {
 	public Boolean getPreferWorldFile();

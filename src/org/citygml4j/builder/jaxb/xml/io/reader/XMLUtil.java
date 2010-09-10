@@ -40,7 +40,7 @@ public class XMLUtil {
 		return isGMLElement(name.getNamespaceURI());
 	}
 
-	public boolean isFeatureInfo(String namespaceURI, String localPart) {
+	public boolean isParentInfoElement(String namespaceURI, String localPart) {
 		if (isGMLElement(namespaceURI)) {
 			if (localPart.equals("metaDataProperty") ||
 					localPart.equals("description") ||
@@ -48,13 +48,17 @@ public class XMLUtil {
 					localPart.equals("boundedBy") ||
 					localPart.equals("location"))
 				return true;					
+		} else if (isCityGMLElement(namespaceURI)) {
+			if (localPart.equals("appearance") ||
+					localPart.equals("appearanceMember"))
+				return true;
 		}
 
 		return false;
 	}
 
-	public boolean isFeatureInfo(QName name) {
-		return isFeatureInfo(name.getNamespaceURI(), name.getLocalPart());
+	public boolean isParentInfoElement(QName name) {
+		return isParentInfoElement(name.getNamespaceURI(), name.getLocalPart());
 	}
 	
 	public boolean isCityGMLFeature(String localName, String namespaceURI) {

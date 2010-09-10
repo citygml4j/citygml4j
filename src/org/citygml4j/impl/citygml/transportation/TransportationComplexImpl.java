@@ -4,27 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.gml.AbstractCurve;
-import org.citygml4j.model.gml.AbstractGeometricPrimitive;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.GeometricComplex;
-import org.citygml4j.model.gml.GeometricComplexProperty;
-import org.citygml4j.model.gml.GeometricPrimitiveProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class TransportationComplexImpl extends TransportationObjectImpl implements TransportationComplex {
+public class TransportationComplexImpl extends AbstractTransportationObjectImpl implements TransportationComplex {
 	private List<String> function;
 	private List<String> usage;
 	private List<TrafficAreaProperty> trafficArea;
@@ -35,7 +38,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	private MultiSurfaceProperty lod3MultiSurface;
 	private MultiSurfaceProperty lod4MultiSurface;
 	private List<ADEComponent> ade;
-	
+
 	public TransportationComplexImpl() {
 
 	}
@@ -43,7 +46,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	public TransportationComplexImpl(TransportationModule module) {
 		super(module);
 	}
-	
+
 	public void addAuxiliaryTrafficArea(AuxiliaryTrafficAreaProperty auxiliaryTrafficArea) {
 		if (this.auxiliaryTrafficArea == null)
 			this.auxiliaryTrafficArea = new ChildList<AuxiliaryTrafficAreaProperty>(this);
@@ -239,7 +242,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	public void unsetAuxiliaryTrafficArea() {
 		if (isSetAuxiliaryTrafficArea())
 			auxiliaryTrafficArea.clear();
-		
+
 		auxiliaryTrafficArea = null;
 	}
 
@@ -324,9 +327,8 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TRANSPORTATIONCOMPLEX;
+		return CityGMLClass.TRANSPORTATION_COMPLEX;
 	}
 
 	@Override
@@ -385,7 +387,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 				}
 			}
 		}
-		
+
 		if (isSetAuxiliaryTrafficArea()) {
 			for (AuxiliaryTrafficAreaProperty auxTrafficAreaProperty : auxiliaryTrafficArea) {
 				if (auxTrafficAreaProperty.isSetObject()) {
@@ -395,7 +397,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 				}
 			}
 		}
-		
+
 		if (isSetTrafficArea()) {
 			for (TrafficAreaProperty trafficAreaProperty : trafficArea) {
 				if (trafficAreaProperty.isSetObject()) {
@@ -405,7 +407,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 				}
 			}
 		}
-		
+
 		if (boundedBy.isSetEnvelope()) {
 			if (setBoundedBy)
 				setBoundedBy(boundedBy);
@@ -413,6 +415,36 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 			return boundedBy;
 		} else
 			return null;
+	}
+
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+
+		if (isSetLod0Network())
+			lodRepresentation.getLod0Representation().addAll(lod0Network);
+
+		GeometryProperty<? extends AbstractGeometry> property = null;		
+		for (int lod = 2; lod < 5; lod++) {
+			switch (lod) {
+			case 1:
+				property = lod1MultiSurface;
+			case 2:
+				property = lod2MultiSurface;
+				break;
+			case 3:
+				property = lod3MultiSurface;
+				break;
+			case 4:
+				property = lod4MultiSurface;
+				break;
+			}
+
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+
+		return lodRepresentation;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
@@ -424,13 +456,13 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		TransportationComplex copy = (target == null) ? new TransportationComplexImpl() : (TransportationComplex)target;
 		super.copyTo(copy, copyBuilder);
-		
+
 		if (isSetFunction())
 			copy.setFunction((List<String>)copyBuilder.copy(function));
-		
+
 		if (isSetUsage())
 			copy.setFunction((List<String>)copyBuilder.copy(usage));
-		
+
 		if (isSetAuxiliaryTrafficArea()) {
 			for (AuxiliaryTrafficAreaProperty part : auxiliaryTrafficArea) {
 				AuxiliaryTrafficAreaProperty copyPart = (AuxiliaryTrafficAreaProperty)copyBuilder.copy(part);
@@ -440,7 +472,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 					part.setParent(this);
 			}
 		}
-		
+
 		if (isSetTrafficArea()) {
 			for (TrafficAreaProperty part : trafficArea) {
 				TrafficAreaProperty copyPart = (TrafficAreaProperty)copyBuilder.copy(part);
@@ -450,7 +482,7 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 					part.setParent(this);
 			}
 		}
-		
+
 		if (isSetLod0Network()) {
 			for (GeometricComplexProperty part : lod0Network) {
 				GeometricComplexProperty copyPart = (GeometricComplexProperty)copyBuilder.copy(part);
@@ -460,13 +492,13 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 					part.setParent(this);
 			}
 		}
-		
+
 		if (isSetLod1MultiSurface()) {
 			copy.setLod1MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod1MultiSurface));
 			if (copy.getLod1MultiSurface() == lod1MultiSurface)
 				lod1MultiSurface.setParent(this);
 		}
-		
+
 		if (isSetLod2MultiSurface()) {
 			copy.setLod2MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod2MultiSurface));
 			if (copy.getLod2MultiSurface() == lod2MultiSurface)
@@ -497,21 +529,21 @@ public class TransportationComplexImpl extends TransportationObjectImpl implemen
 
 		return copy;
 	}
-	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
-	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

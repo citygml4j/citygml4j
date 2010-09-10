@@ -2,10 +2,10 @@ package org.citygml4j.model.xal;
 
 import java.util.List;
 
-import org.citygml4j.builder.copy.Copyable;
-import org.citygml4j.commons.child.Child;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 
 public interface ThoroughfareNumberFrom extends XAL, GrPostal, Child, Copyable {
 	public List<ThoroughfareNumberFromContent> getContent();
@@ -27,5 +27,5 @@ public interface ThoroughfareNumberFrom extends XAL, GrPostal, Child, Copyable {
 	public boolean unsetString(String string);
 	
 	public void visit(XALVisitor visitor);
-	public <T> T visit(XALFunction<T> visitor);
+	public <T> T visit(XALFunctor<T> visitor);
 }

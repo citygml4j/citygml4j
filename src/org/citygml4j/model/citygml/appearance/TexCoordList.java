@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface TexCoordList extends TextureParameterization {
+public interface TexCoordList extends AbstractTextureParameterization {
 	public List<TextureCoordinates> getTextureCoordinates();
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordList();
 	public boolean isSetTextureCoordinates();

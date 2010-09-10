@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.building;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.building.Opening;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
-public class OpeningPropertyImpl extends AssociationImpl<Opening> implements OpeningProperty {
+public class OpeningPropertyImpl extends FeaturePropertyImpl<AbstractOpening> implements OpeningProperty {
 	private BuildingModule module;
 	
 	public OpeningPropertyImpl() {
@@ -18,7 +18,7 @@ public class OpeningPropertyImpl extends AssociationImpl<Opening> implements Ope
 		this.module = module;
 	}
 	
-	public Opening getOpening() {
+	public AbstractOpening getOpening() {
 		return super.getObject();
 	}
 
@@ -26,7 +26,7 @@ public class OpeningPropertyImpl extends AssociationImpl<Opening> implements Ope
 		return super.isSetObject();
 	}
 
-	public void setOpening(Opening opening) {
+	public void setOpening(AbstractOpening opening) {
 		super.setObject(opening);
 	}
 
@@ -35,7 +35,7 @@ public class OpeningPropertyImpl extends AssociationImpl<Opening> implements Ope
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.OPENINGPROPERTY;
+		return CityGMLClass.OPENING_PROPERTY;
 	}
 
 	public final BuildingModule getCityGMLModule() {

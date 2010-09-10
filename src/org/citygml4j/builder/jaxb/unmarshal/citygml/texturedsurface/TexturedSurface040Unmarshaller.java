@@ -18,7 +18,7 @@ import org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._AppearancePropertyType;
 import org.citygml4j.jaxb.citygml._0_4._AppearanceType;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.texturedsurface._Appearance;
+import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
@@ -60,7 +60,7 @@ public class TexturedSurface040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalAppearance(_AppearanceType src, _Appearance dest) {
+	public void unmarshalAppearance(_AppearanceType src, _AbstractAppearance dest) {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 	}
 
@@ -73,8 +73,8 @@ public class TexturedSurface040Unmarshaller {
 		if (src.isSet_Appearance()) {
 			try { 
 				Object appearance = jaxb.unmarshal(src.get_Appearance());
-				if (appearance instanceof _Appearance)
-					dest.setAppearance((_Appearance)appearance);
+				if (appearance instanceof _AbstractAppearance)
+					dest.setAppearance((_AbstractAppearance)appearance);
 			} catch (MissingADESchemaException e) {
 				//
 			}

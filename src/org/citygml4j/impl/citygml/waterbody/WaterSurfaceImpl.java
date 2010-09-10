@@ -3,17 +3,17 @@ package org.citygml4j.impl.citygml.waterbody;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterSurface {
+public class WaterSurfaceImpl extends AbstractWaterBoundarySurfaceImpl implements WaterSurface {
 	private String waterLevel;
 	private List<ADEComponent> ade;
 
@@ -74,9 +74,8 @@ public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterS
 		waterLevel = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WATERSURFACE;
+		return CityGMLClass.WATER_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
@@ -104,20 +103,20 @@ public class WaterSurfaceImpl extends WaterBoundarySurfaceImpl implements WaterS
 		return copy;
 	}
 	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
 }

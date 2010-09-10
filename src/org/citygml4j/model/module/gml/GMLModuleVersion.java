@@ -14,9 +14,5 @@ public enum GMLModuleVersion implements ModuleVersion {
 	public String toString() {
 		return value;
 	}
-
-	public GMLModuleVersion getVersion() {
-		return this;
-	}
 	
 }

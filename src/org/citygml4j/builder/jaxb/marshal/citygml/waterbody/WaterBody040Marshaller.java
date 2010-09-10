@@ -16,10 +16,10 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
-import org.citygml4j.model.citygml.waterbody.WaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterObject;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 
 public class WaterBody040Marshaller {
@@ -69,7 +69,7 @@ public class WaterBody040Marshaller {
 		return dest;
 	}
 
-	public void marshalWaterObject(WaterObject src, _WaterObjectType dest) {
+	public void marshalWaterObject(AbstractWaterObject src, _WaterObjectType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
@@ -79,7 +79,7 @@ public class WaterBody040Marshaller {
 		}
 	}
 
-	public void marshalWaterBoundarySurface(WaterBoundarySurface src, _WaterBoundarySurfaceType dest) {
+	public void marshalWaterBoundarySurface(AbstractWaterBoundarySurface src, _WaterBoundarySurfaceType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetLod2Surface())
@@ -100,7 +100,7 @@ public class WaterBody040Marshaller {
 
 	public BoundedByWaterSurfacePropertyType marshalBoundedByWaterSurfaceProperty(BoundedByWaterSurfaceProperty src) {
 		BoundedByWaterSurfacePropertyType dest = wtr.createBoundedByWaterSurfacePropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetWaterBoundarySurface()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getWaterBoundarySurface());

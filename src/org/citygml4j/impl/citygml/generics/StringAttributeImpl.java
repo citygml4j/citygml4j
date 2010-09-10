@@ -5,7 +5,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
-public class StringAttributeImpl extends GenericAttributeImpl implements StringAttribute {
+public class StringAttributeImpl extends AbstractGenericAttributeImpl implements StringAttribute {
 	private String value;
 	
 	public StringAttributeImpl() {
@@ -32,9 +32,8 @@ public class StringAttributeImpl extends GenericAttributeImpl implements StringA
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.STRINGATTRIBUTE;
+		return CityGMLClass.STRING_ATTRIBUTE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

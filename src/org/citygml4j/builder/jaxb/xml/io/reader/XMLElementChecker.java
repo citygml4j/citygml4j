@@ -21,21 +21,14 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.SAXException;
 
 public class XMLElementChecker {
-	private static final HashSet<String> cityGMLCollectionProperties = new HashSet<String>();
-
-	static {
-		cityGMLCollectionProperties.add("cityObjectMember");
-		cityGMLCollectionProperties.add("appearanceMember");
-		cityGMLCollectionProperties.add("groupMember");
-		cityGMLCollectionProperties.add("parent");
-	}
-
 	private final SchemaHandler schemaHandler;
 	private final FeatureReadMode featureReadMode;
 	private final boolean keepInlineAppearance;
 	private final boolean parseSchema;
 	private final Set<Class<? extends CityGML>> excludes;
 	private final XMLUtil util;
+
+	private final HashSet<String> cityGMLCollectionProperties;
 
 	XMLElementChecker(SchemaHandler schemaHandler, 
 			FeatureReadMode featureReadMode, 
@@ -49,6 +42,12 @@ public class XMLElementChecker {
 		this.excludes = exlcudes;
 
 		util = XMLUtil.getInstance();
+
+		cityGMLCollectionProperties = new HashSet<String>();
+		cityGMLCollectionProperties.add("cityObjectMember");
+		cityGMLCollectionProperties.add("appearanceMember");
+		cityGMLCollectionProperties.add("groupMember");
+		cityGMLCollectionProperties.add("parent");
 	}
 
 	private ElementInfo getGMLFeatureProperty(String localName) {
@@ -166,9 +165,8 @@ public class XMLElementChecker {
 
 	private ElementInfo getADEElementInfo(String localName, String namespaceURI, ElementInfo lastElementInfo, boolean checkForFeature) throws MissingADESchemaException {
 		ElementInfo elementInfo = null;
-
 		Schema schema = schemaHandler.getSchema(namespaceURI);
-		
+
 		// try and resolve unknown ADE schema
 		if (schema == null && parseSchema) {
 			try {
@@ -178,7 +176,7 @@ public class XMLElementChecker {
 				//
 			}
 		}
-		
+
 		if (schema != null) {
 			ElementDecl parent = lastElementInfo != null ? lastElementInfo.elementDecl : null;
 			ElementDecl elementDecl = schema.getElementDecl(localName, parent);
@@ -188,7 +186,7 @@ public class XMLElementChecker {
 
 				if (checkForFeature && elementDecl.isFeature()) {
 					elementInfo.isFeature = true;
-					
+
 					if (!excludes.isEmpty()) { 
 						for (Class<? extends CityGML> exclude : excludes) {
 							if (isSubclass(ADEComponent.class, exclude)) {
@@ -197,7 +195,7 @@ public class XMLElementChecker {
 							}
 						}
 					}
-					
+
 				} else if (elementDecl.hasXLinkAttribute()) {
 					elementInfo.isFeatureProperty = true;
 					elementInfo.hasXLink = true;
@@ -236,7 +234,7 @@ public class XMLElementChecker {
 
 		return elementInfo;
 	}
-	
+
 	private boolean isSubclass(Class<?> a, Class<?> b) {
 		if (a == null || b == null)
 			return false;

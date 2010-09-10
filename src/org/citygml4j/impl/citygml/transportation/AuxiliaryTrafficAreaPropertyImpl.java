@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.transportation;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
 
-public class AuxiliaryTrafficAreaPropertyImpl extends AssociationImpl<AuxiliaryTrafficArea> implements AuxiliaryTrafficAreaProperty {
+public class AuxiliaryTrafficAreaPropertyImpl extends FeaturePropertyImpl<AuxiliaryTrafficArea> implements AuxiliaryTrafficAreaProperty {
 	private TransportationModule module;
 	
 	public AuxiliaryTrafficAreaPropertyImpl() {
@@ -35,7 +35,7 @@ public class AuxiliaryTrafficAreaPropertyImpl extends AssociationImpl<AuxiliaryT
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.AUXILIARYTRAFFICAREAPROPERTY;
+		return CityGMLClass.AUXILIARY_TRAFFIC_AREA_PROPERTY;
 	}
 
 	public final TransportationModule getCityGMLModule() {

@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.builder.copy.Copyable;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public enum TextureType implements AppearanceModuleComponent, Copyable {
@@ -34,7 +34,7 @@ public enum TextureType implements AppearanceModuleComponent, Copyable {
     }
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXTURETYPE;
+		return CityGMLClass.TEXTURE_TYPE;
 	}
 
 	public final AppearanceModule getCityGMLModule() {

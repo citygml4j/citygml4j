@@ -27,7 +27,7 @@ public class LandUseModule extends AbstractCityGMLModule {
 
 	static {
 		v1_0_0 = new LandUseModule (
-				CityGMLModuleType.LANDUSE,
+				CityGMLModuleType.LAND_USE,
 				CityGMLModuleVersion.v1_0_0,
 				"http://www.opengis.net/citygml/landuse/1.0",
 				"luse",
@@ -35,7 +35,7 @@ public class LandUseModule extends AbstractCityGMLModule {
 				CoreModule.v1_0_0);
 
 		v0_4_0 = new LandUseModule (
-				CityGMLModuleType.LANDUSE,
+				CityGMLModuleType.LAND_USE,
 				CoreModule.v0_4_0.getVersion(),
 				CoreModule.v0_4_0.getNamespaceURI(),
 				CoreModule.v0_4_0.getNamespacePrefix(),

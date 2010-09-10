@@ -1,9 +1,9 @@
 package org.citygml4j.model.xal;
 
-import org.citygml4j.builder.copy.Copyable;
-import org.citygml4j.commons.child.Child;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 
 public interface ThoroughfareLeadingType extends XAL, GrPostal, Child, Copyable {
 	public String getContent();
@@ -17,5 +17,5 @@ public interface ThoroughfareLeadingType extends XAL, GrPostal, Child, Copyable 
 	public void unsetType();
 	
 	public void visit(XALVisitor visitor);
-	public <T> T visit(XALFunction<T> visitor);
+	public <T> T visit(XALFunctor<T> visitor);
 }

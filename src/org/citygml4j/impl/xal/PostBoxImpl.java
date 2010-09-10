@@ -3,7 +3,9 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.AddressLine;
 import org.citygml4j.model.xal.Firm;
 import org.citygml4j.model.xal.PostBox;
@@ -13,8 +15,6 @@ import org.citygml4j.model.xal.PostBoxNumberPrefix;
 import org.citygml4j.model.xal.PostBoxNumberSuffix;
 import org.citygml4j.model.xal.PostalCode;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class PostBoxImpl implements PostBox {
 	private List<AddressLine> addressLine;
@@ -226,7 +226,7 @@ public class PostBoxImpl implements PostBox {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOX;
+		return XALClass.POST_BOX;
 	}
 
 	public Object getParent() {
@@ -310,11 +310,11 @@ public class PostBoxImpl implements PostBox {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

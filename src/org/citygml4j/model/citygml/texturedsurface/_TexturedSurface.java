@@ -2,7 +2,7 @@ package org.citygml4j.model.citygml.texturedsurface;
 
 import java.util.List;
 
-import org.citygml4j.model.gml.OrientableSurface;
+import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
 
 public interface _TexturedSurface extends TexturedSurfaceModuleComponent, OrientableSurface {
 	public List<_AppearanceProperty> getAppearance();

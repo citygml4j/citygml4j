@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
-import org.citygml4j.model.gml.AbstractFeatureCollection;
+import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
 
 public interface CityModel extends CoreModuleComponent, AbstractFeatureCollection {
 	public List<CityObjectMember> getCityObjectMember();

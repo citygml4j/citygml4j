@@ -36,7 +36,7 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.citygml.transportation.TransportationObject;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -82,7 +82,7 @@ public class Transportation100Unmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalTransportationObject(AbstractTransportationObjectType src, TransportationObject dest) throws MissingADESchemaException {
+	public void unmarshalTransportationObject(AbstractTransportationObjectType src, AbstractTransportationObject dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
 	}
 	
@@ -114,7 +114,7 @@ public class Transportation100Unmarshaller {
 
 	public AuxiliaryTrafficAreaProperty unmarshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaPropertyType src) throws MissingADESchemaException {
 		AuxiliaryTrafficAreaProperty dest = new AuxiliaryTrafficAreaPropertyImpl(module);
-		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
+		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
 			Object object = jaxb.unmarshal(src.get_Object());
@@ -200,7 +200,7 @@ public class Transportation100Unmarshaller {
 
 	public TrafficAreaProperty unmarshalTrafficAreaProperty(TrafficAreaPropertyType src) throws MissingADESchemaException {
 		TrafficAreaProperty dest = new TrafficAreaPropertyImpl(module);
-		jaxb.getGMLUnmarshaller().unmarshalAssociation(src, dest);
+		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
 			Object object = jaxb.unmarshal(src.get_Object());
@@ -259,8 +259,8 @@ public class Transportation100Unmarshaller {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		
-		if (dest instanceof TransportationObject && name.equals("_GenericApplicationPropertyOfTransportationObject"))
-			((TransportationObject)dest).addGenericApplicationPropertyOfTransportationObject(genericProperty);
+		if (dest instanceof AbstractTransportationObject && name.equals("_GenericApplicationPropertyOfTransportationObject"))
+			((AbstractTransportationObject)dest).addGenericApplicationPropertyOfTransportationObject(genericProperty);
 		else if (dest instanceof AuxiliaryTrafficArea && name.equals("_GenericApplicationPropertyOfAuxiliaryTrafficArea"))
 			((AuxiliaryTrafficArea)dest).addGenericApplicationPropertyOfAuxiliaryTrafficArea(genericProperty);
 		else if (dest instanceof TransportationComplex && name.equals("_GenericApplicationPropertyOfTransportationComplex"))

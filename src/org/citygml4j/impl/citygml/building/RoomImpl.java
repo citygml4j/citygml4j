@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class RoomImpl extends CityObjectImpl implements Room {
+public class RoomImpl extends AbstractCityObjectImpl implements Room {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
@@ -302,7 +303,6 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return module != null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ROOM;
 	}
@@ -344,6 +344,19 @@ public class RoomImpl extends CityObjectImpl implements Room {
 			return boundedBy;
 		} else
 			return null;
+	}
+	
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		if (isSetLod4MultiSurface())
+			lodRepresentation.getLod4Representation().add(lod4MultiSurface);
+		
+		if (isSetLod4Solid())
+			lodRepresentation.getLod4Representation().add(lod4Solid);
+		
+		return lodRepresentation;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
@@ -420,20 +433,20 @@ public class RoomImpl extends CityObjectImpl implements Room {
 		return copy;
 	}
 	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

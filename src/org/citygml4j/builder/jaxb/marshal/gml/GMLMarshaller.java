@@ -2,195 +2,153 @@ package org.citygml4j.builder.jaxb.marshal.gml;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractCurveSegmentType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureCollectionType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGMLType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGeometricAggregateType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGeometricPrimitiveType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractGeometryType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractRingPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractRingType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractSolidType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractSurfacePatchType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.AssociationType;
-import org.citygml4j.jaxb.gml._3_1_1.BoundingShapeType;
-import org.citygml4j.jaxb.gml._3_1_1.CodeType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeCurvePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSolidPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSolidType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSurfacePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CompositeSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.CoordType;
-import org.citygml4j.jaxb.gml._3_1_1.CoordinatesType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveInterpolationType;
-import org.citygml4j.jaxb.gml._3_1_1.CurvePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveSegmentArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.CurveType;
-import org.citygml4j.jaxb.gml._3_1_1.DirectPositionListType;
-import org.citygml4j.jaxb.gml._3_1_1.DirectPositionType;
-import org.citygml4j.jaxb.gml._3_1_1.EnvelopeType;
-import org.citygml4j.jaxb.gml._3_1_1.FeatureArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometricComplexPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometricComplexType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometricPrimitivePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.GeometryPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LengthType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringSegmentArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringSegmentType;
-import org.citygml4j.jaxb.gml._3_1_1.LineStringType;
-import org.citygml4j.jaxb.gml._3_1_1.LinearRingPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.LinearRingType;
-import org.citygml4j.jaxb.gml._3_1_1.LocationPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MeasureOrNullListType;
-import org.citygml4j.jaxb.gml._3_1_1.MeasureType;
-import org.citygml4j.jaxb.gml._3_1_1.MetaDataPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiCurvePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiLineStringPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiLineStringType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPointPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPointType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPolygonPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiPolygonType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSolidPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSolidType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSurfacePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.ObjectFactory;
-import org.citygml4j.jaxb.gml._3_1_1.OrientableCurveType;
-import org.citygml4j.jaxb.gml._3_1_1.OrientableSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.PointArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.PointPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.PointType;
-import org.citygml4j.jaxb.gml._3_1_1.PolygonPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.PolygonType;
-import org.citygml4j.jaxb.gml._3_1_1.PriorityLocationPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.RectangleType;
-import org.citygml4j.jaxb.gml._3_1_1.RingType;
-import org.citygml4j.jaxb.gml._3_1_1.SolidArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SolidPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SolidType;
-import org.citygml4j.jaxb.gml._3_1_1.SpeedType;
-import org.citygml4j.jaxb.gml._3_1_1.StringOrRefType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfaceArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfaceInterpolationType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfacePatchArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfacePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.SurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.TinType;
-import org.citygml4j.jaxb.gml._3_1_1.TrianglePatchArrayPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.TriangleType;
-import org.citygml4j.jaxb.gml._3_1_1.TriangulatedSurfaceType;
+import org.citygml4j.jaxb.gml._3_1_1.*;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
-import org.citygml4j.model.gml.AbstractCurve;
-import org.citygml4j.model.gml.AbstractCurveSegment;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.AbstractFeatureCollection;
-import org.citygml4j.model.gml.AbstractGML;
-import org.citygml4j.model.gml.AbstractGeometricAggregate;
-import org.citygml4j.model.gml.AbstractGeometricPrimitive;
-import org.citygml4j.model.gml.AbstractGeometry;
-import org.citygml4j.model.gml.AbstractRing;
-import org.citygml4j.model.gml.AbstractRingProperty;
-import org.citygml4j.model.gml.AbstractSolid;
-import org.citygml4j.model.gml.AbstractSurface;
-import org.citygml4j.model.gml.AbstractSurfacePatch;
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.Code;
-import org.citygml4j.model.gml.CompositeCurve;
-import org.citygml4j.model.gml.CompositeCurveProperty;
-import org.citygml4j.model.gml.CompositeSolid;
-import org.citygml4j.model.gml.CompositeSolidProperty;
-import org.citygml4j.model.gml.CompositeSurface;
-import org.citygml4j.model.gml.CompositeSurfaceProperty;
-import org.citygml4j.model.gml.ControlPoint;
-import org.citygml4j.model.gml.Coord;
-import org.citygml4j.model.gml.Coordinates;
-import org.citygml4j.model.gml.Curve;
-import org.citygml4j.model.gml.CurveArrayProperty;
-import org.citygml4j.model.gml.CurveInterpolation;
-import org.citygml4j.model.gml.CurveProperty;
-import org.citygml4j.model.gml.CurveSegmentArrayProperty;
-import org.citygml4j.model.gml.DirectPosition;
-import org.citygml4j.model.gml.DirectPositionList;
-import org.citygml4j.model.gml.DoubleOrNull;
-import org.citygml4j.model.gml.Envelope;
-import org.citygml4j.model.gml.Exterior;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.gml.GML;
-import org.citygml4j.model.gml.GeometricComplex;
-import org.citygml4j.model.gml.GeometricComplexProperty;
-import org.citygml4j.model.gml.GeometricPositionGroup;
-import org.citygml4j.model.gml.GeometricPrimitiveProperty;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.InnerBoundaryIs;
-import org.citygml4j.model.gml.Interior;
-import org.citygml4j.model.gml.Length;
-import org.citygml4j.model.gml.LineString;
-import org.citygml4j.model.gml.LineStringProperty;
-import org.citygml4j.model.gml.LineStringSegment;
-import org.citygml4j.model.gml.LineStringSegmentArrayProperty;
-import org.citygml4j.model.gml.LinearRing;
-import org.citygml4j.model.gml.LinearRingProperty;
-import org.citygml4j.model.gml.LocationProperty;
-import org.citygml4j.model.gml.Measure;
-import org.citygml4j.model.gml.MeasureOrNullList;
-import org.citygml4j.model.gml.MetaData;
-import org.citygml4j.model.gml.MetaDataProperty;
-import org.citygml4j.model.gml.MultiCurve;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiLineString;
-import org.citygml4j.model.gml.MultiLineStringProperty;
-import org.citygml4j.model.gml.MultiPoint;
-import org.citygml4j.model.gml.MultiPointProperty;
-import org.citygml4j.model.gml.MultiPolygon;
-import org.citygml4j.model.gml.MultiPolygonProperty;
-import org.citygml4j.model.gml.MultiSolid;
-import org.citygml4j.model.gml.MultiSolidProperty;
-import org.citygml4j.model.gml.MultiSurface;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.OrientableCurve;
-import org.citygml4j.model.gml.OrientableSurface;
-import org.citygml4j.model.gml.OuterBoundaryIs;
-import org.citygml4j.model.gml.Point;
-import org.citygml4j.model.gml.PointArrayProperty;
-import org.citygml4j.model.gml.PointProperty;
-import org.citygml4j.model.gml.PointRep;
-import org.citygml4j.model.gml.Polygon;
-import org.citygml4j.model.gml.PolygonProperty;
-import org.citygml4j.model.gml.PosOrPointPropertyOrPointRep;
-import org.citygml4j.model.gml.PosOrPointPropertyOrPointRepOrCoord;
-import org.citygml4j.model.gml.PriorityLocationProperty;
-import org.citygml4j.model.gml.Rectangle;
-import org.citygml4j.model.gml.Ring;
-import org.citygml4j.model.gml.Solid;
-import org.citygml4j.model.gml.SolidArrayProperty;
-import org.citygml4j.model.gml.SolidProperty;
-import org.citygml4j.model.gml.Speed;
-import org.citygml4j.model.gml.StringOrRef;
-import org.citygml4j.model.gml.Surface;
-import org.citygml4j.model.gml.SurfaceArrayProperty;
-import org.citygml4j.model.gml.SurfaceInterpolation;
-import org.citygml4j.model.gml.SurfacePatchArrayProperty;
-import org.citygml4j.model.gml.SurfaceProperty;
-import org.citygml4j.model.gml.Tin;
-import org.citygml4j.model.gml.Triangle;
-import org.citygml4j.model.gml.TrianglePatchArrayProperty;
-import org.citygml4j.model.gml.TriangulatedSurface;
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.gml.base.MetaData;
+import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.basicTypes.CodeOrNullList;
+import org.citygml4j.model.gml.basicTypes.Coordinates;
+import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
+import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
+import org.citygml4j.model.gml.basicTypes.Measure;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
+import org.citygml4j.model.gml.basicTypes.NameOrNull;
+import org.citygml4j.model.gml.coverage.AbstractCoverage;
+import org.citygml4j.model.gml.coverage.AbstractDiscreteCoverage;
+import org.citygml4j.model.gml.coverage.CoverageFunction;
+import org.citygml4j.model.gml.coverage.DataBlock;
+import org.citygml4j.model.gml.coverage.DomainSet;
+import org.citygml4j.model.gml.coverage.File;
+import org.citygml4j.model.gml.coverage.FileValueModel;
+import org.citygml4j.model.gml.coverage.GridFunction;
+import org.citygml4j.model.gml.coverage.IndexMap;
+import org.citygml4j.model.gml.coverage.RangeParameters;
+import org.citygml4j.model.gml.coverage.RangeSet;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
+import org.citygml4j.model.gml.coverage.RectifiedGridDomain;
+import org.citygml4j.model.gml.coverage.SequenceRule;
+import org.citygml4j.model.gml.coverage.SequenceRuleNames;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.gml.feature.LocationProperty;
+import org.citygml4j.model.gml.feature.PriorityLocationProperty;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
+import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPolygonProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurveProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSolidProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurfacePatch;
+import org.citygml4j.model.gml.geometry.primitives.ControlPoint;
+import org.citygml4j.model.gml.geometry.primitives.Coord;
+import org.citygml4j.model.gml.geometry.primitives.Curve;
+import org.citygml4j.model.gml.geometry.primitives.CurveArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.CurveInterpolation;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
+import org.citygml4j.model.gml.geometry.primitives.CurveSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
+import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
+import org.citygml4j.model.gml.geometry.primitives.Envelope;
+import org.citygml4j.model.gml.geometry.primitives.Exterior;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPositionGroup;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+import org.citygml4j.model.gml.geometry.primitives.InnerBoundaryIs;
+import org.citygml4j.model.gml.geometry.primitives.Interior;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegment;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.LinearRingProperty;
+import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
+import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
+import org.citygml4j.model.gml.geometry.primitives.OuterBoundaryIs;
+import org.citygml4j.model.gml.geometry.primitives.Point;
+import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointRep;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
+import org.citygml4j.model.gml.geometry.primitives.Rectangle;
+import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.Surface;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceInterpolation;
+import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.Tin;
+import org.citygml4j.model.gml.geometry.primitives.Triangle;
+import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.primitives.Vector;
+import org.citygml4j.model.gml.grids.Grid;
+import org.citygml4j.model.gml.grids.GridEnvelope;
+import org.citygml4j.model.gml.grids.GridLimits;
+import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.gml.valueObjects.CategoryExtent;
+import org.citygml4j.model.gml.valueObjects.CompositeValue;
+import org.citygml4j.model.gml.valueObjects.GenericValueObject;
+import org.citygml4j.model.gml.valueObjects.QuantityExtent;
+import org.citygml4j.model.gml.valueObjects.ScalarValue;
+import org.citygml4j.model.gml.valueObjects.ScalarValueList;
+import org.citygml4j.model.gml.valueObjects.Value;
+import org.citygml4j.model.gml.valueObjects.ValueArray;
+import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
+import org.citygml4j.model.gml.valueObjects.ValueExtent;
+import org.citygml4j.model.gml.valueObjects.ValueObject;
+import org.citygml4j.model.gml.valueObjects.ValueProperty;
 
 public class GMLMarshaller {
 	private final JAXBMarshaller jaxb;
@@ -223,16 +181,26 @@ public class GMLMarshaller {
 			dest = gml.createBoundedBy((BoundingShapeType)src);
 		else if (src instanceof CodeType)
 			dest = gml.createName((CodeType)src);
+		else if (src instanceof CategoryExtentType)
+			dest = gml.createCategoryExtent((CategoryExtentType)src);
+		else if (src instanceof CodeOrNullListType)
+			dest = gml.createCategoryList((CodeOrNullListType)src);
 		else if (src instanceof CompositeCurveType)
 			dest = gml.createCompositeCurve((CompositeCurveType)src);
 		else if (src instanceof CompositeSolidType)
 			dest = gml.createCompositeSolid((CompositeSolidType)src);
 		else if (src instanceof CompositeSurfaceType)
 			dest = gml.createCompositeSurface((CompositeSurfaceType)src);
+		else if (src instanceof ValueArrayType)
+			dest = gml.createValueArray((ValueArrayType)src);
+		else if (src instanceof CompositeValueType)
+			dest = gml.createCompositeValue((CompositeValueType)src);
 		else if (src instanceof CoordType)
 			dest = gml.createCoord((CoordType)src);
 		else if (src instanceof CoordinatesType)
 			dest = gml.createCoordinates((CoordinatesType)src);
+		else if (src instanceof CoverageFunctionType)
+			dest = gml.createCoverageFunction((CoverageFunctionType)src);
 		else if (src instanceof CurveType)
 			dest = gml.createCurve((CurveType)src);
 		else if (src instanceof CurveArrayPropertyType)
@@ -241,6 +209,8 @@ public class GMLMarshaller {
 			dest = gml.createCurveProperty((CurvePropertyType)src);	
 		else if (src instanceof CurveSegmentArrayPropertyType)
 			dest = gml.createSegments((CurveSegmentArrayPropertyType)src);
+		else if (src instanceof DataBlockType)
+			dest = gml.createDataBlock((DataBlockType)src);
 		else if (src instanceof DirectPositionType)
 			dest = gml.createPos((DirectPositionType)src);
 		else if (src instanceof DirectPositionListType)
@@ -250,11 +220,21 @@ public class GMLMarshaller {
 		else if (src instanceof FeatureArrayPropertyType)
 			dest = gml.createFeatureMembers((FeatureArrayPropertyType)src);
 		else if (src instanceof FeaturePropertyType)
-			dest = gml.createFeatureMember((FeaturePropertyType)src);		
+			dest = gml.createFeatureMember((FeaturePropertyType)src);	
+		else if (src instanceof FileType)
+			dest = gml.createFile((FileType)src);
 		else if (src instanceof GeometricComplexType)
 			dest = gml.createGeometricComplex((GeometricComplexType)src);
 		else if (src instanceof GeometryPropertyType)
 			dest = gml.createGeometryMember((GeometryPropertyType)src);
+		else if (src instanceof RectifiedGridType)
+			dest = gml.createRectifiedGrid((RectifiedGridType)src);
+		else if (src instanceof GridType)
+			dest = gml.createGrid((GridType)src);
+		else if (src instanceof IndexMapType)
+			dest = gml.createIndexMap((IndexMapType)src);
+		else if (src instanceof GridFunctionType)
+			dest = gml.createGridFunction((GridFunctionType)src);
 		else if (src instanceof LinearRingType)
 			dest = gml.createLinearRing((LinearRingType)src);
 		else if (src instanceof LineStringType)
@@ -312,8 +292,20 @@ public class GMLMarshaller {
 			dest = gml.createPolygon((PolygonType)src);
 		else if (src instanceof PolygonPropertyType)
 			dest = gml.createPolygonProperty((PolygonPropertyType)src);
+		else if (src instanceof QuantityExtentType)
+			dest = gml.createQuantityExtent((QuantityExtentType)src);
+		else if (src instanceof MeasureOrNullListType)
+			dest = gml.createQuantityList((MeasureOrNullListType)src);
+		else if (src instanceof RangeParametersType)
+			dest = gml.createRangeParameters((RangeParametersType)src);
+		else if (src instanceof RangeSetType)
+			dest = gml.createRangeSet((RangeSetType)src);
 		else if (src instanceof RectangleType)
 			dest = gml.createRectangle((RectangleType)src);
+		else if (src instanceof RectifiedGridCoverageType)
+			dest = gml.createRectifiedGridCoverage((RectifiedGridCoverageType)src);
+		else if (src instanceof RectifiedGridDomainType)
+			dest = gml.createRectifiedGridDomain((RectifiedGridDomainType)src);
 		else if (src instanceof RingType)
 			dest = gml.createRing((RingType)src);
 		else if (src instanceof SolidType)
@@ -340,11 +332,16 @@ public class GMLMarshaller {
 			dest = gml.createSurfaceArrayProperty((SurfaceArrayPropertyType)src);
 		else if (src instanceof SurfacePropertyType)
 			dest = gml.createSurfaceProperty((SurfacePropertyType)src);
+		else if (src instanceof ValueArrayPropertyType)
+			dest = gml.createValueComponents((ValueArrayPropertyType)src);
+		else if (src instanceof ValuePropertyType)
+			dest = gml.createValueComponent((ValuePropertyType)src);
+		else if (src instanceof VectorType)
+			dest = gml.createVector((VectorType)src);
 
 		return dest;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Object marshal(Object src) {
 		Object dest = null;
 
@@ -355,6 +352,10 @@ public class GMLMarshaller {
 				dest = marshalBoundingShape((BoundingShape)src);
 			else if (src instanceof Code)
 				dest = marshalCode((Code)src);
+			else if (src instanceof CategoryExtent)
+				dest = marshalCategoryExtent((CategoryExtent)src);
+			else if (src instanceof CodeOrNullList)
+				dest = marshalCodeOrNullList((CodeOrNullList)src);
 			else if (src instanceof CompositeCurve)
 				dest = marshalCompositeCurve((CompositeCurve)src);
 			else if (src instanceof CompositeCurveProperty)
@@ -367,12 +368,18 @@ public class GMLMarshaller {
 				dest = marshalCompositeSurface((CompositeSurface)src);
 			else if (src instanceof CompositeSurfaceProperty)
 				dest = marshalCompositeSurfaceProperty((CompositeSurfaceProperty)src);
+			else if (src instanceof ValueArray)
+				dest = marshalValueArray((ValueArray)src);
+			else if (src instanceof CompositeValue)
+				dest = marshalCompositeValue((CompositeValue)src);
 			else if (src instanceof ControlPoint)
 				dest = marshalControlPoint((ControlPoint)src);
 			else if (src instanceof Coord)
 				dest = marshalCoord((Coord)src);
 			else if (src instanceof Coordinates)
 				dest = marshalCoordinates((Coordinates)src);
+			else if (src instanceof CoverageFunction)
+				dest = marshalCoverageFunction((CoverageFunction)src);
 			else if (src instanceof Curve)
 				dest = marshalCurve((Curve)src);
 			else if (src instanceof CurveArrayProperty)
@@ -383,6 +390,8 @@ public class GMLMarshaller {
 				dest = marshalCurveProperty((CurveProperty)src);			
 			else if (src instanceof CurveSegmentArrayProperty)
 				dest = marshalCurveSegmentArrayProperty((CurveSegmentArrayProperty)src);
+			else if (src instanceof DataBlock)
+				dest = marshalDataBlock((DataBlock)src);
 			else if (src instanceof DirectPosition)
 				dest = marshalDirectPosition((DirectPosition)src);
 			else if (src instanceof DirectPositionList)
@@ -392,15 +401,29 @@ public class GMLMarshaller {
 			else if (src instanceof FeatureArrayProperty)
 				dest = marshalFeatureArrayProperty((FeatureArrayProperty)src);
 			else if (src instanceof FeatureProperty)
-				dest = marshalFeatureProperty((FeatureProperty<? extends AbstractFeature>)src);
+				dest = marshalFeatureProperty((FeatureProperty<?>)src);
+			else if (src instanceof File)
+				dest = marshalFile((File)src);
+			else if (src instanceof FileValueModel)
+				dest = marshalFileValueModel((FileValueModel)src);
 			else if (src instanceof GeometricComplex)
 				dest = marshalGeometricComplex((GeometricComplex)src);
 			else if (src instanceof GeometricComplexProperty)
 				dest = marshalGeometricComplexProperty((GeometricComplexProperty)src);
 			else if (src instanceof GeometricPrimitiveProperty)
 				dest = marshalGeometricPrimitiveProperty((GeometricPrimitiveProperty)src);
-			else if (src instanceof GeometryProperty)
-				dest = marshalGeometryProperty((GeometryProperty)src);
+			else if (src instanceof RectifiedGrid)
+				dest = marshalRectifiedGrid((RectifiedGrid)src);
+			else if (src instanceof Grid)
+				dest = marshalGrid((Grid)src);
+			else if (src instanceof GridEnvelope)
+				dest = marshalGridEnvelope((GridEnvelope)src);
+			else if (src instanceof IndexMap)
+				dest = marshalIndexMap((IndexMap)src);
+			else if (src instanceof GridFunction)
+				dest = marshalGridFunction((GridFunction)src);
+			else if (src instanceof GridLimits)
+				dest = marshalGridLimits((GridLimits)src);
 			else if (src instanceof Length)
 				dest = marshalLength((Length)src);
 			else if (src instanceof LinearRing)
@@ -423,6 +446,8 @@ public class GMLMarshaller {
 				dest = marshalSpeed((Speed)src);
 			else if (src instanceof Measure)
 				dest = marshalMeasure((Measure)src);
+			else if (src instanceof QuantityExtent)
+				dest = marshalQuantityExtent((QuantityExtent)src);
 			else if (src instanceof MeasureOrNullList)
 				dest = marshalMeasureOrNullList((MeasureOrNullList)src);
 			else if (src instanceof MetaDataProperty)
@@ -467,10 +492,22 @@ public class GMLMarshaller {
 				dest = marshalPolygon((Polygon)src);
 			else if (src instanceof PolygonProperty)
 				dest = marshalPolygonProperty((PolygonProperty)src);
+			else if (src instanceof RangeParameters)
+				dest = marshalRangeParameters((RangeParameters)src);
+			else if (src instanceof RangeSet)
+				dest = marshalRangeSet((RangeSet)src);
 			else if (src instanceof Rectangle)
 				dest = marshalRectangle((Rectangle)src);
+			else if (src instanceof RectifiedGridCoverage)
+				dest = marshalRectifiedGridCoverage((RectifiedGridCoverage)src);
+			else if (src instanceof RectifiedGridDomain)
+				dest = marshalRectifiedGridDomain((RectifiedGridDomain)src);
 			else if (src instanceof Ring)
 				dest = marshalRing((Ring)src);
+			else if (src instanceof SequenceRuleNames)
+				dest = marshalSequenceRuleNames((SequenceRuleNames)src);
+			else if (src instanceof SequenceRule)
+				dest = marshalSequenceRule((SequenceRule)src);
 			else if (src instanceof Solid)
 				dest = marshalSolid((Solid)src);
 			else if (src instanceof SolidArrayProperty)
@@ -497,11 +534,29 @@ public class GMLMarshaller {
 				dest = marshalSurfacePatchArrayProperty((SurfacePatchArrayProperty)src);
 			else if (src instanceof SurfaceProperty)
 				dest = marshalSurfaceProperty((SurfaceProperty)src);
+			else if (src instanceof ValueArrayProperty)
+				dest = marshalValueArrayProperty((ValueArrayProperty)src);
+			else if (src instanceof ValueProperty)
+				dest = marshalValueProperty((ValueProperty)src);
+			else if (src instanceof Vector)
+				dest = marshalVector((Vector)src);
+			else if (src instanceof GeometryProperty)
+				dest = marshalGeometryProperty((GeometryProperty<?>)src);
 		}
 
 		return dest;
 	}
 
+	public void marshalAbstractCoverage(AbstractCoverage src, AbstractCoverageType dest) {
+		marshalAbstractFeature(src, dest);
+		
+		if (src.isSetRangeSet())
+			dest.setRangeSet(marshalRangeSet(src.getRangeSet()));
+		
+		if (src.isSetDimension())
+			dest.setDimension(BigInteger.valueOf(src.getDimension()));
+	}
+	
 	public void marshalAbstractCurve(AbstractCurve src, AbstractCurveType dest) {
 		marshalAbstractGeometricPrimitive(src, dest);
 	}
@@ -517,6 +572,13 @@ public class GMLMarshaller {
 			dest.setNumDerivativesAtStart(BigInteger.valueOf(src.getNumDerivativesAtStart()));
 	}
 
+	public void marshalAbstractDiscreteCoverage(AbstractDiscreteCoverage src, AbstractDiscreteCoverageType dest) {
+		marshalAbstractCoverage(src, dest);
+		
+		if (src.isSetCoverageFunction())
+			dest.setCoverageFunction(marshalCoverageFunction(src.getCoverageFunction()));
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void marshalAbstractFeature(AbstractFeature src, AbstractFeatureType dest) {
 		marshalAbstractGML(src, dest);
@@ -536,19 +598,19 @@ public class GMLMarshaller {
 					dest.get_ADEComponent().add(ade.getContent());
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void marshalAbstractFeatureCollection(AbstractFeatureCollection src, AbstractFeatureCollectionType dest) {
 		marshalAbstractFeature(src, dest);
-		
+
 		if (src.isSetFeatureMember()) {
-			for (FeatureProperty<? extends AbstractFeature> member : src.getFeatureMember()) {
+			for (FeatureMember member : src.getFeatureMember()) {
 				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
 				if (elem != null && elem.getValue() instanceof FeaturePropertyType)
 					dest.getFeatureMember().add((JAXBElement<? extends FeaturePropertyType>)elem);
 			}
 		}
-		
+
 		if (src.isSetFeatureMembers())
 			dest.setFeatureMembers(marshalFeatureArrayProperty(src.getFeatureMembers()));
 	}
@@ -616,14 +678,8 @@ public class GMLMarshaller {
 	public void marshalAbstractSurfacePatch(AbstractSurfacePatch src, AbstractSurfacePatchType dest) {
 		// nothing to do here...
 	}
-
-	public void marshalAssociation(Association<? extends AbstractGML> src, AssociationType dest) {
-		if (src.isSetGenericADEComponent()) {
-			ADEComponent adeComponent = src.getGenericADEComponent();
-			if (adeComponent.isSetContent())
-				dest.set_ADEComponent(adeComponent.getContent());
-		}
-
+	
+	public void marshalAssociationByRepOrRef(AssociationByRepOrRef<? extends Associable> src, AssociationType dest) {
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -647,6 +703,65 @@ public class GMLMarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(src.getActuate());
+	}
+
+	public void marshalCodeOrNullList(CodeOrNullList src, CodeOrNullListType dest) {
+		if (src.isSetCodeSpace())
+			dest.setCodeSpace(src.getCodeSpace());
+
+		if (src.isSetNameOrNull()) {
+			for (NameOrNull nameOrNull : src.getNameOrNull()) {
+				if (nameOrNull.isSetName())
+					dest.getValue().add(nameOrNull.getName());
+				else if (nameOrNull.isSetNull())
+					dest.getValue().add(nameOrNull.getNull().getValue());
+			}
+		}
+	}
+
+	public void marshalCompositeValue(CompositeValue src, CompositeValueType dest) {
+		marshalAbstractGML(src, dest);
+
+		if (src.isSetValueComponent()) {
+			for (ValueProperty component : src.getValueComponent())
+				dest.getValueComponent().add(marshalValueProperty(component));
+		}
+
+		if (src.isSetValueComponents())
+			dest.setValueComponents(marshalValueArrayProperty(src.getValueComponents()));
+	}
+	
+	public void marshalDomainSet(DomainSet<? extends AbstractGeometry> src, DomainSetType dest) {		
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+	}
+	
+	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, AssociationType dest) {
+		marshalAssociationByRepOrRef(src, dest);
+		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
 	}
 
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, FeaturePropertyType dest) {
@@ -676,6 +791,29 @@ public class GMLMarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(src.getActuate());
+	}
+	
+	public void marshalGrid(Grid src, GridType dest) {
+		marshalAbstractGeometry(src, dest);
+		
+		if (src.isSetLimits())
+			dest.setLimits(marshalGridLimits(src.getLimits()));
+		
+		if (src.isSetAxisName())
+			dest.setAxisName(src.getAxisName());
+		
+		if (src.isSetDimension())
+			dest.setDimension(BigInteger.valueOf(src.getDimension()));
+	}
+	
+	public void marshalGridFunction(GridFunction src, GridFunctionType dest) {
+		if (src.isSetSequenceRule())
+			dest.setSequenceRule(marshalSequenceRule(src.getSequenceRule()));
+		
+		if (src.isSetStartPoint()) {
+			for (Integer part : src.getStartPoint())
+				dest.getStartPoint().add(BigInteger.valueOf(part));			
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -727,7 +865,15 @@ public class GMLMarshaller {
 		if (src.isSetUom())
 			dest.setUom(src.getUom());
 	}
-	
+
+	public void marshalMeasureOrNullList(MeasureOrNullList src, MeasureOrNullListType dest) {
+		if (src.isSetUom())
+			dest.setUom(src.getUom());
+
+		if (src.isSetDoubleOrNull())
+			dest.setValue(marshalDoubleOrNullList(src));
+	}
+
 	public void marshalOrientableSurface(OrientableSurface src, OrientableSurfaceType dest) {
 		marshalAbstractSurface(src, dest);
 
@@ -763,6 +909,181 @@ public class GMLMarshaller {
 	public void marshalTriangulatedSurface(TriangulatedSurface src, TriangulatedSurfaceType dest) {
 		marshalSurface(src, dest);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void marshalValueObject(ValueObject src, ValuePropertyType dest) {
+		if (src.isSetScalarValue()) {
+			ScalarValue scalarValue = src.getScalarValue();				
+			if (scalarValue.isSetBoolean())
+				dest.setBoolean(scalarValue.getBoolean());
+			else if (scalarValue.isSetCategory())
+				dest.setCategory(marshalCode(scalarValue.getCategory()));
+			else if (scalarValue.isSetCount())
+				dest.setCount(BigInteger.valueOf(scalarValue.getCount()));
+			else if (scalarValue.isSetQuantity())
+				dest.setQuantity(marshalMeasure(scalarValue.getQuantity()));
+		}
+
+		else if (src.isSetScalarValueList()) {
+			ScalarValueList scalarValueList = src.getScalarValueList();
+			if (scalarValueList.isSetBooleanList())
+				dest.setBooleanList(marshalBooleanOrNullList(scalarValueList.getBooleanList()));
+			else if (scalarValueList.isSetCountList())
+				dest.setCountList(marshalIntegerOrNullList(scalarValueList.getCountList()));
+			else if (scalarValueList.isSetCategoryList())
+				dest.setCategoryList(marshalCodeOrNullList(scalarValueList.getCategoryList()));
+			else if (scalarValueList.isSetQuantityList())
+				dest.setQuantityList(marshalMeasureOrNullList(scalarValueList.getQuantityList()));
+		}
+
+		else if (src.isSetValueExtent()) {
+			ValueExtent valueExtent = src.getValueExtent();
+			if (valueExtent.isSetCategoryExtent())
+				dest.setCategoryExtent(marshalCategoryExtent(valueExtent.getCategoryExtent()));
+			else if (valueExtent.isSetQuantityExtent())
+				dest.setQuantityExtent(marshalQuantityExtent(valueExtent.getQuantityExtent()));
+			else if (valueExtent.isSetCountExtent())
+				dest.setCountExtent(marshalIntegerOrNullList(valueExtent.getCountExtent()));
+		}
+		
+		else if (src.isSetCompositeValue()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getCompositeValue());
+			if (elem != null && elem.getValue() instanceof CompositeValueType)
+				dest.setCompositeValue((JAXBElement<? extends CompositeValueType>)elem);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void marshalValueObject(ValueObject src, RangeParametersType dest) {
+		if (src.isSetScalarValue()) {
+			ScalarValue scalarValue = src.getScalarValue();				
+			if (scalarValue.isSetBoolean())
+				dest.setBoolean(scalarValue.getBoolean());
+			else if (scalarValue.isSetCategory())
+				dest.setCategory(marshalCode(scalarValue.getCategory()));
+			else if (scalarValue.isSetCount())
+				dest.setCount(BigInteger.valueOf(scalarValue.getCount()));
+			else if (scalarValue.isSetQuantity())
+				dest.setQuantity(marshalMeasure(scalarValue.getQuantity()));
+		}
+
+		else if (src.isSetScalarValueList()) {
+			ScalarValueList scalarValueList = src.getScalarValueList();
+			if (scalarValueList.isSetBooleanList())
+				dest.setBooleanList(marshalBooleanOrNullList(scalarValueList.getBooleanList()));
+			else if (scalarValueList.isSetCountList())
+				dest.setCountList(marshalIntegerOrNullList(scalarValueList.getCountList()));
+			else if (scalarValueList.isSetCategoryList())
+				dest.setCategoryList(marshalCodeOrNullList(scalarValueList.getCategoryList()));
+			else if (scalarValueList.isSetQuantityList())
+				dest.setQuantityList(marshalMeasureOrNullList(scalarValueList.getQuantityList()));
+		}
+
+		else if (src.isSetValueExtent()) {
+			ValueExtent valueExtent = src.getValueExtent();
+			if (valueExtent.isSetCategoryExtent())
+				dest.setCategoryExtent(marshalCategoryExtent(valueExtent.getCategoryExtent()));
+			else if (valueExtent.isSetQuantityExtent())
+				dest.setQuantityExtent(marshalQuantityExtent(valueExtent.getQuantityExtent()));
+			else if (valueExtent.isSetCountExtent())
+				dest.setCountExtent(marshalIntegerOrNullList(valueExtent.getCountExtent()));
+		}
+		
+		else if (src.isSetCompositeValue()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getCompositeValue());
+			if (elem != null && elem.getValue() instanceof CompositeValueType)
+				dest.setCompositeValue((JAXBElement<? extends CompositeValueType>)elem);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void marshalValue(Value src, ValuePropertyType dest) {
+		if (src.isSetValueObject())
+			marshalValueObject(src.getValueObject(), dest);
+		
+		else if (src.isSetGeometry()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
+			if (elem != null && elem.getValue() instanceof AbstractGeometryType)
+				dest.set_GML((JAXBElement<? extends AbstractGMLType>)elem);
+		}
+		
+		else if (src.isSetGenericValueObject()) {
+			GenericValueObject genericValueObject = src.getGenericValueObject();
+			if (genericValueObject.isSetContent())
+				dest.set_ADEComponent(genericValueObject.getContent());
+		}
+		
+		else if (src.isSetNull())
+			dest.getNull().add(src.getNull().getValue());	
+	}
+
+	private Object marshalValue(Value src) {
+		Object dest = null;
+		
+		if (src.isSetValueObject()) {
+			ValueObject valueObject = src.getValueObject();
+
+			if (valueObject.isSetScalarValue()) {
+				ScalarValue scalarValue = valueObject.getScalarValue();				
+				if (scalarValue.isSetBoolean())
+					dest = gml.createBoolean(scalarValue.getBoolean());
+				else if (scalarValue.isSetCategory())
+					dest = gml.createCategory(marshalCode(scalarValue.getCategory()));
+				else if (scalarValue.isSetCount())
+					dest = gml.createCount(BigInteger.valueOf(scalarValue.getCount()));
+				else if (scalarValue.isSetQuantity())
+					dest = gml.createQuantity(marshalMeasure(scalarValue.getQuantity()));
+			}
+
+			else if (valueObject.isSetScalarValueList()) {
+				ScalarValueList scalarValueList = valueObject.getScalarValueList();
+				if (scalarValueList.isSetBooleanList())
+					dest = gml.createBooleanList(marshalBooleanOrNullList(scalarValueList.getBooleanList()));
+				else if (scalarValueList.isSetCountList())
+					dest = gml.createCountList(marshalIntegerOrNullList(scalarValueList.getCountList()));
+				else if (scalarValueList.isSetCategoryList())
+					dest = gml.createCategoryList(marshalCodeOrNullList(scalarValueList.getCategoryList()));
+				else if (scalarValueList.isSetQuantityList())
+					dest = gml.createQuantityList(marshalMeasureOrNullList(scalarValueList.getQuantityList()));
+			}
+
+			else if (valueObject.isSetValueExtent()) {
+				ValueExtent valueExtent = valueObject.getValueExtent();
+				if (valueExtent.isSetCategoryExtent())
+					dest = gml.createCategoryExtent(marshalCategoryExtent(valueExtent.getCategoryExtent()));
+				else if (valueExtent.isSetQuantityExtent())
+					dest = gml.createQuantityExtent(marshalQuantityExtent(valueExtent.getQuantityExtent()));
+				else if (valueExtent.isSetCountExtent())
+					dest = gml.createCountExtent(marshalIntegerOrNullList(valueExtent.getCountExtent()));
+			}
+
+			else if (valueObject.isSetCompositeValue()) {
+				JAXBElement<?> elem = jaxb.marshalJAXBElement(valueObject.getCompositeValue());
+				if (elem != null && elem.getValue() instanceof CompositeValueType)
+					dest = elem;
+			}			
+		}
+		
+		else if (src.isSetGeometry()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
+			if (elem != null && elem.getValue() instanceof AbstractGeometryType)
+				dest = elem;
+		}
+		
+		else if (src.isSetGenericValueObject()) {
+			GenericValueObject genericValueObject = src.getGenericValueObject();
+			if (genericValueObject.isSetContent())
+				dest = genericValueObject.getContent();
+		}
+		
+		else if (src.isSetNull()) {
+			List<String> _null = new ArrayList<String>();
+			_null.add(src.getNull().getValue());			
+			dest = gml.createNull(_null);
+		}
+		
+		return dest;
+	}
 
 	@SuppressWarnings("unchecked")
 	public AbstractRingPropertyType marshalAbstractRingProperty(AbstractRingProperty src) {
@@ -772,6 +1093,20 @@ public class GMLMarshaller {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRing());
 			if (elem != null && elem.getValue() instanceof AbstractRingType)
 				dest.set_Ring((JAXBElement<? extends AbstractRingType>)elem);
+		}
+
+		return dest;
+	}
+
+	private List<String> marshalBooleanOrNullList(BooleanOrNullList src) {
+		List<String> dest = new ArrayList<String>();
+		if (src.isSetBooleanOrNull()) {
+			for (BooleanOrNull booleanOrNull : src.getBooleanOrNull()) {
+				if (booleanOrNull.isSetBoolean())
+					dest.add(String.valueOf(booleanOrNull.getBoolean()));
+				else if (booleanOrNull.isSetNull())
+					dest.add(booleanOrNull.getNull().getValue());
+			}
 		}
 
 		return dest;
@@ -793,6 +1128,13 @@ public class GMLMarshaller {
 		return dest;
 	}
 
+	public CategoryExtentType marshalCategoryExtent(CategoryExtent src) {
+		CategoryExtentType dest = gml.createCategoryExtentType();
+		marshalCodeOrNullList(src, dest);
+
+		return dest;
+	}
+
 	public CodeType marshalCode(Code src) {
 		CodeType dest = gml.createCodeType();
 
@@ -801,6 +1143,13 @@ public class GMLMarshaller {
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
+
+		return dest;
+	}
+
+	public CodeOrNullListType marshalCodeOrNullList(CodeOrNullList src) {
+		CodeOrNullListType dest = gml.createCodeOrNullListType();
+		marshalCodeOrNullList(src, dest);		
 
 		return dest;
 	}
@@ -940,6 +1289,13 @@ public class GMLMarshaller {
 		return dest;
 	}
 
+	public CompositeValueType marshalCompositeValue(CompositeValue src) {
+		CompositeValueType dest = gml.createCompositeValueType();
+		marshalCompositeValue(src, dest);
+
+		return dest;
+	}
+
 	public TinType.ControlPoint marshalControlPoint(ControlPoint src) {
 		TinType.ControlPoint dest = gml.createTinTypeControlPoint();
 
@@ -991,6 +1347,21 @@ public class GMLMarshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
+	public CoverageFunctionType marshalCoverageFunction(CoverageFunction src) {
+		CoverageFunctionType dest = gml.createCoverageFunctionType();
+		
+		if (src.isSetMappingRule())
+			dest.setMappingRule(marshalStringOrRef(src.getMappingRule()));
+		else if (src.isSetGridFunction()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGridFunction());
+			if (elem != null && elem.getValue() instanceof GridFunctionType)
+				dest.setGridFunction((JAXBElement<? extends GridFunctionType>)elem);
+		}
+		
+		return dest;
+	}
+	
 	public CurveType marshalCurve(Curve src) {
 		CurveType dest = gml.createCurveType();
 		marshalAbstractCurve(src, dest);
@@ -1072,6 +1443,20 @@ public class GMLMarshaller {
 
 		return dest;
 	}
+	
+	public DataBlockType marshalDataBlock(DataBlock src) {
+		DataBlockType dest = gml.createDataBlockType();
+		
+		if (src.isSetRangeParameters())
+			dest.setRangeParameters(marshalRangeParameters(src.getRangeParameters()));
+		
+		if (src.isSetTupleList())
+			dest.setTupleList(marshalCoordinates(src.getTupleList()));
+		else if (src.isSetDoubleOrNullTupleList())
+			dest.setDoubleOrNullTupleList(marshalDoubleOrNullList(src.getDoubleOrNullTupleList()));
+		
+		return dest;
+	}
 
 	public DirectPositionType marshalDirectPosition(DirectPosition src) {
 		DirectPositionType dest = gml.createDirectPositionType();
@@ -1117,6 +1502,20 @@ public class GMLMarshaller {
 
 		return dest;
 	}
+	
+	private List<String> marshalDoubleOrNullList(DoubleOrNullList src) {
+		List<String> dest = new ArrayList<String>();
+		if (src.isSetDoubleOrNull()) {
+			for (DoubleOrNull doubleOrNull : src.getDoubleOrNull()) {
+				if (doubleOrNull.isSetDouble())
+					dest.add(String.valueOf(doubleOrNull.getDouble()));
+				else if (doubleOrNull.isSetNull())
+					dest.add(doubleOrNull.getNull().getValue());
+			}
+		}
+
+		return dest;
+	}
 
 	public EnvelopeType marshalEnvelope(Envelope src) {
 		EnvelopeType dest = gml.createEnvelopeType();
@@ -1154,7 +1553,7 @@ public class GMLMarshaller {
 
 		return dest;		
 	}
-	
+
 	public AbstractRingPropertyType marshalExterior(Exterior src) {
 		return marshalAbstractRingProperty(src);
 	}
@@ -1176,7 +1575,7 @@ public class GMLMarshaller {
 				if (ade.isSetContent())
 					dest.get_ADEComponent().add(ade.getContent());
 		}
-		
+
 		return dest;
 	}
 
@@ -1193,7 +1592,32 @@ public class GMLMarshaller {
 
 		return dest;
 	}
-
+	
+	public FileType marshalFile(File src) {
+		FileType dest = gml.createFileType();
+		
+		if (src.isSetRangeParameters())
+			dest.setRangeParameters(marshalRangeParameters(src.getRangeParameters()));
+		
+		if (src.isSetCompression())
+			dest.setCompression(src.getCompression());
+		
+		if (src.isSetFileName())
+			dest.setFileName(src.getFileName());
+		
+		if (src.isSetFileStructure())
+			dest.setFileStructure(marshalFileValueModel(src.getFileStructure()));
+		
+		if (src.isSetMimeType())
+			dest.setMimeType(src.getMimeType());
+		
+		return dest;
+	}
+	
+	public FileValueModelType marshalFileValueModel(FileValueModel src) {
+		return FileValueModelType.fromValue(src.getValue());
+	}
+ 
 	public GeometricComplexType marshalGeometricComplex(GeometricComplex src) {
 		GeometricComplexType dest = gml.createGeometricComplexType();
 		marshalAbstractGeometry(src, dest);
@@ -1287,7 +1711,7 @@ public class GMLMarshaller {
 	}
 
 	@SuppressWarnings("unchecked")
-	public GeometryPropertyType marshalGeometryProperty(GeometryProperty src) {
+	public GeometryPropertyType marshalGeometryProperty(GeometryProperty<? extends AbstractGeometry> src) {
 		GeometryPropertyType dest = gml.createGeometryPropertyType();
 
 		if (src.isSetGeometry()) {
@@ -1322,9 +1746,74 @@ public class GMLMarshaller {
 
 		return dest;
 	}
+
+	public GridType marshalGrid(Grid src) {
+		GridType dest = gml.createGridType();
+		marshalGrid(src, dest);
+		
+		return dest;
+	}
+	
+	public GridEnvelopeType marshalGridEnvelope(GridEnvelope src) {
+		GridEnvelopeType dest = gml.createGridEnvelopeType();
+		
+		if (src.isSetHigh()) {
+			for (Integer high : src.getHigh())
+				dest.getHigh().add(BigInteger.valueOf(high));
+		}
+		
+		if (src.isSetLow()) {
+			for (Integer low : src.getLow())
+				dest.getLow().add(BigInteger.valueOf(low));
+		}
+		
+		return dest;
+	}
+	
+	public GridFunctionType marshalGridFunction(GridFunction src) {
+		GridFunctionType dest = gml.createGridFunctionType();
+		marshalGridFunction(src, dest);
+		
+		return dest;
+	}
+	
+	public GridLimitsType marshalGridLimits(GridLimits src) {
+		GridLimitsType dest = gml.createGridLimitsType();
+		
+		if (src.isSetGridEnvelope())
+			dest.setGridEnvelope(marshalGridEnvelope(src.getGridEnvelope()));
+		
+		return dest;		
+	}
+	
+	public IndexMapType marshalIndexMap(IndexMap src) {
+		IndexMapType dest = gml.createIndexMapType();
+		marshalGridFunction(src, dest);
+		
+		if (src.isSetLookUpTable()) {
+			for (Integer index : src.getLookUpTable())
+				dest.getLookUpTable().add(BigInteger.valueOf(index));
+		}
+		
+		return dest;
+	}
 	
 	public AbstractRingPropertyType marshalInnerBoundaryIs(InnerBoundaryIs src) {
 		return marshalAbstractRingProperty(src);
+	}
+
+	private List<String> marshalIntegerOrNullList(IntegerOrNullList src) {
+		List<String> dest = new ArrayList<String>();
+		if (src.isSetIntegerOrNull()) {
+			for (IntegerOrNull integerOrNull : src.getIntegerOrNull()) {
+				if (integerOrNull.isSetInteger())
+					dest.add(String.valueOf(integerOrNull.getInteger()));
+				else if (integerOrNull.isSetNull())
+					dest.add(integerOrNull.getNull().getValue());
+			}
+		}
+
+		return dest;
 	}
 	
 	public AbstractRingPropertyType marshalInterior(Interior src) {
@@ -1489,22 +1978,10 @@ public class GMLMarshaller {
 
 	public MeasureOrNullListType marshalMeasureOrNullList(MeasureOrNullList src) {
 		MeasureOrNullListType dest = gml.createMeasureOrNullListType();
-
-		if (src.isSetUom())
-			dest.setUom(src.getUom());
-
-		if (src.isSetDoubleOrNull()) {
-			for (DoubleOrNull doubleOrNull : src.getDoubleOrNull()) {
-				if (doubleOrNull.isSetDouble())
-					dest.getValue().add(String.valueOf(doubleOrNull.getDouble()));
-				else if (doubleOrNull.isSetNull())
-					dest.getValue().add(doubleOrNull.getNull().getValue());
-			}
-		}
+		marshalMeasureOrNullList(src, dest);		
 
 		return dest;
 	}
-
 
 	public MetaDataPropertyType marshalMetaDataProperty(MetaDataProperty src) {
 		MetaDataPropertyType dest = gml.createMetaDataPropertyType();
@@ -1850,7 +2327,7 @@ public class GMLMarshaller {
 	public AbstractRingPropertyType marshalOuterBoundaryIs(OuterBoundaryIs src) {
 		return marshalAbstractRingProperty(src);
 	}
-	
+
 	public PointType marshalPoint(Point src) {
 		PointType dest = gml.createPointType();
 		marshalAbstractGeometricPrimitive(src, dest);
@@ -1980,6 +2457,71 @@ public class GMLMarshaller {
 		return dest;
 	}
 
+	public QuantityExtentType marshalQuantityExtent(QuantityExtent src) {
+		QuantityExtentType dest = gml.createQuantityExtentType();
+		marshalMeasureOrNullList(src, dest);
+
+		return dest;
+	}
+	
+	public RangeParametersType marshalRangeParameters(RangeParameters src) {
+		RangeParametersType dest = gml.createRangeParametersType();
+		
+		if (src.isSetValueObject())
+			marshalValueObject(src.getValueObject(), dest);
+		
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
+		return dest;
+	}
+	
+	public RangeSetType marshalRangeSet(RangeSet src) {
+		RangeSetType dest = gml.createRangeSetType();
+		
+		if (src.isSetValueArray()) {
+			for (ValueArray valueArray : src.getValueArray())
+				dest.getValueArray().add(marshalValueArray(valueArray));
+		} else if (src.isSetScalarValueList()) {
+			for (ScalarValueList scalarValueList : src.getScalarValueList()) {
+				if (scalarValueList.isSetBooleanList())
+					dest.getScalarValueList().add(gml.createBooleanList(marshalBooleanOrNullList(scalarValueList.getBooleanList())));
+				else if (scalarValueList.isSetCountList())
+					dest.getScalarValueList().add(gml.createCountList(marshalIntegerOrNullList(scalarValueList.getCountList())));
+				else if (scalarValueList.isSetCategoryList())
+					dest.getScalarValueList().add(gml.createCategoryList(marshalCodeOrNullList(scalarValueList.getCategoryList())));
+				else if (scalarValueList.isSetQuantityList())
+					dest.getScalarValueList().add(gml.createQuantityList(marshalMeasureOrNullList(scalarValueList.getQuantityList())));
+			}
+		} else if (src.isSetDataBlock())
+			dest.setDataBlock(marshalDataBlock(src.getDataBlock()));
+		else if (src.isSetFile())
+			dest.setFile(marshalFile(src.getFile()));
+		
+		return dest;
+	}
+
 	@SuppressWarnings("unchecked")
 	public RectangleType marshalRectangle(Rectangle src) {
 		RectangleType dest = gml.createRectangleType();
@@ -1996,6 +2538,49 @@ public class GMLMarshaller {
 
 		return dest;
 	}
+	
+	public RectifiedGridType marshalRectifiedGrid(RectifiedGrid src) {
+		RectifiedGridType dest = gml.createRectifiedGridType();
+		marshalGrid(src, dest);
+		
+		if (src.isSetOrigin())
+			dest.setOrigin(marshalPointProperty(src.getOrigin()));
+		
+		if (src.isSetOffsetVector()) {
+			for (Vector offsetVector : src.getOffsetVector())
+				dest.getOffsetVector().add(marshalVector(offsetVector));
+		}
+		
+		return dest;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public RectifiedGridCoverageType marshalRectifiedGridCoverage(RectifiedGridCoverage src) {
+		RectifiedGridCoverageType dest = gml.createRectifiedGridCoverageType();
+		marshalAbstractDiscreteCoverage(src, dest);
+		
+		if (src.isSetRectifiedGridDomain()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRectifiedGridDomain());
+			if (elem != null && elem.getValue() instanceof RectifiedGridDomainType)
+				dest.setDomainSet((JAXBElement<? extends DomainSetType>)elem);
+		}
+		
+		return dest;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public RectifiedGridDomainType marshalRectifiedGridDomain(RectifiedGridDomain src) {
+		RectifiedGridDomainType dest = gml.createRectifiedGridDomainType();
+		marshalDomainSet(src, dest);
+		
+		if (src.isSetGeometry()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometry());
+			if (elem != null && elem.getValue() instanceof RectifiedGridType)
+				dest.set_Geometry((JAXBElement<? extends AbstractGeometryType>)elem);
+		}
+		
+		return dest;
+	}
 
 	public RingType marshalRing(Ring src) {
 		RingType dest = gml.createRingType();
@@ -2006,6 +2591,22 @@ public class GMLMarshaller {
 				dest.getCurveMember().add(marshalCurveProperty(member));
 		}
 
+		return dest;
+	}
+	
+	public org.citygml4j.jaxb.gml._3_1_1.SequenceRuleNames marshalSequenceRuleNames(SequenceRuleNames src) {
+		return org.citygml4j.jaxb.gml._3_1_1.SequenceRuleNames.fromValue(src.getValue());
+	}
+	
+	public SequenceRuleType marshalSequenceRule(SequenceRule src) {
+		SequenceRuleType dest = gml.createSequenceRuleType();
+		
+		if (src.isSetValue())
+			dest.setValue(marshalSequenceRuleNames(src.getValue()));
+		
+		if (src.isSetOrder())
+			dest.setOrder(src.getOrder().getValue());
+		
 		return dest;
 	}
 
@@ -2239,4 +2840,86 @@ public class GMLMarshaller {
 
 		return dest;
 	}
+
+	public ValueArrayType marshalValueArray(ValueArray src) {
+		ValueArrayType dest = gml.createValueArrayType();
+		marshalCompositeValue(src, dest);
+		
+		if (src.isSetCodeSpace())
+			dest.setCodeSpace(src.getCodeSpace());
+		
+		if (src.isSetUom())
+			dest.setUom(src.getUom());
+
+		return dest;
+	}
+
+	public ValueArrayPropertyType marshalValueArrayProperty(ValueArrayProperty src) {
+		ValueArrayPropertyType dest = gml.createValueArrayPropertyType();
+
+		if (src.isSetValue()) {
+			for (Value value : src.getValue()) {
+				Object object = marshalValue(value);
+				if (object != null)
+					dest.getValue().add(object);
+			}
+		}
+
+		return dest;
+	}
+
+	public ValuePropertyType marshalValueProperty(ValueProperty src) {
+		ValuePropertyType dest = gml.createValuePropertyType();
+
+		if (src.isSetValue())
+			marshalValue(src.getValue(), dest);
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
+		return dest;
+	}
+	
+	public VectorType marshalVector(Vector src) {
+		VectorType dest = gml.createVectorType();
+		
+		if (src.isSetValue())
+			dest.setValue(src.getValue());
+		
+		if (src.isSetSrsName())
+			dest.setSrsName(src.getSrsName());
+
+		if (src.isSetSrsDimension())
+			dest.setSrsDimension(BigInteger.valueOf(src.getSrsDimension()));
+
+		if (src.isSetAxisLabels())
+			dest.setAxisLabels(src.getAxisLabels());
+
+		if (src.isSetUomLabels())
+			dest.setUomLabels(src.getUomLabels());
+		
+		return dest;
+	}
+
 }

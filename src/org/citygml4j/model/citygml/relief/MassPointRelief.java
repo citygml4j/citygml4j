@@ -3,9 +3,9 @@ package org.citygml4j.model.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.gml.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
 
-public interface MassPointRelief extends ReliefComponent {
+public interface MassPointRelief extends AbstractReliefComponent {
 	public MultiPointProperty getReliefPoints();
 	public List<ADEComponent> getGenericApplicationPropertyOfMassPointRelief();
 	public boolean isSetReliefPoints();

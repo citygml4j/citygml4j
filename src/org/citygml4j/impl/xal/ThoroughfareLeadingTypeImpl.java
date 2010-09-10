@@ -1,10 +1,10 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.ThoroughfareLeadingType;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class ThoroughfareLeadingTypeImpl implements ThoroughfareLeadingType {
 	private String content;
@@ -45,7 +45,7 @@ public class ThoroughfareLeadingTypeImpl implements ThoroughfareLeadingType {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARELEADINGTYPE;
+		return XALClass.THOROUGHFARE_LEADING_TYPE;
 	}
 
 	public String getCode() {
@@ -102,11 +102,11 @@ public class ThoroughfareLeadingTypeImpl implements ThoroughfareLeadingType {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

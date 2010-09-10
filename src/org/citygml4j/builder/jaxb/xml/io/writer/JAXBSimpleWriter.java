@@ -11,16 +11,16 @@ import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
 import org.citygml4j.impl.citygml.core.CityModelImpl;
 import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.gml.FeaturePropertyImpl;
+import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
@@ -72,7 +72,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 
 		if (input instanceof CityModel) {
 			cityModel = new CityModelInfo((CityModel)input).toCityModel();
-			origModel = (CityModel)results.get(results.size() - 1);
+			origModel = (CityModel)results.get(0);
 			gmlIds = new HashSet<String>();
 		} else
 			cityModel = new CityModelImpl();
@@ -86,9 +86,9 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 				if (gmlIds != null && feature.isSetId())
 					gmlIds.add('#' + feature.getId());
 
-				if (feature instanceof CityObject) {
+				if (feature instanceof AbstractCityObject) {
 					CityObjectMember member = new CityObjectMemberImpl();
-					member.setCityObject((CityObject)feature);
+					member.setCityObject((AbstractCityObject)feature);
 					cityModel.addCityObjectMember(member);
 				} 
 
@@ -99,7 +99,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 				} 
 
 				else {
-					FeatureProperty<AbstractFeature> member = new FeaturePropertyImpl<AbstractFeature>();
+					FeatureMember member = new FeatureMemberImpl();
 					member.setFeature(feature);
 					cityModel.addFeatureMember(member);
 				}
@@ -126,7 +126,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 				} 
 
 				else {
-					FeatureProperty<AbstractFeature> member = new FeaturePropertyImpl<AbstractFeature>();
+					FeatureMember member = new FeatureMemberImpl();
 					member.setGenericADEComponent(ade);
 					cityModel.addFeatureMember(member);
 				}
@@ -149,7 +149,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 						gmlIds.remove(member.getHref());
 			
 			if (origModel.isSetFeatureMember())
-				for (FeatureProperty<?> member : origModel.getFeatureMember())
+				for (FeatureMember member : origModel.getFeatureMember())
 					if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
 						cityModel.addFeatureMember(member);	
 					else

@@ -3,22 +3,22 @@ package org.citygml4j.factory.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.citygml4j.impl.gml.DirectPositionImpl;
-import org.citygml4j.impl.gml.DirectPositionListImpl;
-import org.citygml4j.impl.gml.ExteriorImpl;
-import org.citygml4j.impl.gml.InteriorImpl;
-import org.citygml4j.impl.gml.LineStringImpl;
-import org.citygml4j.impl.gml.LinearRingImpl;
-import org.citygml4j.impl.gml.PointImpl;
-import org.citygml4j.impl.gml.PolygonImpl;
-import org.citygml4j.model.gml.DirectPosition;
-import org.citygml4j.model.gml.DirectPositionList;
-import org.citygml4j.model.gml.Exterior;
-import org.citygml4j.model.gml.Interior;
-import org.citygml4j.model.gml.LineString;
-import org.citygml4j.model.gml.LinearRing;
-import org.citygml4j.model.gml.Point;
-import org.citygml4j.model.gml.Polygon;
+import org.citygml4j.impl.gml.geometry.primitives.DirectPositionImpl;
+import org.citygml4j.impl.gml.geometry.primitives.DirectPositionListImpl;
+import org.citygml4j.impl.gml.geometry.primitives.ExteriorImpl;
+import org.citygml4j.impl.gml.geometry.primitives.InteriorImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LineStringImpl;
+import org.citygml4j.impl.gml.geometry.primitives.LinearRingImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PointImpl;
+import org.citygml4j.impl.gml.geometry.primitives.PolygonImpl;
+import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
+import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
+import org.citygml4j.model.gml.geometry.primitives.Exterior;
+import org.citygml4j.model.gml.geometry.primitives.Interior;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.Point;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
 
 public class GMLGeometryFactory {
 

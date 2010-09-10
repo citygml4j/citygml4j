@@ -6,10 +6,10 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.walker.FeatureWalker;
+import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -34,19 +34,19 @@ public class Converter {
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
-			public void accept(AbstractFeature abstractFeature) {
+			public void visit(AbstractFeature abstractFeature) {
 				if (abstractFeature instanceof CityGML) {
 					CityGML cityGML = (CityGML)abstractFeature;
 					System.out.println("Original CityGML version of " + cityGML.getCityGMLClass() + " instance: "+
 							cityGML.getCityGMLModule().getVersion());
 				}
 				
-				super.accept(abstractFeature);
+				super.visit(abstractFeature);
 			}
 			
 		};
 		
-		cityModel.visit(walker);
+		cityModel.accept(walker);
 		
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 0.4.0 document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();

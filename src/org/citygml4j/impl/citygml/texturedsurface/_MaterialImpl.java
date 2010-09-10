@@ -4,11 +4,11 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
-public class _MaterialImpl extends _AppearanceImpl implements _Material {
+public class _MaterialImpl extends _AbstractAppearanceImpl implements _Material {
 	private Double shininess;
 	private Double transparency;
 	private Double ambientIntensity;
@@ -138,7 +138,6 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 		transparency = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._MATERIAL;
 	}
@@ -182,12 +181,12 @@ public class _MaterialImpl extends _AppearanceImpl implements _Material {
 		return copy;
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

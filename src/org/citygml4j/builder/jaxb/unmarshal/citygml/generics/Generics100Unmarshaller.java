@@ -20,7 +20,7 @@ import org.citygml4j.jaxb.citygml.gen._1.UriAttributeType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.GenericAttribute;
+import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.IntAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
@@ -64,7 +64,7 @@ public class Generics100Unmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalGenericAttribute(AbstractGenericAttributeType src, GenericAttribute dest) {
+	public void unmarshalGenericAttribute(AbstractGenericAttributeType src, AbstractGenericAttribute dest) {
 		if (src.isSetName())
 			dest.setName(src.getName());
 	}

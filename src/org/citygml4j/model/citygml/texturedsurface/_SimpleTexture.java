@@ -2,7 +2,7 @@ package org.citygml4j.model.citygml.texturedsurface;
 
 import java.util.List;
 
-public interface _SimpleTexture extends _Appearance {
+public interface _SimpleTexture extends _AbstractAppearance {
 	public String getTextureMap();
 	public List<Double> getTextureCoordinates();
 	public _TextureType getTextureType();

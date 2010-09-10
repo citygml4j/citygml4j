@@ -4,20 +4,21 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.Length;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.measures.Length;
 
-public interface SolitaryVegetationObject extends VegetationObject {
+public interface SolitaryVegetationObject extends AbstractVegetationObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public String getSpecies();
 	public Length getHeight();
 	public Length getTrunkDiameter();
 	public Length getCrownDiameter();
-	public GeometryProperty getLod1Geometry();
-	public GeometryProperty getLod2Geometry();
-	public GeometryProperty getLod3Geometry();
-	public GeometryProperty getLod4Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod1Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod3Geometry();
+	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry();
 	public ImplicitRepresentationProperty getLod1ImplicitRepresentation();
 	public ImplicitRepresentationProperty getLod2ImplicitRepresentation();
 	public ImplicitRepresentationProperty getLod3ImplicitRepresentation();
@@ -46,10 +47,10 @@ public interface SolitaryVegetationObject extends VegetationObject {
 	public void setHeight(Length height);
 	public void setTrunkDiameter(Length trunkDiameter);
 	public void setCrownDiameter(Length crownDiameter);
-	public void setLod1Geometry(GeometryProperty lod1Geometry);
-	public void setLod2Geometry(GeometryProperty lod2Geometry);
-	public void setLod3Geometry(GeometryProperty lod3Geometry);
-	public void setLod4Geometry(GeometryProperty lod4Geometry);
+	public void setLod1Geometry(GeometryProperty<? extends AbstractGeometry> lod1Geometry);
+	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry);
+	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry);
+	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry);
 	public void setLod1ImplicitRepresentation(ImplicitRepresentationProperty lod1ImplicitRepresentation);
 	public void setLod2ImplicitRepresentation(ImplicitRepresentationProperty lod2ImplicitRepresentation);
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation);

@@ -8,9 +8,9 @@ import java.util.Set;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLInputFactory;
 
-import org.citygml4j.commons.gmlid.DefaultGMLIdManager;
-import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;

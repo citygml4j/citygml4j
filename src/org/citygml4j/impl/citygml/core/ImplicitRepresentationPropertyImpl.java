@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.base.AssociationByRepOrRefImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 
-public class ImplicitRepresentationPropertyImpl extends AssociationImpl<ImplicitGeometry> implements ImplicitRepresentationProperty {
+public class ImplicitRepresentationPropertyImpl extends AssociationByRepOrRefImpl<ImplicitGeometry> implements ImplicitRepresentationProperty {
 	private CoreModule module;
 	
 	public ImplicitRepresentationPropertyImpl() {
@@ -35,7 +35,7 @@ public class ImplicitRepresentationPropertyImpl extends AssociationImpl<Implicit
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.IMPLICITREPRESENTATIONPROPERTY;
+		return CityGMLClass.IMPLICIT_REPRESENTATION_PROPERTY;
 	}
 
 	public final CoreModule getCityGMLModule() {

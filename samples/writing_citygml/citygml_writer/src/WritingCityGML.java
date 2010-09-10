@@ -4,11 +4,11 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.commons.gmlid.DefaultGMLIdManager;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;

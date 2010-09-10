@@ -7,7 +7,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
-public class DateAttributeImpl extends GenericAttributeImpl implements DateAttribute {
+public class DateAttributeImpl extends AbstractGenericAttributeImpl implements DateAttribute {
 	private GregorianCalendar value;
 	
 	public DateAttributeImpl() {
@@ -34,9 +34,8 @@ public class DateAttributeImpl extends GenericAttributeImpl implements DateAttri
 		value = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.DATEATTRIBUTE;
+		return CityGMLClass.DATE_ATTRIBUTE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

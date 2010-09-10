@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AddressProperty;
-import org.citygml4j.model.citygml.core.Site;
-import org.citygml4j.model.gml.Length;
-import org.citygml4j.model.gml.MeasureOrNullList;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.citygml.core.AbstractSite;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.measures.Length;
 
-public interface AbstractBuilding extends BuildingModuleComponent, Site {
+public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();

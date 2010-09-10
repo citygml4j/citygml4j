@@ -3,16 +3,16 @@ package org.citygml4j.impl.citygml.appearance;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.citygml.AppearanceModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
-public class TexCoordListImpl extends TextureParameterizationImpl implements TexCoordList {
+public class TexCoordListImpl extends AbstractTextureParameterizationImpl implements TexCoordList {
 	private List<TextureCoordinates> textureCoordinates;
 	private List<ADEComponent> ade;
 	
@@ -90,9 +90,8 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		return isSetTextureCoordinates() ? this.textureCoordinates.remove(textureCoordinates) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXCOORDLIST;
+		return CityGMLClass.TEX_COORD_LIST;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
@@ -127,12 +126,12 @@ public class TexCoordListImpl extends TextureParameterizationImpl implements Tex
 		return copy;
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

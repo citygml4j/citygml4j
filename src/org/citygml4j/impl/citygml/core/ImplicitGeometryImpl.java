@@ -1,21 +1,22 @@
 package org.citygml4j.impl.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AbstractGMLImpl;
+import org.citygml4j.impl.gml.base.AbstractGMLImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
-import org.citygml4j.model.gml.GeometryProperty;
-import org.citygml4j.model.gml.PointProperty;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
 public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeometry {
 	private String mimeType;
 	private TransformationMatrix4x4 transformationMatrix;
 	private String libraryObject;
-	private GeometryProperty relativeGeometry;
+	private GeometryProperty<? extends AbstractGeometry> relativeGeometry;
 	private PointProperty referencePoint;
 	private CoreModule module;	
 
@@ -39,7 +40,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		return referencePoint;
 	}
 
-	public GeometryProperty getRelativeGMLGeometry() {
+	public GeometryProperty<? extends AbstractGeometry> getRelativeGMLGeometry() {
 		return relativeGeometry;
 	}
 
@@ -82,7 +83,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		this.referencePoint = referencePoint;
 	}
 
-	public void setRelativeGeometry(GeometryProperty relativeGeometry) {
+	public void setRelativeGeometry(GeometryProperty<? extends AbstractGeometry> relativeGeometry) {
 		if (relativeGeometry != null)
 			relativeGeometry.setParent(this);
 		
@@ -126,7 +127,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.IMPLICITGEOMETRY;
+		return CityGMLClass.IMPLICIT_GEOMETRY;
 	}
 
 	public final CoreModule getCityGMLModule() {
@@ -141,6 +142,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		return copyTo(new ImplicitGeometryImpl(), copyBuilder);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		ImplicitGeometry copy = (target == null) ? new ImplicitGeometryImpl() : (ImplicitGeometry)target;
@@ -159,7 +161,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		}
 		
 		if (isSetRelativeGMLGeometry()) {
-			copy.setRelativeGeometry((GeometryProperty)copyBuilder.copy(relativeGeometry));
+			copy.setRelativeGeometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(relativeGeometry));
 			if (copy.getRelativeGMLGeometry() == relativeGeometry)
 				relativeGeometry.setParent(this);
 		}
@@ -173,12 +175,12 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		return copy;
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

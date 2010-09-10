@@ -7,11 +7,11 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
 
-public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTexture {
+public class _SimpleTextureImpl extends _AbstractAppearanceImpl implements _SimpleTexture {
 	private String textureMap;
 	private List<Double> textureCoordinates;
 	private _TextureType _textureType;
@@ -84,9 +84,8 @@ public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTextur
 		_textureType = null;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._SIMPLETEXTURE;
+		return CityGMLClass._SIMPLE_TEXTURE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
@@ -114,12 +113,12 @@ public class _SimpleTextureImpl extends _AppearanceImpl implements _SimpleTextur
 		return copy;
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

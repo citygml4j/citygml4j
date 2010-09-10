@@ -11,18 +11,19 @@ import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
 import org.citygml4j.impl.citygml.core.CityModelImpl;
 import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.gml.FeatureArrayPropertyImpl;
-import org.citygml4j.impl.gml.FeaturePropertyImpl;
+import org.citygml4j.impl.gml.feature.FeatureArrayPropertyImpl;
+import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityModelInfo;
@@ -260,13 +261,12 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private FeatureProperty<? extends AbstractFeature> wrap(Object object) {
 		FeatureProperty<? extends AbstractFeature> member = null;
 
-		if (object instanceof CityObject) {
+		if (object instanceof AbstractCityObject) {
 			member = new CityObjectMemberImpl();
-			((CityObjectMember)member).setCityObject((CityObject)object);
+			((CityObjectMember)member).setCityObject((AbstractCityObject)object);
 		} 
 
 		else if (object instanceof Appearance) {
@@ -275,14 +275,14 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		} 
 
 		else if (object instanceof AbstractFeature) {
-			member = new FeaturePropertyImpl<AbstractFeature>();
-			((FeatureProperty<AbstractFeature>)member).setFeature((AbstractFeature)object);
+			member = new FeatureMemberImpl();
+			((FeatureMember)member).setFeature((AbstractFeature)object);
 		}
 
 		else if (object instanceof ADEComponent) {
 			ADEComponent ade = (ADEComponent)object;
 
-			member = (isCityObject(ade)) ? new CityObjectMemberImpl() : new FeaturePropertyImpl<AbstractFeature>();
+			member = (isCityObject(ade)) ? new CityObjectMemberImpl() : new FeatureMemberImpl();
 			member.setGenericADEComponent(ade);
 		}
 

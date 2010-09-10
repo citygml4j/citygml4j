@@ -5,10 +5,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.SiteImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
-import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.impl.citygml.core.AbstractSiteImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
@@ -17,15 +15,19 @@ import org.citygml4j.model.citygml.building.BuildingPartProperty;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.core.AddressProperty;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.Length;
-import org.citygml4j.model.gml.MeasureOrNullList;
-import org.citygml4j.model.gml.MultiCurveProperty;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
-import org.citygml4j.model.gml.SolidProperty;
+import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
-public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractBuilding {
+public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements AbstractBuilding {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
@@ -862,11 +864,6 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 	}
 
 	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ABSTRACTBUILDING;
-	}
-
-	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShapeImpl();
 		
@@ -982,6 +979,73 @@ public abstract class AbstractBuildingImpl extends SiteImpl implements AbstractB
 			return boundedBy;
 		} else
 			return null;
+	}
+	
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		GeometryProperty<? extends AbstractGeometry> property = null;		
+		for (int lod = 1; lod < 5; lod++) {
+			switch (lod) {
+			case 1:
+				property = lod1Solid;
+				break;
+			case 2:
+				property = lod2Solid;
+				break;
+			case 3:
+				property = lod3Solid;
+				break;
+			case 4:
+				property = lod4Solid;
+				break;
+			}
+			
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		property = null;
+		for (int lod = 1; lod < 5; lod++) {
+			switch (lod) {
+			case 1:
+				property = lod1MultiSurface;
+				break;
+			case 2:
+				property = lod2MultiSurface;
+				break;
+			case 3:
+				property = lod3MultiSurface;
+				break;
+			case 4:
+				property = lod4MultiSurface;
+				break;
+			}
+			
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		property = null;
+		for (int lod = 2; lod < 5; lod++) {
+			switch (lod) {
+			case 2:
+				property = lod2MultiCurve;
+				break;
+			case 3:
+				property = lod3MultiCurve;
+				break;
+			case 4:
+				property = lod3MultiCurve;
+				break;
+			}
+			
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		return lodRepresentation;
 	}
 
 	@SuppressWarnings("unchecked")

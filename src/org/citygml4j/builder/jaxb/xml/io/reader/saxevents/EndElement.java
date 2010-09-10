@@ -4,23 +4,46 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class EndElement implements SAXEvent, Locatable {
-	private final String uri;
-	private final String localName;
-	private final String qName;
+public final class EndElement extends SAXEvent {
+	private String uri;
+	private String localName;
+	private String prefix;
 	private Location location;
 
-	public EndElement(String uri, String localName, String qName, Location location) {
-		this.uri = uri;
-		this.localName = localName;
-		this.qName = qName;
-		this.location = location;
+	private EndElement() {
+		super(EventType.END_ELEMENT);
 	}
 
-	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.endElement(uri, localName, qName);
+	public EndElement(String uri, String localName, String prefix, Location location) {
+		this();
+		this.uri = uri;
+		this.localName = localName;
+		this.location = location;
+
+		if (prefix != null) {
+			int index = prefix.indexOf(':');
+			this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
+		} else
+			this.prefix = prefix;
 	}
-	
+
+	@Override
+	public EndElement shallowCopy() {
+		EndElement endElement = new EndElement();
+		endElement.uri = uri;
+		endElement.localName = localName;
+		endElement.prefix = prefix;
+		endElement.location = location;
+
+		return endElement;
+	}
+
+	@Override
+	public void send(ContentHandler contentHandler) throws SAXException {
+		contentHandler.endElement(uri, localName, prefix != null ? prefix + ':' + localName : localName);
+	}
+
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		if (location != null) {
 			locator.setLineNumber(location.getLineNumber());
@@ -28,7 +51,7 @@ public final class EndElement implements SAXEvent, Locatable {
 			locator.setSystemId(location.getSystemId());
 			locator.setPublicId(location.getPublicId());
 		}
-		
+
 		send(contentHandler);
 	}
 
@@ -40,14 +63,10 @@ public final class EndElement implements SAXEvent, Locatable {
 		return localName;
 	}
 
-	public String getQName() {
-		return qName;
-	}
-	
 	public Location getLocation() {
 		return location;
 	}
-	
+
 	public void setLocation(Location location) {
 		this.location = location;
 	}

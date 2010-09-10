@@ -4,29 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGroup {
+public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityObjectGroup {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
 	private List<CityObjectGroupMember> groupMember;
 	private CityObjectGroupParent groupParent;
-	private GeometryProperty geometry;
+	private GeometryProperty<? extends AbstractGeometry> geometry;
 	private List<ADEComponent> ade;
 	private CityObjectGroupModule module;
 	
@@ -84,7 +86,7 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return ade;
 	}
 
-	public GeometryProperty getGeometry() {
+	public GeometryProperty<? extends AbstractGeometry> getGeometry() {
 		return geometry;
 	}
 
@@ -146,7 +148,7 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		this.ade = new ChildList<ADEComponent>(this, ade);
 	}
 
-	public void setGeometry(GeometryProperty geometry) {
+	public void setGeometry(GeometryProperty<? extends AbstractGeometry> geometry) {
 		if (geometry != null)
 			geometry.setParent(this);
 		
@@ -224,9 +226,8 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITYOBJECTGROUP;
+		return CityGMLClass.CITY_OBJECT_GROUP;
 	}
 
 	public final CityObjectGroupModule getCityGMLModule() {
@@ -267,6 +268,18 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		} else
 			return null;
 	}
+	
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		if (isSetGeometry()) {
+			for (int lod = 0; lod < 5; lod++)
+				lodRepresentation.getLodRepresentation(lod).add(geometry);
+		}
+		
+		return lodRepresentation;
+	}
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CityObjectGroupImpl(), copyBuilder);
@@ -304,7 +317,7 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		}
 		
 		if (isSetGeometry()) {
-			copy.setGeometry((GeometryProperty)copyBuilder.copy(geometry));
+			copy.setGeometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(geometry));
 			if (copy.getGeometry() == geometry)
 				geometry.setParent(this);
 		}
@@ -322,20 +335,20 @@ public class CityObjectGroupImpl extends CityObjectImpl implements CityObjectGro
 		return copy;
 	}
 	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

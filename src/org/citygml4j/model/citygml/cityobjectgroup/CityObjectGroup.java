@@ -3,16 +3,17 @@ package org.citygml4j.model.citygml.cityobjectgroup;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.CityObject;
-import org.citygml4j.model.gml.GeometryProperty;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CityObjectGroup extends CityObjectGroupModuleComponent, CityObject {
+public interface CityObjectGroup extends CityObjectGroupModuleComponent, AbstractCityObject {
 	public String getClazz();
 	public List<String> getFunction();
 	public List<String> getUsage();
 	public List<CityObjectGroupMember> getGroupMember();
 	public CityObjectGroupParent getGroupParent();
-	public GeometryProperty getGeometry();
+	public GeometryProperty<? extends AbstractGeometry> getGeometry();
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObjectGroup();
 	public boolean isSetClazz();
 	public boolean isSetFunction();
@@ -30,7 +31,7 @@ public interface CityObjectGroup extends CityObjectGroupModuleComponent, CityObj
 	public void setGroupMember(List<CityObjectGroupMember> groupMember);
 	public void addGroupMember(CityObjectGroupMember groupMember);
 	public void setGroupParent(CityObjectGroupParent groupParent);
-	public void setGeometry(GeometryProperty geometry);	
+	public void setGeometry(GeometryProperty<? extends AbstractGeometry> geometry);	
 	public void addGenericApplicationPropertyOfCityObjectGroup(ADEComponent ade);
 	public void setGenericApplicationPropertyOfCityObjectGroup(List<ADEComponent> ade);
 	public void unsetClazz();

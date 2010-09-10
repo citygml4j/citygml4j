@@ -39,7 +39,7 @@ import org.citygml4j.jaxb.citygml._0_4._BoundarySurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._OpeningType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.BoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -58,7 +58,7 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.Opening;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
@@ -309,7 +309,7 @@ public class Building040Marshaller {
 		}
 	}
 	
-	public void marshalBoundarySurface(BoundarySurface src, _BoundarySurfaceType dest) {
+	public void marshalBoundarySurface(AbstractBoundarySurface src, _BoundarySurfaceType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetLod2MultiSurface())
@@ -333,7 +333,7 @@ public class Building040Marshaller {
 		}
 	}
 	
-	public void marshalOpening(Opening src, _OpeningType dest) {
+	public void marshalOpening(AbstractOpening src, _OpeningType dest) {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetLod3MultiSurface())
@@ -351,7 +351,7 @@ public class Building040Marshaller {
 	
 	public BoundarySurfacePropertyType marshalBoundarySurfaceProperty(BoundarySurfaceProperty src) {
 		BoundarySurfacePropertyType dest = bldg.createBoundarySurfacePropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetBoundarySurface()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBoundarySurface());
@@ -449,7 +449,7 @@ public class Building040Marshaller {
 	
 	public BuildingInstallationPropertyType marshalBuildingInstallationProperty(BuildingInstallationProperty src) {
 		BuildingInstallationPropertyType dest = bldg.createBuildingInstallationPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetBuildingInstallation()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingInstallation());
@@ -479,7 +479,7 @@ public class Building040Marshaller {
 	
 	public BuildingPartPropertyType marshalBuildingPartProperty(BuildingPartProperty src) {
 		BuildingPartPropertyType dest = bldg.createBuildingPartPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetBuildingPart()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingPart());
@@ -611,7 +611,7 @@ public class Building040Marshaller {
 	
 	public IntBuildingInstallationPropertyType marshalIntBuildingInstallationProperty(IntBuildingInstallationProperty src) {
 		IntBuildingInstallationPropertyType dest = bldg.createIntBuildingInstallationPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetIntBuildingInstallation()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getIntBuildingInstallation());
@@ -624,7 +624,7 @@ public class Building040Marshaller {
 	
 	public InteriorFurniturePropertyType marshalInteriorFurnitureProperty(InteriorFurnitureProperty src) {
 		InteriorFurniturePropertyType dest = bldg.createInteriorFurniturePropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetBuildingFurniture()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingFurniture());
@@ -637,7 +637,7 @@ public class Building040Marshaller {
 	
 	public InteriorRoomPropertyType marshalInteriorRoomProperty(InteriorRoomProperty src) {
 		InteriorRoomPropertyType dest = bldg.createInteriorRoomPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetRoom()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRoom());
@@ -667,7 +667,7 @@ public class Building040Marshaller {
 	
 	public OpeningPropertyType marshalOpeningProperty(OpeningProperty src) {
 		OpeningPropertyType dest = bldg.createOpeningPropertyType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetOpening()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getOpening());

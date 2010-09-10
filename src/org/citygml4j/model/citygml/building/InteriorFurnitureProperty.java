@@ -1,8 +1,8 @@
 package org.citygml4j.model.citygml.building;
 
-import org.citygml4j.model.gml.Association;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 
-public interface InteriorFurnitureProperty extends BuildingModuleComponent, Association<BuildingFurniture> {
+public interface InteriorFurnitureProperty extends BuildingModuleComponent, FeatureProperty<BuildingFurniture> {
 	public BuildingFurniture getBuildingFurniture();
 	public boolean isSetBuildingFurniture();
 	

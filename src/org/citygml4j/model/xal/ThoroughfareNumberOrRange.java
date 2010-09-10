@@ -1,7 +1,7 @@
 package org.citygml4j.model.xal;
 
-import org.citygml4j.builder.copy.Copyable;
-import org.citygml4j.commons.child.Child;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.copy.Copyable;
 
 public interface ThoroughfareNumberOrRange extends Child, Copyable {
 	public ThoroughfareNumber getThoroughfareNumber();

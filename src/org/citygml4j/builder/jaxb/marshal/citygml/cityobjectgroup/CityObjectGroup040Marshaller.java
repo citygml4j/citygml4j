@@ -90,7 +90,7 @@ public class CityObjectGroup040Marshaller {
 
 	public CityObjectGroupMemberType marshalCityObjectGroupMember(CityObjectGroupMember src) {
 		CityObjectGroupMemberType dest = grp.createCityObjectGroupMemberType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetCityObject()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getCityObject());
@@ -106,7 +106,7 @@ public class CityObjectGroup040Marshaller {
 
 	public CityObjectGroupMemberType marshalCityObjectGroupParent(CityObjectGroupParent src) {
 		CityObjectGroupMemberType dest = grp.createCityObjectGroupMemberType();
-		jaxb.getGMLMarshaller().marshalAssociation(src, dest);
+		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetCityObject()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getCityObject());

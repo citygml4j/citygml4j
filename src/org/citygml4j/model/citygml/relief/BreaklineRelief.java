@@ -3,9 +3,9 @@ package org.citygml4j.model.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.gml.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 
-public interface BreaklineRelief extends ReliefComponent {
+public interface BreaklineRelief extends AbstractReliefComponent {
 	public MultiCurveProperty getRidgeOrValleyLines();
 	public MultiCurveProperty getBreaklines();
 	public List<ADEComponent> getGenericApplicationPropertyOfBreaklineRelief();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface CeilingSurface extends BoundarySurface {
+public interface CeilingSurface extends AbstractBoundarySurface {
 	public List<ADEComponent> getGenericApplicationPropertyOfCeilingSurface();
 	public boolean isSetGenericApplicationPropertyOfCeilingSurface();
 	

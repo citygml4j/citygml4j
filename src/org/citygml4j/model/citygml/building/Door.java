@@ -5,7 +5,7 @@ import java.util.List;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AddressProperty;
 
-public interface Door extends Opening {
+public interface Door extends AbstractOpening {
 	public List<AddressProperty> getAddress();
 	public List<ADEComponent> getGenericApplicationPropertyOfDoor();
 	public boolean isSetAddress();

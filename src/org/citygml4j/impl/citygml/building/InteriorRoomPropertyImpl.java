@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.building;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
-public class InteriorRoomPropertyImpl extends AssociationImpl<Room> implements InteriorRoomProperty {
+public class InteriorRoomPropertyImpl extends FeaturePropertyImpl<Room> implements InteriorRoomProperty {
 	private BuildingModule module;
 	
 	public InteriorRoomPropertyImpl() {
@@ -35,7 +35,7 @@ public class InteriorRoomPropertyImpl extends AssociationImpl<Room> implements I
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIORROOMPROPERTY;
+		return CityGMLClass.INTERIOR_ROOM_PROPERTY;
 	}
 
 	public final BuildingModule getCityGMLModule() {

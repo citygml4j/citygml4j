@@ -1,13 +1,13 @@
 package org.citygml4j.impl.citygml.building;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.AssociationImpl;
+import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.BuildingPartProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
-public class BuildingPartPropertyImpl extends AssociationImpl<BuildingPart> implements BuildingPartProperty {
+public class BuildingPartPropertyImpl extends FeaturePropertyImpl<BuildingPart> implements BuildingPartProperty {
 	private BuildingModule module;
 	
 	public BuildingPartPropertyImpl() {
@@ -35,7 +35,7 @@ public class BuildingPartPropertyImpl extends AssociationImpl<BuildingPart> impl
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDINGPARTPROPERTY;
+		return CityGMLClass.BUILDING_PART_PROPERTY;
 	}
 
 	public final BuildingModule getCityGMLModule() {

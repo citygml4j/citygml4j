@@ -7,10 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.builder.copy.Copyable;
-import org.citygml4j.commons.child.ChildInfo;
-import org.citygml4j.commons.gmlid.DefaultGMLIdManager;
-import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -19,13 +15,16 @@ import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.gml.AbstractFeature;
-import org.citygml4j.model.gml.Association;
-import org.citygml4j.model.gml.FeatureArrayProperty;
-import org.citygml4j.model.gml.FeatureProperty;
+import org.citygml4j.model.common.copy.Copyable;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.model.module.gml.XLinkModule;
-import org.citygml4j.visitor.walker.FeatureWalker;
+import org.citygml4j.util.child.ChildInfo;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
+import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -90,11 +89,11 @@ public class FeatureSplitter {
 		}
 
 		if (object instanceof AbstractFeature)
-			((AbstractFeature)object).visit(splitter);
+			((AbstractFeature)object).accept(splitter);
 		else if (object instanceof ADEComponent)
-			splitter.accept((ADEComponent)object);
+			splitter.visit((ADEComponent)object);
 		else if (object instanceof Element)
-			splitter.accept((Element)object, null);
+			splitter.visit((Element)object, null);
 
 		splitter.reset();
 		return result;
@@ -168,7 +167,6 @@ public class FeatureSplitter {
 				return copy;
 
 			if (target instanceof AbstractFeature ||
-					target instanceof Association<?> ||
 					target instanceof FeatureProperty<?> ||
 					target instanceof FeatureArrayProperty)
 				copy = ((Copyable)target).copy(this);
@@ -198,15 +196,15 @@ public class FeatureSplitter {
 		}
 
 		@Override
-		public void accept(Appearance appearance) {
+		public void visit(Appearance appearance) {
 			if (keepInlineAppearance && childInfo.getParentCityObject(appearance) != null)
 				return;
 
-			super.accept(appearance);
+			super.visit(appearance);
 		}
 
 		@Override
-		public void accept(AbstractFeature feature) {
+		public void visit(AbstractFeature feature) {
 			if (!excludes.isEmpty())
 				for (Class<? extends CityGML> exclude : excludes)
 					if (exclude.isInstance(feature))
@@ -216,14 +214,7 @@ public class FeatureSplitter {
 			boolean addToResult = false;
 
 			if (parent != null) {
-				if (parent instanceof Association<?>) {
-					Association<?> association = (Association<?>)parent;
-					association.setHref('#' + getAndSetGmlId(feature));
-					association.unsetObject();
-					addToResult = true;
-				}
-
-				else if (parent instanceof FeatureProperty<?>) {
+				if (parent instanceof FeatureProperty<?>) {
 					FeatureProperty<?> property = (FeatureProperty<?>)parent;				
 					property.setHref('#' + getAndSetGmlId(feature));
 					property.unsetFeature();
@@ -242,11 +233,11 @@ public class FeatureSplitter {
 			if (addToResult && feature instanceof CityGML)
 				result.add((CityGML)feature);	
 
-			super.accept(feature);
+			super.visit(feature);
 		}
 
 		@Override
-		public void accept(ADEComponent adeComponent) {
+		public void visit(ADEComponent adeComponent) {
 			if (!excludes.isEmpty())
 				for (Class<? extends CityGML> exclude : excludes)
 					if (exclude.isInstance(adeComponent))
@@ -254,26 +245,16 @@ public class FeatureSplitter {
 
 			if (adeComponent.isSetContent() && schemaHandler != null && 
 					shouldWalk() && addToVisited(adeComponent.getContent())) {				
-				adeComponent(adeComponent.getContent(), null, null);
-
 				boolean addToResult = false;
 				Object parent = adeComponent.getParent();
 
 				if (parent != null) {
 					Schema schema = schemaHandler.getSchema(adeComponent.getNamespaceURI());
 					if (schema != null) {
-
 						ElementDecl elementDecl = schema.getElementDecl(adeComponent.getLocalName(), null);
-						if (elementDecl != null && splitElement(elementDecl)) {							
-
-							if (parent instanceof Association<?>) {
-								Association<?> association = (Association<?>)parent;
-								association.setHref('#' + getAndSetGmlId(adeComponent.getContent()));
-								association.unsetGenericADEComponent();
-								addToResult = true;
-							}
-
-							else if (parent instanceof FeatureProperty<?>) {
+						
+						if (elementDecl != null && splitElement(elementDecl)) {
+							if (parent instanceof FeatureProperty<?>) {
 								FeatureProperty<?> property = (FeatureProperty<?>)parent;				
 								property.setHref('#' + getAndSetGmlId(adeComponent.getContent()));
 								property.unsetGenericADEComponent();
@@ -292,6 +273,9 @@ public class FeatureSplitter {
 
 				if (addToResult)
 					result.add(adeComponent);
+				
+				// visit child elements
+				adeComponent(adeComponent.getContent(), null, null);
 			}
 		}
 

@@ -4,23 +4,35 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class Characters implements SAXEvent, Locatable {
-	private final char[] ch;
+public final class Characters extends SAXEvent implements Locatable {
+	private char[] ch;
 	private Location location;
 	
+	private Characters() {
+		super(EventType.CHARACTERS);
+	}
+	
 	public Characters(char[] ch, int start, int length, Location location) {
-		// make a copy of the char array ch.
-		// we do not want to have a reference to potentially large arrays
-
-		this.ch = new char[length];
-		System.arraycopy(ch, start, this.ch, 0, length);
+		this();
+		this.ch = ch;
 		this.location = location;
 	}
 
+	@Override
+	public Characters shallowCopy() {
+		Characters characters = new Characters();
+		characters.ch = ch;
+		characters.location = location;
+		
+		return characters;
+	}
+	
+	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
 		contentHandler.characters(ch, 0, ch.length);
 	}
-
+	
+	@Override
 	public void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException {
 		if (location != null) {
 			locator.setLineNumber(location.getLineNumber());

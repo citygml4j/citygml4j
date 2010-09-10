@@ -1,10 +1,10 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.XALFunctor;
+import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.PostBoxNumberExtension;
 import org.citygml4j.model.xal.XALClass;
-import org.citygml4j.visitor.XALFunction;
-import org.citygml4j.visitor.XALVisitor;
 
 public class PostBoxNumberExtensionImpl implements PostBoxNumberExtension {
 	private String content;
@@ -28,7 +28,7 @@ public class PostBoxNumberExtensionImpl implements PostBoxNumberExtension {
 	}
 
 	public XALClass getXALClass() {
-		return XALClass.POSTBOXNUMBEREXTENSION;
+		return XALClass.POST_BOX_NUMBER_EXTENSION;
 	}
 
 	public String getNumberExtensionSeparator() {
@@ -82,11 +82,11 @@ public class PostBoxNumberExtensionImpl implements PostBoxNumberExtension {
 	}
 	
 	public void visit(XALVisitor visitor) {
-		visitor.accept(this);
+		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

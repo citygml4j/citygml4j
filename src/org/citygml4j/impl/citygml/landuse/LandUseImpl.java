@@ -4,21 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.commons.child.ChildList;
-import org.citygml4j.impl.citygml.core.CityObjectImpl;
-import org.citygml4j.impl.gml.BoundingShapeImpl;
+import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
+import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.landuse.LandUse;
-import org.citygml4j.model.gml.BoundingShape;
-import org.citygml4j.model.gml.MultiSurfaceProperty;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.LandUseModule;
-import org.citygml4j.visitor.GMLFunction;
-import org.citygml4j.visitor.GMLVisitor;
-import org.citygml4j.visitor.FeatureFunction;
-import org.citygml4j.visitor.FeatureVisitor;
 
-public class LandUseImpl extends CityObjectImpl implements LandUse {
+public class LandUseImpl extends AbstractCityObjectImpl implements LandUse {
 	private String clazz;
 	private List<String> function;
 	private List<String> usage;
@@ -257,9 +260,8 @@ public class LandUseImpl extends CityObjectImpl implements LandUse {
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	@Override
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.LANDUSE;
+		return CityGMLClass.LAND_USE;
 	}
 
 	public final LandUseModule getCityGMLModule() {
@@ -312,6 +314,37 @@ public class LandUseImpl extends CityObjectImpl implements LandUse {
 			return null;
 	}
 
+	@Override
+	public LodRepresentation getLodRepresentation() {
+		LodRepresentation lodRepresentation = new LodRepresentation();
+		
+		GeometryProperty<? extends AbstractGeometry> property = null;		
+		for (int lod = 0; lod < 5; lod++) {
+			switch (lod) {
+			case 0:
+				property = lod0MultiSurface;
+				break;
+			case 1:
+				property = lod1MultiSurface;
+				break;
+			case 2:
+				property = lod2MultiSurface;
+				break;
+			case 3:
+				property = lod3MultiSurface;
+				break;
+			case 4:
+				property = lod4MultiSurface;
+				break;
+			}
+
+			if (property != null)
+				lodRepresentation.getLodRepresentation(lod).add(property);
+		}
+		
+		return lodRepresentation;
+	}
+	
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new LandUseImpl(), copyBuilder);
 	}
@@ -374,20 +407,20 @@ public class LandUseImpl extends CityObjectImpl implements LandUse {
 		return copy;
 	}
 	
-	public void visit(FeatureVisitor visitor) {
-		visitor.accept(this);
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(FeatureFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 	
-	public void visit(GMLVisitor visitor) {
-		visitor.accept(this);
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
 	}
 	
-	public <T> T apply(GMLFunction<T> visitor) {
-		return visitor.accept(this);
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
 	}
 
 }

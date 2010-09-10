@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.commons.gmlid.GMLIdManager;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.AbstractFeature;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.transform.FeatureSplitMode;
 import org.citygml4j.util.transform.FeatureSplitter;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -57,7 +57,7 @@ public class SplittingFeature {
 		System.out.println(df.format(new Date()) + "splitting result:");
 		List<CityGML> splitResult = splitter.split(cityModel);
 		for (CityGML item : splitResult) {
-			if (item.getCityGMLClass() == CityGMLClass.ADECOMPONENT) {
+			if (item.getCityGMLClass() == CityGMLClass.ADE_COMPONENT) {
 				ADEComponent ade = (ADEComponent)item;
 				System.out.println("Split ADE component: " + ade.getLocalName());
 			} else
@@ -96,9 +96,9 @@ public class SplittingFeature {
 	
 	private static void setContext(AbstractCityGMLWriter writer) {
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setPrefix("sub", "http://citygml.org/ade/sub/0.9.0");
+		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocation("http://citygml.org/ade/sub/0.9.0", "../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
+		writer.setSchemaLocation("http://www.citygml.org/ade/sub/0.9.0", "../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
 		writer.setIndentString("  ");
 	}
 	

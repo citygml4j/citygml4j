@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 
-public interface Window extends Opening {
+public interface Window extends AbstractOpening {
 	public List<ADEComponent> getGenericApplicationPropertyOfWindow();
 	public boolean isSetGenericApplicationPropertyOfWindow();
 	
