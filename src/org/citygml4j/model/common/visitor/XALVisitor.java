@@ -84,7 +84,7 @@ import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
 
-public interface XALVisitor {
+public interface XALVisitor extends Visitor {
 	public void visit(Address address);
 	public void visit(AddressDetails addressDetails);
 	public void visit(AddressIdentifier addressIdentifier);

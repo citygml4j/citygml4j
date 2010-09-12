@@ -170,7 +170,7 @@ public class GMLIdWalker implements GMLFunctor<Object> {
 		this.gmlId = gmlId;
 	}
 
-	public Object visit(LodRepresentation lodRepresentation) {
+	public Object apply(LodRepresentation lodRepresentation) {
 		// no need to implement this method here
 		return null;
 	}
