@@ -479,7 +479,7 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 
 		property = null;
@@ -494,7 +494,7 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 
 		property = null;
@@ -509,7 +509,7 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		return lodRepresentation;

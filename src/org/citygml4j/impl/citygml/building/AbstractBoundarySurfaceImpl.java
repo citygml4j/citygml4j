@@ -227,7 +227,7 @@ public abstract class AbstractBoundarySurfaceImpl extends AbstractCityObjectImpl
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		return lodRepresentation;

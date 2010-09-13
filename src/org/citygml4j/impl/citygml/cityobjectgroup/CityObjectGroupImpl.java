@@ -275,7 +275,7 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		
 		if (isSetGeometry()) {
 			for (int lod = 0; lod < 5; lod++)
-				lodRepresentation.getLodRepresentation(lod).add(geometry);
+				lodRepresentation.getLodGeometry(lod).add(geometry);
 		}
 		
 		return lodRepresentation;

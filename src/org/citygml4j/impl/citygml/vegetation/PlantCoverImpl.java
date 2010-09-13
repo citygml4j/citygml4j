@@ -379,7 +379,7 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		property = null;
@@ -400,7 +400,7 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		return lodRepresentation;

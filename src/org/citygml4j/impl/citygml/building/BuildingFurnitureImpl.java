@@ -229,7 +229,7 @@ public class BuildingFurnitureImpl extends AbstractCityObjectImpl implements Bui
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
 		if (isSetLod4Geometry())
-			lodRepresentation.getLod4Representation().add(lod4Geometry);
+			lodRepresentation.getLod4Geometry().add(lod4Geometry);
 		
 		return lodRepresentation;
 	}

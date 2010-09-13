@@ -351,10 +351,10 @@ public class RoomImpl extends AbstractCityObjectImpl implements Room {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
 		if (isSetLod4MultiSurface())
-			lodRepresentation.getLod4Representation().add(lod4MultiSurface);
+			lodRepresentation.getLod4Geometry().add(lod4MultiSurface);
 		
 		if (isSetLod4Solid())
-			lodRepresentation.getLod4Representation().add(lod4Solid);
+			lodRepresentation.getLod4Geometry().add(lod4Solid);
 		
 		return lodRepresentation;
 	}
