@@ -1,11 +1,13 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.xal.AddressLine;
 import org.citygml4j.model.xal.ThoroughfareNumber;
 import org.citygml4j.model.xal.ThoroughfareNumberFromContent;
 import org.citygml4j.model.xal.ThoroughfareNumberPrefix;
 import org.citygml4j.model.xal.ThoroughfareNumberSuffix;
+import org.citygml4j.model.xal.XALClass;
 
 public class ThoroughfareNumberFromContentImpl implements ThoroughfareNumberFromContent {
 	private AddressLine addressLine;
@@ -39,6 +41,14 @@ public class ThoroughfareNumberFromContentImpl implements ThoroughfareNumberFrom
 		setString(string);
 	}
 	
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+	
+	public XALClass getXALClass() {
+		return XALClass.THOROUGHFARE_NUMBER_FROM_CONTENT;
+	}
+
 	public AddressLine getAddressLine() {
 		return addressLine;
 	}

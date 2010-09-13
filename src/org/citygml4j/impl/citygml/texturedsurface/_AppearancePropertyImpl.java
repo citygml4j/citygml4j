@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.base.AssociationByRepOrRefImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class _AppearancePropertyImpl extends AssociationByRepOrRefImpl<_AbstractAppearance> implements _AppearanceProperty {
@@ -45,6 +46,11 @@ public class _AppearancePropertyImpl extends AssociationByRepOrRefImpl<_Abstract
 
 	public void unsetAppearance() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

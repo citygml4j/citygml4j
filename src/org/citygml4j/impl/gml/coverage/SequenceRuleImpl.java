@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.coverage.IncrementOrder;
 import org.citygml4j.model.gml.coverage.SequenceRule;
@@ -10,6 +11,10 @@ public class SequenceRuleImpl implements SequenceRule {
 	private SequenceRuleNames value;
 	private IncrementOrder order;
 	private Object parent;
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.SEQUENCE_RULE;

@@ -2,6 +2,7 @@ package org.citygml4j.impl.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
@@ -169,6 +170,10 @@ public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> im
 
 	public void unsetType() {
 		type = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 
 	public GMLClass getGMLClass() {

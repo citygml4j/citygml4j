@@ -12,6 +12,7 @@ import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 
@@ -219,6 +220,11 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 
 	public void unsetTerminationDate() {
 		terminationDate = null;
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLModule getCityGMLModule() {

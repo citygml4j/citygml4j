@@ -1,6 +1,7 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.Address;
@@ -278,6 +279,10 @@ public class AddressDetailsImpl implements AddressDetails {
 
 	public void unsetValidToDate() {
 		validToDate = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
 	}
 
 	public XALClass getXALClass() {

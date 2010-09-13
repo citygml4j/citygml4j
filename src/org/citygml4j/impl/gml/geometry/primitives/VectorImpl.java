@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.Vector;
 
@@ -25,6 +26,10 @@ public class VectorImpl implements Vector {
 			throw new IllegalArgumentException("Matrix column dimension must be 1.");
 		
 		value = matrix.toColumnPackedList();
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

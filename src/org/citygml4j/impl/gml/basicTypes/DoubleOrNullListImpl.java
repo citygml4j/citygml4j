@@ -3,6 +3,7 @@ package org.citygml4j.impl.gml.basicTypes;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
@@ -45,6 +46,10 @@ public class DoubleOrNullListImpl implements DoubleOrNullList {
 		return isSetDoubleOrNull() ? this.doubleOrNull.remove(doubleOrNull) : false;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.DOUBLE_OR_NULL_LIST;
 	}

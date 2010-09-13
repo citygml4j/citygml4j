@@ -3,6 +3,7 @@ package org.citygml4j.impl.gml.feature;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.impl.gml.geometry.primitives.EnvelopeImpl;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Null;
 import org.citygml4j.model.gml.feature.BoundingShape;
@@ -88,6 +89,10 @@ public class BoundingShapeImpl implements BoundingShape {
 		_null = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.BOUNDING_SHAPE;
 	}

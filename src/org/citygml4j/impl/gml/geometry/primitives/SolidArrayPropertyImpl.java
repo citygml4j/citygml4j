@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.geometry.GeometryArrayPropertyImpl;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
 import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
@@ -34,6 +35,10 @@ public class SolidArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractSo
 		return super.unsetGeometry(abstractSolid);
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.SOLID_ARRAY_PROPERTY;
 	}

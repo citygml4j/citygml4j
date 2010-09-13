@@ -4,6 +4,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.DeepCopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
@@ -51,6 +52,10 @@ public class ADEComponent implements CityGML, Child, Copyable {
 		return isSetContent() ? content.getNamespaceURI() : null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.CITYGML_ADE;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ADE_COMPONENT;
 	}

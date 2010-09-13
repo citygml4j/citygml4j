@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CoreModule;
 
 public class GeneralizationRelationImpl extends FeaturePropertyImpl<AbstractCityObject> implements GeneralizationRelation {
@@ -34,6 +35,11 @@ public class GeneralizationRelationImpl extends FeaturePropertyImpl<AbstractCity
 		super.unsetObject();
 	}
 	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GENERALIZATION_RELATION;
 	}

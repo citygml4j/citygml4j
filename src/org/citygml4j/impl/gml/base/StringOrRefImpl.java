@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.StringOrRef;
 
@@ -15,6 +16,10 @@ public class StringOrRefImpl implements StringOrRef {
 	private String title;
 	private String type;
 	private Object parent;
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.STRING_OR_REF;

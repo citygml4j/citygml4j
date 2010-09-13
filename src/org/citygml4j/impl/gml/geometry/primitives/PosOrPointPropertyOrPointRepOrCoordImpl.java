@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.Coord;
 import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
@@ -167,6 +168,10 @@ public class PosOrPointPropertyOrPointRepOrCoordImpl implements PosOrPointProper
 
 	public void unsetParent() {
 		parent = null;
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

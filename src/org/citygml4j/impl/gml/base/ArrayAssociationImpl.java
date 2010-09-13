@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
@@ -44,6 +45,10 @@ public abstract class ArrayAssociationImpl<T extends Associable & Child> impleme
 
 	public boolean unsetObject(T object) {
 		return isSetObject() ? this.object.remove(object) : false;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 
 	public GMLClass getGMLClass() {

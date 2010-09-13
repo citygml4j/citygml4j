@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
 import org.citygml4j.model.gml.basicTypes.Null;
@@ -20,6 +21,10 @@ public class DoubleOrNullImpl implements DoubleOrNull {
 	
 	public DoubleOrNullImpl(Null _null) {
 		setNull(_null);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

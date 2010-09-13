@@ -6,6 +6,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 
@@ -61,6 +62,10 @@ public class TransformationMatrix3x4Impl implements TransformationMatrix3x4 {
 		this.matrix = matrix;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSFORMATION_MATRIX_3X4;
 	}

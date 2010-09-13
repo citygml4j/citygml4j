@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 
 public class BoundedByWaterSurfacePropertyImpl extends FeaturePropertyImpl<AbstractWaterBoundarySurface> implements BoundedByWaterSurfaceProperty {
@@ -32,6 +33,11 @@ public class BoundedByWaterSurfacePropertyImpl extends FeaturePropertyImpl<Abstr
 
 	public void unsetWaterBoundarySurface() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

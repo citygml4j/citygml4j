@@ -6,6 +6,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._Color;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class _ColorImpl implements _Color {
@@ -96,6 +97,10 @@ public class _ColorImpl implements _Color {
 		color.add(blue);
 
 		return color;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

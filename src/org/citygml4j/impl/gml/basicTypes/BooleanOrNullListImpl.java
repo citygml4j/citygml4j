@@ -3,6 +3,7 @@ package org.citygml4j.impl.gml.basicTypes;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
@@ -45,6 +46,10 @@ public class BooleanOrNullListImpl implements BooleanOrNullList {
 		return isSetBooleanOrNull() ? this.booleanOrNull.remove(booleanOrNull) : false;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.BOOLEAN_OR_NULL_LIST;
 	}

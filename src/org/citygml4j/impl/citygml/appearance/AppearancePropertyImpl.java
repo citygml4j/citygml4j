@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class AppearancePropertyImpl extends FeaturePropertyImpl<Appearance> implements AppearanceProperty {
@@ -32,6 +33,11 @@ public class AppearancePropertyImpl extends FeaturePropertyImpl<Appearance> impl
 
 	public void unsetAppearance() {
 		super.unsetFeature();
+	}
+	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

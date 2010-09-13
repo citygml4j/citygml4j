@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.valueObjects.CategoryExtent;
 import org.citygml4j.model.gml.valueObjects.CountExtent;
@@ -27,6 +28,10 @@ public class ValueExtentImpl implements ValueExtent {
 	
 	public ValueExtentImpl(CountExtent countExtent) {
 		setCountExtent(countExtent);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

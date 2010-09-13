@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.TransportationModule;
 
 public class AuxiliaryTrafficAreaPropertyImpl extends FeaturePropertyImpl<AuxiliaryTrafficArea> implements AuxiliaryTrafficAreaProperty {
@@ -32,6 +33,11 @@ public class AuxiliaryTrafficAreaPropertyImpl extends FeaturePropertyImpl<Auxili
 
 	public void unsetAuxiliaryTrafficArea() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

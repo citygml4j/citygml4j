@@ -6,6 +6,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.Color;
 import org.citygml4j.model.citygml.appearance.ColorPlusOpacity;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class ColorPlusOpacityImpl implements ColorPlusOpacity {
@@ -106,6 +107,10 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 			colorPlusOpacity.add(opacity);
 
 		return colorPlusOpacity;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

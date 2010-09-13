@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
 
@@ -15,6 +16,10 @@ public class DirectPositionListImpl implements DirectPositionList {
 	private List<String> axisLabels;
 	private List<String> uomLabels;
 	private Object parent;
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.DIRECT_POSITION_LIST;

@@ -4,6 +4,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ExternalObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CoreModule;
 
 public class ExternalReferenceImpl implements ExternalReference {
@@ -58,6 +59,10 @@ public class ExternalReferenceImpl implements ExternalReference {
 		informationSystem = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.EXTERNAL_REFERENCE;
 	}

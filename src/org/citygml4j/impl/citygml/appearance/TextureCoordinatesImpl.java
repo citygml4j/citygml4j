@@ -6,6 +6,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class TextureCoordinatesImpl implements TextureCoordinates {
@@ -62,6 +63,10 @@ public class TextureCoordinatesImpl implements TextureCoordinates {
 
 	public void unsetValue() {
 		value = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

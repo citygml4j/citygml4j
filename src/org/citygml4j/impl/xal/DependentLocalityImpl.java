@@ -3,6 +3,7 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
@@ -363,6 +364,10 @@ public class DependentLocalityImpl implements DependentLocality {
 
 	public void unsetUsageType() {
 		usageType = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
 	}
 
 	public XALClass getXALClass() {

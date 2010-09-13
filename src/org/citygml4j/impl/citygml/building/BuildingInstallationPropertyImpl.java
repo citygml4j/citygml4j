@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingInstallationProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
 public class BuildingInstallationPropertyImpl extends FeaturePropertyImpl<BuildingInstallation> implements BuildingInstallationProperty {
@@ -32,6 +33,11 @@ public class BuildingInstallationPropertyImpl extends FeaturePropertyImpl<Buildi
 
 	public void unsetBuildingInstallation() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

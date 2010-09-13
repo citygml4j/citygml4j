@@ -3,7 +3,7 @@ package org.citygml4j.model.xal;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
-public interface ThoroughfareNumberOrRange extends Child, Copyable {
+public interface ThoroughfareNumberOrRange extends XAL, Child, Copyable {
 	public ThoroughfareNumber getThoroughfareNumber();
 	public ThoroughfareNumberRange getThoroughfareNumberRange();
 	public boolean isSetThoroughfareNumber();

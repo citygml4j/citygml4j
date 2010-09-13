@@ -7,6 +7,7 @@ import org.citygml4j.impl.gml.geometry.primitives.OrientableSurfaceImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -59,6 +60,11 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 		return isSetAppearance() ? this.appearance.remove(appearance) : false;
 	}
 
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._TEXTURED_SURFACE;
 	}

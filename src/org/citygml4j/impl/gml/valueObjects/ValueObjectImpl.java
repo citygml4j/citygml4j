@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.ScalarValue;
@@ -35,6 +36,10 @@ public class ValueObjectImpl implements ValueObject {
 		setCompositeValue(compositeValue);
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.VALUE_OBJECT;
 	}

@@ -1,6 +1,7 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.BuildingName;
@@ -60,6 +61,10 @@ public class BuildingNameImpl implements BuildingName {
 
 	public void unsetTypeOccurrence() {
 		typeOccurrence = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
 	}
 
 	public XALClass getXALClass() {

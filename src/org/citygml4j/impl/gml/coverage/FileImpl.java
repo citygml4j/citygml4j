@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.coverage.File;
 import org.citygml4j.model.gml.coverage.FileValueModel;
@@ -14,6 +15,10 @@ public class FileImpl implements File {
 	private String compression;
 	private Object parent;
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.FILE;
 	}

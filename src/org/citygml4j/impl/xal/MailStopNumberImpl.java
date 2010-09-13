@@ -1,6 +1,7 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.MailStopNumber;
@@ -42,6 +43,10 @@ public class MailStopNumberImpl implements MailStopNumber {
 
 	public void unsetNameNumberSeparator() {
 		nameNumberSeparator = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
 	}
 
 	public XALClass getXALClass() {
