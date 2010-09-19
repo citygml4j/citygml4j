@@ -150,7 +150,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractFeatureCollection.isSetFeatureMember()) {
-			for (FeatureMember featureMember : abstractFeatureCollection.getFeatureMember()) {
+			for (FeatureMember featureMember : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember())) {
 				object = apply(featureMember);
 				if (object != null)
 					return object;
@@ -177,7 +177,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractCityObject.isSetGeneralizesTo()) {
-			for (GeneralizationRelation generalizationRelation : abstractCityObject.getGeneralizesTo()) {
+			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo())) {
 				object = apply(generalizationRelation);
 				if (object != null)
 					return object;
@@ -185,7 +185,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractCityObject.isSetAppearance()) {
-			for (AppearanceProperty appearanceProperty : abstractCityObject.getAppearance()) {
+			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance())) {
 				object = apply(appearanceProperty);
 				if (object != null)
 					return object;
@@ -193,7 +193,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject()) {
-			for (ADEComponent ade : abstractCityObject.getGenericApplicationPropertyOfCityObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -209,7 +209,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractTransportationObject.isSetGenericApplicationPropertyOfTransportationObject()) {
-			for (ADEComponent ade : abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -225,7 +225,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractReliefComponent.isSetGenericApplicationPropertyOfReliefComponent()) {
-			for (ADEComponent ade : abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -241,7 +241,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractSite.isSetGenericApplicationPropertyOfSite()) {
-			for (ADEComponent ade : abstractSite.getGenericApplicationPropertyOfSite()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -257,7 +257,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractBuilding.isSetOuterBuildingInstallation()) {
-			for (BuildingInstallationProperty buildingInstallationProperty : abstractBuilding.getOuterBuildingInstallation()) {
+			for (BuildingInstallationProperty buildingInstallationProperty : new ArrayList<BuildingInstallationProperty>(abstractBuilding.getOuterBuildingInstallation())) {
 				object = apply(buildingInstallationProperty);
 				if (object != null)
 					return object;
@@ -265,7 +265,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBuilding.isSetInteriorBuildingInstallation()) {
-			for (IntBuildingInstallationProperty intBuildingInstallationProperty : abstractBuilding.getInteriorBuildingInstallation()) {
+			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(abstractBuilding.getInteriorBuildingInstallation())) {
 				object = apply(intBuildingInstallationProperty);
 				if (object != null)
 					return object;
@@ -273,7 +273,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBuilding.isSetBoundedBySurface()) {
-			for (BoundarySurfaceProperty boundarySurfaceProperty : abstractBuilding.getBoundedBySurface()) {
+			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(abstractBuilding.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
 				if (object != null)
 					return object;
@@ -281,7 +281,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBuilding.isSetConsistsOfBuildingPart()) {
-			for (BuildingPartProperty buildingPartProperty : abstractBuilding.getConsistsOfBuildingPart()) {
+			for (BuildingPartProperty buildingPartProperty : new ArrayList<BuildingPartProperty>(abstractBuilding.getConsistsOfBuildingPart())) {
 				object = apply(buildingPartProperty);
 				if (object != null)
 					return object;
@@ -289,7 +289,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBuilding.isSetInteriorRoom()) {
-			for (InteriorRoomProperty interiorRoomProperty : abstractBuilding.getInteriorRoom()) {
+			for (InteriorRoomProperty interiorRoomProperty : new ArrayList<InteriorRoomProperty>(abstractBuilding.getInteriorRoom())) {
 				object = apply(interiorRoomProperty);
 				if (object != null)
 					return object;
@@ -297,7 +297,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBuilding.isSetAddress()) {
-			for (AddressProperty addressProperty : abstractBuilding.getAddress()) {
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(abstractBuilding.getAddress())) {
 				object = apply(addressProperty);
 				if (object != null)
 					return object;
@@ -305,7 +305,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBuilding.isSetGenericApplicationPropertyOfAbstractBuilding()) {
-			for (ADEComponent ade : abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -321,7 +321,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractBoundarySurface.isSetOpening()) {
-			for (OpeningProperty openingProperty : abstractBoundarySurface.getOpening()) {
+			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(abstractBoundarySurface.getOpening())) {
 				object = apply(openingProperty);
 				if (object != null)
 					return object;					
@@ -329,7 +329,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface()) {
-			for (ADEComponent ade : abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -345,7 +345,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractOpening.isSetGenericApplicationPropertyOfOpening()) {
-			for (ADEComponent ade : abstractOpening.getGenericApplicationPropertyOfOpening()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -361,7 +361,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractSurfaceData.isSetGenericApplicationPropertyOfSurfaceData()) {
-			for (ADEComponent ade : abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -377,7 +377,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractTexture.isSetGenericApplicationPropertyOfTexture()) {
-			for (ADEComponent ade : abstractTexture.getGenericApplicationPropertyOfTexture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -393,7 +393,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractVegetationObject.isSetGenericApplicationPropertyOfVegetationObject()) {
-			for (ADEComponent ade : abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -409,7 +409,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractWaterObject.isSetGenericApplicationPropertyOfWaterObject()) {
-			for (ADEComponent ade : abstractWaterObject.getGenericApplicationPropertyOfWaterObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterObject.getGenericApplicationPropertyOfWaterObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -425,7 +425,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (abstractWaterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface()) {
-			for (ADEComponent ade : abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -449,7 +449,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (address.isSetGenericApplicationPropertyOfAddress()) {
-			for (ADEComponent ade : address.getGenericApplicationPropertyOfAddress()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(address.getGenericApplicationPropertyOfAddress())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -465,14 +465,14 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (appearance.isSetSurfaceDataMember())
-			for (SurfaceDataProperty surfaceDataProperty : appearance.getSurfaceDataMember()) {
+			for (SurfaceDataProperty surfaceDataProperty : new ArrayList<SurfaceDataProperty>(appearance.getSurfaceDataMember())) {
 				object = apply(surfaceDataProperty);
 				if (object != null)
 					return object;
 			}
 
 		if (appearance.isSetGenericApplicationPropertyOfAppearance()) {
-			for (ADEComponent ade : appearance.getGenericApplicationPropertyOfAppearance()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(appearance.getGenericApplicationPropertyOfAppearance())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -488,7 +488,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (auxiliaryTrafficArea.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea()) {
-			for (ADEComponent ade : auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -504,7 +504,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (breaklineRelief.isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			for (ADEComponent ade : breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -520,7 +520,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (building.isSetGenericApplicationPropertyOfBuilding()) {
-			for (ADEComponent ade : building.getGenericApplicationPropertyOfBuilding()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(building.getGenericApplicationPropertyOfBuilding())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -536,7 +536,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (buildingFurniture.isSetGenericApplicationPropertyOfBuildingFurniture()) {
-			for (ADEComponent ade : buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -552,7 +552,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (buildingInstallation.isSetGenericApplicationPropertyOfBuildingInstallation()) {
-			for (ADEComponent ade : buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -568,7 +568,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (buildingPart.isSetGenericApplicationPropertyOfBuildingPart()) {
-			for (ADEComponent ade : buildingPart.getGenericApplicationPropertyOfBuildingPart()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingPart.getGenericApplicationPropertyOfBuildingPart())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -584,7 +584,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface()) {
-			for (ADEComponent ade : ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -600,7 +600,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (cityFurniture.isSetGenericApplicationPropertyOfCityFurniture()) {
-			for (ADEComponent ade : cityFurniture.getGenericApplicationPropertyOfCityFurniture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(cityFurniture.getGenericApplicationPropertyOfCityFurniture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -616,7 +616,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (cityModel.isSetCityObjectMember()) {
-			for (CityObjectMember cityObjectMember : cityModel.getCityObjectMember()) {
+			for (CityObjectMember cityObjectMember : new ArrayList<CityObjectMember>(cityModel.getCityObjectMember())) {
 				object = apply(cityObjectMember);
 				if (object != null)
 					return object;
@@ -624,7 +624,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (cityModel.isSetAppearanceMember()) {
-			for (AppearanceMember appearanceMember : cityModel.getAppearanceMember()) {
+			for (AppearanceMember appearanceMember : new ArrayList<AppearanceMember>(cityModel.getAppearanceMember())) {
 				object = apply(appearanceMember);
 				if (object != null)
 					return object;
@@ -632,7 +632,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (cityModel.isSetGenericApplicationPropertyOfCityModel()) {
-			for (ADEComponent ade : cityModel.getGenericApplicationPropertyOfCityModel()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(cityModel.getGenericApplicationPropertyOfCityModel())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -648,7 +648,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (cityObjectGroup.isSetGroupMember()) {
-			for (CityObjectGroupMember cityObjectGroupMember : cityObjectGroup.getGroupMember()) {
+			for (CityObjectGroupMember cityObjectGroupMember : new ArrayList<CityObjectGroupMember>(cityObjectGroup.getGroupMember())) {
 				object = apply(cityObjectGroupMember);
 				if (object != null)
 					return object;
@@ -662,7 +662,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (cityObjectGroup.isSetGenericApplicationPropertyOfCityObjectGroup()) {
-			for (ADEComponent ade : cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -678,7 +678,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface()) {
-			for (ADEComponent ade : closureSurface.getGenericApplicationPropertyOfClosureSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -694,7 +694,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (door.isSetAddress()) {
-			for (AddressProperty addressProperty : door.getAddress()) {
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(door.getAddress())) {
 				object = apply(addressProperty);
 				if (object != null)
 					return object;
@@ -702,7 +702,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (door.isSetGenericApplicationPropertyOfDoor()) {
-			for (ADEComponent ade : door.getGenericApplicationPropertyOfDoor()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -718,7 +718,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface()) {
-			for (ADEComponent ade : floorSurface.getGenericApplicationPropertyOfFloorSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -742,7 +742,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (georeferencedTexture.isSetGenericApplicationPropertyOfGeoreferencedTexture()) {
-			for (ADEComponent ade : georeferencedTexture.getGenericApplicationPropertyOfGeoreferencedTexture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(georeferencedTexture.getGenericApplicationPropertyOfGeoreferencedTexture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -758,7 +758,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface()) {
-			for (ADEComponent ade : groundSurface.getGenericApplicationPropertyOfGroundSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -774,7 +774,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (intBuildingInstallation.isSetGenericApplicationPropertyOfIntBuildingInstallation()) {
-			for (ADEComponent ade : intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -790,7 +790,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface()) {
-			for (ADEComponent ade : interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -806,7 +806,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (landUse.isSetGenericApplicationPropertyOfLandUse()) {
-			for (ADEComponent ade : landUse.getGenericApplicationPropertyOfLandUse()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(landUse.getGenericApplicationPropertyOfLandUse())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -822,7 +822,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (massPointRelief.isSetGenericApplicationPropertyOfMassPointRelief()) {
-			for (ADEComponent ade : massPointRelief.getGenericApplicationPropertyOfMassPointRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(massPointRelief.getGenericApplicationPropertyOfMassPointRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -838,42 +838,42 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (parameterizedTexture.isSetTarget()) {
-			for (TextureAssociation textureAssociation : parameterizedTexture.getTarget()) {
+			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget())) {
 				if (textureAssociation.isSetTextureParameterization() && shouldWalk && visited.add(textureAssociation.getTextureParameterization())) {
 					AbstractTextureParameterization textureParameterization = textureAssociation.getTextureParameterization();
-					
+
 					if (textureAssociation instanceof TexCoordGen) {
 						TexCoordGen texCoordGen = (TexCoordGen)textureParameterization;
 						if (texCoordGen.isSetGenericApplicationPropertyOfTexCoordGen()) {
-							for (ADEComponent ade : texCoordGen.getGenericApplicationPropertyOfTexCoordGen()) {
+							for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordGen.getGenericApplicationPropertyOfTexCoordGen())) {
 								object = apply(ade);
 								if (object != null)
 									return object;
 							}
 						}
 					}
-					
+
 					else if (textureAssociation instanceof TexCoordList) {
 						TexCoordList texCoordList = (TexCoordList)textureParameterization;
 						if (texCoordList.isSetGenericApplicationPropertyOfTexCoordList()) {
-							for (ADEComponent ade : texCoordList.getGenericApplicationPropertyOfTexCoordList()) {
+							for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordList.getGenericApplicationPropertyOfTexCoordList())) {
 								object = apply(ade);
 								if (object != null)
 									return object;
 							}
 						}
 					}
-					
+
 					if (textureParameterization.isSetGenericADEComponent()) {
-						for (ADEComponent ade : textureParameterization.getGenericADEComponent()) {
+						for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericADEComponent())) {
 							object = apply(ade);
 							if (object != null)
 								return object;
 						}
 					}
-					
+
 					if (textureParameterization.isSetGenericApplicationPropertyOfTextureParameterization()) {
-						for (ADEComponent ade : textureParameterization.getGenericApplicationPropertyOfTextureParameterization()) {
+						for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericApplicationPropertyOfTextureParameterization())) {
 							object = apply(ade);
 							if (object != null)
 								return object;
@@ -884,7 +884,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (parameterizedTexture.isSetGenericApplicationPropertyOfParameterizedTexture()) {
-			for (ADEComponent ade : parameterizedTexture.getGenericApplicationPropertyOfParameterizedTexture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(parameterizedTexture.getGenericApplicationPropertyOfParameterizedTexture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -900,7 +900,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (plantCover.isSetGenericApplicationPropertyOfPlantCover()) {
-			for (ADEComponent ade : plantCover.getGenericApplicationPropertyOfPlantCover()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(plantCover.getGenericApplicationPropertyOfPlantCover())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -916,7 +916,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (railway.isSetGenericApplicationPropertyOfRailway()) {
-			for (ADEComponent ade : railway.getGenericApplicationPropertyOfRailway()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(railway.getGenericApplicationPropertyOfRailway())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -938,7 +938,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief()) {
-			for (ADEComponent ade : rasterRelief.getGenericApplicationPropertyOfRasterRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -954,7 +954,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (reliefFeature.isSetReliefComponent()) {
-			for (ReliefComponentProperty reliefComponentProperty : reliefFeature.getReliefComponent()) {
+			for (ReliefComponentProperty reliefComponentProperty : new ArrayList<ReliefComponentProperty>(reliefFeature.getReliefComponent())) {
 				object = apply(reliefComponentProperty);
 				if (object != null)
 					return object;
@@ -962,7 +962,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (reliefFeature.isSetGenericApplicationPropertyOfReliefFeature()) {
-			for (ADEComponent ade : reliefFeature.getGenericApplicationPropertyOfReliefFeature()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefFeature.getGenericApplicationPropertyOfReliefFeature())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -978,7 +978,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (road.isSetGenericApplicationPropertyOfRoad()) {
-			for (ADEComponent ade : road.getGenericApplicationPropertyOfRoad()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(road.getGenericApplicationPropertyOfRoad())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -994,7 +994,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface()) {
-			for (ADEComponent ade : roofSurface.getGenericApplicationPropertyOfRoofSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1010,7 +1010,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (room.isSetBoundedBySurface()) {
-			for (BoundarySurfaceProperty boundarySurfaceProperty : room.getBoundedBySurface()) {
+			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(room.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
 				if (object != null)
 					return object;
@@ -1018,7 +1018,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (room.isSetInteriorFurniture()) {
-			for (InteriorFurnitureProperty interiorFurnitureProperty : room.getInteriorFurniture()) {
+			for (InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<InteriorFurnitureProperty>(room.getInteriorFurniture())) {
 				object = apply(interiorFurnitureProperty);
 				if (object != null)
 					return object;
@@ -1026,7 +1026,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (room.isSetRoomInstallation()) {
-			for (IntBuildingInstallationProperty intBuildingInstallationProperty : room.getRoomInstallation()) {
+			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(room.getRoomInstallation())) {
 				object = apply(intBuildingInstallationProperty);
 				if (object != null)
 					return object;
@@ -1034,7 +1034,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (room.isSetGenericApplicationPropertyOfRoom()) {
-			for (ADEComponent ade : room.getGenericApplicationPropertyOfRoom()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(room.getGenericApplicationPropertyOfRoom())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1050,7 +1050,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (solitaryVegetationObject.isSetGenericApplicationPropertyOfSolitaryVegetationObject()) {
-			for (ADEComponent ade : solitaryVegetationObject.getGenericApplicationPropertyOfSolitaryVegetationObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(solitaryVegetationObject.getGenericApplicationPropertyOfSolitaryVegetationObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1066,7 +1066,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (square.isSetGenericApplicationPropertyOfSquare()) {
-			for (ADEComponent ade : square.getGenericApplicationPropertyOfSquare()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(square.getGenericApplicationPropertyOfSquare())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1082,7 +1082,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (tinRelief.isSetGenericApplicationPropertyOfTinRelief()) {
-			for (ADEComponent ade : tinRelief.getGenericApplicationPropertyOfTinRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(tinRelief.getGenericApplicationPropertyOfTinRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1098,7 +1098,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (track.isSetGenericApplicationPropertyOfTrack()) {
-			for (ADEComponent ade : track.getGenericApplicationPropertyOfTrack()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(track.getGenericApplicationPropertyOfTrack())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1114,7 +1114,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (trafficArea.isSetGenericApplicationPropertyOfTrafficArea()) {
-			for (ADEComponent ade : trafficArea.getGenericApplicationPropertyOfTrafficArea()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(trafficArea.getGenericApplicationPropertyOfTrafficArea())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1130,7 +1130,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (transportationComplex.isSetTrafficArea()) {
-			for (TrafficAreaProperty trafficAreaProperty : transportationComplex.getTrafficArea()) {
+			for (TrafficAreaProperty trafficAreaProperty : new ArrayList<TrafficAreaProperty>(transportationComplex.getTrafficArea())) {
 				object = apply(trafficAreaProperty);
 				if (object != null)
 					return object;
@@ -1138,7 +1138,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (transportationComplex.isSetAuxiliaryTrafficArea()) {
-			for (AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty : transportationComplex.getAuxiliaryTrafficArea()) {
+			for (AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty : new ArrayList<AuxiliaryTrafficAreaProperty>(transportationComplex.getAuxiliaryTrafficArea())) {
 				object = apply(auxiliaryTrafficAreaProperty);
 				if (object != null)
 					return object;
@@ -1146,7 +1146,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (transportationComplex.isSetGenericApplicationPropertyOfTransportationComplex()) {
-			for (ADEComponent ade : transportationComplex.getGenericApplicationPropertyOfTransportationComplex()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationComplex.getGenericApplicationPropertyOfTransportationComplex())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1162,7 +1162,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (wallSurface.isSetGenericApplicationPropertyOfWallSurface()) {
-			for (ADEComponent ade : wallSurface.getGenericApplicationPropertyOfWallSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1178,7 +1178,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (waterBody.isSetBoundedBySurface()) {
-			for (BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty : waterBody.getBoundedBySurface()) {
+			for (BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty : new ArrayList<BoundedByWaterSurfaceProperty>(waterBody.getBoundedBySurface())) {
 				object = apply(boundedByWaterSurfaceProperty);
 				if (object != null)
 					return object;
@@ -1186,7 +1186,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		}
 
 		if (waterBody.isSetGenericApplicationPropertyOfWaterBody()) {
-			for (ADEComponent ade : waterBody.getGenericApplicationPropertyOfWaterBody()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBody.getGenericApplicationPropertyOfWaterBody())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1202,7 +1202,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (waterClosureSurface.isSetGenericApplicationPropertyOfWaterClosureSurface()) {
-			for (ADEComponent ade : waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1218,7 +1218,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (waterGroundSurface.isSetGenericApplicationPropertyOfWaterGroundSurface()) {
-			for (ADEComponent ade : waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1234,7 +1234,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (waterSurface.isSetGenericApplicationPropertyOfWaterSurface()) {
-			for (ADEComponent ade : waterSurface.getGenericApplicationPropertyOfWaterSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1250,7 +1250,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (window.isSetGenericApplicationPropertyOfWindow()) {
-			for (ADEComponent ade : window.getGenericApplicationPropertyOfWindow()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1266,7 +1266,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 			return object;
 
 		if (x3dMaterial.isSetGenericApplicationPropertyOfX3DMaterial()) {
-			for (ADEComponent ade : x3dMaterial.getGenericApplicationPropertyOfX3DMaterial()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(x3dMaterial.getGenericApplicationPropertyOfX3DMaterial())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1294,16 +1294,17 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 
 	public T apply(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
-			for (AbstractFeature feature : featureArrayProperty.getFeature())
+			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature())) {
 				if (shouldWalk && visited.add(feature)) {
 					T object = feature.accept(this);
 					if (object != null)
 						return object;
 				}					
+			}
 		}
 
 		if (featureArrayProperty.isSetGenericADEComponent()) {
-			for (ADEComponent ade : featureArrayProperty.getGenericADEComponent()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent())) {
 				T object = apply(ade);
 				if (object != null)
 					return object;
@@ -1357,12 +1358,13 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 				children.add((Element)node);
 		}	
 
-		for (Element child : children)
+		for (Element child : children) {
 			if (shouldWalk && visited.add(child)) {
 				T object = adeComponent((Element)child, decl);
 				if (object != null)
 					return object;
 			}
+		}
 
 		return null;
 	}

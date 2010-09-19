@@ -172,7 +172,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 
 	public GMLFunctionWalker() {
 	}
-	
+
 	public GMLFunctionWalker(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 	}
@@ -189,7 +189,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 	public void setShouldWalk(boolean shouldWalk) {
 		this.shouldWalk = shouldWalk;
 	}
-	
+
 	public void setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 	}
@@ -234,7 +234,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		if (abstractCoverage.isSetRangeSet()) {
 			RangeSet rangeSet = abstractCoverage.getRangeSet();
 			if (rangeSet.isSetValueArray()) {
-				for (ValueArray valueArray : rangeSet.getValueArray()) {
+				for (ValueArray valueArray : new ArrayList<ValueArray>(rangeSet.getValueArray())) {
 					object = apply(valueArray);
 					if (object != null)
 						return object;
@@ -279,7 +279,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractFeature.isSetGenericADEComponent()) {
-			for (ADEComponent ade : abstractFeature.getGenericADEComponent()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEComponent())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -295,7 +295,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractFeatureCollection.isSetFeatureMember()) {
-			for (FeatureMember featureMember : abstractFeatureCollection.getFeatureMember()) {
+			for (FeatureMember featureMember : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember())) {
 				object = apply(featureMember);
 				if (object != null)
 					return object;
@@ -314,7 +314,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractCityObject.isSetGeneralizesTo()) {
-			for (GeneralizationRelation generalizationRelation : abstractCityObject.getGeneralizesTo()) {
+			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo())) {
 				object = apply(generalizationRelation);
 				if (object != null)
 					return object;
@@ -322,7 +322,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractCityObject.isSetAppearance()) {
-			for (AppearanceProperty appearanceProperty : abstractCityObject.getAppearance()) {
+			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance())) {
 				object = apply(appearanceProperty);
 				if (object != null)
 					return object;
@@ -330,7 +330,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject()) {
-			for (ADEComponent ade : abstractCityObject.getGenericApplicationPropertyOfCityObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -346,7 +346,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractTransportationObject.isSetGenericApplicationPropertyOfTransportationObject()) {
-			for (ADEComponent ade : abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -368,7 +368,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractReliefComponent.isSetGenericApplicationPropertyOfReliefComponent()) {
-			for (ADEComponent ade : abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -384,7 +384,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractSite.isSetGenericApplicationPropertyOfSite()) {
-			for (ADEComponent ade : abstractSite.getGenericApplicationPropertyOfSite()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -400,7 +400,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractBuilding.isSetOuterBuildingInstallation()) {
-			for (BuildingInstallationProperty buildingInstallationProperty : abstractBuilding.getOuterBuildingInstallation()) {
+			for (BuildingInstallationProperty buildingInstallationProperty : new ArrayList<BuildingInstallationProperty>(abstractBuilding.getOuterBuildingInstallation())) {
 				object = apply(buildingInstallationProperty);
 				if (object != null)
 					return object;
@@ -408,7 +408,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBuilding.isSetInteriorBuildingInstallation()) {
-			for (IntBuildingInstallationProperty intBuildingInstallationProperty : abstractBuilding.getInteriorBuildingInstallation()) {
+			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(abstractBuilding.getInteriorBuildingInstallation())) {
 				object = apply(intBuildingInstallationProperty);
 				if (object != null)
 					return object;
@@ -416,7 +416,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBuilding.isSetBoundedBySurface()) {
-			for (BoundarySurfaceProperty boundarySurfaceProperty : abstractBuilding.getBoundedBySurface()) {
+			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(abstractBuilding.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
 				if (object != null)
 					return object;
@@ -424,7 +424,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBuilding.isSetConsistsOfBuildingPart()) {
-			for (BuildingPartProperty buildingPartProperty : abstractBuilding.getConsistsOfBuildingPart()) {
+			for (BuildingPartProperty buildingPartProperty : new ArrayList<BuildingPartProperty>(abstractBuilding.getConsistsOfBuildingPart())) {
 				object = apply(buildingPartProperty);
 				if (object != null)
 					return object;
@@ -432,7 +432,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBuilding.isSetInteriorRoom()) {
-			for (InteriorRoomProperty interiorRoomProperty : abstractBuilding.getInteriorRoom()) {
+			for (InteriorRoomProperty interiorRoomProperty : new ArrayList<InteriorRoomProperty>(abstractBuilding.getInteriorRoom())) {
 				object = apply(interiorRoomProperty);
 				if (object != null)
 					return object;
@@ -440,7 +440,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBuilding.isSetAddress()) {
-			for (AddressProperty addressProperty : abstractBuilding.getAddress()) {
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(abstractBuilding.getAddress())) {
 				object = apply(addressProperty);
 				if (object != null)
 					return object;
@@ -538,7 +538,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBuilding.isSetGenericApplicationPropertyOfAbstractBuilding()) {
-			for (ADEComponent ade : abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -554,7 +554,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractBoundarySurface.isSetOpening()) {
-			for (OpeningProperty openingProperty : abstractBoundarySurface.getOpening()) {
+			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(abstractBoundarySurface.getOpening())) {
 				object = apply(openingProperty);
 				if (object != null)
 					return object;					
@@ -580,7 +580,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface()) {
-			for (ADEComponent ade : abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -608,7 +608,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractOpening.isSetGenericApplicationPropertyOfOpening()) {
-			for (ADEComponent ade : abstractOpening.getGenericApplicationPropertyOfOpening()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -624,7 +624,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractSurfaceData.isSetGenericApplicationPropertyOfSurfaceData()) {
-			for (ADEComponent ade : abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -640,7 +640,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractTexture.isSetGenericApplicationPropertyOfTexture()) {
-			for (ADEComponent ade : abstractTexture.getGenericApplicationPropertyOfTexture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -656,7 +656,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractTextureParameterization.isSetGenericADEComponent()) {
-			for (ADEComponent ade : abstractTextureParameterization.getGenericADEComponent()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericADEComponent())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -664,7 +664,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractTextureParameterization.isSetGenericApplicationPropertyOfTextureParameterization()) {
-			for (ADEComponent ade : abstractTextureParameterization.getGenericApplicationPropertyOfTextureParameterization()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericApplicationPropertyOfTextureParameterization())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -680,7 +680,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractVegetationObject.isSetGenericApplicationPropertyOfVegetationObject()) {
-			for (ADEComponent ade : abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -696,7 +696,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (abstractWaterObject.isSetGenericApplicationPropertyOfWaterObject()) {
-			for (ADEComponent ade : abstractWaterObject.getGenericApplicationPropertyOfWaterObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterObject.getGenericApplicationPropertyOfWaterObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -730,7 +730,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (abstractWaterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface()) {
-			for (ADEComponent ade : abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -750,7 +750,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (compositeValue.isSetValueComponent()) {
-			for (ValueProperty valueProperty : compositeValue.getValueComponent()) {
+			for (ValueProperty valueProperty : new ArrayList<ValueProperty>(compositeValue.getValueComponent())) {
 				if (valueProperty.isSetValue()) {
 					object = apply(valueProperty.getValue());
 					if (object != null)
@@ -762,7 +762,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		if (compositeValue.isSetValueComponents()) {
 			ValueArrayProperty valueArrayProperty = compositeValue.getValueComponents();
 			if (valueArrayProperty.isSetValue()) {
-				for (Value value : valueArrayProperty.getValue()) {
+				for (Value value : new ArrayList<Value>(valueArrayProperty.getValue())) {
 					object = apply(value);
 					if (object != null)
 						return object;
@@ -803,7 +803,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}			
 
 		if (address.isSetGenericApplicationPropertyOfAddress()) {
-			for (ADEComponent ade : address.getGenericApplicationPropertyOfAddress()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(address.getGenericApplicationPropertyOfAddress())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -819,14 +819,14 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (appearance.isSetSurfaceDataMember())
-			for (SurfaceDataProperty surfaceDataProperty : appearance.getSurfaceDataMember()) {
+			for (SurfaceDataProperty surfaceDataProperty : new ArrayList<SurfaceDataProperty>(appearance.getSurfaceDataMember())) {
 				object = apply(surfaceDataProperty);
 				if (object != null)
 					return object;
 			}
 
 		if (appearance.isSetGenericApplicationPropertyOfAppearance()) {
-			for (ADEComponent ade : appearance.getGenericApplicationPropertyOfAppearance()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(appearance.getGenericApplicationPropertyOfAppearance())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -860,7 +860,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (auxiliaryTrafficArea.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea()) {
-			for (ADEComponent ade : auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -888,7 +888,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (breaklineRelief.isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			for (ADEComponent ade : breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(breaklineRelief.getGenericApplicationPropertyOfBreaklineRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -904,7 +904,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (building.isSetGenericApplicationPropertyOfBuilding()) {
-			for (ADEComponent ade : building.getGenericApplicationPropertyOfBuilding()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(building.getGenericApplicationPropertyOfBuilding())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -932,7 +932,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (buildingFurniture.isSetGenericApplicationPropertyOfBuildingFurniture()) {
-			for (ADEComponent ade : buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -966,7 +966,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (buildingInstallation.isSetGenericApplicationPropertyOfBuildingInstallation()) {
-			for (ADEComponent ade : buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -982,7 +982,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (buildingPart.isSetGenericApplicationPropertyOfBuildingPart()) {
-			for (ADEComponent ade : buildingPart.getGenericApplicationPropertyOfBuildingPart()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingPart.getGenericApplicationPropertyOfBuildingPart())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -998,7 +998,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface()) {
-			for (ADEComponent ade : ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1086,7 +1086,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (cityFurniture.isSetGenericApplicationPropertyOfCityFurniture()) {
-			for (ADEComponent ade : cityFurniture.getGenericApplicationPropertyOfCityFurniture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(cityFurniture.getGenericApplicationPropertyOfCityFurniture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1102,7 +1102,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (cityModel.isSetCityObjectMember()) {
-			for (CityObjectMember cityObjectMember : cityModel.getCityObjectMember()) {
+			for (CityObjectMember cityObjectMember : new ArrayList<CityObjectMember>(cityModel.getCityObjectMember())) {
 				object = apply(cityObjectMember);
 				if (object != null)
 					return object;
@@ -1110,7 +1110,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (cityModel.isSetAppearanceMember()) {
-			for (AppearanceMember appearanceMember : cityModel.getAppearanceMember()) {
+			for (AppearanceMember appearanceMember : new ArrayList<AppearanceMember>(cityModel.getAppearanceMember())) {
 				object = apply(appearanceMember);
 				if (object != null)
 					return object;
@@ -1118,7 +1118,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (cityModel.isSetGenericApplicationPropertyOfCityModel()) {
-			for (ADEComponent ade : cityModel.getGenericApplicationPropertyOfCityModel()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(cityModel.getGenericApplicationPropertyOfCityModel())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1134,7 +1134,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (cityObjectGroup.isSetGroupMember()) {
-			for (CityObjectGroupMember cityObjectGroupMember : cityObjectGroup.getGroupMember()) {
+			for (CityObjectGroupMember cityObjectGroupMember : new ArrayList<CityObjectGroupMember>(cityObjectGroup.getGroupMember())) {
 				object = apply(cityObjectGroupMember);
 				if (object != null)
 					return object;
@@ -1154,7 +1154,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (cityObjectGroup.isSetGenericApplicationPropertyOfCityObjectGroup()) {
-			for (ADEComponent ade : cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(cityObjectGroup.getGenericApplicationPropertyOfCityObjectGroup())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1170,7 +1170,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface()) {
-			for (ADEComponent ade : closureSurface.getGenericApplicationPropertyOfClosureSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1186,7 +1186,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (door.isSetAddress()) {
-			for (AddressProperty addressProperty : door.getAddress()) {
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(door.getAddress())) {
 				object = apply(addressProperty);
 				if (object != null)
 					return object;
@@ -1194,7 +1194,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (door.isSetGenericApplicationPropertyOfDoor()) {
-			for (ADEComponent ade : door.getGenericApplicationPropertyOfDoor()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1210,7 +1210,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface()) {
-			for (ADEComponent ade : floorSurface.getGenericApplicationPropertyOfFloorSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1330,7 +1330,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (georeferencedTexture.isSetGenericApplicationPropertyOfGeoreferencedTexture()) {
-			for (ADEComponent ade : georeferencedTexture.getGenericApplicationPropertyOfGeoreferencedTexture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(georeferencedTexture.getGenericApplicationPropertyOfGeoreferencedTexture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1346,7 +1346,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface()) {
-			for (ADEComponent ade : groundSurface.getGenericApplicationPropertyOfGroundSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1368,7 +1368,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (intBuildingInstallation.isSetGenericApplicationPropertyOfIntBuildingInstallation()) {
-			for (ADEComponent ade : intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1384,7 +1384,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface()) {
-			for (ADEComponent ade : interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1430,7 +1430,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (landUse.isSetGenericApplicationPropertyOfLandUse()) {
-			for (ADEComponent ade : landUse.getGenericApplicationPropertyOfLandUse()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(landUse.getGenericApplicationPropertyOfLandUse())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1452,7 +1452,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (massPointRelief.isSetGenericApplicationPropertyOfMassPointRelief()) {
-			for (ADEComponent ade : massPointRelief.getGenericApplicationPropertyOfMassPointRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(massPointRelief.getGenericApplicationPropertyOfMassPointRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1468,7 +1468,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (parameterizedTexture.isSetTarget()) {
-			for (TextureAssociation textureAssociation : parameterizedTexture.getTarget()) {
+			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget())) {
 				object = apply(textureAssociation);
 				if (object != null)
 					return object;
@@ -1476,7 +1476,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (parameterizedTexture.isSetGenericApplicationPropertyOfParameterizedTexture()) {
-			for (ADEComponent ade : parameterizedTexture.getGenericApplicationPropertyOfParameterizedTexture()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(parameterizedTexture.getGenericApplicationPropertyOfParameterizedTexture())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1534,7 +1534,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (plantCover.isSetGenericApplicationPropertyOfPlantCover()) {
-			for (ADEComponent ade : plantCover.getGenericApplicationPropertyOfPlantCover()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(plantCover.getGenericApplicationPropertyOfPlantCover())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1550,7 +1550,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (railway.isSetGenericApplicationPropertyOfRailway()) {
-			for (ADEComponent ade : railway.getGenericApplicationPropertyOfRailway()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(railway.getGenericApplicationPropertyOfRailway())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1572,7 +1572,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief()) {
-			for (ADEComponent ade : rasterRelief.getGenericApplicationPropertyOfRasterRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1588,7 +1588,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (reliefFeature.isSetReliefComponent()) {
-			for (ReliefComponentProperty reliefComponentProperty : reliefFeature.getReliefComponent()) {
+			for (ReliefComponentProperty reliefComponentProperty : new ArrayList<ReliefComponentProperty>(reliefFeature.getReliefComponent())) {
 				object = apply(reliefComponentProperty);
 				if (object != null)
 					return object;
@@ -1596,7 +1596,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (reliefFeature.isSetGenericApplicationPropertyOfReliefFeature()) {
-			for (ADEComponent ade : reliefFeature.getGenericApplicationPropertyOfReliefFeature()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(reliefFeature.getGenericApplicationPropertyOfReliefFeature())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1612,7 +1612,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (road.isSetGenericApplicationPropertyOfRoad()) {
-			for (ADEComponent ade : road.getGenericApplicationPropertyOfRoad()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(road.getGenericApplicationPropertyOfRoad())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1628,7 +1628,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface()) {
-			for (ADEComponent ade : roofSurface.getGenericApplicationPropertyOfRoofSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1644,7 +1644,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (room.isSetBoundedBySurface()) {
-			for (BoundarySurfaceProperty boundarySurfaceProperty : room.getBoundedBySurface()) {
+			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(room.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
 				if (object != null)
 					return object;
@@ -1652,7 +1652,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (room.isSetInteriorFurniture()) {
-			for (InteriorFurnitureProperty interiorFurnitureProperty : room.getInteriorFurniture()) {
+			for (InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<InteriorFurnitureProperty>(room.getInteriorFurniture())) {
 				object = apply(interiorFurnitureProperty);
 				if (object != null)
 					return object;
@@ -1660,7 +1660,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (room.isSetRoomInstallation()) {
-			for (IntBuildingInstallationProperty intBuildingInstallationProperty : room.getRoomInstallation()) {
+			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(room.getRoomInstallation())) {
 				object = apply(intBuildingInstallationProperty);
 				if (object != null)
 					return object;
@@ -1680,7 +1680,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (room.isSetGenericApplicationPropertyOfRoom()) {
-			for (ADEComponent ade : room.getGenericApplicationPropertyOfRoom()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(room.getGenericApplicationPropertyOfRoom())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1738,7 +1738,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (solitaryVegetationObject.isSetGenericApplicationPropertyOfSolitaryVegetationObject()) {
-			for (ADEComponent ade : solitaryVegetationObject.getGenericApplicationPropertyOfSolitaryVegetationObject()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(solitaryVegetationObject.getGenericApplicationPropertyOfSolitaryVegetationObject())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1754,7 +1754,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (square.isSetGenericApplicationPropertyOfSquare()) {
-			for (ADEComponent ade : square.getGenericApplicationPropertyOfSquare()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(square.getGenericApplicationPropertyOfSquare())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1776,7 +1776,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (tinRelief.isSetGenericApplicationPropertyOfTinRelief()) {
-			for (ADEComponent ade : tinRelief.getGenericApplicationPropertyOfTinRelief()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(tinRelief.getGenericApplicationPropertyOfTinRelief())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1792,7 +1792,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (track.isSetGenericApplicationPropertyOfTrack()) {
-			for (ADEComponent ade : track.getGenericApplicationPropertyOfTrack()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(track.getGenericApplicationPropertyOfTrack())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1826,7 +1826,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (trafficArea.isSetGenericApplicationPropertyOfTrafficArea()) {
-			for (ADEComponent ade : trafficArea.getGenericApplicationPropertyOfTrafficArea()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(trafficArea.getGenericApplicationPropertyOfTrafficArea())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1842,7 +1842,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (transportationComplex.isSetTrafficArea()) {
-			for (TrafficAreaProperty trafficAreaProperty : transportationComplex.getTrafficArea()) {
+			for (TrafficAreaProperty trafficAreaProperty : new ArrayList<TrafficAreaProperty>(transportationComplex.getTrafficArea())) {
 				object = apply(trafficAreaProperty);
 				if (object != null)
 					return object;
@@ -1850,7 +1850,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (transportationComplex.isSetAuxiliaryTrafficArea()) {
-			for (AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty : transportationComplex.getAuxiliaryTrafficArea()) {
+			for (AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty : new ArrayList<AuxiliaryTrafficAreaProperty>(transportationComplex.getAuxiliaryTrafficArea())) {
 				object = apply(auxiliaryTrafficAreaProperty);
 				if (object != null)
 					return object;
@@ -1858,7 +1858,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (transportationComplex.isSetLod0Network()) {
-			for (GeometricComplexProperty geometricComplexProperty : transportationComplex.getLod0Network()) {
+			for (GeometricComplexProperty geometricComplexProperty : new ArrayList<GeometricComplexProperty>(transportationComplex.getLod0Network())) {
 				object = apply(geometricComplexProperty);
 				if (object != null)
 					return object;
@@ -1890,7 +1890,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (transportationComplex.isSetGenericApplicationPropertyOfTransportationComplex()) {
-			for (ADEComponent ade : transportationComplex.getGenericApplicationPropertyOfTransportationComplex()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(transportationComplex.getGenericApplicationPropertyOfTransportationComplex())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1906,7 +1906,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (wallSurface.isSetGenericApplicationPropertyOfWallSurface()) {
-			for (ADEComponent ade : wallSurface.getGenericApplicationPropertyOfWallSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1922,7 +1922,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (waterBody.isSetBoundedBySurface()) {
-			for (BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty : waterBody.getBoundedBySurface()) {
+			for (BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty : new ArrayList<BoundedByWaterSurfaceProperty>(waterBody.getBoundedBySurface())) {
 				object = apply(boundedByWaterSurfaceProperty);
 				if (object != null)
 					return object;
@@ -1978,7 +1978,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}		
 
 		if (waterBody.isSetGenericApplicationPropertyOfWaterBody()) {
-			for (ADEComponent ade : waterBody.getGenericApplicationPropertyOfWaterBody()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBody.getGenericApplicationPropertyOfWaterBody())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -1994,7 +1994,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (waterClosureSurface.isSetGenericApplicationPropertyOfWaterClosureSurface()) {
-			for (ADEComponent ade : waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterClosureSurface.getGenericApplicationPropertyOfWaterClosureSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2010,7 +2010,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (waterGroundSurface.isSetGenericApplicationPropertyOfWaterGroundSurface()) {
-			for (ADEComponent ade : waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterGroundSurface.getGenericApplicationPropertyOfWaterGroundSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2026,7 +2026,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (waterSurface.isSetGenericApplicationPropertyOfWaterSurface()) {
-			for (ADEComponent ade : waterSurface.getGenericApplicationPropertyOfWaterSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2042,7 +2042,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (window.isSetGenericApplicationPropertyOfWindow()) {
-			for (ADEComponent ade : window.getGenericApplicationPropertyOfWindow()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2058,7 +2058,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (x3dMaterial.isSetGenericApplicationPropertyOfX3DMaterial()) {
-			for (ADEComponent ade : x3dMaterial.getGenericApplicationPropertyOfX3DMaterial()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(x3dMaterial.getGenericApplicationPropertyOfX3DMaterial())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2102,7 +2102,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (texCoordGen.isSetGenericApplicationPropertyOfTexCoordGen()) {
-			for (ADEComponent ade : texCoordGen.getGenericApplicationPropertyOfTexCoordGen()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordGen.getGenericApplicationPropertyOfTexCoordGen())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2118,7 +2118,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (texCoordList.isSetGenericApplicationPropertyOfTexCoordList()) {
-			for (ADEComponent ade : texCoordList.getGenericApplicationPropertyOfTexCoordList()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordList.getGenericApplicationPropertyOfTexCoordList())) {
 				object = apply(ade);
 				if (object != null)
 					return object;
@@ -2182,7 +2182,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (compositeCurve.isSetCurveMember()) {
-			for (CurveProperty curveProperty : compositeCurve.getCurveMember()) {
+			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(compositeCurve.getCurveMember())) {
 				object = apply(curveProperty);
 				if (object != null)
 					return object;
@@ -2198,7 +2198,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (compositeSolid.isSetSolidMember()) {
-			for (SolidProperty solidProperty : compositeSolid.getSolidMember()) {
+			for (SolidProperty solidProperty : new ArrayList<SolidProperty>(compositeSolid.getSolidMember())) {
 				object = apply(solidProperty);
 				if (object != null)
 					return object;
@@ -2214,7 +2214,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (compositeSurface.isSetSurfaceMember()) {
-			for (SurfaceProperty surfaceProperty : compositeSurface.getSurfaceMember()) {
+			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(compositeSurface.getSurfaceMember())) {
 				object = apply(surfaceProperty);
 				if (object != null)
 					return object;
@@ -2234,7 +2234,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (geometricComplex.isSetElement()) {
-			for (GeometricPrimitiveProperty geometricPrimitiveProperty : geometricComplex.getElement()) {
+			for (GeometricPrimitiveProperty geometricPrimitiveProperty : new ArrayList<GeometricPrimitiveProperty>(geometricComplex.getElement())) {
 				object = apply(geometricPrimitiveProperty);
 				if (object != null)
 					return object;
@@ -2262,7 +2262,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (multiCurve.isSetCurveMember()) {
-			for (CurveProperty curveProperty : multiCurve.getCurveMember()) {
+			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(multiCurve.getCurveMember())) {
 				object = apply(curveProperty);
 				if (object != null)
 					return object;
@@ -2284,7 +2284,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (multiLineString.isSetLineStringMember()) {
-			for (LineStringProperty lineStringProperty : multiLineString.getLineStringMember()) {
+			for (LineStringProperty lineStringProperty : new ArrayList<LineStringProperty>(multiLineString.getLineStringMember())) {
 				object = apply(lineStringProperty);
 				if (object != null)
 					return object;
@@ -2300,7 +2300,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (multiPoint.isSetPointMember()) {
-			for (PointProperty pointProperty : multiPoint.getPointMember()) {
+			for (PointProperty pointProperty : new ArrayList<PointProperty>(multiPoint.getPointMember())) {
 				object = apply(pointProperty);
 				if (object != null)
 					return object;
@@ -2322,7 +2322,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (multiPolygon.isSetPolygonMember()) {
-			for (PolygonProperty polygonProperty : multiPolygon.getPolygonMember()) {
+			for (PolygonProperty polygonProperty : new ArrayList<PolygonProperty>(multiPolygon.getPolygonMember())) {
 				object = apply(polygonProperty);
 				if (object != null)
 					return object;
@@ -2338,7 +2338,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (multiSolid.isSetSolidMember()) {
-			for (SolidProperty solidProperty : multiSolid.getSolidMember()) {
+			for (SolidProperty solidProperty : new ArrayList<SolidProperty>(multiSolid.getSolidMember())) {
 				object = apply(solidProperty);
 				if (object != null)
 					return object;
@@ -2360,7 +2360,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (multiSurface.isSetSurfaceMember()) {
-			for (SurfaceProperty surfaceProperty : multiSurface.getSurfaceMember()) {
+			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(multiSurface.getSurfaceMember())) {
 				object = apply(surfaceProperty);
 				if (object != null)
 					return object;
@@ -2410,7 +2410,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (texturedSurface.isSetAppearance()) {
-			for (_AppearanceProperty appearanceProperty : texturedSurface.getAppearance()) {
+			for (_AppearanceProperty appearanceProperty : new ArrayList<_AppearanceProperty>(texturedSurface.getAppearance())) {
 				object = apply(appearanceProperty);
 				if (object != null)
 					return object;
@@ -2436,7 +2436,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (polygon.isSetInterior()) {
-			for (AbstractRingProperty abstractRingProperty : polygon.getInterior()) {
+			for (AbstractRingProperty abstractRingProperty : new ArrayList<AbstractRingProperty>(polygon.getInterior())) {
 				object = apply(abstractRingProperty);
 				if (object != null)
 					return object;
@@ -2466,7 +2466,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 			return object;
 
 		if (ring.isSetCurveMember()) {
-			for (CurveProperty curveProperty : ring.getCurveMember()) {
+			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(ring.getCurveMember())) {
 				object = apply(curveProperty);
 				if (object != null)
 					return object;
@@ -2488,7 +2488,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		}
 
 		if (solid.isSetInterior()) {
-			for (SurfaceProperty surfaceProperty : solid.getInterior()) {
+			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(solid.getInterior())) {
 				object = apply(surfaceProperty);
 				if (object != null)
 					return object;
@@ -2550,16 +2550,17 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 
 	public T apply(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
-			for (AbstractFeature feature : featureArrayProperty.getFeature())
+			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature())) {
 				if (shouldWalk && visited.add(feature)) {
 					T object = feature.accept(this);
 					if (object != null)
 						return object;
 				}					
+			}
 		}
 
 		if (featureArrayProperty.isSetGenericADEComponent()) {
-			for (ADEComponent ade : featureArrayProperty.getGenericADEComponent()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent())) {
 				T object = apply(ade);
 				if (object != null)
 					return object;
@@ -2579,12 +2580,13 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 
 	public <E extends AbstractGeometry> T apply(GeometryArrayProperty<E> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
-			for (AbstractGeometry abstractGeometry : geometryArrayProperty.getGeometry())
+			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry())) {
 				if (shouldWalk && visited.add(abstractGeometry)) {
 					T object = abstractGeometry.accept(this);
 					if (object != null)
 						return object;
 				}
+			}
 		}
 
 		return null;
@@ -2594,7 +2596,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		T object = null;
 
 		if (surfacePatchArrayProperty.isSetSurfacePatch()) {
-			for (AbstractSurfacePatch abstractSurfacePatch : surfacePatchArrayProperty.getSurfacePatch()) {
+			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
 				if (shouldWalk && visited.add(abstractSurfacePatch)) {
 					if (abstractSurfacePatch instanceof Triangle) {
 						object = apply((Triangle)abstractSurfacePatch);
@@ -2629,7 +2631,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 	protected T adeComponent(Element element, ElementDecl decl) {
 		Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
 		T object = null;
-		
+
 		if (schema != null) {
 			decl = schema.getElementDecl(element.getLocalName(), decl);
 			if (decl != null && decl.isAbstractGML()) {
@@ -2642,7 +2644,7 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2656,13 +2658,14 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 				children.add((Element)node);
 		}	
 
-		for (Element child : children)
+		for (Element child : children) {
 			if (shouldWalk && visited.add(child)) {
 				T object = adeComponent((Element)child, decl);
 				if (object != null)
 					return object;
 			}
-		
+		}
+
 		return null;
 	}
 

@@ -1,5 +1,6 @@
 package org.citygml4j.util.walker;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,7 +60,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 
 	public GeometryFunctionWalker() {
 	}
-	
+
 	public void reset() {
 		visited.clear();
 		shouldWalk = true;
@@ -72,7 +73,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 	public void setShouldWalk(boolean shouldWalk) {
 		this.shouldWalk = shouldWalk;
 	}
-	
+
 	public boolean addToVisited(Object object) {
 		return visited.add(object);
 	}
@@ -151,7 +152,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (compositeCurve.isSetCurveMember()) {
-			for (CurveProperty curveProperty : compositeCurve.getCurveMember()) {
+			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(compositeCurve.getCurveMember())) {
 				object = apply(curveProperty);
 				if (object != null)
 					return object;
@@ -167,7 +168,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (compositeSolid.isSetSolidMember()) {
-			for (SolidProperty solidProperty : compositeSolid.getSolidMember()) {
+			for (SolidProperty solidProperty : new ArrayList<SolidProperty>(compositeSolid.getSolidMember())) {
 				object = apply(solidProperty);
 				if (object != null)
 					return object;
@@ -183,7 +184,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (compositeSurface.isSetSurfaceMember()) {
-			for (SurfaceProperty surfaceProperty : compositeSurface.getSurfaceMember()) {
+			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(compositeSurface.getSurfaceMember())) {
 				object = apply(surfaceProperty);
 				if (object != null)
 					return object;
@@ -203,7 +204,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (geometricComplex.isSetElement()) {
-			for (GeometricPrimitiveProperty geometricPrimitiveProperty : geometricComplex.getElement()) {
+			for (GeometricPrimitiveProperty geometricPrimitiveProperty : new ArrayList<GeometricPrimitiveProperty>(geometricComplex.getElement())) {
 				object = apply(geometricPrimitiveProperty);
 				if (object != null)
 					return object;
@@ -231,7 +232,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (multiCurve.isSetCurveMember()) {
-			for (CurveProperty curveProperty : multiCurve.getCurveMember()) {
+			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(multiCurve.getCurveMember())) {
 				object = apply(curveProperty);
 				if (object != null)
 					return object;
@@ -253,7 +254,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (multiLineString.isSetLineStringMember()) {
-			for (LineStringProperty lineStringProperty : multiLineString.getLineStringMember()) {
+			for (LineStringProperty lineStringProperty : new ArrayList<LineStringProperty>(multiLineString.getLineStringMember())) {
 				object = apply(lineStringProperty);
 				if (object != null)
 					return object;
@@ -269,7 +270,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (multiPoint.isSetPointMember()) {
-			for (PointProperty pointProperty : multiPoint.getPointMember()) {
+			for (PointProperty pointProperty : new ArrayList<PointProperty>(multiPoint.getPointMember())) {
 				object = apply(pointProperty);
 				if (object != null)
 					return object;
@@ -291,7 +292,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (multiPolygon.isSetPolygonMember()) {
-			for (PolygonProperty polygonProperty : multiPolygon.getPolygonMember()) {
+			for (PolygonProperty polygonProperty : new ArrayList<PolygonProperty>(multiPolygon.getPolygonMember())) {
 				object = apply(polygonProperty);
 				if (object != null)
 					return object;
@@ -307,7 +308,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (multiSolid.isSetSolidMember()) {
-			for (SolidProperty solidProperty : multiSolid.getSolidMember()) {
+			for (SolidProperty solidProperty : new ArrayList<SolidProperty>(multiSolid.getSolidMember())) {
 				object = apply(solidProperty);
 				if (object != null)
 					return object;
@@ -329,7 +330,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (multiSurface.isSetSurfaceMember()) {
-			for (SurfaceProperty surfaceProperty : multiSurface.getSurfaceMember()) {
+			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(multiSurface.getSurfaceMember())) {
 				object = apply(surfaceProperty);
 				if (object != null)
 					return object;
@@ -397,7 +398,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 		}
 
 		if (polygon.isSetInterior()) {
-			for (AbstractRingProperty abstractRingProperty : polygon.getInterior()) {
+			for (AbstractRingProperty abstractRingProperty : new ArrayList<AbstractRingProperty>(polygon.getInterior())) {
 				object = apply(abstractRingProperty);
 				if (object != null)
 					return object;
@@ -427,7 +428,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 			return object;
 
 		if (ring.isSetCurveMember()) {
-			for (CurveProperty curveProperty : ring.getCurveMember()) {
+			for (CurveProperty curveProperty : new ArrayList<CurveProperty>(ring.getCurveMember())) {
 				object = apply(curveProperty);
 				if (object != null)
 					return object;
@@ -449,7 +450,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 		}
 
 		if (solid.isSetInterior()) {
-			for (SurfaceProperty surfaceProperty : solid.getInterior()) {
+			for (SurfaceProperty surfaceProperty : new ArrayList<SurfaceProperty>(solid.getInterior())) {
 				object = apply(surfaceProperty);
 				if (object != null)
 					return object;
@@ -503,12 +504,13 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 
 	public <E extends AbstractGeometry> T apply(GeometryArrayProperty<E> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
-			for (AbstractGeometry abstractGeometry : geometryArrayProperty.getGeometry())
+			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry())) {
 				if (shouldWalk && visited.add(abstractGeometry)) {
 					T object = abstractGeometry.accept(this);
 					if (object != null)
 						return object;
 				}
+			}
 		}
 
 		return null;
@@ -518,7 +520,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 		T object = null;
 
 		if (surfacePatchArrayProperty.isSetSurfacePatch()) {
-			for (AbstractSurfacePatch abstractSurfacePatch : surfacePatchArrayProperty.getSurfacePatch()) {
+			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
 				if (shouldWalk && visited.add(abstractSurfacePatch)) {
 					if (abstractSurfacePatch instanceof Triangle) {
 						object = apply((Triangle)abstractSurfacePatch);
