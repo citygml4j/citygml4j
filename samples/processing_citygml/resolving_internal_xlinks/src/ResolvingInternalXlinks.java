@@ -12,6 +12,7 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.transportation.Road;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.util.xlink.XLinkResolver;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -53,7 +54,7 @@ public class ResolvingInternalXlinks {
 						TrafficArea trafficArea = road.getTrafficArea().get(2).getTrafficArea();
 						
 						System.out.println(df.format(new Date()) + "resolving XLink to " + trafficArea.getLod2MultiSurface().getHref());
-						Object object = xLinkResolver.getObject(trafficArea.getLod2MultiSurface().getHref(), road);
+						ModelObject object = xLinkResolver.getObject(trafficArea.getLod2MultiSurface().getHref(), road);
 						if (object instanceof MultiSurface) {
 							MultiSurface multiSurface = (MultiSurface)object;
 							System.out.println("   Referenced geometry: " + multiSurface.getGMLClass() + 
