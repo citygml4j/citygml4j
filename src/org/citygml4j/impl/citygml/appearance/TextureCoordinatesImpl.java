@@ -6,6 +6,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
@@ -13,7 +14,7 @@ public class TextureCoordinatesImpl implements TextureCoordinates {
 	private List<Double> value;
 	private String ring;
 	private AppearanceModule module;
-	private Object parent;
+	private ModelObject parent;
 	
 	public TextureCoordinatesImpl() {
 		
@@ -81,11 +82,11 @@ public class TextureCoordinatesImpl implements TextureCoordinates {
 		return module != null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

@@ -3,6 +3,7 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.XALFunctor;
@@ -32,7 +33,7 @@ public class PostalServiceElementsImpl implements PostalServiceElements {
 	private AddressLongitudeDirection addressLongitudeDirection;
 	private List<SupplementaryPostalServiceData> supplementaryPostalServiceData;
 	private String type;
-	private Object parent;
+	private ModelObject parent;
 	
 	public void addAddressIdentifier(AddressIdentifier addressIdentifier) {
 		if (this.addressIdentifier == null)
@@ -300,11 +301,11 @@ public class PostalServiceElementsImpl implements PostalServiceElements {
 		return XALClass.POSTAL_SERVICE_ELEMENTS;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

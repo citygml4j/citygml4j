@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
@@ -14,7 +15,7 @@ public class ScalarValueListImpl implements ScalarValueList {
 	private CodeOrNullList categoryList;
 	private MeasureOrNullList quantityList;
 	private IntegerOrNullList countList;
-	private Object parent;
+	private ModelObject parent;
 	
 	public ScalarValueListImpl() {
 		
@@ -148,7 +149,7 @@ public class ScalarValueListImpl implements ScalarValueList {
 		countList = null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
@@ -156,7 +157,7 @@ public class ScalarValueListImpl implements ScalarValueList {
 		return parent != null;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

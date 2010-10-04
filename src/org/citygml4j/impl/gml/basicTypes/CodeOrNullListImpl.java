@@ -3,6 +3,7 @@ package org.citygml4j.impl.gml.basicTypes;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
@@ -12,7 +13,7 @@ import org.citygml4j.model.gml.basicTypes.NameOrNull;
 public class CodeOrNullListImpl implements CodeOrNullList {
 	private List<NameOrNull> nameOrNull;
 	private String codeSpace;
-	private Object parent;
+	private ModelObject parent;
 
 	public ModelType getModelType() {
 		return ModelType.GML;
@@ -71,7 +72,7 @@ public class CodeOrNullListImpl implements CodeOrNullList {
 		codeSpace = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
@@ -79,7 +80,7 @@ public class CodeOrNullListImpl implements CodeOrNullList {
 		return parent != null;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

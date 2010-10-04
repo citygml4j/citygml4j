@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
@@ -9,7 +10,7 @@ import org.citygml4j.model.gml.basicTypes.Null;
 public class BooleanOrNullImpl implements BooleanOrNull {
 	private Boolean _boolean;
 	private Null _null;
-	private Object parent;
+	private ModelObject parent;
 	
 	public BooleanOrNullImpl() {
 		
@@ -72,11 +73,11 @@ public class BooleanOrNullImpl implements BooleanOrNull {
 		_null = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

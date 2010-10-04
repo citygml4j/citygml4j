@@ -4,6 +4,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ExternalObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CoreModule;
 
@@ -11,7 +12,7 @@ public class ExternalReferenceImpl implements ExternalReference {
 	private String informationSystem;
 	private ExternalObject externalObject;
 	private CoreModule module;
-	private Object parent;
+	private ModelObject parent;
 
 	public ExternalReferenceImpl() {
 		
@@ -75,11 +76,11 @@ public class ExternalReferenceImpl implements ExternalReference {
 		return module != null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

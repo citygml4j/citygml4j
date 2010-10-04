@@ -1,6 +1,7 @@
 package org.citygml4j.impl.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.valueObjects.CategoryExtent;
@@ -12,7 +13,7 @@ public class ValueExtentImpl implements ValueExtent {
 	private CategoryExtent categoryExtent;
 	private QuantityExtent quantityExtent;
 	private CountExtent countExtent;
-	private Object parent;
+	private ModelObject parent;
 	
 	public ValueExtentImpl() {
 		
@@ -113,7 +114,7 @@ public class ValueExtentImpl implements ValueExtent {
 		countExtent = null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
@@ -121,7 +122,7 @@ public class ValueExtentImpl implements ValueExtent {
 		return parent != null;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

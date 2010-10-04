@@ -4,6 +4,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.DeepCopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
@@ -14,7 +15,7 @@ import org.w3c.dom.Element;
 
 public class ADEComponent implements CityGML, Child, Copyable {
 	private Element content;
-	private Object parent;	
+	private ModelObject parent;	
 	
 	public ADEComponent() {
 		
@@ -68,11 +69,11 @@ public class ADEComponent implements CityGML, Child, Copyable {
 		return false;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

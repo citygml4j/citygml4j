@@ -3,6 +3,7 @@ package org.citygml4j.impl.gml.base;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
@@ -16,7 +17,7 @@ public abstract class AbstractGMLImpl implements AbstractGML {
 	private StringOrRef description;
 	private List<Code> name;
 	private List<MetaDataProperty> metaDataProperty;
-	private Object parent;
+	private ModelObject parent;
 
 	public String getId() {
 		return id;
@@ -122,11 +123,11 @@ public abstract class AbstractGMLImpl implements AbstractGML {
 		return isSetName() ? this.name.remove(name) : false;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

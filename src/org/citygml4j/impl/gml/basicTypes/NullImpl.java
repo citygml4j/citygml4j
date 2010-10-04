@@ -7,13 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Null;
 
 public class NullImpl implements Null {
 	private String value;
-	private Object parent;
+	private ModelObject parent;
 
 	public String getValue() {
 		return value;
@@ -64,7 +65,7 @@ public class NullImpl implements Null {
 		return GMLClass.NULL;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
@@ -72,7 +73,7 @@ public class NullImpl implements Null {
 		return parent != null;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

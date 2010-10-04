@@ -1,6 +1,7 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
@@ -12,7 +13,7 @@ public class PremiseNameImpl implements PremiseName {
 	private String type;
 	private String typeOccurrence;
 	private String code;
-	private Object parent;
+	private ModelObject parent;
 	
 	public String getContent() {
 		return content;
@@ -87,11 +88,11 @@ public class PremiseNameImpl implements PremiseName {
 		code = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

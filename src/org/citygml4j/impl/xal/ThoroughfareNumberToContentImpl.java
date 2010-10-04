@@ -1,6 +1,7 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.xal.AddressLine;
 import org.citygml4j.model.xal.ThoroughfareNumber;
@@ -15,7 +16,7 @@ public class ThoroughfareNumberToContentImpl implements ThoroughfareNumberToCont
 	private ThoroughfareNumberPrefix thoroughfareNumberPrefix;
 	private ThoroughfareNumberSuffix thoroughfareNumberSuffix;
 	private String string;	
-	private Object parent;
+	private ModelObject parent;
 	
 	public ThoroughfareNumberToContentImpl() {
 		
@@ -173,11 +174,11 @@ public class ThoroughfareNumberToContentImpl implements ThoroughfareNumberToCont
 		thoroughfareNumberSuffix = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

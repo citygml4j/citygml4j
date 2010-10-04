@@ -6,6 +6,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._Color;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
@@ -14,7 +15,7 @@ public class _ColorImpl implements _Color {
 	private Double green = 0.0;
 	private Double blue = 0.0;
 	private TexturedSurfaceModule module;
-	private Object parent;
+	private ModelObject parent;
 	
 	public _ColorImpl() {
 		
@@ -115,11 +116,11 @@ public class _ColorImpl implements _Color {
 		return module != null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

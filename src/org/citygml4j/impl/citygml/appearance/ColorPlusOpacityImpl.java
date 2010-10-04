@@ -6,6 +6,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.Color;
 import org.citygml4j.model.citygml.appearance.ColorPlusOpacity;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
@@ -13,7 +14,7 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 	private Color color;
 	private Double opacity = 1.0;
 	private AppearanceModule module;
-	private Object parent;
+	private ModelObject parent;
 
 	public ColorPlusOpacityImpl() {
 		color = new ColorImpl();
@@ -125,11 +126,11 @@ public class ColorPlusOpacityImpl implements ColorPlusOpacity {
 		return module != null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

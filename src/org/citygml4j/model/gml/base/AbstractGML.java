@@ -7,7 +7,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GML;
 
-
 public interface AbstractGML extends GML, StandardObjectProperties, Associable, Child, Copyable {
 	public String getId();
 	public boolean isSetId();

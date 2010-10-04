@@ -2,12 +2,13 @@ package org.citygml4j.impl.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
 public abstract class AbstractGenericAttributeImpl implements AbstractGenericAttribute {
 	private String name;
 	private GenericsModule module;
-	private Object parent;
+	private ModelObject parent;
 	
 	public AbstractGenericAttributeImpl() {
 		
@@ -41,11 +42,11 @@ public abstract class AbstractGenericAttributeImpl implements AbstractGenericAtt
 		return module != null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

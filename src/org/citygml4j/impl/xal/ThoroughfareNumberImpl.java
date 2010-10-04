@@ -1,6 +1,7 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
@@ -15,7 +16,7 @@ public class ThoroughfareNumberImpl implements ThoroughfareNumber {
 	private String indicatorOccurrence;
 	private String numberOccurrence;
 	private String code;
-	private Object parent;
+	private ModelObject parent;
 	
 	public String getContent() {
 		return content;
@@ -141,11 +142,11 @@ public class ThoroughfareNumberImpl implements ThoroughfareNumber {
 		code = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

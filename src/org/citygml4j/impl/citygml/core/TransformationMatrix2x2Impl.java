@@ -6,6 +6,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CoreModule;
@@ -13,7 +14,7 @@ import org.citygml4j.model.module.citygml.CoreModule;
 public class TransformationMatrix2x2Impl implements TransformationMatrix2x2 {
 	private Matrix matrix;
 	private CoreModule module;
-	private Object parent;
+	private ModelObject parent;
 	
 	public TransformationMatrix2x2Impl() {
 		matrix = new Matrix(2, 2);
@@ -78,11 +79,11 @@ public class TransformationMatrix2x2Impl implements TransformationMatrix2x2 {
 		return module != null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
@@ -13,7 +14,7 @@ import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 public class GeometricPositionGroupImpl implements GeometricPositionGroup {
 	private DirectPosition pos;
 	private PointProperty pointProperty;
-	private Object parent;
+	private ModelObject parent;
 	
 	public GeometricPositionGroupImpl() {
 		
@@ -81,11 +82,11 @@ public class GeometricPositionGroupImpl implements GeometricPositionGroup {
 		return GMLClass.GEOMETRIC_POSITION_GROUP;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 
