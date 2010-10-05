@@ -55,8 +55,9 @@ import org.citygml4j.jaxb.citygml._0_4._BoundarySurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._OpeningType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBuilding;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -74,12 +75,12 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -296,7 +297,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof AbstractBoundarySurface)
 				dest.setObject((AbstractBoundarySurface)object);
 		}
@@ -375,7 +376,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof BuildingInstallation)
 				dest.setObject((BuildingInstallation)object);
 		}
@@ -398,7 +399,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof BuildingPart)
 				dest.setObject((BuildingPart)object);
 		}
@@ -493,7 +494,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof IntBuildingInstallation)
 				dest.setObject((IntBuildingInstallation)object);
 		}
@@ -505,7 +506,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof BuildingFurniture)
 				dest.setObject((BuildingFurniture)object);
 		}
@@ -517,7 +518,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof Room)
 				dest.setObject((Room)object);
 		}
@@ -541,7 +542,7 @@ public class Building040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof AbstractOpening)
 				dest.setObject((AbstractOpening)object);
 		}

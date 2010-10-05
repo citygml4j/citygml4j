@@ -11,6 +11,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -78,8 +80,8 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 							unmarshaller = null;
 
 							if (result instanceof JAXBElement<?>) {
-								Object citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
-								if (citygml instanceof CityGML && citygml instanceof AbstractFeature) {
+								ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
+								if (citygml.getModelType() == ModelType.CITYGML && citygml instanceof AbstractFeature) {
 									next = (CityGML)citygml;
 									break;
 								}

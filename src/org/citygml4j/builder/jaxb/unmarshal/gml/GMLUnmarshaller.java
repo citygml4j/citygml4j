@@ -128,6 +128,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
@@ -553,7 +554,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetLocation()) {
 			try {
-				Object location = jaxb.unmarshal(src.getLocation());
+				ModelObject location = jaxb.unmarshal(src.getLocation());
 				if (location instanceof LocationProperty)
 					dest.setLocation((LocationProperty)location);
 			} catch (MissingADESchemaException e) {
@@ -645,7 +646,7 @@ public class GMLUnmarshaller {
 		if (src.isSetName()) {
 			for (JAXBElement<CodeType> elem : src.getName()) {
 				try {
-					Object name = jaxb.unmarshal(elem);
+					ModelObject name = jaxb.unmarshal(elem);
 					if (name instanceof Code)
 						dest.addName((Code)name);
 				} catch (MissingADESchemaException e) {
@@ -689,7 +690,7 @@ public class GMLUnmarshaller {
 	public void unmarshalAbstractRingProperty(AbstractRingPropertyType src, AbstractRingProperty dest) {
 		if (src.isSet_Ring()) {
 			try {
-				Object abstractRing = jaxb.unmarshal(src.get_Ring());
+				ModelObject abstractRing = jaxb.unmarshal(src.get_Ring());
 				if (abstractRing instanceof AbstractRing)
 					dest.setRing((AbstractRing)abstractRing);
 			} catch (MissingADESchemaException e) {
@@ -881,7 +882,7 @@ public class GMLUnmarshaller {
 	public void unmarshalLocationProperty(LocationPropertyType src, LocationProperty dest) {
 		if (src.isSet_Geometry()) {
 			try { 
-				Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
+				ModelObject abstractGeometry = jaxb.unmarshal(src.get_Geometry());
 				if (abstractGeometry instanceof AbstractGeometry)
 					dest.setGeometry((AbstractGeometry)abstractGeometry);
 			} catch (MissingADESchemaException e) {
@@ -983,7 +984,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetPatches()) {
 			try {
-				Object surfacePatchArrayProperty = jaxb.unmarshal(src.getPatches());
+				ModelObject surfacePatchArrayProperty = jaxb.unmarshal(src.getPatches());
 				if (surfacePatchArrayProperty instanceof SurfacePatchArrayProperty)
 					dest.setPatches((SurfacePatchArrayProperty)surfacePatchArrayProperty);
 			} catch (MissingADESchemaException e) {
@@ -996,7 +997,7 @@ public class GMLUnmarshaller {
 		if (src.isSet_SurfacePatch()) {
 			for (JAXBElement<? extends AbstractSurfacePatchType> elem : src.get_SurfacePatch()) {
 				try {
-					Object abstractSurfacePatch = jaxb.unmarshal(elem);
+					ModelObject abstractSurfacePatch = jaxb.unmarshal(elem);
 					if (abstractSurfacePatch instanceof AbstractSurfacePatch)
 						dest.addSurfacePatch((AbstractSurfacePatch)abstractSurfacePatch);
 				} catch (MissingADESchemaException e) {
@@ -1045,7 +1046,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetEnvelope()) {
 			try {
-				Object envelope = jaxb.unmarshal(src.getEnvelope());
+				ModelObject envelope = jaxb.unmarshal(src.getEnvelope());
 				if (envelope instanceof Envelope)
 					dest.setEnvelope((Envelope)envelope);
 			} catch (MissingADESchemaException e) {
@@ -1291,7 +1292,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetGridFunction()) {
 			try {
-				Object gridFunction = jaxb.unmarshal(src.getGridFunction());
+				ModelObject gridFunction = jaxb.unmarshal(src.getGridFunction());
 				if (gridFunction instanceof GridFunction)
 					dest.setGridFunction((GridFunction)gridFunction);
 			} catch (MissingADESchemaException e) {
@@ -1318,7 +1319,7 @@ public class GMLUnmarshaller {
 		if (src.isSet_Curve()) {
 			for (JAXBElement<? extends AbstractCurveType> elem : src.get_Curve()) {			
 				try {
-					Object abstractCurve = jaxb.unmarshal(elem);
+					ModelObject abstractCurve = jaxb.unmarshal(elem);
 					if (abstractCurve instanceof AbstractCurve)
 						dest.addCurve((AbstractCurve)abstractCurve);
 				} catch (MissingADESchemaException e) {
@@ -1339,7 +1340,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Curve()) {
 			try {
-				Object abstractCurve = jaxb.unmarshal(src.get_Curve());
+				ModelObject abstractCurve = jaxb.unmarshal(src.get_Curve());
 				if (abstractCurve instanceof AbstractCurve)
 					dest.setCurve((AbstractCurve)abstractCurve);
 			} catch (MissingADESchemaException e) {
@@ -1380,7 +1381,7 @@ public class GMLUnmarshaller {
 		if (src.isSet_CurveSegment()) {
 			for (JAXBElement<? extends AbstractCurveSegmentType> elem : src.get_CurveSegment()) {
 				try {
-					Object abstractCurveSegment = jaxb.unmarshal(elem);
+					ModelObject abstractCurveSegment = jaxb.unmarshal(elem);
 					if (abstractCurveSegment instanceof AbstractCurveSegment)
 						dest.addCurveSegment((AbstractCurveSegment)abstractCurveSegment);
 				} catch (MissingADESchemaException e) {
@@ -1530,7 +1531,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Feature()) {
 			for (JAXBElement<? extends AbstractFeatureType> elem : src.get_Feature()) {
-				Object abstractFeature = jaxb.unmarshal(elem);
+				ModelObject abstractFeature = jaxb.unmarshal(elem);
 				if (abstractFeature instanceof AbstractFeature)
 					dest.addFeature((AbstractFeature)abstractFeature);
 
@@ -1553,7 +1554,7 @@ public class GMLUnmarshaller {
 		unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
-			Object abstractFeature = jaxb.unmarshal(src.get_Feature());
+			ModelObject abstractFeature = jaxb.unmarshal(src.get_Feature());
 			if (abstractFeature instanceof AbstractFeature)
 				dest.setFeature((AbstractFeature)abstractFeature);
 		}
@@ -1566,7 +1567,7 @@ public class GMLUnmarshaller {
 		unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
-			Object abstractFeature = jaxb.unmarshal(src.get_Feature());
+			ModelObject abstractFeature = jaxb.unmarshal(src.get_Feature());
 			if (abstractFeature instanceof AbstractFeature)
 				dest.setFeature((AbstractFeature)abstractFeature);
 		}
@@ -1658,7 +1659,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_GeometricPrimitive()) {
 			try {
-				Object abstractGeometricPrimitive = jaxb.unmarshal(src.get_GeometricPrimitive());
+				ModelObject abstractGeometricPrimitive = jaxb.unmarshal(src.get_GeometricPrimitive());
 				if (abstractGeometricPrimitive instanceof AbstractGeometricPrimitive)
 					dest.setGeometricPrimitive((AbstractGeometricPrimitive)abstractGeometricPrimitive);
 			} catch (MissingADESchemaException e) {
@@ -1698,7 +1699,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Geometry()) {
 			try {
-				Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
+				ModelObject abstractGeometry = jaxb.unmarshal(src.get_Geometry());
 				if (abstractGeometry instanceof AbstractGeometry)
 					dest.setGeometry((AbstractGeometry)abstractGeometry);
 			} catch (MissingADESchemaException e) {
@@ -1850,7 +1851,7 @@ public class GMLUnmarshaller {
 		if (src.isSetPosOrPointPropertyOrPointRep()) {
 			for (JAXBElement<?> elem : src.getPosOrPointPropertyOrPointRep()) {
 				try {
-					Object controlPoint = jaxb.unmarshal(elem);
+					ModelObject controlPoint = jaxb.unmarshal(elem);
 					if (controlPoint instanceof DirectPosition)
 						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointRep)
@@ -1888,7 +1889,7 @@ public class GMLUnmarshaller {
 		if (src.isSetPosOrPointPropertyOrPointRep()) {
 			for (JAXBElement<?> elem : src.getPosOrPointPropertyOrPointRep()) {
 				try {
-					Object controlPoint = jaxb.unmarshal(elem);
+					ModelObject controlPoint = jaxb.unmarshal(elem);
 					if (controlPoint instanceof DirectPosition)
 						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointRep)
@@ -1955,7 +1956,7 @@ public class GMLUnmarshaller {
 		if (src.isSetPosOrPointPropertyOrPointRep()) {
 			for (JAXBElement<?> elem : src.getPosOrPointPropertyOrPointRep()) {
 				try{
-					Object controlPoint = jaxb.unmarshal(elem);
+					ModelObject controlPoint = jaxb.unmarshal(elem);
 					if (controlPoint instanceof DirectPosition)
 						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointRep)
@@ -2407,7 +2408,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetExterior()) {
 			try {
-				Object exterior = jaxb.unmarshal(src.getExterior());
+				ModelObject exterior = jaxb.unmarshal(src.getExterior());
 				if (exterior instanceof AbstractRingProperty)
 					dest.setExterior((AbstractRingProperty)exterior);
 			} catch (MissingADESchemaException e) {
@@ -2418,7 +2419,7 @@ public class GMLUnmarshaller {
 		if (src.isSetInterior()) {
 			for (JAXBElement<? extends AbstractRingPropertyType> elem : src.getInterior()) {
 				try {
-					Object interior = jaxb.unmarshal(elem);
+					ModelObject interior = jaxb.unmarshal(elem);
 					if (interior instanceof AbstractRingProperty)
 						dest.addInterior((AbstractRingProperty)interior);
 				} catch (MissingADESchemaException e) {
@@ -2565,7 +2566,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetCompositeValue()) {
 			try {
-				Object compositeValue = jaxb.unmarshal(src.getCompositeValue());
+				ModelObject compositeValue = jaxb.unmarshal(src.getCompositeValue());
 				if (compositeValue instanceof CompositeValue) {
 					valueObject.setCompositeValue((CompositeValue)compositeValue);
 					dest.setValueObject(valueObject);
@@ -2624,7 +2625,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetExterior()) {
 			try {
-				Object exterior = jaxb.unmarshal(src.getExterior());
+				ModelObject exterior = jaxb.unmarshal(src.getExterior());
 				if (exterior instanceof AbstractRingProperty)
 					dest.setExterior((AbstractRingProperty)exterior);
 			} catch (MissingADESchemaException e) {
@@ -2659,7 +2660,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetDomainSet()) {
 			try {
-				Object rectifiedGridDomain = jaxb.unmarshal(src.getDomainSet());
+				ModelObject rectifiedGridDomain = jaxb.unmarshal(src.getDomainSet());
 				if (rectifiedGridDomain instanceof RectifiedGridDomain)
 					dest.setRectifiedGridDomain((RectifiedGridDomain)rectifiedGridDomain);
 			} catch (MissingADESchemaException e) {
@@ -2676,7 +2677,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Geometry()) {
 			try {
-				Object abstractGeometry = jaxb.unmarshal(src.get_Geometry());
+				ModelObject abstractGeometry = jaxb.unmarshal(src.get_Geometry());
 				if (abstractGeometry instanceof RectifiedGrid)
 					dest.setGeometry((RectifiedGrid)abstractGeometry);
 			} catch (MissingADESchemaException e) {
@@ -2736,7 +2737,7 @@ public class GMLUnmarshaller {
 		if (src.isSet_Solid()) {
 			for (JAXBElement<? extends AbstractSolidType> elem : src.get_Solid()) {
 				try {
-					Object abstractSolid = jaxb.unmarshal(elem);
+					ModelObject abstractSolid = jaxb.unmarshal(elem);
 					if (abstractSolid instanceof AbstractSolid)
 						dest.addSolid((AbstractSolid)abstractSolid);
 				} catch (MissingADESchemaException e) {
@@ -2753,7 +2754,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Solid()) {
 			try {
-				Object abstractSolid = jaxb.unmarshal(src.get_Solid());
+				ModelObject abstractSolid = jaxb.unmarshal(src.get_Solid());
 				if (abstractSolid instanceof AbstractSolid)
 					dest.setSolid((AbstractSolid)abstractSolid);
 			} catch (MissingADESchemaException e) {
@@ -2841,7 +2842,7 @@ public class GMLUnmarshaller {
 		if (src.isSet_Surface()) {
 			for (JAXBElement<? extends AbstractSurfaceType> elem : src.get_Surface()) {
 				try {
-					Object abstractSurface = jaxb.unmarshal(elem);
+					ModelObject abstractSurface = jaxb.unmarshal(elem);
 					if (abstractSurface instanceof AbstractSurface)
 						dest.addSurface((AbstractSurface)abstractSurface);
 				} catch (MissingADESchemaException e) {
@@ -2869,7 +2870,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_Surface()) {
 			try {
-				Object abstractSurface = jaxb.unmarshal(src.get_Surface());
+				ModelObject abstractSurface = jaxb.unmarshal(src.get_Surface());
 				if (abstractSurface instanceof AbstractSurface)
 					dest.setSurface((AbstractSurface)abstractSurface);
 			} catch (MissingADESchemaException e) {
@@ -2934,7 +2935,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetExterior()) {
 			try {
-				Object exterior = jaxb.unmarshal(src.getExterior());
+				ModelObject exterior = jaxb.unmarshal(src.getExterior());
 				if (exterior instanceof AbstractRingProperty)
 					dest.setExterior((AbstractRingProperty)exterior);
 			} catch (MissingADESchemaException e) {
@@ -3054,7 +3055,7 @@ public class GMLUnmarshaller {
 
 					else if (elemValue instanceof AbstractGMLType) {
 						try {
-							Object abstractGML = jaxb.unmarshal(elem);
+							ModelObject abstractGML = jaxb.unmarshal(elem);
 							if (abstractGML instanceof CompositeValue) {
 								ValueObject valueObject = new ValueObjectImpl((CompositeValue)abstractGML);
 								value.setValueObject(valueObject);
@@ -3169,7 +3170,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSetCompositeValue()) {
 			try {
-				Object compositeValue = jaxb.unmarshal(src.getCompositeValue());
+				ModelObject compositeValue = jaxb.unmarshal(src.getCompositeValue());
 				if (compositeValue instanceof CompositeValue) {
 					ValueObject valueObject = new ValueObjectImpl((CompositeValue)compositeValue);
 					value.setValueObject(valueObject);
@@ -3183,7 +3184,7 @@ public class GMLUnmarshaller {
 
 		else if (src.isSet_GML()) {
 			try {
-				Object abstractGML = jaxb.unmarshal(src.get_GML());
+				ModelObject abstractGML = jaxb.unmarshal(src.get_GML());
 				if (abstractGML instanceof AbstractGeometry) {
 					value.setGeometry((AbstractGeometry)abstractGML);
 					dest.setValue(value);

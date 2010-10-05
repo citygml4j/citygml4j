@@ -19,13 +19,14 @@ import org.citygml4j.jaxb.citygml.wtr._1.WaterGroundSurfaceType;
 import org.citygml4j.jaxb.citygml.wtr._1.WaterSurfaceType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -85,7 +86,7 @@ public class WaterBody100Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof AbstractWaterBoundarySurface)
 				dest.setObject((AbstractWaterBoundarySurface)object);
 		}

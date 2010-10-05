@@ -27,6 +27,7 @@ import org.citygml4j.jaxb.citygml._0_4._TransportationObjectType;
 import org.citygml4j.jaxb.gml._3_1_1.GeometricComplexPropertyType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.Railway;
@@ -36,7 +37,7 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -117,7 +118,7 @@ public class Transportation040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof AuxiliaryTrafficArea)
 				dest.setObject((AuxiliaryTrafficArea)object);
 		}
@@ -203,7 +204,7 @@ public class Transportation040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof TrafficArea)
 				dest.setObject((TrafficArea)object);
 		}

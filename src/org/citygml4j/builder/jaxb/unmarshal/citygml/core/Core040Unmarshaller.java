@@ -37,22 +37,23 @@ import org.citygml4j.jaxb.citygml._0_4._SiteType;
 import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.ExternalObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -121,7 +122,7 @@ public class Core040Unmarshaller {
 
 		if (src.isSet_GenericAttribute()) {
 			for (JAXBElement<? extends _GenericAttributeType> elem : src.get_GenericAttribute()) {
-				Object genericAttribute = jaxb.unmarshal(elem);
+				ModelObject genericAttribute = jaxb.unmarshal(elem);
 				if (genericAttribute instanceof AbstractGenericAttribute)
 					dest.addGenericAttribute((AbstractGenericAttribute)genericAttribute);
 			}
@@ -159,7 +160,7 @@ public class Core040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof Address)
 				dest.setObject((Address)object);
 		}
@@ -183,7 +184,7 @@ public class Core040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
-			Object abstractFeature = jaxb.unmarshal(src.get_Feature());
+			ModelObject abstractFeature = jaxb.unmarshal(src.get_Feature());
 			if (abstractFeature instanceof AbstractCityObject)
 				dest.setFeature((AbstractCityObject)abstractFeature);
 		}
@@ -226,7 +227,7 @@ public class Core040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof AbstractCityObject)
 				dest.setObject((AbstractCityObject)object);
 		}
@@ -265,7 +266,7 @@ public class Core040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAssociationByRepOrRef(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof ImplicitGeometry)
 				dest.setObject((ImplicitGeometry)object);
 		}
