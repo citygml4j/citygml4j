@@ -314,12 +314,12 @@ public class SAXWriter extends XMLFilterImpl {
 	public String getSchemaLocation(String namespaceURI) {
 		return schemaLocations.get(namespaceURI);
 	}
-	
+
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		try {
-			if (lastXMLContent != XMLContentType.END_ELEMENT) {
-				if (length > 0 && lastXMLContent == XMLContentType.START_ELEMENT)
+			if (lastXMLContent != XMLContentType.END_ELEMENT && length > 0) {
+				if (lastXMLContent == XMLContentType.START_ELEMENT)
 					writer.write(CLOSE_START_TAG);
 
 				writeXMLContent(ch, start, length, escapeCharacters);
