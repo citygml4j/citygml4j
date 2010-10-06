@@ -9,6 +9,7 @@ import org.citygml4j.jaxb.citygml.luse._1.ObjectFactory;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.citygml.landuse.LandUseModuleComponent;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class LandUse100Marshaller {
 	private final ObjectFactory luse = new ObjectFactory();
@@ -24,7 +25,7 @@ public class LandUse100Marshaller {
 		JAXBElement<?> dest = null;
 		
 		if (src instanceof LandUseModuleComponent)
-			src = marshal(src);
+			src = marshal((LandUseModuleComponent)src);
 		
 		if (src instanceof LandUseType)
 			dest = luse.createLandUse((LandUseType)src);
@@ -32,7 +33,7 @@ public class LandUse100Marshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 		
 		if (src instanceof LandUse)

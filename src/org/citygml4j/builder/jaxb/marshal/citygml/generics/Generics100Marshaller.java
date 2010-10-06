@@ -19,14 +19,15 @@ import org.citygml4j.jaxb.citygml.gen._1.IntAttributeType;
 import org.citygml4j.jaxb.citygml.gen._1.ObjectFactory;
 import org.citygml4j.jaxb.citygml.gen._1.StringAttributeType;
 import org.citygml4j.jaxb.citygml.gen._1.UriAttributeType;
+import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
 import org.citygml4j.model.citygml.generics.IntAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class Generics100Marshaller {
 	private final ObjectFactory gen = new ObjectFactory();
@@ -42,7 +43,7 @@ public class Generics100Marshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof GenericsModuleComponent)
-			src = marshal(src);
+			src = marshal((GenericsModuleComponent)src);
 		
 		if (src instanceof GenericCityObjectType)
 			dest = gen.createGenericCityObject((GenericCityObjectType)src);
@@ -60,7 +61,7 @@ public class Generics100Marshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 		
 		if (src instanceof GenericCityObject)

@@ -12,6 +12,7 @@ import org.citygml4j.jaxb.gml._3_1_1.*;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
@@ -164,7 +165,7 @@ public class GMLMarshaller {
 
 		if (src instanceof GML) {
 			orig = (GML)src;
-			src = marshal(src);
+			src = marshal(orig);
 		}		
 
 		if (src instanceof AbstractRingPropertyType) {
@@ -342,7 +343,7 @@ public class GMLMarshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof GML) {

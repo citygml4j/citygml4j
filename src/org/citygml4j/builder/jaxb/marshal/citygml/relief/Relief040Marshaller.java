@@ -17,32 +17,35 @@ import org.citygml4j.jaxb.citygml._0_4._ReliefComponentType;
 import org.citygml4j.jaxb.gml._3_1_1.RectifiedGridCoverageType;
 import org.citygml4j.jaxb.gml._3_1_1.TriangulatedSurfaceType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class Relief040Marshaller {
-	private final ObjectFactory dem = new ObjectFactory();
+	private final ObjectFactory dem;
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
 
 	public Relief040Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		dem = citygml.getCore040Marshaller().getObjectFactory();
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof ReliefModuleComponent)
-			src = marshal(src);
+			src = marshal((ReliefModuleComponent)src);
 
 		if (src instanceof BreaklineReliefType)
 			dest = dem.createBreaklineRelief((BreaklineReliefType)src);
@@ -58,7 +61,7 @@ public class Relief040Marshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof BreaklineRelief)

@@ -33,6 +33,7 @@ import org.citygml4j.jaxb.xal.ThoroughfareNumberSuffixElement;
 import org.citygml4j.jaxb.xal.ThoroughfarePostDirectionType;
 import org.citygml4j.jaxb.xal.ThoroughfarePreDirectionType;
 import org.citygml4j.jaxb.xal.ThoroughfareTrailingTypeType;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressIdentifier;
 import org.citygml4j.model.xal.AddressLatitude;
@@ -127,7 +128,7 @@ public class XALMarshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof XAL)
-			src = marshal(src);
+			src = marshal((XAL)src);
 				
 		if (src instanceof AddressDetails)
 			dest = xal.createAddressDetails((AddressDetails)src);
@@ -135,7 +136,7 @@ public class XALMarshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof XAL) {

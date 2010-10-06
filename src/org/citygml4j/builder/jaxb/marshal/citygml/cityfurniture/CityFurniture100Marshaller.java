@@ -9,6 +9,7 @@ import org.citygml4j.jaxb.citygml.frn._1.ObjectFactory;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class CityFurniture100Marshaller {
 	private final ObjectFactory frn = new ObjectFactory();
@@ -24,7 +25,7 @@ public class CityFurniture100Marshaller {
 		JAXBElement<?> dest = null;
 		
 		if (src instanceof CityFurnitureModuleComponent)
-			src = marshal(src);
+			src = marshal((CityFurnitureModuleComponent)src);
 		
 		if (src instanceof CityFurnitureType)
 			dest = frn.createCityFurniture((CityFurnitureType)src);
@@ -32,7 +33,7 @@ public class CityFurniture100Marshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 		
 		if (src instanceof CityFurniture)

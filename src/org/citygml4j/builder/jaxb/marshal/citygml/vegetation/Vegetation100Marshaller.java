@@ -9,10 +9,11 @@ import org.citygml4j.jaxb.citygml.veg._1.ObjectFactory;
 import org.citygml4j.jaxb.citygml.veg._1.PlantCoverType;
 import org.citygml4j.jaxb.citygml.veg._1.SolitaryVegetationObjectType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
-import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class Vegetation100Marshaller {
 	private final ObjectFactory veg = new ObjectFactory();
@@ -28,7 +29,7 @@ public class Vegetation100Marshaller {
 		JAXBElement<?> dest = null;
 		
 		if (src instanceof VegetationModuleComponent)
-			src = marshal(src);
+			src = marshal((VegetationModuleComponent)src);
 		
 		if (src instanceof PlantCoverType)
 			dest = veg.createPlantCover((PlantCoverType)src);
@@ -38,7 +39,7 @@ public class Vegetation100Marshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 		
 		if (src instanceof PlantCover)
