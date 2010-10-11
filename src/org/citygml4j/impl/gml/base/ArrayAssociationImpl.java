@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
@@ -11,7 +13,7 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public abstract class ArrayAssociationImpl<T extends Associable & Child> implements ArrayAssociation<T> {
 	private List<T> object;
-	private Object parent;
+	private ModelObject parent;
 	
 	public void addObject(T object) {
 		if (this.object == null)
@@ -46,15 +48,19 @@ public abstract class ArrayAssociationImpl<T extends Associable & Child> impleme
 		return isSetObject() ? this.object.remove(object) : false;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+
 	public GMLClass getGMLClass() {
 		return GMLClass.ARRAY_ASSOCIATION;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

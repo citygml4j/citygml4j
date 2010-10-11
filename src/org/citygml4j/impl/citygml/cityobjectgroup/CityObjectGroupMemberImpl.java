@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 
 public class CityObjectGroupMemberImpl extends FeaturePropertyImpl<AbstractCityObject> implements CityObjectGroupMember {
@@ -49,6 +50,11 @@ public class CityObjectGroupMemberImpl extends FeaturePropertyImpl<AbstractCityO
 
 	public void unsetGroupRole() {
 		groupRole = null;
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

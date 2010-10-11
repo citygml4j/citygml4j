@@ -48,7 +48,7 @@ import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.w3c.dom.Element;
 
-public interface FeatureFunctor<T> {
+public interface FeatureFunctor<T> extends Functor<T> {
 	public T apply(Appearance appearance);
 	public T apply(GeoreferencedTexture georeferencedTexture);
 	public T apply(ParameterizedTexture parameterizedTexture);

@@ -25,6 +25,7 @@ import org.citygml4j.jaxb.citygml.app._1.X3DMaterialType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -37,11 +38,11 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class Appearance100Marshaller {
 	private final ObjectFactory app = new ObjectFactory();
@@ -57,7 +58,7 @@ public class Appearance100Marshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof AppearanceModuleComponent)
-			src = marshal(src);
+			src = marshal((AppearanceModuleComponent)src);
 
 		if (src instanceof AppearancePropertyType)
 			dest = app.createAppearanceMember((AppearancePropertyType)src);
@@ -75,7 +76,7 @@ public class Appearance100Marshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof Appearance)

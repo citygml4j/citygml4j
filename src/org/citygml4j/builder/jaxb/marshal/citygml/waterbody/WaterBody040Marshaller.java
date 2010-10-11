@@ -13,14 +13,15 @@ import org.citygml4j.jaxb.citygml._0_4.WaterSurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._WaterBoundarySurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._WaterObjectType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class WaterBody040Marshaller {
 	private final ObjectFactory wtr;
@@ -38,7 +39,7 @@ public class WaterBody040Marshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof WaterBodyModuleComponent)
-			src = marshal(src);
+			src = marshal((WaterBodyModuleComponent)src);
 
 		if (src instanceof WaterBodyType)
 			dest = wtr.createWaterBody((WaterBodyType)src);
@@ -52,7 +53,7 @@ public class WaterBody040Marshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof BoundedByWaterSurfaceProperty)

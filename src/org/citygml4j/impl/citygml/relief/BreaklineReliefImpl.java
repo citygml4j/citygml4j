@@ -148,7 +148,7 @@ public class BreaklineReliefImpl extends AbstractReliefComponentImpl implements 
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+		List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
 		if (propertyList != null) {
 			if (isSetRidgeOrValleyLines())
 				propertyList.add(ridgeOrValleyLines);

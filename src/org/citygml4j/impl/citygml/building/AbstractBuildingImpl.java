@@ -1003,7 +1003,7 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		property = null;
@@ -1024,7 +1024,7 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		property = null;
@@ -1042,7 +1042,7 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		return lodRepresentation;

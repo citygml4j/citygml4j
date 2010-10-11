@@ -208,8 +208,8 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void visit(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {
-				if (lodRepresentation.isSetLodRepresentation(lod))
-					for (GeometryProperty<? extends AbstractGeometry> geometryProperty : lodRepresentation.getLodRepresentation(lod))
+				if (lodRepresentation.isSetLodGeometry(lod))
+					for (GeometryProperty<? extends AbstractGeometry> geometryProperty : lodRepresentation.getLodGeometry(lod))
 						visit(geometryProperty);
 			}
 		}

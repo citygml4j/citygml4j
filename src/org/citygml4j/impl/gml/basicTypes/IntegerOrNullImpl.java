@@ -1,6 +1,8 @@
 package org.citygml4j.impl.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
 import org.citygml4j.model.gml.basicTypes.Null;
@@ -8,7 +10,7 @@ import org.citygml4j.model.gml.basicTypes.Null;
 public class IntegerOrNullImpl implements IntegerOrNull {
 	private Integer _integer;
 	private Null _null;
-	private Object parent;
+	private ModelObject parent;
 	
 	public IntegerOrNullImpl() {
 		
@@ -20,6 +22,10 @@ public class IntegerOrNullImpl implements IntegerOrNull {
 	
 	public IntegerOrNullImpl(Null _null) {
 		setNull(_null);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {
@@ -67,11 +73,11 @@ public class IntegerOrNullImpl implements IntegerOrNull {
 		_null = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

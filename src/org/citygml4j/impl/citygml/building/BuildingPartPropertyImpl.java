@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.BuildingPartProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
 public class BuildingPartPropertyImpl extends FeaturePropertyImpl<BuildingPart> implements BuildingPartProperty {
@@ -32,6 +33,11 @@ public class BuildingPartPropertyImpl extends FeaturePropertyImpl<BuildingPart> 
 
 	public void unsetBuildingPart() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

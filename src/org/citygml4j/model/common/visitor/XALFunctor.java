@@ -84,7 +84,7 @@ import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
 
-public interface XALFunctor<T> {
+public interface XALFunctor<T> extends Functor<T> {
 	public T apply(Address address);
 	public T apply(AddressDetails addressDetails);
 	public T apply(AddressIdentifier addressIdentifier);

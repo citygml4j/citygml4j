@@ -13,6 +13,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class CityObjectGroup040Marshaller {
 	private final ObjectFactory grp;
@@ -30,7 +31,7 @@ public class CityObjectGroup040Marshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof CityObjectGroupModuleComponent)
-			src = marshal(src);
+			src = marshal((CityObjectGroupModuleComponent)src);
 
 		if (src instanceof CityObjectGroupType)
 			dest = grp.createCityObjectGroup((CityObjectGroupType)src);
@@ -38,7 +39,7 @@ public class CityObjectGroup040Marshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof CityObjectGroup)

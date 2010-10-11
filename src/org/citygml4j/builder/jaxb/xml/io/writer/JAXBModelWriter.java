@@ -20,6 +20,7 @@ import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureMember;
@@ -218,7 +219,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		}
 	}
 
-	public void writeFeatureMembers(List<Object> features) throws CityGMLWriteException {
+	public void writeFeatureMembers(List<ModelObject> features) throws CityGMLWriteException {
 		switch (documentState) {
 		case END_DOCUMENT:
 			throw new IllegalStateException("CityModel members cannot be written after document end.");
@@ -234,7 +235,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		FeatureArrayProperty members = new FeatureArrayPropertyImpl();
 		List<FeatureProperty<? extends AbstractFeature>> featureArray = new ArrayList<FeatureProperty<? extends AbstractFeature>>();
 
-		for (Object feature : features) {
+		for (ModelObject feature : features) {
 			if (feature instanceof AbstractFeature || feature instanceof ADEComponent) {
 				if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER)
 					featureArray.addAll(split(feature));				

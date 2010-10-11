@@ -3,7 +3,7 @@ package org.citygml4j.model.xal;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
-public interface ThoroughfareNumberFromContent extends Child, Copyable {
+public interface ThoroughfareNumberFromContent extends XAL, Child, Copyable {
 	public AddressLine getAddressLine();
 	public ThoroughfareNumber getThoroughfareNumber();
 	public ThoroughfareNumberPrefix getThoroughfareNumberPrefix();

@@ -1,6 +1,8 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.CountryNameCode;
@@ -10,7 +12,7 @@ public class CountryNameCodeImpl implements CountryNameCode {
 	private String content;
 	private String scheme;
 	private String code;
-	private Object parent;
+	private ModelObject parent;
 	
 	public String getContent() {
 		return content;
@@ -44,6 +46,10 @@ public class CountryNameCodeImpl implements CountryNameCode {
 		scheme = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
 	public XALClass getXALClass() {
 		return XALClass.COUNTRY_NAME_CODE;
 	}
@@ -64,11 +70,11 @@ public class CountryNameCodeImpl implements CountryNameCode {
 		code = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

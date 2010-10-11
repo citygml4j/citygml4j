@@ -27,7 +27,7 @@ import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
-public interface GeometryVisitor {
+public interface GeometryVisitor extends Visitor {
 	public void visit(LodRepresentation lodRepresentation);
 	
 	public void visit(CompositeCurve compositeCurve);

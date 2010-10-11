@@ -2,6 +2,8 @@ package org.citygml4j.impl.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
@@ -16,7 +18,7 @@ public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> im
 	private String show;
 	private String title;
 	private String type;
-	private Object parent;
+	private ModelObject parent;
 
 	public T getObject() {
 		return object;
@@ -171,6 +173,10 @@ public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> im
 		type = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+
 	public GMLClass getGMLClass() {
 		return GMLClass.ASSOCIATION_BY_REP_OR_REF;
 	}
@@ -217,11 +223,11 @@ public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> im
         return copy;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

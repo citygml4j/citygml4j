@@ -17,6 +17,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -85,7 +86,7 @@ public class CityObjectGroup100Unmarshaller {
 		CityObjectGroupMember dest = new CityObjectGroupMemberImpl(module);
 
 		if (src.isSet_CityObject()) {
-			Object object = jaxb.unmarshal(src.get_CityObject());
+			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof AbstractCityObject)
 				dest.setObject((AbstractCityObject)object);
 		}
@@ -127,7 +128,7 @@ public class CityObjectGroup100Unmarshaller {
 		CityObjectGroupParent dest = new CityObjectGroupParentImpl(module);
 
 		if (src.isSet_CityObject()) {
-			Object object = jaxb.unmarshal(src.get_CityObject());
+			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof AbstractCityObject)
 				dest.setObject((AbstractCityObject)object);
 		}

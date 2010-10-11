@@ -24,15 +24,16 @@ import org.citygml4j.jaxb.citygml._0_4.TinPropertyType;
 import org.citygml4j.jaxb.citygml._0_4._ReliefComponentType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.ReliefModule;
@@ -110,7 +111,7 @@ public class Relief040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 		
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof RectifiedGridCoverage)
 				dest.setObject((RectifiedGridCoverage)object);
 		}
@@ -151,7 +152,7 @@ public class Relief040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof AbstractReliefComponent)
 				dest.setObject((AbstractReliefComponent)object);
 		}
@@ -183,7 +184,7 @@ public class Relief040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAssociationByRepOrRef(src, dest);
 
 		if (src.isSet_Object()) {
-			Object object = jaxb.unmarshal(src.get_Object());
+			ModelObject object = jaxb.unmarshal(src.get_Object());
 			if (object instanceof TriangulatedSurface)
 				dest.setObject((TriangulatedSurface)object);
 		}

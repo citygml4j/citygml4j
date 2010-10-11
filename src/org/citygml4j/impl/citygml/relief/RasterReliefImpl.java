@@ -118,7 +118,7 @@ public class RasterReliefImpl extends AbstractReliefComponentImpl implements Ras
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
 		if (isSetGrid() && grid.isSetObject() && grid.getObject().isSetRectifiedGridDomain()) {
-			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
 			if (propertyList != null) 
 				propertyList.add(grid.getObject().getRectifiedGridDomain());
 		}

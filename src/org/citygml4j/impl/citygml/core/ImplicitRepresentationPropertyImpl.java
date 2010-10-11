@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.base.AssociationByRepOrRefImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CoreModule;
 
 public class ImplicitRepresentationPropertyImpl extends AssociationByRepOrRefImpl<ImplicitGeometry> implements ImplicitRepresentationProperty {
@@ -34,6 +35,11 @@ public class ImplicitRepresentationPropertyImpl extends AssociationByRepOrRefImp
 		super.unsetObject();
 	}
 
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.IMPLICIT_REPRESENTATION_PROPERTY;
 	}

@@ -4,6 +4,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.relief.TinProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.ReliefModule;
 
@@ -32,6 +33,11 @@ public class TinPropertyImpl extends GeometryPropertyImpl<TriangulatedSurface> i
 
 	public void unsetTriangulatedSurface() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

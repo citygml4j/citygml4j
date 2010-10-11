@@ -422,7 +422,7 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
 		if (isSetLod0Network())
-			lodRepresentation.getLod0Representation().addAll(lod0Network);
+			lodRepresentation.getLod0Geometry().addAll(lod0Network);
 
 		GeometryProperty<? extends AbstractGeometry> property = null;		
 		for (int lod = 2; lod < 5; lod++) {
@@ -441,7 +441,7 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 
 		return lodRepresentation;

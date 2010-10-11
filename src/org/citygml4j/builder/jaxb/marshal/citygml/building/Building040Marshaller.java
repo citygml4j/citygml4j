@@ -38,8 +38,9 @@ import org.citygml4j.jaxb.citygml._0_4._AbstractBuildingType;
 import org.citygml4j.jaxb.citygml._0_4._BoundarySurfaceType;
 import org.citygml4j.jaxb.citygml._0_4._OpeningType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBuilding;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -58,13 +59,13 @@ import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class Building040Marshaller {
 	private final ObjectFactory bldg;
@@ -82,7 +83,7 @@ public class Building040Marshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof BuildingModuleComponent)
-			src = marshal(src);
+			src = marshal((BuildingModuleComponent)src);
 
 		if (src instanceof BuildingType)
 			dest = bldg.createBuilding((BuildingType)src);		
@@ -118,7 +119,7 @@ public class Building040Marshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof BoundarySurfaceProperty)

@@ -7,96 +7,96 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class LodRepresentation {
-	private List<GeometryProperty<? extends AbstractGeometry>> lod0Representation;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod1Representation;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod2Representation;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod3Representation;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod4Representation;
+	private List<GeometryProperty<? extends AbstractGeometry>> lod0Geometry;
+	private List<GeometryProperty<? extends AbstractGeometry>> lod1Geometry;
+	private List<GeometryProperty<? extends AbstractGeometry>> lod2Geometry;
+	private List<GeometryProperty<? extends AbstractGeometry>> lod3Geometry;
+	private List<GeometryProperty<? extends AbstractGeometry>> lod4Geometry;
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod0Representation() {
-		if (lod0Representation == null)
-			lod0Representation = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
+	public List<GeometryProperty<? extends AbstractGeometry>> getLod0Geometry() {
+		if (lod0Geometry == null)
+			lod0Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
 
-		return lod0Representation;
+		return lod0Geometry;
 	}
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod1Representation() {
-		if (lod1Representation == null)
-			lod1Representation = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
+	public List<GeometryProperty<? extends AbstractGeometry>> getLod1Geometry() {
+		if (lod1Geometry == null)
+			lod1Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
 
-		return lod1Representation;
+		return lod1Geometry;
 	}
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod2Representation() {
-		if (lod2Representation == null)
-			lod2Representation = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
+	public List<GeometryProperty<? extends AbstractGeometry>> getLod2Geometry() {
+		if (lod2Geometry == null)
+			lod2Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
 
-		return lod2Representation;
+		return lod2Geometry;
 	}
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod3Representation() {
-		if (lod3Representation == null)
-			lod3Representation = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
+	public List<GeometryProperty<? extends AbstractGeometry>> getLod3Geometry() {
+		if (lod3Geometry == null)
+			lod3Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
 
-		return lod3Representation;
+		return lod3Geometry;
 	}
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod4Representation() {
-		if (lod4Representation == null)
-			lod4Representation = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
+	public List<GeometryProperty<? extends AbstractGeometry>> getLod4Geometry() {
+		if (lod4Geometry == null)
+			lod4Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
 
-		return lod4Representation;
+		return lod4Geometry;
 	}
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLodRepresentation(int lod) {
+	public List<GeometryProperty<? extends AbstractGeometry>> getLodGeometry(int lod) {
 		switch (lod) {
 		case 0:
-			return getLod0Representation();
+			return getLod0Geometry();
 		case 1:
-			return getLod1Representation();
+			return getLod1Geometry();
 		case 2:
-			return getLod2Representation();
+			return getLod2Geometry();
 		case 3:
-			return getLod3Representation();
+			return getLod3Geometry();
 		case 4:
-			return getLod4Representation();
+			return getLod4Geometry();
 		default:
 			return null;
 		}
 	}
 
-	public boolean isSetLod0Representation() {
-		return lod0Representation != null && !lod0Representation.isEmpty();
+	public boolean isSetLod0Geometry() {
+		return lod0Geometry != null && !lod0Geometry.isEmpty();
 	}
 
-	public boolean isSetLod1Representation() {
-		return lod1Representation != null && !lod1Representation.isEmpty();
+	public boolean isSetLod1Geometry() {
+		return lod1Geometry != null && !lod1Geometry.isEmpty();
 	}
 
-	public boolean isSetLod2Representation() {
-		return lod2Representation != null && !lod2Representation.isEmpty();
+	public boolean isSetLod2Geometry() {
+		return lod2Geometry != null && !lod2Geometry.isEmpty();
 	}
 
-	public boolean isSetLod3Representation() {
-		return lod3Representation != null && !lod3Representation.isEmpty();
+	public boolean isSetLod3Geometry() {
+		return lod3Geometry != null && !lod3Geometry.isEmpty();
 	}
 
-	public boolean isSetLod4Representation() {
-		return lod4Representation != null && !lod4Representation.isEmpty();
+	public boolean isSetLod4Geometry() {
+		return lod4Geometry != null && !lod4Geometry.isEmpty();
 	}
 
-	public boolean isSetLodRepresentation(int lod) {
+	public boolean isSetLodGeometry(int lod) {
 		switch (lod) {
 		case 0:
-			return isSetLod0Representation();
+			return isSetLod0Geometry();
 		case 1:
-			return isSetLod1Representation();
+			return isSetLod1Geometry();
 		case 2:
-			return isSetLod2Representation();
+			return isSetLod2Geometry();
 		case 3:
-			return isSetLod3Representation();
+			return isSetLod3Geometry();
 		case 4:
-			return isSetLod4Representation();
+			return isSetLod4Geometry();
 		default:
 			return false;
 		}

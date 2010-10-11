@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.base.AbstractGMLImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
@@ -126,6 +127,11 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		transformationMatrix = null;
 	}
 
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.IMPLICIT_GEOMETRY;
 	}

@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.ReliefModule;
 
 public class ReliefComponentPropertyImpl extends FeaturePropertyImpl<AbstractReliefComponent> implements ReliefComponentProperty {
@@ -32,6 +33,11 @@ public class ReliefComponentPropertyImpl extends FeaturePropertyImpl<AbstractRel
 
 	public void unsetReliefComponent() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

@@ -40,6 +40,7 @@ import org.citygml4j.model.citygml.texturedsurface.TexturedSurfaceModuleComponen
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
@@ -216,7 +217,7 @@ public class CityGMLMarshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {		
+	public Object marshal(ModelObject src) {		
 		Object dest = null;
 		ModuleContext moduleContext = jaxb.getModuleContext();
 

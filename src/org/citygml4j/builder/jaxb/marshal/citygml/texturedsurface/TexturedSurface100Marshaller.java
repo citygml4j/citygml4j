@@ -21,6 +21,7 @@ import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class TexturedSurface100Marshaller {
 	private final ObjectFactory tex = new ObjectFactory();
@@ -34,7 +35,7 @@ public class TexturedSurface100Marshaller {
 		JAXBElement<?> dest = null;
 		
 		if (src instanceof TexturedSurfaceModuleComponent)
-			src = marshal(src);
+			src = marshal((TexturedSurfaceModuleComponent)src);
 		
 		if (src instanceof MaterialType)
 			dest = tex.createMaterial((MaterialType)src);
@@ -46,7 +47,7 @@ public class TexturedSurface100Marshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 		
 		if (src instanceof _AppearanceProperty)

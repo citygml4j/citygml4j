@@ -3,15 +3,17 @@ package org.citygml4j.model.common.child;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.citygml4j.model.common.base.ModelObject;
+
 public class ChildList<T extends Child> extends ArrayList<T> {
 	private static final long serialVersionUID = 1L;
-	private Object parent;
+	private ModelObject parent;
 
-	public ChildList(Object parent) {
+	public ChildList(ModelObject parent) {
 		this.parent = parent;
 	}
 	
-	public ChildList(Object parent, Collection<? extends T> c) {
+	public ChildList(ModelObject parent, Collection<? extends T> c) {
 		super(c);
 		this.parent = parent;
 
@@ -20,7 +22,7 @@ public class ChildList<T extends Child> extends ArrayList<T> {
 				child.setParent(parent);
 	}
 
-	public ChildList(Object parent, int initialCapacity) {
+	public ChildList(ModelObject parent, int initialCapacity) {
 		super(initialCapacity);
 		this.parent = parent;
 	}

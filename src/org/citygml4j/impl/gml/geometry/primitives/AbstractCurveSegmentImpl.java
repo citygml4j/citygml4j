@@ -1,13 +1,14 @@
 package org.citygml4j.impl.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
 
 public abstract class AbstractCurveSegmentImpl implements AbstractCurveSegment {
 	private Integer numDerivativesAtStart;
 	private Integer numDerivativesAtEnd;
 	private Integer numDerivativeInterior;	
-	private Object parent;
+	private ModelObject parent;
 
 	public Integer getNumDerivativeInterior() {
 		if (!isSetNumDerivativeInterior())
@@ -86,11 +87,11 @@ public abstract class AbstractCurveSegmentImpl implements AbstractCurveSegment {
 		return copy;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

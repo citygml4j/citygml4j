@@ -15,6 +15,7 @@ import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.Room;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureArrayProperty;
@@ -210,7 +211,7 @@ public class FeatureSplitter {
 					if (exclude.isInstance(feature))
 						return;
 
-			Object parent = feature.getParent();
+			ModelObject parent = feature.getParent();
 			boolean addToResult = false;
 
 			if (parent != null) {
@@ -246,7 +247,7 @@ public class FeatureSplitter {
 			if (adeComponent.isSetContent() && schemaHandler != null && 
 					shouldWalk() && addToVisited(adeComponent.getContent())) {				
 				boolean addToResult = false;
-				Object parent = adeComponent.getParent();
+				ModelObject parent = adeComponent.getParent();
 
 				if (parent != null) {
 					Schema schema = schemaHandler.getSchema(adeComponent.getNamespaceURI());

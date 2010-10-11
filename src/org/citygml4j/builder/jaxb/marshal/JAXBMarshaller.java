@@ -12,6 +12,7 @@ import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.xal.XALMarshaller;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.ModuleContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -113,7 +114,7 @@ public class JAXBMarshaller {
 		return dest;
 	}
 	
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = citygml.marshal(src);		
 		if (dest == null)
 			dest = gml.marshal(src);

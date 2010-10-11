@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.OpeningProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
 public class OpeningPropertyImpl extends FeaturePropertyImpl<AbstractOpening> implements OpeningProperty {
@@ -32,6 +33,11 @@ public class OpeningPropertyImpl extends FeaturePropertyImpl<AbstractOpening> im
 
 	public void unsetOpening() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

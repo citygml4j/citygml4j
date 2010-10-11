@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.ControlPoint;
@@ -13,7 +15,7 @@ import org.citygml4j.model.gml.geometry.primitives.GeometricPositionGroup;
 public class ControlPointImpl implements ControlPoint {
 	private DirectPositionList posList;
 	private List<GeometricPositionGroup> geometricPositionGroup;
-	private Object parent;
+	private ModelObject parent;
 	
 	public void addGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
 		if (this.geometricPositionGroup == null)
@@ -85,15 +87,19 @@ public class ControlPointImpl implements ControlPoint {
 		posList = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.CONTROL_POINT;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

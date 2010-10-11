@@ -3,6 +3,8 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
@@ -23,7 +25,7 @@ public class SubAdministrativeAreaImpl implements SubAdministrativeArea {
 	private String type;
 	private String usageType;
 	private String indicator;
-	private Object parent;	
+	private ModelObject parent;	
 	
 	public void addAddressLine(AddressLine addressLine) {
 		if (this.addressLine == null)
@@ -205,15 +207,19 @@ public class SubAdministrativeAreaImpl implements SubAdministrativeArea {
 		usageType = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
 	public XALClass getXALClass() {
 		return XALClass.SUB_ADMINISTRATIVE_AREA;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

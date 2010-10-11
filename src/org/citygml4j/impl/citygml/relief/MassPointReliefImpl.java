@@ -122,7 +122,7 @@ public class MassPointReliefImpl extends AbstractReliefComponentImpl implements 
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
 		if (isSetReliefPoints()) {
-			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
 			if (propertyList != null)
 				propertyList.add(reliefPoints);
 		}

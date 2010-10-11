@@ -1,12 +1,19 @@
 package org.citygml4j.util.xlink;
 
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.util.walker.GMLFunctionWalker;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class XLinkResolver {
 	
-	public Object getObject(String target, AbstractGML root) {
+	public ModelObject getObject(String target, AbstractGML root) {
 		if (target == null || target.length() == 0)
 			return null;
 		
@@ -18,12 +25,12 @@ public class XLinkResolver {
 	}
 	
 	public AbstractGeometry getGeometry(String target, AbstractGML root) {
-		Object object = getObject(target, root);
+		ModelObject object = getObject(target, root);
 		return object instanceof AbstractGeometry ? (AbstractGeometry)object : null;
 	}
 	
 	public AbstractFeature getFeature(String target, AbstractGML root) {
-		Object object = getObject(target, root);
+		ModelObject object = getObject(target, root);
 		return object instanceof AbstractFeature ? (AbstractFeature)object : null;
 	}
 	
@@ -38,6 +45,61 @@ public class XLinkResolver {
 	
 	private String clipGMLId(String target) {
 		return target.replaceAll("^.*?#+?", "");
+	}
+	
+	private static final class GMLIdWalker extends GMLFunctionWalker<ModelObject> {
+		private final String gmlId;
+		
+		GMLIdWalker(String gmlId) {
+			this.gmlId = gmlId;
+		}
+		
+		@Override
+		public ModelObject apply(AbstractGML abstractGML) {
+			return (abstractGML.isSetId() && gmlId.equals(abstractGML.getId())) ? abstractGML : null;
+		}
+		
+		@Override
+		public ModelObject apply(ADEComponent adeComponent) {
+			if (adeComponent.isSetContent() && addToVisited(adeComponent.getContent())) {
+				ADEComponent result = adeComponent(adeComponent.getContent(), (Element)null);
+				if (result != null)
+					return (result.getContent() == adeComponent.getContent()) ? adeComponent : result;
+			}
+
+			return null;
+		}
+
+		protected ADEComponent adeComponent(Element element, Element parent) {	
+			String elementId = element.getAttribute("id");
+			if (elementId.length() == 0) {
+				for (GMLCoreModule gml : GMLCoreModule.getInstances()) {
+					switch (gml.getVersion()) {
+					case v3_1_1:
+						elementId = element.getAttributeNS(gml.getNamespaceURI(), "id");
+						break;
+					}
+
+					if (elementId.length() > 0)
+						break;
+				}
+			}
+
+			if (elementId.length() > 0 && gmlId.equals(elementId))
+				return new ADEComponent(element);
+
+			NodeList childs = element.getChildNodes();
+			for (int i = 0; i < childs.getLength(); ++i) {
+				Node node = childs.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE && addToVisited(node)) {
+					ADEComponent ade = adeComponent((Element)node, element);
+					if (ade != null)
+						return ade;
+				}
+			}
+
+			return null;
+		}
 	}
 	
 }

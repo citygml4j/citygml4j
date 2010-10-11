@@ -4,6 +4,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.relief.GridProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.module.citygml.ReliefModule;
 
@@ -34,6 +35,11 @@ public class GridPropertyImpl extends FeaturePropertyImpl<RectifiedGridCoverage>
 		super.unsetObject();
 	}
 	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GRID_PROPERTY;
 	}

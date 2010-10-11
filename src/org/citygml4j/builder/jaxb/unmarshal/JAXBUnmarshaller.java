@@ -9,6 +9,7 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.xal.XALUnmarshaller;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
@@ -34,8 +35,8 @@ public class JAXBUnmarshaller {
 		ade = new ADEUnmarshaller(this);
 	}
 
-	public Object unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		Object dest = citygml.unmarshal(src);
+	public ModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+		ModelObject dest = citygml.unmarshal(src);
 		if (dest == null)
 			dest = gml.unmarshal(src);
 		if (dest == null)
@@ -48,14 +49,14 @@ public class JAXBUnmarshaller {
 		return dest;
 	}
 
-	public Object unmarshal(Element element) throws MissingADESchemaException {
-		Object dest = null;
+	public ModelObject unmarshal(Element element) throws MissingADESchemaException {
+		ModelObject dest = null;
 
 		try {
 			Unmarshaller um = jaxbBuilder.getJAXBContext().createUnmarshaller();			
-			dest = um.unmarshal(element);	
-			if (dest instanceof JAXBElement<?>)
-				dest = unmarshal((JAXBElement<?>)dest);
+			Object jaxb = um.unmarshal(element);	
+			if (jaxb instanceof JAXBElement<?>)
+				dest = unmarshal((JAXBElement<?>)jaxb);
 		} catch (JAXBException e) {
 			//
 		}
@@ -63,14 +64,14 @@ public class JAXBUnmarshaller {
 		return dest;
 	}
 
-	public Object unmarshal(Object src) throws MissingADESchemaException {
+	public ModelObject unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
 
 		if (src instanceof Element)
 			return unmarshal((Element)src);
 
-		Object dest = citygml.unmarshal(src);
+		ModelObject dest = citygml.unmarshal(src);
 		if (dest == null)
 			dest = gml.unmarshal(src);
 		if (dest == null)

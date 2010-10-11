@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.TransportationModule;
 
 public class TrafficAreaPropertyImpl extends FeaturePropertyImpl<TrafficArea> implements TrafficAreaProperty {
@@ -32,6 +33,11 @@ public class TrafficAreaPropertyImpl extends FeaturePropertyImpl<TrafficArea> im
 
 	public void unsetTrafficArea() {
 		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

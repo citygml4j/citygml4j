@@ -3,13 +3,15 @@ package org.citygml4j.impl.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ExternalObject;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CoreModule;
 
 public class ExternalObjectImpl implements ExternalObject {
 	private String name;
 	private String uri;
 	private CoreModule module;
-	private Object parent;
+	private ModelObject parent;
 	
 	public ExternalObjectImpl() {
 		
@@ -53,6 +55,10 @@ public class ExternalObjectImpl implements ExternalObject {
 		uri = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.EXTERNAL_OBJECT;
 	}
@@ -65,11 +71,11 @@ public class ExternalObjectImpl implements ExternalObject {
 		return module != null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

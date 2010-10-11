@@ -1,14 +1,17 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.xal.ThoroughfareNumber;
 import org.citygml4j.model.xal.ThoroughfareNumberOrRange;
 import org.citygml4j.model.xal.ThoroughfareNumberRange;
+import org.citygml4j.model.xal.XALClass;
 
 public class ThoroughfareNumberOrRangeImpl implements ThoroughfareNumberOrRange {
 	private ThoroughfareNumber thoroughfareNumber;
 	private ThoroughfareNumberRange thoroughfareNumberRange;
-	private Object parent;
+	private ModelObject parent;
 	
 	public ThoroughfareNumberOrRangeImpl() {
 		
@@ -22,6 +25,14 @@ public class ThoroughfareNumberOrRangeImpl implements ThoroughfareNumberOrRange 
 		setThoroughfareNumberRange(thoroughfareNumberRange);
 	}
 	
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+	
+	public XALClass getXALClass() {
+		return XALClass.THOROUGHFARE_NUMBER_OR_RANGE;
+	}
+
 	public ThoroughfareNumber getThoroughfareNumber() {
 		return thoroughfareNumber;
 	}
@@ -68,11 +79,11 @@ public class ThoroughfareNumberOrRangeImpl implements ThoroughfareNumberOrRange 
 		thoroughfareNumberRange = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

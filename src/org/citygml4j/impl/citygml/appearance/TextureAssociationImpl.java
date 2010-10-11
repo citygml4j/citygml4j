@@ -5,6 +5,7 @@ import org.citygml4j.impl.gml.base.AssociationByRepOrRefImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class TextureAssociationImpl extends AssociationByRepOrRefImpl<AbstractTextureParameterization> implements TextureAssociation {
@@ -49,6 +50,11 @@ public class TextureAssociationImpl extends AssociationByRepOrRefImpl<AbstractTe
 
 	public void unsetUri() {
 		uri = null;
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

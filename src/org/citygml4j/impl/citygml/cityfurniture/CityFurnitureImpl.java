@@ -496,7 +496,7 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 
 		ImplicitRepresentationProperty implicitRepresentation = null;
@@ -520,7 +520,7 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 					implicitRepresentation.isSetImplicitGeometry() &&
 					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
 				property = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 			}
 		}
 

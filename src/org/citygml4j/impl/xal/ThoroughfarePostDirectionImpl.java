@@ -1,6 +1,8 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.ThoroughfarePostDirection;
@@ -10,7 +12,7 @@ public class ThoroughfarePostDirectionImpl implements ThoroughfarePostDirection 
 	private String content;
 	private String type;
 	private String code;
-	private Object parent;
+	private ModelObject parent;
 	
 	public String getContent() {
 		return content;
@@ -44,6 +46,10 @@ public class ThoroughfarePostDirectionImpl implements ThoroughfarePostDirection 
 		type = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
 	public XALClass getXALClass() {
 		return XALClass.THOROUGHFARE_POST_DIRECTION;
 	}
@@ -64,11 +70,11 @@ public class ThoroughfarePostDirectionImpl implements ThoroughfarePostDirection 
 		code = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

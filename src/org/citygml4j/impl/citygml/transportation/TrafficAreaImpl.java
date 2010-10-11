@@ -271,7 +271,7 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 			}
 
 			if (property != null)
-				lodRepresentation.getLodRepresentation(lod).add(property);
+				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
 		return lodRepresentation;

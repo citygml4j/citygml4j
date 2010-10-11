@@ -6,13 +6,15 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 
 public class TransformationMatrix4x4Impl implements TransformationMatrix4x4 {
 	private Matrix matrix;
 	private CoreModule module;
-	private Object parent;
+	private ModelObject parent;
 	
 	public TransformationMatrix4x4Impl() {
 		matrix = new Matrix(4, 4);
@@ -61,6 +63,10 @@ public class TransformationMatrix4x4Impl implements TransformationMatrix4x4 {
 		this.matrix = matrix;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSFORMATION_MATRIX_4X4;
 	}
@@ -73,11 +79,11 @@ public class TransformationMatrix4x4Impl implements TransformationMatrix4x4 {
 		return module != null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

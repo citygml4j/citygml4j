@@ -1,6 +1,8 @@
 package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.coverage.CoverageFunction;
@@ -9,7 +11,7 @@ import org.citygml4j.model.gml.coverage.GridFunction;
 public class CoverageFunctionImpl implements CoverageFunction {
 	private StringOrRef mappingRule;
 	private GridFunction gridFunction;
-	private Object parent;
+	private ModelObject parent;
 	
 	public CoverageFunctionImpl() {
 		
@@ -23,6 +25,10 @@ public class CoverageFunctionImpl implements CoverageFunction {
 		setGridFunction(gridFunction);
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.COVERAGE_FUNCTION;
 	}
@@ -75,11 +81,11 @@ public class CoverageFunctionImpl implements CoverageFunction {
 		gridFunction = null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

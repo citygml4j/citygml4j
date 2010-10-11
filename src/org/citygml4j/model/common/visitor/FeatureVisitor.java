@@ -48,7 +48,7 @@ import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.w3c.dom.Element;
 
-public interface FeatureVisitor {
+public interface FeatureVisitor extends Visitor {
 	public void visit(Appearance appearance);
 	public void visit(GeoreferencedTexture georeferencedTexture);
 	public void visit(ParameterizedTexture parameterizedTexture);

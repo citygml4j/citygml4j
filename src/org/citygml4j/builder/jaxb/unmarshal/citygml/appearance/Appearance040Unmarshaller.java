@@ -40,6 +40,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -52,11 +53,11 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
@@ -179,7 +180,7 @@ public class Appearance040Unmarshaller {
 			dest.setAppearance(unmarshalAppearance(src.getAppearance()));
 
 		if (src.isSet_Feature()) {
-			Object abstractFeature = jaxb.unmarshal(src.get_Feature());
+			ModelObject abstractFeature = jaxb.unmarshal(src.get_Feature());
 			if (abstractFeature instanceof Appearance)
 				dest.setFeature((Appearance)abstractFeature);
 		}
@@ -249,7 +250,7 @@ public class Appearance040Unmarshaller {
 		SurfaceDataProperty dest = new SurfaceDataPropertyImpl(module);
 		
 		if (src.isSet_SurfaceData()) {
-			Object surfaceData = jaxb.unmarshal(src.get_SurfaceData());
+			ModelObject surfaceData = jaxb.unmarshal(src.get_SurfaceData());
 			if (surfaceData instanceof AbstractSurfaceData)
 				dest.setSurfaceData((AbstractSurfaceData)surfaceData);
 		}
@@ -318,7 +319,7 @@ public class Appearance040Unmarshaller {
 		TextureAssociation dest = new TextureAssociationImpl(module);
 
 		if (src.isSet_TextureParameterization()) {
-			Object textureParameterization = jaxb.unmarshal(src.get_TextureParameterization());
+			ModelObject textureParameterization = jaxb.unmarshal(src.get_TextureParameterization());
 			if (textureParameterization instanceof AbstractTextureParameterization)
 				dest.setTextureParameterization((AbstractTextureParameterization)textureParameterization);
 		}

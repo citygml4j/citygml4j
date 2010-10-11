@@ -1,6 +1,8 @@
 package org.citygml4j.impl.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.PremiseNumber;
@@ -14,7 +16,7 @@ public class PremiseNumberImpl implements PremiseNumber {
 	private String indicatorOccurrence;
 	private String numberTypeOccurrence;
 	private String code;
-	private Object parent;
+	private ModelObject parent;
 
 	public String getContent() {
 		return content;
@@ -115,6 +117,10 @@ public class PremiseNumberImpl implements PremiseNumber {
 		type = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
 	public XALClass getXALClass() {
 		return XALClass.PREMISE_NUMBER;
 	}
@@ -135,11 +141,11 @@ public class PremiseNumberImpl implements PremiseNumber {
 		code = null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

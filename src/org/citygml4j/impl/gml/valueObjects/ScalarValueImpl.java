@@ -1,6 +1,8 @@
 package org.citygml4j.impl.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.Measure;
@@ -11,7 +13,7 @@ public class ScalarValueImpl implements ScalarValue {
 	private Code category;
 	private Measure quantity;
 	private Integer count;
-	private Object parent;
+	private ModelObject parent;
 	
 	public ScalarValueImpl() {
 		
@@ -33,6 +35,10 @@ public class ScalarValueImpl implements ScalarValue {
 		this.count = count;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.SCALAR_VALUE;
 	}
@@ -129,7 +135,7 @@ public class ScalarValueImpl implements ScalarValue {
 		count = null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
@@ -137,7 +143,7 @@ public class ScalarValueImpl implements ScalarValue {
 		return parent != null;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

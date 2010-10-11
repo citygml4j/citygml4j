@@ -1,6 +1,8 @@
 package org.citygml4j.impl.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
 import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
@@ -11,8 +13,12 @@ public class DataBlockImpl implements DataBlock {
 	private RangeParameters rangeParameters;
 	private Coordinates tupleList;
 	private DoubleOrNullList doubleOrNullTupleList;
-	private Object parent;
+	private ModelObject parent;
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.DATA_BLOCK;
 	}
@@ -87,7 +93,7 @@ public class DataBlockImpl implements DataBlock {
 		doubleOrNullTupleList = null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
@@ -95,7 +101,7 @@ public class DataBlockImpl implements DataBlock {
 		return parent != null;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

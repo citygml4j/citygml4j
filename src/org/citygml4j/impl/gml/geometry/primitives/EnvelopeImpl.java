@@ -6,6 +6,8 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
@@ -23,7 +25,7 @@ public class EnvelopeImpl implements Envelope {
 	private String srsName;
 	private List<String> axisLabels;
 	private List<String> uomLabels;
-	private Object parent;
+	private ModelObject parent;
 
 	public void addCoord(Coord coord) {
 		if (this.coord == null)
@@ -183,6 +185,10 @@ public class EnvelopeImpl implements Envelope {
 		upperCorner = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.ENVELOPE;
 	}
@@ -280,11 +286,11 @@ public class EnvelopeImpl implements Envelope {
 		return isSetUomLabels() ? uomLabels.remove(uomLabel) : false;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

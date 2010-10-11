@@ -29,10 +29,11 @@ import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.CoreModuleComponent;
 import org.citygml4j.model.citygml.core.ExternalObject;
@@ -40,12 +41,12 @@ import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
-import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.base.ModelObject;
 
 public class Core100Marshaller {
 	private final ObjectFactory core = new ObjectFactory();
@@ -63,7 +64,7 @@ public class Core100Marshaller {
 
 		if (src instanceof CoreModuleComponent) {
 			orig = (CoreModuleComponent)src;
-			src = marshal(src);
+			src = marshal(orig);
 		}
 
 		if (src instanceof AddressType)
@@ -78,7 +79,7 @@ public class Core100Marshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof Address)

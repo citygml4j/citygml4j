@@ -16,6 +16,7 @@ import org.citygml4j.jaxb.citygml._0_4.TrafficAreaType;
 import org.citygml4j.jaxb.citygml._0_4.TransportationComplexType;
 import org.citygml4j.jaxb.citygml._0_4._TransportationObjectType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.Railway;
@@ -26,7 +27,7 @@ import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
-import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 
 public class Transportation040Marshaller {
@@ -45,7 +46,7 @@ public class Transportation040Marshaller {
 		JAXBElement<?> dest = null;
 
 		if (src instanceof TransportationModuleComponent)
-			src = marshal(src);
+			src = marshal((TransportationModuleComponent)src);
 
 		if (src instanceof AuxiliaryTrafficAreaType)
 			dest = tran.createAuxiliaryTrafficArea((AuxiliaryTrafficAreaType)src);
@@ -65,7 +66,7 @@ public class Transportation040Marshaller {
 		return dest;
 	}
 
-	public Object marshal(Object src) {
+	public Object marshal(ModelObject src) {
 		Object dest = null;
 
 		if (src instanceof AuxiliaryTrafficArea)

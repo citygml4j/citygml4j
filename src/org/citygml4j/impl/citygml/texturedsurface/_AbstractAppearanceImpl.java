@@ -3,6 +3,7 @@ package org.citygml4j.impl.citygml.texturedsurface;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.base.AbstractGMLImpl;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public abstract class _AbstractAppearanceImpl extends AbstractGMLImpl implements _AbstractAppearance {
@@ -16,6 +17,11 @@ public abstract class _AbstractAppearanceImpl extends AbstractGMLImpl implements
 		this.module = module;
 	}
 	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
 	public final TexturedSurfaceModule getCityGMLModule() {
 		return module;
 	}
@@ -23,7 +29,7 @@ public abstract class _AbstractAppearanceImpl extends AbstractGMLImpl implements
 	public boolean isSetCityGMLModule() {
 		return module != null;
 	}
-
+	
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)

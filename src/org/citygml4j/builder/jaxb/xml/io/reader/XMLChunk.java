@@ -22,6 +22,8 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.MetaDataProperty;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -204,9 +206,9 @@ public class XMLChunk {
 		handler = null;
 
 		if (result instanceof JAXBElement<?>) {			
-			Object gml = chunkReader.jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
+			ModelObject gml = chunkReader.jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
 
-			if (gml instanceof CityGML) {
+			if (gml.getModelType() == ModelType.CITYGML) {
 				if (gml instanceof AbstractFeature)
 					citygml = (CityGML)gml;
 				else if (gml instanceof AppearanceProperty)

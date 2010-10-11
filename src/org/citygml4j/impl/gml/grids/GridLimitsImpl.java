@@ -1,13 +1,19 @@
 package org.citygml4j.impl.gml.grids;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.grids.GridEnvelope;
 import org.citygml4j.model.gml.grids.GridLimits;
 
 public class GridLimitsImpl implements GridLimits {
 	private GridEnvelope gridEnvelope;
-	private Object parent;
+	private ModelObject parent;
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.GRID_LIMITS;
@@ -35,11 +41,11 @@ public class GridLimitsImpl implements GridLimits {
 		gridEnvelope = null;
 	}
 	
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

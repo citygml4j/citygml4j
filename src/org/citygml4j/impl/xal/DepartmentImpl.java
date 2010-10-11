@@ -3,6 +3,8 @@ package org.citygml4j.impl.xal;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
@@ -19,7 +21,7 @@ public class DepartmentImpl implements Department {
 	private MailStop mailStop;
 	private PostalCode postalCode;
 	private String type;
-	private Object parent;
+	private ModelObject parent;
 
 	public void addAddressLine(AddressLine addressLine) {
 		if (this.addressLine == null)
@@ -147,15 +149,19 @@ public class DepartmentImpl implements Department {
 		type = null;
 	}
 
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
 	public XALClass getXALClass() {
 		return XALClass.DEPARTMENT;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 

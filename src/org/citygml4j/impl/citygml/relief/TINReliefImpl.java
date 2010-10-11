@@ -118,7 +118,7 @@ public class TINReliefImpl extends AbstractReliefComponentImpl implements TINRel
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
 		if (isSetTin()) {
-			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodRepresentation(getLod());
+			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
 			if (propertyList != null)
 				propertyList.add(tin);
 		}

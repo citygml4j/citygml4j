@@ -2,6 +2,8 @@ package org.citygml4j.model.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -10,7 +12,7 @@ import org.w3c.dom.Element;
 
 public class MetaData implements GML, Associable, Child, Copyable {
 	private Element content;
-	private Object parent;
+	private ModelObject parent;
 	
 	public MetaData() {
 		
@@ -48,11 +50,11 @@ public class MetaData implements GML, Associable, Child, Copyable {
 		return isSetContent() ? content.getNamespaceURI() : null;
 	}
 
-	public Object getParent() {
+	public ModelObject getParent() {
 		return parent;
 	}
 
-	public void setParent(Object parent) {
+	public void setParent(ModelObject parent) {
 		this.parent = parent;
 	}
 
@@ -62,6 +64,10 @@ public class MetaData implements GML, Associable, Child, Copyable {
 
 	public void unsetParent() {
 		parent = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.GML;
 	}
 
 	public GMLClass getGMLClass() {
