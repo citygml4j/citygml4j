@@ -8,7 +8,7 @@
 	<classpathentry kind="lib" path="lib/jaxb-xjc.jar"/>
 	<classpathentry kind="lib" path="lib/jsr173_1.0_api.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
-	<classpathentry kind="lib" path="lib/sjsxp.jar"/>
 	<classpathentry kind="lib" path="resources/xml"/>
+	<classpathentry kind="lib" path="lib/sjsxp.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
