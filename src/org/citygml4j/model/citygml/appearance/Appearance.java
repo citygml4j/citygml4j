@@ -2,7 +2,7 @@
  * This file is part of citygml4j.
  * Copyright (c) 2007 - 2010
  * Institute for Geodesy and Geoinformation Science
- * Technische Universität Berlin, Germany
+ * Technische Universitaet Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
