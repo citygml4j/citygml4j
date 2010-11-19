@@ -599,6 +599,12 @@ public class Building100Unmarshaller {
 		if (src.isSetUsage())
 			dest.setUsage(src.getUsage());
 		
+		if (src.isSetLod4Solid())
+			dest.setLod4Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod4Solid()));
+		
+		if (src.isSetLod4MultiSurface())
+			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
