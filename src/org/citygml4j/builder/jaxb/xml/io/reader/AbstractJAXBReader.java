@@ -31,6 +31,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.xml.io.CityGMLInputFactory;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -47,6 +48,7 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 	boolean useValidation;
 	ValidationSchemaHandler validationSchemaHandler;
 	ValidationEventHandler validationEventHandler;
+	CityGMLInputFilter filter;
 	
 	boolean parseSchema;
 	URI baseURI;

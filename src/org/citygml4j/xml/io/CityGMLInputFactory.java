@@ -29,6 +29,7 @@ import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLInputFactory;
 
 import org.citygml4j.util.gmlid.GMLIdManager;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -62,4 +63,6 @@ public interface CityGMLInputFactory {
 	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException;
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException;	
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException;
+
+	public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter);
 }
