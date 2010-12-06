@@ -23,6 +23,7 @@
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
 import java.net.URI;
+import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLStreamException;
@@ -30,10 +31,12 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
+import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
+import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.SAXException;
 
@@ -43,41 +46,46 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 	JAXBInputFactory factory;
 	SchemaHandler schemaHandler;
 	JAXBUnmarshaller jaxbUnmarshaller;
-	XMLUtil util;
-	
+	XMLElementChecker elementChecker;
+
 	boolean useValidation;
 	ValidationSchemaHandler validationSchemaHandler;
 	ValidationEventHandler validationEventHandler;
 	CityGMLInputFilter filter;
-	
+
 	boolean parseSchema;
 	URI baseURI;
-	
+
+	@SuppressWarnings("unchecked")
 	public AbstractJAXBReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
 		this.reader = reader;
 		this.factory = factory;
 		this.baseURI = baseURI;
-		
+
 		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
 		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
 
-		util = XMLUtil.getInstance();
 		schemaHandler = factory.getSchemaHandler();
-		
 		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
+
+		elementChecker = new XMLElementChecker(schemaHandler, 
+				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
+				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
+				parseSchema,
+				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING));
 
 		if (useValidation) {
 			validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
 			validationEventHandler = factory.getValidationEventHandler();
 		}
 	}
-	
+
 	public void close() throws CityGMLReadException {
 		try {
 			factory = null;
 			schemaHandler = null;
 			jaxbUnmarshaller = null;
-			util = null;	
+			elementChecker = null;	
 
 			validationSchemaHandler = null;
 			validationEventHandler = null;	
@@ -89,6 +97,14 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 		}
 	}
 	
+	public boolean isFilteredReader() {
+		return filter != null;
+	}
+
+	public String getBaseURI() {
+		return baseURI.toString();
+	}
+	
 	void parseSchema(String schemaLocation) throws SAXException {
 		String[] split = schemaLocation.trim().split("\\s+");
 		if (split.length % 2 == 0)	
@@ -96,8 +112,4 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 				schemaHandler.parseSchema(split[i], baseURI.resolve(split[i+1]).toString());
 	}
 
-	public String getBaseURI() {
-		return baseURI.toString();
-	}
-	
 }

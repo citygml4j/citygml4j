@@ -120,6 +120,10 @@ public class XMLChunk {
 	public void append(XMLChunk other) {
 		buffer.append(other.buffer);
 	}
+	
+	public void disableUnmarshalling() {
+		citygmlResolved.set(true);
+	}
 
 	public ParentInfo unmarshalFeatureInfo() {
 		if (!buffer.isEmpty() && parentInfoResolved.compareAndSet(false, true)) {
@@ -136,7 +140,7 @@ public class XMLChunk {
 					if (event.getType() == EventType.START_ELEMENT) {
 						if (depth == 0) {
 							element = (StartElement)event;
-							isParentInfoElement = chunkReader.util.isParentInfoElement(
+							isParentInfoElement = chunkReader.elementChecker.isParentInfoElement(
 									element.getURI(), 
 									element.getLocalName());
 						}
@@ -290,9 +294,9 @@ public class XMLChunk {
 		StartElement root = getFirstStartElement();
 
 		if (root.getLocalName().equals("Appearance") && 
-				chunkReader.util.isCityGMLElement(root.getURI()))
+				chunkReader.elementChecker.isCityGMLElement(root.getURI()))
 			return new QName(root.getURI(), "appearanceMember");
-		else if (!chunkReader.util.isCityGMLElement(root.getURI())) 
+		else if (!chunkReader.elementChecker.isCityGMLElement(root.getURI())) 
 			return new QName(GMLCoreModule.v3_1_1.getNamespaceURI(), "featureProperty");
 
 		return null;

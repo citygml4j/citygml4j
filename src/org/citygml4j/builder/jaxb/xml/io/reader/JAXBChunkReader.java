@@ -24,7 +24,6 @@ package org.citygml4j.builder.jaxb.xml.io.reader;
 
 import java.net.URI;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.Stack;
 
 import javax.xml.bind.JAXBException;
@@ -36,9 +35,7 @@ import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartElement;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
-import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
-import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.xml.sax.Attributes;
@@ -50,26 +47,17 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 	private Stack<XMLChunk> chunks;
 	private XMLChunk chunk;
 
-	private XMLElementChecker elementChecker;
 	private ElementInfo elementInfo;
 	private Stack<ElementInfo> elementInfos;
 
 	private boolean isInited = false;
 	private boolean setXLink = false;
 
-	@SuppressWarnings("unchecked")
 	public JAXBChunkReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
 		super(reader, factory, baseURI);
-
 		jaxbUnmarshaller.setParseSchema(false);
-
 		chunks = new Stack<XMLChunk>();
 		elementInfos = new Stack<ElementInfo>();
-		elementChecker = new XMLElementChecker(schemaHandler, 
-				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
-				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
-				parseSchema,
-				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING));
 	}
 
 	public void close() throws CityGMLReadException {
@@ -78,8 +66,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		tmp = null;
 		chunks.clear();
 		chunk = null;
-		
-		elementChecker = null;
+
 		elementInfos.clear();
 		elementInfo = null;
 	}
@@ -117,14 +104,22 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 					// move to the next CityGML feature in the document
 					// and create a new chunk to initiate parsing
 					if (!isInited) {
-						if (event != XMLStreamConstants.START_ELEMENT || 
-								!util.isCityGMLElement(reader.getName()) ||
-								!util.isCityGMLFeature(reader.getLocalName(), reader.getNamespaceURI()))
+						if (event != XMLStreamConstants.START_ELEMENT)
 							continue;
+						
+						else {
+							elementInfo = elementChecker.getCityGMLFeature(reader.getName(), isFilteredReader());
+							
+							if (elementInfo != null && elementInfo.isFeature()) {
+								isInited = true;
+								chunks.clear();
+								chunk = new XMLChunk(this, null);
 
-						chunks.clear();
-						chunk = new XMLChunk(this, null);
-						isInited = true;
+								if (isFilteredReader() && !filter.accept(elementInfo.getType()))
+									chunk.disableUnmarshalling();
+							} else
+								continue;
+						}						
 					}
 
 					// set XLink on property element
@@ -134,11 +129,14 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 					// check whether start element is a feature
 					if (event == XMLStreamConstants.START_ELEMENT) {
 						ElementInfo lastElementInfo = elementInfos.push(elementInfo);
-						elementInfo = elementChecker.getElementInfo(reader.getName(), chunk, lastElementInfo);
+						elementInfo = elementChecker.getElementInfo(reader.getName(), chunk, lastElementInfo, isFilteredReader());
 
 						if (elementInfo != null && elementInfo.isFeature()) {						
 							chunks.add(chunk);
 							chunk = new XMLChunk(this, chunks.peek());
+
+							if (isFilteredReader() && !filter.accept(elementInfo.getType()))
+								chunk.disableUnmarshalling();								
 
 							if (lastElementInfo != null)
 								setXLink = lastElementInfo.hasXLink();
