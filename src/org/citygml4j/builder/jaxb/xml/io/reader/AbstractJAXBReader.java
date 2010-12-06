@@ -89,6 +89,7 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 
 			validationSchemaHandler = null;
 			validationEventHandler = null;	
+			filter = null;
 
 			if (reader != null)
 				reader.close();
