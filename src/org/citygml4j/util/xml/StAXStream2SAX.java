@@ -20,7 +20,7 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader;
+package org.citygml4j.util.xml;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -42,7 +42,7 @@ public class StAXStream2SAX {
 
 	public void bridgeEvent(XMLStreamReader reader) throws XMLStreamException {
 		// update location	
-		if (buffer.trackLocation) {
+		if (buffer.isTrackLocation()) {
 			Location location = reader.getLocation();
 			buffer.updateLocation(
 					location.getLineNumber(), 
@@ -75,7 +75,7 @@ public class StAXStream2SAX {
 		} while (len == buf.length);
 
 		try {
-			buffer.characters(buf, 0, len);
+			buffer.characters(buf, 0, start);
 		} catch (SAXException e) {
 			throw new XMLStreamException(e);
 		}

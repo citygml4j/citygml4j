@@ -49,6 +49,7 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 	XMLElementChecker elementChecker;
 
 	boolean useValidation;
+	boolean failOnMissingADESchema;
 	ValidationSchemaHandler validationSchemaHandler;
 	ValidationEventHandler validationEventHandler;
 	CityGMLInputFilter filter;
@@ -67,6 +68,7 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 
 		schemaHandler = factory.getSchemaHandler();
 		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
+		jaxbUnmarshaller.setThrowMissingADESchema((Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA));
 
 		elementChecker = new XMLElementChecker(schemaHandler, 
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),

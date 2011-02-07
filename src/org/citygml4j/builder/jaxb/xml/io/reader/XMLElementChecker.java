@@ -27,7 +27,6 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartElement;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -37,6 +36,7 @@ import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.util.xml.saxevents.StartElement;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
@@ -125,7 +125,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getCityGMLFeatureProperty(QName name, XMLChunk currentChunk) {
+	public ElementInfo getCityGMLFeatureProperty(QName name, CityGMLChunk currentChunk) {
 		ElementInfo elementInfo = null;
 		String localName = name.getLocalPart();
 		String namespaceURI = name.getNamespaceURI();
@@ -279,7 +279,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getElementInfo(QName name, XMLChunk currentChunk, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
+	public ElementInfo getElementInfo(QName name, CityGMLChunk currentChunk, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
 		if (lastElementInfo != null && lastElementInfo.skipNestedElements)
 			return lastElementInfo;
 

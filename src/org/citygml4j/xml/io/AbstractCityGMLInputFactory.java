@@ -50,6 +50,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 	protected boolean keepInlineAppearance;
 	protected boolean parseSchema;
 	protected boolean useValidation;
+	protected boolean failOnMissingADESchema;
 
 	public AbstractCityGMLInputFactory() throws CityGMLReadException {
 		try {
@@ -76,6 +77,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		keepInlineAppearance = true;
 		parseSchema = true;
 		useValidation = false;
+		failOnMissingADESchema = true;
 	}
 
 	public XMLInputFactory getXMLInputFactory() {
@@ -136,6 +138,8 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 			return useValidation;
 		if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING))
 			return excludes;
+		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
+			return failOnMissingADESchema;
 
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
@@ -205,6 +209,13 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 				
 				return;
 			}
+		}
+		
+		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA)) {
+			if (value instanceof Boolean)
+				failOnMissingADESchema = ((Boolean)value).booleanValue();
+
+			return;		
 		}
 
 		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");

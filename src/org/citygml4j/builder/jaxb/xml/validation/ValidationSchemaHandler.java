@@ -41,7 +41,7 @@ public class ValidationSchemaHandler {
 		schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 	}
 	
-	public Schema getSchema() throws SAXException {
+	public synchronized Schema getSchema() throws SAXException {
 		if (size != schemaHandler.size()) {
 			size = schemaHandler.size();
 			schema = schemaFactory.newSchema(schemaHandler.getSchemaSources());

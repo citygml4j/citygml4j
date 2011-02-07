@@ -23,6 +23,7 @@
 package org.citygml4j.model.citygml;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -39,6 +40,7 @@ import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
@@ -86,6 +88,7 @@ import org.citygml4j.model.citygml.generics.IntAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.citygml.landuse.LandUse;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.GridProperty;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
@@ -111,6 +114,7 @@ import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
@@ -118,6 +122,7 @@ import org.citygml4j.model.citygml.waterbody.WaterSurface;
 
 public enum CityGMLClass {
 	UNDEFINED(null),
+	ABSTRACT_GML_GEOMETRY(null),
 	
 	// ADE
 	ADE_COMPONENT(ADEComponent.class),
@@ -140,6 +145,8 @@ public enum CityGMLClass {
 	XAL_ADDRESS_PROPERTY(XalAddressProperty.class),	
 
 	// Appearance
+	ABSTRACT_SURFACE_DATA(AbstractSurfaceData.class),
+	
 	APPEARANCE(Appearance.class),
 	APPEARANCE_MEMBER(AppearanceMember.class),
 	APPEARANCE_PROPERTY(AppearanceProperty.class),
@@ -157,7 +164,9 @@ public enum CityGMLClass {
 	WRAP_MODE(WrapMode.class),
 	X3D_MATERIAL(X3DMaterial.class),
 
-	// Building	
+	// Building
+	ABSTRACT_OPENING(AbstractOpening.class),
+	
 	BOUNDARY_SURFACE_PROPERTY(BoundarySurfaceProperty.class),
 	BUILDING(Building.class),
 	BUILDING_FURNITURE(BuildingFurniture.class),
@@ -201,6 +210,8 @@ public enum CityGMLClass {
 	LAND_USE(LandUse.class),
 
 	// Relief
+	ABSTRACT_RELIEF_COMPONENT(AbstractReliefComponent.class),
+	
 	RELIEF_FEATURE(ReliefFeature.class),
 	BREAKLINE_RELIEF(BreaklineRelief.class),
 	GRID_PROPERTY(GridProperty.class),
@@ -225,7 +236,9 @@ public enum CityGMLClass {
 	PLANT_COVER(PlantCover.class),	
 	SOLITARY_VEGETATION_OBJECT(SolitaryVegetationObject.class),
 
-	// WaterBody	
+	// WaterBody
+	ABSTRACT_WATER_BOUNDARY_SURFACE(AbstractWaterBoundarySurface.class),
+	
 	WATER_BODY(WaterBody.class),
 	WATER_CLOSURE_SURFACE(WaterClosureSurface.class),
 	WATER_GROUND_SURFACE(WaterGroundSurface.class),	
@@ -255,24 +268,34 @@ public enum CityGMLClass {
 
 		return null;
 	}
+	
+	public static CityGMLClass fromInt(int i) {
+		for (CityGMLClass c : CityGMLClass.values()) {
+			if (c.ordinal() == i) {
+				return c;
+			}
+		}
+
+		return UNDEFINED;
+	}
 
 	public Class<? extends CityGML> getInterface() {
 		return interfaceName;
 	}
 	
-	public boolean isSubclassOf(CityGMLClass type) {
-		return isSubclassOf(interfaceName, type.interfaceName);
+	public boolean isInstance(CityGMLClass type) {
+		return isInstance(interfaceName, type.interfaceName);
 	}
 	
-	private boolean isSubclassOf(Class<?> a, Class<?> b) {
+	private boolean isInstance(Class<?> a, Class<?> b) {
 		if (a == null || b == null)
 			return false;
 
 		if (a == b)
 			return true;
 
-		for (Class<?> tmp : a.getInterfaces())
-			if (isSubclassOf(tmp, b))
+		for (Class<?> tmp : b.getInterfaces())
+			if (isInstance(a, tmp))
 				return true;
 
 		return false;
