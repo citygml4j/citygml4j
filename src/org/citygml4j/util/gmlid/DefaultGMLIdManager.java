@@ -26,6 +26,8 @@ import java.util.UUID;
 
 public class DefaultGMLIdManager implements GMLIdManager {
 	private static DefaultGMLIdManager instance = null;
+	private String defaultPrefix = "UUID_";
+	private String prefix = defaultPrefix;
 
 	private DefaultGMLIdManager() {
 		// just to thwart instantiation
@@ -37,9 +39,25 @@ public class DefaultGMLIdManager implements GMLIdManager {
 
 		return instance;
 	}
+	
+	public String getDefaultPrefix() {
+		return defaultPrefix;
+	}
 
-	public String generateGmlId() {
-		return new StringBuilder("UUID_").append(UUID.randomUUID().toString()).toString();
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String generateUUID(String prefix) {
+		return new StringBuilder(prefix).append(UUID.randomUUID().toString()).toString();
+	}
+	
+	public String generateUUID() {
+		return generateUUID(prefix);
 	}
 	
 }

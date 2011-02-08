@@ -230,7 +230,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 			}
 
 			if (gmlId == null || gmlId.length() == 0) {
-				gmlId = factory.getGMLIdManager().generateGmlId();
+				gmlId = factory.getGMLIdManager().generateUUID();
 				AttributesImpl atts = new AttributesImpl(featureAtts);
 				atts.addAttribute(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", "id", "CDATA", gmlId);
 				feature.setAttributes(atts);
