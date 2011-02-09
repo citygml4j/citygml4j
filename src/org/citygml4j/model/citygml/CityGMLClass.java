@@ -284,7 +284,7 @@ public enum CityGMLClass {
 	}
 	
 	public boolean isInstance(CityGMLClass type) {
-		return isInstance(interfaceName, type.interfaceName);
+		return interfaceName != null ? isInstance(interfaceName, type.interfaceName) : true;
 	}
 	
 	private boolean isInstance(Class<?> a, Class<?> b) {

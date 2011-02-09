@@ -116,8 +116,23 @@ public class Matrix implements Geometry {
 		return n;
 	}
 
-	public double get (int i, int j) {
+	public double get(int i, int j) {
 		return a[i][j];
+	}
+	
+	public Matrix toMatrix(int m, int n) {
+		if (m > this.m)
+			throw new IllegalArgumentException("Row number m of new matrix must be equal or less than m of original matrix.");
+
+		if (n > this.n)
+			throw new IllegalArgumentException("Column number n of new matrix must be equal or less than n of original matrix.");
+
+		Matrix matrix = new Matrix(m, n);
+		for (int i = 0; i < m; ++i)
+			for (int j = 0; j < n; ++j)
+				matrix.a[i][j] = a[i][j];
+		
+		return matrix;
 	}
 
 	public double[] toColumnPackedArray() {
