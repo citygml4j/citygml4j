@@ -119,8 +119,8 @@ public class Matrix implements Geometry {
 	public double get(int i, int j) {
 		return a[i][j];
 	}
-	
-	public Matrix toMatrix(int m, int n) {
+
+	public Matrix getMatrix(int m, int n) {
 		if (m > this.m)
 			throw new IllegalArgumentException("Row number m of new matrix must be equal or less than m of original matrix.");
 
@@ -131,8 +131,20 @@ public class Matrix implements Geometry {
 		for (int i = 0; i < m; ++i)
 			for (int j = 0; j < n; ++j)
 				matrix.a[i][j] = a[i][j];
-		
+
 		return matrix;
+	}
+
+	public void setMatrix (int i0, int i1, int j0, int j1, Matrix m) {
+		try {
+			for (int i = i0; i <= i1; i++) {
+				for (int j = j0; j <= j1; j++) {
+					a[i][j] = m.get(i-i0, j-j0);
+				}
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {
+			throw new ArrayIndexOutOfBoundsException("Submatrix indices out of bounds.");
+		}
 	}
 
 	public double[] toColumnPackedArray() {
@@ -193,15 +205,15 @@ public class Matrix implements Geometry {
 	public boolean eq(Matrix B) {
 		if (B.m != m || B.n != n)
 			throw new IllegalArgumentException("Matrix dimensions must agree.");
-		
+
 		for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                if (a[i][j] != B.a[i][j]) 
-                	return false;
-		
-        return true;
-    }
-	
+			for (int j = 0; j < n; j++)
+				if (a[i][j] != B.a[i][j]) 
+					return false;
+
+		return true;
+	}
+
 	public Matrix transpose() {
 		Matrix X = new Matrix(n,m);
 
