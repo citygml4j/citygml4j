@@ -30,6 +30,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.UnmarshallerHandler;
+import javax.xml.bind.ValidationEvent;
+import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -73,9 +75,10 @@ public class CityGMLChunk {
 	private ParentInfo featureInfo;	
 	private AtomicBoolean parentInfoResolved = new AtomicBoolean(false);
 	private AtomicBoolean citygmlResolved = new AtomicBoolean(false);
-
+	
 	private boolean isFiltered = false;
 	private int depth = 0;
+	private boolean hasPassedXMLValidation = false;
 
 	CityGMLChunk(JAXBChunkReader chunkReader, CityGMLChunk parentChunk) {
 		this.chunkReader = chunkReader;
@@ -139,6 +142,10 @@ public class CityGMLChunk {
 
 	public ParentInfo getParentInfo() {
 		return parentChunk != null ? parentChunk.unmarshalFeatureInfo() : null;
+	}
+
+	public boolean hasPassedXMLValidation() {
+		return hasPassedXMLValidation;
 	}
 
 	private ParentInfo unmarshalFeatureInfo() {
@@ -218,9 +225,17 @@ public class CityGMLChunk {
 
 		Unmarshaller unmarshaller = chunkReader.factory.builder.getJAXBContext().createUnmarshaller();
 		if (useValidation) {
-			unmarshaller.setSchema(chunkReader.validationSchemaHandler.getSchema());			
-			if (chunkReader.validationEventHandler != null)
-				unmarshaller.setEventHandler(chunkReader.validationEventHandler);
+			hasPassedXMLValidation = true;
+			unmarshaller.setSchema(chunkReader.validationSchemaHandler.getSchema());
+			
+			if (chunkReader.validationEventHandler != null) {			
+				unmarshaller.setEventHandler(new ValidationEventHandler() {
+					public boolean handleEvent(ValidationEvent event) {
+						hasPassedXMLValidation = false;
+						return chunkReader.validationEventHandler.handleEvent(event);
+					}
+				});
+			}
 		}
 
 		UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
