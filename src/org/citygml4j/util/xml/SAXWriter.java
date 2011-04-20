@@ -670,6 +670,9 @@ public class SAXWriter extends XMLFilterImpl {
 				throw new SAXException("comment target cannot be null.");
 
 			for (String line : data) {
+				if (line == null)
+					continue;
+				
 				writer.write(OPEN_COMMENT);
 				writer.write(SPACE);			
 				writer.write(line);			
