@@ -22,7 +22,9 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
@@ -51,26 +53,25 @@ public class XMLElementChecker {
 	private final boolean parseSchema;
 	private final Set<Class<? extends CityGML>> excludes;
 
-	private final HashSet<String> cityGMLCollectionProperties;
+	private HashSet<String> cityGMLFeatureProperties;
+	private HashMap<String, HashSet<String>> adeFeatureProperties;
 
 	XMLElementChecker(SchemaHandler schemaHandler, 
 			FeatureReadMode featureReadMode, 
 			boolean keepInlineAppearance,
 			boolean parseSchema,
-			Set<Class<? extends CityGML>> exlcudes) {
+			Set<Class<? extends CityGML>> exlcudes,
+			List<QName> featureProperties) {
 		this.schemaHandler = schemaHandler;
 		this.featureReadMode = featureReadMode;
 		this.keepInlineAppearance = keepInlineAppearance;
 		this.parseSchema = parseSchema;
 		this.excludes = exlcudes;
 
-		cityGMLCollectionProperties = new HashSet<String>();
-		cityGMLCollectionProperties.add("cityObjectMember");
-		cityGMLCollectionProperties.add("appearanceMember");
-		cityGMLCollectionProperties.add("groupMember");
-		cityGMLCollectionProperties.add("parent");
+		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER)
+			initCollectionSplitProperties(featureProperties);
 	}
-	
+
 	public boolean isCityGMLElement(String namespaceURI) {
 		return (namespaceURI.startsWith("http://www.opengis.net/citygml") ||
 				CoreModule.v0_4_0.getNamespaceURI().equals(namespaceURI));
@@ -129,12 +130,12 @@ public class XMLElementChecker {
 		ElementInfo elementInfo = null;
 		String localName = name.getLocalPart();
 		String namespaceURI = name.getNamespaceURI();
-		
+
 		boolean isFeatureProperty = false;
 		boolean skipNestedElements = false;
 
 		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER) {
-			if (cityGMLCollectionProperties.contains(localName))
+			if (cityGMLFeatureProperties.contains(localName))
 				isFeatureProperty = true;
 
 			if (localName.equals("appearanceMember") && 
@@ -211,7 +212,7 @@ public class XMLElementChecker {
 			if (featureClass != null) {
 				elementInfo = new ElementInfo();
 				elementInfo.isFeature = true;
-				
+
 				if (isSetType)
 					elementInfo.type = CityGMLClass.fromInterface(featureClass);
 
@@ -234,7 +235,7 @@ public class XMLElementChecker {
 		ElementInfo elementInfo = null;
 		String localName = name.getLocalPart();
 		String namespaceURI = name.getNamespaceURI();
-		
+
 		Schema schema = schemaHandler.getSchema(namespaceURI);
 
 		// try and resolve unknown ADE schema
@@ -259,7 +260,7 @@ public class XMLElementChecker {
 
 					if (isSetType)
 						elementInfo.type = CityGMLClass.ADE_COMPONENT;
-					
+
 					if (!excludes.isEmpty()) { 
 						for (Class<? extends CityGML> exclude : excludes) {
 							if (isSubclass(ADEComponent.class, exclude)) {
@@ -286,9 +287,8 @@ public class XMLElementChecker {
 		ElementInfo elementInfo = null;
 
 		if (lastElementInfo != null && lastElementInfo.isFeatureProperty) {
-			if (isGMLElement(name))
-				; // we do not support GML features
-			else if (isCityGMLElement(name))
+			// we do not support GML features
+			if (isCityGMLElement(name))
 				elementInfo = getCityGMLFeature(name, isSetType);
 			else
 				elementInfo = getADEElementInfo(name, lastElementInfo, true, isSetType);
@@ -299,11 +299,67 @@ public class XMLElementChecker {
 				elementInfo = getGMLFeatureProperty(name.getLocalPart());
 			else if (isCityGMLElement(name))
 				elementInfo = getCityGMLFeatureProperty(name, currentChunk);
-			else if (featureReadMode == FeatureReadMode.SPLIT_PER_FEATURE)
+			else if (checkADEFeatureProperty(name))
 				elementInfo = getADEElementInfo(name, lastElementInfo, false, false);
 		}
 
 		return elementInfo;
+	}
+
+	private void initCollectionSplitProperties(List<QName> featureProperties) {
+		cityGMLFeatureProperties = new HashSet<String>();
+
+		cityGMLFeatureProperties.add("cityObjectMember");
+		cityGMLFeatureProperties.add("appearanceMember");
+		cityGMLFeatureProperties.add("groupMember");
+		cityGMLFeatureProperties.add("parent");
+
+		for (QName featureProperty : featureProperties) {
+			String localName = featureProperty.getLocalPart();
+			String namespaceURI = featureProperty.getNamespaceURI();
+
+			if (namespaceURI.length() == 0) {
+				for (CityGMLModule module : Modules.getCityGMLModules()) {
+					if (module.hasFeaturePropertyElement(localName)) {
+						cityGMLFeatureProperties.add(localName);
+						break;
+					}
+				}
+			}
+
+			else if (isCityGMLElement(namespaceURI)) {
+				Module module = Modules.getModule(namespaceURI);
+				if (module instanceof CityGMLModule && ((CityGMLModule)module).hasFeaturePropertyElement(localName))
+					cityGMLFeatureProperties.add(localName);
+			}
+
+			else {
+				if (adeFeatureProperties == null)
+					adeFeatureProperties = new HashMap<String, HashSet<String>>();
+
+				HashSet<String> propertySet = adeFeatureProperties.get(namespaceURI);
+				if (propertySet == null) {
+					propertySet = new HashSet<String>();
+					adeFeatureProperties.put(namespaceURI, propertySet);
+				}
+
+				propertySet.add(localName);
+			}
+
+		}
+	}
+	
+	private boolean checkADEFeatureProperty(QName name) {
+		if (featureReadMode == FeatureReadMode.SPLIT_PER_FEATURE)
+			return true;
+		
+		if (adeFeatureProperties != null) {
+			HashSet<String> properties = adeFeatureProperties.get(name.getNamespaceURI());
+			if (properties != null)
+				return properties.contains(name.getLocalPart());
+		}
+		
+		return false;
 	}
 
 	private boolean isSubclass(Class<?> a, Class<?> b) {
@@ -344,7 +400,7 @@ public class XMLElementChecker {
 		boolean hasXLink() {
 			return hasXLink;
 		}
-		
+
 		CityGMLClass getType() {
 			return type;
 		}

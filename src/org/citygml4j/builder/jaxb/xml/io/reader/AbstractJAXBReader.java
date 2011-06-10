@@ -23,9 +23,11 @@
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -74,7 +76,8 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
 				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
 				parseSchema,
-				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING));
+				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
+				(List<QName>)factory.getProperty(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY));
 
 		if (useValidation) {
 			validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);

@@ -23,11 +23,14 @@
 package org.citygml4j.xml.io;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 
 import org.citygml4j.model.citygml.CityGML;
@@ -47,6 +50,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 
 	protected FeatureReadMode featureReadMode;
 	protected Set<Class<? extends CityGML>> excludes;
+	protected List<QName> splitAtFeatureProperties;
 	protected boolean keepInlineAppearance;
 	protected boolean parseSchema;
 	protected boolean useValidation;
@@ -74,6 +78,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		validationEventHandler = null;
 		featureReadMode = FeatureReadMode.NO_SPLIT;
 		excludes = new HashSet<Class<? extends CityGML>>();
+		splitAtFeatureProperties = new ArrayList<QName>();
 		keepInlineAppearance = true;
 		parseSchema = true;
 		useValidation = false;
@@ -138,6 +143,8 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 			return useValidation;
 		if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING))
 			return excludes;
+		if (name.equals(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY))
+			return splitAtFeatureProperties;
 		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
 			return failOnMissingADESchema;
 
@@ -205,6 +212,35 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 						excludes.add((Class<? extends CityGML>)o);
 					else
 						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+				}
+				
+				return;
+			}
+		}
+		
+		if (name.equals(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY)) {
+			if (value instanceof QName) {
+				splitAtFeatureProperties.add((QName)value);
+				return;
+			}
+			
+			else if (value instanceof Collection<?>) {
+				for (Object o : (Collection<?>)value) {
+					if (o instanceof QName)
+						splitAtFeatureProperties.add((QName)o);
+					else
+						throw new IllegalArgumentException("feature property must be specified using java.xml.namespace.QName.");
+				}
+				
+				return;
+			}
+			
+			else if (value instanceof Class<?>[]) {
+				for (Object o : (Class<?>[])value) {
+					if (o instanceof QName)
+						splitAtFeatureProperties.add((QName)o);
+					else
+						throw new IllegalArgumentException("feature property must be specified using java.xml.namespace.QName.");
 				}
 				
 				return;
