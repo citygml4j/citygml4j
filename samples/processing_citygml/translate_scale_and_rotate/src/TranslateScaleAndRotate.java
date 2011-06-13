@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.copy.DeepCopyBuilder;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.building.Building;
@@ -53,7 +53,7 @@ public class TranslateScaleAndRotate {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
@@ -123,7 +123,7 @@ public class TranslateScaleAndRotate {
 		@Override
 		public void visit(AbstractGML abstractGML) {
 			if (abstractGML.isSetId())
-				abstractGML.setId(DefaultGMLIdManager.getInstance().generateGmlId());
+				abstractGML.setId(DefaultGMLIdManager.getInstance().generateUUID());
 			
 			super.visit(abstractGML);
 		}
