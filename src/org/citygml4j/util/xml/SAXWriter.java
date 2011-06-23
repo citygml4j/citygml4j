@@ -20,7 +20,7 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.writer;
+package org.citygml4j.util.xml;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -94,6 +94,15 @@ public class SAXWriter extends XMLFilterImpl {
 		PI,
 		COMMENT
 	}
+	
+	public SAXWriter() {
+		init();
+	}
+	
+	public SAXWriter(StreamResult streamResult, String encoding) throws IOException {
+		this();
+		setOutput(streamResult, encoding);
+	}
 
 	public SAXWriter(OutputStream outputStream) throws IOException {
 		this(outputStream, null);
@@ -105,11 +114,6 @@ public class SAXWriter extends XMLFilterImpl {
 
 	public SAXWriter(Writer writer) throws IOException {
 		this(new StreamResult(writer), null);
-	}
-
-	public SAXWriter(StreamResult streamResult, String encoding) throws IOException {
-		setOutput(streamResult, encoding);
-		init();
 	}
 
 	private void init() {
@@ -138,6 +142,10 @@ public class SAXWriter extends XMLFilterImpl {
 		lastXMLContent = XMLContentType.UNDEFINED;
 	}
 
+	public void setOutput(StreamResult streamResult) throws IOException {
+		setOutput(streamResult, null);
+	}
+	
 	public void setOutput(StreamResult streamResult, String encoding) throws IOException {
 		if (streamResult.getOutputStream() != null)
 			setOutputUsingStream(streamResult.getOutputStream(), encoding);
@@ -193,6 +201,10 @@ public class SAXWriter extends XMLFilterImpl {
 			} else
 				writer = new XMLWriter(new OutputStreamWriter(outputStream));
 		}			
+	}
+	
+	public Writer getOutputWriter() {
+		return writer;
 	}
 
 	public void flush() throws SAXException {
@@ -658,6 +670,9 @@ public class SAXWriter extends XMLFilterImpl {
 				throw new SAXException("comment target cannot be null.");
 
 			for (String line : data) {
+				if (line == null)
+					continue;
+				
 				writer.write(OPEN_COMMENT);
 				writer.write(SPACE);			
 				writer.write(line);			

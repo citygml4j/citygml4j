@@ -40,6 +40,7 @@ import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.util.transform.FeatureSplitMode;
 import org.citygml4j.util.transform.FeatureSplitter;
+import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.CityGMLNamespaceContext;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.AbstractCityGMLWriter;

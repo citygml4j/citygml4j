@@ -45,6 +45,7 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.CityModelInfo;

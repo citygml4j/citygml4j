@@ -45,6 +45,7 @@ public class JAXBUnmarshaller {
 	private final JAXBBuilder jaxbBuilder;
 	private final SchemaHandler schemaHandler;
 	private boolean parseSchema = true;
+	private boolean throwMissingADESchema = true;
 	private boolean releaseJAXBElements = true;
 
 	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler) {
@@ -128,6 +129,14 @@ public class JAXBUnmarshaller {
 
 	public void setParseSchema(boolean parseSchema) {
 		this.parseSchema = parseSchema;
+	}
+
+	public boolean isThrowMissingADESchema() {
+		return throwMissingADESchema;
+	}
+
+	public void setThrowMissingADESchema(boolean throwMissingADESchema) {
+		this.throwMissingADESchema = throwMissingADESchema;
 	}
 
 	public boolean isReleaseJAXBElementsFromMemory() {

@@ -90,7 +90,7 @@ public class JAXBContextPath {
 		return builder.toString();	
 	}
 	
-	public static String getContextPath(List<Module> modules) {
+	public static String getContextPath(List<? extends Module> modules) {
 		HashSet<String> contextPaths = new HashSet<String>();
 
 		for (Module module : modules) {
@@ -102,7 +102,7 @@ public class JAXBContextPath {
 		return createContextPath(contextPaths);
 	}
 	
-	public static String getContextPath(List<Module> modules, String... packageNames) {
+	public static String getContextPath(List<? extends Module> modules, String... packageNames) {
 		StringBuilder builder = new StringBuilder(getContextPath(modules));
 		
 		for (String contextPath : packageNames) {

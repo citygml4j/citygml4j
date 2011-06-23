@@ -20,18 +20,18 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader;
+package org.citygml4j.util.xml;
 
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.Characters;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.EndDocument;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.EndElement;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.EndPrefixMapping;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.Location;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.SAXEvent;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.SAXEvent.EventType;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartDocument;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartElement;
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartPrefixMapping;
+import org.citygml4j.util.xml.saxevents.Characters;
+import org.citygml4j.util.xml.saxevents.EndDocument;
+import org.citygml4j.util.xml.saxevents.EndElement;
+import org.citygml4j.util.xml.saxevents.EndPrefixMapping;
+import org.citygml4j.util.xml.saxevents.Location;
+import org.citygml4j.util.xml.saxevents.SAXEvent;
+import org.citygml4j.util.xml.saxevents.StartDocument;
+import org.citygml4j.util.xml.saxevents.StartElement;
+import org.citygml4j.util.xml.saxevents.StartPrefixMapping;
+import org.citygml4j.util.xml.saxevents.SAXEvent.EventType;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -40,8 +40,8 @@ import org.xml.sax.helpers.LocatorImpl;
 import org.xml.sax.helpers.NamespaceSupport;
 
 public class SAXEventBuffer implements ContentHandler {
-	final NamespaceSupport namespaces;
-	final boolean trackLocation;
+	private final NamespaceSupport namespaces;
+	private final boolean trackLocation;
 
 	private LocatorImpl locator;
 	private SAXEvent head;
@@ -60,6 +60,14 @@ public class SAXEventBuffer implements ContentHandler {
 		namespaces = new NamespaceSupport();
 		locator = trackLocation ? new LocatorImpl() : null;
 		parentStartElements = new Stack<StartElement>();
+	}
+
+	public boolean isTrackLocation() {
+		return trackLocation;
+	}
+
+	public NamespaceSupport getNamespaceSupport() {
+		return namespaces;
 	}
 
 	public void setDocumentLocator(Locator locator) {

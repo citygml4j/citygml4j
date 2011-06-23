@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.citygml4j.model.gml.GML;
 
-
 public interface SRSInformationGroup extends GML {
 	public List<String> getAxisLabels();
 	public List<String> getUomLabels();

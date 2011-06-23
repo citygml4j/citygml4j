@@ -20,53 +20,47 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader.saxevents;
+package org.citygml4j.util.xml.saxevents;
 
-import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class StartElement extends SAXEvent implements Locatable {
-	private String uri;
-	private String localName;
-	private String prefix;
-	private Attributes attributes;
+public final class Characters extends SAXEvent implements Locatable {
+	private char[] ch;
 	private Location location;
-	
-	private StartElement() {
-		super(EventType.START_ELEMENT);
+
+	private Characters() {
+		super(EventType.CHARACTERS);
 	}
 
-	public StartElement(String uri, String localName, String prefix, Attributes attributes, Location location) {
+	public Characters(char[] ch, int start, int length, Location location) {
 		this();
-		this.uri = uri;
-		this.localName = localName;
-		this.attributes = attributes;
-		this.location = location;
 
-		if (prefix != null) {
-			int index = prefix.indexOf(':');
-			this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
-		} else
-			this.prefix = prefix;
+		// make a copy of the char array if necessary.
+		// we do not want to have a reference to potentially large arrays
+		if (start == 0 && length == ch.length)
+			this.ch = ch;
+		else {
+			this.ch = new char[length];
+			System.arraycopy(ch, start, this.ch, 0, length);
+		}
+
+		this.location = location;
 	}
 
 	@Override
-	public StartElement shallowCopy() {
-		StartElement startElement = new StartElement();
-		startElement.uri = uri;
-		startElement.localName = localName;
-		startElement.prefix = prefix;
-		startElement.attributes = attributes;
-		startElement.location = location;
-		
-		return startElement;
+	public Characters shallowCopy() {
+		Characters characters = new Characters();
+		characters.ch = ch;
+		characters.location = location;
+
+		return characters;
 	}
 
 	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.startElement(uri, localName, prefix != null ? prefix + ':' + localName : localName, attributes);
+		contentHandler.characters(ch, 0, ch.length);
 	}
 
 	@Override
@@ -81,20 +75,16 @@ public final class StartElement extends SAXEvent implements Locatable {
 		send(contentHandler);
 	}
 
-	public String getURI() {
-		return uri;
+	public String toString() {
+		return new String(ch);
 	}
 
-	public String getLocalName() {
-		return localName;
+	public void append(StringBuffer buffer) {
+		buffer.append(ch);
 	}
 
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
+	public char[] getCh() {
+		return ch;
 	}
 
 	public Location getLocation() {

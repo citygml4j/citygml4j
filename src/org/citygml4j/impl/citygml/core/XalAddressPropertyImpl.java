@@ -63,7 +63,7 @@ public class XalAddressPropertyImpl extends AssociationByRepImpl<AddressDetails>
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.XAL_ADDRESS_PROPERTY_TYPE;
+		return CityGMLClass.XAL_ADDRESS_PROPERTY;
 	}
 
 	public final CoreModule getCityGMLModule() {

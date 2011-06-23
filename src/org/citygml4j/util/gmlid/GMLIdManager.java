@@ -23,5 +23,10 @@
 package org.citygml4j.util.gmlid;
 
 public interface GMLIdManager {
-	public String generateGmlId();
+	public String getDefaultPrefix();
+	public String getPrefix();
+	public void setPrefix(String prefix);
+	
+	public String generateUUID();	
+	public String generateUUID(String prefix);
 }

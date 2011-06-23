@@ -37,6 +37,7 @@ import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
+import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.citygml4j.xml.validation.CityGMLValidateException;
 import org.citygml4j.xml.validation.Validator;
@@ -89,11 +90,11 @@ public class JAXBBuilder implements CityGMLBuilder {
 		return new JAXBInputFactory(this, schemaHandler);
 	}
 	
-	public CityGMLOutputFactory createCityGMLOutputFactory() throws CityGMLReadException {
+	public CityGMLOutputFactory createCityGMLOutputFactory() throws CityGMLWriteException {
 		return new JAXBOutputFactory(this);
 	}
 	
-	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext) throws CityGMLReadException {
+	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext) throws CityGMLWriteException {
 		return new JAXBOutputFactory(this, moduleContext);
 	}
 	
@@ -101,7 +102,7 @@ public class JAXBBuilder implements CityGMLBuilder {
 		return new JAXBOutputFactory(this, moduleContext, schemaHandler);
 	}
 	
-	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) throws CityGMLReadException {
+	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) throws CityGMLWriteException {
 		return new JAXBOutputFactory(this, new ModuleContext(version));
 	}
 	
