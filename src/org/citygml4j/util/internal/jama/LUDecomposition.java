@@ -44,7 +44,6 @@ public class LUDecomposition {
 
    /** LU Decomposition
    @param  A   Rectangular matrix
-   @return     Structure to access L, U and piv.
    */
 
    public LUDecomposition (Matrix A) {

@@ -347,8 +347,8 @@ public class Matrix implements Cloneable, Geometry {
 
 	/** Get a submatrix.
    @param r    Array of row indices.
-   @param i0   Initial column index
-   @param i1   Final column index
+   @param j0   Initial column index
+   @param j1   Final column index
    @return     A(r(:),j0:j1)
    @exception  ArrayIndexOutOfBoundsException Submatrix indices
 	 */

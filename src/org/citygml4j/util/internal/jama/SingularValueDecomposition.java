@@ -43,8 +43,7 @@ public class SingularValueDecomposition {
  * ------------------------ */
 
    /** Construct the singular value decomposition
-   @param A    Rectangular matrix
-   @return     Structure to access U, S and V.
+   @param Arg    Rectangular matrix
    */
 
    public SingularValueDecomposition (Matrix Arg) {
