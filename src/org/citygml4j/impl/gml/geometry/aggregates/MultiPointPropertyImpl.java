@@ -50,6 +50,11 @@ public class MultiPointPropertyImpl extends GeometryPropertyImpl<MultiPoint> imp
 		return GMLClass.MULTI_POINT_PROPERTY;
 	}
 
+	@Override
+	public Class<MultiPoint> getAssociableClass() {
+		return MultiPoint.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MultiPointPropertyImpl(), copyBuilder);
 	}

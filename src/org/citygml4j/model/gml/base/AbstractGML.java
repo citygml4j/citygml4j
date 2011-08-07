@@ -31,10 +31,14 @@ import org.citygml4j.model.gml.GML;
 
 public interface AbstractGML extends GML, StandardObjectProperties, Associable, Child, Copyable {
 	public String getId();
+	public Object getLocalProperty(String name);
 	public boolean isSetId();
+	public boolean hasLocalProperty(String name);
 	
 	public void setId(String id);
+	public void setLocalProperty(String name, Object value);
 	public void unsetId();
+	public Object unsetLocalProperty(String name);
 	
 	public void accept(GMLVisitor visitor);
 	public <T> T accept(GMLFunctor<T> visitor);

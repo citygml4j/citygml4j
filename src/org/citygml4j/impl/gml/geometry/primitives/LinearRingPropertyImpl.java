@@ -55,6 +55,10 @@ public class LinearRingPropertyImpl extends InlineGeometryPropertyImpl<LinearRin
 		super.unsetGeometry();
 	}
 
+	public Class<LinearRing> getAssociableClass() {
+		return LinearRing.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		LinearRingProperty copy = (target == null) ? new LinearRingPropertyImpl() : (LinearRingProperty)target;
 		return super.copyTo(copy, copyBuilder);

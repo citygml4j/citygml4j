@@ -22,6 +22,8 @@
  */
 package org.citygml4j.impl.gml.base;
 
+import java.util.HashMap;
+
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
@@ -40,6 +42,7 @@ public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> im
 	private String show;
 	private String title;
 	private String type;
+	private HashMap<String, Object> localProperties;
 	private ModelObject parent;
 
 	public T getObject() {
@@ -193,6 +196,31 @@ public abstract class AssociationByRepOrRefImpl<T extends Associable & Child> im
 
 	public void unsetType() {
 		type = null;
+	}
+	
+	public Object getLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.get(name);
+			
+		return null;
+	}
+
+	public void setLocalProperty(String name, Object value) {
+		if (localProperties == null)
+			localProperties = new HashMap<String, Object>();
+		
+		localProperties.put(name, value);
+	}
+
+	public boolean hasLocalProperty(String name) {
+		return localProperties != null && localProperties.containsKey(name);
+	}
+
+	public Object unsetLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.remove(name);
+		
+		return null;
 	}
 
 	public ModelType getModelType() {

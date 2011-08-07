@@ -97,6 +97,10 @@ public class FeatureArrayPropertyImpl extends ArrayAssociationImpl<AbstractFeatu
 		return GMLClass.FEATURE_ARRAY_PROPERTY;
 	}
 
+	public Class<AbstractFeature> getAssociableClass() {
+		return AbstractFeature.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new FeatureArrayPropertyImpl(), copyBuilder);
 	}

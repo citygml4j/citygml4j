@@ -50,6 +50,11 @@ public class PolygonPropertyImpl extends GeometryPropertyImpl<Polygon> implement
 		return GMLClass.POLYGON_PROPERTY;
 	}
 
+	@Override
+	public Class<Polygon> getAssociableClass() {
+		return Polygon.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new PolygonPropertyImpl(), copyBuilder);
 	}

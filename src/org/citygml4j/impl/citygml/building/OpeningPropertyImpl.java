@@ -74,6 +74,11 @@ public class OpeningPropertyImpl extends FeaturePropertyImpl<AbstractOpening> im
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractOpening> getAssociableClass() {
+		return AbstractOpening.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new OpeningPropertyImpl(), copyBuilder);
 	}

@@ -65,6 +65,10 @@ public class CurveArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractCu
 		return GMLClass.CURVE_ARRAY_PROPERTY;
 	}
 
+	public Class<AbstractCurve> getAssociableClass() {
+		return AbstractCurve.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CurveArrayPropertyImpl(), copyBuilder);
 	}

@@ -50,6 +50,11 @@ public class MultiPolygonPropertyImpl extends GeometryPropertyImpl<MultiPolygon>
 		return GMLClass.MULTI_POLYGON_PROPERTY;
 	}
 
+	@Override
+	public Class<MultiPolygon> getAssociableClass() {
+		return MultiPolygon.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MultiPolygonPropertyImpl(), copyBuilder);
 	}

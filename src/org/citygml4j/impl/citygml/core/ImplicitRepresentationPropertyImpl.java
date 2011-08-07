@@ -74,6 +74,10 @@ public class ImplicitRepresentationPropertyImpl extends AssociationByRepOrRefImp
 		return module != null;
 	}
 	
+	public Class<ImplicitGeometry> getAssociableClass() {
+		return ImplicitGeometry.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new ImplicitRepresentationPropertyImpl(), copyBuilder);
 	}

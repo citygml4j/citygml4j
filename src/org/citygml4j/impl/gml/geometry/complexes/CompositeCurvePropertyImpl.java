@@ -50,6 +50,11 @@ public class CompositeCurvePropertyImpl extends GeometryPropertyImpl<CompositeCu
 		return GMLClass.COMPOSITE_CURVE_PROPERTY;
 	}
 	
+	@Override
+	public Class<CompositeCurve> getAssociableClass() {
+		return CompositeCurve.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CompositeCurvePropertyImpl(), copyBuilder);
 	}

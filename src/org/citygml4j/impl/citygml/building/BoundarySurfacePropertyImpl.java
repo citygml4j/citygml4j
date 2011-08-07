@@ -74,6 +74,11 @@ public class BoundarySurfacePropertyImpl extends FeaturePropertyImpl<AbstractBou
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractBoundarySurface> getAssociableClass() {
+		return AbstractBoundarySurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new BoundarySurfacePropertyImpl(), copyBuilder);
 	}

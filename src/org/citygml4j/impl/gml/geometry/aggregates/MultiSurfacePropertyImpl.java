@@ -50,6 +50,11 @@ public class MultiSurfacePropertyImpl extends GeometryPropertyImpl<MultiSurface>
 		return GMLClass.MULTI_SURFACE_PROPERTY;
 	}
 
+	@Override
+	public Class<MultiSurface> getAssociableClass() {
+		return MultiSurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MultiSurfacePropertyImpl(), copyBuilder);
 	}

@@ -65,6 +65,10 @@ public class SurfaceArrayPropertyImpl extends GeometryArrayPropertyImpl<Abstract
 		return GMLClass.SURFACE_ARRAY_PROPERTY;
 	}
 
+	public Class<AbstractSurface> getAssociableClass() {
+		return AbstractSurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new SurfaceArrayPropertyImpl(), copyBuilder);
 	}

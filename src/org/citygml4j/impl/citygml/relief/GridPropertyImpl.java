@@ -74,6 +74,11 @@ public class GridPropertyImpl extends FeaturePropertyImpl<RectifiedGridCoverage>
 		return module;
 	}
 
+	@Override
+	public Class<RectifiedGridCoverage> getAssociableClass() {
+		return RectifiedGridCoverage.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		GridProperty copy = (target == null) ? new GridPropertyImpl() : (GridProperty)target;
 		return super.copyTo(copy, copyBuilder);

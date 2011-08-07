@@ -22,6 +22,7 @@
  */
 package org.citygml4j.impl.gml.base;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -39,6 +40,7 @@ public abstract class AbstractGMLImpl implements AbstractGML {
 	private StringOrRef description;
 	private List<Code> name;
 	private List<MetaDataProperty> metaDataProperty;
+	private HashMap<String, Object> localProperties;
 	private ModelObject parent;
 
 	public String getId() {
@@ -143,6 +145,31 @@ public abstract class AbstractGMLImpl implements AbstractGML {
 
 	public boolean unsetName(Code name) {
 		return isSetName() ? this.name.remove(name) : false;
+	}
+
+	public Object getLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.get(name);
+			
+		return null;
+	}
+
+	public void setLocalProperty(String name, Object value) {
+		if (localProperties == null)
+			localProperties = new HashMap<String, Object>();
+		
+		localProperties.put(name, value);
+	}
+
+	public boolean hasLocalProperty(String name) {
+		return localProperties != null && localProperties.containsKey(name);
+	}
+
+	public Object unsetLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.remove(name);
+		
+		return null;
 	}
 
 	public ModelObject getParent() {

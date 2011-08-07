@@ -65,6 +65,10 @@ public class SolidArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractSo
 		return GMLClass.SOLID_ARRAY_PROPERTY;
 	}
 
+	public Class<AbstractSolid> getAssociableClass() {
+		return AbstractSolid.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new SolidArrayPropertyImpl(), copyBuilder);
 	}

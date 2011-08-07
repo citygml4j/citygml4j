@@ -74,6 +74,11 @@ public class InteriorRoomPropertyImpl extends FeaturePropertyImpl<Room> implemen
 		return module != null;
 	}
 
+	@Override
+	public Class<Room> getAssociableClass() {
+		return Room.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new InteriorRoomPropertyImpl(), copyBuilder);
 	}

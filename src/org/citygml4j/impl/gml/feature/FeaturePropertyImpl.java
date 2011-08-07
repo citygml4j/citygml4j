@@ -75,6 +75,11 @@ public class FeaturePropertyImpl<T extends AbstractFeature> extends AssociationB
 	}
 
 	@SuppressWarnings("unchecked")
+	public Class<T> getAssociableClass() {
+		return (Class<T>)AbstractFeature.class;
+	}
+
+	@SuppressWarnings("unchecked")
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		FeatureProperty<T> copy = (target == null) ? new FeaturePropertyImpl<T>() : (FeatureProperty<T>)target;
 		super.copyTo(copy, copyBuilder);
