@@ -37,7 +37,7 @@ public class SurfaceArrayPropertyImpl extends GeometryArrayPropertyImpl<Abstract
 		super.addGeometry(abstractSurface);
 	}
 
-	public List<AbstractSurface> getSurface() {
+	public List<? extends AbstractSurface> getSurface() {
 		return super.getGeometry();
 	}
 
@@ -45,8 +45,9 @@ public class SurfaceArrayPropertyImpl extends GeometryArrayPropertyImpl<Abstract
 		return super.isSetGeometry();
 	}
 
-	public void setSurface(List<AbstractSurface> abstractSurface) {
-		super.setGeometry(abstractSurface);
+	@SuppressWarnings("unchecked")
+	public void setSurface(List<? extends AbstractSurface> abstractSurface) {
+		super.setGeometry((List<AbstractSurface>)abstractSurface);
 	}
 
 	public void unsetSurface() {

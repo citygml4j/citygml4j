@@ -20,18 +20,24 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.model.gml.geometry.primitives;
+package org.citygml4j.model.gml.geometry.aggregates;
 
 import java.util.List;
 
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface SurfaceArrayProperty extends GeometryArrayProperty<AbstractSurface> {
-	public List<? extends AbstractSurface> getSurface();
-	public boolean isSetSurface();
+public interface MultiGeometry extends AbstractGeometricAggregate {
+	public List<GeometryProperty<? extends AbstractGeometry>> getGeometryMember();
+	public GeometryArrayProperty<? extends AbstractGeometry> getGeometryMembers();
+	public boolean isSetGeometryMember();
+	public boolean isSetGeometryMembers();
 
-	public void setSurface(List<? extends AbstractSurface> abstractSurface);
-	public void addSurface(AbstractSurface abstractSurface);
-	public void unsetSurface();
-	public boolean unsetSurface(AbstractSurface abstractSurface);
+	public void setGeometryMember(List<GeometryProperty<? extends AbstractGeometry>> geometryMember);
+	public void addGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember);
+	public void setGeometryMembers(GeometryArrayProperty<? extends AbstractGeometry> geometryMembers);
+	public void unsetGeometryMember();
+	public boolean unsetGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember);
+	public void unsetGeometryMembers();
 }

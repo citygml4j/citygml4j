@@ -133,6 +133,7 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
@@ -2293,6 +2294,28 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 
 		if (multiCurve.isSetCurveMembers()) {
 			object = apply(multiCurve.getCurveMembers());
+			if (object != null)
+				return object;
+		}
+
+		return null;
+	}
+	
+	public T apply(MultiGeometry multiGeometry) {
+		T object = apply((AbstractGeometricAggregate)multiGeometry);
+		if (object != null)
+			return object;
+
+		if (multiGeometry.isSetGeometryMember()) {
+			for (GeometryProperty<? extends AbstractGeometry> geometryProperty : new ArrayList<GeometryProperty<? extends AbstractGeometry>>(multiGeometry.getGeometryMember())) {
+				object = apply(geometryProperty);
+				if (object != null)
+					return object;
+			}
+		}
+
+		if (multiGeometry.isSetGeometryMembers()) {
+			object = apply(multiGeometry.getGeometryMembers());
 			if (object != null)
 				return object;
 		}

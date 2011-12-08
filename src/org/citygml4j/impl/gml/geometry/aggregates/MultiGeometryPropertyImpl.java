@@ -20,62 +20,47 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.impl.gml.geometry.primitives;
-
-import java.util.List;
+package org.citygml4j.impl.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.impl.gml.geometry.GeometryArrayPropertyImpl;
-import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
-import org.citygml4j.model.gml.geometry.primitives.CurveArrayProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 
-public class CurveArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractCurve> implements CurveArrayProperty {
+public class MultiGeometryPropertyImpl extends GeometryPropertyImpl<MultiGeometry> implements MultiGeometryProperty {
 
-	public void addCurve(AbstractCurve abstractCurve) {
-		super.addGeometry(abstractCurve);
-	}
-
-	public List<? extends AbstractCurve> getCurve() {
+	public MultiGeometry getMultiGeometry() {
 		return super.getGeometry();
 	}
 
-	public boolean isSetCurve() {
+	public boolean isSetMultiGeometry() {
 		return super.isSetGeometry();
 	}
 
-	@SuppressWarnings("unchecked")
-	public void setCurve(List<? extends AbstractCurve> abstractCurve) {
-		super.setGeometry((List<AbstractCurve>)abstractCurve);
+	public void setMultiGeometry(MultiGeometry multiGeometry) {
+		super.setGeometry(multiGeometry);
 	}
 
-	public void unsetCurve() {
+	public void unsetMultiGeometry() {
 		super.unsetGeometry();
 	}
 
-	public boolean unsetCurve(AbstractCurve abstractCurve) {
-		return super.unsetGeometry(abstractCurve);
-	}
-
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
-	
 	public GMLClass getGMLClass() {
-		return GMLClass.CURVE_ARRAY_PROPERTY;
+		return GMLClass.MULTI_GEOMETRY_PROPERTY;
 	}
 
-	public Class<AbstractCurve> getAssociableClass() {
-		return AbstractCurve.class;
+	@Override
+	public Class<MultiGeometry> getAssociableClass() {
+		return MultiGeometry.class;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CurveArrayPropertyImpl(), copyBuilder);
+		return copyTo(new MultiGeometryPropertyImpl(), copyBuilder);
 	}
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CurveArrayProperty copy = (target == null) ? new CurveArrayPropertyImpl() : (CurveArrayProperty)target;
+		MultiGeometryProperty copy = (target == null) ? new MultiGeometryPropertyImpl() : (MultiGeometryProperty)target;
 		return super.copyTo(copy, copyBuilder);
 	}
 

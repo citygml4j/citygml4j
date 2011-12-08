@@ -77,6 +77,8 @@ import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
 import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
@@ -236,6 +238,8 @@ public enum GMLClass implements ModelClassEnum {
 	ABSTRACT_GEOMETRIC_AGGREGATE(AbstractGeometricAggregate.class),
 	MULTI_CURVE(MultiCurve.class),
 	MULTI_CURVE_PROPERTY(MultiCurveProperty.class),
+	MULTI_GEOMETRY(MultiGeometry.class),
+	MULTI_GEOMETRY_PROPERTY(MultiGeometryProperty.class),
 	MULTI_LINE_STRING(MultiLineString.class),
 	MULTI_LINE_STRING_PROPERTY(MultiLineStringProperty.class),
 	MULTI_POINT(MultiPoint.class),

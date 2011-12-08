@@ -20,18 +20,14 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.model.gml.geometry.primitives;
+package org.citygml4j.model.gml.geometry.aggregates;
 
-import java.util.List;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
-
-public interface SurfaceArrayProperty extends GeometryArrayProperty<AbstractSurface> {
-	public List<? extends AbstractSurface> getSurface();
-	public boolean isSetSurface();
-
-	public void setSurface(List<? extends AbstractSurface> abstractSurface);
-	public void addSurface(AbstractSurface abstractSurface);
-	public void unsetSurface();
-	public boolean unsetSurface(AbstractSurface abstractSurface);
+public interface MultiGeometryProperty extends GeometryProperty<MultiGeometry> {
+	public MultiGeometry getMultiGeometry();
+	public boolean isSetMultiGeometry();
+	
+	public void setMultiGeometry(MultiGeometry multiGeometry);
+	public void unsetMultiGeometry();
 }
