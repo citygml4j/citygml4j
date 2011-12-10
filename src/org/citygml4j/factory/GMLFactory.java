@@ -181,6 +181,7 @@ import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.model.gml.feature.PriorityLocationProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
@@ -900,9 +901,9 @@ public class GMLFactory {
 		return new MultiGeometryPropertyImpl();
 	}
 	
-	public MultiGeometryProperty createMultiGeometryProperty(MultiGeometry multiGeometry) {
+	public MultiGeometryProperty createMultiGeometryProperty(AbstractGeometricAggregate geometricAggregate) {
 		MultiGeometryProperty multiGeometryProperty = new MultiGeometryPropertyImpl();
-		multiGeometryProperty.setMultiGeometry(multiGeometry);
+		multiGeometryProperty.setGeometricAggregate(geometricAggregate);
 		return multiGeometryProperty;
 	}
 	

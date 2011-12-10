@@ -25,24 +25,24 @@ package org.citygml4j.impl.gml.geometry.aggregates;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 
-public class MultiGeometryPropertyImpl extends GeometryPropertyImpl<MultiGeometry> implements MultiGeometryProperty {
+public class MultiGeometryPropertyImpl extends GeometryPropertyImpl<AbstractGeometricAggregate> implements MultiGeometryProperty {
 
-	public MultiGeometry getMultiGeometry() {
+	public AbstractGeometricAggregate getGeometricAggregate() {
 		return super.getGeometry();
 	}
 
-	public boolean isSetMultiGeometry() {
+	public boolean isSetGeometricAggregate() {
 		return super.isSetGeometry();
 	}
 
-	public void setMultiGeometry(MultiGeometry multiGeometry) {
-		super.setGeometry(multiGeometry);
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate) {
+		super.setGeometry(geometricAggregate);
 	}
 
-	public void unsetMultiGeometry() {
+	public void unsetGeometricAggregate() {
 		super.unsetGeometry();
 	}
 
@@ -51,8 +51,8 @@ public class MultiGeometryPropertyImpl extends GeometryPropertyImpl<MultiGeometr
 	}
 
 	@Override
-	public Class<MultiGeometry> getAssociableClass() {
-		return MultiGeometry.class;
+	public Class<AbstractGeometricAggregate> getAssociableClass() {
+		return AbstractGeometricAggregate.class;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

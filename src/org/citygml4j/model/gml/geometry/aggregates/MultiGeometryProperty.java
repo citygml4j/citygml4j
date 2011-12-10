@@ -24,10 +24,10 @@ package org.citygml4j.model.gml.geometry.aggregates;
 
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiGeometryProperty extends GeometryProperty<MultiGeometry> {
-	public MultiGeometry getMultiGeometry();
-	public boolean isSetMultiGeometry();
+public interface MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
+	public AbstractGeometricAggregate getGeometricAggregate();
+	public boolean isSetGeometricAggregate();
 	
-	public void setMultiGeometry(MultiGeometry multiGeometry);
-	public void unsetMultiGeometry();
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate);
+	public void unsetGeometricAggregate();
 }

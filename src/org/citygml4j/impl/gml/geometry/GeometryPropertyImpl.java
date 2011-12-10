@@ -59,6 +59,7 @@ public class GeometryPropertyImpl<T extends AbstractGeometry> extends Associatio
 		return copyTo(new GeometryPropertyImpl<T>(), copyBuilder);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		GeometryProperty<T> copy = (target == null) ? new GeometryPropertyImpl<T>() : (GeometryProperty<T>)target;
