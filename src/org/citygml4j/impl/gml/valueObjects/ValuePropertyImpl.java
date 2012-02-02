@@ -50,6 +50,10 @@ public class ValuePropertyImpl extends AssociationByRepOrRefImpl<Value> implemen
 		return GMLClass.VALUE_PROPERTY;
 	}
 
+	public Class<Value> getAssociableClass() {
+		return Value.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		ValueProperty copy = (target == null) ? new ValuePropertyImpl() : (ValueProperty)target;
 		return super.copyTo(copy, copyBuilder);

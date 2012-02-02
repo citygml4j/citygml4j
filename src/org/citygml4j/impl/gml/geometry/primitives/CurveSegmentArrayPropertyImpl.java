@@ -61,6 +61,10 @@ public class CurveSegmentArrayPropertyImpl extends ArrayAssociationImpl<Abstract
 		return GMLClass.CURVE_SEGMENT_ARRAY_PROPERTY;
 	}
 
+	public Class<AbstractCurveSegment> getAssociableClass() {
+		return AbstractCurveSegment.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CurveSegmentArrayPropertyImpl(), copyBuilder);
 	}

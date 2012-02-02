@@ -74,6 +74,11 @@ public class AddressPropertyImpl extends FeaturePropertyImpl<Address> implements
 		return module != null;
 	}
 
+	@Override
+	public Class<Address> getAssociableClass() {
+		return Address.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new AddressPropertyImpl(), copyBuilder);
 	}

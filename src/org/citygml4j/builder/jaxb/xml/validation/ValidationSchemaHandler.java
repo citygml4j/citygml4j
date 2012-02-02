@@ -44,7 +44,8 @@ public class ValidationSchemaHandler {
 	}
 	
 	public Schema getSchema() throws SAXException {
-		if (!size.compareAndSet(schemaHandler.size(), schemaHandler.size()))
+		int currentSize = size.get();
+		if (currentSize != schemaHandler.size() && size.compareAndSet(currentSize, schemaHandler.size()))
 			schema = schemaFactory.newSchema(schemaHandler.getSchemaSources());
 		
 		return schema;

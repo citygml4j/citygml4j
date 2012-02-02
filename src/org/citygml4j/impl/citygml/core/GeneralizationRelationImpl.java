@@ -74,6 +74,11 @@ public class GeneralizationRelationImpl extends FeaturePropertyImpl<AbstractCity
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractCityObject> getAssociableClass() {
+		return AbstractCityObject.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new GeneralizationRelationImpl(), copyBuilder);
 	}

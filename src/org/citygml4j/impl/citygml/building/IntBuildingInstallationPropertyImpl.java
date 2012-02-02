@@ -74,6 +74,11 @@ public class IntBuildingInstallationPropertyImpl extends FeaturePropertyImpl<Int
 		return module != null;
 	}
 
+	@Override
+	public Class<IntBuildingInstallation> getAssociableClass() {
+		return IntBuildingInstallation.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new IntBuildingInstallationPropertyImpl(), copyBuilder);
 	}

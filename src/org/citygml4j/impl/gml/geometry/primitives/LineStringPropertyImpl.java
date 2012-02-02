@@ -50,6 +50,11 @@ public class LineStringPropertyImpl extends GeometryPropertyImpl<LineString> imp
 		super.unsetGeometry();
 	}
 
+	@Override
+	public Class<LineString> getAssociableClass() {
+		return LineString.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		LineStringProperty copy = (target == null) ? new LineStringPropertyImpl() : (LineStringProperty)target;
 		return super.copyTo(copy, copyBuilder);

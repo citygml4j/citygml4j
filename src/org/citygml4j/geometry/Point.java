@@ -76,18 +76,32 @@ public class Point implements Geometry {
 		return (this.x == x && this.y == y && this.z == z);
 	}
 
+	public void transform3D(Matrix m) {
+		if (m != null) {
+			if (m.getColumnDimension() != 4 || m.getRowDimension() != 4)
+				throw new IllegalArgumentException("A 3D transformation requires a 4x4 matrix.");
+
+			Matrix v = new Matrix(new double[]{x, y, z, 1}, 4);
+			v = m.times(v);
+
+			x = v.get(0, 0);
+			y = v.get(1, 0);
+			z = v.get(2, 0);
+		}
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new Point(), copyBuilder);
 	}
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		Point copy = (target == null) ? new Point() : (Point)target;
-		
+
 		copy.setX(copyBuilder.copy(x));		
 		copy.setY(copyBuilder.copy(y));		
 		copy.setZ(copyBuilder.copy(z));
-		
+
 		return copy;
 	}
-	
+
 }

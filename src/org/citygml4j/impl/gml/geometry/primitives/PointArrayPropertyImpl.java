@@ -65,6 +65,10 @@ public class PointArrayPropertyImpl extends GeometryArrayPropertyImpl<Point> imp
 		return GMLClass.POINT_ARRAY_PROPERTY;
 	}
 
+	public Class<Point> getAssociableClass() {
+		return Point.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new PointArrayPropertyImpl(), copyBuilder);
 	}

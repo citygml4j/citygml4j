@@ -50,6 +50,11 @@ public class MultiSolidPropertyImpl extends GeometryPropertyImpl<MultiSolid> imp
 		return GMLClass.MULTI_SOLID_PROPERTY;
 	}
 
+	@Override
+	public Class<MultiSolid> getAssociableClass() {
+		return MultiSolid.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MultiSolidPropertyImpl(), copyBuilder);
 	}

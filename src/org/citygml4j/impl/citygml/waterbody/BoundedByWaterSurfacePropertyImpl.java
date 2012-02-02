@@ -74,6 +74,11 @@ public class BoundedByWaterSurfacePropertyImpl extends FeaturePropertyImpl<Abstr
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractWaterBoundarySurface> getAssociableClass() {
+		return AbstractWaterBoundarySurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new BoundedByWaterSurfacePropertyImpl(), copyBuilder);
 	}

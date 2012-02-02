@@ -74,6 +74,10 @@ public class XalAddressPropertyImpl extends AssociationByRepImpl<AddressDetails>
 		return module != null;
 	}
 
+	public Class<AddressDetails> getAssociableClass() {
+		return AddressDetails.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new XalAddressPropertyImpl(), copyBuilder);
 	}

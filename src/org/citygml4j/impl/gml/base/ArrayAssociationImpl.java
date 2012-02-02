@@ -22,6 +22,7 @@
  */
 package org.citygml4j.impl.gml.base;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -35,6 +36,7 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public abstract class ArrayAssociationImpl<T extends Associable & Child> implements ArrayAssociation<T> {
 	private List<T> object;
+	private HashMap<String, Object> localProperties;
 	private ModelObject parent;
 	
 	public void addObject(T object) {
@@ -76,6 +78,31 @@ public abstract class ArrayAssociationImpl<T extends Associable & Child> impleme
 
 	public GMLClass getGMLClass() {
 		return GMLClass.ARRAY_ASSOCIATION;
+	}
+	
+	public Object getLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.get(name);
+			
+		return null;
+	}
+
+	public void setLocalProperty(String name, Object value) {
+		if (localProperties == null)
+			localProperties = new HashMap<String, Object>();
+		
+		localProperties.put(name, value);
+	}
+
+	public boolean hasLocalProperty(String name) {
+		return localProperties != null && localProperties.containsKey(name);
+	}
+
+	public Object unsetLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.remove(name);
+		
+		return null;
 	}
 
 	public ModelObject getParent() {

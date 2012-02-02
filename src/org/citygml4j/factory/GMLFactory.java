@@ -62,6 +62,8 @@ import org.citygml4j.impl.gml.feature.PriorityLocationPropertyImpl;
 import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiCurveImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiCurvePropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryPropertyImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringPropertyImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiPointImpl;
@@ -179,8 +181,11 @@ import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.model.gml.feature.PriorityLocationProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
@@ -325,7 +330,7 @@ public class GMLFactory {
 		return new CompositeCurveImpl();
 	}
 	
-	public CompositeCurve createCompositeCurve(List<AbstractCurve> abstractCurves) {
+	public CompositeCurve createCompositeCurve(List<? extends AbstractCurve> abstractCurves) {
 		CompositeCurve compositeCurve = new CompositeCurveImpl();
 		for (AbstractCurve abstractCurve : abstractCurves)
 			compositeCurve.addCurveMember(createCurveProperty(abstractCurve));
@@ -357,7 +362,7 @@ public class GMLFactory {
 		return new CompositeSolidImpl();
 	}
 	
-	public CompositeSolid createCompositeSolid(List<AbstractSolid> abstractSolids) {
+	public CompositeSolid createCompositeSolid(List<? extends AbstractSolid> abstractSolids) {
 		CompositeSolid compositeSolid = new CompositeSolidImpl();
 		for (AbstractSolid abstractSolid : abstractSolids)
 			compositeSolid.addSolidMember(createSolidProperty(abstractSolid));
@@ -389,7 +394,7 @@ public class GMLFactory {
 		return new CompositeSurfaceImpl();
 	}
 	
-	public CompositeSurface createCompositeSurface(List<AbstractSurface> abstractSurfaces) {
+	public CompositeSurface createCompositeSurface(List<? extends AbstractSurface> abstractSurfaces) {
 		CompositeSurface compositeSurface = new CompositeSurfaceImpl();
 		for (AbstractSurface abstractSurface : abstractSurfaces)
 			compositeSurface.addSurfaceMember(createSurfaceProperty(abstractSurface));
@@ -465,7 +470,7 @@ public class GMLFactory {
 		return new CurveArrayPropertyImpl();
 	}
 	
-	public CurveArrayProperty createCurveArrayProperty(List<AbstractCurve> abstractCurve) {
+	public CurveArrayProperty createCurveArrayProperty(List<? extends AbstractCurve> abstractCurve) {
 		CurveArrayProperty curveArrayProperty = new CurveArrayPropertyImpl();
 		curveArrayProperty.setCurve(abstractCurve);
 		return curveArrayProperty;
@@ -499,7 +504,7 @@ public class GMLFactory {
 		return new CurveSegmentArrayPropertyImpl();
 	}
 	
-	public CurveSegmentArrayProperty createCurveSegmentArrayProperty(List<AbstractCurveSegment> curveSegment) {
+	public CurveSegmentArrayProperty createCurveSegmentArrayProperty(List<? extends AbstractCurveSegment> curveSegment) {
 		CurveSegmentArrayProperty curveSegmentArrayProperty = new CurveSegmentArrayPropertyImpl();
 		curveSegmentArrayProperty.setCurveSegment(curveSegment);
 		return curveSegmentArrayProperty;
@@ -566,7 +571,7 @@ public class GMLFactory {
 		return new FeatureArrayPropertyImpl();
 	}
 	
-	public FeatureArrayProperty createFeatureArrayProperty(List<AbstractFeature> feature) {
+	public FeatureArrayProperty createFeatureArrayProperty(List<? extends AbstractFeature> feature) {
 		FeatureArrayProperty featureArrayProperty = new FeatureArrayPropertyImpl();
 		featureArrayProperty.setFeature(feature);
 		return featureArrayProperty;
@@ -620,7 +625,7 @@ public class GMLFactory {
 		return new GeometricComplexImpl();
 	}
 	
-	public GeometricComplex createGeometricComplex(List<AbstractGeometricPrimitive> abstractGeometricPrimitives) {
+	public GeometricComplex createGeometricComplex(List<? extends AbstractGeometricPrimitive> abstractGeometricPrimitives) {
 		GeometricComplex geometricComplex = new GeometricComplexImpl();
 		for (AbstractGeometricPrimitive abstractGeometricPrimitive : abstractGeometricPrimitives)
 			geometricComplex.addElement(createGeometricPrimitiveProperty(abstractGeometricPrimitive));
@@ -848,7 +853,7 @@ public class GMLFactory {
 		return new MultiCurveImpl();
 	}
 	
-	public MultiCurve createMultiCurve(List<AbstractCurve> abstractCurves) {
+	public MultiCurve createMultiCurve(List<? extends AbstractCurve> abstractCurves) {
 		MultiCurve multiCurve = new MultiCurveImpl();
 		for (AbstractCurve abstractCurve : abstractCurves)
 			multiCurve.addCurveMember(createCurveProperty(abstractCurve));
@@ -874,6 +879,38 @@ public class GMLFactory {
 		MultiCurveProperty multiCurveProperty = new MultiCurvePropertyImpl();
 		multiCurveProperty.setHref(xlink);
 		return multiCurveProperty;
+	}
+	
+	public MultiGeometry createMultiGeometry() {
+		return new MultiGeometryImpl();
+	}
+	
+	public MultiGeometry createMultiGeometry(List<? extends AbstractGeometry> abstractGeometrys) {
+		MultiGeometry multiGeometry = new MultiGeometryImpl();
+		for (AbstractGeometry abstractGeometry : abstractGeometrys)
+			multiGeometry.addGeometryMember(createGeometryProperty(abstractGeometry));
+		
+		return multiGeometry;
+	}
+	
+	public MultiGeometry createMultiGeometry(AbstractGeometry... abstractGeometrys) {
+		return createMultiGeometry(Arrays.asList(abstractGeometrys));
+	}
+	
+	public MultiGeometryProperty createMultiGeometryProperty() {
+		return new MultiGeometryPropertyImpl();
+	}
+	
+	public MultiGeometryProperty createMultiGeometryProperty(AbstractGeometricAggregate geometricAggregate) {
+		MultiGeometryProperty multiGeometryProperty = new MultiGeometryPropertyImpl();
+		multiGeometryProperty.setGeometricAggregate(geometricAggregate);
+		return multiGeometryProperty;
+	}
+	
+	public MultiGeometryProperty createMultiGeometryProperty(String xlink) {
+		MultiGeometryProperty multiGeometryProperty = new MultiGeometryPropertyImpl();
+		multiGeometryProperty.setHref(xlink);
+		return multiGeometryProperty;
 	}
 	
 	public MultiLineString createMultiLineString() {
@@ -976,7 +1013,7 @@ public class GMLFactory {
 		return new MultiSolidImpl();
 	}
 	
-	public MultiSolid createMultiSolid(List<AbstractSolid> abstractSolids) {
+	public MultiSolid createMultiSolid(List<? extends AbstractSolid> abstractSolids) {
 		MultiSolid multiSolid = new MultiSolidImpl();
 		for (AbstractSolid abstractSolid : abstractSolids)
 			multiSolid.addSolidMember(createSolidProperty(abstractSolid));
@@ -1008,7 +1045,7 @@ public class GMLFactory {
 		return new MultiSurfaceImpl();
 	}
 	
-	public MultiSurface createMultiSurface(List<AbstractSurface> abstractSurfaces) {
+	public MultiSurface createMultiSurface(List<? extends AbstractSurface> abstractSurfaces) {
 		MultiSurface multiSurface = new MultiSurfaceImpl();
 		for (AbstractSurface abstractSurface : abstractSurfaces)
 			multiSurface.addSurfaceMember(createSurfaceProperty(abstractSurface));
@@ -1322,7 +1359,7 @@ public class GMLFactory {
 		return new SolidArrayPropertyImpl();
 	}
 	
-	public SolidArrayProperty createSolidArrayProperty(List<AbstractSolid> abstractSolid) {
+	public SolidArrayProperty createSolidArrayProperty(List<? extends AbstractSolid> abstractSolid) {
 		SolidArrayProperty solidArrayProperty = new SolidArrayPropertyImpl();
 		solidArrayProperty.setSolid(abstractSolid);
 		return solidArrayProperty;
@@ -1364,7 +1401,7 @@ public class GMLFactory {
 		return new SurfaceArrayPropertyImpl();
 	}
 	
-	public SurfaceArrayProperty createSurfaceArrayProperty(List<AbstractSurface> abstractSurface) {
+	public SurfaceArrayProperty createSurfaceArrayProperty(List<? extends AbstractSurface> abstractSurface) {
 		SurfaceArrayProperty surfaceArrayProperty = new SurfaceArrayPropertyImpl();
 		surfaceArrayProperty.setSurface(abstractSurface);
 		return surfaceArrayProperty;
@@ -1382,7 +1419,7 @@ public class GMLFactory {
 		return new SurfacePatchArrayPropertyImpl();
 	}
 	
-	public SurfacePatchArrayProperty createSurfacePatchArrayProperty(List<AbstractSurfacePatch> surfacePatch) {
+	public SurfacePatchArrayProperty createSurfacePatchArrayProperty(List<? extends AbstractSurfacePatch> surfacePatch) {
 		SurfacePatchArrayProperty surfacePatchArrayProperty = new SurfacePatchArrayPropertyImpl();
 		surfacePatchArrayProperty.setSurfacePatch(surfacePatch);
 		return surfacePatchArrayProperty;

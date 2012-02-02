@@ -77,10 +77,13 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.model.gml.feature.PriorityLocationProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
@@ -361,6 +364,8 @@ public class GMLMarshaller {
 			dest = gml.createValueComponent((ValuePropertyType)src);
 		else if (src instanceof VectorType)
 			dest = gml.createVector((VectorType)src);
+		else if (src instanceof GeometryArrayPropertyType)
+			dest = gml.createGeometryMembers((GeometryArrayPropertyType)src);
 
 		return dest;
 	}
@@ -563,8 +568,14 @@ public class GMLMarshaller {
 				dest = marshalValueProperty((ValueProperty)src);
 			else if (src instanceof Vector)
 				dest = marshalVector((Vector)src);
+			else if (src instanceof MultiGeometry)
+				dest = marshalMultiGeometry((MultiGeometry)src);
+			else if (src instanceof MultiGeometryProperty)
+				dest = marshalMultiGeometryProperty((MultiGeometryProperty)src);
 			else if (src instanceof GeometryProperty)
 				dest = marshalGeometryProperty((GeometryProperty<?>)src);
+			else if (src instanceof GeometryArrayProperty)
+				dest = marshalGeometryArrayProperty((GeometryArrayProperty<?>)src);
 		}
 
 		return dest;
@@ -1732,6 +1743,21 @@ public class GMLMarshaller {
 
 		return dest;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public GeometryArrayPropertyType marshalGeometryArrayProperty(GeometryArrayProperty<? extends AbstractGeometry> src) {
+		GeometryArrayPropertyType dest = gml.createGeometryArrayPropertyType();
+
+		if (src.isSetGeometry()) {
+			for (AbstractGeometry geometry : src.getGeometry()) {
+				JAXBElement<?> elem = jaxb.marshalJAXBElement(geometry);
+				if (elem != null && elem.getValue() instanceof AbstractGeometryType)
+					dest.get_Geometry().add((JAXBElement<? extends AbstractGeometryType>)elem);
+			}
+		}
+
+		return dest;
+	}
 
 	@SuppressWarnings("unchecked")
 	public GeometryPropertyType marshalGeometryProperty(GeometryProperty<? extends AbstractGeometry> src) {
@@ -2065,6 +2091,58 @@ public class GMLMarshaller {
 
 		if (src.isSetMultiCurve())
 			dest.setMultiCurve(marshalMultiCurve(src.getMultiCurve()));
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
+		return dest;
+	}
+	
+	public MultiGeometryType marshalMultiGeometry(MultiGeometry src) {
+		MultiGeometryType dest = gml.createMultiGeometryType();
+		marshalAbstractGeometricAggregate(src, dest);
+
+		if (src.isSetGeometryMember()) {
+			for (GeometryProperty<? extends AbstractGeometry> member : src.getGeometryMember())
+				dest.getGeometryMember().add(marshalGeometryProperty(member));
+		}
+
+		if (src.isSetGeometryMembers())
+			dest.setGeometryMembers(marshalGeometryArrayProperty(src.getGeometryMembers()));
+
+		return dest;
+	}
+
+	@SuppressWarnings("unchecked")
+	public MultiGeometryPropertyType marshalMultiGeometryProperty(MultiGeometryProperty src) {
+		MultiGeometryPropertyType dest = gml.createMultiGeometryPropertyType();
+
+		if (src.isSetGeometricAggregate()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getGeometricAggregate());
+			if (elem != null && elem.getValue() instanceof AbstractGeometricAggregateType)
+				dest.set_GeometricAggregate((JAXBElement<AbstractGeometricAggregateType>)elem);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());

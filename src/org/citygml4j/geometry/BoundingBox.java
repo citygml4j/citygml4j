@@ -70,7 +70,7 @@ public class BoundingBox implements Geometry {
 		upperCorner.setY(y);
 		upperCorner.setZ(z);
 	}
-	
+
 	public void updateLowerCorner(double x, double y, double z) {
 		if (x < lowerCorner.getX())
 			lowerCorner.setX(x);
@@ -105,16 +105,24 @@ public class BoundingBox implements Geometry {
 		updateLowerCorner(x, y, z);
 		updateUpperCorner(x, y, z);
 	}
-	
+
 	public void update(Point point) {
 		update(point.getX(), point.getY(), point.getZ());
 	}
-	
+
 	public void update(BoundingBox boundingBox) {
 		if (boundingBox != null) {
 			updateLowerCorner(boundingBox.getLowerCorner());
 			updateUpperCorner(boundingBox.getUpperCorner());
 		}
+	}
+
+	public void transform3D(Matrix m) {
+		if (!lowerCorner.isEqual(Double.MAX_VALUE))
+			lowerCorner.transform3D(m);
+
+		if (!upperCorner.isEqual(-Double.MAX_VALUE))
+			upperCorner.transform3D(m);
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
@@ -123,10 +131,10 @@ public class BoundingBox implements Geometry {
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		BoundingBox copy = (target == null) ? new BoundingBox() : (BoundingBox)target;
-		
+
 		copy.setLowerCorner((Point)copyBuilder.copy(lowerCorner));
 		copy.setUpperCorner((Point)copyBuilder.copy(upperCorner));
-		
+
 		return copy;
 	}
 

@@ -20,47 +20,47 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.impl.gml.geometry.primitives;
+package org.citygml4j.impl.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
-import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 
-public class GeometricPrimitivePropertyImpl extends GeometryPropertyImpl<AbstractGeometricPrimitive> implements GeometricPrimitiveProperty {
+public class MultiGeometryPropertyImpl extends GeometryPropertyImpl<AbstractGeometricAggregate> implements MultiGeometryProperty {
 
-	public AbstractGeometricPrimitive getGeometricPrimitive() {
+	public AbstractGeometricAggregate getGeometricAggregate() {
 		return super.getGeometry();
 	}
 
-	public boolean isSetGeometricPrimitive() {
+	public boolean isSetGeometricAggregate() {
 		return super.isSetGeometry();
 	}
 
-	public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive) {
-		super.setGeometry(abstractGeometricPrimitive);
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate) {
+		super.setGeometry(geometricAggregate);
 	}
 
-	public void unsetGeometricPrimitive() {
+	public void unsetGeometricAggregate() {
 		super.unsetGeometry();
 	}
 
 	public GMLClass getGMLClass() {
-		return GMLClass.GEOMETRIC_PRIMITIVE_PROPERTY;
+		return GMLClass.MULTI_GEOMETRY_PROPERTY;
 	}
 
 	@Override
-	public Class<AbstractGeometricPrimitive> getAssociableClass() {
-		return AbstractGeometricPrimitive.class;
+	public Class<AbstractGeometricAggregate> getAssociableClass() {
+		return AbstractGeometricAggregate.class;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeometricPrimitivePropertyImpl(), copyBuilder);
+		return copyTo(new MultiGeometryPropertyImpl(), copyBuilder);
 	}
 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeometricPrimitiveProperty copy = (target == null) ? new GeometricPrimitivePropertyImpl() : (GeometricPrimitiveProperty)target;
+		MultiGeometryProperty copy = (target == null) ? new MultiGeometryPropertyImpl() : (MultiGeometryProperty)target;
 		return super.copyTo(copy, copyBuilder);
 	}
 

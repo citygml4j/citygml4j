@@ -543,19 +543,8 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 				break;
 			}
 
-			if (implicitRepresentation != null && 
-					implicitRepresentation.isSetImplicitGeometry() &&
-					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-				geometryProperty = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
-
-				if (geometryProperty != null) {
-					if (geometryProperty.isSetGeometry()) {
-						calcBoundedBy(boundedBy, geometryProperty.getGeometry());
-					} else {
-						// xlink
-					}
-				}
-			}
+			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 
 		if (boundedBy.isSetEnvelope()) {

@@ -78,8 +78,6 @@ public class ChildInfo {
 				child = (Child)parent;
 			else 
 				break;
-
-			child = (Child)parent;
 		}
 
 		return null;
@@ -163,7 +161,7 @@ public class ChildInfo {
 		while ((parent = child.getParent()) != null) {
 			if (parent instanceof AbstractGeometry)
 				return (AbstractGeometry)parent;
-			else if (parent instanceof Child)
+			else if (!(parent instanceof AbstractFeature) && (parent instanceof Child))
 				child = (Child)parent;
 			else 
 				break;

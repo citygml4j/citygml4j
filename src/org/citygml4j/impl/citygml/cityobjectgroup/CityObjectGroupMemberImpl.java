@@ -91,6 +91,11 @@ public class CityObjectGroupMemberImpl extends FeaturePropertyImpl<AbstractCityO
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractCityObject> getAssociableClass() {
+		return AbstractCityObject.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CityObjectGroupMemberImpl(), copyBuilder);
 	}
