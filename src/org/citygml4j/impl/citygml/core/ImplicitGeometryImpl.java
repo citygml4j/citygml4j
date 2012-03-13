@@ -161,7 +161,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 					if (transformationMatrix != null && 
 							referencePoint != null &&
 							referencePoint.isSetPoint()) {
-						Matrix m = transformationMatrix.getMatrix();
+						Matrix m = transformationMatrix.getMatrix().copy();
 						List<Double> point = referencePoint.getPoint().toList3d();								
 						m.set(0, 3, m.get(0, 3) + point.get(0));
 						m.set(1, 3, m.get(1, 3) + point.get(1));
