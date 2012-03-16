@@ -44,6 +44,7 @@ import org.citygml4j.impl.citygml.appearance.TextureAssociationImpl;
 import org.citygml4j.impl.citygml.appearance.TextureCoordinatesImpl;
 import org.citygml4j.impl.citygml.appearance.WorldToTextureImpl;
 import org.citygml4j.impl.citygml.appearance.X3DMaterialImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.app._1.AbstractSurfaceDataType;
 import org.citygml4j.jaxb.citygml.app._1.AbstractTextureParameterizationType;
 import org.citygml4j.jaxb.citygml.app._1.AbstractTextureType;
@@ -148,7 +149,7 @@ public class Appearance100Unmarshaller {
 			dest.setImageURI(src.getImageURI());
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType());
+			dest.setMimeType(new CodeImpl(src.getMimeType()));
 
 		if (src.isSetTextureType())
 			dest.setTextureType(unmarshalTextureType(src.getTextureType()));

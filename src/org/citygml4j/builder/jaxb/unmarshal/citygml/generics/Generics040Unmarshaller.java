@@ -32,6 +32,7 @@ import org.citygml4j.impl.citygml.generics.GenericCityObjectImpl;
 import org.citygml4j.impl.citygml.generics.IntAttributeImpl;
 import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
 import org.citygml4j.impl.citygml.generics.UriAttributeImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.DateAttributeType;
 import org.citygml4j.jaxb.citygml._0_4.DoubleAttributeType;
 import org.citygml4j.jaxb.citygml._0_4.GenericCityObjectType;
@@ -95,13 +96,17 @@ public class Generics040Unmarshaller {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new CodeImpl(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new CodeImpl(usage));
+		}
 
 		if (src.isSetLod0Geometry())
 			dest.setLod0Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod0Geometry()));

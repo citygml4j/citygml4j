@@ -25,14 +25,12 @@ package org.citygml4j.model.citygml.waterbody;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 
-public interface WaterBody extends AbstractWaterObject {
-	public String getClazz();
-	public List<String> getFunction();
-	public List<String> getUsage();
+public interface WaterBody extends AbstractWaterObject, StandardObjectClassifier {
 	public MultiCurveProperty getLod0MultiCurve();
 	public MultiCurveProperty getLod1MultiCurve();
 	public MultiSurfaceProperty getLod0MultiSurface();
@@ -43,9 +41,6 @@ public interface WaterBody extends AbstractWaterObject {
 	public SolidProperty getLod4Solid();
 	public List<BoundedByWaterSurfaceProperty> getBoundedBySurface();
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBody();
-	public boolean isSetClazz();
-	public boolean isSetFunction();
-	public boolean isSetUsage();
 	public boolean isSetLod0MultiCurve();
 	public boolean isSetLod1MultiCurve();
 	public boolean isSetLod0MultiSurface();
@@ -57,11 +52,6 @@ public interface WaterBody extends AbstractWaterObject {
 	public boolean isSetBoundedBySurface();
 	public boolean isSetGenericApplicationPropertyOfWaterBody();
 	
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
-	public void setUsage(List<String> usage);
-	public void addUsage(String usage);
 	public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve);
 	public void setLod1MultiCurve(MultiCurveProperty lod1MultiCurve);
 	public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface);
@@ -74,11 +64,6 @@ public interface WaterBody extends AbstractWaterObject {
 	public void addBoundedBySurface(BoundedByWaterSurfaceProperty boundedBySurface);	
 	public void addGenericApplicationPropertyOfWaterBody(ADEComponent ade);
 	public void setGenericApplicationPropertyOfWaterBody(List<ADEComponent> ade);
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
-	public void unsetUsage();
-	public boolean unsetUsage(String usage);
 	public void unsetLod0MultiCurve();
 	public void unsetLod1MultiCurve();
 	public void unsetLod0MultiSurface();

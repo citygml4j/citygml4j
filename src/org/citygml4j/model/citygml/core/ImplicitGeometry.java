@@ -24,12 +24,13 @@ package org.citygml4j.model.citygml.core;
 
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 
 public interface ImplicitGeometry extends CoreModuleComponent, AbstractGML {
-	public String getMimeType();
+	public Code getMimeType();
 	public TransformationMatrix4x4 getTransformationMatrix();
 	public String getLibraryObject();
 	public GeometryProperty<? extends AbstractGeometry> getRelativeGMLGeometry();
@@ -41,7 +42,7 @@ public interface ImplicitGeometry extends CoreModuleComponent, AbstractGML {
 	public boolean isSetReferencePoint();
 	public BoundingBox calcBoundingBox();
 	
-	public void setMimeType(String mimeType);
+	public void setMimeType(Code mimeType);
 	public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix);
 	public void setLibraryObject(String libraryObject);
 	public void setRelativeGeometry(GeometryProperty<? extends AbstractGeometry> relativeGeometry);

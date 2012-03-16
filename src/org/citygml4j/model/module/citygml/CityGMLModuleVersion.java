@@ -25,6 +25,7 @@ package org.citygml4j.model.module.citygml;
 import org.citygml4j.model.module.ModuleVersion;
 
 public enum CityGMLModuleVersion implements ModuleVersion {
+	v2_0_0("2.0.0"),
 	v1_0_0("1.0.0"),
 	v0_4_0("0.4.0");
 	

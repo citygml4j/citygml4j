@@ -27,13 +27,12 @@ import java.util.List;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 
-public interface CityFurniture extends CityFurnitureModuleComponent, AbstractCityObject {
-	public String getClazz();
-	public List<String> getFunction();
+public interface CityFurniture extends CityFurnitureModuleComponent, AbstractCityObject, StandardObjectClassifier {
 	public GeometryProperty<? extends AbstractGeometry> getLod1Geometry();
 	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry();
 	public GeometryProperty<? extends AbstractGeometry> getLod3Geometry();
@@ -47,8 +46,6 @@ public interface CityFurniture extends CityFurnitureModuleComponent, AbstractCit
 	public ImplicitRepresentationProperty getLod3ImplicitRepresentation();
 	public ImplicitRepresentationProperty getLod4ImplicitRepresentation();
 	public List<ADEComponent> getGenericApplicationPropertyOfCityFurniture();
-	public boolean isSetClazz();
-	public boolean isSetFunction();
 	public boolean isSetLod1Geometry();
 	public boolean isSetLod2Geometry();
 	public boolean isSetLod3Geometry();
@@ -63,9 +60,6 @@ public interface CityFurniture extends CityFurnitureModuleComponent, AbstractCit
 	public boolean isSetLod4ImplicitRepresentation();
 	public boolean isSetGenericApplicationPropertyOfCityFurniture();
 	
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
 	public void setLod1Geometry(GeometryProperty<? extends AbstractGeometry> lod1Geometry);
 	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry);
 	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry);
@@ -80,9 +74,6 @@ public interface CityFurniture extends CityFurnitureModuleComponent, AbstractCit
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);	
 	public void addGenericApplicationPropertyOfCityFurniture(ADEComponent ade);
 	public void setGenericApplicationPropertyOfCityFurniture(List<ADEComponent> ade);
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
 	public void unsetLod1Geometry();
 	public void unsetLod2Geometry();
 	public void unsetLod3Geometry();

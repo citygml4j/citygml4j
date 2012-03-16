@@ -88,6 +88,7 @@ import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class Building040Marshaller {
 	private final ObjectFactory bldg;
@@ -196,13 +197,17 @@ public class Building040Marshaller {
 		citygml.getCore040Marshaller().marshalSite(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetYearOfConstruction()) {
 			try {
@@ -406,13 +411,17 @@ public class Building040Marshaller {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
@@ -438,13 +447,17 @@ public class Building040Marshaller {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetLod2Geometry())
 			dest.setLod2Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry()));
@@ -607,13 +620,17 @@ public class Building040Marshaller {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
@@ -722,13 +739,17 @@ public class Building040Marshaller {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 		
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLMarshaller().marshalSolidProperty(src.getLod4Solid()));

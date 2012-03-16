@@ -23,8 +23,10 @@
 package org.citygml4j.builder.jaxb.marshal.citygml.generics;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -44,12 +46,15 @@ import org.citygml4j.jaxb.citygml._0_4._GenericAttributeType;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
 import org.citygml4j.model.citygml.generics.IntAttribute;
+import org.citygml4j.model.citygml.generics.MeasureAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class Generics040Marshaller {
 	private final ObjectFactory gen;
@@ -100,6 +105,8 @@ public class Generics040Marshaller {
 			dest = marshalStringAttribute((StringAttribute)src);
 		else if (src instanceof UriAttribute)
 			dest = marshalUriAttribute((UriAttribute)src);
+		else if (src instanceof MeasureAttribute)
+			dest = marshalMeasureAttribute((MeasureAttribute)src);
 		
 		return dest;
 	}
@@ -113,13 +120,17 @@ public class Generics040Marshaller {
 		citygml.getCore040Marshaller().marshalCityObject(src, dest);
 		
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
-		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
-		
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+			dest.setClazz(src.getClazz().getValue());
+
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
+
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 		
 		if (src.isSetLod0Geometry())
 			dest.setLod0Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod0Geometry()));
@@ -253,6 +264,65 @@ public class Generics040Marshaller {
 		marshalUriAttribute(src, dest);
 
 		return dest;		
+	}
+	
+	public void marshalMeasureAttribute(MeasureAttribute src, DoubleAttributeType dest) {
+		marshalGenericAttribute(src, dest);
+
+		if (src.isSetValue())
+			dest.setValue(src.getValue().getValue());
+	}
+
+	public DoubleAttributeType marshalMeasureAttribute(MeasureAttribute src) {
+		DoubleAttributeType dest = gen.createDoubleAttributeType();
+		marshalMeasureAttribute(src, dest);
+
+		return dest;
+	}
+
+	public List<_GenericAttributeType> marshalGenericAttributeSet(GenericAttributeSet src) {
+		List<_GenericAttributeType> attributes = new ArrayList<_GenericAttributeType>();
+		marshalGenericAttributeSet(src, attributes);
+
+		return attributes;
+	}
+
+	private void marshalGenericAttributeSet(GenericAttributeSet src, List<_GenericAttributeType> attributes) {
+		for (AbstractGenericAttribute genericAttribute : src.getGenericAttribute()) {
+			switch (genericAttribute.getCityGMLClass()) {
+			case DATE_ATTRIBUTE:
+				attributes.add(marshalDateAttribute((DateAttribute)genericAttribute));
+				break;
+			case DOUBLE_ATTRIBUTE:
+				attributes.add(marshalDoubleAttribute((DoubleAttribute)genericAttribute));
+				break;
+			case INT_ATTRIBUTE:
+				attributes.add(marshalIntAttribute((IntAttribute)genericAttribute));
+				break;
+			case STRING_ATTRIBUTE:
+				attributes.add(marshalStringAttribute((StringAttribute)genericAttribute));
+				break;
+			case URI_ATTRIBUTE:
+				attributes.add(marshalUriAttribute((UriAttribute)genericAttribute));
+				break;
+			case MEASURE_ATTRIBUTE:
+				attributes.add(marshalMeasureAttribute((MeasureAttribute)genericAttribute));
+				break;
+			case GENERIC_ATTRIBUTE_SET:
+				marshalGenericAttributeSet((GenericAttributeSet)genericAttribute, attributes);
+				break;
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<JAXBElement<? extends _GenericAttributeType>> marshalGenericAttributeSetElement(GenericAttributeSet src) {
+		List<JAXBElement<? extends _GenericAttributeType>> elements = new ArrayList<JAXBElement<? extends _GenericAttributeType>>();
+
+		for (_GenericAttributeType genericAttribute : marshalGenericAttributeSet(src))
+			elements.add((JAXBElement<? extends _GenericAttributeType>)marshalJAXBElement(genericAttribute));
+
+		return elements;
 	}
 	
 }

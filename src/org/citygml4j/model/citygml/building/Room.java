@@ -26,22 +26,17 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 
-public interface Room extends BuildingModuleComponent, AbstractCityObject {
-	public String getClazz();
-	public List<String> getFunction();
-	public List<String> getUsage();
+public interface Room extends BuildingModuleComponent, AbstractCityObject, StandardObjectClassifier {
 	public List<BoundarySurfaceProperty> getBoundedBySurface();
 	public List<InteriorFurnitureProperty> getInteriorFurniture();
 	public List<IntBuildingInstallationProperty> getRoomInstallation();
 	public SolidProperty getLod4Solid();
 	public MultiSurfaceProperty getLod4MultiSurface();
 	public List<ADEComponent> getGenericApplicationPropertyOfRoom();
-	public boolean isSetClazz();
-	public boolean isSetFunction();
-	public boolean isSetUsage();
 	public boolean isSetBoundedBySurface();
 	public boolean isSetInteriorFurniture();
 	public boolean isSetRoomInstallation();
@@ -49,11 +44,6 @@ public interface Room extends BuildingModuleComponent, AbstractCityObject {
 	public boolean isSetLod4MultiSurface();
 	public boolean isSetGenericApplicationPropertyOfRoom();
 	
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
-	public void setUsage(List<String> usage);
-	public void addUsage(String usage);
 	public void setRoomInstallation(List<IntBuildingInstallationProperty> roomInstallation);
 	public void addRoomInstallation(IntBuildingInstallationProperty roomInstallation);
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface);
@@ -64,11 +54,6 @@ public interface Room extends BuildingModuleComponent, AbstractCityObject {
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
 	public void addGenericApplicationPropertyOfRoom(ADEComponent ade);
 	public void setGenericApplicationPropertyOfRoom(List<ADEComponent> ade);
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
-	public void unsetUsage();
-	public boolean unsetUsage(String usage);
 	public void unsetBoundedBySurface();
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface);
 	public void unsetInteriorFurniture();

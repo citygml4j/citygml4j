@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.vegetation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -36,6 +35,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -45,8 +45,9 @@ import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.VegetationModule;
 
 public class PlantCoverImpl extends AbstractVegetationObjectImpl implements PlantCover {
-	private String clazz;
-	private List<String> function;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private Length averageHeight;
 	private MultiSurfaceProperty lod1MultiSurface;
 	private MultiSurfaceProperty lod2MultiSurface;
@@ -55,6 +56,7 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 	private MultiSolidProperty lod1MultiSolid;
 	private MultiSolidProperty lod2MultiSolid;
 	private MultiSolidProperty lod3MultiSolid;
+	private MultiSolidProperty lod4MultiSolid;
 	private List<ADEComponent> ade;
 
 	public PlantCoverImpl() {
@@ -65,11 +67,18 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		super(module);
 	}
 
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
+			this.function = new ChildList<Code>(this);
 
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfPlantCover(ADEComponent ade) {
@@ -83,15 +92,22 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		return averageHeight;
 	}
 
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
 	}
 
-	public List<String> getFunction() {
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
+			function = new ChildList<Code>(this);
 
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfPlantCover() {
@@ -128,6 +144,10 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 	public MultiSurfaceProperty getLod4MultiSurface() {
 		return lod4MultiSurface;
 	}
+	
+	public MultiSolidProperty getLod4MultiSolid() {
+		return lod4MultiSolid;
+	}
 
 	public boolean isSetAverageHeight() {
 		return averageHeight != null;
@@ -139,6 +159,10 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
 	}
 
 	public boolean isSetGenericApplicationPropertyOfPlantCover() {
@@ -172,6 +196,10 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 	public boolean isSetLod4MultiSurface() {
 		return lod4MultiSurface != null;
 	}
+	
+	public boolean isSetLod4MultiSolid() {
+		return lod4MultiSolid != null;
+	}
 
 	public void setAverageHeight(Length averageHeight) {
 		if (averageHeight != null)
@@ -180,12 +208,16 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		this.averageHeight = averageHeight;
 	}
 
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfPlantCover(List<ADEComponent> ade) {
@@ -240,6 +272,13 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 
 		this.lod4MultiSurface = lod4MultiSurface;
 	}
+	
+	public void setLod4MultiSolid(MultiSolidProperty lod4MultiSolid) {
+		if (lod4MultiSolid != null)
+			lod4MultiSolid.setParent(this);
+
+		this.lod3MultiSolid = lod4MultiSolid;
+	}
 
 	public void unsetAverageHeight() {
 		if (isSetAverageHeight())
@@ -256,8 +295,16 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfPlantCover() {
@@ -319,13 +366,20 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 
 		lod4MultiSurface = null;
 	}
+	
+	public void unsetLod4MultiSolid() {
+		if (isSetLod4MultiSolid())
+			lod4MultiSolid.unsetParent();
+
+		lod4MultiSolid = null;
+	}
 
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShapeImpl();
 
 		MultiSolidProperty multiSolidProperty = null;
-		for (int lod = 1; lod < 4; lod++) {
+		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {
 			case 1:
 				multiSolidProperty = lod1MultiSolid;
@@ -335,6 +389,9 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 				break;
 			case 3:
 				multiSolidProperty = lod3MultiSolid;
+				break;
+			case 4:
+				multiSolidProperty = lod4MultiSolid;
 				break;
 			}
 
@@ -387,7 +444,7 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
 		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 1; lod < 4; lod++) {
+		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {
 			case 1:
 				property = lod1MultiSolid;
@@ -397,6 +454,9 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 				break;
 			case 3:
 				property = lod3MultiSolid;
+				break;
+			case 4:
+				property = lod4MultiSolid;
 				break;
 			}
 			
@@ -436,17 +496,33 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 		return copyTo(new PlantCoverImpl(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		PlantCover copy = (target == null) ? new PlantCoverImpl() : (PlantCover)target;
 		super.copyTo(copy, copyBuilder);
 
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 
 		if (isSetAverageHeight()) {
 			copy.setAverageHeight((Length)copyBuilder.copy(averageHeight));
@@ -494,6 +570,12 @@ public class PlantCoverImpl extends AbstractVegetationObjectImpl implements Plan
 			copy.setLod3MultiSolid((MultiSolidProperty)copyBuilder.copy(lod3MultiSolid));
 			if (copy.getLod3MultiSolid() == lod3MultiSolid)
 				lod3MultiSolid.setParent(this);
+		}
+		
+		if (isSetLod4MultiSolid()) {
+			copy.setLod4MultiSolid((MultiSolidProperty)copyBuilder.copy(lod4MultiSolid));
+			if (copy.getLod4MultiSolid() == lod4MultiSolid)
+				lod4MultiSolid.setParent(this);
 		}
 
 		if (isSetGenericApplicationPropertyOfPlantCover()) {

@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.cityfurniture;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -38,6 +37,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -45,8 +45,9 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
 
 public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFurniture {
-	private String clazz;
-	private List<String> function;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private GeometryProperty<? extends AbstractGeometry> lod1Geometry;
 	private GeometryProperty<? extends AbstractGeometry> lod2Geometry;
 	private GeometryProperty<? extends AbstractGeometry> lod3Geometry;
@@ -70,11 +71,18 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		this.module = module;
 	}
 
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
+			this.function = new ChildList<Code>(this);
 
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfCityFurniture(ADEComponent ade) {
@@ -84,15 +92,22 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		this.ade.add(ade);
 	}
 
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
 	}
 
-	public List<String> getFunction() {
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
+			function = new ChildList<Code>(this);
 
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfCityFurniture() {
@@ -157,6 +172,10 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
 	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
+	}
 
 	public boolean isSetGenericApplicationPropertyOfCityFurniture() {
 		return ade != null && !ade.isEmpty();
@@ -210,12 +229,16 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		return lod4TerrainIntersection != null;
 	}
 
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfCityFurniture(List<ADEComponent> ade) {
@@ -314,8 +337,16 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfCityFurniture() {
@@ -456,7 +487,7 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		}
 
 		ImplicitRepresentationProperty implicitRepresentation = null;
-		for (int lod = 0; lod < 5; lod++) {
+		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {
 			case 1:
 				implicitRepresentation = lod1ImplicitRepresentation;
@@ -511,7 +542,7 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		}
 
 		ImplicitRepresentationProperty implicitRepresentation = null;
-		for (int lod = 0; lod < 5; lod++) {
+		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {
 			case 1:
 				implicitRepresentation = lod1ImplicitRepresentation;
@@ -549,10 +580,27 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 		super.copyTo(copy, copyBuilder);
 
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 
 		if (isSetLod1Geometry()) {
 			copy.setLod1Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod1Geometry));
@@ -635,7 +683,6 @@ public class CityFurnitureImpl extends AbstractCityObjectImpl implements CityFur
 					part.setParent(this);
 			}
 		}
-
 
 		return copy;
 	}

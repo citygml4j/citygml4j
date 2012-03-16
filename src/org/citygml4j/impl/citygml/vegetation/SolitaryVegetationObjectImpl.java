@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.vegetation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -37,6 +36,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -44,9 +44,10 @@ import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.VegetationModule;
 
 public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl implements SolitaryVegetationObject {
-	private String clazz;
-	private List<String> function;
-	private String species;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
+	private Code species;
 	private Length height;
 	private Length trunkDiameter;
 	private Length crownDiameter;
@@ -68,11 +69,18 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		super(module);
 	}
 	
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
-		
+			this.function = new ChildList<Code>(this);
+
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent ade) {
@@ -82,19 +90,26 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		this.ade.add(ade);
 	}
 
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
+	}
+
+	public List<Code> getFunction() {
+		if (function == null)
+			function = new ChildList<Code>(this);
+
+		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public Length getCrownDiameter() {
 		return crownDiameter;
-	}
-
-	public List<String> getFunction() {
-		if (function == null)
-			function = new ArrayList<String>();
-		
-		return function;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfSolitaryVegetationObject() {
@@ -140,7 +155,7 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		return lod4ImplicitRepresentation;
 	}
 
-	public String getSpecies() {
+	public Code getSpecies() {
 		return species;
 	}
 
@@ -152,12 +167,16 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		return clazz != null;
 	}
 
-	public boolean isSetCrownDiameter() {
-		return crownDiameter != null;
-	}
-
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
+	}
+
+	public boolean isSetCrownDiameter() {
+		return crownDiameter != null;
 	}
 
 	public boolean isSetGenericApplicationPropertyOfSolitaryVegetationObject() {
@@ -208,8 +227,16 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		return trunkDiameter != null;
 	}
 
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
+	}
+
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setCrownDiameter(Length crownDiameter) {
@@ -217,10 +244,6 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 			crownDiameter.setParent(this);
 		
 		this.crownDiameter = crownDiameter;
-	}
-
-	public void setFunction(List<String> function) {
-		this.function = function;
 	}
 
 	public void setGenericApplicationPropertyOfSolitaryVegetationObject(List<ADEComponent> ade) {
@@ -290,7 +313,7 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
 	}
 
-	public void setSpecies(String species) {
+	public void setSpecies(Code species) {
 		this.species = species;
 	}
 
@@ -305,19 +328,27 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		clazz = null;
 	}
 
+	public void unsetFunction() {
+		function = null;
+	}
+
+	public boolean unsetFunction(Code function) {
+		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
+	}
+
 	public void unsetCrownDiameter() {
 		if (isSetCrownDiameter())
 			crownDiameter.unsetParent();
 		
 		crownDiameter = null;
-	}
-
-	public void unsetFunction() {
-		function = null;
-	}
-
-	public boolean unsetFunction(String function) {
-		return isSetFunction() ? this.function.remove(function) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfSolitaryVegetationObject() {
@@ -533,13 +564,30 @@ public class SolitaryVegetationObjectImpl extends AbstractVegetationObjectImpl i
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
 		if (isSetSpecies())
-			copy.setSpecies(copyBuilder.copy(species));
+			copy.setSpecies((Code)copyBuilder.copy(species));
 		
 		if (isSetHeight()) {
 			copy.setHeight((Length)copyBuilder.copy(height));

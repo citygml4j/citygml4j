@@ -523,13 +523,13 @@ public class SchemaWriter implements XSVisitor, XSSimpleTypeVisitor {
 
 		StringBuffer buf = new StringBuffer();
 
-		i = part.getMaxOccurs();
+		i = part.getMaxOccurs().intValue();
 		if(i==XSParticle.UNBOUNDED)
 			buf.append(" maxOccurs=\"unbounded\"");
 		else if(i!=1)
 			buf.append(" maxOccurs=\"").append(i).append('\"');
 
-		i = part.getMinOccurs();
+		i = part.getMinOccurs().intValue();
 		if(i!=1)
 			buf.append(" minOccurs=\"").append(i).append('\"');
 

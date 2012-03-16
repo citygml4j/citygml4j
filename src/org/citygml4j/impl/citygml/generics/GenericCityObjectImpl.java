@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.generics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -32,10 +31,12 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -43,9 +44,9 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
 public class GenericCityObjectImpl extends AbstractCityObjectImpl implements GenericCityObject {
-	private String clazz;
-	private List<String> function;
-	private List<String> usage;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private GeometryProperty<? extends AbstractGeometry> lod0Geometry;
 	private GeometryProperty<? extends AbstractGeometry> lod1Geometry;
 	private GeometryProperty<? extends AbstractGeometry> lod2Geometry;
@@ -71,29 +72,36 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		this.module = module;
 	}
 
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
+			this.function = new ChildList<Code>(this);
 
 		this.function.add(function);
 	}
-
-	public void addUsage(String usage) {
+	
+	public void addUsage(Code function) {
 		if (this.usage == null)
-			this.usage = new ArrayList<String>();
+			this.usage = new ChildList<Code>(this);
 
-		this.usage.add(usage);
+		this.usage.add(function);
 	}
 
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
 	}
 
-	public List<String> getFunction() {
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
+			function = new ChildList<Code>(this);
 
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public GeometryProperty<? extends AbstractGeometry> getLod0Geometry() {
@@ -156,19 +164,16 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		return lod4TerrainIntersection;
 	}
 
-	public List<String> getUsage() {
-		if (usage == null)
-			usage = new ArrayList<String>();
-
-		return usage;
-	}
-
 	public boolean isSetClazz() {
 		return clazz != null;
 	}
 
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
 	}
 
 	public boolean isSetLod0Geometry() {
@@ -231,16 +236,16 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		return lod4TerrainIntersection != null;
 	}
 
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
-	}
-
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setLod0Geometry(GeometryProperty<? extends AbstractGeometry> lod0Geometry) {
@@ -349,10 +354,6 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		this.lod4TerrainIntersection = lod4TerrainIntersection;
 	}
 
-	public void setUsage(List<String> usage) {
-		this.usage = usage;
-	}
-
 	public void unsetClazz() {
 		clazz = null;
 	}
@@ -361,8 +362,16 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetLod0Geometry() {
@@ -468,14 +477,6 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 			lod4TerrainIntersection.unsetParent();
 
 		lod4TerrainIntersection = null;
-	}
-
-	public void unsetUsage() {
-		usage = null;
-	}
-
-	public boolean unsetUsage(String usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -626,13 +627,27 @@ public class GenericCityObjectImpl extends AbstractCityObjectImpl implements Gen
 		super.copyTo(copy, copyBuilder);
 
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
 
-		if (isSetUsage())
-			copy.setFunction((List<String>)copyBuilder.copy(usage));
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 
 		if (isSetLod0Geometry()) {
 			copy.setLod0Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod0Geometry));

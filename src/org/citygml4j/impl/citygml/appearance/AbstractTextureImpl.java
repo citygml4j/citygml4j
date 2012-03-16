@@ -31,11 +31,12 @@ import org.citygml4j.model.citygml.appearance.ColorPlusOpacity;
 import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implements AbstractTexture {
 	private String imageURI;
-	private String mimeType;
+	private Code mimeType;
 	private TextureType textureType;
 	private WrapMode wrapMode;
 	private ColorPlusOpacity borderColor;
@@ -71,7 +72,7 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		return imageURI;
 	}
 
-	public String getMimeType() {
+	public Code getMimeType() {
 		return mimeType;
 	}
 
@@ -122,7 +123,7 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 		this.imageURI = imageURI;
 	}
 
-	public void setMimeType(String mimeType) {
+	public void setMimeType(Code mimeType) {
 		this.mimeType = mimeType;
 	}
 
@@ -180,7 +181,7 @@ public abstract class AbstractTextureImpl extends AbstractSurfaceDataImpl implem
 			copy.setImageURI(copyBuilder.copy(imageURI));
 		
 		if (isSetMimeType())
-			copy.setMimeType(copyBuilder.copy(mimeType));
+			copy.setMimeType((Code)copyBuilder.copy(mimeType));
 		
 		if (isSetTextureType())
 			copy.setTextureType((TextureType)copyBuilder.copy(textureType));

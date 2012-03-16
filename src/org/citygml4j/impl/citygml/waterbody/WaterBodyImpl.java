@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.waterbody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -37,6 +36,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -46,9 +46,9 @@ import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 
 public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody {
-	private String clazz;
-	private List<String> function;
-	private List<String> usage;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private MultiCurveProperty lod0MultiCurve;
 	private MultiCurveProperty lod1MultiCurve;
 	private MultiSurfaceProperty lod0MultiSurface;
@@ -75,11 +75,18 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		this.boundedBySurface.add(boundedBySurface);
 	}
 
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
+			this.function = new ChildList<Code>(this);
 
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfWaterBody(ADEComponent ade) {
@@ -89,13 +96,6 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		this.ade.add(ade);
 	}
 
-	public void addUsage(String usage) {
-		if (this.usage == null)
-			this.usage = new ArrayList<String>();
-
-		this.usage.add(usage);
-	}
-
 	public List<BoundedByWaterSurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
 			boundedBySurface = new ChildList<BoundedByWaterSurfaceProperty>(this);
@@ -103,15 +103,22 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		return boundedBySurface;
 	}
 
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
 	}
 
-	public List<String> getFunction() {
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
+			function = new ChildList<Code>(this);
 
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBody() {
@@ -153,13 +160,6 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		return lod4Solid;
 	}
 
-	public List<String> getUsage() {
-		if (usage == null)
-			usage = new ArrayList<String>();
-
-		return usage;
-	}
-
 	public boolean isSetBoundedBySurface() {
 		return boundedBySurface != null && !boundedBySurface.isEmpty();
 	}
@@ -170,6 +170,10 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
 	}
 
 	public boolean isSetGenericApplicationPropertyOfWaterBody() {
@@ -208,20 +212,20 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		return lod4Solid != null;
 	}
 
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
-	}
-
 	public void setBoundedBySurface(List<BoundedByWaterSurfaceProperty> boundedBySurface) {
 		this.boundedBySurface = new ChildList<BoundedByWaterSurfaceProperty>(this, boundedBySurface);
 	}
 
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfWaterBody(List<ADEComponent> ade) {
@@ -284,10 +288,6 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		this.lod4Solid = lod4Solid;
 	}
 
-	public void setUsage(List<String> usage) {
-		this.usage = usage;
-	}
-
 	public void unsetBoundedBySurface() {
 		if (isSetBoundedBySurface())
 			boundedBySurface.clear();
@@ -307,8 +307,16 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfWaterBody() {
@@ -376,14 +384,6 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 			lod4Solid.unsetParent();
 
 		lod4Solid = null;
-	}
-
-	public void unsetUsage() {
-		usage = null;
-	}
-
-	public boolean unsetUsage(String usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -541,21 +541,33 @@ public class WaterBodyImpl extends AbstractWaterObjectImpl implements WaterBody 
 		return copyTo(new WaterBodyImpl(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		WaterBody copy = (target == null) ? new WaterBodyImpl() : (WaterBody)target;
 		super.copyTo(copy, copyBuilder);
 
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
 
-		if (isSetUsage())
-			copy.setFunction((List<String>)copyBuilder.copy(usage));
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
 
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 
 		if (isSetBoundedBySurface()) {
 			for (BoundedByWaterSurfaceProperty part : boundedBySurface) {

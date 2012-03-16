@@ -28,6 +28,7 @@ import javax.xml.namespace.QName;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.impl.citygml.cityfurniture.CityFurnitureImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.CityFurnitureType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -65,10 +66,12 @@ public class CityFurniture040Unmarshaller {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new CodeImpl(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
 		if (src.isSetLod1Geometry())
 			dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));

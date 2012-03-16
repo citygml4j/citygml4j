@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.transportation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -38,6 +37,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -50,8 +50,9 @@ import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
 
 public class TransportationComplexImpl extends AbstractTransportationObjectImpl implements TransportationComplex {
-	private List<String> function;
-	private List<String> usage;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private List<TrafficAreaProperty> trafficArea;
 	private List<AuxiliaryTrafficAreaProperty> auxiliaryTrafficArea;
 	private List<GeometricComplexProperty> lod0Network;
@@ -76,11 +77,18 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		this.auxiliaryTrafficArea.add(auxiliaryTrafficArea);
 	}
 
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
+			this.function = new ChildList<Code>(this);
 
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfTransportationComplex(ADEComponent ade) {
@@ -104,13 +112,6 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		this.trafficArea.add(trafficArea);
 	}
 
-	public void addUsage(String usage) {
-		if (this.usage == null)
-			this.usage = new ArrayList<String>();
-
-		this.usage.add(usage);
-	}
-
 	public List<AuxiliaryTrafficAreaProperty> getAuxiliaryTrafficArea() {
 		if (auxiliaryTrafficArea == null)
 			auxiliaryTrafficArea = new ChildList<AuxiliaryTrafficAreaProperty>(this);
@@ -118,11 +119,22 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		return auxiliaryTrafficArea;
 	}
 
-	public List<String> getFunction() {
+	public Code getClazz() {
+		return clazz;
+	}
+
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
+			function = new ChildList<Code>(this);
 
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTransportationComplex() {
@@ -162,19 +174,20 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		return trafficArea;
 	}
 
-	public List<String> getUsage() {
-		if (usage == null)
-			usage = new ArrayList<String>();
-
-		return usage;
-	}
-
 	public boolean isSetAuxiliaryTrafficArea() {
 		return auxiliaryTrafficArea != null && !auxiliaryTrafficArea.isEmpty();
 	}
 
+	public boolean isSetClazz() {
+		return clazz != null;
+	}
+
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
 	}
 
 	public boolean isSetGenericApplicationPropertyOfTransportationComplex() {
@@ -205,16 +218,20 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		return trafficArea != null && !trafficArea.isEmpty();
 	}
 
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
-	}
-
 	public void setAuxiliaryTrafficArea(List<AuxiliaryTrafficAreaProperty> auxiliaryTrafficArea) {
 		this.auxiliaryTrafficArea = new ChildList<AuxiliaryTrafficAreaProperty>(this, auxiliaryTrafficArea);
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setClazz(Code clazz) {
+		this.clazz = clazz;
+	}
+
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfTransportationComplex(List<ADEComponent> ade) {
@@ -257,10 +274,6 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		this.trafficArea = new ChildList<TrafficAreaProperty>(this, trafficArea);
 	}
 
-	public void setUsage(List<String> usage) {
-		this.usage = usage;
-	}
-
 	public void unsetAuxiliaryTrafficArea() {
 		if (isSetAuxiliaryTrafficArea())
 			auxiliaryTrafficArea.clear();
@@ -272,12 +285,24 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		return isSetAuxiliaryTrafficArea() ? this.auxiliaryTrafficArea.remove(auxiliaryTrafficArea) : false;
 	}
 
+	public void unsetClazz() {
+		clazz = null;
+	}
+
 	public void unsetFunction() {
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfTransportationComplex() {
@@ -339,14 +364,6 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 
 	public boolean unsetTrafficArea(TrafficAreaProperty trafficArea) {
 		return isSetTrafficArea() ? this.trafficArea.remove(trafficArea) : false;
-	}
-
-	public void unsetUsage() {
-		usage = null;
-	}
-
-	public boolean unsetUsage(String usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -473,17 +490,33 @@ public class TransportationComplexImpl extends AbstractTransportationObjectImpl 
 		return copyTo(new TransportationComplexImpl(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		TransportationComplex copy = (target == null) ? new TransportationComplexImpl() : (TransportationComplex)target;
 		super.copyTo(copy, copyBuilder);
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetClazz())
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetUsage())
-			copy.setFunction((List<String>)copyBuilder.copy(usage));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 
 		if (isSetAuxiliaryTrafficArea()) {
 			for (AuxiliaryTrafficAreaProperty part : auxiliaryTrafficArea) {

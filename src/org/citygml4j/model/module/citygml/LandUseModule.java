@@ -33,6 +33,7 @@ import org.citygml4j.model.module.Module;
 public class LandUseModule extends AbstractCityGMLModule {
 	private static final List<LandUseModule> instances = new ArrayList<LandUseModule>();
 
+	public static final LandUseModule v2_0_0;
 	public static final LandUseModule v1_0_0;
 	public static final LandUseModule v0_4_0;
 
@@ -48,6 +49,14 @@ public class LandUseModule extends AbstractCityGMLModule {
 	}
 
 	static {
+		v2_0_0 = new LandUseModule (
+				CityGMLModuleType.LAND_USE,
+				CityGMLModuleVersion.v2_0_0,
+				"http://www.opengis.net/citygml/landuse/2.0",
+				"luse",
+				"http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd",			
+				CoreModule.v2_0_0);
+		
 		v1_0_0 = new LandUseModule (
 				CityGMLModuleType.LAND_USE,
 				CityGMLModuleVersion.v1_0_0,
@@ -64,9 +73,9 @@ public class LandUseModule extends AbstractCityGMLModule {
 				CoreModule.v0_4_0.getSchemaLocation(),		
 				CoreModule.v0_4_0);
 		
-		v1_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v1_0_0.elementMap.put("LandUse", LandUse.class);
-		v0_4_0.elementMap = v1_0_0.elementMap;
+		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.elementMap.put("LandUse", LandUse.class);
+		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
 	}
 
 	public static List<LandUseModule> getInstances() {

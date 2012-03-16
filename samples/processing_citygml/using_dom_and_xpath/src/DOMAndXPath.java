@@ -39,7 +39,8 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.factory.CityGMLFactory;
+import org.citygml4j.factory.CityFurnitureFactory;
+import org.citygml4j.factory.CoreFactory;
 import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
@@ -63,7 +64,8 @@ public class DOMAndXPath {
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		CityGMLFactory citygml = new CityGMLFactory();
+		CoreFactory core = new CoreFactory();
+		CityFurnitureFactory frn = new CityFurnitureFactory();
 		GMLFactory gml = new GMLFactory();
 		
 		System.out.println(df.format(new Date()) + "creating citygml4j JAXBUnmarshaller and JAXBMarshaller instances");
@@ -114,9 +116,9 @@ public class DOMAndXPath {
 
 		// create simple citygml4j object to insert into placeholder
 		System.out.println(df.format(new Date()) + "inserting CityFurniture instance at placeholder using citygml4j");
-		CityFurniture cityFurniture = citygml.createCityFurniture();
+		CityFurniture cityFurniture = frn.createCityFurniture();
 		cityFurniture.setDescription(description);		
-		CityObjectMember member = citygml.createCityObjectMember(cityFurniture);
+		CityObjectMember member = core.createCityObjectMember(cityFurniture);
 
 		// marshal to DOM and put into document
 		System.out.println(df.format(new Date()) + "marshalling back to DOM");

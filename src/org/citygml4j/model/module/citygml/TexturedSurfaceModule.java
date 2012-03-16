@@ -30,6 +30,7 @@ import org.citygml4j.model.module.Module;
 public class TexturedSurfaceModule extends AbstractCityGMLModule {
 	private static final List<TexturedSurfaceModule> instances = new ArrayList<TexturedSurfaceModule>();
 
+	public static final TexturedSurfaceModule v2_0_0;
 	public static final TexturedSurfaceModule v1_0_0;
 	public static final TexturedSurfaceModule v0_4_0;
 
@@ -45,6 +46,14 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 	}
 
 	static {
+		v2_0_0 = new TexturedSurfaceModule (
+				CityGMLModuleType.TEXTURED_SURFACE,
+				CityGMLModuleVersion.v2_0_0,
+				"http://www.opengis.net/citygml/texturedsurface/2.0",
+				"tex",
+				"http://schemas.opengis.net/citygml/texturedsurface/2.0/texturedSurface.xsd",			
+				CoreModule.v2_0_0);
+		
 		v1_0_0 = new TexturedSurfaceModule (
 				CityGMLModuleType.TEXTURED_SURFACE,
 				CityGMLModuleVersion.v1_0_0,

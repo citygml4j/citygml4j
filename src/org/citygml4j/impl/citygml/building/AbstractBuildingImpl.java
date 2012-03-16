@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.building;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -39,6 +38,7 @@ import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
@@ -50,9 +50,9 @@ import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
 public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements AbstractBuilding {
-	private String clazz;
-	private List<String> function;
-	private List<String> usage;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private GregorianCalendar yearOfConstruction;
 	private GregorianCalendar yearOfDemolition;
 	private String roofType;
@@ -72,6 +72,8 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 	private MultiCurveProperty lod2MultiCurve;
 	private MultiCurveProperty lod3MultiCurve;
 	private MultiCurveProperty lod4MultiCurve;
+	private MultiSurfaceProperty lod0FootPrint;
+	private MultiSurfaceProperty lod0RoofEdge;
 	private MultiSurfaceProperty lod1MultiSurface;
 	private MultiSurfaceProperty lod2MultiSurface;
 	private MultiSurfaceProperty lod3MultiSurface;
@@ -114,11 +116,18 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		this.buildingPart.add(buildingPart);
 	}
 
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
-		
+			this.function = new ChildList<Code>(this);
+
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfAbstractBuilding(ADEComponent ade) {
@@ -149,13 +158,6 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		this.outerBuildingInstallation.add(outerBuildingInstallation);
 	}
 
-	public void addUsage(String usage) {
-		if (this.usage == null)
-			this.usage = new ArrayList<String>();
-
-		this.usage.add(usage);
-	}
-
 	public List<AddressProperty> getAddress() {
 		if (address == null)
 			address = new ChildList<AddressProperty>(this);
@@ -170,8 +172,22 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		return boundedBySurface;
 	}
 
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
+	}
+
+	public List<Code> getFunction() {
+		if (function == null)
+			function = new ChildList<Code>(this);
+
+		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<BuildingPartProperty> getConsistsOfBuildingPart() {
@@ -179,13 +195,6 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			buildingPart = new ChildList<BuildingPartProperty>(this);
 
 		return buildingPart;
-	}
-
-	public List<String> getFunction() {
-		if (function == null)
-			function = new ArrayList<String>();
-		
-		return function;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfAbstractBuilding() {
@@ -298,13 +307,6 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 
 	public Integer getStoreysBelowGround() {
 		return storeysBelowGround;
-	}
-
-	public List<String> getUsage() {
-		if (usage == null)
-			usage = new ArrayList<String>();
-
-		return usage;
 	}
 
 	public GregorianCalendar getYearOfConstruction() {
@@ -455,16 +457,20 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
 	}
 
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
+	}
+
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setConsistsOfBuildingPart(List<BuildingPartProperty> buildingPart) {
 		this.buildingPart = new ChildList<BuildingPartProperty>(this, buildingPart);
-	}
-
-	public void setFunction(List<String> function) {
-		this.function = function;
 	}
 
 	public void setGenericApplicationPropertyOfAbstractBuilding(List<ADEComponent> ade) {
@@ -623,10 +629,6 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			this.storeysBelowGround = storeysBelowGround;
 	}
 
-	public void setUsage(List<String> usage) {
-		this.usage = usage;
-	}
-
 	public void setYearOfConstruction(GregorianCalendar yearOfConstruction) {
 		this.yearOfConstruction = yearOfConstruction;
 	}
@@ -676,8 +678,16 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfAbstractBuilding() {
@@ -861,20 +871,56 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		storeysBelowGround = null;
 	}
 
-	public void unsetUsage() {
-		usage = null;
-	}
-
-	public boolean unsetUsage(String usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
-	}
-
 	public void unsetYearOfConstruction() {
 		yearOfConstruction = null;
 	}
 
 	public void unsetYearOfDemolition() {
 		yearOfDemolition = null;
+	}
+
+	public MultiSurfaceProperty getLod0FootPrint() {
+		return lod0FootPrint;
+	}
+
+	public MultiSurfaceProperty getLod0RoofEdge() {
+		return lod0RoofEdge;
+	}
+
+	public boolean isSetLod0FootPrint() {
+		return lod0FootPrint != null;
+	}
+
+	public boolean isSetLod0RoofEdge() {
+		return lod0RoofEdge != null;
+	}
+
+	public void setLod0FootPrint(MultiSurfaceProperty lod0FootPrint) {
+		if (lod0FootPrint != null)
+			lod0FootPrint.setParent(this);
+		
+		this.lod0FootPrint = lod0FootPrint;
+	}
+
+	public void setLod0RoofEdge(MultiSurfaceProperty lod0RoofEgde) {
+		if (lod0RoofEgde != null)
+			lod0RoofEgde.setParent(this);
+		
+		this.lod0RoofEdge = lod0RoofEgde;
+	}
+
+	public void unsetLod0FootPrint() {
+		if (lod0FootPrint != null)
+			lod0FootPrint.unsetParent();
+		
+		lod0FootPrint = null;
+	}
+
+	public void unsetLod0RoofEdge() {
+		if (lod0RoofEdge != null)
+			lod0RoofEdge.unsetParent();
+		
+		lod0RoofEdge = null;
 	}
 
 	public final BuildingModule getCityGMLModule() {
@@ -888,6 +934,22 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShapeImpl();
+		
+		if (lod0FootPrint != null) {
+			if (lod0FootPrint.isSetMultiSurface()) {
+				calcBoundedBy(boundedBy, lod0FootPrint.getMultiSurface());
+			} else {
+				// xlink
+			}
+		}
+		
+		if (lod0RoofEdge != null) {
+			if (lod0RoofEdge.isSetMultiSurface()) {
+				calcBoundedBy(boundedBy, lod0RoofEdge.getMultiSurface());
+			} else {
+				// xlink
+			}
+		}
 		
 		SolidProperty solidProperty = null;
 		for (int lod = 1; lod < 5; lod++) {
@@ -1007,6 +1069,12 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
+		if (lod0FootPrint != null)
+			lodRepresentation.getLod0Geometry().add(lod0FootPrint);
+		
+		if (lod0RoofEdge != null)
+			lodRepresentation.getLod0Geometry().add(lod0RoofEdge);
+		
 		GeometryProperty<? extends AbstractGeometry> property = null;		
 		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {
@@ -1070,7 +1138,6 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		return lodRepresentation;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)
@@ -1080,13 +1147,27 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
 
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
 
-		if (isSetUsage())
-			copy.setFunction((List<String>)copyBuilder.copy(usage));
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
 		if (isSetYearOfConstruction())
 			copy.setYearOfConstruction((GregorianCalendar)copyBuilder.copy(yearOfConstruction));
@@ -1185,6 +1266,18 @@ public abstract class AbstractBuildingImpl extends AbstractSiteImpl implements A
 			copy.setLod4MultiCurve((MultiCurveProperty)copyBuilder.copy(lod4MultiCurve));
 			if (copy.getLod4MultiCurve() == lod4MultiCurve)
 				lod4MultiCurve.setParent(this);
+		}
+		
+		if (isSetLod0FootPrint()) {
+			copy.setLod1MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod0FootPrint));
+			if (copy.getLod1MultiSurface() == lod0FootPrint)
+				lod0FootPrint.setParent(this);
+		}
+		
+		if (isSetLod0RoofEdge()) {
+			copy.setLod1MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod0RoofEdge));
+			if (copy.getLod1MultiSurface() == lod0RoofEdge)
+				lod0RoofEdge.setParent(this);
 		}
 		
 		if (isSetLod1MultiSurface()) {

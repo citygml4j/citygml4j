@@ -32,6 +32,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class CityFurniture100Marshaller {
 	private final ObjectFactory frn = new ObjectFactory();
@@ -64,14 +65,16 @@ public class CityFurniture100Marshaller {
 		return dest;
 	}
 	
-	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {
+	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {		
 		citygml.getCore100Marshaller().marshalCityObject(src, dest);
-
+		
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
 		if (src.isSetLod1Geometry())
 			dest.setLod1Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry()));

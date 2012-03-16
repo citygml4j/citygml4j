@@ -32,6 +32,7 @@ import org.citygml4j.impl.citygml.waterbody.WaterBodyImpl;
 import org.citygml4j.impl.citygml.waterbody.WaterClosureSurfaceImpl;
 import org.citygml4j.impl.citygml.waterbody.WaterGroundSurfaceImpl;
 import org.citygml4j.impl.citygml.waterbody.WaterSurfaceImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.BoundedByWaterSurfacePropertyType;
 import org.citygml4j.jaxb.citygml._0_4.WaterBodyType;
 import org.citygml4j.jaxb.citygml._0_4.WaterClosureSurfaceType;
@@ -120,13 +121,17 @@ public class WaterBody040Unmarshaller {
 		unmarshalWaterObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new CodeImpl(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new CodeImpl(usage));
+		}
 
 		if (src.isSetLod0MultiSurface())
 			dest.setLod0MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod0MultiSurface()));

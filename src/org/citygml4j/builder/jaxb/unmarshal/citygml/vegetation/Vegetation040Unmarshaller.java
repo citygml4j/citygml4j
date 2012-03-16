@@ -29,6 +29,7 @@ import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.impl.citygml.vegetation.PlantCoverImpl;
 import org.citygml4j.impl.citygml.vegetation.SolitaryVegetationObjectImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.PlantCoverType;
 import org.citygml4j.jaxb.citygml._0_4.SolitaryVegetationObjectType;
 import org.citygml4j.jaxb.citygml._0_4._VegetationObjectType;
@@ -76,10 +77,12 @@ public class Vegetation040Unmarshaller {
 		unmarshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new CodeImpl(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
 		if (src.isSetAverageHeight())
 			dest.setAverageHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getAverageHeight()));
@@ -117,13 +120,15 @@ public class Vegetation040Unmarshaller {
 		unmarshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new CodeImpl(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
 		if (src.isSetSpecies())
-			dest.setSpecies(src.getSpecies());
+			dest.setSpecies(new CodeImpl(src.getSpecies()));
 
 		if (src.isSetHeight())
 			dest.setHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getHeight()));

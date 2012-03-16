@@ -30,6 +30,7 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupImpl;
 import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupMemberImpl;
 import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupParentImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupMemberType;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupParentType;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupType;
@@ -77,13 +78,17 @@ public class CityObjectGroup100Unmarshaller {
 		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new CodeImpl(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new CodeImpl(usage));
+		}
 
 		if (src.isSetGeometry())
 			dest.setGeometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getGeometry()));

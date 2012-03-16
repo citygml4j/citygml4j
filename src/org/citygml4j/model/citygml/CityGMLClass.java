@@ -63,6 +63,8 @@ import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
+import org.citygml4j.model.citygml.building.OuterCeilingSurface;
+import org.citygml4j.model.citygml.building.OuterFloorSurface;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
@@ -82,6 +84,8 @@ import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.core.RelativeToTerrain;
+import org.citygml4j.model.citygml.core.RelativeToWater;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
@@ -89,8 +93,10 @@ import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.IntAttribute;
+import org.citygml4j.model.citygml.generics.MeasureAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.citygml.landuse.LandUse;
@@ -152,6 +158,8 @@ public enum CityGMLClass implements ModelClassEnum {
 	GENERALIZATION_RELATION(GeneralizationRelation.class),
 	IMPLICIT_GEOMETRY(ImplicitGeometry.class),
 	IMPLICIT_REPRESENTATION_PROPERTY(ImplicitRepresentationProperty.class),
+	RELATIVE_TO_TERRAIN(RelativeToTerrain.class),
+	RELATIVE_TO_WATER(RelativeToWater.class),
 	TRANSFORMATION_MATRIX_2X2(TransformationMatrix2x2.class),
 	TRANSFORMATION_MATRIX_3X4(TransformationMatrix3x4.class),
 	TRANSFORMATION_MATRIX_4X4(TransformationMatrix4x4.class),
@@ -177,7 +185,7 @@ public enum CityGMLClass implements ModelClassEnum {
 	WORLD_TO_TEXTURE(WorldToTexture.class),
 	WRAP_MODE(WrapMode.class),
 	X3D_MATERIAL(X3DMaterial.class),
-
+	
 	// Building
 	ABSTRACT_BOUNDARY_SURFACE(AbstractBoundarySurface.class),
 	ABSTRACT_BUILDING(AbstractBuilding.class),
@@ -197,13 +205,15 @@ public enum CityGMLClass implements ModelClassEnum {
 	CEILING_SURFACE(CeilingSurface.class),
 	CLOSURE_SURFACE(ClosureSurface.class),
 	FLOOR_SURFACE(FloorSurface.class),
+	OPENING_PROPERTY(OpeningProperty.class),
+	OUTER_CEILING_SURFACE(OuterCeilingSurface.class),
+	OUTER_FLOOR_SURFACE(OuterFloorSurface.class),
 	GROUND_SURFACE(GroundSurface.class),	
 	INTERIOR_WALL_SURFACE(InteriorWallSurface.class),
 	ROOF_SURFACE(RoofSurface.class),
 	WALL_SURFACE(WallSurface.class),	
 	DOOR(Door.class),
 	WINDOW(Window.class),	
-	OPENING_PROPERTY(OpeningProperty.class),
 
 	// CityFurniture
 	CITY_FURNITURE(CityFurniture.class),
@@ -221,6 +231,8 @@ public enum CityGMLClass implements ModelClassEnum {
 	INT_ATTRIBUTE(IntAttribute.class),
 	STRING_ATTRIBUTE(StringAttribute.class),
 	URI_ATTRIBUTE(UriAttribute.class),
+	MEASURE_ATTRIBUTE(MeasureAttribute.class),
+	GENERIC_ATTRIBUTE_SET(GenericAttributeSet.class),
 
 	// LandUse
 	LAND_USE(LandUse.class),

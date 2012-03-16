@@ -27,6 +27,7 @@ import org.citygml4j.model.module.ModuleType;
 public enum CityGMLModuleType implements ModuleType {
 	CORE("Core"),
 	APPEARANCE("Appearance"),
+	BRIDGE("Bridge"),
 	BUILDING("Building"),
 	CITY_FURNITURE("CityFurniture"),
 	CITY_OBJECT_GROUP("CityObjectGroup"),
@@ -34,6 +35,7 @@ public enum CityGMLModuleType implements ModuleType {
 	LAND_USE("LandUse"),
 	RELIEF("Relief"),
 	TRANSPORTATION("Transportation"),
+	TUNNEL("Tunnel"),
 	VEGETATION("Vegetation"),
 	WATER_BODY("WaterBody"),
 	TEXTURED_SURFACE("TexturedSurface");

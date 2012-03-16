@@ -26,14 +26,14 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.measures.Length;
 
-public interface SolitaryVegetationObject extends AbstractVegetationObject {
-	public String getClazz();
-	public List<String> getFunction();
-	public String getSpecies();
+public interface SolitaryVegetationObject extends AbstractVegetationObject, StandardObjectClassifier {
+	public Code getSpecies();
 	public Length getHeight();
 	public Length getTrunkDiameter();
 	public Length getCrownDiameter();
@@ -46,8 +46,6 @@ public interface SolitaryVegetationObject extends AbstractVegetationObject {
 	public ImplicitRepresentationProperty getLod3ImplicitRepresentation();
 	public ImplicitRepresentationProperty getLod4ImplicitRepresentation();
 	public List<ADEComponent> getGenericApplicationPropertyOfSolitaryVegetationObject();
-	public boolean isSetClazz();
-	public boolean isSetFunction();
 	public boolean isSetSpecies();
 	public boolean isSetHeight();
 	public boolean isSetTrunkDiameter();
@@ -62,10 +60,7 @@ public interface SolitaryVegetationObject extends AbstractVegetationObject {
 	public boolean isSetLod4ImplicitRepresentation();
 	public boolean isSetGenericApplicationPropertyOfSolitaryVegetationObject();
 
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
-	public void setSpecies(String species);
+	public void setSpecies(Code species);
 	public void setHeight(Length height);
 	public void setTrunkDiameter(Length trunkDiameter);
 	public void setCrownDiameter(Length crownDiameter);
@@ -79,9 +74,6 @@ public interface SolitaryVegetationObject extends AbstractVegetationObject {
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);	
 	public void addGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent ade);
 	public void setGenericApplicationPropertyOfSolitaryVegetationObject(List<ADEComponent> ade);
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
 	public void unsetSpecies();
 	public void unsetHeight();
 	public void unsetTrunkDiameter();

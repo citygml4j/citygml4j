@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.cityobjectgroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -39,15 +38,16 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 
 public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityObjectGroup {
-	private String clazz;
-	private List<String> function;
-	private List<String> usage;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
 	private List<CityObjectGroupMember> groupMember;
 	private CityObjectGroupParent groupParent;
 	private GeometryProperty<? extends AbstractGeometry> geometry;
@@ -62,11 +62,18 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		this.module = module;
 	}
 	
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
-		
+			this.function = new ChildList<Code>(this);
+
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfCityObjectGroup(ADEComponent ade) {
@@ -83,22 +90,22 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		this.groupMember.add(groupMember);
 	}
 
-	public void addUsage(String usage) {
-		if (this.usage == null)
-			this.usage = new ArrayList<String>();
-		
-		this.usage.add(usage);
-	}
-
-	public String getClazz() {
+	public Code getClazz() {
 		return clazz;
 	}
 
-	public List<String> getFunction() {
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
-		
+			function = new ChildList<Code>(this);
+
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObjectGroup() {
@@ -123,19 +130,16 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		return groupParent;
 	}
 
-	public List<String> getUsage() {
-		if (usage == null)
-			usage = new ArrayList<String>();
-		
-		return usage;
-	}
-
 	public boolean isSetClazz() {
 		return clazz != null;
 	}
 
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
 	}
 
 	public boolean isSetGenericApplicationPropertyOfCityObjectGroup() {
@@ -154,16 +158,16 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		return groupParent != null;
 	}
 
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
-	}
-
-	public void setClazz(String clazz) {
+	public void setClazz(Code clazz) {
 		this.clazz = clazz;
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfCityObjectGroup(List<ADEComponent> ade) {
@@ -188,10 +192,6 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		this.groupParent = groupParent;
 	}
 
-	public void setUsage(List<String> usage) {
-		this.usage = usage;
-	}
-
 	public void unsetClazz() {
 		clazz = null;
 	}
@@ -200,8 +200,16 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		function = null;
 	}
 
-	public boolean unsetFunction(String function) {
+	public boolean unsetFunction(Code function) {
 		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public void unsetGenericApplicationPropertyOfCityObjectGroup() {
@@ -238,14 +246,6 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 			groupParent.unsetParent();
 		
 		groupParent = null;
-	}
-
-	public void unsetUsage() {
-		usage = null;
-	}
-
-	public boolean unsetUsage(String usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -314,13 +314,27 @@ public class CityObjectGroupImpl extends AbstractCityObjectImpl implements CityO
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetClazz())
-			copy.setClazz(copyBuilder.copy(clazz));
+			copy.setClazz((Code)copyBuilder.copy(clazz));
+
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
-		
-		if (isSetUsage())
-			copy.setFunction((List<String>)copyBuilder.copy(usage));
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
 		if (isSetGroupMember()) {
 			for (CityObjectGroupMember part : groupMember) {

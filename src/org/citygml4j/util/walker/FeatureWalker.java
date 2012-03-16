@@ -61,6 +61,8 @@ import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
+import org.citygml4j.model.citygml.building.OuterCeilingSurface;
+import org.citygml4j.model.citygml.building.OuterFloorSurface;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
@@ -429,6 +431,14 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
 				visit(ade);
 	}
+	
+	public void visit(OuterCeilingSurface outerCeilingSurface) {
+		visit((AbstractBoundarySurface)outerCeilingSurface);
+
+		if (outerCeilingSurface.isSetGenericApplicationPropertyOfOuterCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerCeilingSurface.getGenericApplicationPropertyOfOuterCeilingSurface()))
+				visit(ade);
+	}
 
 	public void visit(ClosureSurface closureSurface) {
 		visit((AbstractBoundarySurface)closureSurface);
@@ -455,6 +465,14 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 
 		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
+				visit(ade);
+	}
+	
+	public void visit(OuterFloorSurface outerFloorSurface) {
+		visit((AbstractBoundarySurface)outerFloorSurface);
+
+		if (outerFloorSurface.isSetGenericApplicationPropertyOfOuterFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerFloorSurface.getGenericApplicationPropertyOfOuterFloorSurface()))
 				visit(ade);
 	}
 

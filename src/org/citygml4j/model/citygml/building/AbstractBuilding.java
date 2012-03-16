@@ -26,18 +26,16 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.AbstractSite;
+import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.measures.Length;
 
-public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite {
-	public String getClazz();
-	public List<String> getFunction();
-	public List<String> getUsage();
+public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite, StandardObjectClassifier {
 	public GregorianCalendar getYearOfConstruction();
 	public GregorianCalendar getYearOfDemolition();
 	public String getRoofType();
@@ -57,6 +55,8 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public MultiCurveProperty getLod2MultiCurve();
 	public MultiCurveProperty getLod3MultiCurve();
 	public MultiCurveProperty getLod4MultiCurve();
+	public MultiSurfaceProperty getLod0FootPrint();
+	public MultiSurfaceProperty getLod0RoofEdge();
 	public MultiSurfaceProperty getLod1MultiSurface();
 	public MultiSurfaceProperty getLod2MultiSurface();
 	public MultiSurfaceProperty getLod3MultiSurface();
@@ -69,9 +69,6 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public List<AddressProperty> getAddress();
 	public List<ADEComponent> getGenericApplicationPropertyOfAbstractBuilding();
 
-	public boolean isSetClazz();
-	public boolean isSetFunction();
-	public boolean isSetUsage();
 	public boolean isSetYearOfConstruction();
 	public boolean isSetYearOfDemolition();
 	public boolean isSetRoofType();
@@ -91,6 +88,8 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public boolean isSetLod2MultiCurve();
 	public boolean isSetLod3MultiCurve();
 	public boolean isSetLod4MultiCurve();
+	public boolean isSetLod0FootPrint();
+	public boolean isSetLod0RoofEdge();
 	public boolean isSetLod1MultiSurface();
 	public boolean isSetLod2MultiSurface();
 	public boolean isSetLod3MultiSurface();
@@ -103,11 +102,6 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public boolean isSetAddress();
 	public boolean isSetGenericApplicationPropertyOfAbstractBuilding();
 
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
-	public void setUsage(List<String> usage);
-	public void addUsage(String usage);
 	public void setYearOfConstruction(GregorianCalendar yearOfConstruction);
 	public void setYearOfDemolition(GregorianCalendar yearOfDemolition);
 	public void setRoofType(String roofType);
@@ -127,6 +121,8 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public void setLod2MultiCurve(MultiCurveProperty lod2MultiCurve);
 	public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve);
 	public void setLod4MultiCurve(MultiCurveProperty lod4MultiCurve);
+	public void setLod0FootPrint(MultiSurfaceProperty lod0FootPrint);
+	public void setLod0RoofEdge(MultiSurfaceProperty lod0RoofEgde);
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface);
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface);
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
@@ -146,11 +142,6 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public void addGenericApplicationPropertyOfAbstractBuilding(ADEComponent ade);
 	public void setGenericApplicationPropertyOfAbstractBuilding(List<ADEComponent> ade);
 	
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
-	public void unsetUsage();
-	public boolean unsetUsage(String usage);
 	public void unsetYearOfConstruction();
 	public void unsetYearOfDemolition();
 	public void unsetRoofType();
@@ -170,6 +161,8 @@ public interface AbstractBuilding extends BuildingModuleComponent, AbstractSite 
 	public void unsetLod2MultiCurve();
 	public void unsetLod3MultiCurve();
 	public void unsetLod4MultiCurve();
+	public void unsetLod0FootPrint();
+	public void unsetLod0RoofEdge();
 	public void unsetLod1MultiSurface();
 	public void unsetLod2MultiSurface();
 	public void unsetLod3MultiSurface();

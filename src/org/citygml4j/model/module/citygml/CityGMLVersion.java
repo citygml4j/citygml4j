@@ -37,6 +37,7 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 	private static final List<CityGMLVersion> instances = new ArrayList<CityGMLVersion>();
 
 	public static final CityGMLVersion DEFAULT;
+	public static final CityGMLVersion v2_0_0;
 	public static final CityGMLVersion v1_0_0;
 	public static final CityGMLVersion v0_4_0;
 
@@ -46,6 +47,26 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 	}
 
 	static {		
+		v2_0_0 = new CityGMLVersion(
+				AppearanceModule.v2_0_0,
+				BridgeModule.v2_0_0,
+				BuildingModule.v2_0_0,
+				CityFurnitureModule.v2_0_0,
+				CityObjectGroupModule.v2_0_0,
+				CoreModule.v2_0_0,
+				GenericsModule.v2_0_0,
+				LandUseModule.v2_0_0,
+				ReliefModule.v2_0_0,
+				TexturedSurfaceModule.v2_0_0,
+				TransportationModule.v2_0_0,
+				TunnelModule.v2_0_0,
+				VegetationModule.v2_0_0,
+				WaterBodyModule.v2_0_0,
+				GMLCoreModule.v3_1_1,
+				XLinkModule.v3_1_1,
+				XALCoreModule.v2_0				
+		);
+		
 		v1_0_0 = new CityGMLVersion(
 				AppearanceModule.v1_0_0,
 				BuildingModule.v1_0_0,
@@ -82,7 +103,7 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 				XALCoreModule.v2_0	
 		);
 		
-		DEFAULT = v1_0_0;
+		DEFAULT = v2_0_0;
 	}
 
 	public List<CityGMLModule> getCityGMLModules() {

@@ -28,7 +28,8 @@ import java.util.List;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.CityGMLFactory;
+import org.citygml4j.factory.BuildingFactory;
+import org.citygml4j.factory.CoreFactory;
 import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.factory.geometry.GMLGeometryFactory;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -48,7 +49,8 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 
 
 public class BuildingCreator {
-	private CityGMLFactory citygml;
+	private CoreFactory core;
+	private BuildingFactory bldg;
 	private GMLFactory gml;
 
 	public static void main(String[] args) throws Exception {
@@ -64,12 +66,13 @@ public class BuildingCreator {
 
 		System.out.println(df.format(new Date()) + "creating LOD2 building as citygml4j in-memory object tree");
 		GMLGeometryFactory geom = new GMLGeometryFactory();
-		citygml = new CityGMLFactory();
+		core = new CoreFactory();
+		bldg = new BuildingFactory();
 		gml = new GMLFactory();
 
 		GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 
-		Building building = citygml.createBuilding();
+		Building building = bldg.createBuilding();
 
 		Polygon ground = geom.createLinearPolygon(new double[] {0,0,0, 0,12,0, 6,12,0, 6,0,0, 0,0,0}, 3);
 		Polygon wall_1 = geom.createLinearPolygon(new double[] {6,0,0, 6,12,0, 6,12,6, 6,0,6, 6,0,0}, 3);
@@ -115,9 +118,9 @@ public class BuildingCreator {
 		boundedBy.add(createBoundarySurface(CityGMLClass.ROOF_SURFACE, roof_2));		
 		building.setBoundedBySurface(boundedBy);
 
-		CityModel cityModel = citygml.createCityModel();
+		CityModel cityModel = core.createCityModel();
 		cityModel.setBoundedBy(building.calcBoundedBy(false));
-		cityModel.addCityObjectMember(citygml.createCityObjectMember(building));
+		cityModel.addCityObjectMember(core.createCityObjectMember(building));
 
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
@@ -138,19 +141,19 @@ public class BuildingCreator {
 
 		switch (type) {
 		case WALL_SURFACE:
-			boundarySurface = citygml.createWallSurface();
+			boundarySurface = bldg.createWallSurface();
 			break;
 		case ROOF_SURFACE:
-			boundarySurface = citygml.createRoofSurface();
+			boundarySurface = bldg.createRoofSurface();
 			break;
 		case GROUND_SURFACE:
-			boundarySurface = citygml.createGroundSurface();
+			boundarySurface = bldg.createGroundSurface();
 			break;
 		}
 
 		if (boundarySurface != null) {
 			boundarySurface.setLod2MultiSurface(gml.createMultiSurfaceProperty(gml.createMultiSurface(geometry)));
-			return citygml.createBoundarySurfaceProperty(boundarySurface);
+			return bldg.createBoundarySurfaceProperty(boundarySurface);
 		}
 
 		return null;

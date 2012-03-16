@@ -34,6 +34,7 @@ import org.citygml4j.model.module.Module;
 public class VegetationModule extends AbstractCityGMLModule {
 	private static final List<VegetationModule> instances = new ArrayList<VegetationModule>();
 
+	public static final VegetationModule v2_0_0;
 	public static final VegetationModule v1_0_0;
 	public static final VegetationModule v0_4_0;
 
@@ -49,6 +50,14 @@ public class VegetationModule extends AbstractCityGMLModule {
 	}
 
 	static {
+		v2_0_0 = new VegetationModule (
+				CityGMLModuleType.VEGETATION,
+				CityGMLModuleVersion.v2_0_0,
+				"http://www.opengis.net/citygml/vegetation/2.0",
+				"veg",
+				"http://schemas.opengis.net/citygml/vegetation/2.0/vegetation.xsd",			
+				CoreModule.v2_0_0);
+		
 		v1_0_0 = new VegetationModule (
 				CityGMLModuleType.VEGETATION,
 				CityGMLModuleVersion.v1_0_0,
@@ -65,10 +74,10 @@ public class VegetationModule extends AbstractCityGMLModule {
 				CoreModule.v0_4_0.getSchemaLocation(),		
 				CoreModule.v0_4_0);
 		
-		v1_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v1_0_0.elementMap.put("SolitaryVegetationObject", SolitaryVegetationObject.class);
-		v1_0_0.elementMap.put("PlantCover", PlantCover.class);
-		v0_4_0.elementMap = v1_0_0.elementMap;
+		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.elementMap.put("SolitaryVegetationObject", SolitaryVegetationObject.class);
+		v2_0_0.elementMap.put("PlantCover", PlantCover.class);
+		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
 	}
 
 	public static List<VegetationModule> getInstances() {

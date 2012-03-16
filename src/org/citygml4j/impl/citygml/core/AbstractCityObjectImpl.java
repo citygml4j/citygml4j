@@ -33,6 +33,8 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.citygml.core.RelativeToTerrain;
+import org.citygml4j.model.citygml.core.RelativeToWater;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
@@ -44,6 +46,8 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 	private List<ExternalReference> externalReference;
 	private List<AbstractGenericAttribute> genericAttribute;
 	private List<GeneralizationRelation> generalizesTo;
+	private RelativeToTerrain relativeToTerrain;
+	private RelativeToWater relativeToWater;
 	private List<AppearanceProperty> appearance;
 	private List<ADEComponent> ade;
 	
@@ -121,6 +125,14 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 		return genericAttribute;
 	}
 
+	public RelativeToTerrain getRelativeToTerrain() {
+		return relativeToTerrain;
+	}
+
+	public RelativeToWater getRelativeToWater() {
+		return relativeToWater;
+	}
+
 	public GregorianCalendar getTerminationDate() {
 		return terminationDate;
 	}
@@ -149,6 +161,14 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 		return genericAttribute != null && !genericAttribute.isEmpty();
 	}
 
+	public boolean isSetRelativeToTerrain() {
+		return relativeToTerrain != null;
+	}
+
+	public boolean isSetRelativeToWater() {
+		return relativeToWater != null;
+	}
+
 	public boolean isSetTerminationDate() {
 		return terminationDate != null;
 	}
@@ -175,6 +195,14 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 
 	public void setGenericAttribute(List<AbstractGenericAttribute> genericAttribute) {
 		this.genericAttribute = new ChildList<AbstractGenericAttribute>(this, genericAttribute);
+	}
+
+	public void setRelativeToTerrain(RelativeToTerrain relativeToTerrain) {
+		this.relativeToTerrain = relativeToTerrain;
+	}
+
+	public void setRelativeToWater(RelativeToWater relativeToWater) {
+		this.relativeToWater = relativeToWater;
 	}
 
 	public void setTerminationDate(GregorianCalendar terminationDate) {
@@ -240,6 +268,14 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 		return isSetGenericAttribute() ? this.genericAttribute.remove(genericAttribute) : false;
 	}
 
+	public void unsetRelativeToTerrain() {
+		relativeToTerrain = null;
+	}
+
+	public void unsetRelativeToWater() {
+		relativeToWater = null;
+	}
+
 	public void unsetTerminationDate() {
 		terminationDate = null;
 	}
@@ -277,6 +313,12 @@ public abstract class AbstractCityObjectImpl extends AbstractFeatureImpl impleme
 		
 		if (isSetTerminationDate())
 			copy.setTerminationDate((GregorianCalendar)copyBuilder.copy(terminationDate));
+		
+		if (isSetRelativeToTerrain())
+			copy.setRelativeToTerrain((RelativeToTerrain)copyBuilder.copy(relativeToTerrain));
+		
+		if (isSetRelativeToWater())
+			copy.setRelativeToWater((RelativeToWater)copyBuilder.copy(relativeToWater));
 		
 		if (isSetExternalReference()) {
 			for (ExternalReference part : externalReference) {

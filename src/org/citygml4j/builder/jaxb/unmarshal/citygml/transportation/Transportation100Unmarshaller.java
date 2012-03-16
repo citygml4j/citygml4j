@@ -36,6 +36,7 @@ import org.citygml4j.impl.citygml.transportation.TrackImpl;
 import org.citygml4j.impl.citygml.transportation.TrafficAreaImpl;
 import org.citygml4j.impl.citygml.transportation.TrafficAreaPropertyImpl;
 import org.citygml4j.impl.citygml.transportation.TransportationComplexImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.tran._1.AbstractTransportationObjectType;
 import org.citygml4j.jaxb.citygml.tran._1.AuxiliaryTrafficAreaPropertyType;
 import org.citygml4j.jaxb.citygml.tran._1.AuxiliaryTrafficAreaType;
@@ -112,11 +113,13 @@ public class Transportation100Unmarshaller {
 	public void unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src, AuxiliaryTrafficArea dest) throws MissingADESchemaException {
 		unmarshalTransportationObject(src, dest);
 		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
-		
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
+
 		if (src.isSetSurfaceMaterial())
-			dest.setSurfaceMaterial(src.getSurfaceMaterial());
+			dest.setSurfaceMaterial(new CodeImpl(src.getSurfaceMaterial()));
 		
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -195,14 +198,18 @@ public class Transportation100Unmarshaller {
 	public void unmarshalTrafficArea(TrafficAreaType src, TrafficArea dest) throws MissingADESchemaException {
 		unmarshalTransportationObject(src, dest);
 		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new CodeImpl(usage));
+		}
 		
 		if (src.isSetSurfaceMaterial())
-			dest.setSurfaceMaterial(src.getSurfaceMaterial());
+			dest.setSurfaceMaterial(new CodeImpl(src.getSurfaceMaterial()));
 		
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -237,11 +244,15 @@ public class Transportation100Unmarshaller {
 	public void unmarshalTransportationComplex(TransportationComplexType src, TransportationComplex dest) throws MissingADESchemaException {
 		unmarshalTransportationObject(src, dest);
 		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new CodeImpl(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new CodeImpl(usage));
+		}
 		
 		if (src.isSetTrafficArea()) {
 			for (TrafficAreaPropertyType trafficAreaProperty : src.getTrafficArea())

@@ -33,6 +33,13 @@ public class CodeImpl implements Code {
 	private String codeSpace;
 	private ModelObject parent;
 	
+	public CodeImpl() {
+	}
+	
+	public CodeImpl(String value) {
+		this.value = value;
+	}
+	
 	public ModelType getModelType() {
 		return ModelType.GML;
 	}

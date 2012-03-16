@@ -36,6 +36,8 @@ public interface AbstractCityObject extends CoreModuleComponent, AbstractFeature
 	public List<ExternalReference> getExternalReference();
 	public List<AbstractGenericAttribute> getGenericAttribute();
 	public List<GeneralizationRelation> getGeneralizesTo();
+	public RelativeToTerrain getRelativeToTerrain();
+	public RelativeToWater getRelativeToWater();
 	public List<AppearanceProperty> getAppearance();
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObject();
 	public boolean isSetCreationDate();
@@ -43,6 +45,8 @@ public interface AbstractCityObject extends CoreModuleComponent, AbstractFeature
 	public boolean isSetExternalReference();
 	public boolean isSetGenericAttribute();
 	public boolean isSetGeneralizesTo();
+	public boolean isSetRelativeToTerrain();
+	public boolean isSetRelativeToWater();
 	public boolean isSetAppearance();
 	public boolean isSetGenericApplicationPropertyOfCityObject();
 
@@ -56,6 +60,8 @@ public interface AbstractCityObject extends CoreModuleComponent, AbstractFeature
 	public void addExternalReference(ExternalReference externalReference);
 	public void setGeneralizesTo(List<GeneralizationRelation> generalizesTo);
 	public void addGeneralizesTo(GeneralizationRelation generalizesTo);
+	public void setRelativeToTerrain(RelativeToTerrain relativeToTerrain);
+	public void setRelativeToWater(RelativeToWater relativeToWater);
 	public void setAppearance(List<AppearanceProperty> appearance);
 	public void addAppearance(AppearanceProperty appearance);	
 	public void addGenericApplicationPropertyOfCityObject(ADEComponent ade);
@@ -64,6 +70,8 @@ public interface AbstractCityObject extends CoreModuleComponent, AbstractFeature
 	public void unsetTerminationDate();
 	public void unsetExternalReference();
 	public boolean unsetExternalReference(ExternalReference externalReference);
+	public void unsetRelativeToTerrain();
+	public void unsetRelativeToWater();
 	public void unsetGenericAttribute();
 	public boolean unsetGenericAttribute(AbstractGenericAttribute genericAttribute);
 	public void unsetGeneralizesTo();

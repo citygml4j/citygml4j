@@ -22,18 +22,14 @@
  */
 package org.citygml4j.model.citygml.generics;
 
-import java.util.List;
-
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 
-public interface GenericCityObject extends GenericsModuleComponent, AbstractCityObject {
-	public String getClazz();
-	public List<String> getFunction();
-	public List<String> getUsage();
+public interface GenericCityObject extends GenericsModuleComponent, AbstractCityObject, StandardObjectClassifier {
 	public GeometryProperty<? extends AbstractGeometry> getLod0Geometry();
 	public GeometryProperty<? extends AbstractGeometry> getLod1Geometry();
 	public GeometryProperty<? extends AbstractGeometry> getLod2Geometry();
@@ -49,9 +45,6 @@ public interface GenericCityObject extends GenericsModuleComponent, AbstractCity
 	public ImplicitRepresentationProperty getLod2ImplicitRepresentation();
 	public ImplicitRepresentationProperty getLod3ImplicitRepresentation();
 	public ImplicitRepresentationProperty getLod4ImplicitRepresentation();
-	public boolean isSetClazz();
-	public boolean isSetFunction();
-	public boolean isSetUsage();
 	public boolean isSetLod0Geometry();
 	public boolean isSetLod1Geometry();
 	public boolean isSetLod2Geometry();
@@ -68,11 +61,6 @@ public interface GenericCityObject extends GenericsModuleComponent, AbstractCity
 	public boolean isSetLod3ImplicitRepresentation();
 	public boolean isSetLod4ImplicitRepresentation();
 	
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
-	public void setUsage(List<String> usage);
-	public void addUsage(String usage);
 	public void setLod0Geometry(GeometryProperty<? extends AbstractGeometry> lod0Geometry);
 	public void setLod1Geometry(GeometryProperty<? extends AbstractGeometry> lod1Geometry);
 	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry);
@@ -88,11 +76,6 @@ public interface GenericCityObject extends GenericsModuleComponent, AbstractCity
 	public void setLod2ImplicitRepresentation(ImplicitRepresentationProperty lod2ImplicitRepresentation);
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation);
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
-	public void unsetUsage();
-	public boolean unsetUsage(String usage);
 	public void unsetLod0Geometry();
 	public void unsetLod1Geometry();
 	public void unsetLod2Geometry();

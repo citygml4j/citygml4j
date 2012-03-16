@@ -28,7 +28,8 @@ import javax.xml.bind.ValidationEventHandler;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.CityGMLFactory;
+import org.citygml4j.factory.BuildingFactory;
+import org.citygml4j.factory.CoreFactory;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -45,20 +46,21 @@ public class ObjectTreeValidation {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		CityGMLFactory citygml = new CityGMLFactory();
+		CoreFactory core = new CoreFactory();
+		BuildingFactory bldg = new BuildingFactory();
 		
 		// creating example (and simple) CityGML object tree
 		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
-		Building building = citygml.createBuilding();
+		Building building = bldg.createBuilding();
 		building.setId("1st-Building");
 		
-		BuildingPart buildingPart = citygml.createBuildingPart();
+		BuildingPart buildingPart = bldg.createBuildingPart();
 		buildingPart.setId("PART");
-		building.addConsistsOfBuildingPart(citygml.createBuildingPartProperty('#' + buildingPart.getId()));
+		building.addConsistsOfBuildingPart(bldg.createBuildingPartProperty('#' + buildingPart.getId()));
 		
-		CityModel cityModel = citygml.createCityModel();
-		cityModel.addCityObjectMember(citygml.createCityObjectMember(building));
-		cityModel.addCityObjectMember(citygml.createCityObjectMember(buildingPart));
+		CityModel cityModel = core.createCityModel();
+		cityModel.addCityObjectMember(core.createCityObjectMember(building));
+		cityModel.addCityObjectMember(core.createCityObjectMember(buildingPart));
 		
 		System.out.println(df.format(new Date()) + "creating citygml4j Validator and validating city model against CityGML 0.4.0");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();

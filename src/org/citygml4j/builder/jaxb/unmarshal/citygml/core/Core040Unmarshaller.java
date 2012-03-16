@@ -43,6 +43,7 @@ import org.citygml4j.impl.citygml.core.TransformationMatrix2x2Impl;
 import org.citygml4j.impl.citygml.core.TransformationMatrix3x4Impl;
 import org.citygml4j.impl.citygml.core.TransformationMatrix4x4Impl;
 import org.citygml4j.impl.citygml.core.XalAddressPropertyImpl;
+import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.AddressPropertyType;
 import org.citygml4j.jaxb.citygml._0_4.AddressType;
 import org.citygml4j.jaxb.citygml._0_4.AppearancePropertyType;
@@ -261,7 +262,7 @@ public class Core040Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType());
+			dest.setMimeType(new CodeImpl(src.getMimeType()));
 
 		if (src.isSetLibraryObject())
 			dest.setLibraryObject(src.getLibraryObject());

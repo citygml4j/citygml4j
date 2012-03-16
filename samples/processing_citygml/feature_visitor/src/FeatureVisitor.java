@@ -26,7 +26,7 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.CityGMLFactory;
+import org.citygml4j.factory.AppearanceFactory;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
@@ -58,7 +58,7 @@ public class FeatureVisitor {
 		reader.close();
 
 		final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
-		final CityGMLFactory citygml = new CityGMLFactory();
+		final AppearanceFactory app = new AppearanceFactory();
 
 		System.out.println(df.format(new Date()) + "using FeatureWalker to walk through document and to process boundary surface features");
 		FeatureWalker walker = new FeatureWalker() {
@@ -86,15 +86,15 @@ public class FeatureVisitor {
 					red = 0.3; green = 0.3; blue = 0.3;
 				}
 
-				X3DMaterial material = citygml.createX3DMaterial();
-				material.setDiffuseColor(citygml.createColor(red, green, blue));
+				X3DMaterial material = app.createX3DMaterial();
+				material.setDiffuseColor(app.createColor(red, green, blue));
 				material.addTarget('#' + id);
 
-				Appearance appearance = citygml.createAppearance();
+				Appearance appearance = app.createAppearance();
 				appearance.setTheme("rgbColor");
-				appearance.addSurfaceDataMember(citygml.createSurfaceDataProperty(material));
+				appearance.addSurfaceDataMember(app.createSurfaceDataProperty(material));
 
-				boundarySurface.addAppearance(citygml.createAppearanceProperty(appearance));
+				boundarySurface.addAppearance(app.createAppearanceProperty(appearance));
 				super.visit(boundarySurface);
 			}
 

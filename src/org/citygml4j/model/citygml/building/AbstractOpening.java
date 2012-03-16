@@ -26,22 +26,31 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 
 public interface AbstractOpening extends BuildingModuleComponent, AbstractCityObject {
 	public MultiSurfaceProperty getLod3MultiSurface();
 	public MultiSurfaceProperty getLod4MultiSurface();
+	public ImplicitRepresentationProperty getLod3ImplicitRepresentation();
+	public ImplicitRepresentationProperty getLod4ImplicitRepresentation();
 	public List<ADEComponent> getGenericApplicationPropertyOfOpening();
 	public boolean isSetLod3MultiSurface();
 	public boolean isSetLod4MultiSurface();
+	public boolean isSetLod3ImplicitRepresentation();
+	public boolean isSetLod4ImplicitRepresentation();
 	public boolean isSetGenericApplicationPropertyOfOpening();
 	
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface);
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface);	
+	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation);
+	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation);
 	public void addGenericApplicationPropertyOfOpening(ADEComponent ade);
 	public void setGenericApplicationPropertyOfOpening(List<ADEComponent> ade);
 	public void unsetLod3MultiSurface();
 	public void unsetLod4MultiSurface();
+	public void unsetLod3ImplicitRepresentation();
+	public void unsetLod4ImplicitRepresentation();
 	public void unsetGenericApplicationPropertyOfOpening();
 	public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent ade);
 }

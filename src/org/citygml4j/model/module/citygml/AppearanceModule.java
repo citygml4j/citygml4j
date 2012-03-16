@@ -37,6 +37,7 @@ import org.citygml4j.model.module.Module;
 public class AppearanceModule extends AbstractCityGMLModule {
 	private static final List<AppearanceModule> instances = new ArrayList<AppearanceModule>();
 
+	public static final AppearanceModule v2_0_0;
 	public static final AppearanceModule v1_0_0;
 	public static final AppearanceModule v0_4_0;
 
@@ -52,6 +53,14 @@ public class AppearanceModule extends AbstractCityGMLModule {
 	}
 
 	static {
+		v2_0_0 = new AppearanceModule (
+				CityGMLModuleType.APPEARANCE,
+				CityGMLModuleVersion.v2_0_0,
+				"http://www.opengis.net/citygml/appearance/2.0",
+				"app",
+				"http://schemas.opengis.net/citygml/appearance/2.0/appearance.xsd",		
+				CoreModule.v2_0_0);
+		
 		v1_0_0 = new AppearanceModule (
 				CityGMLModuleType.APPEARANCE,
 				CityGMLModuleVersion.v1_0_0,
@@ -68,17 +77,18 @@ public class AppearanceModule extends AbstractCityGMLModule {
 				CoreModule.v0_4_0.getSchemaLocation(),		
 				CoreModule.v0_4_0);
 		
-		v1_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v1_0_0.elementMap.put("Appearance", Appearance.class);
-		v1_0_0.elementMap.put("ParameterizedTexture", ParameterizedTexture.class);
-		v1_0_0.elementMap.put("GeoreferencedTexture", GeoreferencedTexture.class);
-		v1_0_0.elementMap.put("X3DMaterial", X3DMaterial.class);
-		v0_4_0.elementMap = v1_0_0.elementMap;
+		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.elementMap.put("Appearance", Appearance.class);
+		v2_0_0.elementMap.put("ParameterizedTexture", ParameterizedTexture.class);
+		v2_0_0.elementMap.put("GeoreferencedTexture", GeoreferencedTexture.class);
+		v2_0_0.elementMap.put("X3DMaterial", X3DMaterial.class);
+		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
 		
-		v1_0_0.propertySet = new HashSet<String>();
-		v1_0_0.propertySet.add("appearance");
-		v1_0_0.propertySet.add("appearanceMember");
-		v1_0_0.propertySet.add("surfaceDataMember");
+		v2_0_0.propertySet = new HashSet<String>();
+		v2_0_0.propertySet.add("appearance");
+		v2_0_0.propertySet.add("appearanceMember");
+		v2_0_0.propertySet.add("surfaceDataMember");
+		v1_0_0.propertySet = v2_0_0.propertySet;
 		
 		v0_4_0.propertySet = new HashSet<String>();
 		v0_4_0.propertySet.add("appearanceMember");

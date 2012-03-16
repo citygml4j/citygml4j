@@ -33,6 +33,7 @@ import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
 import org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType;
 import org.citygml4j.jaxb.citygml.core._1.AbstractCityObjectType;
 import org.citygml4j.jaxb.citygml.core._1.AbstractSiteType;
@@ -48,6 +49,7 @@ import org.citygml4j.jaxb.citygml.core._1.ObjectFactory;
 import org.citygml4j.jaxb.citygml.core._1.XalAddressPropertyType;
 import org.citygml4j.jaxb.citygml.gen._1.AbstractGenericAttributeType;
 import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -68,6 +70,8 @@ import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
+import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 
 public class Core100Marshaller {
@@ -170,11 +174,33 @@ public class Core100Marshaller {
 				dest.getGeneralizesTo().add(marshalGeneralizationRelation(generalizationRelation));
 		}
 
+		if (src.isSetRelativeToTerrain()) {
+			StringAttribute relativeToTerrain = new StringAttributeImpl();
+			relativeToTerrain.setName("relativeToTerrain");
+			relativeToTerrain.setValue(src.getRelativeToTerrain().getValue());
+			JAXBElement<?> elem = citygml.getGenerics100Marshaller().marshalJAXBElement(relativeToTerrain);
+			if (elem != null && elem.getValue() instanceof AbstractGenericAttributeType)
+				dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
+		}
+
+		if (src.isSetRelativeToWater()) {
+			StringAttribute relativeToWater = new StringAttributeImpl();
+			relativeToWater.setName("relativeToWater");
+			relativeToWater.setValue(src.getRelativeToWater().getValue());
+			JAXBElement<?> elem = citygml.getGenerics100Marshaller().marshalJAXBElement(relativeToWater);
+			if (elem != null && elem.getValue() instanceof AbstractGenericAttributeType)
+				dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
+		}
+
 		if (src.isSetGenericAttribute()) {
 			for (AbstractGenericAttribute genericAttribute : src.getGenericAttribute()) {
-				JAXBElement<?> elem = jaxb.marshalJAXBElement(genericAttribute);
-				if (elem != null && elem.getValue() instanceof AbstractGenericAttributeType)
-					dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
+				if (genericAttribute.getCityGMLClass() == CityGMLClass.GENERIC_ATTRIBUTE_SET)				
+					dest.get_GenericAttribute().addAll(citygml.getGenerics100Marshaller().marshalGenericAttributeSetElement((GenericAttributeSet)genericAttribute));				
+				else {
+					JAXBElement<?> elem = citygml.getGenerics100Marshaller().marshalJAXBElement(genericAttribute);
+					if (elem != null && elem.getValue() instanceof AbstractGenericAttributeType)
+						dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
+				}
 			}
 		}
 
@@ -209,7 +235,7 @@ public class Core100Marshaller {
 
 		if (src.isSetMultiPoint())
 			dest.setMultiPoint(jaxb.getGMLMarshaller().marshalMultiPointProperty(src.getMultiPoint()));
-		
+
 		if (src.isSetGenericApplicationPropertyOfAddress()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfAddress())
 				if (adeComponent.isSetContent())
@@ -240,7 +266,7 @@ public class Core100Marshaller {
 	@SuppressWarnings("unchecked")
 	public void marshalCityModel(CityModel src, CityModelType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractFeatureCollection(src, dest);
-		
+
 		if (src.isSetCityObjectMember()) {
 			for (CityObjectMember member : src.getCityObjectMember()) {
 				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
@@ -248,7 +274,7 @@ public class Core100Marshaller {
 					dest.getFeatureMember().add((JAXBElement<? extends FeaturePropertyType>)elem);
 			}
 		}
-		
+
 		if (src.isSetAppearanceMember()) {
 			for (AppearanceMember member : src.getAppearanceMember()) {
 				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
@@ -256,7 +282,7 @@ public class Core100Marshaller {
 					dest.getFeatureMember().add((JAXBElement<AppearancePropertyType>)elem);
 			}
 		}
-		
+
 		if (src.isSetGenericApplicationPropertyOfCityModel()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCityModel())
 				if (adeComponent.isSetContent())
@@ -270,7 +296,7 @@ public class Core100Marshaller {
 
 		return dest;
 	}
-	
+
 	public FeaturePropertyType marshalCityObjectMember(CityObjectMember src) {
 		return jaxb.getGMLMarshaller().marshalFeatureProperty(src);		
 	}
@@ -352,7 +378,7 @@ public class Core100Marshaller {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType());
+			dest.setMimeType(src.getMimeType().getValue());
 
 		if (src.isSetLibraryObject())
 			dest.setLibraryObject(src.getLibraryObject());

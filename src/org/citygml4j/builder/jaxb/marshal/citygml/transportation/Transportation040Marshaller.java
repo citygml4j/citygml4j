@@ -50,6 +50,7 @@ import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 
 public class Transportation040Marshaller {
@@ -120,11 +121,13 @@ public class Transportation040Marshaller {
 	public void marshalAuxiliaryTrafficArea(AuxiliaryTrafficArea src, AuxiliaryTrafficAreaType dest) {
 		marshalTransportationObject(src, dest);
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
 		if (src.isSetSurfaceMaterial())
-			dest.setSurfaceMaterial(src.getSurfaceMaterial());
+			dest.setSurfaceMaterial(src.getSurfaceMaterial().getValue());
 
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -233,14 +236,18 @@ public class Transportation040Marshaller {
 	public void marshalTrafficArea(TrafficArea src, TrafficAreaType dest) {
 		marshalTransportationObject(src, dest);
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetSurfaceMaterial())
-			dest.setSurfaceMaterial(src.getSurfaceMaterial());
+			dest.setSurfaceMaterial(src.getSurfaceMaterial().getValue());
 
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -281,11 +288,15 @@ public class Transportation040Marshaller {
 	public void marshalTransportationComplex(TransportationComplex src, TransportationComplexType dest) {
 		marshalTransportationObject(src, dest);
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetTrafficArea()) {
 			for (TrafficAreaProperty trafficAreaProperty : src.getTrafficArea())

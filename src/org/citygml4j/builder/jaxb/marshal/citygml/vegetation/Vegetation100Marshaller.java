@@ -36,6 +36,7 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class Vegetation100Marshaller {
 	private final ObjectFactory veg = new ObjectFactory();
@@ -86,10 +87,12 @@ public class Vegetation100Marshaller {
 		marshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
 		if (src.isSetAverageHeight())
 			dest.setAverageHeight(jaxb.getGMLMarshaller().marshalLength(src.getAverageHeight()));
@@ -133,13 +136,15 @@ public class Vegetation100Marshaller {
 		marshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
 		if (src.isSetSpecies())
-			dest.setSpecies(src.getSpecies());
+			dest.setSpecies(src.getSpecies().getValue());
 
 		if (src.isSetHeight())
 			dest.setHeight(jaxb.getGMLMarshaller().marshalLength(src.getHeight()));

@@ -37,6 +37,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class CityObjectGroup100Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();
@@ -77,13 +78,17 @@ public class CityObjectGroup100Marshaller {
 		citygml.getCore100Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetGeometry())
 			dest.setGeometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getGeometry()));

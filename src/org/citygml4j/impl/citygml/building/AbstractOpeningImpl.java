@@ -29,6 +29,7 @@ import org.citygml4j.impl.citygml.core.AbstractCityObjectImpl;
 import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractOpening;
+import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
@@ -40,6 +41,8 @@ import org.citygml4j.model.module.citygml.BuildingModule;
 public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl implements AbstractOpening {
 	private MultiSurfaceProperty lod3MultiSurface;
 	private MultiSurfaceProperty lod4MultiSurface;
+	private ImplicitRepresentationProperty lod3ImplicitRepresentation;
+	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<ADEComponent> ade;
 	private BuildingModule module;
 	
@@ -49,6 +52,50 @@ public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl impleme
 	
 	public AbstractOpeningImpl(BuildingModule module) {
 		this.module = module;
+	}
+	
+	public ImplicitRepresentationProperty getLod3ImplicitRepresentation() {
+		return lod3ImplicitRepresentation;
+	}
+	
+	public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
+		return lod4ImplicitRepresentation;
+	}
+	
+	public boolean isSetLod3ImplicitRepresentation() {
+		return lod3ImplicitRepresentation != null;
+	}
+	
+	public boolean isSetLod4ImplicitRepresentation() {
+		return lod4ImplicitRepresentation != null;
+	}
+	
+	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation) {
+		if (lod3ImplicitRepresentation != null)
+			lod3ImplicitRepresentation.setParent(this);
+
+		this.lod3ImplicitRepresentation = lod3ImplicitRepresentation;
+	}
+
+	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
+		if (lod4ImplicitRepresentation != null)
+			lod4ImplicitRepresentation.setParent(this);
+
+		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
+	}
+	
+	public void unsetLod3ImplicitRepresentation() {
+		if (isSetLod3ImplicitRepresentation())
+			lod3ImplicitRepresentation.unsetParent();
+
+		lod3ImplicitRepresentation = null;
+	}
+	
+	public void unsetLod4ImplicitRepresentation() {
+		if (isSetLod4ImplicitRepresentation())
+			lod4ImplicitRepresentation.unsetParent();
+
+		lod4ImplicitRepresentation = null;
 	}
 	
 	public void addGenericApplicationPropertyOfOpening(ADEComponent ade) {
@@ -139,23 +186,49 @@ public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl impleme
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShapeImpl();
-		MultiSurfaceProperty multiSurfaceProperty = null;
-
+		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
+		
 		for (int lod = 3; lod < 5; lod++) {
 			switch (lod) {
 			case 3:
-				multiSurfaceProperty = lod3MultiSurface;
+				geometryProperty = lod3MultiSurface;
 				break;
 			case 4:
-				multiSurfaceProperty = lod4MultiSurface;
+				geometryProperty = lod4MultiSurface;
 				break;
 			}
 
-			if (multiSurfaceProperty != null) {
-				if (multiSurfaceProperty.isSetMultiSurface()) {
-					calcBoundedBy(boundedBy, multiSurfaceProperty.getMultiSurface());
+			if (geometryProperty != null) {
+				if (geometryProperty.isSetGeometry()) {
+					calcBoundedBy(boundedBy, geometryProperty.getGeometry());
 				} else {
 					// xlink
+				}
+			}
+		}
+		
+		ImplicitRepresentationProperty implicitRepresentation = null;
+		for (int lod = 3; lod < 5; lod++) {
+			switch (lod) {
+			case 3:
+				implicitRepresentation = lod3ImplicitRepresentation;
+				break;
+			case 4:
+				implicitRepresentation = lod4ImplicitRepresentation;
+				break;
+			}
+
+			if (implicitRepresentation != null && 
+					implicitRepresentation.isSetImplicitGeometry() &&
+					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
+				geometryProperty = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
+
+				if (geometryProperty != null) {
+					if (geometryProperty.isSetGeometry()) {
+						calcBoundedBy(boundedBy, geometryProperty.getGeometry());
+					} else {
+						// xlink
+					}
 				}
 			}
 		}
@@ -188,6 +261,25 @@ public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl impleme
 				lodRepresentation.getLodGeometry(lod).add(property);
 		}
 		
+		ImplicitRepresentationProperty implicitRepresentation = null;
+		for (int lod = 3; lod < 5; lod++) {
+			switch (lod) {
+			case 3:
+				implicitRepresentation = lod3ImplicitRepresentation;
+				break;
+			case 4:
+				implicitRepresentation = lod4ImplicitRepresentation;
+				break;
+			}
+
+			if (implicitRepresentation != null && 
+					implicitRepresentation.isSetImplicitGeometry() &&
+					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
+				property = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
+				lodRepresentation.getLodGeometry(lod).add(property);
+			}
+		}
+		
 		return lodRepresentation;
 	}
 	
@@ -209,6 +301,18 @@ public abstract class AbstractOpeningImpl extends AbstractCityObjectImpl impleme
 			copy.setLod4MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod4MultiSurface));
 			if (copy.getLod4MultiSurface() == lod4MultiSurface)
 				lod4MultiSurface.setParent(this);
+		}
+		
+		if (isSetLod3ImplicitRepresentation()) {
+			copy.setLod3ImplicitRepresentation((ImplicitRepresentationProperty)copyBuilder.copy(lod3ImplicitRepresentation));
+			if (copy.getLod3ImplicitRepresentation() == lod3ImplicitRepresentation)
+				lod3ImplicitRepresentation.setParent(this);
+		}
+
+		if (isSetLod4ImplicitRepresentation()) {
+			copy.setLod4ImplicitRepresentation((ImplicitRepresentationProperty)copyBuilder.copy(lod4ImplicitRepresentation));
+			if (copy.getLod4ImplicitRepresentation() == lod4ImplicitRepresentation)
+				lod4ImplicitRepresentation.setParent(this);
 		}
 
 		if (isSetGenericApplicationPropertyOfOpening()) {

@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
@@ -38,6 +39,7 @@ import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
@@ -56,6 +58,7 @@ public class Modules {
 
 		modules.put(CityGMLModuleType.CORE, CoreModule.getInstances());
 		modules.put(CityGMLModuleType.APPEARANCE, AppearanceModule.getInstances());
+		modules.put(CityGMLModuleType.BRIDGE, BridgeModule.getInstances());
 		modules.put(CityGMLModuleType.BUILDING, BuildingModule.getInstances());
 		modules.put(CityGMLModuleType.CITY_FURNITURE, CityFurnitureModule.getInstances());
 		modules.put(CityGMLModuleType.CITY_OBJECT_GROUP, CityObjectGroupModule.getInstances());
@@ -63,6 +66,7 @@ public class Modules {
 		modules.put(CityGMLModuleType.LAND_USE, LandUseModule.getInstances());
 		modules.put(CityGMLModuleType.RELIEF, ReliefModule.getInstances());
 		modules.put(CityGMLModuleType.TRANSPORTATION, TransportationModule.getInstances());
+		modules.put(CityGMLModuleType.TUNNEL, TunnelModule.getInstances());
 		modules.put(CityGMLModuleType.VEGETATION, VegetationModule.getInstances());
 		modules.put(CityGMLModuleType.WATER_BODY, WaterBodyModule.getInstances());
 		modules.put(CityGMLModuleType.TEXTURED_SURFACE, TexturedSurfaceModule.getInstances());

@@ -25,10 +25,11 @@ package org.citygml4j.model.citygml.appearance;
 import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public interface AbstractTexture extends AbstractSurfaceData {
 	public String getImageURI();
-	public String getMimeType();
+	public Code getMimeType();
 	public TextureType getTextureType();
 	public WrapMode getWrapMode();
 	public ColorPlusOpacity getBorderColor();
@@ -41,7 +42,7 @@ public interface AbstractTexture extends AbstractSurfaceData {
 	public boolean isSetGenericApplicationPropertyOfTexture();	
 	
 	public void setImageURI(String imageURI);
-	public void setMimeType(String mimeType);
+	public void setMimeType(Code mimeType);
 	public void setTextureType(TextureType textureType);
 	public void setWrapMode(WrapMode wrapMode);
 	public void setBorderColor(ColorPlusOpacity borderColor);	

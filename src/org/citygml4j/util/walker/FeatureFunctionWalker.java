@@ -62,6 +62,8 @@ import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
+import org.citygml4j.model.citygml.building.OuterCeilingSurface;
+import org.citygml4j.model.citygml.building.OuterFloorSurface;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
@@ -615,6 +617,22 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 
 		return null;
 	}
+	
+	public T apply(OuterCeilingSurface outerCeilingSurface) {
+		T object = apply((AbstractBoundarySurface)outerCeilingSurface);
+		if (object != null)
+			return object;
+
+		if (outerCeilingSurface.isSetGenericApplicationPropertyOfOuterCeilingSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerCeilingSurface.getGenericApplicationPropertyOfOuterCeilingSurface())) {
+				object = apply(ade);
+				if (object != null)
+					return object;
+			}
+		}
+
+		return null;
+	}
 
 	public T apply(CityFurniture cityFurniture) {
 		T object = apply((AbstractCityObject)cityFurniture);
@@ -741,6 +759,22 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 
 		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface()) {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface())) {
+				object = apply(ade);
+				if (object != null)
+					return object;
+			}
+		}
+
+		return null;
+	}
+	
+	public T apply(OuterFloorSurface outerFloorSurface) {
+		T object = apply((AbstractBoundarySurface)outerFloorSurface);
+		if (object != null)
+			return object;
+
+		if (outerFloorSurface.isSetGenericApplicationPropertyOfOuterFloorSurface()) {
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerFloorSurface.getGenericApplicationPropertyOfOuterFloorSurface())) {
 				object = apply(ade);
 				if (object != null)
 					return object;

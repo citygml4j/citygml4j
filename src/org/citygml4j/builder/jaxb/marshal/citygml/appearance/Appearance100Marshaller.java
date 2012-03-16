@@ -151,7 +151,7 @@ public class Appearance100Marshaller {
 			dest.setImageURI(src.getImageURI());
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType());
+			dest.setMimeType(src.getMimeType().getValue());
 
 		if (src.isSetTextureType())
 			dest.setTextureType(marshalTextureType(src.getTextureType()));

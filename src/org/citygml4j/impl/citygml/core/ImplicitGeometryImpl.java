@@ -34,13 +34,14 @@ import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 
 public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeometry {
-	private String mimeType;
+	private Code mimeType;
 	private TransformationMatrix4x4 transformationMatrix;
 	private String libraryObject;
 	private GeometryProperty<? extends AbstractGeometry> relativeGeometry;
@@ -59,7 +60,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		return libraryObject;
 	}
 
-	public String getMimeType() {
+	public Code getMimeType() {
 		return mimeType;
 	}
 
@@ -99,7 +100,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 		this.libraryObject = libraryObject;
 	}
 
-	public void setMimeType(String mimeType) {
+	public void setMimeType(Code mimeType) {
 		this.mimeType = mimeType;
 	}
 
@@ -210,7 +211,7 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 			copy.setLibraryObject(copyBuilder.copy(libraryObject));
 
 		if (isSetMimeType())
-			copy.setMimeType(copyBuilder.copy(mimeType));
+			copy.setMimeType((Code)copyBuilder.copy(mimeType));
 
 		if (isSetReferencePoint()) {
 			copy.setReferencePoint((PointProperty)copyBuilder.copy(referencePoint));

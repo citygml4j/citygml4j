@@ -26,41 +26,26 @@ import java.util.List;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CityObjectGroup extends CityObjectGroupModuleComponent, AbstractCityObject {
-	public String getClazz();
-	public List<String> getFunction();
-	public List<String> getUsage();
+public interface CityObjectGroup extends CityObjectGroupModuleComponent, AbstractCityObject, StandardObjectClassifier {
 	public List<CityObjectGroupMember> getGroupMember();
 	public CityObjectGroupParent getGroupParent();
 	public GeometryProperty<? extends AbstractGeometry> getGeometry();
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObjectGroup();
-	public boolean isSetClazz();
-	public boolean isSetFunction();
-	public boolean isSetUsage();
 	public boolean isSetGroupMember();
 	public boolean isSetGroupParent();
 	public boolean isSetGeometry();
 	public boolean isSetGenericApplicationPropertyOfCityObjectGroup();	
 	
-	public void setClazz(String clazz);
-	public void setFunction(List<String> function);
-	public void addFunction(String function);
-	public void setUsage(List<String> usage);
-	public void addUsage(String usage);
 	public void setGroupMember(List<CityObjectGroupMember> groupMember);
 	public void addGroupMember(CityObjectGroupMember groupMember);
 	public void setGroupParent(CityObjectGroupParent groupParent);
 	public void setGeometry(GeometryProperty<? extends AbstractGeometry> geometry);	
 	public void addGenericApplicationPropertyOfCityObjectGroup(ADEComponent ade);
 	public void setGenericApplicationPropertyOfCityObjectGroup(List<ADEComponent> ade);
-	public void unsetClazz();
-	public void unsetFunction();
-	public boolean unsetFunction(String function);
-	public void unsetUsage();
-	public boolean unsetUsage(String usage);
 	public void unsetGroupMember();
 	public boolean unsetGroupMember(CityObjectGroupMember groupMember);
 	public void unsetGroupParent();

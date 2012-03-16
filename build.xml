@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
  * Technische Universitaet Berlin, Germany
  * http://www.igg.tu-berlin.de/
@@ -25,7 +25,7 @@
 
 	<!-- application specific variables -->
 	<property name="app.name" value="citygml4j" />
-	<property name="app.version" value="1.0.1" />
+	<property name="app.version" value="2.0" />
 	<property name="app.jar" value="${app.name}.jar" />
 	<property name="app.title" value="Java class library for CityGML" />
 	<property name="app.vendor" value="IGG, Technical University Berlin, Germany, http://www.igg.tu-berlin.de" />

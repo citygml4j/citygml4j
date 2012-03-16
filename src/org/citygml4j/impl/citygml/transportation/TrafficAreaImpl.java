@@ -22,7 +22,6 @@
  */
 package org.citygml4j.impl.citygml.transportation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -36,6 +35,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -43,9 +43,10 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
 
 public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements TrafficArea {
-	private List<String> function;
-	private List<String> usage;
-	private String surfaceMaterial;
+	private Code clazz;
+	private List<Code> function;
+	private List<Code> usage;
+	private Code surfaceMaterial;
 	private MultiSurfaceProperty lod2MultiSurface;
 	private MultiSurfaceProperty lod3MultiSurface;
 	private MultiSurfaceProperty lod4MultiSurface;
@@ -59,11 +60,18 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 		super(module);
 	}
 	
-	public void addFunction(String function) {
+	public void addFunction(Code function) {
 		if (this.function == null)
-			this.function = new ArrayList<String>();
+			this.function = new ChildList<Code>(this);
 
 		this.function.add(function);
+	}
+	
+	public void addUsage(Code function) {
+		if (this.usage == null)
+			this.usage = new ChildList<Code>(this);
+
+		this.usage.add(function);
 	}
 
 	public void addGenericApplicationPropertyOfTrafficArea(ADEComponent ade) {
@@ -73,18 +81,22 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 		this.ade.add(ade);
 	}
 
-	public void addUsage(String usage) {
-		if (this.usage == null)
-			this.usage = new ArrayList<String>();
-
-		this.usage.add(usage);
+	public Code getClazz() {
+		return clazz;
 	}
 
-	public List<String> getFunction() {
+	public List<Code> getFunction() {
 		if (function == null)
-			function = new ArrayList<String>();
+			function = new ChildList<Code>(this);
 
 		return function;
+	}
+	
+	public List<Code> getUsage() {
+		if (usage == null)
+			usage = new ChildList<Code>(this);
+
+		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTrafficArea() {
@@ -106,19 +118,20 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 		return lod4MultiSurface;
 	}
 
-	public String getSurfaceMaterial() {
+	public Code getSurfaceMaterial() {
 		return surfaceMaterial;
 	}
 
-	public List<String> getUsage() {
-		if (usage == null)
-			usage = new ArrayList<String>();
-
-		return usage;
+	public boolean isSetClazz() {
+		return clazz != null;
 	}
 
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
+	}
+	
+	public boolean isSetUsage() {
+		return usage != null && !usage.isEmpty();
 	}
 
 	public boolean isSetGenericApplicationPropertyOfTrafficArea() {
@@ -140,13 +153,17 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 	public boolean isSetSurfaceMaterial() {
 		return surfaceMaterial != null;
 	}
-
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
+	
+	public void setClazz(Code clazz) {
+		this.clazz = clazz;
 	}
 
-	public void setFunction(List<String> function) {
-		this.function = function;
+	public void setFunction(List<Code> function) {
+		this.function = new ChildList<Code>(this, function);
+	}
+	
+	public void setUsage(List<Code> usage) {
+		this.usage = new ChildList<Code>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfTrafficArea(List<ADEComponent> ade) {
@@ -174,16 +191,28 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 		this.lod4MultiSurface = lod4MultiSurface;
 	}
 
-	public void setSurfaceMaterial(String surfaceMaterial) {
+	public void setSurfaceMaterial(Code surfaceMaterial) {
 		this.surfaceMaterial = surfaceMaterial;
 	}
 
-	public void setUsage(List<String> usage) {
-		this.usage = usage;
+	public void unsetClazz() {
+		clazz = null;
 	}
 
 	public void unsetFunction() {
 		function = null;
+	}
+
+	public boolean unsetFunction(Code function) {
+		return isSetFunction() ? this.function.remove(function) : false;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
+	}
+
+	public boolean unsetUsage(Code usage) {
+		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
 	public boolean unsetFunction(String function) {
@@ -224,14 +253,6 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 
 	public void unsetSurfaceMaterial() {
 		surfaceMaterial = null;
-	}
-
-	public void unsetUsage() {
-		usage = null;
-	}
-
-	public boolean unsetUsage(String usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 	
 	public CityGMLClass getCityGMLClass() {
@@ -303,20 +324,36 @@ public class TrafficAreaImpl extends AbstractTransportationObjectImpl implements
 		return copyTo(new TrafficAreaImpl(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		TrafficArea copy = (target == null) ? new TrafficAreaImpl() : (TrafficArea)target;
 		super.copyTo(copy, copyBuilder);
 		
-		if (isSetFunction())
-			copy.setFunction((List<String>)copyBuilder.copy(function));
+		if (isSetClazz())
+			copy.setClazz((Code)copyBuilder.copy(clazz));
+
+		if (isSetFunction()) {
+			for (Code part : function) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addFunction(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
-		if (isSetUsage())
-			copy.setFunction((List<String>)copyBuilder.copy(usage));
+		if (isSetUsage()) {
+			for (Code part : usage) {
+				Code copyPart = (Code)copyBuilder.copy(part);
+				copy.addUsage(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
 		if (isSetSurfaceMaterial())
-			copy.setSurfaceMaterial(copyBuilder.copy(surfaceMaterial));
+			copy.setSurfaceMaterial((Code)copyBuilder.copy(surfaceMaterial));
 		
 		if (isSetLod2MultiSurface()) {
 			copy.setLod2MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod2MultiSurface));

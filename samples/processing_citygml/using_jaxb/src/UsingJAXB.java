@@ -33,7 +33,8 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
-import org.citygml4j.factory.CityGMLFactory;
+import org.citygml4j.factory.CityFurnitureFactory;
+import org.citygml4j.factory.CoreFactory;
 import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.jaxb.citygml.bldg._1.AbstractBoundarySurfaceType;
 import org.citygml4j.jaxb.citygml.bldg._1.BoundarySurfacePropertyType;
@@ -69,7 +70,8 @@ public class UsingJAXB {
 		
 		JAXBMarshaller jaxbMarshaller = builder.createJAXBMarshaller(CityGMLVersion.v1_0_0);
 		GMLFactory gml = new GMLFactory();
-		CityGMLFactory citygml = new CityGMLFactory();
+		CoreFactory core = new CoreFactory();
+		CityFurnitureFactory frn = new CityFurnitureFactory();
 
 		System.out.println(df.format(new Date()) + "unmarshalling CityGML file LOD2_Building_v100.xml to JAXB objects");
 		JAXBElement<?> cityModelElem = (JAXBElement<?>)unmarshaller.unmarshal(new File("../../datasets/LOD2_Building_v100.xml"));
@@ -112,11 +114,11 @@ public class UsingJAXB {
 			}
 			
 			System.out.println(df.format(new Date()) + "creating citygml4j CityFurniture object");
-			CityFurniture cityFurniture = citygml.createCityFurniture();
+			CityFurniture cityFurniture = frn.createCityFurniture();
 			StringOrRef description = gml.createStringOrRef();
 			description.setValue("processed by citygml4j");
 			cityFurniture.setDescription(description);
-			CityObjectMember member = citygml.createCityObjectMember(cityFurniture);
+			CityObjectMember member = core.createCityObjectMember(cityFurniture);
 			
 			System.out.println(df.format(new Date()) + "unmarshalling citygml4j CityFurniture object to JAXB and inserting it into JAXB object tree");
 			JAXBElement<? extends FeaturePropertyType> memberElem = (JAXBElement<? extends FeaturePropertyType>)jaxbMarshaller.marshalJAXBElement(member);
