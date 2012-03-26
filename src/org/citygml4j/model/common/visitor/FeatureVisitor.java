@@ -31,18 +31,9 @@ import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.CeilingSurface;
-import org.citygml4j.model.citygml.building.ClosureSurface;
 import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.FloorSurface;
-import org.citygml4j.model.citygml.building.GroundSurface;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.OuterCeilingSurface;
-import org.citygml4j.model.citygml.building.OuterFloorSurface;
-import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
@@ -77,22 +68,37 @@ public interface FeatureVisitor extends Visitor {
 	public void visit(GeoreferencedTexture georeferencedTexture);
 	public void visit(ParameterizedTexture parameterizedTexture);
 	public void visit(X3DMaterial x3dMaterial);
+	
+	
+/*	public void visit(org.citygml4j.model.citygml.bridge.CeilingSurface ceilingSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.OuterCeilingSurface outerCeilingSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.ClosureSurface closureSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.FloorSurface floorSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.OuterFloorSurface outerFloorSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.GroundSurface groundSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.InteriorWallSurface interiorWallSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.RoofSurface roofSurface);
+	public void visit(org.citygml4j.model.citygml.bridge.WallSurface wallSurface);
+*/
+	
+	
+	
 	public void visit(BuildingFurniture buildingFurniture);
 	public void visit(Building building);
 	public void visit(BuildingInstallation buildingInstallation);
 	public void visit(BuildingPart buildingPart);
-	public void visit(CeilingSurface ceilingSurface);
-	public void visit(OuterCeilingSurface outerCeilingSurface);
-	public void visit(ClosureSurface closureSurface);
+	public void visit(org.citygml4j.model.citygml.building.CeilingSurface ceilingSurface);
+	public void visit(org.citygml4j.model.citygml.building.OuterCeilingSurface outerCeilingSurface);
+	public void visit(org.citygml4j.model.citygml.building.ClosureSurface closureSurface);
 	public void visit(Door door);
-	public void visit(FloorSurface floorSurface);
-	public void visit(OuterFloorSurface outerFloorSurface);
-	public void visit(GroundSurface groundSurface);
+	public void visit(org.citygml4j.model.citygml.building.FloorSurface floorSurface);
+	public void visit(org.citygml4j.model.citygml.building.OuterFloorSurface outerFloorSurface);
+	public void visit(org.citygml4j.model.citygml.building.GroundSurface groundSurface);
 	public void visit(IntBuildingInstallation intBuildingInstallation);
-	public void visit(InteriorWallSurface interiorWallSurface);
-	public void visit(RoofSurface roofSurface);
+	public void visit(org.citygml4j.model.citygml.building.InteriorWallSurface interiorWallSurface);
+	public void visit(org.citygml4j.model.citygml.building.RoofSurface roofSurface);
 	public void visit(Room room);
-	public void visit(WallSurface wallSurface);
+	public void visit(org.citygml4j.model.citygml.building.WallSurface wallSurface);
 	public void visit(Window window);
 	public void visit(CityFurniture cityFurniture);
 	public void visit(CityObjectGroup cityObjectGroup);
