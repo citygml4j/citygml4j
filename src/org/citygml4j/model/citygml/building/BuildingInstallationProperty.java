@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.building;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BuildingModule;
 
-public interface BuildingInstallationProperty extends BuildingModuleComponent, FeatureProperty<BuildingInstallation> {
-	public BuildingInstallation getBuildingInstallation();
-	public boolean isSetBuildingInstallation();
+public class BuildingInstallationProperty extends FeatureProperty<BuildingInstallation> implements BuildingModuleComponent {
+	private BuildingModule module;
 	
-	public void setBuildingInstallation(BuildingInstallation buildingInstallation);
-	public void unsetBuildingInstallation();
+	public BuildingInstallationProperty() {
+		
+	}
+	
+	public BuildingInstallationProperty(BuildingModule module) {
+		this.module = module;
+	}
+	
+	public BuildingInstallation getBuildingInstallation() {
+		return super.getObject();
+	}
+
+	public boolean isSetBuildingInstallation() {
+		return super.isSetObject();
+	}
+
+	public void setBuildingInstallation(BuildingInstallation buildingInstallation) {
+		super.setObject(buildingInstallation);
+	}
+
+	public void unsetBuildingInstallation() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.BUILDING_INSTALLATION_PROPERTY;
+	}
+
+	public final BuildingModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BuildingInstallation> getAssociableClass() {
+		return BuildingInstallation.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BuildingInstallationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BuildingInstallationProperty copy = (target == null) ? new BuildingInstallationProperty() : (BuildingInstallationProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

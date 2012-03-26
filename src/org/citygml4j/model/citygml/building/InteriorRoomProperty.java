@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.building;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BuildingModule;
 
-public interface InteriorRoomProperty extends BuildingModuleComponent, FeatureProperty<Room> {
-	public Room getRoom();
-	public boolean isSetRoom();
+public class InteriorRoomProperty extends FeatureProperty<Room> implements BuildingModuleComponent {
+	private BuildingModule module;
 	
-	public void setRoom(Room room);
-	public void unsetRoom();
+	public InteriorRoomProperty() {
+		
+	}
+	
+	public InteriorRoomProperty(BuildingModule module) {
+		this.module = module;
+	}
+	
+	public Room getRoom() {
+		return super.getObject();
+	}
+
+	public boolean isSetRoom() {
+		return super.isSetObject();
+	}
+
+	public void setRoom(Room room) {
+		super.setObject(room);
+	}
+
+	public void unsetRoom() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INTERIOR_ROOM_PROPERTY;
+	}
+
+	public final BuildingModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<Room> getAssociableClass() {
+		return Room.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new InteriorRoomProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		InteriorRoomProperty copy = (target == null) ? new InteriorRoomProperty() : (InteriorRoomProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }
