@@ -22,8 +22,26 @@
  */
 package org.citygml4j.model.gml.measures;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
-public interface Speed extends Measure {
+public class Speed extends Measure {
 
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.SPEED;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new Speed(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		Speed copy = (target == null) ? new Speed() : (Speed)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+	
 }

@@ -22,8 +22,26 @@
  */
 package org.citygml4j.model.gml.measures;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
-public interface Length extends Measure {
+public class Length extends Measure {
+	
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.LENGTH;
+	}
 
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new Length(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		Length copy = (target == null) ? new Length() : (Length)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+	
 }
