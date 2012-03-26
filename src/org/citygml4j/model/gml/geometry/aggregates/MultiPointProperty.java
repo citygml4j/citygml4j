@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiPointProperty extends GeometryProperty<MultiPoint> {
-	public MultiPoint getMultiPoint();
-	public boolean isSetMultiPoint();
-	
-	public void setMultiPoint(MultiPoint multiPoint);
-	public void unsetMultiPoint();
+public class MultiPointProperty extends GeometryProperty<MultiPoint> {
+
+	public MultiPoint getMultiPoint() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiPoint() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiPoint(MultiPoint multiPoint) {
+		super.setGeometry(multiPoint);
+	}
+
+	public void unsetMultiPoint() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_POINT_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiPoint> getAssociableClass() {
+		return MultiPoint.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiPointProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiPointProperty copy = (target == null) ? new MultiPointProperty() : (MultiPointProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

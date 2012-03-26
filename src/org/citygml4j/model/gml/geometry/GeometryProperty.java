@@ -22,12 +22,46 @@
  */
 package org.citygml4j.model.gml.geometry;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
-public interface GeometryProperty<T extends AbstractGeometry> extends AssociationByRepOrRef<T> {
-	public T getGeometry();
-	public boolean isSetGeometry();
+public class GeometryProperty<T extends AbstractGeometry> extends AssociationByRepOrRef<T> {
+	
+	public T getGeometry() {
+		return super.getObject();
+	}
 
-	public void setGeometry(T geometry);
-	public void unsetGeometry();
+	public boolean isSetGeometry() {
+		return super.isSetObject();
+	}
+
+	public void setGeometry(T geometry) {
+		super.setObject(geometry);
+	}
+
+	public void unsetGeometry() {
+		super.unsetObject();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.GEOMETRY_PROPERTY;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Class<T> getAssociableClass() {
+		return (Class<T>)AbstractGeometry.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometryProperty<T>(), copyBuilder);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometryProperty<T> copy = (target == null) ? new GeometryProperty<T>() : (GeometryProperty<T>)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

@@ -22,7 +22,34 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.OuterBoundaryIs;
 
-public interface OuterBoundaryIs extends AbstractRingProperty {
+public class OuterBoundaryIs extends AbstractRingProperty {
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.OUTER_BOUNDARY_IS;
+	}
+
+	public Class<AbstractRing> getAssociableClass() {
+		return AbstractRing.class;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		OuterBoundaryIs copy = (target == null) ? new OuterBoundaryIs() : (OuterBoundaryIs)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new OuterBoundaryIs(), copyBuilder);
+	}
 
 }

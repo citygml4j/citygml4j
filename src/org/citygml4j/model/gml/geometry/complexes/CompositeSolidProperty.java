@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
-	public CompositeSolid getCompositeSolid();
-	public boolean isSetCompositeSolid();
+public class CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
 
-	public void setCompositeSolid(CompositeSolid compositeSolid);
-	public void unsetCompositeSolid();
+	public CompositeSolid getCompositeSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetCompositeSolid() {
+		return super.isSetGeometry();
+	}
+
+	public void setCompositeSolid(CompositeSolid compositeSolid) {
+		super.setGeometry(compositeSolid);
+	}
+
+	public void unsetCompositeSolid() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.COMPOSITE_SOLID_PROPERTY;
+	}
+	
+	@Override
+	public Class<CompositeSolid> getAssociableClass() {
+		return CompositeSolid.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CompositeSolidProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CompositeSolidProperty copy = (target == null) ? new CompositeSolidProperty() : (CompositeSolidProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

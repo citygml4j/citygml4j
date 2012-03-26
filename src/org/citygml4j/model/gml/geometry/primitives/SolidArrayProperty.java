@@ -24,14 +24,59 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
 
-public interface SolidArrayProperty extends GeometryArrayProperty<AbstractSolid> {
-	public List<? extends AbstractSolid> getSolid();
-	public boolean isSetSolid();
+public class SolidArrayProperty extends GeometryArrayProperty<AbstractSolid> {
 
-	public void setSolid(List<? extends AbstractSolid> abstractSolid);
-	public void addSolid(AbstractSolid abstractSolid);
-	public void unsetSolid();
-	public boolean unsetSolid(AbstractSolid abstractSolid);
+	public void addSolid(AbstractSolid abstractSolid) {
+		super.addGeometry(abstractSolid);
+	}
+
+	public List<? extends AbstractSolid> getSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetSolid() {
+		return super.isSetGeometry();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setSolid(List<? extends AbstractSolid> abstractSolid) {
+		super.setGeometry((List<AbstractSolid>)abstractSolid);
+	}
+
+	public void unsetSolid() {
+		super.unsetGeometry();
+	}
+
+	public boolean unsetSolid(AbstractSolid abstractSolid) {
+		return super.unsetGeometry(abstractSolid);
+	}
+
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.SOLID_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractSolid> getAssociableClass() {
+		return AbstractSolid.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SolidArrayProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SolidArrayProperty copy = (target == null) ? new SolidArrayProperty() : (SolidArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

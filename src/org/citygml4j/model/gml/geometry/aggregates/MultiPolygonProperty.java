@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiPolygonProperty extends GeometryProperty<MultiPolygon> {
-	public MultiPolygon getMultiPolygon();
-	public boolean isSetMultiPolygon();
+public class MultiPolygonProperty extends GeometryProperty<MultiPolygon> {
 	
-	public void setMultiPolygon(MultiPolygon multiPolygon);
-	public void unsetMultiPolygon();
+	public MultiPolygon getMultiPolygon() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiPolygon() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiPolygon(MultiPolygon multiPolygon) {
+		super.setGeometry(multiPolygon);
+	}
+
+	public void unsetMultiPolygon() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_POLYGON_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiPolygon> getAssociableClass() {
+		return MultiPolygon.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiPolygonProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiPolygonProperty copy = (target == null) ? new MultiPolygonProperty() : (MultiPolygonProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

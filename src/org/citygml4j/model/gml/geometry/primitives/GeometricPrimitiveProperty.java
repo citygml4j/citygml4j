@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface GeometricPrimitiveProperty extends GeometryProperty<AbstractGeometricPrimitive> {
-	public AbstractGeometricPrimitive getGeometricPrimitive();
-	public boolean isSetGeometricPrimitive();
-	
-	public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive);
-	public void unsetGeometricPrimitive();
+public class GeometricPrimitiveProperty extends GeometryProperty<AbstractGeometricPrimitive> {
+
+	public AbstractGeometricPrimitive getGeometricPrimitive() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetGeometricPrimitive() {
+		return super.isSetGeometry();
+	}
+
+	public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+		super.setGeometry(abstractGeometricPrimitive);
+	}
+
+	public void unsetGeometricPrimitive() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.GEOMETRIC_PRIMITIVE_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractGeometricPrimitive> getAssociableClass() {
+		return AbstractGeometricPrimitive.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometricPrimitiveProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometricPrimitiveProperty copy = (target == null) ? new GeometricPrimitiveProperty() : (GeometricPrimitiveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

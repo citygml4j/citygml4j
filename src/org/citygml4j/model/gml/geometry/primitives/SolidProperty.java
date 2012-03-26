@@ -22,12 +22,46 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 
-public interface SolidProperty extends GeometryProperty<AbstractSolid> {
-	public AbstractSolid getSolid();
-	public boolean isSetSolid();
+public class SolidProperty extends GeometryProperty<AbstractSolid> {
 	
-	public void setSolid(AbstractSolid abstractSolid);
-	public void unsetSolid();
+	public AbstractSolid getSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetSolid() {
+		return super.isSetGeometry();
+	}
+
+	public void setSolid(AbstractSolid abstractSolid) {
+		super.setGeometry(abstractSolid);
+	}
+
+	public void unsetSolid() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SOLID_PROPERTY;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SolidProperty(), copyBuilder);
+	}
+
+	@Override
+	public Class<AbstractSolid> getAssociableClass() {
+		return AbstractSolid.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SolidProperty copy = (target == null) ? new SolidProperty() : (SolidProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

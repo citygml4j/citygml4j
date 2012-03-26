@@ -24,14 +24,54 @@ package org.citygml4j.model.gml.geometry;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAssociation<T> {
-	public List<T> getGeometry();
-	public boolean isSetGeometry();
+public class GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAssociation<T> {
+
+	public List<T> getGeometry() {
+		return super.getObject();
+	}
+
+	public boolean isSetGeometry() {
+		return super.isSetObject();
+	}
+
+	public void addGeometry(T geometry) {
+		super.addObject(geometry);
+	}
+
+	public void setGeometry(List<T> geometry) {
+		super.setObject(geometry);
+	}
+
+	public boolean unsetGeometry(T geometry) {
+		return super.unsetObject(geometry);
+	}
+
+	public void unsetGeometry() {
+		super.unsetObject();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.GEOMETRY_ARRAY_PROPERTY;
+	}
 	
-	public void addGeometry(T geometry);
-	public void setGeometry(List<T> geometry);
-	public boolean unsetGeometry(T geometry);
-	public void unsetGeometry();
+	@SuppressWarnings("unchecked")
+	public Class<T> getAssociableClass() {
+		return (Class<T>)AbstractGeometry.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometryArrayProperty<T>(), copyBuilder);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometryArrayProperty<T> copy = (target == null) ? new GeometryArrayProperty<T>() : (GeometryArrayProperty<T>)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

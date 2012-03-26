@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiCurveProperty extends GeometryProperty<MultiCurve> {
-	public MultiCurve getMultiCurve();
-	public boolean isSetMultiCurve();
-	
-	public void setMultiCurve(MultiCurve multiCurve);
-	public void unsetMultiCurve();
+public class MultiCurveProperty extends GeometryProperty<MultiCurve> {
+
+	public MultiCurve getMultiCurve() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiCurve() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiCurve(MultiCurve multiCurve) {
+		super.setGeometry(multiCurve);
+	}
+
+	public void unsetMultiCurve() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_CURVE_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiCurve> getAssociableClass() {
+		return MultiCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiCurveProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiCurveProperty copy = (target == null) ? new MultiCurveProperty() : (MultiCurveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

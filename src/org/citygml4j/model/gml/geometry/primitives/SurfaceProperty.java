@@ -20,14 +20,48 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.model.gml.geometry.primitives;
+	package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 
-public interface SurfaceProperty extends GeometryProperty<AbstractSurface> {
-	public AbstractSurface getSurface();
-	public boolean isSetSurface();
+public class SurfaceProperty extends GeometryProperty<AbstractSurface> {
 	
-	public void setSurface(AbstractSurface abstractSurface);
-	public void unsetSurface();
+	public AbstractSurface getSurface() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetSurface() {
+		return super.isSetGeometry();
+	}
+
+	public void setSurface(AbstractSurface abstractSurface) {
+		super.setGeometry(abstractSurface);
+	}
+
+	public void unsetSurface() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SURFACE_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractSurface> getAssociableClass() {
+		return AbstractSurface.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SurfaceProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SurfaceProperty copy = (target == null) ? new SurfaceProperty() : (SurfaceProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

@@ -22,12 +22,46 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 
-public interface CurveProperty extends GeometryProperty<AbstractCurve> {
-	public AbstractCurve getCurve();
-	public boolean isSetCurve();
+public class CurveProperty extends GeometryProperty<AbstractCurve> {
 	
-	public void setCurve(AbstractCurve curve);
-	public void unsetCurve();
+	public AbstractCurve getCurve() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetCurve() {
+		return super.isSetGeometry();
+	}
+
+	public void setCurve(AbstractCurve curve) {
+		super.setGeometry(curve);
+	}
+
+	public void unsetCurve() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.CURVE_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractCurve> getAssociableClass() {
+		return AbstractCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CurveProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CurveProperty copy = (target == null) ? new CurveProperty() : (CurveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

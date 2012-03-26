@@ -22,6 +22,34 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-public interface Exterior extends AbstractRingProperty {
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
+import org.citygml4j.model.gml.geometry.primitives.Exterior;
+
+public class Exterior extends AbstractRingProperty {
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.EXTERIOR;
+	}
+
+	public Class<AbstractRing> getAssociableClass() {
+		return AbstractRing.class;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		Exterior copy = (target == null) ? new Exterior() : (Exterior)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new Exterior(), copyBuilder);
+	}
 
 }

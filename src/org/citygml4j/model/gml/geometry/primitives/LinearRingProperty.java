@@ -22,12 +22,50 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.gml.geometry.primitives.LinearRingProperty;
 
-public interface LinearRingProperty extends InlineGeometryProperty<LinearRing> {
-	public LinearRing getLinearRing();
-	public boolean isSetLinearRing();
+public class LinearRingProperty extends InlineGeometryProperty<LinearRing> {
 	
-	public void setLinearRing(LinearRing linearRing);
-	public void unsetLinearRing();
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.LINEAR_RING_PROPERTY;
+	}
+
+	public LinearRing getLinearRing() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetLinearRing() {
+		return super.isSetGeometry();
+	}
+
+	public void setLinearRing(LinearRing linearRing) {
+		super.setGeometry(linearRing);
+	}
+
+	public void unsetLinearRing() {
+		super.unsetGeometry();
+	}
+
+	public Class<LinearRing> getAssociableClass() {
+		return LinearRing.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		LinearRingProperty copy = (target == null) ? new LinearRingProperty() : (LinearRingProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new LinearRingProperty(), copyBuilder);
+	}
+	
 }

@@ -22,12 +22,46 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 
-public interface PolygonProperty extends GeometryProperty<Polygon> {
-	public Polygon getPolygon();
-	public boolean isSetPolygon();
+public class PolygonProperty extends GeometryProperty<Polygon> {
 	
-	public void setPolygon(Polygon polygon);
-	public void unsetPolygon();
+	public Polygon getPolygon() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetPolygon() {
+		return super.isSetGeometry();
+	}
+
+	public void setPolygon(Polygon polygon) {
+		super.setGeometry(polygon);
+	}
+
+	public void unsetPolygon() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.POLYGON_PROPERTY;
+	}
+
+	@Override
+	public Class<Polygon> getAssociableClass() {
+		return Polygon.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PolygonProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PolygonProperty copy = (target == null) ? new PolygonProperty() : (PolygonProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

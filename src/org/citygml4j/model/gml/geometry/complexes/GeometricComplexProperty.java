@@ -22,25 +22,97 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface GeometricComplexProperty extends GeometryProperty<AbstractGeometry> {
-	public GeometricComplex getGeometricComplex();
-	public CompositeCurve getCompositeCurve();
-	public CompositeSurface getCompositeSurface();
-	public CompositeSolid getCompositeSolid();
-	public boolean isSetGeometricComplex();
-	public boolean isSetCompositeCurve();
-	public boolean isSetCompositeSurface();
-	public boolean isSetCompositeSolid();
-	
-	public void setGeometricComplex(GeometricComplex geometricComplex);
-	public void setCompositeCurve(CompositeCurve compositeCurve);
-	public void setCompositeSurface(CompositeSurface compositeSurface);
-	public void setCompositeSolid(CompositeSolid compositeSolid);
-	public void unsetGeometricComplex();
-	public void unsetCompositeCurve();
-	public void unsetCompositeSurface();
-	public void unsetCompositeSolid();
+public class GeometricComplexProperty extends GeometryProperty<AbstractGeometry> {
+
+	@Override
+	public void setObject(AbstractGeometry geometry) {
+		if (geometry instanceof CompositeCurve ||
+				geometry instanceof CompositeSolid ||
+				geometry instanceof CompositeSurface ||
+				geometry instanceof GeometricComplex)		
+			super.setObject(geometry);
+	}
+
+	public CompositeCurve getCompositeCurve() {
+		return (super.getGeometry() instanceof CompositeCurve) ? (CompositeCurve)super.getGeometry() : null;
+	}
+
+	public CompositeSolid getCompositeSolid() {
+		return (super.getGeometry() instanceof CompositeSolid) ? (CompositeSolid)super.getGeometry() : null;
+	}
+
+	public CompositeSurface getCompositeSurface() {
+		return (super.getGeometry() instanceof CompositeSurface) ? (CompositeSurface)super.getGeometry() : null;
+	}
+
+	public GeometricComplex getGeometricComplex() {
+		return (super.getGeometry() instanceof GeometricComplex) ? (GeometricComplex)super.getGeometry() : null;
+	}
+
+	public boolean isSetCompositeCurve() {
+		return (super.getGeometry() instanceof CompositeCurve);
+	}
+
+	public boolean isSetCompositeSolid() {
+		return (super.getGeometry() instanceof CompositeSolid);
+	}
+
+	public boolean isSetCompositeSurface() {
+		return (super.getGeometry() instanceof CompositeSurface);
+	}
+
+	public boolean isSetGeometricComplex() {
+		return (super.getGeometry() instanceof GeometricComplex);
+	}
+
+	public void setCompositeCurve(CompositeCurve compositeCurve) {
+		super.setObject(compositeCurve);
+	}
+
+	public void setCompositeSolid(CompositeSolid compositeSolid) {
+		super.setObject(compositeSolid);
+	}
+
+	public void setCompositeSurface(CompositeSurface compositeSurface) {
+		super.setObject(compositeSurface);
+	}
+
+	public void setGeometricComplex(GeometricComplex geometricComplex) {
+		super.setGeometry(geometricComplex);
+	}
+
+	public void unsetCompositeCurve() {
+		super.unsetGeometry();
+	}
+
+	public void unsetCompositeSolid() {
+		super.unsetGeometry();
+	}
+
+	public void unsetCompositeSurface() {
+		super.unsetGeometry();
+	}
+
+	public void unsetGeometricComplex() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.GEOMETRIC_COMPLEX_PROPERTY;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometricComplexProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometricComplexProperty copy = (target == null) ? new GeometricComplexProperty() : (GeometricComplexProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

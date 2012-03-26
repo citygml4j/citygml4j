@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
-	public AbstractGeometricAggregate getGeometricAggregate();
-	public boolean isSetGeometricAggregate();
-	
-	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate);
-	public void unsetGeometricAggregate();
+public class MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
+
+	public AbstractGeometricAggregate getGeometricAggregate() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetGeometricAggregate() {
+		return super.isSetGeometry();
+	}
+
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate) {
+		super.setGeometry(geometricAggregate);
+	}
+
+	public void unsetGeometricAggregate() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_GEOMETRY_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractGeometricAggregate> getAssociableClass() {
+		return AbstractGeometricAggregate.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiGeometryProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiGeometryProperty copy = (target == null) ? new MultiGeometryProperty() : (MultiGeometryProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

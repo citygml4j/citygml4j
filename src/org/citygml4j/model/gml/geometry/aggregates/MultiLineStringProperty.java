@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiLineStringProperty extends GeometryProperty<MultiLineString> {
-	public MultiLineString getMultiLineString();
-	public boolean isSetMultiLineString();
-	
-	public void setMultiLineString(MultiLineString multiLineString);
-	public void unsetMultiLineString();
+public class MultiLineStringProperty extends GeometryProperty<MultiLineString> {
+
+	public MultiLineString getMultiLineString() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiLineString() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiLineString(MultiLineString multiLineString) {
+		super.setGeometry(multiLineString);
+	}
+
+	public void unsetMultiLineString() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_LINE_STRING_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiLineString> getAssociableClass() {
+		return MultiLineString.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiLineStringProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiLineStringProperty copy = (target == null) ? new MultiLineStringProperty() : (MultiLineStringProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

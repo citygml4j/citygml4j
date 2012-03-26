@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CompositeCurveProperty extends GeometryProperty<CompositeCurve> {
-	public CompositeCurve getCompositeCurve();
-	public boolean isSetCompositeCurve();
+public class CompositeCurveProperty extends GeometryProperty<CompositeCurve> {
 	
-	public void setCompositeCurve(CompositeCurve compositeCurve);
-	public void unsetCompositeCurve();
+	public CompositeCurve getCompositeCurve() {
+		return super.getGeometry();
+	}
+	
+	public boolean isSetCompositeCurve() {
+		return super.isSetGeometry();
+	}
+	
+	public void setCompositeCurve(CompositeCurve compositeCurve) {
+		super.setGeometry(compositeCurve);
+	}
+	
+	public void unsetCompositeCurve() {
+		super.unsetGeometry();
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.COMPOSITE_CURVE_PROPERTY;
+	}
+	
+	@Override
+	public Class<CompositeCurve> getAssociableClass() {
+		return CompositeCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CompositeCurveProperty(), copyBuilder);
+	}
+	
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CompositeCurveProperty copy = (target == null) ? new CompositeCurveProperty() : (CompositeCurveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+	
 }

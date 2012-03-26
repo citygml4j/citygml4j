@@ -24,14 +24,52 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
-	public List<? extends AbstractCurveSegment> getCurveSegment();
-	public boolean isSetCurveSegment();
-	
-	public void addCurveSegment(AbstractCurveSegment curveSegment);
-	public void setCurveSegment(List<? extends AbstractCurveSegment> curveSegment);
-	public void unsetCurveSegment();
-	public boolean unsetCurveSegment(AbstractCurveSegment curveSegment);
+public class CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
+
+	public void addCurveSegment(AbstractCurveSegment curveSegment) {
+		super.addObject(curveSegment);
+	}
+
+	public List<? extends AbstractCurveSegment> getCurveSegment() {
+		return super.getObject();
+	}
+
+	public boolean isSetCurveSegment() {
+		return super.isSetObject();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setCurveSegment(List<? extends AbstractCurveSegment> curveSegment) {
+		super.setObject((List<AbstractCurveSegment>)curveSegment);
+	}
+
+	public void unsetCurveSegment() {
+		super.unsetObject();
+	}
+
+	public boolean unsetCurveSegment(AbstractCurveSegment curveSegment) {
+		return super.unsetObject(curveSegment);
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.CURVE_SEGMENT_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractCurveSegment> getAssociableClass() {
+		return AbstractCurveSegment.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CurveSegmentArrayProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CurveSegmentArrayProperty copy = (target == null) ? new CurveSegmentArrayProperty() : (CurveSegmentArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

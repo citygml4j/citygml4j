@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiSolidProperty extends GeometryProperty<MultiSolid> {
-	public MultiSolid getMultiSolid();
-	public boolean isSetMultiSolid();
-	
-	public void setMultiSolid(MultiSolid multiSolid);
-	public void unsetMultiSolid();
+public class MultiSolidProperty extends GeometryProperty<MultiSolid> {
+
+	public MultiSolid getMultiSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiSolid() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiSolid(MultiSolid multiSolid) {
+		super.setGeometry(multiSolid);
+	}
+
+	public void unsetMultiSolid() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_SOLID_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiSolid> getAssociableClass() {
+		return MultiSolid.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiSolidProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiSolidProperty copy = (target == null) ? new MultiSolidProperty() : (MultiSolidProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

@@ -24,12 +24,52 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
-public interface TrianglePatchArrayProperty extends SurfacePatchArrayProperty {
-	public List<Triangle> getTriangle();
-	public boolean isSetTriangle();
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.primitives.Triangle;
+import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
+
+public class TrianglePatchArrayProperty extends SurfacePatchArrayProperty {
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.TRIANGLE_PATCH_ARRAY_PROPERTY;
+	}
+
+	public void addTriangle(Triangle triangle) {
+		super.addSurfacePatch(triangle);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Triangle> getTriangle() {
+		return (List<Triangle>)super.getSurfacePatch();
+	}
+
+	public boolean isSetTriangle() {
+		return super.isSetSurfacePatch();
+	}
+
+	public void setTriangle(List<Triangle> triangle) {
+		super.setSurfacePatch(triangle);
+	}
+
+	public void unsetTriangle() {
+		super.unsetSurfacePatch();
+	}
+
+	public boolean unsetTriangle(Triangle triangle) {
+		return super.unsetSurfacePatch(triangle);
+	}
 	
-	public void addTriangle(Triangle triangle);
-	public void setTriangle(List<Triangle> triangle);
-	public void unsetTriangle();
-	public boolean unsetTriangle(Triangle triangle);
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		TrianglePatchArrayProperty copy = (target == null) ? new TrianglePatchArrayProperty() : (TrianglePatchArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+	
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new TrianglePatchArrayProperty(), copyBuilder);
+	}
+
 }

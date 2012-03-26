@@ -22,12 +22,25 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 
-public interface AbstractSurfacePatch extends GML, Associable, Child, Copyable {
-	public BoundingBox calcBoundingBox();
+public abstract class AbstractSurfacePatch implements GML, Associable, Child, Copyable {
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		if (target == null)
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+		AbstractSurfacePatch copy = (AbstractSurfacePatch)target;
+
+		copy.unsetParent();
+
+		return copy;
+	}
+	
+	public abstract BoundingBox calcBoundingBox();
 }

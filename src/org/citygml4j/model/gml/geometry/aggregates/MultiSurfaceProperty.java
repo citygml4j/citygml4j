@@ -22,12 +22,44 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiSurfaceProperty extends GeometryProperty<MultiSurface> {
-	public MultiSurface getMultiSurface();
-	public boolean isSetMultiSurface();
+public class MultiSurfaceProperty extends GeometryProperty<MultiSurface> {
+	
+	public MultiSurface getMultiSurface() {
+		return super.getGeometry();
+	}
 
-	public void setMultiSurface(MultiSurface multiSurface);
-	public void unsetMultiSurface();
+	public boolean isSetMultiSurface() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiSurface(MultiSurface multiSurface) {
+		super.setGeometry(multiSurface);
+	}
+
+	public void unsetMultiSurface() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_SURFACE_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiSurface> getAssociableClass() {
+		return MultiSurface.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiSurfaceProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiSurfaceProperty copy = (target == null) ? new MultiSurfaceProperty() : (MultiSurfaceProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

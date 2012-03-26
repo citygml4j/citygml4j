@@ -22,12 +22,46 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
 
-public interface LineStringProperty extends GeometryProperty<LineString> {
-	public LineString getLineString();
-	public boolean isSetLineString();
+public class LineStringProperty extends GeometryProperty<LineString> {
+
+	public GMLClass getGMLClass() {
+		return GMLClass.LINE_STRING_PROPERTY;
+	}
+
+	public LineString getLineString() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetLineString() {
+		return super.isSetGeometry();
+	}
+
+	public void setLineString(LineString lineString) {
+		super.setGeometry(lineString);
+	}
+
+	public void unsetLineString() {
+		super.unsetGeometry();
+	}
+
+	@Override
+	public Class<LineString> getAssociableClass() {
+		return LineString.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		LineStringProperty copy = (target == null) ? new LineStringProperty() : (LineStringProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new LineStringProperty(), copyBuilder);
+	}
 	
-	public void setLineString(LineString lineString);
-	public void unsetLineString();
 }

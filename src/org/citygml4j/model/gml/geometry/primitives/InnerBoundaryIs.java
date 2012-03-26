@@ -22,7 +22,32 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
 
-public interface InnerBoundaryIs extends AbstractRingProperty {
+public class InnerBoundaryIs extends AbstractRingProperty {
+
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.INNER_BOUNDARY_IS;
+	}
+
+	public Class<AbstractRing> getAssociableClass() {
+		return AbstractRing.class;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		InnerBoundaryIs copy = (target == null) ? new InnerBoundaryIs() : (InnerBoundaryIs)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new InnerBoundaryIs(), copyBuilder);
+	}
 
 }
