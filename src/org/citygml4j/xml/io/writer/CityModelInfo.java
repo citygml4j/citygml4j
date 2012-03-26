@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.DeepCopyBuilder;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.MetaDataProperty;
@@ -279,7 +278,7 @@ public class CityModelInfo {
 	}
 	
 	public CityModel toCityModel() {
-		CityModel cityModel = new CityModelImpl();
+		CityModel cityModel = new CityModel();
 		
 		if (isSetId())
 			cityModel.setId(getId());
