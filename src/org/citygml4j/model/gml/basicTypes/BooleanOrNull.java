@@ -22,19 +22,117 @@
  */
 package org.citygml4j.model.gml.basicTypes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
+import org.citygml4j.model.gml.basicTypes.Null;
 
-
-public interface BooleanOrNull extends GML, Child, Copyable {
-	public Boolean getBoolean();
-	public Null getNull();
-	public boolean isSetBoolean();
-	public boolean isSetNull();
+public class BooleanOrNull implements GML, Child, Copyable {
+	private Boolean _boolean;
+	private Null _null;
+	private ModelObject parent;
 	
-	public void setBoolean(Boolean _boolean);
-	public void setNull(Null _null);
-	public void unsetBoolean();
-	public void unsetNull();
+	public BooleanOrNull() {
+		
+	}
+	
+	public BooleanOrNull(Boolean _boolean) {
+		this._boolean = _boolean;
+	}
+	
+	public BooleanOrNull(Null _null) {
+		setNull(_null);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.BOOLEAN_OR_NULL;
+	}
+
+	public Boolean getBoolean() {
+		return _boolean;
+	}
+	
+	public Null getNull() {
+		return _null;
+	}
+
+	public boolean isSetBoolean() {
+		return _boolean != null;
+	}
+	
+	public boolean isSetNull() {
+		return _null != null;
+	}
+
+	public void setBoolean(Boolean _boolean) {
+		this._boolean = _boolean;
+		
+		unsetNull();
+	}
+
+	public void setNull(Null _null) {
+		if (_null != null)
+			_null.setParent(this);
+		
+		this._null = _null;
+		unsetBoolean();
+	}
+
+	public void unsetBoolean() {
+		_boolean = null;
+	}
+	
+	public void unsetNull() {
+		if (isSetNull())
+			_null.unsetParent();
+		
+		_null = null;
+	}
+
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BooleanOrNull(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BooleanOrNull copy = (target == null) ? new BooleanOrNull() : (BooleanOrNull)target;
+		
+		if (isSetBoolean())
+			copy.setBoolean((Boolean)copyBuilder.copy(_boolean));
+			
+		if (isSetNull()) {
+			copy.setNull((Null)copyBuilder.copy(_null));
+			if (copy.getNull() == _null)
+				_null.setParent(this);
+		}
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
+
 }

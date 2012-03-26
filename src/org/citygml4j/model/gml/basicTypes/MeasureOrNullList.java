@@ -22,11 +22,45 @@
  */
 package org.citygml4j.model.gml.basicTypes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 
-public interface MeasureOrNullList extends DoubleOrNullList {
-	public String getUom();
-	public boolean isSetUom();
+public class MeasureOrNullList extends DoubleOrNullList {
+	private String uom;
+
+	public String getUom() {
+		return uom;
+	}
 	
-	public void setUom(String uom);
-	public void unsetUom();
+	public boolean isSetUom() {
+		return uom != null;
+	}
+
+	public void setUom(String uom) {
+		this.uom = uom;
+	}
+
+	public void unsetUom() {
+		uom = null;
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MEASURE_OR_NULL_LIST;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MeasureOrNullList(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MeasureOrNullList copy = (target == null) ? new MeasureOrNullList() : (MeasureOrNullList)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetUom())
+			copy.setUom(copyBuilder.copy(uom));
+		
+		return copy;
+	}
+
 }
