@@ -34,11 +34,11 @@ public class VegetationFactory {
 	}
 
 	public PlantCover createPlantCover() {
-		return new PlantCoverImpl();
+		return new PlantCover();
 	}
 
 	public SolitaryVegetationObject createSolitaryVegetationObject() {
-		return new SolitaryVegetationObjectImpl();
+		return new SolitaryVegetationObject();
 	}
 		
 }

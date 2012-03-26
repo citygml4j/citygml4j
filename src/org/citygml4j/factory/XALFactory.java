@@ -202,396 +202,396 @@ public class XALFactory {
 	}
 	
 	public AddressDetails createAddressDetails() {
-		return new AddressDetailsImpl();
+		return new AddressDetails();
 	}
 	
 	public AddressIdentifier createAddressIdentifier() {
-		return new AddressIdentifierImpl();
+		return new AddressIdentifier();
 	}
 	
 	public Address createAddress() {
-		return new AddressImpl();
+		return new Address();
 	}
 	
 	public AddressLatitudeDirection createAddressLatitudeDirection() {
-		return new AddressLatitudeDirectionImpl();
+		return new AddressLatitudeDirection();
 	}
 	
 	public AddressLatitude createAddressLatitude() {
-		return new AddressLatitudeImpl();
+		return new AddressLatitude();
 	}
 	
 	public AddressLine createAddressLine() {
-		return new AddressLineImpl();
+		return new AddressLine();
 	}
 	
 	public AddressLines createAddressLines() {
-		return new AddressLinesImpl();
+		return new AddressLines();
 	}
 	
 	public AddressLongitudeDirection createAddressLongitudeDirection() {
-		return new AddressLongitudeDirectionImpl();
+		return new AddressLongitudeDirection();
 	}
 	
 	public AddressLongitude createAddressLongitude() {
-		return new AddressLongitudeImpl();
+		return new AddressLongitude();
 	}
 	
 	public AdministrativeArea createAdministrativeArea() {
-		return new AdministrativeAreaImpl();
+		return new AdministrativeArea();
 	}
 	
 	public AdministrativeAreaName createAdministrativeAreaName() {
-		return new AdministrativeAreaNameImpl();
+		return new AdministrativeAreaName();
 	}
 	
 	public Barcode createBarcode() {
-		return new BarcodeImpl();
+		return new Barcode();
 	}
 	
 	public BuildingName createBuildingName() {
-		return new BuildingNameImpl();
+		return new BuildingName();
 	}
 	
 	public Country createCountry() {
-		return new CountryImpl();
+		return new Country();
 	}
 	
 	public CountryNameCode createCountryNameCode() {
-		return new CountryNameCodeImpl();
+		return new CountryNameCode();
 	}
 	
 	public CountryName createCountryName() {
-		return new CountryNameImpl();
+		return new CountryName();
 	}
 	
 	public Department createDepartment() {
-		return new DepartmentImpl();
+		return new Department();
 	}
 	
 	public DepartmentName createDepartmentName() {
-		return new DepartmentNameImpl();
+		return new DepartmentName();
 	}
 	
 	public DependentLocality createDependentLocality() {
-		return new DependentLocalityImpl();
+		return new DependentLocality();
 	}
 	
 	public DependentLocalityName createDependentLocalityName() {
-		return new DependentLocalityNameImpl();
+		return new DependentLocalityName();
 	}
 	
 	public DependentLocalityNumber createDependentLocalityNumber() {
-		return new DependentLocalityNumberImpl();
+		return new DependentLocalityNumber();
 	}
 	
 	public DependentThoroughfare createDependentThoroughfare() {
-		return new DependentThoroughfareImpl();
+		return new DependentThoroughfare();
 	}
 	
 	public EndorsementLineCode createEndorsementLineCode() {
-		return new EndorsementLineCodeImpl();
+		return new EndorsementLineCode();
 	}
 	
 	public Firm createFirm() {
-		return new FirmImpl();
+		return new Firm();
 	}
 	
 	public FirmName createFirmName() {
-		return new FirmNameImpl();
+		return new FirmName();
 	}
 	
 	public KeyLineCode createKeyLineCode() {
-		return new KeyLineCodeImpl();
+		return new KeyLineCode();
 	}
 	
 	public LargeMailUserIdentifier createLargeMailUserIdentifier() {
-		return new LargeMailUserIdentifierImpl();
+		return new LargeMailUserIdentifier();
 	}
 	
 	public LargeMailUser createLargeMailUser() {
-		return new LargeMailUserImpl();
+		return new LargeMailUser();
 	}
 	
 	public LargeMailUserName createLargeMailUserName() {
-		return new LargeMailUserNameImpl();
+		return new LargeMailUserName();
 	}
 	
 	public Locality createLocality() {
-		return new LocalityImpl();
+		return new Locality();
 	}
 	
 	public LocalityName createLocalityName() {
-		return new LocalityNameImpl();
+		return new LocalityName();
 	}
 	
 	public MailStop createMailStop() {
-		return new MailStopImpl();
+		return new MailStop();
 	}
 	
 	public MailStopName createMailStopName() {
-		return new MailStopNameImpl();
+		return new MailStopName();
 	}
 	
 	public MailStopNumber createMailStopNumber() {
-		return new MailStopNumberImpl();
+		return new MailStopNumber();
 	}
 	
 	public PostalCode createPostalCode() {
-		return new PostalCodeImpl();
+		return new PostalCode();
 	}
 	
 	public PostalCodeNumberExtension createPostalCodeNumberExtension() {
-		return new PostalCodeNumberExtensionImpl();
+		return new PostalCodeNumberExtension();
 	}
 	
 	public PostalCodeNumber createPostalCodeNumber() {
-		return new PostalCodeNumberImpl();
+		return new PostalCodeNumber();
 	}
 	
 	public PostalRoute createPostalRoute() {
-		return new PostalRouteImpl();
+		return new PostalRoute();
 	}
 	
 	public PostalRouteName createPostalRouteName() {
-		return new PostalRouteNameImpl();
+		return new PostalRouteName();
 	}
 	
 	public PostalRouteNumber createPostalRouteNumber() {
-		return new PostalRouteNumberImpl();
+		return new PostalRouteNumber();
 	}
 	
 	public PostalServiceElements createPostalServiceElements() {
-		return new PostalServiceElementsImpl();
+		return new PostalServiceElements();
 	}
 	
 	public PostBox createPostBox() {
-		return new PostBoxImpl();
+		return new PostBox();
 	}
 	
 	public PostBoxNumberExtension createPostBoxNumberExtension() {
-		return new PostBoxNumberExtensionImpl();
+		return new PostBoxNumberExtension();
 	}
 	
 	public PostBoxNumber createPostBoxNumber() {
-		return new PostBoxNumberImpl();
+		return new PostBoxNumber();
 	}
 	
 	public PostBoxNumberPrefix createPostBoxNumberPrefix() {
-		return new PostBoxNumberPrefixImpl();
+		return new PostBoxNumberPrefix();
 	}
 	
 	public PostBoxNumberSuffix createPostBoxNumberSuffix() {
-		return new PostBoxNumberSuffixImpl();
+		return new PostBoxNumberSuffix();
 	}
 	
 	public PostOffice createPostOffice() {
-		return new PostOfficeImpl();
+		return new PostOffice();
 	}
 	
 	public PostOfficeName createPostOfficeName() {
-		return new PostOfficeNameImpl();
+		return new PostOfficeName();
 	}
 	
 	public PostOfficeNumber createPostOfficeNumber() {
-		return new PostOfficeNumberImpl();
+		return new PostOfficeNumber();
 	}
 	
 	public PostTown createPostTown() {
-		return new PostTownImpl();
+		return new PostTown();
 	}
 	
 	public PostTownName createPostTownName() {
-		return new PostTownNameImpl();
+		return new PostTownName();
 	}
 	
 	public PostTownSuffix createPostTownSuffix() {
-		return new PostTownSuffixImpl();
+		return new PostTownSuffix();
 	}
 	
 	public Premise createPremise() {
-		return new PremiseImpl();
+		return new Premise();
 	}
 	
 	public PremiseLocation createPremiseLocation() {
-		return new PremiseLocationImpl();
+		return new PremiseLocation();
 	}
 	
 	public PremiseName createPremiseName() {
-		return new PremiseNameImpl();
+		return new PremiseName();
 	}
 	
 	public PremiseNumber createPremiseNumber() {
-		return new PremiseNumberImpl();
+		return new PremiseNumber();
 	}
 	
 	public PremiseNumberPrefix createPremiseNumberPrefix() {
-		return new PremiseNumberPrefixImpl();
+		return new PremiseNumberPrefix();
 	}
 	
 	public PremiseNumberRangeFrom createPremiseNumberRangeFrom() {
-		return new PremiseNumberRangeFromImpl();
+		return new PremiseNumberRangeFrom();
 	}
 	
 	public PremiseNumberRange createPremiseNumberRange() {
-		return new PremiseNumberRangeImpl();
+		return new PremiseNumberRange();
 	}
 	
 	public PremiseNumberRangeTo createPremiseNumberRangeTo() {
-		return new PremiseNumberRangeToImpl();
+		return new PremiseNumberRangeTo();
 	}
 	
 	public PremiseNumberSuffix createPremiseNumberSuffix() {
-		return new PremiseNumberSuffixImpl();
+		return new PremiseNumberSuffix();
 	}
 	
 	public SortingCode createSortingCode() {
-		return new SortingCodeImpl();
+		return new SortingCode();
 	}
 	
 	public SubAdministrativeArea createSubAdministrativeArea() {
-		return new SubAdministrativeAreaImpl();
+		return new SubAdministrativeArea();
 	}
 	
 	public SubAdministrativeAreaName createSubAdministrativeAreaName() {
-		return new SubAdministrativeAreaNameImpl();
+		return new SubAdministrativeAreaName();
 	}
 	
 	public SubPremise createSubPremise() {
-		return new SubPremiseImpl();
+		return new SubPremise();
 	}
 	
 	public SubPremiseLocation createSubPremiseLocation() {
-		return new SubPremiseLocationImpl();
+		return new SubPremiseLocation();
 	}
 	
 	public SubPremiseName createSubPremiseName() {
-		return new SubPremiseNameImpl();
+		return new SubPremiseName();
 	}
 	
 	public SubPremiseNumber createSubPremiseNumber() {
-		return new SubPremiseNumberImpl();
+		return new SubPremiseNumber();
 	}
 	
 	public SubPremiseNumberPrefix createSubPremiseNumberPrefix() {
-		return new SubPremiseNumberPrefixImpl();
+		return new SubPremiseNumberPrefix();
 	}
 	
 	public SubPremiseNumberSuffix createSubPremiseNumberSuffix() {
-		return new SubPremiseNumberSuffixImpl();
+		return new SubPremiseNumberSuffix();
 	}
 	
 	public SupplementaryPostalServiceData createSupplementaryPostalServiceData() {
-		return new SupplementaryPostalServiceDataImpl();
+		return new SupplementaryPostalServiceData();
 	}
 	
 	public Thoroughfare createThoroughfare() {
-		return new ThoroughfareImpl();
+		return new Thoroughfare();
 	}
 	
 	public ThoroughfareLeadingType createThoroughfareLeadingType() {
-		return new ThoroughfareLeadingTypeImpl();
+		return new ThoroughfareLeadingType();
 	}
 	
 	public ThoroughfareName createThoroughfareName() {
-		return new ThoroughfareNameImpl();
+		return new ThoroughfareName();
 	}
 	
 	public ThoroughfareNumberFrom createThoroughfareNumberFrom() {
-		return new ThoroughfareNumberFromImpl();
+		return new ThoroughfareNumberFrom();
 	}
 	
 	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent() {
-		return new ThoroughfareNumberFromContentImpl();
+		return new ThoroughfareNumberFromContent();
 	}
 	
 	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(AddressLine addressLine) {
-		return new ThoroughfareNumberFromContentImpl(addressLine);
+		return new ThoroughfareNumberFromContent(addressLine);
 	}
 	
 	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(ThoroughfareNumber thoroughfareNumber) {
-		return new ThoroughfareNumberFromContentImpl(thoroughfareNumber);
+		return new ThoroughfareNumberFromContent(thoroughfareNumber);
 	}
 	
 	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		return new ThoroughfareNumberFromContentImpl(thoroughfareNumberPrefix);
+		return new ThoroughfareNumberFromContent(thoroughfareNumberPrefix);
 	}
 	
 	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		return new ThoroughfareNumberFromContentImpl(thoroughfareNumberSuffix);
+		return new ThoroughfareNumberFromContent(thoroughfareNumberSuffix);
 	}
 	
 	public ThoroughfareNumberFromContent createThoroughfareNumberFromContent(String string) {
-		return new ThoroughfareNumberFromContentImpl(string);
+		return new ThoroughfareNumberFromContent(string);
 	}
 	
 	public ThoroughfareNumberToContent createThoroughfareNumberToContent() {
-		return new ThoroughfareNumberToContentImpl();
+		return new ThoroughfareNumberToContent();
 	}
 	
 	public ThoroughfareNumberToContent createThoroughfareNumberToContent(AddressLine addressLine) {
-		return new ThoroughfareNumberToContentImpl(addressLine);
+		return new ThoroughfareNumberToContent(addressLine);
 	}
 	
 	public ThoroughfareNumberToContent createThoroughfareNumberToContent(ThoroughfareNumber thoroughfareNumber) {
-		return new ThoroughfareNumberToContentImpl(thoroughfareNumber);
+		return new ThoroughfareNumberToContent(thoroughfareNumber);
 	}
 	
 	public ThoroughfareNumberToContent createThoroughfareNumberToContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		return new ThoroughfareNumberToContentImpl(thoroughfareNumberPrefix);
+		return new ThoroughfareNumberToContent(thoroughfareNumberPrefix);
 	}
 	
 	public ThoroughfareNumberToContent createThoroughfareNumberToContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		return new ThoroughfareNumberToContentImpl(thoroughfareNumberSuffix);
+		return new ThoroughfareNumberToContent(thoroughfareNumberSuffix);
 	}
 	
 	public ThoroughfareNumberToContent createThoroughfareNumberToContent(String string) {
-		return new ThoroughfareNumberToContentImpl(string);
+		return new ThoroughfareNumberToContent(string);
 	}
 	
 	
 	public ThoroughfareNumber createThoroughfareNumber() {
-		return new ThoroughfareNumberImpl();
+		return new ThoroughfareNumber();
 	}
 	
 	public ThoroughfareNumberOrRange createThoroughfareNumberOrRange() {
-		return new ThoroughfareNumberOrRangeImpl();
+		return new ThoroughfareNumberOrRange();
 	}
 	
 	public ThoroughfareNumberOrRange createThoroughfareNumberOrRange(ThoroughfareNumber thoroughfareNumber) {
-		return new ThoroughfareNumberOrRangeImpl(thoroughfareNumber);
+		return new ThoroughfareNumberOrRange(thoroughfareNumber);
 	}
 	
 	public ThoroughfareNumberOrRange createThoroughfareNumberOrRange(ThoroughfareNumberRange thoroughfareNumberRange) {
-		return new ThoroughfareNumberOrRangeImpl(thoroughfareNumberRange);
+		return new ThoroughfareNumberOrRange(thoroughfareNumberRange);
 	}
 	
 	public ThoroughfareNumberPrefix createThoroughfareNumberPrefix() {
-		return new ThoroughfareNumberPrefixImpl();
+		return new ThoroughfareNumberPrefix();
 	}
 	
 	public ThoroughfareNumberRange createThoroughfareNumberRange() {
-		return new ThoroughfareNumberRangeImpl();
+		return new ThoroughfareNumberRange();
 	}
 	
 	public ThoroughfareNumberSuffix createThoroughfareNumberSuffix() {
-		return new ThoroughfareNumberSuffixImpl();
+		return new ThoroughfareNumberSuffix();
 	}
 	
 	public ThoroughfareNumberTo createThoroughfareNumberTo() {
-		return new ThoroughfareNumberToImpl();
+		return new ThoroughfareNumberTo();
 	}
 	
 	public ThoroughfarePostDirection createThoroughfarePostDirection() {
-		return new ThoroughfarePostDirectionImpl();
+		return new ThoroughfarePostDirection();
 	}
 	
 	public ThoroughfarePreDirection createThoroughfarePreDirection() {
-		return new ThoroughfarePreDirectionImpl();
+		return new ThoroughfarePreDirection();
 	}
 	
 	public ThoroughfareTrailingType createThoroughfareTrailingType() {
-		return new ThoroughfareTrailingTypeImpl();
+		return new ThoroughfareTrailingType();
 	}
 	
 }

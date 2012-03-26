@@ -22,7 +22,7 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.cityfurniture.CityFurnitureImpl;
+import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 
 public class CityFurnitureFactory {
@@ -32,7 +32,7 @@ public class CityFurnitureFactory {
 	}
 
 	public CityFurniture createCityFurniture() {
-		return new CityFurnitureImpl();
+		return new CityFurniture();
 	}
 	
 }

@@ -22,16 +22,16 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.texturedsurface._AppearancePropertyImpl;
-import org.citygml4j.impl.citygml.texturedsurface._ColorImpl;
-import org.citygml4j.impl.citygml.texturedsurface._MaterialImpl;
-import org.citygml4j.impl.citygml.texturedsurface._SimpleTextureImpl;
-import org.citygml4j.impl.citygml.texturedsurface._TexturedSurfaceImpl;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
+import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
+import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
+import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
+import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
+import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 
 public class TexturedSurfaceFactory {
@@ -41,39 +41,39 @@ public class TexturedSurfaceFactory {
 	}
 
 	public _AppearanceProperty create_AppearanceProperty() {
-		return new _AppearancePropertyImpl();
+		return new _AppearanceProperty();
 	}
 	
 	public _AppearanceProperty create_AppearanceProperty(_AbstractAppearance appearance) {
-		_AppearanceProperty appearanceProperty = new _AppearancePropertyImpl();
+		_AppearanceProperty appearanceProperty = new _AppearanceProperty();
 		appearanceProperty.setAppearance(appearance);
 		return appearanceProperty;
 	}
 	
 	public _AppearanceProperty create_AppearanceProperty(String xlink) {
-		_AppearanceProperty appearanceProperty = new _AppearancePropertyImpl();
+		_AppearanceProperty appearanceProperty = new _AppearanceProperty();
 		appearanceProperty.setHref(xlink);
 		return appearanceProperty;
 	}
 
 	public _Color create_Color() {
-		return new _ColorImpl();
+		return new _Color();
 	}
 
 	public _Color create_Color(Double red, Double green, Double blue) {
-		return new _ColorImpl(red, green, blue);
+		return new _Color(red, green, blue);
 	}
 
 	public _Material create_Material() {
-		return new _MaterialImpl();
+		return new _Material();
 	}
 
 	public _SimpleTexture create_SimpleTexture() {
-		return new _SimpleTextureImpl();
+		return new _SimpleTexture();
 	}
 
 	public _TexturedSurface create_TexturedSurface() {
-		return new _TexturedSurfaceImpl();
+		return new _TexturedSurface();
 	}
 	
 }

@@ -46,35 +46,35 @@ public class GenericsFactory {
 	}
 
 	public GenericCityObject createGenericCityObject() {
-		return new GenericCityObjectImpl();
+		return new GenericCityObject();
 	}
 
 	public DateAttribute createDateAttribute() {
-		return new DateAttributeImpl();
+		return new DateAttribute();
 	}
 
 	public DoubleAttribute createDoubleAttribute() {
-		return new DoubleAttributeImpl();
+		return new DoubleAttribute();
 	}
 
 	public IntAttribute createIntAttribute() {
-		return new IntAttributeImpl();
+		return new IntAttribute();
 	}
 
 	public StringAttribute createStringAttribute() {
-		return new StringAttributeImpl();
+		return new StringAttribute();
 	}
 
 	public UriAttribute createUriAttribute() {
-		return new UriAttributeImpl();
+		return new UriAttribute();
 	}
 	
 	public MeasureAttribute createMeasureAttribute() {
-		return new MeasureAttributeImpl();
+		return new MeasureAttribute();
 	}
 	
 	public GenericAttributeSet createGenericAttributeSet() {
-		return new GenericAttributeSetImpl();
+		return new GenericAttributeSet();
 	}
 
 }

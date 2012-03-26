@@ -27,124 +27,6 @@ import java.util.List;
 
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.impl.gml.base.MetaDataPropertyImpl;
-import org.citygml4j.impl.gml.base.StringOrRefImpl;
-import org.citygml4j.impl.gml.basicTypes.BooleanOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.BooleanOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.CoordinatesImpl;
-import org.citygml4j.impl.gml.basicTypes.DoubleOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.DoubleOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.IntegerOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.IntegerOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.MeasureImpl;
-import org.citygml4j.impl.gml.basicTypes.MeasureOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.NameOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.NullImpl;
-import org.citygml4j.impl.gml.coverage.CoverageFunctionImpl;
-import org.citygml4j.impl.gml.coverage.DataBlockImpl;
-import org.citygml4j.impl.gml.coverage.DomainSetImpl;
-import org.citygml4j.impl.gml.coverage.FileImpl;
-import org.citygml4j.impl.gml.coverage.GridFunctionImpl;
-import org.citygml4j.impl.gml.coverage.IndexMapImpl;
-import org.citygml4j.impl.gml.coverage.RangeParametersImpl;
-import org.citygml4j.impl.gml.coverage.RangeSetImpl;
-import org.citygml4j.impl.gml.coverage.RectifiedGridCoverageImpl;
-import org.citygml4j.impl.gml.coverage.RectifiedGridDomainImpl;
-import org.citygml4j.impl.gml.coverage.SequenceRuleImpl;
-import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
-import org.citygml4j.impl.gml.feature.FeatureArrayPropertyImpl;
-import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
-import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
-import org.citygml4j.impl.gml.feature.LocationPropertyImpl;
-import org.citygml4j.impl.gml.feature.PriorityLocationPropertyImpl;
-import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiCurveImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiCurvePropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPointImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPointPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPolygonImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPolygonPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSolidImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSolidPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSurfacePropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeCurveImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeCurvePropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSolidImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSolidPropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSurfacePropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.GeometricComplexImpl;
-import org.citygml4j.impl.gml.geometry.complexes.GeometricComplexPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.ControlPointImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CoordImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurveArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurveImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurvePropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurveSegmentArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.DirectPositionImpl;
-import org.citygml4j.impl.gml.geometry.primitives.DirectPositionListImpl;
-import org.citygml4j.impl.gml.geometry.primitives.EnvelopeImpl;
-import org.citygml4j.impl.gml.geometry.primitives.ExteriorImpl;
-import org.citygml4j.impl.gml.geometry.primitives.GeometricPositionGroupImpl;
-import org.citygml4j.impl.gml.geometry.primitives.GeometricPrimitivePropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.InnerBoundaryIsImpl;
-import org.citygml4j.impl.gml.geometry.primitives.InteriorImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringSegmentArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringSegmentImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LinearRingImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LinearRingPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.OrientableCurveImpl;
-import org.citygml4j.impl.gml.geometry.primitives.OrientableSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.primitives.OuterBoundaryIsImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointRepImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PolygonImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PolygonPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PosOrPointPropertyOrPointRepImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoordImpl;
-import org.citygml4j.impl.gml.geometry.primitives.RectangleImpl;
-import org.citygml4j.impl.gml.geometry.primitives.RingImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SolidArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SolidImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SolidPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfaceArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfaceImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfacePatchArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfacePropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TinImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TriangleImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TrianglePatchArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TriangulatedSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.primitives.VectorImpl;
-import org.citygml4j.impl.gml.grids.GridEnvelopeImpl;
-import org.citygml4j.impl.gml.grids.GridImpl;
-import org.citygml4j.impl.gml.grids.GridLimitsImpl;
-import org.citygml4j.impl.gml.grids.RectifiedGridImpl;
-import org.citygml4j.impl.gml.measures.LengthImpl;
-import org.citygml4j.impl.gml.measures.SpeedImpl;
-import org.citygml4j.impl.gml.valueObjects.CategoryExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.CompositeValueImpl;
-import org.citygml4j.impl.gml.valueObjects.CountExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.QuantityExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.ScalarValueImpl;
-import org.citygml4j.impl.gml.valueObjects.ScalarValueListImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueArrayImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueArrayPropertyImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueObjectImpl;
-import org.citygml4j.impl.gml.valueObjects.ValuePropertyImpl;
 import org.citygml4j.model.gml.base.MetaData;
 import org.citygml4j.model.gml.base.MetaDataProperty;
 import org.citygml4j.model.gml.base.StringOrRef;
@@ -299,23 +181,23 @@ public class GMLFactory {
 	}
 	
 	public BoundingShape createBoundingShape() {
-		return new BoundingShapeImpl();
+		return new BoundingShape();
 	}
 	
 	public BoundingShape createBoundingShape(Envelope envelope) {
-		BoundingShape boundingShape = new BoundingShapeImpl();
+		BoundingShape boundingShape = new BoundingShape();
 		boundingShape.setEnvelope(envelope);
 		return boundingShape;
 	}
 	
 	public BoundingShape createBoundingShape(BoundingBox boundingBox) {
-		BoundingShape boundingShape = new BoundingShapeImpl();
+		BoundingShape boundingShape = new BoundingShape();
 		boundingShape.setEnvelope(boundingBox);
 		return boundingShape;
 	}
 	
 	public CategoryExtent createCategoryExtent() {
-		return new CategoryExtentImpl();
+		return new CategoryExtent();
 	}
 	
 	public Code createCode() {
@@ -327,11 +209,11 @@ public class GMLFactory {
 	}
 	
 	public CompositeCurve createCompositeCurve() {
-		return new CompositeCurveImpl();
+		return new CompositeCurve();
 	}
 	
 	public CompositeCurve createCompositeCurve(List<? extends AbstractCurve> abstractCurves) {
-		CompositeCurve compositeCurve = new CompositeCurveImpl();
+		CompositeCurve compositeCurve = new CompositeCurve();
 		for (AbstractCurve abstractCurve : abstractCurves)
 			compositeCurve.addCurveMember(createCurveProperty(abstractCurve));
 		
@@ -343,27 +225,27 @@ public class GMLFactory {
 	}
 	
 	public CompositeCurveProperty createCompositeCurveProperty() {
-		return new CompositeCurvePropertyImpl();
+		return new CompositeCurveProperty();
 	}
 	
 	public CompositeCurveProperty createCompositeCurveProperty(CompositeCurve compositeCurve) {
-		CompositeCurveProperty compositeCurveProperty = new CompositeCurvePropertyImpl();
+		CompositeCurveProperty compositeCurveProperty = new CompositeCurveProperty();
 		compositeCurveProperty.setCompositeCurve(compositeCurve);
 		return compositeCurveProperty;
 	}
 	
 	public CompositeCurveProperty createCompositeCurveProperty(String xlink) {
-		CompositeCurveProperty compositeCurveProperty = new CompositeCurvePropertyImpl();
+		CompositeCurveProperty compositeCurveProperty = new CompositeCurveProperty();
 		compositeCurveProperty.setHref(xlink);
 		return compositeCurveProperty;
 	}
 	
 	public CompositeSolid createCompositeSolid() {
-		return new CompositeSolidImpl();
+		return new CompositeSolid();
 	}
 	
 	public CompositeSolid createCompositeSolid(List<? extends AbstractSolid> abstractSolids) {
-		CompositeSolid compositeSolid = new CompositeSolidImpl();
+		CompositeSolid compositeSolid = new CompositeSolid();
 		for (AbstractSolid abstractSolid : abstractSolids)
 			compositeSolid.addSolidMember(createSolidProperty(abstractSolid));
 		
@@ -375,27 +257,27 @@ public class GMLFactory {
 	}
 	
 	public CompositeSolidProperty createCompositeSolidProperty() {
-		return new CompositeSolidPropertyImpl();
+		return new CompositeSolidProperty();
 	}
 	
 	public CompositeSolidProperty createCompositeSolidProperty(CompositeSolid compositeSolid) {
-		CompositeSolidProperty compositeSolidProperty = new CompositeSolidPropertyImpl();
+		CompositeSolidProperty compositeSolidProperty = new CompositeSolidProperty();
 		compositeSolidProperty.setCompositeSolid(compositeSolid);
 		return compositeSolidProperty;
 	}
 	
 	public CompositeSolidProperty createCompositeSolidProperty(String xlink) {
-		CompositeSolidProperty compositeSolidProperty = new CompositeSolidPropertyImpl();
+		CompositeSolidProperty compositeSolidProperty = new CompositeSolidProperty();
 		compositeSolidProperty.setHref(xlink);
 		return compositeSolidProperty;
 	}
 	
 	public CompositeSurface createCompositeSurface() {
-		return new CompositeSurfaceImpl();
+		return new CompositeSurface();
 	}
 	
 	public CompositeSurface createCompositeSurface(List<? extends AbstractSurface> abstractSurfaces) {
-		CompositeSurface compositeSurface = new CompositeSurfaceImpl();
+		CompositeSurface compositeSurface = new CompositeSurface();
 		for (AbstractSurface abstractSurface : abstractSurfaces)
 			compositeSurface.addSurfaceMember(createSurfaceProperty(abstractSurface));
 		
@@ -407,27 +289,27 @@ public class GMLFactory {
 	}
 	
 	public CompositeSurfaceProperty createCompositeSurfaceProperty() {
-		return new CompositeSurfacePropertyImpl();
+		return new CompositeSurfaceProperty();
 	}
 	
 	public CompositeSurfaceProperty createCompositeSurfaceProperty(CompositeSurface compositeSurface) {
-		CompositeSurfaceProperty compositeSurfaceProperty = new CompositeSurfacePropertyImpl();
+		CompositeSurfaceProperty compositeSurfaceProperty = new CompositeSurfaceProperty();
 		compositeSurfaceProperty.setCompositeSurface(compositeSurface);
 		return compositeSurfaceProperty;
 	}
 	
 	public CompositeSurfaceProperty createCompositeSurfaceProperty(String xlink) {
-		CompositeSurfaceProperty compositeSurfaceProperty = new CompositeSurfacePropertyImpl();
+		CompositeSurfaceProperty compositeSurfaceProperty = new CompositeSurfaceProperty();
 		compositeSurfaceProperty.setHref(xlink);
 		return compositeSurfaceProperty;
 	}
 	
 	public CompositeValue createCompositeValue() {
-		return new CompositeValueImpl();
+		return new CompositeValue();
 	}
 	
 	public CompositeValue createCompositeValue(List<Value> values) {
-		CompositeValue compositeValue = new CompositeValueImpl();
+		CompositeValue compositeValue = new CompositeValue();
 		for (Value value : values)
 			compositeValue.addValueComponent(createValueProperty(value));
 		
@@ -439,11 +321,11 @@ public class GMLFactory {
 	}
 	
 	public ControlPoint createControlPoint() {
-		return new ControlPointImpl();
+		return new ControlPoint();
 	}
 	
 	public Coord createCoord() {
-		return new CoordImpl();
+		return new Coord();
 	}
 	
 	public Coordinates createCoordinates() {
@@ -451,27 +333,27 @@ public class GMLFactory {
 	}
 	
 	public CountExtent createCountExtent() {
-		return new CountExtentImpl();
+		return new CountExtent();
 	}
 	
 	public CoverageFunction createCoverageFunction() {
-		return new CoverageFunctionImpl();
+		return new CoverageFunction();
 	}
 	
 	public CoverageFunction createCoverageFunction(StringOrRef mappingRule) {
-		return new CoverageFunctionImpl(mappingRule);
+		return new CoverageFunction(mappingRule);
 	}
 	
 	public CoverageFunction createCoverageFunction(GridFunction gridFunction) {
-		return new CoverageFunctionImpl(gridFunction);
+		return new CoverageFunction(gridFunction);
 	}
 	
 	public CurveArrayProperty createCurveArrayProperty() {
-		return new CurveArrayPropertyImpl();
+		return new CurveArrayProperty();
 	}
 	
 	public CurveArrayProperty createCurveArrayProperty(List<? extends AbstractCurve> abstractCurve) {
-		CurveArrayProperty curveArrayProperty = new CurveArrayPropertyImpl();
+		CurveArrayProperty curveArrayProperty = new CurveArrayProperty();
 		curveArrayProperty.setCurve(abstractCurve);
 		return curveArrayProperty;
 	}
@@ -481,31 +363,31 @@ public class GMLFactory {
 	}
 	
 	public Curve createCurve() {
-		return new CurveImpl();
+		return new Curve();
 	}
 	
 	public CurveProperty createCurveProperty() {
-		return new CurvePropertyImpl();
+		return new CurveProperty();
 	}
 	
 	public CurveProperty createCurveProperty(AbstractCurve abstractCurve) {
-		CurveProperty curveProperty = new CurvePropertyImpl();
+		CurveProperty curveProperty = new CurveProperty();
 		curveProperty.setCurve(abstractCurve);
 		return curveProperty;
 	}
 	
 	public CurveProperty createCurveProperty(String xlink) {
-		CurveProperty curveProperty = new CurvePropertyImpl();
+		CurveProperty curveProperty = new CurveProperty();
 		curveProperty.setHref(xlink);
 		return curveProperty;
 	}
 	
 	public CurveSegmentArrayProperty createCurveSegmentArrayProperty() {
-		return new CurveSegmentArrayPropertyImpl();
+		return new CurveSegmentArrayProperty();
 	}
 	
 	public CurveSegmentArrayProperty createCurveSegmentArrayProperty(List<? extends AbstractCurveSegment> curveSegment) {
-		CurveSegmentArrayProperty curveSegmentArrayProperty = new CurveSegmentArrayPropertyImpl();
+		CurveSegmentArrayProperty curveSegmentArrayProperty = new CurveSegmentArrayProperty();
 		curveSegmentArrayProperty.setCurveSegment(curveSegment);
 		return curveSegmentArrayProperty;
 	}
@@ -515,15 +397,15 @@ public class GMLFactory {
 	}
 	
 	public DataBlock createDataBlock() {
-		return new DataBlockImpl();
+		return new DataBlock();
 	}
 	
 	public DirectPosition createDirectPosition() {
-		return new DirectPositionImpl();
+		return new DirectPosition();
 	}
 	
 	public DirectPositionList createDirectPositionList() {
-		return new DirectPositionListImpl();
+		return new DirectPositionList();
 	}
 	
 	public <T extends AbstractGeometry> DomainSet<T> createDomainSet() {
@@ -543,36 +425,36 @@ public class GMLFactory {
 	}
 	
 	public DoubleOrNullList createDoubleOrNullList() {
-		return new DoubleOrNullListImpl();
+		return new DoubleOrNullList();
 	}
 	
 	public Envelope createEnvelope() {
-		return new EnvelopeImpl();
+		return new Envelope();
 	}
 	
 	public Envelope createEnvelope(BoundingBox boundingBox) {
-		Envelope envelope = new EnvelopeImpl();
+		Envelope envelope = new Envelope();
 		envelope.setLowerCorner(boundingBox.getLowerCorner());
 		envelope.setUpperCorner(boundingBox.getUpperCorner());
 		return envelope;
 	}
 	
 	public Exterior createExterior() {
-		return new ExteriorImpl();
+		return new Exterior();
 	}
 	
 	public Exterior createExterior(AbstractRing abstractRing) {
-		Exterior exterior = new ExteriorImpl();
+		Exterior exterior = new Exterior();
 		exterior.setRing(abstractRing);
 		return exterior;
 	}
 	
 	public FeatureArrayProperty createFeatureArrayProperty() {
-		return new FeatureArrayPropertyImpl();
+		return new FeatureArrayProperty();
 	}
 	
 	public FeatureArrayProperty createFeatureArrayProperty(List<? extends AbstractFeature> feature) {
-		FeatureArrayProperty featureArrayProperty = new FeatureArrayPropertyImpl();
+		FeatureArrayProperty featureArrayProperty = new FeatureArrayProperty();
 		featureArrayProperty.setFeature(feature);
 		return featureArrayProperty;
 	}
@@ -598,23 +480,23 @@ public class GMLFactory {
 	}
 	
 	public FeatureMember createFeatureMember() {
-		return new FeatureMemberImpl();
+		return new FeatureMember();
 	}
 	
 	public FeatureMember createFeatureMember(AbstractFeature feature) {
-		FeatureMember featureMember = new FeatureMemberImpl();
+		FeatureMember featureMember = new FeatureMember();
 		featureMember.setFeature(feature);
 		return featureMember;
 	}
 	
 	public FeatureMember createFeatureMember(String xlink) {
-		FeatureMember featureMember = new FeatureMemberImpl();
+		FeatureMember featureMember = new FeatureMember();
 		featureMember.setHref(xlink);
 		return featureMember;
 	}
 	
 	public File createFile() {
-		return new FileImpl();
+		return new File();
 	}
 	
 	public MetaData createGenericMetaData() {
@@ -622,11 +504,11 @@ public class GMLFactory {
 	}
 	
 	public GeometricComplex createGeometricComplex() {
-		return new GeometricComplexImpl();
+		return new GeometricComplex();
 	}
 	
 	public GeometricComplex createGeometricComplex(List<? extends AbstractGeometricPrimitive> abstractGeometricPrimitives) {
-		GeometricComplex geometricComplex = new GeometricComplexImpl();
+		GeometricComplex geometricComplex = new GeometricComplex();
 		for (AbstractGeometricPrimitive abstractGeometricPrimitive : abstractGeometricPrimitives)
 			geometricComplex.addElement(createGeometricPrimitiveProperty(abstractGeometricPrimitive));
 		
@@ -638,165 +520,165 @@ public class GMLFactory {
 	}
 	
 	public GeometricComplexProperty createGeometricComplexProperty() {
-		return new GeometricComplexPropertyImpl();
+		return new GeometricComplexProperty();
 	}
 	
 	public GeometricComplexProperty createGeometricComplexProperty(GeometricComplex geometricComplex) {
-		GeometricComplexProperty geometricComplexProperty = new GeometricComplexPropertyImpl();
+		GeometricComplexProperty geometricComplexProperty = new GeometricComplexProperty();
 		geometricComplexProperty.setGeometricComplex(geometricComplex);
 		return geometricComplexProperty;
 	}
 	
 	public GeometricComplexProperty createGeometricComplexProperty(String xlink) {
-		GeometricComplexProperty geometricComplexProperty = new GeometricComplexPropertyImpl();
+		GeometricComplexProperty geometricComplexProperty = new GeometricComplexProperty();
 		geometricComplexProperty.setHref(xlink);
 		return geometricComplexProperty;
 	}
 	
 	public GeometricPositionGroup createGeometricPositionGroup() {
-		return new GeometricPositionGroupImpl();
+		return new GeometricPositionGroup();
 	}
 	
 	public GeometricPositionGroup createGeometricPositionGroup(DirectPosition pos) {
-		return new GeometricPositionGroupImpl(pos);
+		return new GeometricPositionGroup(pos);
 	}
 	
 	public GeometricPositionGroup createGeometricPositionGroup(PointProperty pointProperty) {
-		return new GeometricPositionGroupImpl(pointProperty);
+		return new GeometricPositionGroup(pointProperty);
 	}
 
 	public GeometricPrimitiveProperty createGeometricPrimitiveProperty() {
-		return new GeometricPrimitivePropertyImpl();
+		return new GeometricPrimitiveProperty();
 	}
 	
 	public GeometricPrimitiveProperty createGeometricPrimitiveProperty(AbstractGeometricPrimitive abstractGeometricPrimitive) {
-		GeometricPrimitiveProperty geometricPrimitiveProperty = new GeometricPrimitivePropertyImpl();
+		GeometricPrimitiveProperty geometricPrimitiveProperty = new GeometricPrimitiveProperty();
 		geometricPrimitiveProperty.setGeometricPrimitive(abstractGeometricPrimitive);
 		return geometricPrimitiveProperty;
 	}
 	
 	public GeometricPrimitiveProperty createGeometricPrimitiveProperty(String xlink) {
-		GeometricPrimitiveProperty geometricPrimitiveProperty = new GeometricPrimitivePropertyImpl();
+		GeometricPrimitiveProperty geometricPrimitiveProperty = new GeometricPrimitiveProperty();
 		geometricPrimitiveProperty.setHref(xlink);
 		return geometricPrimitiveProperty;
 	}
 	
 	public <T extends AbstractGeometry> GeometryProperty<T> createGeometryProperty() {
-		return new GeometryPropertyImpl<T>();
+		return new GeometryProperty<T>();
 	}
 	
 	public <T extends AbstractGeometry> GeometryProperty<T> createGeometryProperty(T abstractGeometry) {
-		GeometryProperty<T> geometryProperty = new GeometryPropertyImpl<T>();
+		GeometryProperty<T> geometryProperty = new GeometryProperty<T>();
 		geometryProperty.setGeometry(abstractGeometry);
 		return geometryProperty;
 	}
 	
 	public <T extends AbstractGeometry> GeometryProperty<T> createGeometryProperty(String xlink) {
-		GeometryProperty<T> geometryProperty = new GeometryPropertyImpl<T>();
+		GeometryProperty<T> geometryProperty = new GeometryProperty<T>();
 		geometryProperty.setHref(xlink);
 		return geometryProperty;
 	}
 	
 	public Grid createGrid() {
-		return new GridImpl();
+		return new Grid();
 	}
 	
 	public GridEnvelope createGridEnvelope() {
-		return new GridEnvelopeImpl();
+		return new GridEnvelope();
 	}
 	
 	public GridFunction createGridFunction() {
-		return new GridFunctionImpl();
+		return new GridFunction();
 	}
 	
 	public GridLimits createGridLimits() {
-		return new GridLimitsImpl();
+		return new GridLimits();
 	}
 	
 	public IndexMap createIndexMap() {
-		return new IndexMapImpl();
+		return new IndexMap();
 	}
 	
 	public InnerBoundaryIs createInnerBoundaryIs() {
-		return new InnerBoundaryIsImpl();
+		return new InnerBoundaryIs();
 	}
 	
 	public InnerBoundaryIs createInnerBoundaryIs(AbstractRing abstractRing) {
-		InnerBoundaryIs innerBoundaryIs = new InnerBoundaryIsImpl();
+		InnerBoundaryIs innerBoundaryIs = new InnerBoundaryIs();
 		innerBoundaryIs.setRing(abstractRing);
 		return innerBoundaryIs;
 	}
 	
 	public IntegerOrNull createIntegerOrNull() {
-		return new IntegerOrNullImpl();
+		return new IntegerOrNull();
 	}
 	
 	public IntegerOrNull createIntegerOrNull(int _int) {
-		return new IntegerOrNullImpl(_int);
+		return new IntegerOrNull(_int);
 	}
 	
 	public IntegerOrNull createIntegerOrNull(Null _null) {
-		return new IntegerOrNullImpl(_null);
+		return new IntegerOrNull(_null);
 	}
 	
 	public IntegerOrNullList createIntegerOrNullList() {
-		return new IntegerOrNullListImpl();
+		return new IntegerOrNullList();
 	}
 	
 	public Interior createInterior() {
-		return new InteriorImpl();
+		return new Interior();
 	}
 	
 	public Interior createInterior(AbstractRing abstractRing) {
-		Interior interior = new InteriorImpl();
+		Interior interior = new Interior();
 		interior.setRing(abstractRing);
 		return interior;
 	}
 	
 	public Length createLength() {
-		return new LengthImpl();
+		return new Length();
 	}
 	
 	public LinearRing createLinearRing() {
-		return new LinearRingImpl();
+		return new LinearRing();
 	}
 	
 	public LinearRingProperty createLinearRingProperty() {
-		return new LinearRingPropertyImpl();
+		return new LinearRingProperty();
 	}
 	
 	public LinearRingProperty createLinearRingProperty(LinearRing linearRing) {
-		LinearRingProperty linearRingProperty = new LinearRingPropertyImpl();
+		LinearRingProperty linearRingProperty = new LinearRingProperty();
 		linearRingProperty.setLinearRing(linearRing);
 		return linearRingProperty;
 	}
 	
 	public LineString createLineString() {
-		return new LineStringImpl();
+		return new LineString();
 	}
 	
 	public LineStringProperty createLineStringProperty() {
-		return new LineStringPropertyImpl();
+		return new LineStringProperty();
 	}
 	
 	public LineStringProperty createLineStringProperty(LineString lineString) {
-		LineStringProperty lineStringProperty = new LineStringPropertyImpl();
+		LineStringProperty lineStringProperty = new LineStringProperty();
 		lineStringProperty.setLineString(lineString);
 		return lineStringProperty;
 	}
 	
 	public LineStringProperty createLineStringProperty(String xlink) {
-		LineStringProperty lineStringProperty = new LineStringPropertyImpl();
+		LineStringProperty lineStringProperty = new LineStringProperty();
 		lineStringProperty.setHref(xlink);
 		return lineStringProperty;
 	}
 	
 	public LineStringSegmentArrayProperty createLineStringSegmentArrayProperty() {
-		return new LineStringSegmentArrayPropertyImpl();
+		return new LineStringSegmentArrayProperty();
 	}
 	
 	public LineStringSegmentArrayProperty createLineStringSegmentArrayProperty(List<LineStringSegment> lineStringSegment) {
-		LineStringSegmentArrayProperty lineStringSegmentArrayProperty = new LineStringSegmentArrayPropertyImpl();
+		LineStringSegmentArrayProperty lineStringSegmentArrayProperty = new LineStringSegmentArrayProperty();
 		lineStringSegmentArrayProperty.setLineStringSegment(lineStringSegment);
 		return lineStringSegmentArrayProperty;
 	}
@@ -806,31 +688,31 @@ public class GMLFactory {
 	}
 	
 	public LineStringSegment createLineStringSegment() {
-		return new LineStringSegmentImpl();
+		return new LineStringSegment();
 	}
 	
 	public LocationProperty createLocationProperty() {
-		return new LocationPropertyImpl();
+		return new LocationProperty();
 	}
 	
 	public LocationProperty createLocationProperty(AbstractGeometry abstractGeometry) {
-		LocationProperty locationProperty = new LocationPropertyImpl();
+		LocationProperty locationProperty = new LocationProperty();
 		locationProperty.setGeometry(abstractGeometry);
 		return locationProperty;
 	}
 	
 	public LocationProperty createLocationProperty(String xlink) {
-		LocationProperty locationProperty = new LocationPropertyImpl();
+		LocationProperty locationProperty = new LocationProperty();
 		locationProperty.setHref(xlink);
 		return locationProperty;
 	}
 	
 	public Measure createMeasure() {
-		return new MeasureImpl();
+		return new Measure();
 	}
 	
 	public MeasureOrNullList createMeasureOrNullList() {
-		return new MeasureOrNullListImpl();
+		return new MeasureOrNullList();
 	}
 	
 	public MetaDataProperty createMetaDataProperty() {
@@ -850,11 +732,11 @@ public class GMLFactory {
 	}
 	
 	public MultiCurve createMultiCurve() {
-		return new MultiCurveImpl();
+		return new MultiCurve();
 	}
 	
 	public MultiCurve createMultiCurve(List<? extends AbstractCurve> abstractCurves) {
-		MultiCurve multiCurve = new MultiCurveImpl();
+		MultiCurve multiCurve = new MultiCurve();
 		for (AbstractCurve abstractCurve : abstractCurves)
 			multiCurve.addCurveMember(createCurveProperty(abstractCurve));
 		
@@ -866,27 +748,27 @@ public class GMLFactory {
 	}
 	
 	public MultiCurveProperty createMultiCurveProperty() {
-		return new MultiCurvePropertyImpl();
+		return new MultiCurveProperty();
 	}
 	
 	public MultiCurveProperty createMultiCurveProperty(MultiCurve multiCurve) {
-		MultiCurveProperty multiCurveProperty = new MultiCurvePropertyImpl();
+		MultiCurveProperty multiCurveProperty = new MultiCurveProperty();
 		multiCurveProperty.setMultiCurve(multiCurve);
 		return multiCurveProperty;
 	}
 	
 	public MultiCurveProperty createMultiCurveProperty(String xlink) {
-		MultiCurveProperty multiCurveProperty = new MultiCurvePropertyImpl();
+		MultiCurveProperty multiCurveProperty = new MultiCurveProperty();
 		multiCurveProperty.setHref(xlink);
 		return multiCurveProperty;
 	}
 	
 	public MultiGeometry createMultiGeometry() {
-		return new MultiGeometryImpl();
+		return new MultiGeometry();
 	}
 	
 	public MultiGeometry createMultiGeometry(List<? extends AbstractGeometry> abstractGeometrys) {
-		MultiGeometry multiGeometry = new MultiGeometryImpl();
+		MultiGeometry multiGeometry = new MultiGeometry();
 		for (AbstractGeometry abstractGeometry : abstractGeometrys)
 			multiGeometry.addGeometryMember(createGeometryProperty(abstractGeometry));
 		
@@ -898,27 +780,27 @@ public class GMLFactory {
 	}
 	
 	public MultiGeometryProperty createMultiGeometryProperty() {
-		return new MultiGeometryPropertyImpl();
+		return new MultiGeometryProperty();
 	}
 	
 	public MultiGeometryProperty createMultiGeometryProperty(AbstractGeometricAggregate geometricAggregate) {
-		MultiGeometryProperty multiGeometryProperty = new MultiGeometryPropertyImpl();
+		MultiGeometryProperty multiGeometryProperty = new MultiGeometryProperty();
 		multiGeometryProperty.setGeometricAggregate(geometricAggregate);
 		return multiGeometryProperty;
 	}
 	
 	public MultiGeometryProperty createMultiGeometryProperty(String xlink) {
-		MultiGeometryProperty multiGeometryProperty = new MultiGeometryPropertyImpl();
+		MultiGeometryProperty multiGeometryProperty = new MultiGeometryProperty();
 		multiGeometryProperty.setHref(xlink);
 		return multiGeometryProperty;
 	}
 	
 	public MultiLineString createMultiLineString() {
-		return new MultiLineStringImpl();
+		return new MultiLineString();
 	}
 	
 	public MultiLineString createMultiLineString(List<LineString> lineStrings) {
-		MultiLineString multiLineString = new MultiLineStringImpl();
+		MultiLineString multiLineString = new MultiLineString();
 		for (LineString lineString : lineStrings)
 			multiLineString.addLineStringMember(createLineStringProperty(lineString));
 		
@@ -930,27 +812,27 @@ public class GMLFactory {
 	}
 	
 	public MultiLineStringProperty createMultiLineStringProperty() {
-		return new MultiLineStringPropertyImpl();
+		return new MultiLineStringProperty();
 	}
 	
 	public MultiLineStringProperty createMultiLineStringProperty(MultiLineString multiLineString) {
-		MultiLineStringProperty multiLineStringProperty = new MultiLineStringPropertyImpl();
+		MultiLineStringProperty multiLineStringProperty = new MultiLineStringProperty();
 		multiLineStringProperty.setMultiLineString(multiLineString);
 		return multiLineStringProperty;
 	}
 	
 	public MultiLineStringProperty createMultiLineStringProperty(String xlink) {
-		MultiLineStringProperty multiLineStringProperty = new MultiLineStringPropertyImpl();
+		MultiLineStringProperty multiLineStringProperty = new MultiLineStringProperty();
 		multiLineStringProperty.setHref(xlink);
 		return multiLineStringProperty;
 	}
 	
 	public MultiPoint createMultiPoint() {
-		return new MultiPointImpl();
+		return new MultiPoint();
 	}
 	
 	public MultiPoint createMultiPoint(List<Point> points) {
-		MultiPoint multiPoint = new MultiPointImpl();
+		MultiPoint multiPoint = new MultiPoint();
 		for (Point point : points)
 			multiPoint.addPointMember(createPointProperty(point));
 		
@@ -962,27 +844,27 @@ public class GMLFactory {
 	}
 	
 	public MultiPointProperty createMultiPointProperty() {
-		return new MultiPointPropertyImpl();
+		return new MultiPointProperty();
 	}
 	
 	public MultiPointProperty createMultiPointProperty(MultiPoint multiPoint) {
-		MultiPointProperty multiPointProperty = new MultiPointPropertyImpl();
+		MultiPointProperty multiPointProperty = new MultiPointProperty();
 		multiPointProperty.setMultiPoint(multiPoint);
 		return multiPointProperty;
 	}
 	
 	public MultiPointProperty createMultiPointProperty(String xlink) {
-		MultiPointProperty multiPointProperty = new MultiPointPropertyImpl();
+		MultiPointProperty multiPointProperty = new MultiPointProperty();
 		multiPointProperty.setHref(xlink);
 		return multiPointProperty;
 	}
 	
 	public MultiPolygon createMultiPolygon() {
-		return new MultiPolygonImpl();
+		return new MultiPolygon();
 	}
 	
 	public MultiPolygon createMultiPolygon(List<Polygon> polygons) {
-		MultiPolygon multiPolygon = new MultiPolygonImpl();
+		MultiPolygon multiPolygon = new MultiPolygon();
 		for (Polygon polygon : polygons)
 			multiPolygon.addPolygonMember(createPolygonProperty(polygon));
 		
@@ -994,27 +876,27 @@ public class GMLFactory {
 	}
 	
 	public MultiPolygonProperty createMultiPolygonProperty() {
-		return new MultiPolygonPropertyImpl();
+		return new MultiPolygonProperty();
 	}
 	
 	public MultiPolygonProperty createMultiPolygonProperty(MultiPolygon multiPolygon) {
-		MultiPolygonProperty multiPolygonProperty = new MultiPolygonPropertyImpl();
+		MultiPolygonProperty multiPolygonProperty = new MultiPolygonProperty();
 		multiPolygonProperty.setMultiPolygon(multiPolygon);
 		return multiPolygonProperty;
 	}
 	
 	public MultiPolygonProperty createMultiPolygonProperty(String xlink) {
-		MultiPolygonProperty multiPolygonProperty = new MultiPolygonPropertyImpl();
+		MultiPolygonProperty multiPolygonProperty = new MultiPolygonProperty();
 		multiPolygonProperty.setHref(xlink);
 		return multiPolygonProperty;
 	}
 	
 	public MultiSolid createMultiSolid() {
-		return new MultiSolidImpl();
+		return new MultiSolid();
 	}
 	
 	public MultiSolid createMultiSolid(List<? extends AbstractSolid> abstractSolids) {
-		MultiSolid multiSolid = new MultiSolidImpl();
+		MultiSolid multiSolid = new MultiSolid();
 		for (AbstractSolid abstractSolid : abstractSolids)
 			multiSolid.addSolidMember(createSolidProperty(abstractSolid));
 		
@@ -1026,27 +908,27 @@ public class GMLFactory {
 	}
 	
 	public MultiSolidProperty createMultiSolidProperty() {
-		return new MultiSolidPropertyImpl();
+		return new MultiSolidProperty();
 	}
 	
 	public MultiSolidProperty createMultiSolidProperty(MultiSolid multiSolid) {
-		MultiSolidProperty multiSolidProperty = new MultiSolidPropertyImpl();
+		MultiSolidProperty multiSolidProperty = new MultiSolidProperty();
 		multiSolidProperty.setMultiSolid(multiSolid);
 		return multiSolidProperty;
 	}
 	
 	public MultiSolidProperty createMultiSolidProperty(String xlink) {
-		MultiSolidProperty multiSolidProperty = new MultiSolidPropertyImpl();
+		MultiSolidProperty multiSolidProperty = new MultiSolidProperty();
 		multiSolidProperty.setHref(xlink);
 		return multiSolidProperty;
 	}
 	
 	public MultiSurface createMultiSurface() {
-		return new MultiSurfaceImpl();
+		return new MultiSurface();
 	}
 	
 	public MultiSurface createMultiSurface(List<? extends AbstractSurface> abstractSurfaces) {
-		MultiSurface multiSurface = new MultiSurfaceImpl();
+		MultiSurface multiSurface = new MultiSurface();
 		for (AbstractSurface abstractSurface : abstractSurfaces)
 			multiSurface.addSurfaceMember(createSurfaceProperty(abstractSurface));
 		
@@ -1058,125 +940,125 @@ public class GMLFactory {
 	}
 	
 	public MultiSurfaceProperty createMultiSurfaceProperty() {
-		return new MultiSurfacePropertyImpl();
+		return new MultiSurfaceProperty();
 	}
 	
 	public MultiSurfaceProperty createMultiSurfaceProperty(MultiSurface multiSurface) {
-		MultiSurfaceProperty multiSurfaceProperty = new MultiSurfacePropertyImpl();
+		MultiSurfaceProperty multiSurfaceProperty = new MultiSurfaceProperty();
 		multiSurfaceProperty.setMultiSurface(multiSurface);
 		return multiSurfaceProperty;
 	}
 	
 	public MultiSurfaceProperty createMultiSurfaceProperty(String xlink) {
-		MultiSurfaceProperty multiSurfaceProperty = new MultiSurfacePropertyImpl();
+		MultiSurfaceProperty multiSurfaceProperty = new MultiSurfaceProperty();
 		multiSurfaceProperty.setHref(xlink);
 		return multiSurfaceProperty;
 	}
 	
 	public NameOrNull createNameOrNull() {
-		return new NameOrNullImpl();
+		return new NameOrNull();
 	}
 	
 	public NameOrNull createNameOrNull(String name) {
-		return new NameOrNullImpl(name);
+		return new NameOrNull(name);
 	}
 	
 	public NameOrNull createNameOrNull(Null _null) {
-		return new NameOrNullImpl(_null);
+		return new NameOrNull(_null);
 	}
 	
 	public Null createNull() {
-		return new NullImpl();
+		return new Null();
 	}
 	
 	public OrientableCurve createOrientableCurve() {
-		return new OrientableCurveImpl();
+		return new OrientableCurve();
 	}
 	
 	public OrientableCurve createOrientableCurve(AbstractCurve base, String orientation) {
-		OrientableCurve orientableCurve = new OrientableCurveImpl();
+		OrientableCurve orientableCurve = new OrientableCurve();
 		orientableCurve.setBaseCurve(createCurveProperty(base));
 		orientableCurve.setOrientation(orientation);
 		return orientableCurve;
 	}
 	
 	public OrientableCurve createOrientableCurve(String xlink, String orientation) {
-		OrientableCurve orientableCurve = new OrientableCurveImpl();
+		OrientableCurve orientableCurve = new OrientableCurve();
 		orientableCurve.setBaseCurve(createCurveProperty(xlink));
 		orientableCurve.setOrientation(orientation);
 		return orientableCurve;
 	}
 	
 	public OrientableSurface createOrientableSurface() {
-		return new OrientableSurfaceImpl();
+		return new OrientableSurface();
 	}
 	
 	public OrientableSurface createOrientableSurface(AbstractSurface base, String orientation) {
-		OrientableSurface orientableSurface = new OrientableSurfaceImpl();
+		OrientableSurface orientableSurface = new OrientableSurface();
 		orientableSurface.setBaseSurface(createSurfaceProperty(base));
 		orientableSurface.setOrientation(orientation);
 		return orientableSurface;
 	}
 	
 	public OrientableSurface createOrientableSurface(String xlink, String orientation) {
-		OrientableSurface orientableSurface = new OrientableSurfaceImpl();
+		OrientableSurface orientableSurface = new OrientableSurface();
 		orientableSurface.setBaseSurface(createSurfaceProperty(xlink));
 		orientableSurface.setOrientation(orientation);
 		return orientableSurface;
 	}
 	
 	public OuterBoundaryIs createOuterBoundaryIs() {
-		return new OuterBoundaryIsImpl();
+		return new OuterBoundaryIs();
 	}
 	
 	public OuterBoundaryIs createOuterBoundaryIs(AbstractRing abstractRing) {
-		OuterBoundaryIs outerBoundaryIs = new OuterBoundaryIsImpl();
+		OuterBoundaryIs outerBoundaryIs = new OuterBoundaryIs();
 		outerBoundaryIs.setRing(abstractRing);
 		return outerBoundaryIs;
 	}
 	
 	public PosOrPointPropertyOrPointRep createPosOrPointPropertyOrPointRep() {
-		return new PosOrPointPropertyOrPointRepImpl();
+		return new PosOrPointPropertyOrPointRep();
 	}
 	
 	public PosOrPointPropertyOrPointRep createPosOrPointPropertyOrPointRep(DirectPosition pos) {
-		return new PosOrPointPropertyOrPointRepImpl(pos);
+		return new PosOrPointPropertyOrPointRep(pos);
 	}
 	
 	public PosOrPointPropertyOrPointRep createPosOrPointPropertyOrPointRep(PointProperty pointProperty) {
-		return new PosOrPointPropertyOrPointRepImpl(pointProperty);
+		return new PosOrPointPropertyOrPointRep(pointProperty);
 	}
 	
 	public PosOrPointPropertyOrPointRep createPosOrPointPropertyOrPointRep(PointRep pointRep) {
-		return new PosOrPointPropertyOrPointRepImpl(pointRep);
+		return new PosOrPointPropertyOrPointRep(pointRep);
 	}
 	
 	public PosOrPointPropertyOrPointRepOrCoord createPosOrPointPropertyOrPointRepOrCoord() {
-		return new PosOrPointPropertyOrPointRepOrCoordImpl();
+		return new PosOrPointPropertyOrPointRepOrCoord();
 	}
 	
 	public PosOrPointPropertyOrPointRepOrCoord createPosOrPointPropertyOrPointRepOrCoord(DirectPosition pos) {
-		return new PosOrPointPropertyOrPointRepOrCoordImpl(pos);
+		return new PosOrPointPropertyOrPointRepOrCoord(pos);
 	}
 	
 	public PosOrPointPropertyOrPointRepOrCoord createPosOrPointPropertyOrPointRepOrCoord(PointProperty pointProperty) {
-		return new PosOrPointPropertyOrPointRepOrCoordImpl(pointProperty);
+		return new PosOrPointPropertyOrPointRepOrCoord(pointProperty);
 	}
 	
 	public PosOrPointPropertyOrPointRepOrCoord createPosOrPointPropertyOrPointRepOrCoord(PointRep pointRep) {
-		return new PosOrPointPropertyOrPointRepOrCoordImpl(pointRep);
+		return new PosOrPointPropertyOrPointRepOrCoord(pointRep);
 	}
 	
 	public PosOrPointPropertyOrPointRepOrCoord createPosOrPointPropertyOrPointRepOrCoord(Coord coord) {
-		return new PosOrPointPropertyOrPointRepOrCoordImpl(coord);
+		return new PosOrPointPropertyOrPointRepOrCoord(coord);
 	}
 	
 	public PointArrayProperty createPointArrayProperty() {
-		return new PointArrayPropertyImpl();
+		return new PointArrayProperty();
 	}
 	
 	public PointArrayProperty createPointArrayProperty(List<Point> point) {
-		PointArrayProperty pointArrayProperty = new PointArrayPropertyImpl();
+		PointArrayProperty pointArrayProperty = new PointArrayProperty();
 		pointArrayProperty.setPoint(point);
 		return pointArrayProperty;
 	}
@@ -1186,181 +1068,181 @@ public class GMLFactory {
 	}
 	
 	public Point createPoint() {
-		return new PointImpl();
+		return new Point();
 	}
 	
 	public PointProperty createPointProperty() {
-		return new PointPropertyImpl();
+		return new PointProperty();
 	}
 	
 	public PointProperty createPointProperty(Point point) {
-		PointProperty pointProperty = new PointPropertyImpl();
+		PointProperty pointProperty = new PointProperty();
 		pointProperty.setPoint(point);
 		return pointProperty;
 	}
 	
 	public PointProperty createPointProperty(String xlink) {
-		PointProperty pointProperty = new PointPropertyImpl();
+		PointProperty pointProperty = new PointProperty();
 		pointProperty.setHref(xlink);
 		return pointProperty;
 	}
 	
 	public PointRep createPointRep() {
-		return new PointRepImpl();
+		return new PointRep();
 	}
 	
 	public PointRep createPointRep(Point point) {
-		PointRep pointRep = new PointRepImpl();
+		PointRep pointRep = new PointRep();
 		pointRep.setPoint(point);
 		return pointRep;
 	}
 	
 	public PointRep createPointRep(String xlink) {
-		PointRep pointRep = new PointRepImpl();
+		PointRep pointRep = new PointRep();
 		pointRep.setHref(xlink);
 		return pointRep;
 	}
 	
 	public Polygon createPolygon() {
-		return new PolygonImpl();
+		return new Polygon();
 	}
 	
 	public PolygonProperty createPolygonProperty() {
-		return new PolygonPropertyImpl();
+		return new PolygonProperty();
 	}
 	
 	public PolygonProperty createPolygonProperty(Polygon polygon) {
-		PolygonProperty polygonProperty = new PolygonPropertyImpl();
+		PolygonProperty polygonProperty = new PolygonProperty();
 		polygonProperty.setPolygon(polygon);
 		return polygonProperty;
 	}
 	
 	public PolygonProperty createPolygonProperty(String xlink) {
-		PolygonProperty polygonProperty = new PolygonPropertyImpl();
+		PolygonProperty polygonProperty = new PolygonProperty();
 		polygonProperty.setHref(xlink);
 		return polygonProperty;
 	}
 	
 	public PriorityLocationProperty createPriorityLocationProperty() {
-		return new PriorityLocationPropertyImpl();
+		return new PriorityLocationProperty();
 	}
 	
 	public PriorityLocationProperty createPriorityLocationProperty(AbstractGeometry abstractGeometry) {
-		PriorityLocationProperty priorityLocationProperty = new PriorityLocationPropertyImpl();
+		PriorityLocationProperty priorityLocationProperty = new PriorityLocationProperty();
 		priorityLocationProperty.setGeometry(abstractGeometry);
 		return priorityLocationProperty;
 	}
 	
 	public PriorityLocationProperty createPriorityLocationProperty(String xlink) {
-		PriorityLocationProperty priorityLocationProperty = new PriorityLocationPropertyImpl();
+		PriorityLocationProperty priorityLocationProperty = new PriorityLocationProperty();
 		priorityLocationProperty.setHref(xlink);
 		return priorityLocationProperty;
 	}
 	
 	public QuantityExtent createQuantityExtent() {
-		return new QuantityExtentImpl();
+		return new QuantityExtent();
 	}
 	
 	public RangeParameters createRangeParameters() {
-		return new RangeParametersImpl();
+		return new RangeParameters();
 	}
 	
 	public RangeParameters createRangeParameters(ValueObject valueObject) {
-		RangeParameters rangeParameters = new RangeParametersImpl();
+		RangeParameters rangeParameters = new RangeParameters();
 		rangeParameters.setValueObject(valueObject);
 		return rangeParameters;
 	}
 	
 	public RangeSet createRangeSet() {
-		return new RangeSetImpl();
+		return new RangeSet();
 	}
 	
 	public RangeSet createRangeSet(DataBlock dataBlock) {
-		return new RangeSetImpl(dataBlock);
+		return new RangeSet(dataBlock);
 	}
 	
 	public RangeSet createRangeSet(File file) {
-		return new RangeSetImpl(file);
+		return new RangeSet(file);
 	}
 	
 	public RangeSet createRangeSet(ScalarValueList scalarValueList) {
-		return new RangeSetImpl(scalarValueList);
+		return new RangeSet(scalarValueList);
 	}
 	
 	public RangeSet createRangeSet(ValueArray valueArray) {
-		return new RangeSetImpl(valueArray);
+		return new RangeSet(valueArray);
 	}
 	
 	public Rectangle createRectangle() {
-		return new RectangleImpl();
+		return new Rectangle();
 	}
 	
 	public RectifiedGrid createRectifiedGrid() {
-		return new RectifiedGridImpl();
+		return new RectifiedGrid();
 	}
 	
 	public RectifiedGridCoverage createRectifiedGridCoverage() {
-		return new RectifiedGridCoverageImpl();
+		return new RectifiedGridCoverage();
 	}
 	
 	public RectifiedGridDomain createRectifiedGridDomain() {
-		return new RectifiedGridDomainImpl();
+		return new RectifiedGridDomain();
 	}
 	
 	public Ring createRing() {
-		return new RingImpl();
+		return new Ring();
 	}
 	
 	public ScalarValue createScalarValue() {
-		return new ScalarValueImpl();
+		return new ScalarValue();
 	}
 	
 	public ScalarValue createScalarValue(boolean _boolean) {
-		return new ScalarValueImpl(_boolean);
+		return new ScalarValue(_boolean);
 	}
 	
 	public ScalarValue createScalarValue(Code category) {
-		return new ScalarValueImpl(category);
+		return new ScalarValue(category);
 	}
 	
 	public ScalarValue createScalarValue(Integer count) {
-		return new ScalarValueImpl(count);
+		return new ScalarValue(count);
 	}
 	
 	public ScalarValue createScalarValue(Measure quantity) {
-		return new ScalarValueImpl(quantity);
+		return new ScalarValue(quantity);
 	}
 	
 	public ScalarValueList createScalarValueList() {
-		return new ScalarValueListImpl();
+		return new ScalarValueList();
 	}
 	
 	public SequenceRule createSequenceRule() {
-		return new SequenceRuleImpl();
+		return new SequenceRule();
 	}
 	
 	public ScalarValueList createScalarValueList(BooleanOrNullList booleanList) {
-		return new ScalarValueListImpl(booleanList);
+		return new ScalarValueList(booleanList);
 	}
 	
 	public ScalarValueList createScalarValueList(CodeOrNullList categoryList) {
-		return new ScalarValueListImpl(categoryList);
+		return new ScalarValueList(categoryList);
 	}
 	
 	public ScalarValueList createScalarValueList(IntegerOrNullList countList) {
-		return new ScalarValueListImpl(countList);
+		return new ScalarValueList(countList);
 	}
 	
 	public ScalarValueList createScalarValueList(MeasureOrNullList quantityList) {
-		return new ScalarValueListImpl(quantityList);
+		return new ScalarValueList(quantityList);
 	}
 	
 	public SolidArrayProperty createSolidArrayProperty() {
-		return new SolidArrayPropertyImpl();
+		return new SolidArrayProperty();
 	}
 	
 	public SolidArrayProperty createSolidArrayProperty(List<? extends AbstractSolid> abstractSolid) {
-		SolidArrayProperty solidArrayProperty = new SolidArrayPropertyImpl();
+		SolidArrayProperty solidArrayProperty = new SolidArrayProperty();
 		solidArrayProperty.setSolid(abstractSolid);
 		return solidArrayProperty;
 	}
@@ -1370,27 +1252,27 @@ public class GMLFactory {
 	}
 	
 	public Solid createSolid() {
-		return new SolidImpl();
+		return new Solid();
 	}
 	
 	public SolidProperty createSolidProperty() {
-		return new SolidPropertyImpl();
+		return new SolidProperty();
 	}
 	
 	public SolidProperty createSolidProperty(AbstractSolid abstractSolid) {
-		SolidProperty solidProperty = new SolidPropertyImpl();
+		SolidProperty solidProperty = new SolidProperty();
 		solidProperty.setSolid(abstractSolid);
 		return solidProperty;
 	}
 	
 	public SolidProperty createSolidProperty(String xlink) {
-		SolidProperty solidProperty = new SolidPropertyImpl();
+		SolidProperty solidProperty = new SolidProperty();
 		solidProperty.setHref(xlink);
 		return solidProperty;
 	}
 	
 	public Speed createSpeed() {
-		return new SpeedImpl();
+		return new Speed();
 	}
 	
 	public StringOrRef createStringOrRef() {
@@ -1398,11 +1280,11 @@ public class GMLFactory {
 	}
 	
 	public SurfaceArrayProperty createSurfaceArrayProperty() {
-		return new SurfaceArrayPropertyImpl();
+		return new SurfaceArrayProperty();
 	}
 	
 	public SurfaceArrayProperty createSurfaceArrayProperty(List<? extends AbstractSurface> abstractSurface) {
-		SurfaceArrayProperty surfaceArrayProperty = new SurfaceArrayPropertyImpl();
+		SurfaceArrayProperty surfaceArrayProperty = new SurfaceArrayProperty();
 		surfaceArrayProperty.setSurface(abstractSurface);
 		return surfaceArrayProperty;
 	}
@@ -1412,15 +1294,15 @@ public class GMLFactory {
 	}
 	
 	public Surface createSurface() {
-		return new SurfaceImpl();
+		return new Surface();
 	}
 	
 	public SurfacePatchArrayProperty createSurfacePatchArrayProperty() {
-		return new SurfacePatchArrayPropertyImpl();
+		return new SurfacePatchArrayProperty();
 	}
 	
 	public SurfacePatchArrayProperty createSurfacePatchArrayProperty(List<? extends AbstractSurfacePatch> surfacePatch) {
-		SurfacePatchArrayProperty surfacePatchArrayProperty = new SurfacePatchArrayPropertyImpl();
+		SurfacePatchArrayProperty surfacePatchArrayProperty = new SurfacePatchArrayProperty();
 		surfacePatchArrayProperty.setSurfacePatch(surfacePatch);
 		return surfacePatchArrayProperty;
 	}
@@ -1430,35 +1312,35 @@ public class GMLFactory {
 	}
 	
 	public SurfaceProperty createSurfaceProperty() {
-		return new SurfacePropertyImpl();
+		return new SurfaceProperty();
 	}
 	
 	public SurfaceProperty createSurfaceProperty(AbstractSurface abstractSurface) {
-		SurfaceProperty surfaceProperty = new SurfacePropertyImpl();
+		SurfaceProperty surfaceProperty = new SurfaceProperty();
 		surfaceProperty.setSurface(abstractSurface);
 		return surfaceProperty;
 	}
 	
 	public SurfaceProperty createSurfaceProperty(String xlink) {
-		SurfaceProperty surfaceProperty = new SurfacePropertyImpl();
+		SurfaceProperty surfaceProperty = new SurfaceProperty();
 		surfaceProperty.setHref(xlink);
 		return surfaceProperty;
 	}
 	
 	public Tin createTin() {
-		return new TinImpl();
+		return new Tin();
 	}
 	
 	public Triangle createTriangle() {
-		return new TriangleImpl();
+		return new Triangle();
 	}
 	
 	public TrianglePatchArrayProperty createTrianglePatchArrayProperty() {
-		return new TrianglePatchArrayPropertyImpl();
+		return new TrianglePatchArrayProperty();
 	}
 	
 	public TrianglePatchArrayProperty createTrianglePatchArrayProperty(List<Triangle> triangle) {
-		TrianglePatchArrayProperty trianglePatchArrayProperty = new TrianglePatchArrayPropertyImpl();
+		TrianglePatchArrayProperty trianglePatchArrayProperty = new TrianglePatchArrayProperty();
 		trianglePatchArrayProperty.setTriangle(triangle);
 		return trianglePatchArrayProperty;
 	}
@@ -1468,35 +1350,35 @@ public class GMLFactory {
 	}
 	
 	public TriangulatedSurface createTriangulatedSurface() {
-		return new TriangulatedSurfaceImpl();
+		return new TriangulatedSurface();
 	}
 	
 	public Value createValue() {
-		return new ValueImpl();
+		return new Value();
 	}
 	
 	public Value createValue(ValueObject valueObject) {
-		return new ValueImpl(valueObject);
+		return new Value(valueObject);
 	}
 	
 	public Value createValue(AbstractGeometry geometry) {
-		return new ValueImpl(geometry);
+		return new Value(geometry);
 	}
 	
 	public Value createValue(GenericValueObject genericValueObject) {
-		return new ValueImpl(genericValueObject);
+		return new Value(genericValueObject);
 	}
 	
 	public Value createValue(Null _null) {
-		return new ValueImpl(_null);
+		return new Value(_null);
 	}
 	
 	public ValueArray createValueArray() {
-		return new ValueArrayImpl();
+		return new ValueArray();
 	}
 	
 	public ValueArray createValueArray(List<Value> values) {
-		ValueArray valueArray = new ValueArrayImpl();
+		ValueArray valueArray = new ValueArray();
 		for (Value value : values)
 			valueArray.addValueComponent(createValueProperty(value));
 		
@@ -1508,11 +1390,11 @@ public class GMLFactory {
 	}
 	
 	public ValueArrayProperty createValueArrayProperty() {
-		return new ValueArrayPropertyImpl();
+		return new ValueArrayProperty();
 	}
 	
 	public ValueArrayProperty createValueArrayProperty(List<Value> values) {
-		ValueArrayProperty valueArrayProperty = new ValueArrayPropertyImpl();
+		ValueArrayProperty valueArrayProperty = new ValueArrayProperty();
 		for (Value value : values)
 			valueArrayProperty.addValue(value);
 		
@@ -1524,57 +1406,57 @@ public class GMLFactory {
 	}
 	
 	public ValueExtent createValueExtent() {
-		return new ValueExtentImpl();
+		return new ValueExtent();
 	}
 	
 	public ValueExtent createValueExtent(CategoryExtent categoryExtent) {
-		return new ValueExtentImpl(categoryExtent);
+		return new ValueExtent(categoryExtent);
 	}
 	
 	public ValueExtent createValueExtent(CountExtent countExtent) {
-		return new ValueExtentImpl(countExtent);
+		return new ValueExtent(countExtent);
 	}
 	
 	public ValueExtent createValueExtent(QuantityExtent quantityExtent) {
-		return new ValueExtentImpl(quantityExtent);
+		return new ValueExtent(quantityExtent);
 	}
 	
 	public ValueObject createValueObject() {
-		return new ValueObjectImpl();
+		return new ValueObject();
 	}
 	
 	public ValueObject createValueObject(ScalarValue scalarValue) {
-		return new ValueObjectImpl(scalarValue);
+		return new ValueObject(scalarValue);
 	}
 	
 	public ValueObject createValueObject(ScalarValueList scalarValueList) {
-		return new ValueObjectImpl(scalarValueList);
+		return new ValueObject(scalarValueList);
 	}
 	
 	public ValueObject createValueObject(ValueExtent valueExtent) {
-		return new ValueObjectImpl(valueExtent);
+		return new ValueObject(valueExtent);
 	}
 	
 	public ValueObject createValueObject(CompositeValue compositeValue) {
-		return new ValueObjectImpl(compositeValue);
+		return new ValueObject(compositeValue);
 	}
 	
 	public ValueProperty createValueProperty() {
-		return new ValuePropertyImpl();
+		return new ValueProperty();
 	}
 	
 	public ValueProperty createValueProperty(Value value) {
-		ValueProperty valueProperty = new ValuePropertyImpl();
+		ValueProperty valueProperty = new ValueProperty();
 		valueProperty.setValue(value);
 		return valueProperty;
 	}
 	
 	public Vector createVector() {
-		return new VectorImpl();
+		return new Vector();
 	}
 	
 	public Vector createVector(Matrix matrix) {
-		return new VectorImpl(matrix);
+		return new Vector(matrix);
 	}
 
 }

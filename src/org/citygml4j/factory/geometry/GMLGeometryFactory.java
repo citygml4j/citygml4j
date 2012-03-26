@@ -49,7 +49,7 @@ public class GMLGeometryFactory {
 	}
 	
 	public Point createPoint(List<Double> coordinates, int dim) throws DimensionMismatchException {
-		Point point = new PointImpl();
+		Point point = new Point();
 		point.setPos(createDirectPosition(coordinates, dim));
 		
 		return point;
@@ -60,7 +60,7 @@ public class GMLGeometryFactory {
 	}
 
 	public LineString createLineString(List<Double> coordinates, int dim) throws DimensionMismatchException {
-		LineString lineString = new LineStringImpl();
+		LineString lineString = new LineString();
 		lineString.setPosList(createDirectPositionList(coordinates, dim));
 
 		return lineString;
@@ -71,9 +71,9 @@ public class GMLGeometryFactory {
 	}
 
 	public Polygon createLinearPolygon(List<Double> coords, int dim) throws DimensionMismatchException {
-		Polygon polygon = new PolygonImpl();
+		Polygon polygon = new Polygon();
 
-		Exterior exterior = new ExteriorImpl();
+		Exterior exterior = new Exterior();
 		exterior.setRing(createLinearRing(coords, dim));		
 		polygon.setExterior(exterior);
 
@@ -93,7 +93,7 @@ public class GMLGeometryFactory {
 
 			for (int i = 1; i < coordList.size(); i++) {
 				LinearRing linearRing = createLinearRing(coordList.get(i), dim);
-				Interior interior = new InteriorImpl();
+				Interior interior = new Interior();
 				interior.setRing(linearRing);
 
 				polygon.addInterior(interior);
@@ -111,7 +111,7 @@ public class GMLGeometryFactory {
 			
 			for (int i = 1; i < coordinates.length; i++) {
 				LinearRing linearRing = createLinearRing(coordinates[i], dim);
-				Interior interior = new InteriorImpl();
+				Interior interior = new Interior();
 				interior.setRing(linearRing);
 
 				polygon.addInterior(interior);
@@ -125,7 +125,7 @@ public class GMLGeometryFactory {
 		if (coordinates.size() != dim)
 			throw new DimensionMismatchException();
 		
-		DirectPosition pos = new DirectPositionImpl();
+		DirectPosition pos = new DirectPosition();
 		pos.setValue(coordinates);
 		pos.setSrsDimension(dim);
 		
@@ -140,7 +140,7 @@ public class GMLGeometryFactory {
 		if ((coordinates.size() % dim) != 0)
 			throw new DimensionMismatchException();
 
-		DirectPositionList posList = new DirectPositionListImpl();
+		DirectPositionList posList = new DirectPositionList();
 		posList.setValue(coordinates);
 		posList.setSrsDimension(dim);
 		
@@ -163,7 +163,7 @@ public class GMLGeometryFactory {
 			for (int i = 0; i < dim; i++)
 				coordinates.add(coordinates.get(i));
 
-		LinearRing linearRing = new LinearRingImpl();
+		LinearRing linearRing = new LinearRing();
 		linearRing.setPosList(posList);
 
 		return linearRing;

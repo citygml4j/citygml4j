@@ -48,63 +48,63 @@ public class TransportationFactory {
 	}
 
 	public AuxiliaryTrafficArea createAuxiliaryTrafficArea() {
-		return new AuxiliaryTrafficAreaImpl();
+		return new AuxiliaryTrafficArea();
 	}
 
 	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty() {
-		return new AuxiliaryTrafficAreaPropertyImpl();
+		return new AuxiliaryTrafficAreaProperty();
 	}
 	
 	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty(AuxiliaryTrafficArea auxiliaryTrafficArea) {
-		AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty = new AuxiliaryTrafficAreaPropertyImpl();
+		AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty = new AuxiliaryTrafficAreaProperty();
 		auxiliaryTrafficAreaProperty.setAuxiliaryTrafficArea(auxiliaryTrafficArea);
 		return auxiliaryTrafficAreaProperty;
 	}
 	
 	public AuxiliaryTrafficAreaProperty createAuxiliaryTrafficAreaProperty(String xlink) {
-		AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty = new AuxiliaryTrafficAreaPropertyImpl();
+		AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty = new AuxiliaryTrafficAreaProperty();
 		auxiliaryTrafficAreaProperty.setHref(xlink);
 		return auxiliaryTrafficAreaProperty;
 	}
 
 	public Railway createRailway() {
-		return new RailwayImpl();
+		return new Railway();
 	}
 
 	public Road createRoad() {
-		return new RoadImpl();
+		return new Road();
 	}
 
 	public Square createSquare() {
-		return new SquareImpl();
+		return new Square();
 	}
 
 	public Track createTrack() {
-		return new TrackImpl();
+		return new Track();
 	}
 
 	public TrafficArea createTrafficArea() {
-		return new TrafficAreaImpl();
+		return new TrafficArea();
 	}
 
 	public TrafficAreaProperty createTrafficAreaProperty() {
-		return new TrafficAreaPropertyImpl();
+		return new TrafficAreaProperty();
 	}
 	
 	public TrafficAreaProperty createTrafficAreaProperty(TrafficArea trafficArea) {
-		TrafficAreaProperty trafficAreaProperty = new TrafficAreaPropertyImpl();
+		TrafficAreaProperty trafficAreaProperty = new TrafficAreaProperty();
 		trafficAreaProperty.setTrafficArea(trafficArea);
 		return trafficAreaProperty;
 	}
 	
 	public TrafficAreaProperty createTrafficAreaProperty(String xlink) {
-		TrafficAreaProperty trafficAreaProperty = new TrafficAreaPropertyImpl();
+		TrafficAreaProperty trafficAreaProperty = new TrafficAreaProperty();
 		trafficAreaProperty.setHref(xlink);
 		return trafficAreaProperty;
 	}
 
 	public TransportationComplex createTransportationComplex() {
-		return new TransportationComplexImpl();
+		return new TransportationComplex();
 	}
 	
 }

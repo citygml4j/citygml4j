@@ -62,123 +62,123 @@ public class AppearanceFactory {
 	}
 
 	public Appearance createAppearance() {
-		return new AppearanceImpl();
+		return new Appearance();
 	}
 
 	public AppearanceMember createAppearanceMember() {
-		return new AppearanceMemberImpl();
+		return new AppearanceMember();
 	}
 	
 	public AppearanceMember createAppearanceMember(Appearance appearance) {
-		AppearanceMember appearanceMember = new AppearanceMemberImpl();
+		AppearanceMember appearanceMember = new AppearanceMember();
 		appearanceMember.setAppearance(appearance);
 		return appearanceMember;
 	}
 	
 	public AppearanceMember createAppearanceMember(String xlink) {
-		AppearanceMember appearanceMember = new AppearanceMemberImpl();
+		AppearanceMember appearanceMember = new AppearanceMember();
 		appearanceMember.setHref(xlink);
 		return appearanceMember;
 	}
 
 	public AppearanceProperty createAppearanceProperty() {
-		return new AppearancePropertyImpl();
+		return new AppearanceProperty();
 	}
 	
 	public AppearanceProperty createAppearanceProperty(Appearance appearance) {
-		AppearanceProperty appearanceProperty = new AppearancePropertyImpl();
+		AppearanceProperty appearanceProperty = new AppearanceProperty();
 		appearanceProperty.setAppearance(appearance);
 		return appearanceProperty;
 	}
 	
 	public AppearanceProperty createAppearanceProperty(String xlink) {
-		AppearanceProperty appearanceProperty = new AppearancePropertyImpl();
+		AppearanceProperty appearanceProperty = new AppearanceProperty();
 		appearanceProperty.setHref(xlink);
 		return appearanceProperty;
 	}
 
 	public Color createColor() {
-		return new ColorImpl();
+		return new Color();
 	}
 
 	public Color createColor(Double red, Double green, Double blue) {
-		return new ColorImpl(red, green, blue);
+		return new Color(red, green, blue);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity() {
-		return new ColorPlusOpacityImpl();
+		return new ColorPlusOpacity();
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Color color, Double opacity) {
-		return new ColorPlusOpacityImpl(color, opacity);
+		return new ColorPlusOpacity(color, opacity);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Double red, Double green, Double blue, Double opacity) {
-		return new ColorPlusOpacityImpl(red, green, blue, opacity);
+		return new ColorPlusOpacity(red, green, blue, opacity);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Double red, Double green, Double blue) {
-		return new ColorPlusOpacityImpl(red, green, blue);
+		return new ColorPlusOpacity(red, green, blue);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue, Double opacity) {
-		return new ColorPlusOpacityImpl(defaultColorValue, opacity);
+		return new ColorPlusOpacity(defaultColorValue, opacity);
 	}
 
 	public ColorPlusOpacity createColorPlusOpacity(Double defaultColorValue) {
-		return new ColorPlusOpacityImpl(defaultColorValue);
+		return new ColorPlusOpacity(defaultColorValue);
 	}
 
 	public GeoreferencedTexture createGeoreferencedTexture() {
-		return new GeoreferencedTextureImpl();
+		return new GeoreferencedTexture();
 	}
 
 	public ParameterizedTexture createParameterizedTexture() {
-		return new ParameterizedTextureImpl();
+		return new ParameterizedTexture();
 	}
 
 	public SurfaceDataProperty createSurfaceDataProperty() {
-		return new SurfaceDataPropertyImpl();
+		return new SurfaceDataProperty();
 	}
 	
 	public SurfaceDataProperty createSurfaceDataProperty(AbstractSurfaceData abstractSurfaceData) {
-		SurfaceDataProperty surfaceDataProperty = new SurfaceDataPropertyImpl();
+		SurfaceDataProperty surfaceDataProperty = new SurfaceDataProperty();
 		surfaceDataProperty.setSurfaceData(abstractSurfaceData);
 		return surfaceDataProperty;
 	}
 	
 	public SurfaceDataProperty createSurfaceDataProperty(String xlink) {
-		SurfaceDataProperty surfaceDataProperty = new SurfaceDataPropertyImpl();
+		SurfaceDataProperty surfaceDataProperty = new SurfaceDataProperty();
 		surfaceDataProperty.setHref(xlink);
 		return surfaceDataProperty;
 	}
 
 	public TexCoordGen createTexCoordGen() {
-		return new TexCoordGenImpl();
+		return new TexCoordGen();
 	}
 
 	public TexCoordList createTexCoordList() {
-		return new TexCoordListImpl();
+		return new TexCoordList();
 	}
 
 	public TextureAssociation createTextureAssociation() {
-		return new TextureAssociationImpl();
+		return new TextureAssociation();
 	}
 	
 	public TextureAssociation createTextureAssociation(AbstractTextureParameterization textureParameterization) {
-		TextureAssociation textureAssociation = new TextureAssociationImpl();
+		TextureAssociation textureAssociation = new TextureAssociation();
 		textureAssociation.setTextureParameterization(textureParameterization);
 		return textureAssociation;
 	}
 	
 	public TextureAssociation createTextureAssociation(String xlink) {
-		TextureAssociation textureAssociation = new TextureAssociationImpl();
+		TextureAssociation textureAssociation = new TextureAssociation();
 		textureAssociation.setHref(xlink);
 		return textureAssociation;
 	}
 
 	public TextureCoordinates createTextureCoordinates() {
-		return new TextureCoordinatesImpl();
+		return new TextureCoordinates();
 	}
 	
 	public TextureType createTextureType(String textureType) {
@@ -186,7 +186,7 @@ public class AppearanceFactory {
 	}
 
 	public WorldToTexture createWorldToTexture() {
-		return new WorldToTextureImpl();
+		return new WorldToTexture();
 	}
 	
 	public WrapMode createWrapMode(String wrapMode) {
@@ -194,7 +194,7 @@ public class AppearanceFactory {
 	}
 
 	public X3DMaterial createX3DMaterial() {
-		return new X3DMaterialImpl();
+		return new X3DMaterial();
 	}
 	
 }

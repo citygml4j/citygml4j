@@ -37,37 +37,37 @@ public class CityObjectGroupFactory {
 	}
 
 	public CityObjectGroup createCityObjectGroup() {
-		return new CityObjectGroupImpl();
+		return new CityObjectGroup();
 	}
 
 	public CityObjectGroupMember createCityObjectGroupMember() {
-		return new CityObjectGroupMemberImpl();
+		return new CityObjectGroupMember();
 	}
 	
 	public CityObjectGroupMember createCityObjectGroupMember(AbstractCityObject cityObject) {
-		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMemberImpl();
+		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMember();
 		cityObjectGroupMember.setCityObject(cityObject);
 		return cityObjectGroupMember;
 	}
 	
 	public CityObjectGroupMember createCityObjectGroupMember(String xlink) {
-		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMemberImpl();
+		CityObjectGroupMember cityObjectGroupMember = new CityObjectGroupMember();
 		cityObjectGroupMember.setHref(xlink);
 		return cityObjectGroupMember;
 	}
 
 	public CityObjectGroupParent createCityObjectGroupParent() {
-		return new CityObjectGroupParentImpl();
+		return new CityObjectGroupParent();
 	}
 	
 	public CityObjectGroupParent createCityObjectGroupParent(AbstractCityObject cityObject) {
-		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParentImpl();
+		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParent();
 		cityObjectGroupParent.setCityObject(cityObject);
 		return cityObjectGroupParent;
 	}
 	
 	public CityObjectGroupParent createCityObjectGroupParent(String xlink) {
-		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParentImpl();
+		CityObjectGroupParent cityObjectGroupParent = new CityObjectGroupParent();
 		cityObjectGroupParent.setHref(xlink);
 		return cityObjectGroupParent;
 	}

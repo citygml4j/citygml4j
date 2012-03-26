@@ -41,35 +41,35 @@ public class WaterBodyFactory {
 	}
 
 	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty() {
-		return new BoundedByWaterSurfacePropertyImpl();
+		return new BoundedByWaterSurfaceProperty();
 	}
 	
 	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(AbstractWaterBoundarySurface waterBoundarySurface) {
-		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfacePropertyImpl();
+		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfaceProperty();
 		boundedByWaterSurfaceProperty.setWaterBoundarySurface(waterBoundarySurface);
 		return boundedByWaterSurfaceProperty;
 	}
 	
 	public BoundedByWaterSurfaceProperty createBoundedByWaterSurfaceProperty(String xlink) {
-		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfacePropertyImpl();
+		BoundedByWaterSurfaceProperty boundedByWaterSurfaceProperty = new BoundedByWaterSurfaceProperty();
 		boundedByWaterSurfaceProperty.setHref(xlink);
 		return boundedByWaterSurfaceProperty;
 	}
 
 	public WaterBody createWaterBody() {
-		return new WaterBodyImpl();
+		return new WaterBody();
 	}
 
 	public WaterClosureSurface createWaterClosureSurface() {
-		return new WaterClosureSurfaceImpl();
+		return new WaterClosureSurface();
 	}
 
 	public WaterGroundSurface createWaterGroundSurface() {
-		return new WaterGroundSurfaceImpl();
+		return new WaterGroundSurface();
 	}
 
 	public WaterSurface createWaterSurface() {
-		return new WaterSurfaceImpl();
+		return new WaterSurface();
 	}
 		
 }

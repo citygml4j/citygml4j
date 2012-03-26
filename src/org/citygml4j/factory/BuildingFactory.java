@@ -48,7 +48,6 @@ import org.citygml4j.impl.citygml.building.WallSurfaceImpl;
 import org.citygml4j.impl.citygml.building.WindowImpl;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractOpening;
-import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
@@ -62,7 +61,6 @@ import org.citygml4j.model.citygml.building.FloorSurface;
 import org.citygml4j.model.citygml.building.GroundSurface;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
@@ -72,6 +70,8 @@ import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.citygml.construction.BoundarySurfaceProperty;
+import org.citygml4j.model.citygml.construction.InteriorFurnitureProperty;
 
 public class BuildingFactory {
 
@@ -80,183 +80,183 @@ public class BuildingFactory {
 	}
 	
 	public BoundarySurfaceProperty createBoundarySurfaceProperty() {
-		return new BoundarySurfacePropertyImpl();
+		return new BoundarySurfaceProperty();
 	}
 	
 	public BoundarySurfaceProperty createBoundarySurfaceProperty(AbstractBoundarySurface boundarySurface) {
-		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfacePropertyImpl();
+		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfaceProperty();
 		boundarySurfaceProperty.setBoundarySurface(boundarySurface);
 		return boundarySurfaceProperty;
 	}
 	
 	public BoundarySurfaceProperty createBoundarySurfaceProperty(String xlink) {
-		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfacePropertyImpl();
+		BoundarySurfaceProperty boundarySurfaceProperty = new BoundarySurfaceProperty();
 		boundarySurfaceProperty.setHref(xlink);
 		return boundarySurfaceProperty;
 	}
 
 	public Building createBuilding() {
-		return new BuildingImpl();
+		return new Building();
 	}
 
 	public BuildingFurniture createBuildingFurniture() {
-		return new BuildingFurnitureImpl();
+		return new BuildingFurniture();
 	}
 
 	public BuildingInstallation createBuildingInstallation() {
-		return new BuildingInstallationImpl();
+		return new BuildingInstallation();
 	}
 
 	public BuildingInstallationProperty createBuildingInstallationProperty() {
-		return new BuildingInstallationPropertyImpl();
+		return new BuildingInstallationProperty();
 	}
 	
 	public BuildingInstallationProperty createBuildingInstallationProperty(BuildingInstallation buildingInstallation) {
-		BuildingInstallationProperty buildingInstallationProperty = new BuildingInstallationPropertyImpl();
+		BuildingInstallationProperty buildingInstallationProperty = new BuildingInstallationProperty();
 		buildingInstallationProperty.setBuildingInstallation(buildingInstallation);
 		return buildingInstallationProperty;
 	}
 	
 	public BuildingInstallationProperty createBuildingInstallationProperty(String xlink) {
-		BuildingInstallationProperty buildingInstallationProperty = new BuildingInstallationPropertyImpl();
+		BuildingInstallationProperty buildingInstallationProperty = new BuildingInstallationProperty();
 		buildingInstallationProperty.setHref(xlink);
 		return buildingInstallationProperty;
 	}
 
 	public BuildingPart createBuildingPart() {
-		return new BuildingPartImpl();
+		return new BuildingPart();
 	}
 
 	public BuildingPartProperty createBuildingPartProperty() {
-		return new BuildingPartPropertyImpl();
+		return new BuildingPartProperty();
 	}
 	
 	public BuildingPartProperty createBuildingPartProperty(BuildingPart buildingPart) {
-		BuildingPartProperty buildingPartProperty = new BuildingPartPropertyImpl();
+		BuildingPartProperty buildingPartProperty = new BuildingPartProperty();
 		buildingPartProperty.setBuildingPart(buildingPart);
 		return buildingPartProperty;
 	}
 	
 	public BuildingPartProperty createBuildingPartProperty(String xlink) {
-		BuildingPartProperty buildingPartProperty = new BuildingPartPropertyImpl();
+		BuildingPartProperty buildingPartProperty = new BuildingPartProperty();
 		buildingPartProperty.setHref(xlink);
 		return buildingPartProperty;
 	}
 
 	public CeilingSurface createCeilingSurface() {
-		return new CeilingSurfaceImpl();
+		return new CeilingSurface();
 	}
 	
 	public OuterCeilingSurface createOuterCeilingSurface() {
-		return new OuterCeilingSurfaceImpl();
+		return new OuterCeilingSurface();
 	}
 
 	public ClosureSurface createClosureSurface() {
-		return new ClosureSurfaceImpl();
+		return new ClosureSurface();
 	}
 
 	public Door createDoor() {
-		return new DoorImpl();
+		return new Door();
 	}
 
 	public FloorSurface createFloorSurface() {
-		return new FloorSurfaceImpl();
+		return new FloorSurface();
 	}
 	
 	public OuterFloorSurface createOuterFloorSurface() {
-		return new OuterFloorSurfaceImpl();
+		return new OuterFloorSurface();
 	}
 
 	public GroundSurface createGroundSurface() {
-		return new GroundSurfaceImpl();
+		return new GroundSurface();
 	}
 
 	public IntBuildingInstallation createIntBuildingInstallation() {
-		return new IntBuildingInstallationImpl();
+		return new IntBuildingInstallation();
 	}
 
 	public IntBuildingInstallationProperty createIntBuildingInstallationProperty() {
-		return new IntBuildingInstallationPropertyImpl();
+		return new IntBuildingInstallationProperty();
 	}
 	
 	public IntBuildingInstallationProperty createIntBuildingInstallationProperty(IntBuildingInstallation intBuildingInstallation) {
-		IntBuildingInstallationProperty intBuildingInstallationProperty = new IntBuildingInstallationPropertyImpl();
+		IntBuildingInstallationProperty intBuildingInstallationProperty = new IntBuildingInstallationProperty();
 		intBuildingInstallationProperty.setIntBuildingInstallation(intBuildingInstallation);
 		return intBuildingInstallationProperty;
 	}
 	
 	public IntBuildingInstallationProperty createIntBuildingInstallationProperty(String xlink) {
-		IntBuildingInstallationProperty intBuildingInstallationProperty = new IntBuildingInstallationPropertyImpl();
+		IntBuildingInstallationProperty intBuildingInstallationProperty = new IntBuildingInstallationProperty();
 		intBuildingInstallationProperty.setHref(xlink);
 		return intBuildingInstallationProperty;
 	}
 
 	public InteriorFurnitureProperty createInteriorFurnitureProperty() {
-		return new InteriorFurniturePropertyImpl();
+		return new InteriorFurnitureProperty();
 	}
 	
 	public InteriorFurnitureProperty createInteriorFurnitureProperty(BuildingFurniture buildingFurniture) {
-		InteriorFurnitureProperty interiorFurnitureProperty = new InteriorFurniturePropertyImpl();
+		InteriorFurnitureProperty interiorFurnitureProperty = new InteriorFurnitureProperty();
 		interiorFurnitureProperty.setBuildingFurniture(buildingFurniture);
 		return interiorFurnitureProperty;
 	}
 	
 	public InteriorFurnitureProperty createInteriorFurnitureProperty(String xlink) {
-		InteriorFurnitureProperty interiorFurnitureProperty = new InteriorFurniturePropertyImpl();
+		InteriorFurnitureProperty interiorFurnitureProperty = new InteriorFurnitureProperty();
 		interiorFurnitureProperty.setHref(xlink);
 		return interiorFurnitureProperty;
 	}
 
 	public InteriorRoomProperty createInteriorRoomProperty() {
-		return new InteriorRoomPropertyImpl();
+		return new InteriorRoomProperty();
 	}
 	
 	public InteriorRoomProperty createInteriorRoomProperty(Room room) {
-		InteriorRoomProperty interiorRoomProperty = new InteriorRoomPropertyImpl();
+		InteriorRoomProperty interiorRoomProperty = new InteriorRoomProperty();
 		interiorRoomProperty.setRoom(room);
 		return interiorRoomProperty;
 	}
 	
 	public InteriorRoomProperty createInteriorRoomProperty(String xlink) {
-		InteriorRoomProperty interiorRoomProperty = new InteriorRoomPropertyImpl();
+		InteriorRoomProperty interiorRoomProperty = new InteriorRoomProperty();
 		interiorRoomProperty.setHref(xlink);
 		return interiorRoomProperty;
 	}
 
 	public InteriorWallSurface createInteriorWallSurface() {
-		return new InteriorWallSurfaceImpl();
+		return new InteriorWallSurface();
 	}
 
 	public OpeningProperty createOpeningProperty() {
-		return new OpeningPropertyImpl();
+		return new OpeningProperty();
 	}
 	
 	public OpeningProperty createOpeningProperty(AbstractOpening opening) {
-		OpeningProperty openingProperty = new OpeningPropertyImpl();
+		OpeningProperty openingProperty = new OpeningProperty();
 		openingProperty.setOpening(opening);
 		return openingProperty;
 	}
 	
 	public OpeningProperty createOpeningProperty(String xlink) {
-		OpeningProperty openingProperty = new OpeningPropertyImpl();
+		OpeningProperty openingProperty = new OpeningProperty();
 		openingProperty.setHref(xlink);
 		return openingProperty;
 	}
 
 	public RoofSurface createRoofSurface() {
-		return new RoofSurfaceImpl();
+		return new RoofSurface();
 	}
 
 	public Room createRoom() {
-		return new RoomImpl();
+		return new Room();
 	}
 
 	public WallSurface createWallSurface() {
-		return new WallSurfaceImpl();
+		return new WallSurface();
 	}
 
 	public Window createWindow() {
-		return new WindowImpl();
+		return new Window();
 	}
 
 }

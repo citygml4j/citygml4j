@@ -61,65 +61,65 @@ public class CoreFactory {
 	}
 
 	public Address createAddress() {
-		return new AddressImpl();
+		return new Address();
 	}
 
 	public AddressProperty createAddressProperty() {
-		return new AddressPropertyImpl();
+		return new AddressProperty();
 	}
 	
 	public AddressProperty createAddressProperty(Address address) {
-		AddressProperty addressProperty = new AddressPropertyImpl();
+		AddressProperty addressProperty = new AddressProperty();
 		addressProperty.setAddress(address);
 		return addressProperty;
 	}
 	
 	public AddressProperty createAddressProperty(String xlink) {
-		AddressProperty addressProperty = new AddressPropertyImpl();
+		AddressProperty addressProperty = new AddressProperty();
 		addressProperty.setHref(xlink);
 		return addressProperty;
 	}
 
 	public CityModel createCityModel() {
-		return new CityModelImpl();
+		return new CityModel();
 	}
 
 	public CityObjectMember createCityObjectMember() {
-		return new CityObjectMemberImpl();
+		return new CityObjectMember();
 	}
 	
 	public CityObjectMember createCityObjectMember(AbstractCityObject cityObject) {
-		CityObjectMember cityObjectMember = new CityObjectMemberImpl();
+		CityObjectMember cityObjectMember = new CityObjectMember();
 		cityObjectMember.setCityObject(cityObject);
 		return cityObjectMember;
 	}
 	
 	public CityObjectMember createCityObjectMember(String xlink) {
-		CityObjectMember cityObjectMember = new CityObjectMemberImpl();
+		CityObjectMember cityObjectMember = new CityObjectMember();
 		cityObjectMember.setHref(xlink);
 		return cityObjectMember;
 	}
 
 	public ExternalObject createExternalObject() {
-		return new ExternalObjectImpl();
+		return new ExternalObject();
 	}
 
 	public ExternalReference createExternalReference() {
-		return new ExternalReferenceImpl();
+		return new ExternalReference();
 	}
 
 	public GeneralizationRelation createGeneralizationRelation() {
-		return new GeneralizationRelationImpl();
+		return new GeneralizationRelation();
 	}
 	
 	public GeneralizationRelation createGeneralizationRelation(AbstractCityObject cityObject) {
-		GeneralizationRelation generalizationRelation = new GeneralizationRelationImpl();
+		GeneralizationRelation generalizationRelation = new GeneralizationRelation();
 		generalizationRelation.setCityObject(cityObject);
 		return generalizationRelation;
 	}
 	
 	public GeneralizationRelation createGeneralizationRelation(String xlink) {
-		GeneralizationRelation generalizationRelation = new GeneralizationRelationImpl();
+		GeneralizationRelation generalizationRelation = new GeneralizationRelation();
 		generalizationRelation.setHref(xlink);
 		return generalizationRelation;
 	}
@@ -133,55 +133,55 @@ public class CoreFactory {
 	}
 	
 	public ImplicitGeometry createImplicitGeometry() {
-		return new ImplicitGeometryImpl();
+		return new ImplicitGeometry();
 	}
 
 	public ImplicitRepresentationProperty createImplicitRepresentationProperty() {
-		return new ImplicitRepresentationPropertyImpl();
+		return new ImplicitRepresentationProperty();
 	}
 	
 	public ImplicitRepresentationProperty createImplicitRepresentationProperty(ImplicitGeometry implicitGeometry) {
-		ImplicitRepresentationProperty implicitRepresentationProperty = new ImplicitRepresentationPropertyImpl();
+		ImplicitRepresentationProperty implicitRepresentationProperty = new ImplicitRepresentationProperty();
 		implicitRepresentationProperty.setImplicitGeometry(implicitGeometry);
 		return implicitRepresentationProperty;
 	}
 	
 	public ImplicitRepresentationProperty createImplicitRepresentationProperty(String xlink) {
-		ImplicitRepresentationProperty implicitRepresentationProperty = new ImplicitRepresentationPropertyImpl();
+		ImplicitRepresentationProperty implicitRepresentationProperty = new ImplicitRepresentationProperty();
 		implicitRepresentationProperty.setHref(xlink);
 		return implicitRepresentationProperty;
 	}
 
 	public TransformationMatrix2x2 createTransformationMatrix2x2() {
-		return new TransformationMatrix2x2Impl();
+		return new TransformationMatrix2x2();
 	}
 
 	public TransformationMatrix2x2 createTransformationMatrix2x2(Matrix matrix) {
-		return new TransformationMatrix2x2Impl(matrix);
+		return new TransformationMatrix2x2(matrix);
 	}
 
 	public TransformationMatrix3x4 createTransformationMatrix3x4() {
-		return new TransformationMatrix3x4Impl();
+		return new TransformationMatrix3x4();
 	}
 
 	public TransformationMatrix3x4 createTransformationMatrix3x4(Matrix matrix) {
-		return new TransformationMatrix3x4Impl(matrix);
+		return new TransformationMatrix3x4(matrix);
 	}
 
 	public TransformationMatrix4x4 createTransformationMatrix4x4() {
-		return new TransformationMatrix4x4Impl();
+		return new TransformationMatrix4x4();
 	}
 
 	public TransformationMatrix4x4 createTransformationMatrix4x4(Matrix matrix) {
-		return new TransformationMatrix4x4Impl(matrix);
+		return new TransformationMatrix4x4(matrix);
 	}
 
 	public XalAddressProperty createXalAddressProperty() {
-		return new XalAddressPropertyImpl();
+		return new XalAddressProperty();
 	}
 	
 	public XalAddressProperty createXalAddressProperty(AddressDetails addressDetails) {
-		XalAddressProperty xalAddressProperty = new XalAddressPropertyImpl();
+		XalAddressProperty xalAddressProperty = new XalAddressProperty();
 		xalAddressProperty.setAddressDetails(addressDetails);
 		return xalAddressProperty;
 	}
