@@ -22,10 +22,59 @@
  */
 package org.citygml4j.model.citygml.generics;
 
-public interface UriAttribute extends AbstractGenericAttribute {
-	public String getValue();
-	public boolean isSetValue();
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.module.citygml.GenericsModule;
+
+public class UriAttribute extends AbstractGenericAttribute {
+	private String value;
 	
-	public void setValue(String value);
-	public void unsetValue();
+	public UriAttribute() {
+
+	}
+
+	public UriAttribute(GenericsModule module) {
+		super(module);
+	}
+	
+	public String getValue() {
+		return value;
+	}
+
+	public boolean isSetValue() {
+		return value != null;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public void unsetValue() {
+		value = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.URI_ATTRIBUTE;
+	}
+	
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new UriAttribute(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		UriAttribute copy = (target == null) ? new UriAttribute() : (UriAttribute)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetValue())
+			copy.setValue(copyBuilder.copy(value));
+		
+		return copy;
+	}
+
 }

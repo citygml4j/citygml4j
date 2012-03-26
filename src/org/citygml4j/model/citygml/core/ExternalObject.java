@@ -22,17 +22,110 @@
  */
 package org.citygml4j.model.citygml.core;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
+import org.citygml4j.model.module.citygml.CoreModule;
 
-public interface ExternalObject extends CoreModuleComponent, Child, Copyable {
-	public String getName();
-	public String getUri();
-	public boolean isSetName();
-	public boolean isSetUri();
+public class ExternalObject implements CoreModuleComponent, Child, Copyable {
+	private String name;
+	private String uri;
+	private CoreModule module;
+	private ModelObject parent;
+	
+	public ExternalObject() {
+		
+	}
+	
+	public ExternalObject(CoreModule module) {
+		this.module = module;
+	}
+	
+	public String getName() {
+		return name;
+	}
 
-	public void setName(String name);
-	public void setUri(String uri);
-	public void unsetName();
-	public void unsetUri();
+	public String getUri() {
+		return uri;
+	}
+
+	public boolean isSetName() {
+		return name != null;
+	}
+
+	public boolean isSetUri() {
+		return uri != null;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+		unsetUri();
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+		unsetName();
+	}
+
+	public void unsetName() {
+		name = null;
+	}
+
+	public void unsetUri() {
+		uri = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.EXTERNAL_OBJECT;
+	}
+
+	public final CoreModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+	
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ExternalObject(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ExternalObject copy = (target == null) ? new ExternalObject() : (ExternalObject)target;
+		
+		if (isSetName())
+			copy.setName(copyBuilder.copy(name));
+		
+		if (isSetUri())
+			copy.setUri(copyBuilder.copy(uri));
+		
+		copy.unsetParent();
+
+		return copy;
+	}
+
 }

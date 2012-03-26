@@ -22,13 +22,68 @@
  */
 package org.citygml4j.model.citygml.core;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRep;
+import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.xal.AddressDetails;
 
-public interface XalAddressProperty extends CoreModuleComponent, AssociationByRep<AddressDetails> {
-	public AddressDetails getAddressDetails();
-	public boolean isSetAddressDetails();
+public class XalAddressProperty extends AssociationByRep<AddressDetails> implements CoreModuleComponent {
+	private CoreModule module;
+
+	public XalAddressProperty() {
+		
+	}
 	
-	public void setAddressDetails(AddressDetails addressDetails);
-	public void unsetAddressDetails();
+	public XalAddressProperty(CoreModule module) {
+		this.module = module;
+	}
+	
+	public AddressDetails getAddressDetails() {
+		return super.getObject();
+	}
+
+	public boolean isSetAddressDetails() {
+		return super.isSetObject();
+	}
+
+	public void setAddressDetails(AddressDetails addressDetails) {
+		super.setObject(addressDetails);
+	}
+
+	public void unsetAddressDetails() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.XAL_ADDRESS_PROPERTY;
+	}
+
+	public final CoreModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	public Class<AddressDetails> getAssociableClass() {
+		return AddressDetails.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new XalAddressProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		XalAddressProperty copy = (target == null) ? new XalAddressProperty() : (XalAddressProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

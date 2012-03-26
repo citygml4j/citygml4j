@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.transportation;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.TransportationModule;
 
-public interface TrafficAreaProperty extends TransportationModuleComponent, FeatureProperty<TrafficArea> {
-	public TrafficArea getTrafficArea();
-	public boolean isSetTrafficArea();
+public class TrafficAreaProperty extends FeatureProperty<TrafficArea> implements TransportationModuleComponent {
+	private TransportationModule module;
 	
-	public void setTrafficArea(TrafficArea trafficArea);
-	public void unsetTrafficArea();
+	public TrafficAreaProperty() {
+
+	}
+
+	public TrafficAreaProperty(TransportationModule module) {
+		this.module = module;
+	}
+	
+	public TrafficArea getTrafficArea() {
+		return super.getObject();
+	}
+
+	public boolean isSetTrafficArea() {
+		return super.isSetObject();
+	}
+
+	public void setTrafficArea(TrafficArea trafficArea) {
+		super.setObject(trafficArea);
+	}
+
+	public void unsetTrafficArea() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.TRAFFIC_AREA_PROPERTY;
+	}
+
+	public final TransportationModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<TrafficArea> getAssociableClass() {
+		return TrafficArea.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new TrafficAreaProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		TrafficAreaProperty copy = (target == null) ? new TrafficAreaProperty() : (TrafficAreaProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

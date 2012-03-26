@@ -22,8 +22,42 @@
  */
 package org.citygml4j.model.citygml.texturedsurface;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
-public interface _AbstractAppearance extends TexturedSurfaceModuleComponent, AbstractGML {
+public abstract class _AbstractAppearance extends AbstractGML implements TexturedSurfaceModuleComponent {
+	private TexturedSurfaceModule module;
+
+	public _AbstractAppearance() {
+		
+	}
+	
+	public _AbstractAppearance(TexturedSurfaceModule module) {
+		this.module = module;
+	}
+	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	public final TexturedSurfaceModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+	
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		if (target == null)
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+		_AbstractAppearance copy = (_AbstractAppearance)target;		
+		return super.copyTo(copy, copyBuilder);
+	}
 
 }

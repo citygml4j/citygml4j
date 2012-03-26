@@ -24,10 +24,59 @@ package org.citygml4j.model.citygml.generics;
 
 import java.util.GregorianCalendar;
 
-public interface DateAttribute extends AbstractGenericAttribute {
-	public GregorianCalendar getValue();
-	public boolean isSetValue();
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.module.citygml.GenericsModule;
+
+public class DateAttribute extends AbstractGenericAttribute {
+	private GregorianCalendar value;
 	
-	public void setValue(GregorianCalendar value);
-	public void unsetValue();
+	public DateAttribute() {
+		
+	}
+	
+	public DateAttribute(GenericsModule module) {
+		super(module);
+	}
+	
+	public GregorianCalendar getValue() {
+		return value;
+	}
+
+	public boolean isSetValue() {
+		return value != null;
+	}
+
+	public void setValue(GregorianCalendar value) {
+		this.value = value;
+	}
+
+	public void unsetValue() {
+		value = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.DATE_ATTRIBUTE;
+	}
+	
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new DateAttribute(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		DateAttribute copy = (target == null) ? new DateAttribute() : (DateAttribute)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetValue())
+			copy.setValue((GregorianCalendar)copyBuilder.copy(value));
+		
+		return copy;
+	}
+
 }

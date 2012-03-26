@@ -22,17 +22,92 @@
  */
 package org.citygml4j.model.citygml.cityobjectgroup;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 
-public interface CityObjectGroupMember extends CityObjectGroupModuleComponent, FeatureProperty<AbstractCityObject> {
-	public AbstractCityObject getCityObject();
-	public String getGroupRole();
-	public boolean isSetCityObject();
-	public boolean isSetGroupRole();
+public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> implements CityObjectGroupModuleComponent {
+	private String groupRole;
+	private CityObjectGroupModule module;
+	
+	public CityObjectGroupMember() {
+		
+	}
+	
+	public CityObjectGroupMember(CityObjectGroupModule module) {
+		this.module = module;
+	}
+	
+	public AbstractCityObject getCityObject() {
+		return super.getObject();
+	}
 
-	public void setCityObject(AbstractCityObject cityObject);
-	public void setGroupRole(String groupRole);
-	public void unsetCityObject();
-	public void unsetGroupRole();
+	public boolean isSetCityObject() {
+		return super.isSetObject();
+	}
+
+	public void setCityObject(AbstractCityObject cityObject) {
+		super.setObject(cityObject);
+	}
+
+	public void unsetCityObject() {
+		super.unsetObject();
+	}
+
+	public String getGroupRole() {
+		return groupRole;
+	}
+
+	public boolean isSetGroupRole() {
+		return groupRole != null;
+	}
+
+	public void setGroupRole(String groupRole) {
+		this.groupRole = groupRole;
+	}
+
+	public void unsetGroupRole() {
+		groupRole = null;
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.CITY_OBJECT_GROUP_MEMBER;
+	}
+
+	public final CityObjectGroupModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AbstractCityObject> getAssociableClass() {
+		return AbstractCityObject.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CityObjectGroupMember(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CityObjectGroupMember copy = (target == null) ? new CityObjectGroupMember() : (CityObjectGroupMember)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetGroupRole())
+			copy.setGroupRole(copyBuilder.copy(groupRole));
+		
+		return copy;
+	}
+
 }
