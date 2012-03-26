@@ -27,12 +27,11 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.cityfurniture.CityFurnitureImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.frn._1.CityFurnitureType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -66,11 +65,11 @@ public class CityFurniture100Unmarshaller {
 		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetLod1Geometry())
@@ -111,7 +110,7 @@ public class CityFurniture100Unmarshaller {
 	}
 
 	public CityFurniture unmarshalCityFurniture(CityFurnitureType src) throws MissingADESchemaException {
-		CityFurniture dest = new CityFurnitureImpl(module);
+		CityFurniture dest = new CityFurniture(module);
 		unmarshalCityFurniture(src, dest);
 
 		return dest;

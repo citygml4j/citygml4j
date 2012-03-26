@@ -26,13 +26,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.generics.DateAttributeImpl;
-import org.citygml4j.impl.citygml.generics.DoubleAttributeImpl;
-import org.citygml4j.impl.citygml.generics.GenericCityObjectImpl;
-import org.citygml4j.impl.citygml.generics.IntAttributeImpl;
-import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
-import org.citygml4j.impl.citygml.generics.UriAttributeImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.gen._1.AbstractGenericAttributeType;
 import org.citygml4j.jaxb.citygml.gen._1.DateAttributeType;
 import org.citygml4j.jaxb.citygml.gen._1.DoubleAttributeType;
@@ -41,13 +34,14 @@ import org.citygml4j.jaxb.citygml.gen._1.IntAttributeType;
 import org.citygml4j.jaxb.citygml.gen._1.StringAttributeType;
 import org.citygml4j.jaxb.citygml.gen._1.UriAttributeType;
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.IntAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.GenericsModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -96,16 +90,16 @@ public class Generics100Unmarshaller {
 		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
 		
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (String usage : src.getUsage())
-				dest.addUsage(new CodeImpl(usage));
+				dest.addUsage(new Code(usage));
 		}
 		
 		if (src.isSetLod0Geometry())
@@ -155,7 +149,7 @@ public class Generics100Unmarshaller {
 	}
 	
 	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src) throws MissingADESchemaException {
-		GenericCityObject dest = new GenericCityObjectImpl(module);
+		GenericCityObject dest = new GenericCityObject(module);
 		unmarshalGenericCityObject(src, dest);
 
 		return dest;
@@ -169,7 +163,7 @@ public class Generics100Unmarshaller {
 	}
 	
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {
-		DateAttribute dest = new DateAttributeImpl(module);
+		DateAttribute dest = new DateAttribute(module);
 		unmarshalDateAttribute(src, dest);
 
 		return dest;		
@@ -183,7 +177,7 @@ public class Generics100Unmarshaller {
 	}
 	
 	public DoubleAttribute unmarshalDoubleAttribute(DoubleAttributeType src) {
-		DoubleAttribute dest = new DoubleAttributeImpl(module);
+		DoubleAttribute dest = new DoubleAttribute(module);
 		unmarshalDoubleAttribute(src, dest);
 
 		return dest;		
@@ -197,7 +191,7 @@ public class Generics100Unmarshaller {
 	}
 	
 	public IntAttribute unmarshalIntAttribute(IntAttributeType src) {
-		IntAttribute dest = new IntAttributeImpl(module);
+		IntAttribute dest = new IntAttribute(module);
 		unmarshalIntAttribute(src, dest);
 
 		return dest;		
@@ -211,7 +205,7 @@ public class Generics100Unmarshaller {
 	}
 	
 	public StringAttribute unmarshalStringAttribute(StringAttributeType src) {
-		StringAttribute dest = new StringAttributeImpl(module);
+		StringAttribute dest = new StringAttribute(module);
 		unmarshalStringAttribute(src, dest);
 
 		return dest;		
@@ -225,7 +219,7 @@ public class Generics100Unmarshaller {
 	}
 	
 	public UriAttribute unmarshalUriAttribute(UriAttributeType src) {
-		UriAttribute dest = new UriAttributeImpl(module);
+		UriAttribute dest = new UriAttribute(module);
 		unmarshalUriAttribute(src, dest);
 
 		return dest;		

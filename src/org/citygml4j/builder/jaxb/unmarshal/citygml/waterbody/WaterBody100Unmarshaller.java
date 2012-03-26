@@ -27,12 +27,6 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.waterbody.BoundedByWaterSurfacePropertyImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterBodyImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterClosureSurfaceImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterGroundSurfaceImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterSurfaceImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.wtr._1.AbstractWaterBoundarySurfaceType;
 import org.citygml4j.jaxb.citygml.wtr._1.AbstractWaterObjectType;
 import org.citygml4j.jaxb.citygml.wtr._1.BoundedByWaterSurfacePropertyType;
@@ -50,6 +44,7 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -105,7 +100,7 @@ public class WaterBody100Unmarshaller {
 	}
 
 	public BoundedByWaterSurfaceProperty unmarshalBoundedByWaterSurfaceProperty(BoundedByWaterSurfacePropertyType src) throws MissingADESchemaException {
-		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfacePropertyImpl(module);
+		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfaceProperty(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
@@ -121,16 +116,16 @@ public class WaterBody100Unmarshaller {
 		unmarshalWaterObject(src, dest);
 		
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (String usage : src.getUsage())
-				dest.addUsage(new CodeImpl(usage));
+				dest.addUsage(new Code(usage));
 		}
 		
 		if (src.isSetLod0MultiSurface())
@@ -164,7 +159,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public WaterBody unmarshalWaterBody(WaterBodyType src) throws MissingADESchemaException {
-		WaterBody dest = new WaterBodyImpl(module);
+		WaterBody dest = new WaterBody(module);
 		unmarshalWaterBody(src, dest);
 
 		return dest;
@@ -175,7 +170,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public WaterClosureSurface unmarshalWaterClosureSurface(WaterClosureSurfaceType src) throws MissingADESchemaException {
-		WaterClosureSurface dest = new WaterClosureSurfaceImpl(module);
+		WaterClosureSurface dest = new WaterClosureSurface(module);
 		unmarshalWaterClosureSurface(src, dest);
 
 		return dest;
@@ -186,7 +181,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public WaterGroundSurface unmarshalWaterGroundSurface(WaterGroundSurfaceType src) throws MissingADESchemaException {
-		WaterGroundSurface dest = new WaterGroundSurfaceImpl(module);
+		WaterGroundSurface dest = new WaterGroundSurface(module);
 		unmarshalWaterGroundSurface(src, dest);
 
 		return dest;
@@ -200,7 +195,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public WaterSurface unmarshalWaterSurface(WaterSurfaceType src) throws MissingADESchemaException {
-		WaterSurface dest = new WaterSurfaceImpl(module);
+		WaterSurface dest = new WaterSurface(module);
 		unmarshalWaterSurface(src, dest);
 
 		return dest;

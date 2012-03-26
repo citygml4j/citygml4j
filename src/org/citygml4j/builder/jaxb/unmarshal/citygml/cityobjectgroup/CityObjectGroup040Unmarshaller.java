@@ -27,10 +27,6 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupImpl;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupMemberImpl;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupParentImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.CityObjectGroupMemberType;
 import org.citygml4j.jaxb.citygml._0_4.CityObjectGroupType;
 import org.citygml4j.model.citygml.CityGML;
@@ -40,6 +36,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -85,16 +82,16 @@ public class CityObjectGroup040Unmarshaller {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (String usage : src.getUsage())
-				dest.addUsage(new CodeImpl(usage));
+				dest.addUsage(new Code(usage));
 		}
 
 		if (src.isSetGeometry())
@@ -110,14 +107,14 @@ public class CityObjectGroup040Unmarshaller {
 	}
 
 	public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src) throws MissingADESchemaException {
-		CityObjectGroup dest = new CityObjectGroupImpl(module);
+		CityObjectGroup dest = new CityObjectGroup(module);
 		unmarshalCityObjectGroup(src, dest);
 
 		return dest;
 	}
 
 	public CityObjectGroupMember unmarshalCityObjectGroupMember(CityObjectGroupMemberType src) throws MissingADESchemaException {
-		CityObjectGroupMember dest = new CityObjectGroupMemberImpl(module);
+		CityObjectGroupMember dest = new CityObjectGroupMember(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSetGroupRole())
@@ -133,7 +130,7 @@ public class CityObjectGroup040Unmarshaller {
 	}
 
 	public CityObjectGroupParent unmarshalCityObjectGroupParent(CityObjectGroupMemberType src) throws MissingADESchemaException {
-		CityObjectGroupParent dest = new CityObjectGroupParentImpl(module);
+		CityObjectGroupParent dest = new CityObjectGroupParent(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {

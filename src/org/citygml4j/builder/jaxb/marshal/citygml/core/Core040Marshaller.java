@@ -33,7 +33,6 @@ import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
 import org.citygml4j.jaxb.citygml._0_4.AddressPropertyType;
 import org.citygml4j.jaxb.citygml._0_4.AddressType;
 import org.citygml4j.jaxb.citygml._0_4.AppearancePropertyType;
@@ -180,7 +179,7 @@ public class Core040Marshaller {
 		}
 
 		if (src.isSetRelativeToTerrain()) {
-			StringAttribute relativeToTerrain = new StringAttributeImpl();
+			StringAttribute relativeToTerrain = new StringAttribute();
 			relativeToTerrain.setName("relativeToTerrain");
 			relativeToTerrain.setValue(src.getRelativeToTerrain().getValue());
 			JAXBElement<?> elem = citygml.getGenerics040Marshaller().marshalJAXBElement(relativeToTerrain);
@@ -189,7 +188,7 @@ public class Core040Marshaller {
 		}
 
 		if (src.isSetRelativeToWater()) {
-			StringAttribute relativeToWater = new StringAttributeImpl();
+			StringAttribute relativeToWater = new StringAttribute();
 			relativeToWater.setName("relativeToWater");
 			relativeToWater.setValue(src.getRelativeToWater().getValue());
 			JAXBElement<?> elem = citygml.getGenerics040Marshaller().marshalJAXBElement(relativeToWater);

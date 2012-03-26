@@ -30,21 +30,6 @@ import javax.xml.namespace.QName;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.impl.citygml.appearance.AppearanceImpl;
-import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
-import org.citygml4j.impl.citygml.appearance.AppearancePropertyImpl;
-import org.citygml4j.impl.citygml.appearance.ColorImpl;
-import org.citygml4j.impl.citygml.appearance.ColorPlusOpacityImpl;
-import org.citygml4j.impl.citygml.appearance.GeoreferencedTextureImpl;
-import org.citygml4j.impl.citygml.appearance.ParameterizedTextureImpl;
-import org.citygml4j.impl.citygml.appearance.SurfaceDataPropertyImpl;
-import org.citygml4j.impl.citygml.appearance.TexCoordGenImpl;
-import org.citygml4j.impl.citygml.appearance.TexCoordListImpl;
-import org.citygml4j.impl.citygml.appearance.TextureAssociationImpl;
-import org.citygml4j.impl.citygml.appearance.TextureCoordinatesImpl;
-import org.citygml4j.impl.citygml.appearance.WorldToTextureImpl;
-import org.citygml4j.impl.citygml.appearance.X3DMaterialImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.app._1.AbstractSurfaceDataType;
 import org.citygml4j.jaxb.citygml.app._1.AbstractTextureParameterizationType;
 import org.citygml4j.jaxb.citygml.app._1.AbstractTextureType;
@@ -81,6 +66,7 @@ import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
@@ -149,7 +135,7 @@ public class Appearance100Unmarshaller {
 			dest.setImageURI(src.getImageURI());
 
 		if (src.isSetMimeType())
-			dest.setMimeType(new CodeImpl(src.getMimeType()));
+			dest.setMimeType(new Code(src.getMimeType()));
 
 		if (src.isSetTextureType())
 			dest.setTextureType(unmarshalTextureType(src.getTextureType()));
@@ -183,14 +169,14 @@ public class Appearance100Unmarshaller {
 	}
 
 	public Appearance unmarshalAppearance(AppearanceType src) throws MissingADESchemaException {
-		Appearance dest = new AppearanceImpl(module);
+		Appearance dest = new Appearance(module);
 		unmarshalAppearance(src, dest);
 
 		return dest;
 	}
 
 	public AppearanceMember unmarshalAppearanceMember(AppearancePropertyType src) throws MissingADESchemaException {
-		AppearanceMember dest = new AppearanceMemberImpl(module);
+		AppearanceMember dest = new AppearanceMember(module);
 		unmarshalAppearanceProperty(src, dest);
 
 		return dest;
@@ -210,21 +196,21 @@ public class Appearance100Unmarshaller {
 	}
 
 	public AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyType src) throws MissingADESchemaException {
-		AppearanceProperty dest = new AppearancePropertyImpl(module);
+		AppearanceProperty dest = new AppearanceProperty(module);
 		unmarshalAppearanceProperty(src, dest);
 
 		return dest;
 	}
 
 	public Color unmarshalColor(List<Double> src) {
-		Color dest = new ColorImpl(module);
+		Color dest = new Color(module);
 		dest.setColor(src);
 
 		return dest;
 	}
 
 	public ColorPlusOpacity unmarshalColorPlusOpacity(List<Double> src) {
-		ColorPlusOpacity dest = new ColorPlusOpacityImpl(module);
+		ColorPlusOpacity dest = new ColorPlusOpacity(module);
 		dest.setColorPlusOpacity(src);
 
 		return dest;
@@ -247,7 +233,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public GeoreferencedTexture unmarshalGeoreferencedTexture(GeoreferencedTextureType src) throws MissingADESchemaException {
-		GeoreferencedTexture dest = new GeoreferencedTextureImpl(module);
+		GeoreferencedTexture dest = new GeoreferencedTexture(module);
 		unmarshalGeoreferencedTexture(src, dest);
 
 		return dest;
@@ -263,14 +249,14 @@ public class Appearance100Unmarshaller {
 	}
 
 	public ParameterizedTexture unmarshalParameterizedTexture(ParameterizedTextureType src) throws MissingADESchemaException {
-		ParameterizedTexture dest = new ParameterizedTextureImpl(module);
+		ParameterizedTexture dest = new ParameterizedTexture(module);
 		unmarshalParameterizedTexture(src, dest);
 
 		return dest;
 	}
 
 	public SurfaceDataProperty unmarshalSurfaceDataProperty(SurfaceDataPropertyType src) throws MissingADESchemaException {
-		SurfaceDataProperty dest = new SurfaceDataPropertyImpl(module);
+		SurfaceDataProperty dest = new SurfaceDataProperty(module);
 		
 		if (src.isSet_SurfaceData()) {
 			ModelObject surfaceData = jaxb.unmarshal(src.get_SurfaceData());
@@ -316,7 +302,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public TexCoordGen unmarshalTexCoordGen(TexCoordGenType src) throws MissingADESchemaException {
-		TexCoordGen dest = new TexCoordGenImpl(module);
+		TexCoordGen dest = new TexCoordGen(module);
 		unmarshalTexCoordGen(src, dest);
 
 		return dest;
@@ -332,14 +318,14 @@ public class Appearance100Unmarshaller {
 	}	
 
 	public TexCoordList unmarshalTexCoordList(TexCoordListType src) throws MissingADESchemaException {
-		TexCoordList dest = new TexCoordListImpl(module);
+		TexCoordList dest = new TexCoordList(module);
 		unmarshalTexCoordList(src, dest);
 
 		return dest;
 	}
 
 	public TextureAssociation unmarshalTextureAssociation(TextureAssociationType src) throws MissingADESchemaException {
-		TextureAssociation dest = new TextureAssociationImpl(module);
+		TextureAssociation dest = new TextureAssociation(module);
 
 		if (src.isSet_TextureParameterization()) {
 			ModelObject textureParameterization = jaxb.unmarshal(src.get_TextureParameterization());
@@ -386,7 +372,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public TextureCoordinates unmarshalTextureCoordinates(TexCoordListType.TextureCoordinates src) {
-		TextureCoordinates dest = new TextureCoordinatesImpl(module);
+		TextureCoordinates dest = new TextureCoordinates(module);
 		unmarshalTextureCoordinates(src, dest);
 
 		return dest;
@@ -421,7 +407,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public WorldToTexture unmarshalWorldToTexture(TexCoordGenType.WorldToTexture src) {
-		WorldToTexture dest = new WorldToTextureImpl(module);
+		WorldToTexture dest = new WorldToTexture(module);
 		unmarshalWorldToTexture(src, dest);
 
 		return dest;
@@ -460,7 +446,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public X3DMaterial unmarshalX3DMaterial(X3DMaterialType src) throws MissingADESchemaException {
-		X3DMaterial dest = new X3DMaterialImpl(module);
+		X3DMaterial dest = new X3DMaterial(module);
 		unmarshalX3DMaterial(src, dest);
 
 		return dest;

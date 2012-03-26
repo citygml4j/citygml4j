@@ -27,12 +27,11 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.landuse.LandUseImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml._0_4.LandUseType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.landuse.LandUse;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -66,16 +65,16 @@ public class LandUse040Unmarshaller {
 		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (String usage : src.getUsage())
-				dest.addUsage(new CodeImpl(usage));
+				dest.addUsage(new Code(usage));
 		}
 
 		if (src.isSetLod0MultiSurface())
@@ -95,7 +94,7 @@ public class LandUse040Unmarshaller {
 	}
 
 	public LandUse unmarshalLandUse(LandUseType src) throws MissingADESchemaException {
-		LandUse dest = new LandUseImpl(module);
+		LandUse dest = new LandUse(module);
 		unmarshalLandUse(src, dest);
 
 		return dest;

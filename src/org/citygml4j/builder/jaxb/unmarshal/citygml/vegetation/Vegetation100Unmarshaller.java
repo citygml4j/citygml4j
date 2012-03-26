@@ -27,17 +27,15 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.vegetation.PlantCoverImpl;
-import org.citygml4j.impl.citygml.vegetation.SolitaryVegetationObjectImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
 import org.citygml4j.jaxb.citygml.veg._1.AbstractVegetationObjectType;
 import org.citygml4j.jaxb.citygml.veg._1.PlantCoverType;
 import org.citygml4j.jaxb.citygml.veg._1.SolitaryVegetationObjectType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
-import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -77,11 +75,11 @@ public class Vegetation100Unmarshaller {
 		unmarshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetAverageHeight())
@@ -110,7 +108,7 @@ public class Vegetation100Unmarshaller {
 	}
 
 	public PlantCover unmarshalPlantCover(PlantCoverType src) throws MissingADESchemaException {
-		PlantCover dest = new PlantCoverImpl(module);
+		PlantCover dest = new PlantCover(module);
 		unmarshalPlantCover(src, dest);
 
 		return dest;
@@ -120,15 +118,15 @@ public class Vegetation100Unmarshaller {
 		unmarshalVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(new CodeImpl(src.getClazz()));
+			dest.setClazz(new Code(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
-				dest.addFunction(new CodeImpl(function));
+				dest.addFunction(new Code(function));
 		}
 
 		if (src.isSetSpecies())
-			dest.setSpecies(new CodeImpl(src.getSpecies()));
+			dest.setSpecies(new Code(src.getSpecies()));
 
 		if (src.isSetHeight())
 			dest.setHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getHeight()));
@@ -165,7 +163,7 @@ public class Vegetation100Unmarshaller {
 	}
 
 	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) throws MissingADESchemaException {
-		SolitaryVegetationObject dest = new SolitaryVegetationObjectImpl(module);
+		SolitaryVegetationObject dest = new SolitaryVegetationObject(module);
 		unmarshalSolitaryVegetationObject(src, dest);
 
 		return dest;

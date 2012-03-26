@@ -24,89 +24,6 @@ package org.citygml4j.builder.jaxb.unmarshal.xal;
 
 import javax.xml.bind.JAXBElement;
 
-import org.citygml4j.impl.xal.AddressDetailsImpl;
-import org.citygml4j.impl.xal.AddressIdentifierImpl;
-import org.citygml4j.impl.xal.AddressImpl;
-import org.citygml4j.impl.xal.AddressLatitudeDirectionImpl;
-import org.citygml4j.impl.xal.AddressLatitudeImpl;
-import org.citygml4j.impl.xal.AddressLineImpl;
-import org.citygml4j.impl.xal.AddressLinesImpl;
-import org.citygml4j.impl.xal.AddressLongitudeDirectionImpl;
-import org.citygml4j.impl.xal.AddressLongitudeImpl;
-import org.citygml4j.impl.xal.AdministrativeAreaImpl;
-import org.citygml4j.impl.xal.AdministrativeAreaNameImpl;
-import org.citygml4j.impl.xal.BarcodeImpl;
-import org.citygml4j.impl.xal.BuildingNameImpl;
-import org.citygml4j.impl.xal.CountryImpl;
-import org.citygml4j.impl.xal.CountryNameCodeImpl;
-import org.citygml4j.impl.xal.CountryNameImpl;
-import org.citygml4j.impl.xal.DepartmentImpl;
-import org.citygml4j.impl.xal.DepartmentNameImpl;
-import org.citygml4j.impl.xal.DependentLocalityImpl;
-import org.citygml4j.impl.xal.DependentLocalityNameImpl;
-import org.citygml4j.impl.xal.DependentLocalityNumberImpl;
-import org.citygml4j.impl.xal.DependentThoroughfareImpl;
-import org.citygml4j.impl.xal.EndorsementLineCodeImpl;
-import org.citygml4j.impl.xal.FirmImpl;
-import org.citygml4j.impl.xal.FirmNameImpl;
-import org.citygml4j.impl.xal.KeyLineCodeImpl;
-import org.citygml4j.impl.xal.LargeMailUserIdentifierImpl;
-import org.citygml4j.impl.xal.LargeMailUserImpl;
-import org.citygml4j.impl.xal.LargeMailUserNameImpl;
-import org.citygml4j.impl.xal.LocalityImpl;
-import org.citygml4j.impl.xal.LocalityNameImpl;
-import org.citygml4j.impl.xal.MailStopImpl;
-import org.citygml4j.impl.xal.MailStopNameImpl;
-import org.citygml4j.impl.xal.MailStopNumberImpl;
-import org.citygml4j.impl.xal.PostBoxImpl;
-import org.citygml4j.impl.xal.PostBoxNumberExtensionImpl;
-import org.citygml4j.impl.xal.PostBoxNumberImpl;
-import org.citygml4j.impl.xal.PostBoxNumberPrefixImpl;
-import org.citygml4j.impl.xal.PostBoxNumberSuffixImpl;
-import org.citygml4j.impl.xal.PostOfficeImpl;
-import org.citygml4j.impl.xal.PostOfficeNameImpl;
-import org.citygml4j.impl.xal.PostOfficeNumberImpl;
-import org.citygml4j.impl.xal.PostTownImpl;
-import org.citygml4j.impl.xal.PostTownNameImpl;
-import org.citygml4j.impl.xal.PostTownSuffixImpl;
-import org.citygml4j.impl.xal.PostalCodeImpl;
-import org.citygml4j.impl.xal.PostalCodeNumberExtensionImpl;
-import org.citygml4j.impl.xal.PostalCodeNumberImpl;
-import org.citygml4j.impl.xal.PostalRouteImpl;
-import org.citygml4j.impl.xal.PostalRouteNameImpl;
-import org.citygml4j.impl.xal.PostalRouteNumberImpl;
-import org.citygml4j.impl.xal.PostalServiceElementsImpl;
-import org.citygml4j.impl.xal.PremiseImpl;
-import org.citygml4j.impl.xal.PremiseLocationImpl;
-import org.citygml4j.impl.xal.PremiseNameImpl;
-import org.citygml4j.impl.xal.PremiseNumberImpl;
-import org.citygml4j.impl.xal.PremiseNumberPrefixImpl;
-import org.citygml4j.impl.xal.PremiseNumberRangeFromImpl;
-import org.citygml4j.impl.xal.PremiseNumberRangeImpl;
-import org.citygml4j.impl.xal.PremiseNumberRangeToImpl;
-import org.citygml4j.impl.xal.PremiseNumberSuffixImpl;
-import org.citygml4j.impl.xal.SortingCodeImpl;
-import org.citygml4j.impl.xal.SubAdministrativeAreaImpl;
-import org.citygml4j.impl.xal.SubAdministrativeAreaNameImpl;
-import org.citygml4j.impl.xal.SubPremiseImpl;
-import org.citygml4j.impl.xal.SubPremiseLocationImpl;
-import org.citygml4j.impl.xal.SubPremiseNameImpl;
-import org.citygml4j.impl.xal.SubPremiseNumberImpl;
-import org.citygml4j.impl.xal.SubPremiseNumberPrefixImpl;
-import org.citygml4j.impl.xal.SubPremiseNumberSuffixImpl;
-import org.citygml4j.impl.xal.SupplementaryPostalServiceDataImpl;
-import org.citygml4j.impl.xal.ThoroughfareImpl;
-import org.citygml4j.impl.xal.ThoroughfareLeadingTypeImpl;
-import org.citygml4j.impl.xal.ThoroughfareNameImpl;
-import org.citygml4j.impl.xal.ThoroughfareNumberFromImpl;
-import org.citygml4j.impl.xal.ThoroughfareNumberImpl;
-import org.citygml4j.impl.xal.ThoroughfareNumberPrefixImpl;
-import org.citygml4j.impl.xal.ThoroughfareNumberRangeImpl;
-import org.citygml4j.impl.xal.ThoroughfareNumberSuffixImpl;
-import org.citygml4j.impl.xal.ThoroughfareNumberToImpl;
-import org.citygml4j.impl.xal.ThoroughfarePostDirectionImpl;
-import org.citygml4j.impl.xal.ThoroughfarePreDirectionImpl;
-import org.citygml4j.impl.xal.ThoroughfareTrailingTypeImpl;
 import org.citygml4j.jaxb.xal.AddressDetails;
 import org.citygml4j.jaxb.xal.AddressLineElement;
 import org.citygml4j.jaxb.xal.AddressLinesType;
@@ -410,7 +327,7 @@ public class XALUnmarshaller {
 	}
 
 	public Address unmarshalAddress(AddressDetails.Address src) {
-		Address dest = new AddressImpl();
+		Address dest = new Address();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -425,7 +342,7 @@ public class XALUnmarshaller {
 	}
 
 	public org.citygml4j.model.xal.AddressDetails unmarshalAddressDetails(AddressDetails src) {
-		org.citygml4j.model.xal.AddressDetails dest = new AddressDetailsImpl();
+		org.citygml4j.model.xal.AddressDetails dest = new org.citygml4j.model.xal.AddressDetails();
 
 		if (src.isSetAddress())
 			dest.setAddress(unmarshalAddress(src.getAddress()));
@@ -473,7 +390,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressIdentifier unmarshalAddressIdentifier(AddressDetails.PostalServiceElements.AddressIdentifier src) {
-		AddressIdentifier dest = new AddressIdentifierImpl();
+		AddressIdentifier dest = new AddressIdentifier();
 
 		if (src.isSetCode())
 			dest.setCode(src.getCode());
@@ -491,7 +408,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressLatitude unmarshalAddressLatitude(AddressDetails.PostalServiceElements.AddressLatitude src) {
-		AddressLatitude dest = new AddressLatitudeImpl();
+		AddressLatitude dest = new AddressLatitude();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -506,7 +423,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressLatitudeDirection unmarshalAddressLatitudeDirection(AddressDetails.PostalServiceElements.AddressLatitudeDirection src) {
-		AddressLatitudeDirection dest = new AddressLatitudeDirectionImpl();
+		AddressLatitudeDirection dest = new AddressLatitudeDirection();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -521,7 +438,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressLine unmarshalAddressLine(AddressLineElement src) {
-		AddressLine dest = new AddressLineImpl();
+		AddressLine dest = new AddressLine();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -536,7 +453,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressLines unmarshalAddressLines(AddressLinesType src) {
-		AddressLines dest = new AddressLinesImpl();
+		AddressLines dest = new AddressLines();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -547,7 +464,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressLongitude unmarshalAddressLongitude(AddressDetails.PostalServiceElements.AddressLongitude src) {
-		AddressLongitude dest = new AddressLongitudeImpl();
+		AddressLongitude dest = new AddressLongitude();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -562,7 +479,7 @@ public class XALUnmarshaller {
 	}
 
 	public AddressLongitudeDirection unmarshalAddressLongitudeDirection(AddressDetails.PostalServiceElements.AddressLongitudeDirection src) {
-		AddressLongitudeDirection dest = new AddressLongitudeDirectionImpl();
+		AddressLongitudeDirection dest = new AddressLongitudeDirection();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -577,7 +494,7 @@ public class XALUnmarshaller {
 	}
 
 	public AdministrativeArea unmarshalAdministrativeArea(AdministrativeAreaElement src) {
-		AdministrativeArea dest = new AdministrativeAreaImpl();
+		AdministrativeArea dest = new AdministrativeArea();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -614,7 +531,7 @@ public class XALUnmarshaller {
 	}
 
 	public AdministrativeAreaName unmarshalAdministrativeAreaName(AdministrativeAreaElement.AdministrativeAreaName src) {
-		AdministrativeAreaName dest = new AdministrativeAreaNameImpl();
+		AdministrativeAreaName dest = new AdministrativeAreaName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -629,7 +546,7 @@ public class XALUnmarshaller {
 	}
 
 	public Barcode unmarshalBarcode(AddressDetails.PostalServiceElements.Barcode src) {
-		Barcode dest = new BarcodeImpl();
+		Barcode dest = new Barcode();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -644,7 +561,7 @@ public class XALUnmarshaller {
 	}
 
 	public BuildingName unmarshalBuildingName(BuildingNameType src) {
-		BuildingName dest = new BuildingNameImpl();
+		BuildingName dest = new BuildingName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -662,7 +579,7 @@ public class XALUnmarshaller {
 	}
 
 	public Country unmarshalCountry(AddressDetails.Country src) {
-		Country dest = new CountryImpl();
+		Country dest = new Country();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -692,7 +609,7 @@ public class XALUnmarshaller {
 	}
 
 	public CountryName unmarshalCountryName(CountryNameElement src) {
-		CountryName dest = new CountryNameImpl();
+		CountryName dest = new CountryName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -707,7 +624,7 @@ public class XALUnmarshaller {
 	}
 
 	public CountryNameCode unmarshalCountryNameCode(AddressDetails.Country.CountryNameCode src) {
-		CountryNameCode dest = new CountryNameCodeImpl();
+		CountryNameCode dest = new CountryNameCode();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -722,7 +639,7 @@ public class XALUnmarshaller {
 	}
 
 	public Department unmarshalDepartment(DepartmentElement src) {
-		Department dest = new DepartmentImpl();
+		Department dest = new Department();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -747,7 +664,7 @@ public class XALUnmarshaller {
 	}
 
 	public DepartmentName unmarshalDepartmentName(DepartmentElement.DepartmentName src) {
-		DepartmentName dest = new DepartmentNameImpl();
+		DepartmentName dest = new DepartmentName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -762,7 +679,7 @@ public class XALUnmarshaller {
 	}
 
 	public DependentLocality unmarshalDependentLocality(DependentLocalityType src) {
-		DependentLocality dest = new DependentLocalityImpl();
+		DependentLocality dest = new DependentLocality();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -817,7 +734,7 @@ public class XALUnmarshaller {
 	}
 
 	public DependentLocalityName unmarshalDependentLocalityName(DependentLocalityType.DependentLocalityName src) {
-		DependentLocalityName dest = new DependentLocalityNameImpl();
+		DependentLocalityName dest = new DependentLocalityName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -832,7 +749,7 @@ public class XALUnmarshaller {
 	}
 
 	public DependentLocalityNumber unmarshalDependentLocalityNumber(DependentLocalityType.DependentLocalityNumber src) {
-		DependentLocalityNumber dest = new DependentLocalityNumberImpl();
+		DependentLocalityNumber dest = new DependentLocalityNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -847,7 +764,7 @@ public class XALUnmarshaller {
 	}
 
 	public DependentThoroughfare unmarshalDependentThoroughfare(ThoroughfareElement.DependentThoroughfare src) {
-		DependentThoroughfare dest = new DependentThoroughfareImpl();
+		DependentThoroughfare dest = new DependentThoroughfare();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -878,7 +795,7 @@ public class XALUnmarshaller {
 	}
 
 	public EndorsementLineCode unmarshalEndorsementLineCode(AddressDetails.PostalServiceElements.EndorsementLineCode src) {
-		EndorsementLineCode dest = new EndorsementLineCodeImpl();
+		EndorsementLineCode dest = new EndorsementLineCode();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -893,7 +810,7 @@ public class XALUnmarshaller {
 	}
 
 	public Firm unmarshalFirm(FirmType src) {
-		Firm dest = new FirmImpl();
+		Firm dest = new Firm();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -923,7 +840,7 @@ public class XALUnmarshaller {
 	}
 
 	public FirmName unmarshalFirmName(FirmType.FirmName src) {
-		FirmName dest = new FirmNameImpl();
+		FirmName dest = new FirmName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -938,7 +855,7 @@ public class XALUnmarshaller {
 	}
 
 	public KeyLineCode unmarshalKeyLineCode(AddressDetails.PostalServiceElements.KeyLineCode src) {
-		KeyLineCode dest = new KeyLineCodeImpl();
+		KeyLineCode dest = new KeyLineCode();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -953,7 +870,7 @@ public class XALUnmarshaller {
 	}
 
 	public LargeMailUser unmarshalLargeMailUser(LargeMailUserType src) {
-		LargeMailUser dest = new LargeMailUserImpl();
+		LargeMailUser dest = new LargeMailUser();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -992,7 +909,7 @@ public class XALUnmarshaller {
 	}
 
 	public LargeMailUserIdentifier unmarshalLargeMailUserIdentifier(LargeMailUserType.LargeMailUserIdentifier src) {
-		LargeMailUserIdentifier dest = new LargeMailUserIdentifierImpl();
+		LargeMailUserIdentifier dest = new LargeMailUserIdentifier();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1010,7 +927,7 @@ public class XALUnmarshaller {
 	}
 
 	public LargeMailUserName unmarshalLargeMailUserName(LargeMailUserType.LargeMailUserName src) {
-		LargeMailUserName dest = new LargeMailUserNameImpl();
+		LargeMailUserName dest = new LargeMailUserName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1025,7 +942,7 @@ public class XALUnmarshaller {
 	}
 
 	public Locality unmarshalLocality(LocalityElement src) {
-		Locality dest = new LocalityImpl();
+		Locality dest = new Locality();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1074,7 +991,7 @@ public class XALUnmarshaller {
 	}
 
 	public LocalityName unmarshalLocalityName(LocalityElement.LocalityName src) {
-		LocalityName dest = new LocalityNameImpl();
+		LocalityName dest = new LocalityName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1089,7 +1006,7 @@ public class XALUnmarshaller {
 	}
 
 	public MailStop unmarshalMailStop(MailStopType src) {
-		MailStop dest = new MailStopImpl();
+		MailStop dest = new MailStop();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1109,7 +1026,7 @@ public class XALUnmarshaller {
 	}
 
 	public MailStopName unmarshalMailStopName(MailStopType.MailStopName src) {
-		MailStopName dest = new MailStopNameImpl();
+		MailStopName dest = new MailStopName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1124,7 +1041,7 @@ public class XALUnmarshaller {
 	}
 
 	public MailStopNumber unmarshalMailStopNumber(MailStopType.MailStopNumber src) {
-		MailStopNumber dest = new MailStopNumberImpl();
+		MailStopNumber dest = new MailStopNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1139,7 +1056,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalCode unmarshalPostalCode(PostalCodeElement src) {
-		PostalCode dest = new PostalCodeImpl();
+		PostalCode dest = new PostalCode();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1166,7 +1083,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalCodeNumber unmarshalPostalCodeNumber(PostalCodeElement.PostalCodeNumber src) {
-		PostalCodeNumber dest = new PostalCodeNumberImpl();
+		PostalCodeNumber dest = new PostalCodeNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1181,7 +1098,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalCodeNumberExtension unmarshalPostalCodeNumberExtension(PostalCodeElement.PostalCodeNumberExtension src) {
-		PostalCodeNumberExtension dest = new PostalCodeNumberExtensionImpl();
+		PostalCodeNumberExtension dest = new PostalCodeNumberExtension();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1199,7 +1116,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalRoute unmarshalPostalRoute(PostalRouteType src) {
-		PostalRoute dest = new PostalRouteImpl();
+		PostalRoute dest = new PostalRoute();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1224,7 +1141,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalRouteName unmarshalPostalRouteName(PostalRouteType.PostalRouteName src) {
-		PostalRouteName dest = new PostalRouteNameImpl();
+		PostalRouteName dest = new PostalRouteName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1239,7 +1156,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalRouteNumber unmarshalPostalRouteNumber(PostalRouteType.PostalRouteNumber src) {
-		PostalRouteNumber dest = new PostalRouteNumberImpl();
+		PostalRouteNumber dest = new PostalRouteNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1251,7 +1168,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostalServiceElements unmarshalPostalServiceElements(AddressDetails.PostalServiceElements src) {
-		PostalServiceElements dest = new PostalServiceElementsImpl();
+		PostalServiceElements dest = new PostalServiceElements();
 
 		if (src.isSetAddressIdentifier()) {
 			for (AddressDetails.PostalServiceElements.AddressIdentifier addressIdentifier : src.getAddressIdentifier())
@@ -1294,7 +1211,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostBox unmarshalPostBox(PostBoxElement src) {
-		PostBox dest = new PostBoxImpl();
+		PostBox dest = new PostBox();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1329,7 +1246,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostBoxNumber unmarshalPostBoxNumber(PostBoxElement.PostBoxNumber src) {
-		PostBoxNumber dest = new PostBoxNumberImpl();
+		PostBoxNumber dest = new PostBoxNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1341,7 +1258,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostBoxNumberExtension unmarshalPostBoxNumberExtension(PostBoxElement.PostBoxNumberExtension src) {
-		PostBoxNumberExtension dest = new PostBoxNumberExtensionImpl();
+		PostBoxNumberExtension dest = new PostBoxNumberExtension();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1353,7 +1270,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostBoxNumberPrefix unmarshalPostBoxNumberPrefix(PostBoxElement.PostBoxNumberPrefix src) {
-		PostBoxNumberPrefix dest = new PostBoxNumberPrefixImpl();
+		PostBoxNumberPrefix dest = new PostBoxNumberPrefix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1368,7 +1285,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostBoxNumberSuffix unmarshalPostBoxNumberSuffix(PostBoxElement.PostBoxNumberSuffix src) {
-		PostBoxNumberSuffix dest = new PostBoxNumberSuffixImpl();
+		PostBoxNumberSuffix dest = new PostBoxNumberSuffix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1383,7 +1300,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostOffice unmarshalPostOffice(PostOfficeElement src) {
-		PostOffice dest = new PostOfficeImpl();
+		PostOffice dest = new PostOffice();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1414,7 +1331,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostOfficeName unmarshalPostOfficeName(PostOfficeElement.PostOfficeName src) {
-		PostOfficeName dest = new PostOfficeNameImpl();
+		PostOfficeName dest = new PostOfficeName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1429,7 +1346,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostOfficeNumber unmarshalPostOfficeNumber(PostOfficeElement.PostOfficeNumber src) {
-		PostOfficeNumber dest = new PostOfficeNumberImpl();
+		PostOfficeNumber dest = new PostOfficeNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1447,7 +1364,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostTown unmarshalPostTown(PostalCodeElement.PostTown src) {
-		PostTown dest = new PostTownImpl();
+		PostTown dest = new PostTown();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1469,7 +1386,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostTownName unmarshalPostTownName(PostalCodeElement.PostTown.PostTownName src) {
-		PostTownName dest = new PostTownNameImpl();
+		PostTownName dest = new PostTownName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1484,7 +1401,7 @@ public class XALUnmarshaller {
 	}
 
 	public PostTownSuffix unmarshalPostTownSuffix(PostalCodeElement.PostTown.PostTownSuffix src) {
-		PostTownSuffix dest = new PostTownSuffixImpl();
+		PostTownSuffix dest = new PostTownSuffix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1496,7 +1413,7 @@ public class XALUnmarshaller {
 	}
 
 	public Premise unmarshalPremise(PremiseElement src) {
-		Premise dest = new PremiseImpl();
+		Premise dest = new Premise();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1567,7 +1484,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseLocation unmarshalPremiseLocation(PremiseElement.PremiseLocation src) {
-		PremiseLocation dest = new PremiseLocationImpl();
+		PremiseLocation dest = new PremiseLocation();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1579,7 +1496,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseName unmarshalPremiseName(PremiseElement.PremiseName src) {
-		PremiseName dest = new PremiseNameImpl();
+		PremiseName dest = new PremiseName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1597,7 +1514,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseNumber unmarshalPremiseNumber(PremiseNumberElement src) {
-		PremiseNumber dest = new PremiseNumberImpl();
+		PremiseNumber dest = new PremiseNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1624,7 +1541,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseNumberPrefix unmarshalPremiseNumberPrefix(PremiseNumberPrefixElement src) {
-		PremiseNumberPrefix dest = new PremiseNumberPrefixImpl();
+		PremiseNumberPrefix dest = new PremiseNumberPrefix();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -1642,7 +1559,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseNumberRange unmarshalPremiseNumberRange(PremiseElement.PremiseNumberRange src) {
-		PremiseNumberRange dest = new PremiseNumberRangeImpl();
+		PremiseNumberRange dest = new PremiseNumberRange();
 
 		if (src.isSetIndicator())
 			dest.setIndicator(src.getIndicator());
@@ -1672,7 +1589,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseNumberRangeFrom unmarshalPremiseNumberRangeFrom(PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom src) {
-		PremiseNumberRangeFrom dest = new PremiseNumberRangeFromImpl();
+		PremiseNumberRangeFrom dest = new PremiseNumberRangeFrom();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1698,7 +1615,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseNumberRangeTo unmarshalPremiseNumberRangeTo(PremiseElement.PremiseNumberRange.PremiseNumberRangeTo src) {
-		PremiseNumberRangeTo dest = new PremiseNumberRangeToImpl();
+		PremiseNumberRangeTo dest = new PremiseNumberRangeTo();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1724,7 +1641,7 @@ public class XALUnmarshaller {
 	}
 
 	public PremiseNumberSuffix unmarshalPremiseNumberSuffix(PremiseNumberSuffixElement src) {
-		PremiseNumberSuffix dest = new PremiseNumberSuffixImpl();
+		PremiseNumberSuffix dest = new PremiseNumberSuffix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1742,7 +1659,7 @@ public class XALUnmarshaller {
 	}
 
 	public SortingCode unmarshalSortingCode(AddressDetails.PostalServiceElements.SortingCode src) {
-		SortingCode dest = new SortingCodeImpl();
+		SortingCode dest = new SortingCode();
 
 		if (src.isSetCode())
 			dest.setCode(src.getCode());
@@ -1754,7 +1671,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubAdministrativeArea unmarshalSubAdministrativeArea(AdministrativeAreaElement.SubAdministrativeArea src) {
-		SubAdministrativeArea dest = new SubAdministrativeAreaImpl();
+		SubAdministrativeArea dest = new SubAdministrativeArea();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1788,7 +1705,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubAdministrativeAreaName unmarshalSubAdministrativeAreaName(AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName src) {
-		SubAdministrativeAreaName dest = new SubAdministrativeAreaNameImpl();
+		SubAdministrativeAreaName dest = new SubAdministrativeAreaName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1803,7 +1720,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubPremise unmarshalSubPremise(SubPremiseType src) {
-		SubPremise dest = new SubPremiseImpl();
+		SubPremise dest = new SubPremise();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -1857,7 +1774,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubPremiseLocation unmarshalSubPremiseLocation(SubPremiseType.SubPremiseLocation src) {
-		SubPremiseLocation dest = new SubPremiseLocationImpl();
+		SubPremiseLocation dest = new SubPremiseLocation();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1869,7 +1786,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubPremiseName unmarshalSubPremiseName(SubPremiseType.SubPremiseName src) {
-		SubPremiseName dest = new SubPremiseNameImpl();
+		SubPremiseName dest = new SubPremiseName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1887,7 +1804,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubPremiseNumber unmarshalSubPremiseNumber(SubPremiseType.SubPremiseNumber src) {
-		SubPremiseNumber dest = new SubPremiseNumberImpl();
+		SubPremiseNumber dest = new SubPremiseNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1914,7 +1831,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubPremiseNumberPrefix unmarshalSubPremiseNumberPrefix(SubPremiseType.SubPremiseNumberPrefix src) {
-		SubPremiseNumberPrefix dest = new SubPremiseNumberPrefixImpl();
+		SubPremiseNumberPrefix dest = new SubPremiseNumberPrefix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1932,7 +1849,7 @@ public class XALUnmarshaller {
 	}
 
 	public SubPremiseNumberSuffix unmarshalSubPremiseNumberSuffix(SubPremiseType.SubPremiseNumberSuffix src) {
-		SubPremiseNumberSuffix dest = new SubPremiseNumberSuffixImpl();
+		SubPremiseNumberSuffix dest = new SubPremiseNumberSuffix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1950,7 +1867,7 @@ public class XALUnmarshaller {
 	}
 
 	public SupplementaryPostalServiceData unmarshalSupplementaryPostalServiceData(AddressDetails.PostalServiceElements.SupplementaryPostalServiceData src) {
-		SupplementaryPostalServiceData dest = new SupplementaryPostalServiceDataImpl();
+		SupplementaryPostalServiceData dest = new SupplementaryPostalServiceData();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -1965,7 +1882,7 @@ public class XALUnmarshaller {
 	}
 
 	public Thoroughfare unmarshalThoroughfare(ThoroughfareElement src) {
-		Thoroughfare dest = new ThoroughfareImpl();
+		Thoroughfare dest = new Thoroughfare();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -2043,7 +1960,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareLeadingType unmarshalThoroughfareLeadingType(ThoroughfareLeadingTypeType src) {
-		ThoroughfareLeadingType dest = new ThoroughfareLeadingTypeImpl();
+		ThoroughfareLeadingType dest = new ThoroughfareLeadingType();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2058,7 +1975,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareName unmarshalThoroughfareName(ThoroughfareNameType src) {
-		ThoroughfareName dest = new ThoroughfareNameImpl();
+		ThoroughfareName dest = new ThoroughfareName();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2073,7 +1990,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareNumber unmarshalThoroughfareNumber(ThoroughfareNumberElement src) {
-		ThoroughfareNumber dest = new ThoroughfareNumberImpl();
+		ThoroughfareNumber dest = new ThoroughfareNumber();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2100,7 +2017,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareNumberFrom unmarshalThoroughfareNumberFrom(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom src) {
-		ThoroughfareNumberFrom dest = new ThoroughfareNumberFromImpl();
+		ThoroughfareNumberFrom dest = new ThoroughfareNumberFrom();
 
 		if (src.isSetContent()) {
 			for (Object content : src.getContent()) {
@@ -2127,7 +2044,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareNumberPrefix unmarshalThoroughfareNumberPrefix(ThoroughfareNumberPrefixElement src) {
-		ThoroughfareNumberPrefix dest = new ThoroughfareNumberPrefixImpl();
+		ThoroughfareNumberPrefix dest = new ThoroughfareNumberPrefix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2145,7 +2062,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareNumberRange unmarshalThoroughfareNumberRange(ThoroughfareElement.ThoroughfareNumberRange src) {
-		ThoroughfareNumberRange dest = new ThoroughfareNumberRangeImpl();
+		ThoroughfareNumberRange dest = new ThoroughfareNumberRange();
 
 		if (src.isSetAddressLine()) {
 			for (AddressLineElement addressLine : src.getAddressLine())
@@ -2183,7 +2100,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareNumberSuffix unmarshalThoroughfareNumberSuffix(ThoroughfareNumberSuffixElement src) {
-		ThoroughfareNumberSuffix dest = new ThoroughfareNumberSuffixImpl();
+		ThoroughfareNumberSuffix dest = new ThoroughfareNumberSuffix();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2201,7 +2118,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareNumberTo unmarshalThoroughfareNumberTo(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo src) {
-		ThoroughfareNumberTo dest = new ThoroughfareNumberToImpl();
+		ThoroughfareNumberTo dest = new ThoroughfareNumberTo();
 
 		if (src.isSetContent()) {
 			for (Object content : src.getContent()) {
@@ -2228,7 +2145,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfarePostDirection unmarshalThoroughfarePostDirection(ThoroughfarePostDirectionType src) {
-		ThoroughfarePostDirection dest = new ThoroughfarePostDirectionImpl();
+		ThoroughfarePostDirection dest = new ThoroughfarePostDirection();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2243,7 +2160,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfarePreDirection unmarshalThoroughfarePreDirection(ThoroughfarePreDirectionType src) {
-		ThoroughfarePreDirection dest = new ThoroughfarePreDirectionImpl();
+		ThoroughfarePreDirection dest = new ThoroughfarePreDirection();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
@@ -2258,7 +2175,7 @@ public class XALUnmarshaller {
 	}
 
 	public ThoroughfareTrailingType unmarshalThoroughfareTrailingType(ThoroughfareTrailingTypeType src) {
-		ThoroughfareTrailingType dest = new ThoroughfareTrailingTypeImpl();
+		ThoroughfareTrailingType dest = new ThoroughfareTrailingType();
 
 		if (src.isSetContent())
 			dest.setContent(src.getContent());

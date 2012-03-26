@@ -30,10 +30,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
-import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
-import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -98,7 +94,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 			origModel = (CityModel)results.get(0);
 			gmlIds = new HashSet<String>();
 		} else
-			cityModel = new CityModelImpl();
+			cityModel = new CityModel();
 		
 		for (CityGML result : results) {
 			if (result instanceof AbstractFeature) {
@@ -110,19 +106,19 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 					gmlIds.add('#' + feature.getId());
 
 				if (feature instanceof AbstractCityObject) {
-					CityObjectMember member = new CityObjectMemberImpl();
+					CityObjectMember member = new CityObjectMember();
 					member.setCityObject((AbstractCityObject)feature);
 					cityModel.addCityObjectMember(member);
 				} 
 
 				else if (feature instanceof Appearance) {
-					AppearanceMember member = new AppearanceMemberImpl();
+					AppearanceMember member = new AppearanceMember();
 					member.setAppearance((Appearance)feature);
 					cityModel.addAppearanceMember(member);
 				} 
 
 				else {
-					FeatureMember member = new FeatureMemberImpl();
+					FeatureMember member = new FeatureMember();
 					member.setFeature(feature);
 					cityModel.addFeatureMember(member);
 				}
@@ -143,13 +139,13 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 
 				// add ADE feature to new CityModel
 				if (isCityObject(ade)) {
-					CityObjectMember member = new CityObjectMemberImpl();
+					CityObjectMember member = new CityObjectMember();
 					member.setGenericADEComponent(ade);
 					cityModel.addCityObjectMember(member);
 				} 
 
 				else {
-					FeatureMember member = new FeatureMemberImpl();
+					FeatureMember member = new FeatureMember();
 					member.setGenericADEComponent(ade);
 					cityModel.addFeatureMember(member);
 				}
