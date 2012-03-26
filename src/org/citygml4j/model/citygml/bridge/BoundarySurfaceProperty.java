@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface BoundarySurfaceProperty extends BridgeModuleComponent, FeatureProperty<AbstractBoundarySurface> {
-	public AbstractBoundarySurface getBoundarySurface();
-	public boolean isSetBoundarySurface();
+public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySurface> implements BridgeModuleComponent {
+	private BridgeModule module;
+
+	public BoundarySurfaceProperty() {
+		
+	}
 	
-	public void setBoundarySurface(AbstractBoundarySurface boundarySurface);
-	public void unsetBoundarySurface();
+	public BoundarySurfaceProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public AbstractBoundarySurface getBoundarySurface() {
+		return super.getObject();
+	}
+
+	public boolean isSetBoundarySurface() {
+		return super.isSetObject();
+	}
+
+	public void setBoundarySurface(AbstractBoundarySurface boundarySurface) {
+		super.setObject(boundarySurface);
+	}
+
+	public void unsetBoundarySurface() {
+		super.unsetObject();
+	}
+	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.BOUNDARY_SURFACE_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AbstractBoundarySurface> getAssociableClass() {
+		return AbstractBoundarySurface.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BoundarySurfaceProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BoundarySurfaceProperty copy = (target == null) ? new BoundarySurfaceProperty() : (BoundarySurfaceProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

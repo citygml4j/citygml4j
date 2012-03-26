@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface InteriorBridgeRoomProperty extends BridgeModuleComponent, FeatureProperty<BridgeRoom> {
-	public BridgeRoom getBridgeRoom();
-	public boolean isSetBridgeRoom();
+public class InteriorBridgeRoomProperty extends FeatureProperty<BridgeRoom> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setBridgeRoom(BridgeRoom bridgeRoom);
-	public void unsetBridgeRoom();
+	public InteriorBridgeRoomProperty() {
+		
+	}
+	
+	public InteriorBridgeRoomProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public BridgeRoom getBridgeRoom() {
+		return super.getObject();
+	}
+
+	public boolean isSetBridgeRoom() {
+		return super.isSetObject();
+	}
+
+	public void setBridgeRoom(BridgeRoom room) {
+		super.setObject(room);
+	}
+
+	public void unsetBridgeRoom() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INTERIOR_BRIDGE_ROOM_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BridgeRoom> getAssociableClass() {
+		return BridgeRoom.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new InteriorBridgeRoomProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		InteriorBridgeRoomProperty copy = (target == null) ? new InteriorBridgeRoomProperty() : (InteriorBridgeRoomProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

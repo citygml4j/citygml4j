@@ -24,14 +24,100 @@ package org.citygml4j.model.citygml.bridge;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.FeatureFunctor;
+import org.citygml4j.model.common.visitor.FeatureVisitor;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface OuterFloorSurface extends AbstractBoundarySurface {
-	public List<ADEComponent> getGenericApplicationPropertyOfOuterFloorSurface();
-	public boolean isSetGenericApplicationPropertyOfOuterFloorSurface();
+public class OuterFloorSurface extends AbstractBoundarySurface implements BridgeModuleComponent {
+	private List<ADEComponent> ade;
+
+	public OuterFloorSurface() {
+		
+	}
 	
-	public void addGenericApplicationPropertyOfOuterFloorSurface(ADEComponent ade);
-	public void setGenericApplicationPropertyOfOuterFloorSurface(List<ADEComponent> ade);
-	public void unsetGenericApplicationPropertyOfOuterFloorSurface();
-	public boolean unsetGenericApplicationPropertyOfOuterFloorSurface(ADEComponent ade);
+	public OuterFloorSurface(BridgeModule module) {
+		super(module);
+	}
+	
+	public void addGenericApplicationPropertyOfOuterFloorSurface(ADEComponent ade) {
+		if (this.ade == null)
+			this.ade = new ChildList<ADEComponent>(this);
+
+		this.ade.add(ade);
+	}
+
+	public List<ADEComponent> getGenericApplicationPropertyOfOuterFloorSurface() {
+		if (ade == null)
+			ade = new ChildList<ADEComponent>(this);
+
+		return ade;
+	}
+
+	public boolean isSetGenericApplicationPropertyOfOuterFloorSurface() {
+		return ade != null && !ade.isEmpty();
+	}
+
+	public void setGenericApplicationPropertyOfOuterFloorSurface(List<ADEComponent> ade) {
+		this.ade = new ChildList<ADEComponent>(this, ade);
+	}
+
+	public void unsetGenericApplicationPropertyOfOuterFloorSurface() {
+		if (isSetGenericApplicationPropertyOfOuterFloorSurface())
+			ade.clear();
+
+		ade = null;
+	}
+
+	public boolean unsetGenericApplicationPropertyOfOuterFloorSurface(ADEComponent ade) {
+		return isSetGenericApplicationPropertyOfOuterFloorSurface() ? this.ade.remove(ade) : false;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.FLOOR_SURFACE;
+	}
+	
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new OuterFloorSurface(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		OuterFloorSurface copy = (target == null) ? new OuterFloorSurface() : (OuterFloorSurface)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetGenericApplicationPropertyOfOuterFloorSurface()) {
+			for (ADEComponent part : ade) {
+				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
+				copy.addGenericApplicationPropertyOfOuterFloorSurface(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		return copy;
+	}
+	
+	public void accept(FeatureVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T accept(FeatureFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+	
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+	
 }

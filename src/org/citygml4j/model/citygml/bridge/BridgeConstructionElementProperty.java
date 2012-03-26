@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface BridgeConstructionElementProperty extends BridgeModuleComponent, FeatureProperty<BridgeConstructionElement> {
-	public BridgeConstructionElement getBridgeConstructionElement();
-	public boolean isSetBridgeConstructionElement();
+public class BridgeConstructionElementProperty extends FeatureProperty<BridgeConstructionElement> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setBridgeConstructionElement(BridgeConstructionElement bridgeConstructionElement);
-	public void unsetBridgeConstructionElement();
+	public BridgeConstructionElementProperty() {
+		
+	}
+	
+	public BridgeConstructionElementProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public BridgeConstructionElement getBridgeConstructionElement() {
+		return super.getObject();
+	}
+
+	public boolean isSetBridgeConstructionElement() {
+		return super.isSetObject();
+	}
+
+	public void setBridgeConstructionElement(BridgeConstructionElement bridgeConstructionElement) {
+		super.setObject(bridgeConstructionElement);
+	}
+
+	public void unsetBridgeConstructionElement() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.BRIDGE_CONSTRUCTION_ELEMENT_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BridgeConstructionElement> getAssociableClass() {
+		return BridgeConstructionElement.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BridgeConstructionElementProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BridgeConstructionElementProperty copy = (target == null) ? new BridgeConstructionElementProperty() : (BridgeConstructionElementProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

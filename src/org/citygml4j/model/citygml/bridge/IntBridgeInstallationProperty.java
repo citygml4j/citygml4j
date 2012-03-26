@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface IntBridgeInstallationProperty extends BridgeModuleComponent, FeatureProperty<IntBridgeInstallation> {
-	public IntBridgeInstallation getIntBridgeInstallation();
-	public boolean isSetIntBridgeInstallation();
+public class IntBridgeInstallationProperty extends FeatureProperty<IntBridgeInstallation> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setIntBridgeInstallation(IntBridgeInstallation intBridgeInstallation);
-	public void unsetIntBridgeInstallation();
+	public IntBridgeInstallationProperty() {
+		
+	}
+	
+	public IntBridgeInstallationProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public IntBridgeInstallation getIntBridgeInstallation() {
+		return super.getObject();
+	}
+
+	public boolean isSetIntBridgeInstallation() {
+		return super.isSetObject();
+	}
+
+	public void setIntBridgeInstallation(IntBridgeInstallation intBridgeInstallation) {
+		super.setObject(intBridgeInstallation);
+	}
+
+	public void unsetIntBridgeInstallation() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INT_BRIDGE_INSTALLATION_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<IntBridgeInstallation> getAssociableClass() {
+		return IntBridgeInstallation.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new IntBridgeInstallationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		IntBridgeInstallationProperty copy = (target == null) ? new IntBridgeInstallationProperty() : (IntBridgeInstallationProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

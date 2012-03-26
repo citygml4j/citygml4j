@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface BridgeInstallationProperty extends BridgeModuleComponent, FeatureProperty<BridgeInstallation> {
-	public BridgeInstallation getBridgeInstallation();
-	public boolean isSetBridgeInstallation();
+public class BridgeInstallationProperty extends FeatureProperty<BridgeInstallation> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setBridgeInstallation(BridgeInstallation bridgeInstallation);
-	public void unsetBridgeInstallation();
+	public BridgeInstallationProperty() {
+		
+	}
+	
+	public BridgeInstallationProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public BridgeInstallation getBridgeInstallation() {
+		return super.getObject();
+	}
+
+	public boolean isSetBridgeInstallation() {
+		return super.isSetObject();
+	}
+
+	public void setBridgeInstallation(BridgeInstallation bridgeInstallation) {
+		super.setObject(bridgeInstallation);
+	}
+
+	public void unsetBridgeInstallation() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.BRIDGE_INSTALLATION_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BridgeInstallation> getAssociableClass() {
+		return BridgeInstallation.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BridgeInstallationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BridgeInstallationProperty copy = (target == null) ? new BridgeInstallationProperty() : (BridgeInstallationProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

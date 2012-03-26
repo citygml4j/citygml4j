@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface InteriorFurnitureProperty extends BridgeModuleComponent, FeatureProperty<BridgeFurniture> {
-	public BridgeFurniture getBridgeFurniture();
-	public boolean isSetBridgeFurniture();
+public class InteriorFurnitureProperty extends FeatureProperty<BridgeFurniture> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setBridgeFurniture(BridgeFurniture bridgeFurniture);
-	public void unsetBridgeFurniture();
+	public InteriorFurnitureProperty() {
+		
+	}
+	
+	public InteriorFurnitureProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public BridgeFurniture getBridgeFurniture() {
+		return super.getObject();
+	}
+
+	public boolean isSetBridgeFurniture() {
+		return super.isSetObject();
+	}
+
+	public void setBridgeFurniture(BridgeFurniture bridgeFurniture) {
+		super.setObject(bridgeFurniture);
+	}
+
+	public void unsetBridgeFurniture() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INTERIOR_FURNITURE_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BridgeFurniture> getAssociableClass() {
+		return BridgeFurniture.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new InteriorFurnitureProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface OpeningProperty extends BridgeModuleComponent, FeatureProperty<AbstractOpening> {
-	public AbstractOpening getOpening();
-	public boolean isSetOpening();
+public class OpeningProperty extends FeatureProperty<AbstractOpening> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setOpening(AbstractOpening opening);
-	public void unsetOpening();
+	public OpeningProperty() {
+		
+	}
+	
+	public OpeningProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public AbstractOpening getOpening() {
+		return (AbstractOpening)super.getObject();
+	}
+
+	public boolean isSetOpening() {
+		return super.isSetObject();
+	}
+
+	public void setOpening(AbstractOpening opening) {
+		super.setObject(opening);
+	}
+
+	public void unsetOpening() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.OPENING_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AbstractOpening> getAssociableClass() {
+		return AbstractOpening.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new OpeningProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		OpeningProperty copy = (target == null) ? new OpeningProperty() : (OpeningProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

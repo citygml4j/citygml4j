@@ -22,12 +22,69 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BridgeModule;
 
-public interface BridgePartProperty extends BridgeModuleComponent, FeatureProperty<BridgePart> {
-	public BridgePart getBridgePart();
-	public boolean isSetBridgePart();
+public class BridgePartProperty extends FeatureProperty<BridgePart> implements BridgeModuleComponent {
+	private BridgeModule module;
 	
-	public void setBridgePart(BridgePart bridgePart);
-	public void unsetBridgePart();
+	public BridgePartProperty() {
+		
+	}
+	
+	public BridgePartProperty(BridgeModule module) {
+		this.module = module;
+	}
+	
+	public BridgePart getBridgePart() {
+		return super.getObject();
+	}
+
+	public boolean isSetBridgePart() {
+		return super.isSetObject();
+	}
+
+	public void setBridgePart(BridgePart bridgePart) {
+		super.setObject(bridgePart);
+	}
+
+	public void unsetBridgePart() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.BRIDGE_PART_PROPERTY;
+	}
+
+	public final BridgeModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BridgePart> getAssociableClass() {
+		return BridgePart.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BridgePartProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BridgePartProperty copy = (target == null) ? new BridgePartProperty() : (BridgePartProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }
