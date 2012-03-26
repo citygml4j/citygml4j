@@ -898,7 +898,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 				if (textureAssociation.isSetTextureParameterization() && shouldWalk && visited.add(textureAssociation.getTextureParameterization())) {
 					AbstractTextureParameterization textureParameterization = textureAssociation.getTextureParameterization();
 
-					if (textureAssociation instanceof TexCoordGen) {
+					if (textureParameterization instanceof TexCoordGen) {
 						TexCoordGen texCoordGen = (TexCoordGen)textureParameterization;
 						if (texCoordGen.isSetGenericApplicationPropertyOfTexCoordGen()) {
 							for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordGen.getGenericApplicationPropertyOfTexCoordGen())) {
@@ -909,7 +909,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 						}
 					}
 
-					else if (textureAssociation instanceof TexCoordList) {
+					else if (textureParameterization instanceof TexCoordList) {
 						TexCoordList texCoordList = (TexCoordList)textureParameterization;
 						if (texCoordList.isSetGenericApplicationPropertyOfTexCoordList()) {
 							for (ADEComponent ade : new ArrayList<ADEComponent>(texCoordList.getGenericApplicationPropertyOfTexCoordList())) {
