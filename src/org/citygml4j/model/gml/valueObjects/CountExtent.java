@@ -22,8 +22,41 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import java.util.List;
+
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 
-public interface CountExtent extends IntegerOrNullList {
+public class CountExtent extends IntegerOrNullList {
+
+	@Override
+	public void addIntegerOrNull(IntegerOrNull integerOrNull) {
+		if (getIntegerOrNull().size() < 2)
+			super.addIntegerOrNull(integerOrNull);
+	}
+
+	@Override
+	public void setIntegerOrNull(List<IntegerOrNull> integerOrNull) {
+		if (integerOrNull != null && integerOrNull.size() >= 2)
+			super.setIntegerOrNull(integerOrNull.subList(0, 2));
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.COUNT_EXTENT;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CountExtent(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CountExtent copy = (target == null) ? new CountExtent() : (CountExtent)target;
+		return super.copyTo(copy, copyBuilder);
+	}
 
 }

@@ -22,15 +22,79 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.GMLClass;
 
-public interface ValueArray extends CompositeValue {
-	public String getCodeSpace();
-	public String getUom();
-	public boolean isSetCodeSpace();
-	public boolean isSetUom();
+public class ValueArray extends CompositeValue {
+	private String codeSpace;
+	private String uom;
 	
-	public void setCodeSpace(String codeSpace);
-	public void setUom(String uom);
-	public void unsetCodeSpace();
-	public void unsetUom();
+	public String getCodeSpace() {
+		return codeSpace;
+	}
+
+	public String getUom() {
+		return uom;
+	}
+
+	public boolean isSetCodeSpace() {
+		return codeSpace != null;
+	}
+
+	public boolean isSetUom() {
+		return uom != null;
+	}
+
+	public void setCodeSpace(String codeSpace) {
+		this.codeSpace = codeSpace;
+	}
+
+	public void setUom(String uom) {
+		this.uom = uom;
+	}
+
+	public void unsetCodeSpace() {
+		codeSpace = null;
+	}
+
+	public void unsetUom() {
+		uom = null;
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.VALUE_ARRAY;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ValueArray copy = (target == null) ? new ValueArray() : (ValueArray)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetCodeSpace())
+			copy.setCodeSpace(copyBuilder.copy(codeSpace));
+		
+		if (isSetUom())
+			copy.setUom(copyBuilder.copy(uom));
+		
+		return copy;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ValueArray(), copyBuilder);
+	}
+
+	@Override
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	@Override
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
 }

@@ -22,12 +22,43 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
-public interface ValueProperty extends AssociationByRepOrRef<Value> {
-	public Value getValue();
-	public boolean isSetValue();
+public class ValueProperty extends AssociationByRepOrRef<Value> {
+
+	public Value getValue() {
+		return super.getObject();
+	}
+
+	public boolean isSetValue() {
+		return super.isSetObject();
+	}
+
+	public void setValue(Value value) {
+		super.setObject(value);
+	}
+
+	public void unsetValue() {
+		super.unsetObject();
+	}
 	
-	public void setValue(Value value);
-	public void unsetValue();
+	public GMLClass getGMLClass() {
+		return GMLClass.VALUE_PROPERTY;
+	}
+
+	public Class<Value> getAssociableClass() {
+		return Value.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ValueProperty copy = (target == null) ? new ValueProperty() : (ValueProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ValueProperty(), copyBuilder);
+	}
+
 }

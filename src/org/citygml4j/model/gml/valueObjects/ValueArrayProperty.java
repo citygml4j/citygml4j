@@ -24,14 +24,51 @@ package org.citygml4j.model.gml.valueObjects;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface ValueArrayProperty extends ArrayAssociation<Value> {
-	public List<Value> getValue();
-	public boolean isSetValue();
+public class ValueArrayProperty extends ArrayAssociation<Value> {
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.VALUE_ARRAY_PROPERTY;
+	}
 
-	public void setValue(List<Value> value);
-	public void addValue(Value value);
-	public void unsetValue();
-	public boolean unsetValue(Value value);
+	public List<Value> getValue() {
+		return super.getObject();
+	}
+
+	public boolean isSetValue() {
+		return super.isSetObject();
+	}
+
+	public void setValue(List<Value> value) {
+		super.setObject(value);
+	}
+
+	public void addValue(Value value) {
+		super.addObject(value);
+	}
+
+	public void unsetValue() {
+		super.unsetObject();
+	}
+
+	public boolean unsetValue(Value value) {
+		return super.unsetObject(value);
+	}
+	
+	public Class<Value> getAssociableClass() {
+		return Value.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ValueArrayProperty copy = (target == null) ? new ValueArrayProperty() : (ValueArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ValueArrayProperty(), copyBuilder);
+	}
+
 }
