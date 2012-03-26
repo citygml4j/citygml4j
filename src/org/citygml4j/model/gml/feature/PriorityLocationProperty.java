@@ -22,10 +22,47 @@
  */
 package org.citygml4j.model.gml.feature;
 
-public interface PriorityLocationProperty extends LocationProperty {
-	public String getPriority();
-	public boolean isSetPriority();
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+
+public class PriorityLocationProperty extends LocationProperty {
+	private String priority;
 	
-	public void setPriority(String priority);
-	public void unsetPriority();
+	public String getPriority() {
+		return priority;
+	}
+
+	public boolean isSetPriority() {
+		return priority != null;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public void unsetPriority() {
+		priority = null;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PriorityLocationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PriorityLocationProperty copy = (target == null) ? new PriorityLocationProperty() : (PriorityLocationProperty)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetPriority())
+			copy.setPriority(copyBuilder.copy(priority));
+		
+		return copy;
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.PRIORITY_LOCATION_PROPERTY;
+	}
+
 }
