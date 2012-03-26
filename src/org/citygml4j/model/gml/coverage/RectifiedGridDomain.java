@@ -22,12 +22,47 @@
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
-public interface RectifiedGridDomain extends DomainSet<RectifiedGrid> {
-	public RectifiedGrid getRectifiedGrid();
-	public boolean isSetRectifiedGrid();
-	
-	public void setRectifiedGrid(RectifiedGrid rectifiedGrid);
-	public void unsetRectifiedGrid();
+public class RectifiedGridDomain extends DomainSet<RectifiedGrid> {
+
+	public RectifiedGrid getRectifiedGrid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetRectifiedGrid() {
+		return super.isSetGeometry();
+	}
+
+	public void setRectifiedGrid(RectifiedGrid rectifiedGrid) {
+		setObject(rectifiedGrid);
+	}
+
+	public void unsetRectifiedGrid() {
+		super.unsetGeometry();
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.RECTIFIED_GRID_DOMAIN;
+	}
+
+	@Override
+	public Class<RectifiedGrid> getAssociableClass() {
+		return RectifiedGrid.class;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		RectifiedGridDomain copy = (target == null) ? new RectifiedGridDomain() : (RectifiedGridDomain)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new RectifiedGridDomain(), copyBuilder);
+	}
+
 }

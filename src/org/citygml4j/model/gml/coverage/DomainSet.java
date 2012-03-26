@@ -22,9 +22,25 @@
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface DomainSet<T extends AbstractGeometry> extends GeometryProperty<T> {
-	// gml:_TimeObject is not implemented since it is not used in CityGML
+public class DomainSet<T extends AbstractGeometry> extends GeometryProperty<T> {
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.DOMAIN_SET;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		DomainSet<T> copy = (target == null) ? new DomainSet<T>() : (DomainSet<T>)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new DomainSet<T>(), copyBuilder);
+	}
+
 }

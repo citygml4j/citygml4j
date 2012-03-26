@@ -22,11 +22,48 @@
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
 
-public interface AbstractDiscreteCoverage extends AbstractCoverage {
-	public CoverageFunction getCoverageFunction();
-	public boolean isSetCoverageFunction();
+public abstract class AbstractDiscreteCoverage extends AbstractCoverage {
+	private CoverageFunction coverageFunction;	
 
-	public void setCoverageFunction(CoverageFunction coverageFunction);
-	public void unsetCoverageFunction();
+	public CoverageFunction getCoverageFunction() {
+		return coverageFunction;
+	}
+
+	public boolean isSetCoverageFunction() {
+		return coverageFunction != null;
+	}
+
+	public void setCoverageFunction(CoverageFunction coverageFunction) {
+		if (coverageFunction != null)
+			coverageFunction.setParent(this);
+		
+		this.coverageFunction = coverageFunction;
+	}
+
+	public void unsetCoverageFunction() {
+		if (isSetCoverageFunction())
+			coverageFunction.unsetParent();
+		
+		coverageFunction = null;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		if (target == null)
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+		AbstractDiscreteCoverage copy = (AbstractDiscreteCoverage)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetCoverageFunction()) {
+			copy.setCoverageFunction((CoverageFunction)copyBuilder.copy(coverageFunction));
+			if (copy.getCoverageFunction() == coverageFunction)
+				coverageFunction.setParent(this);
+		}
+		
+		return copy;
+	}
+
 }

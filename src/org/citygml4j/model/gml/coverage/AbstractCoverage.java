@@ -22,18 +22,70 @@
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 
-public interface AbstractCoverage extends AbstractFeature {
-	// not fully implemented since CityGML only uses RectifiedGridCoverage
-	// which is derived by restriction
-	public RangeSet getRangeSet();
-	public Integer getDimension();
-	public boolean isSetRangeSet();
-	public boolean isSetDimension();
+public abstract class AbstractCoverage extends AbstractFeature {
+	private RangeSet rangeSet;
+	private Integer dimension;
 	
-	public void setRangeSet(RangeSet rangeSet);
-	public void setDimension(Integer dimension);
-	public void unsetRangeSet();
-	public void unsetDimension();
+	public RangeSet getRangeSet() {
+		return rangeSet;
+	}
+	
+	public Integer getDimension() {
+		return dimension;
+	}
+
+	public boolean isSetRangeSet() {
+		return rangeSet != null;
+	}
+	
+	public boolean isSetDimension() {
+		return dimension != null;
+	}
+	
+	public void setRangeSet(RangeSet rangeSet) {
+		if (rangeSet != null)
+			rangeSet.setParent(this);
+		
+		this.rangeSet = rangeSet;
+	}
+
+	public void setDimension(Integer dimension) {
+		if (dimension > 0)
+			this.dimension = dimension;
+	}
+	
+	public void unsetRangeSet() {
+		if (isSetRangeSet())
+			rangeSet.unsetParent();
+		
+		rangeSet = null;
+	}
+
+	public void unsetDimension() {
+		dimension = null;
+	}
+	
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		if (target == null)
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+		AbstractCoverage copy = (AbstractCoverage)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetRangeSet()) {
+			copy.setRangeSet((RangeSet)copyBuilder.copy(rangeSet));
+			if (copy.getRangeSet() == rangeSet)
+				rangeSet.setParent(this);
+		}
+		
+		if (isSetDimension())
+			copy.setDimension((Integer)copyBuilder.copy(dimension));
+		
+		return copy;
+	}
+	
 }
