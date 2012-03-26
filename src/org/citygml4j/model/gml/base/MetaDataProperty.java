@@ -22,15 +22,64 @@
  */
 package org.citygml4j.model.gml.base;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 
-public interface MetaDataProperty extends AssociationByRepOrRef<MetaData> {
-	public MetaData getMetaData();
-	public String getAbout();
-	public boolean isSetMetaData();
-	public boolean isSetAbout();
+public class MetaDataProperty extends AssociationByRepOrRef<MetaData> {
+	private String about;
 	
-	public void setMetaData(MetaData metaData);
-	public void setAbout(String about);
-	public void unsetMetaData();
-	public void unsetAbout();
+	public String getAbout() {
+		return about;
+	}
+
+	public MetaData getMetaData() {
+		return super.getObject();
+	}
+
+	public boolean isSetAbout() {
+		return about != null;
+	}
+
+	public boolean isSetMetaData() {
+		return super.isSetObject();
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public void setMetaData(MetaData metaData) {
+		super.setObject(metaData);
+	}
+
+	public void unsetAbout() {
+		about = null;
+	}
+
+	public void unsetMetaData() {
+		super.unsetObject();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.META_DATA_PROPERTY;
+	}
+	
+	public Class<MetaData> getAssociableClass() {
+		return MetaData.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MetaDataProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MetaDataProperty copy = (target == null) ? new MetaDataProperty() : (MetaDataProperty)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetAbout())
+			copy.setAbout(copyBuilder.copy(about));
+		
+		return copy;
+	}
+
 }

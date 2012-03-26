@@ -27,7 +27,6 @@ import java.util.List;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.basicTypes.Code;
 
-
 public interface StandardObjectProperties extends GML {
 	public List<Code> getName();
 	public StringOrRef getDescription();
