@@ -23,113 +23,96 @@
 package org.citygml4j.model.xal;
 
 import org.citygml4j.model.common.base.ModelClassEnum;
-import org.citygml4j.model.common.base.ModelObject;
 
 public enum XALClass implements ModelClassEnum {
-	UNDEFINED(null),
+	UNDEFINED,
 
-	ADDRESS(Address.class),
-	ADDRESS_DETAILS(AddressDetails.class),
-	ADDRESS_LATITUDE(AddressLatitude.class),
-	ADDRESS_LATITUDE_DIRECTION(AddressLatitudeDirection.class),
-	ADDRESS_LINE(AddressLine.class),
-	ADDRESS_LINES(AddressLines.class),
-	ADDRESS_LONGITUDE(AddressLongitude.class),
-	ADDRESS_LONGITUDE_DIRECTION(AddressLongitudeDirection.class),
-	ADDRESS_IDENTIFIER(AddressIdentifier.class),
-	ADMINISTRATIVE_AREA(AdministrativeArea.class),
-	ADMINISTRATIVE_AREA_NAME(AdministrativeAreaName.class),
-	BARCODE(Barcode.class),
-	BUILDING_NAME(BuildingName.class),
-	COUNTRY(Country.class),
-	COUNTRY_NAME(CountryName.class),
-	COUNTRY_NAME_CODE(CountryNameCode.class),
-	DEPARTMENT(Department.class),
-	DEPARTMENT_NAME(DepartmentName.class),
-	DEPENDENT_LOCALITY(DependentLocality.class),
-	DEPENDENT_LOCALITY_NAME(DependentLocalityName.class),
-	DEPENDENT_LOCALITY_NUMBER(DependentLocalityNumber.class),
-	DEPENDENT_THOROUGHFARE(DependentThoroughfare.class),
-	ENDORSEMENT_LINE_CODE(EndorsementLineCode.class),
-	FIRM(Firm.class),
-	FIRM_NAME(FirmName.class),
-	LARGE_MAIL_USER(LargeMailUser.class),
-	LARGE_MAIL_USER_NAME(LargeMailUserName.class),
-	LARGE_MAIL_USER_IDENTIFIER(LargeMailUserIdentifier.class),
-	LOCALITY(Locality.class),
-	LOCALITY_NAME(LocalityName.class),
-	KEY_LINE_CODE(KeyLineCode.class),
-	MAIL_STOP(MailStop.class),
-	MAIL_STOP_NAME(MailStopName.class),
-	MAIL_STOP_NUMBER(MailStopNumber.class),
-	POSTAL_CODE(PostalCode.class),
-	POSTAL_CODE_NUMBER(PostalCodeNumber.class),
-	POSTAL_CODE_NUMBER_EXTENSION(PostalCodeNumberExtension.class),
-	POSTAL_SERVICE_ELEMENTS(PostalServiceElements.class),
-	POSTAL_ROUTE(PostalRoute.class),
-	POSTAL_ROUTE_NAME(PostalRouteName.class),
-	POSTAL_ROUTE_NUMBER(PostalRouteNumber.class),
-	POST_BOX(PostBox.class),
-	POST_BOX_NUMBER(PostBoxNumber.class),
-	POST_BOX_NUMBER_EXTENSION(PostBoxNumberExtension.class),
-	POST_BOX_NUMBER_PREFIX(PostBoxNumberPrefix.class),
-	POST_BOX_NUMBER_SUFFIX(PostBoxNumberSuffix.class),
-	POST_OFFICE(PostOffice.class),
-	POST_OFFICE_NAME(PostOfficeName.class),
-	POST_OFFICE_NUMBER(PostOfficeNumber.class),
-	POST_TOWN(PostTown.class),
-	POST_TOWN_NAME(PostTownName.class),
-	POST_TOWN_SUFFIX(PostTownSuffix.class),
-	PREMISE(Premise.class),
-	PREMISE_LOCATION(PremiseLocation.class),
-	PREMISE_NAME(PremiseName.class),
-	PREMISE_NUMBER(PremiseNumber.class),
-	PREMISE_NUMBER_PREFIX(PremiseNumberPrefix.class),
-	PREMISE_NUMBER_RANGE(PremiseNumberRange.class),
-	PREMISE_NUMBER_RANGE_FROM(PremiseNumberRangeFrom.class),
-	PREMISE_NUMBER_RANGE_TO(PremiseNumberRangeTo.class),
-	PREMISE_NUMBER_SUFFIX(PremiseNumberSuffix.class),
-	SORTING_CODE(SortingCode.class),
-	SUB_ADMINISTRATIVE_AREA(SubAdministrativeArea.class),
-	SUB_ADMINISTRATIVE_AREA_NAME(SubAdministrativeAreaName.class),
-	SUB_PREMISE(SubPremise.class),
-	SUB_PREMISE_LOCATION(SubPremiseLocation.class),
-	SUB_PREMISE_NAME(SubPremiseName.class),
-	SUB_PREMISE_NUMBER(SubPremiseNumber.class),
-	SUB_PREMISE_NUMBER_PREFIX(SubPremiseNumberPrefix.class),
-	SUB_PREMISE_NUMBER_SUFFIX(SubPremiseNumberSuffix.class),
-	SUPPLEMENTARY_POSTAL_SERVICE_DATA(SupplementaryPostalServiceData.class),
-	THOROUGHFARE(Thoroughfare.class),
-	THOROUGHFARE_LEADING_TYPE(ThoroughfareLeadingType.class),
-	THOROUGHFARE_NAME(ThoroughfareName.class),
-	THOROUGHFARE_NUMBER(ThoroughfareNumber.class),
-	THOROUGHFARE_NUMBER_FROM(ThoroughfareNumberFrom.class),
-	THOROUGHFARE_NUMBER_FROM_CONTENT(ThoroughfareNumberFromContent.class),
-	THOROUGHFARE_NUMBER_RANGE(ThoroughfareNumberRange.class),
-	THOROUGHFARE_NUMBER_OR_RANGE(ThoroughfareNumberOrRange.class),
-	THOROUGHFARE_NUMBER_PREFIX(ThoroughfareNumberPrefix.class),
-	THOROUGHFARE_NUMBER_SUFFIX(ThoroughfareNumberSuffix.class),
-	THOROUGHFARE_NUMBER_TO(ThoroughfareNumberTo.class),
-	THOROUGHFARE_NUMBER_TO_CONTENT(ThoroughfareNumberToContent.class),
-	THOROUGHFARE_PRE_DIRECTION(ThoroughfarePreDirection.class),
-	THOROUGHFARE_POST_DIRECTION(ThoroughfarePostDirection.class),
-	THOROUGHFARE_TRAILING_TYPE(ThoroughfareTrailingType.class);
-	
-	private final Class<? extends ModelObject> interfaceName;
-
-	private XALClass(Class<? extends ModelObject> interfaceName) {
-		this.interfaceName = interfaceName;
-	}
-	
-	public static XALClass fromInterface(Class<? extends ModelObject> interfaceName) {
-		if (interfaceName.isInterface()) {
-			for (XALClass c : XALClass.values())
-				if (c.interfaceName == interfaceName)
-					return c;
-		}
-
-		return null;
-	}
+	ADDRESS,
+	ADDRESS_DETAILS,
+	ADDRESS_LATITUDE,
+	ADDRESS_LATITUDE_DIRECTION,
+	ADDRESS_LINE,
+	ADDRESS_LINES,
+	ADDRESS_LONGITUDE,
+	ADDRESS_LONGITUDE_DIRECTION,
+	ADDRESS_IDENTIFIER,
+	ADMINISTRATIVE_AREA,
+	ADMINISTRATIVE_AREA_NAME,
+	BARCODE,
+	BUILDING_NAME,
+	COUNTRY,
+	COUNTRY_NAME,
+	COUNTRY_NAME_CODE,
+	DEPARTMENT,
+	DEPARTMENT_NAME,
+	DEPENDENT_LOCALITY,
+	DEPENDENT_LOCALITY_NAME,
+	DEPENDENT_LOCALITY_NUMBER,
+	DEPENDENT_THOROUGHFARE,
+	ENDORSEMENT_LINE_CODE,
+	FIRM,
+	FIRM_NAME,
+	LARGE_MAIL_USER,
+	LARGE_MAIL_USER_NAME,
+	LARGE_MAIL_USER_IDENTIFIER,
+	LOCALITY,
+	LOCALITY_NAME,
+	KEY_LINE_CODE,
+	MAIL_STOP,
+	MAIL_STOP_NAME,
+	MAIL_STOP_NUMBER,
+	POSTAL_CODE,
+	POSTAL_CODE_NUMBER,
+	POSTAL_CODE_NUMBER_EXTENSION,
+	POSTAL_SERVICE_ELEMENTS,
+	POSTAL_ROUTE,
+	POSTAL_ROUTE_NAME,
+	POSTAL_ROUTE_NUMBER,
+	POST_BOX,
+	POST_BOX_NUMBER,
+	POST_BOX_NUMBER_EXTENSION,
+	POST_BOX_NUMBER_PREFIX,
+	POST_BOX_NUMBER_SUFFIX,
+	POST_OFFICE,
+	POST_OFFICE_NAME,
+	POST_OFFICE_NUMBER,
+	POST_TOWN,
+	POST_TOWN_NAME,
+	POST_TOWN_SUFFIX,
+	PREMISE,
+	PREMISE_LOCATION,
+	PREMISE_NAME,
+	PREMISE_NUMBER,
+	PREMISE_NUMBER_PREFIX,
+	PREMISE_NUMBER_RANGE,
+	PREMISE_NUMBER_RANGE_FROM,
+	PREMISE_NUMBER_RANGE_TO,
+	PREMISE_NUMBER_SUFFIX,
+	SORTING_CODE,
+	SUB_ADMINISTRATIVE_AREA,
+	SUB_ADMINISTRATIVE_AREA_NAME,
+	SUB_PREMISE,
+	SUB_PREMISE_LOCATION,
+	SUB_PREMISE_NAME,
+	SUB_PREMISE_NUMBER,
+	SUB_PREMISE_NUMBER_PREFIX,
+	SUB_PREMISE_NUMBER_SUFFIX,
+	SUPPLEMENTARY_POSTAL_SERVICE_DATA,
+	THOROUGHFARE,
+	THOROUGHFARE_LEADING_TYPE,
+	THOROUGHFARE_NAME,
+	THOROUGHFARE_NUMBER,
+	THOROUGHFARE_NUMBER_FROM,
+	THOROUGHFARE_NUMBER_FROM_CONTENT,
+	THOROUGHFARE_NUMBER_RANGE,
+	THOROUGHFARE_NUMBER_OR_RANGE,
+	THOROUGHFARE_NUMBER_PREFIX,
+	THOROUGHFARE_NUMBER_SUFFIX,
+	THOROUGHFARE_NUMBER_TO,
+	THOROUGHFARE_NUMBER_TO_CONTENT,
+	THOROUGHFARE_PRE_DIRECTION,
+	THOROUGHFARE_POST_DIRECTION,
+	THOROUGHFARE_TRAILING_TYPE;
 	
 	public static XALClass fromInt(int i) {
 		for (XALClass c : XALClass.values()) {
@@ -139,27 +122,5 @@ public enum XALClass implements ModelClassEnum {
 		}
 
 		return UNDEFINED;
-	}
-
-	public Class<? extends ModelObject> getInterface() {
-		return interfaceName;
-	}
-	
-	public boolean isInstance(ModelClassEnum type) {
-		return isInstance(interfaceName, type.getInterface());
-	}
-	
-	private boolean isInstance(Class<?> a, Class<?> b) {
-		if (a == null || b == null)
-			return false;
-
-		if (a == b)
-			return true;
-
-		for (Class<?> tmp : b.getInterfaces())
-			if (isInstance(a, tmp))
-				return true;
-
-		return false;
 	}
 }

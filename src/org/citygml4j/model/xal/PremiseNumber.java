@@ -22,38 +22,202 @@
  */
 package org.citygml4j.model.xal;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
-public interface PremiseNumber extends XAL, GrPostal, Child, Copyable {
-	public String getContent();
-	public String getNumberType();
-	public String getType();
-	public String getIndicator();
-	public String getIndicatorOccurrence();
-	public String getNumberTypeOccurrence();
-	public boolean isSetContent();
-	public boolean isSetNumberType();
-	public boolean isSetType();
-	public boolean isSetIndicator();
-	public boolean isSetIndicatorOccurrence();
-	public boolean isSetNumberTypeOccurrence();
-	
-	public void setContent(String content);
-	public void setNumberType(String numberType);
-	public void setType(String type);
-	public void setIndicator(String indicator);
-	public void setIndicatorOccurrence(String indicatorOccurrence);
-	public void setNumberTypeOccurrence(String numberTypeOccurrence);
-	public void unsetContent();
-	public void unsetNumberType();
-	public void unsetType();
-	public void unsetIndicator();
-	public void unsetIndicatorOccurrence();
-	public void unsetNumberTypeOccurrence();
+public class PremiseNumber implements XAL, GrPostal, Child, Copyable {
+	private String content;
+	private String numberType;
+	private String type;
+	private String indicator;
+	private String indicatorOccurrence;
+	private String numberTypeOccurrence;
+	private String code;
+	private ModelObject parent;
 
-	public void visit(XALVisitor visitor);
-	public <T> T visit(XALFunctor<T> visitor);
+	public String getContent() {
+		return content;
+	}
+
+	public String getIndicator() {
+		return indicator;
+	}
+
+	public String getIndicatorOccurrence() {
+		return indicatorOccurrence;
+	}
+
+	public String getNumberType() {
+		return numberType;
+	}
+
+	public String getNumberTypeOccurrence() {
+		return numberTypeOccurrence;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public boolean isSetContent() {
+		return content != null;
+	}
+
+	public boolean isSetIndicator() {
+		return indicator != null;
+	}
+
+	public boolean isSetIndicatorOccurrence() {
+		return indicatorOccurrence != null;
+	}
+
+	public boolean isSetNumberType() {
+		return numberType != null;
+	}
+
+	public boolean isSetNumberTypeOccurrence() {
+		return numberTypeOccurrence != null;
+	}
+
+	public boolean isSetType() {
+		return type != null;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setIndicator(String indicator) {
+		this.indicator = indicator;
+	}
+
+	public void setIndicatorOccurrence(String indicatorOccurrence) {
+		if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
+			this.indicatorOccurrence = indicatorOccurrence;
+	}
+
+	public void setNumberType(String numberType) {
+		if (numberType.equals("Single") || numberType.equals("Range"))
+			this.numberType = numberType;
+	}
+
+	public void setNumberTypeOccurrence(String numberTypeOccurrence) {
+		if (numberTypeOccurrence.equals("Before") || numberTypeOccurrence.equals("After"))
+			this.numberTypeOccurrence = numberTypeOccurrence;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public void unsetContent() {
+		content = null;
+	}
+
+	public void unsetIndicator() {
+		indicator = null;
+	}
+
+	public void unsetIndicatorOccurrence() {
+		indicatorOccurrence = null;
+	}
+
+	public void unsetNumberType() {
+		numberType = null;
+	}
+
+	public void unsetNumberTypeOccurrence() {
+		numberTypeOccurrence = null;
+	}
+
+	public void unsetType() {
+		type = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
+	public XALClass getXALClass() {
+		return XALClass.PREMISE_NUMBER;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public boolean isSetCode() {
+		return code != null;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void unsetCode() {
+		code = null;
+	}
+
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PremiseNumber(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PremiseNumber copy = (target == null) ? new PremiseNumber() : (PremiseNumber)target;
+
+		if (isSetContent())
+			copy.setContent(copyBuilder.copy(content));
+
+		if (isSetNumberType())
+			copy.setNumberType(copyBuilder.copy(numberType));
+
+		if (isSetType())
+			copy.setType(copyBuilder.copy(type));
+
+		if (isSetIndicator())
+			copy.setIndicator(copyBuilder.copy(indicator));
+
+		if (isSetIndicatorOccurrence())
+			copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
+
+		if (isSetNumberTypeOccurrence())
+			copy.setNumberTypeOccurrence(copyBuilder.copy(numberTypeOccurrence));
+		
+		if (isSetCode())
+			copy.setCode(copyBuilder.copy(code));
+
+		copy.unsetParent();
+
+		return copy;
+	}
+
+	public void visit(XALVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+	
 }

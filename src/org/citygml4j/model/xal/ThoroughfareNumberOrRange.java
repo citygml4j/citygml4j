@@ -22,17 +22,121 @@
  */
 package org.citygml4j.model.xal;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
-public interface ThoroughfareNumberOrRange extends XAL, Child, Copyable {
-	public ThoroughfareNumber getThoroughfareNumber();
-	public ThoroughfareNumberRange getThoroughfareNumberRange();
-	public boolean isSetThoroughfareNumber();
-	public boolean isSetThoroughfareNumberRange();
+public class ThoroughfareNumberOrRange implements XAL, Child, Copyable {
+	private ThoroughfareNumber thoroughfareNumber;
+	private ThoroughfareNumberRange thoroughfareNumberRange;
+	private ModelObject parent;
 	
-	public void setThoroughfareNumber(ThoroughfareNumber thoroughfareNumber);
-	public void setThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange);
-	public void unsetThoroughfareNumber();
-	public void unsetThoroughfareNumberRange();
+	public ThoroughfareNumberOrRange() {
+		
+	}
+	
+	public ThoroughfareNumberOrRange(ThoroughfareNumber thoroughfareNumber) {
+		setThoroughfareNumber(thoroughfareNumber);
+	}
+	
+	public ThoroughfareNumberOrRange(ThoroughfareNumberRange thoroughfareNumberRange) {
+		setThoroughfareNumberRange(thoroughfareNumberRange);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+	
+	public XALClass getXALClass() {
+		return XALClass.THOROUGHFARE_NUMBER_OR_RANGE;
+	}
+
+	public ThoroughfareNumber getThoroughfareNumber() {
+		return thoroughfareNumber;
+	}
+
+	public ThoroughfareNumberRange getThoroughfareNumberRange() {
+		return thoroughfareNumberRange;
+	}
+
+	public boolean isSetThoroughfareNumber() {
+		return thoroughfareNumber != null;
+	}
+
+	public boolean isSetThoroughfareNumberRange() {
+		return thoroughfareNumberRange != null;
+	}
+
+	public void setThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
+		if (thoroughfareNumber != null)
+			thoroughfareNumber.setParent(this);
+		
+		this.thoroughfareNumber = thoroughfareNumber;
+		unsetThoroughfareNumberRange();
+	}
+
+	public void setThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange) {
+		if (thoroughfareNumberRange != null)
+			thoroughfareNumberRange.setParent(this);
+		
+		this.thoroughfareNumberRange = thoroughfareNumberRange;
+		unsetThoroughfareNumber();
+	}
+
+	public void unsetThoroughfareNumber() {
+		if (isSetThoroughfareNumber())
+			thoroughfareNumber.unsetParent();
+		
+		thoroughfareNumber = null;
+	}
+
+	public void unsetThoroughfareNumberRange() {
+		if (isSetThoroughfareNumberRange())
+			thoroughfareNumberRange.unsetParent();
+		
+		thoroughfareNumberRange = null;
+	}
+
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ThoroughfareNumberOrRange(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ThoroughfareNumberOrRange copy = (target == null) ? new ThoroughfareNumberOrRange() : (ThoroughfareNumberOrRange)target;
+		
+		if (isSetThoroughfareNumber()) {
+			copy.setThoroughfareNumber((ThoroughfareNumber)copyBuilder.copy(thoroughfareNumber));
+			if (copy.getThoroughfareNumber() == thoroughfareNumber)
+				thoroughfareNumber.setParent(this);
+		}
+		
+		if (isSetThoroughfareNumberRange()) {
+			copy.setThoroughfareNumberRange((ThoroughfareNumberRange)copyBuilder.copy(thoroughfareNumberRange));
+			if (copy.getThoroughfareNumberRange() == thoroughfareNumberRange)
+				thoroughfareNumberRange.setParent(this);
+		}
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
+
 }
