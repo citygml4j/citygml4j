@@ -22,14 +22,6 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.generics.DateAttributeImpl;
-import org.citygml4j.impl.citygml.generics.DoubleAttributeImpl;
-import org.citygml4j.impl.citygml.generics.GenericAttributeSetImpl;
-import org.citygml4j.impl.citygml.generics.GenericCityObjectImpl;
-import org.citygml4j.impl.citygml.generics.IntAttributeImpl;
-import org.citygml4j.impl.citygml.generics.MeasureAttributeImpl;
-import org.citygml4j.impl.citygml.generics.StringAttributeImpl;
-import org.citygml4j.impl.citygml.generics.UriAttributeImpl;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
 import org.citygml4j.model.citygml.generics.GenericAttributeSet;

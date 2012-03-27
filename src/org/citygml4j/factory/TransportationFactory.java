@@ -22,15 +22,6 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.transportation.AuxiliaryTrafficAreaImpl;
-import org.citygml4j.impl.citygml.transportation.AuxiliaryTrafficAreaPropertyImpl;
-import org.citygml4j.impl.citygml.transportation.RailwayImpl;
-import org.citygml4j.impl.citygml.transportation.RoadImpl;
-import org.citygml4j.impl.citygml.transportation.SquareImpl;
-import org.citygml4j.impl.citygml.transportation.TrackImpl;
-import org.citygml4j.impl.citygml.transportation.TrafficAreaImpl;
-import org.citygml4j.impl.citygml.transportation.TrafficAreaPropertyImpl;
-import org.citygml4j.impl.citygml.transportation.TransportationComplexImpl;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.Railway;

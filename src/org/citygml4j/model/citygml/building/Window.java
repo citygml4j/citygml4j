@@ -79,7 +79,7 @@ public class Window extends AbstractOpening implements BuildingModuleComponent {
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WINDOW;
+		return CityGMLClass.BUILDING_WINDOW;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

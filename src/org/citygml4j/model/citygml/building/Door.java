@@ -114,7 +114,7 @@ public class Door extends AbstractOpening implements BuildingModuleComponent {
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.DOOR;
+		return CityGMLClass.BUILDING_DOOR;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

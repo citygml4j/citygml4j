@@ -78,7 +78,7 @@ public class WallSurface extends AbstractBoundarySurface implements TunnelModule
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WALL_SURFACE;
+		return CityGMLClass.TUNNEL_WALL_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

@@ -78,7 +78,7 @@ public class WallSurface extends AbstractBoundarySurface implements BuildingModu
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WALL_SURFACE;
+		return CityGMLClass.BUILDING_WALL_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

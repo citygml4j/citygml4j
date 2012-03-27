@@ -79,7 +79,7 @@ public class RoofSurface extends AbstractBoundarySurface implements BridgeModule
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ROOF_SURFACE;
+		return CityGMLClass.BRIDGE_ROOF_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

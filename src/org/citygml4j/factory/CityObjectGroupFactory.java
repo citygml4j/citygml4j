@@ -22,9 +22,6 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupImpl;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupMemberImpl;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupParentImpl;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;

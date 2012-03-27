@@ -214,7 +214,7 @@ public class XMLElementChecker {
 				elementInfo.isFeature = true;
 
 				if (isSetType)
-					elementInfo.type = CityGMLClass.fromInterface(featureClass);
+					elementInfo.type = CityGMLClass.fromModelClass(featureClass);
 
 				if (!excludes.isEmpty()) { 
 					for (Class<? extends CityGML> exclude : excludes) {

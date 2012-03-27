@@ -79,7 +79,7 @@ public class InteriorWallSurface extends AbstractBoundarySurface implements Brid
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_WALL_SURFACE;
+		return CityGMLClass.INTERIOR_BRIDGE_WALL_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

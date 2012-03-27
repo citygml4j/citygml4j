@@ -79,7 +79,7 @@ public class GroundSurface extends AbstractBoundarySurface implements TunnelModu
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GROUND_SURFACE;
+		return CityGMLClass.TUNNEL_GROUND_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

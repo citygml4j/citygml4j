@@ -22,20 +22,6 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.appearance.AppearanceImpl;
-import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
-import org.citygml4j.impl.citygml.appearance.AppearancePropertyImpl;
-import org.citygml4j.impl.citygml.appearance.ColorImpl;
-import org.citygml4j.impl.citygml.appearance.ColorPlusOpacityImpl;
-import org.citygml4j.impl.citygml.appearance.GeoreferencedTextureImpl;
-import org.citygml4j.impl.citygml.appearance.ParameterizedTextureImpl;
-import org.citygml4j.impl.citygml.appearance.SurfaceDataPropertyImpl;
-import org.citygml4j.impl.citygml.appearance.TexCoordGenImpl;
-import org.citygml4j.impl.citygml.appearance.TexCoordListImpl;
-import org.citygml4j.impl.citygml.appearance.TextureAssociationImpl;
-import org.citygml4j.impl.citygml.appearance.TextureCoordinatesImpl;
-import org.citygml4j.impl.citygml.appearance.WorldToTextureImpl;
-import org.citygml4j.impl.citygml.appearance.X3DMaterialImpl;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;

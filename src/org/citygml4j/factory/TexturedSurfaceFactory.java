@@ -24,14 +24,9 @@ package org.citygml4j.factory;
 
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
-import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
-import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Color;
 import org.citygml4j.model.citygml.texturedsurface._Material;
-import org.citygml4j.model.citygml.texturedsurface._Material;
 import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
-import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
-import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 
 public class TexturedSurfaceFactory {

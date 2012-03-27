@@ -22,11 +22,6 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.waterbody.BoundedByWaterSurfacePropertyImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterBodyImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterClosureSurfaceImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterGroundSurfaceImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterSurfaceImpl;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;

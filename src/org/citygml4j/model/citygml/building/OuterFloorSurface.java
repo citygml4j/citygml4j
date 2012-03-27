@@ -79,7 +79,7 @@ public class OuterFloorSurface extends AbstractBoundarySurface implements Buildi
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.FLOOR_SURFACE;
+		return CityGMLClass.OUTER_BUILDING_FLOOR_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

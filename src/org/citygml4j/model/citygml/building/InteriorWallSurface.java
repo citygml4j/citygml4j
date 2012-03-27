@@ -79,7 +79,7 @@ public class InteriorWallSurface extends AbstractBoundarySurface implements Buil
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_WALL_SURFACE;
+		return CityGMLClass.INTERIOR_BUILDING_WALL_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

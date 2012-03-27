@@ -23,19 +23,6 @@
 package org.citygml4j.factory;
 
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.impl.citygml.core.AddressImpl;
-import org.citygml4j.impl.citygml.core.AddressPropertyImpl;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
-import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.citygml.core.ExternalObjectImpl;
-import org.citygml4j.impl.citygml.core.ExternalReferenceImpl;
-import org.citygml4j.impl.citygml.core.GeneralizationRelationImpl;
-import org.citygml4j.impl.citygml.core.ImplicitGeometryImpl;
-import org.citygml4j.impl.citygml.core.ImplicitRepresentationPropertyImpl;
-import org.citygml4j.impl.citygml.core.TransformationMatrix2x2Impl;
-import org.citygml4j.impl.citygml.core.TransformationMatrix3x4Impl;
-import org.citygml4j.impl.citygml.core.TransformationMatrix4x4Impl;
-import org.citygml4j.impl.citygml.core.XalAddressPropertyImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;

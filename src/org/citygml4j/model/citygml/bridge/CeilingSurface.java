@@ -79,7 +79,7 @@ public class CeilingSurface extends AbstractBoundarySurface implements BridgeMod
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CEILING_SURFACE;
+		return CityGMLClass.BRIDGE_CEILING_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

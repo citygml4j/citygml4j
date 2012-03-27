@@ -79,7 +79,7 @@ public class GroundSurface extends AbstractBoundarySurface implements BuildingMo
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GROUND_SURFACE;
+		return CityGMLClass.BUILDING_GROUND_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

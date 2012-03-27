@@ -61,7 +61,7 @@ public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_FURNITURE_PROPERTY;
+		return CityGMLClass.INTERIOR_BUILDING_FURNITURE_PROPERTY;
 	}
 
 	public final BuildingModule getCityGMLModule() {

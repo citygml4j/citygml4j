@@ -61,7 +61,7 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BOUNDARY_SURFACE_PROPERTY;
+		return CityGMLClass.BRIDGE_BOUNDARY_SURFACE_PROPERTY;
 	}
 
 	public final BridgeModule getCityGMLModule() {

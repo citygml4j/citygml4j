@@ -61,7 +61,7 @@ public class InteriorFurnitureProperty extends FeatureProperty<BridgeFurniture> 
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_FURNITURE_PROPERTY;
+		return CityGMLClass.INTERIOR_BRIDGE_FURNITURE_PROPERTY;
 	}
 
 	public final BridgeModule getCityGMLModule() {

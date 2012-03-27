@@ -61,7 +61,7 @@ public class OpeningProperty extends FeatureProperty<AbstractOpening> implements
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.OPENING_PROPERTY;
+		return CityGMLClass.BUILDING_OPENING_PROPERTY;
 	}
 
 	public final BuildingModule getCityGMLModule() {

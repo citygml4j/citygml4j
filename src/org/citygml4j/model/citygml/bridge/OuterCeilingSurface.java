@@ -79,7 +79,7 @@ public class OuterCeilingSurface extends AbstractBoundarySurface implements Brid
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CEILING_SURFACE;
+		return CityGMLClass.OUTER_BRIDGE_CEILING_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

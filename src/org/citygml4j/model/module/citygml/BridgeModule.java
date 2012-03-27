@@ -28,21 +28,24 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingFurniture;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.CeilingSurface;
-import org.citygml4j.model.citygml.building.ClosureSurface;
-import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.FloorSurface;
-import org.citygml4j.model.citygml.building.GroundSurface;
-import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.RoofSurface;
-import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.citygml.building.WallSurface;
-import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.citygml.bridge.Bridge;
+import org.citygml4j.model.citygml.bridge.BridgeConstructionElement;
+import org.citygml4j.model.citygml.bridge.BridgeFurniture;
+import org.citygml4j.model.citygml.bridge.BridgeInstallation;
+import org.citygml4j.model.citygml.bridge.BridgePart;
+import org.citygml4j.model.citygml.bridge.BridgeRoom;
+import org.citygml4j.model.citygml.bridge.CeilingSurface;
+import org.citygml4j.model.citygml.bridge.ClosureSurface;
+import org.citygml4j.model.citygml.bridge.Door;
+import org.citygml4j.model.citygml.bridge.FloorSurface;
+import org.citygml4j.model.citygml.bridge.GroundSurface;
+import org.citygml4j.model.citygml.bridge.IntBridgeInstallation;
+import org.citygml4j.model.citygml.bridge.InteriorWallSurface;
+import org.citygml4j.model.citygml.bridge.OuterCeilingSurface;
+import org.citygml4j.model.citygml.bridge.OuterFloorSurface;
+import org.citygml4j.model.citygml.bridge.RoofSurface;
+import org.citygml4j.model.citygml.bridge.WallSurface;
+import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.module.Module;
 
 public class BridgeModule extends AbstractConstructionModule {
@@ -69,15 +72,15 @@ public class BridgeModule extends AbstractConstructionModule {
 				"brid",
 				"http://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd",			
 				CoreModule.v2_0_0);
-		
+
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("Bridge", Building.class);
-		v2_0_0.elementMap.put("BridgePart", BuildingPart.class);
-		v2_0_0.elementMap.put("BridgeRoom", Room.class);
-		v2_0_0.elementMap.put("IntBridgeInstallation", IntBuildingInstallation.class);
-		v2_0_0.elementMap.put("BridgeInstallation", BuildingInstallation.class);
-		v2_0_0.elementMap.put("BridgeConstructionElement", BuildingInstallation.class);
-		v2_0_0.elementMap.put("BridgeFurniture", BuildingFurniture.class);
+		v2_0_0.elementMap.put("Bridge", Bridge.class);
+		v2_0_0.elementMap.put("BridgePart", BridgePart.class);
+		v2_0_0.elementMap.put("BridgeRoom", BridgeRoom.class);
+		v2_0_0.elementMap.put("IntBridgeInstallation", IntBridgeInstallation.class);
+		v2_0_0.elementMap.put("BridgeInstallation", BridgeInstallation.class);
+		v2_0_0.elementMap.put("BridgeConstructionElement", BridgeConstructionElement.class);
+		v2_0_0.elementMap.put("BridgeFurniture", BridgeFurniture.class);
 		v2_0_0.elementMap.put("InteriorWallSurface", InteriorWallSurface.class);
 		v2_0_0.elementMap.put("RoofSurface", RoofSurface.class);
 		v2_0_0.elementMap.put("ClosureSurface", ClosureSurface.class);
@@ -85,9 +88,11 @@ public class BridgeModule extends AbstractConstructionModule {
 		v2_0_0.elementMap.put("FloorSurface", FloorSurface.class);
 		v2_0_0.elementMap.put("CeilingSurface", CeilingSurface.class);
 		v2_0_0.elementMap.put("GroundSurface", GroundSurface.class);
+		v2_0_0.elementMap.put("OuterFloorSurface", OuterFloorSurface.class);
+		v2_0_0.elementMap.put("OuterCeilingSurface", OuterCeilingSurface.class);
 		v2_0_0.elementMap.put("Window", Window.class);
 		v2_0_0.elementMap.put("Door", Door.class);
-		
+
 		v2_0_0.propertySet = new HashSet<String>();
 		v2_0_0.propertySet.add("address");
 		v2_0_0.propertySet.add("boundedBy");
@@ -100,7 +105,7 @@ public class BridgeModule extends AbstractConstructionModule {
 		v2_0_0.propertySet.add("interiorFurniture");
 		v2_0_0.propertySet.add("bridgeRoomInstallation");
 	}
-	
+
 	public static List<BridgeModule> getInstances() {
 		return instances;
 	}

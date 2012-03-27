@@ -22,8 +22,6 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.vegetation.PlantCoverImpl;
-import org.citygml4j.impl.citygml.vegetation.SolitaryVegetationObjectImpl;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 

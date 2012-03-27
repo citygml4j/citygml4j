@@ -79,7 +79,7 @@ public class ClosureSurface extends AbstractBoundarySurface implements BuildingM
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CLOSURE_SURFACE;
+		return CityGMLClass.BUILDING_CLOSURE_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

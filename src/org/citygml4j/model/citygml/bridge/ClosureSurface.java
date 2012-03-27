@@ -79,7 +79,7 @@ public class ClosureSurface extends AbstractBoundarySurface implements BridgeMod
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CLOSURE_SURFACE;
+		return CityGMLClass.BRIDGE_CLOSURE_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

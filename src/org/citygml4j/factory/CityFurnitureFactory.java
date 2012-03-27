@@ -23,7 +23,6 @@
 package org.citygml4j.factory;
 
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
-import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 
 public class CityFurnitureFactory {
 

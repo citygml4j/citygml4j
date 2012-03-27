@@ -79,7 +79,7 @@ public class CeilingSurface extends AbstractBoundarySurface implements BuildingM
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CEILING_SURFACE;
+		return CityGMLClass.BUILDING_CEILING_SURFACE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

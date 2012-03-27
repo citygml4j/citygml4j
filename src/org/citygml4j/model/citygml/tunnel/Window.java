@@ -79,7 +79,7 @@ public class Window extends AbstractOpening implements TunnelModuleComponent {
 	}
 	
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WINDOW;
+		return CityGMLClass.TUNNEL_WINDOW;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

@@ -79,7 +79,7 @@ public class RoofSurface extends AbstractBoundarySurface implements BuildingModu
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ROOF_SURFACE;
+		return CityGMLClass.BUILDING_ROOF_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

@@ -79,7 +79,7 @@ public class GroundSurface extends AbstractBoundarySurface implements BridgeModu
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GROUND_SURFACE;
+		return CityGMLClass.BRIDGE_GROUND_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

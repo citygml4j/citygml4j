@@ -322,7 +322,7 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ROOM;
+		return CityGMLClass.BUILDING_ROOM;
 	}
 
 	@Override

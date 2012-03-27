@@ -79,7 +79,7 @@ public class OuterFloorSurface extends AbstractBoundarySurface implements Bridge
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.FLOOR_SURFACE;
+		return CityGMLClass.OUTER_BRIDGE_FLOOR_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

@@ -22,32 +22,9 @@
  */
 package org.citygml4j.factory;
 
-import org.citygml4j.impl.citygml.building.BoundarySurfacePropertyImpl;
-import org.citygml4j.impl.citygml.building.BuildingFurnitureImpl;
-import org.citygml4j.impl.citygml.building.BuildingImpl;
-import org.citygml4j.impl.citygml.building.BuildingInstallationImpl;
-import org.citygml4j.impl.citygml.building.BuildingInstallationPropertyImpl;
-import org.citygml4j.impl.citygml.building.BuildingPartImpl;
-import org.citygml4j.impl.citygml.building.BuildingPartPropertyImpl;
-import org.citygml4j.impl.citygml.building.CeilingSurfaceImpl;
-import org.citygml4j.impl.citygml.building.ClosureSurfaceImpl;
-import org.citygml4j.impl.citygml.building.DoorImpl;
-import org.citygml4j.impl.citygml.building.FloorSurfaceImpl;
-import org.citygml4j.impl.citygml.building.GroundSurfaceImpl;
-import org.citygml4j.impl.citygml.building.IntBuildingInstallationImpl;
-import org.citygml4j.impl.citygml.building.IntBuildingInstallationPropertyImpl;
-import org.citygml4j.impl.citygml.building.InteriorFurniturePropertyImpl;
-import org.citygml4j.impl.citygml.building.InteriorRoomPropertyImpl;
-import org.citygml4j.impl.citygml.building.InteriorWallSurfaceImpl;
-import org.citygml4j.impl.citygml.building.OpeningPropertyImpl;
-import org.citygml4j.impl.citygml.building.OuterCeilingSurfaceImpl;
-import org.citygml4j.impl.citygml.building.OuterFloorSurfaceImpl;
-import org.citygml4j.impl.citygml.building.RoofSurfaceImpl;
-import org.citygml4j.impl.citygml.building.RoomImpl;
-import org.citygml4j.impl.citygml.building.WallSurfaceImpl;
-import org.citygml4j.impl.citygml.building.WindowImpl;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractOpening;
+import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
@@ -61,6 +38,7 @@ import org.citygml4j.model.citygml.building.FloorSurface;
 import org.citygml4j.model.citygml.building.GroundSurface;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
+import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
@@ -70,8 +48,6 @@ import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
-import org.citygml4j.model.citygml.construction.BoundarySurfaceProperty;
-import org.citygml4j.model.citygml.construction.InteriorFurnitureProperty;
 
 public class BuildingFactory {
 

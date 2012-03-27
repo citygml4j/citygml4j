@@ -28,21 +28,23 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingFurniture;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.CeilingSurface;
-import org.citygml4j.model.citygml.building.ClosureSurface;
-import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.FloorSurface;
-import org.citygml4j.model.citygml.building.GroundSurface;
-import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.RoofSurface;
-import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.citygml.building.WallSurface;
-import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.citygml.tunnel.CeilingSurface;
+import org.citygml4j.model.citygml.tunnel.ClosureSurface;
+import org.citygml4j.model.citygml.tunnel.Door;
+import org.citygml4j.model.citygml.tunnel.FloorSurface;
+import org.citygml4j.model.citygml.tunnel.GroundSurface;
+import org.citygml4j.model.citygml.tunnel.HollowSpace;
+import org.citygml4j.model.citygml.tunnel.IntTunnelInstallation;
+import org.citygml4j.model.citygml.tunnel.InteriorWallSurface;
+import org.citygml4j.model.citygml.tunnel.OuterCeilingSurface;
+import org.citygml4j.model.citygml.tunnel.OuterFloorSurface;
+import org.citygml4j.model.citygml.tunnel.RoofSurface;
+import org.citygml4j.model.citygml.tunnel.Tunnel;
+import org.citygml4j.model.citygml.tunnel.TunnelFurniture;
+import org.citygml4j.model.citygml.tunnel.TunnelInstallation;
+import org.citygml4j.model.citygml.tunnel.TunnelPart;
+import org.citygml4j.model.citygml.tunnel.WallSurface;
+import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.module.Module;
 
 public class TunnelModule extends AbstractConstructionModule {
@@ -71,12 +73,12 @@ public class TunnelModule extends AbstractConstructionModule {
 				CoreModule.v2_0_0);
 		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("Tunnel", Building.class);
-		v2_0_0.elementMap.put("TunnelPart", BuildingPart.class);
-		v2_0_0.elementMap.put("HollowSpace", Room.class);
-		v2_0_0.elementMap.put("IntTunnelInstallation", IntBuildingInstallation.class);
-		v2_0_0.elementMap.put("TunnelInstallation", BuildingInstallation.class);
-		v2_0_0.elementMap.put("TunnelFurniture", BuildingFurniture.class);
+		v2_0_0.elementMap.put("Tunnel", Tunnel.class);
+		v2_0_0.elementMap.put("TunnelPart", TunnelPart.class);
+		v2_0_0.elementMap.put("HollowSpace", HollowSpace.class);
+		v2_0_0.elementMap.put("IntTunnelInstallation", IntTunnelInstallation.class);
+		v2_0_0.elementMap.put("TunnelInstallation", TunnelInstallation.class);
+		v2_0_0.elementMap.put("TunnelFurniture", TunnelFurniture.class);
 		v2_0_0.elementMap.put("InteriorWallSurface", InteriorWallSurface.class);
 		v2_0_0.elementMap.put("RoofSurface", RoofSurface.class);
 		v2_0_0.elementMap.put("ClosureSurface", ClosureSurface.class);
@@ -84,6 +86,8 @@ public class TunnelModule extends AbstractConstructionModule {
 		v2_0_0.elementMap.put("FloorSurface", FloorSurface.class);
 		v2_0_0.elementMap.put("CeilingSurface", CeilingSurface.class);
 		v2_0_0.elementMap.put("GroundSurface", GroundSurface.class);
+		v2_0_0.elementMap.put("OuterFloorSurface", OuterFloorSurface.class);
+		v2_0_0.elementMap.put("OuterCeilingSurface", OuterCeilingSurface.class);
 		v2_0_0.elementMap.put("Window", Window.class);
 		v2_0_0.elementMap.put("Door", Door.class);
 		

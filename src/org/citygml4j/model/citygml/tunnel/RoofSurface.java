@@ -79,7 +79,7 @@ public class RoofSurface extends AbstractBoundarySurface implements TunnelModule
 	}
 
 	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ROOF_SURFACE;
+		return CityGMLClass.TUNNEL_ROOF_SURFACE;
 	}
 	
 	public Object copy(CopyBuilder copyBuilder) {

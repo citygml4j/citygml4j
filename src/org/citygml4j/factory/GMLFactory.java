@@ -165,19 +165,19 @@ public class GMLFactory {
 	}
 	
 	public BooleanOrNull createBooleanOrNull() {
-		return new BooleanOrNullImpl();
+		return new BooleanOrNull();
 	}
 	
 	public BooleanOrNull createBooleanOrNull(boolean _boolean) {
-		return new BooleanOrNullImpl(_boolean);
+		return new BooleanOrNull(_boolean);
 	}
 	
 	public BooleanOrNull createBooleanOrNull(Null _null) {
-		return new BooleanOrNullImpl(_null);
+		return new BooleanOrNull(_null);
 	}
 	
 	public BooleanOrNullList createBooleanOrNullList() {
-		return new BooleanOrNullListImpl();
+		return new BooleanOrNullList();
 	}
 	
 	public BoundingShape createBoundingShape() {
@@ -201,11 +201,11 @@ public class GMLFactory {
 	}
 	
 	public Code createCode() {
-		return new CodeImpl();
+		return new Code();
 	}
 	
 	public CodeOrNullList createCodeOrNullList() {
-		return new CodeOrNullListImpl();
+		return new CodeOrNullList();
 	}
 	
 	public CompositeCurve createCompositeCurve() {
@@ -329,7 +329,7 @@ public class GMLFactory {
 	}
 	
 	public Coordinates createCoordinates() {
-		return new CoordinatesImpl();
+		return new Coordinates();
 	}
 	
 	public CountExtent createCountExtent() {
@@ -409,19 +409,19 @@ public class GMLFactory {
 	}
 	
 	public <T extends AbstractGeometry> DomainSet<T> createDomainSet() {
-		return new DomainSetImpl<T>();
+		return new DomainSet<T>();
 	}
 	
 	public DoubleOrNull createDoubleOrNull() {
-		return new DoubleOrNullImpl();
+		return new DoubleOrNull();
 	}
 	
 	public DoubleOrNull createDoubleOrNull(double _double) {
-		return new DoubleOrNullImpl(_double);
+		return new DoubleOrNull(_double);
 	}
 	
 	public DoubleOrNull createDoubleOrNull(Null _null) {
-		return new DoubleOrNullImpl(_null);
+		return new DoubleOrNull(_null);
 	}
 	
 	public DoubleOrNullList createDoubleOrNullList() {
@@ -464,17 +464,17 @@ public class GMLFactory {
 	}
 	
 	public <T extends AbstractFeature> FeatureProperty<T> createFeatureProperty() {
-		return new FeaturePropertyImpl<T>();
+		return new FeatureProperty<T>();
 	}
 	
 	public <T extends AbstractFeature> FeatureProperty<T> createFeatureProperty(T abstractFeature) {
-		FeatureProperty<T> featureProperty = new FeaturePropertyImpl<T>();
+		FeatureProperty<T> featureProperty = new FeatureProperty<T>();
 		featureProperty.setFeature(abstractFeature);
 		return featureProperty;
 	}
 	
 	public <T extends AbstractFeature> FeatureProperty<T> createFeatureProperty(String xlink) {
-		FeatureProperty<T> featureProperty = new FeaturePropertyImpl<T>();
+		FeatureProperty<T> featureProperty = new FeatureProperty<T>();
 		featureProperty.setHref(xlink);
 		return featureProperty;
 	}
@@ -716,17 +716,17 @@ public class GMLFactory {
 	}
 	
 	public MetaDataProperty createMetaDataProperty() {
-		return new MetaDataPropertyImpl();
+		return new MetaDataProperty();
 	}
 	
 	public MetaDataProperty createMetaDataProperty(MetaData metaData) {
-		MetaDataProperty metaDataProperty = new MetaDataPropertyImpl();
+		MetaDataProperty metaDataProperty = new MetaDataProperty();
 		metaDataProperty.setMetaData(metaData);
 		return metaDataProperty;
 	}
 	
 	public MetaDataProperty createMetaDataProperty(String xlink) {
-		MetaDataProperty metaDataProperty = new MetaDataPropertyImpl();
+		MetaDataProperty metaDataProperty = new MetaDataProperty();
 		metaDataProperty.setHref(xlink);
 		return metaDataProperty;
 	}
@@ -1276,7 +1276,7 @@ public class GMLFactory {
 	}
 	
 	public StringOrRef createStringOrRef() {
-		return new StringOrRefImpl();
+		return new StringOrRef();
 	}
 	
 	public SurfaceArrayProperty createSurfaceArrayProperty() {
