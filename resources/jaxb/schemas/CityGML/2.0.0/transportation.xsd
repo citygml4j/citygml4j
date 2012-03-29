@@ -129,6 +129,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="TrafficArea"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -141,6 +142,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="AuxiliaryTrafficArea"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>

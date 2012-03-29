@@ -107,6 +107,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BridgePart"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -150,6 +151,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BridgeInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -188,6 +190,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="IntBridgeInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -241,6 +244,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BridgeConstructionElement"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -412,6 +416,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="_BoundarySurface"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -426,6 +431,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="_Opening"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -559,6 +565,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BridgeRoom"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -571,6 +578,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BridgeFurniture"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>

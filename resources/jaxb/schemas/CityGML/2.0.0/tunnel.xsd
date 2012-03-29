@@ -106,6 +106,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="TunnelPart"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -147,6 +148,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="TunnelInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -184,6 +186,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="IntTunnelInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -199,6 +202,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="_BoundarySurface"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -419,6 +423,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="HollowSpace"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -452,6 +457,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="TunnelFurniture"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -490,6 +496,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="_Opening"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>

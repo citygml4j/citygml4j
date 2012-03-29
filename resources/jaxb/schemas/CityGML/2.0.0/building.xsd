@@ -122,6 +122,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BuildingPart"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -163,6 +164,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BuildingInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -201,6 +203,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="IntBuildingInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -372,6 +375,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="_BoundarySurface"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -386,6 +390,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="_Opening"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -516,6 +521,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="Room"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
@@ -528,6 +534,7 @@
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
 			<xs:element ref="BuildingFurniture"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
