@@ -214,7 +214,7 @@ public class Core040Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfCityObject()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCityObject())
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityObject())
 				if (adeComponent.isSetContent())
 					dest.get_GenericApplicationPropertyOfCityObject().add(citygml.ade2jaxbElement(adeComponent));
 		}

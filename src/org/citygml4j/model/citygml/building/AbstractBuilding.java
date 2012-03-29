@@ -49,7 +49,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	private List<Code> usage;
 	private GregorianCalendar yearOfConstruction;
 	private GregorianCalendar yearOfDemolition;
-	private String roofType;
+	private Code roofType;
 	private Length measuredHeight;
 	private Integer storeysAboveGround;
 	private Integer storeysBelowGround;
@@ -283,7 +283,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		return outerBuildingInstallation;
 	}
 
-	public String getRoofType() {
+	public Code getRoofType() {
 		return roofType;
 	}
 
@@ -595,7 +595,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		this.outerBuildingInstallation = new ChildList<BuildingInstallationProperty>(this, outerBuildingInstallation);
 	}
 
-	public void setRoofType(String roofType) {
+	public void setRoofType(Code roofType) {
 		this.roofType = roofType;
 	}
 
@@ -1170,7 +1170,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			copy.setYearOfDemolition((GregorianCalendar)copyBuilder.copy(yearOfDemolition));
 		
 		if (isSetRoofType())
-			copy.setRoofType(copyBuilder.copy(roofType));
+			copy.setRoofType((Code)copyBuilder.copy(roofType));
 		
 		if (isSetStoreysAboveGround())
 			copy.setStoreysAboveGround((Integer)copyBuilder.copy(storeysAboveGround));

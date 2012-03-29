@@ -176,7 +176,7 @@ public class Building100Unmarshaller {
 			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
 		
 		if (src.isSetRoofType())
-			dest.setRoofType(src.getRoofType());
+			dest.setRoofType(new Code(src.getRoofType()));
 		
 		if (src.isSetMeasuredHeight())
 			dest.setMeasuredHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getMeasuredHeight()));

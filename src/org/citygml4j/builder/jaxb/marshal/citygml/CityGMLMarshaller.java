@@ -28,16 +28,20 @@ import javax.xml.namespace.QName;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance100Marshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.building.Building040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.building.Building100Marshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.building.Building200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityfurniture.CityFurniture040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityfurniture.CityFurniture100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup.CityObjectGroup040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup.CityObjectGroup100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.core.Core040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.core.Core100Marshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.core.Core200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.generics.Generics040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.generics.Generics100Marshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.generics.Generics200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.landuse.LandUse040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.landuse.LandUse100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.relief.Relief040Marshaller;
@@ -55,6 +59,7 @@ import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponent;
+import org.citygml4j.model.citygml.core.CoreModuleComponent;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
 import org.citygml4j.model.citygml.landuse.LandUseModuleComponent;
 import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
@@ -63,6 +68,7 @@ import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
@@ -81,6 +87,19 @@ import org.citygml4j.model.module.citygml.WaterBodyModule;
 
 public class CityGMLMarshaller {
 	private final JAXBMarshaller jaxb;
+
+	private final Appearance200Marshaller app200;
+	private final Building200Marshaller bldg200;
+	//	private final CityFurniture200Marshaller frn200;
+	//	private final CityObjectGroup200Marshaller grp200;
+	private final Core200Marshaller core200;
+	private final Generics200Marshaller gen200;
+	//	private final LandUse200Marshaller luse200;
+	//	private final Relief200Marshaller dem200;
+	//	private final TexturedSurface200Marshaller tex200;
+	//	private final Transportation200Marshaller tran200;
+	//	private final Vegetation200Marshaller veg200;
+	//	private final WaterBody200Marshaller wtr200;
 
 	private final Appearance100Marshaller app100;
 	private final Building100Marshaller bldg100;
@@ -109,7 +128,12 @@ public class CityGMLMarshaller {
 	private final WaterBody040Marshaller wtr040;
 
 	public CityGMLMarshaller(JAXBMarshaller jaxb) {
-		this.jaxb = jaxb;		
+		this.jaxb = jaxb;	
+
+		app200 = new Appearance200Marshaller(this);
+		core200 = new Core200Marshaller(this);
+		bldg200 = new Building200Marshaller(this);
+		gen200 = new Generics200Marshaller(this);
 
 		app100 = new Appearance100Marshaller(this);
 		bldg100 = new Building100Marshaller(this);
@@ -135,28 +159,37 @@ public class CityGMLMarshaller {
 		tex040 = new TexturedSurface040Marshaller(this);
 		tran040 = new Transportation040Marshaller(this);
 		veg040 = new Vegetation040Marshaller(this);
-		wtr040 = new WaterBody040Marshaller(this);
+		wtr040 = new WaterBody040Marshaller(this);		
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {
+		if (src instanceof ModelObject && ((ModelObject)src).getModelType() != ModelType.CITYGML)
+			return null;
+
 		JAXBElement<?> dest = null;
 		ModuleContext moduleContext = jaxb.getModuleContext();
 
-		AppearanceModule app = (AppearanceModule)moduleContext.getModule(CityGMLModuleType.APPEARANCE);
-		if (app.getVersion() == CityGMLModuleVersion.v1_0_0)
-			dest = app100.marshalJAXBElement(src);
-		else if (app.getVersion() == CityGMLModuleVersion.v0_4_0)
-			dest = app040.marshalJAXBElement(src);
+		if (src instanceof AppearanceModuleComponent) {
+			AppearanceModule app = (AppearanceModule)moduleContext.getModule(CityGMLModuleType.APPEARANCE);
+			if (app.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = app200.marshalJAXBElement(src);
+			else if (app.getVersion() == CityGMLModuleVersion.v1_0_0)
+				dest = app100.marshalJAXBElement(src);
+			else if (app.getVersion() == CityGMLModuleVersion.v0_4_0)
+				dest = app040.marshalJAXBElement(src);
+		}
 
-		if (dest == null) {
+		else if (src instanceof BuildingModuleComponent) {
 			BuildingModule bldg = (BuildingModule)moduleContext.getModule(CityGMLModuleType.BUILDING);
-			if (bldg.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (bldg.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = bldg200.marshalJAXBElement(src);
+			else if (bldg.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = bldg100.marshalJAXBElement(src);
 			else if (bldg.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = bldg040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof CityFurnitureModuleComponent) {
 			CityFurnitureModule frn = (CityFurnitureModule)moduleContext.getModule(CityGMLModuleType.CITY_FURNITURE);
 			if (frn.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = frn100.marshalJAXBElement(src);
@@ -164,63 +197,65 @@ public class CityGMLMarshaller {
 				dest = frn040.marshalJAXBElement(src);
 		}
 
-		if (dest == null) {
+		else if (src instanceof CityObjectGroupModuleComponent) {
 			CityObjectGroupModule grp = (CityObjectGroupModule)moduleContext.getModule(CityGMLModuleType.CITY_OBJECT_GROUP);
 			if (grp.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = grp100.marshalJAXBElement(src);
 			else if (grp.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = grp040.marshalJAXBElement(src);
 		}		
-		
-		if (dest == null) {
+
+		else if (src instanceof GenericsModuleComponent) {
 			GenericsModule gen = (GenericsModule)moduleContext.getModule(CityGMLModuleType.GENERICS);
-			if (gen.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (gen.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = gen200.marshalJAXBElement(src);
+			else if (gen.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = gen100.marshalJAXBElement(src);
 			else if (gen.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = gen040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof LandUseModuleComponent) {
 			LandUseModule luse = (LandUseModule)moduleContext.getModule(CityGMLModuleType.LAND_USE);
 			if (luse.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = luse100.marshalJAXBElement(src);
 			else if (luse.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = luse040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof ReliefModuleComponent) {
 			ReliefModule dem = (ReliefModule)moduleContext.getModule(CityGMLModuleType.RELIEF);
 			if (dem.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = dem100.marshalJAXBElement(src);
 			else if (dem.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = dem040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof TexturedSurfaceModuleComponent) {
 			TexturedSurfaceModule tex = (TexturedSurfaceModule)moduleContext.getModule(CityGMLModuleType.TEXTURED_SURFACE);
 			if (tex.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = tex100.marshalJAXBElement(src);
 			else if (tex.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = tex040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof TransportationModuleComponent) {
 			TransportationModule tran = (TransportationModule)moduleContext.getModule(CityGMLModuleType.TRANSPORTATION);
 			if (tran.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = tran100.marshalJAXBElement(src);
 			else if (tran.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = tran040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof VegetationModuleComponent) {
 			VegetationModule veg = (VegetationModule)moduleContext.getModule(CityGMLModuleType.VEGETATION);
 			if (veg.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = veg100.marshalJAXBElement(src);
 			else if (veg.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = veg040.marshalJAXBElement(src);
 		}
-		
-		if (dest == null) {
+
+		else if (src instanceof WaterBodyModuleComponent) {
 			WaterBodyModule wtr = (WaterBodyModule)moduleContext.getModule(CityGMLModuleType.WATER_BODY);
 			if (wtr.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = wtr100.marshalJAXBElement(src);
@@ -228,9 +263,11 @@ public class CityGMLMarshaller {
 				dest = wtr040.marshalJAXBElement(src);
 		}
 
-		if (dest == null) {
+		else if (src instanceof CoreModuleComponent) {
 			CoreModule core = (CoreModule)moduleContext.getModule(CityGMLModuleType.CORE);		
-			if (core.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (core.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = core200.marshalJAXBElement(src);
+			else if (core.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = core100.marshalJAXBElement(src);
 			else if (core.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = core040.marshalJAXBElement(src);
@@ -245,7 +282,9 @@ public class CityGMLMarshaller {
 
 		if (src instanceof AppearanceModuleComponent) {
 			AppearanceModule app = (AppearanceModule)moduleContext.getModule(CityGMLModuleType.APPEARANCE);
-			if (app.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (app.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = app200.marshal(src);
+			else if (app.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = app100.marshal(src);
 			else if (app.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = app040.marshal(src);
@@ -253,7 +292,9 @@ public class CityGMLMarshaller {
 
 		else if (src instanceof BuildingModuleComponent) {
 			BuildingModule bldg = (BuildingModule)moduleContext.getModule(CityGMLModuleType.BUILDING);
-			if (bldg.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (bldg.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = bldg200.marshal(src);
+			else if (bldg.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = bldg100.marshal(src);
 			else if (bldg.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = bldg040.marshal(src);
@@ -266,7 +307,7 @@ public class CityGMLMarshaller {
 			else if (frn.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = frn040.marshal(src);
 		}
-		
+
 		else if (src instanceof CityObjectGroupModuleComponent) {
 			CityObjectGroupModule grp = (CityObjectGroupModule)moduleContext.getModule(CityGMLModuleType.CITY_OBJECT_GROUP);
 			if (grp.getVersion() == CityGMLModuleVersion.v1_0_0)
@@ -277,12 +318,14 @@ public class CityGMLMarshaller {
 
 		else if (src instanceof GenericsModuleComponent) {
 			GenericsModule gen = (GenericsModule)moduleContext.getModule(CityGMLModuleType.GENERICS);
-			if (gen.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (gen.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = gen200.marshal(src);
+			else if (gen.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = gen100.marshal(src);
 			else if (gen.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = gen040.marshal(src);
 		}
-		
+
 		else if (src instanceof LandUseModuleComponent) {
 			LandUseModule luse = (LandUseModule)moduleContext.getModule(CityGMLModuleType.LAND_USE);
 			if (luse.getVersion() == CityGMLModuleVersion.v1_0_0)
@@ -290,7 +333,7 @@ public class CityGMLMarshaller {
 			else if (luse.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = luse100.marshal(src);
 		}
-		
+
 		else if (src instanceof ReliefModuleComponent) {
 			ReliefModule dem = (ReliefModule)moduleContext.getModule(CityGMLModuleType.RELIEF);
 			if (dem.getVersion() == CityGMLModuleVersion.v1_0_0)
@@ -298,7 +341,7 @@ public class CityGMLMarshaller {
 			else if (dem.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = dem040.marshal(src);
 		}
-		
+
 		else if (src instanceof TexturedSurfaceModuleComponent) {
 			TexturedSurfaceModule tex = (TexturedSurfaceModule)moduleContext.getModule(CityGMLModuleType.TEXTURED_SURFACE);
 			if (tex.getVersion() == CityGMLModuleVersion.v1_0_0)
@@ -306,7 +349,7 @@ public class CityGMLMarshaller {
 			else if (tex.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = tex040.marshal(src);
 		}
-		
+
 		else if (src instanceof TransportationModuleComponent) {
 			TransportationModule tran = (TransportationModule)moduleContext.getModule(CityGMLModuleType.TRANSPORTATION);
 			if (tran.getVersion() == CityGMLModuleVersion.v1_0_0)
@@ -330,10 +373,12 @@ public class CityGMLMarshaller {
 			else if (wtr.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = wtr040.marshal(src);
 		}
-		
+
 		else {
 			CoreModule core = (CoreModule)moduleContext.getModule(CityGMLModuleType.CORE);		
-			if (core.getVersion() == CityGMLModuleVersion.v1_0_0)
+			if (core.getVersion() == CityGMLModuleVersion.v2_0_0)
+				dest = core200.marshal(src);
+			else if (core.getVersion() == CityGMLModuleVersion.v1_0_0)
 				dest = core100.marshal(src);
 			else if (core.getVersion() == CityGMLModuleVersion.v0_4_0)
 				dest = core040.marshal(src);
@@ -341,7 +386,7 @@ public class CityGMLMarshaller {
 
 		return dest;
 	}
-	
+
 	public JAXBElement<Object> ade2jaxbElement(ADEComponent ade) {
 		QName qName = new QName(ade.getNamespaceURI(), ade.getLocalName());
 		return new JAXBElement<Object>(qName, Object.class, ade.getContent());
@@ -351,6 +396,58 @@ public class CityGMLMarshaller {
 		return jaxb;
 	}
 
+
+
+
+	public Appearance200Marshaller getAppearance200Marshaller() {
+		return app200;
+	}
+
+	public Building200Marshaller getBuilding200Marshaller() {
+		return bldg200;
+	}
+
+	/*	public CityFurniture100Marshaller getCityFurniture100Marshaller() {
+		return frn100;
+	}
+
+	public CityObjectGroup100Marshaller getCityObjectGroup100Marshaller() {
+		return grp100;
+	}*/
+
+	public Core200Marshaller getCore200Marshaller() {
+		return core200;
+	}
+
+	public Generics200Marshaller getGenerics200Marshaller() {
+		return gen200;
+	}
+
+	/*	public LandUse100Marshaller getLandUse100Marshaller() {
+		return luse100;
+	}
+
+	public Relief100Marshaller getRelief100Marshaller() {
+		return dem100;
+	}
+
+	public TexturedSurface100Marshaller getTexturedSurface100Marshaller() {
+		return tex100;
+	}
+
+	public Transportation100Marshaller getTransportation100Marshaller() {
+		return tran100;
+	}
+
+	public WaterBody100Marshaller getWaterBody100Marshaller() {
+		return wtr100;
+	}*/
+
+
+
+
+
+
 	public Appearance100Marshaller getAppearance100Marshaller() {
 		return app100;
 	}
@@ -358,7 +455,7 @@ public class CityGMLMarshaller {
 	public Building100Marshaller getBuilding100Marshaller() {
 		return bldg100;
 	}
-	
+
 	public CityFurniture100Marshaller getCityFurniture100Marshaller() {
 		return frn100;
 	}
@@ -370,11 +467,11 @@ public class CityGMLMarshaller {
 	public Core100Marshaller getCore100Marshaller() {
 		return core100;
 	}
-	
+
 	public Generics100Marshaller getGenerics100Marshaller() {
 		return gen100;
 	}
-	
+
 	public LandUse100Marshaller getLandUse100Marshaller() {
 		return luse100;
 	}
@@ -382,7 +479,7 @@ public class CityGMLMarshaller {
 	public Relief100Marshaller getRelief100Marshaller() {
 		return dem100;
 	}
-	
+
 	public TexturedSurface100Marshaller getTexturedSurface100Marshaller() {
 		return tex100;
 	}
@@ -394,7 +491,7 @@ public class CityGMLMarshaller {
 	public WaterBody100Marshaller getWaterBody100Marshaller() {
 		return wtr100;
 	}	
-	
+
 	public Appearance040Marshaller getAppearance040Marshaller() {
 		return app040;
 	}
@@ -402,7 +499,7 @@ public class CityGMLMarshaller {
 	public Building040Marshaller getBuilding040Marshaller() {
 		return bldg040;
 	}
-	
+
 	public CityFurniture040Marshaller getCityFurniture040Marshaller() {
 		return frn040;
 	}
@@ -422,7 +519,7 @@ public class CityGMLMarshaller {
 	public LandUse040Marshaller getLandUse040Marshaller() {
 		return luse040;
 	}
-	
+
 	public Relief040Marshaller getRelief040Marshaller() {
 		return dem040;
 	}
@@ -438,5 +535,5 @@ public class CityGMLMarshaller {
 	public WaterBody040Marshaller getWaterBody040Marshaller() {
 		return wtr040;
 	}
-	
+
 }

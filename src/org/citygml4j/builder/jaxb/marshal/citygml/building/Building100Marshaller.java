@@ -236,7 +236,7 @@ public class Building100Marshaller {
 		}
 
 		if (src.isSetRoofType())
-			dest.setRoofType(src.getRoofType());
+			dest.setRoofType(src.getRoofType().getValue());
 
 		if (src.isSetMeasuredHeight())
 			dest.setMeasuredHeight(jaxb.getGMLMarshaller().marshalLength(src.getMeasuredHeight()));

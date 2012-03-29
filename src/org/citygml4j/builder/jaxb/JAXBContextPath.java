@@ -53,20 +53,20 @@ public class JAXBContextPath {
 		contextPathMap = new HashMap<Module, String>();
 
 		// CityGML 1.1
-		contextPathMap.put(CoreModule.v2_0_0, "org.citygml4j.jaxb.citygml.core._1_1");
-		contextPathMap.put(AppearanceModule.v2_0_0, "org.citygml4j.jaxb.citygml.app._1_1");
-		contextPathMap.put(BridgeModule.v2_0_0, "org.citygml4j.jaxb.citygml.brid._1_1");
-		contextPathMap.put(BuildingModule.v2_0_0, "org.citygml4j.jaxb.citygml.bldg._1_1");
-		contextPathMap.put(CityFurnitureModule.v2_0_0, "org.citygml4j.jaxb.citygml.frn._1_1");
-		contextPathMap.put(CityObjectGroupModule.v2_0_0, "org.citygml4j.jaxb.citygml.grp._1_1");
-		contextPathMap.put(GenericsModule.v2_0_0, "org.citygml4j.jaxb.citygml.gen._1_1");
-		contextPathMap.put(LandUseModule.v2_0_0, "org.citygml4j.jaxb.citygml.luse._1_1");
-		contextPathMap.put(ReliefModule.v2_0_0, "org.citygml4j.jaxb.citygml.dem._1_1");
-		contextPathMap.put(TexturedSurfaceModule.v2_0_0, "org.citygml4j.jaxb.citygml.tex._1_1");
-		contextPathMap.put(TransportationModule.v2_0_0, "org.citygml4j.jaxb.citygml.tran._1_1");
-		contextPathMap.put(TunnelModule.v2_0_0, "org.citygml4j.jaxb.citygml.tun._1_1");
-		contextPathMap.put(VegetationModule.v2_0_0, "org.citygml4j.jaxb.citygml.veg._1_1");
-		contextPathMap.put(WaterBodyModule.v2_0_0, "org.citygml4j.jaxb.citygml.wtr._1_1");
+		contextPathMap.put(CoreModule.v2_0_0, "org.citygml4j.jaxb.citygml.core._2");
+		contextPathMap.put(AppearanceModule.v2_0_0, "org.citygml4j.jaxb.citygml.app._2");
+		contextPathMap.put(BridgeModule.v2_0_0, "org.citygml4j.jaxb.citygml.brid._2");
+		contextPathMap.put(BuildingModule.v2_0_0, "org.citygml4j.jaxb.citygml.bldg._2");
+		contextPathMap.put(CityFurnitureModule.v2_0_0, "org.citygml4j.jaxb.citygml.frn._2");
+		contextPathMap.put(CityObjectGroupModule.v2_0_0, "org.citygml4j.jaxb.citygml.grp._2");
+		contextPathMap.put(GenericsModule.v2_0_0, "org.citygml4j.jaxb.citygml.gen._2");
+		contextPathMap.put(LandUseModule.v2_0_0, "org.citygml4j.jaxb.citygml.luse._2");
+		contextPathMap.put(ReliefModule.v2_0_0, "org.citygml4j.jaxb.citygml.dem._2");
+		contextPathMap.put(TexturedSurfaceModule.v2_0_0, "org.citygml4j.jaxb.citygml.tex._2");
+		contextPathMap.put(TransportationModule.v2_0_0, "org.citygml4j.jaxb.citygml.tran._2");
+		contextPathMap.put(TunnelModule.v2_0_0, "org.citygml4j.jaxb.citygml.tun._2");
+		contextPathMap.put(VegetationModule.v2_0_0, "org.citygml4j.jaxb.citygml.veg._2");
+		contextPathMap.put(WaterBodyModule.v2_0_0, "org.citygml4j.jaxb.citygml.wtr._2");
 		
 		// CityGML 1.0
 		contextPathMap.put(CoreModule.v1_0_0, "org.citygml4j.jaxb.citygml.core._1");

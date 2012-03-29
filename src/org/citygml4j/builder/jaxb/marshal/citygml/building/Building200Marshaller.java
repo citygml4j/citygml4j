@@ -33,32 +33,32 @@ import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml._0_4.BoundarySurfacePropertyType;
-import org.citygml4j.jaxb.citygml._0_4.BuildingFurnitureType;
-import org.citygml4j.jaxb.citygml._0_4.BuildingInstallationPropertyType;
-import org.citygml4j.jaxb.citygml._0_4.BuildingInstallationType;
-import org.citygml4j.jaxb.citygml._0_4.BuildingPartPropertyType;
-import org.citygml4j.jaxb.citygml._0_4.BuildingPartType;
-import org.citygml4j.jaxb.citygml._0_4.BuildingType;
-import org.citygml4j.jaxb.citygml._0_4.CeilingSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.ClosureSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.DoorType;
-import org.citygml4j.jaxb.citygml._0_4.FloorSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.GroundSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.IntBuildingInstallationPropertyType;
-import org.citygml4j.jaxb.citygml._0_4.IntBuildingInstallationType;
-import org.citygml4j.jaxb.citygml._0_4.InteriorFurniturePropertyType;
-import org.citygml4j.jaxb.citygml._0_4.InteriorRoomPropertyType;
-import org.citygml4j.jaxb.citygml._0_4.InteriorWallSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.ObjectFactory;
-import org.citygml4j.jaxb.citygml._0_4.OpeningPropertyType;
-import org.citygml4j.jaxb.citygml._0_4.RoofSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.RoomType;
-import org.citygml4j.jaxb.citygml._0_4.WallSurfaceType;
-import org.citygml4j.jaxb.citygml._0_4.WindowType;
-import org.citygml4j.jaxb.citygml._0_4._AbstractBuildingType;
-import org.citygml4j.jaxb.citygml._0_4._BoundarySurfaceType;
-import org.citygml4j.jaxb.citygml._0_4._OpeningType;
+import org.citygml4j.jaxb.citygml.bldg._2.AbstractBoundarySurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.AbstractBuildingType;
+import org.citygml4j.jaxb.citygml.bldg._2.AbstractOpeningType;
+import org.citygml4j.jaxb.citygml.bldg._2.BoundarySurfacePropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.BuildingFurnitureType;
+import org.citygml4j.jaxb.citygml.bldg._2.BuildingInstallationPropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.BuildingInstallationType;
+import org.citygml4j.jaxb.citygml.bldg._2.BuildingPartPropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.BuildingPartType;
+import org.citygml4j.jaxb.citygml.bldg._2.BuildingType;
+import org.citygml4j.jaxb.citygml.bldg._2.CeilingSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.ClosureSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.DoorType;
+import org.citygml4j.jaxb.citygml.bldg._2.FloorSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.GroundSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.IntBuildingInstallationPropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.IntBuildingInstallationType;
+import org.citygml4j.jaxb.citygml.bldg._2.InteriorFurniturePropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.InteriorRoomPropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.InteriorWallSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.ObjectFactory;
+import org.citygml4j.jaxb.citygml.bldg._2.OpeningPropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.RoofSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.RoomType;
+import org.citygml4j.jaxb.citygml.bldg._2.WallSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.WindowType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
@@ -90,16 +90,14 @@ import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
-public class Building040Marshaller {
-	private final ObjectFactory bldg;
+public class Building200Marshaller {
+	private final ObjectFactory bldg = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	
-	public Building040Marshaller(CityGMLMarshaller citygml) {
+
+	public Building200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
-		bldg = citygml.getCore040Marshaller().getObjectFactory();
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {
@@ -138,10 +136,10 @@ public class Building040Marshaller {
 			dest = bldg.createWallSurface((WallSurfaceType)src);
 		else if (src instanceof WindowType)
 			dest = bldg.createWindow((WindowType)src);
-		
+
 		return dest;
 	}
-	
+
 	public Object marshal(ModelObject src) {
 		Object dest = null;
 
@@ -189,24 +187,24 @@ public class Building040Marshaller {
 			dest = marshalWallSurface((WallSurface)src);
 		else if (src instanceof Window)
 			dest = marshalWindow((Window)src);
-				
+
 		return dest;
 	}
-	
-	public void marshalAbstractBuilding(AbstractBuilding src, _AbstractBuildingType dest) {
-		citygml.getCore040Marshaller().marshalSite(src, dest);
+
+	public void marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest) {
+		citygml.getCore200Marshaller().marshalSite(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz().getValue());
+			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
-				dest.getFunction().add(function.getValue());
+				dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage())
-				dest.getUsage().add(usage.getValue());
+				dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
 		}
 
 		if (src.isSetYearOfConstruction()) {
@@ -238,7 +236,7 @@ public class Building040Marshaller {
 		}
 
 		if (src.isSetRoofType())
-			dest.setRoofType(src.getRoofType().getValue());
+			dest.setRoofType(jaxb.getGMLMarshaller().marshalCode(src.getRoofType()));
 
 		if (src.isSetMeasuredHeight())
 			dest.setMeasuredHeight(jaxb.getGMLMarshaller().marshalLength(src.getMeasuredHeight()));
@@ -254,7 +252,7 @@ public class Building040Marshaller {
 
 		if (src.isSetStoreyHeightsBelowGround())
 			dest.setStoreyHeightsBelowGround(jaxb.getGMLMarshaller().marshalMeasureOrNullList(src.getStoreyHeightsBelowGround()));
-
+		
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLMarshaller().marshalSolidProperty(src.getLod1Solid()));
 
@@ -291,6 +289,12 @@ public class Building040Marshaller {
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 
+		if (src.isSetLod0FootPrint())
+			dest.setLod0FootPrint(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0FootPrint()));
+		
+		if (src.isSetLod0RoofEdge())
+			dest.setLod0RoofEdge(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0RoofEdge()));
+		
 		if (src.isSetLod2MultiCurve())
 			dest.setLod2MultiCurve(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod2MultiCurve()));
 
@@ -327,7 +331,7 @@ public class Building040Marshaller {
 
 		if (src.isSetAddress()) {
 			for (AddressProperty addressProperty : src.getAddress())
-				dest.getAddress().add(citygml.getCore040Marshaller().marshalAddressProperty(addressProperty));
+				dest.getAddress().add(citygml.getCore200Marshaller().marshalAddressProperty(addressProperty));
 		}	
 
 		if (src.isSetGenericApplicationPropertyOfAbstractBuilding()) {
@@ -336,9 +340,9 @@ public class Building040Marshaller {
 					dest.get_GenericApplicationPropertyOfAbstractBuilding().add(citygml.ade2jaxbElement(adeComponent));
 		}
 	}
-	
-	public void marshalBoundarySurface(AbstractBoundarySurface src, _BoundarySurfaceType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+
+	public void marshalBoundarySurface(AbstractBoundarySurface src, AbstractBoundarySurfaceType dest) {
+		citygml.getCore200Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -353,22 +357,28 @@ public class Building040Marshaller {
 			for (OpeningProperty openingProperty : src.getOpening())
 				dest.getOpening().add(marshalOpeningProperty(openingProperty));
 		}
-		
+
 		if (src.isSetGenericApplicationPropertyOfBoundarySurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBoundarySurface())
 				if (adeComponent.isSetContent())
 					dest.get_GenericApplicationPropertyOfBoundarySurface().add(citygml.ade2jaxbElement(adeComponent));
 		}
 	}
-	
-	public void marshalOpening(AbstractOpening src, _OpeningType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+
+	public void marshalOpening(AbstractOpening src, AbstractOpeningType dest) {
+		citygml.getCore200Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetLod3MultiSurface())
 			dest.setLod3MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod3MultiSurface()));
 
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+
+		if (src.isSetLod3ImplicitRepresentation())
+			dest.setLod3ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
+
+		if (src.isSetLod4ImplicitRepresentation())
+			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 		
 		if (src.isSetGenericApplicationPropertyOfOpening()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOpening())
@@ -376,20 +386,47 @@ public class Building040Marshaller {
 					dest.get_GenericApplicationPropertyOfOpening().add(citygml.ade2jaxbElement(adeComponent));
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public BoundarySurfacePropertyType marshalBoundarySurfaceProperty(BoundarySurfaceProperty src) {
 		BoundarySurfacePropertyType dest = bldg.createBoundarySurfacePropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetBoundarySurface()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBoundarySurface());
-			if (elem != null && elem.getValue() instanceof _BoundarySurfaceType)
-				dest.set_Object((JAXBElement<?>)elem);
+			if (elem != null && elem.getValue() instanceof AbstractBoundarySurfaceType)
+				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
-	
+
 	public void marshalBuilding(Building src, BuildingType dest) {
 		marshalAbstractBuilding(src, dest);
 
@@ -406,29 +443,29 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalBuildingFurniture(BuildingFurniture src, BuildingFurnitureType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz().getValue());
+			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
-				dest.getFunction().add(function.getValue());
+				dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage())
-				dest.getUsage().add(usage.getValue());
+				dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
 		}
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
 
 		if (src.isSetLod4ImplicitRepresentation())
-			dest.setLod4ImplicitRepresentation(citygml.getCore040Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
+
 		if (src.isSetGenericApplicationPropertyOfBuildingFurniture()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBuildingFurniture())
 				if (adeComponent.isSetContent())
@@ -442,21 +479,21 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz().getValue());
+			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
-				dest.getFunction().add(function.getValue());
+				dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage())
-				dest.getUsage().add(usage.getValue());
+				dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
 		}
 
 		if (src.isSetLod2Geometry())
@@ -467,7 +504,21 @@ public class Building040Marshaller {
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
+
+		if (src.isSetLod2ImplicitRepresentation())
+			dest.setLod2ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
+
+		if (src.isSetLod3ImplicitRepresentation())
+			dest.setLod3ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
+
+		if (src.isSetLod4ImplicitRepresentation())
+			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 		
+		if (src.isSetBoundedBySurface()) {
+			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
+				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
+		}
+
 		if (src.isSetGenericApplicationPropertyOfBuildingInstallation()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBuildingInstallation())
 				if (adeComponent.isSetContent())
@@ -482,17 +533,40 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public BuildingInstallationPropertyType marshalBuildingInstallationProperty(BuildingInstallationProperty src) {
 		BuildingInstallationPropertyType dest = bldg.createBuildingInstallationPropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
-		if (src.isSetBuildingInstallation()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingInstallation());
-			if (elem != null && elem.getValue() instanceof BuildingInstallationType)
-				dest.set_Object((JAXBElement<?>)elem);
-		}
+		if (src.isSetBuildingInstallation())
+			dest.setBuildingInstallation(marshalBuildingInstallation(src.getBuildingInstallation()));
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
 
@@ -512,23 +586,46 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public BuildingPartPropertyType marshalBuildingPartProperty(BuildingPartProperty src) {
 		BuildingPartPropertyType dest = bldg.createBuildingPartPropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
-		if (src.isSetBuildingPart()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingPart());
-			if (elem != null && elem.getValue() instanceof BuildingPartType)
-				dest.set_Object((JAXBElement<?>)elem);
-		}
+		if (src.isSetBuildingPart())
+			dest.setBuildingPart(marshalBuildingPart(src.getBuildingPart()));
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
-	
+
 	public void marshalCeilingSurface(CeilingSurface src, CeilingSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfCeilingSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCeilingSurface())
 				if (adeComponent.isSetContent())
@@ -542,10 +639,10 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalClosureSurface(ClosureSurface src, ClosureSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfClosureSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfClosureSurface())
 				if (adeComponent.isSetContent())
@@ -565,9 +662,9 @@ public class Building040Marshaller {
 
 		if (src.isSetAddress()) {
 			for (AddressProperty addressProperty : src.getAddress())
-				dest.getAddress().add(citygml.getCore040Marshaller().marshalAddressProperty(addressProperty));
+				dest.getAddress().add(citygml.getCore200Marshaller().marshalAddressProperty(addressProperty));
 		}
-		
+
 		if (src.isSetGenericApplicationPropertyOfDoor()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfDoor())
 				if (adeComponent.isSetContent())
@@ -584,7 +681,7 @@ public class Building040Marshaller {
 
 	public void marshalFloorSurface(FloorSurface src, FloorSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfFloorSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfFloorSurface())
 				if (adeComponent.isSetContent())
@@ -598,10 +695,10 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalGroundSurface(GroundSurface src, GroundSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfGroundSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfGroundSurface())
 				if (adeComponent.isSetContent())
@@ -615,26 +712,34 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalIntBuildingInstallation(IntBuildingInstallation src, IntBuildingInstallationType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz().getValue());
+			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
-				dest.getFunction().add(function.getValue());
+				dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage())
-				dest.getUsage().add(usage.getValue());
+				dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
 		}
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
+
+		if (src.isSetLod4ImplicitRepresentation())
+			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 		
+		if (src.isSetBoundedBySurface()) {
+			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
+				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
+		}
+
 		if (src.isSetGenericApplicationPropertyOfIntBuildingInstallation()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfIntBuildingInstallation())
 				if (adeComponent.isSetContent())
@@ -648,49 +753,118 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public IntBuildingInstallationPropertyType marshalIntBuildingInstallationProperty(IntBuildingInstallationProperty src) {
 		IntBuildingInstallationPropertyType dest = bldg.createIntBuildingInstallationPropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
-		if (src.isSetIntBuildingInstallation()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getIntBuildingInstallation());
-			if (elem != null && elem.getValue() instanceof IntBuildingInstallationType)
-				dest.set_Object((JAXBElement<?>)elem);
-		}
+		if (src.isSetIntBuildingInstallation())
+			dest.setIntBuildingInstallation(marshalIntBuildingInstallation(src.getIntBuildingInstallation()));
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
-	
+
 	public InteriorFurniturePropertyType marshalInteriorFurnitureProperty(InteriorFurnitureProperty src) {
 		InteriorFurniturePropertyType dest = bldg.createInteriorFurniturePropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
-		if (src.isSetBuildingFurniture()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingFurniture());
-			if (elem != null && elem.getValue() instanceof BuildingFurnitureType)
-				dest.set_Object((JAXBElement<?>)elem);
-		}
+		if (src.isSetBuildingFurniture())
+			dest.setBuildingFurniture(marshalBuildingFurniture(src.getBuildingFurniture()));
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
-	
+
 	public InteriorRoomPropertyType marshalInteriorRoomProperty(InteriorRoomProperty src) {
 		InteriorRoomPropertyType dest = bldg.createInteriorRoomPropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
-		if (src.isSetRoom()) {
-			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRoom());
-			if (elem != null && elem.getValue() instanceof RoomType)
-				dest.set_Object((JAXBElement<?>)elem);
-		}
+		if (src.isSetRoom())
+			dest.setRoom(marshalRoom(src.getRoom()));
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
-	
+
 	public void marshalInteriorWallSurface(InteriorWallSurface src, InteriorWallSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfInteriorWallSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfInteriorWallSurface())
 				if (adeComponent.isSetContent())
@@ -704,23 +878,50 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public OpeningPropertyType marshalOpeningProperty(OpeningProperty src) {
 		OpeningPropertyType dest = bldg.createOpeningPropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetOpening()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getOpening());
-			if (elem != null && elem.getValue() instanceof _OpeningType)
-				dest.set_Object((JAXBElement<?>)elem);
+			if (elem != null && elem.getValue() instanceof AbstractOpeningType)
+				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
 		return dest;
 	}
 
 	public void marshalRoofSurface(RoofSurface src, RoofSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfRoofSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRoofSurface())
 				if (adeComponent.isSetContent())
@@ -736,42 +937,42 @@ public class Building040Marshaller {
 	}
 
 	public void marshalRoom(Room src, RoomType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz().getValue());
+			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
-				dest.getFunction().add(function.getValue());
+				dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
 		}
 
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage())
-				dest.getUsage().add(usage.getValue());
+				dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
 		}
-		
+
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLMarshaller().marshalSolidProperty(src.getLod4Solid()));
 
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSetInteriorFurniture()) {
 			for (InteriorFurnitureProperty interiorFurnitureProperty : src.getInteriorFurniture())
 				dest.getInteriorFurniture().add(marshalInteriorFurnitureProperty(interiorFurnitureProperty));
 		}
-		
+
 		if (src.isSetRoomInstallation()) {
 			for (IntBuildingInstallationProperty intBuildingInstallationProperty : src.getRoomInstallation())
 				dest.getRoomInstallation().add(marshalIntBuildingInstallationProperty(intBuildingInstallationProperty));
 		}	
-		
+
 		if (src.isSetGenericApplicationPropertyOfRoom()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRoom())
 				if (adeComponent.isSetContent())
@@ -788,7 +989,7 @@ public class Building040Marshaller {
 
 	public void marshalWallSurface(WallSurface src, WallSurfaceType dest) {
 		marshalBoundarySurface(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfWallSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWallSurface())
 				if (adeComponent.isSetContent())
@@ -802,7 +1003,7 @@ public class Building040Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalWindow(Window src, WindowType dest) {
 		marshalOpening(src, dest);
 
@@ -819,4 +1020,5 @@ public class Building040Marshaller {
 
 		return dest;
 	}
+
 }

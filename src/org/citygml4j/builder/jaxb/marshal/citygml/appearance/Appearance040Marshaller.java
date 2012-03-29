@@ -212,17 +212,12 @@ public class Appearance040Marshaller {
 		return dest;
 	}
 
-	public void marshalAppearanceProperty(AppearanceProperty src, AppearancePropertyType dest) {
+	public AppearancePropertyType marshalAppearanceProperty(AppearanceProperty src) {
+		AppearancePropertyType dest = app.createAppearancePropertyType();
 		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetAppearance())
 			dest.setAppearance(marshalAppearance(src.getAppearance()));
-	}
-
-	public AppearancePropertyType marshalAppearanceProperty(AppearanceProperty src) {
-		AppearancePropertyType dest = app.createAppearancePropertyType();
-		marshalAppearanceProperty(src, dest);
-
 		return dest;
 	}
 

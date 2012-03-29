@@ -45,11 +45,11 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 	private Code clazz;
 	private List<Code> function;
 	private List<Code> usage;
+	private SolidProperty lod4Solid;
+	private MultiSurfaceProperty lod4MultiSurface;
 	private List<BoundarySurfaceProperty> boundedBySurface;
 	private List<InteriorFurnitureProperty> interiorFurniture;
 	private List<IntBuildingInstallationProperty> roomInstallation;
-	private SolidProperty lod4Solid;
-	private MultiSurfaceProperty lod4MultiSurface;
 	private List<ADEComponent> ade;
 	private BuildingModule module;
 	

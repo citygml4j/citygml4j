@@ -29,26 +29,29 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.app._1.AbstractSurfaceDataType;
-import org.citygml4j.jaxb.citygml.app._1.AbstractTextureParameterizationType;
-import org.citygml4j.jaxb.citygml.app._1.AbstractTextureType;
-import org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType;
-import org.citygml4j.jaxb.citygml.app._1.AppearanceType;
-import org.citygml4j.jaxb.citygml.app._1.GeoreferencedTextureType;
-import org.citygml4j.jaxb.citygml.app._1.ObjectFactory;
-import org.citygml4j.jaxb.citygml.app._1.ParameterizedTextureType;
-import org.citygml4j.jaxb.citygml.app._1.SurfaceDataPropertyType;
-import org.citygml4j.jaxb.citygml.app._1.TexCoordGenType;
-import org.citygml4j.jaxb.citygml.app._1.TexCoordListType;
-import org.citygml4j.jaxb.citygml.app._1.TextureAssociationType;
-import org.citygml4j.jaxb.citygml.app._1.TextureTypeType;
-import org.citygml4j.jaxb.citygml.app._1.WrapModeType;
-import org.citygml4j.jaxb.citygml.app._1.X3DMaterialType;
+import org.citygml4j.jaxb.citygml.app._2.AbstractSurfaceDataType;
+import org.citygml4j.jaxb.citygml.app._2.AbstractTextureParameterizationType;
+import org.citygml4j.jaxb.citygml.app._2.AbstractTextureType;
+import org.citygml4j.jaxb.citygml.app._2.AppearancePropertyElement;
+import org.citygml4j.jaxb.citygml.app._2.AppearancePropertyType;
+import org.citygml4j.jaxb.citygml.app._2.AppearanceType;
+import org.citygml4j.jaxb.citygml.app._2.GeoreferencedTextureType;
+import org.citygml4j.jaxb.citygml.app._2.ObjectFactory;
+import org.citygml4j.jaxb.citygml.app._2.ParameterizedTextureType;
+import org.citygml4j.jaxb.citygml.app._2.SurfaceDataPropertyType;
+import org.citygml4j.jaxb.citygml.app._2.TexCoordGenType;
+import org.citygml4j.jaxb.citygml.app._2.TexCoordListType;
+import org.citygml4j.jaxb.citygml.app._2.TextureAssociationType;
+import org.citygml4j.jaxb.citygml.app._2.TextureTypeType;
+import org.citygml4j.jaxb.citygml.app._2.WrapModeType;
+import org.citygml4j.jaxb.citygml.app._2.X3DMaterialType;
+import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
+import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.appearance.Color;
@@ -66,24 +69,27 @@ import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.common.base.ModelObject;
 
-public class Appearance100Marshaller {
+public class Appearance200Marshaller {
 	private final ObjectFactory app = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
 
-	public Appearance100Marshaller(CityGMLMarshaller citygml) {
+	public Appearance200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {
 		JAXBElement<?> dest = null;
+		AppearanceModuleComponent orig = null;
 
-		if (src instanceof AppearanceModuleComponent)
-			src = marshal((AppearanceModuleComponent)src);
+		if (src instanceof AppearanceModuleComponent) {
+			orig = (AppearanceModuleComponent)src;
+			src = marshal(orig);
+		}
 
-		if (src instanceof AppearancePropertyType)
-			dest = app.createAppearanceMember((AppearancePropertyType)src);
+		if (src instanceof FeaturePropertyType && orig instanceof AppearanceMember)
+			dest = app.createAppearanceMember((FeaturePropertyType)src);
 		else if (src instanceof GeoreferencedTextureType)
 			dest = app.createGeoreferencedTexture((GeoreferencedTextureType)src);
 		else if (src instanceof ParameterizedTextureType)
@@ -151,7 +157,7 @@ public class Appearance100Marshaller {
 			dest.setImageURI(src.getImageURI());
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType().getValue());
+			dest.setMimeType(jaxb.getGMLMarshaller().marshalCode(src.getMimeType()));
 
 		if (src.isSetTextureType())
 			dest.setTextureType(marshalTextureType(src.getTextureType()));
@@ -210,14 +216,50 @@ public class Appearance100Marshaller {
 		return dest;
 	}
 
-	public AppearancePropertyType marshalAppearanceProperty(AppearanceProperty src) {
-		AppearancePropertyType dest = app.createAppearancePropertyType();
-		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
-
+	public void marshalAppearanceProperty(AppearanceProperty src, AppearancePropertyType dest) {
 		if (src.isSetAppearance())
 			dest.setAppearance(marshalAppearance(src.getAppearance()));
 		
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+	}
+
+	public AppearancePropertyType marshalAppearanceProperty(AppearanceProperty src) {
+		AppearancePropertyType dest = app.createAppearancePropertyType();
+		marshalAppearanceProperty(src, dest);
+
 		return dest;
+	}
+	
+	public AppearancePropertyElement marshalAppearancePropertyElement(AppearanceProperty src) {
+		AppearancePropertyType dest = app.createAppearancePropertyType();
+		marshalAppearanceProperty(src, dest);
+
+		return new AppearancePropertyElement(dest);
 	}
 
 	public List<Double> marshalColor(Color src) {
@@ -238,7 +280,7 @@ public class Appearance100Marshaller {
 			dest.setReferencePoint(jaxb.getGMLMarshaller().marshalPointProperty(src.getReferencePoint()));
 
 		if (src.isSetOrientation())
-			dest.setOrientation(citygml.getCore100Marshaller().marshalTransformationMatrix2x2(src.getOrientation()));
+			dest.setOrientation(citygml.getCore200Marshaller().marshalTransformationMatrix2x2(src.getOrientation()));
 
 		if (src.isSetTarget())
 			dest.setTarget(src.getTarget());
@@ -425,7 +467,7 @@ public class Appearance100Marshaller {
 
 	public void marshalWorldToTexture(WorldToTexture src, TexCoordGenType.WorldToTexture dest) {
 		if (src.isSetMatrix())
-			dest.setValue(citygml.getCore100Marshaller().marshalTransformationMatrix3x4(src));
+			dest.setValue(citygml.getCore200Marshaller().marshalTransformationMatrix3x4(src));
 
 		if (src.isSetSrsName())
 			dest.setSrsName(src.getSrsName());
