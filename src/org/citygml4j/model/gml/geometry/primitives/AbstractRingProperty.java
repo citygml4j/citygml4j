@@ -26,6 +26,14 @@ import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
 
 public abstract class AbstractRingProperty extends InlineGeometryProperty<AbstractRing> {
 
+	public AbstractRingProperty() {
+
+	}
+
+	public AbstractRingProperty(AbstractRing abstractRing) {
+		super(abstractRing);
+	}
+
 	public AbstractRing getRing() {
 		return super.getGeometry();
 	}

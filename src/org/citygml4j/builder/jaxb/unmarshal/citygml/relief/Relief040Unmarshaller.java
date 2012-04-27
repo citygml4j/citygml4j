@@ -93,8 +93,8 @@ public class Relief040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalReliefComponent(_ReliefComponentType src, AbstractReliefComponent dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractReliefComponent(_ReliefComponentType src, AbstractReliefComponent dest) throws MissingADESchemaException {
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod())
 			dest.setLod(src.getLod());
@@ -104,7 +104,7 @@ public class Relief040Unmarshaller {
 	}
 
 	public void unmarshalBreaklineRelief(BreaklineReliefType src, BreaklineRelief dest) throws MissingADESchemaException {
-		unmarshalReliefComponent(src, dest);
+		unmarshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetRidgeOrValleyLines())
 			dest.setRidgeOrValleyLines(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getRidgeOrValleyLines()));
@@ -134,7 +134,7 @@ public class Relief040Unmarshaller {
 	}
 
 	public void unmarshalMassPointRelief(MassPointReliefType src, MassPointRelief dest) throws MissingADESchemaException {
-		unmarshalReliefComponent(src, dest);
+		unmarshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetReliefPoints())
 			dest.setReliefPoints(jaxb.getGMLUnmarshaller().unmarshalMultiPointProperty(src.getReliefPoints()));
@@ -148,7 +148,7 @@ public class Relief040Unmarshaller {
 	}
 
 	public void unmarshalRasterRelief(RasterReliefType src, RasterRelief dest) throws MissingADESchemaException {
-		unmarshalReliefComponent(src, dest);
+		unmarshalAbstractReliefComponent(src, dest);
 		
 		if (src.isSetGrid())
 			dest.setGrid(unmarshalGridProperty(src.getGrid()));
@@ -175,7 +175,7 @@ public class Relief040Unmarshaller {
 	}
 
 	public void unmarshalReliefFeature(ReliefFeatureType src, ReliefFeature dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod())
 			dest.setLod(src.getLod());
@@ -207,7 +207,7 @@ public class Relief040Unmarshaller {
 	}
 
 	public void unmarshalTINRelief(TINReliefType src, TINRelief dest) throws MissingADESchemaException {
-		unmarshalReliefComponent(src, dest);
+		unmarshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetTin())
 			dest.setTin(unmarshalTinProperty(src.getTin()));

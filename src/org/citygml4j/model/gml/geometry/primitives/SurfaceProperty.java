@@ -25,10 +25,20 @@
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 
 public class SurfaceProperty extends GeometryProperty<AbstractSurface> {
+	
+	public SurfaceProperty() {
+
+	}
+
+	public SurfaceProperty(AbstractSurface abstractSurface) {
+		super(abstractSurface);
+	}
+
+	public SurfaceProperty(String href) {
+		super(href);
+	}
 	
 	public AbstractSurface getSurface() {
 		return super.getGeometry();

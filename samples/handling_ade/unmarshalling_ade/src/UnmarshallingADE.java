@@ -28,7 +28,6 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.gml.base.StringOrRef;
@@ -64,7 +63,6 @@ public class UnmarshallingADE {
 		SchemaHandler schemaHandler = in.getSchemaHandler();
 		final JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller(schemaHandler);
 		final JAXBMarshaller marshaller = builder.createJAXBMarshaller();
-		final GMLFactory gml = new GMLFactory();
 
 		GMLWalker walker = new GMLWalker(schemaHandler) {
 
@@ -79,7 +77,7 @@ public class UnmarshallingADE {
 						if (geometry != null) {
 							System.out.println(geometry.getGMLClass());
 
-							StringOrRef description = gml.createStringOrRef();
+							StringOrRef description = new StringOrRef();
 							description.setValue("processed by citygml4j");
 							geometry.setDescription(description);
 

@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -32,10 +33,24 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
 import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
 
 public class MultiLineString extends AbstractGeometricAggregate {
 	private List<LineStringProperty> lineStringMember;		
+	
+	public MultiLineString() {
+		
+	}
+	
+	public MultiLineString(List<LineString> lineStrings) {
+		for (LineString lineString : lineStrings)
+			addLineStringMember(new LineStringProperty(lineString));
+	}
+	
+	public MultiLineString(LineString... lineStrings) {
+		this(Arrays.asList(lineStrings));
+	}
 	
 	public void addLineStringMember(LineStringProperty lineStringMember) {
 		if (this.lineStringMember == null)

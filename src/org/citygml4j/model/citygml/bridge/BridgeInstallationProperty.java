@@ -35,6 +35,14 @@ public class BridgeInstallationProperty extends FeatureProperty<BridgeInstallati
 		
 	}
 	
+	public BridgeInstallationProperty(BridgeInstallation bridgeInstallation) {
+		super(bridgeInstallation);
+	}
+	
+	public BridgeInstallationProperty(String href) {
+		super(href);
+	}
+	
 	public BridgeInstallationProperty(BridgeModule module) {
 		this.module = module;
 	}

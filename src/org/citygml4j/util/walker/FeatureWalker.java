@@ -40,10 +40,20 @@ import org.citygml4j.model.citygml.appearance.TexCoordGen;
 import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
-import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.bridge.AbstractBridge;
+import org.citygml4j.model.citygml.bridge.Bridge;
+import org.citygml4j.model.citygml.bridge.BridgeConstructionElement;
+import org.citygml4j.model.citygml.bridge.BridgeConstructionElementProperty;
+import org.citygml4j.model.citygml.bridge.BridgeFurniture;
+import org.citygml4j.model.citygml.bridge.BridgeInstallation;
+import org.citygml4j.model.citygml.bridge.BridgeInstallationProperty;
+import org.citygml4j.model.citygml.bridge.BridgePart;
+import org.citygml4j.model.citygml.bridge.BridgePartProperty;
+import org.citygml4j.model.citygml.bridge.BridgeRoom;
+import org.citygml4j.model.citygml.bridge.IntBridgeInstallation;
+import org.citygml4j.model.citygml.bridge.IntBridgeInstallationProperty;
+import org.citygml4j.model.citygml.bridge.InteriorBridgeRoomProperty;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.AbstractOpening;
-import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
@@ -57,10 +67,8 @@ import org.citygml4j.model.citygml.building.FloorSurface;
 import org.citygml4j.model.citygml.building.GroundSurface;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.OpeningProperty;
 import org.citygml4j.model.citygml.building.OuterCeilingSurface;
 import org.citygml4j.model.citygml.building.OuterFloorSurface;
 import org.citygml4j.model.citygml.building.RoofSurface;
@@ -96,6 +104,17 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
+import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
+import org.citygml4j.model.citygml.tunnel.HollowSpace;
+import org.citygml4j.model.citygml.tunnel.IntTunnelInstallation;
+import org.citygml4j.model.citygml.tunnel.IntTunnelInstallationProperty;
+import org.citygml4j.model.citygml.tunnel.InteriorHollowSpaceProperty;
+import org.citygml4j.model.citygml.tunnel.Tunnel;
+import org.citygml4j.model.citygml.tunnel.TunnelFurniture;
+import org.citygml4j.model.citygml.tunnel.TunnelInstallation;
+import org.citygml4j.model.citygml.tunnel.TunnelInstallationProperty;
+import org.citygml4j.model.citygml.tunnel.TunnelPart;
+import org.citygml4j.model.citygml.tunnel.TunnelPartProperty;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
@@ -163,73 +182,78 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		return visited.contains(object);
 	}
 
-	public void visit(AbstractCoverage abstractCoverage) {
-		visit((AbstractFeature)abstractCoverage);
+	public void visit(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {
+		visit((AbstractCityObject)abstractBoundarySurface);
+
+		if (abstractBoundarySurface.isSetOpening())
+			for (org.citygml4j.model.citygml.bridge.OpeningProperty openingProperty : new ArrayList<org.citygml4j.model.citygml.bridge.OpeningProperty>(abstractBoundarySurface.getOpening()))
+				visit(openingProperty);
+
+		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
+				visit(ade);
 	}
 	
-	public void visit(AbstractDiscreteCoverage abstractDiscreteCoverage) {
-		visit((AbstractCoverage)abstractDiscreteCoverage);
-	}
+	public void visit(org.citygml4j.model.citygml.building.AbstractBoundarySurface abstractBoundarySurface) {
+		visit((AbstractCityObject)abstractBoundarySurface);
 
-	public void visit(AbstractFeature abstractFeature) {
-		if (abstractFeature.isSetGenericADEComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEComponent()))
+		if (abstractBoundarySurface.isSetOpening())
+			for (org.citygml4j.model.citygml.building.OpeningProperty openingProperty : new ArrayList<org.citygml4j.model.citygml.building.OpeningProperty>(abstractBoundarySurface.getOpening()))
+				visit(openingProperty);
+
+		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
+	
+	public void visit(org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface abstractBoundarySurface) {
+		visit((AbstractCityObject)abstractBoundarySurface);
 
-	public void visit(AbstractFeatureCollection abstractFeatureCollection) {
-		visit((AbstractFeature)abstractFeatureCollection);
+		if (abstractBoundarySurface.isSetOpening())
+			for (org.citygml4j.model.citygml.tunnel.OpeningProperty openingProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.OpeningProperty>(abstractBoundarySurface.getOpening()))
+				visit(openingProperty);
 
-		if (abstractFeatureCollection.isSetFeatureMember())
-			for (FeatureMember member : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember()))
-				visit(member);
-
-		if (abstractFeatureCollection.isSetFeatureMembers())
-			visit(abstractFeatureCollection.getFeatureMembers());
-	}
-
-	public void visit(AbstractCityObject abstractCityObject) {
-		visit((AbstractFeature)abstractCityObject);
-
-		if (abstractCityObject.isSetGeneralizesTo()) {
-			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo()))
-				visit(generalizationRelation);
-		}
-
-		if (abstractCityObject.isSetAppearance()) {
-			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance()))
-				visit(appearanceProperty);
-		}
-
-		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
+		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
+	
+	public void visit(AbstractBridge abstractBridge) {
+		visit((AbstractSite)abstractBridge);
 
-	public void visit(AbstractSurfaceData abstractSurfaceData) {
-		visit((AbstractFeature)abstractSurfaceData);
+		if (abstractBridge.isSetOuterBridgeInstallation())
+			for (BridgeInstallationProperty bridgeInstallationProperty : new ArrayList<BridgeInstallationProperty>(abstractBridge.getOuterBridgeInstallation()))
+				visit(bridgeInstallationProperty);
+					
+		if (abstractBridge.isSetOuterBridgeConstructionElement())
+			for (BridgeConstructionElementProperty constructionElementProperty : new ArrayList<BridgeConstructionElementProperty>(abstractBridge.getOuterBridgeConstructionElement()))
+				visit(constructionElementProperty);
+				
+		if (abstractBridge.isSetInteriorBridgeInstallation())
+			for (IntBridgeInstallationProperty intBridgeInstallationProperty : new ArrayList<IntBridgeInstallationProperty>(abstractBridge.getInteriorBridgeInstallation())) 
+				visit(intBridgeInstallationProperty);
 
-		if (abstractSurfaceData.isSetGenericApplicationPropertyOfSurfaceData())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()))
+		if (abstractBridge.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(abstractBridge.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (abstractBridge.isSetConsistsOfBridgePart())
+			for (BridgePartProperty bridgePartProperty : new ArrayList<BridgePartProperty>(abstractBridge.getConsistsOfBridgePart()))
+				visit(bridgePartProperty);
+
+		if (abstractBridge.isSetInteriorBridgeRoom())
+			for (InteriorBridgeRoomProperty interiorBridgeRoomProperty : new ArrayList<InteriorBridgeRoomProperty>(abstractBridge.getInteriorBridgeRoom()))
+				visit(interiorBridgeRoomProperty);
+
+		if (abstractBridge.isSetAddress())
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(abstractBridge.getAddress()))
+				visit(addressProperty);
+
+		if (abstractBridge.isSetGenericApplicationPropertyOfAbstractBridge())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBridge.getGenericApplicationPropertyOfAbstractBridge()))
 				visit(ade);
 	}
-
-	public void visit(AbstractTexture abstractTexture) {
-		visit((AbstractSurfaceData)abstractTexture);
-
-		if (abstractTexture.isSetGenericApplicationPropertyOfTexture())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture()))
-				visit(ade);
-	}	
-
-	public void visit(AbstractSite abstractSite) {
-		visit((AbstractCityObject)abstractSite);
-
-		if (abstractSite.isSetGenericApplicationPropertyOfSite())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
-				visit(ade);
-	}
-
+	
 	public void visit(AbstractBuilding abstractBuilding) {
 		visit((AbstractSite)abstractBuilding);
 
@@ -242,7 +266,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(intBuildingInstallationProperty);
 
 		if (abstractBuilding.isSetBoundedBySurface())
-			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(abstractBuilding.getBoundedBySurface()))
+			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(abstractBuilding.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
 
 		if (abstractBuilding.isSetConsistsOfBuildingPart())
@@ -261,27 +285,74 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()))
 				visit(ade);
 	}
+	
+	public void visit(AbstractCityObject abstractCityObject) {
+		visit((AbstractFeature)abstractCityObject);
 
-	public void visit(AbstractBoundarySurface abstractBoundarySurface) {
-		visit((AbstractCityObject)abstractBoundarySurface);
+		if (abstractCityObject.isSetGeneralizesTo()) {
+			for (GeneralizationRelation generalizationRelation : new ArrayList<GeneralizationRelation>(abstractCityObject.getGeneralizesTo()))
+				visit(generalizationRelation);
+		}
 
-		if (abstractBoundarySurface.isSetOpening())
-			for (OpeningProperty openingProperty : new ArrayList<OpeningProperty>(abstractBoundarySurface.getOpening()))
-				visit(openingProperty);
+		if (abstractCityObject.isSetAppearance()) {
+			for (AppearanceProperty appearanceProperty : new ArrayList<AppearanceProperty>(abstractCityObject.getAppearance()))
+				visit(appearanceProperty);
+		}
 
-		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
+		if (abstractCityObject.isSetGenericApplicationPropertyOfCityObject())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
 				visit(ade);
 	}
+	
+	public void visit(AbstractCoverage abstractCoverage) {
+		visit((AbstractFeature)abstractCoverage);
+	}
+	
+	public void visit(AbstractDiscreteCoverage abstractDiscreteCoverage) {
+		visit((AbstractCoverage)abstractDiscreteCoverage);
+	}
+	
+	public void visit(AbstractFeature abstractFeature) {
+		if (abstractFeature.isSetGenericADEComponent())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEComponent()))
+				visit(ade);
+	}
+	
+	public void visit(AbstractFeatureCollection abstractFeatureCollection) {
+		visit((AbstractFeature)abstractFeatureCollection);
 
-	public void visit(AbstractOpening abstractOpening) {
+		if (abstractFeatureCollection.isSetFeatureMember())
+			for (FeatureMember member : new ArrayList<FeatureMember>(abstractFeatureCollection.getFeatureMember()))
+				visit(member);
+
+		if (abstractFeatureCollection.isSetFeatureMembers())
+			visit(abstractFeatureCollection.getFeatureMembers());
+	}
+	
+	public void visit(org.citygml4j.model.citygml.bridge.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
 
 		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
+	
+	public void visit(org.citygml4j.model.citygml.building.AbstractOpening abstractOpening) {
+		visit((AbstractCityObject)abstractOpening);
 
+		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
+				visit(ade);
+	}
+	
+	public void visit(org.citygml4j.model.citygml.tunnel.AbstractOpening abstractOpening) {
+		visit((AbstractCityObject)abstractOpening);
+
+		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
+				visit(ade);
+	}
+	
 	public void visit(AbstractReliefComponent abstractReliefComponent) {
 		visit((AbstractCityObject)abstractReliefComponent);
 
@@ -289,7 +360,31 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()))
 				visit(ade);
 	}
+	
+	public void visit(AbstractSite abstractSite) {
+		visit((AbstractCityObject)abstractSite);
 
+		if (abstractSite.isSetGenericApplicationPropertyOfSite())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
+				visit(ade);
+	}
+	
+	public void visit(AbstractSurfaceData abstractSurfaceData) {
+		visit((AbstractFeature)abstractSurfaceData);
+
+		if (abstractSurfaceData.isSetGenericApplicationPropertyOfSurfaceData())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()))
+				visit(ade);
+	}
+	
+	public void visit(AbstractTexture abstractTexture) {
+		visit((AbstractSurfaceData)abstractTexture);
+
+		if (abstractTexture.isSetGenericApplicationPropertyOfTexture())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture()))
+				visit(ade);
+	}
+	
 	public void visit(AbstractTransportationObject abstractTransportationObject) {
 		visit((AbstractCityObject)abstractTransportationObject);
 
@@ -297,7 +392,35 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()))
 				visit(ade);
 	}
+	
+	public void visit(AbstractTunnel abstractTunnel) {
+		visit((AbstractSite)abstractTunnel);
 
+		if (abstractTunnel.isSetOuterTunnelInstallation())
+			for (TunnelInstallationProperty tunnelInstallationProperty : new ArrayList<TunnelInstallationProperty>(abstractTunnel.getOuterTunnelInstallation()))
+				visit(tunnelInstallationProperty);
+
+		if (abstractTunnel.isSetInteriorTunnelInstallation())
+			for (IntTunnelInstallationProperty intTunnelInstallationProperty : new ArrayList<IntTunnelInstallationProperty>(abstractTunnel.getInteriorTunnelInstallation())) 
+				visit(intTunnelInstallationProperty);
+
+		if (abstractTunnel.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(abstractTunnel.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (abstractTunnel.isSetConsistsOfTunnelPart())
+			for (TunnelPartProperty tunnelPartProperty : new ArrayList<TunnelPartProperty>(abstractTunnel.getConsistsOfTunnelPart()))
+				visit(tunnelPartProperty);
+
+		if (abstractTunnel.isSetInteriorHollowSpace())
+			for (InteriorHollowSpaceProperty interiorHollowSpaceProperty : new ArrayList<InteriorHollowSpaceProperty>(abstractTunnel.getInteriorHollowSpace()))
+				visit(interiorHollowSpaceProperty);
+
+		if (abstractTunnel.isSetGenericApplicationPropertyOfAbstractTunnel())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTunnel.getGenericApplicationPropertyOfAbstractTunnel()))
+				visit(ade);
+	}
+	
 	public void visit(AbstractVegetationObject abstractVegetationObject) {
 		visit((AbstractCityObject)abstractVegetationObject);
 
@@ -305,7 +428,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				visit(ade);
 	}
-
+	
 	public void visit(AbstractWaterObject abstractWaterObject) {
 		visit((AbstractCityObject)abstractWaterObject);
 
@@ -322,10 +445,6 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(ade);
 	}
 	
-	public void visit(RectifiedGridCoverage rectifiedGridCoverage) {
-		visit((AbstractDiscreteCoverage)rectifiedGridCoverage);
-	}
-
 	public void visit(Appearance appearance) {
 		visit((AbstractFeature)appearance);
 
@@ -336,7 +455,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		if (appearance.isSetGenericApplicationPropertyOfAppearance())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(appearance.getGenericApplicationPropertyOfAppearance()))
 				visit(ade);
-	}	
+	}
 
 	public void visit(GeoreferencedTexture georeferencedTexture) {
 		visit((AbstractTexture)georeferencedTexture);	
@@ -392,11 +511,175 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(ade);
 	}
 
-	public void visit(BuildingFurniture buildingFurniture) {
-		visit((AbstractCityObject)buildingFurniture);
+	public void visit(Bridge bridge) {
+		visit((AbstractBridge)bridge);
 
-		if (buildingFurniture.isSetGenericApplicationPropertyOfBuildingFurniture())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()))
+		if (bridge.isSetGenericApplicationPropertyOfBridge())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(bridge.getGenericApplicationPropertyOfBridge()))
+				visit(ade);
+	}
+
+	public void visit(BridgeConstructionElement bridgeConstructionElement) {
+		visit((AbstractCityObject)bridgeConstructionElement);
+
+		if (bridgeConstructionElement.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeConstructionElement.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (bridgeConstructionElement.isSetGenericApplicationPropertyOfBridgeConstructionElement())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(bridgeConstructionElement.getGenericApplicationPropertyOfBridgeConstructionElement()))
+				visit(ade);
+	}
+
+	public void visit(BridgeFurniture bridgeFurniture) {
+		visit((AbstractCityObject)bridgeFurniture);
+
+		if (bridgeFurniture.isSetGenericApplicationPropertyOfBridgeFurniture())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(bridgeFurniture.getGenericApplicationPropertyOfBridgeFurniture()))
+				visit(ade);
+	}
+
+	public void visit(BridgeInstallation bridgeInstallation) {
+		visit((AbstractCityObject)bridgeInstallation);
+
+		if (bridgeInstallation.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeInstallation.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (bridgeInstallation.isSetGenericApplicationPropertyOfBridgeInstallation())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(bridgeInstallation.getGenericApplicationPropertyOfBridgeInstallation()))
+				visit(ade);
+	}
+
+	public void visit(BridgePart bridgePart) {
+		visit((AbstractBridge)bridgePart);
+
+		if (bridgePart.isSetGenericApplicationPropertyOfBridgePart())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(bridgePart.getGenericApplicationPropertyOfBridgePart()))
+				visit(ade);
+	}
+
+	public void visit(BridgeRoom bridgeRoom) {
+		visit((AbstractCityObject)bridgeRoom);
+
+		if (bridgeRoom.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeRoom.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (bridgeRoom.isSetInteriorFurniture())
+			for (org.citygml4j.model.citygml.bridge.InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<org.citygml4j.model.citygml.bridge.InteriorFurnitureProperty>(bridgeRoom.getInteriorFurniture()))
+				visit(interiorFurnitureProperty);
+
+		if (bridgeRoom.isSetBridgeRoomInstallation())
+			for (IntBridgeInstallationProperty intBridgeInstallationProperty : new ArrayList<IntBridgeInstallationProperty>(bridgeRoom.getBridgeRoomInstallation()))
+				visit(intBridgeInstallationProperty);
+
+		if (bridgeRoom.isSetGenericApplicationPropertyOfBridgeRoom())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(bridgeRoom.getGenericApplicationPropertyOfBridgeRoom()))
+				visit(ade);
+	}
+
+	public void visit(IntBridgeInstallation intBridgeInstallation) {
+		visit((AbstractCityObject)intBridgeInstallation);
+
+		if (intBridgeInstallation.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(intBridgeInstallation.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (intBridgeInstallation.isSetGenericApplicationPropertyOfIntBridgeInstallation())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(intBridgeInstallation.getGenericApplicationPropertyOfIntBridgeInstallation()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.CeilingSurface ceilingSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)ceilingSurface);
+
+		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.OuterCeilingSurface outerCeilingSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)outerCeilingSurface);
+
+		if (outerCeilingSurface.isSetGenericApplicationPropertyOfOuterCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerCeilingSurface.getGenericApplicationPropertyOfOuterCeilingSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.ClosureSurface closureSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)closureSurface);
+
+		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.FloorSurface floorSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)floorSurface);
+
+		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.OuterFloorSurface outerFloorSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)outerFloorSurface);
+
+		if (outerFloorSurface.isSetGenericApplicationPropertyOfOuterFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerFloorSurface.getGenericApplicationPropertyOfOuterFloorSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.GroundSurface groundSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)groundSurface);
+
+		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.InteriorWallSurface interiorWallSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)interiorWallSurface);
+
+		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.RoofSurface roofSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)roofSurface);
+
+		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.WallSurface wallSurface) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractBoundarySurface)wallSurface);
+
+		if (wallSurface.isSetGenericApplicationPropertyOfWallSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.Door door) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractOpening)door);
+
+		if (door.isSetAddress())
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(door.getAddress()))
+				visit(addressProperty);
+
+		if (door.isSetGenericApplicationPropertyOfDoor())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.bridge.Window window) {
+		visit((org.citygml4j.model.citygml.bridge.AbstractOpening)window);
+
+		if (window.isSetGenericApplicationPropertyOfWindow())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow()))
 				visit(ade);
 	}
 
@@ -408,8 +691,20 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(ade);
 	}
 
+	public void visit(BuildingFurniture buildingFurniture) {
+		visit((AbstractCityObject)buildingFurniture);
+
+		if (buildingFurniture.isSetGenericApplicationPropertyOfBuildingFurniture())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingFurniture.getGenericApplicationPropertyOfBuildingFurniture()))
+				visit(ade);
+	}
+
 	public void visit(BuildingInstallation buildingInstallation) {
 		visit((AbstractCityObject)buildingInstallation);
+		
+		if (buildingInstallation.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(buildingInstallation.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
 
 		if (buildingInstallation.isSetGenericApplicationPropertyOfBuildingInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(buildingInstallation.getGenericApplicationPropertyOfBuildingInstallation()))
@@ -424,87 +719,15 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(ade);
 	}
 
-	public void visit(CeilingSurface ceilingSurface) {
-		visit((AbstractBoundarySurface)ceilingSurface);
-
-		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
-				visit(ade);
-	}
-	
-	public void visit(OuterCeilingSurface outerCeilingSurface) {
-		visit((AbstractBoundarySurface)outerCeilingSurface);
-
-		if (outerCeilingSurface.isSetGenericApplicationPropertyOfOuterCeilingSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(outerCeilingSurface.getGenericApplicationPropertyOfOuterCeilingSurface()))
-				visit(ade);
-	}
-
-	public void visit(ClosureSurface closureSurface) {
-		visit((AbstractBoundarySurface)closureSurface);
-
-		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
-				visit(ade);
-	}
-
-	public void visit(Door door) {
-		visit((AbstractOpening)door);
-
-		if (door.isSetAddress())
-			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(door.getAddress()))
-				visit(addressProperty);
-
-		if (door.isSetGenericApplicationPropertyOfDoor())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
-				visit(ade);
-	}
-
-	public void visit(FloorSurface floorSurface) {
-		visit((AbstractBoundarySurface)floorSurface);
-
-		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
-				visit(ade);
-	}
-	
-	public void visit(OuterFloorSurface outerFloorSurface) {
-		visit((AbstractBoundarySurface)outerFloorSurface);
-
-		if (outerFloorSurface.isSetGenericApplicationPropertyOfOuterFloorSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(outerFloorSurface.getGenericApplicationPropertyOfOuterFloorSurface()))
-				visit(ade);
-	}
-
-	public void visit(GroundSurface groundSurface) {
-		visit((AbstractBoundarySurface)groundSurface);
-
-		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
-				visit(ade);
-	}
-
 	public void visit(IntBuildingInstallation intBuildingInstallation) {
 		visit((AbstractCityObject)intBuildingInstallation);
 
+		if (intBuildingInstallation.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(intBuildingInstallation.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+					
 		if (intBuildingInstallation.isSetGenericApplicationPropertyOfIntBuildingInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()))
-				visit(ade);
-	}
-
-	public void visit(InteriorWallSurface interiorWallSurface) {
-		visit((AbstractBoundarySurface)interiorWallSurface);
-
-		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
-				visit(ade);
-	}
-
-	public void visit(RoofSurface roofSurface) {
-		visit((AbstractBoundarySurface)roofSurface);
-
-		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
 				visit(ade);
 	}
 
@@ -512,11 +735,11 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		visit((AbstractCityObject)room);
 
 		if (room.isSetBoundedBySurface())
-			for (BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<BoundarySurfaceProperty>(room.getBoundedBySurface()))
+			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(room.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
 
 		if (room.isSetInteriorFurniture())
-			for (InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<InteriorFurnitureProperty>(room.getInteriorFurniture()))
+			for (org.citygml4j.model.citygml.building.InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<org.citygml4j.model.citygml.building.InteriorFurnitureProperty>(room.getInteriorFurniture()))
 				visit(interiorFurnitureProperty);
 
 		if (room.isSetRoomInstallation())
@@ -528,16 +751,248 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 				visit(ade);
 	}
 
+	public void visit(CeilingSurface ceilingSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)ceilingSurface);
+
+		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
+				visit(ade);
+	}
+
+	public void visit(OuterCeilingSurface outerCeilingSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)outerCeilingSurface);
+
+		if (outerCeilingSurface.isSetGenericApplicationPropertyOfOuterCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerCeilingSurface.getGenericApplicationPropertyOfOuterCeilingSurface()))
+				visit(ade);
+	}
+
+	public void visit(ClosureSurface closureSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)closureSurface);
+
+		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
+				visit(ade);
+	}
+
+	public void visit(FloorSurface floorSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)floorSurface);
+
+		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
+				visit(ade);
+	}
+
+	public void visit(OuterFloorSurface outerFloorSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)outerFloorSurface);
+
+		if (outerFloorSurface.isSetGenericApplicationPropertyOfOuterFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerFloorSurface.getGenericApplicationPropertyOfOuterFloorSurface()))
+				visit(ade);
+	}
+
+	public void visit(GroundSurface groundSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)groundSurface);
+
+		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
+				visit(ade);
+	}
+
+	public void visit(InteriorWallSurface interiorWallSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)interiorWallSurface);
+
+		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
+				visit(ade);
+	}
+
+	public void visit(RoofSurface roofSurface) {
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)roofSurface);
+
+		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
+				visit(ade);
+	}
+
 	public void visit(WallSurface wallSurface) {
-		visit((AbstractBoundarySurface)wallSurface);
+		visit((org.citygml4j.model.citygml.building.AbstractBoundarySurface)wallSurface);
 
 		if (wallSurface.isSetGenericApplicationPropertyOfWallSurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface()))
 				visit(ade);
 	}
 
+	public void visit(Door door) {
+		visit((org.citygml4j.model.citygml.building.AbstractOpening)door);
+
+		if (door.isSetAddress())
+			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(door.getAddress()))
+				visit(addressProperty);
+
+		if (door.isSetGenericApplicationPropertyOfDoor())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
+				visit(ade);
+	}
+
 	public void visit(Window window) {
-		visit((AbstractOpening)window);
+		visit((org.citygml4j.model.citygml.building.AbstractOpening)window);
+
+		if (window.isSetGenericApplicationPropertyOfWindow())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow()))
+				visit(ade);
+	}
+
+	public void visit(HollowSpace hollowSpace) {
+		visit((AbstractCityObject)hollowSpace);
+
+		if (hollowSpace.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(hollowSpace.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (hollowSpace.isSetInteriorFurniture())
+			for (org.citygml4j.model.citygml.tunnel.InteriorFurnitureProperty interiorFurnitureProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.InteriorFurnitureProperty>(hollowSpace.getInteriorFurniture()))
+				visit(interiorFurnitureProperty);
+
+		if (hollowSpace.isSetHollowSpaceInstallation())
+			for (IntTunnelInstallationProperty intTunnelInstallationProperty : new ArrayList<IntTunnelInstallationProperty>(hollowSpace.getHollowSpaceInstallation()))
+				visit(intTunnelInstallationProperty);
+
+		if (hollowSpace.isSetGenericApplicationPropertyOfHollowSpace())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(hollowSpace.getGenericApplicationPropertyOfHollowSpace()))
+				visit(ade);
+	}
+
+	public void visit(IntTunnelInstallation intTunnelInstallation) {
+		visit((AbstractCityObject)intTunnelInstallation);
+
+		if (intTunnelInstallation.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(intTunnelInstallation.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+					
+		if (intTunnelInstallation.isSetGenericApplicationPropertyOfIntTunnelInstallation())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(intTunnelInstallation.getGenericApplicationPropertyOfIntTunnelInstallation()))
+				visit(ade);
+	}
+
+	public void visit(Tunnel tunnel) {
+		visit((AbstractTunnel)tunnel);
+
+		if (tunnel.isSetGenericApplicationPropertyOfTunnel())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnel.getGenericApplicationPropertyOfTunnel()))
+				visit(ade);
+	}
+
+	public void visit(TunnelFurniture tunnelFurniture) {
+		visit((AbstractCityObject)tunnelFurniture);
+
+		if (tunnelFurniture.isSetGenericApplicationPropertyOfTunnelFurniture())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnelFurniture.getGenericApplicationPropertyOfTunnelFurniture()))
+				visit(ade);
+	}
+
+	public void visit(TunnelInstallation tunnelInstallation) {
+		visit((AbstractCityObject)tunnelInstallation);
+		
+		if (tunnelInstallation.isSetBoundedBySurface())
+			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(tunnelInstallation.getBoundedBySurface()))
+				visit(boundarySurfaceProperty);
+
+		if (tunnelInstallation.isSetGenericApplicationPropertyOfTunnelInstallation())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnelInstallation.getGenericApplicationPropertyOfTunnelInstallation()))
+				visit(ade);
+	}
+
+	public void visit(TunnelPart tunnelPart) {
+		visit((AbstractTunnel)tunnelPart);
+
+		if (tunnelPart.isSetGenericApplicationPropertyOfTunnelPart())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnelPart.getGenericApplicationPropertyOfTunnelPart()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.CeilingSurface ceilingSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)ceilingSurface);
+
+		if (ceilingSurface.isSetGenericApplicationPropertyOfCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(ceilingSurface.getGenericApplicationPropertyOfCeilingSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.OuterCeilingSurface outerCeilingSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)outerCeilingSurface);
+
+		if (outerCeilingSurface.isSetGenericApplicationPropertyOfOuterCeilingSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerCeilingSurface.getGenericApplicationPropertyOfOuterCeilingSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.ClosureSurface closureSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)closureSurface);
+
+		if (closureSurface.isSetGenericApplicationPropertyOfClosureSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(closureSurface.getGenericApplicationPropertyOfClosureSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.FloorSurface floorSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)floorSurface);
+
+		if (floorSurface.isSetGenericApplicationPropertyOfFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(floorSurface.getGenericApplicationPropertyOfFloorSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.OuterFloorSurface outerFloorSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)outerFloorSurface);
+
+		if (outerFloorSurface.isSetGenericApplicationPropertyOfOuterFloorSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(outerFloorSurface.getGenericApplicationPropertyOfOuterFloorSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.GroundSurface groundSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)groundSurface);
+
+		if (groundSurface.isSetGenericApplicationPropertyOfGroundSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(groundSurface.getGenericApplicationPropertyOfGroundSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.InteriorWallSurface interiorWallSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)interiorWallSurface);
+
+		if (interiorWallSurface.isSetGenericApplicationPropertyOfInteriorWallSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(interiorWallSurface.getGenericApplicationPropertyOfInteriorWallSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.RoofSurface roofSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)roofSurface);
+
+		if (roofSurface.isSetGenericApplicationPropertyOfRoofSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(roofSurface.getGenericApplicationPropertyOfRoofSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.WallSurface wallSurface) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface)wallSurface);
+
+		if (wallSurface.isSetGenericApplicationPropertyOfWallSurface())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(wallSurface.getGenericApplicationPropertyOfWallSurface()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.Door door) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractOpening)door);
+
+		if (door.isSetGenericApplicationPropertyOfDoor())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(door.getGenericApplicationPropertyOfDoor()))
+				visit(ade);
+	}
+
+	public void visit(org.citygml4j.model.citygml.tunnel.Window window) {
+		visit((org.citygml4j.model.citygml.tunnel.AbstractOpening)window);
 
 		if (window.isSetGenericApplicationPropertyOfWindow())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(window.getGenericApplicationPropertyOfWindow()))
@@ -665,7 +1120,11 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(railway.getGenericApplicationPropertyOfRailway()))
 				visit(ade);
 	}
-	
+
+	public void visit(RectifiedGridCoverage rectifiedGridCoverage) {
+		visit((AbstractDiscreteCoverage)rectifiedGridCoverage);
+	}
+
 	public void visit(Road road) {
 		visit((TransportationComplex)road);
 
@@ -765,7 +1224,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface()))
 				visit(ade);
 	}
-
+	
 	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
 		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
 			featureProperty.getFeature().accept(this);

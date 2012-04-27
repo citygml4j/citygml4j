@@ -25,10 +25,20 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
-import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 
 public class CurveProperty extends GeometryProperty<AbstractCurve> {
+	
+	public CurveProperty() {
+
+	}
+
+	public CurveProperty(AbstractCurve abstractCurve) {
+		super(abstractCurve);
+	}
+
+	public CurveProperty(String href) {
+		super(href);
+	}
 	
 	public AbstractCurve getCurve() {
 		return super.getGeometry();

@@ -32,8 +32,6 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
-import org.citygml4j.model.gml.geometry.primitives.Polygon;
 
 public class Polygon extends AbstractSurface {
 	private AbstractRingProperty exterior;

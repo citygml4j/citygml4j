@@ -27,6 +27,14 @@ import org.citygml4j.model.gml.base.AssociationByRep;
 
 public abstract class InlineGeometryProperty<T extends AbstractGeometry> extends AssociationByRep<T> {
 	
+	public InlineGeometryProperty() {
+		
+	}
+	
+	public InlineGeometryProperty(T abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
 	public T getGeometry() {
 		return super.getObject();
 	}

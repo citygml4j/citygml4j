@@ -97,12 +97,12 @@ public class Transportation100Unmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalTransportationObject(AbstractTransportationObjectType src, AbstractTransportationObject dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractTransportationObject(AbstractTransportationObjectType src, AbstractTransportationObject dest) throws MissingADESchemaException {
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 	}
 	
 	public void unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src, AuxiliaryTrafficArea dest) throws MissingADESchemaException {
-		unmarshalTransportationObject(src, dest);
+		unmarshalAbstractTransportationObject(src, dest);
 		
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
@@ -187,7 +187,7 @@ public class Transportation100Unmarshaller {
 	}
 	
 	public void unmarshalTrafficArea(TrafficAreaType src, TrafficArea dest) throws MissingADESchemaException {
-		unmarshalTransportationObject(src, dest);
+		unmarshalAbstractTransportationObject(src, dest);
 		
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())
@@ -233,7 +233,7 @@ public class Transportation100Unmarshaller {
 	}
 	
 	public void unmarshalTransportationComplex(TransportationComplexType src, TransportationComplex dest) throws MissingADESchemaException {
-		unmarshalTransportationObject(src, dest);
+		unmarshalAbstractTransportationObject(src, dest);
 		
 		if (src.isSetFunction()) {
 			for (String function : src.getFunction())

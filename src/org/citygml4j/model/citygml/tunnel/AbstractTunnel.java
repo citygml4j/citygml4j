@@ -28,7 +28,6 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractSite;
-import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.common.child.ChildList;
@@ -67,7 +66,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	private List<BoundarySurfaceProperty> boundedBySurface;
 	private List<TunnelPartProperty> tunnelPart;
 	private List<InteriorHollowSpaceProperty> interiorHollowSpace;
-	private List<AddressProperty> address;
 	private List<ADEComponent> ade;
 	private TunnelModule module;	
 	
@@ -79,13 +77,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 		this.module = module;
 	}
 	
-	public void addAddress(AddressProperty address) {
-		if (this.address == null)
-			this.address = new ChildList<AddressProperty>(this);
-
-		this.address.add(address);
-	}
-
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
 		if (this.boundedBySurface == null)
 			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
@@ -140,13 +131,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 			this.outerTunnelInstallation = new ChildList<TunnelInstallationProperty>(this);
 
 		this.outerTunnelInstallation.add(outerTunnelInstallation);
-	}
-
-	public List<AddressProperty> getAddress() {
-		if (address == null)
-			address = new ChildList<AddressProperty>(this);
-
-		return address;
 	}
 
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
@@ -277,10 +261,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 		return yearOfDemolition;
 	}
 
-	public boolean isSetAddress() {
-		return address != null && !address.isEmpty();
-	}
-
 	public boolean isSetBoundedBySurface() {
 		return boundedBySurface != null && !boundedBySurface.isEmpty();
 	}
@@ -383,10 +363,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 
 	public boolean isSetYearOfDemolition() {
 		return yearOfDemolition != null;
-	}
-
-	public void setAddress(List<AddressProperty> address) {
-		this.address = new ChildList<AddressProperty>(this, address);
 	}
 
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
@@ -536,17 +512,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 
 	public void setYearOfDemolition(GregorianCalendar yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
-	}
-
-	public void unsetAddress() {
-		if (isSetAddress())
-			address.clear();
-
-		address = null;
-	}
-
-	public boolean unsetAddress(AddressProperty address) {
-		return isSetAddress() ? this.address.remove(address) : false;
 	}
 
 	public void unsetBoundedBySurface() {
@@ -1067,16 +1032,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 				lod4MultiSurface.setParent(this);
 		}
 
-		if (isSetAddress()) {
-			for (AddressProperty part : address) {
-				AddressProperty copyPart = (AddressProperty)copyBuilder.copy(part);
-				copy.addAddress(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty part : boundedBySurface) {
 				BoundarySurfaceProperty copyPart = (BoundarySurfaceProperty)copyBuilder.copy(part);

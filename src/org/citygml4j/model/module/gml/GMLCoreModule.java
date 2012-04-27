@@ -56,4 +56,13 @@ public class GMLCoreModule extends AbstractGMLModule {
 		return instances;
 	}
 	
+	public static GMLCoreModule getInstance(GMLModuleVersion version) {
+		switch (version) {
+		case v3_1_1:
+			return v3_1_1;
+		default:
+			return null;
+		}
+	}
+	
 }

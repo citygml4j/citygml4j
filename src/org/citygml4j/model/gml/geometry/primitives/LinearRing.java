@@ -35,13 +35,6 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
-import org.citygml4j.model.gml.geometry.primitives.Coord;
-import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
-import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
-import org.citygml4j.model.gml.geometry.primitives.LinearRing;
-import org.citygml4j.model.gml.geometry.primitives.PointProperty;
-import org.citygml4j.model.gml.geometry.primitives.PointRep;
-import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 
 public class LinearRing extends AbstractRing {
 	private List<PosOrPointPropertyOrPointRep> controlPoints;

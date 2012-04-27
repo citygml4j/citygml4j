@@ -28,18 +28,22 @@ import java.util.List;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.BuildingFactory;
-import org.citygml4j.factory.CoreFactory;
-import org.citygml4j.factory.GMLFactory;
-import org.citygml4j.factory.geometry.GMLGeometryFactory;
+import org.citygml4j.factory.GMLGeometryFactory;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
+import org.citygml4j.model.citygml.building.GroundSurface;
+import org.citygml4j.model.citygml.building.RoofSurface;
+import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.model.citygml.core.CityObjectMember;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
@@ -49,9 +53,6 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 
 
 public class BuildingCreator {
-	private CoreFactory core;
-	private BuildingFactory bldg;
-	private GMLFactory gml;
 
 	public static void main(String[] args) throws Exception {
 		new BuildingCreator().doMain();
@@ -66,13 +67,10 @@ public class BuildingCreator {
 
 		System.out.println(df.format(new Date()) + "creating LOD2 building as citygml4j in-memory object tree");
 		GMLGeometryFactory geom = new GMLGeometryFactory();
-		core = new CoreFactory();
-		bldg = new BuildingFactory();
-		gml = new GMLFactory();
 
 		GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 
-		Building building = bldg.createBuilding();
+		Building building = new Building();
 
 		Polygon ground = geom.createLinearPolygon(new double[] {0,0,0, 0,12,0, 6,12,0, 6,0,0, 0,0,0}, 3);
 		Polygon wall_1 = geom.createLinearPolygon(new double[] {6,0,0, 6,12,0, 6,12,6, 6,0,6, 6,0,0}, 3);
@@ -92,47 +90,47 @@ public class BuildingCreator {
 
 		// lod2 solid
 		List<SurfaceProperty> surfaceMember = new ArrayList<SurfaceProperty>();
-		surfaceMember.add(gml.createSurfaceProperty('#' + ground.getId()));
-		surfaceMember.add(gml.createSurfaceProperty('#' + wall_1.getId()));
-		surfaceMember.add(gml.createSurfaceProperty('#' + wall_2.getId()));
-		surfaceMember.add(gml.createSurfaceProperty('#' + wall_3.getId()));
-		surfaceMember.add(gml.createSurfaceProperty('#' + wall_4.getId()));
-		surfaceMember.add(gml.createSurfaceProperty('#' + roof_1.getId()));
-		surfaceMember.add(gml.createSurfaceProperty('#' + roof_2.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + ground.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + wall_1.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + wall_2.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + wall_3.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + wall_4.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + roof_1.getId()));
+		surfaceMember.add(new SurfaceProperty('#' + roof_2.getId()));
 
-		CompositeSurface compositeSurface = gml.createCompositeSurface();
+		CompositeSurface compositeSurface = new CompositeSurface();
 		compositeSurface.setSurfaceMember(surfaceMember);		
-		Solid solid = gml.createSolid();
-		solid.setExterior(gml.createSurfaceProperty(compositeSurface));
+		Solid solid = new Solid();
+		solid.setExterior(new SurfaceProperty(compositeSurface));
 
-		building.setLod2Solid(gml.createSolidProperty(solid));
+		building.setLod2Solid(new SolidProperty(solid));
 
 		// thematic boundary surfaces
 		List<BoundarySurfaceProperty> boundedBy = new ArrayList<BoundarySurfaceProperty>();
-		boundedBy.add(createBoundarySurface(CityGMLClass.GROUND_SURFACE, ground));
-		boundedBy.add(createBoundarySurface(CityGMLClass.WALL_SURFACE, wall_1));
-		boundedBy.add(createBoundarySurface(CityGMLClass.WALL_SURFACE, wall_2));
-		boundedBy.add(createBoundarySurface(CityGMLClass.WALL_SURFACE, wall_3));
-		boundedBy.add(createBoundarySurface(CityGMLClass.WALL_SURFACE, wall_4));
-		boundedBy.add(createBoundarySurface(CityGMLClass.ROOF_SURFACE, roof_1));
-		boundedBy.add(createBoundarySurface(CityGMLClass.ROOF_SURFACE, roof_2));		
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_GROUND_SURFACE, ground));
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_WALL_SURFACE, wall_1));
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_WALL_SURFACE, wall_2));
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_WALL_SURFACE, wall_3));
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_WALL_SURFACE, wall_4));
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_ROOF_SURFACE, roof_1));
+		boundedBy.add(createBoundarySurface(CityGMLClass.BUILDING_ROOF_SURFACE, roof_2));		
 		building.setBoundedBySurface(boundedBy);
 
-		CityModel cityModel = core.createCityModel();
+		CityModel cityModel = new CityModel();
 		cityModel.setBoundedBy(building.calcBoundedBy(false));
-		cityModel.addCityObjectMember(core.createCityObjectMember(building));
+		cityModel.addCityObjectMember(new CityObjectMember(building));
 
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
-		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_v100.xml"));
+		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.DEFAULT);
+		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_v200.xml"));
 
-		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
+		writer.setPrefixes(CityGMLVersion.DEFAULT);
+		writer.setSchemaLocations(CityGMLVersion.DEFAULT);
 		writer.setIndentString("  ");
 		writer.write(cityModel);
 		writer.close();	
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v200.xml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
@@ -140,20 +138,20 @@ public class BuildingCreator {
 		AbstractBoundarySurface boundarySurface = null;
 
 		switch (type) {
-		case WALL_SURFACE:
-			boundarySurface = bldg.createWallSurface();
+		case BUILDING_WALL_SURFACE:
+			boundarySurface = new WallSurface();
 			break;
-		case ROOF_SURFACE:
-			boundarySurface = bldg.createRoofSurface();
+		case BUILDING_ROOF_SURFACE:
+			boundarySurface = new RoofSurface();
 			break;
-		case GROUND_SURFACE:
-			boundarySurface = bldg.createGroundSurface();
+		case BUILDING_GROUND_SURFACE:
+			boundarySurface = new GroundSurface();
 			break;
 		}
 
 		if (boundarySurface != null) {
-			boundarySurface.setLod2MultiSurface(gml.createMultiSurfaceProperty(gml.createMultiSurface(geometry)));
-			return bldg.createBoundarySurfaceProperty(boundarySurface);
+			boundarySurface.setLod2MultiSurface(new MultiSurfaceProperty(new MultiSurface(geometry)));
+			return new BoundarySurfaceProperty(boundarySurface);
 		}
 
 		return null;

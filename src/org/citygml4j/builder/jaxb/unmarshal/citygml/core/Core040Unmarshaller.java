@@ -43,6 +43,8 @@ import org.citygml4j.jaxb.citygml._0_4.XalAddressPropertyType;
 import org.citygml4j.jaxb.citygml._0_4._CityObjectType;
 import org.citygml4j.jaxb.citygml._0_4._GenericAttributeType;
 import org.citygml4j.jaxb.citygml._0_4._SiteType;
+import org.citygml4j.jaxb.citygml.core._2.AbstractCityObjectType;
+import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
 import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -93,8 +95,6 @@ public class Core040Unmarshaller {
 			dest = unmarshalAddressProperty((AddressPropertyType)src);
 		else if (src instanceof CityModelType)
 			dest = unmarshalCityModel((CityModelType)src);
-		else if (src instanceof FeaturePropertyType)
-			dest = unmarshalCityObjectMember((FeaturePropertyType)src);
 		else if (src instanceof ExternalObjectReferenceType)
 			dest = unmarshalExternalObject((ExternalObjectReferenceType)src);
 		else if (src instanceof ExternalReferenceType)
@@ -107,11 +107,16 @@ public class Core040Unmarshaller {
 			dest = unmarshalImplicitRepresentationProperty((ImplicitRepresentationPropertyType)src);
 		else if (src instanceof XalAddressPropertyType)
 			dest = unmarshalXalAddressProperty((XalAddressPropertyType)src);
+		else if (src instanceof FeaturePropertyType) {
+			JAXBElement<? extends AbstractFeatureType> elem = ((FeaturePropertyType)src).get_Feature();
+			if (elem != null && elem.getValue() instanceof AbstractCityObjectType)
+				dest = unmarshalCityObjectMember((FeaturePropertyType)src);
+		}
 
 		return dest;
 	}
 
-	public void unmarshalCityObject(_CityObjectType src, AbstractCityObject dest) throws MissingADESchemaException {
+	public void unmarshalAbstractCityObject(_CityObjectType src, AbstractCityObject dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate())
@@ -144,8 +149,8 @@ public class Core040Unmarshaller {
 		}
 	}
 
-	public void unmarshalSite(_SiteType src, AbstractSite dest) throws MissingADESchemaException {
-		unmarshalCityObject(src, dest);
+	public void unmarshalAbstractSite(_SiteType src, AbstractSite dest) throws MissingADESchemaException {
+		unmarshalAbstractCityObject(src, dest);
 	}
 
 	public void unmarshalAddress(AddressType src, Address dest) throws MissingADESchemaException {

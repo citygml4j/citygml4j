@@ -106,8 +106,8 @@ public class Relief040Marshaller {
 		return dest;
 	}
 
-	public void marshalReliefComponent(AbstractReliefComponent src, _ReliefComponentType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractReliefComponent(AbstractReliefComponent src, _ReliefComponentType dest) {
+		citygml.getCore040Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod())
 			dest.setLod(src.getLod());
@@ -123,7 +123,7 @@ public class Relief040Marshaller {
 	}
 
 	public void marshalBreaklineRelief(BreaklineRelief src, BreaklineReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetRidgeOrValleyLines())
 			dest.setRidgeOrValleyLines(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getRidgeOrValleyLines()));
@@ -159,7 +159,7 @@ public class Relief040Marshaller {
 	}
 
 	public void marshalMassPointRelief(MassPointRelief src, MassPointReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetReliefPoints())
 			dest.setReliefPoints(jaxb.getGMLMarshaller().marshalMultiPointProperty(src.getReliefPoints()));
@@ -179,7 +179,7 @@ public class Relief040Marshaller {
 	}
 
 	public void marshalRasterRelief(RasterRelief src, RasterReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetGrid())
 			dest.setGrid(marshalGridProperty(src.getGrid()));
@@ -212,7 +212,7 @@ public class Relief040Marshaller {
 	}
 
 	public void marshalReliefFeature(ReliefFeature src, ReliefFeatureType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+		citygml.getCore040Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod())
 			dest.setLod(src.getLod());
@@ -250,7 +250,7 @@ public class Relief040Marshaller {
 	}
 
 	public void marshalTINRelief(TINRelief src, TINReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 
 		if (src.isSetTin())
 			dest.setTin(marshalTinProperty(src.getTin()));

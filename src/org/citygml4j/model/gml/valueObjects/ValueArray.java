@@ -22,6 +22,9 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -30,6 +33,19 @@ import org.citygml4j.model.gml.GMLClass;
 public class ValueArray extends CompositeValue {
 	private String codeSpace;
 	private String uom;
+	
+	public ValueArray() {
+		
+	}
+	
+	public ValueArray(List<Value> values) {
+		for (Value value : values)
+			addValueComponent(new ValueProperty(value));
+	}
+	
+	public ValueArray(Value... values) {
+		this(Arrays.asList(values));
+	}
 	
 	public String getCodeSpace() {
 		return codeSpace;

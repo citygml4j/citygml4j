@@ -281,6 +281,10 @@ public class GMLMarshaller {
 			dest = gml.createMultiCurve((MultiCurveType)src);
 		else if (src instanceof MultiCurvePropertyType)
 			dest = gml.createMultiCurveProperty((MultiCurvePropertyType)src);
+		else if (src instanceof MultiGeometryType)
+			dest = gml.createMultiGeometry((MultiGeometryType)src);
+		else if (src instanceof MultiGeometryPropertyType)
+			dest = gml.createMultiGeometryProperty((MultiGeometryPropertyType)src);
 		else if (src instanceof MultiLineStringType)
 			dest = gml.createMultiLineString((MultiLineStringType)src);
 		else if (src instanceof MultiPointType)
@@ -299,6 +303,8 @@ public class GMLMarshaller {
 			dest = gml.createMultiSurfaceProperty((MultiSurfacePropertyType)src);	
 		else if (src instanceof OrientableCurveType)
 			dest = gml.createOrientableCurve((OrientableCurveType)src);
+		else if (src instanceof org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)
+			dest = jaxb.getCityGMLMarshaller().getTexturedSurface200Marshaller().marshalJAXBElement(src);
 		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
 			dest = jaxb.getCityGMLMarshaller().getTexturedSurface100Marshaller().marshalJAXBElement(src);
 		else if (src instanceof org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)
@@ -912,7 +918,7 @@ public class GMLMarshaller {
 		marshalAbstractSurface(src, dest);
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(src.getOrientation().getValue());
 
 		if (src.isSetBaseSurface())
 			dest.setBaseSurface(marshalSurfaceProperty(src.getBaseSurface()));
@@ -2410,7 +2416,7 @@ public class GMLMarshaller {
 		marshalAbstractCurve(src, dest);
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(src.getOrientation().getValue());
 
 		if (src.isSetBaseCurve())
 			dest.setBaseCurve(marshalCurveProperty(src.getBaseCurve()));

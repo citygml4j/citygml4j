@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class ValueProperty extends AssociationByRepOrRef<Value> {
 
+	public ValueProperty() {
+
+	}
+
+	public ValueProperty(Value value) {
+		super(value);
+	}
+
+	public ValueProperty(String href) {
+		super(href);
+	}
+
 	public Value getValue() {
 		return super.getObject();
 	}
@@ -43,7 +55,7 @@ public class ValueProperty extends AssociationByRepOrRef<Value> {
 	public void unsetValue() {
 		super.unsetObject();
 	}
-	
+
 	public GMLClass getGMLClass() {
 		return GMLClass.VALUE_PROPERTY;
 	}

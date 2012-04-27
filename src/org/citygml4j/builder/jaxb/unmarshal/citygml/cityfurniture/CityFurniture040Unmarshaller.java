@@ -62,7 +62,7 @@ public class CityFurniture040Unmarshaller {
 	}
 
 	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));

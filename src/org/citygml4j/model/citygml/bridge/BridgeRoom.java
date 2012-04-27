@@ -82,7 +82,7 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		this.usage.add(function);
 	}
 
-	public void addGenericApplicationPropertyOfRoom(ADEComponent ade) {
+	public void addGenericApplicationPropertyOfBridgeRoom(ADEComponent ade) {
 		if (this.ade == null)
 			this.ade = new ChildList<ADEComponent>(this);
 
@@ -128,7 +128,7 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		return usage;
 	}
 
-	public List<ADEComponent> getGenericApplicationPropertyOfRoom() {
+	public List<ADEComponent> getGenericApplicationPropertyOfBridgeRoom() {
 		if (ade == null)
 			ade = new ChildList<ADEComponent>(this);
 
@@ -173,7 +173,7 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		return usage != null && !usage.isEmpty();
 	}
 
-	public boolean isSetGenericApplicationPropertyOfRoom() {
+	public boolean isSetGenericApplicationPropertyOfBridgeRoom() {
 		return ade != null && !ade.isEmpty();
 	}
 
@@ -209,7 +209,7 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		this.usage = new ChildList<Code>(this, usage);
 	}
 	
-	public void setGenericApplicationPropertyOfRoom(List<ADEComponent> ade) {
+	public void setGenericApplicationPropertyOfBridgeRoom(List<ADEComponent> ade) {
 		this.ade = new ChildList<ADEComponent>(this, ade);
 	}
 
@@ -266,15 +266,15 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	public void unsetGenericApplicationPropertyOfRoom() {
-		if (isSetGenericApplicationPropertyOfRoom())
+	public void unsetGenericApplicationPropertyOfBridgeRoom() {
+		if (isSetGenericApplicationPropertyOfBridgeRoom())
 			ade.clear();
 
 		ade = null;
 	}
 
-	public boolean unsetGenericApplicationPropertyOfRoom(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfRoom() ? this.ade.remove(ade) : false;
+	public boolean unsetGenericApplicationPropertyOfBridgeRoom(ADEComponent ade) {
+		return isSetGenericApplicationPropertyOfBridgeRoom() ? this.ade.remove(ade) : false;
 	}
 
 	public void unsetInteriorFurniture() {
@@ -451,10 +451,10 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 				lod4Solid.setParent(this);
 		}
 		
-		if (isSetGenericApplicationPropertyOfRoom()) {
+		if (isSetGenericApplicationPropertyOfBridgeRoom()) {
 			for (ADEComponent part : ade) {
 				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfRoom(copyPart);
+				copy.addGenericApplicationPropertyOfBridgeRoom(copyPart);
 
 				if (part != null && copyPart == part)
 					part.setParent(this);

@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -40,6 +41,19 @@ public class MultiSolid extends AbstractGeometricAggregate {
 	private List<SolidProperty> solidMember;
 	private SolidArrayProperty solidMembers;
 
+	public MultiSolid() {
+		
+	}
+	
+	public MultiSolid(List<? extends AbstractSolid> abstractSolids) {
+		for (AbstractSolid abstractSolid : abstractSolids)
+			addSolidMember(new SolidProperty(abstractSolid));
+	}
+	
+	public MultiSolid(AbstractSolid... abstractSolids) {
+		this(Arrays.asList(abstractSolids));
+	}
+	
 	public void addSolidMember(SolidProperty solidMember) {
 		if (this.solidMember == null)
 			this.solidMember = new ChildList<SolidProperty>(this);

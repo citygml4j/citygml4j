@@ -28,11 +28,25 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
-import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
 
 public class SolidArrayProperty extends GeometryArrayProperty<AbstractSolid> {
 
+	public SolidArrayProperty() {
+
+	}
+
+	public SolidArrayProperty(AbstractSolid abstractSolid) {
+		super(abstractSolid);
+	}
+
+	public SolidArrayProperty(List<AbstractSolid> abstractSolid) {
+		super(abstractSolid);
+	}
+	
+	public SolidArrayProperty(AbstractSolid... abstractSolid) {
+		super(abstractSolid);
+	}
+	
 	public void addSolid(AbstractSolid abstractSolid) {
 		super.addGeometry(abstractSolid);
 	}

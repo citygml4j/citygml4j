@@ -36,9 +36,6 @@ import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
-import org.citygml4j.model.gml.geometry.primitives.Coord;
-import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
-import org.citygml4j.model.gml.geometry.primitives.Envelope;
 
 public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	private DirectPosition lowerCorner;
@@ -51,6 +48,15 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	private List<String> axisLabels;
 	private List<String> uomLabels;
 	private ModelObject parent;
+	
+	public Envelope() {
+		
+	}
+	
+	public Envelope(BoundingBox boundingBox) {
+		setLowerCorner(boundingBox.getLowerCorner());
+		setUpperCorner(boundingBox.getUpperCorner());
+	}
 
 	public void addCoord(Coord coord) {
 		if (this.coord == null)

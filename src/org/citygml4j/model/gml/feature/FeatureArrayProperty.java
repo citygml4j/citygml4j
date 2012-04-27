@@ -33,6 +33,22 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 	private List<ADEComponent> genericADEComponent;
 	
+	public FeatureArrayProperty() {
+		
+	}
+	
+	public FeatureArrayProperty(AbstractFeature abstractFeature) {
+		super(abstractFeature);
+	}
+	
+	public FeatureArrayProperty(List<AbstractFeature> abstractFeature) {
+		super(abstractFeature);
+	}
+	
+	public FeatureArrayProperty(AbstractFeature... abstractFeature) {
+		super(abstractFeature);
+	}
+	
 	public void addFeature(AbstractFeature feature) {
 		super.addObject(feature);
 	}

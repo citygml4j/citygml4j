@@ -32,10 +32,11 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 
 public class WaterSurface extends AbstractWaterBoundarySurface {
-	private String waterLevel;
+	private Code waterLevel;
 	private List<ADEComponent> ade;
 
 	public WaterSurface() {
@@ -60,7 +61,7 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
 		return ade;
 	}
 
-	public String getWaterLevel() {
+	public Code getWaterLevel() {
 		return waterLevel;
 	}
 
@@ -76,7 +77,7 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
 		this.ade = new ChildList<ADEComponent>(this, ade);
 	}
 
-	public void setWaterLevel(String waterLevel) {
+	public void setWaterLevel(Code waterLevel) {
 		this.waterLevel = waterLevel;
 	}
 
@@ -109,7 +110,7 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetWaterLevel())
-			copy.setWaterLevel(copyBuilder.copy(waterLevel));
+			copy.setWaterLevel((Code)copyBuilder.copy(waterLevel));
 		
 		if (isSetGenericApplicationPropertyOfWaterSurface()) {
 			for (ADEComponent part : ade) {

@@ -109,4 +109,14 @@ public class BridgeModule extends AbstractConstructionModule {
 	public static List<BridgeModule> getInstances() {
 		return instances;
 	}
+	
+	public static BridgeModule getInstance(CityGMLModuleVersion version) {
+		switch (version) {
+		case v2_0_0:
+			return v2_0_0;
+		default:
+			return null;
+		}
+	}
+	
 }

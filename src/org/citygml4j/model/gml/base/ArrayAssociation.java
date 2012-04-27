@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.base;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,18 +41,34 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 	private List<T> object;
 	private HashMap<String, Object> localProperties;
 	private ModelObject parent;
+
+	public ArrayAssociation() {
+
+	}
+	
+	public ArrayAssociation(T object) {
+		addObject(object);
+	}
+
+	public ArrayAssociation(List<T> object) {
+		setObject(object);
+	}
+
+	public ArrayAssociation(T... object) {
+		this(Arrays.asList(object));
+	}
 	
 	public void addObject(T object) {
 		if (this.object == null)
 			this.object = new ChildList<T>(this);
-		
+
 		this.object.add(object);
 	}
 
 	public List<T> getObject() {
 		if (object == null)
 			object = new ChildList<T>(this);
-		
+
 		return object;
 	}
 
@@ -66,7 +83,7 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 	public void unsetObject() {
 		if (isSetObject())
 			object.clear();
-		
+
 		object = null;
 	}
 
@@ -81,18 +98,18 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 	public GMLClass getGMLClass() {
 		return GMLClass.ARRAY_ASSOCIATION;
 	}
-	
+
 	public Object getLocalProperty(String name) {
 		if (localProperties != null)
 			return localProperties.get(name);
-			
+
 		return null;
 	}
 
 	public void setLocalProperty(String name, Object value) {
 		if (localProperties == null)
 			localProperties = new HashMap<String, Object>();
-		
+
 		localProperties.put(name, value);
 	}
 
@@ -103,7 +120,7 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 	public Object unsetLocalProperty(String name) {
 		if (localProperties != null)
 			return localProperties.remove(name);
-		
+
 		return null;
 	}
 
@@ -129,19 +146,19 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
 		ArrayAssociation<T> copy = (ArrayAssociation<T>)target;
-		
+
 		if (isSetObject()) {
 			for (T part : object) {
 				T copyPart = (T)copyBuilder.copy(part);
 				copy.addObject(copyPart);
-				
+
 				if (part != null && copyPart == part)
 					part.setParent(this);
 			}
 		}
-		
+
 		copy.unsetParent();
-		
+
 		return copy;
 	}
 

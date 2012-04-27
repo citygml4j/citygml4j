@@ -25,10 +25,20 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.primitives.Polygon;
-import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 
 public class PolygonProperty extends GeometryProperty<Polygon> {
+	
+	public PolygonProperty() {
+
+	}
+
+	public PolygonProperty(Polygon polygon) {
+		super(polygon);
+	}
+
+	public PolygonProperty(String href) {
+		super(href);
+	}
 	
 	public Polygon getPolygon() {
 		return super.getGeometry();

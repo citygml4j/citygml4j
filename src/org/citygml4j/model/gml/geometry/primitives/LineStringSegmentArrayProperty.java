@@ -30,6 +30,22 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public class LineStringSegmentArrayProperty extends ArrayAssociation<LineStringSegment> {
 	
+	public LineStringSegmentArrayProperty() {
+
+	}
+
+	public LineStringSegmentArrayProperty(LineStringSegment lineStringSegment) {
+		super(lineStringSegment);
+	}
+
+	public LineStringSegmentArrayProperty(List<LineStringSegment> lineStringSegment) {
+		super(lineStringSegment);
+	}
+	
+	public LineStringSegmentArrayProperty(LineStringSegment... lineStringSegment) {
+		super(lineStringSegment);
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.LINE_STRING_SEGMENT_ARRAY_PROPERTY;
 	}

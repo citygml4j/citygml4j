@@ -35,6 +35,14 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 		
 	}
 	
+	public BoundarySurfaceProperty(AbstractBoundarySurface abstractBoundarySurface) {
+		super(abstractBoundarySurface);
+	}
+	
+	public BoundarySurfaceProperty(String href) {
+		super(href);
+	}
+	
 	public BoundarySurfaceProperty(BuildingModule module) {
 		this.module = module;
 	}

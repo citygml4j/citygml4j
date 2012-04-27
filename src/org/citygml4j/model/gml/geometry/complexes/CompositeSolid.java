@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -37,6 +38,19 @@ import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 
 public class CompositeSolid extends AbstractSolid {
 	private List<SolidProperty> solidMember;
+	
+	public CompositeSolid() {
+		
+	}
+	
+	public CompositeSolid(List<? extends AbstractSolid> abstractSolids) {
+		for (AbstractSolid abstractSolid : abstractSolids)
+			addSolidMember(new SolidProperty(abstractSolid));
+	}
+	
+	public CompositeSolid(AbstractSolid... abstractSolids) {
+		this(Arrays.asList(abstractSolids));
+	}
 
 	public void addSolidMember(SolidProperty solidMember) {
 		if (this.solidMember == null)

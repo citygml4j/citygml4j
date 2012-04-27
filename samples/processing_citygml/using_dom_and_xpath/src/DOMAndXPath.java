@@ -39,9 +39,6 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.factory.CityFurnitureFactory;
-import org.citygml4j.factory.CoreFactory;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.CityObjectMember;
@@ -64,10 +61,6 @@ public class DOMAndXPath {
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		CoreFactory core = new CoreFactory();
-		CityFurnitureFactory frn = new CityFurnitureFactory();
-		GMLFactory gml = new GMLFactory();
-		
 		System.out.println(df.format(new Date()) + "creating citygml4j JAXBUnmarshaller and JAXBMarshaller instances");
 		JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
 		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
@@ -101,7 +94,7 @@ public class DOMAndXPath {
 		// add gml:id and gml:description to building
 		System.out.println(df.format(new Date()) + "processing content using citygml4j");
 		building.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		StringOrRef description = gml.createStringOrRef();
+		StringOrRef description = new StringOrRef();
 		description.setValue("processed by citygml4j using DOM and XPath");
 		building.setDescription(description);
 
@@ -116,9 +109,9 @@ public class DOMAndXPath {
 
 		// create simple citygml4j object to insert into placeholder
 		System.out.println(df.format(new Date()) + "inserting CityFurniture instance at placeholder using citygml4j");
-		CityFurniture cityFurniture = frn.createCityFurniture();
+		CityFurniture cityFurniture = new CityFurniture();
 		cityFurniture.setDescription(description);		
-		CityObjectMember member = core.createCityObjectMember(cityFurniture);
+		CityObjectMember member = new CityObjectMember(cityFurniture);
 
 		// marshal to DOM and put into document
 		System.out.println(df.format(new Date()) + "marshalling back to DOM");

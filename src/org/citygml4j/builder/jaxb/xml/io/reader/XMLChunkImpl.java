@@ -37,6 +37,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -56,36 +57,46 @@ import org.citygml4j.util.xml.SAXEventBuffer;
 import org.citygml4j.util.xml.StAXStream2SAX;
 import org.citygml4j.util.xml.saxevents.EndElement;
 import org.citygml4j.util.xml.saxevents.SAXEvent;
-import org.citygml4j.util.xml.saxevents.StartElement;
 import org.citygml4j.util.xml.saxevents.SAXEvent.EventType;
+import org.citygml4j.util.xml.saxevents.StartElement;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
+import org.citygml4j.xml.io.reader.UnmarshalException;
+import org.citygml4j.xml.io.reader.XMLChunk;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.LocatorImpl;
 import org.xml.sax.helpers.NamespaceSupport;
 
-public class CityGMLChunk {
-	private final JAXBChunkReader chunkReader;
-	private final CityGMLChunk parentChunk;	
+public class XMLChunkImpl implements XMLChunk {
+	private final AbstractJAXBReader jaxbReader;
+	private final XMLChunkImpl parentChunk;	
 	private final SAXEventBuffer buffer;
 	private final StAXStream2SAX stax2sax;	
 
 	private CityGML citygml;
 	private ParentInfo featureInfo;	
+	private CityGMLClass type = CityGMLClass.UNDEFINED;
 	private AtomicBoolean parentInfoResolved = new AtomicBoolean(false);
 	private AtomicBoolean citygmlResolved = new AtomicBoolean(false);
-	
+	private AtomicBoolean typeResolved = new AtomicBoolean(false);
+
 	private boolean isFiltered = false;
 	private int depth = 0;
 	private boolean hasPassedXMLValidation = false;
 
-	CityGMLChunk(JAXBChunkReader chunkReader, CityGMLChunk parentChunk) {
-		this.chunkReader = chunkReader;
+	XMLChunkImpl(AbstractJAXBReader chunkReader, XMLChunkImpl parentChunk, CityGMLClass type) {
+		this.jaxbReader = chunkReader;
 		this.parentChunk = parentChunk;
 
 		buffer = new SAXEventBuffer(chunkReader.useValidation);
 		stax2sax = new StAXStream2SAX(buffer);
+		
+		if (type != null && type != CityGMLClass.UNDEFINED) {
+			this.type = type;
+			typeResolved.set(true);
+		}
 	}
 
 	boolean isFiltered() {
@@ -132,7 +143,7 @@ public class CityGMLChunk {
 		return buffer.getParentStartElement();
 	}
 
-	public void append(CityGMLChunk other) {
+	public void append(XMLChunkImpl other) {
 		buffer.append(other.buffer);
 	}
 
@@ -146,6 +157,41 @@ public class CityGMLChunk {
 
 	public boolean hasPassedXMLValidation() {
 		return hasPassedXMLValidation;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		if (citygmlResolved.get())
+			return citygml.getCityGMLClass();
+
+		if (typeResolved.compareAndSet(false, true)) {
+			QName name = new QName(buffer.getFirstStartElement().getURI(), buffer.getFirstStartElement().getLocalName());
+			ElementInfo info = null;
+			
+			if (jaxbReader.elementChecker.isCityGMLElement(name))
+				info = jaxbReader.elementChecker.getCityGMLFeature(name, true);
+			else {
+				try {
+					info = jaxbReader.elementChecker.getADEElementInfo(name, null, true, true);
+				} catch (MissingADESchemaException e) {
+					//
+				}
+			}
+			
+			if (info != null)
+				type = info.getType();
+		}
+
+		return type;
+	}
+
+	public void send(ContentHandler handler) throws SAXException {
+		if (!citygmlResolved.get()) {
+			SAXEvent event = buffer.getFirstEvent();
+			do {
+				event.send(handler);
+			} while ((event = event.next()) != null); 
+		} else
+			throw new SAXException("Unmarshalled chunks cannot be forwarded to a ContentHandler.");
 	}
 
 	private ParentInfo unmarshalFeatureInfo() {
@@ -163,7 +209,7 @@ public class CityGMLChunk {
 					if (event.getType() == EventType.START_ELEMENT) {
 						if (depth == 0) {
 							element = (StartElement)event;
-							isParentInfoElement = chunkReader.elementChecker.isParentInfoElement(
+							isParentInfoElement = jaxbReader.elementChecker.isParentInfoElement(
 									element.getURI(), 
 									element.getLocalName());
 						}
@@ -199,9 +245,7 @@ public class CityGMLChunk {
 				if (citygml instanceof AbstractFeature)
 					featureInfo = new FeatureInfoImpl((AbstractFeature)citygml);
 
-			} catch (JAXBException e) {
-				//
-			} catch (SAXException e) {
+			} catch (UnmarshalException e) {
 				//
 			} catch (MissingADESchemaException e) {
 				//
@@ -212,74 +256,80 @@ public class CityGMLChunk {
 		return featureInfo;
 	}
 
-	public CityGML unmarshal() throws JAXBException, SAXException, MissingADESchemaException {
+	public CityGML unmarshal() throws UnmarshalException, MissingADESchemaException {
 		if (!buffer.isEmpty() && citygmlResolved.compareAndSet(false, true))
-			citygml = unmarshal(buffer, chunkReader.useValidation);
+			citygml = unmarshal(buffer, jaxbReader.useValidation);
 
 		return citygml;
 	}	
 
-	private CityGML unmarshal(SAXEventBuffer buffer, boolean useValidation) throws JAXBException, SAXException, MissingADESchemaException {
-		CityGML citygml = null;
-		QName fakeRoot = getFakeRoot();
+	private CityGML unmarshal(SAXEventBuffer buffer, boolean useValidation) throws UnmarshalException, MissingADESchemaException {
+		try {
+			CityGML citygml = null;		
+			QName fakeRoot = getFakeRoot();
 
-		Unmarshaller unmarshaller = chunkReader.factory.builder.getJAXBContext().createUnmarshaller();
-		if (useValidation) {
-			hasPassedXMLValidation = true;
-			unmarshaller.setSchema(chunkReader.validationSchemaHandler.getSchema());
-			
-			if (chunkReader.validationEventHandler != null) {			
-				unmarshaller.setEventHandler(new ValidationEventHandler() {
-					public boolean handleEvent(ValidationEvent event) {
-						hasPassedXMLValidation = false;
-						return chunkReader.validationEventHandler.handleEvent(event);
-					}
-				});
+			Unmarshaller unmarshaller = jaxbReader.factory.builder.getJAXBContext().createUnmarshaller();
+			if (useValidation) {
+				hasPassedXMLValidation = true;
+				unmarshaller.setSchema(jaxbReader.validationSchemaHandler.getSchema());
+
+				if (jaxbReader.validationEventHandler != null) {			
+					unmarshaller.setEventHandler(new ValidationEventHandler() {
+						public boolean handleEvent(ValidationEvent event) {
+							hasPassedXMLValidation = false;
+							return jaxbReader.validationEventHandler.handleEvent(event);
+						}
+					});
+				}
 			}
-		}
 
-		UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
-		LocatorImpl locator = new LocatorImpl();
-		handler.setDocumentLocator(locator);
+			UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
+			LocatorImpl locator = new LocatorImpl();
+			handler.setDocumentLocator(locator);
 
-		// emulate start of a new document
-		emulateStartDocument(handler, fakeRoot);
+			// emulate start of a new document
+			emulateStartDocument(handler, fakeRoot);
 
-		// fire buffered sax events to unmarshaller
-		SAXEvent event = buffer.getFirstEvent();
-		do {
-			try {
-				event.send(handler, locator);
-				buffer.removeFirstEvent();
-			} catch (SAXException e) {
-				buffer.clear();
-				throw e;
+			// fire buffered sax events to unmarshaller
+			SAXEvent event = buffer.getFirstEvent();
+			do {
+				try {
+					event.send(handler, locator);
+					buffer.removeFirstEvent();
+				} catch (SAXException e) {
+					buffer.clear();
+					throw e;
+				}
+			} while ((event = event.next()) != null);
+
+			// emulate end of a document
+			emulateEndDocument(handler, fakeRoot);
+
+			// unmarshal sax events
+			Object result = handler.getResult();
+
+			// release memory
+			unmarshaller = null;
+			handler = null;
+
+			if (result instanceof JAXBElement<?>) {
+				ModelObject gml = jaxbReader.jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
+
+				if (gml.getModelType() == ModelType.CITYGML) {
+					if (gml instanceof AbstractFeature)
+						citygml = (CityGML)gml;
+					else if (gml instanceof AppearanceProperty)
+						citygml = ((AppearanceProperty)gml).getAppearance();
+				} else if (gml instanceof FeatureProperty<?>)
+					citygml = ((FeatureProperty<?>)gml).getGenericADEComponent();
 			}
-		} while ((event = event.next()) != null);
 
-		// emulate end of a document
-		emulateEndDocument(handler, fakeRoot);
-
-		// unmarshal sax events
-		Object result = handler.getResult();
-
-		// release memory
-		unmarshaller = null;
-		handler = null;
-
-		if (result instanceof JAXBElement<?>) {
-			ModelObject gml = chunkReader.jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
-
-			if (gml.getModelType() == ModelType.CITYGML) {
-				if (gml instanceof AbstractFeature)
-					citygml = (CityGML)gml;
-				else if (gml instanceof AppearanceProperty)
-					citygml = ((AppearanceProperty)gml).getAppearance();
-			} else if (gml instanceof FeatureProperty<?>)
-				citygml = ((FeatureProperty<?>)gml).getGenericADEComponent();
+			return citygml;
+		} catch (JAXBException e) {
+			throw new UnmarshalException("Unmarshal exception caused by: ", e);
+		} catch (SAXException e) {
+			throw new UnmarshalException("Unmarshal exception caused by: ", e);
 		}
-
-		return citygml;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -314,7 +364,7 @@ public class CityGMLChunk {
 		if (fakeRoot != null)
 			handler.endElement(fakeRoot.getNamespaceURI(), 
 					fakeRoot.getLocalPart(), 
-			"");
+					"");
 
 		// emulate the end of a document
 		NamespaceSupport ns = buffer.getNamespaceSupport();
@@ -332,9 +382,9 @@ public class CityGMLChunk {
 		StartElement root = getFirstStartElement();
 
 		if (root.getLocalName().equals("Appearance") && 
-				chunkReader.elementChecker.isCityGMLElement(root.getURI()))
+				jaxbReader.elementChecker.isCityGMLElement(root.getURI()))
 			return new QName(root.getURI(), "appearanceMember");
-		else if (!chunkReader.elementChecker.isCityGMLElement(root.getURI())) 
+		else if (!jaxbReader.elementChecker.isCityGMLElement(root.getURI())) 
 			return new QName(GMLCoreModule.v3_1_1.getNamespaceURI(), "featureProperty");
 
 		return null;

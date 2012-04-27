@@ -105,4 +105,14 @@ public class TunnelModule extends AbstractConstructionModule {
 	public static List<TunnelModule> getInstances() {
 		return instances;
 	}
+	
+	public static TunnelModule getInstance(CityGMLModuleVersion version) {
+		switch (version) {
+		case v2_0_0:
+			return v2_0_0;
+		default:
+			return null;
+		}
+	}
+	
 }

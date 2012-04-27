@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class GeometricPrimitiveProperty extends GeometryProperty<AbstractGeometricPrimitive> {
 
+	public GeometricPrimitiveProperty() {
+
+	}
+
+	public GeometricPrimitiveProperty(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+		super(abstractGeometricPrimitive);
+	}
+
+	public GeometricPrimitiveProperty(String href) {
+		super(href);
+	}
+	
 	public AbstractGeometricPrimitive getGeometricPrimitive() {
 		return super.getGeometry();
 	}

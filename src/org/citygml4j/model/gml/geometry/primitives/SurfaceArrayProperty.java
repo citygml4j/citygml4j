@@ -28,10 +28,24 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceArrayProperty;
 
 public class SurfaceArrayProperty extends GeometryArrayProperty<AbstractSurface> {
+	
+	public SurfaceArrayProperty() {
+
+	}
+
+	public SurfaceArrayProperty(AbstractSurface abstractSurface) {
+		super(abstractSurface);
+	}
+
+	public SurfaceArrayProperty(List<AbstractSurface> abstractSurface) {
+		super(abstractSurface);
+	}
+	
+	public SurfaceArrayProperty(AbstractSurface... abstractSurface) {
+		super(abstractSurface);
+	}
 	
 	public void addSurface(AbstractSurface abstractSurface) {
 		super.addGeometry(abstractSurface);

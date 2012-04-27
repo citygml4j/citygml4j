@@ -32,7 +32,6 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
-import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
 
 public class DirectPositionList implements SRSReferenceGroup, Child, Copyable {
 	private List<Double> value;

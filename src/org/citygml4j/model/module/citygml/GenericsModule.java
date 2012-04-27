@@ -81,5 +81,18 @@ public class GenericsModule extends AbstractCityGMLModule {
 	public static List<GenericsModule> getInstances() {
 		return instances;
 	}
+	
+	public static GenericsModule getInstance(CityGMLModuleVersion version) {
+		switch (version) {
+		case v2_0_0:
+			return v2_0_0;
+		case v1_0_0:
+			return v1_0_0;
+		case v0_4_0:
+			return v0_4_0;
+		default:
+			return null;
+		}
+	}
 
 }

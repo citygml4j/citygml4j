@@ -35,6 +35,14 @@ public class BridgeConstructionElementProperty extends FeatureProperty<BridgeCon
 		
 	}
 	
+	public BridgeConstructionElementProperty(BridgeConstructionElement bridgeConstructionElement) {
+		super(bridgeConstructionElement);
+	}
+	
+	public BridgeConstructionElementProperty(String href) {
+		super(href);
+	}
+	
 	public BridgeConstructionElementProperty(BridgeModule module) {
 		this.module = module;
 	}

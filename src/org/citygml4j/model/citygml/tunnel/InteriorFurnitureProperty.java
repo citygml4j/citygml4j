@@ -35,6 +35,14 @@ public class InteriorFurnitureProperty extends FeatureProperty<TunnelFurniture> 
 		
 	}
 	
+	public InteriorFurnitureProperty(TunnelFurniture tunnelFurniture) {
+		super(tunnelFurniture);
+	}
+	
+	public InteriorFurnitureProperty(String href) {
+		super(href);
+	}
+	
 	public InteriorFurnitureProperty(TunnelModule module) {
 		this.module = module;
 	}

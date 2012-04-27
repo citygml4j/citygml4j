@@ -147,7 +147,7 @@ public class Appearance040Unmarshaller {
 			dest.setBorderColor(unmarshalColorPlusOpacity(src.getBorderColor()));
 	}
 
-	public void unmarshalTextureParameterization(TextureParameterizationType src, AbstractTextureParameterization dest) throws MissingADESchemaException {
+	public void unmarshalAbstractTextureParameterization(TextureParameterizationType src, AbstractTextureParameterization dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
 		if (src.isSet_ADEComponent()) {
@@ -295,7 +295,7 @@ public class Appearance040Unmarshaller {
 	}
 
 	public void unmarshalTexCoordGen(TexCoordGenType src, TexCoordGen dest) throws MissingADESchemaException {
-		unmarshalTextureParameterization(src, dest);
+		unmarshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetWorldToTexture())
 			dest.setWorldToTexture(unmarshalWorldToTexture(src.getWorldToTexture()));
@@ -309,7 +309,7 @@ public class Appearance040Unmarshaller {
 	}
 
 	public void unmarshalTexCoordList(TexCoordListType src, TexCoordList dest) throws MissingADESchemaException {
-		unmarshalTextureParameterization(src, dest);
+		unmarshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetTextureCoordinates()) {
 			for (TexCoordListType.TextureCoordinates textureCoordinates : src.getTextureCoordinates())

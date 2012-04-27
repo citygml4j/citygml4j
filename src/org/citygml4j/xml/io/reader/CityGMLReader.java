@@ -25,12 +25,12 @@ package org.citygml4j.xml.io.reader;
 import org.citygml4j.model.citygml.CityGML;
 
 public interface CityGMLReader {
-	public boolean hasNextFeature() throws CityGMLReadException;	
-	public boolean isSetParentInfo();
-
+	public boolean hasNext() throws CityGMLReadException;
 	public CityGML nextFeature() throws CityGMLReadException;
+	public XMLChunk nextChunk() throws CityGMLReadException;
+	public boolean isSetParentInfo();
 	public ParentInfo getParentInfo();	
-	public String getBaseURI();	
-	
+	public String getBaseURI();
 	public void close() throws CityGMLReadException;
+
 }

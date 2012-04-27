@@ -47,7 +47,7 @@ public class SimpleReader {
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.xml"));
 		
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();
 			
 			System.out.println("Found " + citygml.getCityGMLClass() + 

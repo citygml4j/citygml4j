@@ -27,9 +27,6 @@ import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceInterpolation;
-import org.citygml4j.model.gml.geometry.primitives.Triangle;
 
 public class Triangle extends AbstractSurfacePatch {
 	private AbstractRingProperty exterior;

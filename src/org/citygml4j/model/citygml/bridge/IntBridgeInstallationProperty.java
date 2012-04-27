@@ -35,6 +35,14 @@ public class IntBridgeInstallationProperty extends FeatureProperty<IntBridgeInst
 		
 	}
 	
+	public IntBridgeInstallationProperty(IntBridgeInstallation intBridgeInstallation) {
+		super(intBridgeInstallation);
+	}
+	
+	public IntBridgeInstallationProperty(String href) {
+		super(href);
+	}
+	
 	public IntBridgeInstallationProperty(BridgeModule module) {
 		this.module = module;
 	}

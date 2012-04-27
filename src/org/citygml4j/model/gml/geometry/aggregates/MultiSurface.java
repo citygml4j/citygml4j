@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -39,6 +40,19 @@ import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 public class MultiSurface extends AbstractGeometricAggregate {
 	private List<SurfaceProperty> surfaceMember;
 	private SurfaceArrayProperty surfaceMembers;
+	
+	public MultiSurface() {
+		
+	}
+	
+	public MultiSurface(List<? extends AbstractSurface> abstractSurfaces) {
+		for (AbstractSurface abstractSurface : abstractSurfaces)
+			addSurfaceMember(new SurfaceProperty(abstractSurface));
+	}
+	
+	public MultiSurface(AbstractSurface... abstractSurfaces) {
+		this(Arrays.asList(abstractSurfaces));
+	}
 	
 	public void addSurfaceMember(SurfaceProperty surfaceMember) {
 		if (this.surfaceMember == null)

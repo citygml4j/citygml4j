@@ -146,6 +146,7 @@ import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
 import org.citygml4j.model.gml.geometry.primitives.Rectangle;
 import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -178,6 +179,7 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
+import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -355,6 +357,8 @@ public class GMLUnmarshaller {
 			dest = unmarshalMultiSurfaceProperty((MultiSurfacePropertyType)src);
 		else if (src instanceof OrientableCurveType)
 			dest = unmarshalOrientableCurve((OrientableCurveType)src);
+		else if (src instanceof org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)
+			jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)src);
 		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
 			jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)src);
 		else if (src instanceof org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)
@@ -522,7 +526,11 @@ public class GMLUnmarshaller {
 					if (cityModel != null) {
 						cityGMLProperty = true;
 
-						if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
+						if (namespaceURI.equals(CoreModule.v2_0_0.getNamespaceURI()))
+							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore200Unmarshaller().unmarshalCityObjectMember(featureProperty));
+						else if (namespaceURI.equals(AppearanceModule.v2_0_0.getNamespaceURI()))
+							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance200Unmarshaller().unmarshalAppearanceMember(featureProperty));
+						else if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
 							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore100Unmarshaller().unmarshalCityObjectMember(featureProperty));
 						else if (featureProperty instanceof org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)
 							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance100Unmarshaller().unmarshalAppearanceMember((org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)featureProperty));
@@ -864,7 +872,7 @@ public class GMLUnmarshaller {
 			dest.setBaseSurface(unmarshalSurfaceProperty(src.getBaseSurface()));
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(Sign.fromValue(src.getOrientation()));
 	}
 
 	public void unmarshalPointRroperty(PointPropertyType src, PointProperty dest) {
@@ -2332,7 +2340,7 @@ public class GMLUnmarshaller {
 			dest.setBaseCurve(unmarshalCurveProperty(src.getBaseCurve()));
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(Sign.fromValue(src.getOrientation()));
 
 		return dest;
 	}

@@ -35,6 +35,18 @@ public class LocationProperty extends GeometryProperty<AbstractGeometry> {
 	private StringOrRef locationString;
 	private Null _null;
 	
+	public LocationProperty() {
+
+	}
+
+	public LocationProperty(AbstractGeometry abstractGeometry) {
+		super(abstractGeometry);
+	}
+
+	public LocationProperty(String href) {
+		super(href);
+	}
+	
 	public Code getLocationKeyWord() {
 		return locationKeyWord;
 	}

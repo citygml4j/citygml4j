@@ -29,6 +29,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class DomainSet<T extends AbstractGeometry> extends GeometryProperty<T> {
 	
+	public DomainSet() {
+
+	}
+
+	public DomainSet(T geometry) {
+		super(geometry);
+	}
+
+	public DomainSet(String href) {
+		super(href);
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.DOMAIN_SET;
 	}

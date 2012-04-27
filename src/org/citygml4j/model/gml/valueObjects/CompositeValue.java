@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -34,6 +35,19 @@ import org.citygml4j.model.gml.base.AbstractGML;
 public class CompositeValue extends AbstractGML {
 	private List<ValueProperty> valueComponent;
 	private ValueArrayProperty valueComponents;
+	
+	public CompositeValue() {
+		
+	}
+	
+	public CompositeValue(List<Value> values) {
+		for (Value value : values)
+			addValueComponent(new ValueProperty(value));
+	}
+	
+	public CompositeValue(Value... values) {
+		this(Arrays.asList(values));
+	}
 
 	public List<ValueProperty> getValueComponent() {
 		if (valueComponent == null)

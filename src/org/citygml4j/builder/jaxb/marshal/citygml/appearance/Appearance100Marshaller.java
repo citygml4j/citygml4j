@@ -169,7 +169,7 @@ public class Appearance100Marshaller {
 		}
 	}
 
-	public void marshalTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
+	public void marshalAbstractTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTextureParameterization()) {
@@ -323,7 +323,7 @@ public class Appearance100Marshaller {
 	}
 
 	public void marshalTexCoordGen(TexCoordGen src, TexCoordGenType dest) {
-		marshalTextureParameterization(src, dest);
+		marshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetWorldToTexture())
 			dest.setWorldToTexture(marshalWorldToTexture(src.getWorldToTexture()));
@@ -343,7 +343,7 @@ public class Appearance100Marshaller {
 	}
 
 	public void marshalTexCoordList(TexCoordList src, TexCoordListType dest) {
-		marshalTextureParameterization(src, dest);
+		marshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetTextureCoordinates()) {
 			for (TextureCoordinates textureCoordinates : src.getTextureCoordinates())

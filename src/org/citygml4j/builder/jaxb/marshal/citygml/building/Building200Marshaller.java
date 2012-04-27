@@ -55,6 +55,8 @@ import org.citygml4j.jaxb.citygml.bldg._2.InteriorRoomPropertyType;
 import org.citygml4j.jaxb.citygml.bldg._2.InteriorWallSurfaceType;
 import org.citygml4j.jaxb.citygml.bldg._2.ObjectFactory;
 import org.citygml4j.jaxb.citygml.bldg._2.OpeningPropertyType;
+import org.citygml4j.jaxb.citygml.bldg._2.OuterCeilingSurfaceType;
+import org.citygml4j.jaxb.citygml.bldg._2.OuterFloorSurfaceType;
 import org.citygml4j.jaxb.citygml.bldg._2.RoofSurfaceType;
 import org.citygml4j.jaxb.citygml.bldg._2.RoomType;
 import org.citygml4j.jaxb.citygml.bldg._2.WallSurfaceType;
@@ -82,6 +84,8 @@ import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
 import org.citygml4j.model.citygml.building.InteriorWallSurface;
 import org.citygml4j.model.citygml.building.OpeningProperty;
+import org.citygml4j.model.citygml.building.OuterCeilingSurface;
+import org.citygml4j.model.citygml.building.OuterFloorSurface;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
@@ -128,6 +132,10 @@ public class Building200Marshaller {
 			dest = bldg.createIntBuildingInstallation((IntBuildingInstallationType)src);
 		else if (src instanceof InteriorWallSurfaceType)
 			dest = bldg.createInteriorWallSurface((InteriorWallSurfaceType)src);
+		else if (src instanceof OuterCeilingSurfaceType)
+			dest = bldg.createOuterCeilingSurface((OuterCeilingSurfaceType)src);
+		else if (src instanceof OuterFloorSurfaceType)
+			dest = bldg.createOuterFloorSurface((OuterFloorSurfaceType)src);
 		else if (src instanceof RoofSurfaceType)
 			dest = bldg.createRoofSurface((RoofSurfaceType)src);
 		else if (src instanceof RoomType)
@@ -179,6 +187,10 @@ public class Building200Marshaller {
 			dest = marshalInteriorWallSurface((InteriorWallSurface)src);
 		else if (src instanceof OpeningProperty)
 			dest = marshalOpeningProperty((OpeningProperty)src);
+		else if (src instanceof OuterCeilingSurface)
+			dest = marshalOuterCeilingSurface((OuterCeilingSurface)src);
+		else if (src instanceof OuterFloorSurface)
+			dest = marshalOuterFloorSurface((OuterFloorSurface)src);
 		else if (src instanceof RoofSurface)
 			dest = marshalRoofSurface((RoofSurface)src);
 		else if (src instanceof Room)
@@ -192,7 +204,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest) {
-		citygml.getCore200Marshaller().marshalSite(src, dest);
+		citygml.getCore200Marshaller().marshalAbstractSite(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
@@ -341,8 +353,8 @@ public class Building200Marshaller {
 		}
 	}
 
-	public void marshalBoundarySurface(AbstractBoundarySurface src, AbstractBoundarySurfaceType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractBoundarySurface(AbstractBoundarySurface src, AbstractBoundarySurfaceType dest) {
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -365,8 +377,8 @@ public class Building200Marshaller {
 		}
 	}
 
-	public void marshalOpening(AbstractOpening src, AbstractOpeningType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractOpening(AbstractOpening src, AbstractOpeningType dest) {
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod3MultiSurface())
 			dest.setLod3MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod3MultiSurface()));
@@ -445,7 +457,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalBuildingFurniture(BuildingFurniture src, BuildingFurnitureType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
@@ -481,7 +493,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
@@ -624,7 +636,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalCeilingSurface(CeilingSurface src, CeilingSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfCeilingSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCeilingSurface())
@@ -641,7 +653,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalClosureSurface(ClosureSurface src, ClosureSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfClosureSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfClosureSurface())
@@ -658,7 +670,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalDoor(Door src, DoorType dest) {
-		marshalOpening(src, dest);
+		marshalAbstractOpening(src, dest);
 
 		if (src.isSetAddress()) {
 			for (AddressProperty addressProperty : src.getAddress())
@@ -680,7 +692,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalFloorSurface(FloorSurface src, FloorSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfFloorSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfFloorSurface())
@@ -697,7 +709,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalGroundSurface(GroundSurface src, GroundSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfGroundSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfGroundSurface())
@@ -714,7 +726,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalIntBuildingInstallation(IntBuildingInstallation src, IntBuildingInstallationType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
@@ -863,7 +875,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalInteriorWallSurface(InteriorWallSurface src, InteriorWallSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfInteriorWallSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfInteriorWallSurface())
@@ -918,9 +930,43 @@ public class Building200Marshaller {
 
 		return dest;
 	}
+	
+	public void marshalOuterCeilingSurface(OuterCeilingSurface src, OuterCeilingSurfaceType dest) {
+		marshalAbstractBoundarySurface(src, dest);
+
+		if (src.isSetGenericApplicationPropertyOfOuterCeilingSurface()) {
+			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOuterCeilingSurface())
+				if (adeComponent.isSetContent())
+					dest.get_GenericApplicationPropertyOfOuterCeilingSurface().add(citygml.ade2jaxbElement(adeComponent));
+		}
+	}
+
+	public OuterCeilingSurfaceType marshalOuterCeilingSurface(OuterCeilingSurface src) {
+		OuterCeilingSurfaceType dest = bldg.createOuterCeilingSurfaceType();
+		marshalOuterCeilingSurface(src, dest);
+
+		return dest;
+	}
+	
+	public void marshalOuterFloorSurface(OuterFloorSurface src, OuterFloorSurfaceType dest) {
+		marshalAbstractBoundarySurface(src, dest);
+
+		if (src.isSetGenericApplicationPropertyOfOuterFloorSurface()) {
+			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOuterFloorSurface())
+				if (adeComponent.isSetContent())
+					dest.get_GenericApplicationPropertyOfOuterFloorSurface().add(citygml.ade2jaxbElement(adeComponent));
+		}
+	}
+
+	public OuterFloorSurfaceType marshalOuterFloorSurface(OuterFloorSurface src) {
+		OuterFloorSurfaceType dest = bldg.createOuterFloorSurfaceType();
+		marshalOuterFloorSurface(src, dest);
+
+		return dest;
+	}
 
 	public void marshalRoofSurface(RoofSurface src, RoofSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfRoofSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRoofSurface())
@@ -937,7 +983,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalRoom(Room src, RoomType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
@@ -988,7 +1034,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalWallSurface(WallSurface src, WallSurfaceType dest) {
-		marshalBoundarySurface(src, dest);
+		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWallSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWallSurface())
@@ -1005,7 +1051,7 @@ public class Building200Marshaller {
 	}
 
 	public void marshalWindow(Window src, WindowType dest) {
-		marshalOpening(src, dest);
+		marshalAbstractOpening(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWindow()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWindow())

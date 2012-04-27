@@ -36,6 +36,14 @@ public class GridProperty extends FeatureProperty<RectifiedGridCoverage> impleme
 		
 	}
 	
+	public GridProperty(RectifiedGridCoverage rectifiedGridCoverage) {
+		super(rectifiedGridCoverage);
+	}
+	
+	public GridProperty(String href) {
+		super(href);
+	}
+	
 	public GridProperty(ReliefModule module) {
 		this.module = module;
 	}

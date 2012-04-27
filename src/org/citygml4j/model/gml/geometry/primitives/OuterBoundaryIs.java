@@ -25,10 +25,16 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
-import org.citygml4j.model.gml.geometry.primitives.OuterBoundaryIs;
 
 public class OuterBoundaryIs extends AbstractRingProperty {
+	
+	public OuterBoundaryIs() {
+
+	}
+
+	public OuterBoundaryIs(AbstractRing abstractRing) {
+		super(abstractRing);
+	}
 	
 	public ModelType getModelType() {
 		return ModelType.GML;

@@ -109,13 +109,13 @@ public class Generics100Marshaller {
 		return dest;
 	}
 
-	public void marshalGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {
+	public void marshalAbstractGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {
 		if (src.isSetName())
 			dest.setName(src.getName());
 	}
 
 	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(src.getClazz().getValue());
@@ -184,7 +184,7 @@ public class Generics100Marshaller {
 	}
 
 	public void marshalDateAttribute(DateAttribute src, DateAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue()) {
 			try {
@@ -209,7 +209,7 @@ public class Generics100Marshaller {
 	}
 
 	public void marshalDoubleAttribute(DoubleAttribute src, DoubleAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -223,7 +223,7 @@ public class Generics100Marshaller {
 	}
 
 	public void marshalIntAttribute(IntAttribute src, IntAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(BigInteger.valueOf(src.getValue()));
@@ -237,7 +237,7 @@ public class Generics100Marshaller {
 	}
 
 	public void marshalStringAttribute(StringAttribute src, StringAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -251,7 +251,7 @@ public class Generics100Marshaller {
 	}
 
 	public void marshalUriAttribute(UriAttribute src, UriAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -265,7 +265,7 @@ public class Generics100Marshaller {
 	}
 
 	public void marshalMeasureAttribute(MeasureAttribute src, DoubleAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue().getValue());

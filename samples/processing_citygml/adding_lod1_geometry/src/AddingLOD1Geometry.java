@@ -28,8 +28,7 @@ import java.util.List;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.GMLFactory;
-import org.citygml4j.factory.geometry.GMLGeometryFactory;
+import org.citygml4j.factory.GMLGeometryFactory;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.CityGML;
@@ -39,6 +38,8 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -57,7 +58,6 @@ public class AddingLOD1Geometry {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 	
-		GMLFactory gml = new GMLFactory();
 		GMLGeometryFactory geom = new GMLGeometryFactory();
 		
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.xml chunk-wise");
@@ -79,7 +79,7 @@ public class AddingLOD1Geometry {
 
 		writer.writeStartDocument();
 		
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML feature = reader.nextFeature();
 			
 			if (feature.getCityGMLClass() == CityGMLClass.BUILDING) {
@@ -109,11 +109,11 @@ public class AddingLOD1Geometry {
 				shell.add(geom.createLinearPolygon(new double[]{xmin,ymin,zmin, xmin,ymin,zmax, xmin,ymax,zmax, xmin,ymax,zmin}, 3));
 				shell.add(geom.createLinearPolygon(new double[]{xmin,ymin,zmax, xmax,ymin,zmax, xmax,ymax,zmax, xmin,ymax,zmax}, 3));
 				
-				CompositeSurface exterior = gml.createCompositeSurface(shell);
-				Solid solid = gml.createSolid();
-				solid.setExterior(gml.createSurfaceProperty(exterior));
+				CompositeSurface exterior =new CompositeSurface(shell);
+				Solid solid = new Solid();
+				solid.setExterior(new SurfaceProperty(exterior));
 
-				building.setLod1Solid(gml.createSolidProperty(solid));
+				building.setLod1Solid(new SolidProperty(solid));
 				
 				writer.writeFeatureMember(building);
 			}

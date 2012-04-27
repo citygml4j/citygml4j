@@ -26,9 +26,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.SurfacePatchArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 
 public class TriangulatedSurface extends Surface {
 

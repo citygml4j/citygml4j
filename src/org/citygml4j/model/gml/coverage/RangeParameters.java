@@ -29,6 +29,18 @@ import org.citygml4j.model.gml.valueObjects.ValueObject;
 
 public class RangeParameters extends AssociationByRepOrRef<ValueObject> {
 	
+	public RangeParameters() {
+		
+	}
+	
+	public RangeParameters(ValueObject valueObject) {
+		super(valueObject);
+	}
+	
+	public RangeParameters(String href) {
+		super(href);
+	}
+	
 	public ValueObject getValueObject() {
 		return super.getObject();
 	}

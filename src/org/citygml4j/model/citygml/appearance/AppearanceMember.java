@@ -32,6 +32,14 @@ public class AppearanceMember extends AppearanceProperty {
 		
 	}
 	
+	public AppearanceMember(Appearance appearance) {
+		super(appearance);
+	}
+	
+	public AppearanceMember(String href) {
+		super(href);
+	}
+	
 	public AppearanceMember(AppearanceModule module) {
 		super(module);
 	}

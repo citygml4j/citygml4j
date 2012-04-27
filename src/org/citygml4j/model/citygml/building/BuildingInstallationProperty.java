@@ -35,6 +35,14 @@ public class BuildingInstallationProperty extends FeatureProperty<BuildingInstal
 		
 	}
 	
+	public BuildingInstallationProperty(BuildingInstallation buildingInstallation) {
+		super(buildingInstallation);
+	}
+	
+	public BuildingInstallationProperty(String href) {
+		super(href);
+	}
+	
 	public BuildingInstallationProperty(BuildingModule module) {
 		this.module = module;
 	}

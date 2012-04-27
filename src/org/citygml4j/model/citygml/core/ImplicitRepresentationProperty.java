@@ -35,6 +35,14 @@ public class ImplicitRepresentationProperty extends AssociationByRepOrRef<Implic
 		
 	}
 	
+	public ImplicitRepresentationProperty(ImplicitGeometry implicitGeometry) {
+		super(implicitGeometry);
+	}
+	
+	public ImplicitRepresentationProperty(String href) {
+		super(href);
+	}
+	
 	public ImplicitRepresentationProperty(CoreModule module) {
 		this.module = module;
 	}

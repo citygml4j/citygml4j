@@ -37,7 +37,19 @@ public class BoundingShape implements GML, Child, Copyable {
 	private Envelope envelope;
 	private Null _null;
 	private ModelObject parent;
+	
+	public BoundingShape() {
+		
+	}
 
+	public BoundingShape(Envelope envelope) {
+		setEnvelope(envelope);
+	}
+	
+	public BoundingShape(BoundingBox boundingBox) {
+		setEnvelope(boundingBox);
+	}
+	
 	public Envelope getEnvelope() {
 		return envelope;
 	}

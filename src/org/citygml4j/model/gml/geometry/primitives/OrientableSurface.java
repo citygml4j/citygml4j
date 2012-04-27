@@ -32,17 +32,28 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class OrientableSurface extends AbstractSurface {
 	private SurfaceProperty baseSurface;
-	private String orientation;
+	private Sign orientation;
 
+	public OrientableSurface() {
+		
+	}
+	
+	public OrientableSurface(AbstractSurface base, Sign orientation) {
+		setBaseSurface(new SurfaceProperty(base));
+		setOrientation(orientation);
+	}
+	
+	public OrientableSurface(String xlink, Sign orientation) {
+		setBaseSurface(new SurfaceProperty(xlink));
+		setOrientation(orientation);
+	}
+	
 	public SurfaceProperty getBaseSurface() {
 		return baseSurface;
 	}
 
-	public String getOrientation() {
-		if (orientation == null)
-			return "+";
-		else
-			return orientation;
+	public Sign getOrientation() {
+		return (orientation == null) ? Sign.PLUS : orientation;
 	}
 
 	public boolean isSetBaseSurface() {
@@ -60,9 +71,8 @@ public class OrientableSurface extends AbstractSurface {
 		this.baseSurface = baseSurface;
 	}
 
-	public void setOrientation(String orientation) {
-		if (orientation.equals("+") || orientation.equals("-"))
-			this.orientation = orientation;
+	public void setOrientation(Sign orientation) {
+		this.orientation = orientation;
 	}
 
 	public void unsetBaseSurface() {
@@ -109,7 +119,7 @@ public class OrientableSurface extends AbstractSurface {
 		}
 		
 		if (isSetOrientation())
-			copy.setOrientation(copyBuilder.copy(orientation));
+			copy.setOrientation((Sign)copyBuilder.copy(orientation));
 		
 		return copy;
 	}

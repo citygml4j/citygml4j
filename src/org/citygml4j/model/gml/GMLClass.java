@@ -138,6 +138,7 @@ import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
 import org.citygml4j.model.gml.geometry.primitives.Rectangle;
 import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -303,6 +304,7 @@ public enum GMLClass implements ModelClassEnum {
 	POS_OR_POINT_PROPERTY_OR_POINT_REP_OR_COORD(PosOrPointPropertyOrPointRepOrCoord.class),
 	RECTANGLE(Rectangle.class),
 	RING(Ring.class),
+	SIGN(Sign.class),
 	SOLID(Solid.class),
 	SOLID_PROPERTY(SolidProperty.class),
 	SOLID_ARRAY_PROPERTY(SolidArrayProperty.class),

@@ -37,6 +37,14 @@ public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> i
 		
 	}
 	
+	public CityObjectGroupMember(AbstractCityObject abstractCityObject) {
+		super(abstractCityObject);
+	}
+	
+	public CityObjectGroupMember(String href) {
+		super(href);
+	}
+	
 	public CityObjectGroupMember(CityObjectGroupModule module) {
 		this.module = module;
 	}

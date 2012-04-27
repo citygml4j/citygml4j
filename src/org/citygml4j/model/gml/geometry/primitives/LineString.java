@@ -35,13 +35,6 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
-import org.citygml4j.model.gml.geometry.primitives.Coord;
-import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
-import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
-import org.citygml4j.model.gml.geometry.primitives.LineString;
-import org.citygml4j.model.gml.geometry.primitives.PointProperty;
-import org.citygml4j.model.gml.geometry.primitives.PointRep;
-import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
 
 public class LineString extends AbstractCurve {
 	private List<PosOrPointPropertyOrPointRepOrCoord> controlPoints;

@@ -59,7 +59,7 @@ public class ValidatingChunkReader {
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
 		
 		System.out.println(df.format(new Date()) + "validating features whilst reading from file");
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML chunk = reader.nextFeature();			
 
 			String type = null;

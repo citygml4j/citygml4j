@@ -24,9 +24,22 @@ package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public class PriorityLocationProperty extends LocationProperty {
 	private String priority;
+	
+	public PriorityLocationProperty() {
+
+	}
+
+	public PriorityLocationProperty(AbstractGeometry abstractGeometry) {
+		super(abstractGeometry);
+	}
+
+	public PriorityLocationProperty(String href) {
+		super(href);
+	}
 	
 	public String getPriority() {
 		return priority;

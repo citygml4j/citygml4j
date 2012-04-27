@@ -30,6 +30,18 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 public class FeatureProperty<T extends AbstractFeature> extends AssociationByRepOrRef<T> {
 	private ADEComponent genericADEComponent;
 	
+	public FeatureProperty() {
+		
+	}
+	
+	public FeatureProperty(T feature) {
+		super(feature);
+	}
+	
+	public FeatureProperty(String href) {
+		super(href);
+	}
+	
 	public T getFeature() {
 		return super.getObject();
 	}

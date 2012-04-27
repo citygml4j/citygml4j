@@ -25,10 +25,20 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
-import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 
 public class SolidProperty extends GeometryProperty<AbstractSolid> {
+	
+	public SolidProperty() {
+
+	}
+
+	public SolidProperty(AbstractSolid abstractSolid) {
+		super(abstractSolid);
+	}
+
+	public SolidProperty(String href) {
+		super(href);
+	}
 	
 	public AbstractSolid getSolid() {
 		return super.getGeometry();

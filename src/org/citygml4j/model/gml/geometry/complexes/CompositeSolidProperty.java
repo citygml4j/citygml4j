@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
 
+	public CompositeSolidProperty() {
+
+	}
+
+	public CompositeSolidProperty(CompositeSolid compositeSolid) {
+		super(compositeSolid);
+	}
+
+	public CompositeSolidProperty(String href) {
+		super(href);
+	}
+
 	public CompositeSolid getCompositeSolid() {
 		return super.getGeometry();
 	}
@@ -47,7 +59,7 @@ public class CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
 	public GMLClass getGMLClass() {
 		return GMLClass.COMPOSITE_SOLID_PROPERTY;
 	}
-	
+
 	@Override
 	public Class<CompositeSolid> getAssociableClass() {
 		return CompositeSolid.class;

@@ -82,12 +82,12 @@ public class WaterBody100Unmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalWaterObject(AbstractWaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractWaterObject(AbstractWaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 	}
 	
-	public void unmarshalWaterBoundarySurface(AbstractWaterBoundarySurfaceType src, AbstractWaterBoundarySurface dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractWaterBoundarySurface(AbstractWaterBoundarySurfaceType src, AbstractWaterBoundarySurface dest) throws MissingADESchemaException {
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 		
 		if (src.isSetLod2Surface())
 			dest.setLod2Surface(jaxb.getGMLUnmarshaller().unmarshalSurfaceProperty(src.getLod2Surface()));
@@ -113,7 +113,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest) throws MissingADESchemaException {
-		unmarshalWaterObject(src, dest);
+		unmarshalAbstractWaterObject(src, dest);
 		
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -166,7 +166,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public void unmarshalWaterClosureSurface(WaterClosureSurfaceType src, WaterClosureSurface dest) throws MissingADESchemaException {
-		unmarshalWaterBoundarySurface(src, dest);
+		unmarshalAbstractWaterBoundarySurface(src, dest);
 	}
 	
 	public WaterClosureSurface unmarshalWaterClosureSurface(WaterClosureSurfaceType src) throws MissingADESchemaException {
@@ -177,7 +177,7 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public void unmarshalWaterGroundSurface(WaterGroundSurfaceType src, WaterGroundSurface dest) throws MissingADESchemaException {
-		unmarshalWaterBoundarySurface(src, dest);
+		unmarshalAbstractWaterBoundarySurface(src, dest);
 	}
 	
 	public WaterGroundSurface unmarshalWaterGroundSurface(WaterGroundSurfaceType src) throws MissingADESchemaException {
@@ -188,10 +188,10 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public void unmarshalWaterSurface(WaterSurfaceType src, WaterSurface dest) throws MissingADESchemaException {
-		unmarshalWaterBoundarySurface(src, dest);
+		unmarshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetWaterLevel())
-			dest.setWaterLevel(src.getWaterLevel());
+			dest.setWaterLevel(new Code(src.getWaterLevel()));
 	}
 	
 	public WaterSurface unmarshalWaterSurface(WaterSurfaceType src) throws MissingADESchemaException {

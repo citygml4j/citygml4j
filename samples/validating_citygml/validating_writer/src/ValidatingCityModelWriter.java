@@ -100,7 +100,7 @@ public class ValidatingCityModelWriter {
 		
 		writer.writeStartDocument();
 		
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();
 			
 			if (citygml instanceof ADEComponent)

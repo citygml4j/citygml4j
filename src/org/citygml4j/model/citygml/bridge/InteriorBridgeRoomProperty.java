@@ -35,6 +35,14 @@ public class InteriorBridgeRoomProperty extends FeatureProperty<BridgeRoom> impl
 		
 	}
 	
+	public InteriorBridgeRoomProperty(BridgeRoom bridgeRoom) {
+		super(bridgeRoom);
+	}
+	
+	public InteriorBridgeRoomProperty(String href) {
+		super(href);
+	}
+	
 	public InteriorBridgeRoomProperty(BridgeModule module) {
 		this.module = module;
 	}

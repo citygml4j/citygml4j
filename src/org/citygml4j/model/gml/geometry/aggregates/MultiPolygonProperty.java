@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiPolygonProperty extends GeometryProperty<MultiPolygon> {
 	
+	public MultiPolygonProperty() {
+
+	}
+
+	public MultiPolygonProperty(MultiPolygon multiPolygon) {
+		super(multiPolygon);
+	}
+
+	public MultiPolygonProperty(String href) {
+		super(href);
+	}
+	
 	public MultiPolygon getMultiPolygon() {
 		return super.getGeometry();
 	}

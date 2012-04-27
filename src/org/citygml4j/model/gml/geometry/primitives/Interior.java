@@ -25,10 +25,16 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
-import org.citygml4j.model.gml.geometry.primitives.Interior;
 
 public class Interior extends AbstractRingProperty {
+	
+	public Interior() {
+
+	}
+
+	public Interior(AbstractRing abstractRing) {
+		super(abstractRing);
+	}
 	
 	public ModelType getModelType() {
 		return ModelType.GML;

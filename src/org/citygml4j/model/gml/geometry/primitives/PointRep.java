@@ -24,9 +24,20 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.PointRep;
 
 public class PointRep extends PointProperty {
+	
+	public PointRep() {
+
+	}
+
+	public PointRep(Point point) {
+		super(point);
+	}
+
+	public PointRep(String href) {
+		super(href);
+	}
 	
 	@Override
 	public GMLClass getGMLClass() {

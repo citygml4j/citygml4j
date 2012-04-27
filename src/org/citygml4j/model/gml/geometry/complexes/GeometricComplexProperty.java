@@ -29,6 +29,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class GeometricComplexProperty extends GeometryProperty<AbstractGeometry> {
 
+	public GeometricComplexProperty() {
+
+	}
+
+	public GeometricComplexProperty(AbstractGeometry abstractGeometry) {
+		setObject(abstractGeometry);
+	}
+
+	public GeometricComplexProperty(String href) {
+		super(href);
+	}
+	
 	@Override
 	public void setObject(AbstractGeometry geometry) {
 		if (geometry instanceof CompositeCurve ||

@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.GMLClass;
 public class MetaDataProperty extends AssociationByRepOrRef<MetaData> {
 	private String about;
 	
+	public MetaDataProperty() {
+		
+	}
+	
+	public MetaDataProperty(MetaData metaData) {
+		super(metaData);
+	}
+	
+	public MetaDataProperty(String href) {
+		super(href);
+	}
+	
 	public String getAbout() {
 		return about;
 	}

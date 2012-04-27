@@ -26,11 +26,25 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.Triangle;
-import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
 
 public class TrianglePatchArrayProperty extends SurfacePatchArrayProperty {
 
+	public TrianglePatchArrayProperty() {
+
+	}
+
+	public TrianglePatchArrayProperty(Triangle triangle) {
+		super(triangle);
+	}
+
+	public TrianglePatchArrayProperty(List<Triangle> triangle) {
+		super(triangle);
+	}
+	
+	public TrianglePatchArrayProperty(Triangle... triangle) {
+		super(triangle);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.TRIANGLE_PATCH_ARRAY_PROPERTY;

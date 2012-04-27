@@ -35,6 +35,14 @@ public class BridgePartProperty extends FeatureProperty<BridgePart> implements B
 		
 	}
 	
+	public BridgePartProperty(BridgePart bridgePart) {
+		super(bridgePart);
+	}
+	
+	public BridgePartProperty(String href) {
+		super(href);
+	}
+	
 	public BridgePartProperty(BridgeModule module) {
 		this.module = module;
 	}

@@ -25,11 +25,21 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.primitives.Point;
-import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 
 public class PointProperty extends GeometryProperty<Point> {
 
+	public PointProperty() {
+
+	}
+
+	public PointProperty(Point point) {
+		super(point);
+	}
+
+	public PointProperty(String href) {
+		super(href);
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.POINT_PROPERTY;
 	}

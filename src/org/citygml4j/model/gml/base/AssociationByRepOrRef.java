@@ -36,6 +36,18 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 	private String show;
 	private String title;
 	private String type;
+	
+	public AssociationByRepOrRef() {
+
+	}
+
+	public AssociationByRepOrRef(T object) {
+		super(object);
+	}
+	
+	public AssociationByRepOrRef(String href) {
+		this.href = href;
+	}
 
 	public String getActuate() {
 		return actuate;

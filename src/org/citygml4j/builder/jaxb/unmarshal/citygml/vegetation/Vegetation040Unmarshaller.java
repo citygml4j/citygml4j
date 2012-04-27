@@ -67,12 +67,12 @@ public class Vegetation040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalVegetationObject(_VegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractVegetationObject(_VegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 	}
 
 	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) throws MissingADESchemaException {
-		unmarshalVegetationObject(src, dest);
+		unmarshalAbstractVegetationObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -115,7 +115,7 @@ public class Vegetation040Unmarshaller {
 	}
 
 	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) throws MissingADESchemaException {
-		unmarshalVegetationObject(src, dest);
+		unmarshalAbstractVegetationObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));

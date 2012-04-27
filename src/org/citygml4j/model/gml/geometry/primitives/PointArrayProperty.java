@@ -28,10 +28,24 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.Point;
-import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
 
 public class PointArrayProperty extends GeometryArrayProperty<Point> {
+	
+	public PointArrayProperty() {
+
+	}
+
+	public PointArrayProperty(Point point) {
+		super(point);
+	}
+
+	public PointArrayProperty(List<Point> point) {
+		super(point);
+	}
+	
+	public PointArrayProperty(Point... point) {
+		super(point);
+	}
 	
 	public void addPoint(Point point) {
 		super.addGeometry(point);

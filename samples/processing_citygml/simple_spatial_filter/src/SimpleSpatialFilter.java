@@ -26,7 +26,6 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.CityGML;
@@ -50,7 +49,6 @@ public class SimpleSpatialFilter {
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		GMLFactory gml = new GMLFactory();
 		
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Ettenheim_v100.xml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
@@ -75,15 +73,15 @@ public class SimpleSpatialFilter {
 		regionFilter.setUpperCorner(new Point(3450434, 5430424, 0));
 
 		CityModelInfo info = new CityModelInfo();
-		StringOrRef description = gml.createStringOrRef();
+		StringOrRef description = new StringOrRef();
 		description.setValue("Cutout of original LOD3 Ettenheim scene to demonstrate simple spatial filtering.");
 		info.setDescription(description);
-		info.setBoundedBy(gml.createBoundingShape(regionFilter));
+		info.setBoundedBy(new BoundingShape(regionFilter));
 		
 		writer.setCityModelInfo(info);
 		writer.writeStartDocument();
 
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML chunk = reader.nextFeature();
 
 			if (chunk instanceof AbstractFeature) {

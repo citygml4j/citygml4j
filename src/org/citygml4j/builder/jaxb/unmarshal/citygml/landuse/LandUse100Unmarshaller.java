@@ -62,7 +62,7 @@ public class LandUse100Unmarshaller {
 	}
 
 	public void unmarshalLandUse(LandUseType src, LandUse dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));

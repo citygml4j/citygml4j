@@ -76,7 +76,7 @@ public class CityObjectGroup040Marshaller {
 	}
 
 	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
-		citygml.getCore040Marshaller().marshalCityObject(src, dest);
+		citygml.getCore040Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(src.getClazz().getValue());

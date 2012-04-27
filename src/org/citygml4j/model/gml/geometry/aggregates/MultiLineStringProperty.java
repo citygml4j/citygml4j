@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiLineStringProperty extends GeometryProperty<MultiLineString> {
 
+	public MultiLineStringProperty() {
+
+	}
+
+	public MultiLineStringProperty(MultiLineString multiLineString) {
+		super(multiLineString);
+	}
+
+	public MultiLineStringProperty(String href) {
+		super(href);
+	}
+	
 	public MultiLineString getMultiLineString() {
 		return super.getGeometry();
 	}

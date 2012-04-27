@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.grids.RectifiedGrid;
 
 public class RectifiedGridDomain extends DomainSet<RectifiedGrid> {
 
+	public RectifiedGridDomain() {
+
+	}
+
+	public RectifiedGridDomain(RectifiedGrid rectifiedGrid) {
+		super(rectifiedGrid);
+	}
+
+	public RectifiedGridDomain(String href) {
+		super(href);
+	}
+	
 	public RectifiedGrid getRectifiedGrid() {
 		return super.getGeometry();
 	}

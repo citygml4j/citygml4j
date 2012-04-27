@@ -35,6 +35,14 @@ public class InteriorFurnitureProperty extends FeatureProperty<BridgeFurniture> 
 		
 	}
 	
+	public InteriorFurnitureProperty(BridgeFurniture bridgeFurniture) {
+		super(bridgeFurniture);
+	}
+	
+	public InteriorFurnitureProperty(String href) {
+		super(href);
+	}
+	
 	public InteriorFurnitureProperty(BridgeModule module) {
 		this.module = module;
 	}

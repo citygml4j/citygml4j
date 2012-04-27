@@ -74,7 +74,7 @@ public class Vegetation100Marshaller {
 	}
 	
 	public void marshalVegetationObject(AbstractVegetationObject src, AbstractVegetationObjectType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfVegetationObject()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfVegetationObject())

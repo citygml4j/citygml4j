@@ -81,13 +81,13 @@ public class Generics040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalGenericAttribute(_GenericAttributeType src, AbstractGenericAttribute dest) {
+	public void unmarshalAbstractGenericAttribute(_GenericAttributeType src, AbstractGenericAttribute dest) {
 		if (src.isSetName())
 			dest.setName(src.getName());
 	}
 
 	public void unmarshalGenericCityObject(GenericCityObjectType src, GenericCityObject dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -156,7 +156,7 @@ public class Generics040Unmarshaller {
 	}
 
 	public void unmarshalDateAttribute(DateAttributeType src, DateAttribute dest) {
-		unmarshalGenericAttribute(src, dest);
+		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue().toGregorianCalendar());
@@ -170,7 +170,7 @@ public class Generics040Unmarshaller {
 	}
 
 	public void unmarshalDoubleAttribute(DoubleAttributeType src, DoubleAttribute dest) {
-		unmarshalGenericAttribute(src, dest);
+		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -184,7 +184,7 @@ public class Generics040Unmarshaller {
 	}
 
 	public void unmarshalIntAttribute(IntAttributeType src, IntAttribute dest) {
-		unmarshalGenericAttribute(src, dest);
+		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue().intValue());
@@ -198,7 +198,7 @@ public class Generics040Unmarshaller {
 	}
 
 	public void unmarshalStringAttribute(StringAttributeType src, StringAttribute dest) {
-		unmarshalGenericAttribute(src, dest);
+		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -212,7 +212,7 @@ public class Generics040Unmarshaller {
 	}
 
 	public void unmarshalUriAttribute(UriAttributeType src, UriAttribute dest) {
-		unmarshalGenericAttribute(src, dest);
+		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());

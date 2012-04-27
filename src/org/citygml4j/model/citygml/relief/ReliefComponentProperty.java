@@ -35,6 +35,14 @@ public class ReliefComponentProperty extends FeatureProperty<AbstractReliefCompo
 		
 	}
 	
+	public ReliefComponentProperty(AbstractReliefComponent abstractReliefComponent) {
+		super(abstractReliefComponent);
+	}
+	
+	public ReliefComponentProperty(String href) {
+		super(href);
+	}
+	
 	public ReliefComponentProperty(ReliefModule module) {
 		this.module = module;
 	}

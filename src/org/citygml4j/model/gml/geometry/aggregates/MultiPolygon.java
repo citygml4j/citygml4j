@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -32,11 +33,25 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 
 public class MultiPolygon extends AbstractGeometricAggregate {
 	private List<PolygonProperty> polygonMember;
 
+	public MultiPolygon() {
+		
+	}
+	
+	public MultiPolygon(List<Polygon> polygons) {
+		for (Polygon polygon : polygons)
+			addPolygonMember(new PolygonProperty(polygon));
+	}
+	
+	public MultiPolygon(Polygon... polygons) {
+		this(Arrays.asList(polygons));
+	}
+	
 	public void addPolygonMember(PolygonProperty polygonMember) {
 		if (this.polygonMember == null)
 			this.polygonMember = new ChildList<PolygonProperty>(this);

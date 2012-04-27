@@ -35,6 +35,14 @@ public class BoundedByWaterSurfaceProperty extends FeatureProperty<AbstractWater
 		
 	}
 	
+	public BoundedByWaterSurfaceProperty(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
+		super(abstractWaterBoundarySurface);
+	}
+	
+	public BoundedByWaterSurfaceProperty(String href) {
+		super(href);
+	}
+	
 	public BoundedByWaterSurfaceProperty(WaterBodyModule module) {
 		this.module = module;
 	}

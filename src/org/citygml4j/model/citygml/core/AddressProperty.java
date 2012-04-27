@@ -35,6 +35,14 @@ public class AddressProperty extends FeatureProperty<Address> implements CoreMod
 		
 	}
 	
+	public AddressProperty(Address address) {
+		super(address);
+	}
+	
+	public AddressProperty(String href) {
+		super(href);
+	}
+	
 	public AddressProperty(CoreModule module) {
 		this.module = module;
 	}

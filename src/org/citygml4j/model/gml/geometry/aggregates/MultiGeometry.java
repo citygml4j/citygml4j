@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -40,11 +41,24 @@ public class MultiGeometry extends AbstractGeometricAggregate {
 	private List<GeometryProperty<? extends AbstractGeometry>> geometryMember;
 	private GeometryArrayProperty<? extends AbstractGeometry> geometryMembers;
 
-	public void addGeometryMember(GeometryProperty<? extends AbstractGeometry> solidMember) {
+	public MultiGeometry() {
+		
+	}
+	
+	public MultiGeometry(List<? extends AbstractGeometry> abstractGeometrys) {
+		for (AbstractGeometry abstractGeometry : abstractGeometrys)
+			addGeometryMember(new GeometryProperty<AbstractGeometry>(abstractGeometry));
+	}
+	
+	public MultiGeometry(AbstractGeometry... abstractGeometrys) {
+		this(Arrays.asList(abstractGeometrys));
+	}
+	
+	public void addGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
 		if (this.geometryMember == null)
 			this.geometryMember = new ChildList<GeometryProperty<? extends AbstractGeometry>>(this);
 
-		this.geometryMember.add(solidMember);
+		this.geometryMember.add(geometryMember);
 	}
 
 	public List<GeometryProperty<? extends AbstractGeometry>> getGeometryMember() {

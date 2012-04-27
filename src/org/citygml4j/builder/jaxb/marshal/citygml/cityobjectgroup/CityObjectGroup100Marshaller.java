@@ -75,7 +75,7 @@ public class CityObjectGroup100Marshaller {
 	}
 	
 	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(src.getClazz().getValue());
@@ -125,11 +125,8 @@ public class CityObjectGroup100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			ADEComponent adeComponent = src.getGenericADEComponent();
-			if (adeComponent.isSetContent())
-				dest.set_ADEComponent(adeComponent.getContent());
-		}
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
 		
 		if (src.isSetGroupRole())
 			dest.setGroupRole(src.getGroupRole());
@@ -171,11 +168,8 @@ public class CityObjectGroup100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			ADEComponent adeComponent = src.getGenericADEComponent();
-			if (adeComponent.isSetContent())
-				dest.set_ADEComponent(adeComponent.getContent());
-		}
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());

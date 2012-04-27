@@ -66,7 +66,7 @@ public class LandUse100Marshaller {
 	}
 	
 	public void marshalLandUse(LandUse src, LandUseType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(src.getClazz().getValue());

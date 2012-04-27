@@ -36,6 +36,10 @@ public class XalAddressProperty extends AssociationByRep<AddressDetails> impleme
 		
 	}
 	
+	public XalAddressProperty(AddressDetails addressDetails) {
+		super(addressDetails);
+	}
+	
 	public XalAddressProperty(CoreModule module) {
 		this.module = module;
 	}

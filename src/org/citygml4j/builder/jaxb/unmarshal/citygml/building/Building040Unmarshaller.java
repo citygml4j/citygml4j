@@ -154,7 +154,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalAbstractBuilding(_AbstractBuildingType src, AbstractBuilding dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalSite(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractSite(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -269,8 +269,8 @@ public class Building040Unmarshaller {
 		}
 	}
 
-	public void unmarshalBoundarySurface(_BoundarySurfaceType src, AbstractBoundarySurface dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractBoundarySurface(_BoundarySurfaceType src, AbstractBoundarySurface dest) throws MissingADESchemaException {
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -287,8 +287,8 @@ public class Building040Unmarshaller {
 		}
 	}
 
-	public void unmarshalOpening(_OpeningType src, AbstractOpening dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractOpening(_OpeningType src, AbstractOpening dest) throws MissingADESchemaException {
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetLod3MultiSurface())
 			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
@@ -322,7 +322,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalBuildingFurniture(BuildingFurnitureType src, BuildingFurniture dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -352,7 +352,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalBuildingInstallation(BuildingInstallationType src, BuildingInstallation dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -420,7 +420,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalCeilingSurface(CeilingSurfaceType src, CeilingSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public CeilingSurface unmarshalCeilingSurface(CeilingSurfaceType src) throws MissingADESchemaException {
@@ -431,7 +431,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalClosureSurface(ClosureSurfaceType src, ClosureSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public ClosureSurface unmarshalClosureSurface(ClosureSurfaceType src) throws MissingADESchemaException {
@@ -442,7 +442,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalDoor(DoorType src, Door dest) throws MissingADESchemaException {
-		unmarshalOpening(src, dest);
+		unmarshalAbstractOpening(src, dest);
 
 		if (src.isSetAddress()) {
 			for (AddressPropertyType addressProperty : src.getAddress())
@@ -458,7 +458,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalFloorSurface(FloorSurfaceType src, FloorSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public FloorSurface unmarshalFloorSurface(FloorSurfaceType src) throws MissingADESchemaException {
@@ -469,7 +469,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalGroundSurface(GroundSurfaceType src, GroundSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public GroundSurface unmarshalGroundSurface(GroundSurfaceType src) throws MissingADESchemaException {
@@ -480,7 +480,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalIntBuildingInstallation(IntBuildingInstallationType src, IntBuildingInstallation dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -544,7 +544,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalInteriorWallSurface(InteriorWallSurfaceType src, InteriorWallSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public InteriorWallSurface unmarshalInteriorWallSurface(InteriorWallSurfaceType src) throws MissingADESchemaException {
@@ -568,7 +568,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalRoofSurface(RoofSurfaceType src, RoofSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public RoofSurface unmarshalRoofSurface(RoofSurfaceType src) throws MissingADESchemaException {
@@ -579,7 +579,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalRoom(RoomType src, Room dest) throws MissingADESchemaException {
-		citygml.getCore040Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore040Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
@@ -624,7 +624,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalWallSurface(WallSurfaceType src, WallSurface dest) throws MissingADESchemaException {
-		unmarshalBoundarySurface(src, dest);
+		unmarshalAbstractBoundarySurface(src, dest);
 	}
 
 	public WallSurface unmarshalWallSurface(WallSurfaceType src) throws MissingADESchemaException {
@@ -635,7 +635,7 @@ public class Building040Unmarshaller {
 	}
 
 	public void unmarshalWindow(WindowType src, Window dest) throws MissingADESchemaException {
-		unmarshalOpening(src, dest);
+		unmarshalAbstractOpening(src, dest);
 	}
 
 	public Window unmarshalWindow(WindowType src) throws MissingADESchemaException {

@@ -36,6 +36,14 @@ public class TextureAssociation extends AssociationByRepOrRef<AbstractTexturePar
 		
 	}
 	
+	public TextureAssociation(AbstractTextureParameterization abstractTextureParameterization) {
+		super(abstractTextureParameterization);
+	}
+	
+	public TextureAssociation(String href) {
+		super(href);
+	}
+	
 	public TextureAssociation(AppearanceModule module) {
 		this.module = module;
 	}

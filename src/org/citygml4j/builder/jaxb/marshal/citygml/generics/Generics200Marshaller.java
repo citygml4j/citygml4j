@@ -115,13 +115,13 @@ public class Generics200Marshaller {
 		return dest;
 	}
 
-	public void marshalGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {
+	public void marshalAbstractGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {
 		if (src.isSetName())
 			dest.setName(src.getName());
 	}
 
 	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest) {
-		citygml.getCore200Marshaller().marshalCityObject(src, dest);
+		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
@@ -139,47 +139,47 @@ public class Generics200Marshaller {
 		if (src.isSetLod0Geometry())
 			dest.setLod0Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod0Geometry()));
 
-		if (src.isSetLod1Geometry())
-			dest.setLod1Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry()));
+					if (src.isSetLod1Geometry())
+						dest.setLod1Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry()));
 
-		if (src.isSetLod2Geometry())
-			dest.setLod2Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry()));
+					if (src.isSetLod2Geometry())
+						dest.setLod2Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry()));
 
-		if (src.isSetLod3Geometry())
-			dest.setLod3Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry()));
+					if (src.isSetLod3Geometry())
+						dest.setLod3Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry()));
 
-		if (src.isSetLod4Geometry())
-			dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
+					if (src.isSetLod4Geometry())
+						dest.setLod4Geometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getLod4Geometry()));
 
-		if (src.isSetLod0ImplicitRepresentation())
-			dest.setLod0ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod0ImplicitRepresentation()));
+					if (src.isSetLod0ImplicitRepresentation())
+						dest.setLod0ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod0ImplicitRepresentation()));
 
-		if (src.isSetLod1ImplicitRepresentation())
-			dest.setLod1ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
+					if (src.isSetLod1ImplicitRepresentation())
+						dest.setLod1ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
 
-		if (src.isSetLod2ImplicitRepresentation())
-			dest.setLod2ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
+					if (src.isSetLod2ImplicitRepresentation())
+						dest.setLod2ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
 
-		if (src.isSetLod3ImplicitRepresentation())
-			dest.setLod3ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
+					if (src.isSetLod3ImplicitRepresentation())
+						dest.setLod3ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
 
-		if (src.isSetLod4ImplicitRepresentation())
-			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
+					if (src.isSetLod4ImplicitRepresentation())
+						dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 
-		if (src.isSetLod0TerrainIntersection())
-			dest.setLod0TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod0TerrainIntersection()));
+					if (src.isSetLod0TerrainIntersection())
+						dest.setLod0TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod0TerrainIntersection()));
 
-		if (src.isSetLod1TerrainIntersection())
-			dest.setLod1TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod1TerrainIntersection()));
+					if (src.isSetLod1TerrainIntersection())
+						dest.setLod1TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod1TerrainIntersection()));
 
-		if (src.isSetLod2TerrainIntersection())
-			dest.setLod2TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod2TerrainIntersection()));
+					if (src.isSetLod2TerrainIntersection())
+						dest.setLod2TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod2TerrainIntersection()));
 
-		if (src.isSetLod3TerrainIntersection())
-			dest.setLod3TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod3TerrainIntersection()));
+					if (src.isSetLod3TerrainIntersection())
+						dest.setLod3TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod3TerrainIntersection()));
 
-		if (src.isSetLod4TerrainIntersection())
-			dest.setLod4TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod4TerrainIntersection()));
+					if (src.isSetLod4TerrainIntersection())
+						dest.setLod4TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 	}
 
 	public GenericCityObjectType marshalGenericCityObject(GenericCityObject src) {
@@ -190,7 +190,7 @@ public class Generics200Marshaller {
 	}
 
 	public void marshalDateAttribute(DateAttribute src, DateAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue()) {
 			try {
@@ -215,7 +215,7 @@ public class Generics200Marshaller {
 	}
 
 	public void marshalDoubleAttribute(DoubleAttribute src, DoubleAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -229,7 +229,7 @@ public class Generics200Marshaller {
 	}
 
 	public void marshalIntAttribute(IntAttribute src, IntAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(BigInteger.valueOf(src.getValue()));
@@ -243,7 +243,7 @@ public class Generics200Marshaller {
 	}
 
 	public void marshalStringAttribute(StringAttribute src, StringAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -257,7 +257,7 @@ public class Generics200Marshaller {
 	}
 
 	public void marshalUriAttribute(UriAttribute src, UriAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -271,7 +271,7 @@ public class Generics200Marshaller {
 	}
 
 	public void marshalMeasureAttribute(MeasureAttribute src, MeasureAttributeType dest) {
-		marshalGenericAttribute(src, dest);
+		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
 			dest.setValue(jaxb.getGMLMarshaller().marshalMeasure(src.getValue()));
@@ -287,18 +287,20 @@ public class Generics200Marshaller {
 	public GenericAttributeSetType marshalGenericAttributeSet(GenericAttributeSet src) {
 		GenericAttributeSetType dest = gen.createGenericAttributeSetType();
 		marshalGenericAttributeSet(src, dest);
-		
+
 		return dest;
 	}
 
 	@SuppressWarnings("unchecked")
 	private void marshalGenericAttributeSet(GenericAttributeSet src, GenericAttributeSetType dest) {
 		dest.setCodeSpace(src.getCodeSpace());
-		
-		for (AbstractGenericAttribute genericAttribute : src.getGenericAttribute()) {		
-			JAXBElement<?> elem = marshalJAXBElement(genericAttribute);
-			if (elem != null && elem.getValue() instanceof AbstractGenericAttributeType)
-				dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
+
+		if (src.isSetGenericAttribute()) {
+			for (AbstractGenericAttribute genericAttribute : src.getGenericAttribute()) {		
+				JAXBElement<?> elem = marshalJAXBElement(genericAttribute);
+				if (elem != null && elem.getValue() instanceof AbstractGenericAttributeType)
+					dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
+			}
 		}
 	}
 

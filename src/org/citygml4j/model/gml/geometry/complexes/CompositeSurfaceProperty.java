@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CompositeSurfaceProperty extends GeometryProperty<CompositeSurface> {
 
+	public CompositeSurfaceProperty() {
+
+	}
+
+	public CompositeSurfaceProperty(CompositeSurface compositeSurface) {
+		super(compositeSurface);
+	}
+
+	public CompositeSurfaceProperty(String href) {
+		super(href);
+	}
+	
 	public CompositeSurface getCompositeSurface() {
 		return super.getGeometry();
 	}

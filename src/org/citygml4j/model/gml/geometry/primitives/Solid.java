@@ -32,8 +32,6 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.Solid;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 
 public class Solid extends AbstractSolid {
 	private SurfaceProperty exterior;

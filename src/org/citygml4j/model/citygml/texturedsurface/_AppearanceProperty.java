@@ -36,6 +36,14 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 		
 	}
 	
+	public _AppearanceProperty(_AbstractAppearance _abstractAppearance) {
+		super(_abstractAppearance);
+	}
+	
+	public _AppearanceProperty(String href) {
+		super(href);
+	}
+	
 	public _AppearanceProperty(TexturedSurfaceModule module) {
 		this.module = module;
 	}

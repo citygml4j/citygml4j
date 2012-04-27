@@ -35,6 +35,14 @@ public class GeneralizationRelation extends FeatureProperty<AbstractCityObject> 
 		
 	}
 	
+	public GeneralizationRelation(AbstractCityObject abstractCityObject) {
+		super(abstractCityObject);
+	}
+	
+	public GeneralizationRelation(String href) {
+		super(href);
+	}
+	
 	public GeneralizationRelation(CoreModule module) {
 		this.module = module;
 	}

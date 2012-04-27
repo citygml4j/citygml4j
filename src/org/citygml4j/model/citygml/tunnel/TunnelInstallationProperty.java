@@ -35,6 +35,14 @@ public class TunnelInstallationProperty extends FeatureProperty<TunnelInstallati
 		
 	}
 	
+	public TunnelInstallationProperty(TunnelInstallation tunnelInstallation) {
+		super(tunnelInstallation);
+	}
+	
+	public TunnelInstallationProperty(String href) {
+		super(href);
+	}
+	
 	public TunnelInstallationProperty(TunnelModule module) {
 		this.module = module;
 	}

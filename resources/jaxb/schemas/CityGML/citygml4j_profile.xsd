@@ -2,7 +2,7 @@
 <!-- citygml4j - Java object model for CityGML based on JAXB -->
 <!-- This is not an offical CityGML schema. It is a compilation of the CityGML -->
 <!-- schemas version 0.4.0 and 1.0.0 to generate a comprehensive Java object model. -->
-<!-- Editor: Claus Nagel, nagel@igg.tu-berlin.de -->
+<!-- Editor: Claus Nagel, claus.nagel@tu-berlin.de -->
 <xs:schema xmlns="http://www.citygml.org/citygml4j/profile" xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="http://www.citygml.org/citygml4j/profile" elementFormDefault="qualified"
     attributeFormDefault="unqualified">

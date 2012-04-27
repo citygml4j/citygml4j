@@ -56,4 +56,13 @@ public class XALCoreModule extends AbstractXALModule {
 		return instances;
 	}
 	
+	public static XALCoreModule getInstance(XALModuleVersion version) {
+		switch (version) {
+		case v2_0:
+			return v2_0;
+		default:
+			return null;
+		}
+	}
+	
 }

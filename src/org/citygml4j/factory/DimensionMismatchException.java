@@ -21,7 +21,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package org.citygml4j.factory.geometry;
+package org.citygml4j.factory;
 
 public class DimensionMismatchException extends Exception {
 	private static final long serialVersionUID = -3767046580120314517L;

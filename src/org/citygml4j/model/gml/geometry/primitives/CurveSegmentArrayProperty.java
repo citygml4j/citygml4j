@@ -30,6 +30,22 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public class CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
 
+	public CurveSegmentArrayProperty() {
+		
+	}
+	
+	public CurveSegmentArrayProperty(AbstractCurveSegment abstractCurveSegment) {
+		super(abstractCurveSegment);
+	}
+	
+	public CurveSegmentArrayProperty(List<AbstractCurveSegment> abstractCurveSegment) {
+		super(abstractCurveSegment);
+	}
+	
+	public CurveSegmentArrayProperty(AbstractCurveSegment... abstractCurveSegment) {
+		super(abstractCurveSegment);
+	}
+	
 	public void addCurveSegment(AbstractCurveSegment curveSegment) {
 		super.addObject(curveSegment);
 	}

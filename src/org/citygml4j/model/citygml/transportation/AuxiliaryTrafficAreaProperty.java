@@ -35,6 +35,14 @@ public class AuxiliaryTrafficAreaProperty extends FeatureProperty<AuxiliaryTraff
 		
 	}
 	
+	public AuxiliaryTrafficAreaProperty(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+		super(auxiliaryTrafficArea);
+	}
+	
+	public AuxiliaryTrafficAreaProperty(String href) {
+		super(href);
+	}
+	
 	public AuxiliaryTrafficAreaProperty(TransportationModule module) {
 		this.module = module;
 	}

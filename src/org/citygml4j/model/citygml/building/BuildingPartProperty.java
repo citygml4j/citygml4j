@@ -35,6 +35,14 @@ public class BuildingPartProperty extends FeatureProperty<BuildingPart> implemen
 		
 	}
 	
+	public BuildingPartProperty(BuildingPart buildingPart) {
+		super(buildingPart);
+	}
+	
+	public BuildingPartProperty(String href) {
+		super(href);
+	}
+	
 	public BuildingPartProperty(BuildingModule module) {
 		this.module = module;
 	}

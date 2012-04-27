@@ -88,7 +88,9 @@ public class Appearance200Marshaller {
 			src = marshal(orig);
 		}
 
-		if (src instanceof FeaturePropertyType && orig instanceof AppearanceMember)
+		if (src instanceof AppearanceType)
+			dest = app.createAppearance((AppearanceType)src);
+		else if (src instanceof FeaturePropertyType && orig instanceof AppearanceMember)
 			dest = app.createAppearanceMember((FeaturePropertyType)src);
 		else if (src instanceof GeoreferencedTextureType)
 			dest = app.createGeoreferencedTexture((GeoreferencedTextureType)src);
@@ -108,7 +110,9 @@ public class Appearance200Marshaller {
 		Object dest = null;
 
 		if (src instanceof Appearance)
-			dest = marshalAppearance((Appearance)src);			
+			dest = marshalAppearance((Appearance)src);	
+		else if (src instanceof AppearanceMember)
+			dest = marshalAppearanceMember((AppearanceMember)src);
 		else if (src instanceof AppearanceProperty)
 			dest = marshalAppearanceProperty((AppearanceProperty)src);
 		else if (src instanceof GeoreferencedTexture)
@@ -175,7 +179,7 @@ public class Appearance200Marshaller {
 		}
 	}
 
-	public void marshalTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
+	public void marshalAbstractTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTextureParameterization()) {
@@ -253,6 +257,10 @@ public class Appearance200Marshaller {
 		marshalAppearanceProperty(src, dest);
 
 		return dest;
+	}
+	
+	public FeaturePropertyType marshalAppearanceMember(AppearanceMember src) {
+		return jaxb.getGMLMarshaller().marshalFeatureProperty(src);
 	}
 	
 	public AppearancePropertyElement marshalAppearancePropertyElement(AppearanceProperty src) {
@@ -365,7 +373,7 @@ public class Appearance200Marshaller {
 	}
 
 	public void marshalTexCoordGen(TexCoordGen src, TexCoordGenType dest) {
-		marshalTextureParameterization(src, dest);
+		marshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetWorldToTexture())
 			dest.setWorldToTexture(marshalWorldToTexture(src.getWorldToTexture()));
@@ -385,7 +393,7 @@ public class Appearance200Marshaller {
 	}
 
 	public void marshalTexCoordList(TexCoordList src, TexCoordListType dest) {
-		marshalTextureParameterization(src, dest);
+		marshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetTextureCoordinates()) {
 			for (TextureCoordinates textureCoordinates : src.getTextureCoordinates())

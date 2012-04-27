@@ -35,6 +35,14 @@ public class OpeningProperty extends FeatureProperty<AbstractOpening> implements
 		
 	}
 	
+	public OpeningProperty(AbstractOpening abstractOpening) {
+		super(abstractOpening);
+	}
+	
+	public OpeningProperty(String href) {
+		super(href);
+	}
+	
 	public OpeningProperty(BuildingModule module) {
 		this.module = module;
 	}

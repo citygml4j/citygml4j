@@ -20,13 +20,26 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.factory;
 
+package org.citygml4j.xml.io.reader;
 
-public class TunnelFactory {
-
-	public TunnelFactory() {
-		
+public class UnmarshalException extends Exception {
+	private static final long serialVersionUID = -3716015045363231263L;
+	
+	public UnmarshalException() {
+		super();
 	}
-
+	
+	public UnmarshalException(String message) {
+		super(message);
+	}
+	
+	public UnmarshalException(Throwable cause) {
+		super(cause);
+	}
+	
+	public UnmarshalException(String message, Throwable cause) {
+		super(message, cause);
+	}
+	
 }

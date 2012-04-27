@@ -30,6 +30,22 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public class ValueArrayProperty extends ArrayAssociation<Value> {
 	
+	public ValueArrayProperty() {
+
+	}
+
+	public ValueArrayProperty(Value value) {
+		super(value);
+	}
+
+	public ValueArrayProperty(List<Value> value) {
+		super(value);
+	}
+	
+	public ValueArrayProperty(Value... value) {
+		super(value);
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.VALUE_ARRAY_PROPERTY;
 	}

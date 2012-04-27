@@ -35,6 +35,14 @@ public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture
 		
 	}
 	
+	public InteriorFurnitureProperty(BuildingFurniture buildingFurniture) {
+		super(buildingFurniture);
+	}
+	
+	public InteriorFurnitureProperty(String href) {
+		super(href);
+	}
+	
 	public InteriorFurnitureProperty(BuildingModule module) {
 		this.module = module;
 	}

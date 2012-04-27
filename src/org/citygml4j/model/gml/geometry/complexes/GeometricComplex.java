@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -33,11 +34,25 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
 import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 
 public class GeometricComplex extends AbstractGeometry {
 	private List<GeometricPrimitiveProperty> element;
-
+	
+	public GeometricComplex() {
+		
+	}
+	
+	public GeometricComplex(List<? extends AbstractGeometricPrimitive> abstractGeometricPrimitives) {
+        for (AbstractGeometricPrimitive abstractGeometricPrimitive : abstractGeometricPrimitives)
+        	addElement(new GeometricPrimitiveProperty(abstractGeometricPrimitive));
+	}
+	
+	public GeometricComplex(AbstractGeometricPrimitive... abstractGeometricPrimitives) {
+		this(Arrays.asList(abstractGeometricPrimitives));
+	}
+	
 	public void addElement(GeometricPrimitiveProperty element) {
 		if (this.element == null)
 			this.element = new ChildList<GeometricPrimitiveProperty>(this);

@@ -35,6 +35,14 @@ public class TunnelPartProperty extends FeatureProperty<TunnelPart> implements T
 		
 	}
 	
+	public TunnelPartProperty(TunnelPart tunnelPart) {
+		super(tunnelPart);
+	}
+	
+	public TunnelPartProperty(String href) {
+		super(href);
+	}
+	
 	public TunnelPartProperty(TunnelModule module) {
 		this.module = module;
 	}

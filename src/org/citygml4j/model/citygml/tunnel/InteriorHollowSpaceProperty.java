@@ -35,6 +35,14 @@ public class InteriorHollowSpaceProperty extends FeatureProperty<HollowSpace> im
 		
 	}
 	
+	public InteriorHollowSpaceProperty(HollowSpace hollowSpace) {
+		super(hollowSpace);
+	}
+	
+	public InteriorHollowSpaceProperty(String href) {
+		super(href);
+	}
+	
 	public InteriorHollowSpaceProperty(TunnelModule module) {
 		this.module = module;
 	}

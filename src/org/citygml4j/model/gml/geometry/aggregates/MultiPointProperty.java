@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiPointProperty extends GeometryProperty<MultiPoint> {
 
+	public MultiPointProperty() {
+
+	}
+
+	public MultiPointProperty(MultiPoint multiPoint) {
+		super(multiPoint);
+	}
+
+	public MultiPointProperty(String href) {
+		super(href);
+	}
+	
 	public MultiPoint getMultiPoint() {
 		return super.getGeometry();
 	}

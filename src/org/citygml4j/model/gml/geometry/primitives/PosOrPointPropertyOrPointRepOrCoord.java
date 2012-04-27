@@ -32,11 +32,6 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.Coord;
-import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
-import org.citygml4j.model.gml.geometry.primitives.PointProperty;
-import org.citygml4j.model.gml.geometry.primitives.PointRep;
-import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
 
 public class PosOrPointPropertyOrPointRepOrCoord implements GML, Child, Copyable {
 	private DirectPosition pos;

@@ -35,6 +35,14 @@ public class InteriorRoomProperty extends FeatureProperty<Room> implements Build
 		
 	}
 	
+	public InteriorRoomProperty(Room room) {
+		super(room);
+	}
+	
+	public InteriorRoomProperty(String href) {
+		super(href);
+	}
+	
 	public InteriorRoomProperty(BuildingModule module) {
 		this.module = module;
 	}

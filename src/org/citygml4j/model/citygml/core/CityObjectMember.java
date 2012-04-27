@@ -35,6 +35,14 @@ public class CityObjectMember extends FeatureProperty<AbstractCityObject> implem
 		
 	}
 	
+	public CityObjectMember(AbstractCityObject abstractCityObject) {
+		super(abstractCityObject);
+	}
+	
+	public CityObjectMember(String href) {
+		super(href);
+	}
+	
 	public CityObjectMember(CoreModule module) {
 		this.module = module;
 	}

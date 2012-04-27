@@ -112,12 +112,18 @@ public class Transportation100Marshaller {
 		return dest;
 	}
 	
-	public void marshalTransportationObject(AbstractTransportationObject src, AbstractTransportationObjectType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractTransportationObjectType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
+		
+		if (src.isSetGenericApplicationPropertyOfTransportationObject()) {
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTransportationObject())
+				if (adeComponent.isSetContent())
+					dest.get_GenericApplicationPropertyOfTransportationObject().add(citygml.ade2jaxbElement(adeComponent));
+		}
 	}
 	
 	public void marshalAuxiliaryTrafficArea(AuxiliaryTrafficArea src, AuxiliaryTrafficAreaType dest) {
-		marshalTransportationObject(src, dest);
+		marshalAbstractTransportationObject(src, dest);
 		
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
@@ -232,7 +238,7 @@ public class Transportation100Marshaller {
 	}	
 	
 	public void marshalTrafficArea(TrafficArea src, TrafficAreaType dest) {
-		marshalTransportationObject(src, dest);
+		marshalAbstractTransportationObject(src, dest);
 		
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())
@@ -284,7 +290,7 @@ public class Transportation100Marshaller {
 	}
 	
 	public void marshalTransportationComplex(TransportationComplex src, TransportationComplexType dest) {
-		marshalTransportationObject(src, dest);
+		marshalAbstractTransportationObject(src, dest);
 		
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction())

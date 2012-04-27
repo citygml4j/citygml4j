@@ -35,6 +35,14 @@ public class IntBuildingInstallationProperty extends FeatureProperty<IntBuilding
 		
 	}
 	
+	public IntBuildingInstallationProperty(IntBuildingInstallation intBuildingInstallation) {
+		super(intBuildingInstallation);
+	}
+	
+	public IntBuildingInstallationProperty(String href) {
+		super(href);
+	}
+	
 	public IntBuildingInstallationProperty(BuildingModule module) {
 		this.module = module;
 	}

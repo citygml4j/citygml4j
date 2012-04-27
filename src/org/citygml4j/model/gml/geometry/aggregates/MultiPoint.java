@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -39,6 +40,19 @@ import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 public class MultiPoint extends AbstractGeometricAggregate {
 	private List<PointProperty> pointMember;
 	private PointArrayProperty pointMembers;
+	
+	public MultiPoint() {
+		
+	}
+	
+	public MultiPoint(List<Point> points) {
+		for (Point point : points)
+			addPointMember(new PointProperty(point));
+	}
+	
+	public MultiPoint(Point... points) {
+		this(Arrays.asList(points));
+	}
 	
 	public void addPointMember(PointProperty pointMember) {
 		if (this.pointMember == null)

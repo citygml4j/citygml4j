@@ -37,7 +37,7 @@ public class FilteredReader {
 		});
 
 		System.out.println(df.format(new Date()) + "printing road features");
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			Road road = (Road)reader.nextFeature();
 			System.out.println(df.format(new Date()) + "found Road with gml:id " + road.getId());	
 			

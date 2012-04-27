@@ -56,4 +56,14 @@ public class XLinkModule extends AbstractGMLModule {
 	public static List<XLinkModule> getInstances() {
 		return instances;
 	}
+	
+	public static XLinkModule getInstance(GMLModuleVersion version) {
+		switch (version) {
+		case v3_1_1:
+			return v3_1_1;
+		default:
+			return null;
+		}
+	}
+	
 }

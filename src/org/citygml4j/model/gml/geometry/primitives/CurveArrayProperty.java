@@ -31,6 +31,22 @@ import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 
 public class CurveArrayProperty extends GeometryArrayProperty<AbstractCurve> {
 
+	public CurveArrayProperty() {
+
+	}
+
+	public CurveArrayProperty(AbstractCurve abstractCurve) {
+		super(abstractCurve);
+	}
+
+	public CurveArrayProperty(List<AbstractCurve> abstractCurve) {
+		super(abstractCurve);
+	}
+	
+	public CurveArrayProperty(AbstractCurve... abstractCurve) {
+		super(abstractCurve);
+	}
+
 	public void addCurve(AbstractCurve abstractCurve) {
 		super.addGeometry(abstractCurve);
 	}
@@ -59,7 +75,7 @@ public class CurveArrayProperty extends GeometryArrayProperty<AbstractCurve> {
 	public ModelType getModelType() {
 		return ModelType.GML;
 	}
-	
+
 	public GMLClass getGMLClass() {
 		return GMLClass.CURVE_ARRAY_PROPERTY;
 	}

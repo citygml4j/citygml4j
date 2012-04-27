@@ -87,5 +87,18 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 	public static List<CityObjectGroupModule> getInstances() {
 		return instances;
 	}
+	
+	public static CityObjectGroupModule getInstance(CityGMLModuleVersion version) {
+		switch (version) {
+		case v2_0_0:
+			return v2_0_0;
+		case v1_0_0:
+			return v1_0_0;
+		case v0_4_0:
+			return v0_4_0;
+		default:
+			return null;
+		}
+	}
 
 }

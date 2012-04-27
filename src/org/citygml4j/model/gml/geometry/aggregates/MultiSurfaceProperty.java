@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiSurfaceProperty extends GeometryProperty<MultiSurface> {
 	
+	public MultiSurfaceProperty() {
+
+	}
+
+	public MultiSurfaceProperty(MultiSurface multiSurface) {
+		super(multiSurface);
+	}
+
+	public MultiSurfaceProperty(String href) {
+		super(href);
+	}
+	
 	public MultiSurface getMultiSurface() {
 		return super.getGeometry();
 	}

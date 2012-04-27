@@ -25,11 +25,21 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.primitives.LineString;
-import org.citygml4j.model.gml.geometry.primitives.LineStringProperty;
 
 public class LineStringProperty extends GeometryProperty<LineString> {
 
+	public LineStringProperty() {
+
+	}
+
+	public LineStringProperty(LineString lineString) {
+		super(lineString);
+	}
+
+	public LineStringProperty(String href) {
+		super(href);
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.LINE_STRING_PROPERTY;
 	}

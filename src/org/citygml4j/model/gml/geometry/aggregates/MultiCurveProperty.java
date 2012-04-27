@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiCurveProperty extends GeometryProperty<MultiCurve> {
 
+	public MultiCurveProperty() {
+
+	}
+
+	public MultiCurveProperty(MultiCurve multiCurve) {
+		super(multiCurve);
+	}
+
+	public MultiCurveProperty(String href) {
+		super(href);
+	}
+	
 	public MultiCurve getMultiCurve() {
 		return super.getGeometry();
 	}

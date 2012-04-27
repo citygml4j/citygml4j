@@ -35,6 +35,14 @@ public class TinProperty extends GeometryProperty<TriangulatedSurface> implement
 	public TinProperty() {
 		
 	}
+
+	public TinProperty(TriangulatedSurface triangulatedSurface) {
+		super(triangulatedSurface);
+	}
+
+	public TinProperty(String href) {
+		super(href);
+	}
 	
 	public TinProperty(ReliefModule module) {
 		this.module = module;

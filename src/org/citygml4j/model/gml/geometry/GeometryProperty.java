@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class GeometryProperty<T extends AbstractGeometry> extends AssociationByRepOrRef<T> {
 	
+	public GeometryProperty() {
+		
+	}
+	
+	public GeometryProperty(T geometry) {
+		super(geometry);
+	}
+	
+	public GeometryProperty(String href) {
+		super(href);
+	}
+	
 	public T getGeometry() {
 		return super.getObject();
 	}

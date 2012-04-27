@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiSolidProperty extends GeometryProperty<MultiSolid> {
 
+	public MultiSolidProperty() {
+
+	}
+
+	public MultiSolidProperty(MultiSolid multiSolid) {
+		super(multiSolid);
+	}
+
+	public MultiSolidProperty(String href) {
+		super(href);
+	}
+	
 	public MultiSolid getMultiSolid() {
 		return super.getGeometry();
 	}

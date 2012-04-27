@@ -35,6 +35,14 @@ public class SurfaceDataProperty extends FeatureProperty<AbstractSurfaceData> im
 		
 	}
 	
+	public SurfaceDataProperty(AbstractSurfaceData abstractSurfaceData) {
+		super(abstractSurfaceData);
+	}
+	
+	public SurfaceDataProperty(String href) {
+		super(href);
+	}
+	
 	public SurfaceDataProperty(AppearanceModule module) {
 		this.module = module;
 	}

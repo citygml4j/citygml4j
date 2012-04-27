@@ -91,8 +91,8 @@ public class WaterBody100Marshaller {
 		return dest;
 	}
 	
-	public void marshalWaterObject(AbstractWaterObject src, AbstractWaterObjectType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractWaterObjectType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterObject())
@@ -101,8 +101,8 @@ public class WaterBody100Marshaller {
 		}
 	}
 	
-	public void marshalWaterBoundarySurface(AbstractWaterBoundarySurface src, AbstractWaterBoundarySurfaceType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractWaterBoundarySurface(AbstractWaterBoundarySurface src, AbstractWaterBoundarySurfaceType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetLod2Surface())
 			dest.setLod2Surface(jaxb.getGMLMarshaller().marshalSurfaceProperty(src.getLod2Surface()));
@@ -134,7 +134,7 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
-		marshalWaterObject(src, dest);
+		marshalAbstractWaterObject(src, dest);
 		
 		if (src.isSetClazz())
 			dest.setClazz(src.getClazz().getValue());
@@ -193,7 +193,7 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterClosureSurface(WaterClosureSurface src, WaterClosureSurfaceType dest) {
-		marshalWaterBoundarySurface(src, dest);
+		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterClosureSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterClosureSurface())
@@ -210,7 +210,7 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterGroundSurface(WaterGroundSurface src, WaterGroundSurfaceType dest) {
-		marshalWaterBoundarySurface(src, dest);
+		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterGroundSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterGroundSurface())
@@ -227,10 +227,10 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterSurface(WaterSurface src, WaterSurfaceType dest) {
-		marshalWaterBoundarySurface(src, dest);
+		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetWaterLevel())
-			dest.setWaterLevel(src.getWaterLevel());
+			dest.setWaterLevel(src.getWaterLevel().getValue());
 		
 		if (src.isSetGenericApplicationPropertyOfWaterSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterSurface())

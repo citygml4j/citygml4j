@@ -126,7 +126,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getCityGMLFeatureProperty(QName name, CityGMLChunk currentChunk) {
+	public ElementInfo getCityGMLFeatureProperty(QName name, XMLChunkImpl currentChunk) {
 		ElementInfo elementInfo = null;
 		String localName = name.getLocalPart();
 		String namespaceURI = name.getNamespaceURI();
@@ -151,6 +151,7 @@ public class XMLElementChecker {
 				CityGMLModule cityGMLModule = (CityGMLModule)module;
 
 				switch (cityGMLModule.getVersion()) {
+				case v2_0_0:
 				case v1_0_0:
 					isFeatureProperty = cityGMLModule.hasFeaturePropertyElement(localName);					
 					if (localName.equals("appearance"))
@@ -196,6 +197,7 @@ public class XMLElementChecker {
 			Class<? extends CityGML> featureClass = null;
 
 			switch (cityGMLModule.getVersion()) {
+			case v2_0_0:
 			case v1_0_0:
 				featureClass = cityGMLModule.getFeatureElementClass(localName);
 				break;
@@ -255,7 +257,7 @@ public class XMLElementChecker {
 			if (elementDecl != null) {
 				elementInfo = new ElementInfo(elementDecl);
 
-				if (checkForFeature && elementDecl.isFeature()) {
+				if (checkForFeature && elementDecl.isGlobal() && elementDecl.isFeature()) {
 					elementInfo.isFeature = true;
 
 					if (isSetType)
@@ -280,7 +282,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getElementInfo(QName name, CityGMLChunk currentChunk, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
+	public ElementInfo getElementInfo(QName name, XMLChunkImpl currentChunk, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
 		if (lastElementInfo != null && lastElementInfo.skipNestedElements)
 			return lastElementInfo;
 

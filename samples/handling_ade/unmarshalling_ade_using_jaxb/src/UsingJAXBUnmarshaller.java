@@ -35,7 +35,6 @@ import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.jaxb.gml._3_1_1.MultiSurfacePropertyType;
 import org.citygml4j.jaxb.gml._3_1_1.MultiSurfaceType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -85,7 +84,6 @@ public class UsingJAXBUnmarshaller {
 		unmarshaller.setReleaseJAXBElementsFromMemory(false);
 		
 		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
-		GMLFactory gml = new GMLFactory();
 		
 		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
 		ObjectFactory jaxbFactory = new ObjectFactory();
@@ -129,7 +127,7 @@ public class UsingJAXBUnmarshaller {
 				System.out.println("  Processing geometry: " + multiSurfacePropertyType.getMultiSurface());
 
 				MultiSurface multiSurface = (MultiSurface)unmarshaller.unmarshal(multiSurfacePropertyType.getMultiSurface());
-				StringOrRef description = gml.createStringOrRef();
+				StringOrRef description = new StringOrRef();
 				description.setValue("processed by citygml4j");
 				multiSurface.setDescription(description);
 				

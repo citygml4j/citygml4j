@@ -78,7 +78,7 @@ public class TexturedSurface040Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalAppearance(_AppearanceType src, _AbstractAppearance dest) {
+	public void unmarshalAbstractAppearance(_AppearanceType src, _AbstractAppearance dest) {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 	}
 
@@ -133,7 +133,7 @@ public class TexturedSurface040Unmarshaller {
 	}
 
 	public void unmarshalMaterial(MaterialType src, _Material dest) {
-		unmarshalAppearance(src, dest);
+		unmarshalAbstractAppearance(src, dest);
 
 		if (src.isSetShininess())
 			dest.setShininess(src.getShininess());
@@ -162,7 +162,7 @@ public class TexturedSurface040Unmarshaller {
 	}
 
 	public void unmarshalSimpleTexture(SimpleTextureType src, _SimpleTexture dest) {
-		unmarshalAppearance(src, dest);
+		unmarshalAbstractAppearance(src, dest);
 
 		if (src.isSetTextureMap())
 			dest.setTextureMap(src.getTextureMap());

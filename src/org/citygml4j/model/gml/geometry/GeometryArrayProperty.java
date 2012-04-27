@@ -30,6 +30,22 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public class GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAssociation<T> {
 
+	public GeometryArrayProperty() {
+		
+	}
+	
+	public GeometryArrayProperty(T abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
+	public GeometryArrayProperty(List<T> abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
+	public GeometryArrayProperty(T... abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
 	public List<T> getGeometry() {
 		return super.getObject();
 	}

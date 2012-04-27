@@ -66,7 +66,7 @@ public class CityFurniture100Marshaller {
 	}
 	
 	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {		
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetClazz())
 			dest.setClazz(src.getClazz().getValue());

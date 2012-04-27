@@ -34,6 +34,14 @@ public class TrafficAreaProperty extends FeatureProperty<TrafficArea> implements
 	public TrafficAreaProperty() {
 
 	}
+	
+	public TrafficAreaProperty(TrafficArea trafficArea) {
+		super(trafficArea);
+	}
+	
+	public TrafficAreaProperty(String href) {
+		super(href);
+	}
 
 	public TrafficAreaProperty(TransportationModule module) {
 		this.module = module;

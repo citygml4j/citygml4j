@@ -29,22 +29,31 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
-import org.citygml4j.model.gml.geometry.primitives.OrientableCurve;
 
 public class OrientableCurve extends AbstractCurve {
 	private CurveProperty baseCurve;
-	private String orientation;
+	private Sign orientation;
 
+	public OrientableCurve() {
+		
+	}
+	
+	public OrientableCurve(AbstractCurve base, Sign orientation) {
+		setBaseCurve(new CurveProperty(base));
+		setOrientation(orientation);
+	}
+	
+	public OrientableCurve(String xlink, Sign orientation) {
+		setBaseCurve(new CurveProperty(xlink));
+		setOrientation(orientation);
+	}
+	
 	public CurveProperty getBaseCurve() {
 		return baseCurve;
 	}
 
-	public String getOrientation() {
-		if (orientation == null)
-			return "+";
-		else
-			return orientation;
+	public Sign getOrientation() {
+		return (orientation == null) ? Sign.PLUS : orientation;
 	}
 
 	public boolean isSetBaseCurve() {
@@ -62,9 +71,8 @@ public class OrientableCurve extends AbstractCurve {
 		this.baseCurve = baseCurve;
 	}
 
-	public void setOrientation(String orientation) {
-		if (orientation.equals("+") || orientation.equals("-"))
-			this.orientation = orientation;
+	public void setOrientation(Sign orientation) {
+		this.orientation = orientation;
 	}
 
 	public void unsetBaseCurve() {
@@ -111,7 +119,7 @@ public class OrientableCurve extends AbstractCurve {
 		}
 		
 		if (isSetOrientation())
-			copy.setOrientation(copyBuilder.copy(orientation));
+			copy.setOrientation((Sign)copyBuilder.copy(orientation));
 		
 		return copy;
 	}

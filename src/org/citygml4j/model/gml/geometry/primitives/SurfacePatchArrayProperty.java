@@ -30,6 +30,23 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public class SurfacePatchArrayProperty extends ArrayAssociation<AbstractSurfacePatch> {
 	
+	public SurfacePatchArrayProperty() {
+
+	}
+
+	public SurfacePatchArrayProperty(AbstractSurfacePatch abstractSurfacePatch) {
+		super(abstractSurfacePatch);
+	}
+
+	@SuppressWarnings("unchecked")
+	public SurfacePatchArrayProperty(List<? extends AbstractSurfacePatch> abstractSurfacePatch) {
+		super((List<AbstractSurfacePatch>)abstractSurfacePatch);
+	}
+	
+	public SurfacePatchArrayProperty(AbstractSurfacePatch... abstractSurfacePatch) {
+		super(abstractSurfacePatch);
+	}
+	
 	public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
 		super.addObject(surfacePatch);
 	}

@@ -39,6 +39,14 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 	private HashMap<String, Object> localProperties;
 	private ModelObject parent;
 
+	public AssociationByRep() {
+
+	}
+
+	public AssociationByRep(T object) {
+		setObject(object);
+	}
+
 	public T getObject() {
 		return object;
 	}
@@ -50,17 +58,17 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 	public void setObject(T object) {
 		if (object != null)
 			object.setParent(this);
-		
+
 		this.object = object;
 	}
 
 	public void unsetObject() {
 		if (isSetObject())
 			object.unsetParent();
-		
+
 		object = null;
 	}
-	
+
 	public ModelType getModelType() {
 		return ModelType.GML;
 	}
@@ -68,18 +76,18 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 	public GMLClass getGMLClass() {
 		return GMLClass.ASSOCIATION_BY_REP;
 	}
-	
+
 	public Object getLocalProperty(String name) {
 		if (localProperties != null)
 			return localProperties.get(name);
-			
+
 		return null;
 	}
 
 	public void setLocalProperty(String name, Object value) {
 		if (localProperties == null)
 			localProperties = new HashMap<String, Object>();
-		
+
 		localProperties.put(name, value);
 	}
 
@@ -90,26 +98,26 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 	public Object unsetLocalProperty(String name) {
 		if (localProperties != null)
 			return localProperties.remove(name);
-		
+
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)
-            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
 		AssociationByRep<T> copy = (AssociationByRep<T>)target;
-        
+
 		if (isSetObject()) {
 			copy.setObject((T)copyBuilder.copy(object));
 			if (copy.getObject() == object)
 				object.setParent(this);
 		}
-		
+
 		copy.unsetParent();
-		
-        return copy;
+
+		return copy;
 	}
 
 	public ModelObject getParent() {

@@ -91,7 +91,7 @@ public class WritingCityModel {
 
 		boolean isInited = false;
 
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML feature = reader.nextFeature();
 
 			if (!isInited) {

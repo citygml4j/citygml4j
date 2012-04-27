@@ -88,7 +88,7 @@ public class TexturedSurface100Marshaller {
 		return dest;
 	}
 	
-	public void marshalAppearance(_AbstractAppearance src, AbstractAppearanceType dest) {
+	public void marshalAbstractAppearance(_AbstractAppearance src, AbstractAppearanceType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 	}
 	
@@ -137,7 +137,7 @@ public class TexturedSurface100Marshaller {
 	}
 	
 	public void marshalMaterial(_Material src, MaterialType dest) {
-		marshalAppearance(src, dest);
+		marshalAbstractAppearance(src, dest);
 		
 		if (src.isSetShininess())
 			dest.setShininess(src.getShininess());
@@ -166,7 +166,7 @@ public class TexturedSurface100Marshaller {
 	}
 	
 	public void marshalSimpleTexture(_SimpleTexture src, SimpleTextureType dest) {
-		marshalAppearance(src, dest);
+		marshalAbstractAppearance(src, dest);
 		
 		if (src.isSetTextureMap())
 			dest.setTextureMap(src.getTextureMap());

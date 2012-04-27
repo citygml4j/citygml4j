@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
 
+	public MultiGeometryProperty() {
+
+	}
+
+	public MultiGeometryProperty(AbstractGeometricAggregate abstractGeometricAggregate) {
+		super(abstractGeometricAggregate);
+	}
+
+	public MultiGeometryProperty(String href) {
+		super(href);
+	}
+	
 	public AbstractGeometricAggregate getGeometricAggregate() {
 		return super.getGeometry();
 	}

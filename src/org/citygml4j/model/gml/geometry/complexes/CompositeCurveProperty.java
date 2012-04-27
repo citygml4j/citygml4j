@@ -28,6 +28,18 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CompositeCurveProperty extends GeometryProperty<CompositeCurve> {
 	
+	public CompositeCurveProperty() {
+		
+	}
+	
+	public CompositeCurveProperty(CompositeCurve compositeCurve) {
+		super(compositeCurve);
+	}
+	
+	public CompositeCurveProperty(String href) {
+		super(href);
+	}
+	
 	public CompositeCurve getCompositeCurve() {
 		return super.getGeometry();
 	}

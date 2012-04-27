@@ -24,11 +24,21 @@ package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.gml.feature.FeatureMember;
 
 public class FeatureMember extends FeatureProperty<AbstractFeature> {
 
+	public FeatureMember() {
+		
+	}
+	
+	public FeatureMember(AbstractFeature abstractFeature) {
+		super(abstractFeature);
+	}
+	
+	public FeatureMember(String href) {
+		super(href);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.FEATURE_MEMBER;

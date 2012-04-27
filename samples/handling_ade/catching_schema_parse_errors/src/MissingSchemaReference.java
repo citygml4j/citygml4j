@@ -59,7 +59,7 @@ public class MissingSchemaReference {
 		
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_missing_ADE_reference_v100.xml"));
 		
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();
 			
 			if (citygml instanceof AbstractFeature)

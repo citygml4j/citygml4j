@@ -29,9 +29,6 @@ import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
-import org.citygml4j.model.gml.geometry.primitives.ControlPoint;
-import org.citygml4j.model.gml.geometry.primitives.LineStringSegmentArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.Tin;
 import org.citygml4j.model.gml.measures.Length;
 
 public class Tin extends TriangulatedSurface {

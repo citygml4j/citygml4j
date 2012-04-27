@@ -136,7 +136,7 @@ public class Core200Marshaller {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void marshalCityObject(AbstractCityObject src, AbstractCityObjectType dest) {
+	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate()) {
@@ -204,8 +204,8 @@ public class Core200Marshaller {
 
 	}
 
-	public void marshalSite(AbstractSite src, AbstractSiteType dest) {
-		marshalCityObject(src, dest);
+	public void marshalAbstractSite(AbstractSite src, AbstractSiteType dest) {
+		marshalAbstractCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfSite()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfSite())
@@ -277,19 +277,19 @@ public class Core200Marshaller {
 	public void marshalCityModel(CityModel src, CityModelType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractFeatureCollection(src, dest);
 
-		if (src.isSetCityObjectMember()) {
-			for (CityObjectMember member : src.getCityObjectMember()) {
-				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
-				if (elem != null && elem.getValue() instanceof FeaturePropertyType)
-					dest.getFeatureMember().add((JAXBElement<? extends FeaturePropertyType>)elem);
-			}
-		}
-
 		if (src.isSetAppearanceMember()) {
 			for (AppearanceMember member : src.getAppearanceMember()) {
 				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
 				if (elem != null && elem.getValue() instanceof FeaturePropertyType)
 					dest.getFeatureMember().add((JAXBElement<FeaturePropertyType>)elem);
+			}
+		}
+		
+		if (src.isSetCityObjectMember()) {
+			for (CityObjectMember member : src.getCityObjectMember()) {
+				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
+				if (elem != null && elem.getValue() instanceof FeaturePropertyType)
+					dest.getFeatureMember().add((JAXBElement<? extends FeaturePropertyType>)elem);
 			}
 		}
 

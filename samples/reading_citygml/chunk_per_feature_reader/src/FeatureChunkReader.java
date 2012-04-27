@@ -54,7 +54,7 @@ public class FeatureChunkReader {
 		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Building_v100.xml"));
 		
 		System.out.println(df.format(new Date()) + "printing feature currently read and its (transitive) parents");
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML chunk = reader.nextFeature();	
 			System.out.println("found: " + chunk.getCityGMLClass());
 			

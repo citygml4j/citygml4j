@@ -22,6 +22,7 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -37,6 +38,19 @@ import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 
 public class CompositeCurve extends AbstractCurve {
 	private List<CurveProperty> curveMember;
+	
+	public CompositeCurve() {
+		
+	}
+	
+	public CompositeCurve(List<? extends AbstractCurve> abstractCurves) {
+		for (AbstractCurve abstractCurve : abstractCurves)
+			addCurveMember(new CurveProperty(abstractCurve));
+	}
+	
+	public CompositeCurve(AbstractCurve... abstractCurves) {
+		this(Arrays.asList(abstractCurves));
+	}
 	
 	public void addCurveMember(CurveProperty curveMember) {
 		if (this.curveMember == null)

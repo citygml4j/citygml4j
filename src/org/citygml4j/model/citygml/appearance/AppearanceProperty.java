@@ -35,6 +35,14 @@ public class AppearanceProperty extends FeatureProperty<Appearance> implements A
 
 	}
 	
+	public AppearanceProperty(Appearance appearance) {
+		super(appearance);
+	}
+	
+	public AppearanceProperty(String href) {
+		super(href);
+	}
+	
 	public AppearanceProperty(AppearanceModule module) {
 		this.module = module;
 	}
