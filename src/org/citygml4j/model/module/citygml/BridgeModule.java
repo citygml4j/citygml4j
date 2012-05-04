@@ -48,7 +48,7 @@ import org.citygml4j.model.citygml.bridge.WallSurface;
 import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.module.Module;
 
-public class BridgeModule extends AbstractConstructionModule {
+public class BridgeModule extends AbstractCityGMLModule {
 	private static final List<BridgeModule> instances = new ArrayList<BridgeModule>();
 
 	public static final BridgeModule v2_0_0;

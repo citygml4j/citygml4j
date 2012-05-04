@@ -32,6 +32,7 @@ import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.citygml.CityGMLModule;
 
 public abstract class AbstractCityObject extends AbstractFeature implements CoreModuleComponent {
 	private GregorianCalendar creationDate;
@@ -278,7 +279,7 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		return ModelType.CITYGML;
 	}
 
-/*	public CityGMLModule getCityGMLModule() {
+	public CityGMLModule getCityGMLModule() {
 		// return null by default 
 		return null;
 	}
@@ -286,7 +287,7 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	public boolean isSetCityGMLModule() {
 		// return false by default
 		return false;
-	}*/
+	}
 
 	public LodRepresentation getLodRepresentation() {
 		// return empty LodRepresentation instance by default

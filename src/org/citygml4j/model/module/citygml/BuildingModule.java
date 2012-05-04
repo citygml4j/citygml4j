@@ -47,7 +47,7 @@ import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.module.Module;
 
-public class BuildingModule extends AbstractConstructionModule {
+public class BuildingModule extends AbstractCityGMLModule {
 	private static final List<BuildingModule> instances = new ArrayList<BuildingModule>();
 
 	public static final BuildingModule v2_0_0;

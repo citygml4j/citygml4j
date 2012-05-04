@@ -120,7 +120,7 @@ public class UsingJAXB {
 		}		
 		
 		System.out.println(df.format(new Date()) + "marshalling JAXB object tree as CityGML 1.0.0 document");
-		JAXBNamespacePrefixMapper nsMapper = new JAXBNamespacePrefixMapper();
+		JAXBNamespacePrefixMapper nsMapper = new JAXBNamespacePrefixMapper(CityGMLVersion.v1_0_0);
 		nsMapper.setNamespacePrefixMapping(CoreModule.v1_0_0.getNamespaceURI(), "");
 
 		// customize Marshaller instance

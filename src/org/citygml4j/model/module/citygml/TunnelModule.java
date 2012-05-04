@@ -47,7 +47,7 @@ import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.module.Module;
 
-public class TunnelModule extends AbstractConstructionModule {
+public class TunnelModule extends AbstractCityGMLModule {
 	private static final List<TunnelModule> instances = new ArrayList<TunnelModule>();
 
 	public static final TunnelModule v2_0_0;

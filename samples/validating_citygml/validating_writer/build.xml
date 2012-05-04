@@ -63,7 +63,8 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
-		<delete file="Simple_but_invalid_building_v040.xml" />
-		<delete file="LOD2_SubsurfaceStructureADE_invalid_v100.xml" />		
+		<delete>
+			<fileset dir="." includes="*.gml"/>
+		</delete>
 	</target>
 </project>

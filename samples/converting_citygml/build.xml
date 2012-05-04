@@ -21,7 +21,7 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
 -->
-<project basedir="." default="run">
+<project basedir="." default="upgrade">
 	<description>
 
 	</description>
@@ -45,9 +45,17 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="run" depends="compile" description="run the sample app">
+	<target name="upgrade" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="Converter" fork="true">
+		<java classname="UpgradeConverter" fork="true">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<!-- run sample app -->
+	<target name="downgrade" depends="compile" description="run the sample app">
+		<echo message="Running sample citygml4j application..." />
+		<java classname="DowngradeConverter" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -55,6 +63,8 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
-		<delete file="LOD2_Buildings_v040.xml" />
+		<delete>
+			<fileset dir="." includes="*.gml"/>
+		</delete>
 	</target>
 </project>

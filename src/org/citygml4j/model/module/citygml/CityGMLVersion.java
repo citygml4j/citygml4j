@@ -136,5 +136,17 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 	public static List<CityGMLVersion> getInstances() {
 		return instances;
 	}
+	
+	@Override
+	public String toString() {
+		if (this == v2_0_0)
+			return "2.0.0";
+		else if (this == v1_0_0)
+			return "1.0.0";
+		else if (this == v0_4_0)
+			return "0.4.0";
+		else
+			return super.toString();
+	}
 
 }
