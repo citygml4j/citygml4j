@@ -55,6 +55,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 	protected boolean parseSchema;
 	protected boolean useValidation;
 	protected boolean failOnMissingADESchema;
+	protected boolean supportCityGML040;
 
 	public AbstractCityGMLInputFactory() throws CityGMLReadException {
 		try {
@@ -83,6 +84,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		parseSchema = true;
 		useValidation = false;
 		failOnMissingADESchema = true;
+		supportCityGML040 = false;
 	}
 
 	public XMLInputFactory getXMLInputFactory() {
@@ -147,6 +149,8 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 			return splitAtFeatureProperties;
 		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
 			return failOnMissingADESchema;
+		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
+			return supportCityGML040;
 
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
@@ -250,6 +254,13 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA)) {
 			if (value instanceof Boolean)
 				failOnMissingADESchema = ((Boolean)value).booleanValue();
+
+			return;		
+		}
+		
+		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0)) {
+			if (value instanceof Boolean)
+				supportCityGML040 = ((Boolean)value).booleanValue();
 
 			return;		
 		}

@@ -60,7 +60,10 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 	URI baseURI;
 
 	@SuppressWarnings("unchecked")
-	public AbstractJAXBReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+	public AbstractJAXBReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {		
+		if ((Boolean)factory.getProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
+			reader = new CityGMLNamespaceMapper(reader);
+
 		this.reader = reader;
 		this.factory = factory;
 		this.baseURI = baseURI;

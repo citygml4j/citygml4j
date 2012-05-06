@@ -61,6 +61,7 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper {
 		return prefixMap.get(uri);
 	}
 
+	@Override
 	public String getPreferredPrefix(String uri, String suggestion, boolean requirePrefix) {
 		String prefix = prefixMap.get(uri);
 		if (prefix != null)
