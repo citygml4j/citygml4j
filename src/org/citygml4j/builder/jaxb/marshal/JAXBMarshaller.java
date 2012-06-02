@@ -92,7 +92,7 @@ public class JAXBMarshaller {
 		try {
 			Marshaller marshaller = jaxbBuilder.getJAXBContext().createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper());
+			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper(moduleContext));
 
 			Element foo = document.createElement("foo");
 			JAXBElement<?> jaxbElement = (src instanceof JAXBElement<?>) ? (JAXBElement<?>)src : marshalJAXBElement(src);
@@ -121,6 +121,8 @@ public class JAXBMarshaller {
 			
 			Marshaller marshaller = ctx.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper(moduleContext));
+
 			Element foo = document.createElement("foo");
 			marshaller.marshal(src, foo);
 

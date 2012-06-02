@@ -46,7 +46,7 @@ public class ValidatingChunkReader {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml feature by feature");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml feature by feature");
 		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
@@ -56,7 +56,7 @@ public class ValidatingChunkReader {
 		ValidationEventHandlerImpl validationEventHandler = new ValidationEventHandlerImpl();
 		in.setValidationEventHandler(validationEventHandler);
 		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 		
 		System.out.println(df.format(new Date()) + "validating features whilst reading from file");
 		while (reader.hasNext()) {

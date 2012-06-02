@@ -35,7 +35,6 @@ public class LandUseModule extends AbstractCityGMLModule {
 
 	public static final LandUseModule v2_0_0;
 	public static final LandUseModule v1_0_0;
-	public static final LandUseModule v0_4_0;
 
 	private LandUseModule (
 			CityGMLModuleType type, 
@@ -65,17 +64,9 @@ public class LandUseModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd",			
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new LandUseModule (
-				CityGMLModuleType.LAND_USE,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("LandUse", LandUse.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 	}
 
 	public static List<LandUseModule> getInstances() {
@@ -88,8 +79,6 @@ public class LandUseModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

@@ -59,11 +59,11 @@ public class SplittingFeature {
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setSchemaHandler(schemaHandler);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
@@ -86,11 +86,11 @@ public class SplittingFeature {
 				System.out.println("Split CityGML feature: " + item.getCityGMLClass());
 		}
 		
-		System.out.println(df.format(new Date()) + "writing splitting result as CityGML 1.0.0 document LOD2_SubsurfaceStructureADE_split_v100.xml");
+		System.out.println(df.format(new Date()) + "writing splitting result as CityGML 1.0.0 document LOD2_SubsurfaceStructureADE_split_v100.gml");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 		out.setSchemaHandler(schemaHandler);
 
-		CityModelWriter modelWriter = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_split_v100.xml"));
+		CityModelWriter modelWriter = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_split_v100.gml"));
 		setContext(modelWriter);
 		modelWriter.writeStartDocument();
 		
@@ -104,15 +104,15 @@ public class SplittingFeature {
 		modelWriter.writeEndDocument();		
 		modelWriter.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_split_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_split_v100.gml written");
 		
-		System.out.println(df.format(new Date()) + "writing original document as LOD2_SubsurfaceStructureADE_orig_v100.xml");
-		CityGMLWriter cityGMLWriter = out.createCityGMLWriter(new File("LOD2_SubsurfaceStructureADE_orig_v100.xml"));
+		System.out.println(df.format(new Date()) + "writing original document as LOD2_SubsurfaceStructureADE_orig_v100.gml");
+		CityGMLWriter cityGMLWriter = out.createCityGMLWriter(new File("LOD2_SubsurfaceStructureADE_orig_v100.gml"));
 		setContext(cityGMLWriter);
 		cityGMLWriter.write(cityModel);	
 		cityGMLWriter.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_orig_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_orig_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	

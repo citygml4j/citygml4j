@@ -29,14 +29,14 @@ public class MultithreadedReader {
 		System.out.println(df.format(new Date()) + "setting up thread pool with " + nThreads + " threads");
 		ExecutorService service = Executors.newFixedThreadPool(nThreads);
 		
-		System.out.println(df.format(new Date()) + "reading LOD3_Ettenheim_v100.xml in a multithreaded fashion");
+		System.out.println(df.format(new Date()) + "reading LOD3_Railway_v200.gml in a multithreaded fashion");
 		
 		// create a validating reader that chunks the input file on a per feature level
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 		in.setProperty(CityGMLInputFactory.USE_VALIDATION, true);
 		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Ettenheim_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Railway_v200.gml"));
 		
 		while (reader.hasNext()) {
 			// whereas the nextFeature() method of a CityGML reader completely unmarshals the 

@@ -82,9 +82,6 @@ public class Modules {
 	}
 
 	public static Module getModule(String namespaceURI) {
-		if (namespaceURI.equals(CoreModule.v0_4_0.getNamespaceURI()))
-			return CoreModule.v0_4_0;
-
 		for (List<? extends Module> moduleSet : modules.values()) {
 			for (Module module : moduleSet)
 				if (namespaceURI.equals(module.getNamespaceURI()))

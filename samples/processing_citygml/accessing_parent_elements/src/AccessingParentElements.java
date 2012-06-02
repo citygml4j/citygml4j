@@ -48,9 +48,9 @@ public class AccessingParentElements {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Building_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Building_v100.gml"));
 
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();

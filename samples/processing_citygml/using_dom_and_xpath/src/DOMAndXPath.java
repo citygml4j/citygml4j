@@ -64,14 +64,14 @@ public class DOMAndXPath {
 		System.out.println(df.format(new Date()) + "creating citygml4j JAXBUnmarshaller and JAXBMarshaller instances");
 		JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
 		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
-		marshaller.setModuleContext(new ModuleContext(CityGMLVersion.v1_0_0));
+		marshaller.setModuleContext(new ModuleContext(CityGMLVersion.v2_0_0));
 		
 		// create DOM model from CityGML document
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_with_Placeholder_v100.xml as DOM tree");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_with_Placeholder_v200.gml as DOM tree");
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		docFactory.setNamespaceAware(true);		
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document document = docBuilder.parse("../../datasets/LOD2_Building_with_Placeholder_v100.xml");
+		Document document = docBuilder.parse("../../datasets/LOD2_Building_with_Placeholder_v200.gml");
 
 		// create XPath factory
 		System.out.println(df.format(new Date()) + "creating XPath factory");
@@ -80,7 +80,7 @@ public class DOMAndXPath {
 
 		// get CityGML namespace context
 		CityGMLNamespaceContext nsContext = new CityGMLNamespaceContext();
-		nsContext.setPrefixes(CityGMLVersion.v1_0_0);
+		nsContext.setPrefixes(CityGMLVersion.v2_0_0);
 		xpath.setNamespaceContext(nsContext);
 
 		// first: retrieve building node using XPath
@@ -125,10 +125,10 @@ public class DOMAndXPath {
 		trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new FileOutputStream("LOD2_DOM_result_v100.xml"));
+		StreamResult result = new StreamResult(new FileOutputStream("LOD2_DOM_result_v200.gml"));
 		trans.transform(source, result); 
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

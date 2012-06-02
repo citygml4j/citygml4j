@@ -50,7 +50,7 @@ public class CityGMLNamespaceMapper implements XMLStreamReader {
 
 	public String getAttributeNamespace(int arg0) {
 		String namespaceURI = reader.getAttributeNamespace(arg0);
-		return CoreModule.v0_4_0.getNamespaceURI().equals(namespaceURI) ? currentName.getNamespaceURI() : reader.getAttributeNamespace(arg0);
+		return (namespaceURI != null && namespaceURI.startsWith("http://www.citygml.org/citygml")) ? currentName.getNamespaceURI() : reader.getAttributeNamespace(arg0);
 	}
 
 	public String getAttributePrefix(int arg0) {
@@ -205,19 +205,19 @@ public class CityGMLNamespaceMapper implements XMLStreamReader {
 			String namespaceURI = reader.getNamespaceURI();
 			depth++;
 
-			if (CoreModule.v0_4_0.getNamespaceURI().equals(namespaceURI)) {
+			if (namespaceURI.startsWith("http://www.citygml.org/citygml")) {
 				isCityGML = true;
 
 				if (localPart.equals("creationDate") ||
 						localPart.equals("terminationDate") ||
 						localPart.equals("generalizesTo")) {
-					namespaceURI = CoreModule.v2_0_0.getNamespaceURI();
+					namespaceURI = CoreModule.v1_0_0.getNamespaceURI();
 				}
 
 				else if (localPart.equals("externalReference")) {
 					parents.push(parent);
-					parent = new ParentFeatureElement(localPart, CoreModule.v2_0_0.getNamespaceURI(), depth);
-					namespaceURI = CoreModule.v2_0_0.getNamespaceURI();
+					parent = new ParentFeatureElement(localPart, CoreModule.v1_0_0.getNamespaceURI(), depth);
+					namespaceURI = CoreModule.v1_0_0.getNamespaceURI();
 				} 
 
 				else if (localPart.equals("stringAttribute") ||
@@ -226,19 +226,19 @@ public class CityGMLNamespaceMapper implements XMLStreamReader {
 						localPart.equals("dateAttribute") ||
 						localPart.equals("uriAttribute")) {
 					parents.push(parent);
-					parent = new ParentFeatureElement(localPart, GenericsModule.v2_0_0.getNamespaceURI(), depth);
-					namespaceURI = GenericsModule.v2_0_0.getNamespaceURI();
+					parent = new ParentFeatureElement(localPart, GenericsModule.v1_0_0.getNamespaceURI(), depth);
+					namespaceURI = GenericsModule.v1_0_0.getNamespaceURI();
 				}
 
 				else if (localPart.equals("appearanceMember")) {
 					if (parent != null && !parent.localPart.equals("CityModel"))
 						localPart = "appearance";
 
-					namespaceURI = AppearanceModule.v2_0_0.getNamespaceURI();					
+					namespaceURI = AppearanceModule.v1_0_0.getNamespaceURI();					
 				}
 
 				else {
-					for (CityGMLModule module : CityGMLVersion.v2_0_0.getCityGMLModules()) {
+					for (CityGMLModule module : CityGMLVersion.v1_0_0.getCityGMLModules()) {
 						if (module.getType() == CityGMLModuleType.BRIDGE || module.getType() == CityGMLModuleType.TUNNEL)
 							continue;
 

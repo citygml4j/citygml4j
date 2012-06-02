@@ -78,8 +78,12 @@ public class JAXBBuilder implements CityGMLBuilder {
 		return createJAXBMarshaller(new ModuleContext(CityGMLVersion.DEFAULT));
 	}
 
-	public JAXBNamespacePrefixMapper createNamespacePrefixMapper() {
-		return new JAXBNamespacePrefixMapper();
+	public JAXBNamespacePrefixMapper createNamespacePrefixMapper(CityGMLVersion version) {
+		return new JAXBNamespacePrefixMapper(version);
+	}
+	
+	public JAXBNamespacePrefixMapper createNamespacePrefixMapper(ModuleContext moduleContext) {
+		return new JAXBNamespacePrefixMapper(moduleContext);
 	}
 	
 	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException {

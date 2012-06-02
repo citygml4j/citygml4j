@@ -21,11 +21,11 @@ public class FilteredReader {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading only roads from CityGML file LOD2_CityObjectGroup_v100.xml");
+		System.out.println(df.format(new Date()) + "reading only roads from CityGML file LOD2_CityObjectGroup_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_CityObjectGroup_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_CityObjectGroup_v100.gml"));
 		reader = in.createFilteredCityGMLReader(reader, new CityGMLInputFilter() {
 
 			// return true if you want to consume the CityGML feature

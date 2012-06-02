@@ -361,8 +361,6 @@ public class GMLUnmarshaller {
 			jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)src);
 		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
 			jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)src);
-		else if (src instanceof org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)
-			jaxb.getCityGMLUnmarshaller().getTexturedSurface040Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)src);
 		else if (src instanceof OrientableSurfaceType)
 			dest = unmarshalOrientableSurface((OrientableSurfaceType)src);
 		else if (src instanceof PointType)
@@ -534,10 +532,6 @@ public class GMLUnmarshaller {
 							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore100Unmarshaller().unmarshalCityObjectMember(featureProperty));
 						else if (featureProperty instanceof org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)
 							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance100Unmarshaller().unmarshalAppearanceMember((org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)featureProperty));
-						else if (featureProperty instanceof org.citygml4j.jaxb.citygml._0_4.AppearancePropertyType)
-							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance040Unmarshaller().unmarshalAppearanceMember((org.citygml4j.jaxb.citygml._0_4.AppearancePropertyType)featureProperty));
-						else if (namespaceURI.equals(CoreModule.v0_4_0.getNamespaceURI()))
-							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore040Unmarshaller().unmarshalCityObjectMember(featureProperty));
 						else
 							cityGMLProperty = false;
 					}

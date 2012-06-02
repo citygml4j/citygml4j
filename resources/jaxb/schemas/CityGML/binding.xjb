@@ -12,62 +12,6 @@
     </jaxb:bindings>
 
     <!-- ============= -->
-    <!-- CityGML 0.4.0 -->
-    <!-- ============= -->
-
-    <!-- Specific settings for the CityGML 0.4.0 schema file -->
-    <jaxb:bindings schemaLocation="0.4.0/CityGML.xsd" node="/xs:schema">
-
-        <!-- CityGML schema specific settings... -->
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml._0_4"/>
-        </jaxb:schemaBindings>
-
-        <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
-            the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
-        <jaxb:bindings node="//xs:complexType[@name='CityObjectGroupMemberType']">
-            <jaxb:bindings node=".//xs:attribute[@name='role']">
-                <jaxb:property name="groupRole"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-            the property 'boundedBy' of an _AbstractBuildingType with that one defined by GML. So
-            a renaming is necessary -->
-        <jaxb:bindings node="//xs:complexType[@name='_AbstractBuildingType']">
-            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-                <jaxb:property name="boundedBySurface"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-            the property 'boundedBy' of an RoomType with that one defined by GML. So
-            a renaming is necessary -->
-        <jaxb:bindings node="//xs:complexType[@name='RoomType']">
-            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-                <jaxb:property name="boundedBySurface"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-            the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
-            a renaming is necessary -->
-        <jaxb:bindings node="//xs:complexType[@name='WaterBodyType']">
-            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-                <jaxb:property name="boundedBySurface"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- changing data type of DoubleAttributeType -->
-        <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
-            <jaxb:bindings node=".//xs:element[@name='value']">
-                <jaxb:javaType name="Double"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- ============= -->
     <!-- CityGML 1.0.0 -->
     <!-- ============= -->
 

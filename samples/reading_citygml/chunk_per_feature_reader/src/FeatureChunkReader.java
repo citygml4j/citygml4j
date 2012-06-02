@@ -43,7 +43,7 @@ public class FeatureChunkReader {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v100.xml feature by feature");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v200.gml feature by feature");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new Class[]{AbstractOpening.class, Address.class});
@@ -51,7 +51,7 @@ public class FeatureChunkReader {
 		// see difference when setting to true
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
 		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Building_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Building_v200.gml"));
 		
 		System.out.println(df.format(new Date()) + "printing feature currently read and its (transitive) parents");
 		while (reader.hasNext()) {

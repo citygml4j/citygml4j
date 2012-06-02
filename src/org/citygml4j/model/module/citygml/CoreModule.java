@@ -39,7 +39,6 @@ public class CoreModule extends AbstractCityGMLModule {
 
 	public static final CoreModule v2_0_0;
 	public static final CoreModule v1_0_0;
-	public static final CoreModule v0_4_0;
 
 	private CoreModule (
 			CityGMLModuleType type, 
@@ -69,23 +68,15 @@ public class CoreModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/1.0/cityGMLBase.xsd", 
 				GMLCoreModule.v3_1_1, XALCoreModule.v2_0);			
 
-		v0_4_0 = new CoreModule (
-				CityGMLModuleType.CORE,
-				CityGMLModuleVersion.v0_4_0,
-				"http://www.citygml.org/citygml/1/0/0",
-				"citygml",
-				"http://www.citygml.org/citygml/0/4/0/CityGML.xsd",
-				GMLCoreModule.v3_1_1, XALCoreModule.v2_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("CityModel", CityModel.class);
 		v2_0_0.elementMap.put("Address", Address.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 		
 		v2_0_0.propertySet = new HashSet<String>();
 		v2_0_0.propertySet.add("cityObjectMember");
 		v2_0_0.propertySet.add("generalizesTo");
-		v0_4_0.propertySet = v1_0_0.propertySet = v2_0_0.propertySet;
+		v1_0_0.propertySet = v2_0_0.propertySet;
 	}
 
 	public static List<CoreModule> getInstances() {
@@ -98,8 +89,6 @@ public class CoreModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

@@ -65,11 +65,11 @@ public class UsingJAXBBinder {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
 		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
@@ -77,7 +77,7 @@ public class UsingJAXBBinder {
 		Element adeElement = ade.getContent();
 
 		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
-		String contextPath = JAXBContextPath.getContextPath(CityGMLVersion.v1_0_0, "ade.sub.jaxb");
+		String contextPath = JAXBContextPath.getContextPath("ade.sub.jaxb");
 		JAXBContext jaxbCtx = JAXBContext.newInstance(contextPath);
 
 		System.out.println(df.format(new Date()) + "creating JAXB binder and unmarshalling ADE content");
@@ -128,7 +128,7 @@ public class UsingJAXBBinder {
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_JAXBBinder_v100.xml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_JAXBBinder_v100.gml"));
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
@@ -144,7 +144,7 @@ public class UsingJAXBBinder {
 		writer.writeEndDocument();		
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_JAXBBinder_v100.xml written");
+		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_JAXBBinder_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

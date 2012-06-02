@@ -36,7 +36,6 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 
 	public static final CityObjectGroupModule v2_0_0;
 	public static final CityObjectGroupModule v1_0_0;
-	public static final CityObjectGroupModule v0_4_0;
 
 	private CityObjectGroupModule (
 			CityGMLModuleType type, 
@@ -66,22 +65,14 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/cityobjectgroup/1.0/cityObjectGroup.xsd",			
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new CityObjectGroupModule (
-				CityGMLModuleType.CITY_OBJECT_GROUP,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("CityObjectGroup", CityObjectGroup.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 		
 		v2_0_0.propertySet = new HashSet<String>();
 		v2_0_0.propertySet.add("groupMember");
 		v2_0_0.propertySet.add("parent");
-		v0_4_0.propertySet = v1_0_0.propertySet = v2_0_0.propertySet;
+		v1_0_0.propertySet = v2_0_0.propertySet;
 	}
 
 	public static List<CityObjectGroupModule> getInstances() {
@@ -94,8 +85,6 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

@@ -29,10 +29,9 @@ import javax.xml.bind.ValidationEventHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.BuildingPartProperty;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.citygml4j.xml.validation.Validator;
@@ -49,17 +48,17 @@ public class ObjectTreeValidation {
 		// creating example (and simple) CityGML object tree
 		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
 		Building building = new Building();
+		
+		// set invalid gml:id
 		building.setId("1st-Building");
 		
-		BuildingPart buildingPart = new BuildingPart();
-		buildingPart.setId("PART");
-		building.addConsistsOfBuildingPart(new BuildingPartProperty('#' + buildingPart.getId()));
+		// set empty and thus invalid generic attribute set
+		building.addGenericAttribute(new GenericAttributeSet());
 		
 		CityModel cityModel = new CityModel();
 		cityModel.addCityObjectMember(new CityObjectMember(building));
-		cityModel.addCityObjectMember(new CityObjectMember(buildingPart));
 		
-		System.out.println(df.format(new Date()) + "creating citygml4j Validator and validating city model against CityGML 0.4.0");
+		System.out.println(df.format(new Date()) + "creating citygml4j Validator and validating city model against CityGML 2.0.0");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		Validator validator = builder.createValidator(schemaHandler);
 		
@@ -70,7 +69,7 @@ public class ObjectTreeValidation {
 			}
 		});		
 		
-		validator.validate(cityModel, CityGMLVersion.v0_4_0);
+		validator.validate(cityModel, CityGMLVersion.v2_0_0);
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

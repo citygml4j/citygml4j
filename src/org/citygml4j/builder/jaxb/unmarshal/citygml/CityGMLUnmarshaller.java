@@ -26,42 +26,30 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance200Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.bridge.Bridge200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.building.Building040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.building.Building100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.building.Building200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture.CityFurniture040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture.CityFurniture100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture.CityFurniture200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup.CityObjectGroup040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup.CityObjectGroup100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup.CityObjectGroup200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.core.Core040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.core.Core100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.core.Core200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.generics.Generics040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.generics.Generics100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.generics.Generics200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.landuse.LandUse040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.landuse.LandUse100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.landuse.LandUse200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.relief.Relief040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.relief.Relief100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.relief.Relief200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.texturedsurface.TexturedSurface040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.texturedsurface.TexturedSurface100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.texturedsurface.TexturedSurface200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.transportation.Transportation040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.transportation.Transportation100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.transportation.Transportation200Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.tunnel.Tunnel200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation.Vegetation040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation.Vegetation100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation.Vegetation200Unmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody040Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody200Unmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -88,7 +76,7 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class CityGMLUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
-	
+
 	private final Appearance200Unmarshaller app200;
 	private final Bridge200Unmarshaller brid200;
 	private final Building200Unmarshaller bldg200;
@@ -117,22 +105,9 @@ public class CityGMLUnmarshaller {
 	private final Vegetation100Unmarshaller veg100;
 	private final WaterBody100Unmarshaller wtr100;
 
-	private final Appearance040Unmarshaller app040;
-	private final Building040Unmarshaller bldg040;
-	private final CityFurniture040Unmarshaller frn040;
-	private final CityObjectGroup040Unmarshaller grp040;
-	private final Core040Unmarshaller core040;
-	private final Generics040Unmarshaller gen040;
-	private final LandUse040Unmarshaller luse040;
-	private final Relief040Unmarshaller dem040;
-	private final TexturedSurface040Unmarshaller tex040;
-	private final Transportation040Unmarshaller tran040;
-	private final Vegetation040Unmarshaller veg040;
-	private final WaterBody040Unmarshaller wtr040;
-
 	public CityGMLUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
-		
+
 		app200 = new Appearance200Unmarshaller(this);
 		brid200 = new Bridge200Unmarshaller(this);
 		bldg200 = new Building200Unmarshaller(this);
@@ -147,7 +122,7 @@ public class CityGMLUnmarshaller {
 		tun200 = new Tunnel200Unmarshaller(this);
 		veg200 = new Vegetation200Unmarshaller(this);
 		wtr200 = new WaterBody200Unmarshaller(this);
-		
+
 		app100 = new Appearance100Unmarshaller(this);
 		bldg100 = new Building100Unmarshaller(this);
 		frn100 = new CityFurniture100Unmarshaller(this);
@@ -160,19 +135,6 @@ public class CityGMLUnmarshaller {
 		tran100 = new Transportation100Unmarshaller(this);
 		veg100 = new Vegetation100Unmarshaller(this);
 		wtr100 = new WaterBody100Unmarshaller(this);
-
-		app040 = new Appearance040Unmarshaller(this);
-		bldg040 = new Building040Unmarshaller(this);
-		frn040 = new CityFurniture040Unmarshaller(this);
-		grp040 = new CityObjectGroup040Unmarshaller(this);
-		core040 = new Core040Unmarshaller(this);
-		gen040 = new Generics040Unmarshaller(this);
-		luse040 = new LandUse040Unmarshaller(this);
-		dem040 = new Relief040Unmarshaller(this);
-		tex040 = new TexturedSurface040Unmarshaller(this);
-		tran040 = new Transportation040Unmarshaller(this);
-		veg040 = new Vegetation040Unmarshaller(this);
-		wtr040 = new WaterBody040Unmarshaller(this);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -209,7 +171,7 @@ public class CityGMLUnmarshaller {
 			dest = veg200.unmarshal(src);
 		else if (namespaceURI.equals(WaterBodyModule.v2_0_0.getNamespaceURI()))
 			dest = wtr200.unmarshal(src);
-		
+
 		// CityGML version 1.0.0
 		else if (namespaceURI.equals(AppearanceModule.v1_0_0.getNamespaceURI()))
 			dest = app100.unmarshal(src);
@@ -236,57 +198,28 @@ public class CityGMLUnmarshaller {
 		else if (namespaceURI.equals(WaterBodyModule.v1_0_0.getNamespaceURI()))
 			dest = wtr100.unmarshal(src);
 
-		// CityGML version 0.4.0
-		else if (namespaceURI.equals(CoreModule.v0_4_0.getNamespaceURI())) {			
-			dest = app040.unmarshal(src);			
-			if (dest == null)
-				dest = bldg040.unmarshal(src);			
-			if (dest == null)
-				dest = frn040.unmarshal(src);			
-			if (dest == null)
-				dest = grp040.unmarshal(src);			
-			if (dest == null)
-				dest = core040.unmarshal(src);			
-			if (dest == null)
-				dest = gen040.unmarshal(src);			
-			if (dest == null)
-				dest = luse040.unmarshal(src);			
-			if (dest == null)
-				dest = dem040.unmarshal(src);			
-			if (dest == null)
-				dest = tex040.unmarshal(src);			
-			if (dest == null)
-				dest = tran040.unmarshal(src);			
-			if (dest == null)
-				dest = veg040.unmarshal(src);			
-			if (dest == null)
-				dest = wtr040.unmarshal(src);			
-		}
-
 		return dest;
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
 			return unmarshal((JAXBElement<?>)src);
-		
+
 		CityGMLModule module = getCityGMLModule(src);
 		if (module == null)
 			return null;
-		
+
 		CityGML dest = null;
 		CityGMLModuleType type = module.getType();
 		CityGMLModuleVersion version = module.getVersion();
-		
+
 		if (type == CityGMLModuleType.APPEARANCE) {
 			if (version == CityGMLModuleVersion.v2_0_0)
 				dest = app200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = app100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = app040.unmarshal(src);
 		}
-		
+
 		else if (type == CityGMLModuleType.BRIDGE) {
 			dest = brid200.unmarshal(src);
 		}
@@ -296,8 +229,6 @@ public class CityGMLUnmarshaller {
 				dest = bldg200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = bldg100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = bldg040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.CITY_FURNITURE) {
@@ -305,8 +236,6 @@ public class CityGMLUnmarshaller {
 				dest = frn200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = frn100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = frn040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.CITY_OBJECT_GROUP) {
@@ -314,8 +243,6 @@ public class CityGMLUnmarshaller {
 				dest = grp200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = grp100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = grp040.unmarshal(src);
 		}	
 
 		else if (type == CityGMLModuleType.GENERICS) {
@@ -323,16 +250,12 @@ public class CityGMLUnmarshaller {
 				dest = gen200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = gen100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = gen040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.LAND_USE) {
 			if (version == CityGMLModuleVersion.v2_0_0)
 				dest = luse200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
-				dest = luse100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
 				dest = luse100.unmarshal(src);
 		}
 
@@ -341,8 +264,6 @@ public class CityGMLUnmarshaller {
 				dest = dem200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = dem100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = dem040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.TEXTURED_SURFACE) {
@@ -350,8 +271,6 @@ public class CityGMLUnmarshaller {
 				dest = tex200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = tex100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = tex040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.TRANSPORTATION) {
@@ -359,10 +278,8 @@ public class CityGMLUnmarshaller {
 				dest = tran200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = tran100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = tran040.unmarshal(src);
 		}
-		
+
 		else if (type == CityGMLModuleType.TUNNEL) {
 			dest = tun200.unmarshal(src);
 		}
@@ -372,8 +289,6 @@ public class CityGMLUnmarshaller {
 				dest = veg200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = veg100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = veg040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.WATER_BODY) {
@@ -381,8 +296,6 @@ public class CityGMLUnmarshaller {
 				dest = wtr200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = wtr100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = wtr040.unmarshal(src);
 		}
 
 		else if (type == CityGMLModuleType.CORE) {
@@ -390,8 +303,6 @@ public class CityGMLUnmarshaller {
 				dest = core200.unmarshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = core100.unmarshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = core040.unmarshal(src);
 		}			
 
 		return dest;
@@ -427,7 +338,7 @@ public class CityGMLUnmarshaller {
 			else if (namespaceURI.equals(WaterBodyModule.v2_0_0.getNamespaceURI()))
 				return wtr200.assignGenericProperty(genericProperty, substitutionGroup, dest);	
 		}
-		
+
 		else if (version == CityGMLModuleVersion.v1_0_0) {			
 			if (namespaceURI.equals(AppearanceModule.v1_0_0.getNamespaceURI()))
 				return app100.assignGenericProperty(genericProperty, substitutionGroup, dest);
@@ -451,43 +362,17 @@ public class CityGMLUnmarshaller {
 				return wtr100.assignGenericProperty(genericProperty, substitutionGroup, dest);	
 		}
 
-		else if (version == CityGMLModuleVersion.v0_4_0) {
-			if (namespaceURI.equals(CoreModule.v0_4_0.getNamespaceURI())) {
-				boolean success = app040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = bldg040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = frn040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = grp040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = core040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = luse040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = dem040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = tran040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = veg040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)	
-					success = wtr040.assignGenericProperty(genericProperty, substitutionGroup, dest);
-
-				return success;
-			}
-		}
-
 		return false;
 	}
 
 	public JAXBUnmarshaller getJAXBUnmarshaller() {
 		return jaxb;
 	}
-	
+
 	public Appearance200Unmarshaller getAppearance200Unmarshaller() {
 		return app200;
 	}
-	
+
 	public Bridge200Unmarshaller getBridge200Unmarshaller() {
 		return brid200;
 	}
@@ -523,7 +408,7 @@ public class CityGMLUnmarshaller {
 	public TexturedSurface200Unmarshaller getTexturedSurface200Unmarshaller() {
 		return tex200;
 	}
-	
+
 	public Tunnel200Unmarshaller getTunnel200Unmarshaller() {
 		return tun200;
 	}
@@ -588,73 +473,20 @@ public class CityGMLUnmarshaller {
 		return wtr100;
 	}
 
-	public Appearance040Unmarshaller getAppearance040Unmarshaller() {
-		return app040;
-	}
-
-	public Building040Unmarshaller getBuilding040Unmarshaller() {
-		return bldg040;
-	}
-
-	public CityFurniture040Unmarshaller getCityFurniture040Unmarshaller() {
-		return frn040;
-	}
-
-	public CityObjectGroup040Unmarshaller getCityObjectGroup040Unmarshaller() {
-		return grp040;
-	}
-
-	public Core040Unmarshaller getCore040Unmarshaller() {
-		return core040;
-	}
-
-	public Generics040Unmarshaller getGenerics040Unmarshaller() {
-		return gen040;
-	}
-
-	public LandUse040Unmarshaller getLandUse040Unmarshaller() {
-		return luse040;
-	}
-
-	public Relief040Unmarshaller getRelief040Unmarshaller() {
-		return dem040;
-	}
-
-	public TexturedSurface040Unmarshaller getTexturedSurface040Unmarshaller() {
-		return tex040;
-	}
-
-	public Transportation040Unmarshaller getTransportation040Unmarshaller() {
-		return tran040;
-	}
-
-	public Vegetation040Unmarshaller getVegetation040Unmarshaller() {
-		return veg040;
-	}
-
-	public WaterBody040Unmarshaller getWaterBody040Unmarshaller() {
-		return wtr040;
-	}
-	
 	private CityGMLModule getCityGMLModule(Object src) {
-		 if (src.getClass().getPackage().getName().startsWith("org.citygml4j.jaxb.citygml")) {
+		if (src != null && src.getClass().getPackage().getName().startsWith("org.citygml4j.jaxb.citygml")) {
 			String packagePart = src.getClass().getPackage().getName().replaceFirst("org.citygml4j.jaxb.citygml", "");
 			String versionPart = packagePart.substring(packagePart.lastIndexOf('.') + 1, packagePart.length());
-
-			if (versionPart.equals("_0_4"))
-				return CoreModule.v0_4_0;
-			else {
-				String modulePart = packagePart.substring(1, packagePart.lastIndexOf('.'));
-				CityGMLModuleVersion version = versionPart.equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
-
-				for (CityGMLModule module : Modules.getCityGMLModules()) {
-					if (module.getVersion() == version && module.getNamespacePrefix().equals(modulePart))
-						return module;
-				}			
-			}
+			String modulePart = packagePart.substring(1, packagePart.lastIndexOf('.'));
+			
+			CityGMLModuleVersion version = versionPart.equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
+			for (CityGMLModule module : Modules.getCityGMLModules()) {
+				if (module.getVersion() == version && module.getNamespacePrefix().equals(modulePart))
+					return module;
+			}			
 		}
 
 		return null;
 	}
-	
+
 }

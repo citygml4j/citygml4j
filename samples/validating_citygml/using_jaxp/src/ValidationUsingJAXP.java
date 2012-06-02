@@ -65,8 +65,8 @@ public class ValidationUsingJAXP {
 			}
 		});
 		
-		System.out.println(df.format(new Date()) + "validating CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml");		
-		validator.validate(new StreamSource("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
+		System.out.println(df.format(new Date()) + "validating CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml");		
+		validator.validate(new StreamSource("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}

@@ -34,7 +34,6 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleContext;
-import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
@@ -84,11 +83,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 			featureSplitter.setSplitCopy(
 					(Boolean)factory.getProperty(CityGMLOutputFactory.SPLIT_COPY));			
 			featureSplitter.setExcludes(
-					(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));
-		
-			// CityGML 0.4.0 fix
-			if (moduleContext.contains(BuildingModule.v0_4_0))
-				featureSplitter.setCityGML040Excludes();
+					(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));		
 		}
 		
 		if (useValidation) {

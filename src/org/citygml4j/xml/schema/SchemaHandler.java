@@ -28,8 +28,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -74,6 +74,9 @@ public class SchemaHandler {
 		SchemaHandler schemaHandler = new SchemaHandler();
 		schemaHandler.schemaSets.addAll(instance.schemaSets);
 		schemaHandler.visited.putAll(instance.visited);
+		
+		// CityGML 0.4.0
+		schemaHandler.schemaLocations.put("http://www.citygml.org/citygml/1/0/0", SchemaHandler.class.getResource("/schemas/CityGML/0.4.0/CityGML.xsd").toString());
 
 		return schemaHandler;
 	}
@@ -100,6 +103,15 @@ public class SchemaHandler {
 		Schema schema = schemas.get(namespaceURI);
 		if (schema != null)
 			return schema;
+		
+		// CityGML 0.4.0
+		if ("http://www.citygml.org/citygml/1/0/0".equals(namespaceURI)) {
+			try {
+				parse(schemaLocations.get(namespaceURI));
+			} catch (SAXException e) {
+				// 
+			}
+		}
 
 		XSSchemaSet schemaSet = getXSSchemaSet(namespaceURI);
 		if (schemaSet != null) {
@@ -137,6 +149,10 @@ public class SchemaHandler {
 
 	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation) {
 		if (Modules.getModule(namespaceURI) != null)
+			return false;
+		
+		// CityGML 0.4.0
+		if ("http://www.citygml.org/citygml/1/0/0".equals(namespaceURI))
 			return false;
 
 		schemaLocations.put(namespaceURI, schemaLocation.toURI().toString());

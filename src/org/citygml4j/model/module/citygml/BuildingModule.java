@@ -52,7 +52,6 @@ public class BuildingModule extends AbstractCityGMLModule {
 
 	public static final BuildingModule v2_0_0;
 	public static final BuildingModule v1_0_0;
-	public static final BuildingModule v0_4_0;
 
 	private BuildingModule (
 			CityGMLModuleType type, 
@@ -82,14 +81,6 @@ public class BuildingModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/building/1.0/building.xsd",			
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new BuildingModule (
-				CityGMLModuleType.BUILDING,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("Building", Building.class);
 		v2_0_0.elementMap.put("BuildingPart", BuildingPart.class);
@@ -106,7 +97,7 @@ public class BuildingModule extends AbstractCityGMLModule {
 		v2_0_0.elementMap.put("GroundSurface", GroundSurface.class);
 		v2_0_0.elementMap.put("Window", Window.class);
 		v2_0_0.elementMap.put("Door", Door.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 		
 		v2_0_0.elementMap.put("OuterFloorSurface", OuterFloorSurface.class);
 		v2_0_0.elementMap.put("OuterCeilingSurface", OuterCeilingSurface.class);
@@ -121,7 +112,7 @@ public class BuildingModule extends AbstractCityGMLModule {
 		v2_0_0.propertySet.add("consistsOfBuildingPart");
 		v2_0_0.propertySet.add("interiorFurniture");
 		v2_0_0.propertySet.add("roomInstallation");
-		v0_4_0.propertySet = v1_0_0.propertySet = v2_0_0.propertySet;
+		v1_0_0.propertySet = v2_0_0.propertySet;
 	}
 	
 	public static List<BuildingModule> getInstances() {
@@ -134,8 +125,6 @@ public class BuildingModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

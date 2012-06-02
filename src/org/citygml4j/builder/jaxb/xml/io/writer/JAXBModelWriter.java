@@ -337,7 +337,8 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			// turn validation on
 			if (useValidation) {
 				marshaller.setSchema(validationSchemaHandler.getSchema());
-				marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper());
+				marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", 
+						new JAXBNamespacePrefixMapper(jaxbMarshaller.getModuleContext()));
 				if (validationEventHandler != null)
 					marshaller.setEventHandler(validationEventHandler);
 			}

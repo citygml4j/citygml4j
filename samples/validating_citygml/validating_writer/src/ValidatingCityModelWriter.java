@@ -71,11 +71,11 @@ public class ValidatingCityModelWriter {
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 
 		System.out.println(df.format(new Date()) + "creating validating CityGML 1.0.0 chunk-writer");
 		CityGMLVersion version = CityGMLVersion.v1_0_0;
@@ -91,7 +91,7 @@ public class ValidatingCityModelWriter {
 		});		
 		
 		System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 		writer.setPrefixes(version);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
@@ -114,7 +114,7 @@ public class ValidatingCityModelWriter {
 		reader.close();
 		writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

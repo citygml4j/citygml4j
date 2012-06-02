@@ -307,8 +307,6 @@ public class GMLMarshaller {
 			dest = jaxb.getCityGMLMarshaller().getTexturedSurface200Marshaller().marshalJAXBElement(src);
 		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
 			dest = jaxb.getCityGMLMarshaller().getTexturedSurface100Marshaller().marshalJAXBElement(src);
-		else if (src instanceof org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)
-			dest = jaxb.getCityGMLMarshaller().getTexturedSurface040Marshaller().marshalJAXBElement(src);
 		else if (src instanceof OrientableSurfaceType)
 			dest = gml.createOrientableSurface((OrientableSurfaceType)src);
 		else if (src instanceof PointType)

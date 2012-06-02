@@ -117,7 +117,8 @@ public class JAXBValidator implements Validator {
 				if (jaxb != null) {
 					try {
 						Marshaller m = builder.getJAXBContext().createMarshaller();
-						m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper());
+						m.setProperty("com.sun.xml.bind.namespacePrefixMapper", 
+								new JAXBNamespacePrefixMapper(moduleContext));
 						m.setSchema(schema);
 
 						if (validationEventHandler != null)

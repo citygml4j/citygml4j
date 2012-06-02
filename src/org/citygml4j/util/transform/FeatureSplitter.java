@@ -32,11 +32,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
-import org.citygml4j.model.citygml.building.BuildingFurniture;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -154,14 +149,6 @@ public class FeatureSplitter {
 			throw new IllegalArgumentException("set of excludes may not be null.");
 
 		this.excludes = excludes;
-	}
-
-	public void setCityGML040Excludes() {
-		excludes.add(BuildingPart.class);
-		excludes.add(BuildingInstallation.class);
-		excludes.add(IntBuildingInstallation.class);
-		excludes.add(Room.class);
-		excludes.add(BuildingFurniture.class);
 	}
 
 	public void setKeepInlineAppearance(boolean keepInlineAppearance) {

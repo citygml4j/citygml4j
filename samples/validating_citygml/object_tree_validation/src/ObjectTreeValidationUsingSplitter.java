@@ -70,11 +70,11 @@ public class ObjectTreeValidationUsingSplitter {
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
 		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.NO_SPLIT);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 		CityGML citygml = reader.nextFeature();		
 		reader.close();
 		

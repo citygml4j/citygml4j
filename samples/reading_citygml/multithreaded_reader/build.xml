@@ -27,7 +27,7 @@
         The sample application uses a thread pool to unmarshal chunks of
     	a CityGML dataset in a parallel way.
     </description>
-	<property name="mem.size.max" value="768m" />
+	<property name="mem.size.max" value="180m" />
     <property name="lib" value="../../../lib"/>
 	<property name="datasets" value="../../../samples/datasets"/>
     <path id="classpath">
@@ -52,6 +52,7 @@
         <echo message="Running sample citygml4j application..."/>
         <java classname="MultithreadedReader" fork="true">
             <classpath refid="classpath"/>
+        	<jvmarg value="-Xmx${mem.size.max}" />
         </java>
     </target>
 

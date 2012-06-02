@@ -153,7 +153,7 @@ public class ElementDecl {
 
 			switch (module.getVersion()) {
 			case v3_1_1:
-				isAbstractGML = isDerivedFromComplexType(gml, module.getNamespaceURI(), "AbstractGMLType");
+				isAbstractGML = isDerivedFromComplexType(gml, "AbstractGMLType");
 				break;
 			}
 
@@ -188,7 +188,7 @@ public class ElementDecl {
 
 			switch (module.getVersion()) {
 			case v3_1_1:
-				isFeature = isDerivedFromComplexType(gml, module.getNamespaceURI(), "AbstractFeatureType");
+				isFeature = isDerivedFromComplexType(gml, "AbstractFeatureType");
 				break;
 			}
 
@@ -221,7 +221,7 @@ public class ElementDecl {
 
 			switch (module.getVersion()) {
 			case v3_1_1:
-				isFeatureCollection = isDerivedFromComplexType(gml, module.getNamespaceURI(), "AbstractFeatureCollectionType");
+				isFeatureCollection = isDerivedFromComplexType(gml, "AbstractFeatureCollectionType");
 				break;
 			}
 
@@ -255,7 +255,7 @@ public class ElementDecl {
 
 			switch (module.getVersion()) {
 			case v3_1_1:
-				isGeometry = isDerivedFromComplexType(gml, module.getNamespaceURI(), "AbstractGeometryType");
+				isGeometry = isDerivedFromComplexType(gml, "AbstractGeometryType");
 				break;
 			}
 
@@ -285,18 +285,13 @@ public class ElementDecl {
 			if (core == null)
 				continue;
 
-			switch (module.getVersion()) {
-			case v1_0_0:
-				isCityObject = isDerivedFromComplexType(core, module.getNamespaceURI(), "AbstractCityObjectType");
-				break;
-			case v0_4_0:
-				isCityObject = isDerivedFromComplexType(core, module.getNamespaceURI(), "_CityObjectType");
-				break;
-			}					
-
+			isCityObject = isDerivedFromComplexType(core, "AbstractCityObjectType");
 			if (isCityObject)
 				break;
 		}
+		
+		if (!isCityObject && schema.schemaSet.getSchema("http://www.citygml.org/citygml/1/0/0") != null)
+			isCityObject = isDerivedFromComplexType(schema.schemaSet.getSchema("http://www.citygml.org/citygml/1/0/0"), "_CityObjectType");
 
 		if (isCityObject) {
 			typeFlag.add(TypeFlag.ABSTRACT_GML);
@@ -431,7 +426,7 @@ public class ElementDecl {
 		return hasXLink[0];
 	}
 
-	private boolean isDerivedFromComplexType(XSSchema schema, String namespaceURI, String localPart) {
+	private boolean isDerivedFromComplexType(XSSchema schema, String localPart) {
 		XSType base = schema.getType(localPart);
 		if (base != null) {
 			if (base.isSimpleType()) {

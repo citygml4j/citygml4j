@@ -24,15 +24,12 @@ package org.citygml4j.builder.jaxb;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import org.citygml4j.model.module.Module;
-import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
-import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.citygml.GenericsModule;
@@ -52,7 +49,7 @@ public class JAXBContextPath {
 	static {
 		contextPathMap = new HashMap<Module, String>();
 
-		// CityGML 1.1
+		// CityGML 2.0
 		contextPathMap.put(CoreModule.v2_0_0, "org.citygml4j.jaxb.citygml.core._2");
 		contextPathMap.put(AppearanceModule.v2_0_0, "org.citygml4j.jaxb.citygml.app._2");
 		contextPathMap.put(BridgeModule.v2_0_0, "org.citygml4j.jaxb.citygml.brid._2");
@@ -82,9 +79,6 @@ public class JAXBContextPath {
 		contextPathMap.put(VegetationModule.v1_0_0, "org.citygml4j.jaxb.citygml.veg._1");
 		contextPathMap.put(WaterBodyModule.v1_0_0, "org.citygml4j.jaxb.citygml.wtr._1");
 		
-		// CityGML 0.4
-		contextPathMap.put(CoreModule.v0_4_0, "org.citygml4j.jaxb.citygml._0_4");
-		
 		// GML 3.1.1 and xAL 2.0
 		contextPathMap.put(GMLCoreModule.v3_1_1, "org.citygml4j.jaxb.gml._3_1_1");
 		contextPathMap.put(XALCoreModule.v2_0, "org.citygml4j.jaxb.xal");
@@ -111,49 +105,6 @@ public class JAXBContextPath {
 		}
 		
 		return builder.toString();	
-	}
-	
-	public static String getContextPath(List<? extends Module> modules) {
-		HashSet<String> contextPaths = new HashSet<String>();
-
-		for (Module module : modules) {
-			String contextPath = contextPathMap.get(module);
-			if (contextPath != null)
-				contextPaths.add(contextPath);
-		}
-
-		return createContextPath(contextPaths);
-	}
-	
-	public static String getContextPath(List<? extends Module> modules, String... packageNames) {
-		StringBuilder builder = new StringBuilder(getContextPath(modules));
-		
-		for (String contextPath : packageNames) {
-			builder.append(":");
-			builder.append(contextPath);
-		}
-		
-		return builder.toString();
-	}
-	
-	public static String getContextPath(CityGMLVersion version) {
-		return getContextPath(version.getModules());
-	}
-	
-	public static String getContextPath(CityGMLVersion version, String... packageNames) {
-		return getContextPath(version.getModules(), packageNames);
-	}
-	
-	public static String getContextPath(ModuleContext moduleContext) {
-		return getContextPath(moduleContext.getModules());
-	}
-	
-	public static String getContextPath(ModuleContext moduleContext, String... packageNames) {
-		return getContextPath(moduleContext.getModules(), packageNames);
-	}
-
-	public static String getContextPath(Module... modules) {
-		return getContextPath(modules);
 	}
 
 	private static String createContextPath(HashSet<String> contextPaths) {

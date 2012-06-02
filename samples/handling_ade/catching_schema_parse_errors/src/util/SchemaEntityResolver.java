@@ -33,8 +33,8 @@ public class SchemaEntityResolver implements EntityResolver {
 		System.out.println("SCHEMA ENTITY RESOLVE ERROR: Failed to parse schema '" + publicId + "' when reading from '" + systemId +"'");
 		
 		InputSource inputSource = null;
-		if (publicId.equals("http://www.citygml.org/ade/noise_de")) {
-			inputSource = new InputSource("../../datasets/schemas/CityGML-NoiseADE-0-5-0.xsd");
+		if (publicId.equals("http://www.citygml.org/ade/noise_de/2.0")) {
+			inputSource = new InputSource("../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd");
 			System.out.println("FIX: Reading from '" + inputSource.getSystemId() + "'\n");
 		}
 			

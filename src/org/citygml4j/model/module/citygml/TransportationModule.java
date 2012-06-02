@@ -42,7 +42,6 @@ public class TransportationModule extends AbstractCityGMLModule {
 
 	public static final TransportationModule v2_0_0;
 	public static final TransportationModule v1_0_0;
-	public static final TransportationModule v0_4_0;
 
 	private TransportationModule (
 			CityGMLModuleType type, 
@@ -72,14 +71,6 @@ public class TransportationModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/transportation/1.0/transportation.xsd",			
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new TransportationModule (
-				CityGMLModuleType.TRANSPORTATION,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("TransportationComplex", TransportationComplex.class);
 		v2_0_0.elementMap.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
@@ -88,12 +79,12 @@ public class TransportationModule extends AbstractCityGMLModule {
 		v2_0_0.elementMap.put("Track", Track.class);
 		v2_0_0.elementMap.put("Railway", Railway.class);
 		v2_0_0.elementMap.put("Road", Road.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 		
 		v2_0_0.propertySet = new HashSet<String>();
 		v2_0_0.propertySet.add("trafficArea");
 		v2_0_0.propertySet.add("auxiliaryTrafficArea");
-		v0_4_0.propertySet = v1_0_0.propertySet = v2_0_0.propertySet;
+		v1_0_0.propertySet = v2_0_0.propertySet;
 	}
 
 	public static List<TransportationModule> getInstances() {
@@ -106,8 +97,6 @@ public class TransportationModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

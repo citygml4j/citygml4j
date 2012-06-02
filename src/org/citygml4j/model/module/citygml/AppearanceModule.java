@@ -39,7 +39,6 @@ public class AppearanceModule extends AbstractCityGMLModule {
 
 	public static final AppearanceModule v2_0_0;
 	public static final AppearanceModule v1_0_0;
-	public static final AppearanceModule v0_4_0;
 
 	private AppearanceModule (
 			CityGMLModuleType type, 
@@ -69,30 +68,18 @@ public class AppearanceModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/appearance/1.0/appearance.xsd",		
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new AppearanceModule (
-				CityGMLModuleType.APPEARANCE,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("Appearance", Appearance.class);
 		v2_0_0.elementMap.put("ParameterizedTexture", ParameterizedTexture.class);
 		v2_0_0.elementMap.put("GeoreferencedTexture", GeoreferencedTexture.class);
 		v2_0_0.elementMap.put("X3DMaterial", X3DMaterial.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 		
 		v2_0_0.propertySet = new HashSet<String>();
 		v2_0_0.propertySet.add("appearance");
 		v2_0_0.propertySet.add("appearanceMember");
 		v2_0_0.propertySet.add("surfaceDataMember");
 		v1_0_0.propertySet = v2_0_0.propertySet;
-		
-		v0_4_0.propertySet = new HashSet<String>();
-		v0_4_0.propertySet.add("appearanceMember");
-		v0_4_0.propertySet.add("surfaceDataMember");
 	}
 
 	public static List<AppearanceModule> getInstances() {
@@ -105,8 +92,6 @@ public class AppearanceModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

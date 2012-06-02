@@ -53,9 +53,9 @@ public class UnmarshallingADE {
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
@@ -104,7 +104,7 @@ public class UnmarshallingADE {
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
 		out.setSchemaHandler(schemaHandler);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_processed_v100.xml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_processed_v100.gml"));
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
 		writer.setDefaultNamespace(CoreModule.v1_0_0);

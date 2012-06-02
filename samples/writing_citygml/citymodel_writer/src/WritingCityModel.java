@@ -51,43 +51,39 @@ public class WritingCityModel {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Ettenheim_v100.xml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v200.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
-		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, Boolean.TRUE);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Ettenheim_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Building_v200.gml"));
 
-		System.out.println(df.format(new Date()) + "creating CityGML 0.4.0 model writer");
+		System.out.println(df.format(new Date()) + "creating CityGML 1.0.0 model writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-
-		// please note that in CityGML 0.4.0 it is not allowed to reference
-		// BuildingPart,  BuildingInstallation, IntBuildingInstallation, Room, or
-		// BuildingFurniture instances using an xlink:href. Both the CityModelWriter 
-		// and the CityGMLWriter automatically take care of this fact when splitting features. 
-		// Try and change the CityGMLVersion to v1_0_0 to see the difference!
-		CityGMLVersion version = CityGMLVersion.v0_4_0;
+		CityGMLVersion version = CityGMLVersion.v1_0_0;
 
 		System.out.println(df.format(new Date()) + "splitting citygml4j object by feature members whilst writing to file");
 		FeatureWriteMode writeMode = FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER;
 		Class<?>[] excludeList = new Class<?>[]{AbstractOpening.class};
 		boolean splitOnCopy = false;
+		boolean keepInlineAppearance = true;
 
 		out.setCityGMLVersion(version);
 
 		out.setProperty(CityGMLOutputFactory.FEATURE_WRITE_MODE, writeMode);
 		out.setProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING, excludeList);
 		out.setProperty(CityGMLOutputFactory.SPLIT_COPY, splitOnCopy);
+		out.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, keepInlineAppearance);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD3_Ettenheim_split.xml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD3_Building_v200_split.gml"));
 		writer.setPrefixes(version);
-		writer.setDefaultNamespace(CoreModule.v0_4_0);
+		writer.setDefaultNamespace(CoreModule.v1_0_0);
 		writer.setSchemaLocations(version);
 		writer.setIndentString("  ");
 		writer.setHeaderComment("written by citygml4j", 
 				"using a CityModelWriter instance", 
 				"Split mode: " + writeMode, 
-				"Split on copy: " + splitOnCopy);
+				"Split on copy: " + splitOnCopy,
+				"Keep inline appearance: " + keepInlineAppearance);
 
 		boolean isInited = false;
 
@@ -116,7 +112,7 @@ public class WritingCityModel {
 		reader.close();
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD3_Ettenheim_split.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD3_Building_v200_split.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

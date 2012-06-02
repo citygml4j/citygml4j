@@ -52,12 +52,12 @@ public class MissingSchemaReference {
 		schemaHandler.setSchemaEntityResolver(new SchemaEntityResolver());
 		schemaHandler.setErrorHandler(new SchemaParseErrorHandler());
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_missing_ADE_reference_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_missing_ADE_reference_v200.gml");
 		System.out.println(df.format(new Date()) + "note: the input document is lacking a reference to the ADE schema document");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_missing_ADE_reference_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_missing_ADE_reference_v200.gml"));
 		
 		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();

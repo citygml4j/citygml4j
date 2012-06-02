@@ -35,7 +35,6 @@ public class GenericsModule extends AbstractCityGMLModule {
 
 	public static final GenericsModule v2_0_0;
 	public static final GenericsModule v1_0_0;
-	public static final GenericsModule v0_4_0;
 
 	private GenericsModule (
 			CityGMLModuleType type, 
@@ -65,17 +64,9 @@ public class GenericsModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/generics/1.0/generics.xsd",			
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new GenericsModule (
-				CityGMLModuleType.GENERICS,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
-		
 		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
 		v2_0_0.elementMap.put("GenericCityObject", GenericCityObject.class);
-		v0_4_0.elementMap = v1_0_0.elementMap = v2_0_0.elementMap;
+		v1_0_0.elementMap = v2_0_0.elementMap;
 	}
 
 	public static List<GenericsModule> getInstances() {
@@ -88,8 +79,6 @@ public class GenericsModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

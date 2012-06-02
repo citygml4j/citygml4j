@@ -122,7 +122,7 @@ public class BuildingCreator {
 
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.DEFAULT);
-		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_v200.xml"));
+		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_v200.gml"));
 
 		writer.setPrefixes(CityGMLVersion.DEFAULT);
 		writer.setSchemaLocations(CityGMLVersion.DEFAULT);
@@ -130,7 +130,7 @@ public class BuildingCreator {
 		writer.write(cityModel);
 		writer.close();	
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v200.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

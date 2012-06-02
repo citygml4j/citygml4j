@@ -26,42 +26,30 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.bridge.Bridge200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.building.Building040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.building.Building100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.building.Building200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.cityfurniture.CityFurniture040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityfurniture.CityFurniture100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityfurniture.CityFurniture200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup.CityObjectGroup040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup.CityObjectGroup100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup.CityObjectGroup200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.core.Core040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.core.Core100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.core.Core200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.generics.Generics040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.generics.Generics100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.generics.Generics200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.landuse.LandUse040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.landuse.LandUse100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.landuse.LandUse200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.relief.Relief040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.relief.Relief100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.relief.Relief200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.texturedsurface.TexturedSurface040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.texturedsurface.TexturedSurface100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.texturedsurface.TexturedSurface200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.transportation.Transportation040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.transportation.Transportation100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.transportation.Transportation200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.tunnel.Tunnel200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.vegetation.Vegetation040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.vegetation.Vegetation100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.vegetation.Vegetation200Marshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody040Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody200Marshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -130,19 +118,6 @@ public class CityGMLMarshaller {
 	private final Vegetation100Marshaller veg100;
 	private final WaterBody100Marshaller wtr100;
 
-	private final Appearance040Marshaller app040;
-	private final Building040Marshaller bldg040;
-	private final CityFurniture040Marshaller frn040;
-	private final CityObjectGroup040Marshaller grp040;
-	private final Core040Marshaller core040;
-	private final Generics040Marshaller gen040;
-	private final LandUse040Marshaller luse040;
-	private final Relief040Marshaller dem040;
-	private final TexturedSurface040Marshaller tex040;
-	private final Transportation040Marshaller tran040;
-	private final Vegetation040Marshaller veg040;
-	private final WaterBody040Marshaller wtr040;
-
 	public CityGMLMarshaller(JAXBMarshaller jaxb) {
 		this.jaxb = jaxb;	
 
@@ -173,26 +148,13 @@ public class CityGMLMarshaller {
 		tran100 = new Transportation100Marshaller(this);
 		veg100 = new Vegetation100Marshaller(this);
 		wtr100 = new WaterBody100Marshaller(this);
-
-		core040 = new Core040Marshaller(this);
-		app040 = new Appearance040Marshaller(this);
-		bldg040 = new Building040Marshaller(this);
-		frn040 = new CityFurniture040Marshaller(this);
-		grp040 = new CityObjectGroup040Marshaller(this);
-		gen040 = new Generics040Marshaller(this);
-		luse040 = new LandUse040Marshaller(this);
-		dem040 = new Relief040Marshaller(this);
-		tex040 = new TexturedSurface040Marshaller(this);
-		tran040 = new Transportation040Marshaller(this);
-		veg040 = new Vegetation040Marshaller(this);
-		wtr040 = new WaterBody040Marshaller(this);		
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {		
 		CityGMLModule module = getCityGMLModule(src);
 		if (module == null)
 			return null;
-		
+
 		JAXBElement<?> dest = null;
 		CityGMLModuleType type = module.getType();
 		CityGMLModuleVersion version = module.getVersion();
@@ -202,10 +164,8 @@ public class CityGMLMarshaller {
 				dest = app200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = app100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = app040.marshalJAXBElement(src);
 		}
-		
+
 		else if (type == CityGMLModuleType.BRIDGE) {
 			dest = brid200.marshalJAXBElement(src);
 		}
@@ -215,8 +175,6 @@ public class CityGMLMarshaller {
 				dest = bldg200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = bldg100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = bldg040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.CITY_FURNITURE) {
@@ -224,8 +182,6 @@ public class CityGMLMarshaller {
 				dest = frn200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = frn100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = frn040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.CITY_OBJECT_GROUP) {
@@ -233,8 +189,6 @@ public class CityGMLMarshaller {
 				dest = grp200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = grp100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = grp040.marshalJAXBElement(src);
 		}		
 
 		else if (type == CityGMLModuleType.GENERICS) {
@@ -242,8 +196,6 @@ public class CityGMLMarshaller {
 				dest = gen200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = gen100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = gen040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.LAND_USE) {
@@ -251,8 +203,6 @@ public class CityGMLMarshaller {
 				dest = luse200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = luse100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = luse040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.RELIEF) {
@@ -260,8 +210,6 @@ public class CityGMLMarshaller {
 				dest = dem200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = dem100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = dem040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.TEXTURED_SURFACE) {
@@ -269,8 +217,6 @@ public class CityGMLMarshaller {
 				dest = tex200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = tex100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = tex040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.TRANSPORTATION) {
@@ -278,10 +224,8 @@ public class CityGMLMarshaller {
 				dest = tran200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = tran100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = tran040.marshalJAXBElement(src);
 		}
-		
+
 		else if (type == CityGMLModuleType.TUNNEL) {
 			dest = tun200.marshalJAXBElement(src);
 		}
@@ -291,8 +235,6 @@ public class CityGMLMarshaller {
 				dest = veg200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = veg100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = veg040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.WATER_BODY) {
@@ -300,8 +242,6 @@ public class CityGMLMarshaller {
 				dest = wtr200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = wtr100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = wtr040.marshalJAXBElement(src);
 		}
 
 		else if (type == CityGMLModuleType.CORE) {
@@ -309,8 +249,6 @@ public class CityGMLMarshaller {
 				dest = core200.marshalJAXBElement(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = core100.marshalJAXBElement(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = core040.marshalJAXBElement(src);
 		}
 
 		return dest;
@@ -320,7 +258,7 @@ public class CityGMLMarshaller {
 		CityGMLModule module = getCityGMLModule(src);
 		if (module == null)
 			return null;
-		
+
 		Object dest = null;
 		CityGMLModuleType type = module.getType();
 		CityGMLModuleVersion version = module.getVersion();
@@ -330,10 +268,8 @@ public class CityGMLMarshaller {
 				dest = app200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = app100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = app040.marshal(src);
 		}
-		
+
 		else if (type == CityGMLModuleType.BRIDGE) {
 			dest = brid200.marshal(src);
 		}
@@ -343,8 +279,6 @@ public class CityGMLMarshaller {
 				dest = bldg200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = bldg100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = bldg040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.CITY_FURNITURE) {
@@ -352,8 +286,6 @@ public class CityGMLMarshaller {
 				dest = frn200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = frn100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = frn040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.CITY_OBJECT_GROUP) {
@@ -361,8 +293,6 @@ public class CityGMLMarshaller {
 				dest = grp200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = grp100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = grp040.marshal(src);
 		}	
 
 		else if (type == CityGMLModuleType.GENERICS) {
@@ -370,16 +300,12 @@ public class CityGMLMarshaller {
 				dest = gen200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = gen100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = gen040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.LAND_USE) {
 			if (version == CityGMLModuleVersion.v2_0_0)
 				dest = luse200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
-				dest = luse100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
 				dest = luse100.marshal(src);
 		}
 
@@ -388,8 +314,6 @@ public class CityGMLMarshaller {
 				dest = dem200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = dem100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = dem040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.TEXTURED_SURFACE) {
@@ -397,8 +321,6 @@ public class CityGMLMarshaller {
 				dest = tex200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = tex100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = tex040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.TRANSPORTATION) {
@@ -406,10 +328,8 @@ public class CityGMLMarshaller {
 				dest = tran200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = tran100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = tran040.marshal(src);
 		}
-		
+
 		else if (type == CityGMLModuleType.TUNNEL) {
 			dest = tun200.marshal(src);
 		}
@@ -419,8 +339,6 @@ public class CityGMLMarshaller {
 				dest = veg200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = veg100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = veg040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.WATER_BODY) {
@@ -428,8 +346,6 @@ public class CityGMLMarshaller {
 				dest = wtr200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = wtr100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = wtr040.marshal(src);
 		}
 
 		else if (type == CityGMLModuleType.CORE) {
@@ -437,8 +353,6 @@ public class CityGMLMarshaller {
 				dest = core200.marshal(src);
 			else if (version == CityGMLModuleVersion.v1_0_0)
 				dest = core100.marshal(src);
-			else if (version == CityGMLModuleVersion.v0_4_0)
-				dest = core040.marshal(src);
 		}
 
 		return dest;
@@ -557,54 +471,6 @@ public class CityGMLMarshaller {
 		return wtr100;
 	}	
 
-	public Appearance040Marshaller getAppearance040Marshaller() {
-		return app040;
-	}
-
-	public Building040Marshaller getBuilding040Marshaller() {
-		return bldg040;
-	}
-
-	public CityFurniture040Marshaller getCityFurniture040Marshaller() {
-		return frn040;
-	}
-
-	public CityObjectGroup040Marshaller getCityObjectGroup040Marshaller() {
-		return grp040;
-	}
-
-	public Core040Marshaller getCore040Marshaller() {
-		return core040;
-	}
-
-	public Generics040Marshaller getGenerics040Marshaller() {
-		return gen040;
-	}
-
-	public LandUse040Marshaller getLandUse040Marshaller() {
-		return luse040;
-	}
-
-	public Relief040Marshaller getRelief040Marshaller() {
-		return dem040;
-	}
-
-	public TexturedSurface040Marshaller getTexturedSurface040Marshaller() {
-		return tex040;
-	}
-
-	public Transportation040Marshaller getTransportation040Marshaller() {
-		return tran040;
-	}
-
-	public Vegetation040Marshaller getVegetation040Marshaller() {
-		return veg040;
-	}
-
-	public WaterBody040Marshaller getWaterBody040Marshaller() {
-		return wtr040;
-	}
-
 	private CityGMLModule getCityGMLModule(Object src) {
 
 		if (src instanceof ModelObject) {
@@ -640,21 +506,16 @@ public class CityGMLMarshaller {
 				return (CoreModule)moduleContext.getModule(CityGMLModuleType.CORE);		
 		}
 
-		else if (src.getClass().getPackage().getName().startsWith("org.citygml4j.jaxb.citygml")) {
+		else if (src != null && src.getClass().getPackage().getName().startsWith("org.citygml4j.jaxb.citygml")) {
 			String packagePart = src.getClass().getPackage().getName().replaceFirst("org.citygml4j.jaxb.citygml", "");
 			String versionPart = packagePart.substring(packagePart.lastIndexOf('.') + 1, packagePart.length());
-
-			if (versionPart.equals("_0_4"))
-				return CoreModule.v0_4_0;
-			else {
-				String modulePart = packagePart.substring(1, packagePart.lastIndexOf('.'));
-				CityGMLModuleVersion version = versionPart.equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
-
-				for (CityGMLModule module : Modules.getCityGMLModules()) {
-					if (module.getVersion() == version && module.getNamespacePrefix().equals(modulePart))
-						return module;
-				}			
-			}
+			String modulePart = packagePart.substring(1, packagePart.lastIndexOf('.'));
+			
+			CityGMLModuleVersion version = versionPart.equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
+			for (CityGMLModule module : Modules.getCityGMLModules()) {
+				if (module.getVersion() == version && module.getNamespacePrefix().equals(modulePart))
+					return module;
+			}			
 		}
 
 		return null;

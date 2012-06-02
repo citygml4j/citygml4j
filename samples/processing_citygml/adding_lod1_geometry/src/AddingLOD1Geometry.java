@@ -60,21 +60,21 @@ public class AddingLOD1Geometry {
 	
 		GMLGeometryFactory geom = new GMLGeometryFactory();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.xml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v200.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
 			
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v200.gml"));
 		
-		System.out.println(df.format(new Date()) + "opening CityGML 0.4.0 writer");
+		System.out.println(df.format(new Date()) + "opening CityGML writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-		out.setCityGMLVersion(CityGMLVersion.v0_4_0);
+		out.setCityGMLVersion(CityGMLVersion.v1_0_0);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD1_and_LOD2_Buildings_v040.xml"));
-		writer.setPrefixes(CityGMLVersion.v0_4_0);
-		writer.setDefaultNamespace(CoreModule.v0_4_0);
-		writer.setSchemaLocations(CityGMLVersion.v0_4_0);
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD1_and_LOD2_Buildings_v100.gml"));
+		writer.setPrefixes(CityGMLVersion.v1_0_0);
+		writer.setDefaultNamespace(CoreModule.v1_0_0);
+		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
 		writer.setIndentString("  ");
 
 		writer.writeStartDocument();
@@ -122,7 +122,7 @@ public class AddingLOD1Geometry {
 		reader.close();
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD1_and_LOD2_Buildings_v040.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD1_and_LOD2_Buildings_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

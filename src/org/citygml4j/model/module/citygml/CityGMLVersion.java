@@ -39,7 +39,6 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 	public static final CityGMLVersion DEFAULT;
 	public static final CityGMLVersion v2_0_0;
 	public static final CityGMLVersion v1_0_0;
-	public static final CityGMLVersion v0_4_0;
 
 	private CityGMLVersion(Module... modules) {
 		super(modules);
@@ -85,24 +84,6 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 				XALCoreModule.v2_0				
 		);
 		
-		v0_4_0 = new CityGMLVersion(
-				AppearanceModule.v0_4_0,
-				BuildingModule.v0_4_0,
-				CityFurnitureModule.v0_4_0,
-				CityObjectGroupModule.v0_4_0,
-				CoreModule.v0_4_0,
-				GenericsModule.v0_4_0,
-				LandUseModule.v0_4_0,
-				ReliefModule.v0_4_0,
-				TexturedSurfaceModule.v0_4_0,
-				TransportationModule.v0_4_0,
-				VegetationModule.v0_4_0,
-				WaterBodyModule.v0_4_0,
-				GMLCoreModule.v3_1_1,
-				XLinkModule.v3_1_1,
-				XALCoreModule.v2_0	
-		);
-		
 		DEFAULT = v2_0_0;
 	}
 
@@ -143,8 +124,6 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 			return "2.0.0";
 		else if (this == v1_0_0)
 			return "1.0.0";
-		else if (this == v0_4_0)
-			return "0.4.0";
 		else
 			return super.toString();
 	}

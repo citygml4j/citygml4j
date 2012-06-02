@@ -27,6 +27,7 @@ import java.util.HashMap;
 import javax.xml.XMLConstants;
 
 import org.citygml4j.model.module.Module;
+import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
@@ -34,7 +35,7 @@ import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper {
 	private HashMap<String, String> prefixMap;
 
-	public JAXBNamespacePrefixMapper() {
+	JAXBNamespacePrefixMapper() {
 		prefixMap = new HashMap<String, String>();
 		
 		prefixMap.put("http://www.w3.org/2001/SMIL20/", "smil20");
@@ -47,6 +48,11 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper {
 		this();
 		setNamespacePrefixMapping(version);
 	}
+	
+	public JAXBNamespacePrefixMapper(ModuleContext moduleContext) {
+		this();
+		setNamespacePrefixMapping(moduleContext);
+	}
 		
 	public void setNamespacePrefixMapping(String uri, String prefix) {
 		prefixMap.put(uri, prefix);
@@ -54,6 +60,11 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper {
 	
 	public void setNamespacePrefixMapping(CityGMLVersion version) {
 		for (Module module : version.getModules())
+			setNamespacePrefixMapping(module.getNamespaceURI(), module.getNamespacePrefix());
+	}
+	
+	public void setNamespacePrefixMapping(ModuleContext moduleContext) {
+		for (Module module : moduleContext.getModules())
 			setNamespacePrefixMapping(module.getNamespaceURI(), module.getNamespacePrefix());
 	}
 

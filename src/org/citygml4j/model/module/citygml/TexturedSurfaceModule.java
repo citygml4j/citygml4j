@@ -32,7 +32,6 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 
 	public static final TexturedSurfaceModule v2_0_0;
 	public static final TexturedSurfaceModule v1_0_0;
-	public static final TexturedSurfaceModule v0_4_0;
 
 	private TexturedSurfaceModule (
 			CityGMLModuleType type, 
@@ -61,14 +60,6 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 				"tex",
 				"http://schemas.opengis.net/citygml/texturedsurface/1.0/texturedSurface.xsd",			
 				CoreModule.v1_0_0);
-
-		v0_4_0 = new TexturedSurfaceModule (
-				CityGMLModuleType.TEXTURED_SURFACE,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
 	}
 
 	public static List<TexturedSurfaceModule> getInstances() {
@@ -81,8 +72,6 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 			return v2_0_0;
 		case v1_0_0:
 			return v1_0_0;
-		case v0_4_0:
-			return v0_4_0;
 		default:
 			return null;
 		}

@@ -44,7 +44,7 @@ public class InterpretingSchema {
 		SchemaWriter writer = new SchemaWriter(new PrintWriter(new File("CityGML-SubsurfaceADE-0_9_0.xml")));
 		Schema schema = schemaHandler.getSchema("http://www.citygml.org/ade/sub/0.9.0");
 
-		System.out.println(df.format(new Date()) + "writing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
+		System.out.println(df.format(new Date()) + "writing ADE schema file CityGML-SubsurfaceADE-0_9_0.xml");
 		writer.schema(schema.getXSSchema());
 		
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");

@@ -46,9 +46,9 @@ public class GeneratingStatistics {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Ettenheim_v100.xml");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Railway_v200.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Ettenheim_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Railway_v200.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 	
@@ -82,7 +82,7 @@ public class GeneratingStatistics {
 		
 		cityModel.accept(walker);
 
-		System.out.println(df.format(new Date()) + "LOD3_Ettenheim_v100.xml contains:");
+		System.out.println(df.format(new Date()) + "LOD3_Railway_v200.gml contains:");
 		System.out.println("Features:");
 		for (CityGMLClass feature : features.keySet())
 			System.out.println(feature + ": " + features.get(feature));

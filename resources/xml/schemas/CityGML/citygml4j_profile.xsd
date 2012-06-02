@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- citygml4j - Java object model for CityGML based on JAXB -->
 <!-- This is not an offical CityGML schema. It is a compilation of the CityGML -->
-<!-- schemas version 0.4.0, 1.0.0, and 2.0.0 to generate a comprehensive Java object model. -->
+<!-- schemas version 1.0.0 and 2.0.0 to generate a comprehensive Java object model. -->
 <!-- Editor: Claus Nagel, claus.nagel@tu-berlin.de -->
 <xs:schema xmlns="http://www.citygml.org/citygml4j/profile" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://www.citygml.org/citygml4j/profile" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.citygml.org/citygml/1/0/0" schemaLocation="0.4.0/CityGML.xsd"/>
 	<xs:import namespace="http://www.opengis.net/citygml/appearance/1.0" schemaLocation="1.0.0/appearance.xsd"/>
 	<xs:import namespace="http://www.opengis.net/citygml/building/1.0" schemaLocation="1.0.0/building.xsd"/>
 	<xs:import namespace="http://www.opengis.net/citygml/cityfurniture/1.0" schemaLocation="1.0.0/cityFurniture.xsd"/>

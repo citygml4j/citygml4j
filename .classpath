@@ -21,6 +21,7 @@
 	<classpathentry kind="src" path="samples/processing_citygml/using_dom_and_xpath/src"/>
 	<classpathentry kind="src" path="samples/processing_citygml/using_jaxb/src"/>
 	<classpathentry kind="src" path="samples/reading_citygml/chunk_per_feature_reader/src"/>
+	<classpathentry kind="src" path="samples/reading_citygml/citygml_v040_reader/src"/>
 	<classpathentry kind="src" path="samples/reading_citygml/filtered_reader/src"/>
 	<classpathentry kind="src" path="samples/reading_citygml/multithreaded_reader/src"/>
 	<classpathentry kind="src" path="samples/reading_citygml/simple_citygml_reader/src"/>

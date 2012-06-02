@@ -70,15 +70,17 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 
 		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
 		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
+		failOnMissingADESchema = (Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);
 
 		schemaHandler = factory.getSchemaHandler();
 		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
-		jaxbUnmarshaller.setThrowMissingADESchema((Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA));
+		jaxbUnmarshaller.setThrowMissingADESchema(failOnMissingADESchema);
 
 		elementChecker = new XMLElementChecker(schemaHandler, 
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
 				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
 				parseSchema,
+				failOnMissingADESchema,
 				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
 				(List<QName>)factory.getProperty(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY));
 

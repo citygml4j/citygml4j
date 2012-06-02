@@ -31,33 +31,37 @@ public class DowngradeConverter {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML 2.0.0 file LOD3-Railway_v200.gml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML 2.0.0 file LOD3_Railway_v200.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
-		CityGMLReader reader = in.createCityGMLReader(new File("../datasets/LOD3-Railway_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../datasets/LOD3_Railway_v200.gml"));
 
 		CityGMLVersion version = CityGMLVersion.v1_0_0;
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML " + version + " document");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
 		out.setCityGMLVersion(version);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD3-Railway_v100.gml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD3_Railway_v100.gml"));
 		writer.setPrefixes(version);
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
 		writer.setSchemaLocations(version);
 		writer.setIndentString("  ");
 
+		// we iterate through all <cityObjectMember>s of the <CityModel>
 		while (reader.hasNext()) {
 			AbstractFeature feature = (AbstractFeature)reader.nextFeature();
 
+			// if we find a tunnel or a bridge we convert it to a generic city object as proxy
 			if (feature instanceof AbstractTunnel || feature instanceof AbstractBridge) {
 				final GenericCityObject proxy = new GenericCityObject();
 				proxy.setLod3Geometry(new GeometryProperty<MultiGeometry>(new MultiGeometry()));
 
 				System.out.println(df.format(new Date()) + "converting " + ((AbstractCityObject)feature).getCityGMLClass() + " and nested features to " + proxy.getCityGMLClass());				
 
+				// we use a feature walker to visit the tunnel/bridge and all its nested city objects
 				FeatureWalker walker = new FeatureWalker() {
 					public void visit(AbstractCityObject abstractCityObject) {
+						// simply collect all LOD3 geometries and add them to the gml:MultiGeometry of the proxy
 						System.out.println(df.format(new Date()) + "addind geometry of " + abstractCityObject.getCityGMLClass());				
 
 						LodRepresentation lods = abstractCityObject.getLodRepresentation();
@@ -68,30 +72,32 @@ public class DowngradeConverter {
 					}
 
 					public void visit(AbstractBridge abstractBridge) {
-						proxy.setId(abstractBridge.getId());
-						proxy.setName(abstractBridge.getName());
+						// copy attributes of the brigde
 						proxy.setClazz(abstractBridge.getClazz());
 						proxy.setFunction(abstractBridge.getFunction());
 						proxy.setUsage(abstractBridge.getUsage());
-						proxy.setRelativeToTerrain(abstractBridge.getRelativeToTerrain());
-						proxy.setRelativeToWater(abstractBridge.getRelativeToWater());
 						super.visit(abstractBridge);
 					}
 
 					public void visit(AbstractTunnel abstractTunnel) {
-						proxy.setId(abstractTunnel.getId());
-						proxy.setName(abstractTunnel.getName());
+						// copy attributes of the tunnel
 						proxy.setClazz(abstractTunnel.getClazz());
 						proxy.setFunction(abstractTunnel.getFunction());
 						proxy.setUsage(abstractTunnel.getUsage());
-						proxy.setRelativeToTerrain(abstractTunnel.getRelativeToTerrain());
-						proxy.setRelativeToWater(abstractTunnel.getRelativeToWater());
 						super.visit(abstractTunnel);
 					}
 
 				};
 
 				feature.accept(walker);
+				
+				// copy common attributes
+				proxy.setId(feature.getId());
+				proxy.setName(feature.getName());
+				proxy.setRelativeToTerrain(((AbstractCityObject)feature).getRelativeToTerrain());
+				proxy.setRelativeToWater(((AbstractCityObject)feature).getRelativeToWater());
+
+				// let's swap the bridge/tunnel with the proxy object
 				feature = proxy;
 			}
 
@@ -102,7 +108,7 @@ public class DowngradeConverter {
 		reader.close();
 		writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD3-Railway_v100.gml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD3_Railway_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 }

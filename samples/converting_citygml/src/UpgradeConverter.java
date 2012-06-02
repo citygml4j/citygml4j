@@ -29,8 +29,8 @@ import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.citygml.CityGMLModuleType;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
-import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
@@ -77,7 +77,7 @@ public class UpgradeConverter {
 		
 		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Buildings_v200.gml"));
 		writer.setPrefixes(version);
-		writer.setDefaultNamespace(CoreModule.v2_0_0);
+		writer.setDefaultNamespace(version.getModule(CityGMLModuleType.CORE));
 		writer.setSchemaLocations(version);
 		writer.setIndentString("  ");
 		
