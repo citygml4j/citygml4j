@@ -43,9 +43,9 @@ public class SimpleReader {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v200.gml completely into main memory");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml completely into main memory");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.gml"));
 		
 		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();

@@ -50,20 +50,20 @@ public class SimpleSpatialFilter {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v200.gml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.gml"));
 
-		System.out.println(df.format(new Date()) + "creating CityGML 1.0.0 model writer");
+		System.out.println(df.format(new Date()) + "creating CityGML 2.0.0 model writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-		out.setCityGMLVersion(CityGMLVersion.v1_0_0);
+		out.setCityGMLVersion(CityGMLVersion.v2_0_0);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_Buildings_cutout_v100.gml"));
-		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_Buildings_cutout_v200.gml"));
+		writer.setPrefixes(CityGMLVersion.v2_0_0);
+		writer.setDefaultNamespace(CoreModule.v2_0_0);
+		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
 		writer.setIndentString("  ");
 		writer.setHeaderComment("written by citygml4j");
 
@@ -74,7 +74,7 @@ public class SimpleSpatialFilter {
 
 		CityModelInfo info = new CityModelInfo();
 		StringOrRef description = new StringOrRef();
-		description.setValue("Cutout of LOD2_Buildings_v200.gml to demonstrate simple spatial filtering.");
+		description.setValue("Cutout of LOD2_Buildings_v100.gml to demonstrate simple spatial filtering.");
 		info.setDescription(description);
 		info.setBoundedBy(new BoundingShape(regionFilter));
 		
@@ -110,7 +110,7 @@ public class SimpleSpatialFilter {
 		reader.close();
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_cutout_v100.gml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_cutout_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

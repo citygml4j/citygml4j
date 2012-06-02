@@ -60,12 +60,12 @@ public class AddingLOD1Geometry {
 	
 		GMLGeometryFactory geom = new GMLGeometryFactory();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v200.gml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
 			
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.gml"));
 		
 		System.out.println(df.format(new Date()) + "opening CityGML writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
