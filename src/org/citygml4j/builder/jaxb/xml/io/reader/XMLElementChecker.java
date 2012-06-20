@@ -329,10 +329,9 @@ public class XMLElementChecker {
 		if (a == b)
 			return true;
 
-		for (Class<?> tmp : a.getInterfaces())
-			if (isSubclass(tmp, b))
-				return true;
-
+		if (a.getSuperclass() != Object.class)
+			return isSubclass(a.getSuperclass(), b);
+		
 		return false;
 	}
 

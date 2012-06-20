@@ -221,6 +221,9 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 			if (isSubclassOfCityGML(tmp))
 				return true;
 		
+		if (a.getSuperclass() != Object.class)
+			return isSubclassOfCityGML(a.getSuperclass());
+		
 		return false;
 	}
 	
