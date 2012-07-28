@@ -247,7 +247,15 @@ public class SAXWriter extends XMLFilterImpl {
 		if (context == null)
 			throw new IllegalArgumentException("namespace context may not be null.");
 
-		userDefinedNS = context;		
+		userDefinedNS = context;
+		
+		if (depth > 0) {
+			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
+			while (iter.hasNext()) {
+				String userDefinedURI = iter.next();
+				localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
+			}
+		}
 	}
 
 	public CityGMLNamespaceContext getNamespaceContext() {
@@ -446,14 +454,6 @@ public class SAXWriter extends XMLFilterImpl {
 	@Override
 	public void startDocument() throws SAXException {
 		try {
-			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
-			while (iter.hasNext()) {
-				String uri = iter.next();
-				String prefix = userDefinedNS.getPrefix(uri);
-
-				localNS.declarePrefix(prefix, uri);
-			}
-
 			if (depth == 0) {
 				if (writeXMLDecl) {
 					if (streamEncoding == null && writer instanceof OutputStreamWriter) {
@@ -499,6 +499,12 @@ public class SAXWriter extends XMLFilterImpl {
 					writer.write(CLOSE_START_TAG);
 
 				writeIndent();
+			} else if (depth == 0) {
+				Iterator<String> iter = userDefinedNS.getNamespaceURIs();
+				while (iter.hasNext()) {
+					String userDefinedURI = iter.next();
+					localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
+				}
 			}
 
 			writer.write(OPEN_START_TAG);
