@@ -60,7 +60,7 @@ public class CityGMLADERoundTrip {
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree without modification");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0, schemaHandler);
 		
-		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_v200.gml"), "ISO-8859-15");
+		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_v200.gml"), "UTF-8");
 		writer.setPrefixes(CityGMLVersion.v2_0_0);
 		writer.setPrefix("noise", "http://www.citygml.org/ade/noise_de/2.0");
 		writer.setDefaultNamespace(CoreModule.v2_0_0);
