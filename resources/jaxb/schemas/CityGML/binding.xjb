@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!-- Specific settings for the citygml4j mapping file -->
     <jaxb:bindings schemaLocation="citygml4j_profile.xsd" node="/xs:schema">
@@ -178,14 +177,14 @@
             <jaxb:class name="AppearancePropertyElement"/>
         </jaxb:bindings>
     </jaxb:bindings>
-    
+
     <!-- Specific settings for the CityGML Bridge module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/bridge.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
             <!-- set package name of the generated classes -->
             <jaxb:package name="org.citygml4j.jaxb.citygml.brid._2"/>
         </jaxb:schemaBindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an AbstractBridgeType with that one defined by GML. So
             a renaming is necessary -->
@@ -194,7 +193,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an BridgeInstallationType with that one defined by GML. So
             a renaming is necessary -->
@@ -203,7 +202,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an IntBridgeInstallationType with that one defined by GML. So
             a renaming is necessary -->
@@ -212,7 +211,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an BridgeConstructionElementType with that one defined by GML. So
             a renaming is necessary -->
@@ -221,7 +220,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an BridgeRoomType with that one defined by GML. So
             a renaming is necessary -->
@@ -256,7 +255,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an IntBuildingInstallationType with that one defined by GML. So
             a renaming is necessary -->
@@ -265,7 +264,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an RoomType with that one defined by GML. So
             a renaming is necessary -->
@@ -346,14 +345,14 @@
             <jaxb:package name="org.citygml4j.jaxb.citygml.tran._2"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    
+
     <!-- Specific settings for the CityGML Tunnel module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/tunnel.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
             <!-- set package name of the generated classes -->
             <jaxb:package name="org.citygml4j.jaxb.citygml.tun._2"/>
         </jaxb:schemaBindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an AbstractTunnelType with that one defined by GML. So
             a renaming is necessary -->
@@ -362,7 +361,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an TunnelInstallationType with that one defined by GML. So
             a renaming is necessary -->
@@ -371,7 +370,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an IntTunnelInstallationType with that one defined by GML. So
             a renaming is necessary -->
@@ -380,7 +379,7 @@
                 <jaxb:property name="boundedBySurface"/>
             </jaxb:bindings>
         </jaxb:bindings>
-        
+
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an HollowSpaceType with that one defined by GML. So
             a renaming is necessary -->
@@ -448,7 +447,32 @@
             <jaxb:class name="LabelStyleRef"/>
         </jaxb:bindings>
     </jaxb:bindings>
-
+    
+    <!-- ========== -->
+    <!-- XLink 1999 -->
+    <!-- ========== -->
+    
+    <!-- Specific settings for the XLink schema file -->
+    <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.xlink"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+            <!-- 'title' property is referenced both as attribute and as element. -->
+            <jaxb:bindings node="//xs:group[@name='locatorModel']">
+                <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
+                    <jaxb:property name="titleElement"/>
+                </jaxb:bindings>
+            </jaxb:bindings>
+            <jaxb:bindings node="//xs:group[@name='arcModel']">
+                <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
+                    <jaxb:property name="titleElement"/>
+                </jaxb:bindings>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    
     <!-- ======= -->
     <!-- xAL 2.0 -->
     <!-- ======= -->

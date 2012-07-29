@@ -234,7 +234,7 @@
 	<!-- ========================================================================================= -->
 	<xs:element name="BridgeConstructionElement" type="BridgeConstructionElementType" substitutionGroup="core:_CityObject"/>
 	<!-- ========================================================================================= -->
-	<xs:element name="_GenericApplicationPropertyOfBridgeConstructionElement" type="xs:anyType"/>
+	<xs:element name="_GenericApplicationPropertyOfBridgeConstructionElement" type="xs:anyType" abstract="true"/>
 	<!-- ========================================================================================= -->
 	<xs:complexType name="BridgeConstructionElementPropertyType">
 		<xs:annotation>

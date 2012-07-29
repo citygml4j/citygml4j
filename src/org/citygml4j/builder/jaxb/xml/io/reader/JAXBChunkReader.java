@@ -34,6 +34,7 @@ import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.util.xml.saxevents.StartElement;
+import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.XMLChunk;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -43,7 +44,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-public class JAXBChunkReader extends AbstractJAXBReader {
+public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader {
 	private XMLChunkImpl current;
 	private XMLChunkImpl iterator;
 

@@ -37,13 +37,14 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.XMLChunk;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.xml.sax.SAXException;
 
-public class JAXBSimpleReader extends AbstractJAXBReader {
+public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReader {
 	private boolean iterator;
 	private ElementInfo elementInfo;
 

@@ -37,12 +37,11 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
-import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.SAXException;
 
-public abstract class AbstractJAXBReader implements CityGMLReader {
+public abstract class AbstractJAXBReader {
 	final XMLStreamReader reader;
 
 	JAXBInputFactory factory;

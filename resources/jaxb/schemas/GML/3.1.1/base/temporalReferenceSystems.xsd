@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1">
+<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1.2">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-xsd:temporalReferenceSystems:3.1.1"/>
 		<documentation xml:lang="en">The Temporal Reference Systems schema for GML 3.1 provides constructs for handling various styles of temporal reference system. 
-    This schema reflects a partial implementation of the model described in ISO 19108:2002. 
-    Copyright (c) 2002-2005 OGC, All Rights Reserved.
-	For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr</documentation>
+    This schema reflects a partial implementation of the model described in ISO 19108:2002.
+    
+    GML is an OGC Standard.
+    Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+    To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ================================================================== -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="temporalTopology.xsd"/>
 	<include schemaLocation="dictionary.xsd"/>
 	<!-- ================================================================== -->

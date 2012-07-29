@@ -44,7 +44,8 @@ and write CityGML datasets, and to develop CityGML-aware software
 applications.
 
 Feature list:
-* Full support for CityGML version 1.0.0 and 0.4.0
+* Full support for CityGML version 2.0.0 and 1.0.0
+  (read-only support for CityGML 0.4.0)
 * Support for CityGML specific subset of GML 3.1.1
 * Support for the eXtensible Address Language (xAL)
 * Support for user-defined CityGML Application Domain Extensions (ADE)
@@ -64,7 +65,7 @@ free of charge.
 ----------------------
 
 * Java JRE or JDK >= 1.5
-* Java Architecture for XML Binding (JAXB) >= 2.1.13
+* Java Architecture for XML Binding (JAXB) >= 2.2
 * Sun Java Streaming XML Parser >= 1.0
 
 

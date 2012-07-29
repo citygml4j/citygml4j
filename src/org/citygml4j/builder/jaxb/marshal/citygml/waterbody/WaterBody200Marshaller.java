@@ -34,6 +34,9 @@ import org.citygml4j.jaxb.citygml.wtr._2.WaterBodyType;
 import org.citygml4j.jaxb.citygml.wtr._2.WaterClosureSurfaceType;
 import org.citygml4j.jaxb.citygml.wtr._2.WaterGroundSurfaceType;
 import org.citygml4j.jaxb.citygml.wtr._2.WaterSurfaceType;
+import org.citygml4j.jaxb.xlink.ActuateType;
+import org.citygml4j.jaxb.xlink.ShowType;
+import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
@@ -137,7 +140,7 @@ public class WaterBody200Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -152,10 +155,10 @@ public class WaterBody200Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}

@@ -26,16 +26,19 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 
 public abstract class AssociationByRepOrRef<T extends Associable & Child> extends AssociationByRep<T> implements AssociationAttributeGroup {
-	private String actuate;
+	private XLinkActuate actuate;
 	private String arcrole;
 	private String href;
 	private String remoteSchema;
 	private String role;
-	private String show;
+	private XLinkShow show;
 	private String title;
-	private String type;
+	private XLinkType type;
 	
 	public AssociationByRepOrRef() {
 
@@ -49,7 +52,7 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		this.href = href;
 	}
 
-	public String getActuate() {
+	public XLinkActuate getActuate() {
 		return actuate;
 	}
 
@@ -69,7 +72,7 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		return role;
 	}
 
-	public String getShow() {
+	public XLinkShow getShow() {
 		return show;
 	}
 
@@ -77,11 +80,8 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		return title;
 	}
 
-	public String getType() {
-		if (type == null)
-			return "simple";
-		else
-			return type;
+	public XLinkType getType() {
+		return type == null ? XLinkType.SIMPLE : type;
 	}
 
 	public boolean isSetActuate() {
@@ -116,7 +116,7 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		return type != null;
 	}
 
-	public void setActuate(String actuate) {
+	public void setActuate(XLinkActuate actuate) {
 		this.actuate = actuate;
 	}
 
@@ -136,7 +136,7 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		this.role = role;
 	}
 
-	public void setShow(String show) {
+	public void setShow(XLinkShow show) {
 		this.show = show;
 	}
 
@@ -144,8 +144,8 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		this.title = title;
 	}
 
-	public void setType(String type) {
-		this.type = "simple";
+	public void setType(XLinkType type) {
+		this.type = XLinkType.SIMPLE;
 	}
 
 	public void unsetActuate() {
@@ -193,7 +193,7 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 		super.copyTo(copy, copyBuilder);
 			
 		if (isSetActuate())
-			copy.setActuate(copyBuilder.copy(actuate));
+			copy.setActuate((XLinkActuate)copyBuilder.copy(actuate));
 
 		if (isSetArcrole())
 			copy.setArcrole(copyBuilder.copy(arcrole));
@@ -208,13 +208,13 @@ public abstract class AssociationByRepOrRef<T extends Associable & Child> extend
 			copy.setRole(copyBuilder.copy(role));
 		
 		if (isSetShow())
-			copy.setShow(copyBuilder.copy(show));
+			copy.setShow((XLinkShow)copyBuilder.copy(show));
 
 		if (isSetTitle())
 			copy.setTitle(copyBuilder.copy(title));
 		
 		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+			copy.setType((XLinkType)copyBuilder.copy(type));
 		
 		copy.unsetParent();
 		

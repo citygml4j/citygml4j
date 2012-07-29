@@ -171,6 +171,9 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 
 public enum GMLClass implements ModelClassEnum {
 	UNDEFINED(null),
@@ -345,7 +348,12 @@ public enum GMLClass implements ModelClassEnum {
 	VALUE_PROPERTY(ValueProperty.class),
 	
 	// CityGML geometries
-	_TEXTURED_SURFACE(_TexturedSurface.class);
+	_TEXTURED_SURFACE(_TexturedSurface.class),
+	
+	// XLink types
+	XLINK_ACTUATE(XLinkActuate.class),
+	XLINK_TYPE(XLinkType.class),
+	XLINK_SHOW(XLinkShow.class);
 	
 	private final Class<? extends GML> modelClass;
 
