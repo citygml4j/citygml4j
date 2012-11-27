@@ -50,6 +50,11 @@ public class CurvePropertyImpl extends GeometryPropertyImpl<AbstractCurve> imple
 		return GMLClass.CURVE_PROPERTY;
 	}
 
+	@Override
+	public Class<AbstractCurve> getAssociableClass() {
+		return AbstractCurve.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CurvePropertyImpl(), copyBuilder);
 	}

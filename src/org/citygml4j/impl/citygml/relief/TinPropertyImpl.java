@@ -74,6 +74,11 @@ public class TinPropertyImpl extends GeometryPropertyImpl<TriangulatedSurface> i
 		return module != null;
 	}
 
+	@Override
+	public Class<TriangulatedSurface> getAssociableClass() {
+		return TriangulatedSurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new TinPropertyImpl(), copyBuilder);
 	}

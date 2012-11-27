@@ -74,6 +74,11 @@ public class BuildingPartPropertyImpl extends FeaturePropertyImpl<BuildingPart> 
 		return module != null;
 	}
 
+	@Override
+	public Class<BuildingPart> getAssociableClass() {
+		return BuildingPart.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new BuildingPartPropertyImpl(), copyBuilder);
 	}

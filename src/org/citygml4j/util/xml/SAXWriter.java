@@ -94,11 +94,11 @@ public class SAXWriter extends XMLFilterImpl {
 		PI,
 		COMMENT
 	}
-	
+
 	public SAXWriter() {
 		init();
 	}
-	
+
 	public SAXWriter(StreamResult streamResult, String encoding) throws IOException {
 		this();
 		setOutput(streamResult, encoding);
@@ -145,7 +145,7 @@ public class SAXWriter extends XMLFilterImpl {
 	public void setOutput(StreamResult streamResult) throws IOException {
 		setOutput(streamResult, null);
 	}
-	
+
 	public void setOutput(StreamResult streamResult, String encoding) throws IOException {
 		if (streamResult.getOutputStream() != null)
 			setOutputUsingStream(streamResult.getOutputStream(), encoding);
@@ -202,7 +202,7 @@ public class SAXWriter extends XMLFilterImpl {
 				writer = new XMLWriter(new OutputStreamWriter(outputStream));
 		}			
 	}
-	
+
 	public Writer getOutputWriter() {
 		return writer;
 	}
@@ -248,6 +248,14 @@ public class SAXWriter extends XMLFilterImpl {
 			throw new IllegalArgumentException("namespace context may not be null.");
 
 		userDefinedNS = context;		
+
+		if (depth > 0) {
+			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
+			while (iter.hasNext()) {
+				String userDefinedURI = iter.next();
+				localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
+			}
+		}
 	}
 
 	public CityGMLNamespaceContext getNamespaceContext() {
@@ -446,14 +454,6 @@ public class SAXWriter extends XMLFilterImpl {
 	@Override
 	public void startDocument() throws SAXException {
 		try {
-			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
-			while (iter.hasNext()) {
-				String uri = iter.next();
-				String prefix = userDefinedNS.getPrefix(uri);
-
-				localNS.declarePrefix(prefix, uri);
-			}
-
 			if (depth == 0) {
 				if (writeXMLDecl) {
 					if (streamEncoding == null && writer instanceof OutputStreamWriter) {
@@ -499,6 +499,12 @@ public class SAXWriter extends XMLFilterImpl {
 					writer.write(CLOSE_START_TAG);
 
 				writeIndent();
+			} else if (depth == 0) {
+				Iterator<String> iter = userDefinedNS.getNamespaceURIs();
+				while (iter.hasNext()) {
+					String userDefinedURI = iter.next();
+					localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
+				}
 			}
 
 			writer.write(OPEN_START_TAG);
@@ -672,7 +678,7 @@ public class SAXWriter extends XMLFilterImpl {
 			for (String line : data) {
 				if (line == null)
 					continue;
-				
+
 				writer.write(OPEN_COMMENT);
 				writer.write(SPACE);			
 				writer.write(line);			

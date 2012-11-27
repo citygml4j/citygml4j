@@ -24,12 +24,13 @@ package org.citygml4j.impl.gml.geometry;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.impl.gml.base.ArrayAssociationImpl;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 
-public abstract class GeometryArrayPropertyImpl<T extends AbstractGeometry> extends ArrayAssociationImpl<T> implements GeometryArrayProperty<T> {
+public class GeometryArrayPropertyImpl<T extends AbstractGeometry> extends ArrayAssociationImpl<T> implements GeometryArrayProperty<T> {
 
 	public List<T> getGeometry() {
 		return super.getObject();
@@ -57,6 +58,22 @@ public abstract class GeometryArrayPropertyImpl<T extends AbstractGeometry> exte
 
 	public GMLClass getGMLClass() {
 		return GMLClass.GEOMETRY_ARRAY_PROPERTY;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Class<T> getAssociableClass() {
+		return (Class<T>)AbstractGeometry.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometryArrayPropertyImpl<T>(), copyBuilder);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometryArrayProperty<T> copy = (target == null) ? new GeometryArrayPropertyImpl<T>() : (GeometryArrayProperty<T>)target;
+		return super.copyTo(copy, copyBuilder);
 	}
 
 }

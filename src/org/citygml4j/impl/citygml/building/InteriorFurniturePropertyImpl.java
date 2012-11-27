@@ -74,6 +74,11 @@ public class InteriorFurniturePropertyImpl extends FeaturePropertyImpl<BuildingF
 		return module != null;
 	}
 
+	@Override
+	public Class<BuildingFurniture> getAssociableClass() {
+		return BuildingFurniture.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new InteriorFurniturePropertyImpl(), copyBuilder);
 	}

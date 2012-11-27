@@ -25,6 +25,7 @@ package org.citygml4j.model.common.visitor;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
@@ -50,8 +51,7 @@ import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
 public interface GeometryFunctor<T> extends Functor<T> {
-	public T apply(LodRepresentation lodRepresentation);
-	
+	public T apply(LodRepresentation lodRepresentation);	
 	public T apply(CompositeCurve compositeCurve);
 	public T apply(CompositeSolid compositeSolid);
 	public T apply(CompositeSurface compositeSurface);
@@ -62,6 +62,7 @@ public interface GeometryFunctor<T> extends Functor<T> {
 	public T apply(LineString lineString);
 	public T apply(MultiCurve multiCurve);
 	public T apply(MultiLineString multiLineString);
+	public T apply(MultiGeometry multiGeometry);
 	public T apply(MultiPoint multiPoint);
 	public T apply(MultiPolygon multiPolygon);
 	public T apply(MultiSolid multiSolid);

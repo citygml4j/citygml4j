@@ -20,26 +20,14 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.model.gml.base;
+package org.citygml4j.model.gml.geometry.aggregates;
 
-import org.citygml4j.model.common.association.Associable;
-import org.citygml4j.model.common.child.Child;
-import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.common.visitor.GMLFunctor;
-import org.citygml4j.model.common.visitor.GMLVisitor;
-import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface AbstractGML extends GML, StandardObjectProperties, Associable, Child, Copyable {
-	public String getId();
-	public Object getLocalProperty(String name);
-	public boolean isSetId();
-	public boolean hasLocalProperty(String name);
+public interface MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
+	public AbstractGeometricAggregate getGeometricAggregate();
+	public boolean isSetGeometricAggregate();
 	
-	public void setId(String id);
-	public void setLocalProperty(String name, Object value);
-	public void unsetId();
-	public Object unsetLocalProperty(String name);
-	
-	public void accept(GMLVisitor visitor);
-	public <T> T accept(GMLFunctor<T> visitor);
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate);
+	public void unsetGeometricAggregate();
 }

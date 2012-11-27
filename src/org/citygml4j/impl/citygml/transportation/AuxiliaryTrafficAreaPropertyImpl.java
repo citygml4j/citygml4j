@@ -74,6 +74,11 @@ public class AuxiliaryTrafficAreaPropertyImpl extends FeaturePropertyImpl<Auxili
 		return module != null;
 	}
 
+	@Override
+	public Class<AuxiliaryTrafficArea> getAssociableClass() {
+		return AuxiliaryTrafficArea.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new AuxiliaryTrafficAreaPropertyImpl(), copyBuilder);
 	}

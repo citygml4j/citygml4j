@@ -51,6 +51,11 @@ public class RectifiedGridDomainImpl extends DomainSetImpl<RectifiedGrid> implem
 	}
 
 	@Override
+	public Class<RectifiedGrid> getAssociableClass() {
+		return RectifiedGrid.class;
+	}
+
+	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		RectifiedGridDomain copy = (target == null) ? new RectifiedGridDomainImpl() : (RectifiedGridDomain)target;
 		return super.copyTo(copy, copyBuilder);

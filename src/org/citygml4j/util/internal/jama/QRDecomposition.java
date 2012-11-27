@@ -42,7 +42,6 @@ public class QRDecomposition {
 
    /** QR Decomposition, computed by Householder reflections.
    @param A    Rectangular matrix
-   @return     Structure to access R and the Householder vectors and compute Q.
    */
 
    public QRDecomposition (Matrix A) {

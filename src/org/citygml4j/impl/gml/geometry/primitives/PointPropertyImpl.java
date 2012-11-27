@@ -50,6 +50,11 @@ public class PointPropertyImpl extends GeometryPropertyImpl<Point> implements Po
 		super.unsetGeometry();
 	}
 	
+	@Override
+	public Class<Point> getAssociableClass() {
+		return Point.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		PointProperty copy = (target == null) ? new PointPropertyImpl() : (PointProperty)target;
 		return super.copyTo(copy, copyBuilder);

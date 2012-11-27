@@ -60,6 +60,10 @@ public class LineStringSegmentArrayPropertyImpl extends ArrayAssociationImpl<Lin
 		return super.unsetObject(lineStringSegment);
 	}
 
+	public Class<LineStringSegment> getAssociableClass() {
+		return LineStringSegment.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		LineStringSegmentArrayProperty copy = (target == null) ? new LineStringSegmentArrayPropertyImpl() : (LineStringSegmentArrayProperty)target;
 		return super.copyTo(copy, copyBuilder);

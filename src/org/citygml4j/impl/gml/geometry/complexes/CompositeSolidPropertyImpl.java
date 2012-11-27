@@ -49,6 +49,11 @@ public class CompositeSolidPropertyImpl extends GeometryPropertyImpl<CompositeSo
 	public GMLClass getGMLClass() {
 		return GMLClass.COMPOSITE_SOLID_PROPERTY;
 	}
+	
+	@Override
+	public Class<CompositeSolid> getAssociableClass() {
+		return CompositeSolid.class;
+	}
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CompositeSolidPropertyImpl(), copyBuilder);

@@ -50,6 +50,11 @@ public class MultiLineStringPropertyImpl extends GeometryPropertyImpl<MultiLineS
 		return GMLClass.MULTI_LINE_STRING_PROPERTY;
 	}
 
+	@Override
+	public Class<MultiLineString> getAssociableClass() {
+		return MultiLineString.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MultiLineStringPropertyImpl(), copyBuilder);
 	}

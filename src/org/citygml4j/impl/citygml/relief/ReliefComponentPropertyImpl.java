@@ -74,6 +74,11 @@ public class ReliefComponentPropertyImpl extends FeaturePropertyImpl<AbstractRel
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractReliefComponent> getAssociableClass() {
+		return AbstractReliefComponent.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new ReliefComponentPropertyImpl(), copyBuilder);
 	}

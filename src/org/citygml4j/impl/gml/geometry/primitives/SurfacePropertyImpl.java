@@ -50,6 +50,11 @@ public class SurfacePropertyImpl extends GeometryPropertyImpl<AbstractSurface> i
 		return GMLClass.SURFACE_PROPERTY;
 	}
 
+	@Override
+	public Class<AbstractSurface> getAssociableClass() {
+		return AbstractSurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new SurfacePropertyImpl(), copyBuilder);
 	}
