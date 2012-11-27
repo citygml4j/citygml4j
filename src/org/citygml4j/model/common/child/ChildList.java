@@ -103,7 +103,11 @@ public class ChildList<T extends Child> extends ArrayList<T> {
 
 	@Override
 	public boolean remove(Object o) {
-		T child = super.get(super.indexOf(o));
+		int index = super.indexOf(o);
+		if (index == - 1)
+			return false;
+		
+		T child = super.get(index);
 		if (child != null)
 			child.unsetParent();
 		

@@ -29,6 +29,7 @@ import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLInputFactory;
 
 import org.citygml4j.util.gmlid.GMLIdManager;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -39,8 +40,10 @@ public interface CityGMLInputFactory {
 	public static final String FEATURE_READ_MODE = "org.citygml4j.featureReadMode";
 	public static final String KEEP_INLINE_APPEARANCE = "org.citygml4j.keepInlineAppearance";
 	public static final String PARSE_SCHEMA = "org.citygml4j.parseSchema";
+	public static final String SPLIT_AT_FEATURE_PROPERTY = "org.citygml4j.splitAtFeatureProperty";
 	public static final String EXCLUDE_FROM_SPLITTING = "org.citygml4j.excludeFromSplitting";
 	public static final String USE_VALIDATION = "org.citygml4j.useValidation";
+	public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
 	
 	public XMLInputFactory getXMLInputFactory();
 	public GMLIdManager getGMLIdManager();
@@ -62,4 +65,6 @@ public interface CityGMLInputFactory {
 	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException;
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException;	
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException;
+
+	public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter);
 }

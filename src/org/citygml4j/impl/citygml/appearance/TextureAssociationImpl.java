@@ -91,6 +91,10 @@ public class TextureAssociationImpl extends AssociationByRepOrRefImpl<AbstractTe
 		return module != null;
 	}
 
+	public Class<AbstractTextureParameterization> getAssociableClass() {
+		return AbstractTextureParameterization.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new TextureAssociationImpl(), copyBuilder);
 	}

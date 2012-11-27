@@ -20,7 +20,7 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.writer;
+package org.citygml4j.util.xml;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -95,6 +95,15 @@ public class SAXWriter extends XMLFilterImpl {
 		COMMENT
 	}
 
+	public SAXWriter() {
+		init();
+	}
+
+	public SAXWriter(StreamResult streamResult, String encoding) throws IOException {
+		this();
+		setOutput(streamResult, encoding);
+	}
+
 	public SAXWriter(OutputStream outputStream) throws IOException {
 		this(outputStream, null);
 	}
@@ -105,11 +114,6 @@ public class SAXWriter extends XMLFilterImpl {
 
 	public SAXWriter(Writer writer) throws IOException {
 		this(new StreamResult(writer), null);
-	}
-
-	public SAXWriter(StreamResult streamResult, String encoding) throws IOException {
-		setOutput(streamResult, encoding);
-		init();
 	}
 
 	private void init() {
@@ -136,6 +140,10 @@ public class SAXWriter extends XMLFilterImpl {
 		depth = 0;
 
 		lastXMLContent = XMLContentType.UNDEFINED;
+	}
+
+	public void setOutput(StreamResult streamResult) throws IOException {
+		setOutput(streamResult, null);
 	}
 
 	public void setOutput(StreamResult streamResult, String encoding) throws IOException {
@@ -195,6 +203,10 @@ public class SAXWriter extends XMLFilterImpl {
 		}			
 	}
 
+	public Writer getOutputWriter() {
+		return writer;
+	}
+
 	public void flush() throws SAXException {
 		try {
 			if (writer != null)
@@ -236,6 +248,14 @@ public class SAXWriter extends XMLFilterImpl {
 			throw new IllegalArgumentException("namespace context may not be null.");
 
 		userDefinedNS = context;		
+
+		if (depth > 0) {
+			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
+			while (iter.hasNext()) {
+				String userDefinedURI = iter.next();
+				localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
+			}
+		}
 	}
 
 	public CityGMLNamespaceContext getNamespaceContext() {
@@ -434,14 +454,6 @@ public class SAXWriter extends XMLFilterImpl {
 	@Override
 	public void startDocument() throws SAXException {
 		try {
-			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
-			while (iter.hasNext()) {
-				String uri = iter.next();
-				String prefix = userDefinedNS.getPrefix(uri);
-
-				localNS.declarePrefix(prefix, uri);
-			}
-
 			if (depth == 0) {
 				if (writeXMLDecl) {
 					if (streamEncoding == null && writer instanceof OutputStreamWriter) {
@@ -487,6 +499,12 @@ public class SAXWriter extends XMLFilterImpl {
 					writer.write(CLOSE_START_TAG);
 
 				writeIndent();
+			} else if (depth == 0) {
+				Iterator<String> iter = userDefinedNS.getNamespaceURIs();
+				while (iter.hasNext()) {
+					String userDefinedURI = iter.next();
+					localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
+				}
 			}
 
 			writer.write(OPEN_START_TAG);
@@ -658,6 +676,9 @@ public class SAXWriter extends XMLFilterImpl {
 				throw new SAXException("comment target cannot be null.");
 
 			for (String line : data) {
+				if (line == null)
+					continue;
+
 				writer.write(OPEN_COMMENT);
 				writer.write(SPACE);			
 				writer.write(line);			

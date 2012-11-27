@@ -20,43 +20,35 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader.saxevents;
+package org.citygml4j.util.xml.saxevents;
 
-import org.xml.sax.ContentHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.LocatorImpl;
+public class Location {
+	private final int lineNumber;
+	private final int columnNumber;
+	private final String publicId;
+	private final String systemId;
+	
+	public Location(int lineNumber, int columnNumber, String systemId, String publicId) {
+		this.lineNumber = lineNumber;
+		this.columnNumber = columnNumber;
+		this.systemId = systemId;
+		this.publicId = publicId;
+	}
 
-public abstract class SAXEvent {
-	private final EventType type;
-	private SAXEvent next;
+	public int getLineNumber() {
+		return lineNumber;
+	}
 
-	public enum EventType {
-		CHARACTERS,
-		END_DOCUMENT,
-		END_ELEMENT,
-		END_PREFIX_MAPPING,
-		START_DOCUMENT,
-		START_ELEMENT,
-		START_PREFIX_MAPPING
+	public int getColumnNumber() {
+		return columnNumber;
+	}
+
+	public String getPublicId() {
+		return publicId;
+	}
+
+	public String getSystemId() {
+		return systemId;
 	}
 	
-	SAXEvent(EventType type) {
-		this.type = type;
-	}
-	
-	public abstract SAXEvent shallowCopy();
-	public abstract void send(ContentHandler contentHandler) throws SAXException;
-	public abstract void send(ContentHandler contentHandler, LocatorImpl locator) throws SAXException;
-
-	public EventType getType() {
-		return type;
-	}
-
-	public SAXEvent next() {
-		return next;
-	}
-
-	public void setNext(SAXEvent next) {
-		this.next = next;
-	}
 }

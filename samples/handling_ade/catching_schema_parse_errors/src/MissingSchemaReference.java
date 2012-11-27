@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -45,7 +45,7 @@ public class MissingSchemaReference {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
 		System.out.println(df.format(new Date()) + "setting up schema handler");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();

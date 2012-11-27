@@ -730,6 +730,12 @@ public class Building040Marshaller {
 		if (src.isSetUsage())
 			dest.setUsage(src.getUsage());
 		
+		if (src.isSetLod4Solid())
+			dest.setLod4Solid(jaxb.getGMLMarshaller().marshalSolidProperty(src.getLod4Solid()));
+
+		if (src.isSetLod4MultiSurface())
+			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));

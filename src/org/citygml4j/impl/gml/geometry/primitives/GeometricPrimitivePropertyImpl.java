@@ -50,6 +50,11 @@ public class GeometricPrimitivePropertyImpl extends GeometryPropertyImpl<Abstrac
 		return GMLClass.GEOMETRIC_PRIMITIVE_PROPERTY;
 	}
 
+	@Override
+	public Class<AbstractGeometricPrimitive> getAssociableClass() {
+		return AbstractGeometricPrimitive.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new GeometricPrimitivePropertyImpl(), copyBuilder);
 	}

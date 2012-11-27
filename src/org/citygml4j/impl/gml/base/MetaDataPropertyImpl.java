@@ -66,6 +66,10 @@ public class MetaDataPropertyImpl extends AssociationByRepOrRefImpl<MetaData> im
 		return GMLClass.META_DATA_PROPERTY;
 	}
 	
+	public Class<MetaData> getAssociableClass() {
+		return MetaData.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MetaDataPropertyImpl(), copyBuilder);
 	}

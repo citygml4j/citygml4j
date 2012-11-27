@@ -348,7 +348,7 @@ public class FeatureSplitter {
 		private String getAndSetGmlId(AbstractFeature feature) {
 			String gmlId = feature.getId();
 			if (gmlId == null) {
-				gmlId = gmlIdManager.generateGmlId();
+				gmlId = gmlIdManager.generateUUID();
 				feature.setId(gmlId);
 			}
 
@@ -361,7 +361,7 @@ public class FeatureSplitter {
 				gmlId = element.getAttribute("id");
 
 			if (gmlId.length() == 0) {
-				gmlId = gmlIdManager.generateGmlId();
+				gmlId = gmlIdManager.generateUUID();
 				element.setAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", gmlId);
 			}
 

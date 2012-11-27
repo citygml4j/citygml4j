@@ -24,9 +24,18 @@ package org.citygml4j;
 
 import javax.xml.bind.JAXBException;
 
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 
 public class CityGMLContext {
+	
+	public CityGMLBuilder createCityGMLBuilder() throws JAXBException {
+		return new JAXBBuilder();
+	}
+	
+	public CityGMLBuilder createCityGMLBuilder(ClassLoader classLoader) throws JAXBException {
+		return new JAXBBuilder(classLoader);
+	}
 	
 	public JAXBBuilder createJAXBBuilder() throws JAXBException {
 		return new JAXBBuilder();
@@ -35,5 +44,5 @@ public class CityGMLContext {
 	public JAXBBuilder createJAXBBuilder(ClassLoader classLoader) throws JAXBException {
 		return new JAXBBuilder(classLoader);
 	}
-	
+
 }

@@ -48,6 +48,7 @@ import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityModelInfo;
 import org.citygml4j.xml.io.writer.CityModelWriter;
@@ -203,7 +204,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		}
 	}
 
-	private void writeModelMember(Object object) throws CityGMLWriteException {
+	private void writeModelMember(ModelObject object) throws CityGMLWriteException {
 		switch (documentState) {
 		case END_DOCUMENT:
 			throw new IllegalStateException("model member cannot be written after CityModel end element.");
@@ -222,7 +223,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER) {
 				for (FeatureProperty<? extends AbstractFeature> member : split(object)) {
 					JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(member);
-					if (member != null)
+					if (jaxbElement != null)
 						marshaller.marshal(jaxbElement, writer);
 				}					
 			} 
@@ -231,7 +232,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 				FeatureProperty<? extends AbstractFeature> member = wrap(object);
 				if (member != null) {
 					JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(member);
-					if (member != null)
+					if (jaxbElement != null)
 						marshaller.marshal(jaxbElement, writer);
 				}
 			}
@@ -284,7 +285,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		}
 	}
 
-	private FeatureProperty<? extends AbstractFeature> wrap(Object object) {
+	private FeatureProperty<? extends AbstractFeature> wrap(ModelObject object) {
 		FeatureProperty<? extends AbstractFeature> member = null;
 
 		if (object instanceof AbstractCityObject) {
@@ -312,7 +313,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		return member;
 	}
 
-	private List<FeatureProperty<? extends AbstractFeature>> split(Object object) {
+	private List<FeatureProperty<? extends AbstractFeature>> split(ModelObject object) {
 		List<FeatureProperty<? extends AbstractFeature>> memberList = new ArrayList<FeatureProperty<? extends AbstractFeature>>();
 		List<CityGML> results = featureSplitter.split(object); 
 

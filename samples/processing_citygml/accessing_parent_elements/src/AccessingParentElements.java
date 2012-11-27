@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -46,7 +46,7 @@ public class AccessingParentElements {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();

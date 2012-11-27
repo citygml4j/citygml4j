@@ -74,6 +74,11 @@ public class SurfaceDataPropertyImpl extends FeaturePropertyImpl<AbstractSurface
 		return module != null;
 	}
 
+	@Override
+	public Class<AbstractSurfaceData> getAssociableClass() {
+		return AbstractSurfaceData.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new SurfaceDataPropertyImpl(), copyBuilder);
 	}

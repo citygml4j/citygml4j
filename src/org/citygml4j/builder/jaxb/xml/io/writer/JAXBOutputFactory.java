@@ -34,6 +34,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.io.AbstractCityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityGMLWriter;

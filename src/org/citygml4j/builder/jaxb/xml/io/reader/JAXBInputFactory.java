@@ -34,6 +34,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.util.internal.xml.SystemIDResolver;
 import org.citygml4j.xml.io.AbstractCityGMLInputFactory;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -49,12 +50,12 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 		super(schemaHandler);
 		this.builder = builder;
 	}
-	
+
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException {
 		try {
 			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(systemId, in);
 			URI baseURI = toURI(SystemIDResolver.getAbsoluteURI(systemId));
-			
+
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
 			case SPLIT_PER_FEATURE:
@@ -66,7 +67,7 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
-	
+
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException {
 		try {
 			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
@@ -83,7 +84,7 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
-	
+
 	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException {
 		try {
 			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(file), encoding);
@@ -101,7 +102,7 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
-	
+
 	public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException {
 		try {
 			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(file));
@@ -119,16 +120,25 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
-	
+
+	public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter) {
+		if (reader instanceof AbstractJAXBReader)
+			((AbstractJAXBReader)reader).filter = filter;
+		else
+			throw new IllegalArgumentException("CityGML reader must be a JAXB based reader.");
+
+		return reader;
+	}
+
 	private URI toURI(String baseURI) {
 		URI uri = null;
-		
+
 		try {
 			uri = new URI(baseURI).normalize();
 		} catch (Exception e) {
 			uri = URI.create("");
 		}
-		
+
 		return uri;
 	}
 }

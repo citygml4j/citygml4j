@@ -60,6 +60,10 @@ public class ValueArrayPropertyImpl extends ArrayAssociationImpl<Value> implemen
 		return super.unsetObject(value);
 	}
 	
+	public Class<Value> getAssociableClass() {
+		return Value.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		ValueArrayProperty copy = (target == null) ? new ValueArrayPropertyImpl() : (ValueArrayProperty)target;
 		return super.copyTo(copy, copyBuilder);

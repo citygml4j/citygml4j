@@ -25,21 +25,36 @@ package org.citygml4j.util.gmlid;
 import java.util.UUID;
 
 public class DefaultGMLIdManager implements GMLIdManager {
-	private static DefaultGMLIdManager instance = null;
+	private static DefaultGMLIdManager instance = new DefaultGMLIdManager();
+	private String defaultPrefix = "UUID_";
+	private String prefix = defaultPrefix;
 
 	private DefaultGMLIdManager() {
 		// just to thwart instantiation
 	}
 
-	public static synchronized DefaultGMLIdManager getInstance() {
-		if (instance == null)
-			instance = new DefaultGMLIdManager();
-
+	public static DefaultGMLIdManager getInstance() {
 		return instance;
 	}
+	
+	public String getDefaultPrefix() {
+		return defaultPrefix;
+	}
 
-	public String generateGmlId() {
-		return new StringBuilder("UUID_").append(UUID.randomUUID().toString()).toString();
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String generateUUID(String prefix) {
+		return new StringBuilder(prefix).append(UUID.randomUUID().toString()).toString();
+	}
+	
+	public String generateUUID() {
+		return generateUUID(prefix);
 	}
 	
 }

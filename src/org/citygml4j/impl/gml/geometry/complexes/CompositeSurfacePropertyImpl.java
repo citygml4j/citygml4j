@@ -50,6 +50,11 @@ public class CompositeSurfacePropertyImpl extends GeometryPropertyImpl<Composite
 		return GMLClass.COMPOSITE_SURFACE_PROPERTY;
 	}
 
+	@Override
+	public Class<CompositeSurface> getAssociableClass() {
+		return CompositeSurface.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CompositeSurfacePropertyImpl(), copyBuilder);
 	}

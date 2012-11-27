@@ -22,19 +22,23 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.citygml4j.builder.jaxb.xml.io.reader.saxevents.StartElement;
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.util.xml.saxevents.StartElement;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
@@ -48,31 +52,65 @@ public class XMLElementChecker {
 	private final boolean keepInlineAppearance;
 	private final boolean parseSchema;
 	private final Set<Class<? extends CityGML>> excludes;
-	private final XMLUtil util;
 
-	private final HashSet<String> cityGMLCollectionProperties;
+	private HashSet<String> cityGMLFeatureProperties;
+	private HashMap<String, HashSet<String>> adeFeatureProperties;
 
 	XMLElementChecker(SchemaHandler schemaHandler, 
 			FeatureReadMode featureReadMode, 
 			boolean keepInlineAppearance,
 			boolean parseSchema,
-			Set<Class<? extends CityGML>> exlcudes) {
+			Set<Class<? extends CityGML>> exlcudes,
+			List<QName> featureProperties) {
 		this.schemaHandler = schemaHandler;
 		this.featureReadMode = featureReadMode;
 		this.keepInlineAppearance = keepInlineAppearance;
 		this.parseSchema = parseSchema;
 		this.excludes = exlcudes;
 
-		util = XMLUtil.getInstance();
-
-		cityGMLCollectionProperties = new HashSet<String>();
-		cityGMLCollectionProperties.add("cityObjectMember");
-		cityGMLCollectionProperties.add("appearanceMember");
-		cityGMLCollectionProperties.add("groupMember");
-		cityGMLCollectionProperties.add("parent");
+		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER)
+			initCollectionSplitProperties(featureProperties);
 	}
 
-	private ElementInfo getGMLFeatureProperty(String localName) {
+	public boolean isCityGMLElement(String namespaceURI) {
+		return (namespaceURI.startsWith("http://www.opengis.net/citygml") ||
+				CoreModule.v0_4_0.getNamespaceURI().equals(namespaceURI));
+	}
+
+	public boolean isCityGMLElement(QName name) {
+		return isCityGMLElement(name.getNamespaceURI());
+	}
+
+	public boolean isGMLElement(String namespaceURI) {
+		return GMLCoreModule.v3_1_1.getNamespaceURI().equals(namespaceURI);
+	}
+
+	public boolean isGMLElement(QName name) {
+		return isGMLElement(name.getNamespaceURI());
+	}
+
+	public boolean isParentInfoElement(String namespaceURI, String localPart) {
+		if (isGMLElement(namespaceURI)) {
+			if (localPart.equals("metaDataProperty") ||
+					localPart.equals("description") ||
+					localPart.equals("name") ||
+					localPart.equals("boundedBy") ||
+					localPart.equals("location"))
+				return true;					
+		} else if (isCityGMLElement(namespaceURI)) {
+			if (localPart.equals("appearance") ||
+					localPart.equals("appearanceMember"))
+				return true;
+		}
+
+		return false;
+	}
+
+	public boolean isParentInfoElement(QName name) {
+		return isParentInfoElement(name.getNamespaceURI(), name.getLocalPart());
+	}
+
+	public ElementInfo getGMLFeatureProperty(String localName) {
 		ElementInfo elementInfo = null;
 
 		if (localName.equals("featureMember")) {
@@ -88,13 +126,16 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	private ElementInfo getCityGMLFeatureProperty(String localName, String namespaceURI, XMLChunk currentChunk) {
+	public ElementInfo getCityGMLFeatureProperty(QName name, CityGMLChunk currentChunk) {
 		ElementInfo elementInfo = null;
+		String localName = name.getLocalPart();
+		String namespaceURI = name.getNamespaceURI();
+
 		boolean isFeatureProperty = false;
 		boolean skipNestedElements = false;
 
 		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER) {
-			if (cityGMLCollectionProperties.contains(localName))
+			if (cityGMLFeatureProperties.contains(localName))
 				isFeatureProperty = true;
 
 			if (localName.equals("appearanceMember") && 
@@ -144,8 +185,10 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	private ElementInfo getCityGMLFeature(String localName, String namespaceURI) {
+	public ElementInfo getCityGMLFeature(QName name, boolean isSetType) {
 		ElementInfo elementInfo = null;
+		String localName = name.getLocalPart();
+		String namespaceURI = name.getNamespaceURI();
 
 		Module module = Modules.getModule(namespaceURI);
 		if (module instanceof CityGMLModule) {
@@ -170,6 +213,9 @@ public class XMLElementChecker {
 				elementInfo = new ElementInfo();
 				elementInfo.isFeature = true;
 
+				if (isSetType)
+					elementInfo.type = CityGMLClass.fromInterface(featureClass);
+
 				if (!excludes.isEmpty()) { 
 					for (Class<? extends CityGML> exclude : excludes) {
 						if (isSubclass(featureClass, exclude)) {
@@ -185,8 +231,11 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	private ElementInfo getADEElementInfo(String localName, String namespaceURI, ElementInfo lastElementInfo, boolean checkForFeature) throws MissingADESchemaException {
+	public ElementInfo getADEElementInfo(QName name, ElementInfo lastElementInfo, boolean checkForFeature, boolean isSetType) throws MissingADESchemaException {
 		ElementInfo elementInfo = null;
+		String localName = name.getLocalPart();
+		String namespaceURI = name.getNamespaceURI();
+
 		Schema schema = schemaHandler.getSchema(namespaceURI);
 
 		// try and resolve unknown ADE schema
@@ -209,6 +258,9 @@ public class XMLElementChecker {
 				if (checkForFeature && elementDecl.isFeature()) {
 					elementInfo.isFeature = true;
 
+					if (isSetType)
+						elementInfo.type = CityGMLClass.ADE_COMPONENT;
+
 					if (!excludes.isEmpty()) { 
 						for (Class<? extends CityGML> exclude : excludes) {
 							if (isSubclass(ADEComponent.class, exclude)) {
@@ -228,33 +280,86 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getElementInfo(QName name, XMLChunk currentChunk, ElementInfo lastElementInfo) throws MissingADESchemaException {
+	public ElementInfo getElementInfo(QName name, CityGMLChunk currentChunk, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
 		if (lastElementInfo != null && lastElementInfo.skipNestedElements)
 			return lastElementInfo;
 
 		ElementInfo elementInfo = null;
-		String localName = name.getLocalPart();
-		String namespaceURI = name.getNamespaceURI();
 
 		if (lastElementInfo != null && lastElementInfo.isFeatureProperty) {
-			if (util.isGMLElement(name))
-				; // we do not support GML features
-			else if (util.isCityGMLElement(name))
-				elementInfo = getCityGMLFeature(localName, namespaceURI);
+			// we do not support GML features
+			if (isCityGMLElement(name))
+				elementInfo = getCityGMLFeature(name, isSetType);
 			else
-				elementInfo = getADEElementInfo(localName, namespaceURI, lastElementInfo, true);
+				elementInfo = getADEElementInfo(name, lastElementInfo, true, isSetType);
 		}
 
 		else {
-			if (util.isGMLElement(name))
-				elementInfo = getGMLFeatureProperty(localName);
-			else if (util.isCityGMLElement(name))
-				elementInfo = getCityGMLFeatureProperty(localName, namespaceURI, currentChunk);
-			else if (featureReadMode == FeatureReadMode.SPLIT_PER_FEATURE)
-				elementInfo = getADEElementInfo(localName, namespaceURI, lastElementInfo, false);
+			if (isGMLElement(name))
+				elementInfo = getGMLFeatureProperty(name.getLocalPart());
+			else if (isCityGMLElement(name))
+				elementInfo = getCityGMLFeatureProperty(name, currentChunk);
+			else if (checkADEFeatureProperty(name))
+				elementInfo = getADEElementInfo(name, lastElementInfo, false, false);
 		}
 
 		return elementInfo;
+	}
+
+	private void initCollectionSplitProperties(List<QName> featureProperties) {
+		cityGMLFeatureProperties = new HashSet<String>();
+
+		cityGMLFeatureProperties.add("cityObjectMember");
+		cityGMLFeatureProperties.add("appearanceMember");
+		cityGMLFeatureProperties.add("groupMember");
+		cityGMLFeatureProperties.add("parent");
+
+		for (QName featureProperty : featureProperties) {
+			String localName = featureProperty.getLocalPart();
+			String namespaceURI = featureProperty.getNamespaceURI();
+
+			if (namespaceURI.length() == 0) {
+				for (CityGMLModule module : Modules.getCityGMLModules()) {
+					if (module.hasFeaturePropertyElement(localName)) {
+						cityGMLFeatureProperties.add(localName);
+						break;
+					}
+				}
+			}
+
+			else if (isCityGMLElement(namespaceURI)) {
+				Module module = Modules.getModule(namespaceURI);
+				if (module instanceof CityGMLModule && ((CityGMLModule)module).hasFeaturePropertyElement(localName))
+					cityGMLFeatureProperties.add(localName);
+			}
+
+			else {
+				if (adeFeatureProperties == null)
+					adeFeatureProperties = new HashMap<String, HashSet<String>>();
+
+				HashSet<String> propertySet = adeFeatureProperties.get(namespaceURI);
+				if (propertySet == null) {
+					propertySet = new HashSet<String>();
+					adeFeatureProperties.put(namespaceURI, propertySet);
+				}
+
+				propertySet.add(localName);
+			}
+
+		}
+	}
+	
+	private boolean checkADEFeatureProperty(QName name) {
+		if (featureReadMode == FeatureReadMode.SPLIT_PER_FEATURE)
+			return true;
+		
+		if (adeFeatureProperties != null) {
+			HashSet<String> properties = adeFeatureProperties.get(name.getNamespaceURI());
+			if (properties != null)
+				return properties.contains(name.getLocalPart());
+		}
+		
+		return false;
 	}
 
 	private boolean isSubclass(Class<?> a, Class<?> b) {
@@ -278,6 +383,7 @@ public class XMLElementChecker {
 		private boolean isFeatureProperty = false;
 		private boolean hasXLink = false;
 		private boolean skipNestedElements = false;
+		private CityGMLClass type = CityGMLClass.UNDEFINED;
 
 		ElementInfo() {
 			elementDecl = null;
@@ -293,6 +399,10 @@ public class XMLElementChecker {
 
 		boolean hasXLink() {
 			return hasXLink;
+		}
+
+		CityGMLClass getType() {
+			return type;
 		}
 
 	}

@@ -27,7 +27,7 @@ import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingPart;
@@ -43,7 +43,7 @@ public class ObjectTreeValidation {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
 		CityGMLFactory citygml = new CityGMLFactory();
 		

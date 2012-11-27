@@ -50,6 +50,10 @@ public class RangeParametersImpl extends AssociationByRepOrRefImpl<ValueObject> 
 		return GMLClass.RANGE_PARAMETERS;
 	}
 
+	public Class<ValueObject> getAssociableClass() {
+		return ValueObject.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		RangeParameters copy = (target == null) ? new RangeParametersImpl() : (RangeParameters)target;
 		return super.copyTo(copy, copyBuilder);

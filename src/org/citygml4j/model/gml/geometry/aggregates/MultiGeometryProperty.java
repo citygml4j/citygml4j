@@ -20,9 +20,14 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader.saxevents;
+package org.citygml4j.model.gml.geometry.aggregates;
 
-public interface Locatable {
-	public Location getLocation();
-	public void setLocation(Location location);
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+
+public interface MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
+	public AbstractGeometricAggregate getGeometricAggregate();
+	public boolean isSetGeometricAggregate();
+	
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate);
+	public void unsetGeometricAggregate();
 }

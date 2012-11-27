@@ -28,7 +28,7 @@ import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
@@ -64,7 +64,7 @@ public class ObjectTreeValidationUsingSplitter {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
 		System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();

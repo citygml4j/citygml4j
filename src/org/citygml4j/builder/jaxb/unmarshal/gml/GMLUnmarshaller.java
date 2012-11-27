@@ -61,9 +61,12 @@ import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
 import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
 import org.citygml4j.impl.gml.feature.LocationPropertyImpl;
 import org.citygml4j.impl.gml.feature.PriorityLocationPropertyImpl;
+import org.citygml4j.impl.gml.geometry.GeometryArrayPropertyImpl;
 import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiCurveImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiCurvePropertyImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryImpl;
+import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryPropertyImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringPropertyImpl;
 import org.citygml4j.impl.gml.geometry.aggregates.MultiPointImpl;
@@ -194,10 +197,13 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.model.gml.feature.PriorityLocationProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineStringProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
@@ -528,6 +534,10 @@ public class GMLUnmarshaller {
 			dest = unmarshalValueProperty((ValuePropertyType)src);
 		else if (src instanceof VectorType)
 			dest = unmarshalVector((VectorType)src);
+		else if (src instanceof MultiGeometryType)
+			dest = unmarshalMultiGeometry((MultiGeometryType)src);
+		else if (src instanceof MultiGeometryPropertyType)
+			dest = unmarshalMultiGeometryProperty((MultiGeometryPropertyType)src);
 
 		return dest;
 	}
@@ -1715,6 +1725,24 @@ public class GMLUnmarshaller {
 
 		return dest;
 	}
+	
+	public GeometryArrayProperty<AbstractGeometry> unmarshalGeometryArrayProperty(GeometryArrayPropertyType src) {
+		GeometryArrayProperty<AbstractGeometry> dest = new GeometryArrayPropertyImpl<AbstractGeometry>();
+
+		if (src.isSet_Geometry()) {
+			for (JAXBElement<? extends AbstractGeometryType> elem : src.get_Geometry()) {			
+				try {
+					ModelObject abstractGeometry = jaxb.unmarshal(elem);
+					if (abstractGeometry instanceof AbstractGeometry)
+						dest.addGeometry((AbstractGeometry)abstractGeometry);
+				} catch (MissingADESchemaException e) {
+					//
+				}
+			}
+		}
+
+		return dest;
+	}
 
 	public GeometryProperty<AbstractGeometry> unmarshalGeometryProperty(GeometryPropertyType src) {
 		GeometryProperty<AbstractGeometry> dest = new GeometryPropertyImpl<AbstractGeometry>();
@@ -2082,6 +2110,61 @@ public class GMLUnmarshaller {
 
 		if (src.isSetMultiCurve())
 			dest.setMultiCurve(unmarshalMultiCurve(src.getMultiCurve()));
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(src.getType());
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(src.getShow());
+
+		if (src.isSetActuate())
+			dest.setActuate(src.getActuate());
+
+		return dest;
+	}
+	
+	public MultiGeometry unmarshalMultiGeometry(MultiGeometryType src) {
+		MultiGeometry dest = new MultiGeometryImpl();
+		unmarshalAbstractGeometricAggregate(src, dest);
+
+		if (src.isSetGeometryMember()) {
+			for (GeometryPropertyType geometryMember : src.getGeometryMember())
+				dest.addGeometryMember(unmarshalGeometryProperty(geometryMember));
+		}
+
+		if (src.isSetGeometryMembers())
+			dest.setGeometryMembers(unmarshalGeometryArrayProperty(src.getGeometryMembers()));
+
+		return dest;
+	}
+
+	public MultiGeometryProperty unmarshalMultiGeometryProperty(MultiGeometryPropertyType src) {
+		MultiGeometryProperty dest = new MultiGeometryPropertyImpl();
+
+		if (src.isSet_GeometricAggregate()) {
+			try {
+				ModelObject geometricAggregate = jaxb.unmarshal(src.get_GeometricAggregate());
+				if (geometricAggregate instanceof AbstractGeometricAggregate)
+					dest.setGeometricAggregate((AbstractGeometricAggregate)geometricAggregate);
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());

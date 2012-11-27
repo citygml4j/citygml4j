@@ -35,6 +35,7 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _TexturedSurface {
@@ -87,6 +88,11 @@ public class _TexturedSurfaceImpl extends OrientableSurfaceImpl implements _Text
 		return ModelType.CITYGML;
 	}
 	
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass._TEXTURED_SURFACE;
+	}
+
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._TEXTURED_SURFACE;
 	}

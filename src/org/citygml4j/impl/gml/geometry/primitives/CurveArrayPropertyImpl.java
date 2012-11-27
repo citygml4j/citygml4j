@@ -37,7 +37,7 @@ public class CurveArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractCu
 		super.addGeometry(abstractCurve);
 	}
 
-	public List<AbstractCurve> getCurve() {
+	public List<? extends AbstractCurve> getCurve() {
 		return super.getGeometry();
 	}
 
@@ -45,8 +45,9 @@ public class CurveArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractCu
 		return super.isSetGeometry();
 	}
 
-	public void setCurve(List<AbstractCurve> abstractCurve) {
-		super.setGeometry(abstractCurve);
+	@SuppressWarnings("unchecked")
+	public void setCurve(List<? extends AbstractCurve> abstractCurve) {
+		super.setGeometry((List<AbstractCurve>)abstractCurve);
 	}
 
 	public void unsetCurve() {
@@ -63,6 +64,10 @@ public class CurveArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractCu
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.CURVE_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractCurve> getAssociableClass() {
+		return AbstractCurve.class;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

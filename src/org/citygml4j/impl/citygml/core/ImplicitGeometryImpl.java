@@ -22,7 +22,11 @@
  */
 package org.citygml4j.impl.citygml.core;
 
+import java.util.List;
+
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.geometry.Matrix;
 import org.citygml4j.impl.gml.base.AbstractGMLImpl;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
@@ -44,13 +48,13 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	private CoreModule module;	
 
 	public ImplicitGeometryImpl() {
-		
+
 	}
-	
+
 	public ImplicitGeometryImpl(CoreModule module) {
 		this.module = module;
 	}
-	
+
 	public String getLibraryObject() {
 		return libraryObject;
 	}
@@ -102,21 +106,21 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	public void setReferencePoint(PointProperty referencePoint) {
 		if (referencePoint != null)
 			referencePoint.setParent(this);
-		
+
 		this.referencePoint = referencePoint;
 	}
 
 	public void setRelativeGeometry(GeometryProperty<? extends AbstractGeometry> relativeGeometry) {
 		if (relativeGeometry != null)
 			relativeGeometry.setParent(this);
-		
+
 		this.relativeGeometry = relativeGeometry;
 	}
 
 	public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix) {
 		if (transformationMatrix != null)
 			transformationMatrix.setParent(this);
-		
+
 		this.transformationMatrix = transformationMatrix;
 	}
 
@@ -131,29 +135,55 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	public void unsetReferencePoint() {
 		if (isSetReferencePoint())
 			referencePoint.unsetParent();
-		
+
 		referencePoint = null;
 	}
 
 	public void unsetRelativeGMLGeometry() {
 		if (isSetRelativeGMLGeometry())
 			relativeGeometry.unsetParent();
-		
+
 		relativeGeometry = null;
 	}
 
 	public void unsetTransformationMatrix() {
 		if (isSetTransformationMatrix())
 			transformationMatrix.unsetParent();
-		
+
 		transformationMatrix = null;
+	}
+
+	public BoundingBox calcBoundingBox() {
+		if (relativeGeometry != null) {
+			if (relativeGeometry.isSetGeometry()) {
+				BoundingBox bbox = relativeGeometry.getGeometry().calcBoundingBox();
+				if (bbox != null) {
+					if (transformationMatrix != null && 
+							referencePoint != null &&
+							referencePoint.isSetPoint()) {
+						Matrix m = transformationMatrix.getMatrix().copy();
+						List<Double> point = referencePoint.getPoint().toList3d();								
+						m.set(0, 3, m.get(0, 3) + point.get(0));
+						m.set(1, 3, m.get(1, 3) + point.get(1));
+						m.set(2, 3, m.get(2, 3) + point.get(2));
+						bbox.transform3D(m);
+					}
+					
+					return bbox;
+				}
+			} else {
+				// xlink
+			}
+		}
+		
+		return null;
 	}
 
 	@Override
 	public ModelType getModelType() {
 		return ModelType.CITYGML;
 	}
-	
+
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.IMPLICIT_GEOMETRY;
 	}
@@ -175,38 +205,38 @@ public class ImplicitGeometryImpl extends AbstractGMLImpl implements ImplicitGeo
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		ImplicitGeometry copy = (target == null) ? new ImplicitGeometryImpl() : (ImplicitGeometry)target;
 		super.copyTo(copy, copyBuilder);
-		
+
 		if (isSetLibraryObject())
 			copy.setLibraryObject(copyBuilder.copy(libraryObject));
-		
+
 		if (isSetMimeType())
 			copy.setMimeType(copyBuilder.copy(mimeType));
-		
+
 		if (isSetReferencePoint()) {
 			copy.setReferencePoint((PointProperty)copyBuilder.copy(referencePoint));
 			if (copy.getReferencePoint() == referencePoint)
 				referencePoint.setParent(this);
 		}
-		
+
 		if (isSetRelativeGMLGeometry()) {
 			copy.setRelativeGeometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(relativeGeometry));
 			if (copy.getRelativeGMLGeometry() == relativeGeometry)
 				relativeGeometry.setParent(this);
 		}
-		
+
 		if (isSetTransformationMatrix()) {
 			copy.setTransformationMatrix((TransformationMatrix4x4)copyBuilder.copy(transformationMatrix));
 			if (copy.getTransformationMatrix() == transformationMatrix)
 				transformationMatrix.setParent(this);
 		}
-		
+
 		return copy;
 	}
-	
+
 	public void accept(GMLVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public <T> T accept(GMLFunctor<T> visitor) {
 		return visitor.apply(this);
 	}

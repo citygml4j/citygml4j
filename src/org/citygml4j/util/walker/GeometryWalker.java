@@ -35,6 +35,7 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.AbstractGeometricAggregate;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
+import org.citygml4j.model.gml.geometry.aggregates.MultiGeometry;
 import org.citygml4j.model.gml.geometry.aggregates.MultiLineString;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPolygon;
@@ -202,6 +203,17 @@ public abstract class GeometryWalker implements GeometryVisitor, Walker {
 
 		if (multiCurve.isSetCurveMembers())
 			visit(multiCurve.getCurveMembers());
+	}
+	
+	public void visit(MultiGeometry multiGeometry) {
+		visit((AbstractGeometricAggregate)multiGeometry);
+
+		if (multiGeometry.isSetGeometryMember())
+			for (GeometryProperty<? extends AbstractGeometry> geometryProperty : new ArrayList<GeometryProperty<? extends AbstractGeometry>>(multiGeometry.getGeometryMember()))
+				visit(geometryProperty);
+
+		if (multiGeometry.isSetGeometryMembers())
+			visit(multiGeometry.getGeometryMembers());
 	}
 
 	public void visit(MultiLineString multiLineString) {

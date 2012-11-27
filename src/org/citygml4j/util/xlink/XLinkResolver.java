@@ -23,9 +23,11 @@
 package org.citygml4j.util.xlink;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.util.walker.GMLFunctionWalker;
@@ -35,24 +37,27 @@ import org.w3c.dom.NodeList;
 
 public class XLinkResolver {
 	
-	public ModelObject getObject(String target, AbstractGML root) {
+	private ModelObject resolveXlink(String target, AbstractGML root, GMLIdWalker walker) {
 		if (target == null || target.length() == 0)
 			return null;
 		
 		if (root == null)
 			return null;
 		
-		GMLIdWalker walker = new GMLIdWalker(clipGMLId(target));
 		return root.accept(walker);
 	}
 	
+	public ModelObject getObject(String target, AbstractGML root) {
+		return resolveXlink(target, root, new GMLWalker(clipGMLId(target)));
+	}	
+	
 	public AbstractGeometry getGeometry(String target, AbstractGML root) {
-		ModelObject object = getObject(target, root);
+		ModelObject object = resolveXlink(target, root, new GeometryWalker(clipGMLId(target)));
 		return object instanceof AbstractGeometry ? (AbstractGeometry)object : null;
 	}
 	
 	public AbstractFeature getFeature(String target, AbstractGML root) {
-		ModelObject object = getObject(target, root);
+		ModelObject object = resolveXlink(target, root, new FeatureWalker(clipGMLId(target)));
 		return object instanceof AbstractFeature ? (AbstractFeature)object : null;
 	}
 	
@@ -61,7 +66,7 @@ public class XLinkResolver {
 		if (type == null)
 			return null;
 		
-		Object object = getObject(target, root);
+		ModelObject object = getObject(target, root);
 		return (type.isInstance(object)) ? (T)object : null;
 	}
 	
@@ -69,16 +74,64 @@ public class XLinkResolver {
 		return target.replaceAll("^.*?#+?", "");
 	}
 	
-	private static final class GMLIdWalker extends GMLFunctionWalker<ModelObject> {
+	private static final class GMLWalker extends GMLIdWalker {
+		
+		GMLWalker(String gmlId) {
+			super(gmlId);
+		}
+
+		@Override
+		public ModelObject apply(AbstractGML abstractGML) {
+			return (abstractGML.isSetId() && super.gmlId.equals(abstractGML.getId())) ? abstractGML : null;
+		}		
+	}
+	
+	private static final class FeatureWalker extends GMLIdWalker {
+		
+		FeatureWalker(String gmlId) {
+			super(gmlId);
+		}
+
+		@Override
+		public ModelObject apply(AbstractFeature abstractFeature) {
+			return (abstractFeature.isSetId() && super.gmlId.equals(abstractFeature.getId())) ? abstractFeature : null;
+		}
+	}
+	
+	private static final class GeometryWalker extends GMLIdWalker {
+		
+		GeometryWalker(String gmlId) {
+			super(gmlId);
+		}
+		
+		@Override
+		public ModelObject apply(AbstractGeometry abstractGeometry) {
+			return (abstractGeometry.isSetId() && super.gmlId.equals(abstractGeometry.getId())) ? abstractGeometry : null;
+		}
+
+		@Override
+		public <E extends AbstractFeature> ModelObject apply(FeatureProperty<E> featureProperty) {
+			if (featureProperty.isSetObject() && featureProperty.getObject() instanceof AppearanceModuleComponent)
+				return null;
+			
+			return super.apply(featureProperty);
+		}
+
+		@Override
+		public ModelObject apply(AbstractFeature abstractFeature) {
+			if (abstractFeature instanceof AppearanceModuleComponent)
+				return null;
+			
+			return super.apply(abstractFeature);
+		}
+		
+	}
+	
+	private static abstract class GMLIdWalker extends GMLFunctionWalker<ModelObject> {
 		private final String gmlId;
 		
 		GMLIdWalker(String gmlId) {
 			this.gmlId = gmlId;
-		}
-		
-		@Override
-		public ModelObject apply(AbstractGML abstractGML) {
-			return (abstractGML.isSetId() && gmlId.equals(abstractGML.getId())) ? abstractGML : null;
 		}
 		
 		@Override

@@ -37,7 +37,7 @@ public class SolidArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractSo
 		super.addGeometry(abstractSolid);
 	}
 
-	public List<AbstractSolid> getSolid() {
+	public List<? extends AbstractSolid> getSolid() {
 		return super.getGeometry();
 	}
 
@@ -45,8 +45,9 @@ public class SolidArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractSo
 		return super.isSetGeometry();
 	}
 
-	public void setSolid(List<AbstractSolid> abstractSolid) {
-		super.setGeometry(abstractSolid);
+	@SuppressWarnings("unchecked")
+	public void setSolid(List<? extends AbstractSolid> abstractSolid) {
+		super.setGeometry((List<AbstractSolid>)abstractSolid);
 	}
 
 	public void unsetSolid() {
@@ -63,6 +64,10 @@ public class SolidArrayPropertyImpl extends GeometryArrayPropertyImpl<AbstractSo
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.SOLID_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractSolid> getAssociableClass() {
+		return AbstractSolid.class;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

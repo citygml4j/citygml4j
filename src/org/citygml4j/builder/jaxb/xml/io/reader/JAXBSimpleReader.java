@@ -32,6 +32,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
@@ -43,6 +44,7 @@ import org.xml.sax.SAXException;
 
 public class JAXBSimpleReader extends AbstractJAXBReader {
 	private CityGML tmp;
+	private ElementInfo elementInfo;
 
 	public JAXBSimpleReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
 		super(reader, factory, baseURI);
@@ -52,6 +54,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 	public void close() throws CityGMLReadException {
 		super.close();
 		tmp = null;
+		elementInfo = null;
 	}
 
 	public boolean hasNextFeature() throws CityGMLReadException {
@@ -84,28 +87,43 @@ public class JAXBSimpleReader extends AbstractJAXBReader {
 							}
 						}
 
-						if (util.isCityGMLElement(reader.getName()) &&
-								util.isCityGMLFeature(reader.getLocalName(), reader.getNamespaceURI())) {
-							Unmarshaller unmarshaller = factory.builder.getJAXBContext().createUnmarshaller();
+						elementInfo = elementChecker.getCityGMLFeature(reader.getName(), isFilteredReader());
+						if (elementInfo != null && elementInfo.isFeature()) {
 
-							// validate input
-							if (useValidation) {
-								unmarshaller.setSchema(validationSchemaHandler.getSchema());
-								if (validationEventHandler != null)
-									unmarshaller.setEventHandler(validationEventHandler);
-							}							
+							if (!isFilteredReader() || filter.accept(elementInfo.getType())) {
+								Unmarshaller unmarshaller = factory.builder.getJAXBContext().createUnmarshaller();
 
-							// unmarshal input
-							Object result = unmarshaller.unmarshal(reader);
+								// validate input
+								if (useValidation) {
+									unmarshaller.setSchema(validationSchemaHandler.getSchema());
+									if (validationEventHandler != null)
+										unmarshaller.setEventHandler(validationEventHandler);
+								}							
 
-							// release memory
-							unmarshaller = null;
+								// unmarshal input
+								Object result = unmarshaller.unmarshal(reader);
 
-							if (result instanceof JAXBElement<?>) {
-								ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
-								if (citygml.getModelType() == ModelType.CITYGML && citygml instanceof AbstractFeature) {
-									next = (CityGML)citygml;
-									break;
+								// release memory
+								unmarshaller = null;
+
+								if (result instanceof JAXBElement<?>) {
+									ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
+									if (citygml.getModelType() == ModelType.CITYGML && citygml instanceof AbstractFeature) {
+										next = (CityGML)citygml;
+										break;
+									}
+								}
+							} 
+							
+							else {
+								// consume events until corresponding end element								
+								for (int depth = 1; depth > 0; ) {
+									reader.next();
+
+									if (reader.getEventType() == XMLStreamConstants.START_ELEMENT)
+										depth++;
+									else if (reader.getEventType() == XMLStreamConstants.END_ELEMENT)
+										depth--;
 								}
 							}
 						}

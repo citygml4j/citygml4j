@@ -20,35 +20,9 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader.saxevents;
+package org.citygml4j.util.xml.saxevents;
 
-public class Location {
-	private final int lineNumber;
-	private final int columnNumber;
-	private final String publicId;
-	private final String systemId;
-	
-	public Location(int lineNumber, int columnNumber, String systemId, String publicId) {
-		this.lineNumber = lineNumber;
-		this.columnNumber = columnNumber;
-		this.systemId = systemId;
-		this.publicId = publicId;
-	}
-
-	public int getLineNumber() {
-		return lineNumber;
-	}
-
-	public int getColumnNumber() {
-		return columnNumber;
-	}
-
-	public String getPublicId() {
-		return publicId;
-	}
-
-	public String getSystemId() {
-		return systemId;
-	}
-	
+public interface Locatable {
+	public Location getLocation();
+	public void setLocation(Location location);
 }

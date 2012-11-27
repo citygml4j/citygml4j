@@ -54,6 +54,11 @@ public class SolidPropertyImpl extends GeometryPropertyImpl<AbstractSolid> imple
 		return copyTo(new SolidPropertyImpl(), copyBuilder);
 	}
 
+	@Override
+	public Class<AbstractSolid> getAssociableClass() {
+		return AbstractSolid.class;
+	}
+
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		SolidProperty copy = (target == null) ? new SolidPropertyImpl() : (SolidProperty)target;
 		return super.copyTo(copy, copyBuilder);

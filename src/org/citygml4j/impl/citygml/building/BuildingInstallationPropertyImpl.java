@@ -74,6 +74,11 @@ public class BuildingInstallationPropertyImpl extends FeaturePropertyImpl<Buildi
 		return module != null;
 	}
 
+	@Override
+	public Class<BuildingInstallation> getAssociableClass() {
+		return BuildingInstallation.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new BuildingInstallationPropertyImpl(), copyBuilder);
 	}

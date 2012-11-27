@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.factory.geometry.GMLGeometryFactory;
@@ -60,7 +60,7 @@ public class BuildingCreator {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
 		System.out.println(df.format(new Date()) + "creating LOD2 building as citygml4j in-memory object tree");
 		GMLGeometryFactory geom = new GMLGeometryFactory();
@@ -79,13 +79,13 @@ public class BuildingCreator {
 		Polygon roof_1 = geom.createLinearPolygon(new double[] {6,0,6, 6,12,6, 3,12,9, 3,0,9, 6,0,6}, 3);
 		Polygon roof_2 = geom.createLinearPolygon(new double[] {0,0,6, 3,0,9, 3,12,9, 0,12,6, 0,0,6}, 3);
 
-		ground.setId(gmlIdManager.generateGmlId());
-		wall_1.setId(gmlIdManager.generateGmlId());
-		wall_2.setId(gmlIdManager.generateGmlId());
-		wall_3.setId(gmlIdManager.generateGmlId());
-		wall_4.setId(gmlIdManager.generateGmlId());
-		roof_1.setId(gmlIdManager.generateGmlId());
-		roof_2.setId(gmlIdManager.generateGmlId());
+		ground.setId(gmlIdManager.generateUUID());
+		wall_1.setId(gmlIdManager.generateUUID());
+		wall_2.setId(gmlIdManager.generateUUID());
+		wall_3.setId(gmlIdManager.generateUUID());
+		wall_4.setId(gmlIdManager.generateUUID());
+		roof_1.setId(gmlIdManager.generateUUID());
+		roof_2.setId(gmlIdManager.generateUUID());
 
 		// lod2 solid
 		List<SurfaceProperty> surfaceMember = new ArrayList<SurfaceProperty>();

@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.factory.geometry.GMLGeometryFactory;
 import org.citygml4j.geometry.BoundingBox;
@@ -55,7 +55,7 @@ public class AddingLOD1Geometry {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 	
 		GMLFactory gml = new GMLFactory();
 		GMLGeometryFactory geom = new GMLGeometryFactory();

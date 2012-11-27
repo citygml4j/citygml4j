@@ -50,6 +50,11 @@ public class MultiCurvePropertyImpl extends GeometryPropertyImpl<MultiCurve> imp
 		return GMLClass.MULTI_CURVE_PROPERTY;
 	}
 
+	@Override
+	public Class<MultiCurve> getAssociableClass() {
+		return MultiCurve.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new MultiCurvePropertyImpl(), copyBuilder);
 	}

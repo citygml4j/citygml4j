@@ -74,6 +74,11 @@ public class AppearancePropertyImpl extends FeaturePropertyImpl<Appearance> impl
 		return module != null;
 	}
 
+	@Override
+	public Class<Appearance> getAssociableClass() {
+		return Appearance.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new AppearancePropertyImpl(), copyBuilder);
 	}

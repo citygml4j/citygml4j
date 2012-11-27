@@ -40,10 +40,18 @@ public class ADEUnmarshaller {
 			try {
 				jaxb.getSchemaHandler().parseSchema(element);
 				jaxb.getSchemaHandler().parseSchema(element.getNamespaceURI(), null);
-				jaxb.getSchemaHandler().resolveAndParseSchema(element.getNamespaceURI());
 			} catch (SAXException e) {
 				// 
 			}
+		}
+
+		try {
+			jaxb.getSchemaHandler().resolveAndParseSchema(element.getNamespaceURI());
+		} catch (SAXException e) {
+			// 
+		} catch (MissingADESchemaException e) {
+			if (jaxb.isThrowMissingADESchema())
+				throw e;
 		}
 
 		return new ADEComponent(element);

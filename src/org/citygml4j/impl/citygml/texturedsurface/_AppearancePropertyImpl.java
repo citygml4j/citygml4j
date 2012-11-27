@@ -87,6 +87,10 @@ public class _AppearancePropertyImpl extends AssociationByRepOrRefImpl<_Abstract
 		return module != null;
 	}
 
+	public Class<_AbstractAppearance> getAssociableClass() {
+		return _AbstractAppearance.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new _AppearancePropertyImpl(), copyBuilder);
 	}

@@ -20,26 +20,30 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-package org.citygml4j.builder.jaxb.xml.io.reader.saxevents;
+package org.citygml4j.util.xml.saxevents;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.LocatorImpl;
 
-public final class EndElement extends SAXEvent {
+public final class StartElement extends SAXEvent implements Locatable {
 	private String uri;
 	private String localName;
 	private String prefix;
+	private Attributes attributes;
 	private Location location;
-
-	private EndElement() {
-		super(EventType.END_ELEMENT);
+	
+	private StartElement() {
+		super(EventType.START_ELEMENT);
 	}
 
-	public EndElement(String uri, String localName, String prefix, Location location) {
+	public StartElement(String uri, String localName, String prefix, Attributes attributes, Location location) {
 		this();
 		this.uri = uri;
 		this.localName = localName;
+		this.attributes = new AttributesImpl(attributes);
 		this.location = location;
 
 		if (prefix != null) {
@@ -50,19 +54,20 @@ public final class EndElement extends SAXEvent {
 	}
 
 	@Override
-	public EndElement shallowCopy() {
-		EndElement endElement = new EndElement();
-		endElement.uri = uri;
-		endElement.localName = localName;
-		endElement.prefix = prefix;
-		endElement.location = location;
-
-		return endElement;
+	public StartElement shallowCopy() {
+		StartElement startElement = new StartElement();
+		startElement.uri = uri;
+		startElement.localName = localName;
+		startElement.prefix = prefix;
+		startElement.attributes = attributes;
+		startElement.location = location;
+		
+		return startElement;
 	}
 
 	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.endElement(uri, localName, prefix != null ? prefix + ':' + localName : localName);
+		contentHandler.startElement(uri, localName, prefix != null ? prefix + ':' + localName : localName, attributes);
 	}
 
 	@Override
@@ -83,6 +88,14 @@ public final class EndElement extends SAXEvent {
 
 	public String getLocalName() {
 		return localName;
+	}
+
+	public Attributes getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Attributes attributes) {
+		this.attributes = attributes;
 	}
 
 	public Location getLocation() {

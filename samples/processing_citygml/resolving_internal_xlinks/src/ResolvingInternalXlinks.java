@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
@@ -47,7 +47,7 @@ public class ResolvingInternalXlinks {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_CityObjectGroup_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();

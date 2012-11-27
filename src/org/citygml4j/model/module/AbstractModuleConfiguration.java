@@ -28,11 +28,15 @@ import java.util.List;
 public class AbstractModuleConfiguration {
 	protected Module[] modules;
 	
-	public AbstractModuleConfiguration(Module... modules) {
+	public <T extends Module> AbstractModuleConfiguration(T... modules) {
 		this.modules = modules;
 	}
 	
-	public List<Module> getModules() {
+	public AbstractModuleConfiguration(List<? extends Module> modules) {
+		this.modules = (Module[])modules.toArray();
+	}
+	
+	public List<? extends Module> getModules() {
 		return Arrays.asList(modules);
 	}
 	

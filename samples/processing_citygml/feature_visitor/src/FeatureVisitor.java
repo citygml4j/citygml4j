@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
@@ -49,7 +49,7 @@ public class FeatureVisitor {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
-		JAXBBuilder builder = ctx.createJAXBBuilder();
+		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
@@ -70,7 +70,7 @@ public class FeatureVisitor {
 				MultiSurface multiSurface = boundarySurface.getLod2MultiSurface().getMultiSurface();
 				String id = multiSurface.getId();
 				if (id == null || id.length() == 0) {
-					id = gmlIdManager.generateGmlId();
+					id = gmlIdManager.generateUUID();
 					multiSurface.setId(id);
 				}
 

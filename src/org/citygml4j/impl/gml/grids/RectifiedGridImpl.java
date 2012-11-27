@@ -109,9 +109,9 @@ public class RectifiedGridImpl extends GridImpl implements RectifiedGrid {
 		BoundingBox bbox = new BoundingBox();
 		
 		Matrix[] offsetVector = new Matrix[3];
-		offsetVector[0] = getDimension() >= 1 ? new Matrix(this.offsetVector.get(0).toList3d(), 3) : new Matrix(0, 3, 1);
-		offsetVector[1] = getDimension() >= 2 ? new Matrix(this.offsetVector.get(1).toList3d(), 3) : new Matrix(0, 3, 1);
-		offsetVector[2] = getDimension() >= 3 ? new Matrix(this.offsetVector.get(2).toList3d(), 3) : new Matrix(0, 3, 1);
+		offsetVector[0] = getDimension() >= 1 ? new Matrix(this.offsetVector.get(0).toList3d(), 3) : new Matrix(3, 1, 0);
+		offsetVector[1] = getDimension() >= 2 ? new Matrix(this.offsetVector.get(1).toList3d(), 3) : new Matrix(3, 1, 0);
+		offsetVector[2] = getDimension() >= 3 ? new Matrix(this.offsetVector.get(2).toList3d(), 3) : new Matrix(3, 1, 0);
 		
 		double[] gridLength = new double[3];
 		gridLength[0] = gridLimits.getUpperCorner().getX() - gridLimits.getLowerCorner().getX();

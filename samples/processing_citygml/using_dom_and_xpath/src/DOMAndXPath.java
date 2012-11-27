@@ -98,7 +98,7 @@ public class DOMAndXPath {
 
 		// add gml:id and gml:description to building
 		System.out.println(df.format(new Date()) + "processing content using citygml4j");
-		building.setId(DefaultGMLIdManager.getInstance().generateGmlId());
+		building.setId(DefaultGMLIdManager.getInstance().generateUUID());
 		StringOrRef description = gml.createStringOrRef();
 		description.setValue("processed by citygml4j using DOM and XPath");
 		building.setDescription(description);

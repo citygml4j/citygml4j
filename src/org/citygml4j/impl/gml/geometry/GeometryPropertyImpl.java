@@ -50,10 +50,16 @@ public class GeometryPropertyImpl<T extends AbstractGeometry> extends Associatio
 		return GMLClass.GEOMETRY_PROPERTY;
 	}
 
+	@SuppressWarnings("unchecked")
+	public Class<T> getAssociableClass() {
+		return (Class<T>)AbstractGeometry.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new GeometryPropertyImpl<T>(), copyBuilder);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		GeometryProperty<T> copy = (target == null) ? new GeometryPropertyImpl<T>() : (GeometryProperty<T>)target;

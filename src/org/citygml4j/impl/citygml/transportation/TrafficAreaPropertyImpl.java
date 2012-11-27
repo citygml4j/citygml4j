@@ -74,6 +74,11 @@ public class TrafficAreaPropertyImpl extends FeaturePropertyImpl<TrafficArea> im
 		return module != null;
 	}
 
+	@Override
+	public Class<TrafficArea> getAssociableClass() {
+		return TrafficArea.class;
+	}
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new TrafficAreaPropertyImpl(), copyBuilder);
 	}
