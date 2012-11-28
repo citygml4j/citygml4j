@@ -19,6 +19,11 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * File name: $$HeadURL$$
+ * Revision: $$Revison$$
+ * Last modified: $$Date$$
+ * Last modified by: $$Author$$
  */
 package org.citygml4j.builder.copy;
 
@@ -26,6 +31,26 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 
+/**
+ * @author nagel
+ *
+ */
+/**
+ * @author nagel
+ *
+ */
+/**
+ * @author nagel
+ *
+ */
+/**
+ * @author nagel
+ *
+ */
+/**
+ * @author nagel
+ *
+ */
 public abstract class CopyBuilder {
 	private HashSet<Class<?>> shallowCopy = new HashSet<Class<?>>();
 	private HashSet<Class<?>> nullCopy = new HashSet<Class<?>>();
