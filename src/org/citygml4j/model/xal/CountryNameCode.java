@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,25 +19,124 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.xal;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
-public interface CountryNameCode extends XAL, GrPostal, Child, Copyable {
-	public String getContent();
-	public String getScheme();
-	public boolean isSetContent();
-	public boolean isSetScheme();
+public class CountryNameCode implements XAL, GrPostal, Child, Copyable {
+	private String content;
+	private String scheme;
+	private String code;
+	private ModelObject parent;
 	
-	public void setContent(String content);
-	public void setScheme(String scheme);
-	public void unsetContent();
-	public void unsetScheme();
+	public String getContent() {
+		return content;
+	}
+
+	public String getScheme() {
+		return scheme;
+	}
+
+	public boolean isSetContent() {
+		return content != null;
+	}
+
+	public boolean isSetScheme() {
+		return scheme != null;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setScheme(String scheme) {
+		this.scheme = scheme;
+	}
+
+	public void unsetContent() {
+		content = null;
+	}
+
+	public void unsetScheme() {
+		scheme = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
+	public XALClass getXALClass() {
+		return XALClass.COUNTRY_NAME_CODE;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public boolean isSetCode() {
+		return code != null;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void unsetCode() {
+		code = null;
+	}
+
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CountryNameCode(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CountryNameCode copy = (target == null) ? new CountryNameCode() : (CountryNameCode)target;
+		
+		if (isSetContent())
+			copy.setContent(copyBuilder.copy(content));
+		
+		if (isSetScheme())
+			copy.setScheme(copyBuilder.copy(scheme));
+		
+		if (isSetCode())
+			copy.setCode(copyBuilder.copy(code));
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
 	
-	public void visit(XALVisitor visitor);
-	public <T> T visit(XALFunctor<T> visitor);
+	public void visit(XALVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
 }

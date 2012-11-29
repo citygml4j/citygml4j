@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiCurveProperty extends GeometryProperty<MultiCurve> {
-	public MultiCurve getMultiCurve();
-	public boolean isSetMultiCurve();
+public class MultiCurveProperty extends GeometryProperty<MultiCurve> {
+
+	public MultiCurveProperty() {
+
+	}
+
+	public MultiCurveProperty(MultiCurve multiCurve) {
+		super(multiCurve);
+	}
+
+	public MultiCurveProperty(String href) {
+		super(href);
+	}
 	
-	public void setMultiCurve(MultiCurve multiCurve);
-	public void unsetMultiCurve();
+	public MultiCurve getMultiCurve() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiCurve() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiCurve(MultiCurve multiCurve) {
+		super.setGeometry(multiCurve);
+	}
+
+	public void unsetMultiCurve() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_CURVE_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiCurve> getAssociableClass() {
+		return MultiCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiCurveProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiCurveProperty copy = (target == null) ? new MultiCurveProperty() : (MultiCurveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

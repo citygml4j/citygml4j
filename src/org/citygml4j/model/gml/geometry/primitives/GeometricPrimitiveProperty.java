@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface GeometricPrimitiveProperty extends GeometryProperty<AbstractGeometricPrimitive> {
-	public AbstractGeometricPrimitive getGeometricPrimitive();
-	public boolean isSetGeometricPrimitive();
+public class GeometricPrimitiveProperty extends GeometryProperty<AbstractGeometricPrimitive> {
+
+	public GeometricPrimitiveProperty() {
+
+	}
+
+	public GeometricPrimitiveProperty(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+		super(abstractGeometricPrimitive);
+	}
+
+	public GeometricPrimitiveProperty(String href) {
+		super(href);
+	}
 	
-	public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive);
-	public void unsetGeometricPrimitive();
+	public AbstractGeometricPrimitive getGeometricPrimitive() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetGeometricPrimitive() {
+		return super.isSetGeometry();
+	}
+
+	public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+		super.setGeometry(abstractGeometricPrimitive);
+	}
+
+	public void unsetGeometricPrimitive() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.GEOMETRIC_PRIMITIVE_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractGeometricPrimitive> getAssociableClass() {
+		return AbstractGeometricPrimitive.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometricPrimitiveProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometricPrimitiveProperty copy = (target == null) ? new GeometricPrimitiveProperty() : (GeometricPrimitiveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

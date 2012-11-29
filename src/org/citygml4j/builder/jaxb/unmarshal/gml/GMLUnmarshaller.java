@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.unmarshal.gml;
 
@@ -30,124 +32,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.impl.gml.base.MetaDataPropertyImpl;
-import org.citygml4j.impl.gml.base.StringOrRefImpl;
-import org.citygml4j.impl.gml.basicTypes.BooleanOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.BooleanOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeImpl;
-import org.citygml4j.impl.gml.basicTypes.CodeOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.CoordinatesImpl;
-import org.citygml4j.impl.gml.basicTypes.DoubleOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.DoubleOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.IntegerOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.IntegerOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.MeasureImpl;
-import org.citygml4j.impl.gml.basicTypes.MeasureOrNullListImpl;
-import org.citygml4j.impl.gml.basicTypes.NameOrNullImpl;
-import org.citygml4j.impl.gml.basicTypes.NullImpl;
-import org.citygml4j.impl.gml.coverage.CoverageFunctionImpl;
-import org.citygml4j.impl.gml.coverage.DataBlockImpl;
-import org.citygml4j.impl.gml.coverage.FileImpl;
-import org.citygml4j.impl.gml.coverage.GridFunctionImpl;
-import org.citygml4j.impl.gml.coverage.IndexMapImpl;
-import org.citygml4j.impl.gml.coverage.RangeParametersImpl;
-import org.citygml4j.impl.gml.coverage.RangeSetImpl;
-import org.citygml4j.impl.gml.coverage.RectifiedGridCoverageImpl;
-import org.citygml4j.impl.gml.coverage.RectifiedGridDomainImpl;
-import org.citygml4j.impl.gml.coverage.SequenceRuleImpl;
-import org.citygml4j.impl.gml.feature.BoundingShapeImpl;
-import org.citygml4j.impl.gml.feature.FeatureArrayPropertyImpl;
-import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
-import org.citygml4j.impl.gml.feature.FeaturePropertyImpl;
-import org.citygml4j.impl.gml.feature.LocationPropertyImpl;
-import org.citygml4j.impl.gml.feature.PriorityLocationPropertyImpl;
-import org.citygml4j.impl.gml.geometry.GeometryArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.GeometryPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiCurveImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiCurvePropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiGeometryPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiLineStringPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPointImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPointPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPolygonImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiPolygonPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSolidImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSolidPropertyImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.aggregates.MultiSurfacePropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeCurveImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeCurvePropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSolidImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSolidPropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.complexes.CompositeSurfacePropertyImpl;
-import org.citygml4j.impl.gml.geometry.complexes.GeometricComplexImpl;
-import org.citygml4j.impl.gml.geometry.complexes.GeometricComplexPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.ControlPointImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CoordImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurveArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurveImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurvePropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.CurveSegmentArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.DirectPositionImpl;
-import org.citygml4j.impl.gml.geometry.primitives.DirectPositionListImpl;
-import org.citygml4j.impl.gml.geometry.primitives.EnvelopeImpl;
-import org.citygml4j.impl.gml.geometry.primitives.ExteriorImpl;
-import org.citygml4j.impl.gml.geometry.primitives.GeometricPositionGroupImpl;
-import org.citygml4j.impl.gml.geometry.primitives.GeometricPrimitivePropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.InnerBoundaryIsImpl;
-import org.citygml4j.impl.gml.geometry.primitives.InteriorImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringSegmentArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LineStringSegmentImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LinearRingImpl;
-import org.citygml4j.impl.gml.geometry.primitives.LinearRingPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.OrientableCurveImpl;
-import org.citygml4j.impl.gml.geometry.primitives.OrientableSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.primitives.OuterBoundaryIsImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PointRepImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PolygonImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PolygonPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PosOrPointPropertyOrPointRepImpl;
-import org.citygml4j.impl.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoordImpl;
-import org.citygml4j.impl.gml.geometry.primitives.RectangleImpl;
-import org.citygml4j.impl.gml.geometry.primitives.RingImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SolidArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SolidImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SolidPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfaceArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfaceImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfacePatchArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.SurfacePropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TinImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TriangleImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TrianglePatchArrayPropertyImpl;
-import org.citygml4j.impl.gml.geometry.primitives.TriangulatedSurfaceImpl;
-import org.citygml4j.impl.gml.geometry.primitives.VectorImpl;
-import org.citygml4j.impl.gml.grids.GridEnvelopeImpl;
-import org.citygml4j.impl.gml.grids.GridImpl;
-import org.citygml4j.impl.gml.grids.GridLimitsImpl;
-import org.citygml4j.impl.gml.grids.RectifiedGridImpl;
-import org.citygml4j.impl.gml.measures.LengthImpl;
-import org.citygml4j.impl.gml.measures.SpeedImpl;
-import org.citygml4j.impl.gml.valueObjects.CategoryExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.CompositeValueImpl;
-import org.citygml4j.impl.gml.valueObjects.CountExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.QuantityExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.ScalarValueImpl;
-import org.citygml4j.impl.gml.valueObjects.ScalarValueListImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueArrayImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueArrayPropertyImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueExtentImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueImpl;
-import org.citygml4j.impl.gml.valueObjects.ValueObjectImpl;
-import org.citygml4j.impl.gml.valueObjects.ValuePropertyImpl;
 import org.citygml4j.jaxb.gml._3_1_1.*;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -241,6 +125,7 @@ import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
 import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
 import org.citygml4j.model.gml.geometry.primitives.Envelope;
 import org.citygml4j.model.gml.geometry.primitives.Exterior;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPositionGroup;
 import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 import org.citygml4j.model.gml.geometry.primitives.InnerBoundaryIs;
 import org.citygml4j.model.gml.geometry.primitives.Interior;
@@ -259,8 +144,11 @@ import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointRep;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
+import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
 import org.citygml4j.model.gml.geometry.primitives.Rectangle;
 import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -293,6 +181,10 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
+import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -470,10 +362,10 @@ public class GMLUnmarshaller {
 			dest = unmarshalMultiSurfaceProperty((MultiSurfacePropertyType)src);
 		else if (src instanceof OrientableCurveType)
 			dest = unmarshalOrientableCurve((OrientableCurveType)src);
+		else if (src instanceof org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)
+			jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)src);
 		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
 			jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)src);
-		else if (src instanceof org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)
-			jaxb.getCityGMLUnmarshaller().getTexturedSurface040Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml._0_4.TexturedSurfaceType)src);
 		else if (src instanceof OrientableSurfaceType)
 			dest = unmarshalOrientableSurface((OrientableSurfaceType)src);
 		else if (src instanceof PointType)
@@ -637,14 +529,14 @@ public class GMLUnmarshaller {
 					if (cityModel != null) {
 						cityGMLProperty = true;
 
-						if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
+						if (namespaceURI.equals(CoreModule.v2_0_0.getNamespaceURI()))
+							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore200Unmarshaller().unmarshalCityObjectMember(featureProperty));
+						else if (namespaceURI.equals(AppearanceModule.v2_0_0.getNamespaceURI()))
+							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance200Unmarshaller().unmarshalAppearanceMember(featureProperty));
+						else if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
 							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore100Unmarshaller().unmarshalCityObjectMember(featureProperty));
 						else if (featureProperty instanceof org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)
 							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance100Unmarshaller().unmarshalAppearanceMember((org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)featureProperty));
-						else if (featureProperty instanceof org.citygml4j.jaxb.citygml._0_4.AppearancePropertyType)
-							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance040Unmarshaller().unmarshalAppearanceMember((org.citygml4j.jaxb.citygml._0_4.AppearancePropertyType)featureProperty));
-						else if (namespaceURI.equals(CoreModule.v0_4_0.getNamespaceURI()))
-							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore040Unmarshaller().unmarshalCityObjectMember(featureProperty));
 						else
 							cityGMLProperty = false;
 					}
@@ -748,7 +640,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -763,10 +655,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 	}
 
 	public void unmarshalCodeOrNullList(CodeOrNullListType src, CodeOrNullList dest) {
@@ -778,8 +670,8 @@ public class GMLUnmarshaller {
 				if (value == null)
 					continue;
 
-				NameOrNull nameOrNull = new NameOrNullImpl();				
-				Null _null = new NullImpl();
+				NameOrNull nameOrNull = new NameOrNull();				
+				Null _null = new Null();
 				_null.setValue(value);
 
 				if (_null.isSetValue())
@@ -809,7 +701,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -824,10 +716,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 	}
 
 	public void unmarshalFeatureProperty(AssociationType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
@@ -838,7 +730,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -853,10 +745,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 	}
 
 	public void unmarshalFeatureProperty(FeaturePropertyType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
@@ -867,7 +759,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -882,10 +774,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 	}
 
 	public void unmarshalGrid(GridType src, Grid dest) {
@@ -935,7 +827,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -950,10 +842,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 	}
 
 	public void unmarshalMeasure(MeasureType src, Measure dest) {
@@ -979,7 +871,7 @@ public class GMLUnmarshaller {
 			dest.setBaseSurface(unmarshalSurfaceProperty(src.getBaseSurface()));
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(Sign.fromValue(src.getOrientation()));
 	}
 
 	public void unmarshalPointRroperty(PointPropertyType src, PointProperty dest) {
@@ -990,7 +882,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1005,10 +897,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());		
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));		
 	}
 
 	public void unmarshalSurface(SurfaceType src, Surface dest) {
@@ -1050,7 +942,7 @@ public class GMLUnmarshaller {
 				if (value == null)
 					continue;
 
-				BooleanOrNull booleanOrNull = new BooleanOrNullImpl();
+				BooleanOrNull booleanOrNull = new BooleanOrNull();
 
 				if (value.toLowerCase().equals("true"))
 					booleanOrNull.setBoolean(Boolean.TRUE);
@@ -1058,7 +950,7 @@ public class GMLUnmarshaller {
 					booleanOrNull.setBoolean(Boolean.FALSE);
 
 				if (!booleanOrNull.isSetBoolean()) {
-					Null _null = new NullImpl();
+					Null _null = new Null();
 					_null.setValue(value);
 
 					if (_null.isSetValue()) {
@@ -1074,7 +966,7 @@ public class GMLUnmarshaller {
 	}
 
 	public BoundingShape unmarshalBoundingShape(BoundingShapeType src) {
-		BoundingShape dest = new BoundingShapeImpl();
+		BoundingShape dest = new BoundingShape();
 
 		if (src.isSetEnvelope()) {
 			try {
@@ -1093,14 +985,14 @@ public class GMLUnmarshaller {
 	}
 
 	public CategoryExtent unmarshalCategoryExtent(CategoryExtentType src) {
-		CategoryExtent dest = new CategoryExtentImpl();
+		CategoryExtent dest = new CategoryExtent();
 		unmarshalCodeOrNullList(src, dest);
 
 		return dest;
 	}
 
 	public Code unmarshalCode(CodeType src) {
-		Code dest = new CodeImpl();
+		Code dest = new Code();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -1112,14 +1004,14 @@ public class GMLUnmarshaller {
 	}
 
 	public CodeOrNullList unmarshalCodeOrNullList(CodeOrNullListType src) {
-		CodeOrNullList dest = new CodeOrNullListImpl();
+		CodeOrNullList dest = new CodeOrNullList();
 		unmarshalCodeOrNullList(src, dest);
 
 		return dest;
 	}
 
 	public CompositeCurve unmarshalCompositeCurve(CompositeCurveType src) {
-		CompositeCurve dest = new CompositeCurveImpl();
+		CompositeCurve dest = new CompositeCurve();
 		unmarshalAbstractCurve(src, dest);
 
 		if (src.isSetCurveMember()) {
@@ -1131,7 +1023,7 @@ public class GMLUnmarshaller {
 	}
 
 	public CompositeCurveProperty unmarshalCompositeCurveProperty(CompositeCurvePropertyType src) {
-		CompositeCurveProperty dest = new CompositeCurvePropertyImpl();
+		CompositeCurveProperty dest = new CompositeCurveProperty();
 
 		if (src.isSetCompositeCurve())
 			dest.setCompositeCurve(unmarshalCompositeCurve(src.getCompositeCurve()));
@@ -1140,7 +1032,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1155,16 +1047,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());	
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));	
 
 		return dest;
 	}
 
 	public CompositeSolid unmarshalCompositeSolid(CompositeSolidType src) {
-		CompositeSolid dest = new CompositeSolidImpl();
+		CompositeSolid dest = new CompositeSolid();
 		unmarshalAbstractSolid(src, dest);
 
 		if (src.isSetSolidMember()) {
@@ -1176,7 +1068,7 @@ public class GMLUnmarshaller {
 	}
 
 	public CompositeSolidProperty unmarshalCompositeSolidProperty(CompositeSolidPropertyType src) {
-		CompositeSolidProperty dest = new CompositeSolidPropertyImpl();
+		CompositeSolidProperty dest = new CompositeSolidProperty();
 
 		if (src.isSetCompositeSolid())
 			dest.setCompositeSolid(unmarshalCompositeSolid(src.getCompositeSolid()));
@@ -1185,7 +1077,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1200,16 +1092,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());	
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));	
 
 		return dest;
 	}
 
 	public CompositeSurface unmarshalCompositeSurface(CompositeSurfaceType src) {
-		CompositeSurface dest = new CompositeSurfaceImpl();
+		CompositeSurface dest = new CompositeSurface();
 		unmarshalAbstractSurface(src, dest);
 
 		if (src.isSetSurfaceMember()) {
@@ -1221,7 +1113,7 @@ public class GMLUnmarshaller {
 	}
 
 	public CompositeSurfaceProperty unmarshalCompositeSurfaceProperty(CompositeSurfacePropertyType src) {
-		CompositeSurfaceProperty dest = new CompositeSurfacePropertyImpl();
+		CompositeSurfaceProperty dest = new CompositeSurfaceProperty();
 
 		if (src.isSetCompositeSurface())
 			dest.setCompositeSurface(unmarshalCompositeSurface(src.getCompositeSurface()));
@@ -1230,7 +1122,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1245,23 +1137,23 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());	
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));	
 
 		return dest;
 	}
 
 	public CompositeValue unmarshalCompositeValue(CompositeValueType src) {
-		CompositeValue dest = new CompositeValueImpl();
+		CompositeValue dest = new CompositeValue();
 		unmarshalCompositeValue(src, dest);
 
 		return dest;
 	}
 
 	public ControlPoint unmarshalControlPoint(TinType.ControlPoint src) {
-		ControlPoint dest = new ControlPointImpl();
+		ControlPoint dest = new ControlPoint();
 
 		if (src.isSetPosList())
 			dest.setPosList(unmarshalDirectPositionList(src.getPosList()));
@@ -1271,9 +1163,9 @@ public class GMLUnmarshaller {
 				try {
 					GML controlPoint = unmarshal(geometricPositionGroup);
 					if (controlPoint instanceof DirectPosition)
-						dest.addGeometricPositionGroup(new GeometricPositionGroupImpl((DirectPosition)controlPoint));
+						dest.addGeometricPositionGroup(new GeometricPositionGroup((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointProperty)
-						dest.addGeometricPositionGroup(new GeometricPositionGroupImpl((PointProperty)controlPoint));
+						dest.addGeometricPositionGroup(new GeometricPositionGroup((PointProperty)controlPoint));
 				} catch (MissingADESchemaException e) {
 					//
 				}
@@ -1284,7 +1176,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Coord unmarshalCoord(CoordType src) {
-		Coord dest = new CoordImpl();
+		Coord dest = new Coord();
 
 		if (src.isSetX())
 			dest.setX(src.getX().doubleValue());
@@ -1299,7 +1191,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Coordinates unmarshalCoordinates(CoordinatesType src) {
-		Coordinates dest = new CoordinatesImpl();
+		Coordinates dest = new Coordinates();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -1317,7 +1209,7 @@ public class GMLUnmarshaller {
 	}
 
 	public CoverageFunction unmarshalCoverageFunction(CoverageFunctionType src) {
-		CoverageFunction dest = new CoverageFunctionImpl();
+		CoverageFunction dest = new CoverageFunction();
 
 		if (src.isSetMappingRule())
 			dest.setMappingRule(unmarshalStringOrRef(src.getMappingRule()));
@@ -1336,7 +1228,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Curve unmarshalCurve(CurveType src) {
-		Curve dest = new CurveImpl();
+		Curve dest = new Curve();
 		unmarshalAbstractCurve(src, dest);
 
 		if (src.isSetSegments())
@@ -1346,7 +1238,7 @@ public class GMLUnmarshaller {
 	}
 
 	public CurveArrayProperty unmarshalCurveArrayProperty(CurveArrayPropertyType src) {
-		CurveArrayProperty dest = new CurveArrayPropertyImpl();
+		CurveArrayProperty dest = new CurveArrayProperty();
 
 		if (src.isSet_Curve()) {
 			for (JAXBElement<? extends AbstractCurveType> elem : src.get_Curve()) {			
@@ -1368,7 +1260,7 @@ public class GMLUnmarshaller {
 	}
 
 	public CurveProperty unmarshalCurveProperty(CurvePropertyType src) {
-		CurveProperty dest = new CurvePropertyImpl();
+		CurveProperty dest = new CurveProperty();
 
 		if (src.isSet_Curve()) {
 			try {
@@ -1384,7 +1276,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1399,16 +1291,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public CurveSegmentArrayProperty unmarshalCurveSegmentArrayProperty(CurveSegmentArrayPropertyType src) {
-		CurveSegmentArrayProperty dest = new CurveSegmentArrayPropertyImpl();
+		CurveSegmentArrayProperty dest = new CurveSegmentArrayProperty();
 
 		if (src.isSet_CurveSegment()) {
 			for (JAXBElement<? extends AbstractCurveSegmentType> elem : src.get_CurveSegment()) {
@@ -1426,7 +1318,7 @@ public class GMLUnmarshaller {
 	}
 
 	public DataBlock unmarshalDataBlock(DataBlockType src) {
-		DataBlock dest = new DataBlockImpl();
+		DataBlock dest = new DataBlock();
 
 		if (src.isSetRangeParameters())
 			dest.setRangeParameters(unmarshalRangeParameters(src.getRangeParameters()));
@@ -1434,7 +1326,7 @@ public class GMLUnmarshaller {
 		if (src.isSetTupleList())
 			dest.setTupleList(unmarshalCoordinates(src.getTupleList()));
 		else if (src.isSetDoubleOrNullTupleList()) {
-			DoubleOrNullList doubleOrNullList = new DoubleOrNullListImpl();
+			DoubleOrNullList doubleOrNullList = new DoubleOrNullList();
 			doubleOrNullList.setDoubleOrNull(unmarshalDoubleOrNullList(src.getDoubleOrNullTupleList()));
 			dest.setDoubleOrNullTupleList(doubleOrNullList);
 		}
@@ -1443,7 +1335,7 @@ public class GMLUnmarshaller {
 	}
 
 	public DirectPosition unmarshalDirectPosition(DirectPositionType src) {
-		DirectPosition dest = new DirectPositionImpl();
+		DirectPosition dest = new DirectPosition();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -1464,7 +1356,7 @@ public class GMLUnmarshaller {
 	}
 
 	public DirectPositionList unmarshalDirectPositionList(DirectPositionListType src) {
-		DirectPositionList dest = new DirectPositionListImpl();
+		DirectPositionList dest = new DirectPositionList();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -1494,12 +1386,12 @@ public class GMLUnmarshaller {
 				if (value == null)
 					continue;
 
-				DoubleOrNull doubleOrNull = new DoubleOrNullImpl();
+				DoubleOrNull doubleOrNull = new DoubleOrNull();
 
 				try {
 					doubleOrNull.setDouble(Double.parseDouble(value));
 				} catch (NumberFormatException e) {
-					Null _null = new NullImpl();
+					Null _null = new Null();
 					_null.setValue(value);
 
 					if (_null.isSetValue())
@@ -1515,7 +1407,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Envelope unmarshalEnvelope(EnvelopeType src) {
-		Envelope dest = new EnvelopeImpl();
+		Envelope dest = new Envelope();
 
 		if (src.isSetLowerCorner())
 			dest.setLowerCorner(unmarshalDirectPosition(src.getLowerCorner()));
@@ -1552,14 +1444,14 @@ public class GMLUnmarshaller {
 	}
 
 	public Exterior unmarshalExterior(AbstractRingPropertyType src) {
-		Exterior dest = new ExteriorImpl();
+		Exterior dest = new Exterior();
 		unmarshalAbstractRingProperty(src, dest);
 
 		return dest;
 	}
 
 	public FeatureArrayProperty unmarshalFeatureArrayProperty(FeatureArrayPropertyType src) throws MissingADESchemaException {
-		FeatureArrayProperty dest = new FeatureArrayPropertyImpl();
+		FeatureArrayProperty dest = new FeatureArrayProperty();
 
 		if (src.isSet_Feature()) {
 			for (JAXBElement<? extends AbstractFeatureType> elem : src.get_Feature()) {
@@ -1582,7 +1474,7 @@ public class GMLUnmarshaller {
 	}
 
 	public FeatureMember unmarshalFeatureMember(FeaturePropertyType src) throws MissingADESchemaException {
-		FeatureMember dest = new FeatureMemberImpl();
+		FeatureMember dest = new FeatureMember();
 		unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
@@ -1595,7 +1487,7 @@ public class GMLUnmarshaller {
 	}
 
 	public FeatureProperty<? extends AbstractFeature> unmarshalFeatureProperty(FeaturePropertyType src) throws MissingADESchemaException {
-		FeatureProperty<AbstractFeature> dest = new FeaturePropertyImpl<AbstractFeature>();
+		FeatureProperty<AbstractFeature> dest = new FeatureProperty<AbstractFeature>();
 		unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
@@ -1608,7 +1500,7 @@ public class GMLUnmarshaller {
 	}
 
 	public File unmarshalFile(FileType src) {
-		File dest = new FileImpl();
+		File dest = new File();
 
 		if (src.isSetRangeParameters())
 			dest.setRangeParameters(unmarshalRangeParameters(src.getRangeParameters()));
@@ -1633,7 +1525,7 @@ public class GMLUnmarshaller {
 	}
 
 	public GeometricComplex unmarshalGeometricComplex(GeometricComplexType src) {
-		GeometricComplex dest = new GeometricComplexImpl();
+		GeometricComplex dest = new GeometricComplex();
 		unmarshalAbstractGeometry(src, dest);
 
 		if (src.isSetElement()) {
@@ -1645,7 +1537,7 @@ public class GMLUnmarshaller {
 	}
 
 	public GeometricComplexProperty unmarshalGeometricComplexProperty(GeometricComplexPropertyType src) {
-		GeometricComplexProperty dest = new GeometricComplexPropertyImpl();
+		GeometricComplexProperty dest = new GeometricComplexProperty();
 
 		if (src.isSetGeometricComplex())
 			dest.setGeometricComplex(unmarshalGeometricComplex(src.getGeometricComplex()));
@@ -1663,7 +1555,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1678,16 +1570,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public GeometricPrimitiveProperty unmarshalGeometricPrimitiveProperty(GeometricPrimitivePropertyType src) {
-		GeometricPrimitiveProperty dest = new GeometricPrimitivePropertyImpl();
+		GeometricPrimitiveProperty dest = new GeometricPrimitiveProperty();
 
 		if (src.isSet_GeometricPrimitive()) {
 			try {
@@ -1703,7 +1595,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1718,16 +1610,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 	
 	public GeometryArrayProperty<AbstractGeometry> unmarshalGeometryArrayProperty(GeometryArrayPropertyType src) {
-		GeometryArrayProperty<AbstractGeometry> dest = new GeometryArrayPropertyImpl<AbstractGeometry>();
+		GeometryArrayProperty<AbstractGeometry> dest = new GeometryArrayProperty<AbstractGeometry>();
 
 		if (src.isSet_Geometry()) {
 			for (JAXBElement<? extends AbstractGeometryType> elem : src.get_Geometry()) {			
@@ -1745,7 +1637,7 @@ public class GMLUnmarshaller {
 	}
 
 	public GeometryProperty<AbstractGeometry> unmarshalGeometryProperty(GeometryPropertyType src) {
-		GeometryProperty<AbstractGeometry> dest = new GeometryPropertyImpl<AbstractGeometry>();
+		GeometryProperty<AbstractGeometry> dest = new GeometryProperty<AbstractGeometry>();
 
 		if (src.isSet_Geometry()) {
 			try {
@@ -1761,7 +1653,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1776,23 +1668,23 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public Grid unmarshalGrid(GridType src) {
-		Grid dest = new GridImpl();
+		Grid dest = new Grid();
 		unmarshalGrid(src, dest);
 
 		return dest;
 	}
 
 	public GridEnvelope unmarshalGridEnvelope(GridEnvelopeType src) {
-		GridEnvelope dest = new GridEnvelopeImpl();
+		GridEnvelope dest = new GridEnvelope();
 
 		if (src.isSetHigh()) {
 			for (BigInteger high : src.getHigh())
@@ -1808,14 +1700,14 @@ public class GMLUnmarshaller {
 	}
 
 	public GridFunction unmarshalGridFunction(GridFunctionType src) {
-		GridFunction dest = new GridFunctionImpl();
+		GridFunction dest = new GridFunction();
 		unmarshalGridFunction(src, dest);
 
 		return dest;
 	}
 
 	public GridLimits unmarshalGridLimits(GridLimitsType src) {
-		GridLimits dest = new GridLimitsImpl();
+		GridLimits dest = new GridLimits();
 
 		if (src.isSetGridEnvelope())
 			dest.setGridEnvelope(unmarshalGridEnvelope(src.getGridEnvelope()));
@@ -1824,7 +1716,7 @@ public class GMLUnmarshaller {
 	}
 
 	public IndexMap unmarshalIndexMap(IndexMapType src) {
-		IndexMap dest = new IndexMapImpl();
+		IndexMap dest = new IndexMap();
 		unmarshalGridFunction(src, dest);
 
 		if (src.isSetLookUpTable()) {
@@ -1836,7 +1728,7 @@ public class GMLUnmarshaller {
 	}
 
 	public InnerBoundaryIs unmarshalInnerBoundaryIs(AbstractRingPropertyType src) {
-		InnerBoundaryIs dest = new InnerBoundaryIsImpl();
+		InnerBoundaryIs dest = new InnerBoundaryIs();
 		unmarshalAbstractRingProperty(src, dest);
 
 		return dest;
@@ -1849,12 +1741,12 @@ public class GMLUnmarshaller {
 				if (value == null)
 					continue;
 
-				IntegerOrNull integerOrNull = new IntegerOrNullImpl();
+				IntegerOrNull integerOrNull = new IntegerOrNull();
 
 				try {
 					integerOrNull.setInteger(Integer.parseInt(value));
 				} catch (NumberFormatException e) {
-					Null _null = new NullImpl();
+					Null _null = new Null();
 					_null.setValue(value);
 
 					if (_null.isSetValue())
@@ -1870,21 +1762,21 @@ public class GMLUnmarshaller {
 	}
 
 	public Interior unmarshalInterior(AbstractRingPropertyType src) {
-		Interior dest = new InteriorImpl();
+		Interior dest = new Interior();
 		unmarshalAbstractRingProperty(src, dest);
 
 		return dest;
 	}
 
 	public Length unmarshalLength(LengthType src) {
-		Length dest = new LengthImpl();
+		Length dest = new Length();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
 
 	public LinearRing unmarshalLinearRing(LinearRingType src) {
-		LinearRing dest = new LinearRingImpl();
+		LinearRing dest = new LinearRing();
 		unmarshalAbstractRing(src, dest);
 
 		if (src.isSetPosList())
@@ -1903,11 +1795,11 @@ public class GMLUnmarshaller {
 				try {
 					ModelObject controlPoint = jaxb.unmarshal(elem);
 					if (controlPoint instanceof DirectPosition)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRep((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointRep)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointRep)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRep((PointRep)controlPoint));
 					else if (controlPoint instanceof PointProperty)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointProperty)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRep((PointProperty)controlPoint));
 				} catch (MissingADESchemaException e) {
 					//
 				}
@@ -1918,7 +1810,7 @@ public class GMLUnmarshaller {
 	}
 
 	public LinearRingProperty unmarshalLinearRingProperty(LinearRingPropertyType src) {
-		LinearRingProperty dest = new LinearRingPropertyImpl();
+		LinearRingProperty dest = new LinearRingProperty();
 
 		if (src.isSetLinearRing())
 			dest.setLinearRing(unmarshalLinearRing(src.getLinearRing()));
@@ -1927,7 +1819,7 @@ public class GMLUnmarshaller {
 	}
 
 	public LineString unmarshalLineString(LineStringType src) {
-		LineString dest = new LineStringImpl();
+		LineString dest = new LineString();
 		unmarshalAbstractCurve(src, dest);
 
 		if (src.isSetPosList())
@@ -1941,13 +1833,13 @@ public class GMLUnmarshaller {
 				try {
 					ModelObject controlPoint = jaxb.unmarshal(elem);
 					if (controlPoint instanceof DirectPosition)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((DirectPosition)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoord((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointRep)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((PointRep)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoord((PointRep)controlPoint));
 					else if (controlPoint instanceof PointProperty)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((PointProperty)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoord((PointProperty)controlPoint));
 					else if (controlPoint instanceof Coord)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoordImpl((Coord)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRepOrCoord((Coord)controlPoint));
 				} catch (MissingADESchemaException e) {
 					//
 				}
@@ -1958,7 +1850,7 @@ public class GMLUnmarshaller {
 	}
 
 	public LineStringProperty unmarshalLineStringProperty(LineStringPropertyType src) {
-		LineStringProperty dest = new LineStringPropertyImpl();
+		LineStringProperty dest = new LineStringProperty();
 
 		if (src.isSetLineString())
 			dest.setLineString(unmarshalLineString(src.getLineString()));
@@ -1967,7 +1859,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1982,16 +1874,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public LineStringSegment unmarshalLineStringSegment(LineStringSegmentType src) {
-		LineStringSegment dest = new LineStringSegmentImpl();
+		LineStringSegment dest = new LineStringSegment();
 		unmarshalAbstractCurveSegment(src, dest);
 
 		if (src.isSetInterpolation())
@@ -2008,11 +1900,11 @@ public class GMLUnmarshaller {
 				try{
 					ModelObject controlPoint = jaxb.unmarshal(elem);
 					if (controlPoint instanceof DirectPosition)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((DirectPosition)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRep((DirectPosition)controlPoint));
 					else if (controlPoint instanceof PointRep)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointRep)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRep((PointRep)controlPoint));
 					else if (controlPoint instanceof PointProperty)
-						dest.addControlPoint(new PosOrPointPropertyOrPointRepImpl((PointProperty)controlPoint));
+						dest.addControlPoint(new PosOrPointPropertyOrPointRep((PointProperty)controlPoint));
 				} catch (MissingADESchemaException e) {
 					//
 				}
@@ -2023,7 +1915,7 @@ public class GMLUnmarshaller {
 	}
 
 	public LineStringSegmentArrayProperty unmarshalLineStringSegmentArrayProperty(LineStringSegmentArrayPropertyType src) {
-		LineStringSegmentArrayProperty dest = new LineStringSegmentArrayPropertyImpl();
+		LineStringSegmentArrayProperty dest = new LineStringSegmentArrayProperty();
 
 		if (src.isSetLineStringSegment()) {
 			for (LineStringSegmentType lineStringSegment : src.getLineStringSegment())
@@ -2034,28 +1926,28 @@ public class GMLUnmarshaller {
 	}
 
 	public LocationProperty unmarshalLocationProperty(LocationPropertyType src) {
-		LocationProperty dest = new LocationPropertyImpl();
+		LocationProperty dest = new LocationProperty();
 		unmarshalLocationProperty(src, dest);
 
 		return dest;
 	}
 
 	public Measure unmarshalMeasure(MeasureType src) {
-		Measure dest = new MeasureImpl();
+		Measure dest = new Measure();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
 
 	public MeasureOrNullList unmarshalMeasureOrNullList(MeasureOrNullListType src) {
-		MeasureOrNullList dest = new MeasureOrNullListImpl();
+		MeasureOrNullList dest = new MeasureOrNullList();
 		unmarshalMeasureOrNullList(src, dest);
 
 		return dest;
 	}
 
 	public MetaDataProperty unmarshalMetaDataProperty(MetaDataPropertyType src) {
-		MetaDataProperty dest = new MetaDataPropertyImpl();
+		MetaDataProperty dest = new MetaDataProperty();
 
 		if (src.isSetAny())
 			dest.setMetaData(new MetaData(src.getAny()));
@@ -2067,7 +1959,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2082,16 +1974,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public MultiCurve unmarshalMultiCurve(MultiCurveType src) {
-		MultiCurve dest = new MultiCurveImpl();
+		MultiCurve dest = new MultiCurve();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetCurveMember()) {
@@ -2106,7 +1998,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiCurveProperty unmarshalMultiCurveProperty(MultiCurvePropertyType src) {
-		MultiCurveProperty dest = new MultiCurvePropertyImpl();
+		MultiCurveProperty dest = new MultiCurveProperty();
 
 		if (src.isSetMultiCurve())
 			dest.setMultiCurve(unmarshalMultiCurve(src.getMultiCurve()));
@@ -2115,7 +2007,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2130,16 +2022,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 	
 	public MultiGeometry unmarshalMultiGeometry(MultiGeometryType src) {
-		MultiGeometry dest = new MultiGeometryImpl();
+		MultiGeometry dest = new MultiGeometry();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetGeometryMember()) {
@@ -2154,7 +2046,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiGeometryProperty unmarshalMultiGeometryProperty(MultiGeometryPropertyType src) {
-		MultiGeometryProperty dest = new MultiGeometryPropertyImpl();
+		MultiGeometryProperty dest = new MultiGeometryProperty();
 
 		if (src.isSet_GeometricAggregate()) {
 			try {
@@ -2170,7 +2062,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2185,16 +2077,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public MultiLineString unmarshalMultiLineString(MultiLineStringType src) {
-		MultiLineString dest = new MultiLineStringImpl();
+		MultiLineString dest = new MultiLineString();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetLineStringMember()) {
@@ -2206,7 +2098,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiLineStringProperty unmarshalMultiLineStringProperty(MultiLineStringPropertyType src) {
-		MultiLineStringProperty dest = new MultiLineStringPropertyImpl();
+		MultiLineStringProperty dest = new MultiLineStringProperty();
 
 		if (src.isSetMultiLineString())
 			dest.setMultiLineString(unmarshalMultiLineString(src.getMultiLineString()));
@@ -2215,7 +2107,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2230,16 +2122,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public MultiPoint unmarshalMultiPoint(MultiPointType src) {
-		MultiPoint dest = new MultiPointImpl();
+		MultiPoint dest = new MultiPoint();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetPointMember()) {
@@ -2254,7 +2146,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiPointProperty unmarshalMultiPointProperty(MultiPointPropertyType src) {
-		MultiPointProperty dest = new MultiPointPropertyImpl();
+		MultiPointProperty dest = new MultiPointProperty();
 
 		if (src.isSetMultiPoint())
 			dest.setMultiPoint(unmarshalMultiPoint(src.getMultiPoint()));
@@ -2263,7 +2155,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2278,16 +2170,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public MultiPolygon unmarshalMultiPolygon(MultiPolygonType src) {
-		MultiPolygon dest = new MultiPolygonImpl();
+		MultiPolygon dest = new MultiPolygon();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetPolygonMember()) {
@@ -2299,7 +2191,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiPolygonProperty unmarshalMultiPolygonProperty(MultiPolygonPropertyType src) {
-		MultiPolygonProperty dest = new MultiPolygonPropertyImpl();
+		MultiPolygonProperty dest = new MultiPolygonProperty();
 
 		if (src.isSetMultiPolygon())
 			dest.setMultiPolygon(unmarshalMultiPolygon(src.getMultiPolygon()));
@@ -2308,7 +2200,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2323,16 +2215,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public MultiSolid unmarshalMultiSolid(MultiSolidType src) {
-		MultiSolid dest = new MultiSolidImpl();
+		MultiSolid dest = new MultiSolid();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetSolidMember()) {
@@ -2347,7 +2239,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiSolidProperty unmarshalMultiSolidProperty(MultiSolidPropertyType src) {
-		MultiSolidProperty dest = new MultiSolidPropertyImpl();
+		MultiSolidProperty dest = new MultiSolidProperty();
 
 		if (src.isSetMultiSolid())
 			dest.setMultiSolid(unmarshalMultiSolid(src.getMultiSolid()));
@@ -2356,7 +2248,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2371,16 +2263,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public MultiSurface unmarshalMultiSurface(MultiSurfaceType src) {
-		MultiSurface dest = new MultiSurfaceImpl();
+		MultiSurface dest = new MultiSurface();
 		unmarshalAbstractGeometricAggregate(src, dest);
 
 		if (src.isSetSurfaceMember()) {
@@ -2395,7 +2287,7 @@ public class GMLUnmarshaller {
 	}
 
 	public MultiSurfaceProperty unmarshalMultiSurfaceProperty(MultiSurfacePropertyType src) {
-		MultiSurfaceProperty dest = new MultiSurfacePropertyImpl();
+		MultiSurfaceProperty dest = new MultiSurfaceProperty();
 
 		if (src.isSetMultiSurface())
 			dest.setMultiSurface(unmarshalMultiSurface(src.getMultiSurface()));
@@ -2404,7 +2296,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2419,10 +2311,10 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
@@ -2433,41 +2325,41 @@ public class GMLUnmarshaller {
 			if (value != null)
 				builder.append(value);
 
-		Null _null = new NullImpl();
+		Null _null = new Null();
 		_null.setValue(builder.toString());
 
 		return _null.isSetValue() ? _null : null;
 	}
 
 	public OrientableCurve unmarshalOrientableCurve(OrientableCurveType src) {
-		OrientableCurve dest = new OrientableCurveImpl();
+		OrientableCurve dest = new OrientableCurve();
 		unmarshalAbstractCurve(src, dest);
 
 		if (src.isSetBaseCurve())
 			dest.setBaseCurve(unmarshalCurveProperty(src.getBaseCurve()));
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(Sign.fromValue(src.getOrientation()));
 
 		return dest;
 	}
 
 	public OrientableSurface unmarshalOrientableSurface(OrientableSurfaceType src) {
-		OrientableSurface dest = new OrientableSurfaceImpl();
+		OrientableSurface dest = new OrientableSurface();
 		unmarshalOrientableSurface(src, dest);
 
 		return dest;
 	}
 
 	public OuterBoundaryIs unmarshalOuterBoundaryIs(AbstractRingPropertyType src) {
-		OuterBoundaryIs dest = new OuterBoundaryIsImpl();
+		OuterBoundaryIs dest = new OuterBoundaryIs();
 		unmarshalAbstractRingProperty(src, dest);
 
 		return dest;
 	}
 
 	public Point unmarshalPoint(PointType src) {
-		Point dest = new PointImpl();
+		Point dest = new Point();
 		unmarshalAbstractGeometricPrimitive(src, dest);
 
 		if (src.isSetPos())
@@ -2483,7 +2375,7 @@ public class GMLUnmarshaller {
 	}
 
 	public PointArrayProperty unmarshalPointArrayProperty(PointArrayPropertyType src) {
-		PointArrayProperty dest = new PointArrayPropertyImpl();
+		PointArrayProperty dest = new PointArrayProperty();
 
 		if (src.isSetPoint()) {
 			for (PointType point : src.getPoint())
@@ -2494,21 +2386,21 @@ public class GMLUnmarshaller {
 	}
 
 	public PointProperty unmarshalPointProperty(PointPropertyType src) {
-		PointProperty dest = new PointPropertyImpl();
+		PointProperty dest = new PointProperty();
 		unmarshalPointRroperty(src, dest);
 
 		return dest;
 	}
 
 	public PointRep unmarshalPointRep(PointPropertyType src) {
-		PointRep dest = new PointRepImpl();
+		PointRep dest = new PointRep();
 		unmarshalPointRroperty(src, dest);
 
 		return  dest;
 	}
 
 	public Polygon unmarshalPolygon(PolygonType src) {
-		Polygon dest = new PolygonImpl();
+		Polygon dest = new Polygon();
 		unmarshalAbstractSurface(src, dest);
 
 		if (src.isSetExterior()) {
@@ -2537,7 +2429,7 @@ public class GMLUnmarshaller {
 	}
 
 	public PolygonProperty unmarshalPolygonProperty(PolygonPropertyType src) {
-		PolygonProperty dest = new PolygonPropertyImpl();
+		PolygonProperty dest = new PolygonProperty();
 
 		if (src.isSetPolygon())
 			dest.setPolygon(unmarshalPolygon(src.getPolygon()));
@@ -2546,7 +2438,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2561,16 +2453,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public PriorityLocationProperty unmarshalPriorityLocationProperty(PriorityLocationPropertyType src) {
-		PriorityLocationProperty dest = new PriorityLocationPropertyImpl();
+		PriorityLocationProperty dest = new PriorityLocationProperty();
 		unmarshalLocationProperty(src, dest);
 
 		if (src.isSetPriority())
@@ -2580,21 +2472,21 @@ public class GMLUnmarshaller {
 	}
 
 	public QuantityExtent unmarshalQuantityExtent(QuantityExtentType src) {
-		QuantityExtent dest = new QuantityExtentImpl();
+		QuantityExtent dest = new QuantityExtent();
 		unmarshalMeasureOrNullList(src, dest);
 
 		return dest;
 	}
 
 	public RangeParameters unmarshalRangeParameters(RangeParametersType src) {
-		RangeParameters dest = new RangeParametersImpl();
-		ValueObject valueObject = new ValueObjectImpl();
+		RangeParameters dest = new RangeParameters();
+		ValueObject valueObject = new ValueObject();
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2609,20 +2501,20 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		ScalarValue scalarValue = null;		
 		if (src.isSetBoolean())
-			scalarValue = new ScalarValueImpl(src.isBoolean());
+			scalarValue = new ScalarValue(src.isBoolean());
 		else if (src.isSetCategory())
-			scalarValue = new ScalarValueImpl(unmarshalCode(src.getCategory()));
+			scalarValue = new ScalarValue(unmarshalCode(src.getCategory()));
 		else if (src.isSetQuantity())
-			scalarValue = new ScalarValueImpl(unmarshalMeasure(src.getQuantity()));
+			scalarValue = new ScalarValue(unmarshalMeasure(src.getQuantity()));
 		else if (src.isSetCount())
-			scalarValue = new ScalarValueImpl(src.getCount().intValue());
+			scalarValue = new ScalarValue(src.getCount().intValue());
 
 		if (scalarValue != null) {
 			valueObject.setScalarValue(scalarValue);
@@ -2632,19 +2524,19 @@ public class GMLUnmarshaller {
 
 		ScalarValueList scalarValueList = null;
 		if (src.isSetBooleanList()) {
-			scalarValueList = new ScalarValueListImpl();			
-			BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+			scalarValueList = new ScalarValueList();			
+			BooleanOrNullList booleanOrNullList = new BooleanOrNullList();
 			booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList(src.getBooleanList()));
 			scalarValueList.setBooleanList(booleanOrNullList);
 		} else if (src.isSetCountList()) {
-			scalarValueList = new ScalarValueListImpl();			
-			IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+			scalarValueList = new ScalarValueList();			
+			IntegerOrNullList integerOrNullList = new IntegerOrNullList();
 			integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountList()));
 			scalarValueList.setCountList(integerOrNullList);
 		} else if (src.isSetCategoryList())
-			scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList(src.getCategoryList()));
+			scalarValueList = new ScalarValueList(unmarshalCodeOrNullList(src.getCategoryList()));
 		else if (src.isSetQuantityList())
-			scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList(src.getQuantityList()));
+			scalarValueList = new ScalarValueList(unmarshalMeasureOrNullList(src.getQuantityList()));
 
 		if (scalarValueList != null) {
 			valueObject.setScalarValueList(scalarValueList);
@@ -2654,14 +2546,14 @@ public class GMLUnmarshaller {
 
 		ValueExtent valueExtent = null;
 		if (src.isSetCountExtent()) {
-			valueExtent = new ValueExtentImpl();
-			CountExtent countExtent = new CountExtentImpl();
+			valueExtent = new ValueExtent();
+			CountExtent countExtent = new CountExtent();
 			countExtent.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountList()));
 			valueExtent.setCountExtent(countExtent);
 		} else if (src.isSetCategoryExtent())
-			valueExtent = new ValueExtentImpl(unmarshalCategoryExtent(src.getCategoryExtent()));
+			valueExtent = new ValueExtent(unmarshalCategoryExtent(src.getCategoryExtent()));
 		else if (src.isSetQuantityExtent())
-			valueExtent = new ValueExtentImpl(unmarshalQuantityExtent(src.getQuantityExtent()));
+			valueExtent = new ValueExtent(unmarshalQuantityExtent(src.getQuantityExtent()));
 
 		if (valueExtent != null) {
 			valueObject.setValueExtent(valueExtent);
@@ -2687,7 +2579,7 @@ public class GMLUnmarshaller {
 
 	@SuppressWarnings("unchecked")
 	public RangeSet unmarshalRangeSet(RangeSetType src) {
-		RangeSet dest = new RangeSetImpl();
+		RangeSet dest = new RangeSet();
 
 		if (src.isSetValueArray()) {
 			for (ValueArrayType valueArray : src.getValueArray())
@@ -2699,19 +2591,19 @@ public class GMLUnmarshaller {
 
 				ScalarValueList scalarValueList = null;
 				if (localName.equals("BooleanList")) {
-					scalarValueList = new ScalarValueListImpl();			
-					BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+					scalarValueList = new ScalarValueList();			
+					BooleanOrNullList booleanOrNullList = new BooleanOrNullList();
 					booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList((List<String>)elemValue));
 					scalarValueList.setBooleanList(booleanOrNullList);
 				} else if (localName.equals("CountList")) {
-					scalarValueList = new ScalarValueListImpl();			
-					IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+					scalarValueList = new ScalarValueList();			
+					IntegerOrNullList integerOrNullList = new IntegerOrNullList();
 					integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList((List<String>)elemValue));
 					scalarValueList.setCountList(integerOrNullList);
 				} else if (elemValue instanceof CodeOrNullListType)
-					scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList((CodeOrNullListType)elemValue));
+					scalarValueList = new ScalarValueList(unmarshalCodeOrNullList((CodeOrNullListType)elemValue));
 				else if (elemValue instanceof MeasureOrNullListType)
-					scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList((MeasureOrNullListType)elemValue));
+					scalarValueList = new ScalarValueList(unmarshalMeasureOrNullList((MeasureOrNullListType)elemValue));
 
 				if (scalarValueList != null)
 					dest.addScalarValueList(scalarValueList);
@@ -2725,7 +2617,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Rectangle unmarshalRectangle(RectangleType src) {
-		Rectangle dest = new RectangleImpl();
+		Rectangle dest = new Rectangle();
 		unmarshalAbstractSurfacePatch(src, dest);
 
 		if (src.isSetExterior()) {
@@ -2745,7 +2637,7 @@ public class GMLUnmarshaller {
 	}
 
 	public RectifiedGrid unmarshalRectifiedGrid(RectifiedGridType src) {
-		RectifiedGrid dest = new RectifiedGridImpl();
+		RectifiedGrid dest = new RectifiedGrid();
 		unmarshalGrid(src, dest);
 
 		if (src.isSetOrigin())
@@ -2760,7 +2652,7 @@ public class GMLUnmarshaller {
 	}
 
 	public RectifiedGridCoverage unmarshalRectifiedGridCoverage(RectifiedGridCoverageType src) {
-		RectifiedGridCoverage dest = new RectifiedGridCoverageImpl();
+		RectifiedGridCoverage dest = new RectifiedGridCoverage();
 		unmarshalAbstractDiscreteCoverage(src, dest);
 
 		if (src.isSetDomainSet()) {
@@ -2777,7 +2669,7 @@ public class GMLUnmarshaller {
 	}
 
 	public RectifiedGridDomain unmarshalRectifiedGridDomain(RectifiedGridDomainType src) {
-		RectifiedGridDomain dest = new RectifiedGridDomainImpl();
+		RectifiedGridDomain dest = new RectifiedGridDomain();
 		unmarshalDomainSet(src, dest);
 
 		if (src.isSet_Geometry()) {
@@ -2798,7 +2690,7 @@ public class GMLUnmarshaller {
 	}
 
 	public SequenceRule unmarshalSequenceRule(SequenceRuleType src) {
-		SequenceRule dest = new SequenceRuleImpl();
+		SequenceRule dest = new SequenceRule();
 
 		if (src.isSetValue())
 			dest.setValue(unmarshalSequenceRuleNames(src.getValue()));
@@ -2810,7 +2702,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Ring unmarshalRing(RingType src) {
-		Ring dest = new RingImpl();
+		Ring dest = new Ring();
 		unmarshalAbstractRing(src, dest);
 
 		if (src.isSetCurveMember()) {
@@ -2822,7 +2714,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Solid unmarshalSolid(SolidType src) {
-		Solid dest = new SolidImpl();
+		Solid dest = new Solid();
 		unmarshalAbstractSolid(src, dest);
 
 		if (src.isSetExterior())
@@ -2837,7 +2729,7 @@ public class GMLUnmarshaller {
 	}
 
 	public SolidArrayProperty unmarshalSolidArrayProperty(SolidArrayPropertyType src) {
-		SolidArrayProperty dest = new SolidArrayPropertyImpl();
+		SolidArrayProperty dest = new SolidArrayProperty();
 
 		if (src.isSet_Solid()) {
 			for (JAXBElement<? extends AbstractSolidType> elem : src.get_Solid()) {
@@ -2855,7 +2747,7 @@ public class GMLUnmarshaller {
 	}
 
 	public SolidProperty unmarshalSolidProperty(SolidPropertyType src) {
-		SolidProperty dest = new SolidPropertyImpl();
+		SolidProperty dest = new SolidProperty();
 
 		if (src.isSet_Solid()) {
 			try {
@@ -2871,7 +2763,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2886,23 +2778,23 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public Speed unmarshalSpeed(SpeedType src) {
-		Speed dest = new SpeedImpl();
+		Speed dest = new Speed();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
 
 	public StringOrRef unmarshalStringOrRef(StringOrRefType src) {
-		StringOrRef dest = new StringOrRefImpl();
+		StringOrRef dest = new StringOrRef();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
@@ -2911,7 +2803,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2926,23 +2818,23 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public Surface unmarshalSurface(SurfaceType src) {
-		Surface dest = new SurfaceImpl();
+		Surface dest = new Surface();
 		unmarshalSurface(src, dest);
 
 		return dest;
 	}
 
 	public SurfaceArrayProperty unmarshalSurfaceArrayProperty(SurfaceArrayPropertyType src) {
-		SurfaceArrayProperty dest = new SurfaceArrayPropertyImpl();
+		SurfaceArrayProperty dest = new SurfaceArrayProperty();
 
 		if (src.isSet_Surface()) {
 			for (JAXBElement<? extends AbstractSurfaceType> elem : src.get_Surface()) {
@@ -2964,14 +2856,14 @@ public class GMLUnmarshaller {
 	}
 
 	public SurfacePatchArrayProperty unmarshalSurfacePatchArrayProperty(SurfacePatchArrayPropertyType src) {
-		SurfacePatchArrayProperty dest = new SurfacePatchArrayPropertyImpl();
+		SurfacePatchArrayProperty dest = new SurfacePatchArrayProperty();
 		unmarshalSurfacePatchArrayProperty(src, dest);
 
 		return dest;
 	}
 
 	public SurfaceProperty unmarshalSurfaceProperty(SurfacePropertyType src) {
-		SurfaceProperty dest = new SurfacePropertyImpl();
+		SurfaceProperty dest = new SurfaceProperty();
 
 		if (src.isSet_Surface()) {
 			try {
@@ -2987,7 +2879,7 @@ public class GMLUnmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -3002,16 +2894,16 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public Tin unmarshalTin(TinType src) {
-		Tin dest = new TinImpl();
+		Tin dest = new Tin();
 		unmarshalTriangulatedSurface(src, dest);
 
 		if (src.isSetBreakLines()) {
@@ -3035,7 +2927,7 @@ public class GMLUnmarshaller {
 
 
 	public Triangle unmarshalTriangle(TriangleType src) {
-		Triangle dest = new TriangleImpl();
+		Triangle dest = new Triangle();
 		unmarshalAbstractSurfacePatch(src, dest);
 
 		if (src.isSetExterior()) {
@@ -3055,21 +2947,21 @@ public class GMLUnmarshaller {
 	}
 
 	public TrianglePatchArrayProperty unmarshalTrianglePatchArrayProperty(TrianglePatchArrayPropertyType src) {
-		TrianglePatchArrayProperty dest = new TrianglePatchArrayPropertyImpl();
+		TrianglePatchArrayProperty dest = new TrianglePatchArrayProperty();
 		unmarshalSurfacePatchArrayProperty(src, dest);		
 
 		return dest;
 	}
 
 	public TriangulatedSurface unmarshalTriangulatedSurface(TriangulatedSurfaceType src) {
-		TriangulatedSurface dest = new TriangulatedSurfaceImpl();
+		TriangulatedSurface dest = new TriangulatedSurface();
 		unmarshalTriangulatedSurface(src, dest);
 
 		return dest;
 	}
 
 	public ValueArray unmarshalValueArray(ValueArrayType src) {
-		ValueArray dest = new ValueArrayImpl();
+		ValueArray dest = new ValueArray();
 		unmarshalCompositeValue(src, dest);
 
 		if (src.isSetCodeSpace())
@@ -3083,11 +2975,11 @@ public class GMLUnmarshaller {
 
 	@SuppressWarnings("unchecked")
 	public ValueArrayProperty unmarshalValueArrayProperty(ValueArrayPropertyType src) {
-		ValueArrayProperty dest = new ValueArrayPropertyImpl();
+		ValueArrayProperty dest = new ValueArrayProperty();
 
 		if (src.isSetValue()) {
 			for (Object object : src.getValue()) {
-				Value value = new ValueImpl();
+				Value value = new Value();
 
 				if (object instanceof JAXBElement<?>) {
 					JAXBElement<?> elem = (JAXBElement<?>)object;
@@ -3096,16 +2988,16 @@ public class GMLUnmarshaller {
 
 					ScalarValue scalarValue = null;		
 					if (elemValue instanceof Boolean)
-						scalarValue = new ScalarValueImpl((Boolean)elemValue);
+						scalarValue = new ScalarValue((Boolean)elemValue);
 					else if (elemValue instanceof CodeType)
-						scalarValue = new ScalarValueImpl(unmarshalCode((CodeType)elemValue));
+						scalarValue = new ScalarValue(unmarshalCode((CodeType)elemValue));
 					else if (elemValue instanceof MeasureType)
-						scalarValue = new ScalarValueImpl(unmarshalMeasure((MeasureType)elemValue));
+						scalarValue = new ScalarValue(unmarshalMeasure((MeasureType)elemValue));
 					else if (elemValue instanceof BigInteger)
-						scalarValue = new ScalarValueImpl(((BigInteger)elemValue).intValue());
+						scalarValue = new ScalarValue(((BigInteger)elemValue).intValue());
 
 					if (scalarValue != null) {
-						ValueObject valueObject = new ValueObjectImpl(scalarValue);
+						ValueObject valueObject = new ValueObject(scalarValue);
 						value.setValueObject(valueObject);
 						dest.addValue(value);
 						continue;
@@ -3113,22 +3005,22 @@ public class GMLUnmarshaller {
 
 					ScalarValueList scalarValueList = null;
 					if (localName.equals("BooleanList")) {
-						scalarValueList = new ScalarValueListImpl();			
-						BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+						scalarValueList = new ScalarValueList();			
+						BooleanOrNullList booleanOrNullList = new BooleanOrNullList();
 						booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList((List<String>)elemValue));
 						scalarValueList.setBooleanList(booleanOrNullList);
 					} else if (localName.equals("CountList")) {
-						scalarValueList = new ScalarValueListImpl();			
-						IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+						scalarValueList = new ScalarValueList();			
+						IntegerOrNullList integerOrNullList = new IntegerOrNullList();
 						integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList((List<String>)elemValue));
 						scalarValueList.setCountList(integerOrNullList);
 					} else if (elemValue instanceof CodeOrNullListType)
-						scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList((CodeOrNullListType)elemValue));
+						scalarValueList = new ScalarValueList(unmarshalCodeOrNullList((CodeOrNullListType)elemValue));
 					else if (elemValue instanceof MeasureOrNullListType)
-						scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList((MeasureOrNullListType)elemValue));
+						scalarValueList = new ScalarValueList(unmarshalMeasureOrNullList((MeasureOrNullListType)elemValue));
 
 					if (scalarValueList != null) {
-						ValueObject valueObject = new ValueObjectImpl(scalarValueList);
+						ValueObject valueObject = new ValueObject(scalarValueList);
 						value.setValueObject(valueObject);
 						dest.addValue(value);
 						continue;
@@ -3136,17 +3028,17 @@ public class GMLUnmarshaller {
 
 					ValueExtent valueExtent = null;
 					if (localName.equals("CountExtent")) {
-						valueExtent = new ValueExtentImpl();
-						CountExtent countExtent = new CountExtentImpl();
+						valueExtent = new ValueExtent();
+						CountExtent countExtent = new CountExtent();
 						countExtent.setIntegerOrNull(unmarshalIntegerOrNullList((List<String>)elemValue));
 						valueExtent.setCountExtent(countExtent);
 					} else if (elemValue instanceof CategoryExtentType)
-						valueExtent = new ValueExtentImpl(unmarshalCategoryExtent((CategoryExtentType)elemValue));
+						valueExtent = new ValueExtent(unmarshalCategoryExtent((CategoryExtentType)elemValue));
 					else if (elemValue instanceof QuantityExtentType)
-						valueExtent = new ValueExtentImpl(unmarshalQuantityExtent((QuantityExtentType)elemValue));
+						valueExtent = new ValueExtent(unmarshalQuantityExtent((QuantityExtentType)elemValue));
 
 					if (valueExtent != null) {
-						ValueObject valueObject = new ValueObjectImpl(valueExtent);
+						ValueObject valueObject = new ValueObject(valueExtent);
 						value.setValueObject(valueObject);
 						dest.addValue(value);
 						continue;
@@ -3162,7 +3054,7 @@ public class GMLUnmarshaller {
 						try {
 							ModelObject abstractGML = jaxb.unmarshal(elem);
 							if (abstractGML instanceof CompositeValue) {
-								ValueObject valueObject = new ValueObjectImpl((CompositeValue)abstractGML);
+								ValueObject valueObject = new ValueObject((CompositeValue)abstractGML);
 								value.setValueObject(valueObject);
 								dest.addValue(value);
 								continue;
@@ -3188,14 +3080,14 @@ public class GMLUnmarshaller {
 	}
 
 	public ValueProperty unmarshalValueProperty(ValuePropertyType src) {
-		ValueProperty dest = new ValuePropertyImpl();
-		Value value = new ValueImpl();		
+		ValueProperty dest = new ValueProperty();
+		Value value = new Value();		
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -3210,23 +3102,23 @@ public class GMLUnmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		ScalarValue scalarValue = null;		
 		if (src.isSetBoolean())
-			scalarValue = new ScalarValueImpl(src.isBoolean());
+			scalarValue = new ScalarValue(src.isBoolean());
 		else if (src.isSetCategory())
-			scalarValue = new ScalarValueImpl(unmarshalCode(src.getCategory()));
+			scalarValue = new ScalarValue(unmarshalCode(src.getCategory()));
 		else if (src.isSetQuantity())
-			scalarValue = new ScalarValueImpl(unmarshalMeasure(src.getQuantity()));
+			scalarValue = new ScalarValue(unmarshalMeasure(src.getQuantity()));
 		else if (src.isSetCount())
-			scalarValue = new ScalarValueImpl(src.getCount().intValue());
+			scalarValue = new ScalarValue(src.getCount().intValue());
 
 		if (scalarValue != null) {
-			ValueObject valueObject = new ValueObjectImpl(scalarValue);
+			ValueObject valueObject = new ValueObject(scalarValue);
 			value.setValueObject(valueObject);
 			dest.setValue(value);
 			return dest;
@@ -3234,22 +3126,22 @@ public class GMLUnmarshaller {
 
 		ScalarValueList scalarValueList = null;
 		if (src.isSetBooleanList()) {
-			scalarValueList = new ScalarValueListImpl();			
-			BooleanOrNullList booleanOrNullList = new BooleanOrNullListImpl();
+			scalarValueList = new ScalarValueList();			
+			BooleanOrNullList booleanOrNullList = new BooleanOrNullList();
 			booleanOrNullList.setBooleanOrNull(unmarshalBooleanOrNullList(src.getBooleanList()));
 			scalarValueList.setBooleanList(booleanOrNullList);
 		} else if (src.isSetCountList()) {
-			scalarValueList = new ScalarValueListImpl();			
-			IntegerOrNullList integerOrNullList = new IntegerOrNullListImpl();
+			scalarValueList = new ScalarValueList();			
+			IntegerOrNullList integerOrNullList = new IntegerOrNullList();
 			integerOrNullList.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountList()));
 			scalarValueList.setCountList(integerOrNullList);
 		} else if (src.isSetCategoryList())
-			scalarValueList = new ScalarValueListImpl(unmarshalCodeOrNullList(src.getCategoryList()));
+			scalarValueList = new ScalarValueList(unmarshalCodeOrNullList(src.getCategoryList()));
 		else if (src.isSetQuantityList())
-			scalarValueList = new ScalarValueListImpl(unmarshalMeasureOrNullList(src.getQuantityList()));
+			scalarValueList = new ScalarValueList(unmarshalMeasureOrNullList(src.getQuantityList()));
 
 		if (scalarValueList != null) {
-			ValueObject valueObject = new ValueObjectImpl(scalarValueList);
+			ValueObject valueObject = new ValueObject(scalarValueList);
 			value.setValueObject(valueObject);
 			dest.setValue(value);
 			return dest;
@@ -3257,17 +3149,17 @@ public class GMLUnmarshaller {
 
 		ValueExtent valueExtent = null;
 		if (src.isSetCountExtent()) {
-			valueExtent = new ValueExtentImpl();
-			CountExtent countExtent = new CountExtentImpl();
+			valueExtent = new ValueExtent();
+			CountExtent countExtent = new CountExtent();
 			countExtent.setIntegerOrNull(unmarshalIntegerOrNullList(src.getCountExtent()));
 			valueExtent.setCountExtent(countExtent);
 		} else if (src.isSetCategoryExtent())
-			valueExtent = new ValueExtentImpl(unmarshalCategoryExtent(src.getCategoryExtent()));
+			valueExtent = new ValueExtent(unmarshalCategoryExtent(src.getCategoryExtent()));
 		else if (src.isSetQuantityExtent())
-			valueExtent = new ValueExtentImpl(unmarshalQuantityExtent(src.getQuantityExtent()));
+			valueExtent = new ValueExtent(unmarshalQuantityExtent(src.getQuantityExtent()));
 
 		if (valueExtent != null) {
-			ValueObject valueObject = new ValueObjectImpl(valueExtent);
+			ValueObject valueObject = new ValueObject(valueExtent);
 			value.setValueObject(valueObject);
 			dest.setValue(value);
 			return dest;
@@ -3277,7 +3169,7 @@ public class GMLUnmarshaller {
 			try {
 				ModelObject compositeValue = jaxb.unmarshal(src.getCompositeValue());
 				if (compositeValue instanceof CompositeValue) {
-					ValueObject valueObject = new ValueObjectImpl((CompositeValue)compositeValue);
+					ValueObject valueObject = new ValueObject((CompositeValue)compositeValue);
 					value.setValueObject(valueObject);
 					dest.setValue(value);
 					return dest;
@@ -3316,7 +3208,7 @@ public class GMLUnmarshaller {
 	}
 
 	public Vector unmarshalVector(VectorType src) {
-		Vector dest = new VectorImpl();
+		Vector dest = new Vector();
 
 		if (src.isSetValue())
 			dest.setValue(src.getValue());

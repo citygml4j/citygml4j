@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.citygml4j</groupId>
+  <artifactId>citygml4j</artifactId>
+  <version>!citygml4j.version!</version>
+  <url>http://www.citygml4j.org</url>
+  <description>citygml4j is a Java class library and API for facilitating work with the City Geography Markup Language (CityGML). citygml4j makes it easy to read, process, and write CityGML datasets, and to develop CityGML-aware software applications.</description>
+  <name>citygml4j</name>
+  <licenses>
+    <license>
+  	  <name>GNU Lesser General Public License (LGPL), version 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+  	<url>http://opportunity.bv.tu-berlin.de/svn/citygml4j</url>
+  	<connection>scm:svn:http://opportunity.bv.tu-berlin.de/svn/citygml4j</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>nagel</id>
+      <name>Claus Nagel</name>
+      <email>claus.nagel@tu-berlin.de</email>
+      <organization>Technische Universität Berlin</organization>
+      <organizationUrl>http://www.igg.tu-berlin.de</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.sun.xml.stream</groupId>
+  		<artifactId>sjsxp</artifactId>
+  		<version>1.0.2</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.xml.bind</groupId>
+  		<artifactId>jsr173_api</artifactId>
+  		<version>1.0</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sun.xml.bind</groupId>
+  		<artifactId>jaxb-impl</artifactId>
+  		<version>2.2.6</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sun.xml.bind</groupId>
+  		<artifactId>jaxb-xjc</artifactId>
+  		<version>2.2.6</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.xml.bind</groupId>
+  		<artifactId>jaxb-api</artifactId>
+  		<version>2.2.6</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  </dependencies>
+  <parent>
+  	<groupId>org.sonatype.oss</groupId>
+  	<artifactId>oss-parent</artifactId>
+  	<version>7</version>
+  </parent>
+</project>

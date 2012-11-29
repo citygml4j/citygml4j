@@ -1,3 +1,27 @@
+/*
+ * This file is part of citygml4j.
+ * Copyright (c) 2007 - 2012
+ * Institute for Geodesy and Geoinformation Science
+ * Technische UniversitÃ¤t Berlin, Germany
+ * http://www.igg.tu-berlin.de/
+ *
+ * The citygml4j library is free software:
+ * you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library. If not, see 
+ * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
+ */
 
 package ade.sub.jaxb;
 
@@ -13,7 +37,7 @@ import org.citygml4j.jaxb.gml._3_1_1.MultiSurfacePropertyType;
 
 
 /**
- * A BoundarySurface (German translation is 'Begrenzungsfläche') is a thematic object which classifies surfaces bounding a building or a room. The
+ * A BoundarySurface (German translation is 'Begrenzungsflï¿½che') is a thematic object which classifies surfaces bounding a building or a room. The
  * 				geometry of a BoundarySurface is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the external
  * 				references, the generic attributes, and the generalization relations. 
  * 

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,67 +19,407 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.xal;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
-public interface PostalServiceElements extends XAL, Child, Copyable {
-	public List<AddressIdentifier> getAddressIdentifier();
-	public EndorsementLineCode getEndorsementLineCode();
-	public KeyLineCode getKeyLineCode();
-	public Barcode getBarcode();
-	public SortingCode getSortingCode();
-	public AddressLatitude getAddressLatitude();
-	public AddressLatitudeDirection getAddressLatitudeDirection();
-	public AddressLongitude getAddressLongitude();
-	public AddressLongitudeDirection getAddressLongitudeDirection();
-	public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData();
-	public String getType();
-	public boolean isSetAddressIdentifier();
-	public boolean isSetEndorsementLineCode();
-	public boolean isSetKeyLineCode();
-	public boolean isSetBarcode();
-	public boolean isSetSortingCode();
-	public boolean isSetAddressLatitude();
-	public boolean isSetAddressLatitudeDirection();
-	public boolean isSetAddressLongitude();
-	public boolean isSetAddressLongitudeDirection();
-	public boolean isSetSupplementaryPostalServiceData();
-	public boolean isSetType();
+public class PostalServiceElements implements XAL, Child, Copyable {
+	private List<AddressIdentifier> addressIdentifier;
+	private EndorsementLineCode endorsementLineCode;
+	private KeyLineCode keyLineCode;
+	private Barcode barcode;
+	private SortingCode sortingCode;
+	private AddressLatitude addressLatitude;
+	private AddressLatitudeDirection addressLatitudeDirection;
+	private AddressLongitude addressLongitude;
+	private AddressLongitudeDirection addressLongitudeDirection;
+	private List<SupplementaryPostalServiceData> supplementaryPostalServiceData;
+	private String type;
+	private ModelObject parent;
 	
-	public void addAddressIdentifier(AddressIdentifier addressIdentifier);
-	public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier);
-	public void setEndorsementLineCode(EndorsementLineCode endorsementLineCode);
-	public void setKeyLineCode(KeyLineCode keyLineCode);
-	public void setBarcode(Barcode barcode);
-	public void setSortingCode(SortingCode sortingCode);
-	public void setAddressLatitude(AddressLatitude addressLatitude);
-	public void setAddressLatitudeDirection(AddressLatitudeDirection addressLatitudeDirection);
-	public void setAddressLongitude(AddressLongitude addressLongitude);
-	public void setAddressLongitudeDirection(AddressLongitudeDirection addressLongitudeDirection);
-	public void addSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData);
-	public void setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData> supplementaryPostalServiceData);
-	public void setType(String type);
-	public void unsetAddressIdentifier();
-	public boolean unsetAddressIdentifier(AddressIdentifier addressIdentifier);
-	public void unsetEndorsementLineCode();
-	public void unsetKeyLineCode();
-	public void unsetBarcode();
-	public void unsetSortingCode();
-	public void unsetAddressLatitude();
-	public void unsetAddressLatitudeDirection();
-	public void unsetAddressLongitude();
-	public void unsetAddressLongitudeDirection();
-	public void unsetSupplementaryPostalServiceData();
-	public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData);
-	public void unsetType();
+	public void addAddressIdentifier(AddressIdentifier addressIdentifier) {
+		if (this.addressIdentifier == null)
+			this.addressIdentifier = new ChildList<AddressIdentifier>(this);
+		
+		this.addressIdentifier.add(addressIdentifier);
+	}
+
+	public void addSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
+		if (this.supplementaryPostalServiceData == null)
+			this.supplementaryPostalServiceData = new ChildList<SupplementaryPostalServiceData>(this);
+		
+		this.supplementaryPostalServiceData.add(supplementaryPostalServiceData);
+	}
+
+	public List<AddressIdentifier> getAddressIdentifier() {
+		if (addressIdentifier == null)
+			addressIdentifier = new ChildList<AddressIdentifier>(this);
+		
+		return addressIdentifier;
+	}
+
+	public AddressLatitude getAddressLatitude() {
+		return addressLatitude;
+	}
+
+	public AddressLatitudeDirection getAddressLatitudeDirection() {
+		return addressLatitudeDirection;
+	}
+
+	public AddressLongitude getAddressLongitude() {
+		return addressLongitude;
+	}
+
+	public AddressLongitudeDirection getAddressLongitudeDirection() {
+		return addressLongitudeDirection;
+	}
+
+	public Barcode getBarcode() {
+		return barcode;
+	}
+
+	public EndorsementLineCode getEndorsementLineCode() {
+		return endorsementLineCode;
+	}
+
+	public KeyLineCode getKeyLineCode() {
+		return keyLineCode;
+	}
+
+	public SortingCode getSortingCode() {
+		return sortingCode;
+	}
+
+	public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
+		if (supplementaryPostalServiceData == null)
+			supplementaryPostalServiceData = new ChildList<SupplementaryPostalServiceData>(this);
+		
+		return supplementaryPostalServiceData;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public boolean isSetAddressIdentifier() {
+		return addressIdentifier != null && !addressIdentifier.isEmpty();
+	}
+
+	public boolean isSetAddressLatitude() {
+		return addressLatitude == null;
+	}
+
+	public boolean isSetAddressLatitudeDirection() {
+		return addressLatitudeDirection == null;
+	}
+
+	public boolean isSetAddressLongitude() {
+		return addressLongitude == null;
+	}
+
+	public boolean isSetAddressLongitudeDirection() {
+		return addressLongitudeDirection == null;
+	}
+
+	public boolean isSetBarcode() {
+		return barcode == null;
+	}
+
+	public boolean isSetEndorsementLineCode() {
+		return endorsementLineCode == null;
+	}
+
+	public boolean isSetKeyLineCode() {
+		return keyLineCode == null;
+	}
+
+	public boolean isSetSortingCode() {
+		return sortingCode == null;
+	}
+
+	public boolean isSetSupplementaryPostalServiceData() {
+		return supplementaryPostalServiceData == null && !supplementaryPostalServiceData.isEmpty();
+	}
+
+	public boolean isSetType() {
+		return type == null;
+	}
+
+	public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier) {
+		this.addressIdentifier = new ChildList<AddressIdentifier>(this, addressIdentifier);
+	}
+
+	public void setAddressLatitude(AddressLatitude addressLatitude) {
+		if (addressLatitude != null)
+			addressLatitude.setParent(this);
+		
+		this.addressLatitude = addressLatitude;
+	}
+
+	public void setAddressLatitudeDirection(AddressLatitudeDirection addressLatitudeDirection) {
+		if (addressLatitudeDirection != null)
+			addressLatitudeDirection.setParent(this);
+		
+		this.addressLatitudeDirection = addressLatitudeDirection;
+	}
+
+	public void setAddressLongitude(AddressLongitude addressLongitude) {
+		if (addressLongitude != null)
+			addressLongitude.setParent(this);
+		
+		this.addressLongitude = addressLongitude;
+	}
+
+	public void setAddressLongitudeDirection(AddressLongitudeDirection addressLongitudeDirection) {
+		if (addressLongitudeDirection != null)
+			addressLongitudeDirection.setParent(this);
+		
+		this.addressLongitudeDirection = addressLongitudeDirection;
+	}
+
+	public void setBarcode(Barcode barcode) {
+		if (barcode != null)
+			barcode.setParent(this);
+		
+		this.barcode = barcode;
+	}
+
+	public void setEndorsementLineCode(EndorsementLineCode endorsementLineCode) {
+		if (endorsementLineCode != null)
+			endorsementLineCode.setParent(this);
+		
+		this.endorsementLineCode = endorsementLineCode;
+	}
+
+	public void setKeyLineCode(KeyLineCode keyLineCode) {
+		if (keyLineCode != null)
+			keyLineCode.setParent(this);
+		
+		this.keyLineCode = keyLineCode;
+	}
+
+	public void setSortingCode(SortingCode sortingCode) {
+		if (sortingCode != null)
+			sortingCode.setParent(this);
+		
+		this.sortingCode = sortingCode;
+	}
+
+	public void setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData> supplementaryPostalServiceData) {
+		this.supplementaryPostalServiceData = new ChildList<SupplementaryPostalServiceData>(this, supplementaryPostalServiceData);
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void unsetAddressIdentifier() {
+		if (isSetAddressIdentifier())
+			addressIdentifier.clear();
+		
+		addressIdentifier = null;
+	}
+
+	public boolean unsetAddressIdentifier(AddressIdentifier addressIdentifier) {
+		return isSetAddressIdentifier() ? this.addressIdentifier.remove(addressIdentifier) : false;
+	}
+
+	public void unsetAddressLatitude() {
+		if (isSetAddressLatitude())
+			addressLatitude.unsetParent();
+		
+		addressLatitude = null;
+	}
+
+	public void unsetAddressLatitudeDirection() {
+		if (isSetAddressLatitudeDirection())
+			addressLatitudeDirection.unsetParent();
+		
+		addressLatitudeDirection = null;
+	}
+
+	public void unsetAddressLongitude() {
+		if (isSetAddressLongitude())
+			addressLongitude.unsetParent();
+		
+		addressLongitude = null;
+	}
+
+	public void unsetAddressLongitudeDirection() {
+		if (isSetAddressLongitudeDirection())
+			addressLongitudeDirection.unsetParent();
+		
+		addressLongitudeDirection = null;
+	}
+
+	public void unsetBarcode() {
+		if (isSetBarcode())
+			barcode.unsetParent();
+		
+		barcode = null;
+	}
+
+	public void unsetEndorsementLineCode() {
+		if (isSetEndorsementLineCode())
+			endorsementLineCode.unsetParent();
+		
+		endorsementLineCode = null;
+	}
+
+	public void unsetKeyLineCode() {
+		if (isSetKeyLineCode())
+			keyLineCode.unsetParent();
+		
+		keyLineCode = null;
+	}
+
+	public void unsetSortingCode() {
+		if (isSetSortingCode())
+			sortingCode.unsetParent();
+		
+		sortingCode = null;
+	}
+
+	public void unsetSupplementaryPostalServiceData() {
+		if (isSetSupplementaryPostalServiceData())
+			supplementaryPostalServiceData.clear();
+		
+		supplementaryPostalServiceData = null;
+	}
+
+	public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
+		return isSetSupplementaryPostalServiceData() ? this.supplementaryPostalServiceData.remove(supplementaryPostalServiceData) : false;
+	}
+
+	public void unsetType() {
+		type = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.XAL;
+	}
+
+	public XALClass getXALClass() {
+		return XALClass.POSTAL_SERVICE_ELEMENTS;
+	}
+
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PostalServiceElements(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PostalServiceElements copy = (target == null) ? new PostalServiceElements() : (PostalServiceElements)target;
+		
+		if (isSetAddressIdentifier()) {
+			for (AddressIdentifier part : addressIdentifier) {
+				AddressIdentifier copyPart = (AddressIdentifier)copyBuilder.copy(part);
+				copy.addAddressIdentifier(copyPart);
+				
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+
+		if (isSetEndorsementLineCode()) {
+			copy.setEndorsementLineCode((EndorsementLineCode)copyBuilder.copy(endorsementLineCode));
+			if (copy.getEndorsementLineCode() == endorsementLineCode)
+				endorsementLineCode.setParent(this);
+		}
+		
+		if (isSetKeyLineCode()) {
+			copy.setKeyLineCode((KeyLineCode)copyBuilder.copy(keyLineCode));
+			if (copy.getKeyLineCode() == keyLineCode)
+				keyLineCode.setParent(this);
+		}
+		
+		if (isSetBarcode()) {
+			copy.setBarcode((Barcode)copyBuilder.copy(barcode));
+			if (copy.getBarcode() == barcode)
+				barcode.setParent(this);
+		}
+		
+		if (isSetSortingCode()) {
+			copy.setSortingCode((SortingCode)copyBuilder.copy(sortingCode));
+			if (copy.getSortingCode() == sortingCode)
+				sortingCode.setParent(this);
+		}
+			
+		if (isSetAddressLatitude()) {
+			copy.setAddressLatitude((AddressLatitude)copyBuilder.copy(addressLatitude));
+			if (copy.getAddressLatitude() == addressLatitude)
+				addressLatitude.setParent(this);
+		}
+
+		if (isSetAddressLatitudeDirection()) {
+			copy.setAddressLatitudeDirection((AddressLatitudeDirection)copyBuilder.copy(addressLatitudeDirection));
+			if (copy.getAddressLatitudeDirection() == addressLatitudeDirection)
+				addressLatitudeDirection.setParent(this);
+		}		
+		
+		if (isSetAddressLongitude()) {
+			copy.setAddressLongitude((AddressLongitude)copyBuilder.copy(addressLongitude));
+			if (copy.getAddressLongitude() == addressLongitude)
+				addressLongitude.setParent(this);
+		}	
+		
+		if (isSetAddressLongitudeDirection()) {
+			copy.setAddressLongitudeDirection((AddressLongitudeDirection)copyBuilder.copy(addressLongitudeDirection));
+			if (copy.getAddressLongitudeDirection() == addressLongitudeDirection)
+				addressLongitudeDirection.setParent(this);
+		}
+		
+		if (isSetSupplementaryPostalServiceData()) {
+			for (SupplementaryPostalServiceData part : supplementaryPostalServiceData) {
+				SupplementaryPostalServiceData copyPart = (SupplementaryPostalServiceData)copyBuilder.copy(part);
+				copy.addSupplementaryPostalServiceData(copyPart);
+				
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		if (isSetType())
+			copy.setType(copyBuilder.copy(type));
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
 	
-	public void visit(XALVisitor visitor);
-	public <T> T visit(XALFunctor<T> visitor);
+	public void visit(XALVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T visit(XALFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
 }

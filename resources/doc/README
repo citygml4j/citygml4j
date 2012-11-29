@@ -1,4 +1,4 @@
-!app.name! v!app.version! - !app.title!
+!citygml4j.name! v!citygml4j.version! - !citygml4j.description!
 
   This library is free software and comes WITHOUT ANY WARRANTY. 
   See the file LICENSE for more details. 
@@ -20,7 +20,7 @@
 1. License
 ----------
 
-The !app.name! Java class library is free software under
+The !citygml4j.name! Java class library is free software under
 the GNU Lesser General Public License Version 3.0. See the file LICENSE 
 for more details. For a copy of the GNU Lesser General Public License see 
 the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
@@ -29,22 +29,23 @@ the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
 2. Copyright
 ------------
 
-(c) 2007 - 2010
-Institute for Geodesy and Geoinformation Science (IGG)
-Technische Universitaet Berlin, Germany
-http://www.igg.tu-berlin.de/
+(c) !vendor.copyright.year!
+!vendor.name!
+!vendor.organisation!, !vendor.country!
+!vendor.homepage!
 
 
 3. About
 --------
 
-!app.name! is a Java class library and API for facilitating work with the
+!citygml4j.name! is a Java class library and API for facilitating work with the
 City Geography Markup Language (CityGML). It makes it easy to read, process,
 and write CityGML datasets, and to develop CityGML-aware software 
 applications.
 
 Feature list:
-* Full support for CityGML version 1.0.0 and 0.4.0
+* Full support for CityGML version 2.0.0 and 1.0.0
+  (read-only support for CityGML 0.4.0)
 * Support for CityGML specific subset of GML 3.1.1
 * Support for the eXtensible Address Language (xAL)
 * Support for user-defined CityGML Application Domain Extensions (ADE)
@@ -64,7 +65,7 @@ free of charge.
 ----------------------
 
 * Java JRE or JDK >= 1.5
-* Java Architecture for XML Binding (JAXB) >= 2.1.13
+* Java Architecture for XML Binding (JAXB) >= 2.2
 * Sun Java Streaming XML Parser >= 1.0
 
 
@@ -73,29 +74,29 @@ free of charge.
 
 Simply modify your Java classpath to include the provided 
 Java library files in the subfolder "lib". This folder contains the
-!app.name! library file as well as all its mandatory dependencies.
+!citygml4j.name! library file as well as all its mandatory dependencies.
 
-Please find a collection of sample !app.name! programs in
+Please find a collection of sample !citygml4j.name! programs in
 the subfolder "samples".
 
    
 6. Developers
 -------------
 
-Claus Nagel <claus.nagel@tu-berlin.de>
+!developer.main.name! <!developer.main.email!>
 
 
 7. Contact
 ----------
 
-claus.nagel@tu-berlin.de
+!developer.main.email!
 
 
 8. Websites
 -----------
 
-Official !app.name! website: 
-http://www.igg.tu-berlin.de/software
+Official !citygml4j.name! website: 
+!citygml4j.homepage!
 
 Related websites:
 http://www.igg.tu-berlin.de/

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -39,8 +41,6 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.factory.CityGMLFactory;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.CityObjectMember;
@@ -63,20 +63,17 @@ public class DOMAndXPath {
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		CityGMLFactory citygml = new CityGMLFactory();
-		GMLFactory gml = new GMLFactory();
-		
 		System.out.println(df.format(new Date()) + "creating citygml4j JAXBUnmarshaller and JAXBMarshaller instances");
 		JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
 		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
-		marshaller.setModuleContext(new ModuleContext(CityGMLVersion.v1_0_0));
+		marshaller.setModuleContext(new ModuleContext(CityGMLVersion.v2_0_0));
 		
 		// create DOM model from CityGML document
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_with_Placeholder_v100.xml as DOM tree");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_with_Placeholder_v200.gml as DOM tree");
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		docFactory.setNamespaceAware(true);		
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document document = docBuilder.parse("../../datasets/LOD2_Building_with_Placeholder_v100.xml");
+		Document document = docBuilder.parse("../../datasets/LOD2_Building_with_Placeholder_v200.gml");
 
 		// create XPath factory
 		System.out.println(df.format(new Date()) + "creating XPath factory");
@@ -85,7 +82,7 @@ public class DOMAndXPath {
 
 		// get CityGML namespace context
 		CityGMLNamespaceContext nsContext = new CityGMLNamespaceContext();
-		nsContext.setPrefixes(CityGMLVersion.v1_0_0);
+		nsContext.setPrefixes(CityGMLVersion.v2_0_0);
 		xpath.setNamespaceContext(nsContext);
 
 		// first: retrieve building node using XPath
@@ -99,7 +96,7 @@ public class DOMAndXPath {
 		// add gml:id and gml:description to building
 		System.out.println(df.format(new Date()) + "processing content using citygml4j");
 		building.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		StringOrRef description = gml.createStringOrRef();
+		StringOrRef description = new StringOrRef();
 		description.setValue("processed by citygml4j using DOM and XPath");
 		building.setDescription(description);
 
@@ -114,9 +111,9 @@ public class DOMAndXPath {
 
 		// create simple citygml4j object to insert into placeholder
 		System.out.println(df.format(new Date()) + "inserting CityFurniture instance at placeholder using citygml4j");
-		CityFurniture cityFurniture = citygml.createCityFurniture();
+		CityFurniture cityFurniture = new CityFurniture();
 		cityFurniture.setDescription(description);		
-		CityObjectMember member = citygml.createCityObjectMember(cityFurniture);
+		CityObjectMember member = new CityObjectMember(cityFurniture);
 
 		// marshal to DOM and put into document
 		System.out.println(df.format(new Date()) + "marshalling back to DOM");
@@ -130,10 +127,10 @@ public class DOMAndXPath {
 		trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new FileOutputStream("LOD2_DOM_result_v100.xml"));
+		StreamResult result = new StreamResult(new FileOutputStream("LOD2_DOM_result_v200.gml"));
 		trans.transform(source, result); 
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,20 +19,91 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.transportation;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.module.citygml.TransportationModule;
 
-public interface AbstractTransportationObject extends TransportationModuleComponent, AbstractCityObject {
-	public List<ADEComponent> getGenericApplicationPropertyOfTransportationObject();
-	public boolean isSetGenericApplicationPropertyOfTransportationObject();
+public abstract class AbstractTransportationObject extends AbstractCityObject implements TransportationModuleComponent {
+	private List<ADEComponent> ade;
+	private TransportationModule module;
 	
-	public void addGenericApplicationPropertyOfTransportationObject(ADEComponent ade);
-	public void setGenericApplicationPropertyOfTransportationObject(List<ADEComponent> ade);
-	public void unsetGenericApplicationPropertyOfTransportationObject();
-	public boolean unsetGenericApplicationPropertyOfTransportationObject(ADEComponent ade);
+	public AbstractTransportationObject() {
+		
+	}
+	
+	public AbstractTransportationObject(TransportationModule module) {
+		this.module = module;
+	}
+	
+	public void addGenericApplicationPropertyOfTransportationObject(ADEComponent ade) {
+		if (this.ade == null)
+			this.ade = new ChildList<ADEComponent>(this);
+
+		this.ade.add(ade);
+	}
+
+	public List<ADEComponent> getGenericApplicationPropertyOfTransportationObject() {
+		if (ade == null)
+			ade = new ChildList<ADEComponent>(this);
+
+		return ade;
+	}
+
+	public boolean isSetGenericApplicationPropertyOfTransportationObject() {
+		return ade != null && !ade.isEmpty();
+	}
+
+	public void setGenericApplicationPropertyOfTransportationObject(List<ADEComponent> ade) {
+		this.ade = new ChildList<ADEComponent>(this, ade);
+	}
+
+	public void unsetGenericApplicationPropertyOfTransportationObject() {
+		if (isSetGenericApplicationPropertyOfTransportationObject())
+			ade.clear();
+
+		ade = null;
+	}
+
+	public boolean unsetGenericApplicationPropertyOfTransportationObject(ADEComponent ade) {
+		return isSetGenericApplicationPropertyOfTransportationObject() ? this.ade.remove(ade) : false;
+	}
+
+	public final TransportationModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		if (target == null)
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+		AbstractTransportationObject copy = (AbstractTransportationObject)target;		
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetGenericApplicationPropertyOfTransportationObject()) {
+			for (ADEComponent part : ade) {
+				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
+				copy.addGenericApplicationPropertyOfTransportationObject(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		return copy;
+	}
+	
 }

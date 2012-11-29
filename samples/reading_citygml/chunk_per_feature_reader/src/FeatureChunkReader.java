@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,7 +45,7 @@ public class FeatureChunkReader {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v100.xml feature by feature");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v200.gml feature by feature");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new Class[]{AbstractOpening.class, Address.class});
@@ -51,10 +53,10 @@ public class FeatureChunkReader {
 		// see difference when setting to true
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
 		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Building_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Building_v200.gml"));
 		
 		System.out.println(df.format(new Date()) + "printing feature currently read and its (transitive) parents");
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML chunk = reader.nextFeature();	
 			System.out.println("found: " + chunk.getCityGMLClass());
 			

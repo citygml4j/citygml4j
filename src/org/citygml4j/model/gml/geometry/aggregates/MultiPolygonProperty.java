@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiPolygonProperty extends GeometryProperty<MultiPolygon> {
-	public MultiPolygon getMultiPolygon();
-	public boolean isSetMultiPolygon();
+public class MultiPolygonProperty extends GeometryProperty<MultiPolygon> {
 	
-	public void setMultiPolygon(MultiPolygon multiPolygon);
-	public void unsetMultiPolygon();
+	public MultiPolygonProperty() {
+
+	}
+
+	public MultiPolygonProperty(MultiPolygon multiPolygon) {
+		super(multiPolygon);
+	}
+
+	public MultiPolygonProperty(String href) {
+		super(href);
+	}
+	
+	public MultiPolygon getMultiPolygon() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiPolygon() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiPolygon(MultiPolygon multiPolygon) {
+		super.setGeometry(multiPolygon);
+	}
+
+	public void unsetMultiPolygon() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_POLYGON_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiPolygon> getAssociableClass() {
+		return MultiPolygon.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiPolygonProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiPolygonProperty copy = (target == null) ? new MultiPolygonProperty() : (MultiPolygonProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

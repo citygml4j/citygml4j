@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,9 +19,42 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-public interface PointRep extends PointProperty {
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+
+public class PointRep extends PointProperty {
+	
+	public PointRep() {
+
+	}
+
+	public PointRep(Point point) {
+		super(point);
+	}
+
+	public PointRep(String href) {
+		super(href);
+	}
+	
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.POINT_REP;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PointRep(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PointRep copy = (target == null) ? new PointRep() : (PointRep)target;
+		return super.copyTo(copy, copyBuilder);
+	}
 
 }

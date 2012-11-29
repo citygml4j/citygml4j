@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.io.PrintWriter;
@@ -44,7 +46,7 @@ public class InterpretingSchema {
 		SchemaWriter writer = new SchemaWriter(new PrintWriter(new File("CityGML-SubsurfaceADE-0_9_0.xml")));
 		Schema schema = schemaHandler.getSchema("http://www.citygml.org/ade/sub/0.9.0");
 
-		System.out.println(df.format(new Date()) + "writing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
+		System.out.println(df.format(new Date()) + "writing ADE schema file CityGML-SubsurfaceADE-0_9_0.xml");
 		writer.schema(schema.getXSSchema());
 		
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");

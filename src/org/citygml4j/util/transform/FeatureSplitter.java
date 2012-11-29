@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.util.transform;
 
@@ -32,11 +34,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
-import org.citygml4j.model.citygml.building.BuildingFurniture;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -154,14 +151,6 @@ public class FeatureSplitter {
 			throw new IllegalArgumentException("set of excludes may not be null.");
 
 		this.excludes = excludes;
-	}
-
-	public void setCityGML040Excludes() {
-		excludes.add(BuildingPart.class);
-		excludes.add(BuildingInstallation.class);
-		excludes.add(IntBuildingInstallation.class);
-		excludes.add(Room.class);
-		excludes.add(BuildingFurniture.class);
 	}
 
 	public void setKeepInlineAppearance(boolean keepInlineAppearance) {

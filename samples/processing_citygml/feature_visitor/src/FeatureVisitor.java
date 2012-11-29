@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,8 +28,10 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.model.citygml.appearance.Appearance;
+import org.citygml4j.model.citygml.appearance.AppearanceProperty;
+import org.citygml4j.model.citygml.appearance.Color;
+import org.citygml4j.model.citygml.appearance.SurfaceDataProperty;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -51,14 +55,13 @@ public class FeatureVisitor {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.xml");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Building_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Building_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
 		final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
-		final CityGMLFactory citygml = new CityGMLFactory();
 
 		System.out.println(df.format(new Date()) + "using FeatureWalker to walk through document and to process boundary surface features");
 		FeatureWalker walker = new FeatureWalker() {
@@ -76,25 +79,25 @@ public class FeatureVisitor {
 
 				Double red, green, blue;
 				switch (boundarySurface.getCityGMLClass()) {
-				case ROOF_SURFACE:
+				case BUILDING_ROOF_SURFACE:
 					red = 1.0; green = 0.0; blue = 0.0;
 					break;
-				case WALL_SURFACE:
+				case BUILDING_WALL_SURFACE:
 					red = 0.5; green = 0.5; blue = 0.5;
 					break;
 				default:
 					red = 0.3; green = 0.3; blue = 0.3;
 				}
 
-				X3DMaterial material = citygml.createX3DMaterial();
-				material.setDiffuseColor(citygml.createColor(red, green, blue));
+				X3DMaterial material = new X3DMaterial();
+				material.setDiffuseColor(new Color(red, green, blue));
 				material.addTarget('#' + id);
 
-				Appearance appearance = citygml.createAppearance();
+				Appearance appearance = new Appearance();
 				appearance.setTheme("rgbColor");
-				appearance.addSurfaceDataMember(citygml.createSurfaceDataProperty(material));
+				appearance.addSurfaceDataMember(new SurfaceDataProperty(material));
 
-				boundarySurface.addAppearance(citygml.createAppearanceProperty(appearance));
+				boundarySurface.addAppearance(new AppearanceProperty(appearance));
 				super.visit(boundarySurface);
 			}
 
@@ -102,19 +105,19 @@ public class FeatureVisitor {
 
 		cityModel.accept(walker);
 
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 1.0.0 document");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
+		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 2.0.0 document");
+		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0);
 
-		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_colorized_v100.xml"));
-		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
+		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD2_Building_colorized_v200.gml"));
+		writer.setPrefixes(CityGMLVersion.v2_0_0);
+		writer.setDefaultNamespace(CoreModule.v2_0_0);
+		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
 		writer.setIndentString("  ");
 
 		writer.write(cityModel);
 
 		writer.close();
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_colorized_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_colorized_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

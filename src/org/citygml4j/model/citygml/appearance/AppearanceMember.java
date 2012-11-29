@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,9 +19,47 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.appearance;
 
-public interface AppearanceMember extends AppearanceProperty {
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.module.citygml.AppearanceModule;
+
+public class AppearanceMember extends AppearanceProperty {
+
+	public AppearanceMember() {
+		
+	}
+	
+	public AppearanceMember(Appearance appearance) {
+		super(appearance);
+	}
+	
+	public AppearanceMember(String href) {
+		super(href);
+	}
+	
+	public AppearanceMember(AppearanceModule module) {
+		super(module);
+	}
+	
+	@Override
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.APPEARANCE_MEMBER;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new AppearanceMember(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		AppearanceMember copy = (target == null) ? new AppearanceMember() : (AppearanceMember)target;
+		return super.copyTo(copy, copyBuilder);
+	}
 
 }

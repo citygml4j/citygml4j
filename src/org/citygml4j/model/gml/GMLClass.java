@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,12 +19,14 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml;
 
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.base.ModelClassEnum;
-import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 import org.citygml4j.model.gml.base.AssociationByRep;
@@ -139,6 +141,7 @@ import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
 import org.citygml4j.model.gml.geometry.primitives.Rectangle;
 import org.citygml4j.model.gml.geometry.primitives.Ring;
+import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.SolidArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -171,6 +174,10 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
+import org.citygml4j.model.xal.XALClass;
 
 public enum GMLClass implements ModelClassEnum {
 	UNDEFINED(null),
@@ -304,6 +311,7 @@ public enum GMLClass implements ModelClassEnum {
 	POS_OR_POINT_PROPERTY_OR_POINT_REP_OR_COORD(PosOrPointPropertyOrPointRepOrCoord.class),
 	RECTANGLE(Rectangle.class),
 	RING(Ring.class),
+	SIGN(Sign.class),
 	SOLID(Solid.class),
 	SOLID_PROPERTY(SolidProperty.class),
 	SOLID_ARRAY_PROPERTY(SolidArrayProperty.class),
@@ -344,53 +352,62 @@ public enum GMLClass implements ModelClassEnum {
 	VALUE_PROPERTY(ValueProperty.class),
 	
 	// CityGML geometries
-	_TEXTURED_SURFACE(_TexturedSurface.class);
+	_TEXTURED_SURFACE(_TexturedSurface.class),
 	
-	private final Class<? extends ModelObject> interfaceName;
+	// XLink types
+	XLINK_ACTUATE(XLinkActuate.class),
+	XLINK_TYPE(XLinkType.class),
+	XLINK_SHOW(XLinkShow.class);
+	
+	private final Class<? extends GML> modelClass;
 
-	private GMLClass(Class<? extends ModelObject> interfaceName) {
-		this.interfaceName = interfaceName;
+	private GMLClass(Class<? extends GML> modelClass) {
+		this.modelClass = modelClass;
+	}
+
+	public Class<? extends GML> getModelClass() {
+		return modelClass;
 	}
 	
-	public static GMLClass fromInterface(Class<? extends ModelObject> interfaceName) {
-		if (interfaceName.isInterface()) {
-			for (GMLClass c : GMLClass.values())
-				if (c.interfaceName == interfaceName)
-					return c;
-		}
+	public static GMLClass fromModelClass(Class<? extends GML> modelClass) {
+		for (GMLClass c : GMLClass.values())
+			if (c.modelClass == modelClass)
+				return c;
 
-		return null;
+		return UNDEFINED;
 	}
 	
 	public static GMLClass fromInt(int i) {
 		for (GMLClass c : GMLClass.values()) {
-			if (c.ordinal() == i) {
+			if (c.ordinal() == i)
 				return c;
-			}
 		}
 
 		return UNDEFINED;
 	}
-
-	public Class<? extends ModelObject> getInterface() {
-		return interfaceName;
-	}
 	
 	public boolean isInstance(ModelClassEnum type) {
-		return isInstance(interfaceName, type.getInterface());
-	}
-	
-	private boolean isInstance(Class<?> a, Class<?> b) {
-		if (a == null || b == null)
+		if (type == null)
 			return false;
+		
+		Class<?> tmp = modelClass;
+		Class<?> otherModelClass = null;
 
-		if (a == b)
-			return true;
+		if (type instanceof CityGMLClass)
+			otherModelClass = ((CityGMLClass)type).getModelClass();
+		else if (type instanceof GMLClass)
+			otherModelClass = ((GMLClass)type).getModelClass();
+		else if (type instanceof XALClass)
+			otherModelClass = ((XALClass)type).getModelClass();
 
-		for (Class<?> tmp : b.getInterfaces())
-			if (isInstance(a, tmp))
-				return true;
-
+		if (otherModelClass != null) {
+			do {
+				if (tmp == otherModelClass)
+					return true;
+			} while ((tmp = tmp.getSuperclass()) != null);
+		}
+		
 		return false;
 	}
+	
 }

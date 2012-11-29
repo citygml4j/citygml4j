@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,82 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.transportation;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.TransportationModule;
 
-public interface AuxiliaryTrafficAreaProperty extends TransportationModuleComponent, FeatureProperty<AuxiliaryTrafficArea> {
-	public AuxiliaryTrafficArea getAuxiliaryTrafficArea();
-	public boolean isSetAuxiliaryTrafficArea();
+public class AuxiliaryTrafficAreaProperty extends FeatureProperty<AuxiliaryTrafficArea> implements TransportationModuleComponent {
+	private TransportationModule module;
 	
-	public void setAuxiliaryTrafficArea(AuxiliaryTrafficArea auxiliaryTrafficArea);
-	public void unsetAuxiliaryTrafficArea();
+	public AuxiliaryTrafficAreaProperty() {
+		
+	}
+	
+	public AuxiliaryTrafficAreaProperty(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+		super(auxiliaryTrafficArea);
+	}
+	
+	public AuxiliaryTrafficAreaProperty(String href) {
+		super(href);
+	}
+	
+	public AuxiliaryTrafficAreaProperty(TransportationModule module) {
+		this.module = module;
+	}
+	
+	public AuxiliaryTrafficArea getAuxiliaryTrafficArea() {
+		return super.getObject();
+	}
+
+	public boolean isSetAuxiliaryTrafficArea() {
+		return super.isSetObject();
+	}
+
+	public void setAuxiliaryTrafficArea(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+		super.setObject(auxiliaryTrafficArea);
+	}
+
+	public void unsetAuxiliaryTrafficArea() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.AUXILIARY_TRAFFIC_AREA_PROPERTY;
+	}
+
+	public final TransportationModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AuxiliaryTrafficArea> getAssociableClass() {
+		return AuxiliaryTrafficArea.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new AuxiliaryTrafficAreaProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		AuxiliaryTrafficAreaProperty copy = (target == null) ? new AuxiliaryTrafficAreaProperty() : (AuxiliaryTrafficAreaProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

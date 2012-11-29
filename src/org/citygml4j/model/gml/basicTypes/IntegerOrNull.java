@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,22 +19,122 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.basicTypes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
+import org.citygml4j.model.gml.basicTypes.Null;
 
-
-public interface IntegerOrNull extends GML, Child, Copyable {
-	public Integer getInteger();
-	public Null getNull();
-	public boolean isSetInteger();
-	public boolean isSetNull();
+public class IntegerOrNull implements GML, Child, Copyable {
+	private Integer _integer;
+	private Null _null;
+	private ModelObject parent;
 	
-	public void setInteger(Integer integer);
-	public void setNull(Null _null);
-	public void unsetInteger();
-	public void unsetNull();
+	public IntegerOrNull() {
+		
+	}
+	
+	public IntegerOrNull(Integer _integer) {
+		this._integer = _integer;
+	}
+	
+	public IntegerOrNull(Null _null) {
+		setNull(_null);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.INTEGER_OR_NULL;
+	}
+
+	public Integer getInteger() {
+		return _integer;
+	}
+	
+	public Null getNull() {
+		return _null;
+	}
+
+	public boolean isSetInteger() {
+		return _integer != null;
+	}
+	
+	public boolean isSetNull() {
+		return _null != null;
+	}
+
+	public void setInteger(Integer _double) {
+		this._integer = _double;
+		
+		unsetNull();
+	}
+
+	public void setNull(Null _null) {
+		if (_null != null)
+			_null.setParent(this);
+		
+		this._null = _null;
+		unsetInteger();
+	}
+
+	public void unsetInteger() {
+		_integer = null;
+	}
+	
+	public void unsetNull() {
+		if (isSetNull())
+			_null.unsetParent();
+		
+		_null = null;
+	}
+
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new IntegerOrNull(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		IntegerOrNull copy = (target == null) ? new IntegerOrNull() : (IntegerOrNull)target;
+		
+		if (isSetInteger())
+			copy.setInteger((Integer)copyBuilder.copy(_integer));
+			
+		if (isSetNull()) {
+			copy.setNull((Null)copyBuilder.copy(_null));
+			if (copy.getNull() == _null)
+				_null.setParent(this);
+		}
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
+
 }

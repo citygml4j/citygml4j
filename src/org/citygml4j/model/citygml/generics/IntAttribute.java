@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,13 +19,64 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.generics;
 
-public interface IntAttribute extends AbstractGenericAttribute {
-	public Integer getValue();
-	public boolean isSetValue();
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.module.citygml.GenericsModule;
+
+public class IntAttribute extends AbstractGenericAttribute {
+	private Integer value;
 	
-	public void setValue(Integer value);
-	public void unsetValue();
+	public IntAttribute() {
+
+	}
+
+	public IntAttribute(GenericsModule module) {
+		super(module);
+	}
+	
+	public Integer getValue() {
+		return value;
+	}
+
+	public boolean isSetValue() {
+		return value != null;
+	}
+
+	public void setValue(Integer value) {
+		this.value = value;
+	}
+
+	public void unsetValue() {
+		value = null;
+	}
+
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INT_ATTRIBUTE;
+	}
+	
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new IntAttribute(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		IntAttribute copy = (target == null) ? new IntAttribute() : (IntAttribute)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetValue())
+			copy.setValue((Integer)copyBuilder.copy(value));
+		
+		return copy;
+	}
+
 }

@@ -32,7 +32,7 @@ Revision: 2001/07/31
 	<!-- ============================================================= 
 	struct.xsd
 	============================================================== -->
-	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml-mod.xsd"/>
+	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../xml/xml.xsd"/>
 	<attributeGroup name="structureModuleAttrs">
 		<attribute name="id" type="ID" use="optional"/>
 		<attribute name="class" type="string" use="optional"/>

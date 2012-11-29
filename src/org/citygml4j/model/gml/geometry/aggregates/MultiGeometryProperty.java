@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
-	public AbstractGeometricAggregate getGeometricAggregate();
-	public boolean isSetGeometricAggregate();
+public class MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
+
+	public MultiGeometryProperty() {
+
+	}
+
+	public MultiGeometryProperty(AbstractGeometricAggregate abstractGeometricAggregate) {
+		super(abstractGeometricAggregate);
+	}
+
+	public MultiGeometryProperty(String href) {
+		super(href);
+	}
 	
-	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate);
-	public void unsetGeometricAggregate();
+	public AbstractGeometricAggregate getGeometricAggregate() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetGeometricAggregate() {
+		return super.isSetGeometry();
+	}
+
+	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate) {
+		super.setGeometry(geometricAggregate);
+	}
+
+	public void unsetGeometricAggregate() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_GEOMETRY_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractGeometricAggregate> getAssociableClass() {
+		return AbstractGeometricAggregate.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiGeometryProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiGeometryProperty copy = (target == null) ? new MultiGeometryProperty() : (MultiGeometryProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

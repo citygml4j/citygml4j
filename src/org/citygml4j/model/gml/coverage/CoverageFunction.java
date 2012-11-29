@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,24 +19,131 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.StringOrRef;
 
+public class CoverageFunction implements GML, Child, Copyable {
+	private StringOrRef mappingRule;
+	private GridFunction gridFunction;
+	private ModelObject parent;
+	
+	public CoverageFunction() {
+		
+	}
+	
+	public CoverageFunction(StringOrRef mappingRule) {
+		setMappingRule(mappingRule);
+	}
+	
+	public CoverageFunction(GridFunction gridFunction) {
+		setGridFunction(gridFunction);
+	}
 
-public interface CoverageFunction extends GML, Child, Copyable {
-	public StringOrRef getMappingRule();
-	public GridFunction getGridFunction();	
-	public boolean isSetMappingRule();
-	public boolean isSetGridFunction();	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
 	
-	public void setMappingRule(StringOrRef mappingRule);
-	public void setGridFunction(GridFunction gridFunction);	
-	public void unsetMappingRule();
-	public void unsetGridFunction();
+	public GMLClass getGMLClass() {
+		return GMLClass.COVERAGE_FUNCTION;
+	}
+
+	public StringOrRef getMappingRule() {
+		return mappingRule;
+	}
+
+	public GridFunction getGridFunction() {
+		return gridFunction;
+	}
+
+	public boolean isSetMappingRule() {
+		return mappingRule != null;
+	}
+
+	public boolean isSetGridFunction() {
+		return gridFunction != null;
+	}
+
+	public void setMappingRule(StringOrRef mappingRule) {
+		if (mappingRule != null)
+			mappingRule.setParent(this);
+		
+		this.mappingRule = mappingRule;
+		
+		unsetGridFunction();
+	}
+
+	public void setGridFunction(GridFunction gridFunction) {
+		if (gridFunction != null)
+			gridFunction.setParent(this);
+		
+		this.gridFunction = gridFunction;
+		
+		unsetMappingRule();
+	}
+
+	public void unsetMappingRule() {
+		if (isSetMappingRule())
+			mappingRule.unsetParent();
+		
+		mappingRule = null;
+	}
+
+	public void unsetGridFunction() {
+		if (isSetGridFunction())
+			gridFunction.unsetParent();
+		
+		gridFunction = null;
+	}
 	
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+	
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CoverageFunction copy = (target == null) ? new CoverageFunction() : (CoverageFunction)target;
+		
+		if (isSetMappingRule()) {
+			copy.setMappingRule((StringOrRef)copyBuilder.copy(mappingRule));
+			if (copy.getMappingRule() == mappingRule)
+				mappingRule.setParent(this);
+		}
+		
+		if (isSetGridFunction()) {
+			copy.setGridFunction((GridFunction)copyBuilder.copy(gridFunction));
+			if (copy.getGridFunction() == gridFunction)
+				gridFunction.setParent(this);
+		}
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CoverageFunction(), copyBuilder);
+	}
+
 }

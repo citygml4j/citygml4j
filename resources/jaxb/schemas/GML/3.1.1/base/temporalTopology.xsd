@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1">
+<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1.2">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-xsd:temporalTopology:3.1.1"/>
 		<documentation xml:lang="en">The temporal topology schema for ISO19136 provides constructs for handling topological complexes and 
@@ -10,11 +10,15 @@
 		as long as the direction of time does not change. 
 		It is used effectively in the case of describing a family tree expressing evolution of species, an ecological cycle, 
 		a lineage of lands or buildings, or a history of separation and merger of administrative boundaries.
-		This schema reflects a partial yet consistent implementation of the model described in ISO 19108:2002. 
-    Copyright (c) 2002-2005 OGC, All Rights Reserved.
-	For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr</documentation>
+		This schema reflects a partial yet consistent implementation of the model described in ISO 19108:2002.
+		
+		GML is an OGC Standard.
+		Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ===================================== -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="temporal.xsd"/>
 	<!-- ===================================== -->
 	<!-- ================================================================== -->

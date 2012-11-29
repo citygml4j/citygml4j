@@ -11,62 +11,6 @@
     </jaxb:bindings>
 
     <!-- ============= -->
-    <!-- CityGML 0.4.0 -->
-    <!-- ============= -->
-
-    <!-- Specific settings for the CityGML 0.4.0 schema file -->
-    <jaxb:bindings schemaLocation="0.4.0/CityGML.xsd" node="/xs:schema">
-
-        <!-- CityGML schema specific settings... -->
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml._0_4"/>
-        </jaxb:schemaBindings>
-
-        <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
-            the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
-        <jaxb:bindings node="//xs:complexType[@name='CityObjectGroupMemberType']">
-            <jaxb:bindings node=".//xs:attribute[@name='role']">
-                <jaxb:property name="groupRole"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-            the property 'boundedBy' of an _AbstractBuildingType with that one defined by GML. So
-            a renaming is necessary -->
-        <jaxb:bindings node="//xs:complexType[@name='_AbstractBuildingType']">
-            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-                <jaxb:property name="boundedBySurface"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-            the property 'boundedBy' of an RoomType with that one defined by GML. So
-            a renaming is necessary -->
-        <jaxb:bindings node="//xs:complexType[@name='RoomType']">
-            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-                <jaxb:property name="boundedBySurface"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-            the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
-            a renaming is necessary -->
-        <jaxb:bindings node="//xs:complexType[@name='WaterBodyType']">
-            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-                <jaxb:property name="boundedBySurface"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-
-        <!-- changing data type of DoubleAttributeType -->
-        <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
-            <jaxb:bindings node=".//xs:element[@name='value']">
-                <jaxb:javaType name="Double"/>
-            </jaxb:bindings>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- ============= -->
     <!-- CityGML 1.0.0 -->
     <!-- ============= -->
 
@@ -208,6 +152,269 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
+    <!-- ============= -->
+    <!-- CityGML 2.0.0 -->
+    <!-- ============= -->
+
+    <!-- Specific settings for the CityGML Core module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/cityGMLBase.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.core._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Appearance module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/appearance.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.app._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- The global elements 'Appearance' and 'appearance' cannot be automatically
+            mapped to two different classes by JAXB  -->
+        <jaxb:bindings node="//xs:element[@name='appearance']">
+            <jaxb:class name="AppearancePropertyElement"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Bridge module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/bridge.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.brid._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an AbstractBridgeType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='AbstractBridgeType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an BridgeInstallationType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='BridgeInstallationType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an IntBridgeInstallationType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='IntBridgeInstallationType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an BridgeConstructionElementType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='BridgeConstructionElementType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an BridgeRoomType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='BridgeRoomType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Building module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/building.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.bldg._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an AbstractBuildingType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='AbstractBuildingType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an BuildingInstallationType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='BuildingInstallationType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an IntBuildingInstallationType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='IntBuildingInstallationType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an RoomType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='RoomType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML CityFurniture module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/cityFurniture.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.frn._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/cityObjectGroup.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.grp._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
+            the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
+        <jaxb:bindings node="//xs:complexType[@name='CityObjectGroupMemberType']">
+            <jaxb:bindings node=".//xs:attribute[@name='role']">
+                <jaxb:property name="groupRole"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Generics module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/generics.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.gen._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- changing data type of DoubleAttributeType -->
+        <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
+            <jaxb:bindings node=".//xs:element[@name='value']">
+                <jaxb:javaType name="Double"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML LandUse module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/landUse.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.luse._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Relief module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/relief.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.dem._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML TexturedSurface module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/texturedSurface.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.tex._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Transportation module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/transportation.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.tran._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Tunnel module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/tunnel.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.tun._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an AbstractTunnelType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='AbstractTunnelType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an TunnelInstallationType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='TunnelInstallationType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an IntTunnelInstallationType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='IntTunnelInstallationType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an HollowSpaceType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='HollowSpaceType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML Vegetation module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/vegetation.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.veg._2"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <!-- Specific settings for the CityGML WaterBody module schema file -->
+    <jaxb:bindings schemaLocation="2.0.0/waterBody.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.citygml.wtr._2"/>
+        </jaxb:schemaBindings>
+
+        <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+            the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
+            a renaming is necessary -->
+        <jaxb:bindings node="//xs:complexType[@name='WaterBodyType']">
+            <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+                <jaxb:property name="boundedBySurface"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+
     <!-- ========= -->
     <!-- GML 3.1.1 -->
     <!-- ========= -->
@@ -240,7 +447,32 @@
             <jaxb:class name="LabelStyleRef"/>
         </jaxb:bindings>
     </jaxb:bindings>
-
+    
+    <!-- ========== -->
+    <!-- XLink 1999 -->
+    <!-- ========== -->
+    
+    <!-- Specific settings for the XLink schema file -->
+    <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.xlink"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+            <!-- 'title' property is referenced both as attribute and as element. -->
+            <jaxb:bindings node="//xs:group[@name='locatorModel']">
+                <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
+                    <jaxb:property name="titleElement"/>
+                </jaxb:bindings>
+            </jaxb:bindings>
+            <jaxb:bindings node="//xs:group[@name='arcModel']">
+                <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
+                    <jaxb:property name="titleElement"/>
+                </jaxb:bindings>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    
     <!-- ======= -->
     <!-- xAL 2.0 -->
     <!-- ======= -->

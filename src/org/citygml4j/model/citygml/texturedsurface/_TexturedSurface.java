@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,133 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.texturedsurface;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
+import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
-public interface _TexturedSurface extends TexturedSurfaceModuleComponent, OrientableSurface {
-	public List<_AppearanceProperty> getAppearance();
-	public boolean isSetAppearance();
+public class _TexturedSurface extends OrientableSurface implements TexturedSurfaceModuleComponent {
+	private List<_AppearanceProperty> appearance;
+	private TexturedSurfaceModule module;
+	
+	public _TexturedSurface() {
+		
+	}
+	
+	public _TexturedSurface(TexturedSurfaceModule module) {
+		this.module = module;
+	}
+	
+	public void addAppearance(_AppearanceProperty appearance) {
+		if (this.appearance == null)
+			this.appearance = new ChildList<_AppearanceProperty>(this);
 
-	public void setAppearance(List<_AppearanceProperty> appearance);
-	public void addAppearance(_AppearanceProperty appearance);
-	public void unsetAppearance();
-	public boolean unsetAppearance(_AppearanceProperty appearance);
+		this.appearance.add(appearance);
+	}
+
+	public List<_AppearanceProperty> getAppearance() {
+		if (appearance == null)
+			appearance = new ChildList<_AppearanceProperty>(this);
+
+		return appearance;
+	}
+
+	public boolean isSetAppearance() {
+		return appearance != null && !appearance.isEmpty();
+	}
+
+	public void setAppearance(List<_AppearanceProperty> appearance) {
+		this.appearance = new ChildList<_AppearanceProperty>(this, appearance);
+	}
+
+	public void unsetAppearance() {
+		if (isSetAppearance())
+			appearance.clear();
+
+		appearance = null;
+	}
+
+	public boolean unsetAppearance(_AppearanceProperty appearance) {
+		return isSetAppearance() ? this.appearance.remove(appearance) : false;
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass._TEXTURED_SURFACE;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass._TEXTURED_SURFACE;
+	}
+
+	public final TexturedSurfaceModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new _TexturedSurface(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		_TexturedSurface copy = (target == null) ? new _TexturedSurface() : (_TexturedSurface)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetAppearance()) {
+			for (_AppearanceProperty part : appearance) {
+				_AppearanceProperty copyPart = (_AppearanceProperty)copyBuilder.copy(part);
+				copy.addAppearance(copyPart);
+
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		return copy;
+	}
+
+	@Override
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
+	@Override
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
+	@Override
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	@Override
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
+	}	
+
 }

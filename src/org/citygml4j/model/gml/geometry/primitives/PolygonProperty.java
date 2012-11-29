@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface PolygonProperty extends GeometryProperty<Polygon> {
-	public Polygon getPolygon();
-	public boolean isSetPolygon();
+public class PolygonProperty extends GeometryProperty<Polygon> {
 	
-	public void setPolygon(Polygon polygon);
-	public void unsetPolygon();
+	public PolygonProperty() {
+
+	}
+
+	public PolygonProperty(Polygon polygon) {
+		super(polygon);
+	}
+
+	public PolygonProperty(String href) {
+		super(href);
+	}
+	
+	public Polygon getPolygon() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetPolygon() {
+		return super.isSetGeometry();
+	}
+
+	public void setPolygon(Polygon polygon) {
+		super.setGeometry(polygon);
+	}
+
+	public void unsetPolygon() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.POLYGON_PROPERTY;
+	}
+
+	@Override
+	public Class<Polygon> getAssociableClass() {
+		return Polygon.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PolygonProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PolygonProperty copy = (target == null) ? new PolygonProperty() : (PolygonProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

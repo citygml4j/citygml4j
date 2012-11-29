@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -20,55 +20,24 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
 -->
 <project name="citygml4j" default="dist" basedir=".">
 
-	<!-- application specific variables -->
-	<property name="app.name" value="citygml4j" />
-	<property name="app.version" value="1.0.1" />
-	<property name="app.jar" value="${app.name}.jar" />
-	<property name="app.title" value="Java class library for CityGML" />
-	<property name="app.vendor" value="IGG, Technical University Berlin, Germany, http://www.igg.tu-berlin.de" />
-
-	<!-- dirs -->
-	<property name="project.basedir" location=".." />
-	<property name="src" location="src" />
-	<property name="src-gen" location="src-gen" />
-	<property name="lib" location="lib" />
-	<property name="samples" location="samples" />
-
-	<property name="resources" location="resources" />
-	<property name="resources.doc" location="${resources}/doc" />
-	<property name="resources.license" location="${resources}/license" />
-	<property name="resources.javadoc" location="${resources}/javadoc" />
-	<property name="resources.schemas" location="${resources}/xml/schemas" />
-	<property name="resources.jaxb" location="${resources}/jaxb" />
-
-	<property name="build" location="build" />
-	<property name="build.classes" location="${build}/classes" />
-	<property name="build.schemas" location="${build.classes}/schemas" />
-
-	<property name="dist" location="${app.name}-${app.version}" />
-	<property name="dist.lib" location="${dist}/lib" />
-	<property name="dist.javadoc" location="${dist}/javadoc" />
-	<property name="dist.tmp" location="${dist}/tmp" />
-	<property name="dist.samples" location="${dist}/samples" />
-	<property name="dist.license" location="${dist}/license" />
-
-	<property name="jaxb.schemas" location="${resources.jaxb}/schemas" />
-	<property name="jaxb.xjc-plugins" location="${resources.jaxb}/xjc-plugins" />
-	<property name="xjc.collection-setter" location="${jaxb.xjc-plugins}/collection-setter-injector" />
+	<!-- load external property sets -->
+	<property file="default.properties" />
 
 	<!-- classpath -->
 	<path id="classpath">
-		<fileset dir="${lib}" includes="*.jar" />
+		<fileset dir="${dir.lib}" includes="*.jar" />
 	</path>
 
 	<!-- JAXB XJC compiler -->
 	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
 		<classpath>
 			<path refid="classpath" />
-			<fileset dir="${jaxb.xjc-plugins}">
+			<fileset dir="${dir.resources.jaxb.xjc-plugins}">
 				<include name="**/*.jar" />
 			</fileset>
 		</classpath>
@@ -79,107 +48,120 @@
 	</tstamp>
 
 	<target name="clean" description="clean up">
-		<!-- delete the ${build} and ${jar} directory trees -->
-		<delete dir="${build}" />
-		<delete dir="${dist.lib}" />
-		<delete dir="${dist.javadoc}" />
-		<delete dir="${dist.samples}" />
-		<delete dir="${dist}" />
+		<!-- delete the ${dir.build} and ${jar} directory trees -->
+		<delete dir="${dir.build}" />
+		<delete dir="${dir.dist.lib}" />
+		<delete dir="${dir.dist.javadoc}" />
+		<delete dir="${dir.dist.samples}" />
+		<delete dir="${dir.dist}" />
 	</target>
 
 	<target name="clean_samples" description="clean sample dir">
 		<subant target="clean">
-			<fileset dir="${samples}" includes="**/build.xml" />
+			<fileset dir="${dir.samples}" includes="**/build.xml" />
 		</subant>
 	</target>
 
 	<target name="compile_xjc_plugins" description="compile project specific XJC plugins">
-		<mkdir dir="${xjc.collection-setter}/build" />
+		<mkdir dir="${plugin.xjc.collection-setter.dir.build}" />
 
 		<!-- compile collection-setter-injector plugin -->
-		<javac classpathref="classpath" srcdir="${xjc.collection-setter}/src" destdir="${xjc.collection-setter}/build" />
+		<javac classpathref="classpath" srcdir="${plugin.xjc.collection-setter.dir.src}" destdir="${plugin.xjc.collection-setter.dir.build}" />
 
 		<!-- create jar file for collection-setter-injector plugin -->
-		<jar jarfile="${xjc.collection-setter}/collection-setter-injector.jar" basedir="${xjc.collection-setter}/build">
-			<fileset dir="${xjc.collection-setter}/META-INF" includes="**/*" />
-			<fileset dir="${xjc.collection-setter}/src" includes="**/*.properties" />
+		<jar jarfile="${plugin.xjc.collection-setter.dir}/${plugin.xjc.collection-setter.jar}" basedir="${plugin.xjc.collection-setter.dir.build}">
+			<fileset dir="${plugin.xjc.collection-setter.dir}/META-INF" includes="**/*" />
+			<fileset dir="${plugin.xjc.collection-setter.dir.src}" includes="**/*.properties" />
 		</jar>
 
 		<!-- clean up build environment -->
-		<delete dir="${xjc.collection-setter}/build" />
+		<delete dir="${plugin.xjc.collection-setter.dir.build}" />
 	</target>
 
 	<target name="generate_jaxb_binding" description="compile JAXB classes from CityGML schemas">
-		<mkdir dir="${src-gen}/org/citygml4j/jaxb" />
+		<mkdir dir="${dir.src-gen}/org/citygml4j/jaxb" />
 
 		<!-- create JAXB classes from CityGML schemas -->
-		<xjc destdir="${src-gen}" extension="true" removeOldOutput="yes" description="generate CityGML schema derived classess">
-			<arg value="-Xcollection-setter-injector" />
-			<schema dir="${jaxb.schemas}/CityGML" includes="citygml4j_profile.xsd" />
-			<binding dir="${jaxb.schemas}/CityGML" includes="binding.xjb" />
-			<produces dir="${src-gen}" includes="**/*" />
-			<depends dir="${jaxb.schemas}" includes="**/*.xsd" />
+		<xjc destdir="${dir.src-gen}" extension="true" removeOldOutput="yes" description="generate CityGML schema derived classess">
+			<arg value="-X${plugin.xjc.collection-setter.name}" />
+			<schema dir="${dir.resources.jaxb.schemas}/CityGML" includes="citygml4j_profile.xsd" />
+			<binding dir="${dir.resources.jaxb.schemas}/CityGML" includes="binding.xjb" />
+			<produces dir="${dir.src-gen}" includes="**/*" />
+			<depends dir="${dir.resources.jaxb.schemas}" includes="**/*.xsd" />
 		</xjc>
 
-		<delete dir="${src-gen}/org/citygml4j/jaxb/ade_hooks" />
+		<delete dir="${dir.src-gen}/org/citygml4j/jaxb/ade_hooks" />
 	</target>
 
 	<target name="generate_javadoc" depends="generate_jaxb_binding" description="generate API javadoc">
-		<delete dir="${dist.javadoc}" />
-		<mkdir dir="${dist.javadoc}" />
+		<delete dir="${dir.dist.javadoc}" />
+		<mkdir dir="${dir.dist.javadoc}" />
 
 		<!-- copy overview.html and replace token -->
-		<copy file="${resources.javadoc}/overview.html" tofile="${resources.javadoc}/overview_adapted.html" />
-		<replace file="${resources.javadoc}/overview_adapted.html" token="!app.name!" value="${app.name}" />
-		<replace file="${resources.javadoc}/overview_adapted.html" token="!app.version!" value="${app.version}" />
+		<copy file="${dir.resources.javadoc}/overview.html" tofile="${dir.resources.javadoc}/overview_adapted.html" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.name!" value="${citygml4j.name}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.version!" value="${citygml4j.version}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.copyright.year!" value="${vendor.copyright.year}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.name!" value="${vendor.name}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.organisation!" value="${vendor.organisation}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.country!" value="${vendor.country}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.homepage!" value="${vendor.homepage}" />
 
 		<!-- create javadoc from source files -->
-		<javadoc access="public" author="true" classpathref="classpath" destdir="${dist.javadoc}" doctitle="${app.name} - ${app.title}" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" source="1.6" sourcepath="${src};${src-gen}" splitindex="true" use="true" version="true" />
+		<javadoc access="public" author="true" classpathref="classpath" destdir="${dir.dist.javadoc}" doctitle="${citygml4j.name} - ${citygml4j.description}" encoding="UTF-8" charset="UTF-8" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${dir.resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" source="1.6" sourcepath="${dir.src};${dir.src-gen}" splitindex="true" use="true" version="true" />
 
-		<delete file="${resources.javadoc}/overview_adapted.html" />
+		<delete file="${dir.resources.javadoc}/overview_adapted.html" />
 	</target>
 
 	<target name="compile_src" depends="generate_jaxb_binding" description="compile the source">
-		<delete dir="${build}" />
-		<mkdir dir="${build.classes}" />
+		<delete dir="${dir.build}" />
+		<mkdir dir="${dir.build.classes}" />
 
-		<!-- compile the java code from ${src} and ${src-gen} into ${build} -->
-		<javac classpathref="classpath" srcdir="${src-gen}" destdir="${build.classes}" />
-		<javac classpathref="classpath" srcdir="${src}" destdir="${build.classes}" />
+		<!-- compile the java code from ${dir.src} and ${dir.src-gen} into ${build} -->
+		<javac classpathref="classpath" srcdir="${dir.src-gen}" destdir="${dir.build.classes}" />
+		<javac classpathref="classpath" srcdir="${dir.src}" destdir="${dir.build.classes}" />
 	</target>
 
 	<target name="generate_jar" depends="compile_src" description="generate the citygml4j library file">
 		<!-- create the distribution directory -->
-		<delete dir="${dist.lib}" />
-		<mkdir dir="${dist.lib}" />
+		<delete dir="${dir.dist.lib}" />
+		<mkdir dir="${dir.dist.lib}" />
 
 		<!-- copy README and LICENSE templates to tmp folder -->
-		<copy todir="${dist.tmp}">
-			<fileset dir="${resources.doc}" includes="**/*" />
-			<fileset dir="${resources.license}" includes="**/*" />
+		<copy todir="${dir.dist.tmp}">
+			<fileset dir="${dir.resources.doc}" includes="**/*" />
+			<fileset dir="${dir.resources.license}" includes="**/*" />
 		</copy>
 
 		<!-- replace tokens in template files -->
-		<replace file="${dist.tmp}/README" token="!app.name!" value="${app.name}" />
-		<replace file="${dist.tmp}/README" token="!app.version!" value="${app.version}" />
-		<replace file="${dist.tmp}/README" token="!app.title!" value="${app.title}" />
-		<replace file="${dist.tmp}/README" token="!app.jar!" value="${app.jar}" />
-		<replace file="${dist.tmp}/LICENSE" token="!app.name!" value="${app.name}" />
-		<replace file="${dist.tmp}/LICENSE" token="!app.title!" value="${app.title}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.name!" value="${citygml4j.name}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.version!" value="${citygml4j.version}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.description!" value="${citygml4j.description}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
+		<replace file="${dir.dist.tmp}/README" token="!vendor.name!" value="${vendor.name}" />
+		<replace file="${dir.dist.tmp}/README" token="!vendor.organisation!" value="${vendor.organisation}" />
+		<replace file="${dir.dist.tmp}/README" token="!vendor.copyright.year!" value="${vendor.copyright.year}" />
+		<replace file="${dir.dist.tmp}/README" token="!vendor.homepage!" value="${vendor.homepage}" />
+		<replace file="${dir.dist.tmp}/README" token="!vendor.country!" value="${vendor.country}" />
+		<replace file="${dir.dist.tmp}/README" token="!developer.main.name!" value="${developer.main.name}" />
+		<replace file="${dir.dist.tmp}/README" token="!developer.main.email!" value="${developer.main.email}" />
+		<replace file="${dir.dist.tmp}/LICENSE" token="!citygml4j.name!" value="${citygml4j.name}" />
+		<replace file="${dir.dist.tmp}/LICENSE" token="!citygml4j.description!" value="${citygml4j.description}" />
 
-		<!-- copy README template to dist folder -->
-		<copy todir="${dist}">
-			<fileset dir="${dist.tmp}" includes="README" />
+		<!-- copy README template to dir.dist folder -->
+		<copy todir="${dir.dist}">
+			<fileset dir="${dir.dist.tmp}" includes="README" />
 		</copy>
 
 		<!-- copy LICENSE template to license folder -->
-		<copy todir="${dist.license}">
-			<fileset dir="${dist.tmp}" excludes="README" />
+		<copy todir="${dir.dist.license}">
+			<fileset dir="${dir.dist.tmp}" excludes="README" />
 		</copy>
 
 		<!-- copy schema files -->
-		<copy todir="${build.schemas}">
-			<fileset dir="${resources.schemas}" includes="**/*" />
+		<copy todir="${dir.build.schemas}">
+			<fileset dir="${dir.resources.schemas}" includes="**/*" />
 		</copy>
 
 		<!-- set package variables -->
@@ -189,35 +171,35 @@
 		<buildnumber file="build.num" />
 
 		<!-- put everything in ${build} into .jar file -->
-		<jar jarfile="${dist.lib}/${app.jar}" basedir="${build.classes}">
-			<fileset dir="${dist.tmp}" includes="**/*" />
+		<jar jarfile="${dir.dist.lib}/${citygml4j.jar}" basedir="${dir.build.classes}">
+			<fileset dir="${dir.dist.tmp}" includes="**/*" />
 			<manifest>
-				<attribute name="Built-Id" value="${user.name}-${app.name}-${app.version}" />
+				<attribute name="Built-Id" value="${user.name}-${citygml4j.name}-${citygml4j.version}" />
 				<attribute name="Built-Date" value="${TODAY}" />
-				<attribute name="Implementation-Title" value="${app.title}" />
-				<attribute name="Implementation-Version" value="${app.version}-b${build.number}" />
-				<attribute name="Implementation-Vendor" value="${app.vendor}" />
+				<attribute name="Implementation-Title" value="${citygml4j.description}" />
+				<attribute name="Implementation-Version" value="${citygml4j.version}-b${build.number}" />
+				<attribute name="Implementation-Vendor" value="${vendor.shortinfo}" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
 
 		<!-- copy mandatory dependencies -->
-		<copy toDir="${dist.lib}">
-			<fileset dir="${lib}" includes="*.jar" />
+		<copy toDir="${dir.dist.lib}">
+			<fileset dir="${dir.lib}" includes="*.jar" />
 		</copy>
 
 		<!-- clean up -->
-		<delete dir="${build}" />
-		<delete dir="${dist.tmp}" />
+		<delete dir="${dir.build}" />
+		<delete dir="${dir.dist.tmp}" />
 	</target>
 
 	<target name="dist" depends="clean_samples, generate_javadoc, generate_jar" description="generate and pack the citygml4j distribution">
-		<delete dir="${dist.samples}" />
-		<mkdir dir="${dist.samples}" />
+		<delete dir="${dir.dist.samples}" />
+		<mkdir dir="${dir.dist.samples}" />
 
 		<!-- copy sample files -->
-		<copy toDir="${dist.samples}">
-			<fileset dir="${samples}" includes="**/*" />
+		<copy toDir="${dir.dist.samples}">
+			<fileset dir="${dir.samples}" includes="**/*" />
 		</copy>
 	</target>
 

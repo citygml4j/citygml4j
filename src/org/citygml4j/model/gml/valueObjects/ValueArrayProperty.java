@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,74 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.valueObjects;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface ValueArrayProperty extends ArrayAssociation<Value> {
-	public List<Value> getValue();
-	public boolean isSetValue();
+public class ValueArrayProperty extends ArrayAssociation<Value> {
+	
+	public ValueArrayProperty() {
 
-	public void setValue(List<Value> value);
-	public void addValue(Value value);
-	public void unsetValue();
-	public boolean unsetValue(Value value);
+	}
+
+	public ValueArrayProperty(Value value) {
+		super(value);
+	}
+
+	public ValueArrayProperty(List<Value> value) {
+		super(value);
+	}
+	
+	public ValueArrayProperty(Value... value) {
+		super(value);
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.VALUE_ARRAY_PROPERTY;
+	}
+
+	public List<Value> getValue() {
+		return super.getObject();
+	}
+
+	public boolean isSetValue() {
+		return super.isSetObject();
+	}
+
+	public void setValue(List<Value> value) {
+		super.setObject(value);
+	}
+
+	public void addValue(Value value) {
+		super.addObject(value);
+	}
+
+	public void unsetValue() {
+		super.unsetObject();
+	}
+
+	public boolean unsetValue(Value value) {
+		return super.unsetObject(value);
+	}
+	
+	public Class<Value> getAssociableClass() {
+		return Value.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ValueArrayProperty copy = (target == null) ? new ValueArrayProperty() : (ValueArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ValueArrayProperty(), copyBuilder);
+	}
+
 }

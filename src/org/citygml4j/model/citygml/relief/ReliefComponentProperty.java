@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,82 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.relief;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.ReliefModule;
 
-public interface ReliefComponentProperty extends ReliefModuleComponent, FeatureProperty<AbstractReliefComponent> {
-	public AbstractReliefComponent getReliefComponent();
-	public boolean isSetReliefComponent();
+public class ReliefComponentProperty extends FeatureProperty<AbstractReliefComponent> implements ReliefModuleComponent {
+	private ReliefModule module;
 	
-	public void setReliefComponent(AbstractReliefComponent reliefComponent);
-	public void unsetReliefComponent();
+	public ReliefComponentProperty() {
+		
+	}
+	
+	public ReliefComponentProperty(AbstractReliefComponent abstractReliefComponent) {
+		super(abstractReliefComponent);
+	}
+	
+	public ReliefComponentProperty(String href) {
+		super(href);
+	}
+	
+	public ReliefComponentProperty(ReliefModule module) {
+		this.module = module;
+	}
+	
+	public AbstractReliefComponent getReliefComponent() {
+		return super.getObject();
+	}
+
+	public boolean isSetReliefComponent() {
+		return super.isSetObject();
+	}
+
+	public void setReliefComponent(AbstractReliefComponent reliefComponent) {
+		super.setObject(reliefComponent);
+	}
+
+	public void unsetReliefComponent() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.RELIEF_COMPONENT_PROPERTY;
+	}
+
+	public final ReliefModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AbstractReliefComponent> getAssociableClass() {
+		return AbstractReliefComponent.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ReliefComponentProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ReliefComponentProperty copy = (target == null) ? new ReliefComponentProperty() : (ReliefComponentProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

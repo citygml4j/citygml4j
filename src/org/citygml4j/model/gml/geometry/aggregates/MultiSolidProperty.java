@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface MultiSolidProperty extends GeometryProperty<MultiSolid> {
-	public MultiSolid getMultiSolid();
-	public boolean isSetMultiSolid();
+public class MultiSolidProperty extends GeometryProperty<MultiSolid> {
+
+	public MultiSolidProperty() {
+
+	}
+
+	public MultiSolidProperty(MultiSolid multiSolid) {
+		super(multiSolid);
+	}
+
+	public MultiSolidProperty(String href) {
+		super(href);
+	}
 	
-	public void setMultiSolid(MultiSolid multiSolid);
-	public void unsetMultiSolid();
+	public MultiSolid getMultiSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetMultiSolid() {
+		return super.isSetGeometry();
+	}
+
+	public void setMultiSolid(MultiSolid multiSolid) {
+		super.setGeometry(multiSolid);
+	}
+
+	public void unsetMultiSolid() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.MULTI_SOLID_PROPERTY;
+	}
+
+	@Override
+	public Class<MultiSolid> getAssociableClass() {
+		return MultiSolid.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new MultiSolidProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		MultiSolidProperty copy = (target == null) ? new MultiSolidProperty() : (MultiSolidProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

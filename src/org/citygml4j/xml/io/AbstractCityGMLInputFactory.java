@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.xml.io;
 
@@ -55,6 +57,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 	protected boolean parseSchema;
 	protected boolean useValidation;
 	protected boolean failOnMissingADESchema;
+	protected boolean supportCityGML040;
 
 	public AbstractCityGMLInputFactory() throws CityGMLReadException {
 		try {
@@ -83,6 +86,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		parseSchema = true;
 		useValidation = false;
 		failOnMissingADESchema = true;
+		supportCityGML040 = false;
 	}
 
 	public XMLInputFactory getXMLInputFactory() {
@@ -147,6 +151,8 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 			return splitAtFeatureProperties;
 		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
 			return failOnMissingADESchema;
+		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
+			return supportCityGML040;
 
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
@@ -253,6 +259,13 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 
 			return;		
 		}
+		
+		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0)) {
+			if (value instanceof Boolean)
+				supportCityGML040 = ((Boolean)value).booleanValue();
+
+			return;		
+		}
 
 		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
 	}
@@ -283,6 +296,9 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		for (Class<?> tmp : a.getInterfaces())
 			if (isSubclassOfCityGML(tmp))
 				return true;
+		
+		if (a.getSuperclass() != Object.class)
+			return isSubclassOfCityGML(a.getSuperclass());
 		
 		return false;
 	}

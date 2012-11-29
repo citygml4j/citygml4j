@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.xml.io.writer;
 
@@ -34,7 +36,6 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleContext;
-import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
@@ -84,11 +85,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 			featureSplitter.setSplitCopy(
 					(Boolean)factory.getProperty(CityGMLOutputFactory.SPLIT_COPY));			
 			featureSplitter.setExcludes(
-					(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));
-		
-			// CityGML 0.4.0 fix
-			if (moduleContext.contains(BuildingModule.v0_4_0))
-				featureSplitter.setCityGML040Excludes();
+					(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));		
 		}
 		
 		if (useValidation) {

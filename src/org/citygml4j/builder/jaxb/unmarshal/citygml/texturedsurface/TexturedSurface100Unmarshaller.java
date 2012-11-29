@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.texturedsurface;
 
@@ -28,11 +30,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.texturedsurface._AppearancePropertyImpl;
-import org.citygml4j.impl.citygml.texturedsurface._ColorImpl;
-import org.citygml4j.impl.citygml.texturedsurface._MaterialImpl;
-import org.citygml4j.impl.citygml.texturedsurface._SimpleTextureImpl;
-import org.citygml4j.impl.citygml.texturedsurface._TexturedSurfaceImpl;
 import org.citygml4j.jaxb.citygml.tex._1.AbstractAppearanceType;
 import org.citygml4j.jaxb.citygml.tex._1.AppearancePropertyType;
 import org.citygml4j.jaxb.citygml.tex._1.MaterialType;
@@ -48,6 +45,9 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -83,12 +83,12 @@ public class TexturedSurface100Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {
+	public void unmarshalAbstractAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 	}
 
 	public _AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyType src) {
-		_AppearanceProperty dest =  new _AppearancePropertyImpl(module);
+		_AppearanceProperty dest =  new _AppearanceProperty(module);
 
 		if (src.isSetOrientation())
 			dest.setOrientation(src.getOrientation());
@@ -107,7 +107,7 @@ public class TexturedSurface100Unmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -122,23 +122,23 @@ public class TexturedSurface100Unmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public _Color unmarshalColor(List<Double> src) {
-		_Color  dest = new _ColorImpl(module);
+		_Color  dest = new _Color(module);
 		dest.setColor(src);
 
 		return dest;
 	}
 
 	public void unmarshalMaterial(MaterialType src, _Material dest) {
-		unmarshalAppearance(src, dest);
+		unmarshalAbstractAppearance(src, dest);
 
 		if (src.isSetShininess())
 			dest.setShininess(src.getShininess());
@@ -160,14 +160,14 @@ public class TexturedSurface100Unmarshaller {
 	}
 
 	public _Material unmarshalMaterial(MaterialType src) {
-		_Material dest = new _MaterialImpl(module);
+		_Material dest = new _Material(module);
 		unmarshalMaterial(src, dest);
 
 		return dest;
 	}
 
 	public void unmarshalSimpleTexture(SimpleTextureType src, _SimpleTexture dest) {
-		unmarshalAppearance(src, dest);
+		unmarshalAbstractAppearance(src, dest);
 
 		if (src.isSetTextureMap())
 			dest.setTextureMap(src.getTextureMap());
@@ -183,7 +183,7 @@ public class TexturedSurface100Unmarshaller {
 	}
 
 	public _SimpleTexture unmarshalSimpleTexture(SimpleTextureType src) {
-		_SimpleTexture dest = new _SimpleTextureImpl(module);
+		_SimpleTexture dest = new _SimpleTexture(module);
 		unmarshalSimpleTexture(src, dest);
 
 		return dest;
@@ -199,7 +199,7 @@ public class TexturedSurface100Unmarshaller {
 	}
 
 	public _TexturedSurface unmarshalTexturedSurface(TexturedSurfaceType src) {
-		_TexturedSurface dest = new _TexturedSurfaceImpl(module);
+		_TexturedSurface dest = new _TexturedSurface(module);
 		unmarshalTexturedSurface(src, dest);
 
 		return dest;

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,74 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface LineStringSegmentArrayProperty extends ArrayAssociation<LineStringSegment> {
-	public List<LineStringSegment> getLineStringSegment();
-	public boolean isSetLineStringSegment();
+public class LineStringSegmentArrayProperty extends ArrayAssociation<LineStringSegment> {
 	
-	public void addLineStringSegment(LineStringSegment lineStringSegment);
-	public void setLineStringSegment(List<LineStringSegment> lineStringSegment);
-	public void unsetLineStringSegment();
-	public boolean unsetLineStringSegment(LineStringSegment lineStringSegment);
+	public LineStringSegmentArrayProperty() {
+
+	}
+
+	public LineStringSegmentArrayProperty(LineStringSegment lineStringSegment) {
+		super(lineStringSegment);
+	}
+
+	public LineStringSegmentArrayProperty(List<LineStringSegment> lineStringSegment) {
+		super(lineStringSegment);
+	}
+	
+	public LineStringSegmentArrayProperty(LineStringSegment... lineStringSegment) {
+		super(lineStringSegment);
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.LINE_STRING_SEGMENT_ARRAY_PROPERTY;
+	}
+
+	public void addLineStringSegment(LineStringSegment lineStringSegment) {
+		super.addObject(lineStringSegment);
+	}
+
+	public List<LineStringSegment> getLineStringSegment() {
+		return super.getObject();
+	}
+
+	public boolean isSetLineStringSegment() {
+		return super.isSetObject();
+	}
+
+	public void setLineStringSegment(List<LineStringSegment> lineStringSegment) {
+		super.setObject(lineStringSegment);
+	}
+
+	public void unsetLineStringSegment() {
+		super.unsetObject();
+	}
+
+	public boolean unsetLineStringSegment(LineStringSegment lineStringSegment) {
+		return super.unsetObject(lineStringSegment);
+	}
+
+	public Class<LineStringSegment> getAssociableClass() {
+		return LineStringSegment.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		LineStringSegmentArrayProperty copy = (target == null) ? new LineStringSegmentArrayProperty() : (LineStringSegmentArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new LineStringSegmentArrayProperty(), copyBuilder);
+	}
+	
 }

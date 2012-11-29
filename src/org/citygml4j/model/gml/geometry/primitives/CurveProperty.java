@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CurveProperty extends GeometryProperty<AbstractCurve> {
-	public AbstractCurve getCurve();
-	public boolean isSetCurve();
+public class CurveProperty extends GeometryProperty<AbstractCurve> {
 	
-	public void setCurve(AbstractCurve curve);
-	public void unsetCurve();
+	public CurveProperty() {
+
+	}
+
+	public CurveProperty(AbstractCurve abstractCurve) {
+		super(abstractCurve);
+	}
+
+	public CurveProperty(String href) {
+		super(href);
+	}
+	
+	public AbstractCurve getCurve() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetCurve() {
+		return super.isSetGeometry();
+	}
+
+	public void setCurve(AbstractCurve curve) {
+		super.setGeometry(curve);
+	}
+
+	public void unsetCurve() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.CURVE_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractCurve> getAssociableClass() {
+		return AbstractCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CurveProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CurveProperty copy = (target == null) ? new CurveProperty() : (CurveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

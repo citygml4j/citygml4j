@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,79 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 
-public interface PointArrayProperty extends GeometryArrayProperty<Point> {
-	public List<Point> getPoint();
-	public boolean isSetPoint();
+public class PointArrayProperty extends GeometryArrayProperty<Point> {
 	
-	public void addPoint(Point point);
-	public void setPoint(List<Point> point);
-	public void unsetPoint();
-	public boolean unsetPoint(Point point);
+	public PointArrayProperty() {
+
+	}
+
+	public PointArrayProperty(Point point) {
+		super(point);
+	}
+
+	public PointArrayProperty(List<Point> point) {
+		super(point);
+	}
+	
+	public PointArrayProperty(Point... point) {
+		super(point);
+	}
+	
+	public void addPoint(Point point) {
+		super.addGeometry(point);
+	}
+
+	public List<Point> getPoint() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetPoint() {
+		return super.isSetGeometry();
+	}
+
+	public void setPoint(List<Point> point) {
+		super.setGeometry(point);
+	}
+
+	public void unsetPoint() {
+		super.unsetGeometry();
+	}
+
+	public boolean unsetPoint(Point point) {
+		return super.unsetGeometry(point);
+	}
+
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.POINT_ARRAY_PROPERTY;
+	}
+
+	public Class<Point> getAssociableClass() {
+		return Point.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PointArrayProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PointArrayProperty copy = (target == null) ? new PointArrayProperty() : (PointArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

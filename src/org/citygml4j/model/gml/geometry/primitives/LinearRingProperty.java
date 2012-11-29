@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
 
-public interface LinearRingProperty extends InlineGeometryProperty<LinearRing> {
-	public LinearRing getLinearRing();
-	public boolean isSetLinearRing();
+public class LinearRingProperty extends InlineGeometryProperty<LinearRing> {
 	
-	public void setLinearRing(LinearRing linearRing);
-	public void unsetLinearRing();
+	public LinearRingProperty() {
+
+	}
+
+	public LinearRingProperty(LinearRing linearRing) {
+		super(linearRing);
+	}
+	
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.LINEAR_RING_PROPERTY;
+	}
+
+	public LinearRing getLinearRing() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetLinearRing() {
+		return super.isSetGeometry();
+	}
+
+	public void setLinearRing(LinearRing linearRing) {
+		super.setGeometry(linearRing);
+	}
+
+	public void unsetLinearRing() {
+		super.unsetGeometry();
+	}
+
+	public Class<LinearRing> getAssociableClass() {
+		return LinearRing.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		LinearRingProperty copy = (target == null) ? new LinearRingProperty() : (LinearRingProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new LinearRingProperty(), copyBuilder);
+	}
+	
 }

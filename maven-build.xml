@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of citygml4j.
+ * Copyright (c) 2007 - 2012
+ * Institute for Geodesy and Geoinformation Science
+ * Technische Universität Berlin, Germany
+ * http://www.igg.tu-berlin.de/
+ *
+ * The citygml4j library is free software:
+ * you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library. If not, see 
+ * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
+-->
+<project name="citygml4j-maven" default="deploy" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+
+	<!-- load external property sets -->
+	<property file="default.properties" />
+
+	<!-- local properties -->
+	<available file="${dir.dist.lib}/${citygml4j.jar}" property="citygml4j.jar.present" />
+	<available file="${dir.dist.javadoc}/index.html" property="citygml4j.javadoc.present" />
+	<available file="${dir.src-gen}/org/citygml4j/jaxb" property="citygml4j.src-gen.present" />
+
+	<target name="init">
+		<mkdir dir="${dir.maven.dist}" />
+	</target>
+
+	<target name="dist" description="generate the distribution">
+		<!-- copy pom.xml -->
+		<copy file="${dir.resources.maven}/pom.xml" tofile="${dir.maven.dist}/pom.xml" />
+
+		<!-- copy the main artifact -->
+		<copy file="${dir.dist.lib}/${citygml4j.jar}" tofile="${dir.maven.dist}/${maven.main.jar}" />
+
+		<!-- build the javadoc artifact -->
+		<jar jarfile="${dir.maven.dist}/${maven.javadoc.jar}">
+			<fileset dir="${dir.dist.javadoc}" />
+		</jar>
+
+		<!-- build the sources artifact -->
+		<jar jarfile="${dir.maven.dist}/${maven.sources.jar}">
+			<fileset dir="${dir.src}" />
+			<fileset dir="${dir.src-gen}" />
+		</jar>
+	</target>
+
+	<target name="generate_jaxb_binding" unless="${citygml4j.src-gen.present}">
+		<subant target="generate_jaxb_binding">
+			<fileset dir="." includes="build.xml" />
+		</subant>
+	</target>
+
+	<target name="generate_jar" unless="${citygml4j.jar.present}">
+		<subant target="generate_jar">
+			<fileset dir="." includes="build.xml" />
+		</subant>
+	</target>
+
+	<target name="generate_javadoc" unless="${citygml4j.javadoc.present}">
+		<subant target="generate_javadoc">
+			<fileset dir="." includes="build.xml" />
+		</subant>
+	</target>
+
+	<target name="deploy" depends="init" description="deploy snapshot version to Maven snapshot repository">
+		<!-- build citygml4j.jar if required -->
+		<antcall target="generate_jar" />
+
+		<!-- copy the main artifact -->
+		<copy file="${dir.dist.lib}/${citygml4j.jar}" tofile="${dir.maven.dist}/${maven.main.snapshot.jar}" />
+
+		<!-- copy pom.xml -->
+		<copy file="${dir.resources.maven}/pom.xml" tofile="${dir.maven.dist}/pom.xml" />
+		<replace file="${dir.maven.dist}/pom.xml" token="!citygml4j.version!" value="${maven.snapshot.version}" />
+
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-deploy-plugin:2.6:deploy-file" />
+			<arg value="-Durl=${maven.snapshots.repository.url}" />
+			<arg value="-DrepositoryId=${maven.snapshots.repository.id}" />
+			<arg value="-DpomFile=${dir.maven.dist}/pom.xml" />
+			<arg value="-Dfile=${dir.maven.dist}/${maven.main.snapshot.jar}" />
+		</artifact:mvn>
+
+		<!-- clean up -->
+		<delete dir="${dir.maven.dist}" />
+	</target>
+
+	<target name="stage" depends="init" description="deploy release version to Maven staging repository">
+		<!-- generate JAXB classes if required -->
+		<antcall target="generate_jaxb_binding" />
+
+		<!-- generate javadoc if required -->
+		<antcall target="generate_javadoc" />
+
+		<!-- build citygml4j.jar if required -->
+		<antcall target="generate_jar" />
+
+		<!-- copy the main artifact -->
+		<copy file="${dir.dist.lib}/${citygml4j.jar}" tofile="${dir.maven.dist}/${maven.main.jar}" />
+
+		<!-- copy pom.xml -->
+		<copy file="${dir.resources.maven}/pom.xml" tofile="${dir.maven.dist}/pom.xml" />
+		<replace file="${dir.maven.dist}/pom.xml" token="!citygml4j.version!" value="${citygml4j.version}" />
+
+		<!-- build the sources artifact -->
+		<jar jarfile="${dir.maven.dist}/${maven.sources.jar}">
+			<fileset dir="${dir.src}" />
+			<fileset dir="${dir.src-gen}" />
+		</jar>
+
+		<!-- build the javadoc artifact -->
+		<jar jarfile="${dir.maven.dist}/${maven.javadoc.jar}">
+			<fileset dir="${dir.dist.javadoc}" />
+		</jar>
+
+		<!-- sign and deploy the main artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven.staging.repository.url}" />
+			<arg value="-DrepositoryId=${maven.staging.repository.id}" />
+			<arg value="-DpomFile=${dir.maven.dist}/pom.xml" />
+			<arg value="-Dfile=${dir.maven.dist}/${maven.main.jar}" />
+			<arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- sign and deploy the sources artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven.staging.repository.url}" />
+			<arg value="-DrepositoryId=${maven.staging.repository.id}" />
+			<arg value="-DpomFile=${dir.maven.dist}/pom.xml" />
+			<arg value="-Dfile=${dir.maven.dist}/${maven.sources.jar}" />
+			<arg value="-Dclassifier=sources" />
+			<arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- sign and deploy the javadoc artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven.staging.repository.url}" />
+			<arg value="-DrepositoryId=${maven.staging.repository.id}" />
+			<arg value="-DpomFile=${dir.maven.dist}/pom.xml" />
+			<arg value="-Dfile=${dir.maven.dist}/${maven.javadoc.jar}" />
+			<arg value="-Dclassifier=javadoc" />
+			<arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- clean up -->
+		<delete dir="${dir.maven.dist}" />
+	</target>
+</project>

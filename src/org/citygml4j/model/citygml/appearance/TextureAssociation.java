@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,102 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.appearance;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.module.citygml.AppearanceModule;
 
-public interface TextureAssociation extends AppearanceModuleComponent, AssociationByRepOrRef<AbstractTextureParameterization> {
-	public AbstractTextureParameterization getTextureParameterization();
-	public String getUri();
-	public boolean isSetTextureParameterization();
-	public boolean isSetUri();
+public class TextureAssociation extends AssociationByRepOrRef<AbstractTextureParameterization> implements AppearanceModuleComponent {
+	private String uri;
+	private AppearanceModule module;
+	
+	public TextureAssociation() {
+		
+	}
+	
+	public TextureAssociation(AbstractTextureParameterization abstractTextureParameterization) {
+		super(abstractTextureParameterization);
+	}
+	
+	public TextureAssociation(String href) {
+		super(href);
+	}
+	
+	public TextureAssociation(AppearanceModule module) {
+		this.module = module;
+	}
+	
+	public AbstractTextureParameterization getTextureParameterization() {
+		return super.getObject();
+	}
 
-	public void setTextureParameterization(AbstractTextureParameterization textureParameterization);
-	public void setUri(String uri);
-	public void unsetTextureParameterization();
-	public void unsetUri();
+	public String getUri() {
+		return uri;
+	}
+
+	public boolean isSetTextureParameterization() {
+		return super.isSetObject();
+	}
+
+	public boolean isSetUri() {
+		return uri != null;
+	}
+
+	public void setTextureParameterization(AbstractTextureParameterization textureParameterization) {
+		super.setObject(textureParameterization);
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	public void unsetTextureParameterization() {
+		super.unsetObject();
+	}
+
+	public void unsetUri() {
+		uri = null;
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.TEXTURE_ASSOCIATION;
+	}
+
+	public final AppearanceModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	public Class<AbstractTextureParameterization> getAssociableClass() {
+		return AbstractTextureParameterization.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new TextureAssociation(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		TextureAssociation copy = (target == null) ? new TextureAssociation() : (TextureAssociation)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetUri())
+			copy.setUri(copyBuilder.copy(uri));
+		
+		return copy;
+	}
+
 }

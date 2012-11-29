@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,64 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
-public interface RectifiedGridDomain extends DomainSet<RectifiedGrid> {
-	public RectifiedGrid getRectifiedGrid();
-	public boolean isSetRectifiedGrid();
+public class RectifiedGridDomain extends DomainSet<RectifiedGrid> {
+
+	public RectifiedGridDomain() {
+
+	}
+
+	public RectifiedGridDomain(RectifiedGrid rectifiedGrid) {
+		super(rectifiedGrid);
+	}
+
+	public RectifiedGridDomain(String href) {
+		super(href);
+	}
 	
-	public void setRectifiedGrid(RectifiedGrid rectifiedGrid);
-	public void unsetRectifiedGrid();
+	public RectifiedGrid getRectifiedGrid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetRectifiedGrid() {
+		return super.isSetGeometry();
+	}
+
+	public void setRectifiedGrid(RectifiedGrid rectifiedGrid) {
+		setObject(rectifiedGrid);
+	}
+
+	public void unsetRectifiedGrid() {
+		super.unsetGeometry();
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.RECTIFIED_GRID_DOMAIN;
+	}
+
+	@Override
+	public Class<RectifiedGrid> getAssociableClass() {
+		return RectifiedGrid.class;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		RectifiedGridDomain copy = (target == null) ? new RectifiedGridDomain() : (RectifiedGridDomain)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new RectifiedGridDomain(), copyBuilder);
+	}
+
 }

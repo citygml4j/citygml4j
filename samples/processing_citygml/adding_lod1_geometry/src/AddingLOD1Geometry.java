@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -28,8 +30,7 @@ import java.util.List;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.GMLFactory;
-import org.citygml4j.factory.geometry.GMLGeometryFactory;
+import org.citygml4j.factory.GMLGeometryFactory;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.CityGML;
@@ -39,6 +40,8 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -57,29 +60,28 @@ public class AddingLOD1Geometry {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 	
-		GMLFactory gml = new GMLFactory();
 		GMLGeometryFactory geom = new GMLGeometryFactory();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.xml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
 			
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.gml"));
 		
-		System.out.println(df.format(new Date()) + "opening CityGML 0.4.0 writer");
+		System.out.println(df.format(new Date()) + "opening CityGML writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-		out.setCityGMLVersion(CityGMLVersion.v0_4_0);
+		out.setCityGMLVersion(CityGMLVersion.v1_0_0);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD1_and_LOD2_Buildings_v040.xml"));
-		writer.setPrefixes(CityGMLVersion.v0_4_0);
-		writer.setDefaultNamespace(CoreModule.v0_4_0);
-		writer.setSchemaLocations(CityGMLVersion.v0_4_0);
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD1_and_LOD2_Buildings_v100.gml"));
+		writer.setPrefixes(CityGMLVersion.v1_0_0);
+		writer.setDefaultNamespace(CoreModule.v1_0_0);
+		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
 		writer.setIndentString("  ");
 
 		writer.writeStartDocument();
 		
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML feature = reader.nextFeature();
 			
 			if (feature.getCityGMLClass() == CityGMLClass.BUILDING) {
@@ -109,11 +111,11 @@ public class AddingLOD1Geometry {
 				shell.add(geom.createLinearPolygon(new double[]{xmin,ymin,zmin, xmin,ymin,zmax, xmin,ymax,zmax, xmin,ymax,zmin}, 3));
 				shell.add(geom.createLinearPolygon(new double[]{xmin,ymin,zmax, xmax,ymin,zmax, xmax,ymax,zmax, xmin,ymax,zmax}, 3));
 				
-				CompositeSurface exterior = gml.createCompositeSurface(shell);
-				Solid solid = gml.createSolid();
-				solid.setExterior(gml.createSurfaceProperty(exterior));
+				CompositeSurface exterior =new CompositeSurface(shell);
+				Solid solid = new Solid();
+				solid.setExterior(new SurfaceProperty(exterior));
 
-				building.setLod1Solid(gml.createSolidProperty(solid));
+				building.setLod1Solid(new SolidProperty(solid));
 				
 				writer.writeFeatureMember(building);
 			}
@@ -122,7 +124,7 @@ public class AddingLOD1Geometry {
 		reader.close();
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD1_and_LOD2_Buildings_v040.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD1_and_LOD2_Buildings_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

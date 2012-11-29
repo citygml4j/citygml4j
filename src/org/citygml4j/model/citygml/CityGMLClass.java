@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml;
 
@@ -42,31 +44,30 @@ import org.citygml4j.model.citygml.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
-import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.bridge.AbstractBridge;
+import org.citygml4j.model.citygml.bridge.Bridge;
+import org.citygml4j.model.citygml.bridge.BridgeConstructionElement;
+import org.citygml4j.model.citygml.bridge.BridgeConstructionElementProperty;
+import org.citygml4j.model.citygml.bridge.BridgeFurniture;
+import org.citygml4j.model.citygml.bridge.BridgeInstallation;
+import org.citygml4j.model.citygml.bridge.BridgeInstallationProperty;
+import org.citygml4j.model.citygml.bridge.BridgePart;
+import org.citygml4j.model.citygml.bridge.BridgePartProperty;
+import org.citygml4j.model.citygml.bridge.BridgeRoom;
+import org.citygml4j.model.citygml.bridge.IntBridgeInstallation;
+import org.citygml4j.model.citygml.bridge.IntBridgeInstallationProperty;
+import org.citygml4j.model.citygml.bridge.InteriorBridgeRoomProperty;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.AbstractOpening;
-import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
 import org.citygml4j.model.citygml.building.BuildingInstallationProperty;
 import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.building.BuildingPartProperty;
-import org.citygml4j.model.citygml.building.CeilingSurface;
-import org.citygml4j.model.citygml.building.ClosureSurface;
-import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.FloorSurface;
-import org.citygml4j.model.citygml.building.GroundSurface;
 import org.citygml4j.model.citygml.building.IntBuildingInstallation;
 import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
 import org.citygml4j.model.citygml.building.InteriorRoomProperty;
-import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.OpeningProperty;
-import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.citygml.building.WallSurface;
-import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
@@ -82,6 +83,8 @@ import org.citygml4j.model.citygml.core.ExternalReference;
 import org.citygml4j.model.citygml.core.GeneralizationRelation;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.core.RelativeToTerrain;
+import org.citygml4j.model.citygml.core.RelativeToWater;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
@@ -89,8 +92,10 @@ import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.IntAttribute;
+import org.citygml4j.model.citygml.generics.MeasureAttribute;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.citygml.landuse.LandUse;
@@ -120,29 +125,41 @@ import org.citygml4j.model.citygml.transportation.Track;
 import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
+import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
+import org.citygml4j.model.citygml.tunnel.HollowSpace;
+import org.citygml4j.model.citygml.tunnel.IntTunnelInstallation;
+import org.citygml4j.model.citygml.tunnel.IntTunnelInstallationProperty;
+import org.citygml4j.model.citygml.tunnel.InteriorHollowSpaceProperty;
+import org.citygml4j.model.citygml.tunnel.Tunnel;
+import org.citygml4j.model.citygml.tunnel.TunnelFurniture;
+import org.citygml4j.model.citygml.tunnel.TunnelInstallation;
+import org.citygml4j.model.citygml.tunnel.TunnelInstallationProperty;
+import org.citygml4j.model.citygml.tunnel.TunnelPart;
+import org.citygml4j.model.citygml.tunnel.TunnelPartProperty;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
+import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelClassEnum;
-import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.xal.XALClass;
 
 public enum CityGMLClass implements ModelClassEnum {
 	UNDEFINED(null),
-	ABSTRACT_GML_GEOMETRY(AbstractGeometry.class),
-	
+	ABSTRACT_GML_GEOMETRY(null),
+
 	// ADE
 	ADE_COMPONENT(ADEComponent.class),
 
 	// Core
 	ABSTRACT_CITY_OBJECT(AbstractCityObject.class),
-	ABSTRACT_SITE(AbstractSite.class),	
+	ABSTRACT_SITE(AbstractSite.class),
 	ADDRESS(Address.class),
 	ADDRESS_PROPERTY(AddressProperty.class),
 	CITY_MODEL(CityModel.class),
@@ -152,6 +169,8 @@ public enum CityGMLClass implements ModelClassEnum {
 	GENERALIZATION_RELATION(GeneralizationRelation.class),
 	IMPLICIT_GEOMETRY(ImplicitGeometry.class),
 	IMPLICIT_REPRESENTATION_PROPERTY(ImplicitRepresentationProperty.class),
+	RELATIVE_TO_TERRAIN(RelativeToTerrain.class),
+	RELATIVE_TO_WATER(RelativeToWater.class),
 	TRANSFORMATION_MATRIX_2X2(TransformationMatrix2x2.class),
 	TRANSFORMATION_MATRIX_3X4(TransformationMatrix3x4.class),
 	TRANSFORMATION_MATRIX_4X4(TransformationMatrix4x4.class),
@@ -160,7 +179,7 @@ public enum CityGMLClass implements ModelClassEnum {
 	// Appearance
 	ABSTRACT_SURFACE_DATA(AbstractSurfaceData.class),
 	ABSTRACT_TEXTURE(AbstractTexture.class),
-	ABSTRACT_TEXTURE_PARAMETERIZATION(AbstractTextureParameterization.class),	
+	ABSTRACT_TEXTURE_PARAMETERIZATION(AbstractTextureParameterization.class),
 	APPEARANCE(Appearance.class),
 	APPEARANCE_MEMBER(AppearanceMember.class),
 	APPEARANCE_PROPERTY(AppearanceProperty.class),
@@ -178,32 +197,65 @@ public enum CityGMLClass implements ModelClassEnum {
 	WRAP_MODE(WrapMode.class),
 	X3D_MATERIAL(X3DMaterial.class),
 
+	// Bridge
+	ABSTRACT_BRIDGE_BOUNDARY_SURFACE(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface.class),
+	ABSTRACT_BRIDGE(AbstractBridge.class),
+	ABSTRACT_BRIDGE_OPENING(org.citygml4j.model.citygml.bridge.AbstractOpening.class),
+	BRIDGE(Bridge.class),
+	BRIDGE_FURNITURE(BridgeFurniture.class),
+	BRIDGE_CONSTRUCTION_ELEMENT(BridgeConstructionElement.class),
+	BRIDGE_CONSTRUCTION_ELEMENT_PROPERTY(BridgeConstructionElementProperty.class),
+	BRIDGE_INSTALLATION(BridgeInstallation.class),
+	BRIDGE_INSTALLATION_PROPERTY(BridgeInstallationProperty.class),
+	BRIDGE_PART(BridgePart.class),
+	BRIDGE_PART_PROPERTY(BridgePartProperty.class),
+	INT_BRIDGE_INSTALLATION(IntBridgeInstallation.class),
+	INT_BRIDGE_INSTALLATION_PROPERTY(IntBridgeInstallationProperty.class),
+	BRIDGE_ROOM(BridgeRoom.class),	
+	INTERIOR_BRIDGE_ROOM_PROPERTY(InteriorBridgeRoomProperty.class),
+	BRIDGE_BOUNDARY_SURFACE_PROPERTY(org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty.class),
+	INTERIOR_BRIDGE_FURNITURE_PROPERTY(org.citygml4j.model.citygml.bridge.InteriorFurnitureProperty.class),
+	BRIDGE_CEILING_SURFACE(org.citygml4j.model.citygml.bridge.CeilingSurface.class),
+	BRIDGE_CLOSURE_SURFACE(org.citygml4j.model.citygml.bridge.ClosureSurface.class),
+	BRIDGE_FLOOR_SURFACE(org.citygml4j.model.citygml.bridge.FloorSurface.class),
+	BRIDGE_OPENING_PROPERTY(org.citygml4j.model.citygml.bridge.OpeningProperty.class),
+	OUTER_BRIDGE_CEILING_SURFACE(org.citygml4j.model.citygml.bridge.CeilingSurface.class),
+	OUTER_BRIDGE_FLOOR_SURFACE(org.citygml4j.model.citygml.bridge.FloorSurface.class),
+	BRIDGE_GROUND_SURFACE(org.citygml4j.model.citygml.bridge.GroundSurface.class),	
+	INTERIOR_BRIDGE_WALL_SURFACE(org.citygml4j.model.citygml.bridge.InteriorWallSurface.class),
+	BRIDGE_ROOF_SURFACE(org.citygml4j.model.citygml.bridge.RoofSurface.class),
+	BRIDGE_WALL_SURFACE(org.citygml4j.model.citygml.bridge.WallSurface.class),	
+	BRIDGE_DOOR(org.citygml4j.model.citygml.bridge.Door.class),
+	BRIDGE_WINDOW(org.citygml4j.model.citygml.bridge.Window.class),	
+
 	// Building
-	ABSTRACT_BOUNDARY_SURFACE(AbstractBoundarySurface.class),
+	ABSTRACT_BUILDING_BOUNDARY_SURFACE(org.citygml4j.model.citygml.building.AbstractBoundarySurface.class),
 	ABSTRACT_BUILDING(AbstractBuilding.class),
-	ABSTRACT_OPENING(AbstractOpening.class),	
-	BOUNDARY_SURFACE_PROPERTY(BoundarySurfaceProperty.class),
+	ABSTRACT_BUILDING_OPENING(org.citygml4j.model.citygml.building.AbstractOpening.class),
 	BUILDING(Building.class),
 	BUILDING_FURNITURE(BuildingFurniture.class),
-	INTERIOR_FURNITURE_PROPERTY(InteriorFurnitureProperty.class),
 	BUILDING_INSTALLATION(BuildingInstallation.class),
 	BUILDING_INSTALLATION_PROPERTY(BuildingInstallationProperty.class),
 	BUILDING_PART(BuildingPart.class),
 	BUILDING_PART_PROPERTY(BuildingPartProperty.class),
 	INT_BUILDING_INSTALLATION(IntBuildingInstallation.class),
 	INT_BUILDING_INSTALLATION_PROPERTY(IntBuildingInstallationProperty.class),
-	ROOM(Room.class),	
+	BUILDING_ROOM(Room.class),	
 	INTERIOR_ROOM_PROPERTY(InteriorRoomProperty.class),
-	CEILING_SURFACE(CeilingSurface.class),
-	CLOSURE_SURFACE(ClosureSurface.class),
-	FLOOR_SURFACE(FloorSurface.class),
-	GROUND_SURFACE(GroundSurface.class),	
-	INTERIOR_WALL_SURFACE(InteriorWallSurface.class),
-	ROOF_SURFACE(RoofSurface.class),
-	WALL_SURFACE(WallSurface.class),	
-	DOOR(Door.class),
-	WINDOW(Window.class),	
-	OPENING_PROPERTY(OpeningProperty.class),
+	BUILDING_BOUNDARY_SURFACE_PROPERTY(org.citygml4j.model.citygml.building.BoundarySurfaceProperty.class),
+	INTERIOR_BUILDING_FURNITURE_PROPERTY(org.citygml4j.model.citygml.building.InteriorFurnitureProperty.class),
+	BUILDING_CEILING_SURFACE(org.citygml4j.model.citygml.building.CeilingSurface.class),
+	BUILDING_CLOSURE_SURFACE(org.citygml4j.model.citygml.building.ClosureSurface.class),
+	BUILDING_FLOOR_SURFACE(org.citygml4j.model.citygml.building.FloorSurface.class),
+	BUILDING_OPENING_PROPERTY(org.citygml4j.model.citygml.building.OpeningProperty.class),
+	OUTER_BUILDING_CEILING_SURFACE(org.citygml4j.model.citygml.building.CeilingSurface.class),
+	OUTER_BUILDING_FLOOR_SURFACE(org.citygml4j.model.citygml.building.FloorSurface.class),
+	BUILDING_GROUND_SURFACE(org.citygml4j.model.citygml.building.GroundSurface.class),	
+	INTERIOR_BUILDING_WALL_SURFACE(org.citygml4j.model.citygml.building.InteriorWallSurface.class),
+	BUILDING_ROOF_SURFACE(org.citygml4j.model.citygml.building.RoofSurface.class),
+	BUILDING_WALL_SURFACE(org.citygml4j.model.citygml.building.WallSurface.class),	
+	BUILDING_DOOR(org.citygml4j.model.citygml.building.Door.class),
+	BUILDING_WINDOW(org.citygml4j.model.citygml.building.Window.class),	
 
 	// CityFurniture
 	CITY_FURNITURE(CityFurniture.class),
@@ -221,12 +273,14 @@ public enum CityGMLClass implements ModelClassEnum {
 	INT_ATTRIBUTE(IntAttribute.class),
 	STRING_ATTRIBUTE(StringAttribute.class),
 	URI_ATTRIBUTE(UriAttribute.class),
+	MEASURE_ATTRIBUTE(MeasureAttribute.class),
+	GENERIC_ATTRIBUTE_SET(GenericAttributeSet.class),
 
 	// LandUse
 	LAND_USE(LandUse.class),
 
 	// Relief
-	ABSTRACT_RELIEF_COMPONENT(AbstractReliefComponent.class),	
+	ABSTRACT_RELIEF_COMPONENT(AbstractReliefComponent.class),
 	RELIEF_FEATURE(ReliefFeature.class),
 	BREAKLINE_RELIEF(BreaklineRelief.class),
 	GRID_PROPERTY(GridProperty.class),
@@ -248,6 +302,35 @@ public enum CityGMLClass implements ModelClassEnum {
 	AUXILIARY_TRAFFIC_AREA_PROPERTY(AuxiliaryTrafficAreaProperty.class),
 	TRAFFIC_AREA_PROPERTY(TrafficAreaProperty.class),
 
+	// Tunnel
+	ABSTRACT_TUNNEL_BOUNDARY_SURFACE(org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface.class),
+	ABSTRACT_TUNNEL(AbstractTunnel.class),
+	ABSTRACT_TUNNEL_OPENING(org.citygml4j.model.citygml.tunnel.AbstractOpening.class),
+	TUNNEL(Tunnel.class),
+	TUNNEL_FURNITURE(TunnelFurniture.class),
+	TUNNEL_INSTALLATION(TunnelInstallation.class),
+	TUNNEL_INSTALLATION_PROPERTY(TunnelInstallationProperty.class),
+	TUNNEL_PART(TunnelPart.class),
+	TUNNEL_PART_PROPERTY(TunnelPartProperty.class),
+	INT_TUNNEL_INSTALLATION(IntTunnelInstallation.class),
+	INT_TUNNEL_INSTALLATION_PROPERTY(IntTunnelInstallationProperty.class),
+	HOLLOW_SPACE(HollowSpace.class),	
+	INTERIOR_HOLLOW_SPACE_PROPERTY(InteriorHollowSpaceProperty.class),
+	TUNNEL_BOUNDARY_SURFACE_PROPERTY(org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty.class),
+	INTERIOR_TUNNEL_FURNITURE_PROPERTY(org.citygml4j.model.citygml.tunnel.InteriorFurnitureProperty.class),
+	TUNNEL_CEILING_SURFACE(org.citygml4j.model.citygml.tunnel.CeilingSurface.class),
+	TUNNEL_CLOSURE_SURFACE(org.citygml4j.model.citygml.tunnel.ClosureSurface.class),
+	TUNNEL_FLOOR_SURFACE(org.citygml4j.model.citygml.tunnel.FloorSurface.class),
+	TUNNEL_OPENING_PROPERTY(org.citygml4j.model.citygml.tunnel.OpeningProperty.class),
+	OUTER_TUNNEL_CEILING_SURFACE(org.citygml4j.model.citygml.tunnel.OuterCeilingSurface.class),
+	OUTER_TUNNEL_FLOOR_SURFACE(org.citygml4j.model.citygml.tunnel.OuterFloorSurface.class),
+	TUNNEL_GROUND_SURFACE(org.citygml4j.model.citygml.tunnel.GroundSurface.class),	
+	INTERIOR_TUNNEL_WALL_SURFACE(org.citygml4j.model.citygml.tunnel.InteriorWallSurface.class),
+	TUNNEL_ROOF_SURFACE(org.citygml4j.model.citygml.tunnel.RoofSurface.class),
+	TUNNEL_WALL_SURFACE(org.citygml4j.model.citygml.tunnel.WallSurface.class),	
+	TUNNEL_DOOR(org.citygml4j.model.citygml.tunnel.Door.class),
+	TUNNEL_WINDOW(org.citygml4j.model.citygml.tunnel.Window.class),	
+
 	// Vegetation
 	ABSTRACT_VEGETATION_OBJECT(AbstractVegetationObject.class),
 	PLANT_COVER(PlantCover.class),	
@@ -260,7 +343,7 @@ public enum CityGMLClass implements ModelClassEnum {
 	WATER_CLOSURE_SURFACE(WaterClosureSurface.class),
 	WATER_GROUND_SURFACE(WaterGroundSurface.class),	
 	WATER_SURFACE(WaterSurface.class),
-	BOUNDED_BY_WATER_SURFACE_PROPERTY(BoundarySurfaceProperty.class),
+	BOUNDED_BY_WATER_SURFACE_PROPERTY(BoundedByWaterSurfaceProperty.class),
 
 	// TexturedSurface
 	_ABSTRACT_APPEARANCE(_AbstractAppearance.class),
@@ -271,51 +354,55 @@ public enum CityGMLClass implements ModelClassEnum {
 	_TEXTURE_TYPE(_TextureType.class),
 	_APPEARANCE_PROPERTY(_AppearanceProperty.class);
 
-	private final Class<? extends ModelObject> interfaceName;
+	private final Class<? extends CityGML> modelClass;
 
-	private CityGMLClass(Class<? extends ModelObject> interfaceName) {
-		this.interfaceName = interfaceName;
+	private CityGMLClass(Class<? extends CityGML> modelClass) {
+		this.modelClass = modelClass;
 	}
-	
-	public static CityGMLClass fromInterface(Class<? extends ModelObject> interfaceName) {
-		if (interfaceName.isInterface()) {
-			for (CityGMLClass c : CityGMLClass.values())
-				if (c.interfaceName == interfaceName)
-					return c;
-		}
 
-		return null;
+	public Class<? extends CityGML> getModelClass() {
+		return modelClass;
 	}
-	
+
+	public static CityGMLClass fromModelClass(Class<? extends CityGML> modelClass) {
+		for (CityGMLClass c : CityGMLClass.values())
+			if (c.modelClass == modelClass)
+				return c;
+
+		return UNDEFINED;
+	}
+
 	public static CityGMLClass fromInt(int i) {
 		for (CityGMLClass c : CityGMLClass.values()) {
-			if (c.ordinal() == i) {
+			if (c.ordinal() == i)
 				return c;
-			}
 		}
 
 		return UNDEFINED;
 	}
 
-	public Class<? extends ModelObject> getInterface() {
-		return interfaceName;
-	}
-	
 	public boolean isInstance(ModelClassEnum type) {
-		return isInstance(interfaceName, type.getInterface());
-	}
-	
-	private boolean isInstance(Class<?> a, Class<?> b) {
-		if (a == null || b == null)
+		if (type == null)
 			return false;
+		
+		Class<?> tmp = modelClass;
+		Class<?> otherModelClass = null;
 
-		if (a == b)
-			return true;
+		if (type instanceof CityGMLClass)
+			otherModelClass = ((CityGMLClass)type).getModelClass();
+		else if (type instanceof GMLClass)
+			otherModelClass = ((GMLClass)type).getModelClass();
+		else if (type instanceof XALClass)
+			otherModelClass = ((XALClass)type).getModelClass();
 
-		for (Class<?> tmp : b.getInterfaces())
-			if (isInstance(a, tmp))
-				return true;
-
+		if (otherModelClass != null) {
+			do {
+				if (tmp == otherModelClass)
+					return true;
+			} while ((tmp = tmp.getSuperclass()) != null);
+		}
+		
 		return false;
 	}
+
 }

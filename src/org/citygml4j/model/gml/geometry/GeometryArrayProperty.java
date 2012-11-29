@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,77 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAssociation<T> {
-	public List<T> getGeometry();
-	public boolean isSetGeometry();
+public class GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAssociation<T> {
+
+	public GeometryArrayProperty() {
+		
+	}
 	
-	public void addGeometry(T geometry);
-	public void setGeometry(List<T> geometry);
-	public boolean unsetGeometry(T geometry);
-	public void unsetGeometry();
+	public GeometryArrayProperty(T abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
+	public GeometryArrayProperty(List<T> abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
+	public GeometryArrayProperty(T... abstractGeometry) {
+		super(abstractGeometry);
+	}
+	
+	public List<T> getGeometry() {
+		return super.getObject();
+	}
+
+	public boolean isSetGeometry() {
+		return super.isSetObject();
+	}
+
+	public void addGeometry(T geometry) {
+		super.addObject(geometry);
+	}
+
+	public void setGeometry(List<T> geometry) {
+		super.setObject(geometry);
+	}
+
+	public boolean unsetGeometry(T geometry) {
+		return super.unsetObject(geometry);
+	}
+
+	public void unsetGeometry() {
+		super.unsetObject();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.GEOMETRY_ARRAY_PROPERTY;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Class<T> getAssociableClass() {
+		return (Class<T>)AbstractGeometry.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GeometryArrayProperty<T>(), copyBuilder);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GeometryArrayProperty<T> copy = (target == null) ? new GeometryArrayProperty<T>() : (GeometryArrayProperty<T>)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

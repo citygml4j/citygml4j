@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,82 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.building;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BuildingModule;
 
-public interface BoundarySurfaceProperty extends BuildingModuleComponent, FeatureProperty<AbstractBoundarySurface> {
-	public AbstractBoundarySurface getBoundarySurface();
-	public boolean isSetBoundarySurface();
+public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySurface> implements BuildingModuleComponent {
+	private BuildingModule module;
+
+	public BoundarySurfaceProperty() {
+		
+	}
 	
-	public void setBoundarySurface(AbstractBoundarySurface boundarySurface);
-	public void unsetBoundarySurface();
+	public BoundarySurfaceProperty(AbstractBoundarySurface abstractBoundarySurface) {
+		super(abstractBoundarySurface);
+	}
+	
+	public BoundarySurfaceProperty(String href) {
+		super(href);
+	}
+	
+	public BoundarySurfaceProperty(BuildingModule module) {
+		this.module = module;
+	}
+	
+	public AbstractBoundarySurface getBoundarySurface() {
+		return super.getObject();
+	}
+
+	public boolean isSetBoundarySurface() {
+		return super.isSetObject();
+	}
+
+	public void setBoundarySurface(AbstractBoundarySurface boundarySurface) {
+		super.setObject(boundarySurface);
+	}
+
+	public void unsetBoundarySurface() {
+		super.unsetObject();
+	}
+	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.BUILDING_BOUNDARY_SURFACE_PROPERTY;
+	}
+
+	public final BuildingModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AbstractBoundarySurface> getAssociableClass() {
+		return AbstractBoundarySurface.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new BoundarySurfaceProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		BoundarySurfaceProperty copy = (target == null) ? new BoundarySurfaceProperty() : (BoundarySurfaceProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

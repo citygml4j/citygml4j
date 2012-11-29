@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,19 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import org.citygml4j.model.module.Module;
-import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
-import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.citygml.GenericsModule;
@@ -39,6 +39,7 @@ import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
@@ -50,7 +51,23 @@ public class JAXBContextPath {
 	static {
 		contextPathMap = new HashMap<Module, String>();
 
-		contextPathMap.put(CoreModule.v0_4_0, "org.citygml4j.jaxb.citygml._0_4");
+		// CityGML 2.0
+		contextPathMap.put(CoreModule.v2_0_0, "org.citygml4j.jaxb.citygml.core._2");
+		contextPathMap.put(AppearanceModule.v2_0_0, "org.citygml4j.jaxb.citygml.app._2");
+		contextPathMap.put(BridgeModule.v2_0_0, "org.citygml4j.jaxb.citygml.brid._2");
+		contextPathMap.put(BuildingModule.v2_0_0, "org.citygml4j.jaxb.citygml.bldg._2");
+		contextPathMap.put(CityFurnitureModule.v2_0_0, "org.citygml4j.jaxb.citygml.frn._2");
+		contextPathMap.put(CityObjectGroupModule.v2_0_0, "org.citygml4j.jaxb.citygml.grp._2");
+		contextPathMap.put(GenericsModule.v2_0_0, "org.citygml4j.jaxb.citygml.gen._2");
+		contextPathMap.put(LandUseModule.v2_0_0, "org.citygml4j.jaxb.citygml.luse._2");
+		contextPathMap.put(ReliefModule.v2_0_0, "org.citygml4j.jaxb.citygml.dem._2");
+		contextPathMap.put(TexturedSurfaceModule.v2_0_0, "org.citygml4j.jaxb.citygml.tex._2");
+		contextPathMap.put(TransportationModule.v2_0_0, "org.citygml4j.jaxb.citygml.tran._2");
+		contextPathMap.put(TunnelModule.v2_0_0, "org.citygml4j.jaxb.citygml.tun._2");
+		contextPathMap.put(VegetationModule.v2_0_0, "org.citygml4j.jaxb.citygml.veg._2");
+		contextPathMap.put(WaterBodyModule.v2_0_0, "org.citygml4j.jaxb.citygml.wtr._2");
+		
+		// CityGML 1.0
 		contextPathMap.put(CoreModule.v1_0_0, "org.citygml4j.jaxb.citygml.core._1");
 		contextPathMap.put(AppearanceModule.v1_0_0, "org.citygml4j.jaxb.citygml.app._1");
 		contextPathMap.put(BuildingModule.v1_0_0, "org.citygml4j.jaxb.citygml.bldg._1");
@@ -63,6 +80,8 @@ public class JAXBContextPath {
 		contextPathMap.put(TransportationModule.v1_0_0, "org.citygml4j.jaxb.citygml.tran._1");
 		contextPathMap.put(VegetationModule.v1_0_0, "org.citygml4j.jaxb.citygml.veg._1");
 		contextPathMap.put(WaterBodyModule.v1_0_0, "org.citygml4j.jaxb.citygml.wtr._1");
+		
+		// GML 3.1.1 and xAL 2.0
 		contextPathMap.put(GMLCoreModule.v3_1_1, "org.citygml4j.jaxb.gml._3_1_1");
 		contextPathMap.put(XALCoreModule.v2_0, "org.citygml4j.jaxb.xal");
 	}
@@ -88,49 +107,6 @@ public class JAXBContextPath {
 		}
 		
 		return builder.toString();	
-	}
-	
-	public static String getContextPath(List<? extends Module> modules) {
-		HashSet<String> contextPaths = new HashSet<String>();
-
-		for (Module module : modules) {
-			String contextPath = contextPathMap.get(module);
-			if (contextPath != null)
-				contextPaths.add(contextPath);
-		}
-
-		return createContextPath(contextPaths);
-	}
-	
-	public static String getContextPath(List<? extends Module> modules, String... packageNames) {
-		StringBuilder builder = new StringBuilder(getContextPath(modules));
-		
-		for (String contextPath : packageNames) {
-			builder.append(":");
-			builder.append(contextPath);
-		}
-		
-		return builder.toString();
-	}
-	
-	public static String getContextPath(CityGMLVersion version) {
-		return getContextPath(version.getModules());
-	}
-	
-	public static String getContextPath(CityGMLVersion version, String... packageNames) {
-		return getContextPath(version.getModules(), packageNames);
-	}
-	
-	public static String getContextPath(ModuleContext moduleContext) {
-		return getContextPath(moduleContext.getModules());
-	}
-	
-	public static String getContextPath(ModuleContext moduleContext, String... packageNames) {
-		return getContextPath(moduleContext.getModules(), packageNames);
-	}
-
-	public static String getContextPath(Module... modules) {
-		return getContextPath(modules);
 	}
 
 	private static String createContextPath(HashSet<String> contextPaths) {

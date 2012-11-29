@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,76 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface SurfacePatchArrayProperty extends ArrayAssociation<AbstractSurfacePatch> {
-	public List<? extends AbstractSurfacePatch> getSurfacePatch();
-	public boolean isSetSurfacePatch();
+public class SurfacePatchArrayProperty extends ArrayAssociation<AbstractSurfacePatch> {
 	
-	public void addSurfacePatch(AbstractSurfacePatch surfacePatch);
-	public void setSurfacePatch(List<? extends AbstractSurfacePatch> surfacePatch);
-	public void unsetSurfacePatch();
-	public boolean unsetSurfacePatch(AbstractSurfacePatch surfacePatch);
+	public SurfacePatchArrayProperty() {
+
+	}
+
+	public SurfacePatchArrayProperty(AbstractSurfacePatch abstractSurfacePatch) {
+		super(abstractSurfacePatch);
+	}
+
+	@SuppressWarnings("unchecked")
+	public SurfacePatchArrayProperty(List<? extends AbstractSurfacePatch> abstractSurfacePatch) {
+		super((List<AbstractSurfacePatch>)abstractSurfacePatch);
+	}
+	
+	public SurfacePatchArrayProperty(AbstractSurfacePatch... abstractSurfacePatch) {
+		super(abstractSurfacePatch);
+	}
+	
+	public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
+		super.addObject(surfacePatch);
+	}
+
+	public List<? extends AbstractSurfacePatch> getSurfacePatch() {
+		return super.getObject();
+	}
+
+	public boolean isSetSurfacePatch() {
+		return super.isSetObject();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setSurfacePatch(List<? extends AbstractSurfacePatch> surfacePatch) {
+		super.setObject((List<AbstractSurfacePatch>)surfacePatch);
+	}
+
+	public void unsetSurfacePatch() {
+		super.unsetObject();
+	}
+
+	public boolean unsetSurfacePatch(AbstractSurfacePatch surfacePatch) {
+		return super.unsetObject(surfacePatch);
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SURFACE_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractSurfacePatch> getAssociableClass() {
+		return AbstractSurfacePatch.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SurfacePatchArrayProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SurfacePatchArrayProperty copy = (target == null) ? new SurfacePatchArrayProperty() : (SurfacePatchArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

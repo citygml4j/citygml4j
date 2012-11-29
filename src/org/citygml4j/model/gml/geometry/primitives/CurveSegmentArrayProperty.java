@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,75 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
-public interface CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
-	public List<? extends AbstractCurveSegment> getCurveSegment();
-	public boolean isSetCurveSegment();
+public class CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
+
+	public CurveSegmentArrayProperty() {
+		
+	}
 	
-	public void addCurveSegment(AbstractCurveSegment curveSegment);
-	public void setCurveSegment(List<? extends AbstractCurveSegment> curveSegment);
-	public void unsetCurveSegment();
-	public boolean unsetCurveSegment(AbstractCurveSegment curveSegment);
+	public CurveSegmentArrayProperty(AbstractCurveSegment abstractCurveSegment) {
+		super(abstractCurveSegment);
+	}
+	
+	public CurveSegmentArrayProperty(List<AbstractCurveSegment> abstractCurveSegment) {
+		super(abstractCurveSegment);
+	}
+	
+	public CurveSegmentArrayProperty(AbstractCurveSegment... abstractCurveSegment) {
+		super(abstractCurveSegment);
+	}
+	
+	public void addCurveSegment(AbstractCurveSegment curveSegment) {
+		super.addObject(curveSegment);
+	}
+
+	public List<? extends AbstractCurveSegment> getCurveSegment() {
+		return super.getObject();
+	}
+
+	public boolean isSetCurveSegment() {
+		return super.isSetObject();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setCurveSegment(List<? extends AbstractCurveSegment> curveSegment) {
+		super.setObject((List<AbstractCurveSegment>)curveSegment);
+	}
+
+	public void unsetCurveSegment() {
+		super.unsetObject();
+	}
+
+	public boolean unsetCurveSegment(AbstractCurveSegment curveSegment) {
+		return super.unsetObject(curveSegment);
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.CURVE_SEGMENT_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractCurveSegment> getAssociableClass() {
+		return AbstractCurveSegment.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CurveSegmentArrayProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CurveSegmentArrayProperty copy = (target == null) ? new CurveSegmentArrayProperty() : (CurveSegmentArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

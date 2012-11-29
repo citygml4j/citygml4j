@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.xml.io.writer;
 
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.citygml4j.builder.copy.DeepCopyBuilder;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.MetaDataProperty;
@@ -279,7 +280,7 @@ public class CityModelInfo {
 	}
 	
 	public CityModel toCityModel() {
-		CityModel cityModel = new CityModelImpl();
+		CityModel cityModel = new CityModel();
 		
 		if (isSetId())
 			cityModel.setId(getId());

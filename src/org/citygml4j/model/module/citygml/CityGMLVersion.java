@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.module.citygml;
 
@@ -37,8 +39,8 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 	private static final List<CityGMLVersion> instances = new ArrayList<CityGMLVersion>();
 
 	public static final CityGMLVersion DEFAULT;
+	public static final CityGMLVersion v2_0_0;
 	public static final CityGMLVersion v1_0_0;
-	public static final CityGMLVersion v0_4_0;
 
 	private CityGMLVersion(Module... modules) {
 		super(modules);
@@ -46,6 +48,26 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 	}
 
 	static {		
+		v2_0_0 = new CityGMLVersion(
+				AppearanceModule.v2_0_0,
+				BridgeModule.v2_0_0,
+				BuildingModule.v2_0_0,
+				CityFurnitureModule.v2_0_0,
+				CityObjectGroupModule.v2_0_0,
+				CoreModule.v2_0_0,
+				GenericsModule.v2_0_0,
+				LandUseModule.v2_0_0,
+				ReliefModule.v2_0_0,
+				TexturedSurfaceModule.v2_0_0,
+				TransportationModule.v2_0_0,
+				TunnelModule.v2_0_0,
+				VegetationModule.v2_0_0,
+				WaterBodyModule.v2_0_0,
+				GMLCoreModule.v3_1_1,
+				XLinkModule.v3_1_1,
+				XALCoreModule.v2_0				
+		);
+		
 		v1_0_0 = new CityGMLVersion(
 				AppearanceModule.v1_0_0,
 				BuildingModule.v1_0_0,
@@ -64,25 +86,7 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 				XALCoreModule.v2_0				
 		);
 		
-		v0_4_0 = new CityGMLVersion(
-				AppearanceModule.v0_4_0,
-				BuildingModule.v0_4_0,
-				CityFurnitureModule.v0_4_0,
-				CityObjectGroupModule.v0_4_0,
-				CoreModule.v0_4_0,
-				GenericsModule.v0_4_0,
-				LandUseModule.v0_4_0,
-				ReliefModule.v0_4_0,
-				TexturedSurfaceModule.v0_4_0,
-				TransportationModule.v0_4_0,
-				VegetationModule.v0_4_0,
-				WaterBodyModule.v0_4_0,
-				GMLCoreModule.v3_1_1,
-				XLinkModule.v3_1_1,
-				XALCoreModule.v2_0	
-		);
-		
-		DEFAULT = v1_0_0;
+		DEFAULT = v2_0_0;
 	}
 
 	public List<CityGMLModule> getCityGMLModules() {
@@ -114,6 +118,16 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 
 	public static List<CityGMLVersion> getInstances() {
 		return instances;
+	}
+	
+	@Override
+	public String toString() {
+		if (this == v2_0_0)
+			return "2.0.0";
+		else if (this == v1_0_0)
+			return "1.0.0";
+		else
+			return super.toString();
 	}
 
 }

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.relief;
 
@@ -104,8 +106,8 @@ public class Relief100Marshaller {
 		return dest;
 	}
 	
-	public void marshalReliefComponent(AbstractReliefComponent src, AbstractReliefComponentType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractReliefComponent(AbstractReliefComponent src, AbstractReliefComponentType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetLod())
 			dest.setLod(src.getLod());
@@ -121,7 +123,7 @@ public class Relief100Marshaller {
 	}
 	
 	public void marshalBreaklineRelief(BreaklineRelief src, BreaklineReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 		
 		if (src.isSetRidgeOrValleyLines())
 			dest.setRidgeOrValleyLines(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getRidgeOrValleyLines()));
@@ -157,7 +159,7 @@ public class Relief100Marshaller {
 	}
 	
 	public void marshalMassPointRelief(MassPointRelief src, MassPointReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 		
 		if (src.isSetReliefPoints())
 			dest.setReliefPoints(jaxb.getGMLMarshaller().marshalMultiPointProperty(src.getReliefPoints()));
@@ -177,7 +179,7 @@ public class Relief100Marshaller {
 	}
 	
 	public void marshalRasterRelief(RasterRelief src, RasterReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 		
 		if (src.isSetGrid())
 			dest.setGrid(marshalGridProperty(src.getGrid()));
@@ -210,7 +212,7 @@ public class Relief100Marshaller {
 	}
 	
 	public void marshalReliefFeature(ReliefFeature src, ReliefFeatureType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetLod())
 			dest.setLod(src.getLod());
@@ -248,7 +250,7 @@ public class Relief100Marshaller {
 	}
 	
 	public void marshalTINRelief(TINRelief src, TINReliefType dest) {
-		marshalReliefComponent(src, dest);
+		marshalAbstractReliefComponent(src, dest);
 		
 		if (src.isSetTin())
 			dest.setTin(marshalTinProperty(src.getTin()));

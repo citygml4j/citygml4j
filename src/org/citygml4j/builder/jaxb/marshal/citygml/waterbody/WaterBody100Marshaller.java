@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.waterbody;
 
@@ -44,6 +46,7 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class WaterBody100Marshaller {
 	private final ObjectFactory wtr = new ObjectFactory();
@@ -90,8 +93,8 @@ public class WaterBody100Marshaller {
 		return dest;
 	}
 	
-	public void marshalWaterObject(AbstractWaterObject src, AbstractWaterObjectType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractWaterObjectType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterObject())
@@ -100,8 +103,8 @@ public class WaterBody100Marshaller {
 		}
 	}
 	
-	public void marshalWaterBoundarySurface(AbstractWaterBoundarySurface src, AbstractWaterBoundarySurfaceType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractWaterBoundarySurface(AbstractWaterBoundarySurface src, AbstractWaterBoundarySurfaceType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetLod2Surface())
 			dest.setLod2Surface(jaxb.getGMLMarshaller().marshalSurfaceProperty(src.getLod2Surface()));
@@ -133,16 +136,20 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
-		marshalWaterObject(src, dest);
+		marshalAbstractWaterObject(src, dest);
 		
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 		
 		if (src.isSetLod0MultiSurface())
 			dest.setLod0MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0MultiSurface()));
@@ -188,7 +195,7 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterClosureSurface(WaterClosureSurface src, WaterClosureSurfaceType dest) {
-		marshalWaterBoundarySurface(src, dest);
+		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterClosureSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterClosureSurface())
@@ -205,7 +212,7 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterGroundSurface(WaterGroundSurface src, WaterGroundSurfaceType dest) {
-		marshalWaterBoundarySurface(src, dest);
+		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterGroundSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterGroundSurface())
@@ -222,10 +229,10 @@ public class WaterBody100Marshaller {
 	}
 	
 	public void marshalWaterSurface(WaterSurface src, WaterSurfaceType dest) {
-		marshalWaterBoundarySurface(src, dest);
+		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetWaterLevel())
-			dest.setWaterLevel(src.getWaterLevel());
+			dest.setWaterLevel(src.getWaterLevel().getValue());
 		
 		if (src.isSetGenericApplicationPropertyOfWaterSurface()) {
 			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterSurface())

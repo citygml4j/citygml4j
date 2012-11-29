@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.core;
 
@@ -30,19 +32,6 @@ import javax.xml.namespace.QName;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.impl.citygml.core.AddressImpl;
-import org.citygml4j.impl.citygml.core.AddressPropertyImpl;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
-import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.citygml.core.ExternalObjectImpl;
-import org.citygml4j.impl.citygml.core.ExternalReferenceImpl;
-import org.citygml4j.impl.citygml.core.GeneralizationRelationImpl;
-import org.citygml4j.impl.citygml.core.ImplicitGeometryImpl;
-import org.citygml4j.impl.citygml.core.ImplicitRepresentationPropertyImpl;
-import org.citygml4j.impl.citygml.core.TransformationMatrix2x2Impl;
-import org.citygml4j.impl.citygml.core.TransformationMatrix3x4Impl;
-import org.citygml4j.impl.citygml.core.TransformationMatrix4x4Impl;
-import org.citygml4j.impl.citygml.core.XalAddressPropertyImpl;
 import org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType;
 import org.citygml4j.jaxb.citygml.core._1.AbstractCityObjectType;
 import org.citygml4j.jaxb.citygml.core._1.AbstractSiteType;
@@ -56,6 +45,7 @@ import org.citygml4j.jaxb.citygml.core._1.ImplicitGeometryType;
 import org.citygml4j.jaxb.citygml.core._1.ImplicitRepresentationPropertyType;
 import org.citygml4j.jaxb.citygml.core._1.XalAddressPropertyType;
 import org.citygml4j.jaxb.citygml.gen._1.AbstractGenericAttributeType;
+import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
 import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -76,6 +66,10 @@ import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -105,8 +99,6 @@ public class Core100Unmarshaller {
 			dest = unmarshalAddressProperty((AddressPropertyType)src);
 		else if (src instanceof CityModelType)
 			dest = unmarshalCityModel((CityModelType)src);
-		else if (src instanceof FeaturePropertyType)
-			dest = unmarshalCityObjectMember((FeaturePropertyType)src);
 		else if (src instanceof ExternalObjectReferenceType)
 			dest = unmarshalExternalObject((ExternalObjectReferenceType)src);
 		else if (src instanceof ExternalReferenceType)
@@ -119,11 +111,16 @@ public class Core100Unmarshaller {
 			dest = unmarshalImplicitRepresentationProperty((ImplicitRepresentationPropertyType)src);
 		else if (src instanceof XalAddressPropertyType)
 			dest = unmarshalXalAddressProperty((XalAddressPropertyType)src);
+		else if (src instanceof FeaturePropertyType) {
+			JAXBElement<? extends AbstractFeatureType> elem = ((FeaturePropertyType)src).get_Feature();
+			if (elem != null && elem.getValue() instanceof AbstractCityObjectType)
+				dest = unmarshalCityObjectMember((FeaturePropertyType)src);
+		}
 
 		return dest;
 	}
 
-	public void unmarshalCityObject(AbstractCityObjectType src, AbstractCityObject dest) throws MissingADESchemaException {
+	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate())
@@ -156,8 +153,8 @@ public class Core100Unmarshaller {
 		}
 	}
 	
-	public void unmarshalSite(AbstractSiteType src, AbstractSite dest) throws MissingADESchemaException {
-		unmarshalCityObject(src, dest);
+	public void unmarshalAbstractSite(AbstractSiteType src, AbstractSite dest) throws MissingADESchemaException {
+		unmarshalAbstractCityObject(src, dest);
 	}
 
 	public void unmarshalAddress(AddressType src, Address dest) throws MissingADESchemaException {
@@ -171,14 +168,14 @@ public class Core100Unmarshaller {
 	}
 
 	public Address unmarshalAddress(AddressType src) throws MissingADESchemaException {
-		Address dest = new AddressImpl(module);
+		Address dest = new Address(module);
 		unmarshalAddress(src, dest);
 
 		return dest;
 	}
 
 	public AddressProperty unmarshalAddressProperty(AddressPropertyType src) throws MissingADESchemaException {
-		AddressProperty dest = new AddressPropertyImpl(module);
+		AddressProperty dest = new AddressProperty(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
@@ -195,14 +192,14 @@ public class Core100Unmarshaller {
 	}
 
 	public CityModel unmarshalCityModel(CityModelType src) throws MissingADESchemaException {
-		CityModel dest = new CityModelImpl(module);
+		CityModel dest = new CityModel(module);
 		unmarshalCityModel(src, dest);
 
 		return dest;
 	}
 
 	public CityObjectMember unmarshalCityObjectMember(FeaturePropertyType src) throws MissingADESchemaException {
-		CityObjectMember dest = new CityObjectMemberImpl(module);
+		CityObjectMember dest = new CityObjectMember(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
@@ -223,7 +220,7 @@ public class Core100Unmarshaller {
 	}
 
 	public ExternalReference unmarshalExternalReference(ExternalReferenceType src) {
-		ExternalReference dest = new ExternalReferenceImpl(module);
+		ExternalReference dest = new ExternalReference(module);
 		unmarshalExternalReference(src, dest);
 
 		return dest;
@@ -238,14 +235,14 @@ public class Core100Unmarshaller {
 	}
 
 	public ExternalObject unmarshalExternalObject(ExternalObjectReferenceType src) {
-		ExternalObject dest = new ExternalObjectImpl(module);
+		ExternalObject dest = new ExternalObject(module);
 		unmarshalExternalObject(src, dest);
 
 		return dest;
 	}
 
 	public GeneralizationRelation unmarshalGeneralizationRelation(GeneralizationRelationType src) throws MissingADESchemaException {
-		GeneralizationRelation dest = new GeneralizationRelationImpl(module);
+		GeneralizationRelation dest = new GeneralizationRelation(module);
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -260,7 +257,7 @@ public class Core100Unmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -275,10 +272,10 @@ public class Core100Unmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
@@ -287,7 +284,7 @@ public class Core100Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType());
+			dest.setMimeType(new Code(src.getMimeType()));
 
 		if (src.isSetLibraryObject())
 			dest.setLibraryObject(src.getLibraryObject());
@@ -303,14 +300,14 @@ public class Core100Unmarshaller {
 	}
 
 	public ImplicitGeometry unmarshalImplicitGeometry(ImplicitGeometryType src) {
-		ImplicitGeometry dest = new ImplicitGeometryImpl(module);
+		ImplicitGeometry dest = new ImplicitGeometry(module);
 		unmarshalImplicitGeometry(src, dest);
 
 		return dest;
 	}
 
 	public ImplicitRepresentationProperty unmarshalImplicitRepresentationProperty(ImplicitRepresentationPropertyType src) throws MissingADESchemaException {
-		ImplicitRepresentationProperty dest = new ImplicitRepresentationPropertyImpl(module);
+		ImplicitRepresentationProperty dest = new ImplicitRepresentationProperty(module);
 		jaxb.getGMLUnmarshaller().unmarshalAssociationByRepOrRef(src, dest);
 
 		if (src.isSet_Object()) {
@@ -325,7 +322,7 @@ public class Core100Unmarshaller {
 
 	public TransformationMatrix2x2 unmarshalTransformationMatrix2x2(List<Double> src) {
 		try {
-			TransformationMatrix2x2 dest = new TransformationMatrix2x2Impl(module);	
+			TransformationMatrix2x2 dest = new TransformationMatrix2x2(module);	
 
 			Matrix matrix = new Matrix(2, 2);
 			matrix.setMatrix(src);
@@ -339,7 +336,7 @@ public class Core100Unmarshaller {
 
 	public TransformationMatrix3x4 unmarshalTransformationMatrix3x4(List<Double> src) {
 		try {
-			TransformationMatrix3x4 dest = new TransformationMatrix3x4Impl(module);	
+			TransformationMatrix3x4 dest = new TransformationMatrix3x4(module);	
 
 			Matrix matrix = new Matrix(3, 4);
 			matrix.setMatrix(src);
@@ -353,7 +350,7 @@ public class Core100Unmarshaller {
 
 	public TransformationMatrix4x4 unmarshalTransformationMatrix4x4(List<Double> src) {
 		try {
-			TransformationMatrix4x4 dest = new TransformationMatrix4x4Impl(module);	
+			TransformationMatrix4x4 dest = new TransformationMatrix4x4(module);	
 
 			Matrix matrix = new Matrix(4, 4);
 			matrix.setMatrix(src);
@@ -366,7 +363,7 @@ public class Core100Unmarshaller {
 	}
 
 	public XalAddressProperty unmarshalXalAddressProperty(XalAddressPropertyType src) {
-		XalAddressProperty dest = new XalAddressPropertyImpl(module);
+		XalAddressProperty dest = new XalAddressProperty(module);
 		
 		if (src.isSetAddressDetails())
 			dest.setAddressDetails(jaxb.getXALUnmarshaller().unmarshalAddressDetails(src.getAddressDetails()));		

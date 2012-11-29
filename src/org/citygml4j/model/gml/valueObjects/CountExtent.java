@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,11 +19,46 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import java.util.List;
+
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 
-public interface CountExtent extends IntegerOrNullList {
+public class CountExtent extends IntegerOrNullList {
+
+	@Override
+	public void addIntegerOrNull(IntegerOrNull integerOrNull) {
+		if (getIntegerOrNull().size() < 2)
+			super.addIntegerOrNull(integerOrNull);
+	}
+
+	@Override
+	public void setIntegerOrNull(List<IntegerOrNull> integerOrNull) {
+		if (integerOrNull != null && integerOrNull.size() >= 2)
+			super.setIntegerOrNull(integerOrNull.subList(0, 2));
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.COUNT_EXTENT;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CountExtent(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CountExtent copy = (target == null) ? new CountExtent() : (CountExtent)target;
+		return super.copyTo(copy, copyBuilder);
+	}
 
 }

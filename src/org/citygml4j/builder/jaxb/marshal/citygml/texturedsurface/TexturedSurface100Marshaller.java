@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.texturedsurface;
 
@@ -35,6 +37,9 @@ import org.citygml4j.jaxb.citygml.tex._1.ObjectFactory;
 import org.citygml4j.jaxb.citygml.tex._1.SimpleTextureType;
 import org.citygml4j.jaxb.citygml.tex._1.TextureTypeType;
 import org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType;
+import org.citygml4j.jaxb.xlink.ActuateType;
+import org.citygml4j.jaxb.xlink.ShowType;
+import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.texturedsurface.TexturedSurfaceModuleComponent;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
@@ -88,7 +93,7 @@ public class TexturedSurface100Marshaller {
 		return dest;
 	}
 	
-	public void marshalAppearance(_AbstractAppearance src, AbstractAppearanceType dest) {
+	public void marshalAbstractAppearance(_AbstractAppearance src, AbstractAppearanceType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 	}
 	
@@ -109,7 +114,7 @@ public class TexturedSurface100Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -124,10 +129,10 @@ public class TexturedSurface100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -137,7 +142,7 @@ public class TexturedSurface100Marshaller {
 	}
 	
 	public void marshalMaterial(_Material src, MaterialType dest) {
-		marshalAppearance(src, dest);
+		marshalAbstractAppearance(src, dest);
 		
 		if (src.isSetShininess())
 			dest.setShininess(src.getShininess());
@@ -166,7 +171,7 @@ public class TexturedSurface100Marshaller {
 	}
 	
 	public void marshalSimpleTexture(_SimpleTexture src, SimpleTextureType dest) {
-		marshalAppearance(src, dest);
+		marshalAbstractAppearance(src, dest);
 		
 		if (src.isSetTextureMap())
 			dest.setTextureMap(src.getTextureMap());

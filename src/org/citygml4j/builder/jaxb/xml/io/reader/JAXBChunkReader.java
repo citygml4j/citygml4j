@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
@@ -26,7 +28,6 @@ import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -35,19 +36,22 @@ import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.util.xml.saxevents.StartElement;
+import org.citygml4j.xml.io.reader.CityGMLReader;
+import org.citygml4j.xml.io.reader.XMLChunk;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
+import org.citygml4j.xml.io.reader.UnmarshalException;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-public class JAXBChunkReader extends AbstractJAXBReader {
-	private CityGMLChunk current;
-	private CityGMLChunk iterator;
+public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader {
+	private XMLChunkImpl current;
+	private XMLChunkImpl iterator;
 
-	private Stack<CityGMLChunk> chunks;
-	private CityGMLChunk chunk;
+	private Stack<XMLChunkImpl> chunks;
+	private XMLChunkImpl chunk;
 
 	private ElementInfo elementInfo;
 	private Stack<ElementInfo> elementInfos;
@@ -58,7 +62,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 	public JAXBChunkReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
 		super(reader, factory, baseURI);
 		jaxbUnmarshaller.setParseSchema(false);
-		chunks = new Stack<CityGMLChunk>();
+		chunks = new Stack<XMLChunkImpl>();
 		elementInfos = new Stack<ElementInfo>();
 	}
 
@@ -74,10 +78,10 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		elementInfo = null;
 	}
 
-	public boolean hasNextChunk() throws CityGMLReadException {
+	public synchronized boolean hasNext() throws CityGMLReadException {
 		if (iterator == null) {
 			try {
-				iterator = nextChunk();
+				iterator = (XMLChunkImpl)nextChunk();
 			} catch (NoSuchElementException e) {
 				//
 			}
@@ -86,8 +90,8 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		return iterator != null;
 	}
 
-	public CityGMLChunk nextChunk() throws CityGMLReadException {
-		CityGMLChunk next = iterator;
+	public XMLChunk nextChunk() throws CityGMLReadException {
+		XMLChunkImpl next = iterator;
 
 		if (next == null) {
 			try {				
@@ -116,7 +120,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 							if (elementInfo != null && elementInfo.isFeature()) {
 								isInited = true;
 								chunks.clear();
-								chunk = new CityGMLChunk(this, null);
+								chunk = new XMLChunkImpl(this, null, elementInfo.getType());
 
 								if (isFilteredReader())
 									chunk.setIsFiltered(!filter.accept(elementInfo.getType()));
@@ -136,7 +140,7 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 
 						if (elementInfo != null && elementInfo.isFeature()) {						
 							chunks.add(chunk);
-							chunk = new CityGMLChunk(this, chunks.peek());
+							chunk = new XMLChunkImpl(this, chunks.peek(), elementInfo.getType());
 
 							if (isFilteredReader())
 								chunk.setIsFiltered(!filter.accept(elementInfo.getType()));								
@@ -187,22 +191,16 @@ public class JAXBChunkReader extends AbstractJAXBReader {
 		}
 	}
 
-	public boolean hasNextFeature() throws CityGMLReadException {
-		return hasNextChunk();
-	}
-
 	public CityGML nextFeature() throws CityGMLReadException {	
 		CityGML cityGML = null;
-		CityGMLChunk next = nextChunk();
+		XMLChunkImpl next = (XMLChunkImpl)nextChunk();
 
 		try {
 			cityGML = next.unmarshal();
 			if (cityGML == null && !chunks.isEmpty())
 				chunks.peek().append(next);
-		} catch (JAXBException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		} catch (SAXException e) {
-			throw new CityGMLReadException("Caused by: ", e);
+		} catch (UnmarshalException e) {
+			throw new CityGMLReadException("Caused by: ", e.getCause());
 		} catch (MissingADESchemaException e) {
 			throw new CityGMLReadException("Caused by: ", e);
 		}

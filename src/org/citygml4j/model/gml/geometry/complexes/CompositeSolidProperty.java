@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
-	public CompositeSolid getCompositeSolid();
-	public boolean isSetCompositeSolid();
+public class CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
 
-	public void setCompositeSolid(CompositeSolid compositeSolid);
-	public void unsetCompositeSolid();
+	public CompositeSolidProperty() {
+
+	}
+
+	public CompositeSolidProperty(CompositeSolid compositeSolid) {
+		super(compositeSolid);
+	}
+
+	public CompositeSolidProperty(String href) {
+		super(href);
+	}
+
+	public CompositeSolid getCompositeSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetCompositeSolid() {
+		return super.isSetGeometry();
+	}
+
+	public void setCompositeSolid(CompositeSolid compositeSolid) {
+		super.setGeometry(compositeSolid);
+	}
+
+	public void unsetCompositeSolid() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.COMPOSITE_SOLID_PROPERTY;
+	}
+
+	@Override
+	public Class<CompositeSolid> getAssociableClass() {
+		return CompositeSolid.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CompositeSolidProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CompositeSolidProperty copy = (target == null) ? new CompositeSolidProperty() : (CompositeSolidProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

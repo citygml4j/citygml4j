@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal;
 
@@ -27,42 +29,52 @@ import java.util.HashMap;
 import javax.xml.XMLConstants;
 
 import org.citygml4j.model.module.Module;
-import org.citygml4j.model.module.Modules;
-import org.citygml4j.model.module.citygml.CityGMLModuleVersion;
-import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper {
 	private HashMap<String, String> prefixMap;
 
-	public JAXBNamespacePrefixMapper() {
+	JAXBNamespacePrefixMapper() {
 		prefixMap = new HashMap<String, String>();
 		
 		prefixMap.put("http://www.w3.org/2001/SMIL20/", "smil20");
 		prefixMap.put("http://www.w3.org/2001/SMIL20/Language", "smil20lang");
 		prefixMap.put(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "xsi");
 		prefixMap.put(XMLConstants.XML_NS_URI, XMLConstants.XML_NS_PREFIX);
-		
-		// CityGML version 0.4.0 prefix
-		prefixMap.put(CoreModule.v0_4_0.getNamespaceURI(), CoreModule.v0_4_0.getNamespacePrefix());
+	}
 	
-		for (Module module : Modules.getModules()) {
-			if (module.getVersion() == CityGMLModuleVersion.v0_4_0)
-				continue;
-			
-			prefixMap.put(module.getNamespaceURI(), module.getNamespacePrefix());
-		}
+	public JAXBNamespacePrefixMapper(CityGMLVersion version) {
+		this();
+		setNamespacePrefixMapping(version);
+	}
+	
+	public JAXBNamespacePrefixMapper(ModuleContext moduleContext) {
+		this();
+		setNamespacePrefixMapping(moduleContext);
 	}
 		
 	public void setNamespacePrefixMapping(String uri, String prefix) {
 		prefixMap.put(uri, prefix);
+	}
+	
+	public void setNamespacePrefixMapping(CityGMLVersion version) {
+		for (Module module : version.getModules())
+			setNamespacePrefixMapping(module.getNamespaceURI(), module.getNamespacePrefix());
+	}
+	
+	public void setNamespacePrefixMapping(ModuleContext moduleContext) {
+		for (Module module : moduleContext.getModules())
+			setNamespacePrefixMapping(module.getNamespaceURI(), module.getNamespacePrefix());
 	}
 
 	public String getNamespacePrefixMapping(String uri) {
 		return prefixMap.get(uri);
 	}
 
+	@Override
 	public String getPreferredPrefix(String uri, String suggestion, boolean requirePrefix) {
 		String prefix = prefixMap.get(uri);
 		if (prefix != null)

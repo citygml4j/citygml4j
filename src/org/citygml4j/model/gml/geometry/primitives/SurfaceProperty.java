@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
-package org.citygml4j.model.gml.geometry.primitives;
+	package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface SurfaceProperty extends GeometryProperty<AbstractSurface> {
-	public AbstractSurface getSurface();
-	public boolean isSetSurface();
+public class SurfaceProperty extends GeometryProperty<AbstractSurface> {
 	
-	public void setSurface(AbstractSurface abstractSurface);
-	public void unsetSurface();
+	public SurfaceProperty() {
+
+	}
+
+	public SurfaceProperty(AbstractSurface abstractSurface) {
+		super(abstractSurface);
+	}
+
+	public SurfaceProperty(String href) {
+		super(href);
+	}
+	
+	public AbstractSurface getSurface() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetSurface() {
+		return super.isSetGeometry();
+	}
+
+	public void setSurface(AbstractSurface abstractSurface) {
+		super.setGeometry(abstractSurface);
+	}
+
+	public void unsetSurface() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SURFACE_PROPERTY;
+	}
+
+	@Override
+	public Class<AbstractSurface> getAssociableClass() {
+		return AbstractSurface.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SurfaceProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SurfaceProperty copy = (target == null) ? new SurfaceProperty() : (SurfaceProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

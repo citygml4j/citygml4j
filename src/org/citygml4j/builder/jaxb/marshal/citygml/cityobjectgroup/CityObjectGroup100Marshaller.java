@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup;
 
@@ -31,12 +33,16 @@ import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupMemberType;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupParentType;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupType;
 import org.citygml4j.jaxb.citygml.grp._1.ObjectFactory;
+import org.citygml4j.jaxb.xlink.ActuateType;
+import org.citygml4j.jaxb.xlink.ShowType;
+import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 
 public class CityObjectGroup100Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();
@@ -74,16 +80,20 @@ public class CityObjectGroup100Marshaller {
 	}
 	
 	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 
 		if (src.isSetGeometry())
 			dest.setGeometry(jaxb.getGMLMarshaller().marshalGeometryProperty(src.getGeometry()));
@@ -120,11 +130,8 @@ public class CityObjectGroup100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			ADEComponent adeComponent = src.getGenericADEComponent();
-			if (adeComponent.isSetContent())
-				dest.set_ADEComponent(adeComponent.getContent());
-		}
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
 		
 		if (src.isSetGroupRole())
 			dest.setGroupRole(src.getGroupRole());
@@ -133,7 +140,7 @@ public class CityObjectGroup100Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -148,10 +155,10 @@ public class CityObjectGroup100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -166,17 +173,14 @@ public class CityObjectGroup100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			ADEComponent adeComponent = src.getGenericADEComponent();
-			if (adeComponent.isSetContent())
-				dest.set_ADEComponent(adeComponent.getContent());
-		}
+		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
+			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -191,10 +195,10 @@ public class CityObjectGroup100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}

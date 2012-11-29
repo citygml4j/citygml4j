@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 
 import java.io.File;
@@ -35,7 +37,6 @@ import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.jaxb.gml._3_1_1.MultiSurfacePropertyType;
 import org.citygml4j.jaxb.gml._3_1_1.MultiSurfaceType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -71,11 +72,11 @@ public class UsingJAXBUnmarshaller {
 		CityGMLContext ctx = new CityGMLContext();
 		JAXBBuilder builder = ctx.createJAXBBuilder();
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
 		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
@@ -85,11 +86,10 @@ public class UsingJAXBUnmarshaller {
 		unmarshaller.setReleaseJAXBElementsFromMemory(false);
 		
 		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
-		GMLFactory gml = new GMLFactory();
 		
 		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
 		ObjectFactory jaxbFactory = new ObjectFactory();
-		String contextPath = JAXBContextPath.getContextPath(CityGMLVersion.v1_0_0, "ade.sub.jaxb");
+		String contextPath = JAXBContextPath.getContextPath("ade.sub.jaxb");
 		JAXBContext jaxbCtx = JAXBContext.newInstance(contextPath);
 		Unmarshaller jaxbUmarshaller = jaxbCtx.createUnmarshaller();
 		
@@ -129,7 +129,7 @@ public class UsingJAXBUnmarshaller {
 				System.out.println("  Processing geometry: " + multiSurfacePropertyType.getMultiSurface());
 
 				MultiSurface multiSurface = (MultiSurface)unmarshaller.unmarshal(multiSurfacePropertyType.getMultiSurface());
-				StringOrRef description = gml.createStringOrRef();
+				StringOrRef description = new StringOrRef();
 				description.setValue("processed by citygml4j");
 				multiSurface.setDescription(description);
 				
@@ -144,14 +144,16 @@ public class UsingJAXBUnmarshaller {
 		
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
+		out.setSchemaHandler(in.getSchemaHandler());
 		
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_JAXBUnmarshaller_v100.xml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_SubsurfaceStructureADE_JAXBUnmarshaller_v100.gml"));
+		
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
 		writer.setSchemaLocation("http://citygml.org/ade/sub/0.9.0", "../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
 		writer.setIndentString("  ");
-
+		
 		writer.writeStartDocument();
 		
 		for (CityObjectMember member : cityModel.getCityObjectMember())
@@ -161,7 +163,7 @@ public class UsingJAXBUnmarshaller {
 		writer.writeEndDocument();		
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_JAXBUnmarshaller_v100.xml written");
+		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_JAXBUnmarshaller_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

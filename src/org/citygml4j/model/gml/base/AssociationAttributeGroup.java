@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,21 +19,26 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.base;
 
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 
 
 public interface AssociationAttributeGroup extends GML {
 	public String getRemoteSchema();
-	public String getType();
+	public XLinkType getType();
 	public String getHref();
 	public String getRole();
 	public String getArcrole();
 	public String getTitle();
-	public String getShow();
-	public String getActuate();
+	public XLinkShow getShow();
+	public XLinkActuate getActuate();
 	public boolean isSetRemoteSchema();
 	public boolean isSetType();
 	public boolean isSetHref();
@@ -44,13 +49,13 @@ public interface AssociationAttributeGroup extends GML {
 	public boolean isSetActuate();
 
 	public void setRemoteSchema(String remoteSchema);
-	public void setType(String type);
+	public void setType(XLinkType type);
 	public void setHref(String href);
 	public void setRole(String role);
 	public void setArcrole(String arcrole);
 	public void setTitle(String title);
-	public void setShow(String show);
-	public void setActuate(String actuate);
+	public void setShow(XLinkShow show);
+	public void setActuate(XLinkActuate actuate);
 	public void unsetRemoteSchema();
 	public void unsetType();
 	public void unsetHref();

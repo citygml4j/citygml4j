@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,82 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.building;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BuildingModule;
 
-public interface IntBuildingInstallationProperty extends BuildingModuleComponent, FeatureProperty<IntBuildingInstallation> {
-	public IntBuildingInstallation getIntBuildingInstallation();
-	public boolean isSetIntBuildingInstallation();
+public class IntBuildingInstallationProperty extends FeatureProperty<IntBuildingInstallation> implements BuildingModuleComponent {
+	private BuildingModule module;
 	
-	public void setIntBuildingInstallation(IntBuildingInstallation intBuildingInstallation);
-	public void unsetIntBuildingInstallation();
+	public IntBuildingInstallationProperty() {
+		
+	}
+	
+	public IntBuildingInstallationProperty(IntBuildingInstallation intBuildingInstallation) {
+		super(intBuildingInstallation);
+	}
+	
+	public IntBuildingInstallationProperty(String href) {
+		super(href);
+	}
+	
+	public IntBuildingInstallationProperty(BuildingModule module) {
+		this.module = module;
+	}
+	
+	public IntBuildingInstallation getIntBuildingInstallation() {
+		return super.getObject();
+	}
+
+	public boolean isSetIntBuildingInstallation() {
+		return super.isSetObject();
+	}
+
+	public void setIntBuildingInstallation(IntBuildingInstallation intBuildingInstallation) {
+		super.setObject(intBuildingInstallation);
+	}
+
+	public void unsetIntBuildingInstallation() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INT_BUILDING_INSTALLATION_PROPERTY;
+	}
+
+	public final BuildingModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<IntBuildingInstallation> getAssociableClass() {
+		return IntBuildingInstallation.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new IntBuildingInstallationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		IntBuildingInstallationProperty copy = (target == null) ? new IntBuildingInstallationProperty() : (IntBuildingInstallationProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

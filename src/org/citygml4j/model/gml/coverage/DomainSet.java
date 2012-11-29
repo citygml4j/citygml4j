@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,12 +19,42 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface DomainSet<T extends AbstractGeometry> extends GeometryProperty<T> {
-	// gml:_TimeObject is not implemented since it is not used in CityGML
+public class DomainSet<T extends AbstractGeometry> extends GeometryProperty<T> {
+	
+	public DomainSet() {
+
+	}
+
+	public DomainSet(T geometry) {
+		super(geometry);
+	}
+
+	public DomainSet(String href) {
+		super(href);
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.DOMAIN_SET;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		DomainSet<T> copy = (target == null) ? new DomainSet<T>() : (DomainSet<T>)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new DomainSet<T>(), copyBuilder);
+	}
+
 }

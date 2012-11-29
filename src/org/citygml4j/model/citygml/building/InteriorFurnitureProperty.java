@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,82 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.building;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.BuildingModule;
 
-public interface InteriorFurnitureProperty extends BuildingModuleComponent, FeatureProperty<BuildingFurniture> {
-	public BuildingFurniture getBuildingFurniture();
-	public boolean isSetBuildingFurniture();
+public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture> implements BuildingModuleComponent {
+	private BuildingModule module;
 	
-	public void setBuildingFurniture(BuildingFurniture buildingFurniture);
-	public void unsetBuildingFurniture();
+	public InteriorFurnitureProperty() {
+		
+	}
+	
+	public InteriorFurnitureProperty(BuildingFurniture buildingFurniture) {
+		super(buildingFurniture);
+	}
+	
+	public InteriorFurnitureProperty(String href) {
+		super(href);
+	}
+	
+	public InteriorFurnitureProperty(BuildingModule module) {
+		this.module = module;
+	}
+	
+	public BuildingFurniture getBuildingFurniture() {
+		return super.getObject();
+	}
+
+	public boolean isSetBuildingFurniture() {
+		return super.isSetObject();
+	}
+
+	public void setBuildingFurniture(BuildingFurniture buildingFurniture) {
+		super.setObject(buildingFurniture);
+	}
+
+	public void unsetBuildingFurniture() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.INTERIOR_BUILDING_FURNITURE_PROPERTY;
+	}
+
+	public final BuildingModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<BuildingFurniture> getAssociableClass() {
+		return BuildingFurniture.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new InteriorFurnitureProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

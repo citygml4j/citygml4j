@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1">
+<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1.2">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-xsd:feature:v3.1.1"/>
-		<documentation>GML Feature schema. 		      
-    Copyright (c) 2001-2005 OGC, All Rights Reserved.
-	For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr</documentation>
+		<documentation>GML Feature schema.
+			
+			GML is an OGC Standard.
+			Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ============================================================== -->
 	<!-- ==================        includes and imports  ======================= -->
 	<!-- ============================================================== -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="geometryBasic2d.xsd"/>
 	<include schemaLocation="temporal.xsd"/>
 	<!-- ============================================================== -->

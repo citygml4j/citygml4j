@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,14 +19,98 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
+import org.citygml4j.model.gml.GMLClass;
 
-public interface Surface extends AbstractSurface {
-	public SurfacePatchArrayProperty getPatches();
-	public boolean isSetPatches();
+public class Surface extends AbstractSurface {
+	private SurfacePatchArrayProperty patches;
 	
-	public void setPatches(SurfacePatchArrayProperty patches);
-	public void unsetPatches();
+	public SurfacePatchArrayProperty getPatches() {
+		return patches;
+	}
+
+	public boolean isSetPatches() {
+		return patches != null;
+	}
+
+	public void setPatches(SurfacePatchArrayProperty patches) {
+		if (patches != null)
+			patches.setParent(this);
+		
+		this.patches = patches;
+	}
+
+	public void unsetPatches() {
+		if (isSetPatches())
+			patches.unsetParent();
+		
+		patches = null;
+	}
+
+	public BoundingBox calcBoundingBox() {
+		BoundingBox bbox = new BoundingBox();
+		
+		if (getPatches() != null) {
+			SurfacePatchArrayProperty arrayProperty = getPatches();
+			
+			if (arrayProperty.isSetSurfacePatch())
+				for (AbstractSurfacePatch surfacePatch : arrayProperty.getSurfacePatch())
+					bbox.update(surfacePatch.calcBoundingBox());
+		}
+		
+		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
+				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
+			return null;
+		else
+			return bbox;
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SURFACE;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new Surface(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		Surface copy = (target == null) ? new Surface() : (Surface)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetPatches()) {
+			copy.setPatches((SurfacePatchArrayProperty)copyBuilder.copy(patches));
+			if (copy.getPatches() == patches)
+				patches.setParent(this);
+		}
+		
+		return copy;
+	}
+	
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+	
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
 }

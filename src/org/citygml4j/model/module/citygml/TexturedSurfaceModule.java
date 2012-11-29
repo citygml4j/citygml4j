@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.module.citygml;
 
@@ -30,8 +32,8 @@ import org.citygml4j.model.module.Module;
 public class TexturedSurfaceModule extends AbstractCityGMLModule {
 	private static final List<TexturedSurfaceModule> instances = new ArrayList<TexturedSurfaceModule>();
 
+	public static final TexturedSurfaceModule v2_0_0;
 	public static final TexturedSurfaceModule v1_0_0;
-	public static final TexturedSurfaceModule v0_4_0;
 
 	private TexturedSurfaceModule (
 			CityGMLModuleType type, 
@@ -45,6 +47,14 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 	}
 
 	static {
+		v2_0_0 = new TexturedSurfaceModule (
+				CityGMLModuleType.TEXTURED_SURFACE,
+				CityGMLModuleVersion.v2_0_0,
+				"http://www.opengis.net/citygml/texturedsurface/2.0",
+				"tex",
+				"http://schemas.opengis.net/citygml/texturedsurface/2.0/texturedSurface.xsd",			
+				CoreModule.v2_0_0);
+		
 		v1_0_0 = new TexturedSurfaceModule (
 				CityGMLModuleType.TEXTURED_SURFACE,
 				CityGMLModuleVersion.v1_0_0,
@@ -52,18 +62,21 @@ public class TexturedSurfaceModule extends AbstractCityGMLModule {
 				"tex",
 				"http://schemas.opengis.net/citygml/texturedsurface/1.0/texturedSurface.xsd",			
 				CoreModule.v1_0_0);
-
-		v0_4_0 = new TexturedSurfaceModule (
-				CityGMLModuleType.TEXTURED_SURFACE,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
 	}
 
 	public static List<TexturedSurfaceModule> getInstances() {
 		return instances;
+	}
+	
+	public static TexturedSurfaceModule getInstance(CityGMLModuleVersion version) {
+		switch (version) {
+		case v2_0_0:
+			return v2_0_0;
+		case v1_0_0:
+			return v1_0_0;
+		default:
+			return null;
+		}
 	}
 
 }

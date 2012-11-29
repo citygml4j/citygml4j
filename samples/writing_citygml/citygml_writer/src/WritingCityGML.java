@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -48,18 +50,18 @@ public class WritingCityGML {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 				
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v200.gml");
 		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v100.xml"));
-		in.parseSchema(new File("../../datasets/schemas/CityGML-NoiseADE-0-5-0.xsd"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
+		in.parseSchema(new File("../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd"));
 
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
-		System.out.println(df.format(new Date()) + "creating CityGML 1.0.0 writer");
+		System.out.println(df.format(new Date()) + "creating CityGML 2.0.0 writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(in.getSchemaHandler());
-		ModuleContext moduleContext = new ModuleContext(CityGMLVersion.v1_0_0);
+		ModuleContext moduleContext = new ModuleContext(CityGMLVersion.v2_0_0);
 		
 		System.out.println(df.format(new Date()) + "input file is split per feature member whilst writing");
 		FeatureWriteMode writeMode = FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER;
@@ -75,22 +77,22 @@ public class WritingCityGML {
 		//out.setProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING, ADEComponent.class);
 		
 		System.out.println(df.format(new Date()) + "writing split result");
-		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_split_v100.xml"), "utf-8");
+		CityGMLWriter writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_split_v200.gml"), "utf-8");
 		setContext(writer, moduleContext, writeMode, splitOnCopy);
 		
 		writer.write(cityModel);
 		writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD0_Railway_NoiseADE_split_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD0_Railway_NoiseADE_split_v200.gml written");
 
 		System.out.println(df.format(new Date()) + "writing remaining original object tree");
-		writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_orig_v100.xml"), "utf-8");
+		writer = out.createCityGMLWriter(new File("LOD0_Railway_NoiseADE_orig_v200.gml"), "utf-8");
 		setContext(writer, moduleContext, writeMode, splitOnCopy);
 		
 		writer.write(cityModel);
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD0_Railway_NoiseADE_orig_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD0_Railway_NoiseADE_orig_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	
@@ -99,9 +101,9 @@ public class WritingCityGML {
 			FeatureWriteMode writeMode,
 			boolean splitOnCopy) {
 		writer.setPrefixes(moduleContext);
-		writer.setPrefix("noise", "http://www.citygml.org/ade/noise_de");
+		writer.setPrefix("noise", "http://www.citygml.org/ade/noise_de/2.0");
 		writer.setDefaultNamespace(moduleContext.getModule(CityGMLModuleType.CORE));
-		writer.setSchemaLocation("http://www.citygml.org/ade/noise_de", "../../datasets/schemas/CityGML-NoiseADE-0-5-0.xsd");
+		writer.setSchemaLocation("http://www.citygml.org/ade/noise_de/2.0", "../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd");
 		writer.setIndentString("  ");
 		writer.setHeaderComment("written by citygml4j", 
 				"using a CityGMLWriter instance", 

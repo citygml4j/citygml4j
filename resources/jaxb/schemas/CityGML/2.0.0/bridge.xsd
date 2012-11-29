@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CityGML Version No. 2.0, February 2012 -->
+<!-- CityGML - GML 3.1.1 application schema for 3D city models -->
+<!-- International encoding standard of the Open Geospatial Consortium, see http://www.opengeospatial.org/standards/citygml -->
+<!-- Jointly developed by the Special Interest Group 3D (SIG 3D) of GDI-DE, see http://www.sig3d.org               -->
+<!-- For further information see: http://www.citygml.org -->
+<xs:schema xmlns="http://www.opengis.net/citygml/bridge/2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
+	targetNamespace="http://www.opengis.net/citygml/bridge/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation>
+	CityGML is an OGC Standard.
+	Copyright (c) 2012 Open Geospatial Consortium.
+	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../GML/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="cityGMLBase.xsd"/>
+	<!-- ============================================================================================= -->
+	<!-- ===================================CityGML Bridge Module ==================================== -->
+	<!-- ============================================================================================= -->
+	<xs:complexType name="AbstractBridgeType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Type describing the thematic and geometric attributes and the associations of bridges. It is an abstract
+				type, only its subclasses Bridge and BridgePart can be instantiated. An _AbstractBridge may consist of BridgeParts, which
+				are again _AbstractBridges by inheritance. Thus an aggregation hierarchy between _AbstractBridges of arbitrary depth may
+				be specified. In such an hierarchy, top elements are Bridges, while all other elements are BridgeParts. Each element of
+				such a hierarchy may have all attributes and geometries of _AbstractBridges. It must, however, be assured that no
+				inconsistencies occur.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractSiteType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="yearOfConstruction" type="xs:gYear" minOccurs="0"/>
+					<xs:element name="yearOfDemolition" type="xs:gYear" minOccurs="0"/>
+					<xs:element name="isMovable" type="xs:boolean" default="false" minOccurs="0"/>
+					<xs:element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod1TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod2MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod2TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="outerBridgeConstruction" type="BridgeConstructionElementPropertyType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xs:element name="outerBridgeInstallation" type="BridgeInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="interiorBridgeInstallation" type="IntBridgeInstallationPropertyType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod3TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod4TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="interiorBridgeRoom" type="InteriorBridgeRoomPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="consistsOfBridgePart" type="BridgePartPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="address" type="core:AddressPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfAbstractBridge" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="_AbstractBridge" type="AbstractBridgeType" abstract="true" substitutionGroup="core:_Site"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfAbstractBridge" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBridgeType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfBridge" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="Bridge" type="BridgeType" substitutionGroup="_AbstractBridge"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfBridge" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgePartType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBridgeType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfBridgePart" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="BridgePart" type="BridgePartType" substitutionGroup="_AbstractBridge"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfBridgePart" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgePartPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractBridge to its bridge parts. The BridgePartPropertyType element must
+				either carry a reference to a BridgePart object or contain a BridgePart object inline, but neither both nor
+				none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="BridgePart"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeInstallationType">
+		<xs:annotation>
+			<xs:documentation>A BridgeInstallation is a part of a Bridge which has not the significance of a BridgePart. In contrast to
+				BridgeConstructionElements, a BridgeInstallation is not essential from a structural point of view. Thus, it may be removed
+				without the bridge collapsing. Examples are stairs, antennas, railways, etc. As subclass of _CityObject, a
+				BridgeInstallation inherits all attributes and relations, in particular an id, names, external references, generic
+				attributes and generalization relations.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod2ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfBridgeInstallation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="BridgeInstallation" type="BridgeInstallationType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfBridgeInstallation" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeInstallationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractBridge to its bridge installations. The BridgeInstallationPropertyType
+				element must either carry a reference to a BridgeInstallation object or contain a BridgeInstallation object inline, but
+				neither both nor none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="BridgeInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="IntBridgeInstallationType">
+		<xs:annotation>
+			<xs:documentation>An IntBridgeInstallation is an interior part of a Bridge which has a specific function or semantic
+				meaning. Examples are interior stairs, railings, radiators or pipes. As subclass of _CityObject, an IntBridgeInstallation
+				inherits all attributes and relations, in particular an id, names, external references, generic attributes and
+				generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfIntBridgeInstallation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="IntBridgeInstallation" type="IntBridgeInstallationType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfIntBridgeInstallation" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="IntBridgeInstallationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractBridge to its interior bridge installations. The
+				IntBridgeInstallationPropertyType element must either carry a reference to a IntBridgeInstallation object or contain a
+				IntBridgeInstallation object inline, but neither both nor none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="IntBridgeInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeConstructionElementType">
+		<xs:annotation>
+			<xs:documentation>A BridgeConstructionElement is a part of a Bridge which has not the significance of a BridgePart. In
+				contrast to BridgeInstallation, a BridgeConstructionElement is essential from a structural point of view. Examples are
+				pylons, anchorages, etc. As subclass of _CityObject, a BridgeInstallation inherits all attributes and relations, in
+				particular an id, names, external references, generic attributes and generalization relations.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:annotation>
+						<xs:documentation> The name will be represented by gml:name (inherited from _GML) The lodXMultiSurface must be used,
+							if the geometry of a building is just a collection of surfaces bounding a solid, but not a topologically clean solid
+							boundary necessary for GML3 solid boundaries. </xs:documentation>
+					</xs:annotation>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod1TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod2TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod3TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod4TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod1ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod2ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfBridgeConstructionElement" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="BridgeConstructionElement" type="BridgeConstructionElementType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfBridgeConstructionElement" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeConstructionElementPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractBridge to its bridge construction elements. The
+				BridgeConstructionElementPropertyType element must either carry a reference to a BridgeConstructionElement object or
+				contain a BridgeConstructionElement object inline, but neither both nor none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="BridgeConstructionElement"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<!-- ========================SURFACES OF BRIDGES AND ROOMS (LOD2 to LOD4)====================-->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="AbstractBoundarySurfaceType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A BoundarySurface is a thematic object which classifies surfaces bounding an _AbstractBridge,
+				BridgeInstallation, IntBuildingInstallation, BridgeConstructionElement, and BridgeRoom. The geometry of a BoundarySurface
+				is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the
+				external references, the generic attributes, and the generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="opening" type="OpeningPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfBoundarySurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="_BoundarySurface" type="AbstractBoundarySurfaceType" abstract="true" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfBoundarySurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="RoofSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfRoofSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="RoofSurface" type="RoofSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfRoofSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="WallSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfWallSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="WallSurface" type="WallSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfWallSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="GroundSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfGroundSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="GroundSurface" type="GroundSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfGroundSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="ClosureSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfClosureSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="ClosureSurface" type="ClosureSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfClosureSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="OuterFloorSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfOuterFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="OuterFloorSurface" type="OuterFloorSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfOuterFloorSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="OuterCeilingSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfOuterCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="OuterCeilingSurface" type="OuterCeilingSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfOuterCeilingSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<!-- ===================================LOD4 only Surfaces======================================= -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="FloorSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="FloorSurface" type="FloorSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfFloorSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="InteriorWallSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfInteriorWallSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="InteriorWallSurface" type="InteriorWallSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfInteriorWallSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="CeilingSurfaceType">
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="CeilingSurface" type="CeilingSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfCeilingSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<!-- =============================Relation of Bridges/Rooms to its bounding Surfaces================== -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BoundarySurfacePropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractBridge to its bounding thematic surfaces (walls, roofs, ..). The
+				BoundarySurfacePropertyType element must either carry a reference to a _BoundarySurface object or contain a
+				_BoundarySurface object inline, but neither both nor none. There is no differentiation between interior surfaces bounding
+				rooms and outer ones bounding bridges (one reason is, that ClosureSurface belongs to both types). It has to be made sure
+				by additional integrity constraints that, e.g. an _AbstractBridge is not related to CeilingSurfaces or a room not to
+				RoofSurfaces.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="_BoundarySurface"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<!-- ================================Openings (LoD3 and LoD4 only)================================ -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="OpeningPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _BondarySurface to its openings (doors, windows). The OpeningPropertyType
+				element must either carry a reference to an _Opening object or contain an _Opening object inline, but neither both nor
+				none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="_Opening"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="AbstractOpeningType" abstract="true">
+		<xs:annotation>
+			<xs:documentation> Type for openings (doors, windows) in boundary surfaces. Used in LoD3 and LoD4 only. As subclass of
+				_CityObject, an _Opening inherits all attributes and relations, in particular an id, names, external references, generic
+				attributes and generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element ref="_GenericApplicationPropertyOfOpening" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="_Opening" type="AbstractOpeningType" abstract="true" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfOpening" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="WindowType">
+		<xs:annotation>
+			<xs:documentation> Type for windows in boundary surfaces. Used in LoD3 and LoD4 only . As subclass of _CityObject, a window
+				inherits all attributes and relations, in particular an id, names, external references, generic attributes and
+				generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractOpeningType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfWindow" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="Window" type="WindowType" substitutionGroup="_Opening"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfWindow" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="DoorType">
+		<xs:annotation>
+			<xs:documentation> Type for doors in boundary surfaces. Used in LoD3 and LoD4 only . As subclass of _CityObject, a Door
+				inherits all attributes and relations, in particular an id, names, external references, generic attributes and
+				generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractOpeningType">
+				<xs:sequence>
+					<xs:element name="address" type="core:AddressPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfDoor" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="Door" type="DoorType" substitutionGroup="_Opening"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfDoor" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<!-- ====================================Bridge Rooms (LoD4 only)============================= -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeRoomType">
+		<xs:annotation>
+			<xs:documentation>A BridgeRoom is a thematic object for modelling the closed parts inside a Bridge. It has to be closed, if
+				necessary by using closure surfaces. The geometry may be either a solid, or a MultiSurface if the boundary is not
+				topologically clean. The BridgeRoom connectivity may be derived by detecting shared thematic openings or closure surfaces:
+				two rooms are connected if both use the same opening object or the same closure surface. The thematic surfaces bounding a
+				BridgeRoom are referenced by the boundedBy property. As subclass of _CityObject, a BridgeRoom inherits all attributes and
+				relations, in particular an id, names, external references, generic attributes and generalization relations.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="interiorFurniture" type="InteriorFurniturePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="bridgeRoomInstallation" type="IntBridgeInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfBridgeRoom" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="BridgeRoom" type="BridgeRoomType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfBridgeRoom" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="BridgeFurnitureType">
+		<xs:annotation>
+			<xs:documentation>Type for bridge furnitures. As subclass of _CityObject, a BridgeFurniture inherits all attributes and
+				relations, in particular an id, names, external references, generic attributes and generalization relations.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element ref="_GenericApplicationPropertyOfBridgeFurniture" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="BridgeFurniture" type="BridgeFurnitureType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfBridgeFurniture" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<!-- ============================Relation of Bridge to Rooms (LoD4 only)============================ -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="InteriorBridgeRoomPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractBridge to its rooms. The InteriorBridgeRoomPropertyType element must
+				either carry a reference to an BridgeRoom object or contain an BridgeRoom object inline, but neither both nor
+				none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="BridgeRoom"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="InteriorFurniturePropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of a BridgeRoom to its interior bridge furniture. The
+				InteriorBridgeFurniturePropertyType element must either carry a reference to an BridgeFurniture object or contain an
+				BridgeFurniture object inline, but neither both nor none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="BridgeFurniture"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+</xs:schema>

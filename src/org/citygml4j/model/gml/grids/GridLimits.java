@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,18 +19,85 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.grids;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.GMLClass;
 
-
-public interface GridLimits extends GML, Child, Copyable {
-	public GridEnvelope getGridEnvelope();
-	public boolean isSetGridEnvelope();
+public class GridLimits implements GML, Child, Copyable {
+	private GridEnvelope gridEnvelope;
+	private ModelObject parent;
 	
-	public void setGridEnvelope(GridEnvelope gridEnvelope);
-	public void unsetGridEnvelope();
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.GRID_LIMITS;
+	}
+
+	public GridEnvelope getGridEnvelope() {
+		return gridEnvelope;
+	}
+
+	public boolean isSetGridEnvelope() {
+		return gridEnvelope != null;
+	}
+
+	public void setGridEnvelope(GridEnvelope gridEnvelope) {
+		if (gridEnvelope != null)
+			gridEnvelope.setParent(this);
+		
+		this.gridEnvelope = gridEnvelope;
+	}
+
+	public void unsetGridEnvelope() {
+		if (isSetGridEnvelope())
+			gridEnvelope.unsetParent();
+		
+		gridEnvelope = null;
+	}
+	
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+	
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		GridLimits copy = (target == null) ? new GridLimits() : (GridLimits)target;
+		
+		if (isSetGridEnvelope()) {
+			copy.setGridEnvelope((GridEnvelope)copyBuilder.copy(gridEnvelope));
+			if (copy.getGridEnvelope() == gridEnvelope)
+				gridEnvelope.setParent(this);
+		}
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new GridLimits(), copyBuilder);
+	}
+
 }

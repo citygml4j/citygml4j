@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.module.citygml;
 
@@ -40,8 +42,8 @@ import org.citygml4j.model.module.Module;
 public class TransportationModule extends AbstractCityGMLModule {
 	private static final List<TransportationModule> instances = new ArrayList<TransportationModule>();
 
+	public static final TransportationModule v2_0_0;
 	public static final TransportationModule v1_0_0;
-	public static final TransportationModule v0_4_0;
 
 	private TransportationModule (
 			CityGMLModuleType type, 
@@ -55,6 +57,14 @@ public class TransportationModule extends AbstractCityGMLModule {
 	}
 
 	static {
+		v2_0_0 = new TransportationModule (
+				CityGMLModuleType.TRANSPORTATION,
+				CityGMLModuleVersion.v2_0_0,
+				"http://www.opengis.net/citygml/transportation/2.0",
+				"tran",
+				"http://schemas.opengis.net/citygml/transportation/2.0/transportation.xsd",			
+				CoreModule.v2_0_0);
+		
 		v1_0_0 = new TransportationModule (
 				CityGMLModuleType.TRANSPORTATION,
 				CityGMLModuleVersion.v1_0_0,
@@ -63,32 +73,35 @@ public class TransportationModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/transportation/1.0/transportation.xsd",			
 				CoreModule.v1_0_0);
 
-		v0_4_0 = new TransportationModule (
-				CityGMLModuleType.TRANSPORTATION,
-				CoreModule.v0_4_0.getVersion(),
-				CoreModule.v0_4_0.getNamespaceURI(),
-				CoreModule.v0_4_0.getNamespacePrefix(),
-				CoreModule.v0_4_0.getSchemaLocation(),		
-				CoreModule.v0_4_0);
+		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.elementMap.put("TransportationComplex", TransportationComplex.class);
+		v2_0_0.elementMap.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
+		v2_0_0.elementMap.put("TrafficArea", TrafficArea.class);
+		v2_0_0.elementMap.put("Square", Square.class);
+		v2_0_0.elementMap.put("Track", Track.class);
+		v2_0_0.elementMap.put("Railway", Railway.class);
+		v2_0_0.elementMap.put("Road", Road.class);
+		v1_0_0.elementMap = v2_0_0.elementMap;
 		
-		v1_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v1_0_0.elementMap.put("TransportationComplex", TransportationComplex.class);
-		v1_0_0.elementMap.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
-		v1_0_0.elementMap.put("TrafficArea", TrafficArea.class);
-		v1_0_0.elementMap.put("Square", Square.class);
-		v1_0_0.elementMap.put("Track", Track.class);
-		v1_0_0.elementMap.put("Railway", Railway.class);
-		v1_0_0.elementMap.put("Road", Road.class);
-		v0_4_0.elementMap = v1_0_0.elementMap;
-		
-		v1_0_0.propertySet = new HashSet<String>();
-		v1_0_0.propertySet.add("trafficArea");
-		v1_0_0.propertySet.add("auxiliaryTrafficArea");
-		v0_4_0.propertySet = v1_0_0.propertySet;
+		v2_0_0.propertySet = new HashSet<String>();
+		v2_0_0.propertySet.add("trafficArea");
+		v2_0_0.propertySet.add("auxiliaryTrafficArea");
+		v1_0_0.propertySet = v2_0_0.propertySet;
 	}
 
 	public static List<TransportationModule> getInstances() {
 		return instances;
+	}
+	
+	public static TransportationModule getInstance(CityGMLModuleVersion version) {
+		switch (version) {
+		case v2_0_0:
+			return v2_0_0;
+		case v1_0_0:
+			return v1_0_0;
+		default:
+			return null;
+		}
 	}
 
 }

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.transportation;
 
@@ -50,6 +52,7 @@ import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 
 public class Transportation100Marshaller {
@@ -111,18 +114,26 @@ public class Transportation100Marshaller {
 		return dest;
 	}
 	
-	public void marshalTransportationObject(AbstractTransportationObject src, AbstractTransportationObjectType dest) {
-		citygml.getCore100Marshaller().marshalCityObject(src, dest);
+	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractTransportationObjectType dest) {
+		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
+		
+		if (src.isSetGenericApplicationPropertyOfTransportationObject()) {
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTransportationObject())
+				if (adeComponent.isSetContent())
+					dest.get_GenericApplicationPropertyOfTransportationObject().add(citygml.ade2jaxbElement(adeComponent));
+		}
 	}
 	
 	public void marshalAuxiliaryTrafficArea(AuxiliaryTrafficArea src, AuxiliaryTrafficAreaType dest) {
-		marshalTransportationObject(src, dest);
+		marshalAbstractTransportationObject(src, dest);
 		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 		
 		if (src.isSetSurfaceMaterial())
-			dest.setSurfaceMaterial(src.getSurfaceMaterial());
+			dest.setSurfaceMaterial(src.getSurfaceMaterial().getValue());
 		
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -229,16 +240,20 @@ public class Transportation100Marshaller {
 	}	
 	
 	public void marshalTrafficArea(TrafficArea src, TrafficAreaType dest) {
-		marshalTransportationObject(src, dest);
+		marshalAbstractTransportationObject(src, dest);
 		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 		
 		if (src.isSetSurfaceMaterial())
-			dest.setSurfaceMaterial(src.getSurfaceMaterial());
+			dest.setSurfaceMaterial(src.getSurfaceMaterial().getValue());
 		
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
@@ -277,13 +292,17 @@ public class Transportation100Marshaller {
 	}
 	
 	public void marshalTransportationComplex(TransportationComplex src, TransportationComplexType dest) {
-		marshalTransportationObject(src, dest);
+		marshalAbstractTransportationObject(src, dest);
 		
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (Code function : src.getFunction())
+				dest.getFunction().add(function.getValue());
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (Code usage : src.getUsage())
+				dest.getUsage().add(usage.getValue());
+		}
 		
 		if (src.isSetTrafficArea()) {
 			for (TrafficAreaProperty trafficAreaProperty : src.getTrafficArea())

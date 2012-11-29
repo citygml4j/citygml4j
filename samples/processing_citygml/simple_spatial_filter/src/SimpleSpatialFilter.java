@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,7 +28,6 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.GMLFactory;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.CityGML;
@@ -50,40 +51,39 @@ public class SimpleSpatialFilter {
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		GMLFactory gml = new GMLFactory();
 		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Ettenheim_v100.xml chunk-wise");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Ettenheim_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_Buildings_v100.gml"));
 
-		System.out.println(df.format(new Date()) + "creating CityGML 1.0.0 model writer");
+		System.out.println(df.format(new Date()) + "creating CityGML 2.0.0 model writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-		out.setCityGMLVersion(CityGMLVersion.v1_0_0);
+		out.setCityGMLVersion(CityGMLVersion.v2_0_0);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD3_Ettenheim_cutout_v100.xml"));
-		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD2_Buildings_cutout_v200.gml"));
+		writer.setPrefixes(CityGMLVersion.v2_0_0);
+		writer.setDefaultNamespace(CoreModule.v2_0_0);
+		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
 		writer.setIndentString("  ");
 		writer.setHeaderComment("written by citygml4j");
 
 		System.out.println(df.format(new Date()) + "creating region filter as bounding box");
 		BoundingBox regionFilter = new BoundingBox();
-		regionFilter.setLowerCorner(new Point(3450376, 5430359, 0));
-		regionFilter.setUpperCorner(new Point(3450434, 5430424, 0));
+		regionFilter.setLowerCorner(new Point(20, 20, 0));
+		regionFilter.setUpperCorner(new Point(60, 60, 0));
 
 		CityModelInfo info = new CityModelInfo();
-		StringOrRef description = gml.createStringOrRef();
-		description.setValue("Cutout of original LOD3 Ettenheim scene to demonstrate simple spatial filtering.");
+		StringOrRef description = new StringOrRef();
+		description.setValue("Cutout of LOD2_Buildings_v100.gml to demonstrate simple spatial filtering.");
 		info.setDescription(description);
-		info.setBoundedBy(gml.createBoundingShape(regionFilter));
+		info.setBoundedBy(new BoundingShape(regionFilter));
 		
 		writer.setCityModelInfo(info);
 		writer.writeStartDocument();
 
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML chunk = reader.nextFeature();
 
 			if (chunk instanceof AbstractFeature) {
@@ -112,7 +112,7 @@ public class SimpleSpatialFilter {
 		reader.close();
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityGML file LOD3_Ettenheim_cutout_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_cutout_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.xml.io.writer;
 
@@ -30,10 +32,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
-import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
-import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -70,7 +68,8 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 				// validate output
 				if (useValidation) {
 					marshaller.setSchema(validationSchemaHandler.getSchema());
-					marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper());
+					marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", 
+							new JAXBNamespacePrefixMapper(jaxbMarshaller.getModuleContext()));
 					if (validationEventHandler != null)
 						marshaller.setEventHandler(validationEventHandler);
 				}
@@ -98,7 +97,7 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 			origModel = (CityModel)results.get(0);
 			gmlIds = new HashSet<String>();
 		} else
-			cityModel = new CityModelImpl();
+			cityModel = new CityModel();
 		
 		for (CityGML result : results) {
 			if (result instanceof AbstractFeature) {
@@ -110,19 +109,19 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 					gmlIds.add('#' + feature.getId());
 
 				if (feature instanceof AbstractCityObject) {
-					CityObjectMember member = new CityObjectMemberImpl();
+					CityObjectMember member = new CityObjectMember();
 					member.setCityObject((AbstractCityObject)feature);
 					cityModel.addCityObjectMember(member);
 				} 
 
 				else if (feature instanceof Appearance) {
-					AppearanceMember member = new AppearanceMemberImpl();
+					AppearanceMember member = new AppearanceMember();
 					member.setAppearance((Appearance)feature);
 					cityModel.addAppearanceMember(member);
 				} 
 
 				else {
-					FeatureMember member = new FeatureMemberImpl();
+					FeatureMember member = new FeatureMember();
 					member.setFeature(feature);
 					cityModel.addFeatureMember(member);
 				}
@@ -143,13 +142,13 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 
 				// add ADE feature to new CityModel
 				if (isCityObject(ade)) {
-					CityObjectMember member = new CityObjectMemberImpl();
+					CityObjectMember member = new CityObjectMember();
 					member.setGenericADEComponent(ade);
 					cityModel.addCityObjectMember(member);
 				} 
 
 				else {
-					FeatureMember member = new FeatureMemberImpl();
+					FeatureMember member = new FeatureMember();
 					member.setGenericADEComponent(ade);
 					cityModel.addFeatureMember(member);
 				}

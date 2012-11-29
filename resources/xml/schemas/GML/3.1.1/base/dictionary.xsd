@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml">
+<schema targetNamespace="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1.2" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-xsd:dictionary:3.1.1"/>
 		<documentation>
 			Dictionary schema for GML 3.1.1 
-			Components to support the lists of definitions.  
-    Copyright (c) 2005 OGC, All Rights Reserved.
-	For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr</documentation>
+			Components to support the lists of definitions.
+			
+			GML is an OGC Standard.
+			Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ========================================================
        includes and imports
 	======================================================== -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="gmlBase.xsd"/>
 	<!-- ===================================================== -->
 	<!-- ===================================================== -->

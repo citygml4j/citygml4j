@@ -55,7 +55,8 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
-		<delete file="LOD2_SubsurfaceStructureADE_split_v100.xml" />
-		<delete file="LOD2_SubsurfaceStructureADE_orig_v100.xml" />
+		<delete>
+			<fileset dir="." includes="*.gml"/>
+		</delete>
 	</target>
 </project>

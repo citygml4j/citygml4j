@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -29,10 +31,11 @@ import javax.xml.bind.ValidationEventHandler;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.factory.CityGMLFactory;
 import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingPart;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.model.citygml.core.CityObjectMember;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
+import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
@@ -47,24 +50,21 @@ public class ValidatingCityGMLWriter {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
-		CityGMLFactory citygml = new CityGMLFactory();
-		
 		// creating example (and simple) CityGML object tree
 		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
-		Building building = citygml.createBuilding();
+		Building building = new Building();
 		building.setId("1st-Building");
 		
-		BuildingPart buildingPart = citygml.createBuildingPart();
-		buildingPart.setId("PART");
-		building.addConsistsOfBuildingPart(citygml.createBuildingPartProperty('#' + buildingPart.getId()));
+		GenericCityObject genericObject = new GenericCityObject();
+		genericObject.addGenericAttribute(new GenericAttributeSet());
 		
-		CityModel cityModel = citygml.createCityModel();
-		cityModel.addCityObjectMember(citygml.createCityObjectMember(building));
-		cityModel.addCityObjectMember(citygml.createCityObjectMember(buildingPart));
+		CityModel cityModel = new CityModel();
+		cityModel.addCityObjectMember(new CityObjectMember(building));
+		cityModel.addCityObjectMember(new CityObjectMember(genericObject));
 		
-		CityGMLVersion version = CityGMLVersion.v0_4_0;
+		CityGMLVersion version = CityGMLVersion.v2_0_0;
 		
-		System.out.println(df.format(new Date()) + "creating validating CityGML 0.4.0 writer");
+		System.out.println(df.format(new Date()) + "creating validating CityGML 2.0.0 writer");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(version);
 		out.setProperty(CityGMLOutputFactory.USE_VALIDATION, true);
 		out.setValidationEventHandler(new ValidationEventHandler() {
@@ -75,9 +75,9 @@ public class ValidatingCityGMLWriter {
 		});		
 		
 		System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
-		CityGMLWriter writer = out.createCityGMLWriter(new File("Simple_but_invalid_building_v040.xml"));
+		CityGMLWriter writer = out.createCityGMLWriter(new File("Simple_but_invalid_building_v200.gml"));
 		writer.setPrefixes(version);
-		writer.setDefaultNamespace(CoreModule.v0_4_0);
+		writer.setDefaultNamespace(CoreModule.v2_0_0);
 		writer.setSchemaLocations(version);
 		writer.setIndentString("  ");
 		
@@ -85,7 +85,7 @@ public class ValidatingCityGMLWriter {
 		
 		writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file Simple_but_invalid_building_v040.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file Simple_but_invalid_building_v100.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

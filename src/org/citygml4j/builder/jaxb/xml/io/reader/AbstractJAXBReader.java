@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
@@ -37,12 +39,11 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
-import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.SAXException;
 
-public abstract class AbstractJAXBReader implements CityGMLReader {
+public abstract class AbstractJAXBReader {
 	final XMLStreamReader reader;
 
 	JAXBInputFactory factory;
@@ -60,22 +61,27 @@ public abstract class AbstractJAXBReader implements CityGMLReader {
 	URI baseURI;
 
 	@SuppressWarnings("unchecked")
-	public AbstractJAXBReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+	public AbstractJAXBReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {		
+		if ((Boolean)factory.getProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
+			reader = new CityGMLNamespaceMapper(reader);
+
 		this.reader = reader;
 		this.factory = factory;
 		this.baseURI = baseURI;
 
 		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
 		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
+		failOnMissingADESchema = (Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);
 
 		schemaHandler = factory.getSchemaHandler();
 		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
-		jaxbUnmarshaller.setThrowMissingADESchema((Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA));
+		jaxbUnmarshaller.setThrowMissingADESchema(failOnMissingADESchema);
 
 		elementChecker = new XMLElementChecker(schemaHandler, 
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
 				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
 				parseSchema,
+				failOnMissingADESchema,
 				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
 				(List<QName>)factory.getProperty(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY));
 

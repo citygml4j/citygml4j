@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -65,8 +67,8 @@ public class ValidationUsingJAXP {
 			}
 		});
 		
-		System.out.println(df.format(new Date()) + "validating CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.xml");		
-		validator.validate(new StreamSource("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.xml"));
+		System.out.println(df.format(new Date()) + "validating CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml");		
+		validator.validate(new StreamSource("../../datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}

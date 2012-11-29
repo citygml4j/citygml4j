@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface SolidProperty extends GeometryProperty<AbstractSolid> {
-	public AbstractSolid getSolid();
-	public boolean isSetSolid();
+public class SolidProperty extends GeometryProperty<AbstractSolid> {
 	
-	public void setSolid(AbstractSolid abstractSolid);
-	public void unsetSolid();
+	public SolidProperty() {
+
+	}
+
+	public SolidProperty(AbstractSolid abstractSolid) {
+		super(abstractSolid);
+	}
+
+	public SolidProperty(String href) {
+		super(href);
+	}
+	
+	public AbstractSolid getSolid() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetSolid() {
+		return super.isSetGeometry();
+	}
+
+	public void setSolid(AbstractSolid abstractSolid) {
+		super.setGeometry(abstractSolid);
+	}
+
+	public void unsetSolid() {
+		super.unsetGeometry();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SOLID_PROPERTY;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SolidProperty(), copyBuilder);
+	}
+
+	@Override
+	public Class<AbstractSolid> getAssociableClass() {
+		return AbstractSolid.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SolidProperty copy = (target == null) ? new SolidProperty() : (SolidProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

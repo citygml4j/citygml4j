@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,81 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.core;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.module.citygml.CoreModule;
 
-public interface ImplicitRepresentationProperty extends CoreModuleComponent, AssociationByRepOrRef<ImplicitGeometry> {
-	public ImplicitGeometry getImplicitGeometry();
-	public boolean isSetImplicitGeometry();
+public class ImplicitRepresentationProperty extends AssociationByRepOrRef<ImplicitGeometry> implements CoreModuleComponent {
+	private CoreModule module;
 	
-	public void setImplicitGeometry(ImplicitGeometry implicitGeometry);
-	public void unsetImplicitGeometry();
+	public ImplicitRepresentationProperty() {
+		
+	}
+	
+	public ImplicitRepresentationProperty(ImplicitGeometry implicitGeometry) {
+		super(implicitGeometry);
+	}
+	
+	public ImplicitRepresentationProperty(String href) {
+		super(href);
+	}
+	
+	public ImplicitRepresentationProperty(CoreModule module) {
+		this.module = module;
+	}
+	
+	public ImplicitGeometry getImplicitGeometry() {
+		return super.getObject();
+	}
+
+	public boolean isSetImplicitGeometry() {
+		return super.isSetObject();
+	}
+
+	public void setImplicitGeometry(ImplicitGeometry implicitGeometry) {
+		super.setObject(implicitGeometry);
+	}
+
+	public void unsetImplicitGeometry() {
+		super.unsetObject();
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+	
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.IMPLICIT_REPRESENTATION_PROPERTY;
+	}
+
+	public final CoreModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+	
+	public Class<ImplicitGeometry> getAssociableClass() {
+		return ImplicitGeometry.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ImplicitRepresentationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ImplicitRepresentationProperty copy = (target == null) ? new ImplicitRepresentationProperty() : (ImplicitRepresentationProperty)target;
+		return super.copyTo(copy, copyBuilder);		
+	}
+
 }

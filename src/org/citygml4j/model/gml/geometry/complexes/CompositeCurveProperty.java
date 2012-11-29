@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
-public interface CompositeCurveProperty extends GeometryProperty<CompositeCurve> {
-	public CompositeCurve getCompositeCurve();
-	public boolean isSetCompositeCurve();
+public class CompositeCurveProperty extends GeometryProperty<CompositeCurve> {
 	
-	public void setCompositeCurve(CompositeCurve compositeCurve);
-	public void unsetCompositeCurve();
+	public CompositeCurveProperty() {
+		
+	}
+	
+	public CompositeCurveProperty(CompositeCurve compositeCurve) {
+		super(compositeCurve);
+	}
+	
+	public CompositeCurveProperty(String href) {
+		super(href);
+	}
+	
+	public CompositeCurve getCompositeCurve() {
+		return super.getGeometry();
+	}
+	
+	public boolean isSetCompositeCurve() {
+		return super.isSetGeometry();
+	}
+	
+	public void setCompositeCurve(CompositeCurve compositeCurve) {
+		super.setGeometry(compositeCurve);
+	}
+	
+	public void unsetCompositeCurve() {
+		super.unsetGeometry();
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.COMPOSITE_CURVE_PROPERTY;
+	}
+	
+	@Override
+	public Class<CompositeCurve> getAssociableClass() {
+		return CompositeCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CompositeCurveProperty(), copyBuilder);
+	}
+	
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CompositeCurveProperty copy = (target == null) ? new CompositeCurveProperty() : (CompositeCurveProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+	
 }

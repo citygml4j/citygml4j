@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.appearance;
 
@@ -44,6 +46,9 @@ import org.citygml4j.jaxb.citygml.app._1.TextureAssociationType;
 import org.citygml4j.jaxb.citygml.app._1.TextureTypeType;
 import org.citygml4j.jaxb.citygml.app._1.WrapModeType;
 import org.citygml4j.jaxb.citygml.app._1.X3DMaterialType;
+import org.citygml4j.jaxb.xlink.ActuateType;
+import org.citygml4j.jaxb.xlink.ShowType;
+import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
@@ -119,14 +124,14 @@ public class Appearance100Marshaller {
 			dest = marshalTextureAssociation((TextureAssociation)src);
 		else if (src instanceof TextureCoordinates)
 			dest = marshalTextureCoordinates((TextureCoordinates)src);			
-		else if (src instanceof TextureType)
-			dest = marshalTextureType((TextureType)src);
 		else if (src instanceof WorldToTexture)
 			dest = marshalWorldToTexture((WorldToTexture)src);			
+		else if (src instanceof X3DMaterial)
+			dest = marshalX3DMaterial((X3DMaterial)src);
+		else if (src instanceof TextureType)
+			dest = marshalTextureType((TextureType)src);
 		else if (src instanceof WrapMode)
 			dest = marshalWrapMode((WrapMode)src);
-		else if (src instanceof X3DMaterial)
-			dest = marshalX3DMaterial((X3DMaterial)src);			
 
 		return dest;
 	}
@@ -151,7 +156,7 @@ public class Appearance100Marshaller {
 			dest.setImageURI(src.getImageURI());
 
 		if (src.isSetMimeType())
-			dest.setMimeType(src.getMimeType());
+			dest.setMimeType(src.getMimeType().getValue());
 
 		if (src.isSetTextureType())
 			dest.setTextureType(marshalTextureType(src.getTextureType()));
@@ -169,7 +174,7 @@ public class Appearance100Marshaller {
 		}
 	}
 
-	public void marshalTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
+	public void marshalAbstractTextureParameterization(AbstractTextureParameterization src, AbstractTextureParameterizationType dest) {
 		jaxb.getGMLMarshaller().marshalAbstractGML(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTextureParameterization()) {
@@ -210,17 +215,13 @@ public class Appearance100Marshaller {
 		return dest;
 	}
 
-	public void marshalAppearanceProperty(AppearanceProperty src, AppearancePropertyType dest) {
+	public AppearancePropertyType marshalAppearanceProperty(AppearanceProperty src) {
+		AppearancePropertyType dest = app.createAppearancePropertyType();
 		jaxb.getGMLMarshaller().marshalFeatureProperty(src, dest);
 
 		if (src.isSetAppearance())
 			dest.setAppearance(marshalAppearance(src.getAppearance()));
-	}
-
-	public AppearancePropertyType marshalAppearanceProperty(AppearanceProperty src) {
-		AppearancePropertyType dest = app.createAppearancePropertyType();
-		marshalAppearanceProperty(src, dest);
-
+		
 		return dest;
 	}
 
@@ -303,7 +304,7 @@ public class Appearance100Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -318,16 +319,16 @@ public class Appearance100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
 
 	public void marshalTexCoordGen(TexCoordGen src, TexCoordGenType dest) {
-		marshalTextureParameterization(src, dest);
+		marshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetWorldToTexture())
 			dest.setWorldToTexture(marshalWorldToTexture(src.getWorldToTexture()));
@@ -347,7 +348,7 @@ public class Appearance100Marshaller {
 	}
 
 	public void marshalTexCoordList(TexCoordList src, TexCoordListType dest) {
-		marshalTextureParameterization(src, dest);
+		marshalAbstractTextureParameterization(src, dest);
 
 		if (src.isSetTextureCoordinates()) {
 			for (TextureCoordinates textureCoordinates : src.getTextureCoordinates())
@@ -385,7 +386,7 @@ public class Appearance100Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -400,10 +401,10 @@ public class Appearance100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;			
 	}

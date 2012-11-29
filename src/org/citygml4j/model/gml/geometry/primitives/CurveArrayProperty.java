@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,19 +19,80 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelType;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 
-public interface CurveArrayProperty extends GeometryArrayProperty<AbstractCurve> {
-	public List<? extends AbstractCurve> getCurve();
-	public boolean isSetCurve();
+public class CurveArrayProperty extends GeometryArrayProperty<AbstractCurve> {
+
+	public CurveArrayProperty() {
+
+	}
+
+	public CurveArrayProperty(AbstractCurve abstractCurve) {
+		super(abstractCurve);
+	}
+
+	public CurveArrayProperty(List<AbstractCurve> abstractCurve) {
+		super(abstractCurve);
+	}
 	
-	public void addCurve(AbstractCurve abstractCurve);
-	public void setCurve(List<? extends AbstractCurve> abstractCurve);
-	public void unsetCurve();
-	public boolean unsetCurve(AbstractCurve abstractCurve);
+	public CurveArrayProperty(AbstractCurve... abstractCurve) {
+		super(abstractCurve);
+	}
+
+	public void addCurve(AbstractCurve abstractCurve) {
+		super.addGeometry(abstractCurve);
+	}
+
+	public List<? extends AbstractCurve> getCurve() {
+		return super.getGeometry();
+	}
+
+	public boolean isSetCurve() {
+		return super.isSetGeometry();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setCurve(List<? extends AbstractCurve> abstractCurve) {
+		super.setGeometry((List<AbstractCurve>)abstractCurve);
+	}
+
+	public void unsetCurve() {
+		super.unsetGeometry();
+	}
+
+	public boolean unsetCurve(AbstractCurve abstractCurve) {
+		return super.unsetGeometry(abstractCurve);
+	}
+
+	public ModelType getModelType() {
+		return ModelType.GML;
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.CURVE_ARRAY_PROPERTY;
+	}
+
+	public Class<AbstractCurve> getAssociableClass() {
+		return AbstractCurve.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new CurveArrayProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		CurveArrayProperty copy = (target == null) ? new CurveArrayProperty() : (CurveArrayProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

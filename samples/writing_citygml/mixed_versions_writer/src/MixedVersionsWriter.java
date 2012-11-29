@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,11 +19,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
@@ -31,9 +32,11 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.module.ModuleContext;
-import org.citygml4j.model.module.citygml.CityGMLModuleType;
+import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -50,36 +53,27 @@ public class MixedVersionsWriter {
 		CityGMLContext ctx = new CityGMLContext();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Ettenheim_v100.xml");
+		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Railway_v200.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Ettenheim_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD3_Railway_v200.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
-		System.out.println(df.format(new Date()) + "setting CityGML version flags up for mixed file context"); 
 		ModuleContext moduleContext100 = new ModuleContext(CityGMLVersion.v1_0_0);
-		ModuleContext moduleContext040 = new ModuleContext(CityGMLVersion.v0_4_0);
-		
-		HashMap<CityGMLModuleType, ModuleContext> convertContext = new HashMap<CityGMLModuleType, ModuleContext>();
-		convertContext.put(CityGMLModuleType.CITY_FURNITURE, moduleContext100);
-		convertContext.put(CityGMLModuleType.TRANSPORTATION, moduleContext100);
-		convertContext.put(CityGMLModuleType.WATER_BODY, moduleContext100);
-		convertContext.put(CityGMLModuleType.GENERICS, moduleContext100);
-		convertContext.put(CityGMLModuleType.LAND_USE, moduleContext100);
-		convertContext.put(CityGMLModuleType.RELIEF, moduleContext040);
-		convertContext.put(CityGMLModuleType.BUILDING, moduleContext040);
-		convertContext.put(CityGMLModuleType.VEGETATION, moduleContext100);		
+		ModuleContext moduleContext200 = new ModuleContext(CityGMLVersion.v2_0_0);
 		
 		System.out.println(df.format(new Date()) + "creating CityGML mixed version model writer"); 
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
 		out.setModuleContext(moduleContext100);
 		
-		CityModelWriter writer = out.createCityModelWriter(new File("LOD3_Ettenheim_mixed_v040_and_v100.xml"));
-		writer.setPrefixes(moduleContext040);
+		CityModelWriter writer = out.createCityModelWriter(new File("LOD3_Railway_mixed_v100_and_v200.gml"));
 		writer.setPrefixes(moduleContext100);
+		writer.setPrefix(BridgeModule.getInstance(CityGMLModuleVersion.v2_0_0));
+		writer.setPrefix(TunnelModule.getInstance(CityGMLModuleVersion.v2_0_0));
+		writer.setPrefix("core2", CoreModule.getInstance(CityGMLModuleVersion.v2_0_0).getNamespaceURI());
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
 		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v0_4_0);
+		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
 		writer.setIndentString("  ");
 
 		writer.setCityModelInfo(new CityModelInfo(cityModel));
@@ -88,8 +82,16 @@ public class MixedVersionsWriter {
 		for (CityObjectMember member : cityModel.getCityObjectMember()) {
 			if (member.isSetCityObject()) {
 				AbstractCityObject cityObject = member.getCityObject();
-				writer.setModuleContext(convertContext.get(cityObject.getCityGMLModule().getType()));
-
+				
+				switch (cityObject.getCityGMLModule().getType()) {
+				case BRIDGE:
+				case TUNNEL:
+					writer.setModuleContext(moduleContext200);
+					break;
+				default:
+					writer.setModuleContext(moduleContext100);
+				}
+				
 				writer.writeFeatureMember(cityObject);
 			}			
 		}
@@ -97,7 +99,7 @@ public class MixedVersionsWriter {
 		writer.writeEndDocument();		
 		writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD3_Ettenheim_mixed_v040_and_v100.xml written");
+		System.out.println(df.format(new Date()) + "CityGML file LOD3_Railway_mixed_v100_and_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

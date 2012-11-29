@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,22 +19,141 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
 import java.util.List;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.visitor.GMLFunctor;
+import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.common.visitor.GeometryVisitor;
+import org.citygml4j.model.gml.GMLClass;
 
-public interface Solid extends AbstractSolid {
-	public SurfaceProperty getExterior();
-	public List<SurfaceProperty> getInterior();
-	public boolean isSetExterior();
-	public boolean isSetInterior();
+public class Solid extends AbstractSolid {
+	private SurfaceProperty exterior;
+	private List<SurfaceProperty> interior;
+	
+	public void addInterior(SurfaceProperty interior) {
+		if (this.interior == null)
+			this.interior = new ChildList<SurfaceProperty>(this);
+		
+		this.interior.add(interior);
+	}
 
-	public void setExterior(SurfaceProperty exterior);
-	public void addInterior(SurfaceProperty interior);
-	public void setInterior(List<SurfaceProperty> interior);
-	public void unsetExterior();
-	public void unsetInterior();
-	public boolean unsetInterior(SurfaceProperty interior);
+	public SurfaceProperty getExterior() {
+		return exterior;
+	}
+
+	public List<SurfaceProperty> getInterior() {
+		if (interior == null)
+			interior = new ChildList<SurfaceProperty>(this);
+		
+		return interior;
+	}
+
+	public boolean isSetExterior() {
+		return exterior != null;
+	}
+
+	public boolean isSetInterior() {
+		return interior != null && !interior.isEmpty();
+	}
+
+	public void setExterior(SurfaceProperty exterior) {
+		if (exterior != null)
+			exterior.setParent(this);
+		
+		this.exterior = exterior;
+	}
+
+	public void setInterior(List<SurfaceProperty> interior) {
+		this.interior = new ChildList<SurfaceProperty>(this, interior);
+	}
+
+	public void unsetExterior() {
+		if (exterior != null)
+			exterior.unsetParent();
+	}
+
+	public void unsetInterior() {
+		if (isSetInterior())
+			interior.clear();
+		
+		interior = null;
+	}
+
+	public boolean unsetInterior(SurfaceProperty interior) {
+		return (isSetInterior()) ? this.interior.remove(interior) : false;
+	}
+
+	public BoundingBox calcBoundingBox() {
+		BoundingBox bbox = new BoundingBox();
+		
+		if (isSetExterior()) {
+			SurfaceProperty exterior = getExterior();
+			if (exterior.isSetSurface())
+				bbox.update(exterior.getSurface().calcBoundingBox());
+		}
+		
+		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
+				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
+			return null;
+		else
+			return bbox;
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.SOLID;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new Solid(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		Solid copy = (target == null) ? new Solid() : (Solid)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetExterior()) {
+			copy.setExterior((SurfaceProperty)copyBuilder.copy(exterior));
+			if (copy.getExterior() == exterior)
+				exterior.setParent(this);
+		}
+		
+		if (isSetInterior()) {
+			for (SurfaceProperty part : interior) {
+				SurfaceProperty copyPart = (SurfaceProperty)copyBuilder.copy(part);
+				copy.addInterior(copyPart);
+				
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
+		
+		return copy;
+	}
+	
+	public void accept(GeometryVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	public <T> T accept(GeometryFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+	
+	public void accept(GMLVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public <T> T accept(GMLFunctor<T> visitor) {
+		return visitor.apply(this);
+	}
+
 }

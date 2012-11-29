@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody;
 
@@ -27,11 +29,6 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.waterbody.BoundedByWaterSurfacePropertyImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterBodyImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterClosureSurfaceImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterGroundSurfaceImpl;
-import org.citygml4j.impl.citygml.waterbody.WaterSurfaceImpl;
 import org.citygml4j.jaxb.citygml.wtr._1.AbstractWaterBoundarySurfaceType;
 import org.citygml4j.jaxb.citygml.wtr._1.AbstractWaterObjectType;
 import org.citygml4j.jaxb.citygml.wtr._1.BoundedByWaterSurfacePropertyType;
@@ -49,6 +46,7 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -86,12 +84,12 @@ public class WaterBody100Unmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalWaterObject(AbstractWaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractWaterObject(AbstractWaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 	}
 	
-	public void unmarshalWaterBoundarySurface(AbstractWaterBoundarySurfaceType src, AbstractWaterBoundarySurface dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractWaterBoundarySurface(AbstractWaterBoundarySurfaceType src, AbstractWaterBoundarySurface dest) throws MissingADESchemaException {
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 		
 		if (src.isSetLod2Surface())
 			dest.setLod2Surface(jaxb.getGMLUnmarshaller().unmarshalSurfaceProperty(src.getLod2Surface()));
@@ -104,7 +102,7 @@ public class WaterBody100Unmarshaller {
 	}
 
 	public BoundedByWaterSurfaceProperty unmarshalBoundedByWaterSurfaceProperty(BoundedByWaterSurfacePropertyType src) throws MissingADESchemaException {
-		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfacePropertyImpl(module);
+		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfaceProperty(module);
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Object()) {
@@ -117,16 +115,20 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest) throws MissingADESchemaException {
-		unmarshalWaterObject(src, dest);
+		unmarshalAbstractWaterObject(src, dest);
 		
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new Code(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new Code(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new Code(usage));
+		}
 		
 		if (src.isSetLod0MultiSurface())
 			dest.setLod0MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod0MultiSurface()));
@@ -159,43 +161,43 @@ public class WaterBody100Unmarshaller {
 	}
 	
 	public WaterBody unmarshalWaterBody(WaterBodyType src) throws MissingADESchemaException {
-		WaterBody dest = new WaterBodyImpl(module);
+		WaterBody dest = new WaterBody(module);
 		unmarshalWaterBody(src, dest);
 
 		return dest;
 	}
 	
 	public void unmarshalWaterClosureSurface(WaterClosureSurfaceType src, WaterClosureSurface dest) throws MissingADESchemaException {
-		unmarshalWaterBoundarySurface(src, dest);
+		unmarshalAbstractWaterBoundarySurface(src, dest);
 	}
 	
 	public WaterClosureSurface unmarshalWaterClosureSurface(WaterClosureSurfaceType src) throws MissingADESchemaException {
-		WaterClosureSurface dest = new WaterClosureSurfaceImpl(module);
+		WaterClosureSurface dest = new WaterClosureSurface(module);
 		unmarshalWaterClosureSurface(src, dest);
 
 		return dest;
 	}
 	
 	public void unmarshalWaterGroundSurface(WaterGroundSurfaceType src, WaterGroundSurface dest) throws MissingADESchemaException {
-		unmarshalWaterBoundarySurface(src, dest);
+		unmarshalAbstractWaterBoundarySurface(src, dest);
 	}
 	
 	public WaterGroundSurface unmarshalWaterGroundSurface(WaterGroundSurfaceType src) throws MissingADESchemaException {
-		WaterGroundSurface dest = new WaterGroundSurfaceImpl(module);
+		WaterGroundSurface dest = new WaterGroundSurface(module);
 		unmarshalWaterGroundSurface(src, dest);
 
 		return dest;
 	}
 	
 	public void unmarshalWaterSurface(WaterSurfaceType src, WaterSurface dest) throws MissingADESchemaException {
-		unmarshalWaterBoundarySurface(src, dest);
+		unmarshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetWaterLevel())
-			dest.setWaterLevel(src.getWaterLevel());
+			dest.setWaterLevel(new Code(src.getWaterLevel()));
 	}
 	
 	public WaterSurface unmarshalWaterSurface(WaterSurfaceType src) throws MissingADESchemaException {
-		WaterSurface dest = new WaterSurfaceImpl(module);
+		WaterSurface dest = new WaterSurface(module);
 		unmarshalWaterSurface(src, dest);
 
 		return dest;

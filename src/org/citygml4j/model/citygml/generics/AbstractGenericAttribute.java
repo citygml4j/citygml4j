@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,16 +19,82 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.generics;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
+import org.citygml4j.model.module.citygml.GenericsModule;
 
-public interface AbstractGenericAttribute extends GenericsModuleComponent, Child, Copyable {
-	public String getName();
-	public boolean isSetName();
+public abstract class AbstractGenericAttribute implements GenericsModuleComponent, Child, Copyable {
+	private String name;
+	private GenericsModule module;
+	private ModelObject parent;
 	
-	public void setName(String name);
-	public void unsetName();
+	public AbstractGenericAttribute() {
+		
+	}
+	
+	public AbstractGenericAttribute(GenericsModule module) {
+		this.module = module;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public boolean isSetName() {
+		return name != null;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void unsetName() {
+		name = null;
+	}
+
+	public final GenericsModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+	
+	public ModelObject getParent() {
+		return parent;
+	}
+
+	public void setParent(ModelObject parent) {
+		this.parent = parent;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		if (target == null)
+			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+		AbstractGenericAttribute copy = (AbstractGenericAttribute)target;
+		
+		if (isSetName())
+			copy.setName(copyBuilder.copy(name));
+		
+		copy.unsetParent();
+		
+		return copy;
+	}
+
 }

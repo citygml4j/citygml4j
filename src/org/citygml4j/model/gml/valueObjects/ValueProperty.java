@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,60 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.valueObjects;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
-public interface ValueProperty extends AssociationByRepOrRef<Value> {
-	public Value getValue();
-	public boolean isSetValue();
-	
-	public void setValue(Value value);
-	public void unsetValue();
+public class ValueProperty extends AssociationByRepOrRef<Value> {
+
+	public ValueProperty() {
+
+	}
+
+	public ValueProperty(Value value) {
+		super(value);
+	}
+
+	public ValueProperty(String href) {
+		super(href);
+	}
+
+	public Value getValue() {
+		return super.getObject();
+	}
+
+	public boolean isSetValue() {
+		return super.isSetObject();
+	}
+
+	public void setValue(Value value) {
+		super.setObject(value);
+	}
+
+	public void unsetValue() {
+		super.unsetObject();
+	}
+
+	public GMLClass getGMLClass() {
+		return GMLClass.VALUE_PROPERTY;
+	}
+
+	public Class<Value> getAssociableClass() {
+		return Value.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		ValueProperty copy = (target == null) ? new ValueProperty() : (ValueProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new ValueProperty(), copyBuilder);
+	}
+
 }

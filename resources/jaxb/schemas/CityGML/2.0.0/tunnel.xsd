@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CityGML Version No. 2.0, February 2012 -->
+<!-- CityGML - GML 3.1.1 application schema for 3D city models -->
+<!-- International encoding standard of the Open Geospatial Consortium, see http://www.opengeospatial.org/standards/citygml -->
+<!-- Jointly developed by the Special Interest Group 3D (SIG 3D) of GDI-DE, see http://www.sig3d.org               -->
+<!-- For further information see: http://www.citygml.org -->
+<xs:schema xmlns="http://www.opengis.net/citygml/tunnel/2.0" xmlns:core="http://www.opengis.net/citygml/2.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml"
+	targetNamespace="http://www.opengis.net/citygml/tunnel/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation>
+	CityGML is an OGC Standard.
+	Copyright (c) 2012 Open Geospatial Consortium.
+	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../GML/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="cityGMLBase.xsd"/>
+	<!-- =============================================================================== -->
+	<!-- ============================= CityGML Tunnel module   ========================= -->
+	<!-- =============================================================================== -->
+	<xs:complexType name="AbstractTunnelType">
+		<xs:annotation>
+			<xs:documentation>Abstract super class of the features Tunnel and TunnelPart</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractSiteType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="yearOfConstruction" type="xs:gYear" minOccurs="0"/>
+					<xs:element name="yearOfDemolition" type="xs:gYear" minOccurs="0"/>
+					<xs:element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod1TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod2MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod2TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="outerTunnelInstallation" type="TunnelInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="interiorTunnelInstallation" type="IntTunnelInstallationPropertyType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod3TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="lod4TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+					<xs:element name="interiorHollowSpace" type="InteriorHollowSpacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="consistsOfTunnelPart" type="TunnelPartPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfAbstractTunnel" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="_AbstractTunnel" type="AbstractTunnelType" abstract="true" substitutionGroup="core:_Site"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfAbstractTunnel" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="TunnelType">
+		<xs:annotation>
+			<xs:documentation>Horizontal or sloping underground or partly underground, enclosed way of some length (ISO
+				6707-1)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractTunnelType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfTunnel" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="Tunnel" type="TunnelType" substitutionGroup="_AbstractTunnel"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfTunnel" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="TunnelPartType">
+		<xs:annotation>
+			<xs:documentation>A Tunnel composed of structural segments differing in important geometrical or semantical properties can
+				be separated into one Tunnel and additional TunnelParts. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractTunnelType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfTunnelPart" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="TunnelPart" type="TunnelPartType" substitutionGroup="_AbstractTunnel"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfTunnelPart" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="TunnelPartPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _AbstractTunnel to its parts. The TunnelPartPropertyType element must either
+				carry a reference to a TunnelPart object or contain a TunnelPart object inline, but neither both nor
+				none.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="TunnelPart"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="TunnelInstallationType">
+		<xs:annotation>
+			<xs:documentation>Immovable structural component of a Tunnel which has not the significance of a TunnelPart. As subclass of
+				_CityObject, a TunnelInstallation inherits all attributes and relations, in particular an id, names, external references,
+				generic attributes and generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod2ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfTunnelInstallation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="TunnelInstallation" type="TunnelInstallationType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfTunnelInstallation" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="TunnelInstallationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of a Tunnel to its external installations. The TunnelInstallationPropertyType element
+				must either carry a reference to a TunnelInstallation object or contain a TunnelInstallation object inline, but neither
+				both nor none. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="TunnelInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="IntTunnelInstallationType">
+		<xs:annotation>
+			<xs:documentation>Immovable interior structural component of a Tunnel or a HollowSpace. Examples are interior stairs,
+				railings, radiators or pipes. As subclass of _CityObject, an IntTunnelInstallation inherits all attributes and relations,
+				in particular an id, names, external references, and generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfIntTunnelInstallation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="IntTunnelInstallation" type="IntTunnelInstallationType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfIntTunnelInstallation" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="IntTunnelInstallationPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of a Tunnel to its internal installations. The InteriorTunnelInstallationPropertyType
+				element must either carry a reference to a IntTunnelInstallation object or contain a IntTunnelInstallation object inline,
+				but neither both nor none. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="IntTunnelInstallation"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<!-- ========================SURFACES OF TUNNELS AND HOLLOW SPACES ( LoD2 to LOD4)=====================-->
+	<!-- ========================================================================================== -->
+	<xs:complexType name="BoundarySurfacePropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an tunnel or hollow space to its bounding thematic surfaces (walls, roofs, ..).
+				There is no differentiation between interior surfaces bounding hollow spaces and outer ones bounding tunnels (one reason
+				is, that ClosureSurface belongs to both types). It has to be made sure by additional integrity constraints that, e.g. a
+				tunnel is not related to CeilingSurfaces or a room not to RoofSurfaces. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="_BoundarySurface"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="AbstractBoundarySurfaceType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Abstract super class of the features RoofSurface, WallSurface, GroundSurface, ClosureSurface,
+				FloorSurface, OuterFloorSurface, CeilingSurface and OuterCeilingSurface</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="opening" type="OpeningPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfBoundarySurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="_BoundarySurface" type="AbstractBoundarySurfaceType" abstract="true" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfBoundarySurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="RoofSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Construction that separates the interior part of the Tunnel from the ambient medium ( water, air, ..) from
+				above.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfRoofSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="RoofSurface" type="RoofSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfRoofSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="WallSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Mainly vertical construction that separates the interior part of the Tunnel from the ambient medium (rock,
+				earth, water, air, ..)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfWallSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="WallSurface" type="WallSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfWallSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="GroundSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Horizontal construction that separates the interior part of the Tunnel from the ambient medium (rock,
+				earth, water, air, ..) from below on the lowest level. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfGroundSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="GroundSurface" type="GroundSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfGroundSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="ClosureSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Virtual surface which can be used to define the volume of geometric objects being not totally bounded by
+				real surfaces (e. g. the entrance of an open Tunnel).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfClosureSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="ClosureSurface" type="ClosureSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfClosureSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<!-- ===================================LoD4 only Surfaces=========================================== -->
+	<!-- ========================================================================================== -->
+	<xs:complexType name="FloorSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Mostly horizontal construction that bounds a HollowSpace from below. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="FloorSurface" type="FloorSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfFloorSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="OuterFloorSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Horizontal construction that separates the interior part of the Tunnel from the ambient medium (rock,
+				earth, water, air, ..) from below.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfOuterFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="OuterFloorSurface" type="OuterFloorSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfOuterFloorSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="InteriorWallSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Mostly vertical construction that bounds a HollowSpace.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfInteriorWallSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="InteriorWallSurface" type="InteriorWallSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfInteriorWallSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="CeilingSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Mostly horizontal construction that bounds a HollowSpace from above.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="CeilingSurface" type="CeilingSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfCeilingSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="OuterCeilingSurfaceType">
+		<xs:annotation>
+			<xs:documentation>Mainly horizontal construction that separates the interior part of the Tunnel from the ambient medium
+				(rock, earth, ..) from above.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractBoundarySurfaceType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfOuterCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="OuterCeilingSurface" type="OuterCeilingSurfaceType" substitutionGroup="_BoundarySurface"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfOuterCeilingSurface" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="HollowSpaceType">
+		<xs:annotation>
+			<xs:documentation>Area or volume within a Tunnel bounded actually or theoretically </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="interiorFurniture" type="InteriorFurniturePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="hollowSpaceInstallation" type="IntTunnelInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="_GenericApplicationPropertyOfHollowSpace" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="HollowSpace" type="HollowSpaceType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfHollowSpace" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="InteriorHollowSpacePropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of a Tunnel to its internal holllow spaces. The InteriorHollowSpacePropertyType
+				element must either carry a reference to a HollowSpace object or contain a HollowSpace object inline, but neither both nor
+				none. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="HollowSpace"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="TunnelFurnitureType">
+		<xs:annotation>
+			<xs:documentation>Movable, functional objects, whether useful or ornamental, usually found in a
+				HollowSpace</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element ref="_GenericApplicationPropertyOfTunnelFurniture" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<xs:element name="TunnelFurniture" type="TunnelFurnitureType" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================== -->
+	<xs:element name="_GenericApplicationPropertyOfTunnelFurniture" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================== -->
+	<xs:complexType name="InteriorFurniturePropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of a hollow space to the furnitures it contains. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="TunnelFurniture"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================== -->
+	<!-- ========================================================================================= -->
+	<!-- ================================Openings (LOD3 and LOD4 only)================================ -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="AbstractOpeningType" abstract="true">
+		<xs:annotation>
+			<xs:documentation> Type for openings (doors, windows) in boundary surfaces. Used in LOD3 and LOD4 only. As subclass of
+				_CityObject, an _Opening inherits all attributes and relations, in particular an id, names, external references, and
+				generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element ref="_GenericApplicationPropertyOfOpening" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="_Opening" type="AbstractOpeningType" abstract="true" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfOpening" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="OpeningPropertyType">
+		<xs:annotation>
+			<xs:documentation>Denotes the relation of an _BondarySurface to its openings (doors, windows). The OpeningPropertyType
+				element must either carry a reference to an _Opening object or contain an _Opening object inline, but neither both nor
+				none. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="_Opening"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="WindowType">
+		<xs:annotation>
+			<xs:documentation>Construction for closing an _Opening not intended for access or regress.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractOpeningType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfWindow" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="Window" type="WindowType" substitutionGroup="_Opening"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfWindow" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="DoorType">
+		<xs:annotation>
+			<xs:documentation>Construction for closing an _Opening intended primarily for access or regress or both. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractOpeningType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfDoor" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="Door" type="DoorType" substitutionGroup="_Opening"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfDoor" type="xs:anyType" abstract="true"/>
+</xs:schema>

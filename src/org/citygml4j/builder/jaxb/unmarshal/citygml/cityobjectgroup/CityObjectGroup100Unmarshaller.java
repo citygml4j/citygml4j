@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup;
 
@@ -27,9 +29,6 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupImpl;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupMemberImpl;
-import org.citygml4j.impl.citygml.cityobjectgroup.CityObjectGroupParentImpl;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupMemberType;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupParentType;
 import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupType;
@@ -40,6 +39,10 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -74,16 +77,20 @@ public class CityObjectGroup100Unmarshaller {
 	}
 
 	public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new Code(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new Code(function));
+		}
 
-		if (src.isSetUsage())
-			dest.setUsage(src.getUsage());
+		if (src.isSetUsage()) {
+			for (String usage : src.getUsage())
+				dest.addUsage(new Code(usage));
+		}
 
 		if (src.isSetGeometry())
 			dest.setGeometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getGeometry()));
@@ -98,14 +105,14 @@ public class CityObjectGroup100Unmarshaller {
 	}
 
 	public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src) throws MissingADESchemaException {
-		CityObjectGroup dest = new CityObjectGroupImpl(module);
+		CityObjectGroup dest = new CityObjectGroup(module);
 		unmarshalCityObjectGroup(src, dest);
 
 		return dest;
 	}
 
 	public CityObjectGroupMember unmarshalCityObjectGroupMember(CityObjectGroupMemberType src) throws MissingADESchemaException {
-		CityObjectGroupMember dest = new CityObjectGroupMemberImpl(module);
+		CityObjectGroupMember dest = new CityObjectGroupMember(module);
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -123,7 +130,7 @@ public class CityObjectGroup100Unmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -138,16 +145,16 @@ public class CityObjectGroup100Unmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
 
 	public CityObjectGroupParent unmarshalCityObjectGroupParent(CityObjectGroupParentType src) throws MissingADESchemaException {
-		CityObjectGroupParent dest = new CityObjectGroupParentImpl(module);
+		CityObjectGroupParent dest = new CityObjectGroupParent(module);
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -162,7 +169,7 @@ public class CityObjectGroup100Unmarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(XLinkType.fromValue(src.getType().value()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -177,10 +184,10 @@ public class CityObjectGroup100Unmarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}

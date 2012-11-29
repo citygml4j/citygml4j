@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,17 +19,61 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.coverage;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 
-
-public interface RangeParameters extends AssociationByRepOrRef<ValueObject> {
-	public ValueObject getValueObject();
-	public boolean isSetValueObject();
+public class RangeParameters extends AssociationByRepOrRef<ValueObject> {
 	
-	public void setValueObject(ValueObject valueObject);
-	public void unsetValueObject();
+	public RangeParameters() {
+		
+	}
+	
+	public RangeParameters(ValueObject valueObject) {
+		super(valueObject);
+	}
+	
+	public RangeParameters(String href) {
+		super(href);
+	}
+	
+	public ValueObject getValueObject() {
+		return super.getObject();
+	}
+
+	public boolean isSetValueObject() {
+		return super.isSetObject();
+	}
+
+	public void setValueObject(ValueObject valueObject) {
+		super.setObject(valueObject);
+	}
+
+	public void unsetValueObject() {
+		super.unsetObject();
+	}
+	
+	public GMLClass getGMLClass() {
+		return GMLClass.RANGE_PARAMETERS;
+	}
+
+	public Class<ValueObject> getAssociableClass() {
+		return ValueObject.class;
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		RangeParameters copy = (target == null) ? new RangeParameters() : (RangeParameters)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new RangeParameters(), copyBuilder);
+	}
+
 }

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,9 +19,42 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.feature;
 
-public interface FeatureMember extends FeatureProperty<AbstractFeature> {
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+
+public class FeatureMember extends FeatureProperty<AbstractFeature> {
+
+	public FeatureMember() {
+		
+	}
+	
+	public FeatureMember(AbstractFeature abstractFeature) {
+		super(abstractFeature);
+	}
+	
+	public FeatureMember(String href) {
+		super(href);
+	}
+	
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.FEATURE_MEMBER;
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		FeatureMember copy = (target == null) ? new FeatureMember() : (FeatureMember)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new FeatureMember(), copyBuilder);
+	}
 
 }

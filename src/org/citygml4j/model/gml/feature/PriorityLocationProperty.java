@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,13 +19,65 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.gml.feature;
 
-public interface PriorityLocationProperty extends LocationProperty {
-	public String getPriority();
-	public boolean isSetPriority();
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+
+public class PriorityLocationProperty extends LocationProperty {
+	private String priority;
 	
-	public void setPriority(String priority);
-	public void unsetPriority();
+	public PriorityLocationProperty() {
+
+	}
+
+	public PriorityLocationProperty(AbstractGeometry abstractGeometry) {
+		super(abstractGeometry);
+	}
+
+	public PriorityLocationProperty(String href) {
+		super(href);
+	}
+	
+	public String getPriority() {
+		return priority;
+	}
+
+	public boolean isSetPriority() {
+		return priority != null;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public void unsetPriority() {
+		priority = null;
+	}
+
+	@Override
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new PriorityLocationProperty(), copyBuilder);
+	}
+
+	@Override
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		PriorityLocationProperty copy = (target == null) ? new PriorityLocationProperty() : (PriorityLocationProperty)target;
+		super.copyTo(copy, copyBuilder);
+		
+		if (isSetPriority())
+			copy.setPriority(copyBuilder.copy(priority));
+		
+		return copy;
+	}
+
+	@Override
+	public GMLClass getGMLClass() {
+		return GMLClass.PRIORITY_LOCATION_PROPERTY;
+	}
+
 }

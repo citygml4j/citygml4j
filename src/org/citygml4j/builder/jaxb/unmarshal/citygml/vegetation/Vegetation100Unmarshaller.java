@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation;
 
@@ -27,16 +29,15 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.impl.citygml.vegetation.PlantCoverImpl;
-import org.citygml4j.impl.citygml.vegetation.SolitaryVegetationObjectImpl;
 import org.citygml4j.jaxb.citygml.veg._1.AbstractVegetationObjectType;
 import org.citygml4j.jaxb.citygml.veg._1.PlantCoverType;
 import org.citygml4j.jaxb.citygml.veg._1.SolitaryVegetationObjectType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
-import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -68,18 +69,20 @@ public class Vegetation100Unmarshaller {
 		return dest;
 	}
 
-	public void unmarshalVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalCityObject(src, dest);
+	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
+		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 	}
 
 	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) throws MissingADESchemaException {
-		unmarshalVegetationObject(src, dest);
+		unmarshalAbstractVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new Code(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new Code(function));
+		}
 
 		if (src.isSetAverageHeight())
 			dest.setAverageHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getAverageHeight()));
@@ -107,23 +110,25 @@ public class Vegetation100Unmarshaller {
 	}
 
 	public PlantCover unmarshalPlantCover(PlantCoverType src) throws MissingADESchemaException {
-		PlantCover dest = new PlantCoverImpl(module);
+		PlantCover dest = new PlantCover(module);
 		unmarshalPlantCover(src, dest);
 
 		return dest;
 	}
 
 	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) throws MissingADESchemaException {
-		unmarshalVegetationObject(src, dest);
+		unmarshalAbstractVegetationObject(src, dest);
 
 		if (src.isSetClazz())
-			dest.setClazz(src.getClazz());
+			dest.setClazz(new Code(src.getClazz()));
 
-		if (src.isSetFunction())
-			dest.setFunction(src.getFunction());
+		if (src.isSetFunction()) {
+			for (String function : src.getFunction())
+				dest.addFunction(new Code(function));
+		}
 
 		if (src.isSetSpecies())
-			dest.setSpecies(src.getSpecies());
+			dest.setSpecies(new Code(src.getSpecies()));
 
 		if (src.isSetHeight())
 			dest.setHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getHeight()));
@@ -160,7 +165,7 @@ public class Vegetation100Unmarshaller {
 	}
 
 	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) throws MissingADESchemaException {
-		SolitaryVegetationObject dest = new SolitaryVegetationObjectImpl(module);
+		SolitaryVegetationObject dest = new SolitaryVegetationObject(module);
 		unmarshalSolitaryVegetationObject(src, dest);
 
 		return dest;

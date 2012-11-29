@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,15 +19,81 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.model.citygml.appearance;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.citygml.AppearanceModule;
 
-public interface SurfaceDataProperty extends AppearanceModuleComponent, FeatureProperty<AbstractSurfaceData> {
-	public AbstractSurfaceData getSurfaceData();
-	public boolean isSetSurfaceData();
+public class SurfaceDataProperty extends FeatureProperty<AbstractSurfaceData> implements AppearanceModuleComponent {
+	private AppearanceModule module;
 	
-	public void setSurfaceData(AbstractSurfaceData surfaceData);
-	public void unsetSurfaceData();
+	public SurfaceDataProperty() {
+		
+	}
+	
+	public SurfaceDataProperty(AbstractSurfaceData abstractSurfaceData) {
+		super(abstractSurfaceData);
+	}
+	
+	public SurfaceDataProperty(String href) {
+		super(href);
+	}
+	
+	public SurfaceDataProperty(AppearanceModule module) {
+		this.module = module;
+	}
+	
+	public AbstractSurfaceData getSurfaceData() {
+		return super.getObject();
+	}
+
+	public boolean isSetSurfaceData() {
+		return super.isSetObject();
+	}
+
+	public void setSurfaceData(AbstractSurfaceData surfaceData) {
+		super.setObject(surfaceData);
+	}
+	
+	public void unsetSurfaceData() {
+		super.unsetObject();
+	}
+	
+	@Override
+	public ModelType getModelType() {
+		return ModelType.CITYGML;
+	}
+
+	public CityGMLClass getCityGMLClass() {
+		return CityGMLClass.SURFACE_DATA_PROPERTY;
+	}
+
+	public final AppearanceModule getCityGMLModule() {
+		return module;
+	}
+
+	public boolean isSetCityGMLModule() {
+		return module != null;
+	}
+
+	@Override
+	public Class<AbstractSurfaceData> getAssociableClass() {
+		return AbstractSurfaceData.class;
+	}
+
+	public Object copy(CopyBuilder copyBuilder) {
+		return copyTo(new SurfaceDataProperty(), copyBuilder);
+	}
+
+	public Object copyTo(Object target, CopyBuilder copyBuilder) {
+		SurfaceDataProperty copy = (target == null) ? new SurfaceDataProperty() : (SurfaceDataProperty)target;
+		return super.copyTo(copy, copyBuilder);
+	}
+
 }

@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 package org.citygml4j.builder.jaxb.xml.io.writer;
 
@@ -30,11 +32,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
-import org.citygml4j.impl.citygml.appearance.AppearanceMemberImpl;
-import org.citygml4j.impl.citygml.core.CityModelImpl;
-import org.citygml4j.impl.citygml.core.CityObjectMemberImpl;
-import org.citygml4j.impl.gml.feature.FeatureArrayPropertyImpl;
-import org.citygml4j.impl.gml.feature.FeatureMemberImpl;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -147,7 +144,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 				cityModel.unsetGenericApplicationPropertyOfCityModel();
 				cityModel.unsetGenericADEComponent();
 			} else
-				cityModel = new CityModelImpl();
+				cityModel = new CityModel();
 
 			JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(cityModel);
 			if (jaxbElement != null) {
@@ -175,7 +172,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		}
 
 		try {
-			CityModel cityModel = new CityModelImpl();
+			CityModel cityModel = new CityModel();
 
 			if (cityModelInfo != null) {
 				if (cityModelInfo.isSetGenericApplicationPropertyOfCityModel())
@@ -255,7 +252,7 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			throw new IllegalStateException("Unknown document state '" + documentState + "'");
 		}
 
-		FeatureArrayProperty members = new FeatureArrayPropertyImpl();
+		FeatureArrayProperty members = new FeatureArrayProperty();
 		List<FeatureProperty<? extends AbstractFeature>> featureArray = new ArrayList<FeatureProperty<? extends AbstractFeature>>();
 
 		for (ModelObject feature : features) {
@@ -289,24 +286,24 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 		FeatureProperty<? extends AbstractFeature> member = null;
 
 		if (object instanceof AbstractCityObject) {
-			member = new CityObjectMemberImpl();
+			member = new CityObjectMember();
 			((CityObjectMember)member).setCityObject((AbstractCityObject)object);
 		} 
 
 		else if (object instanceof Appearance) {
-			member = new AppearanceMemberImpl();
+			member = new AppearanceMember();
 			((AppearanceMember)member).setAppearance((Appearance)object);
 		} 
 
 		else if (object instanceof AbstractFeature) {
-			member = new FeatureMemberImpl();
+			member = new FeatureMember();
 			((FeatureMember)member).setFeature((AbstractFeature)object);
 		}
 
 		else if (object instanceof ADEComponent) {
 			ADEComponent ade = (ADEComponent)object;
 
-			member = (isCityObject(ade)) ? new CityObjectMemberImpl() : new FeatureMemberImpl();
+			member = (isCityObject(ade)) ? new CityObjectMember() : new FeatureMember();
 			member.setGenericADEComponent(ade);
 		}
 
@@ -342,7 +339,8 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			// turn validation on
 			if (useValidation) {
 				marshaller.setSchema(validationSchemaHandler.getSchema());
-				marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new JAXBNamespacePrefixMapper());
+				marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", 
+						new JAXBNamespacePrefixMapper(jaxbMarshaller.getModuleContext()));
 				if (validationEventHandler != null)
 					marshaller.setEventHandler(validationEventHandler);
 			}

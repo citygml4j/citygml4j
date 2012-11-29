@@ -1,8 +1,8 @@
 /*
  * This file is part of citygml4j.
- * Copyright (c) 2007 - 2010
+ * Copyright (c) 2007 - 2012
  * Institute for Geodesy and Geoinformation Science
- * Technische Universitaet Berlin, Germany
+ * Technische Universität Berlin, Germany
  * http://www.igg.tu-berlin.de/
  *
  * The citygml4j library is free software:
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
+ * 
+ * $Id$
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -53,16 +55,16 @@ public class WrongSchemaLocation {
 		schemaHandler.setErrorHandler(new SchemaParseErrorHandler());
 		
 		// register false schema location in order to provoke a schema parse error
-		schemaHandler.registerSchemaLocation("http://www.citygml.org/ade/noise_de", 
+		schemaHandler.registerSchemaLocation("http://www.citygml.org/ade/noise_de/2.0", 
 				new File("/nowhere/nofile.xsd"));
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v100.xml");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v200.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v100.xml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
 		
-		while (reader.hasNextFeature()) {
+		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();
 			
 			if (citygml instanceof AbstractFeature)
