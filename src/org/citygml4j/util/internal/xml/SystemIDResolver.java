@@ -18,7 +18,7 @@ package org.citygml4j.util.internal.xml;
  * limitations under the License.
  */
 /*
- * $Id: SystemIDResolver.java 542 2012-11-29 20:56:44Z nagel $
+ * $Id: SystemIDResolver.java 468655 2006-10-28 07:12:06Z minchau $
  */
 
 import java.io.File;
