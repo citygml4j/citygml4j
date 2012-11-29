@@ -20,7 +20,7 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  * 
- * $Id$
+ * $Id: MultithreadedReader.java 539 2012-11-29 20:34:56Z nagel $
  */
 import java.io.File;
 import java.text.SimpleDateFormat;

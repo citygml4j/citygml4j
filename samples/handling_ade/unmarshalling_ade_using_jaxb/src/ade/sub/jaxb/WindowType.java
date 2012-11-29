@@ -20,7 +20,7 @@
  * License along with this library. If not, see 
  * <http://www.gnu.org/licenses/>.
  * 
- * $Id$
+ * $Id: WindowType.java 542 2012-11-29 20:56:44Z nagel $
  */
 
 package ade.sub.jaxb;
