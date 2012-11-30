@@ -35,25 +35,6 @@
 		<mkdir dir="${dir.maven.dist}" />
 	</target>
 
-	<target name="dist" description="generate the distribution">
-		<!-- copy pom.xml -->
-		<copy file="${dir.resources.maven}/pom.xml" tofile="${dir.maven.dist}/pom.xml" />
-
-		<!-- copy the main artifact -->
-		<copy file="${dir.dist.lib}/${citygml4j.jar}" tofile="${dir.maven.dist}/${maven.main.jar}" />
-
-		<!-- build the javadoc artifact -->
-		<jar jarfile="${dir.maven.dist}/${maven.javadoc.jar}">
-			<fileset dir="${dir.dist.javadoc}" />
-		</jar>
-
-		<!-- build the sources artifact -->
-		<jar jarfile="${dir.maven.dist}/${maven.sources.jar}">
-			<fileset dir="${dir.src}" />
-			<fileset dir="${dir.src-gen}" />
-		</jar>
-	</target>
-
 	<target name="generate_jaxb_binding" unless="${citygml4j.src-gen.present}">
 		<subant target="generate_jaxb_binding">
 			<fileset dir="." includes="build.xml" />
