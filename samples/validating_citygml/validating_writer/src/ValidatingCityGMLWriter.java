@@ -73,7 +73,7 @@ public class ValidatingCityGMLWriter {
 		});		
 		
 		System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
-		CityGMLWriter writer = out.createCityGMLWriter(new File("Simple_but_invalid_building_v200.gml"));
+		CityGMLWriter writer = out.createCityGMLWriter(new File("simple_but_invalid_building_v200.gml"));
 		writer.setPrefixes(version);
 		writer.setDefaultNamespace(CoreModule.v2_0_0);
 		writer.setSchemaLocations(version);
