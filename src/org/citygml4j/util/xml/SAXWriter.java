@@ -31,8 +31,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Stack;
 import java.util.Map.Entry;
+import java.util.Stack;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamResult;
@@ -368,7 +368,7 @@ public class SAXWriter extends XMLFilterImpl {
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		try {
-			if (lastXMLContent != XMLContentType.END_ELEMENT && length > 0) {
+			if (length > 0) {
 				if (lastXMLContent == XMLContentType.START_ELEMENT)
 					writer.write(CLOSE_START_TAG);
 
@@ -622,6 +622,9 @@ public class SAXWriter extends XMLFilterImpl {
 	}
 
 	private void writeNamespace(String prefix, String uri) throws SAXException {
+		if (prefix.equals(XMLConstants.XML_NS_PREFIX) && uri.equals(XMLConstants.XML_NS_URI))
+			return;
+		
 		try {
 			writer.write(SPACE);
 			writer.write(XMLConstants.XMLNS_ATTRIBUTE);
@@ -703,6 +706,9 @@ public class SAXWriter extends XMLFilterImpl {
 
 	private void writeIndent() throws SAXException {
 		if (indentString == null || indentString.length() == 0)
+			return;
+		
+		if (lastXMLContent == XMLContentType.CHARACTERS)
 			return;
 
 		try {
