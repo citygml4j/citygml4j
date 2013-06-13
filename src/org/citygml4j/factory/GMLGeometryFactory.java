@@ -148,7 +148,7 @@ public class GMLGeometryFactory {
 		
 		boolean addCoord = false;
 		for (int i = 0; !addCoord && i < dim; i++)
-			if (coordinates.get(i) != coordinates.get(coordinates.size() - dim))
+			if (coordinates.get(i).doubleValue() != coordinates.get(coordinates.size() - dim + i).doubleValue())
 				addCoord = true;
 
 		if (addCoord)
