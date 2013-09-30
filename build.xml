@@ -64,7 +64,7 @@
 		<mkdir dir="${plugin.xjc.collection-setter.dir.build}" />
 
 		<!-- compile collection-setter-injector plugin -->
-		<javac classpathref="classpath" srcdir="${plugin.xjc.collection-setter.dir.src}" destdir="${plugin.xjc.collection-setter.dir.build}" />
+		<javac includeantruntime="false" classpathref="classpath" srcdir="${plugin.xjc.collection-setter.dir.src}" destdir="${plugin.xjc.collection-setter.dir.build}" />
 
 		<!-- create jar file for collection-setter-injector plugin -->
 		<jar jarfile="${plugin.xjc.collection-setter.dir}/${plugin.xjc.collection-setter.jar}" basedir="${plugin.xjc.collection-setter.dir.build}">
@@ -117,8 +117,8 @@
 		<mkdir dir="${dir.build.classes}" />
 
 		<!-- compile the java code from ${dir.src} and ${dir.src-gen} into ${build} -->
-		<javac classpathref="classpath" srcdir="${dir.src-gen}" destdir="${dir.build.classes}" />
-		<javac classpathref="classpath" srcdir="${dir.src}" destdir="${dir.build.classes}" />
+		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src-gen}" destdir="${dir.build.classes}" />
+		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src}" destdir="${dir.build.classes}" />
 	</target>
 
 	<target name="generate_jar" depends="compile_src" description="generate the citygml4j library file">
