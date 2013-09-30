@@ -21,9 +21,9 @@
     <developer>
       <id>nagel</id>
       <name>Claus Nagel</name>
-      <email>claus.nagel@tu-berlin.de</email>
-      <organization>Technische Universität Berlin</organization>
-      <organizationUrl>http://www.igg.tu-berlin.de</organizationUrl>
+      <email>cnagel@virtualcitysystems.de</email>
+      <organization>virtualcitySYSTEMS GmbH</organization>
+      <organizationUrl>http://www.virtualcitysystems.de</organizationUrl>
       <roles>
         <role>architect</role>
         <role>developer</role>
