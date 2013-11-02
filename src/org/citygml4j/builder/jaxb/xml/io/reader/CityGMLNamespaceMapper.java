@@ -37,6 +37,7 @@ import org.citygml4j.model.module.citygml.CityGMLModuleType;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.citygml.GenericsModule;
+import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class CityGMLNamespaceMapper implements XMLStreamReader {
 	private final XMLStreamReader reader;
@@ -257,6 +258,12 @@ public class CityGMLNamespaceMapper implements XMLStreamReader {
 						localPart = "appearance";
 
 					namespaceURI = AppearanceModule.v1_0_0.getNamespaceURI();					
+				}
+				
+				else if (localPart.equals("TexturedSurface") ||
+						localPart.equals("SimpleTexture") ||
+						localPart.equals("Material")) {
+					namespaceURI = TexturedSurfaceModule.v1_0_0.getNamespaceURI();
 				}
 
 				else {
