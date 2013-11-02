@@ -69,7 +69,7 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 
 	public Double getAmbientIntensity() {
-		if (isSetAmbientIntensity())
+		if (!isSetAmbientIntensity())
 			return 0.2;
 		else
 			return ambientIntensity;
