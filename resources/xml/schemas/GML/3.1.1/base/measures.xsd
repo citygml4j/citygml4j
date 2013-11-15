@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1.1" xml:lang="en" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml">
+<schema targetNamespace="http://www.opengis.net/gml" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1.1.2" xml:lang="en" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-measures:3.1.1"/>
 		<documentation>Extends the units.xsd and basicTypes.xsd schemas with types for recording measures using specific types of units, especially the measures and units needed for coordinate reference systems and coordinate operations. The specific unit types encoded are length, angle, scale factor, time, area, volume, speed, and grid length. This schema allows angle values to be recorded as single numbers or in degree-minute-second format. 
-		Copyright (c) 2002-2005 OGC, All Rights Reserved. For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr
-		Parts of this schema are based on Subclause 6.5.7 of ISO/CD 19103 Geographic information - Conceptual schema language, on Subclause A.5.2.2.3 of ISO/CD 19118 Geographic information - Encoding, and on Subclause 4.7 of OpenGIS Recommendation Paper OGC 02-007r4 Units of Measure Use and Definition Recommendations.</documentation>
+		Parts of this schema are based on Subclause 6.5.7 of ISO/CD 19103 Geographic information - Conceptual schema language, on Subclause A.5.2.2.3 of ISO/CD 19118 Geographic information - Encoding, and on Subclause 4.7 of OpenGIS Recommendation Paper OGC 02-007r4 Units of Measure Use and Definition Recommendations.
+		
+		GML is an OGC Standard.
+		Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ==============================================================
        includes and imports
 	============================================================== -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="units.xsd"/>
 	<!-- ==============================================================
        elements and types

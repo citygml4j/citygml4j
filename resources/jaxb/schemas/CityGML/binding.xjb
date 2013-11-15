@@ -240,7 +240,32 @@
             <jaxb:class name="LabelStyleRef"/>
         </jaxb:bindings>
     </jaxb:bindings>
-
+    
+    <!-- ========== -->
+    <!-- XLink 1999 -->
+    <!-- ========== -->
+    
+    <!-- Specific settings for the XLink schema file -->
+    <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <!-- set package name of the generated classes -->
+            <jaxb:package name="org.citygml4j.jaxb.xlink"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+            <!-- 'title' property is referenced both as attribute and as element. -->
+            <jaxb:bindings node="//xs:group[@name='locatorModel']">
+                <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
+                    <jaxb:property name="titleElement"/>
+                </jaxb:bindings>
+            </jaxb:bindings>
+            <jaxb:bindings node="//xs:group[@name='arcModel']">
+                <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
+                    <jaxb:property name="titleElement"/>
+                </jaxb:bindings>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+    
     <!-- ======= -->
     <!-- xAL 2.0 -->
     <!-- ======= -->

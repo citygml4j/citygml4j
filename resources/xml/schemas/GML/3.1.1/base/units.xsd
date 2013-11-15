@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" xmlns:gml="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="3.1.1" xml:lang="en">
+<schema targetNamespace="http://www.opengis.net/gml" xmlns:gml="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="3.1.1.2" xml:lang="en">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-units:3.1.1"/>
-		<documentation>Builds on gmlBase.xsd to encode units of measure (or uom), including definitions of units of measure and dictionaries of such definitions. GML 3.0 candidate schema, primary editor: Arliss Whiteside. Last updated 2005-06-22.
-	Copyright (c) 2002-2005 OGC, All Rights Reserved.
-	For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr
-	Parts of this schema are based on Subclause 6.5.7 of ISO/CD 19103 Geographic information - Conceptual schema language, on Subclause A.5.2.2.3 of ISO/CD 19118 Geographic information - Encoding, and on most of OpenGIS Recommendation Paper OGC 02-007r4 Units of Measure Use and Definition Recommendations.</documentation>
+		<documentation>Builds on gmlBase.xsd to encode units of measure (or uom), including definitions of units of measure and dictionaries of such definitions. GML 3.0 candidate schema, primary editor: Arliss Whiteside.			
+	Parts of this schema are based on Subclause 6.5.7 of ISO/CD 19103 Geographic information - Conceptual schema language, on Subclause A.5.2.2.3 of ISO/CD 19118 Geographic information - Encoding, and on most of OpenGIS Recommendation Paper OGC 02-007r4 Units of Measure Use and Definition Recommendations.
+		
+		GML is an OGC Standard.
+		Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ==============================================================
        includes and imports
 	============================================================== -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="dictionary.xsd"/>
 	<!-- ==============================================================
        elements and types

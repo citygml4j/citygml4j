@@ -31,6 +31,9 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.jaxb.gml._3_1_1.*;
+import org.citygml4j.jaxb.xlink.ActuateType;
+import org.citygml4j.jaxb.xlink.ShowType;
+import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.association.Associable;
@@ -718,7 +721,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -733,10 +736,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 	}
 
 	public void marshalCodeOrNullList(CodeOrNullList src, CodeOrNullListType dest) {
@@ -770,7 +773,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -785,10 +788,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 	}
 	
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, AssociationType dest) {
@@ -806,7 +809,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -821,10 +824,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 	}
 	
 	public void marshalGrid(Grid src, GridType dest) {
@@ -871,7 +874,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -886,10 +889,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 	}
 
 	public void marshalMeasure(Measure src, MeasureType dest) {
@@ -1210,7 +1213,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1225,10 +1228,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1255,7 +1258,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1270,10 +1273,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1300,7 +1303,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1315,10 +1318,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1439,7 +1442,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1454,10 +1457,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1683,7 +1686,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1698,10 +1701,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1721,7 +1724,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1736,10 +1739,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1773,7 +1776,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1788,10 +1791,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -1950,7 +1953,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -1965,10 +1968,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2048,7 +2051,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2063,10 +2066,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2096,7 +2099,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2111,10 +2114,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2148,7 +2151,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2163,10 +2166,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2193,7 +2196,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2208,10 +2211,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2241,7 +2244,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2256,10 +2259,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2286,7 +2289,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2301,10 +2304,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2334,7 +2337,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2349,10 +2352,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2382,7 +2385,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2397,10 +2400,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2466,7 +2469,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2481,10 +2484,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2525,7 +2528,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2540,10 +2543,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2575,7 +2578,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2590,10 +2593,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2755,7 +2758,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2770,10 +2773,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2795,7 +2798,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2810,10 +2813,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2865,7 +2868,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2880,10 +2883,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -2979,7 +2982,7 @@ public class GMLMarshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -2994,10 +2997,10 @@ public class GMLMarshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}

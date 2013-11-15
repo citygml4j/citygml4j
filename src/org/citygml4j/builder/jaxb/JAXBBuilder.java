@@ -53,6 +53,14 @@ public class JAXBBuilder implements CityGMLBuilder {
 	public JAXBBuilder(ClassLoader classLoader) throws JAXBException {
 		context = JAXBContext.newInstance(JAXBContextPath.getContextPath(), classLoader);
 	}
+	
+	public JAXBBuilder(String... packageNames) throws JAXBException {
+		this(Thread.currentThread().getContextClassLoader(), JAXBContextPath.getContextPath(packageNames));
+	}
+	
+	public JAXBBuilder(ClassLoader classLoader, String... packageNames) throws JAXBException {
+		context = JAXBContext.newInstance(JAXBContextPath.getContextPath(packageNames), classLoader);
+	}
 
 	public JAXBContext getJAXBContext() {
 		return context;

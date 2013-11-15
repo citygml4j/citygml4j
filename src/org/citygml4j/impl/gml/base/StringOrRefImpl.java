@@ -27,17 +27,20 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 
 public class StringOrRefImpl implements StringOrRef {
 	private String value;
-	private String actuate;
+	private XLinkActuate actuate;
 	private String arcrole;
 	private String href;
 	private String remoteSchema;
 	private String role;
-	private String show;
+	private XLinkShow show;
 	private String title;
-	private String type;
+	private XLinkType type;
 	private ModelObject parent;
 	
 	public ModelType getModelType() {
@@ -64,7 +67,7 @@ public class StringOrRefImpl implements StringOrRef {
 		value = null;
 	}
 
-	public String getActuate() {
+	public XLinkActuate getActuate() {
 		return actuate;
 	}
 
@@ -84,7 +87,7 @@ public class StringOrRefImpl implements StringOrRef {
 		return role;
 	}
 
-	public String getShow() {
+	public XLinkShow getShow() {
 		return show;
 	}
 
@@ -92,9 +95,9 @@ public class StringOrRefImpl implements StringOrRef {
 		return title;
 	}
 
-	public String getType() {
+	public XLinkType getType() {
 		if (type == null)
-			return "simple";
+			return XLinkType.SIMPLE;
 		else
 			return type;
 	}
@@ -131,7 +134,7 @@ public class StringOrRefImpl implements StringOrRef {
 		return type != null;
 	}
 
-	public void setActuate(String actuate) {
+	public void setActuate(XLinkActuate actuate) {
 		this.actuate = actuate;
 	}
 
@@ -151,7 +154,7 @@ public class StringOrRefImpl implements StringOrRef {
 		this.role = role;
 	}
 
-	public void setShow(String show) {
+	public void setShow(XLinkShow show) {
 		this.show = show;
 	}
 
@@ -159,8 +162,8 @@ public class StringOrRefImpl implements StringOrRef {
 		this.title = title;
 	}
 
-	public void setType(String type) {
-		this.type = "simple";
+	public void setType(XLinkType type) {
+		this.type = XLinkType.SIMPLE;
 	}
 
 	public void unsetActuate() {
@@ -202,7 +205,7 @@ public class StringOrRefImpl implements StringOrRef {
 			copy.setValue(copyBuilder.copy(value));
 		
 		if (isSetActuate())
-			copy.setActuate(copyBuilder.copy(actuate));
+			copy.setActuate((XLinkActuate)copyBuilder.copy(actuate));
 
 		if (isSetArcrole())
 			copy.setArcrole(copyBuilder.copy(arcrole));
@@ -217,13 +220,13 @@ public class StringOrRefImpl implements StringOrRef {
 			copy.setRole(copyBuilder.copy(role));
 		
 		if (isSetShow())
-			copy.setShow(copyBuilder.copy(show));
+			copy.setShow((XLinkShow)copyBuilder.copy(show));
 
 		if (isSetTitle())
 			copy.setTitle(copyBuilder.copy(title));
 		
 		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+			copy.setType((XLinkType)copyBuilder.copy(type));
 		
 		copy.unsetParent();
 		

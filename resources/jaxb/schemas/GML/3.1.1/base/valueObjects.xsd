@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1.1">
+<schema targetNamespace="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+        attributeFormDefault="unqualified" version="3.1.1.2">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-xsd:valueObjects:3.1.1">valueObjects.xsd</appinfo>
 		<documentation>GML conformant schema for Values in which the  
 		    * scalar Value types and lists have their values recorded in simpleContent elements 
 		    * complex Value types are built recursively
-    Copyright (c) 2002-2005 OGC, All Rights Reserved.
-	For conditions, see OGC Software Notice http://www.opengeospatial.org/about/?page=ipr</documentation>
+		    
+		    GML is an OGC Standard.
+		    Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+		    To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	</annotation>
 	<!-- ====================================================================== -->
 	<!-- geometry and temporal included so that _Geometry and _TimeObject can be added to Value choice group -->
+	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="geometryBasic0d1d.xsd"/>
 	<include schemaLocation="temporal.xsd"/>
 	<!-- ====================================================================== -->

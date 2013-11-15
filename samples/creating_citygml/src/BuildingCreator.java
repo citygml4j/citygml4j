@@ -146,6 +146,8 @@ public class BuildingCreator {
 		case GROUND_SURFACE:
 			boundarySurface = citygml.createGroundSurface();
 			break;
+		default:
+			return null;
 		}
 
 		if (boundarySurface != null) {

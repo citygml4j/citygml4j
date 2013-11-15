@@ -171,10 +171,13 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
 
 public enum GMLClass implements ModelClassEnum {
 	UNDEFINED(null),
-	
+
 	// Base
 	ABSTRACT_GML(AbstractGML.class),
 	ARRAY_ASSOCIATION(ArrayAssociation.class),
@@ -250,7 +253,7 @@ public enum GMLClass implements ModelClassEnum {
 	MULTI_SOLID_PROPERTY(MultiSolidProperty.class),
 	MULTI_SURFACE(MultiSurface.class),
 	MULTI_SURFACE_PROPERTY(MultiSurfaceProperty.class),
-	
+
 	// Geometry complexes
 	COMPOSITE_CURVE(CompositeCurve.class),
 	COMPOSITE_CURVE_PROPERTY(CompositeCurveProperty.class),
@@ -317,7 +320,7 @@ public enum GMLClass implements ModelClassEnum {
 	TRIANGLE_PATCH_ARRAY_PROPERTY(TrianglePatchArrayProperty.class),
 	TRIANGULATED_SURFACE(TriangulatedSurface.class),
 	VECTOR(Vector.class),
-	
+
 	// Grids
 	GRID(Grid.class),
 	GRID_ENVELOPE(GridEnvelope.class),
@@ -342,16 +345,21 @@ public enum GMLClass implements ModelClassEnum {
 	VALUE_EXTENT(ValueExtent.class),
 	VALUE_OBJECT(ValueObject.class),
 	VALUE_PROPERTY(ValueProperty.class),
-	
+
 	// CityGML geometries
-	_TEXTURED_SURFACE(_TexturedSurface.class);
-	
+	_TEXTURED_SURFACE(_TexturedSurface.class),
+
+	// XLink types
+	XLINK_ACTUATE(XLinkActuate.class),
+	XLINK_TYPE(XLinkType.class),
+	XLINK_SHOW(XLinkShow.class);
+
 	private final Class<? extends ModelObject> interfaceName;
 
 	private GMLClass(Class<? extends ModelObject> interfaceName) {
 		this.interfaceName = interfaceName;
 	}
-	
+
 	public static GMLClass fromInterface(Class<? extends ModelObject> interfaceName) {
 		if (interfaceName.isInterface()) {
 			for (GMLClass c : GMLClass.values())
@@ -361,7 +369,7 @@ public enum GMLClass implements ModelClassEnum {
 
 		return null;
 	}
-	
+
 	public static GMLClass fromInt(int i) {
 		for (GMLClass c : GMLClass.values()) {
 			if (c.ordinal() == i) {
@@ -375,11 +383,11 @@ public enum GMLClass implements ModelClassEnum {
 	public Class<? extends ModelObject> getInterface() {
 		return interfaceName;
 	}
-	
+
 	public boolean isInstance(ModelClassEnum type) {
 		return isInstance(interfaceName, type.getInterface());
 	}
-	
+
 	private boolean isInstance(Class<?> a, Class<?> b) {
 		if (a == null || b == null)
 			return false;

@@ -44,6 +44,9 @@ import org.citygml4j.jaxb.citygml.app._1.TextureAssociationType;
 import org.citygml4j.jaxb.citygml.app._1.TextureTypeType;
 import org.citygml4j.jaxb.citygml.app._1.WrapModeType;
 import org.citygml4j.jaxb.citygml.app._1.X3DMaterialType;
+import org.citygml4j.jaxb.xlink.ActuateType;
+import org.citygml4j.jaxb.xlink.ShowType;
+import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
@@ -303,7 +306,7 @@ public class Appearance100Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -318,10 +321,10 @@ public class Appearance100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}
@@ -385,7 +388,7 @@ public class Appearance100Marshaller {
 			dest.setRemoteSchema(src.getRemoteSchema());
 
 		if (src.isSetType())
-			dest.setType(src.getType());
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
 
 		if (src.isSetHref())
 			dest.setHref(src.getHref());
@@ -400,10 +403,10 @@ public class Appearance100Marshaller {
 			dest.setTitle(src.getTitle());
 
 		if (src.isSetShow())
-			dest.setShow(src.getShow());
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
 
 		if (src.isSetActuate())
-			dest.setActuate(src.getActuate());
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;			
 	}

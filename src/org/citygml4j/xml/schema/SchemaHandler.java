@@ -28,8 +28,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -189,7 +189,7 @@ public class SchemaHandler {
 	public void resolveAndParseSchema(String namespaceURI) throws SAXException, MissingADESchemaException {
 		if (visited.containsKey(namespaceURI))
 			return;
-		
+
 		InputSource is = null;
 
 		if (schemaEntityResolver != null) {
@@ -199,20 +199,20 @@ public class SchemaHandler {
 				throw new SAXException(e);
 			}
 		}
-		
+
 		if (is == null)
 			throw new MissingADESchemaException("Failed to resolve ADE Schema document for target namespace " + namespaceURI);
-		
+
 		parse(is);
 	}
 
 	private void parse(String schemaLocation) throws SAXException {
 		if (schemaLocation == null)
 			return;
-		
+
 		parse(new InputSource(schemaLocation));
 	}
-	
+
 	private void parse(InputSource is) throws SAXException {
 		if (is == null)
 			return;
@@ -223,18 +223,18 @@ public class SchemaHandler {
 			public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 				InputSource inputSource = null;
 
-				for (Entry<String, String> entry : visited.entrySet()) {					
-					if (entry.getKey().equals(publicId)) {
-						inputSource = new InputSource(entry.getValue());
-						inputSource.setPublicId(publicId);
-						inputSource.setSystemId(entry.getValue());
-						break;
+				if (publicId != null) {
+					for (Entry<String, String> entry : visited.entrySet()) {					
+						if (entry.getKey().equals(publicId)) {
+							inputSource = new InputSource(entry.getValue());
+							inputSource.setPublicId(publicId);
+							inputSource.setSystemId(entry.getValue());
+							break;
+						}
 					}
 				}
 
-				if (inputSource == null &&
-						publicId != null &&
-						schemaEntityResolver != null)
+				if (inputSource == null && schemaEntityResolver != null)
 					inputSource = schemaEntityResolver.resolveEntity(publicId, systemId);
 
 				return inputSource;
@@ -259,10 +259,13 @@ public class SchemaHandler {
 						visited.put(schema.getTargetNamespace(), systemId);
 					else {
 						try {
-							URL url = new URL(systemId);
-							if (url.getProtocol().equals("file") || 
-									url.getProtocol().equals("jar"))
+							URL cachedURL = new URL(visitedId);						
+							URL offeredURL = new URL(systemId);
+							
+							if (!(cachedURL.getProtocol().equals("file") || cachedURL.getProtocol().equals("jar")) && 
+									(offeredURL.getProtocol().equals("file") || offeredURL.getProtocol().equals("jar")))
 								visited.put(schema.getTargetNamespace(), systemId);
+							
 						} catch (MalformedURLException e) {
 							//
 						}
