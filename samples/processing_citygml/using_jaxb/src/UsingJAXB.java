@@ -32,7 +32,6 @@ import javax.xml.bind.Unmarshaller;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.jaxb.citygml.bldg._1.AbstractBoundarySurfaceType;
 import org.citygml4j.jaxb.citygml.bldg._1.BoundarySurfacePropertyType;
 import org.citygml4j.jaxb.citygml.bldg._1.BuildingType;
@@ -120,12 +119,9 @@ public class UsingJAXB {
 		}		
 		
 		System.out.println(df.format(new Date()) + "marshalling JAXB object tree as CityGML 1.0.0 document");
-		JAXBNamespacePrefixMapper nsMapper = new JAXBNamespacePrefixMapper(CityGMLVersion.v1_0_0);
-		nsMapper.setNamespacePrefixMapping(CoreModule.v1_0_0.getNamespaceURI(), "");
 
 		// customize Marshaller instance
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", nsMapper);
 		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
 				CoreModule.v1_0_0.getNamespaceURI() + " " + CoreModule.v1_0_0.getSchemaLocation() + " " +
 				BuildingModule.v1_0_0.getNamespaceURI() + " " + BuildingModule.v1_0_0.getSchemaLocation() + " " +

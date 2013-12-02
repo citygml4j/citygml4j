@@ -31,10 +31,15 @@
 		<fileset dir="${dir.lib}" includes="*.jar" />
 	</path>
 
+	<!-- XJC classpath -->
+	<path id="xjc_classpath">
+		<fileset dir="${dir.resources.jaxb.xjc}" includes="*.jar" />
+	</path>
+
 	<!-- JAXB XJC compiler -->
 	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
 		<classpath>
-			<path refid="classpath" />
+			<path refid="xjc_classpath" />
 			<fileset dir="${dir.resources.jaxb.xjc-plugins}">
 				<include name="**/*.jar" />
 			</fileset>
@@ -62,18 +67,30 @@
 
 	<target name="compile_xjc_plugins" description="compile project specific XJC plugins">
 		<mkdir dir="${plugin.xjc.collection-setter.dir.build}" />
+		<mkdir dir="${plugin.xjc.namespace-prefix.dir.build}" />
 
 		<!-- compile collection-setter-injector plugin -->
-		<javac includeantruntime="false" classpathref="classpath" srcdir="${plugin.xjc.collection-setter.dir.src}" destdir="${plugin.xjc.collection-setter.dir.build}" />
+		<javac includeantruntime="false" classpathref="xjc_classpath" srcdir="${plugin.xjc.collection-setter.dir.src}" destdir="${plugin.xjc.collection-setter.dir.build}" />
 
 		<!-- create jar file for collection-setter-injector plugin -->
-		<jar jarfile="${plugin.xjc.collection-setter.dir}/${plugin.xjc.collection-setter.jar}" basedir="${plugin.xjc.collection-setter.dir.build}">
+		<jar jarfile="${plugin.xjc.collection-setter.dir}/${plugin.xjc.collection-setter.jar.filename}" basedir="${plugin.xjc.collection-setter.dir.build}">
 			<fileset dir="${plugin.xjc.collection-setter.dir}/META-INF" includes="**/*" />
 			<fileset dir="${plugin.xjc.collection-setter.dir.src}" includes="**/*.properties" />
 		</jar>
 
+		<!-- compile namespace-prefix plugin -->
+		<javac includeantruntime="false" classpathref="xjc_classpath" srcdir="${plugin.xjc.namespace-prefix.dir.src}" destdir="${plugin.xjc.namespace-prefix.dir.build}" />
+
+		<!-- create jar file for namespace-prefix plugin -->
+		<jar jarfile="${plugin.xjc.namespace-prefix.dir}/${plugin.xjc.namespace-prefix.jar.filename}" basedir="${plugin.xjc.namespace-prefix.dir.build}">
+			<fileset dir="${plugin.xjc.namespace-prefix.dir}/META-INF" includes="**/*" />
+			<fileset dir="${plugin.xjc.namespace-prefix.dir}/resources" includes="**/*" />
+			<fileset dir="${plugin.xjc.namespace-prefix.dir.src}" includes="**/*.properties" />
+		</jar>
+
 		<!-- clean up build environment -->
 		<delete dir="${plugin.xjc.collection-setter.dir.build}" />
+		<delete dir="${plugin.xjc.namespace-prefix.dir.build}" />
 	</target>
 
 	<target name="generate_jaxb_binding" description="compile JAXB classes from CityGML schemas">
@@ -82,6 +99,7 @@
 		<!-- create JAXB classes from CityGML schemas -->
 		<xjc destdir="${dir.src-gen}" extension="true" removeOldOutput="yes" description="generate CityGML schema derived classess">
 			<arg value="-X${plugin.xjc.collection-setter.name}" />
+			<arg value="-X${plugin.xjc.namespace-prefix.name}" />
 			<schema dir="${dir.resources.jaxb.schemas}/CityGML" includes="citygml4j_profile.xsd" />
 			<binding dir="${dir.resources.jaxb.schemas}/CityGML" includes="binding.xjb" />
 			<produces dir="${dir.src-gen}" includes="**/*" />
@@ -107,7 +125,7 @@
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.homepage!" value="${vendor.homepage}" />
 
 		<!-- create javadoc from source files -->
-		<javadoc access="public" author="true" classpathref="classpath" destdir="${dir.dist.javadoc}" doctitle="${citygml4j.name} - ${citygml4j.description}" encoding="UTF-8" charset="UTF-8" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${dir.resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" source="1.6" sourcepath="${dir.src};${dir.src-gen}" splitindex="true" use="true" version="true" />
+		<javadoc access="public" author="true" classpathref="classpath" destdir="${dir.dist.javadoc}" doctitle="${citygml4j.name} - ${citygml4j.description}" encoding="UTF-8" charset="UTF-8" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${dir.resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" sourcepath="${dir.src};${dir.src-gen}" splitindex="true" use="true" version="true" />
 
 		<delete file="${dir.resources.javadoc}/overview_adapted.html" />
 	</target>

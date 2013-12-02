@@ -35,7 +35,6 @@ import javax.xml.validation.Schema;
 
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
@@ -117,8 +116,6 @@ public class JAXBValidator implements Validator {
 				if (jaxb != null) {
 					try {
 						Marshaller m = builder.getJAXBContext().createMarshaller();
-						m.setProperty("com.sun.xml.bind.namespacePrefixMapper", 
-								new JAXBNamespacePrefixMapper(moduleContext));
 						m.setSchema(schema);
 
 						if (validationEventHandler != null)

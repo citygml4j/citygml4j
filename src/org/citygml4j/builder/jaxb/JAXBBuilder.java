@@ -27,7 +27,6 @@ import javax.xml.bind.JAXBException;
 
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.io.reader.JAXBInputFactory;
 import org.citygml4j.builder.jaxb.xml.io.writer.JAXBOutputFactory;
@@ -84,14 +83,6 @@ public class JAXBBuilder implements CityGMLBuilder {
 	
 	public JAXBMarshaller createJAXBMarshaller() {
 		return createJAXBMarshaller(new ModuleContext(CityGMLVersion.DEFAULT));
-	}
-
-	public JAXBNamespacePrefixMapper createNamespacePrefixMapper(CityGMLVersion version) {
-		return new JAXBNamespacePrefixMapper(version);
-	}
-	
-	public JAXBNamespacePrefixMapper createNamespacePrefixMapper(ModuleContext moduleContext) {
-		return new JAXBNamespacePrefixMapper(moduleContext);
 	}
 	
 	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException {

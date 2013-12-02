@@ -29,7 +29,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.citygml4j.builder.jaxb.marshal.JAXBNamespacePrefixMapper;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -337,8 +336,6 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			// turn validation on
 			if (useValidation) {
 				marshaller.setSchema(validationSchemaHandler.getSchema());
-				marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", 
-						new JAXBNamespacePrefixMapper(jaxbMarshaller.getModuleContext()));
 				if (validationEventHandler != null)
 					marshaller.setEventHandler(validationEventHandler);
 			}

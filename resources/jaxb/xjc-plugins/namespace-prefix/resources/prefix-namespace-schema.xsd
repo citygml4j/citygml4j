@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<xs:schema targetNamespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
+		   xmlns:prefix="http://jaxb2-commons.dev.java.net/namespace-prefix"
+		   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+		   xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+		   jxb:extensionBindingPrefixes="prefix" version="2.1">
+
+	<xs:complexType name="prefixType">
+		<xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+
+	<xs:element name="prefix" type="prefix:prefixType">
+		<xs:annotation>
+			<xs:documentation>Prefix for the associated namespace/package.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+</xs:schema>
