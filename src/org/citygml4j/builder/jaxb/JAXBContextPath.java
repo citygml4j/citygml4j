@@ -50,38 +50,38 @@ public class JAXBContextPath {
 		contextPathMap = new HashMap<Module, String>();
 
 		// CityGML 2.0
-		contextPathMap.put(CoreModule.v2_0_0, "org.citygml4j.jaxb.citygml.core._2");
-		contextPathMap.put(AppearanceModule.v2_0_0, "org.citygml4j.jaxb.citygml.app._2");
-		contextPathMap.put(BridgeModule.v2_0_0, "org.citygml4j.jaxb.citygml.brid._2");
-		contextPathMap.put(BuildingModule.v2_0_0, "org.citygml4j.jaxb.citygml.bldg._2");
-		contextPathMap.put(CityFurnitureModule.v2_0_0, "org.citygml4j.jaxb.citygml.frn._2");
-		contextPathMap.put(CityObjectGroupModule.v2_0_0, "org.citygml4j.jaxb.citygml.grp._2");
-		contextPathMap.put(GenericsModule.v2_0_0, "org.citygml4j.jaxb.citygml.gen._2");
-		contextPathMap.put(LandUseModule.v2_0_0, "org.citygml4j.jaxb.citygml.luse._2");
-		contextPathMap.put(ReliefModule.v2_0_0, "org.citygml4j.jaxb.citygml.dem._2");
-		contextPathMap.put(TexturedSurfaceModule.v2_0_0, "org.citygml4j.jaxb.citygml.tex._2");
-		contextPathMap.put(TransportationModule.v2_0_0, "org.citygml4j.jaxb.citygml.tran._2");
-		contextPathMap.put(TunnelModule.v2_0_0, "org.citygml4j.jaxb.citygml.tun._2");
-		contextPathMap.put(VegetationModule.v2_0_0, "org.citygml4j.jaxb.citygml.veg._2");
-		contextPathMap.put(WaterBodyModule.v2_0_0, "org.citygml4j.jaxb.citygml.wtr._2");
+		contextPathMap.put(CoreModule.v2_0_0, "net.opengis.citygml._2");
+		contextPathMap.put(AppearanceModule.v2_0_0, "net.opengis.citygml.appearance._2");
+		contextPathMap.put(BridgeModule.v2_0_0, "net.opengis.citygml.bridge._2");
+		contextPathMap.put(BuildingModule.v2_0_0, "net.opengis.citygml.building._2");
+		contextPathMap.put(CityFurnitureModule.v2_0_0, "net.opengis.citygml.cityfurniture._2");
+		contextPathMap.put(CityObjectGroupModule.v2_0_0, "net.opengis.citygml.cityobjectgroup._2");
+		contextPathMap.put(GenericsModule.v2_0_0, "net.opengis.citygml.generics._2");
+		contextPathMap.put(LandUseModule.v2_0_0, "net.opengis.citygml.landuse._2");
+		contextPathMap.put(ReliefModule.v2_0_0, "net.opengis.citygml.relief._2");
+		contextPathMap.put(TexturedSurfaceModule.v2_0_0, "net.opengis.citygml.texturedsurface._2");
+		contextPathMap.put(TransportationModule.v2_0_0, "net.opengis.citygml.transportation._2");
+		contextPathMap.put(TunnelModule.v2_0_0, "net.opengis.citygml.tunnel._2");
+		contextPathMap.put(VegetationModule.v2_0_0, "net.opengis.citygml.vegetation._2");
+		contextPathMap.put(WaterBodyModule.v2_0_0, "net.opengis.citygml.waterbody._2");
 		
 		// CityGML 1.0
-		contextPathMap.put(CoreModule.v1_0_0, "org.citygml4j.jaxb.citygml.core._1");
-		contextPathMap.put(AppearanceModule.v1_0_0, "org.citygml4j.jaxb.citygml.app._1");
-		contextPathMap.put(BuildingModule.v1_0_0, "org.citygml4j.jaxb.citygml.bldg._1");
-		contextPathMap.put(CityFurnitureModule.v1_0_0, "org.citygml4j.jaxb.citygml.frn._1");
-		contextPathMap.put(CityObjectGroupModule.v1_0_0, "org.citygml4j.jaxb.citygml.grp._1");
-		contextPathMap.put(GenericsModule.v1_0_0, "org.citygml4j.jaxb.citygml.gen._1");
-		contextPathMap.put(LandUseModule.v1_0_0, "org.citygml4j.jaxb.citygml.luse._1");
-		contextPathMap.put(ReliefModule.v1_0_0, "org.citygml4j.jaxb.citygml.dem._1");
-		contextPathMap.put(TexturedSurfaceModule.v1_0_0, "org.citygml4j.jaxb.citygml.tex._1");
-		contextPathMap.put(TransportationModule.v1_0_0, "org.citygml4j.jaxb.citygml.tran._1");
-		contextPathMap.put(VegetationModule.v1_0_0, "org.citygml4j.jaxb.citygml.veg._1");
-		contextPathMap.put(WaterBodyModule.v1_0_0, "org.citygml4j.jaxb.citygml.wtr._1");
+		contextPathMap.put(CoreModule.v1_0_0, "net.opengis.citygml._1");
+		contextPathMap.put(AppearanceModule.v1_0_0, "net.opengis.citygml.appearance._1");
+		contextPathMap.put(BuildingModule.v1_0_0, "net.opengis.citygml.building._1");
+		contextPathMap.put(CityFurnitureModule.v1_0_0, "net.opengis.citygml.cityfurniture._1");
+		contextPathMap.put(CityObjectGroupModule.v1_0_0, "net.opengis.citygml.cityobjectgroup._1");
+		contextPathMap.put(GenericsModule.v1_0_0, "net.opengis.citygml.generics._1");
+		contextPathMap.put(LandUseModule.v1_0_0, "net.opengis.citygml.landuse._1");
+		contextPathMap.put(ReliefModule.v1_0_0, "net.opengis.citygml.relief._1");
+		contextPathMap.put(TexturedSurfaceModule.v1_0_0, "net.opengis.citygml.texturedsurface._1");
+		contextPathMap.put(TransportationModule.v1_0_0, "net.opengis.citygml.transportation._1");
+		contextPathMap.put(VegetationModule.v1_0_0, "net.opengis.citygml.vegetation._1");
+		contextPathMap.put(WaterBodyModule.v1_0_0, "net.opengis.citygml.waterbody._1");
 		
 		// GML 3.1.1 and xAL 2.0
-		contextPathMap.put(GMLCoreModule.v3_1_1, "org.citygml4j.jaxb.gml._3_1_1");
-		contextPathMap.put(XALCoreModule.v2_0, "org.citygml4j.jaxb.xal");
+		contextPathMap.put(GMLCoreModule.v3_1_1, "net.opengis.gml");
+		contextPathMap.put(XALCoreModule.v2_0, "oasis.names.tc.ciq.xsdschema.xal._2");
 	}
 	
 	public static String getContextPath() {
