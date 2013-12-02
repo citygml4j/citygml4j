@@ -250,7 +250,7 @@ public class SchemaHandler {
 					}
 				}
 
-				if (inputSource == null && schemaEntityResolver != null)
+				if (inputSource == null && publicId != null && schemaEntityResolver != null)
 					inputSource = schemaEntityResolver.resolveEntity(publicId, systemId);
 
 				return inputSource;
