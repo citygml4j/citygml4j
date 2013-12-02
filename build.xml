@@ -106,7 +106,7 @@
 			<depends dir="${dir.resources.jaxb.schemas}" includes="**/*.xsd" />
 		</xjc>
 
-		<delete dir="${dir.src-gen}/org/citygml4j/jaxb/ade_hooks" />
+		<delete dir="${dir.src-gen}/org/citygml4j" />
 	</target>
 
 	<target name="generate_javadoc" depends="generate_jaxb_binding" description="generate API javadoc">

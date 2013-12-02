@@ -29,11 +29,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import net.opengis.gml.MultiSurfaceType;
+import net.opengis.gml.StringOrRefType;
+
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
-import org.citygml4j.jaxb.gml._3_1_1.MultiSurfaceType;
-import org.citygml4j.jaxb.gml._3_1_1.StringOrRefType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;

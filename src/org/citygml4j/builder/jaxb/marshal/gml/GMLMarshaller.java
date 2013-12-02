@@ -29,11 +29,9 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.gml.*;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.jaxb.gml._3_1_1.*;
-import org.citygml4j.jaxb.xlink.ActuateType;
-import org.citygml4j.jaxb.xlink.ShowType;
-import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.association.Associable;
@@ -178,6 +176,9 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
+import org.w3._1999.xlink.ActuateType;
+import org.w3._1999.xlink.ShowType;
+import org.w3._1999.xlink.TypeType;
 
 public class GMLMarshaller {
 	private final JAXBMarshaller jaxb;
@@ -306,9 +307,9 @@ public class GMLMarshaller {
 			dest = gml.createMultiSurfaceProperty((MultiSurfacePropertyType)src);	
 		else if (src instanceof OrientableCurveType)
 			dest = gml.createOrientableCurve((OrientableCurveType)src);
-		else if (src instanceof org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)
+		else if (src instanceof net.opengis.citygml.texturedsurface._2.TexturedSurfaceType)
 			dest = jaxb.getCityGMLMarshaller().getTexturedSurface200Marshaller().marshalJAXBElement(src);
-		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
+		else if (src instanceof net.opengis.citygml.texturedsurface._1.TexturedSurfaceType)
 			dest = jaxb.getCityGMLMarshaller().getTexturedSurface100Marshaller().marshalJAXBElement(src);
 		else if (src instanceof OrientableSurfaceType)
 			dest = gml.createOrientableSurface((OrientableSurfaceType)src);
@@ -2702,8 +2703,8 @@ public class GMLMarshaller {
 		return dest;
 	}
 	
-	public org.citygml4j.jaxb.gml._3_1_1.SequenceRuleNames marshalSequenceRuleNames(SequenceRuleNames src) {
-		return org.citygml4j.jaxb.gml._3_1_1.SequenceRuleNames.fromValue(src.getValue());
+	public net.opengis.gml.SequenceRuleNames marshalSequenceRuleNames(SequenceRuleNames src) {
+		return net.opengis.gml.SequenceRuleNames.fromValue(src.getValue());
 	}
 	
 	public SequenceRuleType marshalSequenceRule(SequenceRule src) {

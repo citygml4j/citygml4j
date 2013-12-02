@@ -25,12 +25,13 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupMemberType;
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupParentType;
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupType;
+import net.opengis.gml.CodeType;
+
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.jaxb.citygml.grp._2.CityObjectGroupMemberType;
-import org.citygml4j.jaxb.citygml.grp._2.CityObjectGroupParentType;
-import org.citygml4j.jaxb.citygml.grp._2.CityObjectGroupType;
-import org.citygml4j.jaxb.gml._3_1_1.CodeType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;

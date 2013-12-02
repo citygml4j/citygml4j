@@ -25,12 +25,13 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._2.PlantCoverType;
+import net.opengis.citygml.vegetation._2.SolitaryVegetationObjectType;
+import net.opengis.gml.CodeType;
+
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.jaxb.citygml.veg._2.AbstractVegetationObjectType;
-import org.citygml4j.jaxb.citygml.veg._2.PlantCoverType;
-import org.citygml4j.jaxb.citygml.veg._2.SolitaryVegetationObjectType;
-import org.citygml4j.jaxb.gml._3_1_1.CodeType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;

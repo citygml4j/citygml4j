@@ -27,26 +27,24 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.citygml.appearance._1.AbstractSurfaceDataType;
+import net.opengis.citygml.appearance._1.AbstractTextureParameterizationType;
+import net.opengis.citygml.appearance._1.AbstractTextureType;
+import net.opengis.citygml.appearance._1.AppearancePropertyType;
+import net.opengis.citygml.appearance._1.AppearanceType;
+import net.opengis.citygml.appearance._1.GeoreferencedTextureType;
+import net.opengis.citygml.appearance._1.ObjectFactory;
+import net.opengis.citygml.appearance._1.ParameterizedTextureType;
+import net.opengis.citygml.appearance._1.SurfaceDataPropertyType;
+import net.opengis.citygml.appearance._1.TexCoordGenType;
+import net.opengis.citygml.appearance._1.TexCoordListType;
+import net.opengis.citygml.appearance._1.TextureAssociationType;
+import net.opengis.citygml.appearance._1.TextureTypeType;
+import net.opengis.citygml.appearance._1.WrapModeType;
+import net.opengis.citygml.appearance._1.X3DMaterialType;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.app._1.AbstractSurfaceDataType;
-import org.citygml4j.jaxb.citygml.app._1.AbstractTextureParameterizationType;
-import org.citygml4j.jaxb.citygml.app._1.AbstractTextureType;
-import org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType;
-import org.citygml4j.jaxb.citygml.app._1.AppearanceType;
-import org.citygml4j.jaxb.citygml.app._1.GeoreferencedTextureType;
-import org.citygml4j.jaxb.citygml.app._1.ObjectFactory;
-import org.citygml4j.jaxb.citygml.app._1.ParameterizedTextureType;
-import org.citygml4j.jaxb.citygml.app._1.SurfaceDataPropertyType;
-import org.citygml4j.jaxb.citygml.app._1.TexCoordGenType;
-import org.citygml4j.jaxb.citygml.app._1.TexCoordListType;
-import org.citygml4j.jaxb.citygml.app._1.TextureAssociationType;
-import org.citygml4j.jaxb.citygml.app._1.TextureTypeType;
-import org.citygml4j.jaxb.citygml.app._1.WrapModeType;
-import org.citygml4j.jaxb.citygml.app._1.X3DMaterialType;
-import org.citygml4j.jaxb.xlink.ActuateType;
-import org.citygml4j.jaxb.xlink.ShowType;
-import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
@@ -68,6 +66,9 @@ import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.common.base.ModelObject;
+import org.w3._1999.xlink.ActuateType;
+import org.w3._1999.xlink.ShowType;
+import org.w3._1999.xlink.TypeType;
 
 public class Appearance100Marshaller {
 	private final ObjectFactory app = new ObjectFactory();

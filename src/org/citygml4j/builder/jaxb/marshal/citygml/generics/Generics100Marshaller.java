@@ -33,16 +33,17 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.citygml.generics._1.DateAttributeType;
+import net.opengis.citygml.generics._1.DoubleAttributeType;
+import net.opengis.citygml.generics._1.GenericCityObjectType;
+import net.opengis.citygml.generics._1.IntAttributeType;
+import net.opengis.citygml.generics._1.ObjectFactory;
+import net.opengis.citygml.generics._1.StringAttributeType;
+import net.opengis.citygml.generics._1.UriAttributeType;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.gen._1.AbstractGenericAttributeType;
-import org.citygml4j.jaxb.citygml.gen._1.DateAttributeType;
-import org.citygml4j.jaxb.citygml.gen._1.DoubleAttributeType;
-import org.citygml4j.jaxb.citygml.gen._1.GenericCityObjectType;
-import org.citygml4j.jaxb.citygml.gen._1.IntAttributeType;
-import org.citygml4j.jaxb.citygml.gen._1.ObjectFactory;
-import org.citygml4j.jaxb.citygml.gen._1.StringAttributeType;
-import org.citygml4j.jaxb.citygml.gen._1.UriAttributeType;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;

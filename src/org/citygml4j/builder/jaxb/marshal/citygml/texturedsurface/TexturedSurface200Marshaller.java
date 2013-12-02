@@ -26,18 +26,16 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.citygml.texturedsurface._2.AbstractAppearanceType;
+import net.opengis.citygml.texturedsurface._2.AppearancePropertyType;
+import net.opengis.citygml.texturedsurface._2.MaterialType;
+import net.opengis.citygml.texturedsurface._2.ObjectFactory;
+import net.opengis.citygml.texturedsurface._2.SimpleTextureType;
+import net.opengis.citygml.texturedsurface._2.TextureTypeType;
+import net.opengis.citygml.texturedsurface._2.TexturedSurfaceType;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.tex._2.AbstractAppearanceType;
-import org.citygml4j.jaxb.citygml.tex._2.AppearancePropertyType;
-import org.citygml4j.jaxb.citygml.tex._2.MaterialType;
-import org.citygml4j.jaxb.citygml.tex._2.ObjectFactory;
-import org.citygml4j.jaxb.citygml.tex._2.SimpleTextureType;
-import org.citygml4j.jaxb.citygml.tex._2.TextureTypeType;
-import org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType;
-import org.citygml4j.jaxb.xlink.ActuateType;
-import org.citygml4j.jaxb.xlink.ShowType;
-import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.texturedsurface.TexturedSurfaceModuleComponent;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
@@ -47,6 +45,9 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.w3._1999.xlink.ActuateType;
+import org.w3._1999.xlink.ShowType;
+import org.w3._1999.xlink.TypeType;
 
 public class TexturedSurface200Marshaller {
 	private final ObjectFactory tex = new ObjectFactory();

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!-- Specific settings for the citygml4j mapping file -->
     <jaxb:bindings schemaLocation="citygml4j_profile.xsd" node="/xs:schema">
@@ -16,10 +18,6 @@
 
     <!-- Specific settings for the CityGML Core module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/cityGMLBase.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.core._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="core"/>
         </jaxb:bindings>
@@ -27,10 +25,6 @@
 
     <!-- Specific settings for the CityGML Appearance module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/appearance.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.app._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="app"/>
         </jaxb:bindings>
@@ -38,10 +32,6 @@
 
     <!-- Specific settings for the CityGML Building module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/building.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.bldg._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="bldg"/>
         </jaxb:bindings>
@@ -67,10 +57,6 @@
 
     <!-- Specific settings for the CityGML CityFurniture module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/cityFurniture.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.frn._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="frn"/>
         </jaxb:bindings>
@@ -78,10 +64,6 @@
 
     <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/cityObjectGroup.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.grp._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="grp"/>
         </jaxb:bindings>
@@ -97,10 +79,6 @@
 
     <!-- Specific settings for the CityGML Generics module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/generics.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.gen._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="gen"/>
         </jaxb:bindings>
@@ -115,10 +93,6 @@
 
     <!-- Specific settings for the CityGML LandUse module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/landUse.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.luse._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="luse"/>
         </jaxb:bindings>
@@ -126,10 +100,6 @@
 
     <!-- Specific settings for the CityGML Relief module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/relief.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.dem._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="dem"/>
         </jaxb:bindings>
@@ -137,10 +107,6 @@
 
     <!-- Specific settings for the CityGML TexturedSurface module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/texturedSurface.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.tex._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="tex"/>
         </jaxb:bindings>
@@ -148,10 +114,6 @@
 
     <!-- Specific settings for the CityGML Transportation module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/transportation.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.tran._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="tran"/>
         </jaxb:bindings>
@@ -159,10 +121,6 @@
 
     <!-- Specific settings for the CityGML Vegetation module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/vegetation.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.veg._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="veg"/>
         </jaxb:bindings>
@@ -170,10 +128,6 @@
 
     <!-- Specific settings for the CityGML WaterBody module schema file -->
     <jaxb:bindings schemaLocation="1.0.0/waterBody.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.wtr._1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="wtr"/>
         </jaxb:bindings>
@@ -194,10 +148,6 @@
 
     <!-- Specific settings for the CityGML Core module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/cityGMLBase.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.core._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="core"/>
         </jaxb:bindings>
@@ -205,10 +155,6 @@
 
     <!-- Specific settings for the CityGML Appearance module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/appearance.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.app._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="app"/>
         </jaxb:bindings>
@@ -222,10 +168,6 @@
 
     <!-- Specific settings for the CityGML Bridge module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/bridge.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.brid._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="brid"/>
         </jaxb:bindings>
@@ -278,10 +220,6 @@
 
     <!-- Specific settings for the CityGML Building module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/building.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.bldg._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="bldg"/>
         </jaxb:bindings>
@@ -325,10 +263,6 @@
 
     <!-- Specific settings for the CityGML CityFurniture module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/cityFurniture.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.frn._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="frn"/>
         </jaxb:bindings>
@@ -336,10 +270,6 @@
 
     <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/cityObjectGroup.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.grp._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="grp"/>
         </jaxb:bindings>
@@ -355,10 +285,6 @@
 
     <!-- Specific settings for the CityGML Generics module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/generics.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.gen._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="gen"/>
         </jaxb:bindings>
@@ -373,10 +299,6 @@
 
     <!-- Specific settings for the CityGML LandUse module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/landUse.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.luse._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="luse"/>
         </jaxb:bindings>
@@ -384,10 +306,6 @@
 
     <!-- Specific settings for the CityGML Relief module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/relief.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.dem._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="dem"/>
         </jaxb:bindings>
@@ -395,10 +313,6 @@
 
     <!-- Specific settings for the CityGML TexturedSurface module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/texturedSurface.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.tex._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="tex"/>
         </jaxb:bindings>
@@ -406,10 +320,6 @@
 
     <!-- Specific settings for the CityGML Transportation module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/transportation.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.tran._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="tran"/>
         </jaxb:bindings>
@@ -417,10 +327,6 @@
 
     <!-- Specific settings for the CityGML Tunnel module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/tunnel.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.tun._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="tun"/>
         </jaxb:bindings>
@@ -464,10 +370,6 @@
 
     <!-- Specific settings for the CityGML Vegetation module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/vegetation.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.veg._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="veg"/>
         </jaxb:bindings>
@@ -475,10 +377,6 @@
 
     <!-- Specific settings for the CityGML WaterBody module schema file -->
     <jaxb:bindings schemaLocation="2.0.0/waterBody.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.citygml.wtr._2"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="wtr"/>
         </jaxb:bindings>
@@ -499,10 +397,6 @@
 
     <!-- Specific settings for the GML schema file -->
     <jaxb:bindings schemaLocation="../GML/3.1.1/base/gml.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.gml._3_1_1"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="gml"/>
         </jaxb:bindings>
@@ -528,21 +422,17 @@
             <jaxb:class name="LabelStyleRef"/>
         </jaxb:bindings>
     </jaxb:bindings>
-    
+
     <!-- ========== -->
     <!-- XLink 1999 -->
     <!-- ========== -->
-    
+
     <!-- Specific settings for the XLink schema file -->
     <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.xlink"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="xlink"/>
         </jaxb:bindings>
-        
+
         <jaxb:bindings schemaLocation="../GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
             <!-- 'title' property is referenced both as attribute and as element. -->
             <jaxb:bindings node="//xs:group[@name='locatorModel']">
@@ -557,7 +447,7 @@
             </jaxb:bindings>
         </jaxb:bindings>
     </jaxb:bindings>
-    
+
     <!-- ======= -->
     <!-- xAL 2.0 -->
     <!-- ======= -->
@@ -565,8 +455,6 @@
     <!-- Specific settings for the xAl schema file -->
     <jaxb:bindings schemaLocation="../xAl/2.0/xAl.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.xal"/>
             <!-- append "Element" to element declarations -->
             <jaxb:nameXmlTransform>
                 <jaxb:elementName suffix="Element"/>
@@ -583,10 +471,6 @@
 
     <!-- Specific settings for the SMIL schema file 'smil20.xsd' -->
     <jaxb:bindings schemaLocation="../GML/3.1.1/smil/smil20.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.smil20"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="smil20"/>
         </jaxb:bindings>
@@ -594,10 +478,6 @@
 
     <!-- Specific settings for the SMIL schema file 'smil20-language.xsd' -->
     <jaxb:bindings schemaLocation="../GML/3.1.1/smil/smil20-language.xsd" node="/xs:schema">
-        <jaxb:schemaBindings>
-            <!-- set package name of the generated classes -->
-            <jaxb:package name="org.citygml4j.jaxb.smil20.language"/>
-        </jaxb:schemaBindings>
         <jaxb:bindings>
             <namespace:prefix name="smil20lang"/>
         </jaxb:bindings>

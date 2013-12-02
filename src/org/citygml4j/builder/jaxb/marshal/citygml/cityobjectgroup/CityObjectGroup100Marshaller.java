@@ -24,16 +24,14 @@ package org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.citygml._1.AbstractCityObjectType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
+import net.opengis.citygml.cityobjectgroup._1.ObjectFactory;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.core._1.AbstractCityObjectType;
-import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupMemberType;
-import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupParentType;
-import org.citygml4j.jaxb.citygml.grp._1.CityObjectGroupType;
-import org.citygml4j.jaxb.citygml.grp._1.ObjectFactory;
-import org.citygml4j.jaxb.xlink.ActuateType;
-import org.citygml4j.jaxb.xlink.ShowType;
-import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
@@ -41,6 +39,9 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponen
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.w3._1999.xlink.ActuateType;
+import org.w3._1999.xlink.ShowType;
+import org.w3._1999.xlink.TypeType;
 
 public class CityObjectGroup100Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();

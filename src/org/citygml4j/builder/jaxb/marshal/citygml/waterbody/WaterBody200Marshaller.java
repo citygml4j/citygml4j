@@ -24,19 +24,17 @@ package org.citygml4j.builder.jaxb.marshal.citygml.waterbody;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.citygml.waterbody._2.AbstractWaterBoundarySurfaceType;
+import net.opengis.citygml.waterbody._2.AbstractWaterObjectType;
+import net.opengis.citygml.waterbody._2.BoundedByWaterSurfacePropertyType;
+import net.opengis.citygml.waterbody._2.ObjectFactory;
+import net.opengis.citygml.waterbody._2.WaterBodyType;
+import net.opengis.citygml.waterbody._2.WaterClosureSurfaceType;
+import net.opengis.citygml.waterbody._2.WaterGroundSurfaceType;
+import net.opengis.citygml.waterbody._2.WaterSurfaceType;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.wtr._2.AbstractWaterBoundarySurfaceType;
-import org.citygml4j.jaxb.citygml.wtr._2.AbstractWaterObjectType;
-import org.citygml4j.jaxb.citygml.wtr._2.BoundedByWaterSurfacePropertyType;
-import org.citygml4j.jaxb.citygml.wtr._2.ObjectFactory;
-import org.citygml4j.jaxb.citygml.wtr._2.WaterBodyType;
-import org.citygml4j.jaxb.citygml.wtr._2.WaterClosureSurfaceType;
-import org.citygml4j.jaxb.citygml.wtr._2.WaterGroundSurfaceType;
-import org.citygml4j.jaxb.citygml.wtr._2.WaterSurfaceType;
-import org.citygml4j.jaxb.xlink.ActuateType;
-import org.citygml4j.jaxb.xlink.ShowType;
-import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
@@ -48,6 +46,9 @@ import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.w3._1999.xlink.ActuateType;
+import org.w3._1999.xlink.ShowType;
+import org.w3._1999.xlink.TypeType;
 
 public class WaterBody200Marshaller {
 	private final ObjectFactory wtr = new ObjectFactory();

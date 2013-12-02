@@ -28,12 +28,12 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.jaxb.citygml.tex._2.AbstractAppearanceType;
-import org.citygml4j.jaxb.citygml.tex._2.AppearancePropertyType;
-import org.citygml4j.jaxb.citygml.tex._2.MaterialType;
-import org.citygml4j.jaxb.citygml.tex._2.SimpleTextureType;
-import org.citygml4j.jaxb.citygml.tex._2.TextureTypeType;
-import org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType;
+import net.opengis.citygml.texturedsurface._2.AbstractAppearanceType;
+import net.opengis.citygml.texturedsurface._2.AppearancePropertyType;
+import net.opengis.citygml.texturedsurface._2.MaterialType;
+import net.opengis.citygml.texturedsurface._2.SimpleTextureType;
+import net.opengis.citygml.texturedsurface._2.TextureTypeType;
+import net.opengis.citygml.texturedsurface._2.TexturedSurfaceType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;

@@ -24,37 +24,38 @@ package org.citygml4j.builder.jaxb.marshal.xal;
 
 import javax.xml.bind.JAXBElement;
 
-import org.citygml4j.jaxb.xal.AddressDetails;
-import org.citygml4j.jaxb.xal.AddressLineElement;
-import org.citygml4j.jaxb.xal.AddressLinesType;
-import org.citygml4j.jaxb.xal.AdministrativeAreaElement;
-import org.citygml4j.jaxb.xal.BuildingNameType;
-import org.citygml4j.jaxb.xal.CountryNameElement;
-import org.citygml4j.jaxb.xal.DepartmentElement;
-import org.citygml4j.jaxb.xal.DependentLocalityType;
-import org.citygml4j.jaxb.xal.FirmType;
-import org.citygml4j.jaxb.xal.LargeMailUserType;
-import org.citygml4j.jaxb.xal.LocalityElement;
-import org.citygml4j.jaxb.xal.MailStopType;
-import org.citygml4j.jaxb.xal.ObjectFactory;
-import org.citygml4j.jaxb.xal.PostBoxElement;
-import org.citygml4j.jaxb.xal.PostOfficeElement;
-import org.citygml4j.jaxb.xal.PostalCodeElement;
-import org.citygml4j.jaxb.xal.PostalRouteType;
-import org.citygml4j.jaxb.xal.PremiseElement;
-import org.citygml4j.jaxb.xal.PremiseNumberElement;
-import org.citygml4j.jaxb.xal.PremiseNumberPrefixElement;
-import org.citygml4j.jaxb.xal.PremiseNumberSuffixElement;
-import org.citygml4j.jaxb.xal.SubPremiseType;
-import org.citygml4j.jaxb.xal.ThoroughfareElement;
-import org.citygml4j.jaxb.xal.ThoroughfareLeadingTypeType;
-import org.citygml4j.jaxb.xal.ThoroughfareNameType;
-import org.citygml4j.jaxb.xal.ThoroughfareNumberElement;
-import org.citygml4j.jaxb.xal.ThoroughfareNumberPrefixElement;
-import org.citygml4j.jaxb.xal.ThoroughfareNumberSuffixElement;
-import org.citygml4j.jaxb.xal.ThoroughfarePostDirectionType;
-import org.citygml4j.jaxb.xal.ThoroughfarePreDirectionType;
-import org.citygml4j.jaxb.xal.ThoroughfareTrailingTypeType;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
+import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
+import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ObjectFactory;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
+
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressIdentifier;
@@ -348,8 +349,8 @@ public class XALMarshaller {
 		return dest;
 	}
 	
-	public org.citygml4j.jaxb.xal.AddressDetails marshalAddressDetails(org.citygml4j.model.xal.AddressDetails src) {
-		org.citygml4j.jaxb.xal.AddressDetails dest = xal.createAddressDetails();
+	public AddressDetails marshalAddressDetails(org.citygml4j.model.xal.AddressDetails src) {
+		AddressDetails dest = xal.createAddressDetails();
 
 		if (src.isSetAddress())
 			dest.setAddress(marshalAddress(src.getAddress()));

@@ -25,10 +25,11 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
+import net.opengis.gml.CodeType;
+
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.jaxb.citygml.frn._2.CityFurnitureType;
-import org.citygml4j.jaxb.gml._3_1_1.CodeType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;

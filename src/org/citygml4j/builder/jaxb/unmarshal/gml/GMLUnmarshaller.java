@@ -29,8 +29,9 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import net.opengis.gml.*;
+
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.jaxb.gml._3_1_1.*;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -360,10 +361,10 @@ public class GMLUnmarshaller {
 			dest = unmarshalMultiSurfaceProperty((MultiSurfacePropertyType)src);
 		else if (src instanceof OrientableCurveType)
 			dest = unmarshalOrientableCurve((OrientableCurveType)src);
-		else if (src instanceof org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)
-			jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._2.TexturedSurfaceType)src);
-		else if (src instanceof org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)
-			jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((org.citygml4j.jaxb.citygml.tex._1.TexturedSurfaceType)src);
+		else if (src instanceof net.opengis.citygml.texturedsurface._2.TexturedSurfaceType)
+			jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((net.opengis.citygml.texturedsurface._2.TexturedSurfaceType)src);
+		else if (src instanceof net.opengis.citygml.texturedsurface._1.TexturedSurfaceType)
+			jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((net.opengis.citygml.texturedsurface._1.TexturedSurfaceType)src);
 		else if (src instanceof OrientableSurfaceType)
 			dest = unmarshalOrientableSurface((OrientableSurfaceType)src);
 		else if (src instanceof PointType)
@@ -533,8 +534,8 @@ public class GMLUnmarshaller {
 							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance200Unmarshaller().unmarshalAppearanceMember(featureProperty));
 						else if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
 							cityModel.addCityObjectMember(jaxb.getCityGMLUnmarshaller().getCore100Unmarshaller().unmarshalCityObjectMember(featureProperty));
-						else if (featureProperty instanceof org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)
-							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance100Unmarshaller().unmarshalAppearanceMember((org.citygml4j.jaxb.citygml.app._1.AppearancePropertyType)featureProperty));
+						else if (featureProperty instanceof net.opengis.citygml.appearance._1.AppearancePropertyType)
+							cityModel.addAppearanceMember(jaxb.getCityGMLUnmarshaller().getAppearance100Unmarshaller().unmarshalAppearanceMember((net.opengis.citygml.appearance._1.AppearancePropertyType)featureProperty));
 						else
 							cityGMLProperty = false;
 					}

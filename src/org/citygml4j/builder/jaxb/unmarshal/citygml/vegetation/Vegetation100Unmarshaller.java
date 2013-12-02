@@ -27,9 +27,9 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.jaxb.citygml.veg._1.AbstractVegetationObjectType;
-import org.citygml4j.jaxb.citygml.veg._1.PlantCoverType;
-import org.citygml4j.jaxb.citygml.veg._1.SolitaryVegetationObjectType;
+import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._1.PlantCoverType;
+import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;

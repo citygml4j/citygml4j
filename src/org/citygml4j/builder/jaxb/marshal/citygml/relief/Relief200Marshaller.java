@@ -24,22 +24,20 @@ package org.citygml4j.builder.jaxb.marshal.citygml.relief;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.citygml.relief._2.AbstractReliefComponentType;
+import net.opengis.citygml.relief._2.BreaklineReliefType;
+import net.opengis.citygml.relief._2.GridPropertyType;
+import net.opengis.citygml.relief._2.MassPointReliefType;
+import net.opengis.citygml.relief._2.ObjectFactory;
+import net.opengis.citygml.relief._2.RasterReliefType;
+import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
+import net.opengis.citygml.relief._2.ReliefFeatureType;
+import net.opengis.citygml.relief._2.TINReliefType;
+import net.opengis.citygml.relief._2.TinPropertyType;
+import net.opengis.gml.TriangulatedSurfaceType;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.dem._2.AbstractReliefComponentType;
-import org.citygml4j.jaxb.citygml.dem._2.BreaklineReliefType;
-import org.citygml4j.jaxb.citygml.dem._2.GridPropertyType;
-import org.citygml4j.jaxb.citygml.dem._2.MassPointReliefType;
-import org.citygml4j.jaxb.citygml.dem._2.ObjectFactory;
-import org.citygml4j.jaxb.citygml.dem._2.RasterReliefType;
-import org.citygml4j.jaxb.citygml.dem._2.ReliefComponentPropertyType;
-import org.citygml4j.jaxb.citygml.dem._2.ReliefFeatureType;
-import org.citygml4j.jaxb.citygml.dem._2.TINReliefType;
-import org.citygml4j.jaxb.citygml.dem._2.TinPropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.TriangulatedSurfaceType;
-import org.citygml4j.jaxb.xlink.ActuateType;
-import org.citygml4j.jaxb.xlink.ShowType;
-import org.citygml4j.jaxb.xlink.TypeType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
@@ -52,6 +50,9 @@ import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.w3._1999.xlink.ActuateType;
+import org.w3._1999.xlink.ShowType;
+import org.w3._1999.xlink.TypeType;
 
 public class Relief200Marshaller {
 	private final ObjectFactory dem = new ObjectFactory();

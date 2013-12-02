@@ -26,10 +26,10 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.veg._2.AbstractVegetationObjectType;
-import org.citygml4j.jaxb.citygml.veg._2.ObjectFactory;
-import org.citygml4j.jaxb.citygml.veg._2.PlantCoverType;
-import org.citygml4j.jaxb.citygml.veg._2.SolitaryVegetationObjectType;
+import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._2.ObjectFactory;
+import net.opengis.citygml.vegetation._2.PlantCoverType;
+import net.opengis.citygml.vegetation._2.SolitaryVegetationObjectType;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;

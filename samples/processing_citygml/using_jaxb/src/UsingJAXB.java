@@ -29,17 +29,18 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import net.opengis.citygml._1.CityModelType;
+import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
+import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
+import net.opengis.citygml.building._1.BuildingType;
+import net.opengis.gml.AbstractFeatureType;
+import net.opengis.gml.FeaturePropertyType;
+import net.opengis.gml.ObjectFactory;
+import net.opengis.gml.StringOrRefType;
+
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.jaxb.citygml.bldg._1.AbstractBoundarySurfaceType;
-import org.citygml4j.jaxb.citygml.bldg._1.BoundarySurfacePropertyType;
-import org.citygml4j.jaxb.citygml.bldg._1.BuildingType;
-import org.citygml4j.jaxb.citygml.core._1.CityModelType;
-import org.citygml4j.jaxb.gml._3_1_1.AbstractFeatureType;
-import org.citygml4j.jaxb.gml._3_1_1.FeaturePropertyType;
-import org.citygml4j.jaxb.gml._3_1_1.ObjectFactory;
-import org.citygml4j.jaxb.gml._3_1_1.StringOrRefType;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.gml.base.StringOrRef;

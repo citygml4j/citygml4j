@@ -24,10 +24,11 @@ package org.citygml4j.builder.jaxb.marshal.citygml.landuse;
 
 import javax.xml.bind.JAXBElement;
 
+import net.opengis.citygml.landuse._2.ObjectFactory;
+import net.opengis.citygml.landuse._2.LandUseType;
+
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.jaxb.citygml.luse._2.LandUseType;
-import org.citygml4j.jaxb.citygml.luse._2.ObjectFactory;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.citygml.landuse.LandUseModuleComponent;
