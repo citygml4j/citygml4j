@@ -54,7 +54,7 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException {
 		try {
 			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(systemId, in);
-			URI baseURI = toURI(SystemIDResolver.getAbsoluteURI(systemId));
+			URI baseURI = toURI(systemId != null ? SystemIDResolver.getAbsoluteURI(systemId) : null);
 
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
@@ -71,7 +71,7 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException {
 		try {
 			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
-			URI baseURI = toURI(SystemIDResolver.getAbsoluteURI(systemId));
+			URI baseURI = toURI(systemId != null ? SystemIDResolver.getAbsoluteURI(systemId) : null);
 
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
