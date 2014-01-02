@@ -22,6 +22,7 @@
  */
 package org.citygml4j.util.xml;
 
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,9 +43,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.NamespaceSupport;
 import org.xml.sax.helpers.XMLFilterImpl;
-
-import com.sun.xml.stream.writers.UTF8OutputStreamWriter;
-import com.sun.xml.stream.writers.XMLWriter;
 
 public class SAXWriter extends XMLFilterImpl {
 	private final String OPEN_COMMENT = "<!--";
@@ -109,11 +107,13 @@ public class SAXWriter extends XMLFilterImpl {
 	}
 
 	public SAXWriter(OutputStream outputStream, String encoding) throws IOException {
-		this(new StreamResult(outputStream), encoding);
+		this();
+		setOutput(outputStream, encoding);
 	}
 
 	public SAXWriter(Writer writer) throws IOException {
-		this(new StreamResult(writer), null);
+		this();
+		setOutput(writer);
 	}
 
 	private void init() {
@@ -148,18 +148,18 @@ public class SAXWriter extends XMLFilterImpl {
 
 	public void setOutput(StreamResult streamResult, String encoding) throws IOException {
 		if (streamResult.getOutputStream() != null)
-			setOutputUsingStream(streamResult.getOutputStream(), encoding);
+			setOutput(streamResult.getOutputStream(), encoding);
 		else if (streamResult.getWriter() != null)
-			setOutputUsingWriter(streamResult.getWriter());
+			setOutput(streamResult.getWriter());
 		else if (streamResult.getSystemId() != null)
-			setOutputUsingStream(new FileOutputStream(streamResult.getSystemId()), encoding);
+			setOutput(new FileOutputStream(streamResult.getSystemId()), encoding);
 	}
 
-	private void setOutputUsingWriter(Writer writer) {
+	public void setOutput(Writer writer) {
 		this.writer = writer;
 
 		if (writer instanceof OutputStreamWriter) {
-			this.writer = new XMLWriter((OutputStreamWriter)writer);			
+			this.writer = new BufferedWriter((OutputStreamWriter)writer);			
 			String encoding = ((OutputStreamWriter)writer).getEncoding();
 
 			if (encoding != null) {
@@ -172,35 +172,25 @@ public class SAXWriter extends XMLFilterImpl {
 			}
 		}
 	}
+	
+	public void setOutput(OutputStream outputStream) throws IOException {
+		setOutput(outputStream, null);
+	}
 
-	private void setOutputUsingStream(OutputStream outputStream, String encoding) throws IOException {
+	public void setOutput(OutputStream outputStream, String encoding) throws IOException {
+		if (encoding == null)
+			encoding = System.getProperty("file.encoding");
+		
 		if (encoding != null) {		
 			Charset charset = Charset.forName(encoding);
 			streamEncoding = charset.name();
 			writeEncoding = true;
+			
+			writer = new BufferedWriter(new OutputStreamWriter(outputStream, encoding));
 
-			if (streamEncoding.equalsIgnoreCase("utf-8"))
-				writer = new UTF8OutputStreamWriter(outputStream);
-			else {
-				writer = new XMLWriter(new OutputStreamWriter(outputStream, streamEncoding));
-				charsetEncoder = charset.newEncoder();
-			}			
-		} 
-
-		else {
-			encoding = System.getProperty("file.encoding");
-
-			if (encoding != null) {
-				Charset charset = Charset.forName(encoding);
-				streamEncoding = charset.name();
-			}
-
-			if (streamEncoding != null && streamEncoding.equalsIgnoreCase("utf-8")) {
-				writer = new UTF8OutputStreamWriter(outputStream);
-				writeEncoding = true;
-			} else
-				writer = new XMLWriter(new OutputStreamWriter(outputStream));
-		}			
+			if (!streamEncoding.equalsIgnoreCase("utf-8"))
+				charsetEncoder = charset.newEncoder();			
+		} 			
 	}
 
 	public Writer getOutputWriter() {
@@ -735,9 +725,9 @@ public class SAXWriter extends XMLFilterImpl {
 			if (charsetEncoder != null && !charsetEncoder.canEncode(ch)){
 				writer.write(content, startWritePos, index - startWritePos );
 
-				writer.write( "&#x" );
+				writer.write("&#x");
 				writer.write(Integer.toHexString(ch));
-				writer.write( ';' );                    
+				writer.write(';');                    
 				startWritePos = index + 1;
 				continue;
 			}
@@ -784,9 +774,9 @@ public class SAXWriter extends XMLFilterImpl {
 			if (charsetEncoder != null && !charsetEncoder.canEncode(ch)){
 				writer.write(content, startWritePos, index - startWritePos );
 
-				writer.write( "&#x" );
+				writer.write("&#x");
 				writer.write(Integer.toHexString(ch));
-				writer.write( ';' );                    
+				writer.write(';');                    
 				startWritePos = index + 1;
 				continue;
 			}
