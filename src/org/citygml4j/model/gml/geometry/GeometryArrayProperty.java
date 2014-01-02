@@ -42,7 +42,7 @@ public class GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAsso
 		super(abstractGeometry);
 	}
 	
-	public GeometryArrayProperty(T... abstractGeometry) {
+	public GeometryArrayProperty(T[] abstractGeometry) {
 		super(abstractGeometry);
 	}
 	

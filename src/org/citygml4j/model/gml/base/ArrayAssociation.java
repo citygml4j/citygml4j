@@ -54,7 +54,7 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 		setObject(object);
 	}
 
-	public ArrayAssociation(T... object) {
+	public ArrayAssociation(T[] object) {
 		this(Arrays.asList(object));
 	}
 	

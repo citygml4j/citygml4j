@@ -28,7 +28,7 @@ import java.util.List;
 public class AbstractModuleConfiguration {
 	protected Module[] modules;
 	
-	public <T extends Module> AbstractModuleConfiguration(T... modules) {
+	public <T extends Module> AbstractModuleConfiguration(T[] modules) {
 		this.modules = modules;
 	}
 	
