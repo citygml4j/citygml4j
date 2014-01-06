@@ -28,10 +28,10 @@ import org.citygml4j.util.xml.saxevents.EndElement;
 import org.citygml4j.util.xml.saxevents.EndPrefixMapping;
 import org.citygml4j.util.xml.saxevents.Location;
 import org.citygml4j.util.xml.saxevents.SAXEvent;
+import org.citygml4j.util.xml.saxevents.SAXEvent.EventType;
 import org.citygml4j.util.xml.saxevents.StartDocument;
 import org.citygml4j.util.xml.saxevents.StartElement;
 import org.citygml4j.util.xml.saxevents.StartPrefixMapping;
-import org.citygml4j.util.xml.saxevents.SAXEvent.EventType;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -81,27 +81,33 @@ public class SAXEventBuffer implements ContentHandler {
 		locator.setPublicId(publicId);
 	}
 
+	@Override
 	public void skippedEntity(String name) throws SAXException {
 		// we do not record this event
 	}
 
+	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		if (lastElementEvent == EventType.START_ELEMENT)
 			addEvent(new Characters(ch, start, length, getLocation()));
 	}
 
+	@Override
 	public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
 		// we do not record this event
 	}
 
+	@Override
 	public void processingInstruction(String target, String data) throws SAXException {
 		// we do not record this event
 	}
 
+	@Override
 	public void startDocument() throws SAXException {
 		addEvent(new StartDocument());
 	}
 
+	@Override
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 		StartElement element = new StartElement(uri, localName, qName, atts, getLocation());		
 		if (lastElementEvent == EventType.START_ELEMENT) {
@@ -114,24 +120,30 @@ public class SAXEventBuffer implements ContentHandler {
 		lastElementEvent = EventType.START_ELEMENT;
 	}
 
+	@Override
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
 		namespaces.pushContext();
 		namespaces.declarePrefix(prefix, uri);		
 		addEvent(new StartPrefixMapping(prefix, uri));
 	}
 
+	@Override
 	public void endDocument() throws SAXException {
 		addEvent(new EndDocument());
+		lastStartElement = null;
 	}
 
+	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		// we only need the reference to the corresponding start element
 		if (lastElementEvent == EventType.END_ELEMENT)
-			parentStartElements.pop();
-
-		addEvent(new EndElement(uri, localName, qName, getLocation()));
+			lastStartElement = parentStartElements.pop();
+		
+		addEvent(new EndElement(lastStartElement, getLocation()));
 		lastElementEvent = EventType.END_ELEMENT;
 	}
 
+	@Override
 	public void endPrefixMapping(String prefix) throws SAXException {
 		namespaces.popContext();		
 		addEvent(new EndPrefixMapping(prefix));
@@ -146,7 +158,7 @@ public class SAXEventBuffer implements ContentHandler {
 		namespaces.reset();
 		locator = trackLocation ? new LocatorImpl() : null;
 		lastElementEvent = EventType.END_ELEMENT;
-		parentStartElements = new Stack<StartElement>();
+		parentStartElements.head = null;
 		lastStartElement = null;		
 	}
 
@@ -187,16 +199,14 @@ public class SAXEventBuffer implements ContentHandler {
 		return null;
 	}
 
-	public void removeFirstEvent() {
-		head = head.next();
-	}
-
-	public SAXEvent getLastEvent() {
-		return tail;
-	}
-
 	public StartElement getFirstStartElement() {
 		return (StartElement)getFirstEvent(EventType.START_ELEMENT);
+	}
+	
+	public void dropFirstEvent() {
+		SAXEvent tmp = head;
+		head = head.next();
+		tmp.setNext(null);
 	}
 
 	public StartElement getLastStartElement() {
@@ -206,7 +216,39 @@ public class SAXEventBuffer implements ContentHandler {
 	public StartElement getParentStartElement() {
 		return parentStartElements.peek();
 	}
+	
+	public void revertToLastStartElement() {
+		tail = lastStartElement;
+	}
+	
+	public void send(ContentHandler handler) throws SAXException {
+		SAXEvent event = head;
+		SAXEvent next = null;
+		clear();
+		
+		if (event != null) {
+			do {
+				event.send(handler);
+				next = event.next();
+				event.setNext(null);
+			} while ((event = next) != null);
+		}
+	}
 
+	public void send(ContentHandler handler, LocatorImpl locator) throws SAXException {
+		SAXEvent event = head;
+		SAXEvent next = null;
+		clear();
+		
+		if (event != null) {
+			do {
+				event.send(handler, locator);
+				next = event.next();
+				event.setNext(null);
+			} while ((event = next) != null);
+		}
+	}
+	
 	private Location getLocation() {
 		return trackLocation ? new Location(
 				locator.getLineNumber(), 
@@ -215,7 +257,7 @@ public class SAXEventBuffer implements ContentHandler {
 				locator.getPublicId()) : null;
 	}
 
-	private static final class StackItem<T> {
+	private final class StackItem<T> {
 		private final T value;
 		private StackItem<T> next;
 
@@ -224,7 +266,7 @@ public class SAXEventBuffer implements ContentHandler {
 		}
 	}
 
-	private static final class Stack<T> {
+	private final class Stack<T> {
 		private StackItem<T> head;
 
 		void push(T item) {

@@ -27,34 +27,23 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
 public final class EndElement extends SAXEvent {
-	private String uri;
-	private String localName;
-	private String prefix;
+	private StartElement startElement;
 	private Location location;
 
 	private EndElement() {
 		super(EventType.END_ELEMENT);
 	}
 
-	public EndElement(String uri, String localName, String prefix, Location location) {
+	public EndElement(StartElement startElement, Location location) {
 		this();
-		this.uri = uri;
-		this.localName = localName;
+		this.startElement = startElement;
 		this.location = location;
-
-		if (prefix != null) {
-			int index = prefix.indexOf(':');
-			this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
-		} else
-			this.prefix = prefix;
 	}
 
 	@Override
 	public EndElement shallowCopy() {
 		EndElement endElement = new EndElement();
-		endElement.uri = uri;
-		endElement.localName = localName;
-		endElement.prefix = prefix;
+		endElement.startElement = startElement;
 		endElement.location = location;
 
 		return endElement;
@@ -62,7 +51,7 @@ public final class EndElement extends SAXEvent {
 
 	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.endElement(uri, localName, prefix != null ? prefix + ':' + localName : localName);
+		contentHandler.endElement(startElement.getURI(), startElement.getLocalName(), startElement.getQName());
 	}
 
 	@Override
@@ -78,11 +67,15 @@ public final class EndElement extends SAXEvent {
 	}
 
 	public String getURI() {
-		return uri;
+		return startElement.getURI();
 	}
 
 	public String getLocalName() {
-		return localName;
+		return startElement.getLocalName();
+	}
+	
+	public String getQName() {
+		return startElement.getQName();
 	}
 
 	public Location getLocation() {

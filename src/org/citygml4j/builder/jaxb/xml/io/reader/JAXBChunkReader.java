@@ -89,10 +89,10 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 	}
 
 	public XMLChunk nextChunk() throws CityGMLReadException {
-		XMLChunkImpl next = iterator;
+		if (iterator == null) {
+			try {
+				current = null;
 
-		if (next == null) {
-			try {				
 				while (reader.hasNext()) {
 					int event = reader.next();	
 
@@ -136,8 +136,10 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 						ElementInfo lastElementInfo = elementInfos.push(elementInfo);
 						elementInfo = elementChecker.getElementInfo(reader.getName(), chunk, lastElementInfo, isFilteredReader());
 
-						if (elementInfo != null && elementInfo.isFeature()) {						
+						if (elementInfo != null && elementInfo.isFeature()) {
+							chunk.skipTrailingCharacters();
 							chunks.add(chunk);
+
 							chunk = new XMLChunkImpl(this, chunks.peek(), elementInfo.getType());
 
 							if (isFilteredReader())
@@ -166,10 +168,10 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 							isInited = false;
 						}
 
-						if (!isFilteredReader() || !current.isFiltered()) {
-							next = current;
-							break;	
-						}
+						if (!isFilteredReader() || !current.isFiltered())
+							break;
+						else
+							current = null;
 					}
 				}
 			} catch (XMLStreamException e) {
@@ -179,14 +181,14 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 			} catch (MissingADESchemaException e) {
 				throw new CityGMLReadException("Caused by: ", e);
 			}
-		}
+			
+			if (current == null)
+				throw new NoSuchElementException();
+		} else
+			current = iterator;
 
-		if (next == null)
-			throw new NoSuchElementException();
-		else {
-			iterator = null;
-			return next;
-		}
+		iterator = null;
+		return current;
 	}
 
 	public CityGML nextFeature() throws CityGMLReadException {	

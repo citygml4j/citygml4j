@@ -34,23 +34,20 @@ public final class StartElement extends SAXEvent implements Locatable {
 	private String prefix;
 	private Attributes attributes;
 	private Location location;
-	
+
 	private StartElement() {
 		super(EventType.START_ELEMENT);
 	}
 
-	public StartElement(String uri, String localName, String prefix, Attributes attributes, Location location) {
+	public StartElement(String uri, String localName, String qName, Attributes attributes, Location location) {
 		this();
 		this.uri = uri;
 		this.localName = localName;
 		this.attributes = new AttributesImpl(attributes);
 		this.location = location;
 
-		if (prefix != null) {
-			int index = prefix.indexOf(':');
-			this.prefix = index > 0 ? prefix.substring(0, index).intern() : null;
-		} else
-			this.prefix = prefix;
+		int index = qName.indexOf(':');
+		this.prefix = index > 0 ? qName.substring(0, index).intern() : null;
 	}
 
 	@Override
@@ -61,13 +58,13 @@ public final class StartElement extends SAXEvent implements Locatable {
 		startElement.prefix = prefix;
 		startElement.attributes = attributes;
 		startElement.location = location;
-		
+
 		return startElement;
 	}
 
 	@Override
 	public void send(ContentHandler contentHandler) throws SAXException {
-		contentHandler.startElement(uri, localName, prefix != null ? prefix + ':' + localName : localName, attributes);
+		contentHandler.startElement(uri, localName, getQName(), attributes);
 	}
 
 	@Override
@@ -88,6 +85,10 @@ public final class StartElement extends SAXEvent implements Locatable {
 
 	public String getLocalName() {
 		return localName;
+	}
+
+	public String getQName() {
+		return prefix != null ? prefix + ':' + localName : localName;
 	}
 
 	public Attributes getAttributes() {

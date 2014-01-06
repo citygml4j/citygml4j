@@ -131,6 +131,7 @@ public class XMLChunkImpl implements XMLChunk {
 		return !buffer.isEmpty() && depth == 0;
 	}
 
+	@Override
 	public StartElement getFirstStartElement() {
 		return buffer.getFirstStartElement();
 	}
@@ -138,27 +139,31 @@ public class XMLChunkImpl implements XMLChunk {
 	public StartElement getLastStartElement() {
 		return buffer.getLastStartElement();
 	}
-
-	public StartElement getParentStartElement() {
-		return buffer.getParentStartElement();
+	
+	public void skipTrailingCharacters() {
+		buffer.revertToLastStartElement();
 	}
-
+	
 	public void append(XMLChunkImpl other) {
 		buffer.append(other.buffer);
 	}
 
+	@Override
 	public boolean isSetParentInfo() {
 		return getParentInfo() != null;
 	} 
 
+	@Override
 	public ParentInfo getParentInfo() {
 		return parentChunk != null ? parentChunk.unmarshalFeatureInfo() : null;
 	}
 
+	@Override
 	public boolean hasPassedXMLValidation() {
 		return hasPassedXMLValidation;
 	}
 
+	@Override
 	public CityGMLClass getCityGMLClass() {
 		if (citygmlResolved.get())
 			return citygml.getCityGMLClass();
@@ -184,6 +189,7 @@ public class XMLChunkImpl implements XMLChunk {
 		return type;
 	}
 
+	@Override
 	public void send(ContentHandler handler) throws SAXException {
 		if (!citygmlResolved.get()) {
 			SAXEvent event = buffer.getFirstEvent();
@@ -225,21 +231,12 @@ public class XMLChunkImpl implements XMLChunk {
 				}
 
 				// add EndElement in case we found an unclosed StartElement
-				if (isParentInfoElement) {
-					tmp.addEvent(new EndElement(
-							element.getURI(), 
-							element.getLocalName(),
-							null,
-							null));
-				}
+				if (isParentInfoElement)
+					tmp.addEvent(new EndElement(element, null));
 
 				// close root element
 				element = tmp.getFirstStartElement();					
-				tmp.addEvent(new EndElement(
-						element.getURI(), 
-						element.getLocalName(),
-						null,
-						null));
+				tmp.addEvent(new EndElement(element, null));
 
 				CityGML citygml = unmarshal(tmp, false);
 				if (citygml instanceof AbstractFeature)
@@ -256,6 +253,7 @@ public class XMLChunkImpl implements XMLChunk {
 		return featureInfo;
 	}
 
+	@Override
 	public CityGML unmarshal() throws UnmarshalException, MissingADESchemaException {
 		if (!buffer.isEmpty() && citygmlResolved.compareAndSet(false, true))
 			citygml = unmarshal(buffer, jaxbReader.useValidation);
@@ -290,17 +288,8 @@ public class XMLChunkImpl implements XMLChunk {
 			// emulate start of a new document
 			emulateStartDocument(handler, fakeRoot);
 
-			// fire buffered sax events to unmarshaller
-			SAXEvent event = buffer.getFirstEvent();
-			do {
-				try {
-					event.send(handler, locator);
-					buffer.removeFirstEvent();
-				} catch (SAXException e) {
-					buffer.clear();
-					throw e;
-				}
-			} while ((event = event.next()) != null);
+			// fire buffered sax events to unmarshaller		
+			buffer.send(handler, locator);
 
 			// emulate end of a document
 			emulateEndDocument(handler, fakeRoot);

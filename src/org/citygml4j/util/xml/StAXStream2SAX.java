@@ -83,16 +83,11 @@ public class StAXStream2SAX {
 
 	private void handleEndElement(XMLStreamReader reader) throws XMLStreamException {
 		try {
-			QName name = reader.getName();
-			String prefix = name.getPrefix();
-
-			buffer.endElement(
-					name.getNamespaceURI(),
-					name.getLocalPart(),
-					(prefix != null && prefix.length() > 0) ? prefix + ':' + name.getLocalPart() : name.getLocalPart());
+			// we infer the element name from the corresponding start element
+			buffer.endElement(null, null, null);
 
 			for (int i = reader.getNamespaceCount() - 1; i >= 0; i--) {
-				prefix = reader.getNamespacePrefix(i);
+				String prefix = reader.getNamespacePrefix(i);
 				if (prefix == null)
 					prefix = "";
 
