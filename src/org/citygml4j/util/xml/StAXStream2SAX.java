@@ -65,8 +65,16 @@ public class StAXStream2SAX {
 	}
 
 	private void handleCharacters(XMLStreamReader reader) throws XMLStreamException {
+		char[] buf = new char[reader.getTextLength()];
+		int len, start = 0;
+
+		do {
+			len = reader.getTextCharacters(start, buf, 0, buf.length);
+			start += len;      
+		} while (len == buf.length);
+
 		try {
-			buffer.characters(reader.getTextCharacters(), reader.getTextStart(), reader.getTextLength());
+			buffer.characters(buf, 0, start);
 		} catch (SAXException e) {
 			throw new XMLStreamException(e);
 		}
@@ -97,7 +105,7 @@ public class StAXStream2SAX {
 					reader.getNamespaceURI(),
 					localName,
 					(prefix != null && prefix.length() > 0) ? prefix + ':' + localName : localName,
-					attrs);
+							attrs);
 
 		} catch (SAXException e) {
 			throw new XMLStreamException(e);
@@ -111,7 +119,7 @@ public class StAXStream2SAX {
 			String uri = reader.getNamespaceURI(i);
 			String prefix = reader.getNamespacePrefix(i);
 			String name = XMLConstants.XMLNS_ATTRIBUTE;
-			
+
 			if (prefix.length() == 0)
 				prefix = name;
 			else
@@ -125,7 +133,7 @@ public class StAXStream2SAX {
 			String localName = reader.getAttributeLocalName(i);
 			String type = reader.getAttributeType(i);
 			String value = reader.getAttributeValue(i);
-			
+
 			attrs.addAttribute(uri, localName, localName, type, value);
 		}
 
