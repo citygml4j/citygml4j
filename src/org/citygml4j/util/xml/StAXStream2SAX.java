@@ -23,7 +23,6 @@
 package org.citygml4j.util.xml;
 
 import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -66,16 +65,8 @@ public class StAXStream2SAX {
 	}
 
 	private void handleCharacters(XMLStreamReader reader) throws XMLStreamException {
-		char[] buf = new char[reader.getTextLength()];
-		int len, start = 0;
-
-		do {
-			len = reader.getTextCharacters(start, buf, 0, buf.length);
-			start += len;			
-		} while (len == buf.length);
-
 		try {
-			buffer.characters(buf, 0, start);
+			buffer.characters(reader.getTextCharacters(), reader.getTextStart(), reader.getTextLength());
 		} catch (SAXException e) {
 			throw new XMLStreamException(e);
 		}
@@ -86,13 +77,8 @@ public class StAXStream2SAX {
 			// we infer the element name from the corresponding start element
 			buffer.endElement(null, null, null);
 
-			for (int i = reader.getNamespaceCount() - 1; i >= 0; i--) {
-				String prefix = reader.getNamespacePrefix(i);
-				if (prefix == null)
-					prefix = "";
-
-				buffer.endPrefixMapping(prefix);
-			}
+			for (int i = reader.getNamespaceCount() - 1; i >= 0; i--)
+				buffer.endPrefixMapping(reader.getNamespacePrefix(i));
 		} catch (SAXException e) {
 			throw new XMLStreamException(e);
 		}
@@ -100,28 +86,17 @@ public class StAXStream2SAX {
 
 	private void handleStartElement(XMLStreamReader reader) throws XMLStreamException {
 		try {
-			for (int i = 0; i < reader.getNamespaceCount(); i++) {
-				String uri = reader.getNamespaceURI(i);
-				if (uri == null)
-					uri = "";
+			for (int i = 0; i < reader.getNamespaceCount(); i++)
+				buffer.startPrefixMapping(reader.getNamespaceURI(i), reader.getNamespacePrefix(i));
 
-				String prefix = reader.getNamespacePrefix(i);
-				if (prefix == null)
-					prefix = "";
-
-				buffer.startPrefixMapping(
-						prefix,
-						uri);
-			}
-
-			QName name = reader.getName();
+			String localName = reader.getLocalName();
 			String prefix = reader.getPrefix();
 			Attributes attrs = getAttributes(reader);
 
 			buffer.startElement(
-					name.getNamespaceURI(),
-					name.getLocalPart(),
-					(prefix != null && prefix.length() > 0) ? prefix + ':' + name.getLocalPart() : name.getLocalPart(),
+					reader.getNamespaceURI(),
+					localName,
+					(prefix != null && prefix.length() > 0) ? prefix + ':' + localName : localName,
 					attrs);
 
 		} catch (SAXException e) {
@@ -134,14 +109,9 @@ public class StAXStream2SAX {
 
 		for (int i = 0; i < reader.getNamespaceCount(); i++) {
 			String uri = reader.getNamespaceURI(i);
-			if (uri == null) 
-				uri = "";
-
 			String prefix = reader.getNamespacePrefix(i);
-			if (prefix == null) 
-				prefix = "";
-
 			String name = XMLConstants.XMLNS_ATTRIBUTE;
+			
 			if (prefix.length() == 0)
 				prefix = name;
 			else
@@ -152,9 +122,6 @@ public class StAXStream2SAX {
 
 		for (int i = 0; i < reader.getAttributeCount(); i++) {
 			String uri = reader.getAttributeNamespace(i);
-			if (uri == null)   
-				uri = "";
-
 			String localName = reader.getAttributeLocalName(i);
 			String type = reader.getAttributeType(i);
 			String value = reader.getAttributeValue(i);
