@@ -22,63 +22,289 @@
  */
 package org.citygml4j.util.xml;
 
-import org.citygml4j.util.xml.saxevents.Characters;
-import org.citygml4j.util.xml.saxevents.EndDocument;
-import org.citygml4j.util.xml.saxevents.EndElement;
-import org.citygml4j.util.xml.saxevents.EndPrefixMapping;
-import org.citygml4j.util.xml.saxevents.Location;
-import org.citygml4j.util.xml.saxevents.SAXEvent;
-import org.citygml4j.util.xml.saxevents.SAXEvent.EventType;
-import org.citygml4j.util.xml.saxevents.StartDocument;
-import org.citygml4j.util.xml.saxevents.StartElement;
-import org.citygml4j.util.xml.saxevents.StartPrefixMapping;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.LocatorImpl;
-import org.xml.sax.helpers.NamespaceSupport;
+import org.xml.sax.helpers.AttributesImpl;
 
 public class SAXEventBuffer implements ContentHandler {
-	private final NamespaceSupport namespaces;
-	private final boolean trackLocation;
+	private final String END_PREFIX_MAPPING      = "END_PREFIX_MAPPING";
+	private final Byte START_DOCUMENT            = 1;
+	private final Byte END_DOCUMENT              = 2;
+	private final Byte START_ELEMENT             = 3;
+	private final Byte END_ELEMENT               = 4;
+	private final Byte CHARACTERS                = 5;
+	private final Byte NAMESPACE_PREFIX_MAPPING  = 6;
+	private final Byte ATTRIBUTE                 = 7;
 
-	private LocatorImpl locator;
-	private SAXEvent head;
-	private SAXEvent tail;
-
-	private EventType lastElementEvent = EventType.END_ELEMENT;
-	private Stack<StartElement> parentStartElements;
-	private StartElement lastStartElement;
+	private ArrayBuffer<String> stringBuffer;
+	private ArrayBuffer<char[]> charactersBuffer;
+	private ArrayBuffer<Byte> eventBuffer;
+	private ArrayBuffer<String> tmpBuffer;
+	private AttributesImpl atts;
+	private Byte previousElement = END_ELEMENT;
 
 	public SAXEventBuffer() {
-		this(false);
+		stringBuffer = new ArrayBuffer<String>(String.class);
+		charactersBuffer = new ArrayBuffer<char[]>(char[].class);
+		eventBuffer = new ArrayBuffer<Byte>(Byte.class);
 	}
 
-	public SAXEventBuffer(boolean trackLocation) {
-		this.trackLocation = trackLocation;
-		namespaces = new NamespaceSupport();
-		locator = trackLocation ? new LocatorImpl() : null;
-		parentStartElements = new Stack<StartElement>();
+	public void reset() {
+		stringBuffer = new ArrayBuffer<String>(String.class);
+		charactersBuffer = new ArrayBuffer<char[]>(char[].class);
+		eventBuffer = new ArrayBuffer<Byte>(Byte.class);
+		tmpBuffer = null;
+		atts = null;
+		previousElement = END_ELEMENT;		
 	}
 
-	public boolean isTrackLocation() {
-		return trackLocation;
+	public boolean isEmpty() {
+		return eventBuffer.currentPtr() == 0 && eventBuffer.previousBuffer() == null;
 	}
 
-	public NamespaceSupport getNamespaceSupport() {
-		return namespaces;
+	public void removeTrailingCharacters() {
+		while (eventBuffer.peek() == CHARACTERS) {
+			popEvent();
+			popCharacters();				
+		}
 	}
 
+	public void addCharacters(char[] ch) {
+		if (previousElement == START_ELEMENT) {
+			pushEvent(CHARACTERS);
+			pushCharacters(ch);
+		}
+	}
+
+	public void addStartElement(String uri, String localName, String prefix) {
+		if (previousElement == START_ELEMENT)
+			removeTrailingCharacters();
+
+		pushEvent(START_ELEMENT);
+		pushString(uri);
+		pushString(localName);
+		pushString(prefix);
+
+		previousElement = START_ELEMENT;
+	}
+
+	public void addEndElement() {
+		if (previousElement == END_ELEMENT)
+			removeTrailingCharacters();
+
+		pushEvent(END_ELEMENT);
+		previousElement = END_ELEMENT;
+	}
+
+	public void addNamespacePrefixMapping(String uri, String prefix) {
+		pushEvent(NAMESPACE_PREFIX_MAPPING);
+		pushString(uri);
+		pushString(prefix);
+	}
+
+	public void addAttribute(String uri, String localName, String prefix, String type, String value) {
+		pushEvent(ATTRIBUTE);
+		pushString(uri);
+		pushString(localName);
+		pushString(prefix);
+		pushString(type);
+		pushString(value);
+	}
+
+	public void addStartDocument() {
+		pushEvent(START_DOCUMENT);
+	}
+
+	public void addEndDocument() {
+		pushEvent(END_DOCUMENT);
+	}
+
+	public void send(ContentHandler handler, boolean release) throws SAXException {
+		if (isEmpty())
+			throw new IllegalStateException("buffer is empty.");
+
+		eventBuffer = eventBuffer.rewindToHeadBuffer();
+		stringBuffer = stringBuffer.rewindToHeadBuffer();
+		charactersBuffer = charactersBuffer.rewindToHeadBuffer();
+		tmpBuffer = new ArrayBuffer<String>(String.class);
+		atts = new AttributesImpl();
+
+		Byte currentEvent = null;
+		while ((currentEvent = nextEvent(release)) != null) {
+			if (currentEvent == START_ELEMENT)
+				sendStartElement(handler, release);
+			else if (currentEvent == END_ELEMENT)
+				sendEndElement(handler);
+			else if (currentEvent == CHARACTERS)
+				sendCharacters(handler, release);
+			else if (currentEvent == NAMESPACE_PREFIX_MAPPING)
+				sendStartPrefixMapping(handler, release);
+			else if (currentEvent == START_DOCUMENT)
+				handler.startDocument();
+			else if (currentEvent == END_DOCUMENT)
+				handler.endDocument();
+		}
+
+		// clean up
+		eventBuffer.decrementPtr();
+		stringBuffer.decrementPtr();
+		charactersBuffer.decrementPtr();		
+
+		if (release)
+			reset();
+	}
+
+	private void sendCharacters(ContentHandler handler, boolean release) throws SAXException {
+		char[] ch = nextCharacters(release);		
+		handler.characters(ch, 0, ch.length);
+	}
+
+	private void sendStartPrefixMapping(ContentHandler handler, boolean release) throws SAXException {
+		String nsUri = nextString(release);
+		String nsPrefix = nextString(release);
+
+		handler.startPrefixMapping(nsPrefix, nsUri);
+
+		pushTmpString(nsPrefix);
+		pushTmpString(END_PREFIX_MAPPING);								
+	}
+
+	private void sendStartElement(ContentHandler handler, boolean release) throws SAXException {
+		String elementUri = nextString(release);
+		String elementLocalName = nextString(release);
+		String elementPrefix = nextString(release);
+		String elementQName = elementPrefix == null ? elementLocalName :
+			new StringBuffer(elementPrefix).append(':').append(elementLocalName).toString();
+
+		if (eventBuffer.peek() == ATTRIBUTE) {
+			do {
+				nextEvent(release);
+
+				String attrUri = nextString(release);
+				String attrLocalName = nextString(release);
+				String attrPrefix = nextString(release);
+				String attrType = nextString(release);
+				String attrValue = nextString(release);
+				String attrQName = attrPrefix == null ? attrLocalName :
+					new StringBuffer(attrPrefix).append(':').append(attrLocalName).toString();
+
+				atts.addAttribute(attrUri, attrLocalName, attrQName, attrType, attrValue);
+			} while (eventBuffer.peek() == ATTRIBUTE);
+		}
+
+		pushTmpString(elementUri);
+		pushTmpString(elementLocalName);
+		pushTmpString(elementPrefix);
+
+		handler.startElement(elementUri, elementLocalName, elementQName, atts);
+		atts.clear();
+	}
+
+	private void sendEndElement(ContentHandler handler) throws SAXException {
+		String elementPrefix = popTmpString();
+		String elementLocalName = popTmpString();
+		String elementUri = popTmpString();
+		String elementQName = elementPrefix == null ? elementLocalName :
+			new StringBuffer(elementPrefix).append(':').append(elementLocalName).toString();
+
+		handler.endElement(elementUri, elementLocalName, elementQName);
+
+		if (tmpBuffer.peek() == END_PREFIX_MAPPING) {
+			do {
+				popTmpString();
+				String nsPrefix = popTmpString();
+
+				handler.endPrefixMapping(nsPrefix);
+			} while (tmpBuffer.peek() == END_PREFIX_MAPPING);
+		}
+	}
+
+	private void pushEvent(byte event) {
+		eventBuffer.push(event);
+		if (eventBuffer.currentPtr() == eventBuffer.size())
+			eventBuffer = eventBuffer.appendBuffer();
+	}
+
+	private void pushCharacters(char[] ch) {
+		charactersBuffer.push(ch);
+		if (charactersBuffer.currentPtr() == charactersBuffer.size())
+			charactersBuffer = charactersBuffer.appendBuffer();
+	}
+
+	private void pushString(String s) {
+		stringBuffer.push(s);
+		if (stringBuffer.currentPtr() == stringBuffer.size())
+			stringBuffer = stringBuffer.appendBuffer();
+	}
+
+	private void pushTmpString(String s) {
+		tmpBuffer.push(s);
+		if (tmpBuffer.currentPtr() == tmpBuffer.size())
+			tmpBuffer = tmpBuffer.appendBuffer();
+	}
+
+	private void popEvent() {
+		if (eventBuffer.currentPtr() == 0)
+			eventBuffer = eventBuffer.dropBuffer();
+
+		eventBuffer.pop();
+	}
+
+	private void popCharacters() {
+		if (charactersBuffer.currentPtr() == 0)
+			charactersBuffer = charactersBuffer.dropBuffer();
+
+		charactersBuffer.pop();
+	}
+
+	private String popTmpString() {
+		if (tmpBuffer.currentPtr() == 0)
+			tmpBuffer = tmpBuffer.dropBuffer();
+
+		return tmpBuffer.pop();
+	}
+
+	private Byte nextEvent(boolean release) {
+		Byte event = eventBuffer.next(release);
+
+		if (eventBuffer.currentPtr() > eventBuffer.size() && eventBuffer.nextBuffer() != null) {
+			eventBuffer = eventBuffer.nextBuffer();
+			if (release)
+				eventBuffer.dropPreviousBuffer();
+		}
+
+		return event;
+	}
+
+	private String nextString(boolean release) {
+		String s = stringBuffer.next(release);
+
+		if (stringBuffer.currentPtr() > stringBuffer.size() && stringBuffer.nextBuffer() != null) {
+			stringBuffer = stringBuffer.nextBuffer();
+			if (release)
+				stringBuffer.dropPreviousBuffer();
+		}
+
+		return s;
+	}
+
+	private char[] nextCharacters(boolean release) {
+		char[] ch = charactersBuffer.next(release);
+
+		if (charactersBuffer.currentPtr() > charactersBuffer.size() && charactersBuffer.nextBuffer() != null) {
+			charactersBuffer = charactersBuffer.nextBuffer();
+			if (release)
+				charactersBuffer.dropPreviousBuffer();
+		}
+
+		return ch;
+	}
+
+	@Override
 	public void setDocumentLocator(Locator locator) {
-		//
-	}
-
-	public void updateLocation(int lineNumber, int columnNumber, String systemId, String publicId) {
-		locator.setLineNumber(lineNumber);
-		locator.setColumnNumber(columnNumber);
-		locator.setSystemId(systemId);
-		locator.setPublicId(publicId);
+		// we do not record this event
 	}
 
 	@Override
@@ -88,8 +314,9 @@ public class SAXEventBuffer implements ContentHandler {
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		if (lastElementEvent == EventType.START_ELEMENT)
-			addEvent(new Characters(ch, start, length, getLocation()));
+		char[] tmp = new char[length];
+		System.arraycopy(ch, start, tmp, 0, length);
+		addCharacters(tmp);
 	}
 
 	@Override
@@ -104,198 +331,34 @@ public class SAXEventBuffer implements ContentHandler {
 
 	@Override
 	public void startDocument() throws SAXException {
-		addEvent(new StartDocument());
+		addStartDocument();
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-		StartElement element = new StartElement(uri, localName, qName, atts, getLocation());		
-		if (lastElementEvent == EventType.START_ELEMENT) {
-			parentStartElements.push(lastStartElement);
-			tail = lastStartElement;
-		}
-
-		addEvent(element);
-		lastStartElement = element;
-		lastElementEvent = EventType.START_ELEMENT;
+		addStartElement(uri, localName, null);
+		for (int i = 0; i < atts.getLength(); i++)
+			addAttribute(atts.getURI(i), atts.getLocalName(i), null, atts.getType(i), atts.getValue(i));
 	}
 
 	@Override
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
-		namespaces.pushContext();
-		namespaces.declarePrefix(prefix, uri);		
-		addEvent(new StartPrefixMapping(prefix, uri));
+		addNamespacePrefixMapping(uri, prefix);
 	}
 
 	@Override
 	public void endDocument() throws SAXException {
-		addEvent(new EndDocument());
-		lastStartElement = null;
+		addEndDocument();
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		// we only need the reference to the corresponding start element
-		if (lastElementEvent == EventType.END_ELEMENT)
-			lastStartElement = parentStartElements.pop();
-		
-		addEvent(new EndElement(lastStartElement, getLocation()));
-		lastElementEvent = EventType.END_ELEMENT;
+		addEndElement();
 	}
 
 	@Override
 	public void endPrefixMapping(String prefix) throws SAXException {
-		namespaces.popContext();		
-		addEvent(new EndPrefixMapping(prefix));
-	}
-
-	public boolean isEmpty() {
-		return head == null;
-	}
-
-	public void clear() {
-		head = tail = null;
-		namespaces.reset();
-		locator = trackLocation ? new LocatorImpl() : null;
-		lastElementEvent = EventType.END_ELEMENT;
-		parentStartElements.head = null;
-		lastStartElement = null;		
-	}
-
-	public void addEvent(SAXEvent event) {
-		if (!isEmpty()) {
-			tail.setNext(event);
-			tail = event;
-		} else
-			head = tail = event;		
-	}
-
-	public void append(SAXEventBuffer other) {
-		if (other.isEmpty())
-			return;
-
-		if (!isEmpty()) {
-			addEvent(other.head);
-			tail = other.tail;
-		} else {
-			head = other.head;
-			tail = other.tail;
-		}
-	}
-
-	public SAXEvent getFirstEvent() {
-		return head;
-	}
-
-	public SAXEvent getFirstEvent(EventType type) {
-		if (!isEmpty()) {
-			SAXEvent event = head;			
-			do {
-				if (event.getType() == type)
-					return event;
-			} while ((event = event.next()) != null);
-		}
-
-		return null;
-	}
-
-	public StartElement getFirstStartElement() {
-		return (StartElement)getFirstEvent(EventType.START_ELEMENT);
-	}
-	
-	public void dropFirstEvent() {
-		SAXEvent tmp = head;
-		head = head.next();
-		tmp.setNext(null);
-	}
-
-	public StartElement getLastStartElement() {
-		return lastStartElement;
-	}
-
-	public StartElement getParentStartElement() {
-		return parentStartElements.peek();
-	}
-	
-	public void revertToLastStartElement() {
-		tail = lastStartElement;
-	}
-	
-	public void send(ContentHandler handler) throws SAXException {
-		SAXEvent event = head;
-		SAXEvent next = null;
-		clear();
-		
-		if (event != null) {
-			do {
-				event.send(handler);
-				next = event.next();
-				event.setNext(null);
-			} while ((event = next) != null);
-		}
-	}
-
-	public void send(ContentHandler handler, LocatorImpl locator) throws SAXException {
-		SAXEvent event = head;
-		SAXEvent next = null;
-		clear();
-		
-		if (event != null) {
-			do {
-				event.send(handler, locator);
-				next = event.next();
-				event.setNext(null);
-			} while ((event = next) != null);
-		}
-	}
-	
-	private Location getLocation() {
-		return trackLocation ? new Location(
-				locator.getLineNumber(), 
-				locator.getColumnNumber(),
-				locator.getSystemId(),
-				locator.getPublicId()) : null;
-	}
-
-	private final class StackItem<T> {
-		private final T value;
-		private StackItem<T> next;
-
-		StackItem(T value) {
-			this.value = value;
-		}
-	}
-
-	private final class Stack<T> {
-		private StackItem<T> head;
-
-		void push(T item) {
-			StackItem<T> tmp = new StackItem<T>(item);
-			if (!isEmpty()) {
-				tmp.next = head;
-				head = tmp;
-			}
-			else
-				head = tmp;
-		}
-
-		T pop() {
-			if (!isEmpty()) {
-				StackItem<T> tmp = head;
-				head = head.next;			
-				return tmp.value;
-			}
-
-			return null;
-		}
-
-		T peek() {
-			return !isEmpty() ? head.value : null;
-		}
-
-		boolean isEmpty() {
-			return head == null;
-		}
+		// we do not record this event
 	}
 
 }

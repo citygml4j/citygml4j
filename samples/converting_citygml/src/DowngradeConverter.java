@@ -84,7 +84,7 @@ public class DowngradeConverter {
 				FeatureWalker walker = new FeatureWalker() {
 					public void visit(AbstractCityObject abstractCityObject) {
 						// simply collect all LOD3 geometries and add them to the gml:MultiGeometry of the proxy
-						System.out.println(df.format(new Date()) + "addind geometry of " + abstractCityObject.getCityGMLClass());				
+						System.out.println(df.format(new Date()) + "adding geometry of " + abstractCityObject.getCityGMLClass());				
 
 						LodRepresentation lods = abstractCityObject.getLodRepresentation();
 						if (lods.isSetLod3Geometry()) {

@@ -541,11 +541,7 @@ public class GMLUnmarshaller {
 					}
 
 					if (!cityGMLProperty && namespaceURI.equals(GMLCoreModule.v3_1_1.getNamespaceURI()))
-						dest.addFeatureMember(unmarshalFeatureMember(featureProperty));
-
-					// release memory
-					if (jaxb.isReleaseJAXBElementsFromMemory())
-						elem.setValue(null);
+						dest.addFeatureMember(unmarshalFeatureMember(featureProperty));					
 				}
 			}
 		}
@@ -1480,6 +1476,10 @@ public class GMLUnmarshaller {
 			ModelObject abstractFeature = jaxb.unmarshal(src.get_Feature());
 			if (abstractFeature instanceof AbstractFeature)
 				dest.setFeature((AbstractFeature)abstractFeature);
+
+			// release memory
+			if (jaxb.isReleaseJAXBElementsFromMemory())
+				src.set_Feature(null);
 		}
 
 		return dest;
@@ -1493,6 +1493,10 @@ public class GMLUnmarshaller {
 			ModelObject abstractFeature = jaxb.unmarshal(src.get_Feature());
 			if (abstractFeature instanceof AbstractFeature)
 				dest.setFeature((AbstractFeature)abstractFeature);
+
+			// release memory
+			if (jaxb.isReleaseJAXBElementsFromMemory())
+				src.set_Feature(null);
 		}
 
 		return dest;
@@ -1616,7 +1620,7 @@ public class GMLUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public GeometryArrayProperty<AbstractGeometry> unmarshalGeometryArrayProperty(GeometryArrayPropertyType src) {
 		GeometryArrayProperty<AbstractGeometry> dest = new GeometryArrayProperty<AbstractGeometry>();
 
@@ -2028,7 +2032,7 @@ public class GMLUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public MultiGeometry unmarshalMultiGeometry(MultiGeometryType src) {
 		MultiGeometry dest = new MultiGeometry();
 		unmarshalAbstractGeometricAggregate(src, dest);

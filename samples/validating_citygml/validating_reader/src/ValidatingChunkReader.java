@@ -83,8 +83,7 @@ public class ValidatingChunkReader {
 		boolean isValid = true;		
 		
 		public boolean handleEvent(ValidationEvent event) {
-			System.out.print("\t[" + event.getLocator().getLineNumber() + "," + event.getLocator().getColumnNumber() + "] ");
-			System.out.println(event.getMessage());
+			System.out.print("\t" + event.getMessage());
 			isValid = false;
 			return true;
 		}

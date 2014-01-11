@@ -22,7 +22,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -55,19 +54,15 @@ import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.util.xml.SAXEventBuffer;
 import org.citygml4j.util.xml.StAXStream2SAX;
-import org.citygml4j.util.xml.saxevents.EndElement;
-import org.citygml4j.util.xml.saxevents.SAXEvent;
-import org.citygml4j.util.xml.saxevents.SAXEvent.EventType;
-import org.citygml4j.util.xml.saxevents.StartElement;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.citygml4j.xml.io.reader.UnmarshalException;
 import org.citygml4j.xml.io.reader.XMLChunk;
+import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
+import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
-import org.xml.sax.helpers.LocatorImpl;
-import org.xml.sax.helpers.NamespaceSupport;
 
 public class XMLChunkImpl implements XMLChunk {
 	private final AbstractJAXBReader jaxbReader;
@@ -78,6 +73,7 @@ public class XMLChunkImpl implements XMLChunk {
 	private CityGML citygml;
 	private ParentInfo featureInfo;	
 	private CityGMLClass type = CityGMLClass.UNDEFINED;
+	private QName firstElement;
 	private AtomicBoolean parentInfoResolved = new AtomicBoolean(false);
 	private AtomicBoolean citygmlResolved = new AtomicBoolean(false);
 	private AtomicBoolean typeResolved = new AtomicBoolean(false);
@@ -90,24 +86,51 @@ public class XMLChunkImpl implements XMLChunk {
 		this.jaxbReader = chunkReader;
 		this.parentChunk = parentChunk;
 
-		buffer = new SAXEventBuffer(chunkReader.useValidation);
+		buffer = new SAXEventBuffer();
 		stax2sax = new StAXStream2SAX(buffer);
-		
+
 		if (type != null && type != CityGMLClass.UNDEFINED) {
 			this.type = type;
 			typeResolved.set(true);
 		}
 	}
 
-	boolean isFiltered() {
+	@Override
+	public boolean isSetParentInfo() {
+		return getParentInfo() != null;
+	} 
+
+	@Override
+	public ParentInfo getParentInfo() {
+		return parentChunk != null ? parentChunk.unmarshalFeatureInfo() : null;
+	}
+
+	@Override
+	public boolean hasPassedXMLValidation() {
+		return hasPassedXMLValidation;
+	}
+
+	protected void removeTrailingCharacters() {
+		buffer.removeTrailingCharacters();
+	}
+
+	protected boolean isComplete() {
+		return depth == 0 && !buffer.isEmpty();
+	}
+
+	protected boolean isFiltered() {
 		return isFiltered;
 	}
 
-	void setIsFiltered(boolean isFiltered) {
+	protected void setIsFiltered(boolean isFiltered) {
 		this.isFiltered = isFiltered;
 	}
 
-	public void addEvent(XMLStreamReader reader) throws XMLStreamException {
+	protected void setFirstElement(QName firstElement) {
+		this.firstElement = firstElement;
+	}
+
+	protected void addEvent(XMLStreamReader reader) throws XMLStreamException {
 		int event = reader.getEventType();
 
 		if (buffer.isEmpty() && event != XMLStreamConstants.START_ELEMENT)
@@ -127,40 +150,8 @@ public class XMLChunkImpl implements XMLChunk {
 		}
 	}
 
-	public boolean isComplete() {
-		return !buffer.isEmpty() && depth == 0;
-	}
-
-	@Override
-	public StartElement getFirstStartElement() {
-		return buffer.getFirstStartElement();
-	}
-
-	public StartElement getLastStartElement() {
-		return buffer.getLastStartElement();
-	}
-	
-	public void skipTrailingCharacters() {
-		buffer.revertToLastStartElement();
-	}
-	
-	public void append(XMLChunkImpl other) {
-		buffer.append(other.buffer);
-	}
-
-	@Override
-	public boolean isSetParentInfo() {
-		return getParentInfo() != null;
-	} 
-
-	@Override
-	public ParentInfo getParentInfo() {
-		return parentChunk != null ? parentChunk.unmarshalFeatureInfo() : null;
-	}
-
-	@Override
-	public boolean hasPassedXMLValidation() {
-		return hasPassedXMLValidation;
+	protected void addAttribute(String uri, String localName, String prefix, String type, String value) {
+		buffer.addAttribute(uri, localName, prefix, type, value);
 	}
 
 	@Override
@@ -169,19 +160,18 @@ public class XMLChunkImpl implements XMLChunk {
 			return citygml.getCityGMLClass();
 
 		if (typeResolved.compareAndSet(false, true)) {
-			QName name = new QName(buffer.getFirstStartElement().getURI(), buffer.getFirstStartElement().getLocalName());
 			ElementInfo info = null;
-			
-			if (jaxbReader.elementChecker.isCityGMLElement(name))
-				info = jaxbReader.elementChecker.getCityGMLFeature(name, true);
+
+			if (jaxbReader.elementChecker.isCityGMLElement(firstElement))
+				info = jaxbReader.elementChecker.getCityGMLFeature(firstElement, true);
 			else {
 				try {
-					info = jaxbReader.elementChecker.getADEElementInfo(name, null, true, true);
+					info = jaxbReader.elementChecker.getADEElementInfo(firstElement, null, true, true);
 				} catch (MissingADESchemaException e) {
 					//
 				}
 			}
-			
+
 			if (info != null)
 				type = info.getType();
 		}
@@ -190,64 +180,64 @@ public class XMLChunkImpl implements XMLChunk {
 	}
 
 	@Override
-	public void send(ContentHandler handler) throws SAXException {
-		if (!citygmlResolved.get()) {
-			SAXEvent event = buffer.getFirstEvent();
-			do {
-				event.send(handler);
-			} while ((event = event.next()) != null); 
-		} else
-			throw new SAXException("Unmarshalled chunks cannot be forwarded to a ContentHandler.");
+	public void send(ContentHandler handler, boolean release) throws SAXException {
+		if (citygmlResolved.get())
+			throw new IllegalStateException("Unmarshalled chunks cannot be forwarded to a ContentHandler.");
+
+		buffer.send(handler, release);
 	}
 
 	private ParentInfo unmarshalFeatureInfo() {
 		if (!buffer.isEmpty() && parentInfoResolved.compareAndSet(false, true)) {
 			try {
-				SAXEventBuffer tmp = new SAXEventBuffer();
-				SAXEvent event = buffer.getFirstStartElement();
-				tmp.addEvent(event.shallowCopy());
+				final SAXEventBuffer tmp = new SAXEventBuffer();
 
-				StartElement element = null;
-				boolean isParentInfoElement = false;
-				int depth = 0;
+				buffer.send(new ContentHandler() {
+					int depth = 0;
+					boolean captureElements;
 
-				while ((event = event.next()) != null) {					
-					if (event.getType() == EventType.START_ELEMENT) {
-						if (depth == 0) {
-							element = (StartElement)event;
-							isParentInfoElement = jaxbReader.elementChecker.isParentInfoElement(
-									element.getURI(), 
-									element.getLocalName());
-						}
+					public void startPrefixMapping(String prefix, String uri) throws SAXException {
+						tmp.startPrefixMapping(prefix, uri);
+					}
+
+					public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+						captureElements = depth == 0 || (depth == 1 && jaxbReader.elementChecker.isParentInfoElement(uri, localName));
+						if (captureElements)
+							tmp.startElement(uri, localName, qName, atts);
 
 						depth++;
 					}
 
-					else if (event.getType() == EventType.END_ELEMENT)
+					public void endElement(String uri, String localName, String qName) throws SAXException {
 						depth--;
+						if (captureElements)
+							tmp.endElement(uri, localName, qName);
+					}
 
-					if (isParentInfoElement)
-						tmp.addEvent(event.shallowCopy());					
-				}
+					public void characters(char[] ch, int start, int length) throws SAXException {
+						if (captureElements)
+							tmp.characters(ch, start, length);
+					}
 
-				// add EndElement in case we found an unclosed StartElement
-				if (isParentInfoElement)
-					tmp.addEvent(new EndElement(element, null));
+					public void startDocument() throws SAXException { }					
+					public void skippedEntity(String name) throws SAXException { }
+					public void setDocumentLocator(Locator locator) { }
+					public void processingInstruction(String target, String data) throws SAXException { }
+					public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException { }
+					public void endPrefixMapping(String prefix) throws SAXException { }
+					public void endDocument() throws SAXException { }
+				},
+				false);
 
-				// close root element
-				element = tmp.getFirstStartElement();					
-				tmp.addEvent(new EndElement(element, null));
+				tmp.addEndElement();
 
 				CityGML citygml = unmarshal(tmp, false);
 				if (citygml instanceof AbstractFeature)
 					featureInfo = new FeatureInfoImpl((AbstractFeature)citygml);
 
-			} catch (UnmarshalException e) {
-				//
-			} catch (MissingADESchemaException e) {
+			} catch (UnmarshalException | MissingADESchemaException | SAXException e) {
 				//
 			}
-
 		}
 
 		return featureInfo;
@@ -255,7 +245,7 @@ public class XMLChunkImpl implements XMLChunk {
 
 	@Override
 	public CityGML unmarshal() throws UnmarshalException, MissingADESchemaException {
-		if (!buffer.isEmpty() && citygmlResolved.compareAndSet(false, true))
+		if (citygmlResolved.compareAndSet(false, true))
 			citygml = unmarshal(buffer, jaxbReader.useValidation);
 
 		return citygml;
@@ -282,22 +272,23 @@ public class XMLChunkImpl implements XMLChunk {
 			}
 
 			UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
-			LocatorImpl locator = new LocatorImpl();
-			handler.setDocumentLocator(locator);
 
 			// emulate start of a new document
-			emulateStartDocument(handler, fakeRoot);
+			handler.startDocument();
+			if (fakeRoot != null)
+				handler.startElement(fakeRoot.getNamespaceURI(), fakeRoot.getLocalPart(), "", new AttributesImpl());
 
 			// fire buffered sax events to unmarshaller		
-			buffer.send(handler, locator);
+			buffer.send(handler, true);
 
 			// emulate end of a document
-			emulateEndDocument(handler, fakeRoot);
+			if (fakeRoot != null)
+				handler.endElement(fakeRoot.getNamespaceURI(), fakeRoot.getLocalPart(), "");
+
+			handler.endDocument();
 
 			// unmarshal sax events
 			Object result = handler.getResult();
-
-			// release memory
 			unmarshaller = null;
 			handler = null;
 
@@ -321,59 +312,11 @@ public class XMLChunkImpl implements XMLChunk {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	private void emulateStartDocument(UnmarshallerHandler handler, QName fakeRoot) throws SAXException {
-		// fire sax events to emulate the start of a new document
-		handler.startDocument();
-
-		NamespaceSupport ns = buffer.getNamespaceSupport();
-		Enumeration<String> prefixes = ns.getPrefixes();
-		while (prefixes.hasMoreElements()) {
-			String prefix = prefixes.nextElement();
-			String uri = ns.getURI(prefix);
-
-			handler.startPrefixMapping(prefix, uri);
-		}
-
-		String defaultURI = ns.getURI("");
-		if (defaultURI != null)
-			handler.startPrefixMapping("", defaultURI);
-
-		// surround buffer events by fake root element
-		if (fakeRoot != null)
-			handler.startElement(fakeRoot.getNamespaceURI(), 
-					fakeRoot.getLocalPart(), 
-					"", 
-					new AttributesImpl());
-	}
-
-	@SuppressWarnings("unchecked")
-	private void emulateEndDocument(UnmarshallerHandler handler, QName fakeRoot) throws SAXException {
-		// terminate fake root element
-		if (fakeRoot != null)
-			handler.endElement(fakeRoot.getNamespaceURI(), 
-					fakeRoot.getLocalPart(), 
-					"");
-
-		// emulate the end of a document
-		NamespaceSupport ns = buffer.getNamespaceSupport();
-		Enumeration<String> prefixes = ns.getPrefixes();
-		while (prefixes.hasMoreElements()) 
-			handler.endPrefixMapping(prefixes.nextElement());
-
-		if (ns.getURI("") != null)
-			handler.endPrefixMapping("");
-
-		handler.endDocument();
-	}
-
 	private QName getFakeRoot() {
-		StartElement root = getFirstStartElement();
-
-		if (root.getLocalName().equals("Appearance") && 
-				jaxbReader.elementChecker.isCityGMLElement(root.getURI()))
-			return new QName(root.getURI(), "appearanceMember");
-		else if (!jaxbReader.elementChecker.isCityGMLElement(root.getURI())) 
+		if (firstElement.getLocalPart().equals("Appearance") && 
+				jaxbReader.elementChecker.isCityGMLElement(firstElement.getNamespaceURI()))
+			return new QName(firstElement.getNamespaceURI(), "appearanceMember");
+		else if (!jaxbReader.elementChecker.isCityGMLElement(firstElement.getNamespaceURI())) 
 			return new QName(GMLCoreModule.v3_1_1.getNamespaceURI(), "featureProperty");
 
 		return null;
@@ -463,7 +406,5 @@ public class XMLChunkImpl implements XMLChunk {
 		public ParentInfo getParentInfo() {
 			return (parentChunk != null) ? parentChunk.unmarshalFeatureInfo() : null;
 		}
-
 	}
-
 }

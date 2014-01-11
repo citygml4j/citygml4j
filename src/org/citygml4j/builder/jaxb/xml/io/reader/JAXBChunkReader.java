@@ -33,16 +33,14 @@ import javax.xml.stream.XMLStreamReader;
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
-import org.citygml4j.util.xml.saxevents.StartElement;
-import org.citygml4j.xml.io.reader.CityGMLReader;
-import org.citygml4j.xml.io.reader.XMLChunk;
+import org.citygml4j.model.module.gml.XLinkModule;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
+import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.citygml4j.xml.io.reader.UnmarshalException;
-import org.xml.sax.Attributes;
+import org.citygml4j.xml.io.reader.XMLChunk;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
 
 public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader {
 	private XMLChunkImpl current;
@@ -118,7 +116,9 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 							if (elementInfo != null && elementInfo.isFeature()) {
 								isInited = true;
 								chunks.clear();
+
 								chunk = new XMLChunkImpl(this, null, elementInfo.getType());
+								chunk.setFirstElement(reader.getName());
 
 								if (isFilteredReader())
 									chunk.setIsFiltered(!filter.accept(elementInfo.getType()));
@@ -127,20 +127,17 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 						}						
 					}
 
-					// set XLink on property element
-					if (setXLink)
-						setXLink();
-
 					// check whether start element is a feature
 					if (event == XMLStreamConstants.START_ELEMENT) {
 						ElementInfo lastElementInfo = elementInfos.push(elementInfo);
 						elementInfo = elementChecker.getElementInfo(reader.getName(), chunk, lastElementInfo, isFilteredReader());
 
 						if (elementInfo != null && elementInfo.isFeature()) {
-							chunk.skipTrailingCharacters();
+							chunk.removeTrailingCharacters();
 							chunks.add(chunk);
 
 							chunk = new XMLChunkImpl(this, chunks.peek(), elementInfo.getType());
+							chunk.setFirstElement(reader.getName());
 
 							if (isFilteredReader())
 								chunk.setIsFiltered(!filter.accept(elementInfo.getType()));								
@@ -156,6 +153,8 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 
 					// add streaming event to the current chunk 
 					chunk.addEvent(reader);
+					if (setXLink)
+						setXLink(reader);
 
 					// if the chunk is complete, return it
 					if (chunk.isComplete()) {
@@ -197,8 +196,6 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 
 		try {
 			cityGML = next.unmarshal();
-			if (cityGML == null && !chunks.isEmpty())
-				chunks.peek().append(next);
 		} catch (UnmarshalException e) {
 			throw new CityGMLReadException("Caused by: ", e.getCause());
 		} catch (MissingADESchemaException e) {
@@ -207,49 +204,27 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 
 		return cityGML;
 	}
-
-	private void setXLink() {
+	
+	private void setXLink(XMLStreamReader reader) {
 		setXLink = false;
-
-		if (!chunks.isEmpty()) {
-			StartElement propertyElement = chunks.peek().getLastStartElement();
-			if (propertyElement == null)
-				return;			
-
-			StartElement feature = chunk.getFirstStartElement();
-			String gmlId = null;	
-
-			Attributes featureAtts = feature.getAttributes();
-			for (int i = 0; i < featureAtts.getLength(); i++) {
-				if (featureAtts.getLocalName(i).equals("id")) {
-					gmlId = featureAtts.getValue(i);
-					break;
-				}
+		
+		// check whether the new chunk has a gml:id
+		String gmlId = null;
+		for (int i = 0; i < reader.getAttributeCount(); i++) {
+			if (reader.getAttributeLocalName(i).equals("id")) {
+				gmlId = reader.getAttributeValue(i);
+				break;
 			}
-
-			if (gmlId == null || gmlId.length() == 0) {
-				gmlId = factory.getGMLIdManager().generateUUID();
-				AttributesImpl atts = new AttributesImpl(featureAtts);
-				atts.addAttribute(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", "id", "CDATA", gmlId);
-				feature.setAttributes(atts);
-			}
-
-			Attributes featurePropertyAtts = propertyElement.getAttributes();
-			AttributesImpl atts = new AttributesImpl();
-			for (int i = 0; i < featurePropertyAtts.getLength(); i++) {
-				if (featurePropertyAtts.getURI(i).equals("http://www.w3.org/1999/xlink"))
-					continue;
-
-				atts.addAttribute(featurePropertyAtts.getURI(i),
-						featurePropertyAtts.getLocalName(i),
-						featurePropertyAtts.getQName(i),
-						featurePropertyAtts.getType(i),
-						featurePropertyAtts.getValue(i));						
-			}
-
-			atts.addAttribute("http://www.w3.org/1999/xlink", "href", "href", "CDATA", '#' + gmlId);
-			propertyElement.setAttributes(atts);
-		}		
+		}
+		
+		// set gml:id if not present
+		if (gmlId == null) {
+			gmlId = factory.getGMLIdManager().generateUUID();
+			chunk.addAttribute(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", "id", "CDATA", gmlId);
+		}
+		
+		// set xlink:href property on previous chunk
+		chunks.peek().addAttribute(XLinkModule.v3_1_1.getNamespaceURI(), "href", "href", "CDATA", '#' + gmlId);
 	}
 
 	public boolean isSetParentInfo() {

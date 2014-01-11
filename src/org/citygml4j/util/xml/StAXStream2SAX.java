@@ -22,15 +22,9 @@
  */
 package org.citygml4j.util.xml;
 
-import javax.xml.XMLConstants;
-import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
 
 public class StAXStream2SAX {
 	private final SAXEventBuffer buffer;
@@ -40,17 +34,6 @@ public class StAXStream2SAX {
 	}
 
 	public void bridgeEvent(XMLStreamReader reader) throws XMLStreamException {
-		// update location	
-		if (buffer.isTrackLocation()) {
-			Location location = reader.getLocation();
-			buffer.updateLocation(
-					location.getLineNumber(), 
-					location.getColumnNumber(), 
-					location.getSystemId(),
-					location.getPublicId());
-		}
-
-		// convert stax to sax revent
 		switch (reader.getEventType()) {
 		case XMLStreamConstants.START_ELEMENT:
 			handleStartElement(reader);
@@ -73,71 +56,24 @@ public class StAXStream2SAX {
 			start += len;      
 		} while (len == buf.length);
 
-		try {
-			buffer.characters(buf, 0, start);
-		} catch (SAXException e) {
-			throw new XMLStreamException(e);
-		}
+		buffer.addCharacters(buf);
 	}
 
 	private void handleEndElement(XMLStreamReader reader) throws XMLStreamException {
-		try {
-			// we infer the element name from the corresponding start element
-			buffer.endElement(null, null, null);
-
-			for (int i = reader.getNamespaceCount() - 1; i >= 0; i--)
-				buffer.endPrefixMapping(reader.getNamespacePrefix(i));
-		} catch (SAXException e) {
-			throw new XMLStreamException(e);
-		}
+		buffer.addEndElement();
 	}
 
 	private void handleStartElement(XMLStreamReader reader) throws XMLStreamException {
-		try {
-			for (int i = 0; i < reader.getNamespaceCount(); i++)
-				buffer.startPrefixMapping(reader.getNamespaceURI(i), reader.getNamespacePrefix(i));
+		for (int i = 0; i < reader.getNamespaceCount(); i++)
+			buffer.addNamespacePrefixMapping(reader.getNamespaceURI(i), reader.getNamespacePrefix(i));
 
-			String localName = reader.getLocalName();
-			String prefix = reader.getPrefix();
-			Attributes attrs = getAttributes(reader);
+		buffer.addStartElement(reader.getNamespaceURI(), reader.getLocalName(), null);
 
-			buffer.startElement(
-					reader.getNamespaceURI(),
-					localName,
-					(prefix != null && prefix.length() > 0) ? prefix + ':' + localName : localName,
-							attrs);
-
-		} catch (SAXException e) {
-			throw new XMLStreamException(e);
-		}
+		for (int i = 0; i < reader.getAttributeCount(); i++)
+			buffer.addAttribute(reader.getAttributeNamespace(i), 
+					reader.getAttributeLocalName(i), 
+					null,
+					reader.getAttributeType(i), 
+					reader.getAttributeValue(i));
 	}
-
-	private Attributes getAttributes(XMLStreamReader reader) {
-		AttributesImpl attrs = new AttributesImpl();
-
-		for (int i = 0; i < reader.getNamespaceCount(); i++) {
-			String uri = reader.getNamespaceURI(i);
-			String prefix = reader.getNamespacePrefix(i);
-			String name = XMLConstants.XMLNS_ATTRIBUTE;
-
-			if (prefix.length() == 0)
-				prefix = name;
-			else
-				name += ':' + prefix;
-
-			attrs.addAttribute(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, prefix, name, "CDATA", uri);                
-		}
-
-		for (int i = 0; i < reader.getAttributeCount(); i++) {
-			String uri = reader.getAttributeNamespace(i);
-			String localName = reader.getAttributeLocalName(i);
-			String type = reader.getAttributeType(i);
-			String value = reader.getAttributeValue(i);
-
-			attrs.addAttribute(uri, localName, localName, type, value);
-		}
-
-		return attrs;
-	}
-
 }
