@@ -28,6 +28,7 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -42,21 +43,20 @@ import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.model.module.citygml.CityGMLModuleType;
+import org.citygml4j.util.xml.SAXFragmentWriter;
+import org.citygml4j.util.xml.SAXFragmentWriter.WriteMode;
 import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityModelInfo;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.io.writer.FeatureWriteMode;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.XMLFilterImpl;
 
 public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWriter {
 	private CityModelInfo cityModelInfo;
 	private ModuleContext initModuleCtx;
-
 	private DocumentState documentState = DocumentState.INITIAL;
-	private SAXFragmentWriter fragmentWriter;
 
 	private enum DocumentState {
 		INITIAL,
@@ -69,7 +69,6 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			ModuleContext moduleContext) throws CityGMLWriteException {
 		super(writer, factory, moduleContext);
 
-		fragmentWriter = new SAXFragmentWriter();
 		initModuleCtx = new ModuleContext(moduleContext);
 	}
 
@@ -96,7 +95,6 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 
 		cityModelInfo = null;
 		initModuleCtx = null;
-		fragmentWriter = null;
 
 		super.close();
 	}
@@ -145,7 +143,8 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 
 			JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(cityModel);
 			if (jaxbElement != null) {
-				fragmentWriter.shouldWrite = true;
+				SAXFragmentWriter fragmentWriter = new SAXFragmentWriter(
+						new QName(jaxbMarshaller.getModuleContext().getModule(CityGMLModuleType.CORE).getNamespaceURI(), "CityModel"), writer, WriteMode.HEAD);
 				createMarshaller(false).marshal(jaxbElement, fragmentWriter);
 			}
 
@@ -186,7 +185,8 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 
 			JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(cityModel);
 			if (jaxbElement != null) {
-				fragmentWriter.shouldWrite = false;
+				SAXFragmentWriter fragmentWriter = new SAXFragmentWriter(
+						new QName(jaxbMarshaller.getModuleContext().getModule(CityGMLModuleType.CORE).getNamespaceURI(), "CityModel"), writer, WriteMode.TAIL);
 				createMarshaller(true).marshal(jaxbElement, fragmentWriter);
 			}
 
@@ -345,77 +345,6 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			throw new CityGMLWriteException("Caused by: ", e);
 		} catch (SAXException e) {
 			throw new CityGMLWriteException("Caused by: ", e);			
-		}
-	}
-
-	private class SAXFragmentWriter extends XMLFilterImpl {
-		private volatile boolean shouldWrite;
-		private int depth = 0;
-
-		@Override
-		public void characters(char[] ch, int start, int length) throws SAXException {
-			if (shouldWrite)
-				writer.characters(ch, start, length);
-		}
-
-		@Override
-		public void endDocument() throws SAXException {
-			if (shouldWrite)
-				writer.endDocument();
-		}
-
-		@Override
-		public void endElement(String uri, String localName, String qName) throws SAXException {
-			depth--;
-
-			if (depth == 0 && documentState == DocumentState.INITIAL) {
-				shouldWrite = false;
-				return;
-			}
-
-			if (shouldWrite)
-				writer.endElement(uri, localName, qName);
-		}
-
-		@Override
-		public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
-			if (shouldWrite)
-				writer.ignorableWhitespace(ch, start, length);
-		}
-
-		@Override
-		public void processingInstruction(String target, String data) throws SAXException {
-			if (shouldWrite)
-				writer.processingInstruction(target, data);
-		}
-
-		@Override
-		public void startDocument() throws SAXException {
-			if (shouldWrite)
-				writer.startDocument();
-		}
-
-		@Override
-		public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-			depth++;
-
-			if (depth == 1 && documentState == DocumentState.START_DOCUMENT) {
-				shouldWrite = true;
-				return;
-			}
-
-			if (shouldWrite)
-				writer.startElement(uri, localName, qName, atts);
-		}
-
-		@Override
-		public void endPrefixMapping(String prefix) throws SAXException {
-			writer.endPrefixMapping(prefix);
-		}
-
-		@Override
-		public void startPrefixMapping(String prefix, String uri) throws SAXException {
-			writer.startPrefixMapping(prefix, uri);
 		}
 	}
 

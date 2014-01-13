@@ -246,14 +246,6 @@ public class SAXWriter extends XMLFilterImpl {
 				localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
 			}
 		}
-
-		if (depth > 0) {
-			Iterator<String> iter = userDefinedNS.getNamespaceURIs();
-			while (iter.hasNext()) {
-				String userDefinedURI = iter.next();
-				localNS.declarePrefix(userDefinedNS.getPrefix(userDefinedURI), userDefinedURI);
-			}
-		}
 	}
 
 	public CityGMLNamespaceContext getNamespaceContext() {
@@ -296,7 +288,7 @@ public class SAXWriter extends XMLFilterImpl {
 		if (depth == 0)
 			userDefinedNS.setDefaultNamespace(uri);
 
-		localNS.declarePrefix("", uri);
+		localNS.declarePrefix(XMLConstants.DEFAULT_NS_PREFIX, uri);
 	}
 
 	public String getIndentString() {
@@ -542,13 +534,13 @@ public class SAXWriter extends XMLFilterImpl {
 	@Override
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
 		reportedNS.pushContext();
-		if (reportedNS.getPrefix(uri) == null)
+		if (getReportedPrefix(uri) == null)
 			reportedNS.declarePrefix(prefix, uri);
 	}
 
 	private String getReportedPrefix(String uri) {
 		String prefix = reportedNS.getPrefix(uri);
-		if (prefix == null && reportedNS.getURI(XMLConstants.DEFAULT_NS_PREFIX) != null)
+		if (prefix == null && uri.equals(reportedNS.getURI(XMLConstants.DEFAULT_NS_PREFIX)))
 			prefix = XMLConstants.DEFAULT_NS_PREFIX;
 
 		return prefix;
