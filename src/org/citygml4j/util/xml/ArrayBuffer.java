@@ -63,8 +63,7 @@ public class ArrayBuffer<T> {
 
 	public ArrayBuffer<T> rewindToHeadBuffer() {
 		ArrayBuffer<T> head = this;
-		if (ptr > 0)
-			ptr = 1;
+		ptr = 1;
 
 		while (head.previous != null) {
 			head = head.previous;
@@ -85,7 +84,7 @@ public class ArrayBuffer<T> {
 
 	public void push(T item) {
 		if (ptr == items.length)
-			throw new IllegalStateException("cannot push onto a full buffer.");			
+			throw new IllegalStateException("Cannot push onto a full buffer.");			
 
 		items[ptr++] = item;
 	}
@@ -99,7 +98,7 @@ public class ArrayBuffer<T> {
 
 	public T pop() {
 		if (ptr == 0)
-			throw new IllegalStateException("cannot pop from on an empty buffer.");
+			throw new IllegalStateException("Cannot pop from on an empty buffer.");
 
 		T tmp = items[--ptr];
 		items[ptr] = null;
@@ -109,7 +108,7 @@ public class ArrayBuffer<T> {
 
 	public T next(boolean release) {
 		if (ptr == 0)
-			throw new IllegalStateException("cannot head from on an empty buffer.");
+			throw new IllegalStateException("Cannot call next on an empty buffer.");
 
 		T tmp = items[ptr -1];
 		if (release)
