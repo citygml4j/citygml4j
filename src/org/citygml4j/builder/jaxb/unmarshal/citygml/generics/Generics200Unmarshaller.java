@@ -205,6 +205,9 @@ public class Generics200Unmarshaller {
 
 	public void unmarshalGenericAttributeSet(GenericAttributeSetType src, GenericAttributeSet dest) throws MissingADESchemaException {
 		unmarshalAbstractGenericAttribute(src, dest);
+		
+		if (src.isSetCodeSpace())
+			dest.setCodeSpace(src.getCodeSpace());
 
 		if (src.isSet_GenericAttribute()) {
 			for (JAXBElement<? extends AbstractGenericAttributeType> elem : src.get_GenericAttribute()) {				
