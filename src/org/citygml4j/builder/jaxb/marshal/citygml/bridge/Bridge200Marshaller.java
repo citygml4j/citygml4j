@@ -257,6 +257,9 @@ public class Bridge200Marshaller {
 				// 
 			}
 		}
+		
+		if (src.isSetIsMovable())
+			dest.setIsMovable(src.getIsMovable());
 
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLMarshaller().marshalSolidProperty(src.getLod1Solid()));

@@ -45,6 +45,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	private Code clazz;
 	private List<Code> function;
 	private List<Code> usage;
+	private Boolean isMovable;
 	private GregorianCalendar yearOfConstruction;
 	private GregorianCalendar yearOfDemolition;
 	private SolidProperty lod1Solid;
@@ -181,6 +182,10 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 
 		return usage;
 	}
+	
+	public Boolean getIsMovable() {
+		return isMovable;
+	}
 
 	public List<BridgePartProperty> getConsistsOfBridgePart() {
 		if (bridgePart == null)
@@ -311,6 +316,10 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	public boolean isSetFunction() {
 		return function != null && !function.isEmpty();
 	}
+	
+	public boolean isSetIsMovable() {
+		return isMovable != null;
+	}
 
 	public boolean isSetGenericApplicationPropertyOfAbstractBridge() {
 		return ade != null && !ade.isEmpty();
@@ -422,6 +431,10 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	
 	public void setUsage(List<Code> usage) {
 		this.usage = new ChildList<Code>(this, usage);
+	}
+	
+	public void setIsMovable(Boolean isMovable) {
+		this.isMovable = isMovable;
 	}
 
 	public void setConsistsOfBridgePart(List<BridgePartProperty> bridgePart) {
@@ -612,6 +625,10 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 
 	public boolean unsetUsage(Code usage) {
 		return isSetUsage() ? this.usage.remove(usage) : false;
+	}
+	
+	public void unsetIsMovable() {
+		isMovable = null;
 	}
 
 	public void unsetGenericApplicationPropertyOfAbstractBridge() {
@@ -1020,6 +1037,9 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		
 		if (isSetYearOfDemolition())
 			copy.setYearOfDemolition((GregorianCalendar)copyBuilder.copy(yearOfDemolition));
+		
+		if (isSetIsMovable())
+			copy.setIsMovable(copyBuilder.copy(isMovable));
 		
 		if (isSetLod1Solid()) {
 			copy.setLod1Solid((SolidProperty)copyBuilder.copy(lod1Solid));

@@ -194,6 +194,9 @@ public class Bridge200Unmarshaller {
 		
 		if (src.isSetYearOfDemolition())
 			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
+		
+		if (src.isSetIsMovable())
+			dest.setIsMovable(src.isIsMovable());
 				
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod1Solid()));
