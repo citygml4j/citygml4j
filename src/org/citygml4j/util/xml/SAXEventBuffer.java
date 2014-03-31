@@ -30,20 +30,22 @@ import org.xml.sax.helpers.AttributesImpl;
 
 public class SAXEventBuffer implements ContentHandler {
 	private final String END_PREFIX_MAPPING      = "END_PREFIX_MAPPING";
+	private final Byte UNDEFINED                 = 0;
 	private final Byte START_DOCUMENT            = 1;
 	private final Byte END_DOCUMENT              = 2;
 	private final Byte START_ELEMENT             = 3;
 	private final Byte END_ELEMENT               = 4;
-	private final Byte CHARACTERS                = 5;
-	private final Byte NAMESPACE_PREFIX_MAPPING  = 6;
-	private final Byte ATTRIBUTE                 = 7;
+	private final Byte QUALIFIED_END_ELEMENT     = 5;
+	private final Byte CHARACTERS                = 6;
+	private final Byte NAMESPACE_PREFIX_MAPPING  = 7;
+	private final Byte ATTRIBUTE                 = 8;
 
 	private ArrayBuffer<String> stringBuffer;
 	private ArrayBuffer<char[]> charactersBuffer;
 	private ArrayBuffer<Byte> eventBuffer;
 	private ArrayBuffer<String> tmpBuffer;
 	private AttributesImpl atts;
-	private Byte previousElement = END_ELEMENT;
+	private Byte previousElement = UNDEFINED;
 
 	public SAXEventBuffer() {
 		stringBuffer = new ArrayBuffer<String>(String.class);
@@ -57,7 +59,7 @@ public class SAXEventBuffer implements ContentHandler {
 		eventBuffer = new ArrayBuffer<Byte>(Byte.class);
 		tmpBuffer = null;
 		atts = null;
-		previousElement = END_ELEMENT;		
+		previousElement = UNDEFINED;		
 	}
 
 	public boolean isEmpty() {
@@ -95,6 +97,17 @@ public class SAXEventBuffer implements ContentHandler {
 			removeTrailingCharacters();
 
 		pushEvent(END_ELEMENT);
+		previousElement = END_ELEMENT;
+	}
+	
+	public void addEndElement(String uri, String localName) {
+		if (previousElement == END_ELEMENT)
+			removeTrailingCharacters();
+		
+		pushEvent(QUALIFIED_END_ELEMENT);
+		pushString(uri);
+		pushString(localName);
+		
 		previousElement = END_ELEMENT;
 	}
 
@@ -145,6 +158,8 @@ public class SAXEventBuffer implements ContentHandler {
 				handler.startDocument();
 			else if (currentEvent == END_DOCUMENT)
 				handler.endDocument();
+			else if (currentEvent == QUALIFIED_END_ELEMENT)
+				sendQualifiedEndElement(handler, release);
 		}
 
 		// clean up
@@ -211,6 +226,22 @@ public class SAXEventBuffer implements ContentHandler {
 
 		handler.endElement(elementUri, elementLocalName, elementQName);
 
+		if (tmpBuffer.peek() == END_PREFIX_MAPPING) {
+			do {
+				popTmpString();
+				String nsPrefix = popTmpString();
+
+				handler.endPrefixMapping(nsPrefix);
+			} while (tmpBuffer.peek() == END_PREFIX_MAPPING);
+		}
+	}
+	
+	private void sendQualifiedEndElement(ContentHandler handler, boolean release) throws SAXException {
+		String elementUri = nextString(release);
+		String elementLocalName = nextString(release);
+		
+		handler.endElement(elementUri, elementLocalName, elementLocalName);
+		
 		if (tmpBuffer.peek() == END_PREFIX_MAPPING) {
 			do {
 				popTmpString();

@@ -13,6 +13,7 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 
 	private WriteMode mode;
 	private boolean shouldWrite;
+	private boolean hasStartElement;
 
 	public enum WriteMode {
 		HEAD,
@@ -56,8 +57,14 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 		if (localName.equals(breakElement.getLocalPart()) && uri.equals(breakElement.getNamespaceURI()))
 			shouldWrite = !shouldWrite;
 
-		if (shouldWrite)
+		if (shouldWrite) {
+			if (!hasStartElement && writer instanceof SAXEventBuffer) {
+				((SAXEventBuffer)writer).addEndElement(uri, localName);
+				return;
+			}
+			
 			writer.endElement(uri, localName, qName);
+		}
 	}
 
 	@Override
@@ -74,8 +81,10 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-		if (shouldWrite)
+		if (shouldWrite) {
 			writer.startElement(uri, localName, qName, atts);
+			hasStartElement = true;
+		}
 	}
 
 	@Override
