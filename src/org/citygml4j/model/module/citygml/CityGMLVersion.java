@@ -113,6 +113,14 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 
 		return xal;
 	}
+	
+	public static CityGMLVersion fromCityGMLModule(CityGMLModule module) {
+		for (CityGMLVersion version : instances)
+			if (version.contains(module))
+				return version;
+		
+		return null;
+	}
 
 	public static List<CityGMLVersion> getInstances() {
 		return instances;

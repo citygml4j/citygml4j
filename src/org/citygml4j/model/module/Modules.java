@@ -117,6 +117,11 @@ public class Modules {
 
 		return citygml;
 	}
+	
+	public static CityGMLModule getCityGMLModule(String namespaceURI) {
+		Module module = getModule(namespaceURI);
+		return (module instanceof CityGMLModule) ? (CityGMLModule)module : null;
+	}
 
 	public static List<CityGMLModule> getCityGMLModules(CityGMLModuleType type) {
 		List<CityGMLModule> citygml = new ArrayList<CityGMLModule>();
