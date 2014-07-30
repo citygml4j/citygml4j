@@ -38,13 +38,13 @@ public class BuildingPart extends AbstractBuilding {
 	private List<ADEComponent> ade;
 
 	public BuildingPart() {
-		
+
 	}
-	
+
 	public BuildingPart(BuildingModule module) {
 		super(module);
 	}
-	
+
 	public void addGenericApplicationPropertyOfBuildingPart(ADEComponent ade) {
 		if (this.ade == null)
 			this.ade = new ChildList<ADEComponent>(this);
@@ -88,36 +88,38 @@ public class BuildingPart extends AbstractBuilding {
 
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BuildingPart copy = (target == null) ? new BuildingPart() : (BuildingPart)target;
+		AbstractBuilding copy = (target == null) ? new BuildingPart() : (AbstractBuilding)target;
 		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfBuildingPart()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfBuildingPart(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
+		if (copy.getCityGMLClass() == CityGMLClass.BUILDING_PART) {
+			if (isSetGenericApplicationPropertyOfBuildingPart()) {
+				for (ADEComponent part : ade) {
+					ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
+					((BuildingPart)copy).addGenericApplicationPropertyOfBuildingPart(copyPart);
+
+					if (part != null && copyPart == part)
+						part.setParent(this);
+				}
 			}
 		}
-		
+
 		return copy;
 	}
-	
+
 	public void accept(FeatureVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public <T> T accept(FeatureFunctor<T> visitor) {
 		return visitor.apply(this);
 	}
-	
+
 	public void accept(GMLVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public <T> T accept(GMLFunctor<T> visitor) {
 		return visitor.apply(this);
 	}
-	
+
 }
