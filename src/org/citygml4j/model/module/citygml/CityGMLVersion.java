@@ -95,6 +95,14 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 
 		return citygml;
 	}
+	
+	public CityGMLModule getCityGMLModule(CityGMLModuleType type) {
+		for (CityGMLModule module : getCityGMLModules())
+			if (module.getType() == type)
+				return module;
+		
+		return null;
+	}
 
 	public List<GMLModule> getGMLModules() {
 		List<GMLModule> gml = new ArrayList<GMLModule>();

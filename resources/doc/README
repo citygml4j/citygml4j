@@ -29,10 +29,8 @@ the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
 2. Copyright
 ------------
 
-(c) !vendor.copyright.year!
-!vendor.name!
-!vendor.organisation!, !vendor.country!
-!vendor.homepage!
+(c) !copyright.year!
+!copyright.owner! <!copyright.owner.email!>
 
 
 3. About
@@ -64,9 +62,7 @@ free of charge.
 4. System requirements
 ----------------------
 
-* Java JRE or JDK >= 1.5
-* Java Architecture for XML Binding (JAXB) >= 2.2
-* Sun Java Streaming XML Parser >= 1.0
+* Java JRE or JDK >= 1.7
 
 
 5. How to use it
@@ -99,7 +95,6 @@ Official !citygml4j.name! website:
 !citygml4j.homepage!
 
 Related websites:
-http://www.igg.tu-berlin.de/
 http://www.citygml.org/
 http://www.citygmlwiki.org/
 http://www.opengeospatial.org/standards/citygml

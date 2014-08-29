@@ -37,7 +37,7 @@
 	</path>
 
 	<!-- JAXB XJC compiler -->
-	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJC2Task">
 		<classpath>
 			<path refid="xjc_classpath" />
 			<fileset dir="${dir.resources.jaxb.xjc-plugins}">
@@ -118,11 +118,9 @@
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.name!" value="${citygml4j.name}" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.version!" value="${citygml4j.version}" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
-		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.copyright.year!" value="${vendor.copyright.year}" />
-		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.name!" value="${vendor.name}" />
-		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.organisation!" value="${vendor.organisation}" />
-		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.country!" value="${vendor.country}" />
-		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!vendor.homepage!" value="${vendor.homepage}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.year!" value="${copyright.year}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.owner!" value="${copyright.owner}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.owner.email!" value="${copyright.owner.email}" />
 
 		<!-- create javadoc from source files -->
 		<javadoc access="public" author="true" classpathref="classpath" destdir="${dir.dist.javadoc}" doctitle="${citygml4j.name} - ${citygml4j.description}" encoding="UTF-8" charset="UTF-8" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${dir.resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" sourcepath="${dir.src};${dir.src-gen}" splitindex="true" use="true" version="true" />
@@ -155,11 +153,9 @@
 		<replace file="${dir.dist.tmp}/README" token="!citygml4j.version!" value="${citygml4j.version}" />
 		<replace file="${dir.dist.tmp}/README" token="!citygml4j.description!" value="${citygml4j.description}" />
 		<replace file="${dir.dist.tmp}/README" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
-		<replace file="${dir.dist.tmp}/README" token="!vendor.name!" value="${vendor.name}" />
-		<replace file="${dir.dist.tmp}/README" token="!vendor.organisation!" value="${vendor.organisation}" />
-		<replace file="${dir.dist.tmp}/README" token="!vendor.copyright.year!" value="${vendor.copyright.year}" />
-		<replace file="${dir.dist.tmp}/README" token="!vendor.homepage!" value="${vendor.homepage}" />
-		<replace file="${dir.dist.tmp}/README" token="!vendor.country!" value="${vendor.country}" />
+		<replace file="${dir.dist.tmp}/README" token="!copyright.year!" value="${copyright.year}" />
+		<replace file="${dir.dist.tmp}/README" token="!copyright.owner!" value="${copyright.owner}" />
+		<replace file="${dir.dist.tmp}/README" token="!copyright.owner.email!" value="${copyright.owner.email}" />
 		<replace file="${dir.dist.tmp}/README" token="!developer.main.name!" value="${developer.main.name}" />
 		<replace file="${dir.dist.tmp}/README" token="!developer.main.email!" value="${developer.main.email}" />
 		<replace file="${dir.dist.tmp}/LICENSE" token="!citygml4j.name!" value="${citygml4j.name}" />
@@ -194,7 +190,6 @@
 				<attribute name="Built-Date" value="${TODAY}" />
 				<attribute name="Implementation-Title" value="${citygml4j.description}" />
 				<attribute name="Implementation-Version" value="${citygml4j.version}-b${build.number}" />
-				<attribute name="Implementation-Vendor" value="${vendor.shortinfo}" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
