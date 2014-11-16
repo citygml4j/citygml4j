@@ -22,6 +22,7 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.util.NoSuchElementException;
 
@@ -48,8 +49,8 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 	private boolean iterator;
 	private ElementInfo elementInfo;
 
-	public JAXBSimpleReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
-		super(reader, factory, baseURI);
+	public JAXBSimpleReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+		super(reader, in, factory, baseURI);
 		jaxbUnmarshaller.setParseSchema(parseSchema);
 	}
 

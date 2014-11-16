@@ -59,9 +59,9 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
 			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, this, baseURI);
+				return new JAXBChunkReader(streamReader, in, this, baseURI);
 			default:
-				return new JAXBSimpleReader(streamReader, this, baseURI);
+				return new JAXBSimpleReader(streamReader, in, this, baseURI);
 			}			
 		} catch (XMLStreamException e) {
 			throw new CityGMLReadException("Caused by: ", e);
@@ -76,9 +76,9 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
 			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, this, baseURI);
+				return new JAXBChunkReader(streamReader, in, this, baseURI);
 			default:
-				return new JAXBSimpleReader(streamReader, this, baseURI);
+				return new JAXBSimpleReader(streamReader, in, this, baseURI);
 			}			
 		} catch (XMLStreamException e) {
 			throw new CityGMLReadException("Caused by: ", e);
@@ -87,14 +87,15 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 
 	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException {
 		try {
-			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(file), encoding);
+			FileInputStream in = new FileInputStream(file);
+			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
 
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
 			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, this, file.toURI().normalize());
+				return new JAXBChunkReader(streamReader, in, this, file.toURI().normalize());
 			default:
-				return new JAXBSimpleReader(streamReader, this, file.toURI().normalize());
+				return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
 			}			
 		} catch (XMLStreamException e) {
 			throw new CityGMLReadException("Caused by: ", e);
@@ -105,14 +106,15 @@ public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 
 	public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException {
 		try {
-			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(file));
+			FileInputStream in = new FileInputStream(file);
+			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in);
 
 			switch (featureReadMode) {
 			case SPLIT_PER_COLLECTION_MEMBER:
 			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, this, file.toURI().normalize());
+				return new JAXBChunkReader(streamReader, in, this, file.toURI().normalize());
 			default:
-				return new JAXBSimpleReader(streamReader, this, file.toURI().normalize());
+				return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
 			}			
 		} catch (XMLStreamException e) {
 			throw new CityGMLReadException("Caused by: ", e);

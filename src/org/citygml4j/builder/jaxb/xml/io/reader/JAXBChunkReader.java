@@ -22,6 +22,7 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Stack;
@@ -55,8 +56,8 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 	private boolean isInited = false;
 	private boolean setXLink = false;
 
-	public JAXBChunkReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
-		super(reader, factory, baseURI);
+	public JAXBChunkReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+		super(reader, in, factory, baseURI);
 		jaxbUnmarshaller.setParseSchema(false);
 		chunks = new Stack<XMLChunkImpl>();
 		elementInfos = new Stack<ElementInfo>();

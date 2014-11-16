@@ -22,6 +22,8 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +45,7 @@ import org.xml.sax.SAXException;
 
 public abstract class AbstractJAXBReader {
 	final XMLStreamReader reader;
+	final InputStream in;
 
 	JAXBInputFactory factory;
 	SchemaHandler schemaHandler;
@@ -59,11 +62,12 @@ public abstract class AbstractJAXBReader {
 	URI baseURI;
 
 	@SuppressWarnings("unchecked")
-	public AbstractJAXBReader(XMLStreamReader reader, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {		
+	public AbstractJAXBReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {		
 		if ((Boolean)factory.getProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
 			reader = new CityGMLNamespaceMapper(reader);
 
 		this.reader = reader;
+		this.in = in;
 		this.factory = factory;
 		this.baseURI = baseURI;
 
@@ -100,9 +104,11 @@ public abstract class AbstractJAXBReader {
 			validationEventHandler = null;	
 			filter = null;
 
-			if (reader != null)
+			if (reader != null) {
 				reader.close();
-		} catch (XMLStreamException e) {
+				in.close();
+			}
+		} catch (XMLStreamException | IOException e) {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
