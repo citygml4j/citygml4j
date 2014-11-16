@@ -129,6 +129,17 @@ public class CityGMLVersion extends AbstractModuleConfiguration {
 		
 		return null;
 	}
+	
+	public static CityGMLVersion fromCityGMLNamespaceURI(String namespaceURI) {
+		for (CityGMLVersion version : instances) {
+			for (CityGMLModule module : version.getCityGMLModules()) {
+				if (module.getNamespaceURI().equals(namespaceURI))
+					return version;
+			}
+		}
+		
+		return null;
+	}
 
 	public static List<CityGMLVersion> getInstances() {
 		return instances;
