@@ -115,6 +115,11 @@ public class SAXEventBuffer implements ContentHandler {
 	}
 
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
+		// JAXB throws an exception when the URI is an empty string
+		// so skip this event in this case
+		if (uri.length() == 0)
+			return;
+		
 		namespaces.pushContext();
 		namespaces.declarePrefix(prefix, uri);		
 		addEvent(new StartPrefixMapping(prefix, uri));
@@ -133,6 +138,10 @@ public class SAXEventBuffer implements ContentHandler {
 	}
 
 	public void endPrefixMapping(String prefix) throws SAXException {
+		// skip this event if there is no URI associated with the prefix
+		if (namespaces.getURI(prefix) == null)
+			return;
+		
 		namespaces.popContext();		
 		addEvent(new EndPrefixMapping(prefix));
 	}
