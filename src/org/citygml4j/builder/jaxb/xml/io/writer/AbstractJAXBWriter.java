@@ -37,6 +37,7 @@ import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.internal.xml.TransformerChainFactory;
 import org.citygml4j.util.transform.FeatureSplitMode;
 import org.citygml4j.util.transform.FeatureSplitter;
 import org.citygml4j.util.xml.SAXWriter;
@@ -57,7 +58,8 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 	JAXBContext jaxbContext;
 	FeatureSplitter featureSplitter;
 	FeatureWriteMode featureWriteMode;
-
+	TransformerChainFactory transformerChainFactory;
+	
 	boolean useValidation;
 	ValidationSchemaHandler validationSchemaHandler;
 	ValidationEventHandler validationEventHandler;
@@ -71,6 +73,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 		jaxbMarshaller = factory.builder.createJAXBMarshaller(new ModuleContext(moduleContext));
 		jaxbContext = factory.builder.getJAXBContext();
 		schemaHandler = factory.getSchemaHandler();
+		transformerChainFactory = factory.getTransformerChainFactory();
 
 		featureWriteMode = (FeatureWriteMode)factory.getProperty(CityGMLOutputFactory.FEATURE_WRITE_MODE);
 		useValidation = (Boolean)factory.getProperty(CityGMLOutputFactory.USE_VALIDATION);
@@ -97,7 +100,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 			
 			validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
 			validationEventHandler = factory.getValidationEventHandler();
-		}
+		}		
 	}
 
 	public void close() throws CityGMLWriteException {

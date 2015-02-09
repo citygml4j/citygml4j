@@ -27,6 +27,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.transform.Templates;
 import javax.xml.transform.stream.StreamResult;
 
 import org.citygml4j.model.module.ModuleContext;
@@ -48,12 +49,14 @@ public interface CityGMLOutputFactory {
 	public SchemaHandler getSchemaHandler();
 	public GMLIdManager getGMLIdManager();
 	public ValidationEventHandler getValidationEventHandler();
+	public Templates[] getTransformationTemplates();
 	public Object getProperty(String name);
 	public void setModuleContext(ModuleContext moduleContext);
 	public void setCityGMLVersion(CityGMLVersion version);
 	public void setSchemaHandler(SchemaHandler schemaHandler);
 	public void setGMLIdManager(GMLIdManager gmlIdManager);
 	public void setValidationEventHandler(ValidationEventHandler validationEventHandler);
+	public void setTransformationTemplates(Templates... templates) throws CityGMLWriteException;
 	public void setProperty(String name, Object value);
 	
 	public CityGMLWriter createCityGMLWriter(File file) throws CityGMLWriteException;
@@ -81,5 +84,4 @@ public interface CityGMLOutputFactory {
 	public CityModelWriter createCityModelWriter(OutputStream outputStream, String encoding, ModuleContext moduleContext) throws CityGMLWriteException;
 	public CityModelWriter createCityModelWriter(Writer writer, ModuleContext moduleContext) throws CityGMLWriteException;
 	public CityModelWriter createCityModelWriter(StreamResult streamResult, String encoding, ModuleContext moduleContext) throws CityGMLWriteException;
-
 }

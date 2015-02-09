@@ -29,6 +29,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXResult;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -44,6 +46,7 @@ import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
+import org.citygml4j.util.internal.xml.TransformerChain;
 import org.citygml4j.util.xml.SAXFragmentWriter;
 import org.citygml4j.util.xml.SAXFragmentWriter.WriteMode;
 import org.citygml4j.util.xml.SAXWriter;
@@ -143,14 +146,23 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 
 			JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(cityModel);
 			if (jaxbElement != null) {
+				Marshaller marshaller = createMarshaller(false);
 				SAXFragmentWriter fragmentWriter = new SAXFragmentWriter(
 						new QName(jaxbMarshaller.getModuleContext().getModule(CityGMLModuleType.CORE).getNamespaceURI(), "CityModel"), writer, WriteMode.HEAD);
-				createMarshaller(false).marshal(jaxbElement, fragmentWriter);
+
+				if (transformerChainFactory == null)
+					marshaller.marshal(jaxbElement, fragmentWriter);
+				else {
+					// apply transformation before marshalling
+					TransformerChain chain = transformerChainFactory.buildChain();
+					chain.tail().setResult(new SAXResult(fragmentWriter));
+					marshaller.marshal(jaxbElement, chain.head());
+				}
 			}
 
 			documentState = DocumentState.START_DOCUMENT;
 
-		} catch (JAXBException e) {
+		} catch (JAXBException | TransformerConfigurationException e) {
 			throw new CityGMLWriteException("Caused by: ", e);
 		}
 	}
@@ -217,8 +229,18 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER) {
 				for (FeatureProperty<? extends AbstractFeature> member : split(object)) {
 					JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(member);
-					if (jaxbElement != null)
-						marshaller.marshal(jaxbElement, writer);
+					if (jaxbElement != null) {
+						if (transformerChainFactory == null)
+							marshaller.marshal(jaxbElement, writer);
+						else {
+							// apply transformation before marshalling
+							TransformerChain chain = transformerChainFactory.buildChain();
+							chain.tail().setResult(new SAXResult(writer));
+							chain.head().startDocument();
+							marshaller.marshal(jaxbElement, chain.head());
+							chain.head().endDocument();
+						}
+					}
 				}					
 			} 
 
@@ -226,12 +248,22 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 				FeatureProperty<? extends AbstractFeature> member = wrap(object);
 				if (member != null) {
 					JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(member);
-					if (jaxbElement != null)
-						marshaller.marshal(jaxbElement, writer);
+					if (jaxbElement != null) {
+						if (transformerChainFactory == null)
+							marshaller.marshal(jaxbElement, writer);
+						else {
+							// apply transformation before marshalling
+							TransformerChain chain = transformerChainFactory.buildChain();
+							chain.tail().setResult(new SAXResult(writer));
+							chain.head().startDocument();
+							marshaller.marshal(jaxbElement, chain.head());
+							chain.head().endDocument();
+						}
+					}
 				}
 			}
 
-		} catch (JAXBException e) {
+		} catch (JAXBException | SAXException | TransformerConfigurationException e) {
 			throw new CityGMLWriteException("Caused by: ", e);
 		}
 	}
@@ -272,9 +304,21 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 
 		try {
 			JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(members);
-			if (jaxbElement != null)
-				createMarshaller(true).marshal(jaxbElement, writer);
-		} catch (JAXBException e) {
+			if (jaxbElement != null) {
+				Marshaller marshaller = createMarshaller(true);
+				
+				if (transformerChainFactory == null)
+					marshaller.marshal(jaxbElement, writer);
+				else {
+					// apply transformation before marshalling
+					TransformerChain chain = transformerChainFactory.buildChain();
+					chain.tail().setResult(new SAXResult(writer));
+					chain.head().startDocument();
+					marshaller.marshal(jaxbElement, chain.head());
+					chain.head().endDocument();
+				}
+			}
+		} catch (JAXBException | SAXException | TransformerConfigurationException e) {
 			throw new CityGMLWriteException("Caused by: ", e);
 		}
 	}

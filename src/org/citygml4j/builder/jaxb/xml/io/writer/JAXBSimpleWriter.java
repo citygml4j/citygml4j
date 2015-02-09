@@ -28,6 +28,8 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXResult;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -40,6 +42,7 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.util.internal.xml.TransformerChain;
 import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
@@ -70,12 +73,18 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 				}
 				
 				// marshal output
-				marshaller.marshal(jaxbElement, writer);
+				if (transformerChainFactory == null)				
+					marshaller.marshal(jaxbElement, writer);
+				else {
+					// apply transformation before marshalling
+					TransformerChain chain = transformerChainFactory.buildChain();
+					chain.tail().setResult(new SAXResult(writer));
+					marshaller.marshal(jaxbElement, chain.head());
+				}
+				
 				writer.flush();
 			}
-		} catch (JAXBException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		} catch (SAXException e) {
+		} catch (JAXBException | SAXException | TransformerConfigurationException e) {
 			throw new CityGMLWriteException("Caused by: ", e);
 		}
 	}

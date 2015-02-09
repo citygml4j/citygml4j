@@ -560,6 +560,9 @@ public class SAXWriter extends XMLFilterImpl {
 				prefix = null;
 
 				if (uri != null && uri.length() > 0) {
+					if (uri.equals(XMLConstants.XMLNS_ATTRIBUTE_NS_URI))
+						continue;
+					
 					prefix = localNS.getPrefix(uri);					
 					if (prefix == null) {
 						prefix = getReportedPrefix(uri);
@@ -581,7 +584,7 @@ public class SAXWriter extends XMLFilterImpl {
 
 	private void writeQName(String prefix, String localName) throws SAXException {
 		try {
-			if (prefix != null && prefix != XMLConstants.DEFAULT_NS_PREFIX) {
+			if (prefix != null && !prefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
 				writer.write(prefix);
 				writer.write(':');
 			}

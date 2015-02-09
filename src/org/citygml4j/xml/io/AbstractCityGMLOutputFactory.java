@@ -27,12 +27,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.transform.Templates;
+import javax.xml.transform.TransformerConfigurationException;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
+import org.citygml4j.util.internal.xml.TransformerChainFactory;
+import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.FeatureWriteMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 
@@ -41,6 +45,7 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 	protected ModuleContext moduleContext;
 	protected GMLIdManager gmlIdManager;
 	protected ValidationEventHandler validationEventHandler;
+	protected TransformerChainFactory transformerChainFactory;
 
 	protected FeatureWriteMode featureWriteMode;
 	protected Set<Class<? extends CityGML>> excludes;
@@ -51,30 +56,30 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 	public AbstractCityGMLOutputFactory(ModuleContext moduleContext, SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		this.moduleContext = moduleContext;
-		
+
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 		featureWriteMode = FeatureWriteMode.NO_SPLIT;
 		excludes = new HashSet<Class<? extends CityGML>>();
 		keepInlineAppearance = true;
 		splitCopy = true;
 	}
-	
+
 	public AbstractCityGMLOutputFactory(ModuleContext moduleContext) {
 		this(moduleContext, null);
 	}
-	
+
 	public AbstractCityGMLOutputFactory(SchemaHandler schemaHandler) {
 		this(new ModuleContext(), schemaHandler);
 	}
-	
+
 	public AbstractCityGMLOutputFactory() {
 		this(new ModuleContext(), null);
 	}
-	
+
 	public ModuleContext getModuleContext() {
 		return moduleContext;
 	}
-	
+
 	public SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
@@ -85,18 +90,18 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 
 		this.schemaHandler = schemaHandler;
 	}
-	
+
 	public void setModuleContext(ModuleContext moduleContext) {
 		if (moduleContext == null)
 			throw new IllegalArgumentException("module context may not be null.");
-		
+
 		this.moduleContext = moduleContext;
 	}
-	
+
 	public void setCityGMLVersion(CityGMLVersion version) {
 		if (version == null)
 			throw new IllegalArgumentException("CityGML version may not be null.");
-		
+
 		moduleContext = new ModuleContext(version);
 	}
 
@@ -110,7 +115,7 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 
 		this.gmlIdManager = gmlIdManager;
 	}
-	
+
 	public ValidationEventHandler getValidationEventHandler() {
 		return validationEventHandler;
 	}
@@ -120,6 +125,28 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 			throw new IllegalArgumentException("validation event handler may not be null.");
 
 		this.validationEventHandler = validationEventHandler;
+	}
+
+	public void setTransformationTemplates(Templates... transformationTemplates) throws CityGMLWriteException {
+		if (transformationTemplates == null)
+			throw new IllegalArgumentException("transformation templates may not be null.");
+
+		try {
+			if (transformerChainFactory == null)
+				transformerChainFactory = new TransformerChainFactory(transformationTemplates);
+			else
+				transformerChainFactory.updateTemplates(transformationTemplates);
+		} catch (TransformerConfigurationException e) {
+			throw new CityGMLWriteException("Caused by: ", e);
+		}
+	}
+
+	public Templates[] getTransformationTemplates() {
+		return transformerChainFactory == null ? null : transformerChainFactory.getTemplates();
+	}
+
+	public TransformerChainFactory getTransformerChainFactory() {
+		return transformerChainFactory;
 	}
 
 	public Object getProperty(String name) {
@@ -136,7 +163,7 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 			return useValidation;
 		if (name.equals(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING))
 			return excludes;
-		
+
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
 
@@ -159,28 +186,28 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 
 			return;		
 		}
-		
+
 		if (name.equals(CityGMLOutputFactory.SPLIT_COPY)) {
 			if (value instanceof Boolean)
 				splitCopy = ((Boolean)value).booleanValue();
 
 			return;		
 		}
-		
+
 		if (name.equals(CityGMLOutputFactory.USE_VALIDATION)) {
 			if (value instanceof Boolean)
 				useValidation = ((Boolean)value).booleanValue();
 
 			return;		
 		}
-		
+
 		if (name.equals(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING)) {
 			if (value instanceof Class<?>) {
 				if (isSubclassOfCityGML((Class<?>)value))
 					excludes.add((Class<? extends CityGML>)value);
 				else
 					throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
-				
+
 				return;
 			}
 
@@ -191,7 +218,7 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 					else
 						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
 				}
-				
+
 				return;
 			}
 
@@ -202,29 +229,29 @@ public abstract class AbstractCityGMLOutputFactory implements CityGMLOutputFacto
 					else
 						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
 				}
-				
+
 				return;
 			}
 		}
-		
+
 		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
 	}
-	
+
 	private boolean isSubclassOfCityGML(Class<?> a) {
 		if (a == null)
 			return false;
-		
+
 		if (a == CityGML.class)
 			return true;
-		
+
 		for (Class<?> tmp : a.getInterfaces())
 			if (isSubclassOfCityGML(tmp))
 				return true;
-		
+
 		if (a.getSuperclass() != Object.class)
 			return isSubclassOfCityGML(a.getSuperclass());
-		
+
 		return false;
 	}
-	
+
 }
