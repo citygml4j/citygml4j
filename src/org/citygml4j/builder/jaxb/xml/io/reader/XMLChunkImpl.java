@@ -192,16 +192,18 @@ public class XMLChunkImpl implements XMLChunk {
 			try {
 				final SAXEventBuffer tmp = new SAXEventBuffer();
 
-				buffer.send(new ContentHandler() {
+				ContentHandler handler = new ContentHandler() {
 					int depth = 0;
-					boolean captureElements;
+					boolean captureElements = true;
 
 					public void startPrefixMapping(String prefix, String uri) throws SAXException {
 						tmp.startPrefixMapping(prefix, uri);
 					}
 
 					public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-						captureElements = depth == 0 || (depth == 1 && jaxbReader.elementChecker.isParentInfoElement(uri, localName));
+						if (depth == 1)
+							captureElements = jaxbReader.elementChecker.isParentInfoElement(uri, localName);
+						
 						if (captureElements)
 							tmp.startElement(uri, localName, qName, atts);
 
@@ -209,14 +211,21 @@ public class XMLChunkImpl implements XMLChunk {
 					}
 
 					public void endElement(String uri, String localName, String qName) throws SAXException {
-						depth--;
 						if (captureElements)
 							tmp.endElement(uri, localName, qName);
+
+						depth--;
 					}
 
 					public void characters(char[] ch, int start, int length) throws SAXException {
 						if (captureElements)
 							tmp.characters(ch, start, length);
+					}
+
+					public void endDocument() throws SAXException {
+						tmp.addEndElement();					
+						if (captureElements)
+							tmp.addEndElement();						
 					}
 
 					public void startDocument() throws SAXException { }					
@@ -225,11 +234,10 @@ public class XMLChunkImpl implements XMLChunk {
 					public void processingInstruction(String target, String data) throws SAXException { }
 					public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException { }
 					public void endPrefixMapping(String prefix) throws SAXException { }
-					public void endDocument() throws SAXException { }
-				},
-				false);
-
-				tmp.addEndElement();
+				};
+				
+				buffer.send(handler, false);
+				handler.endDocument();
 
 				CityGML citygml = unmarshal(tmp, false);
 				if (citygml instanceof AbstractFeature)

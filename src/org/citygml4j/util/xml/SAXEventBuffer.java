@@ -145,7 +145,9 @@ public class SAXEventBuffer implements ContentHandler {
 		atts = new AttributesImpl();
 
 		Byte currentEvent = null;
-		while ((currentEvent = nextEvent(release)) != null) {
+		while (eventBuffer.peek() != null) {
+			currentEvent = nextEvent(release);
+			
 			if (currentEvent == START_ELEMENT)
 				sendStartElement(handler, release);
 			else if (currentEvent == END_ELEMENT)
