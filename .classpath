@@ -25,6 +25,7 @@
 	<classpathentry kind="src" path="samples/reading_citygml/filtered_reader/src"/>
 	<classpathentry kind="src" path="samples/reading_citygml/multithreaded_reader/src"/>
 	<classpathentry kind="src" path="samples/reading_citygml/simple_citygml_reader/src"/>
+	<classpathentry kind="src" path="samples/reading_citygml/applying_xslt/src"/>
 	<classpathentry kind="src" path="samples/validating_citygml/object_tree_validation/src"/>
 	<classpathentry kind="src" path="samples/validating_citygml/using_jaxp/src"/>
 	<classpathentry kind="src" path="samples/validating_citygml/validating_reader/src"/>
@@ -32,11 +33,12 @@
 	<classpathentry kind="src" path="samples/writing_citygml/citygml_writer/src"/>
 	<classpathentry kind="src" path="samples/writing_citygml/citymodel_writer/src"/>
 	<classpathentry kind="src" path="samples/writing_citygml/mixed_versions_writer/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="samples/writing_citygml/applying_xslt/src"/>
 	<classpathentry kind="lib" path="resources/xml"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype.jar"/>
 	<classpathentry kind="lib" path="lib/xsom.jar"/>
 	<classpathentry kind="lib" path="lib/stax2-api-3.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.2.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
