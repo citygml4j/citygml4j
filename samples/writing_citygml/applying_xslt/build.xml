@@ -47,7 +47,7 @@
 	<!-- run sample app -->
 	<target name="run" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="ApplyXSLTTransformation" fork="true">
+		<java classname="ApplyXSLTWhenWriting" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>

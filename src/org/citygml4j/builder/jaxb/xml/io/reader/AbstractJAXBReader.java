@@ -36,6 +36,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.util.internal.xml.TransformerChainFactory;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
@@ -51,6 +52,7 @@ public abstract class AbstractJAXBReader {
 	SchemaHandler schemaHandler;
 	JAXBUnmarshaller jaxbUnmarshaller;
 	XMLElementChecker elementChecker;
+	TransformerChainFactory transformerChainFactory;
 
 	boolean useValidation;
 	boolean failOnMissingADESchema;
@@ -71,6 +73,7 @@ public abstract class AbstractJAXBReader {
 		this.factory = factory;
 		this.baseURI = baseURI;
 
+		transformerChainFactory = factory.getTransformerChainFactory();
 		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
 		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
 		failOnMissingADESchema = (Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);

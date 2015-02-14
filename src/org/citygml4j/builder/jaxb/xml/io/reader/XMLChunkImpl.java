@@ -35,6 +35,8 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXResult;
 
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
@@ -52,6 +54,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.util.internal.xml.TransformerChain;
 import org.citygml4j.util.xml.SAXEventBuffer;
 import org.citygml4j.util.xml.StAXStream2SAX;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
@@ -279,26 +282,36 @@ public class XMLChunkImpl implements XMLChunk {
 				}
 			}
 
-			UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
-
+			UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();			
+			ContentHandler contentHandler = null;
+			
+			if (jaxbReader.transformerChainFactory == null)
+				contentHandler = unmarshallerHandler;
+			else {
+				// apply transformation before unmarshalling
+				TransformerChain chain = jaxbReader.transformerChainFactory.buildChain();
+				chain.tail().setResult(new SAXResult(unmarshallerHandler));
+				contentHandler = chain.head();
+			}
+			
 			// emulate start of a new document
-			handler.startDocument();
+			contentHandler.startDocument();
 			if (fakeRoot != null)
-				handler.startElement(fakeRoot.getNamespaceURI(), fakeRoot.getLocalPart(), "", new AttributesImpl());
+				contentHandler.startElement(fakeRoot.getNamespaceURI(), fakeRoot.getLocalPart(), "", new AttributesImpl());
 
-			// fire buffered sax events to unmarshaller		
-			buffer.send(handler, true);
+			// fire buffered sax events to content handler		
+			buffer.send(contentHandler, true);
 
 			// emulate end of a document
 			if (fakeRoot != null)
-				handler.endElement(fakeRoot.getNamespaceURI(), fakeRoot.getLocalPart(), "");
+				contentHandler.endElement(fakeRoot.getNamespaceURI(), fakeRoot.getLocalPart(), "");
 
-			handler.endDocument();
+			contentHandler.endDocument();
 
 			// unmarshal sax events
-			Object result = handler.getResult();
+			Object result = unmarshallerHandler.getResult();
 			unmarshaller = null;
-			handler = null;
+			unmarshallerHandler = null;
 
 			if (result instanceof JAXBElement<?>) {
 				ModelObject gml = jaxbReader.jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
@@ -316,6 +329,8 @@ public class XMLChunkImpl implements XMLChunk {
 		} catch (JAXBException e) {
 			throw new UnmarshalException("Unmarshal exception caused by: ", e);
 		} catch (SAXException e) {
+			throw new UnmarshalException("Unmarshal exception caused by: ", e);
+		} catch (TransformerConfigurationException e) {
 			throw new UnmarshalException("Unmarshal exception caused by: ", e);
 		}
 	}

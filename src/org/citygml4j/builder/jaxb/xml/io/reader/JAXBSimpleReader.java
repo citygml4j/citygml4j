@@ -29,20 +29,26 @@ import java.util.NoSuchElementException;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.UnmarshallerHandler;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXResult;
 
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.xml.io.reader.CityGMLReader;
-import org.citygml4j.xml.io.reader.XMLChunk;
+import org.citygml4j.util.internal.xml.TransformerChain;
+import org.citygml4j.util.xml.SAXEventBuffer;
+import org.citygml4j.util.xml.StAXStream2SAX;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
+import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
+import org.citygml4j.xml.io.reader.XMLChunk;
 import org.xml.sax.SAXException;
 
 public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReader {
@@ -125,7 +131,39 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 				}							
 
 				// unmarshal input
-				Object result = unmarshaller.unmarshal(reader);
+				Object result = null;
+				
+				if (transformerChainFactory == null)
+					result = unmarshaller.unmarshal(reader);
+				else {
+					// create a unmarshaller handler and make it the target of the transformer chain
+					UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
+					TransformerChain chain = transformerChainFactory.buildChain();
+					chain.tail().setResult(new SAXResult(handler));
+					
+					// the entire document has to be copied to a sax buffer
+					SAXEventBuffer buffer = new SAXEventBuffer();
+					StAXStream2SAX mapper = new StAXStream2SAX(buffer);
+					
+					// map all stax events to the sax buffer
+					mapper.bridgeEvent(reader);
+					for (int depth = 1; depth > 0; ) {
+						reader.next();
+						mapper.bridgeEvent(reader);
+
+						if (reader.getEventType() == XMLStreamConstants.START_ELEMENT)
+							depth++;
+						else if (reader.getEventType() == XMLStreamConstants.END_ELEMENT)
+							depth--;
+					}
+
+					// send the sax buffer to the first template in the chain
+					chain.head().startDocument();
+					buffer.send(chain.head(), true);
+					chain.head().endDocument();
+					
+					result = handler.getResult();
+				}
 
 				// release memory
 				unmarshaller = null;
@@ -140,6 +178,10 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 			} catch (SAXException e) {
 				throw new CityGMLReadException("Caused by: ", e);
 			} catch (MissingADESchemaException e) {
+				throw new CityGMLReadException("Caused by: ", e);
+			} catch (TransformerConfigurationException e) {
+				throw new CityGMLReadException("Caused by: ", e);
+			} catch (XMLStreamException e) {
 				throw new CityGMLReadException("Caused by: ", e);
 			}
 		}

@@ -1,4 +1,4 @@
-package citygml4j;
+
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -22,7 +22,7 @@ import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 
-public class ApplyXSLTTransformation {
+public class ApplyXSLTWhenWriting {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
@@ -47,6 +47,9 @@ public class ApplyXSLTTransformation {
 		// the stylesheets are automatically chained, i.e., the output of the first one is taken as input
 		// for the second one, and so on. The order in which you pass the stylesheets to the CityGMLOutputFactory
 		// is therefore important.
+		
+		// Note: If you parse the document chunk-wise (as in this example), make sure that your XSLT 
+		// transformations use a local scope that matches the chunks. 
 		
 		// In this example, the stylesheet formats all coordinate values to have exactly three digits after the
 		// the decimal separator.

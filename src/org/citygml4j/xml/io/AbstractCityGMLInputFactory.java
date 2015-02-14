@@ -32,12 +32,16 @@ import java.util.Set;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.transform.Templates;
+import javax.xml.transform.TransformerConfigurationException;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
+import org.citygml4j.util.internal.xml.TransformerChainFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
+import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -47,6 +51,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 	protected XMLInputFactory xmlInputFactory;
 	protected GMLIdManager gmlIdManager;
 	protected ValidationEventHandler validationEventHandler;
+	protected TransformerChainFactory transformerChainFactory;
 
 	protected FeatureReadMode featureReadMode;
 	protected Set<Class<? extends CityGML>> excludes;
@@ -129,6 +134,28 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 			throw new IllegalArgumentException("validation event handler may not be null.");
 
 		this.validationEventHandler = validationEventHandler;
+	}
+	
+	public void setTransformationTemplates(Templates... transformationTemplates) throws CityGMLWriteException {
+		if (transformationTemplates == null)
+			throw new IllegalArgumentException("transformation templates may not be null.");
+
+		try {
+			if (transformerChainFactory == null)
+				transformerChainFactory = new TransformerChainFactory(transformationTemplates);
+			else
+				transformerChainFactory.updateTemplates(transformationTemplates);
+		} catch (TransformerConfigurationException e) {
+			throw new CityGMLWriteException("Caused by: ", e);
+		}
+	}
+
+	public Templates[] getTransformationTemplates() {
+		return transformerChainFactory == null ? null : transformerChainFactory.getTemplates();
+	}
+
+	public TransformerChainFactory getTransformerChainFactory() {
+		return transformerChainFactory;
 	}
 
 	public Object getProperty(String name) {

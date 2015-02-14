@@ -27,11 +27,13 @@ import java.io.InputStream;
 
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.transform.Templates;
 
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
+import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -50,11 +52,13 @@ public interface CityGMLInputFactory {
 	public GMLIdManager getGMLIdManager();
 	public SchemaHandler getSchemaHandler();
 	public ValidationEventHandler getValidationEventHandler();
+	public Templates[] getTransformationTemplates();
 	public Object getProperty(String name);
 	public void setXMLInputFactory(XMLInputFactory xmlInputFactory);	
 	public void setGMLIdManager(GMLIdManager gmlIdManager);
 	public void setSchemaHandler(SchemaHandler schemaHandler);
 	public void setValidationEventHandler(ValidationEventHandler validationEventHandler);
+	public void setTransformationTemplates(Templates... templates) throws CityGMLWriteException;
 	public void setProperty(String name, Object value);
 	
 	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation);
