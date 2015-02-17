@@ -4,20 +4,20 @@
     <servers>
         <server>
             <id>sonatype-nexus-snapshots</id>
-            <username><!-- user --></username>
-            <password><!-- password --></password>
+            <username>cnagel</username>
+            <password>isdPple</password>
         </server>
         <server>
             <id>sonatype-nexus-staging</id>
-            <username><!-- user --></username>
-            <password><!-- password --></password>
+            <username>cnagel</username>
+            <password>isdPple</password>
         </server>
     </servers>
     <profiles>
         <profile>
             <id>gpg</id>
             <properties>
-                <gpg.passphrase><!-- password --></gpg.passphrase>
+                <gpg.passphrase>isdPple759344</gpg.passphrase>
             </properties>
         </profile>
     </profiles>

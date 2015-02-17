@@ -29,6 +29,4 @@
     <xs:import namespace="http://www.opengis.net/citygml/vegetation/2.0" schemaLocation="2.0.0/vegetation.xsd"/>
     <xs:import namespace="http://www.opengis.net/citygml/waterbody/2.0" schemaLocation="2.0.0/waterBody.xsd"/>
     <xs:import namespace="http://www.opengis.net/citygml/texturedsurface/2.0" schemaLocation="2.0.0/texturedSurface.xsd"/>
-    <!-- ade hooks -->
-    <xs:import namespace="http://www.igg.tu-berlin.de/citygml4j/ade_hooks" schemaLocation="ade_hooks/ade_hooks.xsd"/>
 </xs:schema>
