@@ -4,10 +4,10 @@ import org.citygml4j.geometry.Matrix;
 
    /** LU Decomposition.
    <P>
-   For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
+   For an m-by-n matrix A with m &gt;= n, the LU decomposition is an m-by-n
    unit lower triangular matrix L, an n-by-n upper triangular matrix U,
    and a permutation vector piv of length m so that A(piv,:) = L*U.
-   If m < n, then L is m-by-m and U is m-by-n.
+   If m &lt; n, then L is m-by-m and U is m-by-n.
    <P>
    The LU decompostion with pivoting always exists, even if the matrix is
    singular, so the constructor will never fail.  The primary use of the
@@ -15,7 +15,7 @@ import org.citygml4j.geometry.Matrix;
    linear equations.  This will fail if isNonsingular() returns false.
    */
 
-public class LUDecomposition {
+public class LUDecomposition implements java.io.Serializable {
 
 /* ------------------------
    Class variables
@@ -43,7 +43,8 @@ public class LUDecomposition {
  * ------------------------ */
 
    /** LU Decomposition
-   @param  A   Rectangular matrix
+       Structure to access L, U and piv.
+   @param  A Rectangular matrix
    */
 
    public LUDecomposition (Matrix A) {
@@ -309,4 +310,5 @@ public class LUDecomposition {
       }
       return Xmat;
    }
+  private static final long serialVersionUID = 1;
 }

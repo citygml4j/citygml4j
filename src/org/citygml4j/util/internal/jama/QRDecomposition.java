@@ -3,7 +3,7 @@ import org.citygml4j.geometry.Matrix;
 
 /** QR Decomposition.
 <P>
-   For an m-by-n matrix A with m >= n, the QR decomposition is an m-by-n
+   For an m-by-n matrix A with m &gt;= n, the QR decomposition is an m-by-n
    orthogonal matrix Q and an n-by-n upper triangular matrix R so that
    A = Q*R.
 <P>
@@ -14,7 +14,7 @@ import org.citygml4j.geometry.Matrix;
    returns false.
 */
 
-public class QRDecomposition {
+public class QRDecomposition implements java.io.Serializable {
 
 /* ------------------------
    Class variables
@@ -41,6 +41,7 @@ public class QRDecomposition {
  * ------------------------ */
 
    /** QR Decomposition, computed by Householder reflections.
+       Structure to access R and the Householder vectors and compute Q.
    @param A    Rectangular matrix
    */
 
@@ -214,4 +215,5 @@ public class QRDecomposition {
       }
       return (new Matrix(X,n,nx).getMatrix(0,n-1,0,nx-1));
    }
+  private static final long serialVersionUID = 1;
 }

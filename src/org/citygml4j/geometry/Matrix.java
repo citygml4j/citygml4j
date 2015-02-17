@@ -1,7 +1,14 @@
 package org.citygml4j.geometry;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.util.internal.jama.CholeskyDecomposition;
@@ -29,7 +36,7 @@ import org.citygml4j.util.internal.jama.SingularValueDecomposition;
    decomposition classes.  These decompositions are accessed by the Matrix
    class to compute solutions of simultaneous linear equations, determinants,
    inverses and other matrix functions.  The five decompositions are:
-<P><UL>
+<UL>
    <LI>Cholesky Decomposition of symmetric, positive definite matrices.
    <LI>LU Decomposition of rectangular matrices.
    <LI>QR Decomposition of rectangular matrices.
@@ -38,9 +45,8 @@ import org.citygml4j.util.internal.jama.SingularValueDecomposition;
 </UL>
 <DL>
 <DT><B>Example of use:</B></DT>
-<P>
 <DD>Solve a linear system A x = b and compute the residual norm, ||b - A x||.
-<P><PRE>
+<PRE>
       double[][] vals = {{1.,2.,3},{4.,5.,6.},{7.,8.,10.}};
       Matrix A = new Matrix(vals);
       Matrix b = Matrix.random(3,1);
@@ -54,11 +60,11 @@ import org.citygml4j.util.internal.jama.SingularValueDecomposition;
 @version 5 August 1998
  */
 
-public class Matrix implements Cloneable, Geometry {
+public class Matrix implements Cloneable, Geometry, java.io.Serializable {
 
-	/* ------------------------
+/* ------------------------
    Class variables
-	 * ------------------------ */
+ * ------------------------ */
 
 	/** Array for internal storage of elements.
    @serial internal array storage.
@@ -71,9 +77,9 @@ public class Matrix implements Cloneable, Geometry {
 	 */
 	private int m, n;
 
-	/* ------------------------
+/* ------------------------
    Constructors
-	 * ------------------------ */
+ * ------------------------ */
 
 	/** Construct an m-by-n matrix of zeros. 
    @param m    Number of rows.
@@ -152,13 +158,14 @@ public class Matrix implements Cloneable, Geometry {
 		}
 	}
 
-	/* ------------------------
+/* ------------------------
    Public Methods
-	 * ------------------------ */
+ * ------------------------ */
 
 	/** Construct a matrix from a copy of a 2-D array.
    @param A    Two-dimensional array of doubles.
    @exception  IllegalArgumentException All rows must have the same length
+   @return     copy of A 
 	 */
 
 	public static Matrix constructWithCopy(double[][] A) {
@@ -179,6 +186,7 @@ public class Matrix implements Cloneable, Geometry {
 	}
 
 	/** Make a deep copy of a matrix
+	@return     deep copy of this matrix
 	 */
 
 	public Matrix copy () {
@@ -269,7 +277,7 @@ public class Matrix implements Cloneable, Geometry {
    @param i    Row index.
    @param j    Column index.
    @return     A(i,j)
-   @exception  ArrayIndexOutOfBoundsException
+   @exception  ArrayIndexOutOfBoundsException out of array bounds
 	 */
 
 	public double get (int i, int j) {
@@ -372,7 +380,7 @@ public class Matrix implements Cloneable, Geometry {
    @param i    Row index.
    @param j    Column index.
    @param s    A(i,j).
-   @exception  ArrayIndexOutOfBoundsException
+   @exception  ArrayIndexOutOfBoundsException out of array bounds
 	 */
 
 	public void set (int i, int j, double s) {
@@ -904,9 +912,138 @@ public class Matrix implements Cloneable, Geometry {
 		return A;
 	}
 
-	/* ------------------------
-	   Private Methods
-	 * ------------------------ */
+
+	/** Print the matrix to stdout.   Line the elements up in columns
+	 * with a Fortran-like 'Fw.d' style format.
+   @param w    Column width.
+   @param d    Number of digits after the decimal.
+	 */
+
+	public void print (int w, int d) {
+		print(new PrintWriter(System.out,true),w,d); }
+
+	/** Print the matrix to the output stream.   Line the elements up in
+	 * columns with a Fortran-like 'Fw.d' style format.
+   @param output Output stream.
+   @param w      Column width.
+   @param d      Number of digits after the decimal.
+	 */
+
+	public void print (PrintWriter output, int w, int d) {
+		DecimalFormat format = new DecimalFormat();
+		format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
+		format.setMinimumIntegerDigits(1);
+		format.setMaximumFractionDigits(d);
+		format.setMinimumFractionDigits(d);
+		format.setGroupingUsed(false);
+		print(output,format,w+2);
+	}
+
+	/** Print the matrix to stdout.  Line the elements up in columns.
+	 * Use the format object, and right justify within columns of width
+	 * characters.
+	 * Note that is the matrix is to be read back in, you probably will want
+	 * to use a NumberFormat that is set to US Locale.
+   @param format A  Formatting object for individual elements.
+   @param width     Field width for each column.
+   @see java.text.DecimalFormat#setDecimalFormatSymbols
+	 */
+
+	public void print (NumberFormat format, int width) {
+		print(new PrintWriter(System.out,true),format,width); }
+
+	// DecimalFormat is a little disappointing coming from Fortran or C's printf.
+	// Since it doesn't pad on the left, the elements will come out different
+	// widths.  Consequently, we'll pass the desired column width in as an
+	// argument and do the extra padding ourselves.
+
+	/** Print the matrix to the output stream.  Line the elements up in columns.
+	 * Use the format object, and right justify within columns of width
+	 * characters.
+	 * Note that is the matrix is to be read back in, you probably will want
+	 * to use a NumberFormat that is set to US Locale.
+   @param output the output stream.
+   @param format A formatting object to format the matrix elements 
+   @param width  Column width.
+   @see java.text.DecimalFormat#setDecimalFormatSymbols
+	 */
+
+	public void print (PrintWriter output, NumberFormat format, int width) {
+		output.println();  // start on new line.
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				String s = format.format(A[i][j]); // format the number
+				int padding = Math.max(1,width-s.length()); // At _least_ 1 space
+				for (int k = 0; k < padding; k++)
+					output.print(' ');
+				output.print(s);
+			}
+			output.println();
+		}
+		output.println();   // end with blank line.
+	}
+
+	/** Read a matrix from a stream.  The format is the same the print method,
+	 * so printed matrices can be read back in (provided they were printed using
+	 * US Locale).  Elements are separated by
+	 * whitespace, all the elements for each row appear on a single line,
+	 * the last row is followed by a blank line.
+   @param input the input stream.
+   @return matrix
+   @throws java.io.IOException failed to read from stream
+	 */
+
+	public static Matrix read (BufferedReader input) throws java.io.IOException {
+		StreamTokenizer tokenizer= new StreamTokenizer(input);
+
+		// Although StreamTokenizer will parse numbers, it doesn't recognize
+		// scientific notation (E or D); however, Double.valueOf does.
+		// The strategy here is to disable StreamTokenizer's number parsing.
+		// We'll only get whitespace delimited words, EOL's and EOF's.
+		// These words should all be numbers, for Double.valueOf to parse.
+
+		tokenizer.resetSyntax();
+		tokenizer.wordChars(0,255);
+		tokenizer.whitespaceChars(0, ' ');
+		tokenizer.eolIsSignificant(true);
+		java.util.Vector<Double> vD = new java.util.Vector<Double>();
+
+		// Ignore initial empty lines
+		while (tokenizer.nextToken() == StreamTokenizer.TT_EOL);
+		if (tokenizer.ttype == StreamTokenizer.TT_EOF)
+			throw new java.io.IOException("Unexpected EOF on matrix read.");
+		do {
+			vD.addElement(Double.valueOf(tokenizer.sval)); // Read & store 1st row.
+		} while (tokenizer.nextToken() == StreamTokenizer.TT_WORD);
+
+		int n = vD.size();  // Now we've got the number of columns!
+		double row[] = new double[n];
+		for (int j=0; j<n; j++)  // extract the elements of the 1st row.
+			row[j]=vD.elementAt(j).doubleValue();
+		java.util.Vector<double[]> v = new java.util.Vector<double[]>();
+		v.addElement(row);  // Start storing rows instead of columns.
+		while (tokenizer.nextToken() == StreamTokenizer.TT_WORD) {
+			// While non-empty lines
+			v.addElement(row = new double[n]);
+			int j = 0;
+			do {
+				if (j >= n) throw new java.io.IOException
+				("Row " + v.size() + " is too long.");
+				row[j++] = Double.valueOf(tokenizer.sval).doubleValue();
+			} while (tokenizer.nextToken() == StreamTokenizer.TT_WORD);
+			if (j < n) throw new java.io.IOException
+			("Row " + v.size() + " is too short.");
+		}
+		int m = v.size();  // Now we've got the number of rows.
+		double[][] A = new double[m][];
+		v.copyInto(A);  // copy the rows out of the vector
+		return new Matrix(A);
+	}
+
+
+/* ------------------------
+   Private Methods
+ * ------------------------ */
 
 	/** Check if size(A) == size(B) **/
 
@@ -916,10 +1053,10 @@ public class Matrix implements Cloneable, Geometry {
 		}
 	}
 
-	/*
-	 *  citygml4j specific extensions
-	 */
-	
+/* ------------------------
+   citygml4j specific extensions
+ * ------------------------ */
+
 	public Matrix(Matrix m) {
 		this.m = m.m;
 		this.n = m.n;		
@@ -943,7 +1080,7 @@ public class Matrix implements Cloneable, Geometry {
 			}
 		}
 	}
-	
+
 	public Matrix getMatrix(int m, int n) {
 		if (m > this.m)
 			throw new IllegalArgumentException("Row number m of new matrix must be equal or less than m of original matrix.");
@@ -958,7 +1095,7 @@ public class Matrix implements Cloneable, Geometry {
 
 		return matrix;
 	}
-	
+
 	public void setMatrix(List<Double> vals) {
 		if (vals.size() != m * n)
 			throw new IllegalArgumentException("List size must be m * n.");
@@ -975,7 +1112,7 @@ public class Matrix implements Cloneable, Geometry {
 			}
 		}
 	}
-	
+
 	public double[] toColumnPackedArray() {
 		double[] vals = new double[m * n];
 		for (int i = 0; i < m; ++i)
@@ -984,7 +1121,7 @@ public class Matrix implements Cloneable, Geometry {
 
 		return vals;
 	}
-	
+
 	public boolean eq(Matrix B) {
 		checkMatrixDimensions(B);
 
@@ -1040,4 +1177,5 @@ public class Matrix implements Cloneable, Geometry {
 		return copy;
 	}
 
+	private static final long serialVersionUID = 1;
 }

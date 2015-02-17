@@ -12,7 +12,7 @@ import org.citygml4j.geometry.Matrix;
    be queried by the isSPD() method.
    */
 
-public class CholeskyDecomposition {
+public class CholeskyDecomposition implements java.io.Serializable {
 
 /* ------------------------
    Class variables
@@ -38,6 +38,7 @@ public class CholeskyDecomposition {
  * ------------------------ */
 
    /** Cholesky algorithm for symmetric and positive definite matrix.
+       Structure to access L and isspd flag.
    @param  Arg   Square, symmetric matrix.
    */
 
@@ -196,5 +197,7 @@ public class CholeskyDecomposition {
       
       return new Matrix(X,n,nx);
    }
+  private static final long serialVersionUID = 1;
+
 }
 
