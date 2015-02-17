@@ -67,12 +67,12 @@ public class StAXStream2SAX {
 		for (int i = 0; i < reader.getNamespaceCount(); i++)
 			buffer.addNamespacePrefixMapping(reader.getNamespaceURI(i), reader.getNamespacePrefix(i));
 
-		buffer.addStartElement(reader.getNamespaceURI(), reader.getLocalName(), null);
+		buffer.addStartElement(reader.getNamespaceURI(), reader.getLocalName(), reader.getPrefix());
 
 		for (int i = 0; i < reader.getAttributeCount(); i++)
 			buffer.addAttribute(reader.getAttributeNamespace(i), 
 					reader.getAttributeLocalName(i), 
-					null,
+					reader.getAttributePrefix(i),
 					reader.getAttributeType(i), 
 					reader.getAttributeValue(i));
 	}

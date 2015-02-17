@@ -46,7 +46,7 @@ public class SAXEventBuffer implements ContentHandler {
 	private ArrayBuffer<String> tmpBuffer;
 	private AttributesImpl atts;
 	private Byte previousElement = UNDEFINED;
-	
+
 	public SAXEventBuffer() {
 		stringBuffer = new ArrayBuffer<String>(String.class);
 		charactersBuffer = new ArrayBuffer<char[]>(char[].class);
@@ -61,7 +61,7 @@ public class SAXEventBuffer implements ContentHandler {
 		atts = null;
 		previousElement = UNDEFINED;		
 	}
-	
+
 	public boolean isEmpty() {
 		return eventBuffer.currentPtr() == 0 && eventBuffer.previousBuffer() == null;
 	}
@@ -99,15 +99,15 @@ public class SAXEventBuffer implements ContentHandler {
 		pushEvent(END_ELEMENT);
 		previousElement = END_ELEMENT;
 	}
-	
+
 	public void addEndElement(String uri, String localName) {
 		if (previousElement == END_ELEMENT)
 			removeTrailingCharacters();
-		
+
 		pushEvent(QUALIFIED_END_ELEMENT);
 		pushString(uri);
 		pushString(localName);
-		
+
 		previousElement = END_ELEMENT;
 	}
 
@@ -147,7 +147,7 @@ public class SAXEventBuffer implements ContentHandler {
 		Byte currentEvent = null;
 		while (eventBuffer.peek() != null) {
 			currentEvent = nextEvent(release);
-			
+
 			if (currentEvent == START_ELEMENT)
 				sendStartElement(handler, release);
 			else if (currentEvent == END_ELEMENT)
@@ -192,10 +192,8 @@ public class SAXEventBuffer implements ContentHandler {
 		String elementUri = nextString(release);
 		String elementLocalName = nextString(release);
 		String elementPrefix = nextString(release);
-		if (elementPrefix == null)
-			elementPrefix = "_elem_";
-		
-		String elementQName = new StringBuffer(elementPrefix).append(':').append(elementLocalName).toString();
+		String elementQName = (elementPrefix == null || elementPrefix.length() == 0) ? 
+				elementLocalName : new StringBuffer(elementPrefix).append(':').append(elementLocalName).toString();
 
 		if (eventBuffer.peek() == ATTRIBUTE) {
 			do {
@@ -205,11 +203,9 @@ public class SAXEventBuffer implements ContentHandler {
 				String attrLocalName = nextString(release);
 				String attrPrefix = nextString(release);
 				String attrType = nextString(release);
-				String attrValue = nextString(release);
-				if (attrPrefix == null)
-					attrPrefix = "_attr_";
-				
-				String attrQName = new StringBuffer(attrPrefix).append(':').append(attrLocalName).toString();
+				String attrValue = nextString(release);				
+				String attrQName = (attrPrefix == null || attrPrefix.length() == 0) ? 
+						attrLocalName : new StringBuffer(attrPrefix).append(':').append(attrLocalName).toString();
 
 				atts.addAttribute(attrUri, attrLocalName, attrQName, attrType, attrValue);
 			} while (eventBuffer.peek() == ATTRIBUTE);
@@ -241,13 +237,13 @@ public class SAXEventBuffer implements ContentHandler {
 			} while (tmpBuffer.peek() == END_PREFIX_MAPPING);
 		}
 	}
-	
+
 	private void sendQualifiedEndElement(ContentHandler handler, boolean release) throws SAXException {
 		String elementUri = nextString(release);
 		String elementLocalName = nextString(release);
-		
+
 		handler.endElement(elementUri, elementLocalName, elementLocalName);
-		
+
 		if (tmpBuffer.peek() == END_PREFIX_MAPPING) {
 			do {
 				popTmpString();
