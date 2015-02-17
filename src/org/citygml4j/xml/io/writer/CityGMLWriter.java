@@ -1,9 +1,9 @@
 /*
- * This file is part of citygml4j.
- * Copyright (c) 2007 - 2012
- * Institute for Geodesy and Geoinformation Science
- * Technische Universität Berlin, Germany
- * http://www.igg.tu-berlin.de/
+ * citygml4j - The Open Source Java API for CityGML
+ * https://github.com/citygml4j
+ * 
+ * Copyright (C) 2013 - 2015,
+ * Claus Nagel <claus.nagel@gmail.com>
  *
  * The citygml4j library is free software:
  * you can redistribute it and/or modify it under the terms of the
@@ -15,10 +15,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see 
- * <http://www.gnu.org/licenses/>.
  */
 package org.citygml4j.xml.io.writer;
 
