@@ -1,8 +1,10 @@
-!citygml4j.name! v!citygml4j.version! - !citygml4j.description!
+!citygml4j.name! - !citygml4j.description!
 
-  This library is free software and comes WITHOUT ANY WARRANTY. 
-  See the file LICENSE for more details. 
-
+  This library is free software and is distributed in the hope
+  that it will be useful, but WITHOUT ANY WARRANTY; without even
+  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+  PURPOSE. See the LICENSE.txt file for more details.
+  
 
 0. Index
 --------
@@ -20,16 +22,16 @@
 1. License
 ----------
 
-The !citygml4j.name! Java class library is free software under
-the GNU Lesser General Public License Version 3.0. See the file LICENSE 
-for more details. For a copy of the GNU Lesser General Public License see 
-the files COPYING and COPYING.LESSER or visit http://www.gnu.org/licenses/.
+The !citygml4j.name! library is free software under the 
+GNU Lesser General Public License Version 3.0. See the LICENSE.txt file for more 
+details. For a copy of the GNU Lesser General Public License see the files
+COPYING.txt and COPYING.LESSER.txt or visit http://www.gnu.org/licenses/.
 
 
 2. Copyright
 ------------
 
-(c) !copyright.year!
+(C) !copyright.year!,
 !copyright.owner! <!copyright.owner.email!>
 
 
@@ -48,14 +50,14 @@ Feature list:
 * Support for the eXtensible Address Language (xAL)
 * Support for user-defined CityGML Application Domain Extensions (ADE)
 
-CityGML is a common information model for the representation of 3D urban 
-objects. It is realized as an open data model and XML-based format for the 
-storage and exchange of virtual 3D city models. 
+CityGML is a common information model for the representation of semantic
+3D city models. It is realized as an open data model and XML-based encoding
+for the storage and exchange of 3D urban objects. 
 
 CityGML is implemented as an application schema for the Geography Markup 
 Language version 3.1.1 (GML3), the extendible international standard for 
 spatial data exchange issued by the Open Geospatial Consortium (OGC) and 
-the ISO TC211. CityGML is an official OGC standard and can be used 
+the ISO TC211. CityGML is an international OGC standard and can be used 
 free of charge.
 
 
@@ -72,8 +74,18 @@ Simply modify your Java classpath to include the provided
 Java library files in the subfolder "lib". This folder contains the
 !citygml4j.name! library file as well as all its mandatory dependencies.
 
-Please find a collection of sample !citygml4j.name! programs in
-the subfolder "samples".
+!citygml4j.name! is also available as Maven artifact: 
+
+  <dependency>
+    <groupId>org.!citygml4j.name!</groupId>
+    <artifactId>!citygml4j.name!</artifactId>
+    <version>!citygml4j.version!</version>
+  </dependency>
+
+A collection of sample programs demonstrating the use of !citygml4j.name!
+is provided in the subfolder "samples". Each subfolder contains an Ant
+build.xml script to easily run the programs. Note that the build.xml file
+may contain more than one target.
 
    
 6. Developers
@@ -91,8 +103,9 @@ the subfolder "samples".
 8. Websites
 -----------
 
-Official !citygml4j.name! website: 
+Official !citygml4j.name! websites: 
 !citygml4j.homepage!
+!citygml4j.git!
 
 Related websites:
 http://www.citygml.org/

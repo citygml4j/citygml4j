@@ -110,33 +110,34 @@
 		<delete dir="${dir.dist.lib}" />
 		<mkdir dir="${dir.dist.lib}" />
 
-		<!-- copy README and LICENSE templates to tmp folder -->
+		<!-- copy README.txt and LICENSE.txt templates to the tmp folder -->
 		<copy todir="${dir.dist.tmp}">
 			<fileset dir="${dir.resources.doc}" includes="**/*" />
 			<fileset dir="${dir.resources.license}" includes="**/*" />
 		</copy>
 
 		<!-- replace tokens in template files -->
-		<replace file="${dir.dist.tmp}/README" token="!citygml4j.name!" value="${citygml4j.name}" />
-		<replace file="${dir.dist.tmp}/README" token="!citygml4j.version!" value="${citygml4j.version}" />
-		<replace file="${dir.dist.tmp}/README" token="!citygml4j.description!" value="${citygml4j.description}" />
-		<replace file="${dir.dist.tmp}/README" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
-		<replace file="${dir.dist.tmp}/README" token="!copyright.year!" value="${copyright.year}" />
-		<replace file="${dir.dist.tmp}/README" token="!copyright.owner!" value="${copyright.owner}" />
-		<replace file="${dir.dist.tmp}/README" token="!copyright.owner.email!" value="${copyright.owner.email}" />
-		<replace file="${dir.dist.tmp}/README" token="!developer.main.name!" value="${developer.main.name}" />
-		<replace file="${dir.dist.tmp}/README" token="!developer.main.email!" value="${developer.main.email}" />
-		<replace file="${dir.dist.tmp}/LICENSE" token="!citygml4j.name!" value="${citygml4j.name}" />
-		<replace file="${dir.dist.tmp}/LICENSE" token="!citygml4j.description!" value="${citygml4j.description}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.name!" value="${citygml4j.name}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.version!" value="${citygml4j.version}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.description!" value="${citygml4j.description}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.git!" value="${citygml4j.git}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!copyright.year!" value="${copyright.year}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!copyright.owner!" value="${copyright.owner}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!copyright.owner.email!" value="${copyright.owner.email}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!developer.main.name!" value="${developer.main.name}" />
+		<replace file="${dir.dist.tmp}/README.txt" token="!developer.main.email!" value="${developer.main.email}" />
+		<replace file="${dir.dist.tmp}/LICENSE.txt" token="!citygml4j.name!" value="${citygml4j.name}" />
+		<replace file="${dir.dist.tmp}/LICENSE.txt" token="!citygml4j.description!" value="${citygml4j.description}" />
 
-		<!-- copy README template to dir.dist folder -->
+		<!-- copy README.txt template to dir.dist folder -->
 		<copy todir="${dir.dist}">
-			<fileset dir="${dir.dist.tmp}" includes="README" />
+			<fileset dir="${dir.dist.tmp}" includes="README.txt" />
 		</copy>
 
-		<!-- copy LICENSE template to license folder -->
+		<!-- copy LICENSE.txt template to license folder -->
 		<copy todir="${dir.dist.license}">
-			<fileset dir="${dir.dist.tmp}" excludes="README" />
+			<fileset dir="${dir.dist.tmp}" excludes="README.txt" />
 		</copy>
 
 		<!-- copy schema files -->
@@ -156,7 +157,7 @@
 			<manifest>
 				<attribute name="Built-Id" value="${user.name}-${citygml4j.name}-${citygml4j.version}" />
 				<attribute name="Built-Date" value="${TODAY}" />
-				<attribute name="Implementation-Title" value="${citygml4j.description}" />
+				<attribute name="Implementation-Title" value="${citygml4j.name}" />
 				<attribute name="Implementation-Version" value="${citygml4j.version}-b${build.number}" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
