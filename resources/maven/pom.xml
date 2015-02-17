@@ -14,16 +14,14 @@
     </license>
   </licenses>
   <scm>
-  	<url>http://opportunity.bv.tu-berlin.de/svn/citygml4j</url>
-  	<connection>scm:svn:http://opportunity.bv.tu-berlin.de/svn/citygml4j</connection>
+  	<url>https://github.com/citygml4j/citygml4j</url>
+  	<connection>scm:git:https://github.com/citygml4j/citygml4j.git</connection>
   </scm>
   <developers>
     <developer>
       <id>nagel</id>
       <name>Claus Nagel</name>
-      <email>cnagel@virtualcitysystems.de</email>
-      <organization>virtualcitySYSTEMS GmbH</organization>
-      <organizationUrl>http://www.virtualcitysystems.de</organizationUrl>
+      <email>claus.nagel@gmail.com</email>
       <roles>
         <role>architect</role>
         <role>developer</role>
@@ -33,33 +31,15 @@
   </developers>
   <dependencies>
   	<dependency>
-  		<groupId>com.sun.xml.stream</groupId>
-  		<artifactId>sjsxp</artifactId>
-  		<version>1.0.2</version>
+  		<groupId>org.codehaus.woodstox</groupId>
+  		<artifactId>woodstox-core-lgpl</artifactId>
+  		<version>4.4.1</version>
   		<scope>runtime</scope>
   	</dependency>
   	<dependency>
-  		<groupId>javax.xml.bind</groupId>
-  		<artifactId>jsr173_api</artifactId>
-  		<version>1.0</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.sun.xml.bind</groupId>
-  		<artifactId>jaxb-impl</artifactId>
-  		<version>2.2.6</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.sun.xml.bind</groupId>
-  		<artifactId>jaxb-xjc</artifactId>
-  		<version>2.2.6</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>javax.xml.bind</groupId>
-  		<artifactId>jaxb-api</artifactId>
-  		<version>2.2.6</version>
+  		<groupId>com.sun.xsom</groupId>
+  		<artifactId>xsom</artifactId>
+  		<version>20140925</version>
   		<scope>runtime</scope>
   	</dependency>
   </dependencies>
@@ -68,4 +48,8 @@
   	<artifactId>oss-parent</artifactId>
   	<version>7</version>
   </parent>
+  <issueManagement>
+  	<url>https://github.com/citygml4j/citygml4j/issues</url>
+  	<system>GitHub</system>
+  </issueManagement>
 </project>
