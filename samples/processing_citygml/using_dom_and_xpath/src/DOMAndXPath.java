@@ -123,6 +123,7 @@ public class DOMAndXPath {
 		TransformerFactory transFactory = TransformerFactory.newInstance();
 		Transformer trans = transFactory.newTransformer();		
 		trans.setOutputProperty(OutputKeys.INDENT, "yes");
+		trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
 		DOMSource source = new DOMSource(document);
 		StreamResult result = new StreamResult(new FileOutputStream("LOD2_DOM_result_v200.gml"));
