@@ -39,9 +39,8 @@ COPYING.txt and COPYING.LESSER.txt or visit http://www.gnu.org/licenses/.
 --------
 
 !citygml4j.name! is a Java class library and API for facilitating work with the
-City Geography Markup Language (CityGML). It makes it easy to read, process,
-and write CityGML datasets, and to develop CityGML-aware software 
-applications.
+City Geography Markup Language (CityGML). It makes it easy to read, process, and
+write CityGML datasets, and to develop CityGML-aware software applications.
 
 Feature list:
 * Full support for CityGML version 2.0.0 and 1.0.0
@@ -50,15 +49,14 @@ Feature list:
 * Support for the eXtensible Address Language (xAL)
 * Support for user-defined CityGML Application Domain Extensions (ADE)
 
-CityGML is a common information model for the representation of semantic
-3D city models. It is realized as an open data model and XML-based encoding
-for the storage and exchange of 3D urban objects. 
+CityGML is an open data model and XML-based format for the storage and exchange
+of semantic 3D city models. It is an application schema for the Geography Markup
+Language version 3.1.1 (GML3), the extendible international standard for spatial
+data exchange issued by the Open Geospatial Consortium (OGC) and the ISO TC211.
+The aim of the development of CityGML is to reach a common definition of the
+basic entities, attributes, and relations of a 3D city model.
 
-CityGML is implemented as an application schema for the Geography Markup 
-Language version 3.1.1 (GML3), the extendible international standard for 
-spatial data exchange issued by the Open Geospatial Consortium (OGC) and 
-the ISO TC211. CityGML is an international OGC standard and can be used 
-free of charge.
+CityGML is an international OGC standard and can be used free of charge.
 
 
 4. System requirements
