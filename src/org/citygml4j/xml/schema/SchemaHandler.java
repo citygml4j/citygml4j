@@ -28,6 +28,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
@@ -229,7 +230,7 @@ public class SchemaHandler {
 		if (is == null)
 			return;
 
-		XSOMParser parser = new XSOMParser();
+		XSOMParser parser = new XSOMParser(SAXParserFactory.newInstance());
 		parser.setEntityResolver(new EntityResolver() {
 
 			public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
