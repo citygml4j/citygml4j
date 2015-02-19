@@ -5,8 +5,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
-import net.opengis.gml.MultiSurfacePropertyType;
-import net.opengis.gml.SolidPropertyType;
 
 
 /**
@@ -62,10 +60,6 @@ public class ObjectFactory {
     private final static QName __GenericApplicationPropertyOfHollowSpace_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "_GenericApplicationPropertyOfHollowSpace");
     private final static QName __BoundarySurface_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "_BoundarySurface");
     private final static QName _TunnelInstallation_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "TunnelInstallation");
-    private final static QName _HollowSpaceTypeLod4Solid_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "lod4Solid");
-    private final static QName _HollowSpaceTypeLod4MultiSurface_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "lod4MultiSurface");
-    private final static QName _HollowSpaceTypeInteriorFurniture_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "InteriorFurniture");
-    private final static QName _HollowSpaceTypeBoundedBy_QNAME = new QName("http://www.citygml.org/ade/sub/0.9.0", "boundedBy");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ade.sub.jaxb
@@ -564,42 +558,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "TunnelInstallation", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
     public JAXBElement<TunnelInstallationType> createTunnelInstallation(TunnelInstallationType value) {
         return new JAXBElement<TunnelInstallationType>(_TunnelInstallation_QNAME, TunnelInstallationType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SolidPropertyType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "lod4Solid", scope = HollowSpaceType.class)
-    public JAXBElement<SolidPropertyType> createHollowSpaceTypeLod4Solid(SolidPropertyType value) {
-        return new JAXBElement<SolidPropertyType>(_HollowSpaceTypeLod4Solid_QNAME, SolidPropertyType.class, HollowSpaceType.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MultiSurfacePropertyType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "lod4MultiSurface", scope = HollowSpaceType.class)
-    public JAXBElement<MultiSurfacePropertyType> createHollowSpaceTypeLod4MultiSurface(MultiSurfacePropertyType value) {
-        return new JAXBElement<MultiSurfacePropertyType>(_HollowSpaceTypeLod4MultiSurface_QNAME, MultiSurfacePropertyType.class, HollowSpaceType.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InteriorFurniturePropertyType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "InteriorFurniture", scope = HollowSpaceType.class)
-    public JAXBElement<InteriorFurniturePropertyType> createHollowSpaceTypeInteriorFurniture(InteriorFurniturePropertyType value) {
-        return new JAXBElement<InteriorFurniturePropertyType>(_HollowSpaceTypeInteriorFurniture_QNAME, InteriorFurniturePropertyType.class, HollowSpaceType.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BoundarySurfacePropertyType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "boundedBy", scope = HollowSpaceType.class)
-    public JAXBElement<BoundarySurfacePropertyType> createHollowSpaceTypeBoundedBy(BoundarySurfacePropertyType value) {
-        return new JAXBElement<BoundarySurfacePropertyType>(_HollowSpaceTypeBoundedBy_QNAME, BoundarySurfacePropertyType.class, HollowSpaceType.class, value);
     }
 
 }

@@ -3,11 +3,9 @@ package ade.sub.jaxb;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementRefs;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import net.opengis.citygml._1.AbstractCityObjectType;
 import net.opengis.gml.MultiSurfacePropertyType;
@@ -43,62 +41,189 @@ import net.opengis.gml.SolidPropertyType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HollowSpaceType", propOrder = {
-    "rest"
+    "lod4Solid",
+    "lod4MultiSurface",
+    "_GenericApplicationPropertyOfHollowSpace",
+    "boundedBySurface",
+    "interiorFurniture"
 })
 public class HollowSpaceType
     extends AbstractCityObjectType
 {
 
-    @XmlElementRefs({
-        @XmlElementRef(name = "boundedBy", namespace = "http://www.citygml.org/ade/sub/0.9.0", type = JAXBElement.class, required = false),
-        @XmlElementRef(name = "lod4MultiSurface", namespace = "http://www.citygml.org/ade/sub/0.9.0", type = JAXBElement.class, required = false),
-        @XmlElementRef(name = "lod4Solid", namespace = "http://www.citygml.org/ade/sub/0.9.0", type = JAXBElement.class, required = false),
-        @XmlElementRef(name = "_GenericApplicationPropertyOfHollowSpace", namespace = "http://www.citygml.org/ade/sub/0.9.0", type = JAXBElement.class, required = false),
-        @XmlElementRef(name = "InteriorFurniture", namespace = "http://www.citygml.org/ade/sub/0.9.0", type = JAXBElement.class, required = false)
-    })
-    protected List<JAXBElement<?>> rest;
+    protected SolidPropertyType lod4Solid;
+    protected MultiSurfacePropertyType lod4MultiSurface;
+    protected List<Object> _GenericApplicationPropertyOfHollowSpace;
+    @XmlElement(name = "boundedBy")
+    protected List<BoundarySurfacePropertyType> boundedBySurface;
+    @XmlElement(name = "InteriorFurniture")
+    protected List<InteriorFurniturePropertyType> interiorFurniture;
 
     /**
-     * Ruft das restliche Contentmodell ab. 
+     * Ruft den Wert der lod4Solid-Eigenschaft ab.
      * 
-     * <p>
-     * Sie rufen diese "catch-all"-Eigenschaft aus folgendem Grund ab: 
-     * Der Feldname "BoundedBy" wird von zwei verschiedenen Teilen eines Schemas verwendet. Siehe: 
-     * Zeile 356 von file:/c:/devel/java/ade-xjc/ade-xjc-2.0/sample/CityGML-SubsurfaceADE-0_9_0.xsd
-     * Zeile 28 von file:/c:/devel/java/ade-xjc/ade-xjc-2.0/schemas/GML/3.1.1/base/feature.xsd
-     * <p>
-     * Um diese Eigenschaft zu entfernen, wenden Sie eine Eigenschaftenanpassung für eine
-     * der beiden folgenden Deklarationen an, um deren Namen zu ändern: 
-     * Gets the value of the rest property.
+     * @return
+     *     possible object is
+     *     {@link SolidPropertyType }
+     *     
+     */
+    public SolidPropertyType getLod4Solid() {
+        return lod4Solid;
+    }
+
+    /**
+     * Legt den Wert der lod4Solid-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SolidPropertyType }
+     *     
+     */
+    public void setLod4Solid(SolidPropertyType value) {
+        this.lod4Solid = value;
+    }
+
+    public boolean isSetLod4Solid() {
+        return (this.lod4Solid!= null);
+    }
+
+    /**
+     * Ruft den Wert der lod4MultiSurface-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link MultiSurfacePropertyType }
+     *     
+     */
+    public MultiSurfacePropertyType getLod4MultiSurface() {
+        return lod4MultiSurface;
+    }
+
+    /**
+     * Legt den Wert der lod4MultiSurface-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link MultiSurfacePropertyType }
+     *     
+     */
+    public void setLod4MultiSurface(MultiSurfacePropertyType value) {
+        this.lod4MultiSurface = value;
+    }
+
+    public boolean isSetLod4MultiSurface() {
+        return (this.lod4MultiSurface!= null);
+    }
+
+    /**
+     * Gets the value of the genericApplicationPropertyOfHollowSpace property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the rest property.
+     * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfHollowSpace property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getRest().add(newItem);
+     *    get_GenericApplicationPropertyOfHollowSpace().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link Object }{@code >}
-     * {@link JAXBElement }{@code <}{@link BoundarySurfacePropertyType }{@code >}
-     * {@link JAXBElement }{@code <}{@link MultiSurfacePropertyType }{@code >}
-     * {@link JAXBElement }{@code <}{@link SolidPropertyType }{@code >}
-     * {@link JAXBElement }{@code <}{@link InteriorFurniturePropertyType }{@code >}
+     * {@link Object }
      * 
      * 
      */
-    public List<JAXBElement<?>> getRest() {
-        if (rest == null) {
-            rest = new ArrayList<JAXBElement<?>>();
+    public List<Object> get_GenericApplicationPropertyOfHollowSpace() {
+        if (_GenericApplicationPropertyOfHollowSpace == null) {
+            _GenericApplicationPropertyOfHollowSpace = new ArrayList<Object>();
         }
-        return this.rest;
+        return this._GenericApplicationPropertyOfHollowSpace;
+    }
+
+    public boolean isSet_GenericApplicationPropertyOfHollowSpace() {
+        return ((this._GenericApplicationPropertyOfHollowSpace!= null)&&(!this._GenericApplicationPropertyOfHollowSpace.isEmpty()));
+    }
+
+    public void unset_GenericApplicationPropertyOfHollowSpace() {
+        this._GenericApplicationPropertyOfHollowSpace = null;
+    }
+
+    /**
+     * Gets the value of the boundedBySurface property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the boundedBySurface property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getBoundedBySurface().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link BoundarySurfacePropertyType }
+     * 
+     * 
+     */
+    public List<BoundarySurfacePropertyType> getBoundedBySurface() {
+        if (boundedBySurface == null) {
+            boundedBySurface = new ArrayList<BoundarySurfacePropertyType>();
+        }
+        return this.boundedBySurface;
+    }
+
+    public boolean isSetBoundedBySurface() {
+        return ((this.boundedBySurface!= null)&&(!this.boundedBySurface.isEmpty()));
+    }
+
+    public void unsetBoundedBySurface() {
+        this.boundedBySurface = null;
+    }
+
+    /**
+     * Gets the value of the interiorFurniture property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the interiorFurniture property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getInteriorFurniture().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link InteriorFurniturePropertyType }
+     * 
+     * 
+     */
+    public List<InteriorFurniturePropertyType> getInteriorFurniture() {
+        if (interiorFurniture == null) {
+            interiorFurniture = new ArrayList<InteriorFurniturePropertyType>();
+        }
+        return this.interiorFurniture;
+    }
+
+    public boolean isSetInteriorFurniture() {
+        return ((this.interiorFurniture!= null)&&(!this.interiorFurniture.isEmpty()));
+    }
+
+    public void unsetInteriorFurniture() {
+        this.interiorFurniture = null;
     }
 
 }
