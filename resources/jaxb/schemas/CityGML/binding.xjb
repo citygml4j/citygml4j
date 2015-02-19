@@ -17,8 +17,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Lesser General Public License for more details.
  -->
-<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
-  xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!-- Specific settings for the citygml4j mapping file -->
   <jaxb:bindings schemaLocation="citygml4j_profile.xsd" node="/xs:schema">
@@ -30,6 +29,136 @@
   </jaxb:bindings>
 
   <!-- ============= -->
+  <!-- CityGML 1.0.0 -->
+  <!-- ============= -->
+
+  <!-- Specific settings for the CityGML Core module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/cityGMLBase.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="core"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML Appearance module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/appearance.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="app"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML Building module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/building.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="bldg"/>
+    </jaxb:bindings>
+
+    <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+			the property 'boundedBy' of an AbstractBuildingType with that one defined by GML. So
+			a renaming is necessary -->
+    <jaxb:bindings node="//xs:complexType[@name='AbstractBuildingType']">
+      <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+        <jaxb:property name="boundedBySurface"/>
+      </jaxb:bindings>
+    </jaxb:bindings>
+
+    <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+			the property 'boundedBy' of an RoomType with that one defined by GML. So
+			a renaming is necessary -->
+    <jaxb:bindings node="//xs:complexType[@name='RoomType']">
+      <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+        <jaxb:property name="boundedBySurface"/>
+      </jaxb:bindings>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML CityFurniture module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/cityFurniture.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="frn"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/cityObjectGroup.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="grp"/>
+    </jaxb:bindings>
+
+    <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
+			the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
+    <jaxb:bindings node="//xs:complexType[@name='CityObjectGroupMemberType']">
+      <jaxb:bindings node=".//xs:attribute[@name='role']">
+        <jaxb:property name="groupRole"/>
+      </jaxb:bindings>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML Generics module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/generics.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="gen"/>
+    </jaxb:bindings>
+
+    <!-- changing data type of DoubleAttributeType -->
+    <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
+      <jaxb:bindings node=".//xs:element[@name='value']">
+        <jaxb:javaType name="Double"/>
+      </jaxb:bindings>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML LandUse module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/landUse.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="luse"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML Relief module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/relief.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="dem"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML TexturedSurface module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/texturedSurface.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="tex"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML Transportation module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/transportation.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="tran"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML Vegetation module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/vegetation.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="veg"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- Specific settings for the CityGML WaterBody module schema file -->
+  <jaxb:bindings schemaLocation="1.0.0/waterBody.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="wtr"/>
+    </jaxb:bindings>
+
+    <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
+			the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
+			a renaming is necessary -->
+    <jaxb:bindings node="//xs:complexType[@name='WaterBodyType']">
+      <jaxb:bindings node=".//xs:element[@name='boundedBy']">
+        <jaxb:property name="boundedBySurface"/>
+      </jaxb:bindings>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- ============= -->
   <!-- CityGML 2.0.0 -->
   <!-- ============= -->
 
@@ -37,19 +166,6 @@
   <jaxb:bindings schemaLocation="2.0.0/cityGMLBase.xsd" node="/xs:schema">
     <jaxb:bindings>
       <namespace:prefix name="core"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityModel']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSite']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAddress']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -63,34 +179,6 @@
             mapped to two different classes by JAXB  -->
     <jaxb:bindings node="//xs:element[@name='appearance']">
       <jaxb:class name="AppearancePropertyElement"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAppearance']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSurfaceData']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTexture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfParameterizedTexture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfGeoreferencedTexture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTextureParameterization']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTexCoordList']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTexCoordGen']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfX3DMaterial']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -144,70 +232,6 @@
         <jaxb:property name="boundedBySurface"/>
       </jaxb:bindings>
     </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAbstractBridge']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBridge']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBridgePart']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBridgeConstructionElement']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBridgeInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfIntBridgeInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBoundarySurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoofSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfGroundSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfClosureSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOuterFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfInteriorWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOuterCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOpening']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWindow']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfDoor']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBridgeRoom']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBridgeFurniture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
   </jaxb:bindings>
 
   <!-- Specific settings for the CityGML Building module schema file -->
@@ -251,77 +275,12 @@
         <jaxb:property name="boundedBySurface"/>
       </jaxb:bindings>
     </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAbstractBuilding']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuilding']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuildingPart']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuildingInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfIntBuildingInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBoundarySurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoofSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfGroundSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfClosureSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOuterFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfInteriorWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOuterCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOpening']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWindow']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfDoor']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoom']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuildingFurniture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
   </jaxb:bindings>
 
   <!-- Specific settings for the CityGML CityFurniture module schema file -->
   <jaxb:bindings schemaLocation="2.0.0/cityFurniture.xsd" node="/xs:schema">
     <jaxb:bindings>
       <namespace:prefix name="frn"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityFurniture']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -337,10 +296,6 @@
       <jaxb:bindings node=".//xs:attribute[@name='role']">
         <jaxb:property name="groupRole"/>
       </jaxb:bindings>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityObjectGroup']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -363,35 +318,12 @@
     <jaxb:bindings>
       <namespace:prefix name="luse"/>
     </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfLandUse']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
   </jaxb:bindings>
 
   <!-- Specific settings for the CityGML Relief module schema file -->
   <jaxb:bindings schemaLocation="2.0.0/relief.xsd" node="/xs:schema">
     <jaxb:bindings>
       <namespace:prefix name="dem"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfReliefFeature']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfReliefComponent']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTinRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRasterRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfMassPointRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBreaklineRelief']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -406,31 +338,6 @@
   <jaxb:bindings schemaLocation="2.0.0/transportation.xsd" node="/xs:schema">
     <jaxb:bindings>
       <namespace:prefix name="tran"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTransportationObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTransportationComplex']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTrafficArea']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAuxiliaryTrafficArea']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTrack']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoad']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRailway']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSquare']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -475,83 +382,12 @@
         <jaxb:property name="boundedBySurface"/>
       </jaxb:bindings>
     </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAbstractTunnel']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTunnel']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTunnelPart']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTunnelInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfIntTunnelInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBoundarySurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoofSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfGroundSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfClosureSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOuterFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfInteriorWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOuterCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOpening']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWindow']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfDoor']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfHollowSpace']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTunnelFurniture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
   </jaxb:bindings>
 
   <!-- Specific settings for the CityGML Vegetation module schema file -->
   <jaxb:bindings schemaLocation="2.0.0/vegetation.xsd" node="/xs:schema">
     <jaxb:bindings>
       <namespace:prefix name="veg"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfVegetationObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfPlantCover']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSolitaryVegetationObject']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -568,336 +404,6 @@
       <jaxb:bindings node=".//xs:element[@name='boundedBy']">
         <jaxb:property name="boundedBySurface"/>
       </jaxb:bindings>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterBody']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterBoundarySurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterGroundSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterClosureSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-  
-  <!-- ============= -->
-  <!-- CityGML 1.0.0 -->
-  <!-- ============= -->
-
-  <!-- Specific settings for the CityGML Core module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/cityGMLBase.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="core"/>
-    </jaxb:bindings>
-
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityModel']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSite']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAddress']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML Appearance module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/appearance.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="app"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAppearance']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSurfaceData']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTexture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfParameterizedTexture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfGeoreferencedTexture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTextureParameterization']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTexCoordList']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTexCoordGen']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfX3DMaterial']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML Building module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/building.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="bldg"/>
-    </jaxb:bindings>
-
-    <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-			the property 'boundedBy' of an AbstractBuildingType with that one defined by GML. So
-			a renaming is necessary -->
-    <jaxb:bindings node="//xs:complexType[@name='AbstractBuildingType']">
-      <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-        <jaxb:property name="boundedBySurface"/>
-      </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-			the property 'boundedBy' of an RoomType with that one defined by GML. So
-			a renaming is necessary -->
-    <jaxb:bindings node="//xs:complexType[@name='RoomType']">
-      <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-        <jaxb:property name="boundedBySurface"/>
-      </jaxb:bindings>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAbstractBuilding']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuilding']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuildingPart']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuildingInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfIntBuildingInstallation']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBoundarySurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoofSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfGroundSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfClosureSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfFloorSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfInteriorWallSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCeilingSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfOpening']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWindow']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfDoor']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoom']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBuildingFurniture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML CityFurniture module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/cityFurniture.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="frn"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityFurniture']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/cityObjectGroup.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="grp"/>
-    </jaxb:bindings>
-
-    <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
-			the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
-    <jaxb:bindings node="//xs:complexType[@name='CityObjectGroupMemberType']">
-      <jaxb:bindings node=".//xs:attribute[@name='role']">
-        <jaxb:property name="groupRole"/>
-      </jaxb:bindings>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfCityObjectGroup']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML Generics module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/generics.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="gen"/>
-    </jaxb:bindings>
-
-    <!-- changing data type of DoubleAttributeType -->
-    <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
-      <jaxb:bindings node=".//xs:element[@name='value']">
-        <jaxb:javaType name="Double"/>
-      </jaxb:bindings>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML LandUse module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/landUse.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="luse"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfLandUse']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML Relief module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/relief.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="dem"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfReliefFeature']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfReliefComponent']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTinRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRasterRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfMassPointRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfBreaklineRelief']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML TexturedSurface module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/texturedSurface.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="tex"/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML Transportation module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/transportation.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="tran"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTransportationObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTransportationComplex']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTrafficArea']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfAuxiliaryTrafficArea']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfTrack']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRoad']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfRailway']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSquare']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML Vegetation module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/vegetation.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="veg"/>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfVegetationObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfPlantCover']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfSolitaryVegetationObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-  </jaxb:bindings>
-
-  <!-- Specific settings for the CityGML WaterBody module schema file -->
-  <jaxb:bindings schemaLocation="1.0.0/waterBody.xsd" node="/xs:schema">
-    <jaxb:bindings>
-      <namespace:prefix name="wtr"/>
-    </jaxb:bindings>
-
-    <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
-			the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
-			a renaming is necessary -->
-    <jaxb:bindings node="//xs:complexType[@name='WaterBodyType']">
-      <jaxb:bindings node=".//xs:element[@name='boundedBy']">
-        <jaxb:property name="boundedBySurface"/>
-      </jaxb:bindings>
-    </jaxb:bindings>
-    
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterObject']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterBody']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterBoundarySurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterGroundSurface']">
-      <xjc:substitutable/>
-    </jaxb:bindings>
-    <jaxb:bindings node="xs:element[@name='_GenericApplicationPropertyOfWaterClosureSurface']">
-      <xjc:substitutable/>
     </jaxb:bindings>
   </jaxb:bindings>
 
@@ -991,6 +497,18 @@
     <jaxb:bindings>
       <namespace:prefix name="smil20lang"/>
     </jaxb:bindings>
+  </jaxb:bindings>
+
+  <!-- =============== -->
+  <!-- Dummy ADE Hooks -->
+  <!-- =============== -->
+
+  <!-- Specific settings for the artifical schema file 'ade_hook.xsd' -->
+  <jaxb:bindings schemaLocation="ade_hooks/ade_hooks.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+      <!-- set package name of the generated classes -->
+      <jaxb:package name="org.citygml4j.jaxb.ade_hooks"/>
+    </jaxb:schemaBindings>
   </jaxb:bindings>
 
 </jaxb:bindings>
