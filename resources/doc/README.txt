@@ -68,9 +68,9 @@ CityGML is an international OGC standard and can be used free of charge.
 5. How to use it
 ----------------
 
-Simply modify your Java classpath to include the provided 
-Java library files in the subfolder "lib". This folder contains the
-!citygml4j.name! library file as well as all its mandatory dependencies.
+Simply put the !citygml4j.name!-!citygml4j.version!.jar library file and its mandatory dependencies
+from the "lib" folder on your classpath to start developing with !citygml4j.name!.
+Have fun :-)
 
 !citygml4j.name! is also available as Maven artifact: 
 
@@ -80,10 +80,11 @@ Java library files in the subfolder "lib". This folder contains the
     <version>!citygml4j.version!</version>
   </dependency>
 
-A collection of sample programs demonstrating the use of !citygml4j.name!
-is provided in the subfolder "samples". Each subfolder contains an Ant
-build.xml script to easily run the programs. Note that the build.xml file
-may contain more than one target.
+A collection of sample programs that demonstrate the use of the library are
+provided in the "samples" folder. The sample programs are organized into
+subfolders, each addressing a different use case of !citygml4j.name!. Ant build.xml
+files are provided to easily run the sample programs. Note that the build.xml
+files may contain more than just the default target.
 
    
 6. Developers
