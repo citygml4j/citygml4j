@@ -11,7 +11,7 @@ Contributing
 ------------
 * To file bugs found in the software create a GitHub issue.
 * To contribute code for fixing filed issues create a pull request with the issue id.
-* To propose a new feature open a discussion on the mailing list.
+* To propose a new feature create a GitHub issue and open a discussion.
 
 Building
 --------
