@@ -5,7 +5,7 @@ citygml4j is a Java class library and API for facilitating work with the [OGC Ci
 
 License
 -------
-citygml4j is free software under the [GNU LGPL Version 3.0](http://www.gnu.org/licenses/lgpl.html). See the LICENSE.txt file for more details.
+citygml4j is free software under the [GNU LGPL Version 3.0](http://www.gnu.org/licenses/lgpl.html). See the `LICENSE.txt` file for more details.
 
 Contributing
 ------------
@@ -43,4 +43,10 @@ Sample programs
 ---------------
 citygml4j provides a number of sample programs that demonstrate the use of the library. Build the library from source with [Apache Ant](http://ant.apache.org/) as described above. This will deploy the sample programs in the `citygml4j-<version>/samples` folder.
 
-The sample programs are organized into subfolders, each addressing a different use case of citygml4j. To easily run the sample programs, Ant `build.xml` files are provided. Note that the `build.xml` files may contain more than just the default target.
+The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Ant `build.xml` files are provided to easily run the sample programs. Note that the `build.xml` files may contain more than just the default target.
+
+More information
+----------------
+[OGC CityGML](http://www.opengeospatial.org/standards/citygml) is an open data model and XML-based format for the storage and exchange of semantic 3D city models. It is an application schema for the [Geography Markup Language version 3.1.1 (GML3)](http://www.opengeospatial.org/standards/gml), the extendible international standard for spatial data exchange issued by the Open Geospatial Consortium (OGC) and the ISO TC211. The aim of the development of CityGML is to reach a common definition of the basic entities, attributes, and relations of a 3D city model.
+
+CityGML is an international OGC standard and can be used free of charge.
