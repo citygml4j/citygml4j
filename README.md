@@ -25,7 +25,7 @@ This will create a folder `citygml4j-<version>` with the following subfolders:
 * `license` -- license information
 * `samples` -- a collection of citygml4j sample programs
 
-Simply put the `citygml4j-<version>.jar` library file and its mandatory dependencies from the `lib` folder on your classpath to start working.
+Simply put the `citygml4j-<version>.jar` library file and its mandatory dependencies from the `lib` folder on your classpath to start developing with citygml4j. Have fun :-)
 
 Maven artifact
 --------------
