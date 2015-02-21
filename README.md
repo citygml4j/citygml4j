@@ -15,7 +15,7 @@ Contributing
 
 Building
 --------
-citygml4j depends on JRE 7 or higher. The project uses [Apache Ant](http://ant.apache.org/) as the build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
+citygml4j depends on JRE 7 or higher. The project uses [Apache Ant](http://ant.apache.org/) as build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
 
     % ant dist
 
