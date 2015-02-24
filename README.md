@@ -7,6 +7,10 @@ License
 -------
 citygml4j is free software under the [GNU LGPL Version 3.0](http://www.gnu.org/licenses/lgpl.html). See the `LICENSE.txt` file for more details.
 
+Latest release
+--------------
+The latest stable release of citygml4j is 2.2. 
+
 Contributing
 ------------
 * To file bugs found in the software create a GitHub issue.
