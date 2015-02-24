@@ -4,7 +4,6 @@
   <artifactId>citygml4j</artifactId>
   <version>!citygml4j.version!</version>
   <url>http://www.citygml4j.org</url>
-  <description>citygml4j is a Java class library and API for facilitating work with the City Geography Markup Language (CityGML). citygml4j makes it easy to read, process, and write CityGML datasets, and to develop CityGML-aware software applications.</description>
   <name>citygml4j</name>
   <licenses>
     <license>
@@ -52,4 +51,5 @@
   	<url>https://github.com/citygml4j/citygml4j/issues</url>
   	<system>GitHub</system>
   </issueManagement>
+  <description>The Open Source Java API for CityGML</description>
 </project>
