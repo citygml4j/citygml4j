@@ -1,7 +1,7 @@
 citygml4j
 =========
 
-citygml4j is a Java class library and API for facilitating work with the [OGC City Geography Markup Language (CityGML)](http://www.opengeospatial.org/standards/citygml). citygml4j makes it easy to read, process, and write CityGML datasets, and to develop CityGML-aware software applications.
+citygml4j is an open source Java class library and API for facilitating work with the [OGC City Geography Markup Language (CityGML)](http://www.opengeospatial.org/standards/citygml). citygml4j makes it easy to read, process, and write CityGML datasets, and to develop CityGML-aware software applications.
 
 License
 -------
@@ -15,7 +15,7 @@ Contributing
 
 Building
 --------
-citygml4j depends on JRE 7 or higher. The project uses [Apache Ant](http://ant.apache.org/) as the build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
+citygml4j depends on JRE 7 or higher. The project uses [Apache Ant](http://ant.apache.org/) as build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
 
     % ant dist
 
@@ -29,7 +29,7 @@ Simply put the `citygml4j-<version>.jar` library file and its mandatory dependen
 
 Maven artifact
 --------------
-citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`:
+citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`. You may need to adapt the citygml4j version number.
 
 ```xml
 <dependency>
