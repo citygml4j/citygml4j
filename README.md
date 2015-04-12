@@ -9,7 +9,9 @@ citygml4j is free software under the [GNU LGPL Version 3.0](http://www.gnu.org/l
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.2. 
+The latest stable release of citygml4j is 2.2.
+
+Download the citygml4j 2.2 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.2.0/citygml4j-2.2.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
@@ -45,7 +47,7 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 
 Sample programs
 ---------------
-citygml4j provides a number of sample programs that demonstrate the use of the library. Build the library from source with [Apache Ant](http://ant.apache.org/) as described above. This will deploy the sample programs in the `citygml4j-<version>/samples` folder.
+citygml4j provides a number of sample programs that demonstrate the use of the library. Download the library or build it from source with [Apache Ant](http://ant.apache.org/) as described above. This will deploy the sample programs in the `citygml4j-<version>/samples` folder.
 
 The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Ant `build.xml` files are provided to easily run the sample programs. Note that the `build.xml` files may contain more than just the default target.
 
