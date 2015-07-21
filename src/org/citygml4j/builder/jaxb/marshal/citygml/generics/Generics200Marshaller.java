@@ -290,7 +290,10 @@ public class Generics200Marshaller {
 
 	@SuppressWarnings("unchecked")
 	private void marshalGenericAttributeSet(GenericAttributeSet src, GenericAttributeSetType dest) {
-		dest.setCodeSpace(src.getCodeSpace());
+		marshalAbstractGenericAttribute(src, dest);
+		
+		if (src.isSetCodeSpace())
+			dest.setCodeSpace(src.getCodeSpace());
 
 		if (src.isSetGenericAttribute()) {
 			for (AbstractGenericAttribute genericAttribute : src.getGenericAttribute()) {		
