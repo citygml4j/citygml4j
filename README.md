@@ -9,9 +9,9 @@ citygml4j is free software under the [GNU LGPL Version 3.0](http://www.gnu.org/l
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.2.
+The latest stable release of citygml4j is 2.2.1.
 
-Download the citygml4j 2.2 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.2.0/citygml4j-2.2.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.2.1 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.2.1/citygml4j-2.2.1.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
