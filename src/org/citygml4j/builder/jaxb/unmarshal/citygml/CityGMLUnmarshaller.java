@@ -18,6 +18,9 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -100,6 +103,8 @@ public class CityGMLUnmarshaller {
 	private final Transportation100Unmarshaller tran100;
 	private final Vegetation100Unmarshaller veg100;
 	private final WaterBody100Unmarshaller wtr100;
+	
+	private final Matcher moduleMatcher;
 
 	public CityGMLUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
@@ -131,6 +136,8 @@ public class CityGMLUnmarshaller {
 		tran100 = new Transportation100Unmarshaller(this);
 		veg100 = new Vegetation100Unmarshaller(this);
 		wtr100 = new WaterBody100Unmarshaller(this);
+		
+		moduleMatcher = Pattern.compile("net\\.opengis\\.citygml\\.([\\w]+)?\\.?(_\\d)").matcher("");
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -494,16 +501,20 @@ public class CityGMLUnmarshaller {
 	}
 
 	private CityGMLModule getCityGMLModule(Object src) {
-		if (src != null && src.getClass().getPackage().getName().startsWith("org.citygml4j.jaxb.citygml")) {
-			String packagePart = src.getClass().getPackage().getName().replaceFirst("org.citygml4j.jaxb.citygml", "");
-			String versionPart = packagePart.substring(packagePart.lastIndexOf('.') + 1, packagePart.length());
-			String modulePart = packagePart.substring(1, packagePart.lastIndexOf('.'));
+		if (src != null) {
+			moduleMatcher.reset(src.getClass().getPackage().getName());
 			
-			CityGMLModuleVersion version = versionPart.equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
-			for (CityGMLModule module : Modules.getCityGMLModules()) {
-				if (module.getVersion() == version && module.getNamespacePrefix().equals(modulePart))
-					return module;
-			}			
+			if (moduleMatcher.matches()) {
+				String moduleString = moduleMatcher.group(1);
+				if (moduleString == null)
+					moduleString = "core";
+				
+				CityGMLModuleVersion version = moduleMatcher.group(2).equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
+				for (CityGMLModule module : Modules.getCityGMLModules()) {
+					if (module.getVersion() == version && module.getType().toString().toLowerCase().equals(moduleString))
+						return module;
+				}	
+			}
 		}
 
 		return null;

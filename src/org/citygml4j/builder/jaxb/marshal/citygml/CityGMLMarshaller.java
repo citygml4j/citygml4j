@@ -18,6 +18,9 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -114,6 +117,8 @@ public class CityGMLMarshaller {
 	private final Vegetation100Marshaller veg100;
 	private final WaterBody100Marshaller wtr100;
 
+	private final Matcher moduleMatcher;
+
 	public CityGMLMarshaller(JAXBMarshaller jaxb) {
 		this.jaxb = jaxb;	
 
@@ -144,6 +149,8 @@ public class CityGMLMarshaller {
 		tran100 = new Transportation100Marshaller(this);
 		veg100 = new Vegetation100Marshaller(this);
 		wtr100 = new WaterBody100Marshaller(this);
+
+		moduleMatcher = Pattern.compile("net\\.opengis\\.citygml\\.([\\w]+)?\\.?(_\\d)").matcher("");
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {		
@@ -502,16 +509,20 @@ public class CityGMLMarshaller {
 				return (CoreModule)moduleContext.getModule(CityGMLModuleType.CORE);		
 		}
 
-		else if (src != null && src.getClass().getPackage().getName().startsWith("org.citygml4j.jaxb.citygml")) {
-			String packagePart = src.getClass().getPackage().getName().replaceFirst("org.citygml4j.jaxb.citygml", "");
-			String versionPart = packagePart.substring(packagePart.lastIndexOf('.') + 1, packagePart.length());
-			String modulePart = packagePart.substring(1, packagePart.lastIndexOf('.'));
-			
-			CityGMLModuleVersion version = versionPart.equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
-			for (CityGMLModule module : Modules.getCityGMLModules()) {
-				if (module.getVersion() == version && module.getNamespacePrefix().equals(modulePart))
-					return module;
-			}			
+		else if (src != null) {
+			moduleMatcher.reset(src.getClass().getPackage().getName());
+
+			if (moduleMatcher.matches()) {
+				String moduleString = moduleMatcher.group(1);
+				if (moduleString == null)
+					moduleString = "core";
+
+				CityGMLModuleVersion version = moduleMatcher.group(2).equals("_2") ? CityGMLModuleVersion.v2_0_0 : CityGMLModuleVersion.v1_0_0;
+				for (CityGMLModule module : Modules.getCityGMLModules()) {
+					if (module.getVersion() == version && module.getType().toString().toLowerCase().equals(moduleString))
+						return module;
+				}	
+			}		
 		}
 
 		return null;
