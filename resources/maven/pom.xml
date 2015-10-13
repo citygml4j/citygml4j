@@ -30,12 +30,6 @@
   </developers>
   <dependencies>
   	<dependency>
-  		<groupId>org.codehaus.woodstox</groupId>
-  		<artifactId>woodstox-core-lgpl</artifactId>
-  		<version>4.4.1</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
   		<groupId>com.sun.xsom</groupId>
   		<artifactId>xsom</artifactId>
   		<version>20140925</version>
