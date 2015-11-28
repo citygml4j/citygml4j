@@ -203,6 +203,9 @@ public class SAXEventBuffer implements ContentHandler {
 				String attrQName = (attrPrefix == null || attrPrefix.length() == 0) ? 
 						attrLocalName : new StringBuffer(attrPrefix).append(':').append(attrLocalName).toString();
 
+				if (attrUri == null)
+					attrUri = "";
+
 				atts.addAttribute(attrUri, attrLocalName, attrQName, attrType, attrValue);
 			} while (eventBuffer.peek() == ATTRIBUTE);
 		}
