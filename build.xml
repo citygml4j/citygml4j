@@ -58,7 +58,6 @@
 
 		<!-- create JAXB classes from CityGML schemas -->
 		<xjc destdir="${dir.src-gen}" extension="true" removeOldOutput="yes" description="generate CityGML schema derived classess">
-			<!--arg value="-X${plugin.xjc.collection-setter.name}" /-->
 			<arg line="
 				-Xnamespace-prefix
 				-Xsetters
@@ -158,7 +157,7 @@
 				<attribute name="Built-Id" value="${user.name}-${citygml4j.name}-${citygml4j.version}" />
 				<attribute name="Built-Date" value="${TODAY}" />
 				<attribute name="Implementation-Title" value="${citygml4j.name}" />
-				<attribute name="Implementation-Version" value="${citygml4j.version}-b${build.number}" />
+				<attribute name="Implementation-Version" value="${citygml4j.version}+${build.number}" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
