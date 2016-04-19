@@ -120,4 +120,12 @@ public class LodRepresentation {
 		}
 	}
 
+	public boolean hasGeometry() {
+		return isSetLod0Geometry()
+				|| isSetLod1Geometry()
+				|| isSetLod2Geometry()
+				|| isSetLod3Geometry()
+				|| isSetLod4Geometry();
+	}
+
 }
