@@ -44,7 +44,7 @@ public class XALCoreModule extends AbstractXALModule {
 				XALModuleType.CORE,
 				XALModuleVersion.v2_0,
 				"urn:oasis:names:tc:ciq:xsdschema:xAL:2.0", 
-				"xal", 
+				"xAL", 
 				"http://schemas.opengis.net/citygml/xAL/xAL.xsd");
 	}
 

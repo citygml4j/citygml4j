@@ -469,7 +469,7 @@
   <!-- ======= -->
 
   <!-- Specific settings for the xAl schema file -->
-  <jaxb:bindings schemaLocation="../xAl/2.0/xAl.xsd" node="/xs:schema">
+  <jaxb:bindings schemaLocation="../xAL/2.0/xAL.xsd" node="/xs:schema">
     <jaxb:schemaBindings>
       <!-- append "Element" to element declarations -->
       <jaxb:nameXmlTransform>
@@ -477,7 +477,7 @@
       </jaxb:nameXmlTransform>
     </jaxb:schemaBindings>
     <jaxb:bindings>
-      <namespace:prefix name="xal"/>
+      <namespace:prefix name="xAL"/>
     </jaxb:bindings>
   </jaxb:bindings>
 
