@@ -2,19 +2,19 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright (C) 2013 - 2015,
- * Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
  *
- * The citygml4j library is free software:
- * you can redistribute it and/or modify it under the terms of the
- * GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  * 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *     
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -42,8 +42,18 @@ import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TranslateScaleAndRotate.
+ */
 public class TranslateScaleAndRotate {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
@@ -90,11 +100,27 @@ public class TranslateScaleAndRotate {
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
+	/**
+	 * The Class GMLVisitor.
+	 */
 	private static class GMLVisitor extends GMLWalker {
+		
+		/** The translate. */
 		private Matrix translate;
+		
+		/** The scale. */
 		private Matrix scale;
+		
+		/** The rotate. */
 		private Matrix rotate;
 		
+		/**
+		 * Instantiates a new GML visitor.
+		 *
+		 * @param translateBy the translate by
+		 * @param scaleBy the scale by
+		 * @param rotateBy the rotate by
+		 */
 		GMLVisitor(double translateBy, double scaleBy, double rotateBy) {
 			translate = new Matrix(new double[][]{
 					{1,0,0,translateBy},
@@ -116,6 +142,9 @@ public class TranslateScaleAndRotate {
 					{0,0,0,1}});
 		}
 		
+		/* (non-Javadoc)
+		 * @see org.citygml4j.util.walker.GMLWalker#visit(org.citygml4j.model.gml.base.AbstractGML)
+		 */
 		@Override
 		public void visit(AbstractGML abstractGML) {
 			if (abstractGML.isSetId())
@@ -124,6 +153,9 @@ public class TranslateScaleAndRotate {
 			super.visit(abstractGML);
 		}
 
+		/* (non-Javadoc)
+		 * @see org.citygml4j.util.walker.GMLWalker#visit(org.citygml4j.model.gml.geometry.primitives.LinearRing)
+		 */
 		@Override
 		public void visit(LinearRing linearRing) {
 

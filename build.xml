@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" standalone="yes"?>
 <!--
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright (C) 2013 - 2015,
- * Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
  *
- * The citygml4j library is free software:
- * you can redistribute it and/or modify it under the terms of the
- * GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  * 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *     
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 -->
 <project name="citygml4j" default="dist" basedir=".">
 
@@ -35,7 +35,8 @@
 	</taskdef>
 
 	<tstamp>
-		<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+		<format property="date" pattern="yyyy-MM-dd" />
+		<format property="time" pattern="HH:mm:ss" />
 	</tstamp>
 
 	<target name="clean" description="clean up">
@@ -84,7 +85,7 @@
 		<copy file="${dir.resources.javadoc}/overview.html" tofile="${dir.resources.javadoc}/overview_adapted.html" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.name!" value="${citygml4j.name}" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.version!" value="${citygml4j.version}" />
-		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
+		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!citygml4j.git!" value="${citygml4j.git}" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.year!" value="${copyright.year}" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.owner!" value="${copyright.owner}" />
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.owner.email!" value="${copyright.owner.email}" />
@@ -109,34 +110,32 @@
 		<delete dir="${dir.dist.lib}" />
 		<mkdir dir="${dir.dist.lib}" />
 
-		<!-- copy README.txt and LICENSE.txt templates to the tmp folder -->
+		<!-- copy README and LICENSE files to tmp folder -->
 		<copy todir="${dir.dist.tmp}">
 			<fileset dir="${dir.resources.doc}" includes="**/*" />
 			<fileset dir="${dir.resources.license}" includes="**/*" />
 		</copy>
 
-		<!-- replace tokens in template files -->
-		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.name!" value="${citygml4j.name}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.version!" value="${citygml4j.version}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.description!" value="${citygml4j.description}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.homepage!" value="${citygml4j.homepage}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!citygml4j.git!" value="${citygml4j.git}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!copyright.year!" value="${copyright.year}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!copyright.owner!" value="${copyright.owner}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!copyright.owner.email!" value="${copyright.owner.email}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!developer.main.name!" value="${developer.main.name}" />
-		<replace file="${dir.dist.tmp}/README.txt" token="!developer.main.email!" value="${developer.main.email}" />
-		<replace file="${dir.dist.tmp}/LICENSE.txt" token="!citygml4j.name!" value="${citygml4j.name}" />
-		<replace file="${dir.dist.tmp}/LICENSE.txt" token="!citygml4j.description!" value="${citygml4j.description}" />
+		<!-- replace tokens in README file -->
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.name!" value="${citygml4j.name}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.version!" value="${citygml4j.version}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.description!" value="${citygml4j.description}" />
+		<replace file="${dir.dist.tmp}/README" token="!citygml4j.git!" value="${citygml4j.git}" />
+		<replace file="${dir.dist.tmp}/README" token="!build.date!" value="${date}" />
+		<replace file="${dir.dist.tmp}/README" token="!copyright.year!" value="${copyright.year}" />
+		<replace file="${dir.dist.tmp}/README" token="!copyright.owner!" value="${copyright.owner}" />
+		<replace file="${dir.dist.tmp}/README" token="!copyright.owner.email!" value="${copyright.owner.email}" />
+		<replace file="${dir.dist.tmp}/README" token="!developer.main.name!" value="${developer.main.name}" />
+		<replace file="${dir.dist.tmp}/README" token="!developer.main.email!" value="${developer.main.email}" />
 
-		<!-- copy README.txt template to dir.dist folder -->
+		<!-- copy README template to dir.dist folder -->
 		<copy todir="${dir.dist}">
-			<fileset dir="${dir.dist.tmp}" includes="README.txt" />
+			<fileset dir="${dir.dist.tmp}" includes="README" />
 		</copy>
 
-		<!-- copy LICENSE.txt template to license folder -->
+		<!-- copy LICENSE file to license folder -->
 		<copy todir="${dir.dist.license}">
-			<fileset dir="${dir.dist.tmp}" excludes="README.txt" />
+			<fileset dir="${dir.resources.license}" includes="**/*" />
 		</copy>
 
 		<!-- copy schema files -->
@@ -154,8 +153,8 @@
 		<jar jarfile="${dir.dist.lib}/${citygml4j.jar}" basedir="${dir.build.classes}">
 			<fileset dir="${dir.dist.tmp}" includes="**/*" />
 			<manifest>
-				<attribute name="Built-Id" value="${user.name}-${citygml4j.name}-${citygml4j.version}" />
-				<attribute name="Built-Date" value="${TODAY}" />
+				<attribute name="Build-Id" value="${citygml4j.name}-${citygml4j.version}" />
+				<attribute name="Build-Date" value="${date} ${time}" />
 				<attribute name="Implementation-Title" value="${citygml4j.name}" />
 				<attribute name="Implementation-Version" value="${citygml4j.version}+${build.number}" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
