@@ -5,7 +5,9 @@ citygml4j is an open source Java class library and API for facilitating work wit
 
 License
 -------
-citygml4j is free software under the [GNU LGPL Version 3.0](http://www.gnu.org/licenses/lgpl.html). See the `LICENSE.txt` file for more details.
+citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). See the `LICENSE` file for more details.
+
+All releases before 2.3 were distributed under GNU LGPL Version 3.0. To request a release before 2.3 under Apache 2.0 create a GitHub issue.
 
 Latest release
 --------------
