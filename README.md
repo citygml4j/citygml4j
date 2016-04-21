@@ -37,7 +37,7 @@ Simply put the `citygml4j-<version>.jar` library file and its mandatory dependen
 
 Maven artifact
 --------------
-citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`. You may need to adapt the citygml4j version number.
+citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22citygml4j%22). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`. You may need to adapt the citygml4j version number.
 
 ```xml
 <dependency>
