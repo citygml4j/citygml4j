@@ -7,7 +7,7 @@ License
 -------
 citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). See the `LICENSE` file for more details.
 
-Note that releases of the software before version 2.3.0 continue to be licensed under GNU LGPL 3.0 license. To request a previous of citygml4j under Apache 2.0 create a GitHub issue.
+Note that releases of the software before version 2.3.0 continue to be licensed under GNU LGPL 3.0. To request a previous of citygml4j under Apache 2.0 create a GitHub issue.
 
 Latest release
 --------------
