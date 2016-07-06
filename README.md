@@ -43,7 +43,7 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.3.0</version>
+  <version>2.3.1</version>
 </dependency>
 ```
 
