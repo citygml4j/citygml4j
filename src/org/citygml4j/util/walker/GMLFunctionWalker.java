@@ -1652,8 +1652,8 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 				return object;
 		}
 
-		if (abstractWaterBoundarySurface.isSetLod3Surface()) {
-			object = apply(abstractWaterBoundarySurface.getLod3Surface());
+		if (abstractWaterBoundarySurface.isSetLod4Surface()) {
+			object = apply(abstractWaterBoundarySurface.getLod4Surface());
 			if (object != null)
 				return object;
 		}
@@ -3766,6 +3766,12 @@ public abstract class GMLFunctionWalker<T> implements GMLFunctor<T>, Walker {
 		if (object != null)
 			return object;
 
+		if (solitaryVegetationObject.isSetLod1Geometry()) {
+			object = apply(solitaryVegetationObject.getLod1Geometry());
+			if (object != null)
+				return object;
+		}
+		
 		if (solitaryVegetationObject.isSetLod2Geometry()) {
 			object = apply(solitaryVegetationObject.getLod2Geometry());
 			if (object != null)

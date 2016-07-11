@@ -970,8 +970,8 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		if (abstractWaterBoundarySurface.isSetLod3Surface())
 			visit(abstractWaterBoundarySurface.getLod3Surface());
 
-		if (abstractWaterBoundarySurface.isSetLod3Surface())
-			visit(abstractWaterBoundarySurface.getLod3Surface());
+		if (abstractWaterBoundarySurface.isSetLod4Surface())
+			visit(abstractWaterBoundarySurface.getLod4Surface());
 
 		if (abstractWaterBoundarySurface.isSetGenericApplicationPropertyOfWaterBoundarySurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
@@ -2013,6 +2013,9 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void visit(SolitaryVegetationObject solitaryVegetationObject) {
 		visit((AbstractVegetationObject)solitaryVegetationObject);
 
+		if (solitaryVegetationObject.isSetLod1Geometry())
+			visit(solitaryVegetationObject.getLod1Geometry());
+		
 		if (solitaryVegetationObject.isSetLod2Geometry())
 			visit(solitaryVegetationObject.getLod2Geometry());
 
