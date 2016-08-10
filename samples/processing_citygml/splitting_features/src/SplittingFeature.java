@@ -42,18 +42,8 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.schema.SchemaHandler;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class SplittingFeature.
- */
 public class SplittingFeature {
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws Exception the exception
-	 */
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
@@ -122,11 +112,6 @@ public class SplittingFeature {
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 	
-	/**
-	 * Sets the context.
-	 *
-	 * @param writer the new context
-	 */
 	private static void setContext(AbstractCityGMLWriter writer) {
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
@@ -135,51 +120,27 @@ public class SplittingFeature {
 		writer.setIndentString("  ");
 	}
 	
-	/**
-	 * The Class GMLIdCreator.
-	 */
 	private static class GMLIdCreator implements GMLIdManager {
-		
-		/** The counter. */
 		int counter;
-		
-		/** The prefix. */
-		String prefix = "ID_";
-		
-		/** The default prefix. */
+		String prefix = "ID_";		
 		String defaultPrefix = prefix;
 		
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.gmlid.GMLIdManager#generateUUID()
-		 */
 		public String generateUUID() {
 			return prefix + (++counter);
 		}
 
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.gmlid.GMLIdManager#getDefaultPrefix()
-		 */
 		public String getDefaultPrefix() {
 			return defaultPrefix;
 		}
 
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.gmlid.GMLIdManager#getPrefix()
-		 */
 		public String getPrefix() {
 			return prefix;
 		}
 
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.gmlid.GMLIdManager#setPrefix(java.lang.String)
-		 */
 		public void setPrefix(String prefix) {
 			this.prefix = prefix;
 		}
 
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.gmlid.GMLIdManager#generateUUID(java.lang.String)
-		 */
 		public String generateUUID(String prefix) {
 			return prefix + (++counter);
 		}
