@@ -65,7 +65,7 @@ CityGML is an international OGC standard and can be used free of charge.
 4. System requirements
 ----------------------
 
-* Java JRE or JDK >= 1.7
+* Java JRE or JDK >= 1.8
 
 
 5. How to use it
