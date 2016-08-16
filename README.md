@@ -11,9 +11,9 @@ Note that releases of the software before version 2.3.0 continue to be licensed 
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.3.1.
+The latest stable release of citygml4j is 2.4.0.
 
-Download the citygml4j 2.3.1 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.3.1/citygml4j-2.3.1.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.4.0 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.4.0/citygml4j-2.4.0.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
@@ -23,7 +23,7 @@ Contributing
 
 Building
 --------
-citygml4j depends on JRE 7 or higher. The project uses [Apache Ant](http://ant.apache.org/) as build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
+citygml4j depends on JRE 8 or higher. The project uses [Apache Ant](http://ant.apache.org/) as build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
 
     % ant dist
 
@@ -43,7 +43,7 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.3.1</version>
+  <version>2.4.0</version>
 </dependency>
 ```
 
