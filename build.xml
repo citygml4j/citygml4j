@@ -101,8 +101,8 @@
 		<mkdir dir="${dir.build.classes}" />
 
 		<!-- compile the java code from ${dir.src} and ${dir.src-gen} into ${build} -->
-		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src-gen}" destdir="${dir.build.classes}" />
-		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src}" destdir="${dir.build.classes}" />
+		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src-gen}" destdir="${dir.build.classes}" debug="on" />
+		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src}" destdir="${dir.build.classes}" debug="on" />
 	</target>
 
 	<target name="generate_jar" depends="compile_src" description="generate the citygml4j library file">
