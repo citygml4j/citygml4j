@@ -44,6 +44,7 @@ import org.xml.sax.SAXException;
 
 import com.sun.xml.xsom.XSSchema;
 import com.sun.xml.xsom.XSSchemaSet;
+import com.sun.xml.xsom.parser.AnnotationParserFactory;
 import com.sun.xml.xsom.parser.XSOMParser;
 
 public class SchemaHandler {	
@@ -56,6 +57,7 @@ public class SchemaHandler {
 
 	private EntityResolver schemaEntityResolver;
 	private ErrorHandler schemaErrorHandler;
+	private AnnotationParserFactory annotationParserFactory;
 
 	public static synchronized SchemaHandler newInstance() throws SAXException {
 		if (instance == null) {
@@ -142,6 +144,14 @@ public class SchemaHandler {
 
 	public void setErrorHandler(ErrorHandler schemaErrorHandler) {
 		this.schemaErrorHandler = schemaErrorHandler;
+	}
+
+	public AnnotationParserFactory getAnnotationParser() {
+		return annotationParserFactory;
+	}
+
+	public void setAnnotationParser(AnnotationParserFactory annotationParserFactory) {
+		this.annotationParserFactory = annotationParserFactory;
 	}
 
 	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation) {
@@ -257,7 +267,10 @@ public class SchemaHandler {
 
 		if (schemaErrorHandler != null)
 			parser.setErrorHandler(schemaErrorHandler);
-
+		
+		if (annotationParserFactory != null)
+			parser.setAnnotationParser(annotationParserFactory);
+		
 		parser.parse(is);
 		XSSchemaSet schemaSet = parser.getResult();
 
