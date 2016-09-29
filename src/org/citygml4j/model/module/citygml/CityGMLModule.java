@@ -18,7 +18,10 @@
  */
 package org.citygml4j.model.module.citygml;
 
+import javax.xml.namespace.QName;
+
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.module.Module;
 
 public interface CityGMLModule extends Module {
@@ -28,4 +31,5 @@ public interface CityGMLModule extends Module {
 	public boolean hasFeatureElement(String localName);
 	public boolean hasFeaturePropertyElement(String localName);
 	public Class<? extends CityGML> getFeatureElementClass(String elementName);
+	public QName getFeatureName(CityGMLClass cityGMLClass);
 }

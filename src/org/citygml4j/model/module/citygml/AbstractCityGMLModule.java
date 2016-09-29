@@ -20,8 +20,13 @@ package org.citygml4j.model.module.citygml;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.module.AbstractModule;
 import org.citygml4j.model.module.Module;
 
@@ -49,16 +54,33 @@ public abstract class AbstractCityGMLModule extends AbstractModule implements Ci
 		return (CityGMLModuleVersion)super.getVersion();
 	}
 
+	@Override
 	public boolean hasFeatureElement(String localName) {
 		return elementMap != null ? elementMap.containsKey(localName) : false;
 	}
 
+	@Override
 	public boolean hasFeaturePropertyElement(String localName) {
 		return propertySet != null ? propertySet.contains(localName) : false;
 	}
 
+	@Override
 	public Class<? extends CityGML> getFeatureElementClass(String elementName) {
 		return elementMap != null ? elementMap.get(elementName) : null;
+	}
+
+	@Override
+	public QName getFeatureName(CityGMLClass cityGMLClass) {
+		if (elementMap != null) {
+			Iterator<Entry<String, Class<? extends CityGML>>> iter = elementMap.entrySet().iterator();
+			while (iter.hasNext()) {
+				Entry<String, Class<? extends CityGML>> entry = iter.next();
+				if (entry.getValue() == cityGMLClass.getModelClass())
+					return new QName(getNamespaceURI(), entry.getKey());
+			}
+		}
+		
+		return null;
 	}
 
 }
