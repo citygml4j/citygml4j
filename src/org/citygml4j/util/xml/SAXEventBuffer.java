@@ -18,6 +18,8 @@
  */
 package org.citygml4j.util.xml;
 
+import javax.xml.XMLConstants;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -177,6 +179,8 @@ public class SAXEventBuffer implements ContentHandler {
 	private void sendStartPrefixMapping(ContentHandler handler, boolean release) throws SAXException {
 		String nsUri = nextString(release);
 		String nsPrefix = nextString(release);
+		if (nsPrefix == null)
+			nsPrefix = XMLConstants.DEFAULT_NS_PREFIX;
 
 		handler.startPrefixMapping(nsPrefix, nsUri);
 
