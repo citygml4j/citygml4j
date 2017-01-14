@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.xlink.XLinkResolver;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
-
 
 public class AccessingParentElements {
 

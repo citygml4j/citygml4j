@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,7 +55,6 @@ import ade.sub.jaxb.RelativeToTerrainType;
 import ade.sub.jaxb.RoofSurfaceType;
 import ade.sub.jaxb.TunnelType;
 import ade.sub.jaxb.WallSurfaceType;
-
 
 public class UsingJAXBUnmarshaller {
 

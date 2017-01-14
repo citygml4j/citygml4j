@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,8 @@ import java.util.Date;
 import org.citygml4j.xml.schema.Schema;
 import org.citygml4j.xml.schema.SchemaHandler;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class InterpretingSchema.
- */
 public class InterpretingSchema {
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws Exception the exception
-	 */
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 

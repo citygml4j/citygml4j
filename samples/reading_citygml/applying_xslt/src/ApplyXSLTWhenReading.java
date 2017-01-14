@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,6 @@ import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
-
 
 public class ApplyXSLTWhenReading {
 

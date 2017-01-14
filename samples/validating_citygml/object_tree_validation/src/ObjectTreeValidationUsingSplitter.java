@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright 2013-2016 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,12 +37,11 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.citygml4j.xml.validation.Validator;
 import org.w3c.dom.Element;
 
-
 public class ObjectTreeValidationUsingSplitter {
 
 	public static void main(String[] args) throws Exception {
 		/*
-		 * PLEASE NOTE, that you receive less errors if the the in-memory objects
+		 * PLEASE NOTE, that you receive less errors if the in-memory objects
 		 * derived from the input document are validated than if the input document
 		 * itself is validated.
 		 * reason: citygml4j tries to reconstruct a valid object tree from the
