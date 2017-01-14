@@ -97,27 +97,27 @@ public abstract class CopyBuilder {
 	}
 
 	public String copy(String value) {
-		return nullCopy.contains(value.getClass()) ? null : value;
+		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
 	}
 
 	public Number copy(Number value) {
-		return nullCopy.contains(value.getClass()) ? null : value;
+		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
 	}
 
 	public Boolean copy(Boolean value) {
-		return nullCopy.contains(value.getClass()) ? null : value;
+		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
 	}
 
 	public Character copy(Character value) {
-		return nullCopy.contains(value.getClass()) ? null : value;
+		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
 	}
 
 	public Void copy(Void value) {
-		return nullCopy.contains(value.getClass()) ? null : value;
+		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
 	}
 
 	public Class<?> copy(Class<?> value) {
-		return nullCopy.contains(value.getClass()) ? null : value;
+		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
 	}
 
 	public long copy(long value) {
