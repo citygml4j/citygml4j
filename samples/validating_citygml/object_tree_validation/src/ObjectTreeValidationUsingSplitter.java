@@ -26,7 +26,7 @@ import javax.xml.bind.ValidationEventHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.util.transform.FeatureSplitMode;
 import org.citygml4j.util.transform.FeatureSplitter;
@@ -91,8 +91,8 @@ public class ObjectTreeValidationUsingSplitter {
 		for (CityGML feature : splitter.split(citygml)) {
 			
 			String type = null;
-			if (feature instanceof ADEComponent){
-				Element element = ((ADEComponent)feature).getContent();
+			if (feature instanceof ADEGenericElement){
+				Element element = ((ADEGenericElement)feature).getContent();
 				type = element.getPrefix() + ':' + element.getLocalName();
 			} else
 				type = feature.getCityGMLClass().toString();

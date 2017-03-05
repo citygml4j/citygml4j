@@ -94,9 +94,11 @@ public class LandUse200Marshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 		
 		if (src.isSetGenericApplicationPropertyOfLandUse()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfLandUse())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfLandUse().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfLandUse()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfLandUse().add(jaxbElement);
+			}
 		}
 	}
 

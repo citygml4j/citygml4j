@@ -27,7 +27,7 @@ import javax.xml.bind.ValidationEventHandler;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLModule;
@@ -254,11 +254,11 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 			setPrefix(module);
 	}
 	
-	protected boolean isCityObject(ADEComponent adeComponent) {
+	protected boolean isCityObject(ADEGenericElement adeGenericElement) {
 		boolean isCityObject = false;
 		
 		if (schemaHandler != null) {
-			Element element = adeComponent.getContent();
+			Element element = adeGenericElement.getContent();
 
 			Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
 			if (schema != null) {

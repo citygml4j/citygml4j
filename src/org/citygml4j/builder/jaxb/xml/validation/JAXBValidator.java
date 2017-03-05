@@ -31,7 +31,7 @@ import javax.xml.validation.Schema;
 
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -90,8 +90,8 @@ public class JAXBValidator implements Validator {
 		try {
 			Schema schema = validationSchemaHandler.getSchema();
 
-			if (object instanceof ADEComponent)
-				object = ((ADEComponent)object).getContent();
+			if (object instanceof ADEGenericElement)
+				object = ((ADEGenericElement)object).getContent();
 
 			if (object instanceof Element) {
 				javax.xml.validation.Validator validator = schema.newValidator();

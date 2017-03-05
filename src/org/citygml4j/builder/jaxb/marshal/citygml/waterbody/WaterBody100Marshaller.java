@@ -91,9 +91,11 @@ public class WaterBody100Marshaller {
 		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterObject())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWaterObject().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWaterObject()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWaterObject().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -110,9 +112,11 @@ public class WaterBody100Marshaller {
 			dest.setLod4Surface(jaxb.getGMLMarshaller().marshalSurfaceProperty(src.getLod4Surface()));
 		
 		if (src.isSetGenericApplicationPropertyOfWaterBoundarySurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterBoundarySurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWaterBoundarySurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWaterBoundarySurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWaterBoundarySurface().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -175,9 +179,11 @@ public class WaterBody100Marshaller {
 		}
 		
 		if (src.isSetGenericApplicationPropertyOfWaterBody()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterBody())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWaterBody().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWaterBody()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWaterBody().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -192,9 +198,11 @@ public class WaterBody100Marshaller {
 		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterClosureSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterClosureSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWaterClosureSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWaterClosureSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWaterClosureSurface().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -209,9 +217,11 @@ public class WaterBody100Marshaller {
 		marshalAbstractWaterBoundarySurface(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfWaterGroundSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterGroundSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWaterGroundSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWaterGroundSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWaterGroundSurface().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -229,9 +239,11 @@ public class WaterBody100Marshaller {
 			dest.setWaterLevel(src.getWaterLevel().getValue());
 		
 		if (src.isSetGenericApplicationPropertyOfWaterSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWaterSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWaterSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWaterSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWaterSurface().add(jaxbElement);
+			}
 		}
 	}
 	

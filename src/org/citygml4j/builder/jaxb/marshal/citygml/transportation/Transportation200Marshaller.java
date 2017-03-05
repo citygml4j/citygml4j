@@ -20,18 +20,6 @@ package org.citygml4j.builder.jaxb.marshal.citygml.transportation;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._2.ObjectFactory;
-import net.opengis.citygml.transportation._2.RailwayType;
-import net.opengis.citygml.transportation._2.RoadType;
-import net.opengis.citygml.transportation._2.SquareType;
-import net.opengis.citygml.transportation._2.TrackType;
-import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.TrafficAreaType;
-import net.opengis.citygml.transportation._2.TransportationComplexType;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -52,6 +40,19 @@ import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
+import net.opengis.citygml.transportation._2.ObjectFactory;
+import net.opengis.citygml.transportation._2.RailwayType;
+import net.opengis.citygml.transportation._2.RoadType;
+import net.opengis.citygml.transportation._2.SquareType;
+import net.opengis.citygml.transportation._2.TrackType;
+import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
+import net.opengis.citygml.transportation._2.TrafficAreaType;
+import net.opengis.citygml.transportation._2.TransportationComplexType;
 
 public class Transportation200Marshaller {
 	private final ObjectFactory tran = new ObjectFactory();
@@ -116,9 +117,11 @@ public class Transportation200Marshaller {
 		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfTransportationObject()) {
-			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTransportationObject())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTransportationObject().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTransportationObject()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTransportationObject().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -151,9 +154,11 @@ public class Transportation200Marshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 		
 		if (src.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea()) {
-			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfAuxiliaryTrafficArea())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfAuxiliaryTrafficArea().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfAuxiliaryTrafficArea()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfAuxiliaryTrafficArea().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -170,8 +175,11 @@ public class Transportation200Marshaller {
 		if (src.isSetAuxiliaryTrafficArea())
 			dest.setAuxiliaryTrafficArea(marshalAuxiliaryTrafficArea(src.getAuxiliaryTrafficArea()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -204,9 +212,11 @@ public class Transportation200Marshaller {
 		marshalTransportationComplex(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfRailway()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRailway())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfRailway().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfRailway()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfRailway().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -221,9 +231,11 @@ public class Transportation200Marshaller {
 		marshalTransportationComplex(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfRoad()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRoad())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfRoad().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfRoad()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfRoad().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -238,9 +250,11 @@ public class Transportation200Marshaller {
 		marshalTransportationComplex(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfSquare()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfSquare())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfSquare().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfSquare()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfSquare().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -255,9 +269,11 @@ public class Transportation200Marshaller {
 		marshalTransportationComplex(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfTrack()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTrack())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTrack().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTrack()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTrack().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -297,9 +313,11 @@ public class Transportation200Marshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 		
 		if (src.isSetGenericApplicationPropertyOfTrafficArea()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTrafficArea())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTrafficArea().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTrafficArea()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTrafficArea().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -316,8 +334,11 @@ public class Transportation200Marshaller {
 		if (src.isSetTrafficArea())
 			dest.setTrafficArea(marshalTrafficArea(src.getTrafficArea()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -390,9 +411,11 @@ public class Transportation200Marshaller {
 			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 		
 		if (src.isSetGenericApplicationPropertyOfTransportationComplex()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTransportationComplex())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTransportationComplex().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTransportationComplex()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTransportationComplex().add(jaxbElement);
+			}
 		}
 	}
 	

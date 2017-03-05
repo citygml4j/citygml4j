@@ -30,6 +30,7 @@ import javax.xml.transform.sax.SAXResult;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -337,8 +338,8 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 			((FeatureMember)member).setFeature((AbstractFeature)object);
 		}
 
-		else if (object instanceof ADEComponent) {
-			ADEComponent ade = (ADEComponent)object;
+		else if (object instanceof ADEGenericElement) {
+			ADEGenericElement ade = (ADEGenericElement)object;
 
 			member = (isCityObject(ade)) ? new CityObjectMember() : new FeatureMember();
 			member.setGenericADEComponent(ade);

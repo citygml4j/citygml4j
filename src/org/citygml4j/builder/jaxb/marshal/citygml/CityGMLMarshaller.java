@@ -22,7 +22,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance100Marshaller;
@@ -51,7 +50,6 @@ import org.citygml4j.builder.jaxb.marshal.citygml.vegetation.Vegetation100Marsha
 import org.citygml4j.builder.jaxb.marshal.citygml.vegetation.Vegetation200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody200Marshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.citygml.bridge.BridgeModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
@@ -149,7 +147,7 @@ public class CityGMLMarshaller {
 		tran100 = new Transportation100Marshaller(this);
 		veg100 = new Vegetation100Marshaller(this);
 		wtr100 = new WaterBody100Marshaller(this);
-
+		
 		moduleMatcher = Pattern.compile("net\\.opengis\\.citygml\\.([\\w]+)?\\.?(_\\d)").matcher("");
 	}
 
@@ -359,11 +357,6 @@ public class CityGMLMarshaller {
 		}
 
 		return dest;
-	}
-
-	public JAXBElement<Object> ade2jaxbElement(ADEComponent ade) {
-		QName qName = new QName(ade.getNamespaceURI(), ade.getLocalName());
-		return new JAXBElement<Object>(qName, Object.class, ade.getContent());
 	}
 
 	public JAXBMarshaller getJAXBMarshaller() {

@@ -18,7 +18,7 @@
  */
 package org.citygml4j.util.xlink;
 
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.base.AbstractGML;
@@ -131,17 +131,17 @@ public class XLinkResolver {
 		}
 		
 		@Override
-		public ModelObject apply(ADEComponent adeComponent) {
-			if (adeComponent.isSetContent() && addToVisited(adeComponent.getContent())) {
-				ADEComponent result = adeComponent(adeComponent.getContent(), (Element)null);
+		public ModelObject apply(ADEGenericElement adeGenericElement) {
+			if (adeGenericElement.isSetContent() && addToVisited(adeGenericElement.getContent())) {
+				ADEGenericElement result = adeGenericElement(adeGenericElement.getContent(), (Element)null);
 				if (result != null)
-					return (result.getContent() == adeComponent.getContent()) ? adeComponent : result;
+					return (result.getContent() == adeGenericElement.getContent()) ? adeGenericElement : result;
 			}
 
 			return null;
 		}
 
-		protected ADEComponent adeComponent(Element element, Element parent) {	
+		protected ADEGenericElement adeGenericElement(Element element, Element parent) {	
 			String elementId = element.getAttribute("id");
 			if (elementId.length() == 0) {
 				for (GMLCoreModule gml : GMLCoreModule.getInstances()) {
@@ -157,13 +157,13 @@ public class XLinkResolver {
 			}
 
 			if (elementId.length() > 0 && gmlId.equals(elementId))
-				return new ADEComponent(element);
+				return new ADEGenericElement(element);
 
 			NodeList childs = element.getChildNodes();
 			for (int i = 0; i < childs.getLength(); ++i) {
 				Node node = childs.item(i);
 				if (node.getNodeType() == Node.ELEMENT_NODE && addToVisited(node)) {
-					ADEComponent ade = adeComponent((Element)node, element);
+					ADEGenericElement ade = adeGenericElement((Element)node, element);
 					if (ade != null)
 						return ade;
 				}

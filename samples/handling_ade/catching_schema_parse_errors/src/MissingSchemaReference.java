@@ -23,7 +23,7 @@ import java.util.Date;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -60,8 +60,8 @@ public class MissingSchemaReference {
 			
 			if (citygml instanceof AbstractFeature)
 				System.out.println("Found CityGML: " + citygml.getCityGMLClass());
-			else 
-				System.out.println("Found ADE: " + ((ADEComponent)citygml).getContent().getLocalName());
+			else if (citygml instanceof ADEGenericElement)
+				System.out.println("Found ADE: " + ((ADEGenericElement)citygml).getContent().getLocalName());
 		}
 		
 		reader.close();

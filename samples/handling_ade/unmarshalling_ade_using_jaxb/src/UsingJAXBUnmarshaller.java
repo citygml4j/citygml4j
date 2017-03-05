@@ -34,6 +34,7 @@ import org.citygml4j.builder.jaxb.JAXBContextPath;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.gml.base.StringOrRef;
@@ -87,7 +88,7 @@ public class UsingJAXBUnmarshaller {
 		Unmarshaller jaxbUmarshaller = jaxbCtx.createUnmarshaller();
 		
 		System.out.println(df.format(new Date()) + "unmarshalling ADE content using JAXB Unmarshaller");
-		JAXBElement<?> element = (JAXBElement<?>)jaxbUmarshaller.unmarshal(ade.getContent());
+		JAXBElement<?> element = (JAXBElement<?>)jaxbUmarshaller.unmarshal(((ADEGenericElement)ade).getContent());
 		System.out.println("Unmarshalled JAXBElement: " + element.getName());
 	
 		System.out.println(df.format(new Date()) + "processing ADE feature sub:Tunnel by using JAXBUnmarshaller and JAXBMarshaller to modify ADE content");
@@ -131,7 +132,7 @@ public class UsingJAXBUnmarshaller {
 			}
 					
 			Element tunnelElement = marshaller.marshalDOMElement(jaxbFactory.createTunnel(tunnel), jaxbCtx);
-			ADEComponent newADE = new ADEComponent(tunnelElement);
+			ADEGenericElement newADE = new ADEGenericElement(tunnelElement);
 			cityModel.getCityObjectMember().get(3).setGenericADEComponent(newADE);
 		}
 		

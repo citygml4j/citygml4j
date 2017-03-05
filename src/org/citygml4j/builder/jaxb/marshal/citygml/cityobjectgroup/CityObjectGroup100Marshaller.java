@@ -20,12 +20,6 @@ package org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.citygml._1.AbstractCityObjectType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
-import net.opengis.citygml.cityobjectgroup._1.ObjectFactory;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -38,6 +32,13 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.citygml._1.AbstractCityObjectType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
+import net.opengis.citygml.cityobjectgroup._1.ObjectFactory;
 
 public class CityObjectGroup100Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();
@@ -102,9 +103,11 @@ public class CityObjectGroup100Marshaller {
 			dest.setParent(marshalCityObjectGroupParent(src.getGroupParent()));	
 		
 		if (src.isSetGenericApplicationPropertyOfCityObjectGroup()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCityObjectGroup())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfCityObjectGroup().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityObjectGroup()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfCityObjectGroup().add(jaxbElement);
+			}
 		}
 	}
 
@@ -125,8 +128,11 @@ public class CityObjectGroup100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 		
 		if (src.isSetGroupRole())
 			dest.setGroupRole(src.getGroupRole());
@@ -168,8 +174,11 @@ public class CityObjectGroup100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());

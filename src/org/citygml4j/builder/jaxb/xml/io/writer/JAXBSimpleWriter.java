@@ -28,7 +28,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.sax.SAXResult;
 
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -128,9 +128,9 @@ public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWrite
 
 			}
 
-			// handle ADE feature
-			else if (result instanceof ADEComponent){
-				ADEComponent ade = (ADEComponent)result;
+			// handle generic ADE feature
+			else if (result instanceof ADEGenericElement) {
+				ADEGenericElement ade = (ADEGenericElement)result;
 
 				if (gmlIds != null) {
 					String gmlId = ade.getContent().getAttribute("id");

@@ -73,9 +73,11 @@ public class Vegetation200Marshaller {
 		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 		
 		if (src.isSetGenericApplicationPropertyOfVegetationObject()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfVegetationObject())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfVegetationObject().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfVegetationObject()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfVegetationObject().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -123,9 +125,11 @@ public class Vegetation200Marshaller {
 			dest.setLod4MultiSolid(jaxb.getGMLMarshaller().marshalMultiSolidProperty(src.getLod4MultiSolid()));
 
 		if (src.isSetGenericApplicationPropertyOfPlantCover()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfPlantCover())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfPlantCover().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfPlantCover()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfPlantCover().add(jaxbElement);
+			}
 		}
 	}
 
@@ -189,9 +193,11 @@ public class Vegetation200Marshaller {
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 		
 		if (src.isSetGenericApplicationPropertyOfSolitaryVegetationObject()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfSolitaryVegetationObject())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfSolitaryVegetationObject().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfSolitaryVegetationObject()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfSolitaryVegetationObject().add(jaxbElement);
+			}
 		}
 	}
 

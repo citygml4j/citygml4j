@@ -18,7 +18,7 @@
  */
 package org.citygml4j.model.common.visitor;
 
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
@@ -152,6 +152,6 @@ public interface FeatureFunctor<T> extends Functor<T> {
 	public T apply(WaterClosureSurface waterClosureSurface);
 	public T apply(WaterGroundSurface waterGroundSurface);
 	public T apply(WaterSurface waterSurface);
-	public T apply(ADEComponent adeComponent);
+	public T apply(ADEGenericElement adeGenericElement);
 	public T apply(Element element, ElementDecl decl);
 }

@@ -26,37 +26,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 
-import net.opengis.citygml.bridge._2.AbstractBoundarySurfaceType;
-import net.opengis.citygml.bridge._2.AbstractBridgeType;
-import net.opengis.citygml.bridge._2.AbstractOpeningType;
-import net.opengis.citygml.bridge._2.BoundarySurfacePropertyType;
-import net.opengis.citygml.bridge._2.BridgeConstructionElementPropertyType;
-import net.opengis.citygml.bridge._2.BridgeConstructionElementType;
-import net.opengis.citygml.bridge._2.BridgeFurnitureType;
-import net.opengis.citygml.bridge._2.BridgeInstallationPropertyType;
-import net.opengis.citygml.bridge._2.BridgeInstallationType;
-import net.opengis.citygml.bridge._2.BridgePartPropertyType;
-import net.opengis.citygml.bridge._2.BridgePartType;
-import net.opengis.citygml.bridge._2.BridgeRoomType;
-import net.opengis.citygml.bridge._2.BridgeType;
-import net.opengis.citygml.bridge._2.CeilingSurfaceType;
-import net.opengis.citygml.bridge._2.ClosureSurfaceType;
-import net.opengis.citygml.bridge._2.DoorType;
-import net.opengis.citygml.bridge._2.FloorSurfaceType;
-import net.opengis.citygml.bridge._2.GroundSurfaceType;
-import net.opengis.citygml.bridge._2.IntBridgeInstallationPropertyType;
-import net.opengis.citygml.bridge._2.IntBridgeInstallationType;
-import net.opengis.citygml.bridge._2.InteriorBridgeRoomPropertyType;
-import net.opengis.citygml.bridge._2.InteriorFurniturePropertyType;
-import net.opengis.citygml.bridge._2.InteriorWallSurfaceType;
-import net.opengis.citygml.bridge._2.ObjectFactory;
-import net.opengis.citygml.bridge._2.OpeningPropertyType;
-import net.opengis.citygml.bridge._2.OuterCeilingSurfaceType;
-import net.opengis.citygml.bridge._2.OuterFloorSurfaceType;
-import net.opengis.citygml.bridge._2.RoofSurfaceType;
-import net.opengis.citygml.bridge._2.WallSurfaceType;
-import net.opengis.citygml.bridge._2.WindowType;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -96,6 +65,38 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.citygml.bridge._2.AbstractBoundarySurfaceType;
+import net.opengis.citygml.bridge._2.AbstractBridgeType;
+import net.opengis.citygml.bridge._2.AbstractOpeningType;
+import net.opengis.citygml.bridge._2.BoundarySurfacePropertyType;
+import net.opengis.citygml.bridge._2.BridgeConstructionElementPropertyType;
+import net.opengis.citygml.bridge._2.BridgeConstructionElementType;
+import net.opengis.citygml.bridge._2.BridgeFurnitureType;
+import net.opengis.citygml.bridge._2.BridgeInstallationPropertyType;
+import net.opengis.citygml.bridge._2.BridgeInstallationType;
+import net.opengis.citygml.bridge._2.BridgePartPropertyType;
+import net.opengis.citygml.bridge._2.BridgePartType;
+import net.opengis.citygml.bridge._2.BridgeRoomType;
+import net.opengis.citygml.bridge._2.BridgeType;
+import net.opengis.citygml.bridge._2.CeilingSurfaceType;
+import net.opengis.citygml.bridge._2.ClosureSurfaceType;
+import net.opengis.citygml.bridge._2.DoorType;
+import net.opengis.citygml.bridge._2.FloorSurfaceType;
+import net.opengis.citygml.bridge._2.GroundSurfaceType;
+import net.opengis.citygml.bridge._2.IntBridgeInstallationPropertyType;
+import net.opengis.citygml.bridge._2.IntBridgeInstallationType;
+import net.opengis.citygml.bridge._2.InteriorBridgeRoomPropertyType;
+import net.opengis.citygml.bridge._2.InteriorFurniturePropertyType;
+import net.opengis.citygml.bridge._2.InteriorWallSurfaceType;
+import net.opengis.citygml.bridge._2.ObjectFactory;
+import net.opengis.citygml.bridge._2.OpeningPropertyType;
+import net.opengis.citygml.bridge._2.OuterCeilingSurfaceType;
+import net.opengis.citygml.bridge._2.OuterFloorSurfaceType;
+import net.opengis.citygml.bridge._2.RoofSurfaceType;
+import net.opengis.citygml.bridge._2.WallSurfaceType;
+import net.opengis.citygml.bridge._2.WindowType;
 
 public class Bridge200Marshaller {
 	private final ObjectFactory brid = new ObjectFactory();
@@ -338,9 +339,11 @@ public class Bridge200Marshaller {
 		}	
 
 		if (src.isSetGenericApplicationPropertyOfAbstractBridge()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfAbstractBridge())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfAbstractBridge().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfAbstractBridge()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfAbstractBridge().add(jaxbElement);
+			}
 		}
 	}
 
@@ -362,9 +365,11 @@ public class Bridge200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfBoundarySurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBoundarySurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBoundarySurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBoundarySurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBoundarySurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -384,9 +389,11 @@ public class Bridge200Marshaller {
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 		
 		if (src.isSetGenericApplicationPropertyOfOpening()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOpening())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfOpening().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOpening()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfOpening().add(jaxbElement);
+			}
 		}
 	}
 
@@ -400,8 +407,11 @@ public class Bridge200Marshaller {
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -434,9 +444,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBridge(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfBridge()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBridge())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBridge().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBridge()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBridge().add(jaxbElement);
+			}
 		}
 	}
 
@@ -505,9 +517,11 @@ public class Bridge200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfBridgeConstructionElement()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBridgeConstructionElement())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBridgeConstructionElement().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBridgeConstructionElement()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBridgeConstructionElement().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -524,8 +538,11 @@ public class Bridge200Marshaller {
 		if (src.isSetBridgeConstructionElement())
 			dest.setBridgeConstructionElement(marshalBridgeConstructionElement(src.getBridgeConstructionElement()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -577,9 +594,11 @@ public class Bridge200Marshaller {
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 
 		if (src.isSetGenericApplicationPropertyOfBridgeFurniture()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBridgeFurniture())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBridgeFurniture().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBridgeFurniture()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBridgeFurniture().add(jaxbElement);
+			}
 		}
 	}
 
@@ -630,9 +649,11 @@ public class Bridge200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfBridgeInstallation()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBridgeInstallation())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBridgeInstallation().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBridgeInstallation()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBridgeInstallation().add(jaxbElement);
+			}
 		}
 	}
 
@@ -649,8 +670,11 @@ public class Bridge200Marshaller {
 		if (src.isSetBridgeInstallation())
 			dest.setBridgeInstallation(marshalBridgeInstallation(src.getBridgeInstallation()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -683,9 +707,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBridge(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfBridgePart()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBridgePart())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBridgePart().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBridgePart()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBridgePart().add(jaxbElement);
+			}
 		}
 	}
 
@@ -734,9 +760,11 @@ public class Bridge200Marshaller {
 		}	
 
 		if (src.isSetGenericApplicationPropertyOfBridgeRoom()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBridgeRoom())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBridgeRoom().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBridgeRoom()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBridgeRoom().add(jaxbElement);
+			}
 		}
 	}
 
@@ -753,8 +781,11 @@ public class Bridge200Marshaller {
 		if (src.isSetBridgePart())
 			dest.setBridgePart(marshalBridgePart(src.getBridgePart()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -787,9 +818,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfCeilingSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCeilingSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfCeilingSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCeilingSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfCeilingSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -804,9 +837,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfClosureSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfClosureSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfClosureSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfClosureSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfClosureSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -826,9 +861,11 @@ public class Bridge200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfDoor()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfDoor())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfDoor().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfDoor()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfDoor().add(jaxbElement);
+			}
 		}
 	}
 
@@ -843,9 +880,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfFloorSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfFloorSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfFloorSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfFloorSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfFloorSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -860,9 +899,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfGroundSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfGroundSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfGroundSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfGroundSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfGroundSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -901,9 +942,11 @@ public class Bridge200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfIntBridgeInstallation()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfIntBridgeInstallation())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfIntBridgeInstallation().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfIntBridgeInstallation()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfIntBridgeInstallation().add(jaxbElement);
+			}
 		}
 	}
 
@@ -920,8 +963,11 @@ public class Bridge200Marshaller {
 		if (src.isSetIntBridgeInstallation())
 			dest.setIntBridgeInstallation(marshalIntBridgeInstallation(src.getIntBridgeInstallation()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -956,8 +1002,11 @@ public class Bridge200Marshaller {
 		if (src.isSetBridgeRoom())
 			dest.setBridgeRoom(marshalBridgeRoom(src.getBridgeRoom()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -992,8 +1041,11 @@ public class Bridge200Marshaller {
 		if (src.isSetBridgeFurniture())
 			dest.setBridgeFurniture(marshalBridgeFurniture(src.getBridgeFurniture()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -1026,9 +1078,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfInteriorWallSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfInteriorWallSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfInteriorWallSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfInteriorWallSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfInteriorWallSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -1049,8 +1103,11 @@ public class Bridge200Marshaller {
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -1083,9 +1140,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfOuterCeilingSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOuterCeilingSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfOuterCeilingSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOuterCeilingSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfOuterCeilingSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -1100,9 +1159,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfOuterFloorSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOuterFloorSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfOuterFloorSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOuterFloorSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfOuterFloorSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -1117,9 +1178,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfRoofSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRoofSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfRoofSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfRoofSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfRoofSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -1134,9 +1197,11 @@ public class Bridge200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWallSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWallSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWallSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWallSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWallSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -1151,9 +1216,11 @@ public class Bridge200Marshaller {
 		marshalAbstractOpening(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWindow()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWindow())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWindow().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWindow()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWindow().add(jaxbElement);
+			}
 		}
 	}
 

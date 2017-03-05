@@ -28,6 +28,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshaller;
 import org.citygml4j.builder.jaxb.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.xal.XALMarshaller;
 import org.citygml4j.model.common.base.ModelObject;
@@ -40,6 +41,7 @@ public class JAXBMarshaller {
 	private final CityGMLMarshaller citygml;
 	private final GMLMarshaller gml;
 	private final XALMarshaller xal;
+	private final ADEMarshaller ade;
 	private final JAXBBuilder jaxbBuilder;
 
 	private ModuleContext moduleContext;	
@@ -52,6 +54,7 @@ public class JAXBMarshaller {
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this);
 		xal = new XALMarshaller();
+		ade = new ADEMarshaller();
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {
@@ -163,6 +166,10 @@ public class JAXBMarshaller {
 
 	public XALMarshaller getXALMarshaller() {
 		return xal;
+	}
+
+	public ADEMarshaller getADEMarshaller() {
+		return ade;
 	}
 
 }

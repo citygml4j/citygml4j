@@ -115,9 +115,11 @@ public class CityFurniture200Marshaller {
 			dest.setLod4TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 	
 		if (src.isSetGenericApplicationPropertyOfCityFurniture()) {
-			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityFurniture())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfCityFurniture().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityFurniture()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfCityFurniture().add(jaxbElement);
+			}
 		}
 	}
 

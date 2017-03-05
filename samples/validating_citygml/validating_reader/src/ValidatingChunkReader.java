@@ -26,7 +26,7 @@ import javax.xml.bind.ValidationEventHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
@@ -58,8 +58,8 @@ public class ValidatingChunkReader {
 			CityGML chunk = reader.nextFeature();			
 
 			String type = null;
-			if (chunk instanceof ADEComponent){
-				Element element = ((ADEComponent)chunk).getContent();
+			if (chunk instanceof ADEGenericElement){
+				Element element = ((ADEGenericElement)chunk).getContent();
 				type = element.getPrefix() + ':' + element.getLocalName();
 			} else
 				type = chunk.getCityGMLClass().toString();

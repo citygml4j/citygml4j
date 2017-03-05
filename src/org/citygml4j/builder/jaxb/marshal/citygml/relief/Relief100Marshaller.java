@@ -111,9 +111,11 @@ public class Relief100Marshaller {
 			dest.setExtent(jaxb.getGMLMarshaller().marshalPolygonProperty(src.getExtent()));
 		
 		if (src.isSetGenericApplicationPropertyOfReliefComponent()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfReliefComponent())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfReliefComponent().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfReliefComponent()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfReliefComponent().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -127,9 +129,11 @@ public class Relief100Marshaller {
 			dest.setBreaklines(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getBreaklines()));
 		
 		if (src.isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBreaklineRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBreaklineRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBreaklineRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBreaklineRelief().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -160,9 +164,11 @@ public class Relief100Marshaller {
 			dest.setReliefPoints(jaxb.getGMLMarshaller().marshalMultiPointProperty(src.getReliefPoints()));
 		
 		if (src.isSetGenericApplicationPropertyOfMassPointRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfMassPointRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfMassPointRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfMassPointRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfMassPointRelief().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -180,9 +186,11 @@ public class Relief100Marshaller {
 			dest.setGrid(marshalGridProperty(src.getGrid()));
 		
 		if (src.isSetGenericApplicationPropertyOfRasterRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRasterRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfRasterRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfRasterRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfRasterRelief().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -218,9 +226,11 @@ public class Relief100Marshaller {
 		}
 		
 		if (src.isSetGenericApplicationPropertyOfReliefFeature()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfReliefFeature())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfReliefFeature().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfReliefFeature()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfReliefFeature().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -251,9 +261,11 @@ public class Relief100Marshaller {
 			dest.setTin(marshalTinProperty(src.getTin()));
 		
 		if (src.isSetGenericApplicationPropertyOfTinRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTinRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTinRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTinRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTinRelief().add(jaxbElement);
+			}
 		}
 	}
 	

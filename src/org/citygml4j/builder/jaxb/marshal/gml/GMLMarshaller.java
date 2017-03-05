@@ -25,8 +25,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.gml.*;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
@@ -175,6 +173,9 @@ import org.citygml4j.model.gml.valueObjects.ValueProperty;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.gml.*;
 
 public class GMLMarshaller {
 	private final JAXBMarshaller jaxb;
@@ -631,9 +632,11 @@ public class GMLMarshaller {
 		}
 
 		if (src.isSetGenericADEComponent()) {
-			for (ADEComponent ade : src.getGenericADEComponent())
-				if (ade.isSetContent())
-					dest.get_ADEComponent().add(ade.getContent());
+			for (ADEComponent adeComponent : src.getGenericADEComponent()) {
+				Element element = jaxb.getADEMarshaller().marshalDOMElement(adeComponent);
+				if (element != null)
+					dest.get_ADEComponent().add(element);
+			}
 		}
 	}
 
@@ -798,13 +801,19 @@ public class GMLMarshaller {
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, AssociationType dest) {
 		marshalAssociationByRepOrRef(src, dest);
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 	}
 
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, FeaturePropertyType dest) {
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -1609,9 +1618,11 @@ public class GMLMarshaller {
 		}
 
 		if (src.isSetGenericADEComponent()) {
-			for (ADEComponent ade : src.getGenericADEComponent())
-				if (ade.isSetContent())
-					dest.get_ADEComponent().add(ade.getContent());
+			for (ADEComponent adeComponent : src.getGenericADEComponent()) {
+				Element element = jaxb.getADEMarshaller().marshalDOMElement(adeComponent);
+				if (element != null)
+					dest.get_ADEComponent().add(element);
+			}
 		}
 
 		return dest;

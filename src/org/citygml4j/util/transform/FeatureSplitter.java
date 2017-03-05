@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.copy.Copyable;
@@ -104,8 +104,8 @@ public class FeatureSplitter {
 
 		if (object instanceof AbstractFeature)
 			((AbstractFeature)object).accept(splitter);
-		else if (object instanceof ADEComponent)
-			splitter.visit((ADEComponent)object);
+		else if (object instanceof ADEGenericElement)
+			splitter.visit((ADEGenericElement)object);
 		else if (object instanceof Element)
 			splitter.visit((Element)object, null);
 
@@ -177,9 +177,9 @@ public class FeatureSplitter {
 					target instanceof FeatureArrayProperty)
 				copy = ((Copyable)target).copy(this);
 
-			else if (target instanceof ADEComponent) {
+			else if (target instanceof ADEGenericElement) {
 				copy = ((Copyable)target).copy(this);				
-				ADEComponent tmp = (ADEComponent)copy;
+				ADEGenericElement tmp = (ADEGenericElement)copy;
 				tmp.setContent((Element)tmp.getContent().cloneNode(true));
 			}				
 
@@ -243,33 +243,33 @@ public class FeatureSplitter {
 		}
 
 		@Override
-		public void visit(ADEComponent adeComponent) {
+		public void visit(ADEGenericElement adeGenericElement) {
 			if (!excludes.isEmpty())
 				for (Class<? extends CityGML> exclude : excludes)
-					if (exclude.isInstance(adeComponent))
+					if (exclude.isInstance(adeGenericElement))
 						return;
 
-			if (adeComponent.isSetContent() && schemaHandler != null && 
-					shouldWalk() && addToVisited(adeComponent.getContent())) {				
+			if (adeGenericElement.isSetContent() && schemaHandler != null && 
+					shouldWalk() && addToVisited(adeGenericElement.getContent())) {				
 				boolean addToResult = false;
-				ModelObject parent = adeComponent.getParent();
+				ModelObject parent = adeGenericElement.getParent();
 
 				if (parent != null) {
-					Schema schema = schemaHandler.getSchema(adeComponent.getNamespaceURI());
+					Schema schema = schemaHandler.getSchema(adeGenericElement.getNamespaceURI());
 					if (schema != null) {
-						ElementDecl elementDecl = schema.getElementDecl(adeComponent.getLocalName(), null);
+						ElementDecl elementDecl = schema.getElementDecl(adeGenericElement.getLocalName(), null);
 						
 						if (elementDecl != null && splitElement(elementDecl)) {
 							if (parent instanceof FeatureProperty<?>) {
 								FeatureProperty<?> property = (FeatureProperty<?>)parent;				
-								property.setHref('#' + getAndSetGmlId(adeComponent.getContent()));
+								property.setHref('#' + getAndSetGmlId(adeGenericElement.getContent()));
 								property.unsetGenericADEComponent();
 								addToResult = true;
 							}
 
 							else if (parent instanceof FeatureArrayProperty) {
 								FeatureArrayProperty featureArray = (FeatureArrayProperty)parent;
-								featureArray.unsetGenericADEComponent(adeComponent);
+								featureArray.unsetGenericADEComponent(adeGenericElement);
 								addToResult = true;
 							}
 						}
@@ -278,14 +278,14 @@ public class FeatureSplitter {
 					addToResult = true;
 
 				if (addToResult)
-					result.add(adeComponent);
+					result.add(adeGenericElement);
 				
 				// visit child elements
-				adeComponent(adeComponent.getContent(), null, null);
+				adeGenericElement(adeGenericElement.getContent(), null, null);
 			}
 		}
 
-		protected void adeComponent(Element element, Element parent, ElementDecl lastElement) {
+		protected void adeGenericElement(Element element, Element parent, ElementDecl lastElement) {
 			Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
 
 			if (schema != null) {
@@ -300,7 +300,7 @@ public class FeatureSplitter {
 					if (parent.getTextContent().trim().length() == 0)
 						parent.setTextContent("");
 
-					result.add(new ADEComponent(element));
+					result.add(new ADEGenericElement(element));
 				}
 
 				lastElement = tmp;
@@ -317,7 +317,7 @@ public class FeatureSplitter {
 
 			for (Element child : children)
 				if (addToVisited(child))
-					adeComponent((Element)child, element, lastElement);
+					adeGenericElement((Element)child, element, lastElement);
 		}
 
 		private boolean splitElement(ElementDecl elementDecl) {

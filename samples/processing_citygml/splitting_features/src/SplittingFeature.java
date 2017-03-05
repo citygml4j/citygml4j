@@ -25,7 +25,9 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -75,8 +77,9 @@ public class SplittingFeature {
 		System.out.println(df.format(new Date()) + "splitting result:");
 		List<CityGML> splitResult = splitter.split(cityModel);
 		for (CityGML item : splitResult) {
-			if (item.getCityGMLClass() == CityGMLClass.ADE_COMPONENT) {
-				ADEComponent ade = (ADEComponent)item;
+			if (item.getCityGMLClass() == CityGMLClass.ADE_COMPONENT
+					&& ((ADEComponent)item).getADEClass() == ADEClass.GENERIC_ELEMENT) {
+				ADEGenericElement ade = (ADEGenericElement)item;
 				System.out.println("Split ADE component: " + ade.getLocalName());
 			} else
 				System.out.println("Split CityGML feature: " + item.getCityGMLClass());

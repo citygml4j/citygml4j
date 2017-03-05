@@ -26,35 +26,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 
-import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
-import net.opengis.citygml.tunnel._2.AbstractOpeningType;
-import net.opengis.citygml.tunnel._2.AbstractTunnelType;
-import net.opengis.citygml.tunnel._2.BoundarySurfacePropertyType;
-import net.opengis.citygml.tunnel._2.CeilingSurfaceType;
-import net.opengis.citygml.tunnel._2.ClosureSurfaceType;
-import net.opengis.citygml.tunnel._2.DoorType;
-import net.opengis.citygml.tunnel._2.FloorSurfaceType;
-import net.opengis.citygml.tunnel._2.GroundSurfaceType;
-import net.opengis.citygml.tunnel._2.HollowSpaceType;
-import net.opengis.citygml.tunnel._2.IntTunnelInstallationPropertyType;
-import net.opengis.citygml.tunnel._2.IntTunnelInstallationType;
-import net.opengis.citygml.tunnel._2.InteriorFurniturePropertyType;
-import net.opengis.citygml.tunnel._2.InteriorHollowSpacePropertyType;
-import net.opengis.citygml.tunnel._2.InteriorWallSurfaceType;
-import net.opengis.citygml.tunnel._2.ObjectFactory;
-import net.opengis.citygml.tunnel._2.OpeningPropertyType;
-import net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType;
-import net.opengis.citygml.tunnel._2.OuterFloorSurfaceType;
-import net.opengis.citygml.tunnel._2.RoofSurfaceType;
-import net.opengis.citygml.tunnel._2.TunnelFurnitureType;
-import net.opengis.citygml.tunnel._2.TunnelInstallationPropertyType;
-import net.opengis.citygml.tunnel._2.TunnelInstallationType;
-import net.opengis.citygml.tunnel._2.TunnelPartPropertyType;
-import net.opengis.citygml.tunnel._2.TunnelPartType;
-import net.opengis.citygml.tunnel._2.TunnelType;
-import net.opengis.citygml.tunnel._2.WallSurfaceType;
-import net.opengis.citygml.tunnel._2.WindowType;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -91,6 +62,36 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
+import net.opengis.citygml.tunnel._2.AbstractOpeningType;
+import net.opengis.citygml.tunnel._2.AbstractTunnelType;
+import net.opengis.citygml.tunnel._2.BoundarySurfacePropertyType;
+import net.opengis.citygml.tunnel._2.CeilingSurfaceType;
+import net.opengis.citygml.tunnel._2.ClosureSurfaceType;
+import net.opengis.citygml.tunnel._2.DoorType;
+import net.opengis.citygml.tunnel._2.FloorSurfaceType;
+import net.opengis.citygml.tunnel._2.GroundSurfaceType;
+import net.opengis.citygml.tunnel._2.HollowSpaceType;
+import net.opengis.citygml.tunnel._2.IntTunnelInstallationPropertyType;
+import net.opengis.citygml.tunnel._2.IntTunnelInstallationType;
+import net.opengis.citygml.tunnel._2.InteriorFurniturePropertyType;
+import net.opengis.citygml.tunnel._2.InteriorHollowSpacePropertyType;
+import net.opengis.citygml.tunnel._2.InteriorWallSurfaceType;
+import net.opengis.citygml.tunnel._2.ObjectFactory;
+import net.opengis.citygml.tunnel._2.OpeningPropertyType;
+import net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType;
+import net.opengis.citygml.tunnel._2.OuterFloorSurfaceType;
+import net.opengis.citygml.tunnel._2.RoofSurfaceType;
+import net.opengis.citygml.tunnel._2.TunnelFurnitureType;
+import net.opengis.citygml.tunnel._2.TunnelInstallationPropertyType;
+import net.opengis.citygml.tunnel._2.TunnelInstallationType;
+import net.opengis.citygml.tunnel._2.TunnelPartPropertyType;
+import net.opengis.citygml.tunnel._2.TunnelPartType;
+import net.opengis.citygml.tunnel._2.TunnelType;
+import net.opengis.citygml.tunnel._2.WallSurfaceType;
+import net.opengis.citygml.tunnel._2.WindowType;
 
 public class Tunnel200Marshaller {
 	private final ObjectFactory tun = new ObjectFactory();
@@ -316,9 +317,11 @@ public class Tunnel200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfAbstractTunnel()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfAbstractTunnel())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfAbstractTunnel().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfAbstractTunnel()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfAbstractTunnel().add(jaxbElement);
+			}
 		}
 	}
 
@@ -340,9 +343,11 @@ public class Tunnel200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfBoundarySurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBoundarySurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBoundarySurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBoundarySurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBoundarySurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -362,9 +367,11 @@ public class Tunnel200Marshaller {
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 		
 		if (src.isSetGenericApplicationPropertyOfOpening()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOpening())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfOpening().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOpening()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfOpening().add(jaxbElement);
+			}
 		}
 	}
 
@@ -378,8 +385,11 @@ public class Tunnel200Marshaller {
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -412,9 +422,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfCeilingSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCeilingSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfCeilingSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCeilingSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfCeilingSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -429,9 +441,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfClosureSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfClosureSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfClosureSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfClosureSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfClosureSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -446,9 +460,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractOpening(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfDoor()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfDoor())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfDoor().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfDoor()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfDoor().add(jaxbElement);
+			}
 		}
 	}
 
@@ -463,9 +479,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfFloorSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfFloorSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfFloorSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfFloorSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfFloorSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -480,9 +498,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfGroundSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfGroundSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfGroundSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfGroundSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfGroundSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -531,9 +551,11 @@ public class Tunnel200Marshaller {
 		}	
 
 		if (src.isSetGenericApplicationPropertyOfHollowSpace()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfHollowSpace())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfHollowSpace().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfHollowSpace()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfHollowSpace().add(jaxbElement);
+			}
 		}
 	}
 
@@ -550,8 +572,11 @@ public class Tunnel200Marshaller {
 		if (src.isSetTunnelFurniture())
 			dest.setTunnelFurniture(marshalTunnelFurniture(src.getTunnelFurniture()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -586,8 +611,11 @@ public class Tunnel200Marshaller {
 		if (src.isSetHollowSpace())
 			dest.setHollowSpace(marshalHollowSpace(src.getHollowSpace()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -620,9 +648,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfInteriorWallSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfInteriorWallSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfInteriorWallSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfInteriorWallSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfInteriorWallSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -661,9 +691,11 @@ public class Tunnel200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfIntTunnelInstallation()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfIntTunnelInstallation())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfIntTunnelInstallation().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfIntTunnelInstallation()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfIntTunnelInstallation().add(jaxbElement);
+			}
 		}
 	}
 
@@ -680,8 +712,11 @@ public class Tunnel200Marshaller {
 		if (src.isSetIntTunnelInstallation())
 			dest.setIntTunnelInstallation(marshalIntTunnelInstallation(src.getIntTunnelInstallation()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -720,8 +755,11 @@ public class Tunnel200Marshaller {
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -754,9 +792,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfOuterCeilingSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOuterCeilingSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfOuterCeilingSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOuterCeilingSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfOuterCeilingSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -771,9 +811,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfOuterFloorSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfOuterFloorSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfOuterFloorSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOuterFloorSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfOuterFloorSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -788,9 +830,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfRoofSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRoofSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfRoofSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfRoofSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfRoofSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -805,9 +849,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractTunnel(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTunnel()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTunnel())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTunnel().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTunnel()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTunnel().add(jaxbElement);
+			}
 		}
 	}
 
@@ -841,9 +887,11 @@ public class Tunnel200Marshaller {
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 
 		if (src.isSetGenericApplicationPropertyOfTunnelFurniture()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTunnelFurniture())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTunnelFurniture().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTunnelFurniture()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTunnelFurniture().add(jaxbElement);
+			}
 		}
 	}
 
@@ -894,9 +942,11 @@ public class Tunnel200Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfTunnelInstallation()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTunnelInstallation())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTunnelInstallation().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTunnelInstallation()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTunnelInstallation().add(jaxbElement);
+			}
 		}
 
 	}
@@ -914,8 +964,11 @@ public class Tunnel200Marshaller {
 		if (src.isSetTunnelInstallation())
 			dest.setTunnelInstallation(marshalTunnelInstallation(src.getTunnelInstallation()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -948,9 +1001,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractTunnel(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTunnelPart()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTunnelPart())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTunnelPart().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTunnelPart()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTunnelPart().add(jaxbElement);
+			}
 		}
 	}
 
@@ -967,8 +1022,11 @@ public class Tunnel200Marshaller {
 		if (src.isSetTunnelPart())
 			dest.setTunnelPart(marshalTunnelPart(src.getTunnelPart()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -1001,9 +1059,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractBoundarySurface(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWallSurface()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWallSurface())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWallSurface().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWallSurface()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWallSurface().add(jaxbElement);
+			}
 		}
 	}
 
@@ -1018,9 +1078,11 @@ public class Tunnel200Marshaller {
 		marshalAbstractOpening(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWindow()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfWindow())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfWindow().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfWindow()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfWindow().add(jaxbElement);
+			}
 		}
 	}
 

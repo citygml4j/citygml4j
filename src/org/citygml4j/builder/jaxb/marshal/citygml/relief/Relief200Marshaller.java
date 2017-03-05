@@ -20,18 +20,6 @@ package org.citygml4j.builder.jaxb.marshal.citygml.relief;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.citygml.relief._2.AbstractReliefComponentType;
-import net.opengis.citygml.relief._2.BreaklineReliefType;
-import net.opengis.citygml.relief._2.GridPropertyType;
-import net.opengis.citygml.relief._2.MassPointReliefType;
-import net.opengis.citygml.relief._2.ObjectFactory;
-import net.opengis.citygml.relief._2.RasterReliefType;
-import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
-import net.opengis.citygml.relief._2.ReliefFeatureType;
-import net.opengis.citygml.relief._2.TINReliefType;
-import net.opengis.citygml.relief._2.TinPropertyType;
-import net.opengis.gml.TriangulatedSurfaceType;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -49,6 +37,19 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.citygml.relief._2.AbstractReliefComponentType;
+import net.opengis.citygml.relief._2.BreaklineReliefType;
+import net.opengis.citygml.relief._2.GridPropertyType;
+import net.opengis.citygml.relief._2.MassPointReliefType;
+import net.opengis.citygml.relief._2.ObjectFactory;
+import net.opengis.citygml.relief._2.RasterReliefType;
+import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
+import net.opengis.citygml.relief._2.ReliefFeatureType;
+import net.opengis.citygml.relief._2.TINReliefType;
+import net.opengis.citygml.relief._2.TinPropertyType;
+import net.opengis.gml.TriangulatedSurfaceType;
 
 public class Relief200Marshaller {
 	private final ObjectFactory dem = new ObjectFactory();
@@ -113,9 +114,11 @@ public class Relief200Marshaller {
 			dest.setExtent(jaxb.getGMLMarshaller().marshalPolygonProperty(src.getExtent()));
 		
 		if (src.isSetGenericApplicationPropertyOfReliefComponent()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfReliefComponent())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfReliefComponent().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfReliefComponent()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfReliefComponent().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -129,9 +132,11 @@ public class Relief200Marshaller {
 			dest.setBreaklines(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getBreaklines()));
 		
 		if (src.isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfBreaklineRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfBreaklineRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfBreaklineRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfBreaklineRelief().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -141,8 +146,11 @@ public class Relief200Marshaller {
 		if (src.isSetRectifiedGridCoverage())
 			dest.setRectifiedGridCoverage(jaxb.getGMLMarshaller().marshalRectifiedGridCoverage(src.getRectifiedGridCoverage()));
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -185,9 +193,11 @@ public class Relief200Marshaller {
 			dest.setReliefPoints(jaxb.getGMLMarshaller().marshalMultiPointProperty(src.getReliefPoints()));
 		
 		if (src.isSetGenericApplicationPropertyOfMassPointRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfMassPointRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfMassPointRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfMassPointRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfMassPointRelief().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -205,9 +215,11 @@ public class Relief200Marshaller {
 			dest.setGrid(marshalGridProperty(src.getGrid()));
 		
 		if (src.isSetGenericApplicationPropertyOfRasterRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfRasterRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfRasterRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfRasterRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfRasterRelief().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -228,8 +240,11 @@ public class Relief200Marshaller {
 				dest.set_ReliefComponent((JAXBElement<? extends AbstractReliefComponentType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -270,9 +285,11 @@ public class Relief200Marshaller {
 		}
 		
 		if (src.isSetGenericApplicationPropertyOfReliefFeature()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfReliefFeature())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfReliefFeature().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfReliefFeature()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfReliefFeature().add(jaxbElement);
+			}
 		}
 	}
 	
@@ -327,9 +344,11 @@ public class Relief200Marshaller {
 			dest.setTin(marshalTinProperty(src.getTin()));
 		
 		if (src.isSetGenericApplicationPropertyOfTinRelief()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfTinRelief())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfTinRelief().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfTinRelief()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfTinRelief().add(jaxbElement);
+			}
 		}
 	}
 	

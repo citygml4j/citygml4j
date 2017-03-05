@@ -32,6 +32,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
@@ -70,7 +71,7 @@ public class UsingJAXBBinder {
 		reader.close();
 
 		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEComponent();
-		Element adeElement = ade.getContent();
+		Element adeElement = ((ADEGenericElement)ade).getContent();
 
 		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
 		String contextPath = JAXBContextPath.getContextPath("ade.sub.jaxb");

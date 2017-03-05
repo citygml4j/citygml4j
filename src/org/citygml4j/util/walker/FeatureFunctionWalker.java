@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
@@ -2257,10 +2258,19 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 	public T apply(Element element, ElementDecl decl) {
 		return null;
 	}
+	
+	private T apply(ADEComponent adeComponent) {
+		switch (adeComponent.getADEClass()) {
+		case GENERIC_ELEMENT:
+			return apply((ADEGenericElement)adeComponent);
+		}
 
-	public T apply(ADEComponent adeComponent) {
-		if (adeComponent.isSetContent() && shouldWalk && visited.add(adeComponent.getContent())) {
-			T object = adeComponent(adeComponent.getContent(), null);
+		return null;
+	}
+
+	public T apply(ADEGenericElement adeGenericElement) {
+		if (adeGenericElement.isSetContent() && shouldWalk && visited.add(adeGenericElement.getContent())) {
+			T object = adeGenericElement(adeGenericElement.getContent(), null);
 			if (object != null)
 				return object;
 		}
@@ -2268,7 +2278,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		return null;
 	}
 
-	protected T adeComponent(Element element, ElementDecl decl) {
+	private T adeGenericElement(Element element, ElementDecl decl) {
 		Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
 		T object = null;
 
@@ -2288,7 +2298,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 		return null;
 	}
 
-	protected T iterateNodeList(Element element, ElementDecl decl) {
+	private T iterateNodeList(Element element, ElementDecl decl) {
 		NodeList nodeList = element.getChildNodes();
 
 		List<Element> children = new ArrayList<Element>(nodeList.getLength());
@@ -2300,7 +2310,7 @@ public abstract class FeatureFunctionWalker<T> implements FeatureFunctor<T>, Wal
 
 		for (Element child : children) {
 			if (shouldWalk && visited.add(child)) {
-				T object = adeComponent((Element)child, decl);
+				T object = adeGenericElement((Element)child, decl);
 				if (object != null)
 					return object;
 			}

@@ -27,22 +27,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 
-import net.opengis.citygml._1.AbstractCityObjectType;
-import net.opengis.citygml._1.AbstractSiteType;
-import net.opengis.citygml._1.AddressPropertyType;
-import net.opengis.citygml._1.AddressType;
-import net.opengis.citygml._1.CityModelType;
-import net.opengis.citygml._1.ExternalObjectReferenceType;
-import net.opengis.citygml._1.ExternalReferenceType;
-import net.opengis.citygml._1.GeneralizationRelationType;
-import net.opengis.citygml._1.ImplicitGeometryType;
-import net.opengis.citygml._1.ImplicitRepresentationPropertyType;
-import net.opengis.citygml._1.ObjectFactory;
-import net.opengis.citygml._1.XalAddressPropertyType;
-import net.opengis.citygml.appearance._1.AppearancePropertyType;
-import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
-import net.opengis.gml.FeaturePropertyType;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -72,6 +56,23 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+import org.w3c.dom.Element;
+
+import net.opengis.citygml._1.AbstractCityObjectType;
+import net.opengis.citygml._1.AbstractSiteType;
+import net.opengis.citygml._1.AddressPropertyType;
+import net.opengis.citygml._1.AddressType;
+import net.opengis.citygml._1.CityModelType;
+import net.opengis.citygml._1.ExternalObjectReferenceType;
+import net.opengis.citygml._1.ExternalReferenceType;
+import net.opengis.citygml._1.GeneralizationRelationType;
+import net.opengis.citygml._1.ImplicitGeometryType;
+import net.opengis.citygml._1.ImplicitRepresentationPropertyType;
+import net.opengis.citygml._1.ObjectFactory;
+import net.opengis.citygml._1.XalAddressPropertyType;
+import net.opengis.citygml.appearance._1.AppearancePropertyType;
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.gml.FeaturePropertyType;
 
 public class Core100Marshaller {
 	private final ObjectFactory core = new ObjectFactory();
@@ -209,9 +210,11 @@ public class Core100Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfCityObject()) {
-			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityObject())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfCityObject().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityObject()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfCityObject().add(jaxbElement);
+			}
 		}
 
 	}
@@ -220,9 +223,11 @@ public class Core100Marshaller {
 		marshalAbstractCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfSite()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfSite())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfSite().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfSite()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfSite().add(jaxbElement);
+			}
 		}
 	}
 
@@ -236,9 +241,11 @@ public class Core100Marshaller {
 			dest.setMultiPoint(jaxb.getGMLMarshaller().marshalMultiPointProperty(src.getMultiPoint()));
 
 		if (src.isSetGenericApplicationPropertyOfAddress()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfAddress())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfAddress().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfAddress()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfAddress().add(jaxbElement);
+			}
 		}
 	}
 
@@ -283,9 +290,11 @@ public class Core100Marshaller {
 		}
 
 		if (src.isSetGenericApplicationPropertyOfCityModel()) {
-			for (ADEComponent adeComponent :src.getGenericApplicationPropertyOfCityModel())
-				if (adeComponent.isSetContent())
-					dest.get_GenericApplicationPropertyOfCityModel().add(citygml.ade2jaxbElement(adeComponent));
+			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityModel()) {
+				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+				if (jaxbElement != null)
+					dest.get_GenericApplicationPropertyOfCityModel().add(jaxbElement);
+			}
 		}
 	}
 
@@ -340,8 +349,11 @@ public class Core100Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 
-		if (src.isSetGenericADEComponent() && src.getGenericADEComponent().isSetContent())
-			dest.set_ADEComponent(src.getGenericADEComponent().getContent());
+		if (src.isSetGenericADEComponent()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+			if (element != null)
+				dest.set_ADEComponent(element);
+		}
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());

@@ -24,7 +24,9 @@ import java.util.List;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.transportation.Railway;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -63,8 +65,10 @@ public class ReadingADE {
 			System.out.println("Found ADE content for Railway instance:\n");
 
 			List<ADEComponent> ades = railway.getGenericApplicationPropertyOfRailway();
-			for (ADEComponent ade : ades)
-				checkADE(in.getSchemaHandler(), ade.getContent(), null, 0);
+			for (ADEComponent ade : ades) {
+				if (ade.getADEClass() == ADEClass.GENERIC_ELEMENT)
+					checkADE(in.getSchemaHandler(), ((ADEGenericElement)ade).getContent(), null, 0);
+			}
 		}
 		
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
