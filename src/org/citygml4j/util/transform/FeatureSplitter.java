@@ -293,7 +293,7 @@ public class FeatureSplitter {
 				if (tmp != null && 
 						parent != null && 
 						lastElement != null && 
-						splitElement(tmp) &&
+						splitElement(tmp, parent) &&
 						lastElement.hasXLinkAttribute()) {
 					parent.setAttributeNS(XLinkModule.v3_1_1.getNamespaceURI(), "href", '#' + getAndSetGmlId(element));
 					parent.removeChild(element);
@@ -325,6 +325,16 @@ public class FeatureSplitter {
 			if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && split)
 				split = elementDecl.isGlobal() && elementDecl.substitutesFeature();
 
+			return split;
+		}
+		
+		private boolean splitElement(ElementDecl elementDecl, Element parent) {
+			boolean split = splitElement(elementDecl);
+			if (split && keepInlineAppearance
+					&& parent.getNamespaceURI().startsWith("http://www.opengis.net/citygml")
+					&& parent.getLocalName().equals("appearance"))
+				split = false;
+			
 			return split;
 		}
 
