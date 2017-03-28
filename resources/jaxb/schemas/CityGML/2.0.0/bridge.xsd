@@ -106,7 +106,7 @@
 				none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="BridgePart"/>
+			<xs:element ref="_AbstractBridge"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -150,7 +150,7 @@
 				neither both nor none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="BridgeInstallation"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -189,7 +189,7 @@
 				IntBridgeInstallation object inline, but neither both nor none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="IntBridgeInstallation"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -243,7 +243,7 @@
 				contain a BridgeConstructionElement object inline, but neither both nor none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="BridgeConstructionElement"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -564,7 +564,7 @@
 				none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="BridgeRoom"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -577,7 +577,7 @@
 				BridgeFurniture object inline, but neither both nor none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="BridgeFurniture"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>

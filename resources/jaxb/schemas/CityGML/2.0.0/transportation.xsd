@@ -128,7 +128,7 @@
 				inline, but neither both nor none. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="TrafficArea"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -141,7 +141,7 @@
 				inline, but neither both nor none. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="AuxiliaryTrafficArea"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>

@@ -47,7 +47,7 @@
 				none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="Appearance"/>
+			<xs:element ref="gml:_Feature"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>

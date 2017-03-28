@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CityGML Version No. 2.0, February 2012 -->
+<!-- CityGML - GML 3.1.1 application schema for 3D city models -->
+<!-- International encoding standard of the Open Geospatial Consortium, see http://www.opengeospatial.org/standards/citygml -->
+<!-- Jointly developed by the Special Interest Group 3D (SIG 3D) of GDI-DE, see http://www.sig3d.org               -->
+<!-- For further information see: http://www.citygml.org -->
+<xs:schema xmlns="http://www.opengis.net/citygml/vegetation/2.0" xmlns:core="http://www.opengis.net/citygml/2.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml"
+	targetNamespace="http://www.opengis.net/citygml/vegetation/2.0" elementFormDefault="qualified"
+	attributeFormDefault="unqualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation>
+	CityGML is an OGC Standard.
+	Copyright (c) 2012 Open Geospatial Consortium.
+	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../GML/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="cityGMLBase.xsd"/>
+	<!-- ========================================================================================= -->
+	<!-- ==============================CityGML Vegetation module ===================================== -->
+	<!-- ========================================================================================= -->
+	<xs:complexType name="AbstractVegetationObjectType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Type describing the abstract superclass for vegetation objects. A subclass is either a
+				SolitaryVegetationObject or a PlantCover. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AbstractCityObjectType">
+				<xs:sequence>
+					<xs:element ref="_GenericApplicationPropertyOfVegetationObject" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="_VegetationObject" type="AbstractVegetationObjectType" abstract="true" substitutionGroup="core:_CityObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfVegetationObject" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="PlantCoverType">
+		<xs:annotation>
+			<xs:documentation>Type describing Plant Covers resp. Biotopes. As subclass of _CityObject, a VegetationObject inherits all
+				attributes and relations, in particular an id, names, external references, and generalization relations.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractVegetationObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="averageHeight" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+					<xs:element name="lod1MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod2MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod3MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+					<xs:element name="lod4MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+					<xs:element ref="_GenericApplicationPropertyOfPlantCover" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="PlantCover" type="PlantCoverType" substitutionGroup="_VegetationObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfPlantCover" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+	<xs:complexType name="SolitaryVegetationObjectType">
+		<xs:annotation>
+			<xs:documentation>Type describing solitary vegetation objects, e.g., trees. Its geometry is either defined explicitly by a
+				GML 3 geometry with absolute coordinates, or in the case of multiple occurences of the same vegetation object, implicitly
+				by a reference to a shape definition and a transformation. The shape definition may be given in an external file. As
+				subclass of _CityObject, a SolitaryVegetationObject inherits all attributes and relations, in particular an id, names,
+				external references, and generalization relations. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AbstractVegetationObjectType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="species" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="height" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="trunkDiameter" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="crownDiameter" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					<xs:element name="lod1ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod2ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+					<xs:element ref="_GenericApplicationPropertyOfSolitaryVegetationObject" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ========================================================================================= -->
+	<xs:element name="SolitaryVegetationObject" type="SolitaryVegetationObjectType" substitutionGroup="_VegetationObject"/>
+	<!-- ========================================================================================= -->
+	<xs:element name="_GenericApplicationPropertyOfSolitaryVegetationObject" type="xs:anyType" abstract="true"/>
+	<!-- ========================================================================================= -->
+</xs:schema>

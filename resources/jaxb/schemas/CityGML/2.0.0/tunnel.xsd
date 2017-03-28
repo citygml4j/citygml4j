@@ -105,7 +105,7 @@
 				none.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="TunnelPart"/>
+			<xs:element ref="_AbstractTunnel"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -147,7 +147,7 @@
 				both nor none. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="TunnelInstallation"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -185,7 +185,7 @@
 				but neither both nor none. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="IntTunnelInstallation"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -422,7 +422,7 @@
 				none. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="HollowSpace"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
@@ -456,7 +456,7 @@
 			<xs:documentation>Denotes the relation of a hollow space to the furnitures it contains. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0">
-			<xs:element ref="TunnelFurniture"/>
+			<xs:element ref="core:_CityObject"/>
 			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
