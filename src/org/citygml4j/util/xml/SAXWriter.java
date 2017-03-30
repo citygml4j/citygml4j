@@ -360,14 +360,7 @@ public class SAXWriter extends XMLFilterImpl {
 
 	@Override
 	public void endDocument() throws SAXException {
-		try {
-			if (depth == 0) {
-				writeIndent();
-				flush();
-			}
-		} catch (SAXException e) {
-			throw new SAXException(e);
-		}
+		// nothing to do
 	}
 
 	@Override
