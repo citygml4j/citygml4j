@@ -67,7 +67,8 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 
 	@Override
 	public void endDocument() throws SAXException {
-		writer.endDocument();
+		if (shouldWrite && mode == WriteMode.TAIL)
+			writer.endDocument();
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 
 	@Override
 	public void startDocument() throws SAXException {
-		if (shouldWrite)
+		if (shouldWrite && mode == WriteMode.HEAD)
 			writer.startDocument();
 	}
 
