@@ -21,16 +21,17 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
-import net.opengis.gml.CodeType;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
+import net.opengis.gml.CodeType;
 
 public class CityFurniture200Unmarshaller {
 	private final CityFurnitureModule module = CityFurnitureModule.v2_0_0;
@@ -109,6 +110,14 @@ public class CityFurniture200Unmarshaller {
 
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
+		
+		if (src.isSet_GenericApplicationPropertyOfCityFurniture()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityFurniture()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfCityFurniture(ade);
+			}
+		}
 	}
 
 	public CityFurniture unmarshalCityFurniture(CityFurnitureType src) throws MissingADESchemaException {
@@ -118,7 +127,7 @@ public class CityFurniture200Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

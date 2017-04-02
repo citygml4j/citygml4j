@@ -23,6 +23,7 @@ import java.util.Date;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -58,9 +59,9 @@ public class CityGML_v040_Reader {
 			@Override
 			public void visit(AbstractFeature abstractFeature) {
 				if (abstractFeature instanceof CityGML) {
-					CityGML citygml = (CityGML)abstractFeature;
-					System.out.println("Found: " + citygml.getCityGMLClass() + " version " 
-							+ citygml.getCityGMLModule().getVersion());
+					CityGMLModuleComponent component = (CityGMLModuleComponent)abstractFeature;
+					System.out.println("Found " + component.getCityGMLClass() + " version "+
+							component.getCityGMLModule().getVersion());
 				}
 				
 				super.visit(abstractFeature);

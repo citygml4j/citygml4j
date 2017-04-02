@@ -22,13 +22,14 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public abstract class AbstractTextureParameterization extends AbstractGML implements AppearanceModuleComponent {
-	private List<ADEComponent> genericADEComponent;
+	private List<ADEGenericElement> genericADEElement;
 	private List<ADEComponent> ade;
 	private AppearanceModule module;
 	
@@ -40,11 +41,11 @@ public abstract class AbstractTextureParameterization extends AbstractGML implem
 		this.module = module;
 	}
 	
-	public void addGenericADEComponent(ADEComponent genericADEComponent) {
-		if (this.genericADEComponent == null)
-			this.genericADEComponent = new ChildList<ADEComponent>(this);
+	public void addGenericADEElement(ADEGenericElement genericADEElement) {
+		if (this.genericADEElement == null)
+			this.genericADEElement = new ChildList<ADEGenericElement>(this);
 		
-		this.genericADEComponent.add(genericADEComponent);
+		this.genericADEElement.add(genericADEElement);
 	}
 	
 	public void addGenericApplicationPropertyOfTextureParameterization(ADEComponent ade) {
@@ -54,11 +55,11 @@ public abstract class AbstractTextureParameterization extends AbstractGML implem
 		this.ade.add(ade);
 	}
 
-	public List<ADEComponent> getGenericADEComponent() {
-		if (genericADEComponent == null)
-			genericADEComponent = new ChildList<ADEComponent>(this);
+	public List<ADEGenericElement> getGenericADEElement() {
+		if (genericADEElement == null)
+			genericADEElement = new ChildList<ADEGenericElement>(this);
 		
-		return genericADEComponent;
+		return genericADEElement;
 	}
 	
 	public List<ADEComponent> getGenericApplicationPropertyOfTextureParameterization() {
@@ -69,30 +70,30 @@ public abstract class AbstractTextureParameterization extends AbstractGML implem
 	}
 
 	public boolean isSetGenericADEComponent() {
-		return genericADEComponent != null && !genericADEComponent.isEmpty();
+		return genericADEElement != null && !genericADEElement.isEmpty();
 	}
 	
 	public boolean isSetGenericApplicationPropertyOfTextureParameterization() {
 		return ade != null && !ade.isEmpty();
 	}
 
-	public void setGenericADEComponent(List<ADEComponent> genericADEComponent) {
-		this.genericADEComponent = new ChildList<ADEComponent>(this, genericADEComponent);
+	public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
+		this.genericADEElement = new ChildList<ADEGenericElement>(this, genericADEElement);
 	}
 	
 	public void setGenericApplicationPropertyOfTextureParameterization(List<ADEComponent> ade) {
 		this.ade = new ChildList<ADEComponent>(this, ade);
 	}
 
-	public void unsetGenericADEComponent() {
+	public void unsetGenericADEElement() {
 		if (isSetGenericADEComponent())
-			genericADEComponent.clear();
+			genericADEElement.clear();
 		
-		genericADEComponent = null;
+		genericADEElement = null;
 	}
 
-	public boolean unsetGenericADEComponent(ADEComponent genericADEComponent) {
-		return isSetGenericADEComponent() ? this.genericADEComponent.remove(genericADEComponent) : false;
+	public boolean unsetGenericADEElement(ADEComponent genericADEElement) {
+		return isSetGenericADEComponent() ? this.genericADEElement.remove(genericADEElement) : false;
 	}
 	
 	public void unsetGenericApplicationPropertyOfTextureParameterization() {
@@ -126,6 +127,16 @@ public abstract class AbstractTextureParameterization extends AbstractGML implem
 
 		AbstractTextureParameterization copy = (AbstractTextureParameterization)target;
 		super.copyTo(copy, copyBuilder);
+		
+		if (isSetGenericADEComponent()) {
+			for (ADEGenericElement part : genericADEElement) {
+				ADEGenericElement copyPart = (ADEGenericElement)copyBuilder.copy(part);
+				copy.addGenericADEElement(copyPart);
+				
+				if (part != null && copyPart == part)
+					part.setParent(this);
+			}
+		}
 		
 		if (isSetGenericApplicationPropertyOfTextureParameterization()) {
 			for (ADEComponent part : ade) {

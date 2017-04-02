@@ -112,70 +112,46 @@ public class Generics200Unmarshaller {
 			dest.setLod0Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod0Geometry()));
 
 		if (src.isSetLod1Geometry())
-			dest.setLod1Geometry(jaxb.getGMLUnmarshaller()
-					.unmarshalGeometryProperty(src.getLod1Geometry()));
+			dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
 
 		if (src.isSetLod2Geometry())
-			dest.setLod2Geometry(jaxb.getGMLUnmarshaller()
-					.unmarshalGeometryProperty(src.getLod2Geometry()));
+			dest.setLod2Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod2Geometry()));
 
 		if (src.isSetLod3Geometry())
-			dest.setLod3Geometry(jaxb.getGMLUnmarshaller()
-					.unmarshalGeometryProperty(src.getLod3Geometry()));
+			dest.setLod3Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod3Geometry()));
 
 		if (src.isSetLod4Geometry())
-			dest.setLod4Geometry(jaxb.getGMLUnmarshaller()
-					.unmarshalGeometryProperty(src.getLod4Geometry()));
+			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
 
 		if (src.isSetLod0ImplicitRepresentation())
-			dest.setLod0ImplicitRepresentation(citygml.getCore200Unmarshaller()
-					.unmarshalImplicitRepresentationProperty(
-							src.getLod0ImplicitRepresentation()));
+			dest.setLod0ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod0ImplicitRepresentation()));
 
 		if (src.isSetLod1ImplicitRepresentation())
-			dest.setLod1ImplicitRepresentation(citygml.getCore200Unmarshaller()
-					.unmarshalImplicitRepresentationProperty(
-							src.getLod1ImplicitRepresentation()));
+			dest.setLod1ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
 
 		if (src.isSetLod2ImplicitRepresentation())
-			dest.setLod2ImplicitRepresentation(citygml.getCore200Unmarshaller()
-					.unmarshalImplicitRepresentationProperty(
-							src.getLod2ImplicitRepresentation()));
+			dest.setLod2ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
 
 		if (src.isSetLod3ImplicitRepresentation())
-			dest.setLod3ImplicitRepresentation(citygml.getCore200Unmarshaller()
-					.unmarshalImplicitRepresentationProperty(
-							src.getLod3ImplicitRepresentation()));
+			dest.setLod3ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
 
 		if (src.isSetLod4ImplicitRepresentation())
-			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller()
-					.unmarshalImplicitRepresentationProperty(
-							src.getLod4ImplicitRepresentation()));
+			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 
 		if (src.isSetLod0TerrainIntersection())
-			dest.setLod0TerrainIntersection(jaxb.getGMLUnmarshaller()
-					.unmarshalMultiCurveProperty(
-							src.getLod0TerrainIntersection()));
+			dest.setLod0TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod0TerrainIntersection()));
 
 		if (src.isSetLod1TerrainIntersection())
-			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller()
-					.unmarshalMultiCurveProperty(
-							src.getLod1TerrainIntersection()));
+			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
 
 		if (src.isSetLod2TerrainIntersection())
-			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller()
-					.unmarshalMultiCurveProperty(
-							src.getLod2TerrainIntersection()));
+			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
 
 		if (src.isSetLod3TerrainIntersection())
-			dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller()
-					.unmarshalMultiCurveProperty(
-							src.getLod3TerrainIntersection()));
+			dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3TerrainIntersection()));
 
 		if (src.isSetLod4TerrainIntersection())
-			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller()
-					.unmarshalMultiCurveProperty(
-							src.getLod4TerrainIntersection()));
+			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 	}
 
 	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src) throws MissingADESchemaException {

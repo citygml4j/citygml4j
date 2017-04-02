@@ -21,6 +21,28 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.transportation;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
+import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
+import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
+import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
+import org.citygml4j.model.citygml.transportation.Railway;
+import org.citygml4j.model.citygml.transportation.Road;
+import org.citygml4j.model.citygml.transportation.Square;
+import org.citygml4j.model.citygml.transportation.Track;
+import org.citygml4j.model.citygml.transportation.TrafficArea;
+import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
+import org.citygml4j.model.citygml.transportation.TransportationComplex;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.xlink.XLinkActuate;
+import org.citygml4j.model.gml.xlink.XLinkShow;
+import org.citygml4j.model.gml.xlink.XLinkType;
+import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
 import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
 import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
 import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
@@ -33,26 +55,6 @@ import net.opengis.citygml.transportation._2.TrafficAreaType;
 import net.opengis.citygml.transportation._2.TransportationComplexType;
 import net.opengis.gml.CodeType;
 import net.opengis.gml.GeometricComplexPropertyType;
-
-import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
-import org.citygml4j.model.citygml.transportation.Railway;
-import org.citygml4j.model.citygml.transportation.Road;
-import org.citygml4j.model.citygml.transportation.Square;
-import org.citygml4j.model.citygml.transportation.Track;
-import org.citygml4j.model.citygml.transportation.TrafficArea;
-import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
-import org.citygml4j.model.citygml.transportation.TransportationComplex;
-import org.citygml4j.model.gml.xlink.XLinkActuate;
-import org.citygml4j.model.gml.xlink.XLinkShow;
-import org.citygml4j.model.gml.xlink.XLinkType;
-import org.citygml4j.model.module.citygml.TransportationModule;
-import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class Transportation200Unmarshaller {
 	private final TransportationModule module = TransportationModule.v2_0_0;
@@ -98,6 +100,14 @@ public class Transportation200Unmarshaller {
 	
 	public void unmarshalAbstractTransportationObject(AbstractTransportationObjectType src, AbstractTransportationObject dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfTransportationObject()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTransportationObject()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTransportationObject(ade);
+			}
+		}
 	}
 	
 	public void unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src, AuxiliaryTrafficArea dest) throws MissingADESchemaException {
@@ -126,7 +136,15 @@ public class Transportation200Unmarshaller {
 			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
 		
 		if (src.isSetLod4MultiSurface())
-			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));	
+			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
+		if (src.isSet_GenericApplicationPropertyOfAuxiliaryTrafficArea()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAuxiliaryTrafficArea()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfAuxiliaryTrafficArea(ade);
+			}
+		}
 	}
 	
 	public AuxiliaryTrafficArea unmarshalAuxiliaryTrafficArea(AuxiliaryTrafficAreaType src) throws MissingADESchemaException {
@@ -139,11 +157,14 @@ public class Transportation200Unmarshaller {
 	public AuxiliaryTrafficAreaProperty unmarshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaPropertyType src) throws MissingADESchemaException {
 		AuxiliaryTrafficAreaProperty dest = new AuxiliaryTrafficAreaProperty(module);
 
-		if (src.isSetAuxiliaryTrafficArea())
-			dest.setAuxiliaryTrafficArea(unmarshalAuxiliaryTrafficArea(src.getAuxiliaryTrafficArea()));
+		if (src.isSet_CityObject()) {
+			ModelObject object = jaxb.unmarshal(src.get_CityObject());
+			if (object instanceof AuxiliaryTrafficArea)
+				dest.setAuxiliaryTrafficArea((AuxiliaryTrafficArea)object);
+		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -174,6 +195,14 @@ public class Transportation200Unmarshaller {
 	
 	public void unmarshalRailway(RailwayType src, Railway dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfRailway()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRailway()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfRailway(ade);
+			}
+		}
 	}
 	
 	public Railway unmarshalRailway(RailwayType src) throws MissingADESchemaException {
@@ -185,6 +214,14 @@ public class Transportation200Unmarshaller {
 	
 	public void unmarshalRoad(RoadType src, Road dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfRoad()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRoad()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfRoad(ade);
+			}
+		}
 	}
 	
 	public Road unmarshalRoad(RoadType src) throws MissingADESchemaException {
@@ -196,6 +233,14 @@ public class Transportation200Unmarshaller {
 	
 	public void unmarshalSquare(SquareType src, Square dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfSquare()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSquare()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfSquare(ade);
+			}
+		}
 	}
 	
 	public Square unmarshalSquare(SquareType src) throws MissingADESchemaException {
@@ -207,6 +252,14 @@ public class Transportation200Unmarshaller {
 	
 	public void unmarshalTrack(TrackType src, Track dest) throws MissingADESchemaException {
 		unmarshalTransportationComplex(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfTrack()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTrack()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTrack(ade);
+			}
+		}
 	}
 	
 	public Track unmarshalTrack(TrackType src) throws MissingADESchemaException {
@@ -242,7 +295,15 @@ public class Transportation200Unmarshaller {
 			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
 		
 		if (src.isSetLod4MultiSurface())
-			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));	
+			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
+		if (src.isSet_GenericApplicationPropertyOfTrafficArea()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTrafficArea()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTrafficArea(ade);
+			}
+		}
 	}
 	
 	public TrafficArea unmarshalTrafficArea(TrafficAreaType src) throws MissingADESchemaException {
@@ -255,11 +316,14 @@ public class Transportation200Unmarshaller {
 	public TrafficAreaProperty unmarshalTrafficAreaProperty(TrafficAreaPropertyType src) throws MissingADESchemaException {
 		TrafficAreaProperty dest = new TrafficAreaProperty(module);
 
-		if (src.isSetTrafficArea())
-			dest.setTrafficArea(unmarshalTrafficArea(src.getTrafficArea()));
+		if (src.isSet_CityObject()) {
+			ModelObject object = jaxb.unmarshal(src.get_CityObject());
+			if (object instanceof TrafficArea)
+				dest.setTrafficArea((TrafficArea)object);
+		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -330,6 +394,14 @@ public class Transportation200Unmarshaller {
 		
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
+		if (src.isSet_GenericApplicationPropertyOfTransportationComplex()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTransportationComplex()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTransportationComplex(ade);
+			}
+		}
 	}
 	
 	public TransportationComplex unmarshalTransportationComplex(TransportationComplexType src) throws MissingADESchemaException {
@@ -339,7 +411,7 @@ public class Transportation200Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

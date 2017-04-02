@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -91,16 +93,22 @@ public class JAXBContextPath {
 
 		return createContextPath(contextPaths);
 	}
-	
-	public static String getContextPath(String... packageNames) {
+
+	public static String getContextPath(Collection<String> packageNames) {
 		StringBuilder builder = new StringBuilder(getContextPath());
-		
-		for (String contextPath : packageNames) {
-			builder.append(":");
-			builder.append(contextPath);
+
+		if (packageNames != null) {
+			for (String contextPath : packageNames) {
+				builder.append(":");
+				builder.append(contextPath);
+			}
 		}
 		
 		return builder.toString();	
+	}
+	
+	public static String getContextPath(String... packageNames) {
+		return getContextPath(Arrays.asList(packageNames));
 	}
 
 	private static String createContextPath(HashSet<String> contextPaths) {

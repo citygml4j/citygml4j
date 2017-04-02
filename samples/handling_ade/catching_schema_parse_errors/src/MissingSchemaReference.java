@@ -23,7 +23,7 @@ import java.util.Date;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -32,7 +32,6 @@ import org.citygml4j.xml.schema.SchemaHandler;
 
 import util.SchemaEntityResolver;
 import util.SchemaParseErrorHandler;
-
 
 public class MissingSchemaReference {
 

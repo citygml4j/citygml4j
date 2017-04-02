@@ -385,8 +385,8 @@ public class Tunnel200Marshaller {
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -566,14 +566,18 @@ public class Tunnel200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public InteriorFurniturePropertyType marshalInteriorFurnitureProperty(InteriorFurnitureProperty src) {
 		InteriorFurniturePropertyType dest = tun.createInteriorFurniturePropertyType();
 
-		if (src.isSetTunnelFurniture())
-			dest.setTunnelFurniture(marshalTunnelFurniture(src.getTunnelFurniture()));
+		if (src.isSetTunnelFurniture()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getTunnelFurniture());
+			if (elem != null && elem.getValue() instanceof TunnelFurnitureType)
+				dest.set_CityObject((JAXBElement<? extends TunnelFurnitureType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -605,14 +609,18 @@ public class Tunnel200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public InteriorHollowSpacePropertyType marshalInteriorHollowSpaceProperty(InteriorHollowSpaceProperty src) {
 		InteriorHollowSpacePropertyType dest = tun.createInteriorHollowSpacePropertyType();
 
-		if (src.isSetHollowSpace())
-			dest.setHollowSpace(marshalHollowSpace(src.getHollowSpace()));
+		if (src.isSetHollowSpace()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getHollowSpace());
+			if (elem != null && elem.getValue() instanceof HollowSpaceType)
+				dest.set_CityObject((JAXBElement<? extends HollowSpaceType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -706,14 +714,18 @@ public class Tunnel200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public IntTunnelInstallationPropertyType marshalIntTunnelInstallationProperty(IntTunnelInstallationProperty src) {
 		IntTunnelInstallationPropertyType dest = tun.createIntTunnelInstallationPropertyType();
 
-		if (src.isSetIntTunnelInstallation())
-			dest.setIntTunnelInstallation(marshalIntTunnelInstallation(src.getIntTunnelInstallation()));
+		if (src.isSetIntTunnelInstallation()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getIntTunnelInstallation());
+			if (elem != null && elem.getValue() instanceof IntTunnelInstallationType)
+				dest.set_CityObject((JAXBElement<? extends IntTunnelInstallationType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -755,8 +767,8 @@ public class Tunnel200Marshaller {
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -958,14 +970,18 @@ public class Tunnel200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public TunnelInstallationPropertyType marshalTunnelInstallationProperty(TunnelInstallationProperty src) {
 		TunnelInstallationPropertyType dest = tun.createTunnelInstallationPropertyType();
 
-		if (src.isSetTunnelInstallation())
-			dest.setTunnelInstallation(marshalTunnelInstallation(src.getTunnelInstallation()));
+		if (src.isSetTunnelInstallation()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getTunnelInstallation());
+			if (elem != null && elem.getValue() instanceof TunnelInstallationType)
+				dest.set_CityObject((JAXBElement<? extends TunnelInstallationType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -1016,14 +1032,18 @@ public class Tunnel200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public TunnelPartPropertyType marshalTunnelPartProperty(TunnelPartProperty src) {
 		TunnelPartPropertyType dest = tun.createTunnelPartPropertyType();
 
-		if (src.isSetTunnelPart())
-			dest.setTunnelPart(marshalTunnelPart(src.getTunnelPart()));
+		if (src.isSetTunnelPart()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getTunnelPart());
+			if (elem != null && elem.getValue() instanceof TunnelPartType)
+				dest.set_AbstractTunnel((JAXBElement<? extends TunnelPartType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

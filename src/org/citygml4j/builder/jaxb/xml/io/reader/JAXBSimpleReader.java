@@ -35,7 +35,6 @@ import javax.xml.transform.sax.SAXResult;
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.util.internal.xml.TransformerChain;
 import org.citygml4j.util.xml.SAXEventBuffer;
@@ -82,7 +81,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 					elementInfo = elementChecker.getCityGMLFeature(reader.getName(), isFilteredReader());
 					if (elementInfo != null && elementInfo.isFeature()) {
 
-						if (!isFilteredReader() || filter.accept(elementInfo.getType())) {
+						if (!isFilteredReader() || filter.accept(reader.getName())) {
 							iterator = true;
 							break;
 						}
@@ -166,7 +165,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 
 				if (result instanceof JAXBElement<?>) {
 					ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
-					if (citygml.getModelType() == ModelType.CITYGML && citygml instanceof AbstractFeature)
+					if (citygml instanceof AbstractFeature)
 						next = (CityGML)citygml;
 				}
 			} catch (JAXBException e) {

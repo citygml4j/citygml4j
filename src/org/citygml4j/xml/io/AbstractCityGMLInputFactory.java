@@ -21,9 +21,7 @@ package org.citygml4j.xml.io;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
@@ -31,11 +29,9 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.internal.xml.TransformerChainFactory;
-import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -50,7 +46,7 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 	protected TransformerChainFactory transformerChainFactory;
 
 	protected FeatureReadMode featureReadMode;
-	protected Set<Class<? extends CityGML>> excludes;
+	protected List<QName> excludes;
 	protected List<QName> splitAtFeatureProperties;
 	protected boolean keepInlineAppearance;
 	protected boolean parseSchema;
@@ -58,28 +54,16 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 	protected boolean failOnMissingADESchema;
 	protected boolean supportCityGML040;
 
-	public AbstractCityGMLInputFactory() throws CityGMLReadException {
-		try {
-			schemaHandler = SchemaHandler.newInstance();
-			init();
-		} catch (SAXException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
-	}
-
 	public AbstractCityGMLInputFactory(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
-		init();
-	}
 
-	private void init() {
 		xmlInputFactory = XMLInputFactory.newInstance();
 		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
 
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 		validationEventHandler = null;
 		featureReadMode = FeatureReadMode.NO_SPLIT;
-		excludes = new HashSet<Class<? extends CityGML>>();
+		excludes = new ArrayList<QName>();
 		splitAtFeatureProperties = new ArrayList<QName>();
 		keepInlineAppearance = true;
 		parseSchema = true;
@@ -178,7 +162,6 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setProperty(String name, Object value) {
 		if (name == null)
 			throw new IllegalArgumentException("name may not be null.");
@@ -213,32 +196,28 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		}
 
 		if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING)) {
-			if (value instanceof Class<?>) {
-				if (isSubclassOfCityGML((Class<?>)value))
-					excludes.add((Class<? extends CityGML>)value);
-				else
-					throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
-				
+			if (value instanceof QName){
+				excludes.add((QName)value);
 				return;
-			}
+			} 
 
 			else if (value instanceof Collection<?>) {
 				for (Object o : (Collection<?>)value) {
-					if (isSubclassOfCityGML((Class<?>)o))
-						excludes.add((Class<? extends CityGML>)o);
+					if (o instanceof QName)
+						excludes.add((QName)o);
 					else
-						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+						throw new IllegalArgumentException("exclude must be of type java.xml.namespace.QName.");
 				}
 				
 				return;
 			}
 
-			else if (value instanceof Class<?>[]) {
-				for (Object o : (Class<?>[])value) {
-					if (isSubclassOfCityGML((Class<?>)o))
-						excludes.add((Class<? extends CityGML>)o);
+			else if (value instanceof Object[]) {
+				for (Object o : (Object[])value) {
+					if (o instanceof QName)
+						excludes.add((QName)o);
 					else
-						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+						throw new IllegalArgumentException("exclude must be of type java.xml.namespace.QName.");
 				}
 				
 				return;
@@ -261,9 +240,9 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 				
 				return;
 			}
-			
-			else if (value instanceof Class<?>[]) {
-				for (Object o : (Class<?>[])value) {
+
+			else if (value instanceof Object[]) {
+				for (Object o : (Object[])value) {
 					if (o instanceof QName)
 						splitAtFeatureProperties.add((QName)o);
 					else
@@ -307,21 +286,4 @@ public abstract class AbstractCityGMLInputFactory implements CityGMLInputFactory
 		schemaHandler.parseSchema(element);
 	}
 
-	private boolean isSubclassOfCityGML(Class<?> a) {
-		if (a == null)
-			return false;
-		
-		if (a == CityGML.class)
-			return true;
-		
-		for (Class<?> tmp : a.getInterfaces())
-			if (isSubclassOfCityGML(tmp))
-				return true;
-		
-		if (a.getSuperclass() != Object.class)
-			return isSubclassOfCityGML(a.getSuperclass());
-		
-		return false;
-	}
-	
 }

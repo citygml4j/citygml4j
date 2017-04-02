@@ -18,6 +18,9 @@
  */
 package org.citygml4j.xml.io.writer;
 
+import java.util.List;
+
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
@@ -50,11 +53,13 @@ public interface AbstractCityGMLWriter {
 	public void setPrefix(Module module);
 	public void setPrefixes(CityGMLVersion version);
 	public void setPrefixes(ModuleContext moduleContext);
+	public void setPrefixes(List<ADEContext> adeContexts);
 	public void setDefaultNamespace(String uri);
 	public void setDefaultNamespace(Module module);
 	public void setSchemaLocation(String namespaceURI, String schemaLocation);
 	public void setSchemaLocation(Module module);
 	public void setSchemaLocations(CityGMLVersion version);
 	public void setSchemaLocations(ModuleContext moduleContext);
+	public void setSchemaLocations(List<ADEContext> adeContexts);
 	public void setModuleContext(ModuleContext moduleContext);
 }

@@ -26,7 +26,7 @@ import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.transportation.Railway;
 import org.citygml4j.xml.io.CityGMLInputFactory;

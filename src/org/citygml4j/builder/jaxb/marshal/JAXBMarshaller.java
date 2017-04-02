@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.marshal;
 
+import java.util.HashMap;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -31,6 +33,8 @@ import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshaller;
 import org.citygml4j.builder.jaxb.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.xal.XALMarshaller;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.ModuleContext;
 import org.w3c.dom.Document;
@@ -47,22 +51,27 @@ public class JAXBMarshaller {
 	private ModuleContext moduleContext;	
 	private Document document;
 
-	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext) {
+	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext, HashMap<String, ADEContext> adeContexts) {
 		this.jaxbBuilder = jaxbBuilder;
 		this.moduleContext = moduleContext;
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this);
 		xal = new XALMarshaller();
-		ade = new ADEMarshaller();
+		ade = new ADEMarshaller(this, adeContexts);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = citygml.marshalJAXBElement(src);		
-		if (dest == null)
-			dest = gml.marshalJAXBElement(src);
-		if (dest == null)
-			dest = xal.marshalJAXBElement(src);
+		JAXBElement<?> dest = null;
+		if (src instanceof ADEModelObject)
+			dest = ade.marshalJAXBElement((ADEModelObject)src);
+		else {
+			dest = citygml.marshalJAXBElement(src);		
+			if (dest == null)
+				dest = gml.marshalJAXBElement(src);
+			if (dest == null)
+				dest = xal.marshalJAXBElement(src);
+		}
 
 		return dest;
 	}
@@ -136,12 +145,17 @@ public class JAXBMarshaller {
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = citygml.marshal(src);		
-		if (dest == null)
-			dest = gml.marshal(src);
-		if (dest == null)
-			dest = xal.marshal(src);
-
+		Object dest = null;
+		if (src instanceof ADEModelObject)
+			dest = ade.marshal((ADEModelObject)src);
+		else {
+			dest = citygml.marshal(src);		
+			if (dest == null)
+				dest = gml.marshal(src);
+			if (dest == null)
+				dest = xal.marshal(src);			
+		}
+		
 		return dest;
 	}
 

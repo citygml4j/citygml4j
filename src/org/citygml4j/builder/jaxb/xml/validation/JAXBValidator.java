@@ -31,7 +31,7 @@ import javax.xml.validation.Schema;
 
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -47,16 +47,6 @@ public class JAXBValidator implements Validator {
 	private final JAXBBuilder builder;
 	private ValidationSchemaHandler validationSchemaHandler;
 	private ValidationEventHandler validationEventHandler;
-
-	public JAXBValidator(JAXBBuilder builder) throws CityGMLValidateException {
-		this.builder = builder;
-
-		try {
-			validationSchemaHandler = new ValidationSchemaHandler(SchemaHandler.newInstance());
-		} catch (SAXException e) {
-			throw new CityGMLValidateException("Caused by: ", e);
-		}		
-	}
 
 	public JAXBValidator(JAXBBuilder builder, SchemaHandler schemaHandler) {
 		this.builder = builder;

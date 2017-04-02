@@ -18,15 +18,21 @@
  */
 package org.citygml4j.builder.jaxb;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 
 import org.citygml4j.builder.CityGMLBuilder;
+import org.citygml4j.builder.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.io.reader.JAXBInputFactory;
 import org.citygml4j.builder.jaxb.xml.io.writer.JAXBOutputFactory;
 import org.citygml4j.builder.jaxb.xml.validation.JAXBValidator;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -34,47 +40,49 @@ import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
-import org.citygml4j.xml.validation.CityGMLValidateException;
 import org.citygml4j.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
 public class JAXBBuilder implements CityGMLBuilder {
 	private final JAXBContext context;
-	
-	public JAXBBuilder() throws JAXBException {
-		this(Thread.currentThread().getContextClassLoader());
-	}
-	
-	public JAXBBuilder(ClassLoader classLoader) throws JAXBException {
-		context = JAXBContext.newInstance(JAXBContextPath.getContextPath(), classLoader);
-	}
-	
-	public JAXBBuilder(String... packageNames) throws JAXBException {
-		this(Thread.currentThread().getContextClassLoader(), JAXBContextPath.getContextPath(packageNames));
-	}
-	
-	public JAXBBuilder(ClassLoader classLoader, String... packageNames) throws JAXBException {
-		context = JAXBContext.newInstance(JAXBContextPath.getContextPath(packageNames), classLoader);
+	private final HashMap<String, ADEContext> adeContexts;
+	private SchemaHandler schemaHandler;
+
+	protected JAXBBuilder(JAXBContext context, HashMap<String, ADEContext> adeContexts) {
+		this.context = context;
+		this.adeContexts = adeContexts;
 	}
 
 	public JAXBContext getJAXBContext() {
 		return context;
 	}
+
+	public boolean isSetADEContexts() {
+		return !adeContexts.isEmpty();
+	}
+	
+	public List<ADEContext> getADEContexts() {
+		return new ArrayList<>(adeContexts.values());
+	}
+
+	public ADEContext getADEContext(String namespaceURI) {
+		return adeContexts.get(namespaceURI);
+	}
 	
 	public JAXBUnmarshaller createJAXBUnmarshaller(SchemaHandler schemaHandler) {
-		return new JAXBUnmarshaller(this, schemaHandler);
+		return new JAXBUnmarshaller(this, schemaHandler, adeContexts);
 	}
 	
 	public JAXBUnmarshaller createJAXBUnmarshaller() throws SAXException {
-		return createJAXBUnmarshaller(SchemaHandler.newInstance());
+		return createJAXBUnmarshaller(schemaHandler);
 	}
 	
 	public JAXBMarshaller createJAXBMarshaller(ModuleContext moduleContext) {
-		return new JAXBMarshaller(this, moduleContext);
+		return new JAXBMarshaller(this, moduleContext, adeContexts);
 	}
 	
 	public JAXBMarshaller createJAXBMarshaller(CityGMLVersion version) {
-		return new JAXBMarshaller(this, new ModuleContext(version));
+		return new JAXBMarshaller(this, new ModuleContext(version), adeContexts);
 	}
 	
 	public JAXBMarshaller createJAXBMarshaller() {
@@ -82,9 +90,13 @@ public class JAXBBuilder implements CityGMLBuilder {
 	}
 	
 	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException {
-		return new JAXBInputFactory(this);
+		try {
+			return new JAXBInputFactory(this);
+		} catch (CityGMLBuilderException e) {
+			throw new CityGMLReadException("Caused by: ", e);
+		}
 	}
-	
+
 	public CityGMLInputFactory createCityGMLInputFactory(SchemaHandler schemaHandler) {
 		return new JAXBInputFactory(this, schemaHandler);
 	}
@@ -112,13 +124,29 @@ public class JAXBBuilder implements CityGMLBuilder {
 	public CityGMLOutputFactory createCityGMLOutputFactory(SchemaHandler schemaHandler) {
 		return new JAXBOutputFactory(this, schemaHandler);
 	}
-	
-	public Validator createValidator() throws CityGMLValidateException {
-		return new JAXBValidator(this);
+
+	public Validator createValidator() throws CityGMLBuilderException {
+		return new JAXBValidator(this, getDefaultSchemaHandler());
 	}
 	
 	public Validator createValidator(SchemaHandler schemaHandler) {
 		return new JAXBValidator(this, schemaHandler);
 	}
-	
+
+	public synchronized SchemaHandler getDefaultSchemaHandler() throws CityGMLBuilderException {
+		if (schemaHandler == null) {
+			try {
+				schemaHandler = SchemaHandler.newInstance();
+				for (ADEContext adeContext : adeContexts.values()) {
+					URL resource = adeContext.getSchemaResource();
+					if (resource != null)
+						schemaHandler.parseSchema(adeContext.getADEModule().getNamespaceURI(), resource.toString());
+				}
+			} catch (SAXException e) {
+				throw new CityGMLBuilderException("Failed to build default schema handler.", e);
+			}
+		}
+
+		return schemaHandler;
+	}
 }

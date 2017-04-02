@@ -25,11 +25,27 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
 
 public class DeepCopyBuilder extends CopyBuilder {
 	private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
+	private ModelObject target;
+
+	public ModelObject getTarget() {
+		return target;
+	}
 	
+	public void setTarget(ModelObject target) {
+		this.target = target;
+	}
+	
+	public void unsetTarget() {
+		target = null;
+	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object copy(final Object target) {
@@ -43,6 +59,8 @@ public class DeepCopyBuilder extends CopyBuilder {
 		
 		if (copy != null)
 			return copy;
+		else if (target instanceof ChildList)
+			copy = copy((ChildList)target);
 		else if (target instanceof Collection)
 			copy = copy((Collection)target);
 		else if (target instanceof Map)
@@ -54,6 +72,20 @@ public class DeepCopyBuilder extends CopyBuilder {
 		
 		if (copy != null)
 			visited.put(target, copy);
+		
+		return copy;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Object copy(ChildList childList) {
+		if (target == null)
+			return copy((Collection)childList);
+		
+		final ChildList copy = new ChildList(target);
+		for (final Object item : childList) {
+			final Object copyItem = copy(item);
+			copy.add((Child)copyItem);
+		}
 		
 		return copy;
 	}

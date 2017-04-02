@@ -45,13 +45,11 @@ public class SimpleReader {
 		
 		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();
-			
-			System.out.println("Found " + citygml.getCityGMLClass() + 
-					" version " + citygml.getCityGMLModule().getVersion());
-			
+
 			if (citygml.getCityGMLClass() == CityGMLClass.CITY_MODEL) {
 				CityModel cityModel = (CityModel)citygml;
 
+				System.out.println(df.format(new Date()) + "Found " + citygml.getCityGMLClass() + " version " + cityModel.getCityGMLModule().getVersion());
 				System.out.println(df.format(new Date()) + "going through city model and counting building instances");
 
 				int count = 0;
@@ -61,7 +59,7 @@ public class SimpleReader {
 						count++;
 				}
 
-				System.out.println("The city model contains " + count + " building features");
+				System.out.println(df.format(new Date()) + "The city model contains " + count + " building features");
 			}	
 		}			
 		

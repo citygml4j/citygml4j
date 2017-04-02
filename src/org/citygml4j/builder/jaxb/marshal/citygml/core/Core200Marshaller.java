@@ -244,14 +244,18 @@ public class Core200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public AddressPropertyType marshalAddressProperty(AddressProperty src) {
 		AddressPropertyType dest = core.createAddressPropertyType();
 
-		if (src.isSetAddress())
-			dest.setAddress(marshalAddress(src.getAddress()));
+		if (src.isSetAddress()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getAddress());
+			if (elem != null && elem.getValue() instanceof AddressType)
+				dest.set_Feature((JAXBElement<? extends AddressType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -363,8 +367,8 @@ public class Core200Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

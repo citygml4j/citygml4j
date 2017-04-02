@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.citygml4j.model.module.ade.ADEModule;
+import org.citygml4j.model.module.ade.ADEModuleType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
@@ -166,6 +168,58 @@ public class Modules {
 				xal.add((XALModule)module);
 
 		return xal;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void registerADEModule(ADEModule module) {
+		List<ADEModule> ade = (List<ADEModule>)modules.get(module.getType());
+		if (ade == null) {
+			ade = new ArrayList<>();
+			modules.put(module.getType(), ade);
+		}
+		
+		ade.add(module);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void unregisterADEModule(ADEModule module) {
+		List<ADEModule> ade = (List<ADEModule>)modules.get(module.getType());
+		if (ade != null)
+			ade.remove(module);
+	}
+	
+	public static List<ADEModule> getADEModules() {
+		List<ADEModule> ade = new ArrayList<ADEModule>();
+		for (ModuleType type : modules.keySet())
+			if (type instanceof ADEModuleType)
+				for (Module module : modules.get(type))
+					if (module instanceof ADEModule)
+						ade.add((ADEModule)module);
+
+		return ade;
+	}
+	
+	public static List<ADEModule> getADEModules(ADEModuleType type) {
+		List<ADEModule> ade = new ArrayList<ADEModule>();
+		for (Module module : modules.get(type))
+			if (module instanceof ADEModule)
+				ade.add((ADEModule)module);
+
+		return ade;
+	}
+	
+	public static ADEModule getADEModule(String namespaceURI) {
+		Module module = getModule(namespaceURI);
+		return (module instanceof ADEModule) ? (ADEModule)module : null;
+	}
+	
+	public static boolean isCityGMLModuleNamespace(String namespaceURI) {
+		return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
+	}
+	
+	public static boolean isModuleNamespace(String namespaceURI, ModuleType type) {
+		Module module = Modules.getModule(namespaceURI);
+		return module != null && module.getType() == type;
 	}
 
 }

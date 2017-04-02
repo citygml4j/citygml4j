@@ -22,7 +22,7 @@ import java.util.Date;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
@@ -53,10 +53,10 @@ public class UpgradeConverter {
 
 			@Override
 			public void visit(AbstractFeature abstractFeature) {
-				if (abstractFeature instanceof CityGML) {
-					CityGML cityGML = (CityGML)abstractFeature;
-					System.out.println("Original CityGML version of " + cityGML.getCityGMLClass() + " instance: "+
-							cityGML.getCityGMLModule().getVersion());
+				if (abstractFeature instanceof CityGMLModuleComponent) {
+					CityGMLModuleComponent component = (CityGMLModuleComponent)abstractFeature;
+					System.out.println("Original CityGML version of " + component.getCityGMLClass() + " instance: "+
+							component.getCityGMLModule().getVersion());
 				}
 				
 				super.visit(abstractFeature);

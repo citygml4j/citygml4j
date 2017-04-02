@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.DeepCopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.MetaDataProperty;
 import org.citygml4j.model.gml.base.StringOrRef;
@@ -39,7 +40,7 @@ public class CityModelInfo {
 	private BoundingShape boundedBy;
 	private LocationProperty location;
 	private List<ADEComponent> ade;
-	private List<ADEComponent> genericADE;
+	private List<ADEGenericElement> genericADEElement;
 		
 	public CityModelInfo() {
 
@@ -71,10 +72,10 @@ public class CityModelInfo {
 			setLocation((LocationProperty)builder.copy(cityModel.getLocation()));
 		
 		if (cityModel.isSetGenericApplicationPropertyOfCityModel())
-			setGenericADEComponent((List<ADEComponent>)builder.copy(cityModel.getGenericApplicationPropertyOfCityModel()));
+			setGenericApplicationPropertyOfCityModel((List<ADEComponent>)builder.copy(cityModel.getGenericApplicationPropertyOfCityModel()));
 		
-		if (cityModel.isSetGenericADEComponent())
-			setGenericADEComponent((List<ADEComponent>)builder.copy(cityModel.getGenericADEComponent()));
+		if (cityModel.isSetGenericADEElement())
+			setGenericADEElement((List<ADEGenericElement>)builder.copy(cityModel.getGenericADEElement()));
 	}
 	
 	public CityModelInfo(ParentInfo parentInfo) {
@@ -243,34 +244,34 @@ public class CityModelInfo {
 		return ade;
 	}
 	
-	public void addGenericADEComponent(ADEComponent ade) {
-		if (this.genericADE == null)
-			this.genericADE = new ArrayList<ADEComponent>();
+	public void addGenericADEElement(ADEGenericElement genericADEElement) {
+		if (this.genericADEElement == null)
+			this.genericADEElement = new ArrayList<ADEGenericElement>();
 		
-		this.genericADE.add(ade);
+		this.genericADEElement.add(genericADEElement);
 	}
 
-	public boolean isSetGenericADEComponent() {
-		return genericADE != null && !genericADE.isEmpty();
+	public boolean isSetGenericADEElement() {
+		return genericADEElement != null && !genericADEElement.isEmpty();
 	}
 
-	public void setGenericADEComponent(List<ADEComponent> ade) {
-		this.genericADE = ade;
+	public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
+		this.genericADEElement = genericADEElement;
 	}
 
-	public void unsetGenericADEComponent() {
-		genericADE = null;
+	public void unsetGenericADEElement() {
+		genericADEElement = null;
 	}
 
-	public boolean unsetGenericADEComponent(ADEComponent ade) {
-		return this.genericADE.remove(ade);
+	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
+		return this.genericADEElement.remove(genericADEElement);
 	}
 
-	public List<ADEComponent> getGenericADEComponent() {
-		if (genericADE == null)
-			genericADE = new ArrayList<ADEComponent>();
+	public List<ADEGenericElement> getGenericADEElement() {
+		if (genericADEElement == null)
+			genericADEElement = new ArrayList<ADEGenericElement>();
 		
-		return genericADE;
+		return genericADEElement;
 	}
 	
 	public CityModel toCityModel() {
@@ -297,8 +298,8 @@ public class CityModelInfo {
 		if (isSetGenericApplicationPropertyOfCityModel())
 			cityModel.setGenericApplicationPropertyOfCityModel(getGenericApplicationPropertyOfCityModel());
 		
-		if (isSetGenericADEComponent())
-			cityModel.setGenericADEComponent(getGenericADEComponent());
+		if (isSetGenericADEElement())
+			cityModel.setGenericADEElement(getGenericADEElement());
 		
 		return cityModel;
 	}

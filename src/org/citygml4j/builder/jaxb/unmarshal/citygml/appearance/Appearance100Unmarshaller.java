@@ -26,22 +26,9 @@ import javax.xml.namespace.QName;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.Matrix;
-import net.opengis.citygml.appearance._1.AbstractSurfaceDataType;
-import net.opengis.citygml.appearance._1.AbstractTextureParameterizationType;
-import net.opengis.citygml.appearance._1.AbstractTextureType;
-import net.opengis.citygml.appearance._1.AppearancePropertyType;
-import net.opengis.citygml.appearance._1.AppearanceType;
-import net.opengis.citygml.appearance._1.GeoreferencedTextureType;
-import net.opengis.citygml.appearance._1.ParameterizedTextureType;
-import net.opengis.citygml.appearance._1.SurfaceDataPropertyType;
-import net.opengis.citygml.appearance._1.TexCoordGenType;
-import net.opengis.citygml.appearance._1.TexCoordListType;
-import net.opengis.citygml.appearance._1.TextureAssociationType;
-import net.opengis.citygml.appearance._1.TextureTypeType;
-import net.opengis.citygml.appearance._1.WrapModeType;
-import net.opengis.citygml.appearance._1.X3DMaterialType;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
@@ -69,6 +56,21 @@ import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
+
+import net.opengis.citygml.appearance._1.AbstractSurfaceDataType;
+import net.opengis.citygml.appearance._1.AbstractTextureParameterizationType;
+import net.opengis.citygml.appearance._1.AbstractTextureType;
+import net.opengis.citygml.appearance._1.AppearancePropertyType;
+import net.opengis.citygml.appearance._1.AppearanceType;
+import net.opengis.citygml.appearance._1.GeoreferencedTextureType;
+import net.opengis.citygml.appearance._1.ParameterizedTextureType;
+import net.opengis.citygml.appearance._1.SurfaceDataPropertyType;
+import net.opengis.citygml.appearance._1.TexCoordGenType;
+import net.opengis.citygml.appearance._1.TexCoordListType;
+import net.opengis.citygml.appearance._1.TextureAssociationType;
+import net.opengis.citygml.appearance._1.TextureTypeType;
+import net.opengis.citygml.appearance._1.WrapModeType;
+import net.opengis.citygml.appearance._1.X3DMaterialType;
 
 public class Appearance100Unmarshaller {
 	private final AppearanceModule module = AppearanceModule.v1_0_0;
@@ -125,6 +127,14 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetIsFront())
 			dest.setIsFront(src.isIsFront());
+		
+		if (src.isSet_GenericApplicationPropertyOfSurfaceData()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSurfaceData()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfSurfaceData(ade);
+			}
+		}
 	}
 
 	public void unmarshalAbstractTexture(AbstractTextureType src, AbstractTexture dest) throws MissingADESchemaException {
@@ -144,6 +154,14 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetBorderColor())
 			dest.setBorderColor(unmarshalColorPlusOpacity(src.getBorderColor()));
+		
+		if (src.isSet_GenericApplicationPropertyOfTexture()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTexture()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTexture(ade);
+			}
+		}
 	}
 
 	public void unmarshalAbstractTextureParameterization(AbstractTextureParameterizationType src, AbstractTextureParameterization dest) throws MissingADESchemaException {
@@ -151,7 +169,15 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent())
-				dest.addGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(dom));
+				dest.addGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(dom));
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfTextureParameterization()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTextureParameterization()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTextureParameterization(ade);
+			}
 		}
 	}
 
@@ -164,6 +190,14 @@ public class Appearance100Unmarshaller {
 		if (src.isSetSurfaceDataMember()) {
 			for (SurfaceDataPropertyType surfaceDataMember : src.getSurfaceDataMember())
 				dest.addSurfaceDataMember(unmarshalSurfaceDataProperty(surfaceDataMember));
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfAppearance()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAppearance()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfAppearance(ade);
+			}
 		}
 	}
 
@@ -229,6 +263,14 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetTarget())
 			dest.setTarget(src.getTarget());
+		
+		if (src.isSet_GenericApplicationPropertyOfGeoreferencedTexture()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfGeoreferencedTexture()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfGeoreferencedTexture(ade);
+			}
+		}
 	}
 
 	public GeoreferencedTexture unmarshalGeoreferencedTexture(GeoreferencedTextureType src) throws MissingADESchemaException {
@@ -244,6 +286,14 @@ public class Appearance100Unmarshaller {
 		if (src.isSetTarget()) {
 			for (TextureAssociationType textureAssociation : src.getTarget()) 
 				dest.addTarget(unmarshalTextureAssociation(textureAssociation));
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfParameterizedTexture()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfParameterizedTexture()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfParameterizedTexture(ade);
+			}
 		}
 	}
 
@@ -264,7 +314,7 @@ public class Appearance100Unmarshaller {
 		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -298,6 +348,14 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetWorldToTexture())
 			dest.setWorldToTexture(unmarshalWorldToTexture(src.getWorldToTexture()));
+		
+		if (src.isSet_GenericApplicationPropertyOfTexCoordGen()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTexCoordGen()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTexCoordGen(ade);
+			}
+		}
 	}
 
 	public TexCoordGen unmarshalTexCoordGen(TexCoordGenType src) throws MissingADESchemaException {
@@ -313,6 +371,14 @@ public class Appearance100Unmarshaller {
 		if (src.isSetTextureCoordinates()) {
 			for (TexCoordListType.TextureCoordinates textureCoordinates : src.getTextureCoordinates())
 				dest.addTextureCoordinates(unmarshalTextureCoordinates(textureCoordinates));
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfTexCoordList()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTexCoordList()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTexCoordList(ade);
+			}
 		}
 	}	
 
@@ -442,6 +508,14 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetTarget())
 			dest.setTarget(src.getTarget());
+		
+		if (src.isSet_GenericApplicationPropertyOfX3DMaterial()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfX3DMaterial()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfX3DMaterial(ade);
+			}
+		}
 	}
 
 	public X3DMaterial unmarshalX3DMaterial(X3DMaterialType src) throws MissingADESchemaException {
@@ -451,7 +525,7 @@ public class Appearance100Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

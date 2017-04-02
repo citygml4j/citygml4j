@@ -23,17 +23,9 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import net.opengis.citygml.relief._2.AbstractReliefComponentType;
-import net.opengis.citygml.relief._2.BreaklineReliefType;
-import net.opengis.citygml.relief._2.GridPropertyType;
-import net.opengis.citygml.relief._2.MassPointReliefType;
-import net.opengis.citygml.relief._2.RasterReliefType;
-import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
-import net.opengis.citygml.relief._2.ReliefFeatureType;
-import net.opengis.citygml.relief._2.TINReliefType;
-import net.opengis.citygml.relief._2.TinPropertyType;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.GridProperty;
@@ -44,12 +36,23 @@ import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.relief._2.AbstractReliefComponentType;
+import net.opengis.citygml.relief._2.BreaklineReliefType;
+import net.opengis.citygml.relief._2.GridPropertyType;
+import net.opengis.citygml.relief._2.MassPointReliefType;
+import net.opengis.citygml.relief._2.RasterReliefType;
+import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
+import net.opengis.citygml.relief._2.ReliefFeatureType;
+import net.opengis.citygml.relief._2.TINReliefType;
+import net.opengis.citygml.relief._2.TinPropertyType;
 
 public class Relief200Unmarshaller {
 	private final ReliefModule module = ReliefModule.v2_0_0;
@@ -99,6 +102,14 @@ public class Relief200Unmarshaller {
 		
 		if (src.isSetExtent())
 			dest.setExtent(jaxb.getGMLUnmarshaller().unmarshalPolygonProperty(src.getExtent()));
+		
+		if (src.isSet_GenericApplicationPropertyOfReliefComponent()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfReliefComponent()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfReliefComponent(ade);
+			}
+		}
 	}
 	
 	public void unmarshalBreaklineRelief(BreaklineReliefType src, BreaklineRelief dest) throws MissingADESchemaException {
@@ -109,6 +120,14 @@ public class Relief200Unmarshaller {
 		
 		if (src.isSetBreaklines())
 			dest.setBreaklines(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getBreaklines()));
+		
+		if (src.isSet_GenericApplicationPropertyOfBreaklineRelief()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBreaklineRelief()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfBreaklineRelief(ade);
+			}
+		}
 	}
 	
 	public BreaklineRelief unmarshalBreaklineRelief(BreaklineReliefType src) throws MissingADESchemaException {
@@ -121,11 +140,14 @@ public class Relief200Unmarshaller {
 	public GridProperty unmarshalGridProperty(GridPropertyType src) throws MissingADESchemaException {
 		GridProperty dest = new GridProperty();
 		
-		if (src.isSetRectifiedGridCoverage())
-			dest.setRectifiedGridCoverage(jaxb.getGMLUnmarshaller().unmarshalRectifiedGridCoverage(src.getRectifiedGridCoverage()));
+		if (src.isSet_Object()) {
+			ModelObject object = jaxb.unmarshal(src.get_Object());
+			if (object instanceof RectifiedGridCoverage)
+				dest.setRectifiedGridCoverage((RectifiedGridCoverage)object);
+		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -159,6 +181,14 @@ public class Relief200Unmarshaller {
 		
 		if (src.isSetReliefPoints())
 			dest.setReliefPoints(jaxb.getGMLUnmarshaller().unmarshalMultiPointProperty(src.getReliefPoints()));
+		
+		if (src.isSet_GenericApplicationPropertyOfMassPointRelief()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfMassPointRelief()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfMassPointRelief(ade);
+			}
+		}
 	}
 	
 	public MassPointRelief unmarshalMassPointRelief(MassPointReliefType src) throws MissingADESchemaException {
@@ -173,6 +203,14 @@ public class Relief200Unmarshaller {
 		
 		if (src.isSetGrid())
 			dest.setGrid(unmarshalGridProperty(src.getGrid()));
+		
+		if (src.isSet_GenericApplicationPropertyOfRasterRelief()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRasterRelief()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfRasterRelief(ade);
+			}
+		}
 	}
 	
 	public RasterRelief unmarshalRasterRelief(RasterReliefType src) throws MissingADESchemaException {
@@ -192,7 +230,7 @@ public class Relief200Unmarshaller {
 		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -230,6 +268,14 @@ public class Relief200Unmarshaller {
 		if (src.isSetReliefComponent()) {
 			for (ReliefComponentPropertyType reliefComponentProperty : src.getReliefComponent())
 				dest.addReliefComponent(unmarshalReliefComponentProperty(reliefComponentProperty));
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfReliefFeature()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfReliefFeature()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfReliefFeature(ade);
+			}
 		}
 	}
 	
@@ -281,6 +327,14 @@ public class Relief200Unmarshaller {
 		
 		if (src.isSetTin())
 			dest.setTin(unmarshalTinProperty(src.getTin()));
+		
+		if (src.isSet_GenericApplicationPropertyOfTinRelief()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTinRelief()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfTinRelief(ade);
+			}
+		}
 	}
 	
 	public TINRelief unmarshalTINRelief(TINReliefType src) throws MissingADESchemaException {
@@ -290,7 +344,7 @@ public class Relief200Unmarshaller {
 		return dest;
 	}	
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

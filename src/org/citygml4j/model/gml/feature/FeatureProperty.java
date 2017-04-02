@@ -19,12 +19,12 @@
 package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class FeatureProperty<T extends AbstractFeature> extends AssociationByRepOrRef<T> {
-	private ADEComponent genericADEComponent;
+	private ADEGenericElement genericADEElement;
 	
 	public FeatureProperty() {
 		
@@ -54,26 +54,26 @@ public class FeatureProperty<T extends AbstractFeature> extends AssociationByRep
 		super.unsetObject();
 	}
 
-	public ADEComponent getGenericADEComponent() {
-		return genericADEComponent;
+	public ADEGenericElement getGenericADEElement() {
+		return genericADEElement;
 	}
 
-	public boolean isSetGenericADEComponent() {
-		return genericADEComponent != null;
+	public boolean isSetGenericADEElement() {
+		return genericADEElement != null;
 	}
 	
-	public void setGenericADEComponent(ADEComponent genericADEComponent) {
-		if (genericADEComponent != null)
-			genericADEComponent.setParent(this);
+	public void setGenericADEElement(ADEGenericElement genericADEElement) {
+		if (genericADEElement != null)
+			genericADEElement.setParent(this);
 		
-		this.genericADEComponent = genericADEComponent;
+		this.genericADEElement = genericADEElement;
 	}
 	
-	public void unsetGenericADEComponent() {
-		if (isSetGenericADEComponent())
-			genericADEComponent.unsetParent();
+	public void unsetGenericADEElement() {
+		if (isSetGenericADEElement())
+			genericADEElement.unsetParent();
 		
-		genericADEComponent = null;
+		genericADEElement = null;
 	}
 
 	public GMLClass getGMLClass() {
@@ -90,10 +90,10 @@ public class FeatureProperty<T extends AbstractFeature> extends AssociationByRep
 		FeatureProperty<T> copy = (target == null) ? new FeatureProperty<T>() : (FeatureProperty<T>)target;
 		super.copyTo(copy, copyBuilder);
 		
-		if (isSetGenericADEComponent()) {
-			copy.setGenericADEComponent((ADEComponent)copyBuilder.copy(genericADEComponent));
-			if (copy.getGenericADEComponent() == genericADEComponent)
-				genericADEComponent.setParent(this);
+		if (isSetGenericADEElement()) {
+			copy.setGenericADEElement((ADEGenericElement)copyBuilder.copy(genericADEElement));
+			if (copy.getGenericADEElement() == genericADEElement)
+				genericADEElement.setParent(this);
 		}
 		
 		return copy;

@@ -23,13 +23,15 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import net.opengis.citygml.landuse._1.LandUseType;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.landuse._1.LandUseType;
 
 public class LandUse100Unmarshaller {
 	private final LandUseModule module = LandUseModule.v1_0_0;
@@ -87,6 +89,14 @@ public class LandUse100Unmarshaller {
 
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
+		if (src.isSet_GenericApplicationPropertyOfLandUse()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfLandUse()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfLandUse(ade);
+			}
+		}
 	}
 
 	public LandUse unmarshalLandUse(LandUseType src) throws MissingADESchemaException {
@@ -96,7 +106,7 @@ public class LandUse100Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

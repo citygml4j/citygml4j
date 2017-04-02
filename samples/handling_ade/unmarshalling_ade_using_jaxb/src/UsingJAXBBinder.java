@@ -25,14 +25,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import net.opengis.gml.MultiSurfaceType;
-import net.opengis.gml.StringOrRefType;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
@@ -52,6 +49,8 @@ import ade.sub.jaxb.RelativeToTerrainType;
 import ade.sub.jaxb.RoofSurfaceType;
 import ade.sub.jaxb.TunnelType;
 import ade.sub.jaxb.WallSurfaceType;
+import net.opengis.gml.MultiSurfaceType;
+import net.opengis.gml.StringOrRefType;
 
 public class UsingJAXBBinder {
 
@@ -70,7 +69,7 @@ public class UsingJAXBBinder {
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
-		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEComponent();
+		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEElement();
 		Element adeElement = ((ADEGenericElement)ade).getContent();
 
 		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
@@ -135,8 +134,8 @@ public class UsingJAXBBinder {
 		writer.writeStartDocument();
 
 		for (CityObjectMember member : cityModel.getCityObjectMember())
-			if (member.isSetGenericADEComponent())
-				writer.writeFeatureMember(member.getGenericADEComponent());
+			if (member.isSetGenericADEElement())
+				writer.writeFeatureMember(member.getGenericADEElement());
 
 		writer.writeEndDocument();		
 		writer.close();

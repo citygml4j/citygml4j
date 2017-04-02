@@ -18,8 +18,8 @@
  */
 package org.citygml4j.model.citygml.building;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 
-public interface BuildingModuleComponent extends CityGML {
+public interface BuildingModuleComponent extends CityGMLModuleComponent {
 
 }

@@ -128,8 +128,8 @@ public class CityObjectGroup200Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -174,8 +174,8 @@ public class CityObjectGroup200Marshaller {
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

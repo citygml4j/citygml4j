@@ -23,29 +23,12 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import net.opengis.citygml._2.AbstractCityObjectType;
-import net.opengis.citygml._2.AbstractSiteType;
-import net.opengis.citygml._2.AddressPropertyType;
-import net.opengis.citygml._2.AddressType;
-import net.opengis.citygml._2.CityModelType;
-import net.opengis.citygml._2.ExternalObjectReferenceType;
-import net.opengis.citygml._2.ExternalReferenceType;
-import net.opengis.citygml._2.GeneralizationRelationType;
-import net.opengis.citygml._2.ImplicitGeometryType;
-import net.opengis.citygml._2.ImplicitRepresentationPropertyType;
-import net.opengis.citygml._2.RelativeToTerrainType;
-import net.opengis.citygml._2.RelativeToWaterType;
-import net.opengis.citygml._2.XalAddressPropertyType;
-import net.opengis.citygml.appearance._2.AppearancePropertyElement;
-import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
-import net.opengis.gml.AbstractFeatureType;
-import net.opengis.gml.FeaturePropertyType;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
@@ -70,6 +53,24 @@ import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml._2.AbstractCityObjectType;
+import net.opengis.citygml._2.AbstractSiteType;
+import net.opengis.citygml._2.AddressPropertyType;
+import net.opengis.citygml._2.AddressType;
+import net.opengis.citygml._2.CityModelType;
+import net.opengis.citygml._2.ExternalObjectReferenceType;
+import net.opengis.citygml._2.ExternalReferenceType;
+import net.opengis.citygml._2.GeneralizationRelationType;
+import net.opengis.citygml._2.ImplicitGeometryType;
+import net.opengis.citygml._2.ImplicitRepresentationPropertyType;
+import net.opengis.citygml._2.RelativeToTerrainType;
+import net.opengis.citygml._2.RelativeToWaterType;
+import net.opengis.citygml._2.XalAddressPropertyType;
+import net.opengis.citygml.appearance._2.AppearancePropertyElement;
+import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
+import net.opengis.gml.AbstractFeatureType;
+import net.opengis.gml.FeaturePropertyType;
 
 public class Core200Unmarshaller {
 	private final CoreModule module = CoreModule.v2_0_0;
@@ -159,10 +160,26 @@ public class Core200Unmarshaller {
 			for (AppearancePropertyElement appearance : src.getAppearance())
 				dest.addAppearance(citygml.getAppearance200Unmarshaller().unmarshalAppearanceProperty(appearance));
 		}
+		
+		if (src.isSet_GenericApplicationPropertyOfCityObject()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityObject()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfCityObject(ade);
+			}
+		}
 	}
 	
 	public void unmarshalAbstractSite(AbstractSiteType src, AbstractSite dest) throws MissingADESchemaException {
 		unmarshalAbstractCityObject(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfSite()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSite()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfSite(ade);
+			}
+		}
 	}
 
 	public void unmarshalAddress(AddressType src, Address dest) throws MissingADESchemaException {
@@ -173,6 +190,14 @@ public class Core200Unmarshaller {
 
 		if (src.isSetMultiPoint())
 			dest.setMultiPoint(jaxb.getGMLUnmarshaller().unmarshalMultiPointProperty(src.getMultiPoint()));
+		
+		if (src.isSet_GenericApplicationPropertyOfAddress()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAddress()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfAddress(ade);
+			}
+		}
 	}
 
 	public Address unmarshalAddress(AddressType src) throws MissingADESchemaException {
@@ -184,12 +209,15 @@ public class Core200Unmarshaller {
 
 	public AddressProperty unmarshalAddressProperty(AddressPropertyType src) throws MissingADESchemaException {
 		AddressProperty dest = new AddressProperty(module);
-
-		if (src.isSetAddress())
-			dest.setAddress(unmarshalAddress(src.getAddress()));
 		
+		if (src.isSet_Feature()) {
+			ModelObject object = jaxb.unmarshal(src.get_Feature());
+			if (object instanceof Address)
+				dest.setAddress((Address)object);
+		}
+
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -220,6 +248,14 @@ public class Core200Unmarshaller {
 
 	public void unmarshalCityModel(CityModelType src, CityModel dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeatureCollection(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfCityModel()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityModel()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfCityModel(ade);
+			}
+		}
 	}
 
 	public CityModel unmarshalCityModel(CityModelType src) throws MissingADESchemaException {
@@ -282,7 +318,7 @@ public class Core200Unmarshaller {
 		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -430,7 +466,7 @@ public class Core200Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

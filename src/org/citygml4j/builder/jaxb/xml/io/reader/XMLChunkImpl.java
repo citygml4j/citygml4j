@@ -95,6 +95,11 @@ public class XMLChunkImpl implements XMLChunk {
 	}
 
 	@Override
+	public QName getTypeName() {
+		return firstElement;
+	}
+
+	@Override
 	public boolean isSetParentInfo() {
 		return getParentInfo() != null;
 	} 
@@ -317,8 +322,13 @@ public class XMLChunkImpl implements XMLChunk {
 						citygml = (CityGML)gml;
 					else if (gml instanceof AppearanceProperty)
 						citygml = ((AppearanceProperty)gml).getAppearance();
-				} else if (gml instanceof FeatureProperty<?>)
-					citygml = ((FeatureProperty<?>)gml).getGenericADEComponent();
+				} else if (gml instanceof FeatureProperty<?>) {
+					FeatureProperty<?> property = (FeatureProperty<?>)gml;
+					if (property.isSetFeature())
+						citygml = (CityGML)property.getFeature();
+					else
+						citygml = ((FeatureProperty<?>)gml).getGenericADEElement();
+				}
 			}
 
 			return citygml;

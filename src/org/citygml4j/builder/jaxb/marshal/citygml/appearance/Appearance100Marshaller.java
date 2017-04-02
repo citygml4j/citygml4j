@@ -26,6 +26,7 @@ import javax.xml.bind.JAXBElement;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
@@ -186,8 +187,8 @@ public class Appearance100Marshaller {
 		}
 
 		if (src.isSetGenericADEComponent()) {
-			for (ADEComponent adeComponent : src.getGenericADEComponent()) {
-				Element element = jaxb.getADEMarshaller().marshalDOMElement(adeComponent);
+			for (ADEGenericElement genericADEElement : src.getGenericADEElement()) {
+				Element element = jaxb.getADEMarshaller().marshalDOMElement(genericADEElement);
 				if (element != null)
 					dest.get_ADEComponent().add(element);
 			}
@@ -304,8 +305,8 @@ public class Appearance100Marshaller {
 				dest.set_SurfaceData((JAXBElement<? extends AbstractSurfaceDataType>)elem);
 		}
 
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

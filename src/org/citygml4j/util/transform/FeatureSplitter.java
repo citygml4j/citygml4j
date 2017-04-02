@@ -26,7 +26,9 @@ import java.util.Set;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEWalker;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.copy.Copyable;
@@ -49,39 +51,26 @@ import org.w3c.dom.NodeList;
 public class FeatureSplitter {
 	private final Splitter splitter;
 	private final List<CityGML> result;
-	private final GMLIdManager gmlIdManager;
 	private final ChildInfo childInfo;
 	private final SplitCopyBuilder copyBuilder;
 
+	private GMLIdManager gmlIdManager;
 	private FeatureSplitMode splitMode;
 	private Set<Class<? extends CityGML>> excludes;
 	private boolean keepInlineAppearance;
 	private boolean splitCopy;
 
-	public FeatureSplitter(SchemaHandler schemaHandler, GMLIdManager gmlIdManager) {
-		this.gmlIdManager = gmlIdManager;
-
+	public FeatureSplitter() {
 		result = new ArrayList<CityGML>();
-		splitter = new Splitter(schemaHandler);
+		splitter = new Splitter();
 		childInfo = new ChildInfo();
 		copyBuilder = new SplitCopyBuilder();
 
+		gmlIdManager = DefaultGMLIdManager.getInstance();
 		splitMode = FeatureSplitMode.SPLIT_PER_FEATURE;
 		excludes = new HashSet<Class<? extends CityGML>>();
 		keepInlineAppearance = true;
 		splitCopy = false;
-	}
-
-	public FeatureSplitter() {
-		this(null, DefaultGMLIdManager.getInstance());
-	}	
-
-	public FeatureSplitter(GMLIdManager gmlIdManager) {
-		this(null, gmlIdManager);
-	}
-
-	public FeatureSplitter(SchemaHandler schemaHandler) {
-		this(schemaHandler, DefaultGMLIdManager.getInstance());
 	}
 
 	public void reset() {
@@ -92,6 +81,95 @@ public class FeatureSplitter {
 		excludes.clear();
 		keepInlineAppearance = true;
 		splitCopy = false;
+	}
+
+	public FeatureSplitter setSchemaHandler(SchemaHandler schemaHandler) {
+		splitter.setSchemaHandler(schemaHandler);
+		return this;
+	}
+
+	public SchemaHandler getSchemaHandler() {
+		return splitter.getSchemaHandler();
+	}
+
+	public FeatureSplitter useADEWalker(ADEWalker<FeatureWalker> walker) {
+		splitter.useADEWalker(walker);
+		return this;
+	}
+
+	public FeatureSplitter useADEWalkers(List<ADEWalker<FeatureWalker>> walkers) {
+		for (ADEWalker<FeatureWalker> walker : walkers)
+			splitter.useADEWalker(walker);
+
+		return this;
+	}
+
+	public FeatureSplitter useADEContext(ADEContext context) {
+		splitter.useADEWalker(context.getDefaultFeatureWalker());
+		return this;
+	}
+
+	public FeatureSplitter useADEContexts(List<ADEContext> contexts) {
+		for (ADEContext context : contexts)
+			splitter.useADEWalker(context.getDefaultFeatureWalker());
+
+		return this;
+	}
+
+	public FeatureSplitter setGMLIdManager(GMLIdManager gmlIdManager) {
+		this.gmlIdManager = gmlIdManager;
+		return this;
+	}
+
+	public FeatureSplitter setSplitMode(FeatureSplitMode splitMode) {
+		if (splitMode == null)
+			throw new IllegalArgumentException("split mode may not be null.");
+
+		this.splitMode = splitMode;
+		return this;
+	}
+
+	public FeatureSplitMode getSplitMode() {
+		return splitMode;
+	}
+
+	public FeatureSplitter exclude(Class<? extends CityGML> cityGMLClass) {
+		excludes.add(cityGMLClass);
+		return this;
+	}
+
+	public FeatureSplitter exclude(Set<Class<? extends CityGML>> excludes) {
+		if (excludes == null)
+			throw new IllegalArgumentException("set of excludes may not be null.");
+
+		this.excludes = excludes;
+		return this;
+	}
+
+	public void clearExcludes() {
+		excludes.clear();
+	}
+
+	public Set<Class<? extends CityGML>> getExcludes() {
+		return excludes;
+	}
+
+	public FeatureSplitter keepInlineAppearance(boolean keepInlineAppearance) {
+		this.keepInlineAppearance = keepInlineAppearance;
+		return this;
+	}
+
+	public boolean isKeepInlineAppearance() {
+		return keepInlineAppearance;
+	}
+
+	public FeatureSplitter splitCopy(boolean splitCopy) {
+		this.splitCopy = splitCopy;
+		return this;
+	}
+
+	public boolean isSplitCopy() {
+		return splitCopy;
 	}
 
 	public List<CityGML> split(Object object) {
@@ -111,56 +189,6 @@ public class FeatureSplitter {
 
 		splitter.reset();
 		return result;
-	}
-
-	public SchemaHandler getSchemaHandler() {
-		return splitter.getSchemaHandler();
-	}
-
-	public FeatureSplitMode getSplitMode() {
-		return splitMode;
-	}
-
-	public void setSplitMode(FeatureSplitMode splitMode) {
-		if (splitMode == null)
-			throw new IllegalArgumentException("split mode may not be null.");
-
-		this.splitMode = splitMode;
-	}
-
-	public void exlcude(Class<? extends CityGML> cityGMLClass) {
-		excludes.add(cityGMLClass);
-	}
-
-	public void clearExcludes() {
-		excludes.clear();
-	}
-
-	public Set<Class<? extends CityGML>> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(Set<Class<? extends CityGML>> excludes) {
-		if (excludes == null)
-			throw new IllegalArgumentException("set of excludes may not be null.");
-
-		this.excludes = excludes;
-	}
-
-	public void setKeepInlineAppearance(boolean keepInlineAppearance) {
-		this.keepInlineAppearance = keepInlineAppearance;
-	}
-
-	public boolean isKeepInlineAppearance() {
-		return keepInlineAppearance;
-	}
-
-	public boolean isSplitCopy() {
-		return splitCopy;
-	}
-
-	public void setSplitCopy(boolean splitCopy) {
-		this.splitCopy = splitCopy;
 	}
 
 	private class SplitCopyBuilder extends CopyBuilder {
@@ -194,12 +222,6 @@ public class FeatureSplitter {
 	}
 
 	private class Splitter extends FeatureWalker { 
-		private final SchemaHandler schemaHandler;
-
-		Splitter(SchemaHandler schemaHandler) {
-			super(schemaHandler);
-			this.schemaHandler = schemaHandler;
-		}
 
 		@Override
 		public void visit(Appearance appearance) {
@@ -249,8 +271,7 @@ public class FeatureSplitter {
 					if (exclude.isInstance(adeGenericElement))
 						return;
 
-			if (adeGenericElement.isSetContent() && schemaHandler != null && 
-					shouldWalk() && addToVisited(adeGenericElement.getContent())) {				
+			if (adeGenericElement.isSetContent() && shouldWalk && schemaHandler != null) {				
 				boolean addToResult = false;
 				ModelObject parent = adeGenericElement.getParent();
 
@@ -263,13 +284,13 @@ public class FeatureSplitter {
 							if (parent instanceof FeatureProperty<?>) {
 								FeatureProperty<?> property = (FeatureProperty<?>)parent;				
 								property.setHref('#' + getAndSetGmlId(adeGenericElement.getContent()));
-								property.unsetGenericADEComponent();
+								property.unsetGenericADEElement();
 								addToResult = true;
 							}
 
 							else if (parent instanceof FeatureArrayProperty) {
 								FeatureArrayProperty featureArray = (FeatureArrayProperty)parent;
-								featureArray.unsetGenericADEComponent(adeGenericElement);
+								featureArray.unsetGenericADEElement(adeGenericElement);
 								addToResult = true;
 							}
 						}
@@ -316,8 +337,7 @@ public class FeatureSplitter {
 			}			
 
 			for (Element child : children)
-				if (addToVisited(child))
-					adeGenericElement((Element)child, element, lastElement);
+				adeGenericElement((Element)child, element, lastElement);
 		}
 
 		private boolean splitElement(ElementDecl elementDecl) {

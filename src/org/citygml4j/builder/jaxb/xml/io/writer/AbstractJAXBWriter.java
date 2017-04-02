@@ -24,12 +24,15 @@ import java.util.Set;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.ValidationEventHandler;
 
+import org.citygml4j.builder.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
@@ -75,21 +78,21 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 		useValidation = (Boolean)factory.getProperty(CityGMLOutputFactory.USE_VALIDATION);
 		
 		if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER) {
-			featureSplitter = new FeatureSplitter(schemaHandler, factory.getGMLIdManager());
-			featureSplitter.setSplitMode(FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER);
-			featureSplitter.setKeepInlineAppearance(
-					(Boolean)factory.getProperty(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE));
-			featureSplitter.setSplitCopy(
-					(Boolean)factory.getProperty(CityGMLOutputFactory.SPLIT_COPY));			
-			featureSplitter.setExcludes(
-					(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));		
+			featureSplitter = new FeatureSplitter()
+					.setSchemaHandler(schemaHandler)
+					.useADEContexts(factory.builder.getADEContexts())
+					.setGMLIdManager(factory.getGMLIdManager())
+					.setSplitMode(FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER)
+					.keepInlineAppearance((Boolean)factory.getProperty(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE))
+					.splitCopy((Boolean)factory.getProperty(CityGMLOutputFactory.SPLIT_COPY))
+					.exclude((Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));		
 		}
 		
 		if (useValidation) {
 			if (schemaHandler == null) {
 				try {
-					schemaHandler = SchemaHandler.newInstance();
-				} catch (SAXException e) {
+					schemaHandler = factory.builder.getDefaultSchemaHandler();
+				} catch (CityGMLBuilderException e) {
 					throw new CityGMLWriteException("Caused by: ", e);
 				}
 			}
@@ -234,6 +237,17 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 
 			setSchemaLocation(module);
 		}
+
+		for (ADEModule adeModule : moduleContext.getADEModules())
+			setSchemaLocation(adeModule);
+	}
+
+	public void setSchemaLocations(List<ADEContext> adeContexts) {
+		for (ADEContext adeContext : adeContexts) {
+			ADEModule module = adeContext.getADEModule();
+			if (module != null && module.getSchemaLocation() != null)
+				setSchemaLocation(module.getNamespaceURI(), module.getSchemaLocation());
+		}
 	}
 
 	public void setDefaultNamespace(Module module) {
@@ -253,7 +267,15 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 		for (Module module : moduleContext.getModules())
 			setPrefix(module);
 	}
-	
+
+	public void setPrefixes(List<ADEContext> adeContexts) {
+		for (ADEContext adeContext : adeContexts) {
+			ADEModule module = adeContext.getADEModule();
+			if (module != null && module.getNamespacePrefix() != null)
+				setPrefix(module);
+		}
+	}
+
 	protected boolean isCityObject(ADEGenericElement adeGenericElement) {
 		boolean isCityObject = false;
 		

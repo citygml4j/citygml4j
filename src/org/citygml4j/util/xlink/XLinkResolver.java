@@ -18,7 +18,13 @@
  */
 package org.citygml4j.util.xlink;
 
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEWalker;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.base.AbstractGML;
@@ -27,13 +33,40 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.util.walker.GMLFunctionWalker;
+import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XLinkResolver {
-	
-	private ModelObject resolveXlink(String target, AbstractGML root, GMLIdWalker walker) {
+	private SchemaHandler schemaHandler;
+	private List<ADEWalker<GMLFunctionWalker<ModelObject>>> walkers;
+
+	public XLinkResolver setSchemaHandler(SchemaHandler schemaHandler) {
+		this.schemaHandler = schemaHandler;
+		return this;
+	}
+
+	public XLinkResolver useADEContext(ADEContext context) {
+		ADEWalker<GMLFunctionWalker<ModelObject>> walker = context.getDefaultGMLFunctionWalker();
+		if (walker != null) {
+			if (walkers == null)
+				walkers = new ArrayList<>();
+
+			walkers.add(walker);
+		}
+		
+		return this;
+	}
+
+	public XLinkResolver useADEContexts(List<ADEContext> contexts) {
+		for (ADEContext context : contexts)
+			useADEContext(context);
+
+		return this;
+	}
+
+	private ModelObject resolveXlink(String target, AbstractGML root, GMLFunctionWalker<ModelObject> walker) {
 		if (target == null || target.length() == 0)
 			return null;
 		
@@ -44,16 +77,25 @@ public class XLinkResolver {
 	}
 	
 	public ModelObject getObject(String target, AbstractGML root) {
-		return resolveXlink(target, root, new GMLWalker(clipGMLId(target)));
+		return resolveXlink(target, root, 
+				new GMLWalker(clipGMLId(target))
+				.setSchemaHandler(schemaHandler)
+				.useADEWalkers(walkers != null ? walkers : Collections.emptyList()));
 	}	
 	
 	public AbstractGeometry getGeometry(String target, AbstractGML root) {
-		ModelObject object = resolveXlink(target, root, new GeometryWalker(clipGMLId(target)));
+		ModelObject object = resolveXlink(target, root,
+				new GeometryWalker(clipGMLId(target))
+				.setSchemaHandler(schemaHandler)
+				.useADEWalkers(walkers != null ? walkers : Collections.emptyList()));
 		return object instanceof AbstractGeometry ? (AbstractGeometry)object : null;
 	}
 	
 	public AbstractFeature getFeature(String target, AbstractGML root) {
-		ModelObject object = resolveXlink(target, root, new FeatureWalker(clipGMLId(target)));
+		ModelObject object = resolveXlink(target, root, 
+				new FeatureWalker(clipGMLId(target))
+				.setSchemaHandler(schemaHandler)
+				.useADEWalkers(walkers != null ? walkers : Collections.emptyList()));
 		return object instanceof AbstractFeature ? (AbstractFeature)object : null;
 	}
 	
@@ -132,7 +174,7 @@ public class XLinkResolver {
 		
 		@Override
 		public ModelObject apply(ADEGenericElement adeGenericElement) {
-			if (adeGenericElement.isSetContent() && addToVisited(adeGenericElement.getContent())) {
+			if (adeGenericElement.isSetContent()) {
 				ADEGenericElement result = adeGenericElement(adeGenericElement.getContent(), (Element)null);
 				if (result != null)
 					return (result.getContent() == adeGenericElement.getContent()) ? adeGenericElement : result;
@@ -162,7 +204,7 @@ public class XLinkResolver {
 			NodeList childs = element.getChildNodes();
 			for (int i = 0; i < childs.getLength(); ++i) {
 				Node node = childs.item(i);
-				if (node.getNodeType() == Node.ELEMENT_NODE && addToVisited(node)) {
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					ADEGenericElement ade = adeGenericElement((Element)node, element);
 					if (ade != null)
 						return ade;

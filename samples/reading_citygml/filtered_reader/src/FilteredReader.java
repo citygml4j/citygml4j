@@ -20,10 +20,13 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.xml.namespace.QName;
+
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.transportation.Road;
+import org.citygml4j.model.module.Modules;
+import org.citygml4j.model.module.citygml.CityGMLModuleType;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -46,9 +49,10 @@ public class FilteredReader {
 		reader = in.createFilteredCityGMLReader(reader, new CityGMLInputFilter() {
 
 			// return true if you want to consume the CityGML feature
-			// of the given CityGMLClass type, false otherwise
-			public boolean accept(CityGMLClass type) {
-				return type == CityGMLClass.ROAD;
+			// of the given qualified XML name, false otherwise
+			public boolean accept(QName name) {
+				return Modules.isModuleNamespace(name.getNamespaceURI(), CityGMLModuleType.TRANSPORTATION)
+						&& name.getLocalPart().equals("Road");
 			}
 			
 		});

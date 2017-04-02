@@ -407,8 +407,8 @@ public class Bridge200Marshaller {
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -532,14 +532,18 @@ public class Bridge200Marshaller {
 		return dest;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public BridgeConstructionElementPropertyType marshalBridgeConstructionElementProperty(BridgeConstructionElementProperty src) {
 		BridgeConstructionElementPropertyType dest = brid.createBridgeConstructionElementPropertyType();
 
-		if (src.isSetBridgeConstructionElement())
-			dest.setBridgeConstructionElement(marshalBridgeConstructionElement(src.getBridgeConstructionElement()));
+		if (src.isSetBridgeConstructionElement()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBridgeConstructionElement());
+			if (elem != null && elem.getValue() instanceof BridgeConstructionElementType)
+				dest.set_CityObject((JAXBElement<? extends BridgeConstructionElementType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -664,14 +668,18 @@ public class Bridge200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public BridgeInstallationPropertyType marshalBridgeInstallationProperty(BridgeInstallationProperty src) {
 		BridgeInstallationPropertyType dest = brid.createBridgeInstallationPropertyType();
 
-		if (src.isSetBridgeInstallation())
-			dest.setBridgeInstallation(marshalBridgeInstallation(src.getBridgeInstallation()));
+		if (src.isSetBridgeInstallation()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBridgeInstallation());
+			if (elem != null && elem.getValue() instanceof BridgeInstallationType)
+				dest.set_CityObject((JAXBElement<? extends BridgeInstallationType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -775,14 +783,18 @@ public class Bridge200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public BridgePartPropertyType marshalBridgePartProperty(BridgePartProperty src) {
 		BridgePartPropertyType dest = brid.createBridgePartPropertyType();
 
-		if (src.isSetBridgePart())
-			dest.setBridgePart(marshalBridgePart(src.getBridgePart()));
+		if (src.isSetBridgePart()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBridgePart());
+			if (elem != null && elem.getValue() instanceof BridgePartType)
+				dest.set_AbstractBridge((JAXBElement<? extends BridgePartType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -957,14 +969,18 @@ public class Bridge200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public IntBridgeInstallationPropertyType marshalIntBridgeInstallationProperty(IntBridgeInstallationProperty src) {
 		IntBridgeInstallationPropertyType dest = brid.createIntBridgeInstallationPropertyType();
 
-		if (src.isSetIntBridgeInstallation())
-			dest.setIntBridgeInstallation(marshalIntBridgeInstallation(src.getIntBridgeInstallation()));
+		if (src.isSetIntBridgeInstallation()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getIntBridgeInstallation());
+			if (elem != null && elem.getValue() instanceof IntBridgeInstallationType)
+				dest.set_CityObject((JAXBElement<? extends IntBridgeInstallationType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -996,14 +1012,18 @@ public class Bridge200Marshaller {
 		return dest;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public InteriorBridgeRoomPropertyType marshalInteriorBridgeRoomProperty(InteriorBridgeRoomProperty src) {
 		InteriorBridgeRoomPropertyType dest = brid.createInteriorBridgeRoomPropertyType();
 
-		if (src.isSetBridgeRoom())
-			dest.setBridgeRoom(marshalBridgeRoom(src.getBridgeRoom()));
+		if (src.isSetBridgeRoom()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBridgeRoom());
+			if (elem != null && elem.getValue() instanceof BridgeRoomType)
+				dest.set_CityObject((JAXBElement<? extends BridgeRoomType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -1035,14 +1055,18 @@ public class Bridge200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public InteriorFurniturePropertyType marshalInteriorFurnitureProperty(InteriorFurnitureProperty src) {
 		InteriorFurniturePropertyType dest = brid.createInteriorFurniturePropertyType();
 
-		if (src.isSetBridgeFurniture())
-			dest.setBridgeFurniture(marshalBridgeFurniture(src.getBridgeFurniture()));
+		if (src.isSetBridgeFurniture()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBridgeFurniture());
+			if (elem != null && elem.getValue() instanceof BridgeFurnitureType)
+				dest.set_CityObject((JAXBElement<? extends BridgeFurnitureType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -1103,8 +1127,8 @@ public class Bridge200Marshaller {
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

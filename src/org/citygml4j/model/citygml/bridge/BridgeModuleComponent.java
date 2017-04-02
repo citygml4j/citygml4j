@@ -18,8 +18,8 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 
-public interface BridgeModuleComponent extends CityGML {
+public interface BridgeModuleComponent extends CityGMLModuleComponent {
 
 }

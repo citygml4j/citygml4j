@@ -18,8 +18,8 @@
  */
 package org.citygml4j.model.citygml.vegetation;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 
-public interface VegetationModuleComponent extends CityGML {
+public interface VegetationModuleComponent extends CityGMLModuleComponent {
 
 }

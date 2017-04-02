@@ -19,8 +19,6 @@
 package org.citygml4j.util.walker;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
@@ -73,32 +71,9 @@ import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
-public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, Walker {
-	private Set<Object> visited = new HashSet<Object>();
-	private boolean shouldWalk = true;
+public abstract class GeometryFunctionWalker<T> extends Walker implements GeometryFunctor<T> {
 
 	public GeometryFunctionWalker() {
-	}
-
-	public void reset() {
-		visited.clear();
-		shouldWalk = true;
-	}
-
-	public boolean shouldWalk() {
-		return shouldWalk;
-	}
-
-	public void setShouldWalk(boolean shouldWalk) {
-		this.shouldWalk = shouldWalk;
-	}
-
-	public boolean addToVisited(Object object) {
-		return visited.add(object);
-	}
-
-	public boolean hasVisited(Object object) {
-		return visited.contains(object);
 	}
 
 	public T apply(LodRepresentation lodRepresentation) {
@@ -524,7 +499,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 	}
 
 	public <E extends AbstractGeometry> T apply(GeometryProperty<E> geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry())) {
+		if (geometryProperty.isSetGeometry() && shouldWalk) {
 			T object = geometryProperty.getGeometry().accept(this);
 			if (object != null)
 				return object;
@@ -534,7 +509,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 	}
 
 	public <E extends AbstractGeometry> T apply(InlineGeometryProperty<E> geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry())) {
+		if (geometryProperty.isSetGeometry() && shouldWalk) {
 			T object = geometryProperty.getGeometry().accept(this);
 			if (object != null)
 				return object;
@@ -546,7 +521,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 	public <E extends AbstractGeometry> T apply(GeometryArrayProperty<E> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
 			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry())) {
-				if (shouldWalk && visited.add(abstractGeometry)) {
+				if (shouldWalk) {
 					T object = abstractGeometry.accept(this);
 					if (object != null)
 						return object;
@@ -562,7 +537,7 @@ public abstract class GeometryFunctionWalker<T> implements GeometryFunctor<T>, W
 
 		if (surfacePatchArrayProperty.isSetSurfacePatch()) {
 			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
-				if (shouldWalk && visited.add(abstractSurfacePatch)) {
+				if (shouldWalk) {
 					if (abstractSurfacePatch instanceof Triangle) {
 						object = apply((Triangle)abstractSurfacePatch);
 						if (object != null)

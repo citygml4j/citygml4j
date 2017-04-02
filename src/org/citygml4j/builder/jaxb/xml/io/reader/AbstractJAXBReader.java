@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
@@ -31,7 +30,6 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.util.internal.xml.TransformerChainFactory;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
@@ -83,7 +81,7 @@ public abstract class AbstractJAXBReader {
 				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
 				parseSchema,
 				failOnMissingADESchema,
-				(Set<Class<? extends CityGML>>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
+				(List<QName>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
 				(List<QName>)factory.getProperty(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY));
 
 		if (useValidation) {

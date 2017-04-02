@@ -23,17 +23,19 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
-import net.opengis.citygml.vegetation._1.PlantCoverType;
-import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._1.PlantCoverType;
+import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
 
 public class Vegetation100Unmarshaller {
 	private final VegetationModule module = VegetationModule.v1_0_0;
@@ -65,6 +67,14 @@ public class Vegetation100Unmarshaller {
 
 	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfVegetationObject()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfVegetationObject()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfVegetationObject(ade);
+			}
+		}
 	}
 
 	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) throws MissingADESchemaException {
@@ -100,7 +110,15 @@ public class Vegetation100Unmarshaller {
 			dest.setLod2MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod2MultiSolid()));
 
 		if (src.isSetLod3MultiSolid())
-			dest.setLod3MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod3MultiSolid()));	
+			dest.setLod3MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod3MultiSolid()));
+		
+		if (src.isSet_GenericApplicationPropertyOfPlantCover()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfPlantCover()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfPlantCover(ade);
+			}
+		}
 	}
 
 	public PlantCover unmarshalPlantCover(PlantCoverType src) throws MissingADESchemaException {
@@ -155,7 +173,15 @@ public class Vegetation100Unmarshaller {
 			dest.setLod3ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
 
 		if (src.isSetLod4ImplicitRepresentation())
-			dest.setLod4ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));	
+			dest.setLod4ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
+		
+		if (src.isSet_GenericApplicationPropertyOfSolitaryVegetationObject()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSolitaryVegetationObject()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfSolitaryVegetationObject(ade);
+			}
+		}
 	}
 
 	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) throws MissingADESchemaException {
@@ -165,7 +191,7 @@ public class Vegetation100Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

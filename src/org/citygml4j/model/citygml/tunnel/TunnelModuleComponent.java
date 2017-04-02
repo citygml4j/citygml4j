@@ -18,8 +18,8 @@
  */
 package org.citygml4j.model.citygml.tunnel;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 
-public interface TunnelModuleComponent extends CityGML {
+public interface TunnelModuleComponent extends CityGMLModuleComponent {
 
 }

@@ -49,6 +49,7 @@ import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
 import net.opengis.citygml.relief._2.ReliefFeatureType;
 import net.opengis.citygml.relief._2.TINReliefType;
 import net.opengis.citygml.relief._2.TinPropertyType;
+import net.opengis.gml.RectifiedGridCoverageType;
 import net.opengis.gml.TriangulatedSurfaceType;
 
 public class Relief200Marshaller {
@@ -140,14 +141,18 @@ public class Relief200Marshaller {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public GridPropertyType marshalGridProperty(GridProperty src) {
 		GridPropertyType dest = dem.createGridPropertyType();
 
-		if (src.isSetRectifiedGridCoverage())
-			dest.setRectifiedGridCoverage(jaxb.getGMLMarshaller().marshalRectifiedGridCoverage(src.getRectifiedGridCoverage()));
+		if (src.isSetRectifiedGridCoverage()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRectifiedGridCoverage());
+			if (elem != null && elem.getValue() instanceof RectifiedGridCoverageType)
+				dest.set_Object((JAXBElement<? extends RectifiedGridCoverageType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -240,8 +245,8 @@ public class Relief200Marshaller {
 				dest.set_ReliefComponent((JAXBElement<? extends AbstractReliefComponentType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

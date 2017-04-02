@@ -18,13 +18,17 @@
  */
 package org.citygml4j.util.walker;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.binding.ADEWalker;
+import org.citygml4j.model.citygml.ade.binding.ADEWalkerHelper;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
@@ -138,45 +142,51 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public abstract class FeatureWalker implements FeatureVisitor, Walker {
-	private Set<Object> visited = new HashSet<Object>();
-	private boolean shouldWalk = true; 
-	private SchemaHandler schemaHandler;
+public abstract class FeatureWalker extends Walker implements FeatureVisitor {
+	protected SchemaHandler schemaHandler;
+	protected ADEWalkerHelper<FeatureWalker> adeWalkerHelper;
 
 	public FeatureWalker() {
 	}
 
-	public FeatureWalker(SchemaHandler schemaHandler) {
+	public FeatureWalker setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
-	}
-
-	public void reset() {
-		visited.clear();
-		shouldWalk = true;
-	}
-
-	public boolean shouldWalk() {
-		return shouldWalk;
-	}
-
-	public void setShouldWalk(boolean shouldWalk) {
-		this.shouldWalk = shouldWalk;
-	}
-
-	public void setSchemaHandler(SchemaHandler schemaHandler) {
-		this.schemaHandler = schemaHandler;
+		return this;
 	}
 
 	public SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
 
-	public boolean addToVisited(Object object) {
-		return visited.add(object);
+	public FeatureWalker useADEWalker(ADEWalker<FeatureWalker> walker) {
+		if (walker != null) {
+			if (adeWalkerHelper == null)
+				adeWalkerHelper = new ADEWalkerHelper<>();
+
+			walker.setParentWalker(this);
+			adeWalkerHelper.addADEWalker(walker);
+		}
+
+		return this;
 	}
 
-	public boolean hasVisited(Object object) {
-		return visited.contains(object);
+	public FeatureWalker useADEWalkers(List<ADEWalker<FeatureWalker>> walkers) {
+		for (ADEWalker<FeatureWalker> walker : walkers)
+			useADEWalker(walker);
+
+		return this;
+	}
+
+	public FeatureWalker useADEContext(ADEContext context) {
+		useADEWalker(context.getDefaultFeatureWalker());
+		return this;
+	}
+
+	public FeatureWalker useADEContexts(List<ADEContext> contexts) {
+		for (ADEContext context : contexts)
+			useADEWalker(context.getDefaultFeatureWalker());
+
+		return this;
 	}
 
 	public void visit(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {
@@ -310,8 +320,8 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	}
 	
 	public void visit(AbstractFeature abstractFeature) {
-		if (abstractFeature.isSetGenericADEComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEComponent()))
+		if (abstractFeature.isSetGenericADEElement())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEElement()))
 				visit(ade);
 	}
 	
@@ -467,7 +477,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 
 		if (parameterizedTexture.isSetTarget()) {
 			for (TextureAssociation textureAssociation : new ArrayList<TextureAssociation>(parameterizedTexture.getTarget())) {
-				if (textureAssociation.isSetTextureParameterization() && shouldWalk && visited.add(textureAssociation.getTextureParameterization())) {
+				if (textureAssociation.isSetTextureParameterization() && shouldWalk) {
 					AbstractTextureParameterization textureParameterization = textureAssociation.getTextureParameterization();
 
 					if (textureParameterization instanceof TexCoordGen) {
@@ -485,7 +495,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 					}
 
 					if (textureParameterization.isSetGenericADEComponent())
-						for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericADEComponent()))
+						for (ADEComponent ade : new ArrayList<ADEComponent>(textureParameterization.getGenericADEElement()))
 							visit(ade);
 
 					if (textureParameterization.isSetGenericApplicationPropertyOfTextureParameterization()) 
@@ -1223,21 +1233,21 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 	}
 	
 	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
-		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
+		if (featureProperty.isSetFeature() && shouldWalk)
 			featureProperty.getFeature().accept(this);
 
-		if (featureProperty.isSetGenericADEComponent())
-			visit(featureProperty.getGenericADEComponent());
+		if (featureProperty.isSetGenericADEElement())
+			visit(featureProperty.getGenericADEElement());
 	}
 	
 	public void visit(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
 			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
-				if (shouldWalk && visited.add(feature))
+				if (shouldWalk)
 					feature.accept(this);
 
-			if (featureArrayProperty.isSetGenericADEComponent())
-				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent()))
+			if (featureArrayProperty.isSetGenericADEElement())
+				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEElement()))
 					visit(ade);
 		}
 	}
@@ -1251,11 +1261,28 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		case GENERIC_ELEMENT:
 			visit((ADEGenericElement)adeComponent);
 			break;
+		case MODEL_OBJECT:
+			visit((ADEModelObject)adeComponent);
+			break;
+		}
+	}
+
+	@Override
+	public void visit(ADEModelObject adeModelClass) {
+		if (adeWalkerHelper != null) {
+			try {
+				ADEWalker<FeatureWalker> walker = adeWalkerHelper.getADEWalker(adeModelClass);
+				Method method = adeWalkerHelper.getMethod(adeModelClass, "visit");
+				if (walker != null && method != null)
+					method.invoke(walker, new Object[]{adeModelClass});
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				//
+			}
 		}
 	}
 
 	public void visit(ADEGenericElement adeGenericElement) {
-		if (adeGenericElement.isSetContent() && shouldWalk && visited.add(adeGenericElement.getContent()) && schemaHandler != null)
+		if (adeGenericElement.isSetContent() && shouldWalk && schemaHandler != null)
 			adeGenericElement(adeGenericElement.getContent(), null); 
 	}
 
@@ -1282,7 +1309,7 @@ public abstract class FeatureWalker implements FeatureVisitor, Walker {
 		}	
 
 		for (Element child : children)
-			if (shouldWalk && visited.add(child))
+			if (shouldWalk)
 				adeGenericElement((Element)child, decl);
 	}
 	

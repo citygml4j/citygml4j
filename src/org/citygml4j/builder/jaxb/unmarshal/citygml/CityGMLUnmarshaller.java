@@ -52,7 +52,8 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation.Vegetation200Unma
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody200Unmarshaller;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.BridgeModule;
@@ -311,9 +312,9 @@ public class CityGMLUnmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGMLModuleComponent dest) {
 		String namespaceURI = substitutionGroup.getNamespaceURI();
-		CityGMLModuleVersion version = ((CityGML)dest).getCityGMLModule().getVersion();
+		CityGMLModuleVersion version = dest.getCityGMLModule().getVersion();
 
 		if (version == CityGMLModuleVersion.v2_0_0) {			
 			if (namespaceURI.equals(AppearanceModule.v2_0_0.getNamespaceURI()))

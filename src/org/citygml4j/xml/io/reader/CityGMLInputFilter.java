@@ -18,8 +18,8 @@
  */
 package org.citygml4j.xml.io.reader;
 
-import org.citygml4j.model.citygml.CityGMLClass;
+import javax.xml.namespace.QName;
 
 public interface CityGMLInputFilter {
-	public boolean accept(CityGMLClass type);
+	public boolean accept(QName name);
 }

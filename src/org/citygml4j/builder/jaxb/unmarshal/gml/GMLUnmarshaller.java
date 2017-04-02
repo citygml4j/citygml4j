@@ -25,11 +25,9 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import net.opengis.gml.*;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
@@ -186,6 +184,8 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.w3c.dom.Element;
+
+import net.opengis.gml.*;
 
 public class GMLUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
@@ -483,24 +483,24 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent()) {
-				ADEComponent ade = jaxb.getADEUnmarshaller().unmarshal(dom);
+				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
 
 				// evaluate the subsitutionGroup of the element
 				boolean handled = false;
-				if (dest instanceof CityGML) {
+				if (dest instanceof CityGMLModuleComponent) {
 					Schema adeSchema = jaxb.getSchemaHandler().getSchema(dom.getNamespaceURI());					
 					if (adeSchema != null) {
 						ElementDecl element = adeSchema.getGlobalElementDecl(dom.getLocalName());
 						if (element != null) {
 							QName substitutionGroup = element.getRootSubsitutionGroup();
 							if (substitutionGroup != null)
-								handled = jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, substitutionGroup, (CityGML)dest);	
+								handled = jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, substitutionGroup, (CityGMLModuleComponent)dest);	
 						}
 					}
 				}
 
 				if (!handled)
-					dest.addGenericADEComponent(ade);
+					dest.addGenericADEElement(ade);
 			}
 		}
 	}
@@ -715,7 +715,7 @@ public class GMLUnmarshaller {
 
 	public void unmarshalFeatureProperty(AssociationType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -744,7 +744,7 @@ public class GMLUnmarshaller {
 
 	public void unmarshalFeatureProperty(FeaturePropertyType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -1458,7 +1458,7 @@ public class GMLUnmarshaller {
 
 		if (src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent())
-				dest.addGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(dom));
+				dest.addGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(dom));
 		}
 
 		return dest;

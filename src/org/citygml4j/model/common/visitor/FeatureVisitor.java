@@ -18,7 +18,8 @@
  */
 package org.citygml4j.model.common.visitor;
 
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
@@ -152,6 +153,7 @@ public interface FeatureVisitor extends Visitor {
 	public void visit(WaterClosureSurface waterClosureSurface);
 	public void visit(WaterGroundSurface waterGroundSurface);
 	public void visit(WaterSurface waterSurface);
+	public void visit(ADEModelObject adeModelClass);
 	public void visit(ADEGenericElement adeGenericElement);
 	public void visit(Element element, ElementDecl decl);
 }

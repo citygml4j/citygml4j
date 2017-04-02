@@ -27,6 +27,7 @@ import java.net.URI;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.citygml4j.builder.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.util.internal.xml.SystemIDResolver;
 import org.citygml4j.xml.io.AbstractCityGMLInputFactory;
@@ -38,13 +39,13 @@ import org.citygml4j.xml.schema.SchemaHandler;
 public class JAXBInputFactory extends AbstractCityGMLInputFactory {
 	JAXBBuilder builder;
 
-	public JAXBInputFactory(JAXBBuilder builder) throws CityGMLReadException {
-		this.builder = builder;
-	}
-
 	public JAXBInputFactory(JAXBBuilder builder, SchemaHandler schemaHandler) {
 		super(schemaHandler);
 		this.builder = builder;
+	}
+	
+	public JAXBInputFactory(JAXBBuilder builder) throws CityGMLBuilderException {
+		this(builder, builder.getDefaultSchemaHandler());
 	}
 
 	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException {

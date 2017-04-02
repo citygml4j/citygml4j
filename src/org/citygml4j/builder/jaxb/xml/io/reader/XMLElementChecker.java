@@ -18,20 +18,20 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.model.module.xal.XALCoreModule;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
@@ -45,8 +45,8 @@ public class XMLElementChecker {
 	private final boolean keepInlineAppearance;
 	private final boolean parseSchema;
 	private final boolean failOnMissingADESchema;
-	private final Set<Class<? extends CityGML>> excludes;
 
+	private HashMap<String, List<String>> excludes;
 	private HashSet<String> cityGMLFeatureProperties;
 	private HashMap<String, HashSet<String>> adeFeatureProperties;
 
@@ -55,15 +55,15 @@ public class XMLElementChecker {
 			boolean keepInlineAppearance,
 			boolean parseSchema,
 			boolean failOnMissingADESchema,
-			Set<Class<? extends CityGML>> exlcudes,
+			List<QName> excludes,
 			List<QName> featureProperties) {
 		this.schemaHandler = schemaHandler;
 		this.featureReadMode = featureReadMode;
 		this.keepInlineAppearance = keepInlineAppearance;
 		this.parseSchema = parseSchema;
 		this.failOnMissingADESchema = failOnMissingADESchema;
-		this.excludes = exlcudes;
 
+		initExcludes(excludes);		
 		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER)
 			initCollectionSplitProperties(featureProperties);
 	}
@@ -82,6 +82,14 @@ public class XMLElementChecker {
 
 	public boolean isGMLElement(QName name) {
 		return isGMLElement(name.getNamespaceURI());
+	}
+	
+	public boolean isXALElement(String namespaceURI) {
+		return XALCoreModule.v2_0.getNamespaceURI().equals(namespaceURI);
+	}
+	
+	public boolean isXALElement(QName name) {
+		return isXALElement(name.getNamespaceURI());
 	}
 
 	public boolean isParentInfoElement(String namespaceURI, String localPart) {
@@ -121,7 +129,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getCityGMLFeatureProperty(QName name, XMLChunkImpl currentChunk) {
+	public ElementInfo getCityGMLFeatureProperty(QName name) {
 		ElementInfo elementInfo = null;
 		String localName = name.getLocalPart();
 		String namespaceURI = name.getNamespaceURI();
@@ -169,13 +177,10 @@ public class XMLElementChecker {
 				if (isSetType)
 					elementInfo.type = CityGMLClass.fromModelClass(featureClass);
 
-				if (!excludes.isEmpty()) { 
-					for (Class<? extends CityGML> exclude : excludes) {
-						if (isSubclass(featureClass, exclude)) {
-							elementInfo.isFeature = false;
-							break;
-						}
-					}
+				if (excludes != null) {
+					List<String> localNames = excludes.get(namespaceURI);
+					if (localNames != null && localNames.contains(localName))
+						elementInfo.isFeature = false;
 				}				
 			}
 
@@ -217,18 +222,15 @@ public class XMLElementChecker {
 					if (isSetType)
 						elementInfo.type = CityGMLClass.ADE_COMPONENT;
 
-					if (!excludes.isEmpty()) { 
-						for (Class<? extends CityGML> exclude : excludes) {
-							if (isSubclass(ADEComponent.class, exclude)) {
-								elementInfo.isFeature = false;
-								break;
-							}
-						}
+					if (excludes != null) { 
+						List<String> localNames = excludes.get(namespaceURI);
+						if (localNames != null && localNames.contains(localName))
+							elementInfo.isFeature = false;
 					}
 
-				} else if (elementDecl.hasXLinkAttribute()) {
-					elementInfo.isFeatureProperty = true;
-					elementInfo.hasXLink = true;
+				} else if (elementDecl.isFeatureProperty()) {
+					elementInfo.isFeatureProperty = true;	
+					elementInfo.hasXLink = elementDecl.hasXLinkAttribute();
 				}
 			}
 		}
@@ -236,7 +238,7 @@ public class XMLElementChecker {
 		return elementInfo;
 	}
 
-	public ElementInfo getElementInfo(QName name, XMLChunkImpl currentChunk, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
+	public ElementInfo getElementInfo(QName name, ElementInfo lastElementInfo, boolean isSetType) throws MissingADESchemaException {
 		if (lastElementInfo != null && lastElementInfo.skipNestedElements)
 			return lastElementInfo;
 
@@ -254,12 +256,43 @@ public class XMLElementChecker {
 			if (isGMLElement(name))
 				elementInfo = getGMLFeatureProperty(name.getLocalPart());
 			else if (isCityGMLElement(name))
-				elementInfo = getCityGMLFeatureProperty(name, currentChunk);
-			else if (checkADEFeatureProperty(name))
+				elementInfo = getCityGMLFeatureProperty(name);
+			else if (!isXALElement(name) && checkADEFeatureProperty(name))
 				elementInfo = getADEElementInfo(name, lastElementInfo, false, false);
 		}
 
 		return elementInfo;
+	}
+
+	private void initExcludes(List<QName> excludes) {
+		if (!excludes.isEmpty()) {
+			this.excludes = new HashMap<>();
+
+			for (QName exclude : excludes) {
+				String localName = exclude.getLocalPart();
+				String namespaceURI = exclude.getNamespaceURI();
+
+				if (namespaceURI.length() == 0) {
+					for (CityGMLModule module : Modules.getCityGMLModules()) {
+						if (module.hasFeatureElement(localName)) {
+							namespaceURI = module.getNamespaceURI();
+							break;
+						}
+					}
+				}
+
+				if (namespaceURI.length() == 0)
+					continue;				
+
+				List<String> localNames = this.excludes.get(namespaceURI);
+				if (localNames == null) {
+					localNames = new ArrayList<>();
+					this.excludes.put(namespaceURI, localNames);
+				}
+
+				localNames.add(localName);
+			}
+		}
 	}
 
 	private void initCollectionSplitProperties(List<QName> featureProperties) {
@@ -315,19 +348,6 @@ public class XMLElementChecker {
 				return properties.contains(name.getLocalPart());
 		}
 
-		return false;
-	}
-
-	private boolean isSubclass(Class<?> a, Class<?> b) {
-		if (a == null || b == null)
-			return false;
-
-		if (a == b)
-			return true;
-
-		if (a.getSuperclass() != Object.class)
-			return isSubclass(a.getSuperclass(), b);
-		
 		return false;
 	}
 

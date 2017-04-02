@@ -135,8 +135,8 @@ public class WaterBody200Marshaller {
 				dest.set_WaterBoundarySurface((JAXBElement<? extends AbstractWaterBoundarySurfaceType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

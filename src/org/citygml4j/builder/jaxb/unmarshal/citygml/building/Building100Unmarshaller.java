@@ -21,37 +21,11 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.building;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import net.opengis.citygml._1.AddressPropertyType;
-import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
-import net.opengis.citygml.building._1.AbstractBuildingType;
-import net.opengis.citygml.building._1.AbstractOpeningType;
-import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
-import net.opengis.citygml.building._1.BuildingFurnitureType;
-import net.opengis.citygml.building._1.BuildingInstallationPropertyType;
-import net.opengis.citygml.building._1.BuildingInstallationType;
-import net.opengis.citygml.building._1.BuildingPartPropertyType;
-import net.opengis.citygml.building._1.BuildingPartType;
-import net.opengis.citygml.building._1.BuildingType;
-import net.opengis.citygml.building._1.CeilingSurfaceType;
-import net.opengis.citygml.building._1.ClosureSurfaceType;
-import net.opengis.citygml.building._1.DoorType;
-import net.opengis.citygml.building._1.FloorSurfaceType;
-import net.opengis.citygml.building._1.GroundSurfaceType;
-import net.opengis.citygml.building._1.IntBuildingInstallationPropertyType;
-import net.opengis.citygml.building._1.IntBuildingInstallationType;
-import net.opengis.citygml.building._1.InteriorFurniturePropertyType;
-import net.opengis.citygml.building._1.InteriorRoomPropertyType;
-import net.opengis.citygml.building._1.InteriorWallSurfaceType;
-import net.opengis.citygml.building._1.OpeningPropertyType;
-import net.opengis.citygml.building._1.RoofSurfaceType;
-import net.opengis.citygml.building._1.RoomType;
-import net.opengis.citygml.building._1.WallSurfaceType;
-import net.opengis.citygml.building._1.WindowType;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.AbstractOpening;
@@ -81,6 +55,33 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml._1.AddressPropertyType;
+import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
+import net.opengis.citygml.building._1.AbstractBuildingType;
+import net.opengis.citygml.building._1.AbstractOpeningType;
+import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
+import net.opengis.citygml.building._1.BuildingFurnitureType;
+import net.opengis.citygml.building._1.BuildingInstallationPropertyType;
+import net.opengis.citygml.building._1.BuildingInstallationType;
+import net.opengis.citygml.building._1.BuildingPartPropertyType;
+import net.opengis.citygml.building._1.BuildingPartType;
+import net.opengis.citygml.building._1.BuildingType;
+import net.opengis.citygml.building._1.CeilingSurfaceType;
+import net.opengis.citygml.building._1.ClosureSurfaceType;
+import net.opengis.citygml.building._1.DoorType;
+import net.opengis.citygml.building._1.FloorSurfaceType;
+import net.opengis.citygml.building._1.GroundSurfaceType;
+import net.opengis.citygml.building._1.IntBuildingInstallationPropertyType;
+import net.opengis.citygml.building._1.IntBuildingInstallationType;
+import net.opengis.citygml.building._1.InteriorFurniturePropertyType;
+import net.opengis.citygml.building._1.InteriorRoomPropertyType;
+import net.opengis.citygml.building._1.InteriorWallSurfaceType;
+import net.opengis.citygml.building._1.OpeningPropertyType;
+import net.opengis.citygml.building._1.RoofSurfaceType;
+import net.opengis.citygml.building._1.RoomType;
+import net.opengis.citygml.building._1.WallSurfaceType;
+import net.opengis.citygml.building._1.WindowType;
 
 public class Building100Unmarshaller {
 	private final BuildingModule module = BuildingModule.v1_0_0;
@@ -263,7 +264,15 @@ public class Building100Unmarshaller {
 		if (src.isSetAddress()) {
 			for (AddressPropertyType addressProperty : src.getAddress())
 				dest.addAddress(citygml.getCore100Unmarshaller().unmarshalAddressProperty(addressProperty));
-		}	
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfAbstractBuilding()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAbstractBuilding()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfAbstractBuilding(ade);
+			}
+		}
 	}
 	
 	public void unmarshalAbstractBoundarySurface(AbstractBoundarySurfaceType src, AbstractBoundarySurface dest) throws MissingADESchemaException {
@@ -282,6 +291,14 @@ public class Building100Unmarshaller {
 			for (OpeningPropertyType openingProperty : src.getOpening())
 				dest.addOpening(unmarshalOpeningProperty(openingProperty));
 		}
+		
+		if (src.isSet_GenericApplicationPropertyOfBoundarySurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBoundarySurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfBoundarySurface(ade);
+			}
+		}
 	}
 	
 	public void unmarshalAbstractOpening(AbstractOpeningType src, AbstractOpening dest) throws MissingADESchemaException {
@@ -292,6 +309,14 @@ public class Building100Unmarshaller {
 
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+		
+		if (src.isSet_GenericApplicationPropertyOfOpening()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOpening()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfOpening(ade);
+			}
+		}
 	}
 
 	public BoundarySurfaceProperty unmarshalBoundarySurfaceProperty(BoundarySurfacePropertyType src) throws MissingADESchemaException {
@@ -309,6 +334,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalBuilding(BuildingType src, Building dest) throws MissingADESchemaException {
 		unmarshalAbstractBuilding(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfBuilding()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBuilding()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfBuilding(ade);
+			}
+		}
 	}
 
 	public Building unmarshalBuilding(BuildingType src) throws MissingADESchemaException {
@@ -339,6 +372,14 @@ public class Building100Unmarshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
+		
+		if (src.isSet_GenericApplicationPropertyOfBuildingFurniture()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBuildingFurniture()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfBuildingFurniture(ade);
+			}
+		}
 	}
 
 	public BuildingFurniture unmarshalBuildingFurniture(BuildingFurnitureType src) throws MissingADESchemaException {
@@ -372,6 +413,14 @@ public class Building100Unmarshaller {
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
+		
+		if (src.isSet_GenericApplicationPropertyOfBuildingInstallation()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBuildingInstallation()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfBuildingInstallation(ade);
+			}
+		}
 	}
 
 	public BuildingInstallation unmarshalBuildingInstallation(BuildingInstallationType src) throws MissingADESchemaException {
@@ -396,6 +445,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalBuildingPart(BuildingPartType src, BuildingPart dest) throws MissingADESchemaException {
 		unmarshalAbstractBuilding(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfBuildingPart()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBuildingPart()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfBuildingPart(ade);
+			}
+		}
 	}
 
 	public BuildingPart unmarshalBuildingPart(BuildingPartType src) throws MissingADESchemaException {
@@ -420,6 +477,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalCeilingSurface(CeilingSurfaceType src, CeilingSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfCeilingSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCeilingSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfCeilingSurface(ade);
+			}
+		}
 	}
 
 	public CeilingSurface unmarshalCeilingSurface(CeilingSurfaceType src) throws MissingADESchemaException {
@@ -431,6 +496,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalClosureSurface(ClosureSurfaceType src, ClosureSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfClosureSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfClosureSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfClosureSurface(ade);
+			}
+		}
 	}
 
 	public ClosureSurface unmarshalClosureSurface(ClosureSurfaceType src) throws MissingADESchemaException {
@@ -447,6 +520,14 @@ public class Building100Unmarshaller {
 			for (AddressPropertyType addressProperty : src.getAddress())
 				dest.addAddress(citygml.getCore100Unmarshaller().unmarshalAddressProperty(addressProperty));
 		}
+		
+		if (src.isSet_GenericApplicationPropertyOfDoor()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfDoor()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfDoor(ade);
+			}
+		}
 	}
 
 	public Door unmarshalDoor(DoorType src) throws MissingADESchemaException {
@@ -458,6 +539,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalFloorSurface(FloorSurfaceType src, FloorSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfFloorSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfFloorSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfFloorSurface(ade);
+			}
+		}
 	}
 
 	public FloorSurface unmarshalFloorSurface(FloorSurfaceType src) throws MissingADESchemaException {
@@ -469,6 +558,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalGroundSurface(GroundSurfaceType src, GroundSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfGroundSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfGroundSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfGroundSurface(ade);
+			}
+		}
 	}
 
 	public GroundSurface unmarshalGroundSurface(GroundSurfaceType src) throws MissingADESchemaException {
@@ -496,6 +593,14 @@ public class Building100Unmarshaller {
 
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
+		
+		if (src.isSet_GenericApplicationPropertyOfIntBuildingInstallation()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfIntBuildingInstallation()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfIntBuildingInstallation(ade);
+			}
+		}
 	}
 
 	public IntBuildingInstallation unmarshalIntBuildingInstallation(IntBuildingInstallationType src) throws MissingADESchemaException {
@@ -546,6 +651,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalInteriorWallSurface(InteriorWallSurfaceType src, InteriorWallSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfInteriorWallSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfInteriorWallSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfInteriorWallSurface(ade);
+			}
+		}
 	}
 
 	public InteriorWallSurface unmarshalInteriorWallSurface(InteriorWallSurfaceType src) throws MissingADESchemaException {
@@ -570,6 +683,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalRoofSurface(RoofSurfaceType src, RoofSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfRoofSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRoofSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfRoofSurface(ade);
+			}
+		}
 	}
 
 	public RoofSurface unmarshalRoofSurface(RoofSurfaceType src) throws MissingADESchemaException {
@@ -614,7 +735,15 @@ public class Building100Unmarshaller {
 		if (src.isSetRoomInstallation()) {
 			for (IntBuildingInstallationPropertyType intBuildingInstallationProperty : src.getRoomInstallation())
 				dest.addRoomInstallation(unmarshalIntBuildingInstallationProperty(intBuildingInstallationProperty));
-		}	
+		}
+		
+		if (src.isSet_GenericApplicationPropertyOfRoom()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRoom()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfRoom(ade);
+			}
+		}
 	}
 
 	public Room unmarshalRoom(RoomType src) throws MissingADESchemaException {
@@ -626,6 +755,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalWallSurface(WallSurfaceType src, WallSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfWallSurface()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWallSurface()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfWallSurface(ade);
+			}
+		}
 	}
 
 	public WallSurface unmarshalWallSurface(WallSurfaceType src) throws MissingADESchemaException {
@@ -637,6 +774,14 @@ public class Building100Unmarshaller {
 
 	public void unmarshalWindow(WindowType src, Window dest) throws MissingADESchemaException {
 		unmarshalAbstractOpening(src, dest);
+		
+		if (src.isSet_GenericApplicationPropertyOfWindow()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWindow()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfWindow(ade);
+			}
+		}
 	}
 
 	public Window unmarshalWindow(WindowType src) throws MissingADESchemaException {
@@ -646,7 +791,7 @@ public class Building100Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		

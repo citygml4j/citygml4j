@@ -249,11 +249,8 @@ public class SAXWriter extends XMLFilterImpl {
 	}
 
 	public void setPrefix(String prefix, String uri) {
-		if (prefix == null)
-			throw new IllegalArgumentException("namespace prefix may not be null.");
-
-		if (uri == null)
-			throw new IllegalArgumentException("namespace URI may not be null.");
+		if (prefix == null || uri == null)
+			return;
 
 		if (depth == 0)
 			userDefinedNS.setPrefix(prefix, uri);
@@ -333,8 +330,8 @@ public class SAXWriter extends XMLFilterImpl {
 		if (namespaceURI == null)
 			throw new IllegalArgumentException("namespace URI may not be null.");
 
-		if (schemaLocation == null)
-			throw new IllegalArgumentException("schema location may not be null.");
+		if (schemaLocation == null || schemaLocation.trim().isEmpty())
+			return;
 
 		schemaLocations.put(namespaceURI, schemaLocation);
 	}
@@ -825,6 +822,17 @@ public class SAXWriter extends XMLFilterImpl {
 		}
 
 		void declarePrefix(String prefix, String uri) {
+			if (!contexts.isEmpty() && contexts.peek().namespaces.values().contains(prefix)) {
+				Iterator<Entry<String, String>> iter = contexts.peek().namespaces.entrySet().iterator();
+				while (iter.hasNext()) {
+					Entry<String, String> entry = iter.next();
+					if (entry.getValue().equals(prefix)) {
+						iter.remove();
+						break;
+					}				
+				}
+			}
+
 			pushContext();
 			contexts.peek().namespaces.put(uri, prefix);
 		}

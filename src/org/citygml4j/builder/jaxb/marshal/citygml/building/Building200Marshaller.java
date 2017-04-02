@@ -416,8 +416,8 @@ public class Building200Marshaller {
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -562,14 +562,18 @@ public class Building200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public BuildingInstallationPropertyType marshalBuildingInstallationProperty(BuildingInstallationProperty src) {
 		BuildingInstallationPropertyType dest = bldg.createBuildingInstallationPropertyType();
 
-		if (src.isSetBuildingInstallation())
-			dest.setBuildingInstallation(marshalBuildingInstallation(src.getBuildingInstallation()));
+		if (src.isSetBuildingInstallation()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingInstallation());
+			if (elem != null && elem.getValue() instanceof BuildingInstallationType)
+				dest.set_CityObject((JAXBElement<? extends BuildingInstallationType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -620,14 +624,18 @@ public class Building200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public BuildingPartPropertyType marshalBuildingPartProperty(BuildingPartProperty src) {
 		BuildingPartPropertyType dest = bldg.createBuildingPartPropertyType();
 
-		if (src.isSetBuildingPart())
-			dest.setBuildingPart(marshalBuildingPart(src.getBuildingPart()));
+		if (src.isSetBuildingPart()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingPart());
+			if (elem != null && elem.getValue() instanceof BuildingPartType)
+				dest.set_AbstractBuilding((JAXBElement<? extends BuildingPartType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -802,14 +810,18 @@ public class Building200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public IntBuildingInstallationPropertyType marshalIntBuildingInstallationProperty(IntBuildingInstallationProperty src) {
 		IntBuildingInstallationPropertyType dest = bldg.createIntBuildingInstallationPropertyType();
 
-		if (src.isSetIntBuildingInstallation())
-			dest.setIntBuildingInstallation(marshalIntBuildingInstallation(src.getIntBuildingInstallation()));
+		if (src.isSetIntBuildingInstallation()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getIntBuildingInstallation());
+			if (elem != null && elem.getValue() instanceof IntBuildingInstallationType)
+				dest.set_CityObject((JAXBElement<? extends IntBuildingInstallationType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -841,14 +853,18 @@ public class Building200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public InteriorFurniturePropertyType marshalInteriorFurnitureProperty(InteriorFurnitureProperty src) {
 		InteriorFurniturePropertyType dest = bldg.createInteriorFurniturePropertyType();
 
-		if (src.isSetBuildingFurniture())
-			dest.setBuildingFurniture(marshalBuildingFurniture(src.getBuildingFurniture()));
+		if (src.isSetBuildingFurniture()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getBuildingFurniture());
+			if (elem != null && elem.getValue() instanceof BuildingFurnitureType)
+				dest.set_CityObject((JAXBElement<? extends BuildingFurnitureType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -880,14 +896,18 @@ public class Building200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public InteriorRoomPropertyType marshalInteriorRoomProperty(InteriorRoomProperty src) {
 		InteriorRoomPropertyType dest = bldg.createInteriorRoomPropertyType();
 
-		if (src.isSetRoom())
-			dest.setRoom(marshalRoom(src.getRoom()));
+		if (src.isSetRoom()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getRoom());
+			if (elem != null && elem.getValue() instanceof RoomType)
+				dest.set_CityObject((JAXBElement<? extends RoomType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -948,8 +968,8 @@ public class Building200Marshaller {
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

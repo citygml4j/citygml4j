@@ -26,7 +26,7 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
@@ -631,9 +631,9 @@ public class GMLMarshaller {
 				dest.setLocation((JAXBElement<? extends LocationPropertyType>)elem);
 		}
 
-		if (src.isSetGenericADEComponent()) {
-			for (ADEComponent adeComponent : src.getGenericADEComponent()) {
-				Element element = jaxb.getADEMarshaller().marshalDOMElement(adeComponent);
+		if (src.isSetGenericADEElement()) {
+			for (ADEGenericElement genericADEElement : src.getGenericADEElement()) {
+				Element element = jaxb.getADEMarshaller().marshalDOMElement(genericADEElement);
 				if (element != null)
 					dest.get_ADEComponent().add(element);
 			}
@@ -801,16 +801,16 @@ public class GMLMarshaller {
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, AssociationType dest) {
 		marshalAssociationByRepOrRef(src, dest);
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
 	}
 
 	public void marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> src, FeaturePropertyType dest) {
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -1617,9 +1617,9 @@ public class GMLMarshaller {
 			}
 		}
 
-		if (src.isSetGenericADEComponent()) {
-			for (ADEComponent adeComponent : src.getGenericADEComponent()) {
-				Element element = jaxb.getADEMarshaller().marshalDOMElement(adeComponent);
+		if (src.isSetGenericADEElement()) {
+			for (ADEGenericElement adeGenericElement : src.getGenericADEElement()) {
+				Element element = jaxb.getADEMarshaller().marshalDOMElement(adeGenericElement);
 				if (element != null)
 					dest.get_ADEComponent().add(element);
 			}

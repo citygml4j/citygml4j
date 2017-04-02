@@ -18,8 +18,8 @@
  */
 package org.citygml4j.model.citygml.texturedsurface;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 
-public interface TexturedSurfaceModuleComponent extends CityGML {
+public interface TexturedSurfaceModuleComponent extends CityGMLModuleComponent {
 
 }

@@ -21,7 +21,7 @@ package org.citygml4j.model.gml.feature;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -32,13 +32,13 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 public abstract class AbstractFeature extends AbstractGML {
 	private BoundingShape boundedBy;
 	private LocationProperty location;
-	private List<ADEComponent> ade;
+	private List<ADEGenericElement> genericADEElement;
 
-	public void addGenericADEComponent(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
+	public void addGenericADEElement(ADEGenericElement genericADEElement) {
+		if (this.genericADEElement == null)
+			this.genericADEElement = new ChildList<ADEGenericElement>(this);
 		
-		this.ade.add(ade);
+		this.genericADEElement.add(genericADEElement);
 	}
 	
 	public BoundingShape getBoundedBy() {
@@ -49,11 +49,11 @@ public abstract class AbstractFeature extends AbstractGML {
 		return location;
 	}
 	
-	public List<ADEComponent> getGenericADEComponent() {
-		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+	public List<ADEGenericElement> getGenericADEElement() {
+		if (genericADEElement == null)
+			genericADEElement = new ChildList<ADEGenericElement>(this);
 		
-		return ade;
+		return genericADEElement;
 	}
 
 	public boolean isSetBoundedBy() {
@@ -64,8 +64,8 @@ public abstract class AbstractFeature extends AbstractGML {
 		return location != null;
 	}
 	
-	public boolean isSetGenericADEComponent() {
-		return ade != null && !ade.isEmpty();
+	public boolean isSetGenericADEElement() {
+		return genericADEElement != null && !genericADEElement.isEmpty();
 	}
 
 	public void setBoundedBy(BoundingShape boundingShape) {
@@ -82,8 +82,8 @@ public abstract class AbstractFeature extends AbstractGML {
 		this.location = location;
 	}
 	
-	public void setGenericADEComponent(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+	public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
+		this.genericADEElement = new ChildList<ADEGenericElement>(this, genericADEElement);
 	}
 
 	public void unsetBoundedBy() {
@@ -100,15 +100,15 @@ public abstract class AbstractFeature extends AbstractGML {
 		location = null;
 	}
 	
-	public void unsetGenericADEComponent() {
-		if (isSetGenericADEComponent())
-			ade.clear();
+	public void unsetGenericADEElement() {
+		if (isSetGenericADEElement())
+			genericADEElement.clear();
 		
-		ade = null;
+		genericADEElement = null;
 	}
 
-	public boolean unsetGenericADEComponent(ADEComponent ade) {
-		return isSetGenericADEComponent() ? this.ade.remove(ade) : false;
+	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
+		return isSetGenericADEElement() ? this.genericADEElement.remove(genericADEElement) : false;
 	}
 
 	public GMLClass getGMLClass() {
@@ -140,10 +140,10 @@ public abstract class AbstractFeature extends AbstractGML {
 				location.setParent(this);
 		}
 		
-		if (isSetGenericADEComponent()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericADEComponent(copyPart);
+		if (isSetGenericADEElement()) {
+			for (ADEGenericElement part : genericADEElement) {
+				ADEGenericElement copyPart = (ADEGenericElement)copyBuilder.copy(part);
+				copy.addGenericADEElement(copyPart);
 				
 				if (part != null && copyPart == part)
 					part.setParent(this);

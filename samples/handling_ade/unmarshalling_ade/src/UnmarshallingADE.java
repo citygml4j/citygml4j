@@ -60,7 +60,7 @@ public class UnmarshallingADE {
 		final JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller(schemaHandler);
 		final JAXBMarshaller marshaller = builder.createJAXBMarshaller();
 
-		GMLWalker walker = new GMLWalker(schemaHandler) {
+		GMLWalker walker = new GMLWalker() {
 
 			@Override
 			public void visit(Element element, ElementDecl decl) {
@@ -93,7 +93,8 @@ public class UnmarshallingADE {
 			}
 
 		};
-
+		
+		walker.setSchemaHandler(schemaHandler);
 		cityModel.accept(walker);
 
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
@@ -110,8 +111,8 @@ public class UnmarshallingADE {
 		writer.writeStartDocument();
 
 		for (CityObjectMember member : cityModel.getCityObjectMember())
-			if (member.isSetGenericADEComponent())
-				writer.writeFeatureMember(member.getGenericADEComponent());
+			if (member.isSetGenericADEElement())
+				writer.writeFeatureMember(member.getGenericADEElement());
 
 		writer.writeEndDocument();		
 		writer.close();

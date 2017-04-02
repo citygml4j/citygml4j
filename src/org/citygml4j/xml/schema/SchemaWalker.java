@@ -44,22 +44,8 @@ import com.sun.xml.xsom.XSWildcard;
 import com.sun.xml.xsom.XSXPath;
 import com.sun.xml.xsom.visitor.XSVisitor;
 
-public abstract class SchemaWalker implements XSVisitor, Walker {
+public abstract class SchemaWalker extends Walker implements XSVisitor {
 	private final Set<Object> visited = new HashSet<Object>();
-	private volatile boolean shouldWalk = true;
-
-	public void reset() {
-		visited.clear();
-		shouldWalk = true;
-	}
-	
-	public boolean shouldWalk() {
-		return shouldWalk;
-	}
-	
-	public void setShouldWalk(boolean shouldWalk) {
-		this.shouldWalk = shouldWalk;
-	}
 	
 	public boolean addToVisited(Object object) {
 		return visited.add(object);

@@ -18,17 +18,30 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.ade;
 
+import java.util.HashMap;
+
+import javax.xml.bind.JAXBElement;
+
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public class ADEUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
+	private HashMap<String, ADEContext> adeContexts;
+	private ADEUnmarshallerHelper helper;
 
-	public ADEUnmarshaller(JAXBUnmarshaller jaxb) {
+	public ADEUnmarshaller(JAXBUnmarshaller jaxb, HashMap<String, ADEContext> adeContexts) {
 		this.jaxb = jaxb;
+
+		if (adeContexts != null && !adeContexts.isEmpty()) {
+			this.adeContexts = adeContexts;
+			helper = new ADEUnmarshallerHelper(jaxb);
+		}
 	}
 
 	public ADEGenericElement unmarshal(Element element) throws MissingADESchemaException {
@@ -51,6 +64,28 @@ public class ADEUnmarshaller {
 		}
 
 		return new ADEGenericElement(element);
+	}
+
+	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+		if (adeContexts != null) {
+			ADEContext adeContext = adeContexts.get(src.getName().getNamespaceURI());
+			if (adeContext != null)
+				return adeContext.getADEUnmarshaller().unmarshal(src, helper);
+		}
+
+		return null;
+	}
+
+	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
+		if (adeContexts != null) {
+			for (ADEContext adeContext : adeContexts.values()) {
+				ADEModelObject ade = adeContext.getADEUnmarshaller().unmarshal(src, helper);
+				if (ade != null)
+					return ade;
+			}
+		}
+
+		return null;
 	}
 
 }

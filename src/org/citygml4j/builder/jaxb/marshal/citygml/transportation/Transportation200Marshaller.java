@@ -169,14 +169,18 @@ public class Transportation200Marshaller {
 		return dest;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public AuxiliaryTrafficAreaPropertyType marshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaProperty src) {
 		AuxiliaryTrafficAreaPropertyType dest = tran.createAuxiliaryTrafficAreaPropertyType();
 
-		if (src.isSetAuxiliaryTrafficArea())
-			dest.setAuxiliaryTrafficArea(marshalAuxiliaryTrafficArea(src.getAuxiliaryTrafficArea()));
+		if (src.isSetAuxiliaryTrafficArea()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getAuxiliaryTrafficArea());
+			if (elem != null && elem.getValue() instanceof AuxiliaryTrafficAreaType)
+				dest.set_CityObject((JAXBElement<? extends AuxiliaryTrafficAreaType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
@@ -328,14 +332,18 @@ public class Transportation200Marshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
 	public TrafficAreaPropertyType marshalTrafficAreaProperty(TrafficAreaProperty src) {
 		TrafficAreaPropertyType dest = tran.createTrafficAreaPropertyType();
 
-		if (src.isSetTrafficArea())
-			dest.setTrafficArea(marshalTrafficArea(src.getTrafficArea()));
+		if (src.isSetTrafficArea()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getTrafficArea());
+			if (elem != null && elem.getValue() instanceof TrafficAreaType)
+				dest.set_CityObject((JAXBElement<? extends TrafficAreaType>)elem);
+		}
 		
-		if (src.isSetGenericADEComponent()) {
-			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEComponent());
+		if (src.isSetGenericADEElement()) {
+			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}

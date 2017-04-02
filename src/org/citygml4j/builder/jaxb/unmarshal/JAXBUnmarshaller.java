@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal;
 
+import java.util.HashMap;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -27,6 +29,7 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.xal.XALUnmarshaller;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -44,14 +47,14 @@ public class JAXBUnmarshaller {
 	private boolean throwMissingADESchema = true;
 	private boolean releaseJAXBElements = true;
 
-	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler) {
+	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler, HashMap<String, ADEContext> adeContexts) {
 		this.jaxbBuilder = jaxbBuilder;
 		this.schemaHandler = schemaHandler;
 
 		citygml = new CityGMLUnmarshaller(this);
 		gml = new GMLUnmarshaller(this);
 		xal = new XALUnmarshaller();
-		ade = new ADEUnmarshaller(this);
+		ade = new ADEUnmarshaller(this, adeContexts);
 	}
 
 	public ModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -60,6 +63,8 @@ public class JAXBUnmarshaller {
 			dest = gml.unmarshal(src);
 		if (dest == null)
 			dest = xal.unmarshal(src);
+		if (dest == null)
+			dest = ade.unmarshal(src);
 
 		// release memory
 		if (releaseJAXBElements)
@@ -95,7 +100,9 @@ public class JAXBUnmarshaller {
 			dest = gml.unmarshal(src);
 		if (dest == null)
 			dest = xal.unmarshal(src);
-
+		if (dest == null)
+			dest = ade.unmarshal(src);
+		
 		return dest;
 	}
 

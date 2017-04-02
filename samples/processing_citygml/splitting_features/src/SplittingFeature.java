@@ -27,7 +27,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -66,13 +66,15 @@ public class SplittingFeature {
 		reader.close();
 		
 		System.out.println(df.format(new Date()) + "splitting CityGML document into single features");
-		FeatureSplitter splitter = new FeatureSplitter(schemaHandler, new GMLIdCreator());
-		splitter.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE);
-		splitter.exlcude(RoofSurface.class);
+		FeatureSplitter splitter = new FeatureSplitter()
+				.setSchemaHandler(schemaHandler)
+				.setGMLIdManager(new GMLIdCreator())
+				.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE)
+				.exclude(RoofSurface.class);
 		
 		// uncomment to see differences!
-		//splitter.exlcude(ADEComponent.class);
-		//splitter.setSplitCopy(true);
+		// splitter.exclude(ADEComponent.class);
+		// splitter.splitCopy(true);
 
 		System.out.println(df.format(new Date()) + "splitting result:");
 		List<CityGML> splitResult = splitter.split(cityModel);

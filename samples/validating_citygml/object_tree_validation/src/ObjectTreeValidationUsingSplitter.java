@@ -26,7 +26,7 @@ import javax.xml.bind.ValidationEventHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.util.transform.FeatureSplitMode;
 import org.citygml4j.util.transform.FeatureSplitter;
@@ -83,9 +83,10 @@ public class ObjectTreeValidationUsingSplitter {
 		});
 		
 		System.out.println(df.format(new Date()) + "creating citygml4j FeatureSplitter and splitting document into single features");
-		FeatureSplitter splitter = new FeatureSplitter(schemaHandler);
-		splitter.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE);
-		splitter.setSplitCopy(true);
+		FeatureSplitter splitter = new FeatureSplitter()
+				.setSchemaHandler(schemaHandler)
+				.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE)
+				.splitCopy(true);
 		
 		System.out.println(df.format(new Date()) + "iterating over splitting result and validating features against CityGML 1.0.0");
 		for (CityGML feature : splitter.split(citygml)) {

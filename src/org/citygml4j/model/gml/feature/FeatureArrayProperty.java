@@ -22,12 +22,13 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
 
 public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
-	private List<ADEComponent> genericADEComponent;
+	private List<ADEGenericElement> genericADEElement;
 	
 	public FeatureArrayProperty() {
 		
@@ -49,30 +50,30 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 		super.addObject(feature);
 	}
 	
-	public void addGenericADEComponent(ADEComponent genericADEComponent) {
-		if (this.genericADEComponent == null)
-			this.genericADEComponent = new ChildList<ADEComponent>(this);
+	public void addGenericADEElement(ADEGenericElement genericADEElement) {
+		if (this.genericADEElement == null)
+			this.genericADEElement = new ChildList<ADEGenericElement>(this);
 		
-		this.genericADEComponent.add(genericADEComponent);
+		this.genericADEElement.add(genericADEElement);
 	}
 
 	public List<? extends AbstractFeature> getFeature() {
 		return super.getObject();
 	}
 	
-	public List<ADEComponent> getGenericADEComponent() {
-		if (genericADEComponent == null)
-			genericADEComponent = new ChildList<ADEComponent>(this);
+	public List<ADEGenericElement> getGenericADEElement() {
+		if (genericADEElement == null)
+			genericADEElement = new ChildList<ADEGenericElement>(this);
 		
-		return genericADEComponent;
+		return genericADEElement;
 	}
 
 	public boolean isSetFeature() {
 		return super.isSetObject();
 	}
 	
-	public boolean isSetGenericADEComponent() {
-		return genericADEComponent != null && !genericADEComponent.isEmpty();
+	public boolean isSetGenericADEElement() {
+		return genericADEElement != null && !genericADEElement.isEmpty();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -80,27 +81,27 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 		super.setObject((List<AbstractFeature>)feature);
 	}
 	
-	public void setGenericADEComponent(List<ADEComponent> genericADEComponent) {
-		this.genericADEComponent = new ChildList<ADEComponent>(this, genericADEComponent);
+	public void setGenericADEComponent(List<ADEGenericElement> genericADEComponent) {
+		this.genericADEElement = new ChildList<ADEGenericElement>(this, genericADEComponent);
 	}
 
 	public void unsetFeature() {
 		super.unsetObject();
 	}
 	
-	public void unsetGenericADEComponent() {
-		if (isSetGenericADEComponent())
-			genericADEComponent.clear();
+	public void unsetGenericADEElement() {
+		if (isSetGenericADEElement())
+			genericADEElement.clear();
 		
-		genericADEComponent = null;
+		genericADEElement = null;
 	}
 
 	public boolean unsetFeature(AbstractFeature feature) {
 		return super.unsetObject(feature);
 	}
 	
-	public boolean unsetGenericADEComponent(ADEComponent genericADEComponent) {
-		return isSetGenericADEComponent() ? this.genericADEComponent.remove(genericADEComponent) : false;
+	public boolean unsetGenericADEElement(ADEComponent genericADEElement) {
+		return isSetGenericADEElement() ? this.genericADEElement.remove(genericADEElement) : false;
 	}
 
 	public GMLClass getGMLClass() {
@@ -119,10 +120,10 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 		FeatureArrayProperty copy = (target == null) ? new FeatureArrayProperty() : (FeatureArrayProperty)target;
 		super.copyTo(copy, copyBuilder);
 		
-		if (isSetGenericADEComponent()) {
-			for (ADEComponent part : genericADEComponent) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericADEComponent(copyPart);
+		if (isSetGenericADEElement()) {
+			for (ADEGenericElement part : genericADEElement) {
+				ADEGenericElement copyPart = (ADEGenericElement)copyBuilder.copy(part);
+				copy.addGenericADEElement(copyPart);
 				
 				if (part != null && copyPart == part)
 					part.setParent(this);

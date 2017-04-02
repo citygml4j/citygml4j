@@ -25,16 +25,13 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import net.opengis.gml.MultiSurfacePropertyType;
-import net.opengis.gml.MultiSurfaceType;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.gml.base.StringOrRef;
@@ -56,6 +53,8 @@ import ade.sub.jaxb.RelativeToTerrainType;
 import ade.sub.jaxb.RoofSurfaceType;
 import ade.sub.jaxb.TunnelType;
 import ade.sub.jaxb.WallSurfaceType;
+import net.opengis.gml.MultiSurfacePropertyType;
+import net.opengis.gml.MultiSurfaceType;
 
 public class UsingJAXBUnmarshaller {
 
@@ -74,7 +73,7 @@ public class UsingJAXBUnmarshaller {
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 		
-		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEComponent();
+		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEElement();
 
 		JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
 		unmarshaller.setReleaseJAXBElementsFromMemory(false);
@@ -91,7 +90,7 @@ public class UsingJAXBUnmarshaller {
 		JAXBElement<?> element = (JAXBElement<?>)jaxbUmarshaller.unmarshal(((ADEGenericElement)ade).getContent());
 		System.out.println("Unmarshalled JAXBElement: " + element.getName());
 	
-		System.out.println(df.format(new Date()) + "processing ADE feature sub:Tunnel by using JAXBUnmarshaller and JAXBMarshaller to modify ADE content");
+		System.out.println(df.format(new Date()) + "processing ADE feature sub:Tunnel using JAXBUnmarshaller and JAXBMarshaller to modify ADE content");
 		if (element.getValue() instanceof TunnelType) {
 			TunnelType tunnel = (TunnelType)element.getValue();
 			System.out.println("ADE feature: Tunnel, gml:id='" + tunnel.getId() + "'");
@@ -133,7 +132,7 @@ public class UsingJAXBUnmarshaller {
 					
 			Element tunnelElement = marshaller.marshalDOMElement(jaxbFactory.createTunnel(tunnel), jaxbCtx);
 			ADEGenericElement newADE = new ADEGenericElement(tunnelElement);
-			cityModel.getCityObjectMember().get(3).setGenericADEComponent(newADE);
+			cityModel.getCityObjectMember().get(3).setGenericADEElement(newADE);
 		}
 		
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
@@ -151,8 +150,8 @@ public class UsingJAXBUnmarshaller {
 		writer.writeStartDocument();
 		
 		for (CityObjectMember member : cityModel.getCityObjectMember())
-			if (member.isSetGenericADEComponent())
-				writer.writeFeatureMember(member.getGenericADEComponent());
+			if (member.isSetGenericADEElement())
+				writer.writeFeatureMember(member.getGenericADEElement());
 		
 		writer.writeEndDocument();		
 		writer.close();

@@ -18,8 +18,8 @@
  */
 package org.citygml4j.model.citygml.waterbody;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.CityGMLModuleComponent;
 
-public interface WaterBodyModuleComponent extends CityGML {
+public interface WaterBodyModuleComponent extends CityGMLModuleComponent {
 
 }

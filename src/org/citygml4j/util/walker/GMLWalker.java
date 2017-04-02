@@ -18,13 +18,17 @@
  */
 package org.citygml4j.util.walker;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.ADEGenericElement;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.binding.ADEWalker;
+import org.citygml4j.model.citygml.ade.binding.ADEWalkerHelper;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
@@ -193,45 +197,51 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public abstract class GMLWalker implements GMLVisitor, Walker {
-	private Set<Object> visited = new HashSet<Object>();
-	private boolean shouldWalk = true;
-	private SchemaHandler schemaHandler;
+public abstract class GMLWalker extends Walker implements GMLVisitor {
+	protected SchemaHandler schemaHandler;
+	protected ADEWalkerHelper<GMLWalker> adeWalkerHelper;
 
 	public GMLWalker() {
 	}
 
-	public GMLWalker(SchemaHandler schemaHandler) {
+	public GMLWalker setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
-	}
-
-	public void reset() {		
-		visited.clear();
-		shouldWalk = true;
-	}
-
-	public boolean shouldWalk() {
-		return shouldWalk;
-	}
-
-	public void setShouldWalk(boolean shouldWalk) {
-		this.shouldWalk = shouldWalk;
-	}
-
-	public void setSchemaHandler(SchemaHandler schemaHandler) {
-		this.schemaHandler = schemaHandler;
+		return this;
 	}
 
 	public SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
 
-	public boolean addToVisited(Object object) {
-		return visited.add(object);
+	public GMLWalker useADEWalker(ADEWalker<GMLWalker> walker) {
+		if (walker != null) {
+			if (adeWalkerHelper == null)
+				adeWalkerHelper = new ADEWalkerHelper<>();
+
+			walker.setParentWalker(this);
+			adeWalkerHelper.addADEWalker(walker);
+		}
+
+		return this;
 	}
 
-	public boolean hasVisited(Object object) {
-		return visited.contains(object);
+	public GMLWalker useADEWalkers(List<ADEWalker<GMLWalker>> walkers) {
+		for (ADEWalker<GMLWalker> walker : walkers)
+			useADEWalker(walker);
+
+		return this;
+	}
+
+	public GMLWalker useADEContext(ADEContext context) {
+		useADEWalker(context.getDefaultGMLWalker());
+		return this;
+	}
+
+	public GMLWalker useADEContexts(List<ADEContext> contexts) {
+		for (ADEContext context : contexts)
+			useADEWalker(context.getDefaultGMLWalker());
+
+		return this;
 	}
 	
 	public void visit(LodRepresentation lodRepresentation) {
@@ -753,9 +763,9 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		
 		if (abstractFeature.isSetLocation())
 			visit(abstractFeature.getLocation());
-		
-		if (abstractFeature.isSetGenericADEComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEComponent()))
+
+		if (abstractFeature.isSetGenericADEElement())
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEElement()))
 				visit(ade);
 	}
 	
@@ -2111,7 +2121,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 				visit(ade);
 
 		if (abstractTextureParameterization.isSetGenericADEComponent())
-			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericADEComponent()))
+			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericADEElement()))
 				visit(ade);		
 	}
 	
@@ -2177,7 +2187,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	}
 	
 	public <T extends AbstractGML> void visit(AssociationByRep<T> association) {
-		if (association.isSetObject() && shouldWalk && visited.add(association.getObject()))
+		if (association.isSetObject() && shouldWalk)
 			association.getObject().accept(this);
 	}
 
@@ -2186,39 +2196,39 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	}
 	
 	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
-		if (featureProperty.isSetFeature() && shouldWalk && visited.add(featureProperty.getFeature()))
+		if (featureProperty.isSetFeature() && shouldWalk)
 			featureProperty.getFeature().accept(this);
 
-		if (featureProperty.isSetGenericADEComponent())
-			visit(featureProperty.getGenericADEComponent());
+		if (featureProperty.isSetGenericADEElement())
+			visit(featureProperty.getGenericADEElement());
 	}
 	
 	public void visit(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
 			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
-				if (shouldWalk && visited.add(feature))
+				if (shouldWalk)
 					feature.accept(this);
 
-			if (featureArrayProperty.isSetGenericADEComponent())
-				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEComponent()))
+			if (featureArrayProperty.isSetGenericADEElement())
+				for (ADEComponent ade : new ArrayList<ADEComponent>(featureArrayProperty.getGenericADEElement()))
 					visit(ade);
 		}
 	}
 	
 	public <T extends AbstractGeometry> void visit(GeometryProperty<T> geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
+		if (geometryProperty.isSetGeometry() && shouldWalk)
 			geometryProperty.getGeometry().accept(this);
 	}
 
 	public <T extends AbstractGeometry> void visit(InlineGeometryProperty<T> geometryProperty) {
-		if (geometryProperty.isSetGeometry() && shouldWalk && visited.add(geometryProperty.getGeometry()))
+		if (geometryProperty.isSetGeometry() && shouldWalk)
 			geometryProperty.getGeometry().accept(this);
 	}
 
 	public <T extends AbstractGeometry> void visit(GeometryArrayProperty<T> geometryArrayProperty) {
 		if (geometryArrayProperty.isSetGeometry()) {
 			for (AbstractGeometry abstractGeometry : new ArrayList<AbstractGeometry>(geometryArrayProperty.getGeometry()))
-				if (shouldWalk && visited.add(abstractGeometry))
+				if (shouldWalk)
 					abstractGeometry.accept(this);
 		}
 	}
@@ -2226,7 +2236,7 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 	public void visit(SurfacePatchArrayProperty surfacePatchArrayProperty) {
 		if (surfacePatchArrayProperty.isSetSurfacePatch())
 			for (AbstractSurfacePatch abstractSurfacePatch : new ArrayList<AbstractSurfacePatch>(surfacePatchArrayProperty.getSurfacePatch())) {
-				if (shouldWalk && visited.add(abstractSurfacePatch)) {
+				if (shouldWalk) {
 					if (abstractSurfacePatch instanceof Triangle)
 						visit((Triangle)abstractSurfacePatch);
 					else if (abstractSurfacePatch instanceof Rectangle)
@@ -2244,11 +2254,28 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		case GENERIC_ELEMENT:
 			visit((ADEGenericElement)adeComponent);
 			break;
+		case MODEL_OBJECT:
+			visit((ADEModelObject)adeComponent);
+			break;
+		}
+	}
+
+	@Override
+	public void visit(ADEModelObject adeModelClass) {
+		if (adeWalkerHelper != null) {
+			try {
+				ADEWalker<GMLWalker> walker = adeWalkerHelper.getADEWalker(adeModelClass);
+				Method method = adeWalkerHelper.getMethod(adeModelClass, "visit");
+				if (walker != null && method != null)
+					method.invoke(walker, new Object[]{adeModelClass});
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				//
+			}
 		}
 	}
 
 	public void visit(ADEGenericElement adeGenericElement) {
-		if (adeGenericElement.isSetContent() && shouldWalk && visited.add(adeGenericElement.getContent()) && schemaHandler != null)
+		if (adeGenericElement.isSetContent() && shouldWalk && schemaHandler != null)
 			adeGenericElement(adeGenericElement.getContent(), null); 
 	}
 
@@ -2275,12 +2302,12 @@ public abstract class GMLWalker implements GMLVisitor, Walker {
 		}	
 
 		for (Element child : children)
-			if (shouldWalk && visited.add(child))
+			if (shouldWalk)
 				adeGenericElement((Element)child, decl);
 	}
 
 	protected void visit(Value value) {
-		if (value.isSetGeometry() && shouldWalk && visited.add(value.getGeometry()))
+		if (value.isSetGeometry() && shouldWalk)
 			value.getGeometry().accept(this);		
 		else if (value.isSetValueObject())
 			visit(value.getValueObject());

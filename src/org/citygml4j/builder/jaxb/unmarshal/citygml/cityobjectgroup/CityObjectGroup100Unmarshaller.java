@@ -23,11 +23,9 @@ import javax.xml.namespace.QName;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
@@ -39,6 +37,10 @@ import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
 
 public class CityObjectGroup100Unmarshaller {
 	private final CityObjectGroupModule module = CityObjectGroupModule.v1_0_0;
@@ -95,7 +97,15 @@ public class CityObjectGroup100Unmarshaller {
 		}
 
 		if (src.isSetParent())
-			dest.setGroupParent(unmarshalCityObjectGroupParent(src.getParent()));	
+			dest.setGroupParent(unmarshalCityObjectGroupParent(src.getParent()));
+		
+		if (src.isSet_GenericApplicationPropertyOfCityObjectGroup()) {
+			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityObjectGroup()) {
+				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+				if (ade != null)
+					dest.addGenericApplicationPropertyOfCityObjectGroup(ade);
+			}
+		}
 	}
 
 	public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src) throws MissingADESchemaException {
@@ -118,7 +128,7 @@ public class CityObjectGroup100Unmarshaller {
 			dest.setGroupRole(src.getGroupRole());
 
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 		
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -157,7 +167,7 @@ public class CityObjectGroup100Unmarshaller {
 		}
 		
 		if (src.isSet_ADEComponent())
-			dest.setGenericADEComponent(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -186,7 +196,7 @@ public class CityObjectGroup100Unmarshaller {
 		return dest;
 	}
 	
-	public boolean assignGenericProperty(ADEComponent genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 		
