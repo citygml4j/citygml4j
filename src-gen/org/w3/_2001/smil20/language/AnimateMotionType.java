@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -48,11 +48,11 @@ import org.w3c.dom.Element;
  *       &lt;choice maxOccurs="unbounded" minOccurs="0">
  *         &lt;any processContents='lax' namespace='##other'/>
  *       &lt;/choice>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}skipContentAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animTargetAttrs"/>
  *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animModeAttrs"/>
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}skipContentAttrs"/>
  *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/Language}TimingAttrs"/>
  *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/Language}CoreAttrs"/>
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animTargetAttrs"/>
  *       &lt;anyAttribute/>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -71,32 +71,26 @@ public class AnimateMotionType
 
     @XmlAnyElement(lax = true)
     protected List<Object> any;
-    @XmlAttribute(name = "skip-content")
-    protected Boolean skipContent;
-    @XmlAttribute(name = "targetElement")
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    protected Object targetElement;
     @XmlAttribute(name = "calcMode")
     protected String calcMode;
-    @XmlAttribute(name = "fill")
-    protected FillTimingAttrsType fill;
+    @XmlAttribute(name = "skip-content")
+    protected Boolean skipContent;
+    @XmlAttribute(name = "restartDefault")
+    protected RestartDefaultType restartDefault;
     @XmlAttribute(name = "syncBehaviorDefault")
     protected SyncBehaviorDefaultType syncBehaviorDefault;
     @XmlAttribute(name = "syncToleranceDefault")
     protected String syncToleranceDefault;
-    @XmlAttribute(name = "restartDefault")
-    protected RestartDefaultType restartDefault;
-    @XmlAttribute(name = "dur")
-    protected String dur;
-    @XmlAttribute(name = "min")
-    protected String min;
-    @XmlAttribute(name = "max")
-    protected String max;
-    @XmlAttribute(name = "repeatDur")
-    protected String repeatDur;
-    @XmlAttribute(name = "repeatCount")
-    protected BigDecimal repeatCount;
+    @XmlAttribute(name = "restart")
+    protected RestartTimingType restart;
+    @XmlAttribute(name = "fill")
+    protected FillTimingAttrsType fill;
+    @XmlAttribute(name = "fillDefault")
+    protected FillDefaultType fillDefault;
+    @XmlAttribute(name = "syncBehavior")
+    protected SyncBehaviorType syncBehavior;
+    @XmlAttribute(name = "syncTolerance")
+    protected String syncTolerance;
     @XmlAttribute(name = "begin")
     protected String begin;
     @XmlAttribute(name = "end")
@@ -104,14 +98,21 @@ public class AnimateMotionType
     @XmlAttribute(name = "repeat")
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger repeat;
-    @XmlAttribute(name = "fillDefault")
-    protected FillDefaultType fillDefault;
-    @XmlAttribute(name = "syncBehavior")
-    protected SyncBehaviorType syncBehavior;
-    @XmlAttribute(name = "syncTolerance")
-    protected String syncTolerance;
-    @XmlAttribute(name = "restart")
-    protected RestartTimingType restart;
+    @XmlAttribute(name = "min")
+    protected String min;
+    @XmlAttribute(name = "max")
+    protected String max;
+    @XmlAttribute(name = "dur")
+    protected String dur;
+    @XmlAttribute(name = "repeatDur")
+    protected String repeatDur;
+    @XmlAttribute(name = "repeatCount")
+    protected BigDecimal repeatCount;
+    @XmlAttribute(name = "alt")
+    protected String alt;
+    @XmlAttribute(name = "longdesc")
+    @XmlSchemaType(name = "anyURI")
+    protected String longdesc;
     @XmlAttribute(name = "id")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
@@ -121,11 +122,10 @@ public class AnimateMotionType
     protected String clazz;
     @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
     protected String lang;
-    @XmlAttribute(name = "alt")
-    protected String alt;
-    @XmlAttribute(name = "longdesc")
-    @XmlSchemaType(name = "anyURI")
-    protected String longdesc;
+    @XmlAttribute(name = "targetElement")
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    protected Object targetElement;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -168,6 +168,38 @@ public class AnimateMotionType
     }
 
     /**
+     * Ruft den Wert der calcMode-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCalcMode() {
+        if (calcMode == null) {
+            return "linear";
+        } else {
+            return calcMode;
+        }
+    }
+
+    /**
+     * Legt den Wert der calcMode-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCalcMode(String value) {
+        this.calcMode = value;
+    }
+
+    public boolean isSetCalcMode() {
+        return (this.calcMode!= null);
+    }
+
+    /**
      * Ruft den Wert der skipContent-Eigenschaft ab.
      * 
      * @return
@@ -204,95 +236,35 @@ public class AnimateMotionType
     }
 
     /**
-     * Ruft den Wert der targetElement-Eigenschaft ab.
+     * Ruft den Wert der restartDefault-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link RestartDefaultType }
      *     
      */
-    public Object getTargetElement() {
-        return targetElement;
-    }
-
-    /**
-     * Legt den Wert der targetElement-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setTargetElement(Object value) {
-        this.targetElement = value;
-    }
-
-    public boolean isSetTargetElement() {
-        return (this.targetElement!= null);
-    }
-
-    /**
-     * Ruft den Wert der calcMode-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCalcMode() {
-        if (calcMode == null) {
-            return "linear";
+    public RestartDefaultType getRestartDefault() {
+        if (restartDefault == null) {
+            return RestartDefaultType.INHERIT;
         } else {
-            return calcMode;
+            return restartDefault;
         }
     }
 
     /**
-     * Legt den Wert der calcMode-Eigenschaft fest.
+     * Legt den Wert der restartDefault-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link RestartDefaultType }
      *     
      */
-    public void setCalcMode(String value) {
-        this.calcMode = value;
+    public void setRestartDefault(RestartDefaultType value) {
+        this.restartDefault = value;
     }
 
-    public boolean isSetCalcMode() {
-        return (this.calcMode!= null);
-    }
-
-    /**
-     * Ruft den Wert der fill-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FillTimingAttrsType }
-     *     
-     */
-    public FillTimingAttrsType getFill() {
-        if (fill == null) {
-            return FillTimingAttrsType.DEFAULT;
-        } else {
-            return fill;
-        }
-    }
-
-    /**
-     * Legt den Wert der fill-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FillTimingAttrsType }
-     *     
-     */
-    public void setFill(FillTimingAttrsType value) {
-        this.fill = value;
-    }
-
-    public boolean isSetFill() {
-        return (this.fill!= null);
+    public boolean isSetRestartDefault() {
+        return (this.restartDefault!= null);
     }
 
     /**
@@ -360,259 +332,67 @@ public class AnimateMotionType
     }
 
     /**
-     * Ruft den Wert der restartDefault-Eigenschaft ab.
+     * Ruft den Wert der restart-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link RestartDefaultType }
+     *     {@link RestartTimingType }
      *     
      */
-    public RestartDefaultType getRestartDefault() {
-        if (restartDefault == null) {
-            return RestartDefaultType.INHERIT;
+    public RestartTimingType getRestart() {
+        if (restart == null) {
+            return RestartTimingType.DEFAULT;
         } else {
-            return restartDefault;
+            return restart;
         }
     }
 
     /**
-     * Legt den Wert der restartDefault-Eigenschaft fest.
+     * Legt den Wert der restart-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link RestartDefaultType }
+     *     {@link RestartTimingType }
      *     
      */
-    public void setRestartDefault(RestartDefaultType value) {
-        this.restartDefault = value;
+    public void setRestart(RestartTimingType value) {
+        this.restart = value;
     }
 
-    public boolean isSetRestartDefault() {
-        return (this.restartDefault!= null);
+    public boolean isSetRestart() {
+        return (this.restart!= null);
     }
 
     /**
-     * Ruft den Wert der dur-Eigenschaft ab.
+     * Ruft den Wert der fill-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link FillTimingAttrsType }
      *     
      */
-    public String getDur() {
-        return dur;
+    public FillTimingAttrsType getFill() {
+        if (fill == null) {
+            return FillTimingAttrsType.DEFAULT;
+        } else {
+            return fill;
+        }
     }
 
     /**
-     * Legt den Wert der dur-Eigenschaft fest.
+     * Legt den Wert der fill-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link FillTimingAttrsType }
      *     
      */
-    public void setDur(String value) {
-        this.dur = value;
+    public void setFill(FillTimingAttrsType value) {
+        this.fill = value;
     }
 
-    public boolean isSetDur() {
-        return (this.dur!= null);
-    }
-
-    /**
-     * Ruft den Wert der min-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMin() {
-        return min;
-    }
-
-    /**
-     * Legt den Wert der min-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMin(String value) {
-        this.min = value;
-    }
-
-    public boolean isSetMin() {
-        return (this.min!= null);
-    }
-
-    /**
-     * Ruft den Wert der max-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMax() {
-        return max;
-    }
-
-    /**
-     * Legt den Wert der max-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMax(String value) {
-        this.max = value;
-    }
-
-    public boolean isSetMax() {
-        return (this.max!= null);
-    }
-
-    /**
-     * Ruft den Wert der repeatDur-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRepeatDur() {
-        return repeatDur;
-    }
-
-    /**
-     * Legt den Wert der repeatDur-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRepeatDur(String value) {
-        this.repeatDur = value;
-    }
-
-    public boolean isSetRepeatDur() {
-        return (this.repeatDur!= null);
-    }
-
-    /**
-     * Ruft den Wert der repeatCount-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public BigDecimal getRepeatCount() {
-        return repeatCount;
-    }
-
-    /**
-     * Legt den Wert der repeatCount-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public void setRepeatCount(BigDecimal value) {
-        this.repeatCount = value;
-    }
-
-    public boolean isSetRepeatCount() {
-        return (this.repeatCount!= null);
-    }
-
-    /**
-     * Ruft den Wert der begin-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getBegin() {
-        return begin;
-    }
-
-    /**
-     * Legt den Wert der begin-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setBegin(String value) {
-        this.begin = value;
-    }
-
-    public boolean isSetBegin() {
-        return (this.begin!= null);
-    }
-
-    /**
-     * Ruft den Wert der end-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEnd() {
-        return end;
-    }
-
-    /**
-     * Legt den Wert der end-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEnd(String value) {
-        this.end = value;
-    }
-
-    public boolean isSetEnd() {
-        return (this.end!= null);
-    }
-
-    /**
-     * Ruft den Wert der repeat-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getRepeat() {
-        return repeat;
-    }
-
-    /**
-     * Legt den Wert der repeat-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setRepeat(BigInteger value) {
-        this.repeat = value;
-    }
-
-    public boolean isSetRepeat() {
-        return (this.repeat!= null);
+    public boolean isSetFill() {
+        return (this.fill!= null);
     }
 
     /**
@@ -708,35 +488,283 @@ public class AnimateMotionType
     }
 
     /**
-     * Ruft den Wert der restart-Eigenschaft ab.
+     * Ruft den Wert der begin-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link RestartTimingType }
+     *     {@link String }
      *     
      */
-    public RestartTimingType getRestart() {
-        if (restart == null) {
-            return RestartTimingType.DEFAULT;
-        } else {
-            return restart;
-        }
+    public String getBegin() {
+        return begin;
     }
 
     /**
-     * Legt den Wert der restart-Eigenschaft fest.
+     * Legt den Wert der begin-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link RestartTimingType }
+     *     {@link String }
      *     
      */
-    public void setRestart(RestartTimingType value) {
-        this.restart = value;
+    public void setBegin(String value) {
+        this.begin = value;
     }
 
-    public boolean isSetRestart() {
-        return (this.restart!= null);
+    public boolean isSetBegin() {
+        return (this.begin!= null);
+    }
+
+    /**
+     * Ruft den Wert der end-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEnd() {
+        return end;
+    }
+
+    /**
+     * Legt den Wert der end-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEnd(String value) {
+        this.end = value;
+    }
+
+    public boolean isSetEnd() {
+        return (this.end!= null);
+    }
+
+    /**
+     * Ruft den Wert der repeat-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getRepeat() {
+        return repeat;
+    }
+
+    /**
+     * Legt den Wert der repeat-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setRepeat(BigInteger value) {
+        this.repeat = value;
+    }
+
+    public boolean isSetRepeat() {
+        return (this.repeat!= null);
+    }
+
+    /**
+     * Ruft den Wert der min-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMin() {
+        return min;
+    }
+
+    /**
+     * Legt den Wert der min-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMin(String value) {
+        this.min = value;
+    }
+
+    public boolean isSetMin() {
+        return (this.min!= null);
+    }
+
+    /**
+     * Ruft den Wert der max-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMax() {
+        return max;
+    }
+
+    /**
+     * Legt den Wert der max-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMax(String value) {
+        this.max = value;
+    }
+
+    public boolean isSetMax() {
+        return (this.max!= null);
+    }
+
+    /**
+     * Ruft den Wert der dur-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDur() {
+        return dur;
+    }
+
+    /**
+     * Legt den Wert der dur-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDur(String value) {
+        this.dur = value;
+    }
+
+    public boolean isSetDur() {
+        return (this.dur!= null);
+    }
+
+    /**
+     * Ruft den Wert der repeatDur-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRepeatDur() {
+        return repeatDur;
+    }
+
+    /**
+     * Legt den Wert der repeatDur-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRepeatDur(String value) {
+        this.repeatDur = value;
+    }
+
+    public boolean isSetRepeatDur() {
+        return (this.repeatDur!= null);
+    }
+
+    /**
+     * Ruft den Wert der repeatCount-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getRepeatCount() {
+        return repeatCount;
+    }
+
+    /**
+     * Legt den Wert der repeatCount-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setRepeatCount(BigDecimal value) {
+        this.repeatCount = value;
+    }
+
+    public boolean isSetRepeatCount() {
+        return (this.repeatCount!= null);
+    }
+
+    /**
+     * Ruft den Wert der alt-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAlt() {
+        return alt;
+    }
+
+    /**
+     * Legt den Wert der alt-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAlt(String value) {
+        this.alt = value;
+    }
+
+    public boolean isSetAlt() {
+        return (this.alt!= null);
+    }
+
+    /**
+     * Ruft den Wert der longdesc-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLongdesc() {
+        return longdesc;
+    }
+
+    /**
+     * Legt den Wert der longdesc-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLongdesc(String value) {
+        this.longdesc = value;
+    }
+
+    public boolean isSetLongdesc() {
+        return (this.longdesc!= null);
     }
 
     /**
@@ -824,59 +852,31 @@ public class AnimateMotionType
     }
 
     /**
-     * Ruft den Wert der alt-Eigenschaft ab.
+     * Ruft den Wert der targetElement-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public String getAlt() {
-        return alt;
+    public Object getTargetElement() {
+        return targetElement;
     }
 
     /**
-     * Legt den Wert der alt-Eigenschaft fest.
+     * Legt den Wert der targetElement-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public void setAlt(String value) {
-        this.alt = value;
+    public void setTargetElement(Object value) {
+        this.targetElement = value;
     }
 
-    public boolean isSetAlt() {
-        return (this.alt!= null);
-    }
-
-    /**
-     * Ruft den Wert der longdesc-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLongdesc() {
-        return longdesc;
-    }
-
-    /**
-     * Legt den Wert der longdesc-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLongdesc(String value) {
-        this.longdesc = value;
-    }
-
-    public boolean isSetLongdesc() {
-        return (this.longdesc!= null);
+    public boolean isSetTargetElement() {
+        return (this.targetElement!= null);
     }
 
     /**

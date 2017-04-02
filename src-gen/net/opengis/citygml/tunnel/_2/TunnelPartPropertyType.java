@@ -2,17 +2,18 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
 package net.opengis.citygml.tunnel._2;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import org.w3._1999.xlink.ActuateType;
@@ -35,7 +36,7 @@ import org.w3c.dom.Element;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/citygml/tunnel/2.0}TunnelPart"/>
+ *         &lt;element ref="{http://www.opengis.net/citygml/tunnel/2.0}_AbstractTunnel"/>
  *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/>
@@ -48,13 +49,13 @@ import org.w3c.dom.Element;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TunnelPartPropertyType", propOrder = {
-    "tunnelPart",
+    "_AbstractTunnel",
     "_ADEComponent"
 })
 public class TunnelPartPropertyType {
 
-    @XmlElement(name = "TunnelPart")
-    protected TunnelPartType tunnelPart;
+    @XmlElementRef(name = "_AbstractTunnel", namespace = "http://www.opengis.net/citygml/tunnel/2.0", type = JAXBElement.class, required = false)
+    protected JAXBElement<? extends AbstractTunnelType> _AbstractTunnel;
     @XmlAnyElement
     protected Element _ADEComponent;
     @XmlAttribute(name = "remoteSchema", namespace = "http://www.opengis.net/gml")
@@ -76,31 +77,35 @@ public class TunnelPartPropertyType {
     protected ActuateType actuate;
 
     /**
-     * Ruft den Wert der tunnelPart-Eigenschaft ab.
+     * Ruft den Wert der _AbstractTunnel-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link TunnelPartType }
+     *     {@link JAXBElement }{@code <}{@link TunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelPartType }{@code >}
      *     
      */
-    public TunnelPartType getTunnelPart() {
-        return tunnelPart;
+    public JAXBElement<? extends AbstractTunnelType> get_AbstractTunnel() {
+        return _AbstractTunnel;
     }
 
     /**
-     * Legt den Wert der tunnelPart-Eigenschaft fest.
+     * Legt den Wert der _AbstractTunnel-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link TunnelPartType }
+     *     {@link JAXBElement }{@code <}{@link TunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelPartType }{@code >}
      *     
      */
-    public void setTunnelPart(TunnelPartType value) {
-        this.tunnelPart = value;
+    public void set_AbstractTunnel(JAXBElement<? extends AbstractTunnelType> value) {
+        this._AbstractTunnel = value;
     }
 
-    public boolean isSetTunnelPart() {
-        return (this.tunnelPart!= null);
+    public boolean isSet_AbstractTunnel() {
+        return (this._AbstractTunnel!= null);
     }
 
     /**

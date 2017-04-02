@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -25,9 +25,9 @@ import org.w3._2001.smil20.language.AnimateType;
  * &lt;complexType name="animatePrototype">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animNamedTargetAttrs"/>
  *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animAddAccumAttrs"/>
  *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animValuesAttrs"/>
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animNamedTargetAttrs"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -42,10 +42,6 @@ import org.w3._2001.smil20.language.AnimateType;
 })
 public class AnimatePrototype {
 
-    @XmlAttribute(name = "attributeName", required = true)
-    protected String attributeName;
-    @XmlAttribute(name = "attributeType")
-    protected String attributeType;
     @XmlAttribute(name = "additive")
     protected String additive;
     @XmlAttribute(name = "accumulate")
@@ -58,66 +54,10 @@ public class AnimatePrototype {
     protected String values;
     @XmlAttribute(name = "to")
     protected String to;
-
-    /**
-     * Ruft den Wert der attributeName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttributeName() {
-        return attributeName;
-    }
-
-    /**
-     * Legt den Wert der attributeName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttributeName(String value) {
-        this.attributeName = value;
-    }
-
-    public boolean isSetAttributeName() {
-        return (this.attributeName!= null);
-    }
-
-    /**
-     * Ruft den Wert der attributeType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttributeType() {
-        if (attributeType == null) {
-            return "auto";
-        } else {
-            return attributeType;
-        }
-    }
-
-    /**
-     * Legt den Wert der attributeType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttributeType(String value) {
-        this.attributeType = value;
-    }
-
-    public boolean isSetAttributeType() {
-        return (this.attributeType!= null);
-    }
+    @XmlAttribute(name = "attributeName", required = true)
+    protected String attributeName;
+    @XmlAttribute(name = "attributeType")
+    protected String attributeType;
 
     /**
      * Ruft den Wert der additive-Eigenschaft ab.
@@ -293,6 +233,66 @@ public class AnimatePrototype {
 
     public boolean isSetTo() {
         return (this.to!= null);
+    }
+
+    /**
+     * Ruft den Wert der attributeName-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    /**
+     * Legt den Wert der attributeName-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAttributeName(String value) {
+        this.attributeName = value;
+    }
+
+    public boolean isSetAttributeName() {
+        return (this.attributeName!= null);
+    }
+
+    /**
+     * Ruft den Wert der attributeType-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAttributeType() {
+        if (attributeType == null) {
+            return "auto";
+        } else {
+            return attributeType;
+        }
+    }
+
+    /**
+     * Legt den Wert der attributeType-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAttributeType(String value) {
+        this.attributeType = value;
+    }
+
+    public boolean isSetAttributeType() {
+        return (this.attributeType!= null);
     }
 
 }

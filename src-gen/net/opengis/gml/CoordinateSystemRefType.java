@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -73,17 +73,17 @@ public class CoordinateSystemRefType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link LinearCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractCoordinateSystemType }{@code >}
      *     {@link JAXBElement }{@code <}{@link EllipsoidalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractCoordinateSystemType> get_CoordinateSystem() {
@@ -95,17 +95,17 @@ public class CoordinateSystemRefType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link LinearCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractCoordinateSystemType }{@code >}
      *     {@link JAXBElement }{@code <}{@link EllipsoidalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
      *     
      */
     public void set_CoordinateSystem(JAXBElement<? extends AbstractCoordinateSystemType> value) {

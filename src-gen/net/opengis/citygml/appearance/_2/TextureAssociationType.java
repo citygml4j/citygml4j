@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -79,9 +79,9 @@ public class TextureAssociationType {
      * 
      * @return
      *     possible object is
+     *     {@link JAXBElement }{@code <}{@link TexCoordListType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TexCoordGenType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractTextureParameterizationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TexCoordListType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractTextureParameterizationType> get_TextureParameterization() {
@@ -93,9 +93,9 @@ public class TextureAssociationType {
      * 
      * @param value
      *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link TexCoordListType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TexCoordGenType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractTextureParameterizationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TexCoordListType }{@code >}
      *     
      */
     public void set_TextureParameterization(JAXBElement<? extends AbstractTextureParameterizationType> value) {

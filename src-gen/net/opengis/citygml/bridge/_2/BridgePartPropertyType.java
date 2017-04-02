@@ -2,17 +2,18 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
 package net.opengis.citygml.bridge._2;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import org.w3._1999.xlink.ActuateType;
@@ -35,7 +36,7 @@ import org.w3c.dom.Element;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/citygml/bridge/2.0}BridgePart"/>
+ *         &lt;element ref="{http://www.opengis.net/citygml/bridge/2.0}_AbstractBridge"/>
  *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/>
@@ -48,13 +49,13 @@ import org.w3c.dom.Element;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BridgePartPropertyType", propOrder = {
-    "bridgePart",
+    "_AbstractBridge",
     "_ADEComponent"
 })
 public class BridgePartPropertyType {
 
-    @XmlElement(name = "BridgePart")
-    protected BridgePartType bridgePart;
+    @XmlElementRef(name = "_AbstractBridge", namespace = "http://www.opengis.net/citygml/bridge/2.0", type = JAXBElement.class, required = false)
+    protected JAXBElement<? extends AbstractBridgeType> _AbstractBridge;
     @XmlAnyElement
     protected Element _ADEComponent;
     @XmlAttribute(name = "remoteSchema", namespace = "http://www.opengis.net/gml")
@@ -76,31 +77,35 @@ public class BridgePartPropertyType {
     protected ActuateType actuate;
 
     /**
-     * Ruft den Wert der bridgePart-Eigenschaft ab.
+     * Ruft den Wert der _AbstractBridge-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link BridgePartType }
+     *     {@link JAXBElement }{@code <}{@link AbstractBridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgePartType }{@code >}
      *     
      */
-    public BridgePartType getBridgePart() {
-        return bridgePart;
+    public JAXBElement<? extends AbstractBridgeType> get_AbstractBridge() {
+        return _AbstractBridge;
     }
 
     /**
-     * Legt den Wert der bridgePart-Eigenschaft fest.
+     * Legt den Wert der _AbstractBridge-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link BridgePartType }
+     *     {@link JAXBElement }{@code <}{@link AbstractBridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgePartType }{@code >}
      *     
      */
-    public void setBridgePart(BridgePartType value) {
-        this.bridgePart = value;
+    public void set_AbstractBridge(JAXBElement<? extends AbstractBridgeType> value) {
+        this._AbstractBridge = value;
     }
 
-    public boolean isSetBridgePart() {
-        return (this.bridgePart!= null);
+    public boolean isSet_AbstractBridge() {
+        return (this._AbstractBridge!= null);
     }
 
     /**

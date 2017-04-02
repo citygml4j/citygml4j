@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -353,14 +353,14 @@ public abstract class AbstractCityObjectType
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link DateAttributeType }{@code >}
-     * {@link JAXBElement }{@code <}{@link DoubleAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link IntAttributeType }{@code >}
-     * {@link JAXBElement }{@code <}{@link StringAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link MeasureAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link UriAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link DoubleAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link DateAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link StringAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link GenericAttributeSetType }{@code >}
      * {@link JAXBElement }{@code <}{@link AbstractGenericAttributeType }{@code >}
-     * {@link JAXBElement }{@code <}{@link UriAttributeType }{@code >}
      * 
      * 
      */

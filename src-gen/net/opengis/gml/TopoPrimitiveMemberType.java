@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -73,10 +73,10 @@ public class TopoPrimitiveMemberType {
      * 
      * @return
      *     possible object is
+     *     {@link JAXBElement }{@code <}{@link EdgeType }{@code >}
      *     {@link JAXBElement }{@code <}{@link FaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractTopoPrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link NodeType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EdgeType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TopoSolidType }{@code >}
      *     
      */
@@ -89,10 +89,10 @@ public class TopoPrimitiveMemberType {
      * 
      * @param value
      *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link EdgeType }{@code >}
      *     {@link JAXBElement }{@code <}{@link FaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractTopoPrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link NodeType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EdgeType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TopoSolidType }{@code >}
      *     
      */

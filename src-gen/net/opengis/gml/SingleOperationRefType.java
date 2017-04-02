@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -75,11 +75,11 @@ public class SingleOperationRefType {
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link AbstractGeneralConversionType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
      *     {@link JAXBElement }{@code <}{@link PassThroughOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractCoordinateOperationType> get_SingleOperation() {
@@ -93,11 +93,11 @@ public class SingleOperationRefType {
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link AbstractGeneralConversionType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
      *     {@link JAXBElement }{@code <}{@link PassThroughOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
      *     
      */
     public void set_SingleOperation(JAXBElement<? extends AbstractCoordinateOperationType> value) {

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -84,16 +84,16 @@ public class BoundarySurfacePropertyType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OuterCeilingSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractBoundarySurfaceType> get_BoundarySurface() {
@@ -105,16 +105,16 @@ public class BoundarySurfacePropertyType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OuterCeilingSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
      *     
      */
     public void set_BoundarySurface(JAXBElement<? extends AbstractBoundarySurfaceType> value) {

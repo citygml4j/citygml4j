@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -73,12 +73,12 @@ public class DatumRefType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TemporalDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link VerticalDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractDatumType> get_Datum() {
@@ -90,12 +90,12 @@ public class DatumRefType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TemporalDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link VerticalDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
      *     
      */
     public void set_Datum(JAXBElement<? extends AbstractDatumType> value) {

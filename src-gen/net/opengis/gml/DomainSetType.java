@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -94,42 +94,42 @@ public class DomainSetType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link AbstractRingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCurveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiGeometryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolyhedralSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiSolidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PointType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometricAggregateType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GridType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeometricComplexType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TriangulatedSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometricPrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link CompositeSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractSolidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiLineStringType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiPolygonType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link LineStringType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link MultiSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OrientableSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OrientableCurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LineStringType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LinearRingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TinType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiLineStringType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._1.TexturedSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link MultiCurveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OrientableSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolyhedralSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeometricComplexType }{@code >}
      *     {@link JAXBElement }{@code <}{@link SurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolygonType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiPointType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CurveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._1.TexturedSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TinType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._2.TexturedSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CompositeSolidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TriangulatedSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link LinearRingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometricPrimitiveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CompositeCurveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RectifiedGridType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PointType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiGeometryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiSolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiPointType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometricAggregateType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CompositeSolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GridType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._2.TexturedSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CompositeCurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractRingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolygonType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiPolygonType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractGeometryType> get_Geometry() {
@@ -141,42 +141,42 @@ public class DomainSetType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link AbstractRingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCurveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiGeometryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolyhedralSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiSolidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PointType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometricAggregateType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GridType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeometricComplexType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TriangulatedSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometricPrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link CompositeSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractSolidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiLineStringType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiPolygonType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link LineStringType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link MultiSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OrientableSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OrientableCurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LineStringType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LinearRingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TinType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiLineStringType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._1.TexturedSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link MultiCurveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OrientableSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolyhedralSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeometricComplexType }{@code >}
      *     {@link JAXBElement }{@code <}{@link SurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolygonType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiPointType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CurveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._1.TexturedSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TinType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._2.TexturedSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CompositeSolidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TriangulatedSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link LinearRingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeometricPrimitiveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CompositeCurveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RectifiedGridType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PointType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiGeometryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiSolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiPointType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometricAggregateType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CompositeSolidType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GridType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeometryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.texturedsurface._2.TexturedSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CompositeCurveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractRingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolygonType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiPolygonType }{@code >}
      *     
      */
     public void set_Geometry(JAXBElement<? extends AbstractGeometryType> value) {
@@ -192,16 +192,16 @@ public class DomainSetType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link TimeEdgeType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeNodeType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeGeometricPrimitiveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeTopologyPrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TimeTopologyComplexType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimePrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TimeInstantType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeComplexType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TimePeriodType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeNodeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeEdgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeComplexType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimePrimitiveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeGeometricPrimitiveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeTopologyPrimitiveType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractTimeObjectType> get_TimeObject() {
@@ -213,16 +213,16 @@ public class DomainSetType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link TimeEdgeType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeNodeType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeGeometricPrimitiveType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeTopologyPrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TimeTopologyComplexType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimePrimitiveType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TimeInstantType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeComplexType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TimePeriodType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeNodeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeEdgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeComplexType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimePrimitiveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeGeometricPrimitiveType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeTopologyPrimitiveType }{@code >}
      *     
      */
     public void set_TimeObject(JAXBElement<? extends AbstractTimeObjectType> value) {

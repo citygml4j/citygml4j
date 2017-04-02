@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
@@ -81,10 +81,10 @@ public class BoundedByWaterSurfacePropertyType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractWaterBoundarySurfaceType> get_WaterBoundarySurface() {
@@ -96,10 +96,10 @@ public class BoundedByWaterSurfacePropertyType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     
      */
     public void set_WaterBoundarySurface(JAXBElement<? extends AbstractWaterBoundarySurfaceType> value) {

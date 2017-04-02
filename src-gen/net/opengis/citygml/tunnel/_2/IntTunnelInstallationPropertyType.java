@@ -2,19 +2,64 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2016.08.10 um 09:13:50 PM CEST 
+// Generiert: 2017.03.28 um 08:23:51 PM CEST 
 //
 
 
 package net.opengis.citygml.tunnel._2;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import net.opengis.citygml._2.AbstractCityObjectType;
+import net.opengis.citygml._2.AbstractSiteType;
+import net.opengis.citygml.bridge._2.AbstractBridgeType;
+import net.opengis.citygml.bridge._2.BridgeConstructionElementType;
+import net.opengis.citygml.bridge._2.BridgeFurnitureType;
+import net.opengis.citygml.bridge._2.BridgeInstallationType;
+import net.opengis.citygml.bridge._2.BridgePartType;
+import net.opengis.citygml.bridge._2.BridgeRoomType;
+import net.opengis.citygml.bridge._2.BridgeType;
+import net.opengis.citygml.bridge._2.IntBridgeInstallationType;
+import net.opengis.citygml.building._2.AbstractBuildingType;
+import net.opengis.citygml.building._2.BuildingFurnitureType;
+import net.opengis.citygml.building._2.BuildingInstallationType;
+import net.opengis.citygml.building._2.BuildingPartType;
+import net.opengis.citygml.building._2.BuildingType;
+import net.opengis.citygml.building._2.IntBuildingInstallationType;
+import net.opengis.citygml.building._2.RoomType;
+import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupType;
+import net.opengis.citygml.generics._2.GenericCityObjectType;
+import net.opengis.citygml.landuse._2.LandUseType;
+import net.opengis.citygml.relief._2.AbstractReliefComponentType;
+import net.opengis.citygml.relief._2.BreaklineReliefType;
+import net.opengis.citygml.relief._2.MassPointReliefType;
+import net.opengis.citygml.relief._2.RasterReliefType;
+import net.opengis.citygml.relief._2.ReliefFeatureType;
+import net.opengis.citygml.relief._2.TINReliefType;
+import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
+import net.opengis.citygml.transportation._2.RailwayType;
+import net.opengis.citygml.transportation._2.RoadType;
+import net.opengis.citygml.transportation._2.SquareType;
+import net.opengis.citygml.transportation._2.TrackType;
+import net.opengis.citygml.transportation._2.TrafficAreaType;
+import net.opengis.citygml.transportation._2.TransportationComplexType;
+import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._2.PlantCoverType;
+import net.opengis.citygml.vegetation._2.SolitaryVegetationObjectType;
+import net.opengis.citygml.waterbody._2.AbstractWaterBoundarySurfaceType;
+import net.opengis.citygml.waterbody._2.AbstractWaterObjectType;
+import net.opengis.citygml.waterbody._2.WaterBodyType;
+import net.opengis.citygml.waterbody._2.WaterClosureSurfaceType;
+import net.opengis.citygml.waterbody._2.WaterGroundSurfaceType;
+import net.opengis.citygml.waterbody._2.WaterSurfaceType;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -35,7 +80,7 @@ import org.w3c.dom.Element;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/citygml/tunnel/2.0}IntTunnelInstallation"/>
+ *         &lt;element ref="{http://www.opengis.net/citygml/2.0}_CityObject"/>
  *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/>
@@ -48,13 +93,13 @@ import org.w3c.dom.Element;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "IntTunnelInstallationPropertyType", propOrder = {
-    "intTunnelInstallation",
+    "_CityObject",
     "_ADEComponent"
 })
 public class IntTunnelInstallationPropertyType {
 
-    @XmlElement(name = "IntTunnelInstallation")
-    protected IntTunnelInstallationType intTunnelInstallation;
+    @XmlElementRef(name = "_CityObject", namespace = "http://www.opengis.net/citygml/2.0", type = JAXBElement.class, required = false)
+    protected JAXBElement<? extends AbstractCityObjectType> _CityObject;
     @XmlAnyElement
     protected Element _ADEComponent;
     @XmlAttribute(name = "remoteSchema", namespace = "http://www.opengis.net/gml")
@@ -76,31 +121,209 @@ public class IntTunnelInstallationPropertyType {
     protected ActuateType actuate;
 
     /**
-     * Ruft den Wert der intTunnelInstallation-Eigenschaft ab.
+     * Ruft den Wert der _CityObject-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link IntTunnelInstallationType }
+     *     {@link JAXBElement }{@code <}{@link BuildingFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TransportationComplexType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TrafficAreaType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractReliefComponentType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingPartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefFeatureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelPartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntBridgeInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GenericCityObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgePartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RasterReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractWaterObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BreaklineReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TrackType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeRoomType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoomType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RailwayType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AuxiliaryTrafficAreaType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoadType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterBodyType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTransportationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LandUseType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSiteType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeConstructionElementType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCityObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link HollowSpaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TINReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SquareType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MassPointReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntTunnelInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntBuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     
      */
-    public IntTunnelInstallationType getIntTunnelInstallation() {
-        return intTunnelInstallation;
+    public JAXBElement<? extends AbstractCityObjectType> get_CityObject() {
+        return _CityObject;
     }
 
     /**
-     * Legt den Wert der intTunnelInstallation-Eigenschaft fest.
+     * Legt den Wert der _CityObject-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link IntTunnelInstallationType }
+     *     {@link JAXBElement }{@code <}{@link BuildingFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TransportationComplexType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TrafficAreaType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractReliefComponentType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingPartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefFeatureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelPartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntBridgeInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GenericCityObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgePartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RasterReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractWaterObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BreaklineReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TrackType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeRoomType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoomType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RailwayType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AuxiliaryTrafficAreaType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoadType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterBodyType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTransportationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LandUseType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSiteType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BridgeConstructionElementType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCityObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link HollowSpaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TINReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SquareType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MassPointReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntTunnelInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.tunnel._2.RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.OuterCeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBridgeType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.building._2.WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntBuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TunnelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link net.opengis.citygml.bridge._2.RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     
      */
-    public void setIntTunnelInstallation(IntTunnelInstallationType value) {
-        this.intTunnelInstallation = value;
+    public void set_CityObject(JAXBElement<? extends AbstractCityObjectType> value) {
+        this._CityObject = value;
     }
 
-    public boolean isSetIntTunnelInstallation() {
-        return (this.intTunnelInstallation!= null);
+    public boolean isSet_CityObject() {
+        return (this._CityObject!= null);
     }
 
     /**
