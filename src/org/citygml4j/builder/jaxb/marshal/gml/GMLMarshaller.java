@@ -183,8 +183,6 @@ import org.w3c.dom.Element;
 
 import net.opengis.gml.*;
 
-import net.opengis.gml.*;
-
 public class GMLMarshaller {
 	private final JAXBMarshaller jaxb;
 	private final ObjectFactory gml = new ObjectFactory();
