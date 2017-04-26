@@ -156,8 +156,14 @@ import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.GridEnvelope;
 import org.citygml4j.model.gml.grids.GridLimits;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.measures.Angle;
+import org.citygml4j.model.gml.measures.Area;
+import org.citygml4j.model.gml.measures.GridLength;
 import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Scale;
 import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.gml.measures.Time;
+import org.citygml4j.model.gml.measures.Volume;
 import org.citygml4j.model.gml.valueObjects.CategoryExtent;
 import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.GenericValueObject;
@@ -174,6 +180,8 @@ import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 import org.w3c.dom.Element;
+
+import net.opengis.gml.*;
 
 import net.opengis.gml.*;
 
@@ -475,6 +483,18 @@ public class GMLMarshaller {
 				dest = marshalPriorityLocationProperty((PriorityLocationProperty)src);
 			else if (src instanceof LocationProperty)
 				dest = marshalLocationProperty((LocationProperty)src);
+			else if (src instanceof Angle)
+				dest = marshalAngle((Angle)src);
+			else if (src instanceof Area)
+				dest = marshalArea((Area)src);
+			else if (src instanceof GridLength)
+				dest = marshalGridLength((GridLength)src);
+			else if (src instanceof Scale)
+				dest = marshalScale((Scale)src);
+			else if (src instanceof Time)
+				dest = marshalTime((Time)src);
+			else if (src instanceof Volume)
+				dest = marshalVolume((Volume)src);			
 			else if (src instanceof Speed)
 				dest = marshalSpeed((Speed)src);
 			else if (src instanceof Measure)
@@ -2789,6 +2809,48 @@ public class GMLMarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
+
+		return dest;
+	}
+	
+	public AngleType marshalAngle(Angle src) {
+		AngleType dest = gml.createAngleType();
+		marshalMeasure(src, dest);
+
+		return dest;
+	}
+
+	public AreaType marshalArea(Area src) {
+		AreaType dest = gml.createAreaType();
+		marshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public GridLengthType marshalGridLength(GridLength src) {
+		GridLengthType dest = gml.createGridLengthType();
+		marshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public ScaleType marshalScale(Scale src) {
+		ScaleType dest = gml.createScaleType();
+		marshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public TimeType marshalTime(Time src) {
+		TimeType dest = gml.createTimeType();
+		marshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public VolumeType marshalVolume(Volume src) {
+		VolumeType dest = gml.createVolumeType();
+		marshalMeasure(src, dest);
 
 		return dest;
 	}
