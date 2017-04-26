@@ -25,8 +25,6 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import net.opengis.gml.*;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -161,8 +159,14 @@ import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.GridEnvelope;
 import org.citygml4j.model.gml.grids.GridLimits;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.measures.Angle;
+import org.citygml4j.model.gml.measures.Area;
+import org.citygml4j.model.gml.measures.GridLength;
 import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Scale;
 import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.gml.measures.Time;
+import org.citygml4j.model.gml.measures.Volume;
 import org.citygml4j.model.gml.valueObjects.CategoryExtent;
 import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.CountExtent;
@@ -186,6 +190,8 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.w3c.dom.Element;
+
+import net.opengis.gml.*;
 
 public class GMLUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
@@ -321,6 +327,18 @@ public class GMLUnmarshaller {
 			dest = unmarshalPriorityLocationProperty((PriorityLocationPropertyType)src);
 		else if (src instanceof LocationPropertyType)
 			dest = unmarshalLocationProperty((LocationPropertyType)src);
+		else if (src instanceof AngleType)
+			dest = unmarshalAngle((AngleType)src);
+		else if (src instanceof AreaType)
+			dest = unmarshalArea((AreaType)src);
+		else if (src instanceof GridLengthType)
+			dest = unmarshalGridLength((GridLengthType)src);
+		else if (src instanceof ScaleType)
+			dest = unmarshalScale((ScaleType)src);
+		else if (src instanceof TimeType)
+			dest = unmarshalTime((TimeType)src);
+		else if (src instanceof VolumeType)
+			dest = unmarshalVolume((VolumeType)src);		
 		else if (src instanceof SpeedType)
 			dest = unmarshalSpeed((SpeedType)src);
 		else if (src instanceof MeasureType)
@@ -2781,6 +2799,48 @@ public class GMLUnmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
+
+		return dest;
+	}
+	
+	public Angle unmarshalAngle(AngleType src) {
+		Angle dest = new Angle();
+		unmarshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public Area unmarshalArea(AreaType src) {
+		Area dest = new Area();
+		unmarshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public GridLength unmarshalGridLength(GridLengthType src) {
+		GridLength dest = new GridLength();
+		unmarshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public Scale unmarshalScale(ScaleType src) {
+		Scale dest = new Scale();
+		unmarshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public Time unmarshalTime(TimeType src) {
+		Time dest = new Time();
+		unmarshalMeasure(src, dest);
+
+		return dest;
+	}
+	
+	public Volume unmarshalVolume(VolumeType src) {
+		Volume dest = new Volume();
+		unmarshalMeasure(src, dest);
 
 		return dest;
 	}

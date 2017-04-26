@@ -153,8 +153,14 @@ import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.GridEnvelope;
 import org.citygml4j.model.gml.grids.GridLimits;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
+import org.citygml4j.model.gml.measures.Angle;
+import org.citygml4j.model.gml.measures.Area;
+import org.citygml4j.model.gml.measures.GridLength;
 import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Scale;
 import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.gml.measures.Time;
+import org.citygml4j.model.gml.measures.Volume;
 import org.citygml4j.model.gml.valueObjects.CategoryExtent;
 import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.CountExtent;
@@ -327,8 +333,14 @@ public enum GMLClass implements ModelClassEnum {
 	RECTIFIED_GRID(RectifiedGrid.class),
 
 	// Measure
+	ANGLE(Angle.class),
+	AREA(Area.class),
+	GRID_LENGTH(GridLength.class),
 	LENGTH(Length.class),
+	SCALE(Scale.class),
 	SPEED(Speed.class),
+	TIME(Time.class),
+	VOLUME(Volume.class),
 
 	// ValueObjects
 	CATEGORY_EXTENT(CategoryExtent.class),
