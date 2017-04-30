@@ -6,6 +6,7 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.ade.ADEUnmarshallerHelper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public interface ADEUnmarshaller {
-	public ADEModelObject unmarshal(JAXBElement<?> src, ADEUnmarshallerHelper helper) throws MissingADESchemaException;
-	public ADEModelObject unmarshal(Object src, ADEUnmarshallerHelper helper) throws MissingADESchemaException;
+	public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper);
+	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException;
+	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException;
 }

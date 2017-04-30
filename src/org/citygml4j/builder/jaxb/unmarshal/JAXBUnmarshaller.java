@@ -18,7 +18,7 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal;
 
-import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -47,7 +47,7 @@ public class JAXBUnmarshaller {
 	private boolean throwMissingADESchema = true;
 	private boolean releaseJAXBElements = true;
 
-	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler, HashMap<String, ADEContext> adeContexts) {
+	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler, List<ADEContext> adeContexts) {
 		this.jaxbBuilder = jaxbBuilder;
 		this.schemaHandler = schemaHandler;
 

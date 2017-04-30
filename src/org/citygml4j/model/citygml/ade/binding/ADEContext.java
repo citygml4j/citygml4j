@@ -11,6 +11,7 @@ import org.citygml4j.util.walker.GMLWalker;
 
 public interface ADEContext {
 	public ADEModule getADEModule();
+	public List<String> getModelPackageNames();	
 	public List<String> getJAXBPackageNames();	
 	public ADEMarshaller getADEMarshaller();
 	public ADEUnmarshaller getADEUnmarshaller();

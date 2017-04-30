@@ -40,7 +40,10 @@ public class CityGMLContext {
 	
 	public void registerADEContext(ADEContext adeContext) throws ADEException {
 		if (adeContext == null)
-			throw new ADEException("ADE context must not be null.");
+			throw new ADEException("The ADE context must not be null.");
+		
+		if (adeContexts.contains(adeContext))
+			return;
 		
 		if (builder != null)
 			throw new ADEException("An ADE context cannot be registered after the CityGML builder has been created.");
@@ -51,9 +54,12 @@ public class CityGMLContext {
 		
 		if (adeModule.getNamespaceURI() == null || adeModule.getNamespaceURI().isEmpty())
 			throw new ADEException("The namespace URI of the ADE module must not be null.");
-
+		
+		if (adeContext.getModelPackageNames() == null || adeContext.getModelPackageNames().isEmpty())
+			throw new ADEException("No model package names defined for the ADE context.");
+		
 		if (adeContext.getJAXBPackageNames() == null || adeContext.getJAXBPackageNames().isEmpty())
-			throw new ADEException("No JAXP package names defined for the ADE context.");
+			throw new ADEException("No JAXB package names defined for the ADE context.");
 		
 		if (adeContext.getADEMarshaller() == null)
 			throw new ADEException("No marshaller defined for the ADE context.");
@@ -63,7 +69,12 @@ public class CityGMLContext {
 		
 		for (ADEContext tmp : adeContexts) {
 			if (tmp.getADEModule().getNamespaceURI().equals(adeContext.getADEModule().getNamespaceURI()))
-				throw new ADEException("An ADE context has already been registered for '" + tmp.getADEModule().getNamespaceURI() + "'.");
+				throw new ADEException("An ADE context has already been registered for the namespace '" + tmp.getADEModule().getNamespaceURI() + "'.");
+			
+			for (String packageName : adeContext.getModelPackageNames()) {
+				if (tmp.getModelPackageNames().contains(packageName))
+					throw new ADEException("An ADE context has already been registered for the package '" + packageName + "'.");					
+			}
 		}
 		
 		Modules.registerADEModule(adeContext.getADEModule());

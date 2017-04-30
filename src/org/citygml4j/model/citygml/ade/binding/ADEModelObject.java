@@ -6,7 +6,6 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.base.ModelType;
 
 public interface ADEModelObject extends ADEComponent {
-	public String getNamespaceURI();
 
 	@Override
 	default CityGMLClass getCityGMLClass() {

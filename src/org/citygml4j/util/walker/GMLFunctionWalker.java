@@ -18,8 +18,6 @@
  */
 package org.citygml4j.util.walker;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -4166,19 +4164,11 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T apply(ADEModelObject adeModelClass) {
+	public T apply(ADEModelObject adeModelObject) {
 		if (adeWalkerHelper != null) {
-			try {
-				ADEWalker<GMLFunctionWalker<T>> walker = adeWalkerHelper.getADEWalker(adeModelClass);
-				Method method = adeWalkerHelper.getMethod(adeModelClass, "apply");
-				if (walker != null && method != null) {
-					Object returnValue = method.invoke(walker, new Object[]{adeModelClass});
-					if (returnValue != null && adeWalkerHelper.isInstanceOfFunctionType(returnValue))
-						return (T)returnValue;
-				}
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				//
-			}
+			Object returnValue = adeWalkerHelper.invokeWalkerMethod(adeModelObject, "apply");
+			if (returnValue != null)
+				return (T)returnValue;
 		}
 
 		return null;

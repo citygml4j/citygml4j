@@ -18,7 +18,7 @@
  */
 package org.citygml4j.builder.jaxb.marshal;
 
-import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -51,7 +51,7 @@ public class JAXBMarshaller {
 	private ModuleContext moduleContext;	
 	private Document document;
 
-	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext, HashMap<String, ADEContext> adeContexts) {
+	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext, List<ADEContext> adeContexts) {
 		this.jaxbBuilder = jaxbBuilder;
 		this.moduleContext = moduleContext;
 

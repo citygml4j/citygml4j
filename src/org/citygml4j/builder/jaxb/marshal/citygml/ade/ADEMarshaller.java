@@ -1,6 +1,7 @@
 package org.citygml4j.builder.jaxb.marshal.citygml.ade;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -13,15 +14,19 @@ import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.w3c.dom.Element;
 
 public class ADEMarshaller {
-	private JAXBMarshaller jaxb;
 	private HashMap<String, ADEContext> adeContexts;
-	private ADEMarshallerHelper helper;
 
-	public ADEMarshaller(JAXBMarshaller jaxb, HashMap<String, ADEContext> adeContexts) {
+	public ADEMarshaller(JAXBMarshaller jaxb, List<ADEContext> adeContexts) {
 		if (adeContexts != null && !adeContexts.isEmpty()) {
-			this.jaxb = jaxb;
-			this.adeContexts = adeContexts;
-			helper = new ADEMarshallerHelper(jaxb);
+			this.adeContexts = new HashMap<>();
+			
+			for (ADEContext adeContext : adeContexts) {
+				if (adeContext != null && adeContext.getADEModule().getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
+					adeContext.getADEMarshaller().setADEMarshallerHelper(new ADEMarshallerHelper(jaxb));
+					for (String packageName : adeContext.getModelPackageNames())
+						this.adeContexts.put(packageName, adeContext);					
+				}
+			}
 		}
 	}
 
@@ -53,9 +58,9 @@ public class ADEMarshaller {
 
 	public JAXBElement<?> marshalJAXBElement(ADEModelObject ade) {
 		if (adeContexts != null) {
-			ADEContext adeContext = adeContexts.get(ade.getNamespaceURI());
-			if (adeContext != null && adeContext.getADEModule().getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion())
-				return adeContext.getADEMarshaller().marshalJAXBElement(ade, helper);
+			ADEContext adeContext = adeContexts.get(ade.getClass().getPackage().getName());
+			if (adeContext != null)
+				return adeContext.getADEMarshaller().marshalJAXBElement(ade);
 		}
 
 		return null;
@@ -63,9 +68,9 @@ public class ADEMarshaller {
 
 	public Object marshal(ADEModelObject ade) {
 		if (adeContexts != null) {
-			ADEContext adeContext = adeContexts.get(ade.getNamespaceURI());
-			if (adeContext != null && adeContext.getADEModule().getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion())
-				return adeContext.getADEMarshaller().marshal(ade, helper);
+			ADEContext adeContext = adeContexts.get(ade.getClass().getPackage().getName());
+			if (adeContext != null)
+				return adeContext.getADEMarshaller().marshal(ade);
 		}
 
 		return null;

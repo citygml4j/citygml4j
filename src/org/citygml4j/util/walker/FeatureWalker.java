@@ -18,8 +18,6 @@
  */
 package org.citygml4j.util.walker;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1268,17 +1266,9 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 	}
 
 	@Override
-	public void visit(ADEModelObject adeModelClass) {
-		if (adeWalkerHelper != null) {
-			try {
-				ADEWalker<FeatureWalker> walker = adeWalkerHelper.getADEWalker(adeModelClass);
-				Method method = adeWalkerHelper.getMethod(adeModelClass, "visit");
-				if (walker != null && method != null)
-					method.invoke(walker, new Object[]{adeModelClass});
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				//
-			}
-		}
+	public void visit(ADEModelObject adeModelObject) {
+		if (adeWalkerHelper != null)
+			adeWalkerHelper.invokeWalkerMethod(adeModelObject, "visit");
 	}
 
 	public void visit(ADEGenericElement adeGenericElement) {

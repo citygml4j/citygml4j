@@ -20,7 +20,6 @@ package org.citygml4j.builder.jaxb;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -45,10 +44,10 @@ import org.xml.sax.SAXException;
 
 public class JAXBBuilder implements CityGMLBuilder {
 	private final JAXBContext context;
-	private final HashMap<String, ADEContext> adeContexts;
+	private final List<ADEContext> adeContexts;
 	private SchemaHandler schemaHandler;
 
-	protected JAXBBuilder(JAXBContext context, HashMap<String, ADEContext> adeContexts) {
+	protected JAXBBuilder(JAXBContext context, List<ADEContext> adeContexts) {
 		this.context = context;
 		this.adeContexts = adeContexts;
 	}
@@ -62,11 +61,16 @@ public class JAXBBuilder implements CityGMLBuilder {
 	}
 	
 	public List<ADEContext> getADEContexts() {
-		return new ArrayList<>(adeContexts.values());
+		return new ArrayList<>(adeContexts);
 	}
 
 	public ADEContext getADEContext(String namespaceURI) {
-		return adeContexts.get(namespaceURI);
+		for (ADEContext adeContext : adeContexts) {
+			if (adeContext.getADEModule().getNamespaceURI().equals(namespaceURI))
+				return adeContext;
+		}
+		
+		return null;
 	}
 	
 	public JAXBUnmarshaller createJAXBUnmarshaller(SchemaHandler schemaHandler) {
@@ -137,7 +141,7 @@ public class JAXBBuilder implements CityGMLBuilder {
 		if (schemaHandler == null) {
 			try {
 				schemaHandler = SchemaHandler.newInstance();
-				for (ADEContext adeContext : adeContexts.values()) {
+				for (ADEContext adeContext : adeContexts) {
 					URL resource = adeContext.getSchemaResource();
 					if (resource != null)
 						schemaHandler.parseSchema(adeContext.getADEModule().getNamespaceURI(), resource.toString());

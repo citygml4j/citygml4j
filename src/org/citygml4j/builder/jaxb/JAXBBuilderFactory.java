@@ -1,7 +1,7 @@
 package org.citygml4j.builder.jaxb;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -14,12 +14,12 @@ import org.citygml4j.model.citygml.ade.binding.ADEContext;
 public class JAXBBuilderFactory {
 	private ClassLoader classLoader;
 	private HashSet<String> packageNames;
-	private HashMap<String, ADEContext> adeContexts;
+	private List<ADEContext> adeContexts;
 
 	private JAXBBuilderFactory() {
 		classLoader = ClassLoader.getSystemClassLoader();
 		packageNames = new HashSet<>();
-		adeContexts = new HashMap<>();
+		adeContexts = new ArrayList<>();
 	}
 
 	public static JAXBBuilderFactory defaults() {
@@ -47,7 +47,7 @@ public class JAXBBuilderFactory {
 	public JAXBBuilderFactory withADEContexts(List<ADEContext> adeContexts) {
 		for (ADEContext adeContext : adeContexts) {
 			if (adeContext != null) {
-				this.adeContexts.put(adeContext.getADEModule().getNamespaceURI(), adeContext);
+				this.adeContexts.add(adeContext);
 				withPackageNames(adeContext.getJAXBPackageNames());
 			}
 		}
