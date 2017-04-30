@@ -72,8 +72,8 @@ public class CityGMLContext {
 				throw new ADEException("An ADE context has already been registered for the namespace '" + tmp.getADEModule().getNamespaceURI() + "'.");
 			
 			for (String packageName : adeContext.getModelPackageNames()) {
-				if (tmp.getModelPackageNames().contains(packageName))
-					throw new ADEException("An ADE context has already been registered for the package '" + packageName + "'.");					
+				if (tmp.getADEModule().getCityGMLVersion() == adeContext.getADEModule().getCityGMLVersion() && tmp.getModelPackageNames().contains(packageName))
+					throw new ADEException("An ADE context has already been registered for the package '" + packageName + "' and CityGML version " + adeContext.getADEModule().getCityGMLVersion() + ".");					
 			}
 		}
 		
