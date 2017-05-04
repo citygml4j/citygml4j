@@ -20,16 +20,15 @@ package org.citygml4j.builder.jaxb.marshal.citygml.cityfurniture;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
-import net.opengis.citygml.cityfurniture._2.ObjectFactory;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
-import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
+import net.opengis.citygml.cityfurniture._2.ObjectFactory;
 
 public class CityFurniture200Marshaller {
 	private final ObjectFactory frn = new ObjectFactory();
@@ -41,25 +40,18 @@ public class CityFurniture200Marshaller {
 		jaxb = citygml.getJAXBMarshaller();
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		if (src instanceof CityFurniture)
+			return frn.createCityFurniture(marshalCityFurniture((CityFurniture)src));
 		
-		if (src instanceof CityFurnitureModuleComponent)
-			src = marshal((CityFurnitureModuleComponent)src);
-		
-		if (src instanceof CityFurnitureType)
-			dest = frn.createCityFurniture((CityFurnitureType)src);
-		
-		return dest;
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-		
 		if (src instanceof CityFurniture)
-			dest = marshalCityFurniture((CityFurniture)src);
+			return marshalCityFurniture((CityFurniture)src);
 		
-		return dest;
+		return null;
 	}
 	
 	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {		

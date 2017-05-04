@@ -29,6 +29,21 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 
+import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.citygml.generics.DateAttribute;
+import org.citygml4j.model.citygml.generics.DoubleAttribute;
+import org.citygml4j.model.citygml.generics.GenericAttributeSet;
+import org.citygml4j.model.citygml.generics.GenericCityObject;
+import org.citygml4j.model.citygml.generics.IntAttribute;
+import org.citygml4j.model.citygml.generics.MeasureAttribute;
+import org.citygml4j.model.citygml.generics.StringAttribute;
+import org.citygml4j.model.citygml.generics.UriAttribute;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.binding.JAXBMapper;
+
 import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
 import net.opengis.citygml.generics._1.DateAttributeType;
 import net.opengis.citygml.generics._1.DoubleAttributeType;
@@ -38,72 +53,42 @@ import net.opengis.citygml.generics._1.ObjectFactory;
 import net.opengis.citygml.generics._1.StringAttributeType;
 import net.opengis.citygml.generics._1.UriAttributeType;
 
-import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
-import org.citygml4j.model.citygml.generics.DateAttribute;
-import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.GenericAttributeSet;
-import org.citygml4j.model.citygml.generics.GenericCityObject;
-import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
-import org.citygml4j.model.citygml.generics.IntAttribute;
-import org.citygml4j.model.citygml.generics.MeasureAttribute;
-import org.citygml4j.model.citygml.generics.StringAttribute;
-import org.citygml4j.model.citygml.generics.UriAttribute;
-import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.gml.basicTypes.Code;
-
 public class Generics100Marshaller {
 	private final ObjectFactory gen = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
+	
 	public Generics100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(GenericCityObject.class, this::createGenericCityObject)
+				.with(DateAttribute.class, this::createDateAttribute)
+				.with(DoubleAttribute.class, this::createDoubleAttribute)
+				.with(IntAttribute.class, this::createIntAttribute)
+				.with(StringAttribute.class, this::createStringAttribute)
+				.with(UriAttribute.class, this::createUriAttribute)
+				.with(MeasureAttribute.class, this::createMeasureAttribute);
+		
+		typeMapper = JAXBMapper.create()
+				.with(GenericCityObject.class, this::marshalGenericCityObject)
+				.with(DateAttribute.class, this::marshalDateAttribute)
+				.with(DoubleAttribute.class, this::marshalDoubleAttribute)
+				.with(IntAttribute.class, this::marshalIntAttribute)
+				.with(StringAttribute.class, this::marshalStringAttribute)
+				.with(UriAttribute.class, this::marshalUriAttribute)
+				.with(MeasureAttribute.class, this::marshalMeasureAttribute);
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
-
-		if (src instanceof GenericsModuleComponent)
-			src = marshal((GenericsModuleComponent)src);
-
-		if (src instanceof GenericCityObjectType)
-			dest = gen.createGenericCityObject((GenericCityObjectType)src);
-		else if (src instanceof DateAttributeType)
-			dest = gen.createDateAttribute((DateAttributeType)src);
-		else if (src instanceof DoubleAttributeType)
-			dest = gen.createDoubleAttribute((DoubleAttributeType)src);
-		else if (src instanceof IntAttributeType)
-			dest = gen.createIntAttribute((IntAttributeType)src);
-		else if (src instanceof StringAttributeType)
-			dest = gen.createStringAttribute((StringAttributeType)src);
-		else if (src instanceof UriAttributeType)
-			dest = gen.createUriAttribute((UriAttributeType)src);
-
-		return dest;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-
-		if (src instanceof GenericCityObject)
-			dest = marshalGenericCityObject((GenericCityObject)src);
-		else if (src instanceof DateAttribute)
-			dest = marshalDateAttribute((DateAttribute)src);
-		else if (src instanceof DoubleAttribute)
-			dest = marshalDoubleAttribute((DoubleAttribute)src);
-		else if (src instanceof IntAttribute)
-			dest = marshalIntAttribute((IntAttribute)src);
-		else if (src instanceof StringAttribute)
-			dest = marshalStringAttribute((StringAttribute)src);
-		else if (src instanceof UriAttribute)
-			dest = marshalUriAttribute((UriAttribute)src);
-		else if (src instanceof MeasureAttribute)
-			dest = marshalMeasureAttribute((MeasureAttribute)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void marshalAbstractGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {
@@ -316,9 +301,38 @@ public class Generics100Marshaller {
 	public List<JAXBElement<? extends AbstractGenericAttributeType>> marshalGenericAttributeSetElement(GenericAttributeSet src) {
 		List<JAXBElement<? extends AbstractGenericAttributeType>> elements = new ArrayList<JAXBElement<? extends AbstractGenericAttributeType>>();
 
-		for (AbstractGenericAttributeType genericAttribute : marshalGenericAttributeSet(src))
+		for (AbstractGenericAttribute genericAttribute : src.getGenericAttribute())
 			elements.add((JAXBElement<? extends AbstractGenericAttributeType>)marshalJAXBElement(genericAttribute));
-
+		
 		return elements;
 	}
+	
+	private JAXBElement<?> createGenericCityObject(GenericCityObject src) {
+		return gen.createGenericCityObject(marshalGenericCityObject(src));
+	}
+	
+	private JAXBElement<?> createDateAttribute(DateAttribute src) {
+		return gen.createDateAttribute(marshalDateAttribute(src));
+	}
+	
+	private JAXBElement<?> createDoubleAttribute(DoubleAttribute src) {
+		return gen.createDoubleAttribute(marshalDoubleAttribute(src));
+	}
+	
+	private JAXBElement<?> createIntAttribute(IntAttribute src) {
+		return gen.createIntAttribute(marshalIntAttribute(src));
+	}
+	
+	private JAXBElement<?> createStringAttribute(StringAttribute src) {
+		return gen.createStringAttribute(marshalStringAttribute(src));
+	}
+	
+	private JAXBElement<?> createUriAttribute(UriAttribute src) {
+		return gen.createUriAttribute(marshalUriAttribute(src));
+	}
+	
+	private JAXBElement<?> createMeasureAttribute(MeasureAttribute src) {
+		return gen.createDoubleAttribute(marshalMeasureAttribute(src));
+	}
+	
 }

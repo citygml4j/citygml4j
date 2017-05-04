@@ -27,6 +27,41 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 
+import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
+import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBuilding;
+import org.citygml4j.model.citygml.building.AbstractOpening;
+import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
+import org.citygml4j.model.citygml.building.Building;
+import org.citygml4j.model.citygml.building.BuildingFurniture;
+import org.citygml4j.model.citygml.building.BuildingInstallation;
+import org.citygml4j.model.citygml.building.BuildingInstallationProperty;
+import org.citygml4j.model.citygml.building.BuildingPart;
+import org.citygml4j.model.citygml.building.BuildingPartProperty;
+import org.citygml4j.model.citygml.building.CeilingSurface;
+import org.citygml4j.model.citygml.building.ClosureSurface;
+import org.citygml4j.model.citygml.building.Door;
+import org.citygml4j.model.citygml.building.FloorSurface;
+import org.citygml4j.model.citygml.building.GroundSurface;
+import org.citygml4j.model.citygml.building.IntBuildingInstallation;
+import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
+import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
+import org.citygml4j.model.citygml.building.InteriorRoomProperty;
+import org.citygml4j.model.citygml.building.InteriorWallSurface;
+import org.citygml4j.model.citygml.building.OpeningProperty;
+import org.citygml4j.model.citygml.building.OuterCeilingSurface;
+import org.citygml4j.model.citygml.building.OuterFloorSurface;
+import org.citygml4j.model.citygml.building.RoofSurface;
+import org.citygml4j.model.citygml.building.Room;
+import org.citygml4j.model.citygml.building.WallSurface;
+import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.binding.JAXBMapper;
+
 import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
 import net.opengis.citygml.building._1.AbstractBuildingType;
 import net.opengis.citygml.building._1.AbstractOpeningType;
@@ -54,144 +89,69 @@ import net.opengis.citygml.building._1.RoomType;
 import net.opengis.citygml.building._1.WallSurfaceType;
 import net.opengis.citygml.building._1.WindowType;
 
-import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
-import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.AbstractOpening;
-import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
-import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingFurniture;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.BuildingModuleComponent;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.BuildingPartProperty;
-import org.citygml4j.model.citygml.building.CeilingSurface;
-import org.citygml4j.model.citygml.building.ClosureSurface;
-import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.FloorSurface;
-import org.citygml4j.model.citygml.building.GroundSurface;
-import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.IntBuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.InteriorFurnitureProperty;
-import org.citygml4j.model.citygml.building.InteriorRoomProperty;
-import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.OpeningProperty;
-import org.citygml4j.model.citygml.building.OuterCeilingSurface;
-import org.citygml4j.model.citygml.building.OuterFloorSurface;
-import org.citygml4j.model.citygml.building.RoofSurface;
-import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.citygml.building.WallSurface;
-import org.citygml4j.model.citygml.building.Window;
-import org.citygml4j.model.citygml.core.AddressProperty;
-import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.gml.basicTypes.Code;
-
 public class Building100Marshaller {
 	private final ObjectFactory bldg = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 
 	public Building100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(Building.class, this::createBuilding)
+				.with(BuildingFurniture.class, this::createBuildingFurniture)
+				.with(BuildingInstallation.class, this::createBuildingInstallation)
+				.with(BuildingPart.class, this::createBuildingPart)
+				.with(CeilingSurface.class, this::createCeilingSurface)
+				.with(ClosureSurface.class, this::createClosureSurface)
+				.with(Door.class, this::createDoor)
+				.with(FloorSurface.class, this::createFloorSurface)
+				.with(GroundSurface.class, this::createGroundSurface)
+				.with(IntBuildingInstallation.class, this::createIntBuildingInstallation)
+				.with(InteriorWallSurface.class, this::createInteriorWallSurface)
+				.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
+				.with(OuterFloorSurface.class, this::createOuterFloorSurface)
+				.with(RoofSurface.class, this::createRoofSurface)
+				.with(Room.class, this::createRoom)
+				.with(WallSurface.class, this::createWallSurface)
+				.with(Window.class, this::createWindow);
+		
+		typeMapper = JAXBMapper.create()
+				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
+				.with(Building.class, this::marshalBuilding)
+				.with(BuildingFurniture.class, this::marshalBuildingFurniture)
+				.with(BuildingInstallation.class, this::marshalBuildingInstallation)
+				.with(BuildingInstallationProperty.class, this::marshalBuildingInstallationProperty)
+				.with(BuildingPart.class, this::marshalBuildingPart)
+				.with(BuildingPartProperty.class, this::marshalBuildingPartProperty)
+				.with(CeilingSurface.class, this::marshalCeilingSurface)
+				.with(ClosureSurface.class, this::marshalClosureSurface)
+				.with(Door.class, this::marshalDoor)
+				.with(FloorSurface.class, this::marshalFloorSurface)
+				.with(GroundSurface.class, this::marshalGroundSurface)
+				.with(IntBuildingInstallation.class, this::marshalIntBuildingInstallation)
+				.with(IntBuildingInstallationProperty.class, this::marshalIntBuildingInstallationProperty)
+				.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
+				.with(InteriorRoomProperty.class, this::marshalInteriorRoomProperty)
+				.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
+				.with(OpeningProperty.class, this::marshalOpeningProperty)
+				.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+				.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+				.with(RoofSurface.class, this::marshalRoofSurface)
+				.with(Room.class, this::marshalRoom)
+				.with(WallSurface.class, this::marshalWallSurface)
+				.with(Window.class, this::marshalWindow);
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
-
-		if (src instanceof BuildingModuleComponent)
-			src = marshal((BuildingModuleComponent)src);
-
-		if (src instanceof BuildingType)
-			dest = bldg.createBuilding((BuildingType)src);		
-		else if (src instanceof BuildingFurnitureType)
-			dest = bldg.createBuildingFurniture((BuildingFurnitureType)src);
-		else if (src instanceof BuildingInstallationType)
-			dest = bldg.createBuildingInstallation((BuildingInstallationType)src);
-		else if (src instanceof BuildingPartType)
-			dest = bldg.createBuildingPart((BuildingPartType)src);
-		else if (src instanceof CeilingSurfaceType)
-			dest = bldg.createCeilingSurface((CeilingSurfaceType)src);
-		else if (src instanceof ClosureSurfaceType)
-			dest = bldg.createClosureSurface((ClosureSurfaceType)src);
-		else if (src instanceof DoorType)
-			dest = bldg.createDoor((DoorType)src);
-		else if (src instanceof FloorSurfaceType)
-			dest = bldg.createFloorSurface((FloorSurfaceType)src);
-		else if (src instanceof GroundSurfaceType)
-			dest = bldg.createGroundSurface((GroundSurfaceType)src);
-		else if (src instanceof IntBuildingInstallationType)
-			dest = bldg.createIntBuildingInstallation((IntBuildingInstallationType)src);
-		else if (src instanceof InteriorWallSurfaceType)
-			dest = bldg.createInteriorWallSurface((InteriorWallSurfaceType)src);
-		else if (src instanceof RoofSurfaceType)
-			dest = bldg.createRoofSurface((RoofSurfaceType)src);
-		else if (src instanceof RoomType)
-			dest = bldg.createRoom((RoomType)src);
-		else if (src instanceof WallSurfaceType)
-			dest = bldg.createWallSurface((WallSurfaceType)src);
-		else if (src instanceof WindowType)
-			dest = bldg.createWindow((WindowType)src);
-
-		return dest;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-
-		if (src instanceof BoundarySurfaceProperty)
-			dest = marshalBoundarySurfaceProperty((BoundarySurfaceProperty)src);
-		else if (src instanceof Building)
-			dest = marshalBuilding((Building)src);
-		else if (src instanceof BuildingFurniture)
-			dest = marshalBuildingFurniture((BuildingFurniture)src);
-		else if (src instanceof BuildingInstallation)
-			dest = marshalBuildingInstallation((BuildingInstallation)src);
-		else if (src instanceof BuildingInstallationProperty)
-			dest = marshalBuildingInstallationProperty((BuildingInstallationProperty)src);
-		else if (src instanceof BuildingPart)
-			dest = marshalBuildingPart((BuildingPart)src);
-		else if (src instanceof BuildingPartProperty)
-			dest = marshalBuildingPartProperty((BuildingPartProperty)src);
-		else if (src instanceof CeilingSurface)
-			dest = marshalCeilingSurface((CeilingSurface)src);
-		else if (src instanceof ClosureSurface)
-			dest = marshalClosureSurface((ClosureSurface)src);
-		else if (src instanceof Door)
-			dest = marshalDoor((Door)src);
-		else if (src instanceof FloorSurface)
-			dest = marshalFloorSurface((FloorSurface)src);
-		else if (src instanceof GroundSurface)
-			dest = marshalGroundSurface((GroundSurface)src);
-		else if (src instanceof OuterCeilingSurface)
-			dest = marshalOuterCeilingSurface((OuterCeilingSurface)src);
-		else if (src instanceof OuterFloorSurface)
-			dest = marshalOuterFloorSurface((OuterFloorSurface)src);
-		else if (src instanceof IntBuildingInstallation)
-			dest = marshalIntBuildingInstallation((IntBuildingInstallation)src);
-		else if (src instanceof IntBuildingInstallationProperty)
-			dest = marshalIntBuildingInstallationProperty((IntBuildingInstallationProperty)src);
-		else if (src instanceof InteriorFurnitureProperty)
-			dest = marshalInteriorFurnitureProperty((InteriorFurnitureProperty)src);
-		else if (src instanceof InteriorRoomProperty)
-			dest = marshalInteriorRoomProperty((InteriorRoomProperty)src);
-		else if (src instanceof InteriorWallSurface)
-			dest = marshalInteriorWallSurface((InteriorWallSurface)src);
-		else if (src instanceof OpeningProperty)
-			dest = marshalOpeningProperty((OpeningProperty)src);
-		else if (src instanceof RoofSurface)
-			dest = marshalRoofSurface((RoofSurface)src);
-		else if (src instanceof Room)
-			dest = marshalRoom((Room)src);
-		else if (src instanceof WallSurface)
-			dest = marshalWallSurface((WallSurface)src);
-		else if (src instanceof Window)
-			dest = marshalWindow((Window)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest) {
@@ -893,6 +853,74 @@ public class Building100Marshaller {
 		marshalWindow(src, dest);
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createBuilding(Building src) {
+		return bldg.createBuilding(marshalBuilding(src));
+	}
+	
+	private JAXBElement<?> createBuildingFurniture(BuildingFurniture src) {
+		return bldg.createBuildingFurniture(marshalBuildingFurniture(src));
+	}
+	
+	private JAXBElement<?> createBuildingInstallation(BuildingInstallation src) {
+		return bldg.createBuildingInstallation(marshalBuildingInstallation(src));
+	}
+	
+	private JAXBElement<?> createBuildingPart(BuildingPart src) {
+		return bldg.createBuildingPart(marshalBuildingPart(src));
+	}
+	
+	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
+		return bldg.createCeilingSurface(marshalCeilingSurface(src));
+	}
+	
+	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
+		return bldg.createClosureSurface(marshalClosureSurface(src));
+	}
+	
+	private JAXBElement<?> createDoor(Door src) {
+		return bldg.createDoor(marshalDoor(src));
+	}
+	
+	private JAXBElement<?> createFloorSurface(FloorSurface src) {
+		return bldg.createFloorSurface(marshalFloorSurface(src));
+	}
+	
+	private JAXBElement<?> createGroundSurface(GroundSurface src) {
+		return bldg.createGroundSurface(marshalGroundSurface(src));
+	}
+	
+	private JAXBElement<?> createIntBuildingInstallation(IntBuildingInstallation src) {
+		return bldg.createIntBuildingInstallation(marshalIntBuildingInstallation(src));
+	}
+	
+	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
+		return bldg.createInteriorWallSurface(marshalInteriorWallSurface(src));
+	}
+	
+	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
+		return bldg.createWallSurface(marshalOuterCeilingSurface(src));
+	}
+	
+	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
+		return bldg.createWallSurface(marshalOuterFloorSurface(src));
+	}
+	
+	private JAXBElement<?> createRoofSurface(RoofSurface src) {
+		return bldg.createRoofSurface(marshalRoofSurface(src));
+	}
+	
+	private JAXBElement<?> createRoom(Room src) {
+		return bldg.createRoom(marshalRoom(src));
+	}
+	
+	private JAXBElement<?> createWallSurface(WallSurface src) {
+		return bldg.createWallSurface(marshalWallSurface(src));
+	}
+	
+	private JAXBElement<?> createWindow(Window src) {
+		return bldg.createWindow(marshalWindow(src));
 	}
 
 }

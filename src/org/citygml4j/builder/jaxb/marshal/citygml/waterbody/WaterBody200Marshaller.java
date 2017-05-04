@@ -27,12 +27,12 @@ import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.binding.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -51,45 +51,33 @@ public class WaterBody200Marshaller {
 	private final ObjectFactory wtr = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public WaterBody200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(WaterBody.class, this::createWaterBody)
+				.with(WaterClosureSurface.class, this::createWaterClosureSurface)
+				.with(WaterGroundSurface.class, this::createWaterGroundSurface)
+				.with(WaterSurface.class, this::createWaterSurface);
+		
+		typeMapper = JAXBMapper.create()
+				.with(BoundedByWaterSurfaceProperty.class, this::marshalBoundedByWaterSurfaceProperty)
+				.with(WaterBody.class, this::marshalWaterBody)
+				.with(WaterClosureSurface.class, this::marshalWaterClosureSurface)
+				.with(WaterGroundSurface.class, this::marshalWaterGroundSurface)
+				.with(WaterSurface.class, this::marshalWaterSurface);				
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
-		
-		if (src instanceof WaterBodyModuleComponent)
-			src = marshal((WaterBodyModuleComponent)src);
-		
-		if (src instanceof WaterBodyType)
-			dest = wtr.createWaterBody((WaterBodyType)src);
-		else if (src instanceof WaterClosureSurfaceType)
-			dest = wtr.createWaterClosureSurface((WaterClosureSurfaceType)src);
-		else if (src instanceof WaterGroundSurfaceType)
-			dest = wtr.createWaterGroundSurface((WaterGroundSurfaceType)src);
-		else if (src instanceof WaterSurfaceType)
-			dest = wtr.createWaterSurface((WaterSurfaceType)src);
-		
-		return dest;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		return elementMapper.apply(src);
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-		
-		if (src instanceof BoundedByWaterSurfaceProperty)
-			dest = marshalBoundedByWaterSurfaceProperty((BoundedByWaterSurfaceProperty)src);
-		else if (src instanceof WaterBody)
-			dest = marshalWaterBody((WaterBody)src);
-		else if (src instanceof WaterClosureSurface)
-			dest = marshalWaterClosureSurface((WaterClosureSurface)src);
-		else if (src instanceof WaterGroundSurface)
-			dest = marshalWaterGroundSurface((WaterGroundSurface)src);
-		else if (src instanceof WaterSurface)
-			dest = marshalWaterSurface((WaterSurface)src);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 	
 	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractWaterObjectType dest) {
@@ -287,6 +275,22 @@ public class WaterBody200Marshaller {
 		marshalWaterSurface(src, dest);
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createWaterBody(WaterBody src) {
+		return wtr.createWaterBody(marshalWaterBody(src));
+	}
+	
+	private JAXBElement<?> createWaterClosureSurface(WaterClosureSurface src) {
+		return wtr.createWaterClosureSurface(marshalWaterClosureSurface(src));
+	}
+	
+	private JAXBElement<?> createWaterGroundSurface(WaterGroundSurface src) {
+		return wtr.createWaterGroundSurface(marshalWaterGroundSurface(src));
+	}
+	
+	private JAXBElement<?> createWaterSurface(WaterSurface src) {
+		return wtr.createWaterSurface(marshalWaterSurface(src));
 	}
 	
 }

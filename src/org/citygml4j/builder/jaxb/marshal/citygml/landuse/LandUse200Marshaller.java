@@ -20,16 +20,15 @@ package org.citygml4j.builder.jaxb.marshal.citygml.landuse;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.citygml.landuse._2.ObjectFactory;
-import net.opengis.citygml.landuse._2.LandUseType;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.landuse.LandUse;
-import org.citygml4j.model.citygml.landuse.LandUseModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import net.opengis.citygml.landuse._2.LandUseType;
+import net.opengis.citygml.landuse._2.ObjectFactory;
 
 public class LandUse200Marshaller {
 	private final ObjectFactory luse = new ObjectFactory();
@@ -41,25 +40,18 @@ public class LandUse200Marshaller {
 		jaxb = citygml.getJAXBMarshaller();
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		if (src instanceof LandUse)
+			return luse.createLandUse(marshalLandUse((LandUse)src));
 		
-		if (src instanceof LandUseModuleComponent)
-			src = marshal((LandUseModuleComponent)src);
-		
-		if (src instanceof LandUseType)
-			dest = luse.createLandUse((LandUseType)src);
-		
-		return dest;
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-		
 		if (src instanceof LandUse)
-			dest = marshalLandUse((LandUse)src);
+			return marshalLandUse((LandUse)src);
 		
-		return dest;
+		return null;
 	}
 	
 	public void marshalLandUse(LandUse src, LandUseType dest) {

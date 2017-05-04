@@ -20,38 +20,6 @@ package org.citygml4j.builder.jaxb.marshal.xal;
 
 import javax.xml.bind.JAXBElement;
 
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
-import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
-import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
-import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
-import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
-import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ObjectFactory;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
-
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressIdentifier;
@@ -138,196 +106,141 @@ import org.citygml4j.model.xal.ThoroughfareNumberToContent;
 import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
-import org.citygml4j.model.xal.XAL;
+import org.citygml4j.util.binding.JAXBMapper;
+
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
+import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
+import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ObjectFactory;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 
 public class XALMarshaller {
 	private final ObjectFactory xal= new ObjectFactory();
+	private final JAXBMapper<Object> typeMapper;
 	
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
-
-		if (src instanceof XAL)
-			src = marshal((XAL)src);
+	public XALMarshaller() {
+		typeMapper = JAXBMapper.create()
+				.with(Address.class, this::marshalAddress)
+				.with(org.citygml4j.model.xal.AddressDetails.class, this::marshalAddressDetails)
+				.with(AddressIdentifier.class, this::marshalAddressIdentifier)
+				.with(AddressLatitude.class, this::marshalAddressLatitude)
+				.with(AddressLatitudeDirection.class, this::marshalAddressLatitudeDirection)
+				.with(AddressLine.class, this::marshalAddressLine)
+				.with(AddressLines.class, this::marshalAddressLines)
+				.with(AddressLongitude.class, this::marshalAddressLongitude)
+				.with(AddressLongitudeDirection.class, this::marshalAddressLongitudeDirection)
+				.with(AdministrativeArea.class, this::marshalAdministrativeArea)
+				.with(AdministrativeAreaName.class, this::marshalAdministrativeAreaName)
+				.with(Barcode.class, this::marshalBarcode)
+				.with(BuildingName.class, this::marshalBuildingName)
+				.with(Country.class, this::marshalCountry)
+				.with(CountryName.class, this::marshalCountryName)
+				.with(CountryNameCode.class, this::marshalCountryNameCode)
+				.with(Department.class, this::marshalDepartment)
+				.with(DepartmentName.class, this::marshalDepartmentName)
+				.with(DependentLocality.class, this::marshalDependentLocality)
+				.with(DependentLocalityName.class, this::marshalDependentLocalityName)
+				.with(DependentLocalityNumber.class, this::marshalDependentLocalityNumber)
+				.with(DependentThoroughfare.class, this::marshalDependentThoroughfare)
+				.with(EndorsementLineCode.class, this::marshalEndorsementLineCode)
+				.with(Firm.class, this::marshalFirm)
+				.with(FirmName.class, this::marshalFirmName)
+				.with(KeyLineCode.class, this::marshalKeyLineCode)
+				.with(LargeMailUser.class, this::marshalLargeMailUser)
+				.with(LargeMailUserIdentifier.class, this::marshalLargeMailUserIdentifier)
+				.with(LargeMailUserName.class, this::marshalLargeMailUserName)
+				.with(Locality.class, this::marshalLocality)
+				.with(LocalityName.class, this::marshalLocalityName)
+				.with(MailStop.class, this::marshalMailStop)
+				.with(MailStopName.class, this::marshalMailStopName)
+				.with(MailStopNumber.class, this::marshalMailStopNumber)
+				.with(PostalCode.class, this::marshalPostalCode)
+				.with(PostalCodeNumber.class, this::marshalPostalCodeNumber)
+				.with(PostalCodeNumberExtension.class, this::marshalPostalCodeNumberExtension)
+				.with(PostalRoute.class, this::marshalPostalRoute)
+				.with(PostalRouteName.class, this::marshalPostalRouteName)
+				.with(PostalRouteNumber.class, this::marshalPostalRouteNumber)
+				.with(PostalServiceElements.class, this::marshalPostalServiceElements)
+				.with(PostBox.class, this::marshalPostBox)
+				.with(PostBoxNumber.class, this::marshalPostBoxNumber)
+				.with(PostBoxNumberExtension.class, this::marshalPostBoxNumberExtension)
+				.with(PostBoxNumberPrefix.class, this::marshalPostBoxNumberPrefix)
+				.with(PostBoxNumberSuffix.class, this::marshalPostBoxNumberSuffix)
+				.with(PostOffice.class, this::marshalPostOffice)
+				.with(PostOfficeName.class, this::marshalPostOfficeName)
+				.with(PostOfficeNumber.class, this::marshalPostOfficeNumber)
+				.with(PostTown.class, this::marshalPostTown)
+				.with(PostTownName.class, this::marshalPostTownName)
+				.with(PostTownSuffix.class, this::marshalPostTownSuffix)
+				.with(Premise.class, this::marshalPremise)
+				.with(PremiseLocation.class, this::marshalPremiseLocation)
+				.with(PremiseName.class, this::marshalPremiseName)
+				.with(PremiseNumber.class, this::marshalPremiseNumber)
+				.with(PremiseNumberPrefix.class, this::marshalPremiseNumberPrefix)
+				.with(PremiseNumberRange.class, this::marshalPremiseNumberRange)
+				.with(PremiseNumberRangeFrom.class, this::marshalPremiseNumberRangeFrom)
+				.with(PremiseNumberRangeTo.class, this::marshalPremiseNumberRangeTo)
+				.with(PremiseNumberSuffix.class, this::marshalPremiseNumberSuffix)
+				.with(SortingCode.class, this::marshalSortingCode)
+				.with(SubAdministrativeArea.class, this::marshalSubAdministrativeArea)
+				.with(SubAdministrativeAreaName.class, this::marshalSubAdministrativeAreaName)
+				.with(SubPremise.class, this::marshalSubPremise)
+				.with(SubPremiseLocation.class, this::marshalSubPremiseLocation)
+				.with(SubPremiseName.class, this::marshalSubPremiseName)
+				.with(SubPremiseNumber.class, this::marshalSubPremiseNumber)
+				.with(SubPremiseNumberPrefix.class, this::marshalSubPremiseNumberPrefix)
+				.with(SubPremiseNumberSuffix.class, this::marshalSubPremiseNumberSuffix)
+				.with(SupplementaryPostalServiceData.class, this::marshalSupplementaryPostalServiceData)
+				.with(Thoroughfare.class, this::marshalThoroughfare)
+				.with(ThoroughfareLeadingType.class, this::marshalThoroughfareLeadingType)
+				.with(ThoroughfareName.class, this::marshalThoroughfareName)
+				.with(ThoroughfareNumber.class, this::marshalThoroughfareNumber)
+				.with(ThoroughfareNumberFrom.class, this::marshalThoroughfareNumberFrom)
+				.with(ThoroughfareNumberPrefix.class, this::marshalThoroughfareNumberPrefix)
+				.with(ThoroughfareNumberRange.class, this::marshalThoroughfareNumberRange)
+				.with(ThoroughfareNumberSuffix.class, this::marshalThoroughfareNumberSuffix)
+				.with(ThoroughfareNumberTo.class, this::marshalThoroughfareNumberTo)
+				.with(ThoroughfarePostDirection.class, this::marshalThoroughfarePostDirection)
+				.with(ThoroughfarePreDirection.class, this::marshalThoroughfarePreDirection)
+				.with(ThoroughfareTrailingType.class, this::marshalThoroughfareTrailingType);
+	}
+	
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		Object dest = marshal(src);
+		if (dest instanceof AddressDetails)
+			return xal.createAddressDetails((AddressDetails)dest);
 				
-		if (src instanceof AddressDetails)
-			dest = xal.createAddressDetails((AddressDetails)src);
-
-		return dest;
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-
-		if (src instanceof XAL) {
-			if (src instanceof Address)
-				dest = marshalAddress((Address)src);
-			else if (src instanceof org.citygml4j.model.xal.AddressDetails)
-				dest = marshalAddressDetails((org.citygml4j.model.xal.AddressDetails)src);			
-			else if (src instanceof AddressIdentifier)
-				dest = marshalAddressIdentifier((AddressIdentifier)src);
-			else if (src instanceof AddressLatitude)
-				dest = marshalAddressLatitude((AddressLatitude)src);
-			else if (src instanceof AddressLatitudeDirection)
-				dest = marshalAddressLatitudeDirection((AddressLatitudeDirection)src);
-			else if (src instanceof AddressLine)
-				dest = marshalAddressLine((AddressLine)src);
-			else if (src instanceof AddressLines)
-				dest = marshalAddressLines((AddressLines)src);
-			else if (src instanceof AddressLongitude)
-				dest = marshalAddressLongitude((AddressLongitude)src);
-			else if (src instanceof AddressLongitudeDirection)
-				dest = marshalAddressLongitudeDirection((AddressLongitudeDirection)src);
-			else if (src instanceof AdministrativeArea)
-				dest = marshalAdministrativeArea((AdministrativeArea)src);			
-			else if (src instanceof AdministrativeAreaName)
-				dest = marshalAdministrativeAreaName((AdministrativeAreaName)src);
-			else if (src instanceof Barcode)
-				dest = marshalBarcode((Barcode)src);
-			else if (src instanceof BuildingName)
-				dest = marshalBuildingName((BuildingName)src);
-			else if (src instanceof Country)
-				dest = marshalCountry((Country)src);
-			else if (src instanceof CountryName)
-				dest = marshalCountryName((CountryName)src);
-			else if (src instanceof CountryNameCode)
-				dest = marshalCountryNameCode((CountryNameCode)src);
-			else if (src instanceof Department)
-				dest = marshalDepartment((Department)src);			
-			else if (src instanceof DepartmentName)
-				dest = marshalDepartmentName((DepartmentName)src);
-			else if (src instanceof DependentLocality)
-				dest = marshalDependentLocality((DependentLocality)src);			
-			else if (src instanceof DependentLocalityName)
-				dest = marshalDependentLocalityName((DependentLocalityName)src);
-			else if (src instanceof DependentLocalityNumber)
-				dest = marshalDependentLocalityNumber((DependentLocalityNumber)src);
-			else if (src instanceof DependentThoroughfare)
-				dest = marshalDependentThoroughfare((DependentThoroughfare)src);			
-			else if (src instanceof EndorsementLineCode)
-				dest = marshalEndorsementLineCode((EndorsementLineCode)src);
-			else if (src instanceof Firm)
-				dest = marshalFirm((Firm)src);			
-			else if (src instanceof FirmName)
-				dest = marshalFirmName((FirmName)src);
-			else if (src instanceof KeyLineCode)
-				dest = marshalKeyLineCode((KeyLineCode)src);
-			else if (src instanceof LargeMailUser)
-				dest = marshalLargeMailUser((LargeMailUser)src);			
-			else if (src instanceof LargeMailUserIdentifier)
-				dest = marshalLargeMailUserIdentifier((LargeMailUserIdentifier)src);
-			else if (src instanceof LargeMailUserName)
-				dest = marshalLargeMailUserName((LargeMailUserName)src);
-			else if (src instanceof Locality)
-				dest = marshalLocality((Locality)src);			
-			else if (src instanceof LocalityName)
-				dest = marshalLocalityName((LocalityName)src);
-			else if (src instanceof MailStop)
-				dest = marshalMailStop((MailStop)src);
-			else if (src instanceof MailStopName)
-				dest = marshalMailStopName((MailStopName)src);
-			else if (src instanceof MailStopNumber)
-				dest = marshalMailStopNumber((MailStopNumber)src);
-			else if (src instanceof PostalCode)
-				dest = marshalPostalCode((PostalCode)src);			
-			else if (src instanceof PostalCodeNumber)
-				dest = marshalPostalCodeNumber((PostalCodeNumber)src);
-			else if (src instanceof PostalCodeNumberExtension)
-				dest = marshalPostalCodeNumberExtension((PostalCodeNumberExtension)src);
-			else if (src instanceof PostalRoute)
-				dest = marshalPostalRoute((PostalRoute)src);
-			else if (src instanceof PostalRouteName)
-				dest = marshalPostalRouteName((PostalRouteName)src);
-			else if (src instanceof PostalRouteNumber)
-				dest = marshalPostalRouteNumber((PostalRouteNumber)src);
-			else if (src instanceof PostalServiceElements)
-				dest = marshalPostalServiceElements((PostalServiceElements)src);			
-			else if (src instanceof PostBox)
-				dest = marshalPostBox((PostBox)src);
-			else if (src instanceof PostBoxNumber)
-				dest = marshalPostBoxNumber((PostBoxNumber)src);
-			else if (src instanceof PostBoxNumberExtension)
-				dest = marshalPostBoxNumberExtension((PostBoxNumberExtension)src);
-			else if (src instanceof PostBoxNumberPrefix)
-				dest = marshalPostBoxNumberPrefix((PostBoxNumberPrefix)src);
-			else if (src instanceof PostBoxNumberSuffix)
-				dest = marshalPostBoxNumberSuffix((PostBoxNumberSuffix)src);
-			else if (src instanceof PostOffice)
-				dest = marshalPostOffice((PostOffice)src);			
-			else if (src instanceof PostOfficeName)
-				dest = marshalPostOfficeName((PostOfficeName)src);
-			else if (src instanceof PostOfficeNumber)
-				dest = marshalPostOfficeNumber((PostOfficeNumber)src);
-			else if (src instanceof PostTown)
-				dest = marshalPostTown((PostTown)src);
-			else if (src instanceof PostTownName)
-				dest = marshalPostTownName((PostTownName)src);
-			else if (src instanceof PostTownSuffix)
-				dest = marshalPostTownSuffix((PostTownSuffix)src);
-			else if (src instanceof Premise)
-				dest = marshalPremise((Premise)src);			
-			else if (src instanceof PremiseLocation)
-				dest = marshalPremiseLocation((PremiseLocation)src);
-			else if (src instanceof PremiseName)
-				dest = marshalPremiseName((PremiseName)src);
-			else if (src instanceof PremiseNumber)
-				dest = marshalPremiseNumber((PremiseNumber)src);
-			else if (src instanceof PremiseNumberPrefix)
-				dest = marshalPremiseNumberPrefix((PremiseNumberPrefix)src);
-			else if (src instanceof PremiseNumberRange)
-				dest = marshalPremiseNumberRange((PremiseNumberRange)src);
-			else if (src instanceof PremiseNumberRangeFrom)
-				dest = marshalPremiseNumberRangeFrom((PremiseNumberRangeFrom)src);
-			else if (src instanceof PremiseNumberRangeTo)
-				dest = marshalPremiseNumberRangeTo((PremiseNumberRangeTo)src);
-			else if (src instanceof PremiseNumberSuffix)
-				dest = marshalPremiseNumberSuffix((PremiseNumberSuffix)src);
-			else if (src instanceof SortingCode)
-				dest = marshalSortingCode((SortingCode)src);
-			else if (src instanceof SubAdministrativeArea)
-				dest = marshalSubAdministrativeArea((SubAdministrativeArea)src);
-			else if (src instanceof SubAdministrativeAreaName)
-				dest = marshalSubAdministrativeAreaName((SubAdministrativeAreaName)src);
-			else if (src instanceof SubPremise)
-				dest = marshalSubPremise((SubPremise)src);			
-			else if (src instanceof SubPremiseLocation)
-				dest = marshalSubPremiseLocation((SubPremiseLocation)src);
-			else if (src instanceof SubPremiseName)
-				dest = marshalSubPremiseName((SubPremiseName)src);
-			else if (src instanceof SubPremiseNumber)
-				dest = marshalSubPremiseNumber((SubPremiseNumber)src);
-			else if (src instanceof SubPremiseNumberPrefix)
-				dest = marshalSubPremiseNumberPrefix((SubPremiseNumberPrefix)src);
-			else if (src instanceof SubPremiseNumberSuffix)
-				dest = marshalSubPremiseNumberSuffix((SubPremiseNumberSuffix)src);
-			else if (src instanceof SupplementaryPostalServiceData)
-				dest = marshalSupplementaryPostalServiceData((SupplementaryPostalServiceData)src);
-			else if (src instanceof Thoroughfare)
-				dest = marshalThoroughfare((Thoroughfare)src);			
-			else if (src instanceof ThoroughfareLeadingType)
-				dest = marshalThoroughfareLeadingType((ThoroughfareLeadingType)src);
-			else if (src instanceof ThoroughfareName)
-				dest = marshalThoroughfareName((ThoroughfareName)src);
-			else if (src instanceof ThoroughfareNumber)
-				dest = marshalThoroughfareNumber((ThoroughfareNumber)src);
-			else if (src instanceof ThoroughfareNumberFrom)
-				dest = marshalThoroughfareNumberFrom((ThoroughfareNumberFrom)src);
-			else if (src instanceof ThoroughfareNumberPrefix)
-				dest = marshalThoroughfareNumberPrefix((ThoroughfareNumberPrefix)src);
-			else if (src instanceof ThoroughfareNumberRange)
-				dest = marshalThoroughfareNumberRange((ThoroughfareNumberRange)src);
-			else if (src instanceof ThoroughfareNumberSuffix)
-				dest = marshalThoroughfareNumberSuffix((ThoroughfareNumberSuffix)src);
-			else if (src instanceof ThoroughfareNumberTo)
-				dest = marshalThoroughfareNumberTo((ThoroughfareNumberTo)src);
-			else if (src instanceof ThoroughfarePostDirection)
-				dest = marshalThoroughfarePostDirection((ThoroughfarePostDirection)src);
-			else if (src instanceof ThoroughfarePreDirection)
-				dest = marshalThoroughfarePreDirection((ThoroughfarePreDirection)src);
-			else if (src instanceof ThoroughfareTrailingType)
-				dest = marshalThoroughfareTrailingType((ThoroughfareTrailingType)src);
-		}
-		
-		return dest;
+		return typeMapper.apply(src);
 	}	
 
 	public AddressDetails.Address marshalAddress(Address src) {

@@ -61,7 +61,7 @@ public class JAXBMarshaller {
 		ade = new ADEMarshaller(this, adeContexts);
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
 		JAXBElement<?> dest = null;
 		if (src instanceof ADEModelObject)
 			dest = ade.marshalJAXBElement((ADEModelObject)src);
@@ -76,7 +76,7 @@ public class JAXBMarshaller {
 		return dest;
 	}
 
-	public Element marshalDOMElement(Object src) {
+	public Element marshalDOMElement(ModelObject src) {
 		Element dest = null;
 
 		try {
@@ -94,7 +94,7 @@ public class JAXBMarshaller {
 		return dest;		
 	}
 	
-	public Element marshalDOMElement(Object src, Document document) {
+	public Element marshalDOMElement(ModelObject src, Document document) {
 		Element dest = null;
 
 		try {

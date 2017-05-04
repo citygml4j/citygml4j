@@ -25,10 +25,10 @@ import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
-import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponent;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.binding.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -44,35 +44,27 @@ public class CityObjectGroup200Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public CityObjectGroup200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		typeMapper = JAXBMapper.create()
+				.with(CityObjectGroup.class, this::marshalCityObjectGroup)
+				.with(CityObjectGroupMember.class, this::marshalCityObjectGroupMember)
+				.with(CityObjectGroupParent.class, this::marshalCityObjectGroupParent);
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		if (src instanceof CityObjectGroup)
+			return grp.createCityObjectGroup(marshalCityObjectGroup((CityObjectGroup)src));
 		
-		if (src instanceof CityObjectGroupModuleComponent)
-			src = marshal((CityObjectGroupModuleComponent)src);
-		
-		if (src instanceof CityObjectGroupType)
-			dest = grp.createCityObjectGroup((CityObjectGroupType)src);
-		
-		return dest;
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-		
-		if (src instanceof CityObjectGroup)
-			dest = marshalCityObjectGroup((CityObjectGroup)src);
-		else if (src instanceof CityObjectGroupMember)
-			dest = marshalCityObjectGroupMember((CityObjectGroupMember)src);
-		else if (src instanceof CityObjectGroupParent)
-			dest = marshalCityObjectGroupParent((CityObjectGroupParent)src);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 	
 	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {

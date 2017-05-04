@@ -30,10 +30,10 @@ import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
-import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.util.binding.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -56,53 +56,37 @@ public class Relief200Marshaller {
 	private final ObjectFactory dem = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public Relief200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(BreaklineRelief.class, this::createBreaklineRelief)
+				.with(MassPointRelief.class, this::createMassPointRelief)
+				.with(RasterRelief.class, this::createRasterRelief)
+				.with(ReliefFeature.class, this::createReliefFeature)
+				.with(TINRelief.class, this::createTINRelief);
+		
+		typeMapper = JAXBMapper.create()
+				.with(BreaklineRelief.class, this::marshalBreaklineRelief)
+				.with(GridProperty.class, this::marshalGridProperty)
+				.with(MassPointRelief.class, this::marshalMassPointRelief)
+				.with(RasterRelief.class, this::marshalRasterRelief)
+				.with(ReliefComponentProperty.class, this::marshalReliefComponentProperty)
+				.with(ReliefFeature.class, this::marshalReliefFeature)
+				.with(TinProperty.class, this::marshalTinProperty)
+				.with(TINRelief.class, this::marshalTINRelief);
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
-		
-		if (src instanceof ReliefModuleComponent)
-			src = marshal((ReliefModuleComponent)src);
-		
-		if (src instanceof BreaklineReliefType)
-			dest = dem.createBreaklineRelief((BreaklineReliefType)src);
-		else if (src instanceof MassPointReliefType)
-			dest = dem.createMassPointRelief((MassPointReliefType)src);
-		else if (src instanceof RasterReliefType)
-			dest = dem.createRasterRelief((RasterReliefType)src);
-		else if (src instanceof ReliefFeatureType)
-			dest = dem.createReliefFeature((ReliefFeatureType)src);
-		else if (src instanceof TINReliefType)
-			dest = dem.createTINRelief((TINReliefType)src);
-		
-		return dest;
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		return elementMapper.apply(src);
 	}
 	
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-		
-		if (src instanceof BreaklineRelief)
-			dest = marshalBreaklineRelief((BreaklineRelief)src);
-		else if (src instanceof GridProperty)
-			dest = marshalGridProperty((GridProperty)src);
-		else if (src instanceof MassPointRelief)
-			dest = marshalMassPointRelief((MassPointRelief)src);
-		else if (src instanceof RasterRelief)
-			dest = marshalRasterRelief((RasterRelief)src);
-		else if (src instanceof ReliefComponentProperty)
-			dest = marshalReliefComponentProperty((ReliefComponentProperty)src);
-		else if (src instanceof ReliefFeature)
-			dest = marshalReliefFeature((ReliefFeature)src);
-		else if (src instanceof TinProperty)
-			dest = marshalTinProperty((TinProperty)src);
-		else if (src instanceof TINRelief)
-			dest = marshalTINRelief((TINRelief)src);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 	
 	public void marshalAbstractReliefComponent(AbstractReliefComponent src, AbstractReliefComponentType dest) {
@@ -362,6 +346,26 @@ public class Relief200Marshaller {
 		marshalTINRelief(src, dest);
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createBreaklineRelief(BreaklineRelief src) {
+		return dem.createBreaklineRelief(marshalBreaklineRelief(src));
+	}
+	
+	private JAXBElement<?> createMassPointRelief(MassPointRelief src) {
+		return dem.createMassPointRelief(marshalMassPointRelief(src));
+	}
+	
+	private JAXBElement<?> createRasterRelief(RasterRelief src) {
+		return dem.createRasterRelief(marshalRasterRelief(src));
+	}
+	
+	private JAXBElement<?> createReliefFeature(ReliefFeature src) {
+		return dem.createReliefFeature(marshalReliefFeature(src));
+	}
+	
+	private JAXBElement<?> createTINRelief(TINRelief src) {
+		return dem.createTINRelief(marshalTINRelief(src));
 	}
 	
 }

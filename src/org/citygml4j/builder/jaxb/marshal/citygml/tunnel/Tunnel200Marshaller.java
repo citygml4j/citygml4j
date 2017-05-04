@@ -52,13 +52,13 @@ import org.citygml4j.model.citygml.tunnel.Tunnel;
 import org.citygml4j.model.citygml.tunnel.TunnelFurniture;
 import org.citygml4j.model.citygml.tunnel.TunnelInstallation;
 import org.citygml4j.model.citygml.tunnel.TunnelInstallationProperty;
-import org.citygml4j.model.citygml.tunnel.TunnelModuleComponent;
 import org.citygml4j.model.citygml.tunnel.TunnelPart;
 import org.citygml4j.model.citygml.tunnel.TunnelPartProperty;
 import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.binding.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -97,109 +97,65 @@ public class Tunnel200Marshaller {
 	private final ObjectFactory tun = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 
 	public Tunnel200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(Tunnel.class, this::createTunnel)
+				.with(TunnelFurniture.class, this::createTunnelFurniture)
+				.with(TunnelInstallation.class, this::createTunnelInstallation)
+				.with(TunnelPart.class, this::createTunnelPart)
+				.with(CeilingSurface.class, this::createCeilingSurface)
+				.with(ClosureSurface.class, this::createClosureSurface)
+				.with(Door.class, this::createDoor)
+				.with(FloorSurface.class, this::createFloorSurface)
+				.with(GroundSurface.class, this::createGroundSurface)
+				.with(IntTunnelInstallation.class, this::createIntTunnelInstallation)
+				.with(InteriorWallSurface.class, this::createInteriorWallSurface)
+				.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
+				.with(OuterFloorSurface.class, this::createOuterFloorSurface)
+				.with(RoofSurface.class, this::createRoofSurface)
+				.with(HollowSpace.class, this::createHollowSpace)
+				.with(WallSurface.class, this::createWallSurface)
+				.with(Window.class, this::createWindow);
+		
+		typeMapper = JAXBMapper.create()
+				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
+				.with(Tunnel.class, this::marshalTunnel)
+				.with(TunnelFurniture.class, this::marshalTunnelFurniture)
+				.with(TunnelInstallation.class, this::marshalTunnelInstallation)
+				.with(TunnelInstallationProperty.class, this::marshalTunnelInstallationProperty)
+				.with(TunnelPart.class, this::marshalTunnelPart)
+				.with(TunnelPartProperty.class, this::marshalTunnelPartProperty)
+				.with(CeilingSurface.class, this::marshalCeilingSurface)
+				.with(ClosureSurface.class, this::marshalClosureSurface)
+				.with(Door.class, this::marshalDoor)
+				.with(FloorSurface.class, this::marshalFloorSurface)
+				.with(GroundSurface.class, this::marshalGroundSurface)
+				.with(IntTunnelInstallation.class, this::marshalIntTunnelInstallation)
+				.with(IntTunnelInstallationProperty.class, this::marshalIntTunnelInstallationProperty)
+				.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
+				.with(InteriorHollowSpaceProperty.class, this::marshalInteriorHollowSpaceProperty)
+				.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
+				.with(OpeningProperty.class, this::marshalOpeningProperty)
+				.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+				.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+				.with(RoofSurface.class, this::marshalRoofSurface)
+				.with(HollowSpace.class, this::marshalHollowSpace)
+				.with(WallSurface.class, this::marshalWallSurface)
+				.with(Window.class, this::marshalWindow);
 	}
-
-	public JAXBElement<?> marshalJAXBElement(Object src) {
-		JAXBElement<?> dest = null;
-
-		if (src instanceof TunnelModuleComponent)
-			src = marshal((TunnelModuleComponent)src);
-
-		if (src instanceof TunnelType)
-			dest = tun.createTunnel((TunnelType)src);		
-		else if (src instanceof TunnelFurnitureType)
-			dest = tun.createTunnelFurniture((TunnelFurnitureType)src);
-		else if (src instanceof TunnelInstallationType)
-			dest = tun.createTunnelInstallation((TunnelInstallationType)src);
-		else if (src instanceof TunnelPartType)
-			dest = tun.createTunnelPart((TunnelPartType)src);
-		else if (src instanceof CeilingSurfaceType)
-			dest = tun.createCeilingSurface((CeilingSurfaceType)src);
-		else if (src instanceof ClosureSurfaceType)
-			dest = tun.createClosureSurface((ClosureSurfaceType)src);
-		else if (src instanceof DoorType)
-			dest = tun.createDoor((DoorType)src);
-		else if (src instanceof FloorSurfaceType)
-			dest = tun.createFloorSurface((FloorSurfaceType)src);
-		else if (src instanceof GroundSurfaceType)
-			dest = tun.createGroundSurface((GroundSurfaceType)src);
-		else if (src instanceof IntTunnelInstallationType)
-			dest = tun.createIntTunnelInstallation((IntTunnelInstallationType)src);
-		else if (src instanceof InteriorWallSurfaceType)
-			dest = tun.createInteriorWallSurface((InteriorWallSurfaceType)src);
-		else if (src instanceof OuterCeilingSurfaceType)
-			dest = tun.createOuterCeilingSurface((OuterCeilingSurfaceType)src);
-		else if (src instanceof OuterFloorSurfaceType)
-			dest = tun.createOuterFloorSurface((OuterFloorSurfaceType)src);
-		else if (src instanceof RoofSurfaceType)
-			dest = tun.createRoofSurface((RoofSurfaceType)src);
-		else if (src instanceof HollowSpaceType)
-			dest = tun.createHollowSpace((HollowSpaceType)src);
-		else if (src instanceof WallSurfaceType)
-			dest = tun.createWallSurface((WallSurfaceType)src);
-		else if (src instanceof WindowType)
-			dest = tun.createWindow((WindowType)src);
-
-		return dest;
+	
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		Object dest = null;
-
-		if (src instanceof BoundarySurfaceProperty)
-			dest = marshalBoundarySurfaceProperty((BoundarySurfaceProperty)src);
-		else if (src instanceof Tunnel)
-			dest = marshalTunnel((Tunnel)src);
-		else if (src instanceof TunnelFurniture)
-			dest = marshalTunnelFurniture((TunnelFurniture)src);
-		else if (src instanceof TunnelInstallation)
-			dest = marshalTunnelInstallation((TunnelInstallation)src);
-		else if (src instanceof TunnelInstallationProperty)
-			dest = marshalTunnelInstallationProperty((TunnelInstallationProperty)src);
-		else if (src instanceof TunnelPart)
-			dest = marshalTunnelPart((TunnelPart)src);
-		else if (src instanceof TunnelPartProperty)
-			dest = marshalTunnelPartProperty((TunnelPartProperty)src);
-		else if (src instanceof CeilingSurface)
-			dest = marshalCeilingSurface((CeilingSurface)src);
-		else if (src instanceof ClosureSurface)
-			dest = marshalClosureSurface((ClosureSurface)src);
-		else if (src instanceof Door)
-			dest = marshalDoor((Door)src);
-		else if (src instanceof FloorSurface)
-			dest = marshalFloorSurface((FloorSurface)src);
-		else if (src instanceof GroundSurface)
-			dest = marshalGroundSurface((GroundSurface)src);
-		else if (src instanceof IntTunnelInstallation)
-			dest = marshalIntTunnelInstallation((IntTunnelInstallation)src);
-		else if (src instanceof IntTunnelInstallationProperty)
-			dest = marshalIntTunnelInstallationProperty((IntTunnelInstallationProperty)src);
-		else if (src instanceof InteriorFurnitureProperty)
-			dest = marshalInteriorFurnitureProperty((InteriorFurnitureProperty)src);
-		else if (src instanceof InteriorHollowSpaceProperty)
-			dest = marshalInteriorHollowSpaceProperty((InteriorHollowSpaceProperty)src);
-		else if (src instanceof InteriorWallSurface)
-			dest = marshalInteriorWallSurface((InteriorWallSurface)src);
-		else if (src instanceof OpeningProperty)
-			dest = marshalOpeningProperty((OpeningProperty)src);
-		else if (src instanceof OuterCeilingSurface)
-			dest = marshalOuterCeilingSurface((OuterCeilingSurface)src);
-		else if (src instanceof OuterFloorSurface)
-			dest = marshalOuterFloorSurface((OuterFloorSurface)src);
-		else if (src instanceof RoofSurface)
-			dest = marshalRoofSurface((RoofSurface)src);
-		else if (src instanceof HollowSpace)
-			dest = marshalHollowSpace((HollowSpace)src);
-		else if (src instanceof WallSurface)
-			dest = marshalWallSurface((WallSurface)src);
-		else if (src instanceof Window)
-			dest = marshalWindow((Window)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest) {
@@ -1111,6 +1067,74 @@ public class Tunnel200Marshaller {
 		marshalWindow(src, dest);
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createTunnel(Tunnel src) {
+		return tun.createTunnel(marshalTunnel(src));
+	}
+	
+	private JAXBElement<?> createTunnelFurniture(TunnelFurniture src) {
+		return tun.createTunnelFurniture(marshalTunnelFurniture(src));
+	}
+	
+	private JAXBElement<?> createTunnelInstallation(TunnelInstallation src) {
+		return tun.createTunnelInstallation(marshalTunnelInstallation(src));
+	}
+	
+	private JAXBElement<?> createTunnelPart(TunnelPart src) {
+		return tun.createTunnelPart(marshalTunnelPart(src));
+	}
+	
+	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
+		return tun.createCeilingSurface(marshalCeilingSurface(src));
+	}
+	
+	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
+		return tun.createClosureSurface(marshalClosureSurface(src));
+	}
+	
+	private JAXBElement<?> createDoor(Door src) {
+		return tun.createDoor(marshalDoor(src));
+	}
+	
+	private JAXBElement<?> createFloorSurface(FloorSurface src) {
+		return tun.createFloorSurface(marshalFloorSurface(src));
+	}
+	
+	private JAXBElement<?> createGroundSurface(GroundSurface src) {
+		return tun.createGroundSurface(marshalGroundSurface(src));
+	}
+	
+	private JAXBElement<?> createIntTunnelInstallation(IntTunnelInstallation src) {
+		return tun.createIntTunnelInstallation(marshalIntTunnelInstallation(src));
+	}
+	
+	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
+		return tun.createInteriorWallSurface(marshalInteriorWallSurface(src));
+	}
+	
+	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
+		return tun.createOuterCeilingSurface(marshalOuterCeilingSurface(src));
+	}
+	
+	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
+		return tun.createOuterFloorSurface(marshalOuterFloorSurface(src));
+	}
+	
+	private JAXBElement<?> createRoofSurface(RoofSurface src) {
+		return tun.createRoofSurface(marshalRoofSurface(src));
+	}
+	
+	private JAXBElement<?> createHollowSpace(HollowSpace src) {
+		return tun.createHollowSpace(marshalHollowSpace(src));
+	}
+	
+	private JAXBElement<?> createWallSurface(WallSurface src) {
+		return tun.createWallSurface(marshalWallSurface(src));
+	}
+	
+	private JAXBElement<?> createWindow(Window src) {
+		return tun.createWindow(marshalWindow(src));
 	}
 
 }

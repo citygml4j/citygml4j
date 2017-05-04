@@ -151,7 +151,7 @@ public class CityGMLMarshaller {
 		moduleMatcher = Pattern.compile("net\\.opengis\\.citygml\\.([\\w]+)?\\.?(_\\d)").matcher("");
 	}
 
-	public JAXBElement<?> marshalJAXBElement(Object src) {		
+	public JAXBElement<?> marshalJAXBElement(ModelObject src) {		
 		CityGMLModule module = getCityGMLModule(src);
 		if (module == null)
 			return null;

@@ -32,6 +32,7 @@ import javax.xml.validation.Schema;
 import org.citygml4j.builder.jaxb.JAXBBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.schema.SchemaHandler;
@@ -95,9 +96,9 @@ public class JAXBValidator implements Validator {
 				}
 			} 
 
-			else {
+			else if (object instanceof ModelObject) {
 				JAXBMarshaller marshaller = builder.createJAXBMarshaller(moduleContext);
-				Object jaxb = marshaller.marshalJAXBElement(object);
+				Object jaxb = marshaller.marshalJAXBElement((ModelObject)object);
 
 				if (jaxb != null) {
 					try {
