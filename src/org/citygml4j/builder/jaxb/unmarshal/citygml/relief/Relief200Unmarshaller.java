@@ -42,6 +42,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.relief._2.AbstractReliefComponentType;
@@ -58,10 +59,22 @@ public class Relief200Unmarshaller {
 	private final ReliefModule module = ReliefModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Relief200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(BreaklineReliefType.class, this::unmarshalBreaklineRelief)
+				.with(GridPropertyType.class, this::unmarshalGridProperty)
+				.with(MassPointReliefType.class, this::unmarshalMassPointRelief)
+				.with(RasterReliefType.class, this::unmarshalRasterRelief)
+				.with(ReliefComponentPropertyType.class, this::unmarshalReliefComponentProperty)
+				.with(ReliefFeatureType.class, this::unmarshalReliefFeature)
+				.with(TinPropertyType.class, this::unmarshalTinProperty)
+				.with(TINReliefType.class, this::unmarshalTINRelief)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 	
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -69,29 +82,7 @@ public class Relief200Unmarshaller {
 	}
 	
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-		
-		CityGML dest = null;
-					
-		if (src instanceof BreaklineReliefType)
-			dest = unmarshalBreaklineRelief((BreaklineReliefType)dest);
-		else if (src instanceof GridPropertyType)
-			dest = unmarshalGridProperty((GridPropertyType)src);
-		else if (src instanceof MassPointReliefType)
-			dest = unmarshalMassPointRelief((MassPointReliefType)src);
-		else if (src instanceof RasterReliefType)
-			dest = unmarshalRasterRelief((RasterReliefType)src);
-		else if (src instanceof ReliefComponentPropertyType)
-			dest = unmarshalReliefComponentProperty((ReliefComponentPropertyType)src);
-		else if (src instanceof ReliefFeatureType)
-			dest = unmarshalReliefFeature((ReliefFeatureType)src);
-		else if (src instanceof TinPropertyType)
-			dest = unmarshalTinProperty((TinPropertyType)src);
-		else if (src instanceof TINReliefType)
-			dest = unmarshalTINRelief((TINReliefType)src);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractReliefComponent(AbstractReliefComponentType src, AbstractReliefComponent dest) throws MissingADESchemaException {

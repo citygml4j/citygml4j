@@ -28,6 +28,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.module.citygml.LandUseModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.landuse._2.LandUseType;
@@ -37,10 +38,15 @@ public class LandUse200Unmarshaller {
 	private final LandUseModule module = LandUseModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public LandUse200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(LandUseType.class, this::unmarshalLandUse)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -48,15 +54,7 @@ public class LandUse200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof LandUseType)
-			dest = unmarshalLandUse((LandUseType)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalLandUse(LandUseType src, LandUse dest) throws MissingADESchemaException {

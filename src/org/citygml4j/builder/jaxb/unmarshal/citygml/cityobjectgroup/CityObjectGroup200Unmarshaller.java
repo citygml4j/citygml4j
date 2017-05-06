@@ -35,6 +35,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupMemberType;
@@ -46,10 +47,17 @@ public class CityObjectGroup200Unmarshaller {
 	private final CityObjectGroupModule module = CityObjectGroupModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-
+	private final JAXBCheckedMapper<CityGML> typeMapper;
+	
 	public CityObjectGroup200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(CityObjectGroupType.class, this::unmarshalCityObjectGroup)
+				.with(CityObjectGroupMemberType.class, this::unmarshalCityObjectGroupMember)
+				.with(CityObjectGroupParentType.class, this::unmarshalCityObjectGroupParent)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -57,19 +65,7 @@ public class CityObjectGroup200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof CityObjectGroupType)
-			dest = unmarshalCityObjectGroup((CityObjectGroupType)src);
-		else if (src instanceof CityObjectGroupMemberType)
-			dest = unmarshalCityObjectGroupMember((CityObjectGroupMemberType)src);
-		else if (src instanceof CityObjectGroupParentType)
-			dest = unmarshalCityObjectGroupParent((CityObjectGroupParentType)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest) throws MissingADESchemaException {

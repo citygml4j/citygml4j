@@ -85,7 +85,7 @@ public class TexturedSurface100Marshaller {
 		AppearancePropertyType dest = tex.createAppearancePropertyType();
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(src.getOrientation().getValue());
 		
 		if (src.isSetAppearance()) {
 			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getAppearance());

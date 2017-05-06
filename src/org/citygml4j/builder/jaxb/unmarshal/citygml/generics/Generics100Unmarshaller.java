@@ -22,13 +22,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
-import net.opengis.citygml.generics._1.DateAttributeType;
-import net.opengis.citygml.generics._1.DoubleAttributeType;
-import net.opengis.citygml.generics._1.GenericCityObjectType;
-import net.opengis.citygml.generics._1.IntAttributeType;
-import net.opengis.citygml.generics._1.StringAttributeType;
-import net.opengis.citygml.generics._1.UriAttributeType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
@@ -39,16 +32,35 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.GenericsModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.citygml.generics._1.DateAttributeType;
+import net.opengis.citygml.generics._1.DoubleAttributeType;
+import net.opengis.citygml.generics._1.GenericCityObjectType;
+import net.opengis.citygml.generics._1.IntAttributeType;
+import net.opengis.citygml.generics._1.StringAttributeType;
+import net.opengis.citygml.generics._1.UriAttributeType;
 
 public class Generics100Unmarshaller {
 	private final GenericsModule module = GenericsModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Generics100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
+				.with(DateAttributeType.class, this::unmarshalDateAttribute)
+				.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
+				.with(IntAttributeType.class, this::unmarshalIntAttribute)
+				.with(StringAttributeType.class, this::unmarshalStringAttribute)
+				.with(UriAttributeType.class, this::unmarshalUriAttribute)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 	
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -56,25 +68,7 @@ public class Generics100Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-		
-		CityGML dest = null;
-		
-		if (src instanceof GenericCityObjectType)
-			dest = unmarshalGenericCityObject((GenericCityObjectType)src);
-		else if (src instanceof DateAttributeType)
-			dest = unmarshalDateAttribute((DateAttributeType)src);
-		else if (src instanceof DoubleAttributeType)
-			dest = unmarshalDoubleAttribute((DoubleAttributeType)src);
-		else if (src instanceof IntAttributeType)
-			dest = unmarshalIntAttribute((IntAttributeType)src);
-		else if (src instanceof StringAttributeType)
-			dest = unmarshalStringAttribute((StringAttributeType)src);
-		else if (src instanceof UriAttributeType)
-			dest = unmarshalUriAttribute((UriAttributeType)src);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 	
 	public void unmarshalAbstractGenericAttribute(AbstractGenericAttributeType src, AbstractGenericAttribute dest) {

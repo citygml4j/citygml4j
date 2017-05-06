@@ -53,6 +53,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 
@@ -71,17 +72,35 @@ import net.opengis.citygml.appearance._2.TextureAssociationType;
 import net.opengis.citygml.appearance._2.TextureTypeType;
 import net.opengis.citygml.appearance._2.WrapModeType;
 import net.opengis.citygml.appearance._2.X3DMaterialType;
-import net.opengis.gml.AbstractFeatureType;
 import net.opengis.gml.FeaturePropertyType;
 
 public class Appearance200Unmarshaller {
 	private final AppearanceModule module = AppearanceModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;	
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Appearance200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(AppearanceType.class, this::unmarshalAppearance)
+				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
+				.with(AppearancePropertyElement.class, this::unmarshalAppearanceProperty)
+				.with(GeoreferencedTextureType.class, this::unmarshalGeoreferencedTexture)
+				.with(ParameterizedTextureType.class, this::unmarshalParameterizedTexture)
+				.with(SurfaceDataPropertyType.class, this::unmarshalSurfaceDataProperty)
+				.with(TexCoordGenType.class, this::unmarshalTexCoordGen)
+				.with(TexCoordListType.class, this::unmarshalTexCoordList)
+				.with(TextureAssociationType.class, this::unmarshalTextureAssociation)
+				.with(TexCoordListType.TextureCoordinates.class, this::unmarshalTextureCoordinates)
+				.with(TextureTypeType.class, this::unmarshalTextureType)
+				.with(TexCoordGenType.WorldToTexture.class, this::unmarshalWorldToTexture)
+				.with(WrapModeType.class, this::unmarshalWrapMode)
+				.with(X3DMaterialType.class, this::unmarshalX3DMaterial)
+				.with(FeaturePropertyType.class, this::unmarshalAppearanceProperty)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -89,46 +108,7 @@ public class Appearance200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof AppearanceType)
-			dest = unmarshalAppearance((AppearanceType)src);
-		else if (src instanceof AppearancePropertyType)
-			dest = unmarshalAppearanceProperty((AppearancePropertyType)src);
-		else if (src instanceof AppearancePropertyElement)
-			dest = unmarshalAppearanceProperty((AppearancePropertyElement)src);
-		else if (src instanceof GeoreferencedTextureType)
-			dest = unmarshalGeoreferencedTexture((GeoreferencedTextureType)src);	
-		else if (src instanceof ParameterizedTextureType)
-			dest = unmarshalParameterizedTexture((ParameterizedTextureType)src);
-		else if (src instanceof SurfaceDataPropertyType)
-			dest = unmarshalSurfaceDataProperty((SurfaceDataPropertyType)src);
-		else if (src instanceof TexCoordGenType)
-			dest = unmarshalTexCoordGen((TexCoordGenType)src);		
-		else if (src instanceof TexCoordListType)
-			dest = unmarshalTexCoordList((TexCoordListType)src);
-		else if (src instanceof TextureAssociationType)
-			dest = unmarshalTextureAssociation((TextureAssociationType)src);
-		else if (src instanceof TexCoordListType.TextureCoordinates)
-			dest = unmarshalTextureCoordinates((TexCoordListType.TextureCoordinates)src);
-		else if (src instanceof TextureTypeType)
-			dest = unmarshalTextureType((TextureTypeType)src);
-		else if (src instanceof TexCoordGenType.WorldToTexture)
-			dest = unmarshalWorldToTexture((TexCoordGenType.WorldToTexture)src);
-		else if (src instanceof WrapModeType)
-			dest = unmarshalWrapMode((WrapModeType)src);
-		else if (src instanceof X3DMaterialType)
-			dest = unmarshalX3DMaterial((X3DMaterialType)src);
-		else if (src instanceof FeaturePropertyType) {
-			JAXBElement<? extends AbstractFeatureType> elem = ((FeaturePropertyType)src).get_Feature();
-			if (elem != null && elem.getValue() instanceof AppearanceType)
-				dest = unmarshalAppearanceProperty((FeaturePropertyType)src);
-		}
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractSurfaceData(AbstractSurfaceDataType src, AbstractSurfaceData dest) throws MissingADESchemaException {

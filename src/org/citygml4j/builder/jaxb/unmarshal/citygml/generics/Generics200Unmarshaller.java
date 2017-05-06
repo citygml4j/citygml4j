@@ -20,17 +20,6 @@ package org.citygml4j.builder.jaxb.unmarshal.citygml.generics;
 
 import javax.xml.bind.JAXBElement;
 
-import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
-import net.opengis.citygml.generics._2.DateAttributeType;
-import net.opengis.citygml.generics._2.DoubleAttributeType;
-import net.opengis.citygml.generics._2.GenericAttributeSetType;
-import net.opengis.citygml.generics._2.GenericCityObjectType;
-import net.opengis.citygml.generics._2.IntAttributeType;
-import net.opengis.citygml.generics._2.MeasureAttributeType;
-import net.opengis.citygml.generics._2.StringAttributeType;
-import net.opengis.citygml.generics._2.UriAttributeType;
-import net.opengis.gml.CodeType;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -45,16 +34,40 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.GenericsModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
+import net.opengis.citygml.generics._2.DateAttributeType;
+import net.opengis.citygml.generics._2.DoubleAttributeType;
+import net.opengis.citygml.generics._2.GenericAttributeSetType;
+import net.opengis.citygml.generics._2.GenericCityObjectType;
+import net.opengis.citygml.generics._2.IntAttributeType;
+import net.opengis.citygml.generics._2.MeasureAttributeType;
+import net.opengis.citygml.generics._2.StringAttributeType;
+import net.opengis.citygml.generics._2.UriAttributeType;
+import net.opengis.gml.CodeType;
 
 public class Generics200Unmarshaller {
 	private final GenericsModule module = GenericsModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Generics200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
+				.with(DateAttributeType.class, this::unmarshalDateAttribute)
+				.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
+				.with(GenericAttributeSetType.class, this::unmarshalGenericAttributeSet)
+				.with(IntAttributeType.class, this::unmarshalIntAttribute)
+				.with(MeasureAttributeType.class, this::unmarshalMeasureAttribute)
+				.with(StringAttributeType.class, this::unmarshalStringAttribute)
+				.with(UriAttributeType.class, this::unmarshalUriAttribute)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -62,29 +75,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof GenericCityObjectType)
-			dest = unmarshalGenericCityObject((GenericCityObjectType)src);
-		else if (src instanceof DateAttributeType)
-			dest = unmarshalDateAttribute((DateAttributeType)src);
-		else if (src instanceof DoubleAttributeType)
-			dest = unmarshalDoubleAttribute((DoubleAttributeType)src);
-		else if (src instanceof GenericAttributeSetType)
-			dest = unmarshalGenericAttributeSet((GenericAttributeSetType)src);
-		else if (src instanceof IntAttributeType)
-			dest = unmarshalIntAttribute((IntAttributeType)src);
-		else if (src instanceof MeasureAttributeType)
-			dest = unmarshalMeasureAttribute((MeasureAttributeType)src);
-		else if (src instanceof StringAttributeType)
-			dest = unmarshalStringAttribute((StringAttributeType)src);
-		else if (src instanceof UriAttributeType)
-			dest = unmarshalUriAttribute((UriAttributeType)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractGenericAttribute(AbstractGenericAttributeType src, AbstractGenericAttribute dest) {

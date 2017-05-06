@@ -22,10 +22,11 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearance> implements TexturedSurfaceModuleComponent {
-	private String orientation;
+	private Sign orientation;
 	private TexturedSurfaceModule module;
 	
 	public _AppearanceProperty() {
@@ -48,7 +49,7 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 		return super.getObject();
 	}
 
-	public String getOrientation() {
+	public Sign getOrientation() {
 		return orientation;
 	}
 
@@ -64,7 +65,7 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 		super.setObject(_appearance);
 	}
 
-	public void setOrientation(String orientation) {
+	public void setOrientation(Sign orientation) {
 		this.orientation = orientation;
 	}
 
@@ -102,7 +103,7 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetOrientation())
-			copy.setOrientation(copyBuilder.copy(orientation));
+			copy.setOrientation((Sign)copyBuilder.copy(orientation));
 		
         return copy;
 	}

@@ -52,6 +52,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml._2.AbstractCityObjectType;
@@ -69,17 +70,32 @@ import net.opengis.citygml._2.RelativeToWaterType;
 import net.opengis.citygml._2.XalAddressPropertyType;
 import net.opengis.citygml.appearance._2.AppearancePropertyElement;
 import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
-import net.opengis.gml.AbstractFeatureType;
 import net.opengis.gml.FeaturePropertyType;
 
 public class Core200Unmarshaller {
 	private final CoreModule module = CoreModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Core200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(AddressType.class, this::unmarshalAddress)
+				.with(AddressPropertyType.class, this::unmarshalAddressProperty)
+				.with(CityModelType.class, this::unmarshalCityModel)
+				.with(ExternalObjectReferenceType.class, this::unmarshalExternalObject)
+				.with(ExternalReferenceType.class, this::unmarshalExternalReference)
+				.with(GeneralizationRelationType.class, this::unmarshalGeneralizationRelation)
+				.with(ImplicitGeometryType.class, this::unmarshalImplicitGeometry)
+				.with(ImplicitRepresentationPropertyType.class, this::unmarshalImplicitRepresentationProperty)
+				.with(RelativeToTerrainType.class, this::unmarshalRelativeToTerrain)
+				.with(RelativeToWaterType.class, this::unmarshalRelativeToWater)
+				.with(XalAddressPropertyType.class, this::unmarshalXalAddressProperty)
+				.with(FeaturePropertyType.class, this::unmarshalCityObjectMember)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -87,40 +103,7 @@ public class Core200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof AddressType)
-			dest = unmarshalAddress((AddressType)src);
-		else if (src instanceof AddressPropertyType)
-			dest = unmarshalAddressProperty((AddressPropertyType)src);
-		else if (src instanceof CityModelType)
-			dest = unmarshalCityModel((CityModelType)src);
-		else if (src instanceof ExternalObjectReferenceType)
-			dest = unmarshalExternalObject((ExternalObjectReferenceType)src);
-		else if (src instanceof ExternalReferenceType)
-			dest = unmarshalExternalReference((ExternalReferenceType)src);
-		else if (src instanceof GeneralizationRelationType)
-			dest = unmarshalGeneralizationRelation((GeneralizationRelationType)src);
-		else if (src instanceof ImplicitGeometryType)
-			dest = unmarshalImplicitGeometry((ImplicitGeometryType)src);
-		else if (src instanceof ImplicitRepresentationPropertyType)
-			dest = unmarshalImplicitRepresentationProperty((ImplicitRepresentationPropertyType)src);
-		else if (src instanceof RelativeToTerrainType)
-			dest = unmarshalRelativeToTerrain((RelativeToTerrainType)src);
-		else if (src instanceof RelativeToWaterType)
-			dest = unmarshalRelativeToWater((RelativeToWaterType)src);
-		else if (src instanceof XalAddressPropertyType)
-			dest = unmarshalXalAddressProperty((XalAddressPropertyType)src);
-		else if (src instanceof FeaturePropertyType) {
-			JAXBElement<? extends AbstractFeatureType> elem = ((FeaturePropertyType)src).get_Feature();
-			if (elem != null && elem.getValue() instanceof AbstractCityObjectType)
-				dest = unmarshalCityObjectMember((FeaturePropertyType)src);
-		}
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) throws MissingADESchemaException {

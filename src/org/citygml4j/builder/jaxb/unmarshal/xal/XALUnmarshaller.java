@@ -20,36 +20,6 @@ package org.citygml4j.builder.jaxb.unmarshal.xal;
 
 import javax.xml.bind.JAXBElement;
 
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
-import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
-import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
-import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
-import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
-import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 import org.citygml4j.model.module.xal.XALCoreModule;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressIdentifier;
@@ -134,192 +104,139 @@ import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
 import org.citygml4j.model.xal.XAL;
+import org.citygml4j.util.binding.JAXBMapper;
+
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
+import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
+import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 
 public class XALUnmarshaller {
+	private final JAXBMapper<XAL> typeMapper;
+	
+	public XALUnmarshaller() {
+		typeMapper = JAXBMapper.<XAL>create()
+				.with(AddressDetails.Address.class, this::unmarshalAddress)
+				.with(AddressDetails.class, this::unmarshalAddressDetails)
+				.with(AddressDetails.PostalServiceElements.AddressIdentifier.class, this::unmarshalAddressIdentifier)
+				.with(AddressDetails.PostalServiceElements.AddressLatitude.class, this::unmarshalAddressLatitude)
+				.with(AddressDetails.PostalServiceElements.AddressLatitudeDirection.class, this::unmarshalAddressLatitudeDirection)
+				.with(AddressLineElement.class, this::unmarshalAddressLine)
+				.with(AddressLinesType.class, this::unmarshalAddressLines)
+				.with(AddressDetails.PostalServiceElements.AddressLongitude.class, this::unmarshalAddressLongitude)
+				.with(AddressDetails.PostalServiceElements.AddressLongitudeDirection.class, this::unmarshalAddressLongitudeDirection)
+				.with(AdministrativeAreaElement.class, this::unmarshalAdministrativeArea)
+				.with(AdministrativeAreaElement.AdministrativeAreaName.class, this::unmarshalAdministrativeAreaName)
+				.with(AddressDetails.PostalServiceElements.Barcode.class, this::unmarshalBarcode)
+				.with(BuildingNameType.class, this::unmarshalBuildingName)
+				.with(AddressDetails.Country.class, this::unmarshalCountry)
+				.with(CountryNameElement.class, this::unmarshalCountryName)
+				.with(AddressDetails.Country.CountryNameCode.class, this::unmarshalCountryNameCode)
+				.with(DepartmentElement.class, this::unmarshalDepartment)
+				.with(DepartmentElement.DepartmentName.class, this::unmarshalDepartmentName)
+				.with(DependentLocalityType.class, this::unmarshalDependentLocality)
+				.with(DependentLocalityType.DependentLocalityName.class, this::unmarshalDependentLocalityName)
+				.with(DependentLocalityType.DependentLocalityNumber.class, this::unmarshalDependentLocalityNumber)
+				.with(ThoroughfareElement.DependentThoroughfare.class, this::unmarshalDependentThoroughfare)
+				.with(AddressDetails.PostalServiceElements.EndorsementLineCode.class, this::unmarshalEndorsementLineCode)
+				.with(FirmType.class, this::unmarshalFirm)
+				.with(FirmType.FirmName.class, this::unmarshalFirmName)
+				.with(AddressDetails.PostalServiceElements.KeyLineCode.class, this::unmarshalKeyLineCode)
+				.with(LargeMailUserType.class, this::unmarshalLargeMailUser)
+				.with(LargeMailUserType.LargeMailUserIdentifier.class, this::unmarshalLargeMailUserIdentifier)
+				.with(LargeMailUserType.LargeMailUserName.class, this::unmarshalLargeMailUserName)
+				.with(LocalityElement.class, this::unmarshalLocality)
+				.with(LocalityElement.LocalityName.class, this::unmarshalLocalityName)
+				.with(MailStopType.class, this::unmarshalMailStop)
+				.with(MailStopType.MailStopName.class, this::unmarshalMailStopName)
+				.with(MailStopType.MailStopNumber.class, this::unmarshalMailStopNumber)
+				.with(PostalCodeElement.class, this::unmarshalPostalCode)
+				.with(PostalCodeElement.PostalCodeNumber.class, this::unmarshalPostalCodeNumber)
+				.with(PostalCodeElement.PostalCodeNumberExtension.class, this::unmarshalPostalCodeNumberExtension)
+				.with(PostalRouteType.class, this::unmarshalPostalRoute)
+				.with(PostalRouteType.PostalRouteName.class, this::unmarshalPostalRouteName)
+				.with(PostalRouteType.PostalRouteNumber.class, this::unmarshalPostalRouteNumber)
+				.with(AddressDetails.PostalServiceElements.class, this::unmarshalPostalServiceElements)
+				.with(PostBoxElement.class, this::unmarshalPostBox)
+				.with(PostBoxElement.PostBoxNumber.class, this::unmarshalPostBoxNumber)
+				.with(PostBoxElement.PostBoxNumberExtension.class, this::unmarshalPostBoxNumberExtension)
+				.with(PostBoxElement.PostBoxNumberPrefix.class, this::unmarshalPostBoxNumberPrefix)
+				.with(PostBoxElement.PostBoxNumberSuffix.class, this::unmarshalPostBoxNumberSuffix)
+				.with(PostOfficeElement.class, this::unmarshalPostOffice)
+				.with(PostOfficeElement.PostOfficeName.class, this::unmarshalPostOfficeName)
+				.with(PostOfficeElement.PostOfficeNumber.class, this::unmarshalPostOfficeNumber)
+				.with(PostalCodeElement.PostTown.class, this::unmarshalPostTown)
+				.with(PostalCodeElement.PostTown.PostTownName.class, this::unmarshalPostTownName)
+				.with(PostalCodeElement.PostTown.PostTownSuffix.class, this::unmarshalPostTownSuffix)
+				.with(PremiseElement.class, this::unmarshalPremise)
+				.with(PremiseElement.PremiseLocation.class, this::unmarshalPremiseLocation)
+				.with(PremiseElement.PremiseName.class, this::unmarshalPremiseName)
+				.with(PremiseNumberElement.class, this::unmarshalPremiseNumber)
+				.with(PremiseNumberPrefixElement.class, this::unmarshalPremiseNumberPrefix)
+				.with(PremiseElement.PremiseNumberRange.class, this::unmarshalPremiseNumberRange)
+				.with(PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom.class, this::unmarshalPremiseNumberRangeFrom)
+				.with(PremiseElement.PremiseNumberRange.PremiseNumberRangeTo.class, this::unmarshalPremiseNumberRangeTo)
+				.with(PremiseNumberSuffixElement.class, this::unmarshalPremiseNumberSuffix)
+				.with(AddressDetails.PostalServiceElements.SortingCode.class, this::unmarshalSortingCode)
+				.with(AdministrativeAreaElement.SubAdministrativeArea.class, this::unmarshalSubAdministrativeArea)
+				.with(AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName.class, this::unmarshalSubAdministrativeAreaName)
+				.with(SubPremiseType.class, this::unmarshalSubPremise)
+				.with(SubPremiseType.SubPremiseLocation.class, this::unmarshalSubPremiseLocation)
+				.with(SubPremiseType.SubPremiseName.class, this::unmarshalSubPremiseName)
+				.with(SubPremiseType.SubPremiseNumber.class, this::unmarshalSubPremiseNumber)
+				.with(SubPremiseType.SubPremiseNumberPrefix.class, this::unmarshalSubPremiseNumberPrefix)
+				.with(SubPremiseType.SubPremiseNumberSuffix.class, this::unmarshalSubPremiseNumberSuffix)
+				.with(AddressDetails.PostalServiceElements.SupplementaryPostalServiceData.class, this::unmarshalSupplementaryPostalServiceData)
+				.with(ThoroughfareElement.class, this::unmarshalThoroughfare)
+				.with(ThoroughfareLeadingTypeType.class, this::unmarshalThoroughfareLeadingType)
+				.with(ThoroughfareNameType.class, this::unmarshalThoroughfareName)
+				.with(ThoroughfareNumberElement.class, this::unmarshalThoroughfareNumber)
+				.with(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom.class, this::unmarshalThoroughfareNumberFrom)
+				.with(ThoroughfareNumberPrefixElement.class, this::unmarshalThoroughfareNumberPrefix)
+				.with(ThoroughfareElement.ThoroughfareNumberRange.class, this::unmarshalThoroughfareNumberRange)
+				.with(ThoroughfareNumberSuffixElement.class, this::unmarshalThoroughfareNumberSuffix)
+				.with(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo.class, this::unmarshalThoroughfareNumberTo)
+				.with(ThoroughfarePostDirectionType.class, this::unmarshalThoroughfarePostDirection)
+				.with(ThoroughfarePreDirectionType.class, this::unmarshalThoroughfarePreDirection)
+				.with(ThoroughfareTrailingTypeType.class, this::unmarshalThoroughfareTrailingType)
+				.with(JAXBElement.class, this::unmarshal);
+	}
 	
 	public XAL unmarshal(JAXBElement<?> src) {
-		XAL dest = null;
-		
 		if (src.getName().getNamespaceURI().equals(XALCoreModule.v2_0.getNamespaceURI()))
-			dest = unmarshal(src.getValue());
+			return unmarshal(src.getValue());
 
-		return dest;		
+		return null;		
 	}
 
 	public XAL unmarshal(Object src) {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-		
-		XAL dest = null;
-
-		if (src instanceof AddressDetails.Address)
-			dest = unmarshalAddress((AddressDetails.Address)src);
-		else if (src instanceof AddressDetails)
-			dest = unmarshalAddressDetails((AddressDetails)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.AddressIdentifier)
-			dest = unmarshalAddressIdentifier((AddressDetails.PostalServiceElements.AddressIdentifier)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.AddressLatitude)
-			dest = unmarshalAddressLatitude((AddressDetails.PostalServiceElements.AddressLatitude)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.AddressLatitudeDirection)
-			dest = unmarshalAddressLatitudeDirection((AddressDetails.PostalServiceElements.AddressLatitudeDirection)src);
-		else if (src instanceof AddressLineElement)
-			dest = unmarshalAddressLine((AddressLineElement)src);
-		else if (src instanceof AddressLinesType)
-			dest = unmarshalAddressLines((AddressLinesType)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.AddressLongitude)
-			dest = unmarshalAddressLongitude((AddressDetails.PostalServiceElements.AddressLongitude)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.AddressLongitudeDirection)
-			dest = unmarshalAddressLongitudeDirection((AddressDetails.PostalServiceElements.AddressLongitudeDirection)src);
-		else if (src instanceof AdministrativeAreaElement)
-			dest = unmarshalAdministrativeArea((AdministrativeAreaElement)src);
-		else if (src instanceof AdministrativeAreaElement.AdministrativeAreaName)
-			dest = unmarshalAdministrativeAreaName((AdministrativeAreaElement.AdministrativeAreaName)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.Barcode)
-			dest = unmarshalBarcode((AddressDetails.PostalServiceElements.Barcode)src);
-		else if (src instanceof BuildingNameType)
-			dest = unmarshalBuildingName((BuildingNameType)src);
-		else if (src instanceof AddressDetails.Country)
-			dest = unmarshalCountry((AddressDetails.Country)src);
-		else if (src instanceof CountryNameElement)
-			dest = unmarshalCountryName((CountryNameElement)src);
-		else if (src instanceof AddressDetails.Country.CountryNameCode)
-			dest = unmarshalCountryNameCode((AddressDetails.Country.CountryNameCode)src);
-		else if (src instanceof DepartmentElement)
-			dest = unmarshalDepartment((DepartmentElement)src);
-		else if (src instanceof DepartmentElement.DepartmentName)
-			dest = unmarshalDepartmentName((DepartmentElement.DepartmentName)src);
-		else if (src instanceof DependentLocalityType)
-			dest = unmarshalDependentLocality((DependentLocalityType)src);
-		else if (src instanceof DependentLocalityType.DependentLocalityName)
-			dest = unmarshalDependentLocalityName((DependentLocalityType.DependentLocalityName)src);
-		else if (src instanceof DependentLocalityType.DependentLocalityNumber)
-			dest = unmarshalDependentLocalityNumber((DependentLocalityType.DependentLocalityNumber)src);
-		else if (src instanceof ThoroughfareElement.DependentThoroughfare)
-			dest = unmarshalDependentThoroughfare((ThoroughfareElement.DependentThoroughfare)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.EndorsementLineCode)
-			dest = unmarshalEndorsementLineCode((AddressDetails.PostalServiceElements.EndorsementLineCode)src);
-		else if (src instanceof FirmType)
-			dest = unmarshalFirm((FirmType)src);
-		else if (src instanceof FirmType.FirmName)
-			dest = unmarshalFirmName((FirmType.FirmName)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.KeyLineCode)
-			dest = unmarshalKeyLineCode((AddressDetails.PostalServiceElements.KeyLineCode)src);
-		else if (src instanceof LargeMailUserType)
-			dest = unmarshalLargeMailUser((LargeMailUserType)src);
-		else if (src instanceof LargeMailUserType.LargeMailUserIdentifier)
-			dest = unmarshalLargeMailUserIdentifier((LargeMailUserType.LargeMailUserIdentifier)src);
-		else if (src instanceof LargeMailUserType.LargeMailUserName)
-			dest = unmarshalLargeMailUserName((LargeMailUserType.LargeMailUserName)src);
-		else if (src instanceof LocalityElement)
-			dest = unmarshalLocality((LocalityElement)src);
-		else if (src instanceof LocalityElement.LocalityName)
-			dest = unmarshalLocalityName((LocalityElement.LocalityName)src);
-		else if (src instanceof MailStopType)
-			dest = unmarshalMailStop((MailStopType)src);
-		else if (src instanceof MailStopType.MailStopName)
-			dest = unmarshalMailStopName((MailStopType.MailStopName)src);
-		else if (src instanceof MailStopType.MailStopNumber)
-			dest = unmarshalMailStopNumber((MailStopType.MailStopNumber)src);
-		else if (src instanceof PostalCodeElement)
-			dest = unmarshalPostalCode((PostalCodeElement)src);
-		else if (src instanceof PostalCodeElement.PostalCodeNumber)
-			dest = unmarshalPostalCodeNumber((PostalCodeElement.PostalCodeNumber)src);
-		else if (src instanceof PostalCodeElement.PostalCodeNumberExtension)
-			dest = unmarshalPostalCodeNumberExtension((PostalCodeElement.PostalCodeNumberExtension)src);
-		else if (src instanceof PostalRouteType)
-			dest = unmarshalPostalRoute((PostalRouteType)src);
-		else if (src instanceof PostalRouteType.PostalRouteName)
-			dest = unmarshalPostalRouteName((PostalRouteType.PostalRouteName)src);
-		else if (src instanceof PostalRouteType.PostalRouteNumber)
-			dest = unmarshalPostalRouteNumber((PostalRouteType.PostalRouteNumber)src);
-		else if (src instanceof AddressDetails.PostalServiceElements)
-			dest = unmarshalPostalServiceElements((AddressDetails.PostalServiceElements)src);
-		else if (src instanceof PostBoxElement)
-			dest = unmarshalPostBox((PostBoxElement)src);
-		else if (src instanceof PostBoxElement.PostBoxNumber)
-			dest = unmarshalPostBoxNumber((PostBoxElement.PostBoxNumber)src);
-		else if (src instanceof PostBoxElement.PostBoxNumberExtension)
-			dest = unmarshalPostBoxNumberExtension((PostBoxElement.PostBoxNumberExtension)src);
-		else if (src instanceof PostBoxElement.PostBoxNumberPrefix)
-			dest = unmarshalPostBoxNumberPrefix((PostBoxElement.PostBoxNumberPrefix)src);
-		else if (src instanceof PostBoxElement.PostBoxNumberSuffix)
-			dest = unmarshalPostBoxNumberSuffix((PostBoxElement.PostBoxNumberSuffix)src);
-		else if (src instanceof PostOfficeElement)
-			dest = unmarshalPostOffice((PostOfficeElement)src);
-		else if (src instanceof PostOfficeElement.PostOfficeName)
-			dest = unmarshalPostOfficeName((PostOfficeElement.PostOfficeName)src);
-		else if (src instanceof PostOfficeElement.PostOfficeNumber)
-			dest = unmarshalPostOfficeNumber((PostOfficeElement.PostOfficeNumber)src);
-		else if (src instanceof PostalCodeElement.PostTown)
-			dest = unmarshalPostTown((PostalCodeElement.PostTown)src);
-		else if (src instanceof PostalCodeElement.PostTown.PostTownName)
-			dest = unmarshalPostTownName((PostalCodeElement.PostTown.PostTownName)src);
-		else if (src instanceof PostalCodeElement.PostTown.PostTownSuffix)
-			dest = unmarshalPostTownSuffix((PostalCodeElement.PostTown.PostTownSuffix)src);
-		else if (src instanceof PremiseElement)
-			dest = unmarshalPremise((PremiseElement)src);
-		else if (src instanceof PremiseElement.PremiseLocation)
-			dest = unmarshalPremiseLocation((PremiseElement.PremiseLocation)src);
-		else if (src instanceof PremiseElement.PremiseName)
-			dest = unmarshalPremiseName((PremiseElement.PremiseName)src);
-		else if (src instanceof PremiseNumberElement)
-			dest = unmarshalPremiseNumber((PremiseNumberElement)src);
-		else if (src instanceof PremiseNumberPrefixElement)
-			dest = unmarshalPremiseNumberPrefix((PremiseNumberPrefixElement)src);
-		else if (src instanceof PremiseElement.PremiseNumberRange)
-			dest = unmarshalPremiseNumberRange((PremiseElement.PremiseNumberRange)src);
-		else if (src instanceof PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom)
-			dest = unmarshalPremiseNumberRangeFrom((PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom)src);
-		else if (src instanceof PremiseElement.PremiseNumberRange.PremiseNumberRangeTo)
-			dest = unmarshalPremiseNumberRangeTo((PremiseElement.PremiseNumberRange.PremiseNumberRangeTo)src);
-		else if (src instanceof PremiseNumberSuffixElement)
-			dest = unmarshalPremiseNumberSuffix((PremiseNumberSuffixElement)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.SortingCode)
-			dest = unmarshalSortingCode((AddressDetails.PostalServiceElements.SortingCode)src);
-		else if (src instanceof AdministrativeAreaElement.SubAdministrativeArea)
-			dest = unmarshalSubAdministrativeArea((AdministrativeAreaElement.SubAdministrativeArea)src);
-		else if (src instanceof AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName)
-			dest = unmarshalSubAdministrativeAreaName((AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName)src);
-		else if (src instanceof SubPremiseType)
-			dest = unmarshalSubPremise((SubPremiseType)src);
-		else if (src instanceof SubPremiseType.SubPremiseLocation)
-			dest = unmarshalSubPremiseLocation((SubPremiseType.SubPremiseLocation)src);
-		else if (src instanceof SubPremiseType.SubPremiseName)
-			dest = unmarshalSubPremiseName((SubPremiseType.SubPremiseName)src);
-		else if (src instanceof SubPremiseType.SubPremiseNumber)
-			dest = unmarshalSubPremiseNumber((SubPremiseType.SubPremiseNumber)src);
-		else if (src instanceof SubPremiseType.SubPremiseNumberPrefix)
-			dest = unmarshalSubPremiseNumberPrefix((SubPremiseType.SubPremiseNumberPrefix)src);
-		else if (src instanceof SubPremiseType.SubPremiseNumberSuffix)
-			dest = unmarshalSubPremiseNumberSuffix((SubPremiseType.SubPremiseNumberSuffix)src);
-		else if (src instanceof AddressDetails.PostalServiceElements.SupplementaryPostalServiceData)
-			dest = unmarshalSupplementaryPostalServiceData((AddressDetails.PostalServiceElements.SupplementaryPostalServiceData)src);
-		else if (src instanceof ThoroughfareElement)
-			dest = unmarshalThoroughfare((ThoroughfareElement)src);
-		else if (src instanceof ThoroughfareLeadingTypeType)
-			dest = unmarshalThoroughfareLeadingType((ThoroughfareLeadingTypeType)src);
-		else if (src instanceof ThoroughfareNameType)
-			dest = unmarshalThoroughfareName((ThoroughfareNameType)src);
-		else if (src instanceof ThoroughfareNumberElement)
-			dest = unmarshalThoroughfareNumber((ThoroughfareNumberElement)src);
-		else if (src instanceof ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom)
-			dest = unmarshalThoroughfareNumberFrom((ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom)src);		
-		else if (src instanceof ThoroughfareNumberPrefixElement)
-			dest = unmarshalThoroughfareNumberPrefix((ThoroughfareNumberPrefixElement)src);
-		else if (src instanceof ThoroughfareElement.ThoroughfareNumberRange)
-			dest = unmarshalThoroughfareNumberRange((ThoroughfareElement.ThoroughfareNumberRange)src);		
-		else if (src instanceof ThoroughfareNumberSuffixElement)
-			dest = unmarshalThoroughfareNumberSuffix((ThoroughfareNumberSuffixElement)src);
-		else if (src instanceof ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo)
-			dest = unmarshalThoroughfareNumberTo((ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo)src);
-		else if (src instanceof ThoroughfarePostDirectionType)
-			dest = unmarshalThoroughfarePostDirection((ThoroughfarePostDirectionType)src);
-		else if (src instanceof ThoroughfarePreDirectionType)
-			dest = unmarshalThoroughfarePreDirection((ThoroughfarePreDirectionType)src);
-		else if (src instanceof ThoroughfareTrailingTypeType)
-			dest = unmarshalThoroughfareTrailingType((ThoroughfareTrailingTypeType)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public Address unmarshalAddress(AddressDetails.Address src) {

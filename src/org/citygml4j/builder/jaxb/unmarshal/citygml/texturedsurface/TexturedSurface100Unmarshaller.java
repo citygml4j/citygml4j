@@ -24,12 +24,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
-import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
-import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
-import net.opengis.citygml.texturedsurface._1.MaterialType;
-import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
-import net.opengis.citygml.texturedsurface._1.TextureTypeType;
-import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
 import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
@@ -39,42 +33,44 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
+import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
+import net.opengis.citygml.texturedsurface._1.MaterialType;
+import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
+import net.opengis.citygml.texturedsurface._1.TextureTypeType;
+import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 
 public class TexturedSurface100Unmarshaller {
 	private final TexturedSurfaceModule module = TexturedSurfaceModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public TexturedSurface100Unmarshaller(CityGMLUnmarshaller citygml) {
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
+				.with(MaterialType.class, this::unmarshalMaterial)
+				.with(SimpleTextureType.class, this::unmarshalSimpleTexture)
+				.with(TexturedSurfaceType.class, this::unmarshalTexturedSurface)
+				.with(TextureTypeType.class, this::unmarshalTextureType)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
-	public CityGML unmarshal(JAXBElement<?> src) {
+	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
-	public CityGML unmarshal(Object src) {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof AppearancePropertyType)
-			dest = unmarshalAppearanceProperty((AppearancePropertyType)src);
-		else if (src instanceof MaterialType)
-			dest = unmarshalMaterial((MaterialType)src);
-		else if (src instanceof SimpleTextureType)
-			dest = unmarshalSimpleTexture((SimpleTextureType)src);
-		else if (src instanceof TexturedSurfaceType)
-			dest = unmarshalTexturedSurface((TexturedSurfaceType)src);		
-		else if (src instanceof TextureTypeType)
-			dest = unmarshalTextureType((TextureTypeType)src);
-
-		return dest;
+	public CityGML unmarshal(Object src) throws MissingADESchemaException {
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {
@@ -85,7 +81,7 @@ public class TexturedSurface100Unmarshaller {
 		_AppearanceProperty dest =  new _AppearanceProperty(module);
 
 		if (src.isSetOrientation())
-			dest.setOrientation(src.getOrientation());
+			dest.setOrientation(Sign.fromValue(src.getOrientation()));
 
 		if (src.isSet_Appearance()) {
 			try {

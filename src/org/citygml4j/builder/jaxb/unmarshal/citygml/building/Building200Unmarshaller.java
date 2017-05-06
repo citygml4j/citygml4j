@@ -58,6 +58,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml._2.AddressPropertyType;
@@ -94,10 +95,38 @@ public class Building200Unmarshaller {
 	private final BuildingModule module = BuildingModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Building200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
+				.with(BuildingType.class, this::unmarshalBuilding)
+				.with(BuildingFurnitureType.class, this::unmarshalBuildingFurniture)
+				.with(BuildingInstallationType.class, this::unmarshalBuildingInstallation)
+				.with(BuildingInstallationPropertyType.class, this::unmarshalBuildingInstallationProperty)
+				.with(BuildingPartType.class, this::unmarshalBuildingPart)
+				.with(BuildingPartPropertyType.class, this::unmarshalBuildingPartProperty)
+				.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
+				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
+				.with(DoorType.class, this::unmarshalDoor)
+				.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
+				.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
+				.with(IntBuildingInstallationType.class, this::unmarshalIntBuildingInstallation)
+				.with(IntBuildingInstallationPropertyType.class, this::unmarshalIntBuildingInstallationProperty)
+				.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
+				.with(InteriorRoomPropertyType.class, this::unmarshalInteriorRoomProperty)
+				.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
+				.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
+				.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
+				.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
+				.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
+				.with(RoomType.class, this::unmarshalRoom)
+				.with(WallSurfaceType.class, this::unmarshalWallSurface)
+				.with(WindowType.class, this::unmarshalWindow)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -105,61 +134,7 @@ public class Building200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-		
-		CityGML dest = null;
-		
-		if (src instanceof BoundarySurfacePropertyType)
-			dest = unmarshalBoundarySurfaceProperty((BoundarySurfacePropertyType)src);
-		else if (src instanceof BuildingType)
-			dest = unmarshalBuilding((BuildingType)src);		
-		else if (src instanceof BuildingFurnitureType)
-			dest = unmarshalBuildingFurniture((BuildingFurnitureType)src);
-		else if (src instanceof BuildingInstallationType)
-			dest = unmarshalBuildingInstallation((BuildingInstallationType)src);
-		else if (src instanceof BuildingInstallationPropertyType)
-			dest = unmarshalBuildingInstallationProperty((BuildingInstallationPropertyType)src);
-		else if (src instanceof BuildingPartType)
-			dest = unmarshalBuildingPart((BuildingPartType)src);
-		else if (src instanceof BuildingPartPropertyType)
-			dest = unmarshalBuildingPartProperty((BuildingPartPropertyType)src);
-		else if (src instanceof CeilingSurfaceType)
-			dest = unmarshalCeilingSurface((CeilingSurfaceType)src);
-		else if (src instanceof ClosureSurfaceType)
-			dest = unmarshalClosureSurface((ClosureSurfaceType)src);		
-		else if (src instanceof DoorType)
-			dest = unmarshalDoor((DoorType)src);
-		else if (src instanceof FloorSurfaceType)
-			dest = unmarshalFloorSurface((FloorSurfaceType)src);
-		else if (src instanceof GroundSurfaceType)
-			dest = unmarshalGroundSurface((GroundSurfaceType)src);
-		else if (src instanceof IntBuildingInstallationType)
-			dest = unmarshalIntBuildingInstallation((IntBuildingInstallationType)src);
-		else if (src instanceof IntBuildingInstallationPropertyType)
-			dest = unmarshalIntBuildingInstallationProperty((IntBuildingInstallationPropertyType)src);
-		else if (src instanceof InteriorFurniturePropertyType)
-			dest = unmarshalInteriorFurnitureProperty((InteriorFurniturePropertyType)src);
-		else if (src instanceof InteriorRoomPropertyType)
-			dest = unmarshalInteriorRoomProperty((InteriorRoomPropertyType)src);
-		else if (src instanceof InteriorWallSurfaceType)
-			dest = unmarshalInteriorWallSurface((InteriorWallSurfaceType)src);	
-		else if (src instanceof OuterCeilingSurfaceType)
-			dest = unmarshalOuterCeilingSurface((OuterCeilingSurfaceType)src);
-		else if (src instanceof OuterFloorSurfaceType)
-			dest = unmarshalOuterFloorSurface((OuterFloorSurfaceType)src);
-		else if (src instanceof OpeningPropertyType)
-			dest = unmarshalOpeningProperty((OpeningPropertyType)src);
-		else if (src instanceof RoofSurfaceType)
-			dest = unmarshalRoofSurface((RoofSurfaceType)src);	
-		else if (src instanceof RoomType)
-			dest = unmarshalRoom((RoomType)src);
-		else if (src instanceof WallSurfaceType)
-			dest = unmarshalWallSurface((WallSurfaceType)src);	
-		else if (src instanceof WindowType)
-			dest = unmarshalWindow((WindowType)src);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractBuilding(AbstractBuildingType src, AbstractBuilding dest) throws MissingADESchemaException {

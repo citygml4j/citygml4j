@@ -30,6 +30,7 @@ import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
@@ -41,10 +42,16 @@ public class Vegetation200Unmarshaller {
 	private final VegetationModule module = VegetationModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Vegetation200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(PlantCoverType.class, this::unmarshalPlantCover)
+				.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -52,17 +59,7 @@ public class Vegetation200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		CityGML dest = null;
-
-		if (src instanceof PlantCoverType)
-			dest = unmarshalPlantCover((PlantCoverType)src);
-		else if (src instanceof SolitaryVegetationObjectType)
-			dest = unmarshalSolitaryVegetationObject((SolitaryVegetationObjectType)src);
-
-		return dest;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
