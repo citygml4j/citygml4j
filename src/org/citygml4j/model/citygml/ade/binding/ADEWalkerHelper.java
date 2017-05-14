@@ -25,8 +25,7 @@ public class ADEWalkerHelper<T extends Walker> {
 		walkers.add(walker);
 	}
 
-	public Object invokeWalkerMethod(ADEModelObject adeModelObject, String prefix) {
-		String methodName = new StringBuilder(prefix).append(adeModelObject.getClass().getSimpleName()).toString();		
+	public Object invokeWalkerMethod(ADEModelObject adeModelObject, String methodName) {
 		String key = getKey(adeModelObject, methodName);
 
 		ADEWalker<T> walker = null;
