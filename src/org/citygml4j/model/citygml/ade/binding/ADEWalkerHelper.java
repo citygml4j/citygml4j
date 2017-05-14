@@ -75,7 +75,7 @@ public class ADEWalkerHelper<T extends Walker> {
 			cls = cls.getSuperclass();
 
 		if (cls.getSuperclass() != null)
-			returnType = ((ParameterizedType)cls.getGenericSuperclass()).getActualTypeArguments()[0].getClass();
+			returnType = (Class<?>)((ParameterizedType)cls.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	private String getKey(ADEModelObject adeModelObject, String methodName) {
