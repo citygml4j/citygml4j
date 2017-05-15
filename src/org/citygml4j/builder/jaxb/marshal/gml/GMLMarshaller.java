@@ -189,6 +189,7 @@ public class GMLMarshaller {
 	private final JAXBMapper<JAXBElement<?>> elementMapper;
 	private final JAXBMapper<Object> typeMapper;
 
+	@SuppressWarnings("unchecked")
 	public GMLMarshaller(JAXBMarshaller jaxb) {
 		this.jaxb = jaxb;
 		
@@ -215,15 +216,15 @@ public class GMLMarshaller {
 				.with(CurveProperty.class, this::createCurveMember)
 				.with(CurveSegmentArrayProperty.class, this::createSegments)
 				.with(DataBlock.class, this::createDataBlock)
-				.with(DomainSet.class, this::createDomainSet)
+				.with((Class<DomainSet<? extends AbstractGeometry>>)(Class<?>)DomainSet.class, this::createDomainSet)
 				.with(DirectPosition.class, this::createPos)
 				.with(DirectPositionList.class, this::createPosList)
 				.with(Envelope.class, this::createEnvelope)
 				.with(FeatureArrayProperty.class, this::createFeatureMembers)
-				.with(FeatureProperty.class, this::createFeatureMember)
+				.with((Class<FeatureProperty<? extends AbstractFeature>>)(Class<?>)FeatureProperty.class, this::createFeatureMember)
 				.with(File.class, this::createFile)
 				.with(GeometricComplex.class, this::createGeometricComplex)
-				.with(GeometryProperty.class, this::createGeometryMember)
+				.with((Class<GeometryProperty<? extends AbstractGeometry>>)(Class<?>)GeometryProperty.class, this::createGeometryMember)
 				.with(RectifiedGrid.class, this::createRectifiedGrid)
 				.with(Grid.class, this::createGrid)
 				.with(IndexMap.class, this::createIndexMap)
@@ -280,7 +281,7 @@ public class GMLMarshaller {
 				.with(ValueArrayProperty.class, this::createValueComponents)
 				.with(ValueProperty.class, this::createValueComponent)
 				.with(Vector.class, this::createVector)
-				.with(GeometryArrayProperty.class, this::createGeometryMembers);				
+				.with((Class<GeometryArrayProperty<? extends AbstractGeometry>>)(Class<?>)GeometryArrayProperty.class, this::createGeometryMembers);				
 				
 		typeMapper = JAXBMapper.create()
 				.with(Angle.class, this::marshalAngle)
@@ -309,12 +310,12 @@ public class GMLMarshaller {
 				.with(DataBlock.class, this::marshalDataBlock)
 				.with(DirectPosition.class, this::marshalDirectPosition)
 				.with(DirectPositionList.class, this::marshalDirectPositionList)
-				.with(DomainSet.class, this::marshalDomainSet)
+				.with((Class<DomainSet<? extends AbstractGeometry>>)(Class<?>)DomainSet.class, this::marshalDomainSet)
 				.with(Envelope.class, this::marshalEnvelope)
 				.with(Exterior.class, this::marshalExterior)
 				.with(FeatureArrayProperty.class, this::marshalFeatureArrayProperty)
 				.with(FeatureMember.class, this::marshalFeatureProperty)
-				.with(FeatureProperty.class, this::marshalFeatureProperty)
+				.with((Class<FeatureProperty<? extends AbstractFeature>>)(Class<?>)FeatureProperty.class, this::marshalFeatureProperty)
 				.with(File.class, this::marshalFile)
 				.with(FileValueModel.class, this::marshalFileValueModel)
 				.with(GeometricComplex.class, this::marshalGeometricComplex)
@@ -393,8 +394,8 @@ public class GMLMarshaller {
 				.with(ValueProperty.class, this::marshalValueProperty)
 				.with(Vector.class, this::marshalVector)
 				.with(Volume.class, this::marshalVolume)
-				.with(GeometryProperty.class, this::marshalGeometryProperty)
-				.with(GeometryArrayProperty.class, this::marshalGeometryArrayProperty)
+				.with((Class<GeometryProperty<? extends AbstractGeometry>>)(Class<?>)GeometryProperty.class, this::marshalGeometryProperty)
+				.with((Class<GeometryArrayProperty<? extends AbstractGeometry>>)(Class<?>)GeometryArrayProperty.class, this::marshalGeometryArrayProperty)
 				.with(_TexturedSurface.class, jaxb.getCityGMLMarshaller()::marshal);
 	}
 	
