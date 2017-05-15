@@ -60,7 +60,7 @@ import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.binding.JAXBMapper;
+import org.citygml4j.util.jaxb.JAXBMapper;
 
 import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
 import net.opengis.citygml.building._1.AbstractBuildingType;

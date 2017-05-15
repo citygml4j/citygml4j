@@ -40,7 +40,7 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.binding.JAXBMapper;
+import org.citygml4j.util.jaxb.JAXBMapper;
 
 import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
 import net.opengis.citygml.generics._2.DateAttributeType;

@@ -1,4 +1,4 @@
-package org.citygml4j.util.binding;
+package org.citygml4j.util.jaxb;
 
 import java.util.HashMap;
 import java.util.function.Function;

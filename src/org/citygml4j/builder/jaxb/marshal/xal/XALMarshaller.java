@@ -106,7 +106,7 @@ import org.citygml4j.model.xal.ThoroughfareNumberToContent;
 import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
-import org.citygml4j.util.binding.JAXBMapper;
+import org.citygml4j.util.jaxb.JAXBMapper;
 
 import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
 import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;

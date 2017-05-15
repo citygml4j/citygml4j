@@ -28,7 +28,7 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.binding.JAXBMapper;
+import org.citygml4j.util.jaxb.JAXBMapper;
 
 import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
 import net.opengis.citygml.vegetation._2.ObjectFactory;
