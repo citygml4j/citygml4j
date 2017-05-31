@@ -106,6 +106,7 @@ public class Building100Unmarshaller {
 				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
 				.with(DoorType.class, this::unmarshalDoor)
 				.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
+				.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
 				.with(IntBuildingInstallationType.class, this::unmarshalIntBuildingInstallation)
 				.with(IntBuildingInstallationPropertyType.class, this::unmarshalIntBuildingInstallationProperty)
 				.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
