@@ -81,17 +81,12 @@ public class XMLChunkImpl implements XMLChunk {
 	private int depth = 0;
 	private boolean hasPassedXMLValidation = false;
 
-	XMLChunkImpl(AbstractJAXBReader chunkReader, XMLChunkImpl parentChunk, CityGMLClass type) {
+	XMLChunkImpl(AbstractJAXBReader chunkReader, XMLChunkImpl parentChunk) {
 		this.jaxbReader = chunkReader;
 		this.parentChunk = parentChunk;
 
 		buffer = new SAXEventBuffer();
 		stax2sax = new StAXStream2SAX(buffer);
-
-		if (type != null && type != CityGMLClass.UNDEFINED) {
-			this.type = type;
-			typeResolved.set(true);
-		}
 	}
 
 	@Override
@@ -164,20 +159,13 @@ public class XMLChunkImpl implements XMLChunk {
 			return citygml.getCityGMLClass();
 
 		if (typeResolved.compareAndSet(false, true)) {
-			ElementInfo info = null;
-
-			if (jaxbReader.elementChecker.isCityGMLElement(firstElement))
-				info = jaxbReader.elementChecker.getCityGMLFeature(firstElement, true);
-			else {
-				try {
-					info = jaxbReader.elementChecker.getADEElementInfo(firstElement, null, true, true);
-				} catch (MissingADESchemaException e) {
-					//
-				}
+			try {
+				ElementInfo info = jaxbReader.elementChecker.getElementInfo(firstElement);
+				if (info != null)
+					type = info.getCityGMLClass() != null ? CityGMLClass.fromModelClass(info.getCityGMLClass()) : CityGMLClass.ADE_COMPONENT;
+			} catch (MissingADESchemaException e) {
+				//
 			}
-
-			if (info != null)
-				type = info.getType();
 		}
 
 		return type;
@@ -207,7 +195,7 @@ public class XMLChunkImpl implements XMLChunk {
 					public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 						if (depth == 1)
 							captureElements = jaxbReader.elementChecker.isParentInfoElement(uri, localName);
-						
+
 						if (captureElements)
 							tmp.startElement(uri, localName, qName, atts);
 
@@ -239,7 +227,7 @@ public class XMLChunkImpl implements XMLChunk {
 					public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException { }
 					public void endPrefixMapping(String prefix) throws SAXException { }
 				};
-				
+
 				buffer.send(handler, false);
 				handler.endDocument();
 
@@ -285,7 +273,7 @@ public class XMLChunkImpl implements XMLChunk {
 
 			UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();			
 			ContentHandler contentHandler = null;
-			
+
 			if (jaxbReader.transformerChainFactory == null)
 				contentHandler = unmarshallerHandler;
 			else {
@@ -294,7 +282,7 @@ public class XMLChunkImpl implements XMLChunk {
 				chain.tail().setResult(new SAXResult(unmarshallerHandler));
 				contentHandler = chain.head();
 			}
-			
+
 			// emulate start of a new document
 			contentHandler.startDocument();
 			if (fakeRoot != null)

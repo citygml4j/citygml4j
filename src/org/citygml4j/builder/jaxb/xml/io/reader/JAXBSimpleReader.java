@@ -78,7 +78,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 						}
 					}
 
-					elementInfo = elementChecker.getCityGMLFeature(reader.getName(), isFilteredReader());
+					elementInfo = elementChecker.getElementInfo(reader.getName());
 					if (elementInfo != null && elementInfo.isFeature()) {
 
 						if (!isFilteredReader() || filter.accept(reader.getName())) {
@@ -105,6 +105,8 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 		} catch (XMLStreamException e) {
 			throw new CityGMLReadException("Caused by: ", e);
 		} catch (SAXException e) {
+			throw new CityGMLReadException("Caused by: ", e);
+		} catch (MissingADESchemaException e) {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 
@@ -194,7 +196,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 
 		if (iterator || hasNext()) {
 			try {
-				next = new XMLChunkImpl(this, null, elementInfo != null ? elementInfo.getType() : null);
+				next = new XMLChunkImpl(this, null);
 				while (reader.hasNext()) {
 					next.addEvent(reader);
 					if (next.isComplete())

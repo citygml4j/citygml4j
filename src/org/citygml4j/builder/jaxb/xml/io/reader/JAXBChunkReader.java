@@ -108,13 +108,13 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 							continue;
 
 						else {
-							elementInfo = elementChecker.getCityGMLFeature(reader.getName(), isFilteredReader());
+							elementInfo = elementChecker.getElementInfo(reader.getName());
 
 							if (elementInfo != null && elementInfo.isFeature()) {
 								isInited = true;
 								chunks.clear();
 
-								chunk = new XMLChunkImpl(this, null, elementInfo.getType());
+								chunk = new XMLChunkImpl(this, null);
 								chunk.setFirstElement(reader.getName());
 
 								if (isFilteredReader())
@@ -127,13 +127,13 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 					// check whether start element is a feature
 					if (event == XMLStreamConstants.START_ELEMENT) {
 						ElementInfo lastElementInfo = elementInfos.push(elementInfo);
-						elementInfo = elementChecker.getElementInfo(reader.getName(), lastElementInfo, isFilteredReader());
+						elementInfo = elementChecker.getElementInfo(reader.getName(), lastElementInfo);
 
 						if (elementInfo != null && elementInfo.isFeature()) {
 							chunk.removeTrailingCharacters();
 							chunks.add(chunk);
 
-							chunk = new XMLChunkImpl(this, chunks.peek(), elementInfo.getType());
+							chunk = new XMLChunkImpl(this, chunks.peek());
 							chunk.setFirstElement(reader.getName());
 
 							if (isFilteredReader())
