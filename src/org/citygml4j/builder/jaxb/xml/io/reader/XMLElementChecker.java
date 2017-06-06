@@ -63,11 +63,11 @@ public class XMLElementChecker {
 		this.parseSchema = parseSchema;
 		this.failOnMissingADESchema = failOnMissingADESchema;
 
-		initExcludes(excludes);		
+		initExcludes(prepareNameList(excludes));		
 		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER)
-			initCollectionSplitProperties(featureProperties);
+			initCollectionSplitProperties(prepareNameList(featureProperties));
 	}
-
+	
 	public boolean isCityGMLElement(String namespaceURI) {
 		return namespaceURI.startsWith("http://www.opengis.net/citygml");
 	}
@@ -272,15 +272,6 @@ public class XMLElementChecker {
 				String localName = exclude.getLocalPart();
 				String namespaceURI = exclude.getNamespaceURI();
 
-				if (namespaceURI.length() == 0) {
-					for (CityGMLModule module : Modules.getCityGMLModules()) {
-						if (module.hasFeatureElement(localName)) {
-							namespaceURI = module.getNamespaceURI();
-							break;
-						}
-					}
-				}
-
 				if (namespaceURI.length() == 0)
 					continue;				
 
@@ -307,14 +298,8 @@ public class XMLElementChecker {
 			String localName = featureProperty.getLocalPart();
 			String namespaceURI = featureProperty.getNamespaceURI();
 
-			if (namespaceURI.length() == 0) {
-				for (CityGMLModule module : Modules.getCityGMLModules()) {
-					if (module.hasFeaturePropertyElement(localName)) {
-						cityGMLFeatureProperties.add(localName);
-						break;
-					}
-				}
-			}
+			if (namespaceURI.length() == 0)
+				continue;
 
 			else if (isCityGMLElement(namespaceURI)) {
 				Module module = Modules.getModule(namespaceURI);
@@ -349,6 +334,23 @@ public class XMLElementChecker {
 		}
 
 		return false;
+	}
+	
+	private List<QName> prepareNameList(List<QName> nameList) {
+		List<QName> result = new ArrayList<>();
+		
+		for (QName name : nameList) {
+			if (name.getNamespaceURI().length() != 0)
+				result.add(name);
+			else {
+				for (CityGMLModule module : Modules.getCityGMLModules()) {
+					if (module.hasFeatureElement(name.getLocalPart()))
+						result.add(new QName(module.getNamespaceURI(), name.getLocalPart()));
+				}
+			}
+		}
+		
+		return result;
 	}
 
 	static class ElementInfo {
