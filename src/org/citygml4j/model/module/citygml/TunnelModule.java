@@ -24,6 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.tunnel.AbstractOpening;
+import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
 import org.citygml4j.model.citygml.tunnel.CeilingSurface;
 import org.citygml4j.model.citygml.tunnel.ClosureSurface;
 import org.citygml4j.model.citygml.tunnel.Door;
@@ -68,34 +71,37 @@ public class TunnelModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd",			
 				CoreModule.v2_0_0);
 		
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("Tunnel", Tunnel.class);
-		v2_0_0.elementMap.put("TunnelPart", TunnelPart.class);
-		v2_0_0.elementMap.put("HollowSpace", HollowSpace.class);
-		v2_0_0.elementMap.put("IntTunnelInstallation", IntTunnelInstallation.class);
-		v2_0_0.elementMap.put("TunnelInstallation", TunnelInstallation.class);
-		v2_0_0.elementMap.put("TunnelFurniture", TunnelFurniture.class);
-		v2_0_0.elementMap.put("InteriorWallSurface", InteriorWallSurface.class);
-		v2_0_0.elementMap.put("RoofSurface", RoofSurface.class);
-		v2_0_0.elementMap.put("ClosureSurface", ClosureSurface.class);
-		v2_0_0.elementMap.put("WallSurface", WallSurface.class);
-		v2_0_0.elementMap.put("FloorSurface", FloorSurface.class);
-		v2_0_0.elementMap.put("CeilingSurface", CeilingSurface.class);
-		v2_0_0.elementMap.put("GroundSurface", GroundSurface.class);
-		v2_0_0.elementMap.put("OuterFloorSurface", OuterFloorSurface.class);
-		v2_0_0.elementMap.put("OuterCeilingSurface", OuterCeilingSurface.class);
-		v2_0_0.elementMap.put("Window", Window.class);
-		v2_0_0.elementMap.put("Door", Door.class);
-		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("boundedBy");
-		v2_0_0.propertySet.add("opening");
-		v2_0_0.propertySet.add("outerTunnelInstallation");
-		v2_0_0.propertySet.add("interiorTunnelInstallation");
-		v2_0_0.propertySet.add("interiorHollowSpace");
-		v2_0_0.propertySet.add("consistsOfTunnelPart");
-		v2_0_0.propertySet.add("interiorFurniture");
-		v2_0_0.propertySet.add("hollowSpaceInstallation");
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("Tunnel", Tunnel.class);
+		v2_0_0.features.put("TunnelPart", TunnelPart.class);
+		v2_0_0.features.put("HollowSpace", HollowSpace.class);
+		v2_0_0.features.put("IntTunnelInstallation", IntTunnelInstallation.class);
+		v2_0_0.features.put("TunnelInstallation", TunnelInstallation.class);
+		v2_0_0.features.put("TunnelFurniture", TunnelFurniture.class);
+		v2_0_0.features.put("InteriorWallSurface", InteriorWallSurface.class);
+		v2_0_0.features.put("RoofSurface", RoofSurface.class);
+		v2_0_0.features.put("ClosureSurface", ClosureSurface.class);
+		v2_0_0.features.put("WallSurface", WallSurface.class);
+		v2_0_0.features.put("FloorSurface", FloorSurface.class);
+		v2_0_0.features.put("CeilingSurface", CeilingSurface.class);
+		v2_0_0.features.put("GroundSurface", GroundSurface.class);
+		v2_0_0.features.put("OuterFloorSurface", OuterFloorSurface.class);
+		v2_0_0.features.put("OuterCeilingSurface", OuterCeilingSurface.class);
+		v2_0_0.features.put("Window", Window.class);
+		v2_0_0.features.put("Door", Door.class);
+		v2_0_0.features.put("_AbstractTunnel", AbstractTunnel.class);
+		v2_0_0.features.put("_BoundarySurface", AbstractBoundarySurface.class);
+		v2_0_0.features.put("_Opening", AbstractOpening.class);
+
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("boundedBy");
+		v2_0_0.featureProperties.add("opening");
+		v2_0_0.featureProperties.add("outerTunnelInstallation");
+		v2_0_0.featureProperties.add("interiorTunnelInstallation");
+		v2_0_0.featureProperties.add("interiorHollowSpace");
+		v2_0_0.featureProperties.add("consistsOfTunnelPart");
+		v2_0_0.featureProperties.add("interiorFurniture");
+		v2_0_0.featureProperties.add("hollowSpaceInstallation");
 	}
 	
 	public static List<TunnelModule> getInstances() {

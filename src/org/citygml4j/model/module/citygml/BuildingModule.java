@@ -24,6 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
+import org.citygml4j.model.citygml.building.AbstractBuilding;
+import org.citygml4j.model.citygml.building.AbstractOpening;
 import org.citygml4j.model.citygml.building.Building;
 import org.citygml4j.model.citygml.building.BuildingFurniture;
 import org.citygml4j.model.citygml.building.BuildingInstallation;
@@ -77,38 +80,41 @@ public class BuildingModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/building/1.0/building.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("Building", Building.class);
-		v2_0_0.elementMap.put("BuildingPart", BuildingPart.class);
-		v2_0_0.elementMap.put("Room", Room.class);
-		v2_0_0.elementMap.put("IntBuildingInstallation", IntBuildingInstallation.class);
-		v2_0_0.elementMap.put("BuildingInstallation", BuildingInstallation.class);
-		v2_0_0.elementMap.put("BuildingFurniture", BuildingFurniture.class);
-		v2_0_0.elementMap.put("InteriorWallSurface", InteriorWallSurface.class);
-		v2_0_0.elementMap.put("RoofSurface", RoofSurface.class);
-		v2_0_0.elementMap.put("ClosureSurface", ClosureSurface.class);
-		v2_0_0.elementMap.put("WallSurface", WallSurface.class);
-		v2_0_0.elementMap.put("FloorSurface", FloorSurface.class);
-		v2_0_0.elementMap.put("CeilingSurface", CeilingSurface.class);
-		v2_0_0.elementMap.put("GroundSurface", GroundSurface.class);
-		v2_0_0.elementMap.put("Window", Window.class);
-		v2_0_0.elementMap.put("Door", Door.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("Building", Building.class);
+		v2_0_0.features.put("BuildingPart", BuildingPart.class);
+		v2_0_0.features.put("Room", Room.class);
+		v2_0_0.features.put("IntBuildingInstallation", IntBuildingInstallation.class);
+		v2_0_0.features.put("BuildingInstallation", BuildingInstallation.class);
+		v2_0_0.features.put("BuildingFurniture", BuildingFurniture.class);
+		v2_0_0.features.put("InteriorWallSurface", InteriorWallSurface.class);
+		v2_0_0.features.put("RoofSurface", RoofSurface.class);
+		v2_0_0.features.put("ClosureSurface", ClosureSurface.class);
+		v2_0_0.features.put("WallSurface", WallSurface.class);
+		v2_0_0.features.put("FloorSurface", FloorSurface.class);
+		v2_0_0.features.put("CeilingSurface", CeilingSurface.class);
+		v2_0_0.features.put("GroundSurface", GroundSurface.class);
+		v2_0_0.features.put("Window", Window.class);
+		v2_0_0.features.put("Door", Door.class);
+		v2_0_0.features.put("_AbstractBuilding", AbstractBuilding.class);
+		v2_0_0.features.put("_BoundarySurface", AbstractBoundarySurface.class);
+		v2_0_0.features.put("_Opening", AbstractOpening.class);		
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.elementMap.put("OuterFloorSurface", OuterFloorSurface.class);
-		v2_0_0.elementMap.put("OuterCeilingSurface", OuterCeilingSurface.class);
+		v2_0_0.features.put("OuterFloorSurface", OuterFloorSurface.class);
+		v2_0_0.features.put("OuterCeilingSurface", OuterCeilingSurface.class);
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("address");
-		v2_0_0.propertySet.add("boundedBy");
-		v2_0_0.propertySet.add("opening");
-		v2_0_0.propertySet.add("outerBuildingInstallation");
-		v2_0_0.propertySet.add("interiorBuildingInstallation");
-		v2_0_0.propertySet.add("interiorRoom");
-		v2_0_0.propertySet.add("consistsOfBuildingPart");
-		v2_0_0.propertySet.add("interiorFurniture");
-		v2_0_0.propertySet.add("roomInstallation");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("address");
+		v2_0_0.featureProperties.add("boundedBy");
+		v2_0_0.featureProperties.add("opening");
+		v2_0_0.featureProperties.add("outerBuildingInstallation");
+		v2_0_0.featureProperties.add("interiorBuildingInstallation");
+		v2_0_0.featureProperties.add("interiorRoom");
+		v2_0_0.featureProperties.add("consistsOfBuildingPart");
+		v2_0_0.featureProperties.add("interiorFurniture");
+		v2_0_0.featureProperties.add("roomInstallation");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 	
 	public static List<BuildingModule> getInstances() {

@@ -18,6 +18,10 @@
  */
 package org.citygml4j.model.module;
 
+import javax.xml.namespace.QName;
+
+import org.citygml4j.model.citygml.CityGML;
+
 public interface Module {
 	public ModuleType getType();
 	public ModuleVersion getVersion();
@@ -26,4 +30,20 @@ public interface Module {
 	public String getSchemaLocation();
 	public Module[] getDependencies();
 	public boolean isDependentOn(Module module, boolean transitive);
+	
+	default boolean hasFeatureProperty(String name) {
+		return false;
+	}
+	
+	default boolean hasGlobalFeature(String name) {
+		return false;
+	}
+	
+	default Class<? extends CityGML> getGlobalFeatureClass(String name) {
+		return null;
+	}
+	
+	default QName getGlobalFeatureName(Class<? extends CityGML> featureClass) {
+		return null;
+	}
 }

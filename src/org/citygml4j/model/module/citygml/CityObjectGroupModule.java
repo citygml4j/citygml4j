@@ -61,14 +61,14 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/cityobjectgroup/1.0/cityObjectGroup.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("CityObjectGroup", CityObjectGroup.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("CityObjectGroup", CityObjectGroup.class);
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("groupMember");
-		v2_0_0.propertySet.add("parent");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("groupMember");
+		v2_0_0.featureProperties.add("parent");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 
 	public static List<CityObjectGroupModule> getInstances() {

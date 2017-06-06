@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.module.Module;
@@ -61,10 +62,11 @@ public class VegetationModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/vegetation/1.0/vegetation.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("SolitaryVegetationObject", SolitaryVegetationObject.class);
-		v2_0_0.elementMap.put("PlantCover", PlantCover.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("SolitaryVegetationObject", SolitaryVegetationObject.class);
+		v2_0_0.features.put("PlantCover", PlantCover.class);
+		v2_0_0.features.put("_VegetationObject", AbstractVegetationObject.class);
+		v1_0_0.features = v2_0_0.features;
 	}
 
 	public static List<VegetationModule> getInstances() {

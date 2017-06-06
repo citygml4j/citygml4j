@@ -3,13 +3,16 @@ package org.citygml4j.model.module.ade;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
+import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.AbstractModule;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleType;
 import org.citygml4j.model.module.ModuleVersion;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 
-public class ADEModule extends AbstractModule {
+public abstract class ADEModule extends AbstractModule {
 	private final CityGMLVersion cityGMLVersion;
 	private List<Module> adeDependencies;
 	
@@ -45,6 +48,15 @@ public class ADEModule extends AbstractModule {
 			CityGMLVersion cityGMLVersion) {
 		this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, null, null, cityGMLVersion);
 	}
+
+	@Override
+	public abstract boolean hasFeatureProperty(String name);
+	@Override
+	public abstract boolean hasGlobalFeature(String name);
+	@Override
+	public abstract Class<? extends CityGML> getGlobalFeatureClass(String name);
+	@Override
+	public abstract QName getGlobalFeatureName(Class<? extends CityGML> featureClass);
 
 	@Override
 	public final ADEModuleType getType() {

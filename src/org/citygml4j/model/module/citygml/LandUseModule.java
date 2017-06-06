@@ -60,9 +60,9 @@ public class LandUseModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("LandUse", LandUse.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("LandUse", LandUse.class);
+		v1_0_0.features = v2_0_0.features;
 	}
 
 	public static List<LandUseModule> getInstances() {

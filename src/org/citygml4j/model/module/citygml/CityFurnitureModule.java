@@ -60,9 +60,9 @@ public class CityFurnitureModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/cityfurniture/1.0/cityFurniture.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("CityFurniture", CityFurniture.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("CityFurniture", CityFurniture.class);
+		v1_0_0.features = v2_0_0.features;
 	}
 
 	public static List<CityFurnitureModule> getInstances() {

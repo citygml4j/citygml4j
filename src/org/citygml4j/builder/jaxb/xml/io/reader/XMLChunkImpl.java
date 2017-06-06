@@ -161,8 +161,12 @@ public class XMLChunkImpl implements XMLChunk {
 		if (typeResolved.compareAndSet(false, true)) {
 			try {
 				ElementInfo info = jaxbReader.elementChecker.getElementInfo(firstElement);
-				if (info != null)
-					type = info.getCityGMLClass() != null ? CityGMLClass.fromModelClass(info.getCityGMLClass()) : CityGMLClass.ADE_COMPONENT;
+				if (info != null) {
+					if (info.getCityGMLClass() != null && jaxbReader.elementChecker.isCityGMLElement(firstElement))
+						type = CityGMLClass.fromModelClass(info.getCityGMLClass());
+					else
+						type = CityGMLClass.ADE_COMPONENT;
+				}
 			} catch (MissingADESchemaException e) {
 				//
 			}

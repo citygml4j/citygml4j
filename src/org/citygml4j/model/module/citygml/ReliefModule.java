@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
@@ -65,18 +66,19 @@ public class ReliefModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/relief/1.0/relief.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("MassPointRelief", MassPointRelief.class);
-		v2_0_0.elementMap.put("ReliefFeature", ReliefFeature.class);
-		v2_0_0.elementMap.put("BreaklineRelief", BreaklineRelief.class);
-		v2_0_0.elementMap.put("TINRelief", TINRelief.class);
-		v2_0_0.elementMap.put("RasterRelief", RasterRelief.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("MassPointRelief", MassPointRelief.class);
+		v2_0_0.features.put("ReliefFeature", ReliefFeature.class);
+		v2_0_0.features.put("BreaklineRelief", BreaklineRelief.class);
+		v2_0_0.features.put("TINRelief", TINRelief.class);
+		v2_0_0.features.put("RasterRelief", RasterRelief.class);
+		v2_0_0.features.put("_ReliefComponent", AbstractReliefComponent.class);
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("grid");
-		v2_0_0.propertySet.add("reliefComponent");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("grid");
+		v2_0_0.featureProperties.add("reliefComponent");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 
 	public static List<ReliefModule> getInstances() {

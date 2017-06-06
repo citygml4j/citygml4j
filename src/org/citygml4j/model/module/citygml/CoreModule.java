@@ -64,15 +64,15 @@ public class CoreModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/1.0/cityGMLBase.xsd", 
 				GMLCoreModule.v3_1_1, XALCoreModule.v2_0);			
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("CityModel", CityModel.class);
-		v2_0_0.elementMap.put("Address", Address.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("CityModel", CityModel.class);
+		v2_0_0.features.put("Address", Address.class);
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("cityObjectMember");
-		v2_0_0.propertySet.add("generalizesTo");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("cityObjectMember");
+		v2_0_0.featureProperties.add("generalizesTo");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 
 	public static List<CoreModule> getInstances() {

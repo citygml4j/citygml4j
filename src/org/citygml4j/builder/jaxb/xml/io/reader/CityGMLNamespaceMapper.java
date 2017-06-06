@@ -267,7 +267,7 @@ public class CityGMLNamespaceMapper implements XMLStreamReader {
 						if (module.getType() == CityGMLModuleType.BRIDGE || module.getType() == CityGMLModuleType.TUNNEL)
 							continue;
 
-						if (module.hasFeatureElement(localPart)) {
+						if (module.hasGlobalFeature(localPart)) {
 							parents.push(parent);
 							parent = new ParentFeatureElement(localPart, module.getNamespaceURI(), depth);
 							break;

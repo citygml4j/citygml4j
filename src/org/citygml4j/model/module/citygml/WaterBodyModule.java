@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
@@ -64,16 +66,18 @@ public class WaterBodyModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/waterbody/1.0/waterBody.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("WaterBody", WaterBody.class);
-		v2_0_0.elementMap.put("WaterSurface", WaterSurface.class);
-		v2_0_0.elementMap.put("WaterGroundSurface", WaterGroundSurface.class);
-		v2_0_0.elementMap.put("WaterClosureSurface", WaterClosureSurface.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("WaterBody", WaterBody.class);
+		v2_0_0.features.put("WaterSurface", WaterSurface.class);
+		v2_0_0.features.put("WaterGroundSurface", WaterGroundSurface.class);
+		v2_0_0.features.put("WaterClosureSurface", WaterClosureSurface.class);
+		v2_0_0.features.put("_WaterObject", AbstractWaterObject.class);
+		v2_0_0.features.put("_WaterBoundarySurface", AbstractWaterBoundarySurface.class);		
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("boundedBy");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("boundedBy");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 
 	public static List<WaterBodyModule> getInstances() {

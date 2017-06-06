@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.Railway;
 import org.citygml4j.model.citygml.transportation.Road;
@@ -67,20 +68,21 @@ public class TransportationModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/transportation/1.0/transportation.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("TransportationComplex", TransportationComplex.class);
-		v2_0_0.elementMap.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
-		v2_0_0.elementMap.put("TrafficArea", TrafficArea.class);
-		v2_0_0.elementMap.put("Square", Square.class);
-		v2_0_0.elementMap.put("Track", Track.class);
-		v2_0_0.elementMap.put("Railway", Railway.class);
-		v2_0_0.elementMap.put("Road", Road.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("TransportationComplex", TransportationComplex.class);
+		v2_0_0.features.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
+		v2_0_0.features.put("TrafficArea", TrafficArea.class);
+		v2_0_0.features.put("Square", Square.class);
+		v2_0_0.features.put("Track", Track.class);
+		v2_0_0.features.put("Railway", Railway.class);
+		v2_0_0.features.put("Road", Road.class);
+		v2_0_0.features.put("_TransportationObject", AbstractTransportationObject.class);
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("trafficArea");
-		v2_0_0.propertySet.add("auxiliaryTrafficArea");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("trafficArea");
+		v2_0_0.featureProperties.add("auxiliaryTrafficArea");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 
 	public static List<TransportationModule> getInstances() {

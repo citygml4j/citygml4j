@@ -60,9 +60,9 @@ public class GenericsModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/generics/1.0/generics.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("GenericCityObject", GenericCityObject.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("GenericCityObject", GenericCityObject.class);
+		v1_0_0.features = v2_0_0.features;
 	}
 
 	public static List<GenericsModule> getInstances() {

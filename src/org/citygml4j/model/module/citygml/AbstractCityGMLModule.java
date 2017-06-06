@@ -26,13 +26,12 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.module.AbstractModule;
 import org.citygml4j.model.module.Module;
 
 public abstract class AbstractCityGMLModule extends AbstractModule implements CityGMLModule {
-	HashMap<String, Class<? extends CityGML>> elementMap;
-	HashSet<String> propertySet;
+	HashMap<String, Class<? extends CityGML>> features;
+	HashSet<String> featureProperties;
 	
 	public AbstractCityGMLModule (
 			CityGMLModuleType type, 
@@ -55,27 +54,27 @@ public abstract class AbstractCityGMLModule extends AbstractModule implements Ci
 	}
 
 	@Override
-	public boolean hasFeatureElement(String localName) {
-		return elementMap != null ? elementMap.containsKey(localName) : false;
+	public boolean hasFeatureProperty(String name) {
+		return featureProperties != null ? featureProperties.contains(name) : false;
+	}
+	
+	@Override
+	public boolean hasGlobalFeature(String name) {
+		return features != null ? features.containsKey(name) : false;
 	}
 
 	@Override
-	public boolean hasFeaturePropertyElement(String localName) {
-		return propertySet != null ? propertySet.contains(localName) : false;
+	public Class<? extends CityGML> getGlobalFeatureClass(String name) {
+		return features != null ? features.get(name) : null;
 	}
 
 	@Override
-	public Class<? extends CityGML> getFeatureElementClass(String elementName) {
-		return elementMap != null ? elementMap.get(elementName) : null;
-	}
-
-	@Override
-	public QName getFeatureName(CityGMLClass cityGMLClass) {
-		if (elementMap != null) {
-			Iterator<Entry<String, Class<? extends CityGML>>> iter = elementMap.entrySet().iterator();
+	public QName getGlobalFeatureName(Class<? extends CityGML> featureClass) {
+		if (features != null) {
+			Iterator<Entry<String, Class<? extends CityGML>>> iter = features.entrySet().iterator();
 			while (iter.hasNext()) {
 				Entry<String, Class<? extends CityGML>> entry = iter.next();
-				if (entry.getValue() == cityGMLClass.getModelClass())
+				if (entry.getValue() == featureClass)
 					return new QName(getNamespaceURI(), entry.getKey());
 			}
 		}

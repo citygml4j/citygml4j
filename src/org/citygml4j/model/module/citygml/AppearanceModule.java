@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
+import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
@@ -64,18 +66,20 @@ public class AppearanceModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/appearance/1.0/appearance.xsd",		
 				CoreModule.v1_0_0);
 
-		v2_0_0.elementMap = new HashMap<String, Class<? extends CityGML>>();
-		v2_0_0.elementMap.put("Appearance", Appearance.class);
-		v2_0_0.elementMap.put("ParameterizedTexture", ParameterizedTexture.class);
-		v2_0_0.elementMap.put("GeoreferencedTexture", GeoreferencedTexture.class);
-		v2_0_0.elementMap.put("X3DMaterial", X3DMaterial.class);
-		v1_0_0.elementMap = v2_0_0.elementMap;
+		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features.put("Appearance", Appearance.class);
+		v2_0_0.features.put("ParameterizedTexture", ParameterizedTexture.class);
+		v2_0_0.features.put("GeoreferencedTexture", GeoreferencedTexture.class);
+		v2_0_0.features.put("X3DMaterial", X3DMaterial.class);
+		v2_0_0.features.put("_SurfaceData", AbstractSurfaceData.class);
+		v2_0_0.features.put("_Texture", AbstractTexture.class);
+		v1_0_0.features = v2_0_0.features;
 		
-		v2_0_0.propertySet = new HashSet<String>();
-		v2_0_0.propertySet.add("appearance");
-		v2_0_0.propertySet.add("appearanceMember");
-		v2_0_0.propertySet.add("surfaceDataMember");
-		v1_0_0.propertySet = v2_0_0.propertySet;
+		v2_0_0.featureProperties = new HashSet<String>();
+		v2_0_0.featureProperties.add("appearance");
+		v2_0_0.featureProperties.add("appearanceMember");
+		v2_0_0.featureProperties.add("surfaceDataMember");
+		v1_0_0.featureProperties = v2_0_0.featureProperties;
 	}
 
 	public static List<AppearanceModule> getInstances() {

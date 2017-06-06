@@ -19,14 +19,16 @@
 package org.citygml4j.model.module.gml;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.citygml4j.model.module.Module;
 
 public class GMLCoreModule extends AbstractGMLModule {	
 	private static final List<GMLCoreModule> instances = new ArrayList<GMLCoreModule>();
-	
 	public static final GMLCoreModule v3_1_1;
+	
+	HashSet<String> featureProperties;
 	
 	public GMLCoreModule (
 			GMLModuleType type,
@@ -46,6 +48,11 @@ public class GMLCoreModule extends AbstractGMLModule {
 				"http://www.opengis.net/gml", 
 				"gml", 
 				"http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+		
+		v3_1_1.featureProperties = new HashSet<>();
+		v3_1_1.featureProperties.add("featureMember");
+		v3_1_1.featureProperties.add("featureProperty");
+		v3_1_1.featureProperties.add("featureMembers");
 	}
 
 	public static List<GMLCoreModule> getInstances() {
@@ -59,6 +66,11 @@ public class GMLCoreModule extends AbstractGMLModule {
 		default:
 			return null;
 		}
+	}
+	
+	@Override
+	public boolean hasFeatureProperty(String name) {
+		return featureProperties != null ? featureProperties.contains(name) : false;
 	}
 	
 }

@@ -68,10 +68,8 @@ public class Modules {
 		modules.put(CityGMLModuleType.VEGETATION, VegetationModule.getInstances());
 		modules.put(CityGMLModuleType.WATER_BODY, WaterBodyModule.getInstances());
 		modules.put(CityGMLModuleType.TEXTURED_SURFACE, TexturedSurfaceModule.getInstances());
-
 		modules.put(GMLModuleType.CORE, GMLCoreModule.getInstances());
 		modules.put(GMLModuleType.XLINK, XLinkModule.getInstances());
-
 		modules.put(XALModuleType.CORE, XALCoreModule.getInstances());
 	}
 
