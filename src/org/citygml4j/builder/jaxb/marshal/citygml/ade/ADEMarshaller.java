@@ -11,6 +11,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.w3c.dom.Element;
 
 public class ADEMarshaller {
@@ -19,12 +20,14 @@ public class ADEMarshaller {
 	public ADEMarshaller(JAXBMarshaller jaxb, List<ADEContext> adeContexts) {
 		if (adeContexts != null && !adeContexts.isEmpty()) {
 			this.adeContexts = new HashMap<>();
-			
+
 			for (ADEContext adeContext : adeContexts) {
-				if (adeContext != null && adeContext.getADEModule().getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
-					adeContext.getADEMarshaller().setADEMarshallerHelper(new ADEMarshallerHelper(jaxb));
-					for (String packageName : adeContext.getModelPackageNames())
-						this.adeContexts.put(packageName, adeContext);					
+				for (ADEModule module : adeContext.getADEModules()) {
+					if  (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
+						adeContext.getADEMarshaller().setADEMarshallerHelper(new ADEMarshallerHelper(jaxb));
+						for (String packageName : adeContext.getModelPackageNames())
+							this.adeContexts.put(packageName, adeContext);	
+					}
 				}
 			}
 		}

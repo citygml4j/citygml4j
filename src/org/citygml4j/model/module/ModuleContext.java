@@ -63,15 +63,19 @@ public class ModuleContext {
 	public ModuleContext(CityGMLVersion version, List<ADEContext> adeContexts) {
 		this(version);
 
-		for (ADEContext adeContext : adeContexts) 
-			addADEModule(adeContext.getADEModule());
+		for (ADEContext adeContext : adeContexts) {
+			for (ADEModule module : adeContext.getADEModules())
+				addADEModule(module);
+		}
 	}
 
 	public ModuleContext(ModuleContext moduleContext, List<ADEContext> adeContexts) {
 		this(moduleContext);
 
-		for (ADEContext adeContext : adeContexts) 
-			addADEModule(adeContext.getADEModule());
+		for (ADEContext adeContext : adeContexts) {
+			for (ADEModule module : adeContext.getADEModules())
+				addADEModule(module);
+		}
 	}
 
 	public Module getModule(CityGMLModuleType type) {

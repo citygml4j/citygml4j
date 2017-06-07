@@ -27,6 +27,7 @@ import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -42,10 +43,9 @@ public class ADEUnmarshaller {
 			this.adeContexts = new HashMap<>();
 
 			for (ADEContext adeContext : adeContexts) {
-				if (adeContext != null) {
-					adeContext.getADEUnmarshaller().setADEUnmarshallerHelper(new ADEUnmarshallerHelper(jaxb));
-					this.adeContexts.put(adeContext.getADEModule().getNamespaceURI(), adeContext);					
-				}
+				adeContext.getADEUnmarshaller().setADEUnmarshallerHelper(new ADEUnmarshallerHelper(jaxb));
+				for (ADEModule module : adeContext.getADEModules())
+					this.adeContexts.put(module.getNamespaceURI(), adeContext);					
 			}
 		}
 	}

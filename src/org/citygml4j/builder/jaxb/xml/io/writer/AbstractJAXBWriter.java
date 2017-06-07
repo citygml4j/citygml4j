@@ -58,13 +58,13 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 	FeatureSplitter featureSplitter;
 	FeatureWriteMode featureWriteMode;
 	TransformerChainFactory transformerChainFactory;
-	
+
 	boolean useValidation;
 	ValidationSchemaHandler validationSchemaHandler;
 	ValidationEventHandler validationEventHandler;
-	
+
 	private SchemaHandler schemaHandler;
-	
+
 	@SuppressWarnings("unchecked")
 	public AbstractJAXBWriter(SAXWriter writer, JAXBOutputFactory factory, ModuleContext moduleContext) throws CityGMLWriteException {
 		this.writer = writer;
@@ -76,7 +76,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 
 		featureWriteMode = (FeatureWriteMode)factory.getProperty(CityGMLOutputFactory.FEATURE_WRITE_MODE);
 		useValidation = (Boolean)factory.getProperty(CityGMLOutputFactory.USE_VALIDATION);
-		
+
 		if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER) {
 			featureSplitter = new FeatureSplitter()
 					.setSchemaHandler(schemaHandler)
@@ -85,9 +85,9 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 					.setSplitMode(FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER)
 					.keepInlineAppearance((Boolean)factory.getProperty(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE))
 					.splitCopy((Boolean)factory.getProperty(CityGMLOutputFactory.SPLIT_COPY))
-					.exclude((Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));		
+					.exclude((Set<Class<? extends CityGML>>)factory.getProperty(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING));
 		}
-		
+
 		if (useValidation) {
 			if (schemaHandler == null) {
 				try {
@@ -96,7 +96,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 					throw new CityGMLWriteException("Caused by: ", e);
 				}
 			}
-			
+
 			validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
 			validationEventHandler = factory.getValidationEventHandler();
 		}		
@@ -111,7 +111,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 
 			validationSchemaHandler = null;
 			validationEventHandler = null;
-			
+
 			if (writer != null)
 				writer.close();
 		} catch (SAXException e) {
@@ -244,9 +244,10 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 
 	public void setSchemaLocations(List<ADEContext> adeContexts) {
 		for (ADEContext adeContext : adeContexts) {
-			ADEModule module = adeContext.getADEModule();
-			if (module != null && module.getSchemaLocation() != null)
-				setSchemaLocation(module.getNamespaceURI(), module.getSchemaLocation());
+			for (ADEModule module : adeContext.getADEModules()) {
+				if (module != null && module.getSchemaLocation() != null)
+					setSchemaLocation(module.getNamespaceURI(), module.getSchemaLocation());
+			}
 		}
 	}
 
@@ -270,15 +271,16 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 
 	public void setPrefixes(List<ADEContext> adeContexts) {
 		for (ADEContext adeContext : adeContexts) {
-			ADEModule module = adeContext.getADEModule();
-			if (module != null && module.getNamespacePrefix() != null)
-				setPrefix(module);
+			for (ADEModule module : adeContext.getADEModules()) {
+				if (module != null && module.getNamespacePrefix() != null)
+					setPrefix(module);
+			}
 		}
 	}
 
 	protected boolean isCityObject(ADEGenericElement adeGenericElement) {
 		boolean isCityObject = false;
-		
+
 		if (schemaHandler != null) {
 			Element element = adeGenericElement.getContent();
 
@@ -289,7 +291,7 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 					isCityObject = elementDecls.get(0).isCityObject();
 			}
 		}
-		
+
 		return isCityObject;
 	}
 

@@ -33,6 +33,7 @@ import org.citygml4j.builder.jaxb.xml.io.writer.JAXBOutputFactory;
 import org.citygml4j.builder.jaxb.xml.validation.JAXBValidator;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
@@ -59,40 +60,42 @@ public class JAXBBuilder implements CityGMLBuilder {
 	public boolean isSetADEContexts() {
 		return !adeContexts.isEmpty();
 	}
-	
+
 	public List<ADEContext> getADEContexts() {
 		return new ArrayList<>(adeContexts);
 	}
 
 	public ADEContext getADEContext(String namespaceURI) {
 		for (ADEContext adeContext : adeContexts) {
-			if (adeContext.getADEModule().getNamespaceURI().equals(namespaceURI))
-				return adeContext;
+			for (ADEModule module : adeContext.getADEModules()) {
+				if (module.getNamespaceURI().equals(namespaceURI))
+					return adeContext;
+			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public JAXBUnmarshaller createJAXBUnmarshaller(SchemaHandler schemaHandler) {
 		return new JAXBUnmarshaller(this, schemaHandler, adeContexts);
 	}
-	
+
 	public JAXBUnmarshaller createJAXBUnmarshaller() throws SAXException {
 		return createJAXBUnmarshaller(schemaHandler);
 	}
-	
+
 	public JAXBMarshaller createJAXBMarshaller(ModuleContext moduleContext) {
 		return new JAXBMarshaller(this, moduleContext, adeContexts);
 	}
-	
+
 	public JAXBMarshaller createJAXBMarshaller(CityGMLVersion version) {
 		return new JAXBMarshaller(this, new ModuleContext(version), adeContexts);
 	}
-	
+
 	public JAXBMarshaller createJAXBMarshaller() {
 		return createJAXBMarshaller(new ModuleContext(CityGMLVersion.DEFAULT));
 	}
-	
+
 	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException {
 		try {
 			return new JAXBInputFactory(this);
@@ -104,27 +107,27 @@ public class JAXBBuilder implements CityGMLBuilder {
 	public CityGMLInputFactory createCityGMLInputFactory(SchemaHandler schemaHandler) {
 		return new JAXBInputFactory(this, schemaHandler);
 	}
-	
+
 	public CityGMLOutputFactory createCityGMLOutputFactory() throws CityGMLWriteException {
 		return new JAXBOutputFactory(this);
 	}
-	
+
 	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext) throws CityGMLWriteException {
 		return new JAXBOutputFactory(this, moduleContext);
 	}
-	
+
 	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext, SchemaHandler schemaHandler) {
 		return new JAXBOutputFactory(this, moduleContext, schemaHandler);
 	}
-	
+
 	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) throws CityGMLWriteException {
 		return new JAXBOutputFactory(this, new ModuleContext(version));
 	}
-	
+
 	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version, SchemaHandler schemaHandler) {
 		return new JAXBOutputFactory(this, new ModuleContext(version), schemaHandler);
 	}
-	
+
 	public CityGMLOutputFactory createCityGMLOutputFactory(SchemaHandler schemaHandler) {
 		return new JAXBOutputFactory(this, schemaHandler);
 	}
@@ -132,7 +135,7 @@ public class JAXBBuilder implements CityGMLBuilder {
 	public Validator createValidator() throws CityGMLBuilderException {
 		return new JAXBValidator(this, getDefaultSchemaHandler());
 	}
-	
+
 	public Validator createValidator(SchemaHandler schemaHandler) {
 		return new JAXBValidator(this, schemaHandler);
 	}
@@ -142,9 +145,11 @@ public class JAXBBuilder implements CityGMLBuilder {
 			try {
 				schemaHandler = SchemaHandler.newInstance();
 				for (ADEContext adeContext : adeContexts) {
-					URL resource = adeContext.getSchemaResource();
-					if (resource != null)
-						schemaHandler.parseSchema(adeContext.getADEModule().getNamespaceURI(), resource.toString());
+					for (ADEModule module : adeContext.getADEModules()) {
+						URL resource = module.getSchemaResource();
+						if (resource != null)
+							schemaHandler.parseSchema(module.getNamespaceURI(), resource.toString());
+					}
 				}
 			} catch (SAXException e) {
 				throw new CityGMLBuilderException("Failed to build default schema handler.", e);

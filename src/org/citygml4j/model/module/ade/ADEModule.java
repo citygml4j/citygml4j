@@ -1,5 +1,6 @@
 package org.citygml4j.model.module.ade;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,10 @@ public abstract class ADEModule extends AbstractModule {
 		this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, null, null, cityGMLVersion);
 	}
 
+	public URL getSchemaResource() {
+		return null;
+	}
+	
 	@Override
 	public abstract boolean hasFeatureProperty(String name);
 	@Override
@@ -110,7 +115,7 @@ public abstract class ADEModule extends AbstractModule {
 		adeDependencies.add(module);
 	}
 	
-	public CityGMLVersion getCityGMLVersion() {
+	public final CityGMLVersion getCityGMLVersion() {
 		return cityGMLVersion;
 	}
 

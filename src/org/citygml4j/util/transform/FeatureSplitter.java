@@ -27,6 +27,7 @@ import java.util.Set;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.binding.ADEWalker;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -35,6 +36,8 @@ import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureProperty;
+import org.citygml4j.model.module.Modules;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.model.module.gml.XLinkModule;
 import org.citygml4j.util.child.ChildInfo;
@@ -241,6 +244,19 @@ public class FeatureSplitter {
 			ModelObject parent = feature.getParent();
 			boolean addToResult = false;
 
+			if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && feature instanceof ADEModelObject) {
+				boolean accept = false;
+				for (ADEModule module : Modules.getADEModules()) {
+					if (module.getGlobalFeatureName(((ADEModelObject)feature).getClass()) != null)
+						accept = true;
+				}
+				
+				if (!accept) {
+					super.visit(feature);
+					return;
+				}
+			}			
+			
 			if (parent != null) {
 				if (parent instanceof FeatureProperty<?>) {
 					FeatureProperty<?> property = (FeatureProperty<?>)parent;				

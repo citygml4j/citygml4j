@@ -1,6 +1,5 @@
 package org.citygml4j.model.citygml.ade.binding;
 
-import java.net.URL;
 import java.util.List;
 
 import org.citygml4j.model.module.ade.ADEModule;
@@ -10,16 +9,12 @@ import org.citygml4j.util.walker.GMLFunctionWalker;
 import org.citygml4j.util.walker.GMLWalker;
 
 public interface ADEContext {
-	public ADEModule getADEModule();
+	public List<ADEModule> getADEModules();
 	public List<String> getModelPackageNames();	
 	public List<String> getJAXBPackageNames();	
 	public ADEMarshaller getADEMarshaller();
 	public ADEUnmarshaller getADEUnmarshaller();
 
-	default URL getSchemaResource() {
-		return null;
-	}
-	
 	default ADEWalker<FeatureWalker> getDefaultFeatureWalker() {
 		return null;
 	}

@@ -33,95 +33,104 @@ import org.citygml4j.model.module.ade.ADEModule;
 public class CityGMLContext {
 	private JAXBBuilder builder;
 	private List<ADEContext> adeContexts;
-	
+
 	public CityGMLContext() {
 		adeContexts = new ArrayList<>();
 	}
-	
+
 	public void registerADEContext(ADEContext adeContext) throws ADEException {
 		if (adeContext == null)
 			throw new ADEException("The ADE context must not be null.");
-		
+
 		if (adeContexts.contains(adeContext))
 			return;
-		
+
 		if (builder != null)
 			throw new ADEException("An ADE context cannot be registered after the CityGML builder has been created.");
-		
-		ADEModule adeModule = adeContext.getADEModule();
-		if (adeModule == null)
-			throw new ADEException("No ADE module defined for the ADE context.");
-		
-		if (adeModule.getNamespaceURI() == null || adeModule.getNamespaceURI().isEmpty())
-			throw new ADEException("The namespace URI of the ADE module must not be null.");
-		
+
 		if (adeContext.getModelPackageNames() == null || adeContext.getModelPackageNames().isEmpty())
 			throw new ADEException("No model package names defined for the ADE context.");
-		
+
+		if (adeContext.getADEModules() == null || adeContext.getADEModules().isEmpty())
+			throw new ADEException("No ADE module defined for the ADE context.");
+
 		if (adeContext.getJAXBPackageNames() == null || adeContext.getJAXBPackageNames().isEmpty())
 			throw new ADEException("No JAXB package names defined for the ADE context.");
-		
+
 		if (adeContext.getADEMarshaller() == null)
 			throw new ADEException("No marshaller defined for the ADE context.");
-		
+
 		if (adeContext.getADEUnmarshaller() == null)
 			throw new ADEException("No unmarshaller defined for the ADE context.");
-		
-		for (ADEContext tmp : adeContexts) {
-			if (tmp.getADEModule().getNamespaceURI().equals(adeContext.getADEModule().getNamespaceURI()))
-				throw new ADEException("An ADE context has already been registered for the namespace '" + tmp.getADEModule().getNamespaceURI() + "'.");
-			
-			for (String packageName : adeContext.getModelPackageNames()) {
-				if (tmp.getADEModule().getCityGMLVersion() == adeContext.getADEModule().getCityGMLVersion() && tmp.getModelPackageNames().contains(packageName))
-					throw new ADEException("An ADE context has already been registered for the package '" + packageName + "' and CityGML version " + adeContext.getADEModule().getCityGMLVersion() + ".");					
+
+		for (ADEModule module : adeContext.getADEModules()) {		
+			if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty())
+				throw new ADEException("The namespace URI of the ADE module must not be null.");		
+
+			for (ADEContext registeredContext : adeContexts) {
+				for (ADEModule registeredModule : registeredContext.getADEModules()) {
+					if (registeredModule.getNamespaceURI().equals(module.getNamespaceURI()))
+						throw new ADEException("An ADE module has already been registered for the namespace '" + module.getNamespaceURI() + "'.");
+
+					for (String packageName : adeContext.getModelPackageNames()) {
+						if (registeredModule.getCityGMLVersion() == module.getCityGMLVersion() && registeredContext.getModelPackageNames().contains(packageName))
+							throw new ADEException("An ADE module has already been registered for the package '" + packageName + "' and CityGML version " + module.getCityGMLVersion() + ".");					
+					}
+				}
 			}
 		}
-		
-		Modules.registerADEModule(adeContext.getADEModule());
+
+		for (ADEModule module : adeContext.getADEModules())
+			Modules.registerADEModule(module);
+
 		adeContexts.add(adeContext);
 	}
-	
+
 	public void unregisterADEContext(ADEContext adeContext) {
-		Modules.unregisterADEModule(adeContext.getADEModule());
+		for (ADEModule module : adeContext.getADEModules())
+			Modules.unregisterADEModule(module);
+
 		adeContexts.remove(adeContext);
 	}
-	
+
 	public boolean isSetADEContexts() {
 		return !adeContexts.isEmpty();
 	}
-	
+
 	public List<ADEContext> getADEContexts() {
 		return new ArrayList<>(adeContexts);
 	}
-	
+
 	public ADEContext getADEContext(String namespaceURI) {
 		for (ADEContext adeContext : adeContexts) {
-			if (adeContext.getADEModule().getNamespaceURI().equals(namespaceURI))
-				return adeContext;
+			for (ADEModule module : adeContext.getADEModules()) {
+				if (module.getNamespaceURI().equals(namespaceURI))
+					return adeContext;
+			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public CityGMLBuilder createCityGMLBuilder() throws CityGMLBuilderException {
 		return createJAXBBuilder();
 	}
-	
+
 	public CityGMLBuilder createCityGMLBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
 		return createJAXBBuilder(classLoader);
 	}
-	
+
 	public synchronized JAXBBuilder createJAXBBuilder() throws CityGMLBuilderException {
 		if (builder == null)
 			builder = JAXBBuilderFactory.defaults().withADEContexts(adeContexts).build();
-		
+
 		return builder;
 	}
-	
+
 	public synchronized JAXBBuilder createJAXBBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
 		if (builder == null)
 			builder = JAXBBuilderFactory.defaults().withADEContexts(adeContexts).withClassLoader(classLoader).build();
-		
+
 		return builder;
 	}
 

@@ -29,12 +29,17 @@ import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody100Marshall
 import org.citygml4j.builder.jaxb.marshal.citygml.waterbody.WaterBody200Marshaller;
 import org.citygml4j.builder.jaxb.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.xal.XALMarshaller;
+import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 public class ADEMarshallerHelper {
 	private final JAXBMarshaller jaxb;
 	
 	public ADEMarshallerHelper(JAXBMarshaller jaxb) {
 		this.jaxb = jaxb;
+	}
+	
+	public CityGMLVersion getTargetCityGMLVersion() {
+		return jaxb.getModuleContext().getCityGMLVersion();
 	}
 	
 	public JAXBMarshaller getJAXBMarshaller() {

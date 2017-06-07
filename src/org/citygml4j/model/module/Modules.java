@@ -79,18 +79,20 @@ public class Modules {
 
 	public static Module getModule(String namespaceURI) {
 		for (List<? extends Module> moduleSet : modules.values()) {
-			for (Module module : moduleSet)
+			for (Module module : moduleSet) {
 				if (namespaceURI.equals(module.getNamespaceURI()))
 					return module;
+			}
 		}
 
 		return null;
 	}
 
 	public static Module getModule(ModuleType type, ModuleVersion version) {
-		for (Module module : modules.get(type)) 
+		for (Module module : modules.get(type)) {
 			if (module.getVersion().equals(version)) 
 				return module;
+		}
 
 		return null;
 	}
@@ -105,15 +107,18 @@ public class Modules {
 
 	public static List<CityGMLModule> getCityGMLModules() {
 		List<CityGMLModule> citygml = new ArrayList<CityGMLModule>();
-		for (ModuleType type : modules.keySet())
-			if (type instanceof CityGMLModuleType)
-				for (Module module : modules.get(type))
+		for (ModuleType type : modules.keySet()) {
+			if (type instanceof CityGMLModuleType) {
+				for (Module module : modules.get(type)) {
 					if (module instanceof CityGMLModule)
 						citygml.add((CityGMLModule)module);
+				}
+			}
+		}
 
 		return citygml;
 	}
-	
+
 	public static CityGMLModule getCityGMLModule(String namespaceURI) {
 		Module module = getModule(namespaceURI);
 		return (module instanceof CityGMLModule) ? (CityGMLModule)module : null;
@@ -121,53 +126,62 @@ public class Modules {
 
 	public static List<CityGMLModule> getCityGMLModules(CityGMLModuleType type) {
 		List<CityGMLModule> citygml = new ArrayList<CityGMLModule>();
-		for (Module module : modules.get(type))
+		for (Module module : modules.get(type)) {
 			if (module instanceof CityGMLModule)
 				citygml.add((CityGMLModule)module);
+		}
 
 		return citygml;
 	}
 
 	public static List<GMLModule> getGMLModules() {
 		List<GMLModule> gml = new ArrayList<GMLModule>();
-		for (ModuleType type : modules.keySet())
-			if (type instanceof GMLModuleType)
-				for (Module module : modules.get(type))
+		for (ModuleType type : modules.keySet()) {
+			if (type instanceof GMLModuleType) {
+				for (Module module : modules.get(type)) {
 					if (module instanceof GMLModule)
 						gml.add((GMLModule)module);
+				}
+			}
+		}
 
 		return gml;
 	}
 
 	public static List<GMLModule> getGMLModules(GMLModuleType type) {
 		List<GMLModule> gml = new ArrayList<GMLModule>();
-		for (Module module : modules.get(type))
+		for (Module module : modules.get(type)) {
 			if (module instanceof GMLModule)
 				gml.add((GMLModule)module);
+		}
 
 		return gml;
 	}
 
 	public static List<XALModule> getXALModules() {
 		List<XALModule> xal = new ArrayList<XALModule>();
-		for (ModuleType type : modules.keySet())
-			if (type instanceof XALModuleType)
-				for (Module module : modules.get(type))
+		for (ModuleType type : modules.keySet()) {
+			if (type instanceof XALModuleType) {
+				for (Module module : modules.get(type)) {
 					if (module instanceof XALModule)
 						xal.add((XALModule)module);
+				}
+			}
+		}
 
 		return xal;
 	}
 
 	public static List<XALModule> getXALModules(XALModuleType type) {
 		List<XALModule> xal = new ArrayList<XALModule>();
-		for (Module module : modules.get(type))
+		for (Module module : modules.get(type)) {
 			if (module instanceof XALModule)
 				xal.add((XALModule)module);
+		}
 
 		return xal;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static void registerADEModule(ADEModule module) {
 		List<ADEModule> ade = (List<ADEModule>)modules.get(module.getType());
@@ -175,46 +189,50 @@ public class Modules {
 			ade = new ArrayList<>();
 			modules.put(module.getType(), ade);
 		}
-		
+
 		ade.add(module);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static void unregisterADEModule(ADEModule module) {
 		List<ADEModule> ade = (List<ADEModule>)modules.get(module.getType());
 		if (ade != null)
 			ade.remove(module);
 	}
-	
+
 	public static List<ADEModule> getADEModules() {
 		List<ADEModule> ade = new ArrayList<ADEModule>();
-		for (ModuleType type : modules.keySet())
-			if (type instanceof ADEModuleType)
-				for (Module module : modules.get(type))
+		for (ModuleType type : modules.keySet()) {
+			if (type instanceof ADEModuleType) {
+				for (Module module : modules.get(type)) {
 					if (module instanceof ADEModule)
 						ade.add((ADEModule)module);
+				}
+			}
+		}
 
 		return ade;
 	}
-	
+
 	public static List<ADEModule> getADEModules(ADEModuleType type) {
 		List<ADEModule> ade = new ArrayList<ADEModule>();
-		for (Module module : modules.get(type))
+		for (Module module : modules.get(type)) {
 			if (module instanceof ADEModule)
 				ade.add((ADEModule)module);
+		}
 
 		return ade;
 	}
-	
+
 	public static ADEModule getADEModule(String namespaceURI) {
 		Module module = getModule(namespaceURI);
 		return (module instanceof ADEModule) ? (ADEModule)module : null;
 	}
-	
+
 	public static boolean isCityGMLModuleNamespace(String namespaceURI) {
 		return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
 	}
-	
+
 	public static boolean isModuleNamespace(String namespaceURI, ModuleType type) {
 		Module module = Modules.getModule(namespaceURI);
 		return module != null && module.getType() == type;
