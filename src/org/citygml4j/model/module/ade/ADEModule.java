@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.AbstractModule;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleType;
@@ -57,11 +57,11 @@ public abstract class ADEModule extends AbstractModule {
 	@Override
 	public abstract boolean hasFeatureProperty(String name);
 	@Override
-	public abstract boolean hasGlobalFeature(String name);
+	public abstract boolean hasFeature(String name);
 	@Override
-	public abstract Class<? extends CityGML> getGlobalFeatureClass(String name);
+	public abstract Class<? extends AbstractFeature> getFeatureClass(String name);
 	@Override
-	public abstract QName getGlobalFeatureName(Class<? extends CityGML> featureClass);
+	public abstract QName getFeatureName(Class<? extends AbstractFeature> featureClass);
 
 	@Override
 	public final ADEModuleType getType() {

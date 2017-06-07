@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.landuse.LandUse;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class LandUseModule extends AbstractCityGMLModule {
@@ -60,7 +60,7 @@ public class LandUseModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("LandUse", LandUse.class);
 		v1_0_0.features = v2_0_0.features;
 	}

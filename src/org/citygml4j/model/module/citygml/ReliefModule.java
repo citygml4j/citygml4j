@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
 import org.citygml4j.model.citygml.relief.BreaklineRelief;
 import org.citygml4j.model.citygml.relief.MassPointRelief;
 import org.citygml4j.model.citygml.relief.RasterRelief;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class ReliefModule extends AbstractCityGMLModule {
@@ -66,7 +66,7 @@ public class ReliefModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/relief/1.0/relief.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("MassPointRelief", MassPointRelief.class);
 		v2_0_0.features.put("ReliefFeature", ReliefFeature.class);
 		v2_0_0.features.put("BreaklineRelief", BreaklineRelief.class);

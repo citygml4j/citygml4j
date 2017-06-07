@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -154,12 +154,12 @@ public class XMLElementChecker {
 
 		Module module = Modules.getModule(namespaceURI);
 		if (module != null) {
-			Class<? extends CityGML> cityGMLClass = module.getGlobalFeatureClass(localName);
+			Class<? extends AbstractFeature> cityGMLClass = module.getFeatureClass(localName);
 
 			if (cityGMLClass != null) {
 				elementInfo = new ElementInfo();
 				elementInfo.isFeature = true;
-				elementInfo.cityGMLClass = cityGMLClass;
+				elementInfo.featureClass = cityGMLClass;
 
 				if (excludes != null) {
 					List<String> localNames = excludes.get(namespaceURI);
@@ -355,7 +355,7 @@ public class XMLElementChecker {
 				result.add(name);
 			else {
 				for (Module module : Modules.getModules()) {
-					if ((checkFeature && module.hasGlobalFeature(name.getLocalPart()))
+					if ((checkFeature && module.hasFeature(name.getLocalPart()))
 							|| (!checkFeature && module.hasFeatureProperty(name.getLocalPart())))
 						result.add(new QName(module.getNamespaceURI(), name.getLocalPart()));
 				}
@@ -372,7 +372,7 @@ public class XMLElementChecker {
 		private boolean isFeatureProperty = false;
 		private boolean hasXLink = false;
 		private boolean skipNestedElements = false;
-		private Class<? extends CityGML> cityGMLClass;
+		private Class<? extends AbstractFeature> featureClass;
 
 		ElementInfo() {
 			elementDecl = null;
@@ -390,8 +390,8 @@ public class XMLElementChecker {
 			return hasXLink;
 		}
 
-		Class<? extends CityGML> getCityGMLClass() {
-			return cityGMLClass;
+		Class<? extends AbstractFeature> getFeatureClass() {
+			return featureClass;
 		}
 
 	}

@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.GeoreferencedTexture;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class AppearanceModule extends AbstractCityGMLModule {
@@ -66,7 +66,7 @@ public class AppearanceModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/appearance/1.0/appearance.xsd",		
 				CoreModule.v1_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("Appearance", Appearance.class);
 		v2_0_0.features.put("ParameterizedTexture", ParameterizedTexture.class);
 		v2_0_0.features.put("GeoreferencedTexture", GeoreferencedTexture.class);

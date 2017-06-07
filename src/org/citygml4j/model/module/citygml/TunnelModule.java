@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.tunnel.AbstractOpening;
 import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
@@ -44,6 +43,7 @@ import org.citygml4j.model.citygml.tunnel.TunnelInstallation;
 import org.citygml4j.model.citygml.tunnel.TunnelPart;
 import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class TunnelModule extends AbstractCityGMLModule {
@@ -71,7 +71,7 @@ public class TunnelModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd",			
 				CoreModule.v2_0_0);
 		
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("Tunnel", Tunnel.class);
 		v2_0_0.features.put("TunnelPart", TunnelPart.class);
 		v2_0_0.features.put("HollowSpace", HollowSpace.class);

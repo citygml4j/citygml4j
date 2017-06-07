@@ -23,9 +23,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.model.module.xal.XALCoreModule;
@@ -64,9 +66,11 @@ public class CoreModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/1.0/cityGMLBase.xsd", 
 				GMLCoreModule.v3_1_1, XALCoreModule.v2_0);			
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("CityModel", CityModel.class);
 		v2_0_0.features.put("Address", Address.class);
+		v2_0_0.features.put("_CityObject", AbstractCityObject.class);
+		v2_0_0.features.put("_Site", AbstractSite.class);		
 		v1_0_0.features = v2_0_0.features;
 		
 		v2_0_0.featureProperties = new HashSet<String>();

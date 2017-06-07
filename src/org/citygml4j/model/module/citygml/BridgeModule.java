@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.bridge.AbstractBridge;
 import org.citygml4j.model.citygml.bridge.AbstractOpening;
@@ -45,6 +44,7 @@ import org.citygml4j.model.citygml.bridge.OuterFloorSurface;
 import org.citygml4j.model.citygml.bridge.RoofSurface;
 import org.citygml4j.model.citygml.bridge.WallSurface;
 import org.citygml4j.model.citygml.bridge.Window;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class BridgeModule extends AbstractCityGMLModule {
@@ -72,7 +72,7 @@ public class BridgeModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd",			
 				CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("Bridge", Bridge.class);
 		v2_0_0.features.put("BridgePart", BridgePart.class);
 		v2_0_0.features.put("BridgeRoom", BridgeRoom.class);

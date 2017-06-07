@@ -20,7 +20,7 @@ package org.citygml4j.model.module;
 
 import javax.xml.namespace.QName;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 
 public interface Module {
 	public ModuleType getType();
@@ -35,15 +35,15 @@ public interface Module {
 		return false;
 	}
 	
-	default boolean hasGlobalFeature(String name) {
+	default boolean hasFeature(String name) {
 		return false;
 	}
 	
-	default Class<? extends CityGML> getGlobalFeatureClass(String name) {
+	default Class<? extends AbstractFeature> getFeatureClass(String name) {
 		return null;
 	}
 	
-	default QName getGlobalFeatureName(Class<? extends CityGML> featureClass) {
+	default QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
 		return null;
 	}
 }

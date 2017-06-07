@@ -25,12 +25,12 @@ import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
 
-import org.citygml4j.model.citygml.CityGML;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.AbstractModule;
 import org.citygml4j.model.module.Module;
 
 public abstract class AbstractCityGMLModule extends AbstractModule implements CityGMLModule {
-	HashMap<String, Class<? extends CityGML>> features;
+	HashMap<String, Class<? extends AbstractFeature>> features;
 	HashSet<String> featureProperties;
 	
 	public AbstractCityGMLModule (
@@ -59,21 +59,21 @@ public abstract class AbstractCityGMLModule extends AbstractModule implements Ci
 	}
 	
 	@Override
-	public boolean hasGlobalFeature(String name) {
+	public boolean hasFeature(String name) {
 		return features != null ? features.containsKey(name) : false;
 	}
 
 	@Override
-	public Class<? extends CityGML> getGlobalFeatureClass(String name) {
+	public Class<? extends AbstractFeature> getFeatureClass(String name) {
 		return features != null ? features.get(name) : null;
 	}
 
 	@Override
-	public QName getGlobalFeatureName(Class<? extends CityGML> featureClass) {
+	public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
 		if (features != null) {
-			Iterator<Entry<String, Class<? extends CityGML>>> iter = features.entrySet().iterator();
+			Iterator<Entry<String, Class<? extends AbstractFeature>>> iter = features.entrySet().iterator();
 			while (iter.hasNext()) {
-				Entry<String, Class<? extends CityGML>> entry = iter.next();
+				Entry<String, Class<? extends AbstractFeature>> entry = iter.next();
 				if (entry.getValue() == featureClass)
 					return new QName(getNamespaceURI(), entry.getKey());
 			}

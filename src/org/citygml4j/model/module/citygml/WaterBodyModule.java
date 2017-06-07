@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class WaterBodyModule extends AbstractCityGMLModule {
@@ -66,7 +66,7 @@ public class WaterBodyModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/waterbody/1.0/waterBody.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("WaterBody", WaterBody.class);
 		v2_0_0.features.put("WaterSurface", WaterSurface.class);
 		v2_0_0.features.put("WaterGroundSurface", WaterGroundSurface.class);

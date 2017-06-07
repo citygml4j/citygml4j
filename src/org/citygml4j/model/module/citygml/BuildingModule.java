@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.AbstractOpening;
@@ -44,6 +43,7 @@ import org.citygml4j.model.citygml.building.RoofSurface;
 import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class BuildingModule extends AbstractCityGMLModule {
@@ -80,7 +80,7 @@ public class BuildingModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/building/1.0/building.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("Building", Building.class);
 		v2_0_0.features.put("BuildingPart", BuildingPart.class);
 		v2_0_0.features.put("Room", Room.class);

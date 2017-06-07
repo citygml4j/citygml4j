@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public class GenericsModule extends AbstractCityGMLModule {
@@ -60,7 +60,7 @@ public class GenericsModule extends AbstractCityGMLModule {
 				"http://schemas.opengis.net/citygml/generics/1.0/generics.xsd",			
 				CoreModule.v1_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends CityGML>>();
+		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
 		v2_0_0.features.put("GenericCityObject", GenericCityObject.class);
 		v1_0_0.features = v2_0_0.features;
 	}

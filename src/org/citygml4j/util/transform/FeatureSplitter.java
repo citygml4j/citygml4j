@@ -246,17 +246,20 @@ public class FeatureSplitter {
 
 			if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && feature instanceof ADEModelObject) {
 				boolean accept = false;
+				
 				for (ADEModule module : Modules.getADEModules()) {
-					if (module.getGlobalFeatureName(((ADEModelObject)feature).getClass()) != null)
+					if (module.getFeatureName(feature.getClass()) != null) {
 						accept = true;
+						break;
+					}
 				}
 				
 				if (!accept) {
 					super.visit(feature);
 					return;
 				}
-			}			
-			
+			}
+						
 			if (parent != null) {
 				if (parent instanceof FeatureProperty<?>) {
 					FeatureProperty<?> property = (FeatureProperty<?>)parent;				
