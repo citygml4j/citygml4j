@@ -20,7 +20,6 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 
 public class MeasureOrNullList extends DoubleOrNullList {
 	private String uom;

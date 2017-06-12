@@ -21,7 +21,6 @@ package org.citygml4j.model.gml.base;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -82,10 +81,6 @@ public class MetaData implements GML, Associable, Child, Copyable {
 
 	public void unsetParent() {
 		parent = null;
-	}
-
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 
 	public GMLClass getGMLClass() {

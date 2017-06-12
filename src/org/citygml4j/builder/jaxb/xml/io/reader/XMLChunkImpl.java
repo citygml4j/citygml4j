@@ -41,7 +41,6 @@ import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.MetaDataProperty;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -311,12 +310,11 @@ public class XMLChunkImpl implements XMLChunk {
 			if (result instanceof JAXBElement<?>) {
 				ModelObject gml = jaxbReader.jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
 
-				if (gml.getModelType() == ModelType.CITYGML) {
-					if (gml instanceof AbstractFeature)
-						citygml = (CityGML)gml;
-					else if (gml instanceof AppearanceProperty)
-						citygml = ((AppearanceProperty)gml).getAppearance();
-				} else if (gml instanceof FeatureProperty<?>) {
+				if (gml instanceof AbstractFeature)
+					citygml = (CityGML)gml;
+				else if (gml instanceof AppearanceProperty)
+					citygml = ((AppearanceProperty)gml).getAppearance();
+				else if (gml instanceof FeatureProperty<?>) {
 					FeatureProperty<?> property = (FeatureProperty<?>)gml;
 					if (property.isSetFeature())
 						citygml = (CityGML)property.getFeature();

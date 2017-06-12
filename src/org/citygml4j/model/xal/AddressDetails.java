@@ -21,7 +21,6 @@ package org.citygml4j.model.xal;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
@@ -292,10 +291,6 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 
 	public void unsetValidToDate() {
 		validToDate = null;
-	}
-
-	public ModelType getModelType() {
-		return ModelType.XAL;
 	}
 
 	public XALClass getXALClass() {

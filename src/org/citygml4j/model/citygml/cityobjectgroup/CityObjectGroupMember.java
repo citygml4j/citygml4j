@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.cityobjectgroup;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 
@@ -75,11 +74,6 @@ public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> i
 
 	public void unsetGroupRole() {
 		groupRole = null;
-	}
-
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

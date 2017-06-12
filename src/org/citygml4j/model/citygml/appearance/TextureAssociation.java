@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
@@ -74,11 +73,6 @@ public class TextureAssociation extends AssociationByRepOrRef<AbstractTexturePar
 
 	public void unsetUri() {
 		uri = null;
-	}
-
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

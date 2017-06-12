@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -105,10 +104,6 @@ public class ControlPoint implements GML, Child, Copyable {
 		posList = null;
 	}
 
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
-	
 	public GMLClass getGMLClass() {
 		return GMLClass.CONTROL_POINT;
 	}

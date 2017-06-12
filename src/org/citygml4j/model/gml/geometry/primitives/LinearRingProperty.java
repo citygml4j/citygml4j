@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
 
@@ -31,10 +30,6 @@ public class LinearRingProperty extends InlineGeometryProperty<LinearRing> {
 
 	public LinearRingProperty(LinearRing linearRing) {
 		super(linearRing);
-	}
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

@@ -26,12 +26,10 @@ import java.util.regex.Pattern;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.Null;
 
 public class Null implements GML, Child, Copyable {
 	public static String INAPPLICABLE = "inapplicable";
@@ -84,10 +82,6 @@ public class Null implements GML, Child, Copyable {
 		value = null;
 	}
 
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
-	
 	public GMLClass getGMLClass() {
 		return GMLClass.NULL;
 	}

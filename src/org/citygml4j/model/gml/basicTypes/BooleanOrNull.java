@@ -20,13 +20,10 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
-import org.citygml4j.model.gml.basicTypes.Null;
 
 public class BooleanOrNull implements GML, Child, Copyable {
 	private Boolean _boolean;
@@ -43,10 +40,6 @@ public class BooleanOrNull implements GML, Child, Copyable {
 	
 	public BooleanOrNull(Null _null) {
 		setNull(_null);
-	}
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

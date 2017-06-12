@@ -20,7 +20,6 @@ package org.citygml4j.model.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
@@ -39,10 +38,6 @@ public class StringOrRef implements AssociationAttributeGroup, Child, Copyable {
 	private String title;
 	private XLinkType type;
 	private ModelObject parent;
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.STRING_OR_REF;

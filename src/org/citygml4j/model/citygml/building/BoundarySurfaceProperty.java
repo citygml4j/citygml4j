@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.building;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 
@@ -57,11 +56,6 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 
 	public void unsetBoundarySurface() {
 		super.unsetObject();
-	}
-	
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 	
 	public CityGMLClass getCityGMLClass() {

@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
@@ -35,10 +34,6 @@ public class LineStringSegment extends AbstractCurveSegment {
 	private Coordinates coordinates;
 	private CurveInterpolation interpolation;
 
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
-	
 	public GMLClass getGMLClass() {
 		return GMLClass.LINE_STRING_SEGMENT;
 	}

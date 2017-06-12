@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRep;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.xal.AddressDetails;
@@ -56,11 +55,6 @@ public class XalAddressProperty extends AssociationByRep<AddressDetails> impleme
 		super.unsetObject();
 	}
 
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.XAL_ADDRESS_PROPERTY;
 	}

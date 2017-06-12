@@ -20,7 +20,6 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -36,10 +35,6 @@ public class Code implements GML, Child, Copyable {
 	
 	public Code(String value) {
 		this.value = value;
-	}
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

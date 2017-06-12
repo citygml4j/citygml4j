@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -92,11 +91,6 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements App
 		isFront = null;
 	}
 
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-	
 	public final AppearanceModule getCityGMLModule() {
 		return module;
 	}

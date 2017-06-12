@@ -20,7 +20,6 @@ package org.citygml4j.model.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -29,7 +28,6 @@ import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
 import org.citygml4j.model.gml.basicTypes.CodeOrNullList;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
-import org.citygml4j.model.gml.valueObjects.ScalarValueList;
 
 public class ScalarValueList implements GML, Child, Copyable {
 	private BooleanOrNullList booleanList;
@@ -56,10 +54,6 @@ public class ScalarValueList implements GML, Child, Copyable {
 	
 	public ScalarValueList(IntegerOrNullList countList) {
 		setCountList(countList);
-	}
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

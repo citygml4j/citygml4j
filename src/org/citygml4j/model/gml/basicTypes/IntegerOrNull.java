@@ -20,13 +20,10 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
-import org.citygml4j.model.gml.basicTypes.Null;
 
 public class IntegerOrNull implements GML, Child, Copyable {
 	private Integer _integer;
@@ -43,10 +40,6 @@ public class IntegerOrNull implements GML, Child, Copyable {
 	
 	public IntegerOrNull(Null _null) {
 		setNull(_null);
-	}
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

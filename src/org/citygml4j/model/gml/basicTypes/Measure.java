@@ -20,21 +20,15 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Measure implements GML, Child, Copyable {
 	private double value;
 	private String uom;
 	private ModelObject parent;
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.MEASURE;

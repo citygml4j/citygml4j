@@ -23,12 +23,10 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.Coordinates;
 
 public class Coordinates implements GML, Child, Copyable {
 	private String value;
@@ -36,10 +34,6 @@ public class Coordinates implements GML, Child, Copyable {
 	private String cs;
 	private String ts;
 	private ModelObject parent;
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.COORDINATES;

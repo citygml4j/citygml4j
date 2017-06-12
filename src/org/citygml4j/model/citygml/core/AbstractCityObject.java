@@ -25,7 +25,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLModule;
@@ -268,11 +267,6 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 
 	public void unsetTerminationDate() {
 		terminationDate = null;
-	}
-
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 
 	public CityGMLModule getCityGMLModule() {
