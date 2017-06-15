@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 
 public class InnerBoundaryIs extends AbstractRingProperty {
@@ -30,10 +29,6 @@ public class InnerBoundaryIs extends AbstractRingProperty {
 
 	public InnerBoundaryIs(AbstractRing abstractRing) {
 		super(abstractRing);
-	}
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
 	}
 	
 	public GMLClass getGMLClass() {

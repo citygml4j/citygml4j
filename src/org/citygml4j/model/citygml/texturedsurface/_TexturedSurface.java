@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -77,11 +76,6 @@ public class _TexturedSurface extends OrientableSurface implements TexturedSurfa
 		return isSetAppearance() ? this.appearance.remove(appearance) : false;
 	}
 
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass._TEXTURED_SURFACE;

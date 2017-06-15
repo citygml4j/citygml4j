@@ -23,7 +23,6 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -107,11 +106,6 @@ public abstract class AbstractTextureParameterization extends AbstractGML implem
 		return isSetGenericApplicationPropertyOfTextureParameterization() ? this.ade.remove(ade) : false;
 	}
 
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-	
 	public final AppearanceModule getCityGMLModule() {
 		return module;
 	}

@@ -20,7 +20,6 @@ package org.citygml4j.model.gml.grids;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -29,10 +28,6 @@ import org.citygml4j.model.gml.GMLClass;
 public class GridLimits implements GML, Child, Copyable {
 	private GridEnvelope gridEnvelope;
 	private ModelObject parent;
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.GRID_LIMITS;

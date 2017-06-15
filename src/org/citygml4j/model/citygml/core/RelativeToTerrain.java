@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.core;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.module.citygml.CoreModule;
 
@@ -54,10 +53,6 @@ public enum RelativeToTerrain implements CoreModuleComponent, Copyable {
 		return ENTIRELY_ABOVE_TERRAIN;
 	}
 
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELATIVE_TO_TERRAIN;
 	}

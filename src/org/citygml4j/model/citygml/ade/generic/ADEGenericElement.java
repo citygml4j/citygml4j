@@ -24,7 +24,6 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.w3c.dom.Element;
@@ -69,11 +68,6 @@ public class ADEGenericElement implements ADEComponent {
 		return isSetContent() ? content.getNamespaceURI() : null;
 	}
 
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML_ADE;
-	}
-	
 	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ADE_COMPONENT;

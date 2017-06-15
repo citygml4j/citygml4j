@@ -21,7 +21,6 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Triangle extends AbstractSurfacePatch {
@@ -83,10 +82,6 @@ public class Triangle extends AbstractSurfacePatch {
 			return bbox;
 	}
 
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
-	
 	public GMLClass getGMLClass() {
 		return GMLClass.TRIANGLE;
 	}

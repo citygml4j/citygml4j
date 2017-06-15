@@ -19,7 +19,6 @@
 package org.citygml4j.model.citygml.texturedsurface;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
@@ -32,11 +31,6 @@ public abstract class _AbstractAppearance extends AbstractGML implements Texture
 	
 	public _AbstractAppearance(TexturedSurfaceModule module) {
 		this.module = module;
-	}
-	
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 	
 	public final TexturedSurfaceModule getCityGMLModule() {

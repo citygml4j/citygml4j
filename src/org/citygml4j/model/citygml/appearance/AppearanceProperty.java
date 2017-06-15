@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 
@@ -59,11 +58,6 @@ public class AppearanceProperty extends FeatureProperty<Appearance> implements A
 		super.unsetFeature();
 	}
 	
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.APPEARANCE_PROPERTY;
 	}

@@ -22,14 +22,11 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
-import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 
 public class IntegerOrNullList implements GML, Child, Copyable {
 	private List<IntegerOrNull> integerOrNull;
@@ -68,10 +65,6 @@ public class IntegerOrNullList implements GML, Child, Copyable {
 		return isSetIntegerOrNull() ? this.integerOrNull.remove(integerOrNull) : false;
 	}
 
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
-	
 	public GMLClass getGMLClass() {
 		return GMLClass.INTEGER_OR_NULL_LIST;
 	}

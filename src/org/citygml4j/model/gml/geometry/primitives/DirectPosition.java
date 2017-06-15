@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
@@ -38,10 +37,6 @@ public class DirectPosition implements SRSReferenceGroup, Child, Copyable {
 	private List<String> axisLabels;
 	private List<String> uomLabels;
 	private ModelObject parent;
-	
-	public ModelType getModelType() {
-		return ModelType.GML;
-	}
 	
 	public GMLClass getGMLClass() {
 		return GMLClass.DIRECT_POSITION;

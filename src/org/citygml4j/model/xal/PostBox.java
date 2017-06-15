@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -236,10 +235,6 @@ public class PostBox implements XAL, Child, Copyable {
 
 	public void unsetType() {
 		type = null;
-	}
-
-	public ModelType getModelType() {
-		return ModelType.XAL;
 	}
 
 	public XALClass getXALClass() {

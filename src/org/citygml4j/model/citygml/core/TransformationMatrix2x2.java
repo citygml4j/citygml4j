@@ -24,7 +24,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.module.citygml.CityGMLModule;
@@ -82,10 +81,6 @@ public class TransformationMatrix2x2 implements CoreModuleComponent, Child, Copy
 		this.matrix = matrix;
 	}
 
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
-	}
-	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSFORMATION_MATRIX_2X2;
 	}

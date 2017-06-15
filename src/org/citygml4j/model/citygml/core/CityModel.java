@@ -24,7 +24,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -147,11 +146,6 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 
 	public boolean unsetGenericApplicationPropertyOfCityModel(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfCityModel() ? this.ade.remove(ade) : false;
-	}
-
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {

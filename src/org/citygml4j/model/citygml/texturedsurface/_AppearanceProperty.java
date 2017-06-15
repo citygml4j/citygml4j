@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.texturedsurface;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.common.base.ModelType;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
@@ -71,11 +70,6 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 
 	public void unsetAppearance() {
 		super.unsetObject();
-	}
-
-	@Override
-	public ModelType getModelType() {
-		return ModelType.CITYGML;
 	}
 
 	public CityGMLClass getCityGMLClass() {
