@@ -37,6 +37,7 @@ import javax.xml.transform.sax.SAXResult;
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -312,33 +313,32 @@ public class XMLChunkImpl implements XMLChunk {
 
 				if (gml instanceof AbstractFeature)
 					citygml = (CityGML)gml;
-				else if (gml instanceof AppearanceProperty)
-					citygml = ((AppearanceProperty)gml).getAppearance();
-				else if (gml instanceof FeatureProperty<?>) {
+				else if (gml instanceof AppearanceProperty) {
+					Appearance appearance = ((AppearanceProperty)gml).getAppearance();
+					appearance.unsetParent();
+					citygml = appearance;
+				} else if (gml instanceof FeatureProperty<?>) {
 					FeatureProperty<?> property = (FeatureProperty<?>)gml;
-					if (property.isSetFeature())
-						citygml = (CityGML)property.getFeature();
-					else
+					if (property.isSetFeature()) {
+						AbstractFeature feature = property.getFeature();
+						feature.unsetParent();
+						citygml = (CityGML)feature;
+					} else
 						citygml = ((FeatureProperty<?>)gml).getGenericADEElement();
 				}
 			}
 
 			return citygml;
-		} catch (JAXBException e) {
-			throw new UnmarshalException("Unmarshal exception caused by: ", e);
-		} catch (SAXException e) {
-			throw new UnmarshalException("Unmarshal exception caused by: ", e);
-		} catch (TransformerConfigurationException e) {
+		} catch (JAXBException | SAXException | TransformerConfigurationException e) {
 			throw new UnmarshalException("Unmarshal exception caused by: ", e);
 		}
 	}
 
 	private QName getFakeRoot() {
-		if (firstElement.getLocalPart().equals("Appearance") && 
-				jaxbReader.elementChecker.isCityGMLElement(firstElement.getNamespaceURI()))
-			return new QName(firstElement.getNamespaceURI(), "appearanceMember");
-		else if (!jaxbReader.elementChecker.isCityGMLElement(firstElement.getNamespaceURI())) 
+		if (!jaxbReader.elementChecker.isCityGMLElement(firstElement.getNamespaceURI())) 
 			return new QName(GMLCoreModule.v3_1_1.getNamespaceURI(), "featureProperty");
+		else if (firstElement.getLocalPart().equals("Appearance"))
+			return new QName(firstElement.getNamespaceURI(), "appearanceMember");
 
 		return null;
 	}

@@ -154,12 +154,12 @@ public class XMLElementChecker {
 
 		Module module = Modules.getModule(namespaceURI);
 		if (module != null) {
-			Class<? extends AbstractFeature> cityGMLClass = module.getFeatureClass(localName);
+			Class<? extends AbstractFeature> featureClass = module.getFeatureClass(localName);
 
-			if (cityGMLClass != null) {
+			if (featureClass != null) {
 				elementInfo = new ElementInfo();
 				elementInfo.isFeature = true;
-				elementInfo.featureClass = cityGMLClass;
+				elementInfo.featureClass = featureClass;
 
 				if (excludes != null) {
 					List<String> localNames = excludes.get(namespaceURI);
