@@ -2269,7 +2269,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		return null;
 	}
 	
-	private T apply(ADEComponent adeComponent) {
+	public T apply(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:
 			return apply((ADEGenericElement)adeComponent);
@@ -2281,7 +2281,6 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public T apply(ADEModelObject adeModelObject) {
 		if (adeWalkerHelper != null) {
 			Object returnValue = adeWalkerHelper.invokeWalkerMethod(adeModelObject, "apply");

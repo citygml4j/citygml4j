@@ -4151,7 +4151,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		return null;
 	}
 	
-	private T apply(ADEComponent adeComponent) {
+	public T apply(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:
 			return apply((ADEGenericElement)adeComponent);
@@ -4163,7 +4163,6 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public T apply(ADEModelObject adeModelObject) {
 		if (adeWalkerHelper != null) {
 			Object returnValue = adeWalkerHelper.invokeWalkerMethod(adeModelObject, "apply");

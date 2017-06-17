@@ -2247,7 +2247,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		iterateNodeList(element, decl);
 	}
 	
-	private void visit(ADEComponent adeComponent) {
+	public void visit(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:
 			visit((ADEGenericElement)adeComponent);
@@ -2258,7 +2258,6 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		}
 	}
 
-	@Override
 	public void visit(ADEModelObject adeModelObject) {
 		if (adeWalkerHelper != null)
 			adeWalkerHelper.invokeWalkerMethod(adeModelObject, "visit");

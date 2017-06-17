@@ -1254,7 +1254,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 		iterateNodeList(element, decl);
 	}
 	
-	private void visit(ADEComponent adeComponent) {
+	public void visit(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:
 			visit((ADEGenericElement)adeComponent);
@@ -1265,7 +1265,6 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 		}
 	}
 
-	@Override
 	public void visit(ADEModelObject adeModelObject) {
 		if (adeWalkerHelper != null)
 			adeWalkerHelper.invokeWalkerMethod(adeModelObject, "visit");
