@@ -35,6 +35,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractTunnel extends AbstractSite implements TunnelModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -717,7 +718,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 				
 		SolidProperty solidProperty = null;
@@ -798,7 +799,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : getBoundedBySurface()) {
 				if (boundarySurfaceProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, boundarySurfaceProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(boundarySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -808,7 +809,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 		if (isSetOuterTunnelInstallation()) {
 			for (TunnelInstallationProperty tunnelInstallationProperty : getOuterTunnelInstallation()) {
 				if (tunnelInstallationProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, tunnelInstallationProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(tunnelInstallationProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -818,14 +819,14 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 		if (isSetConsistsOfTunnelPart()) {
 			for (TunnelPartProperty tunnelPartProperty : getConsistsOfTunnelPart()) {
 				if (tunnelPartProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, tunnelPartProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(tunnelPartProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
 			}
 		}
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class CityFurniture extends AbstractCityObject implements CityFurnitureModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -452,7 +453,7 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 
@@ -502,7 +503,7 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

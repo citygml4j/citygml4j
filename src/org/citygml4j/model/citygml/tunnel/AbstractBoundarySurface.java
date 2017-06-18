@@ -30,6 +30,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractBoundarySurface extends AbstractCityObject implements TunnelModuleComponent {
 	private MultiSurfaceProperty lod2MultiSurface;
@@ -188,10 +189,10 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
+		
 		MultiSurfaceProperty multiSurfaceProperty = null;
-
 		for (int lod = 2; lod < 5; lod++) {
 			switch (lod) {
 			case 2:
@@ -214,7 +215,7 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

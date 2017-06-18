@@ -33,6 +33,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class RasterRelief extends AbstractReliefComponent {
 	private GridProperty grid;
@@ -106,18 +107,18 @@ public class RasterRelief extends AbstractReliefComponent {
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
-		BoundingShape boundedBy = super.calcBoundedBy(false);
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 
 		if (isSetGrid()) {
 			if (grid.isSetObject()) {
-				calcBoundedBy(boundedBy, grid.getObject(), setBoundedBy);
+				boundedBy.updateEnvelope(grid.getObject().calcBoundedBy(options).getEnvelope());
 			} else {
 				// xlink
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

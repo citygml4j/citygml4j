@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class WaterBody extends AbstractWaterObject implements StandardObjectClassifier {
 	private Code clazz;
@@ -385,7 +386,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 
 		SolidProperty solidProperty = null;
@@ -457,14 +458,14 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 		if (isSetBoundedBySurface()) {
 			for (BoundedByWaterSurfaceProperty boundedBySurfaceProperty : boundedBySurface) {
 				if (boundedBySurfaceProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, boundedBySurfaceProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(boundedBySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

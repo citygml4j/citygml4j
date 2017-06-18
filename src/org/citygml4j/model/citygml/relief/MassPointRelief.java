@@ -34,6 +34,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class MassPointRelief extends AbstractReliefComponent {
 	private MultiPointProperty reliefPoints;
@@ -107,8 +108,8 @@ public class MassPointRelief extends AbstractReliefComponent {
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
-		BoundingShape boundedBy = super.calcBoundedBy(false);
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 
 		if (isSetReliefPoints()) {
 			if (reliefPoints.isSetMultiPoint()) {
@@ -118,7 +119,7 @@ public class MassPointRelief extends AbstractReliefComponent {
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

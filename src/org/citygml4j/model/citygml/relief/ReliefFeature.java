@@ -31,6 +31,7 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class ReliefFeature extends AbstractCityObject implements ReliefModuleComponent {
 	private int lod;
@@ -138,20 +139,20 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 
 		if (isSetReliefComponent()) {
 			for (ReliefComponentProperty reliefComponentProperty : reliefComponent) {
 				if (reliefComponentProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, reliefComponentProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(reliefComponentProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

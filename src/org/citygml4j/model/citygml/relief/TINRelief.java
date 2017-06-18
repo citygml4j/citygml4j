@@ -33,6 +33,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class TINRelief extends AbstractReliefComponent {
 	private TinProperty tin;
@@ -106,8 +107,8 @@ public class TINRelief extends AbstractReliefComponent {
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
-		BoundingShape boundedBy = super.calcBoundedBy(false);
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 		if (boundedBy == null)
 			boundedBy = new BoundingShape();
 
@@ -119,13 +120,10 @@ public class TINRelief extends AbstractReliefComponent {
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (options.isAssignResultToFeatures())
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class PlantCover extends AbstractVegetationObject implements StandardObjectClassifier {
 	private Code clazz;
@@ -370,7 +371,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 
 		MultiSolidProperty multiSolidProperty = null;
@@ -425,7 +426,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

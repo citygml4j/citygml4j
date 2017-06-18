@@ -31,6 +31,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractOpening extends AbstractCityObject implements TunnelModuleComponent {	
 	private MultiSurfaceProperty lod3MultiSurface;
@@ -178,10 +179,10 @@ public abstract class AbstractOpening extends AbstractCityObject implements Tunn
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
-		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 		
+		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;		
 		for (int lod = 3; lod < 5; lod++) {
 			switch (lod) {
 			case 3:
@@ -216,7 +217,7 @@ public abstract class AbstractOpening extends AbstractCityObject implements Tunn
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

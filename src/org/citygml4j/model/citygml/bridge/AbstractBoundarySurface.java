@@ -30,6 +30,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractBoundarySurface extends AbstractCityObject implements BridgeModuleComponent {
 	private MultiSurfaceProperty lod2MultiSurface;
@@ -188,7 +189,7 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		MultiSurfaceProperty multiSurfaceProperty = null;
@@ -214,7 +215,7 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

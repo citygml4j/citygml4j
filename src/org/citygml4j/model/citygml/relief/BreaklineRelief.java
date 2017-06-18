@@ -34,6 +34,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class BreaklineRelief extends AbstractReliefComponent {
 	private MultiCurveProperty ridgeOrValleyLines;
@@ -130,8 +131,8 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
-		BoundingShape boundedBy = super.calcBoundedBy(false);
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 
 		if (isSetBreaklines()) {
 			if (breaklines.isSetMultiCurve()) {
@@ -149,7 +150,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

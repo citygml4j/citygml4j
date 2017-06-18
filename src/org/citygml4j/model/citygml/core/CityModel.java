@@ -34,6 +34,7 @@ import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class CityModel extends AbstractFeatureCollection implements CoreModuleComponent {
 	private List<CityObjectMember> cityObjectMember;
@@ -161,13 +162,13 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		if (isSetCityObjectMember()) {
 			for (CityObjectMember member : cityObjectMember) {
 				if (member.isSetFeature()) {
-					calcBoundedBy(boundedBy, member.getFeature(), setBoundedBy);
+					boundedBy.updateEnvelope(member.getFeature().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
@@ -177,7 +178,7 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 		if (isSetFeatureMember()) {
 			for (FeatureMember featureMember : getFeatureMember()) {
 				if (featureMember.isSetFeature()) {
-					calcBoundedBy(boundedBy, featureMember.getFeature(), setBoundedBy);
+					boundedBy.updateEnvelope(featureMember.getFeature().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
@@ -187,11 +188,11 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 		if (isSetFeatureMembers()) {
 			for (AbstractFeature abstractFeature : getFeatureMembers().getFeature()) {
 				if (abstractFeature != null)
-					calcBoundedBy(boundedBy, abstractFeature, setBoundedBy);
+					boundedBy.updateEnvelope(abstractFeature.calcBoundedBy(options).getEnvelope());
 			}
 		}
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

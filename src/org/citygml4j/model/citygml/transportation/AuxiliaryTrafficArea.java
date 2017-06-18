@@ -36,6 +36,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class AuxiliaryTrafficArea extends AbstractTransportationObject implements StandardObjectClassifier {
 	private Code clazz;
@@ -255,7 +256,7 @@ public class AuxiliaryTrafficArea extends AbstractTransportationObject implement
 	}
 	
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		MultiSurfaceProperty multiSurfaceProperty = null;
 
@@ -281,7 +282,7 @@ public class AuxiliaryTrafficArea extends AbstractTransportationObject implement
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

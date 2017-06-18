@@ -36,6 +36,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class CityObjectGroup extends AbstractCityObject implements CityObjectGroupModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -254,7 +255,7 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		if (isSetGeometry()) {
@@ -268,14 +269,14 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		if (isSetGroupMember()) {
 			for (CityObjectGroupMember member : groupMember) {
 				if (member.isSetObject()) {
-					calcBoundedBy(boundedBy, member.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(member.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}					
 			}
 		}
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

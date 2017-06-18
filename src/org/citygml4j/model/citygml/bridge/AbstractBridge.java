@@ -36,6 +36,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractBridge extends AbstractSite implements BridgeModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -803,7 +804,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		SolidProperty solidProperty = null;
@@ -884,7 +885,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : getBoundedBySurface()) {
 				if (boundarySurfaceProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, boundarySurfaceProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(boundarySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -894,7 +895,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		if (isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationProperty bridgeInstallationProperty : getOuterBridgeInstallation()) {
 				if (bridgeInstallationProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, bridgeInstallationProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(bridgeInstallationProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -904,7 +905,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		if (isSetOuterBridgeConstructionElement()) {
 			for (BridgeConstructionElementProperty bridgeConstructionElementProperty : getOuterBridgeConstructionElement()) {
 				if (bridgeConstructionElementProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, bridgeConstructionElementProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(bridgeConstructionElementProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -914,14 +915,14 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		if (isSetConsistsOfBridgePart()) {
 			for (BridgePartProperty bridgePartProperty : getConsistsOfBridgePart()) {
 				if (bridgePartProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, bridgePartProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(bridgePartProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
 			}
 		}
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

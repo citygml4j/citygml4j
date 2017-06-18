@@ -37,6 +37,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class TunnelFurniture extends AbstractCityObject implements TunnelModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -221,7 +222,7 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 
 		if (isSetLod4Geometry()) {
@@ -235,7 +236,7 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
 			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

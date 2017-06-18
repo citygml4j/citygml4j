@@ -22,7 +22,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -38,6 +40,8 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractBuilding extends AbstractSite implements BuildingModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -922,7 +926,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		if (lod0FootPrint != null) {
@@ -1019,7 +1023,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : getBoundedBySurface()) {
 				if (boundarySurfaceProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, boundarySurfaceProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(boundarySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -1029,7 +1033,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		if (isSetOuterBuildingInstallation()) {
 			for (BuildingInstallationProperty buildingInstallationProperty : getOuterBuildingInstallation()) {
 				if (buildingInstallationProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, buildingInstallationProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(buildingInstallationProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
@@ -1039,14 +1043,22 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		if (isSetConsistsOfBuildingPart()) {
 			for (BuildingPartProperty buildingPartProperty : getConsistsOfBuildingPart()) {
 				if (buildingPartProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, buildingPartProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(buildingPartProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink?
 				}
 			}
 		}
 		
-		if (setBoundedBy)
+		if (isSetGenericApplicationPropertyOfAbstractBuilding()) {
+			ADEBoundingBoxCalculator adeBBox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfAbstractBuilding()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(adeBBox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

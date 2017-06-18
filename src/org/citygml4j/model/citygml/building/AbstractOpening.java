@@ -31,6 +31,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractOpening extends AbstractCityObject implements BuildingModuleComponent {	
 	private MultiSurfaceProperty lod3MultiSurface;
@@ -178,7 +179,7 @@ public abstract class AbstractOpening extends AbstractCityObject implements Buil
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 		
@@ -216,7 +217,7 @@ public abstract class AbstractOpening extends AbstractCityObject implements Buil
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

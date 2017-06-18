@@ -37,6 +37,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.LandUseModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class LandUse extends AbstractCityObject implements LandUseModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -290,7 +291,7 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		MultiSurfaceProperty multiSurfaceProperty = null;
 
@@ -322,7 +323,7 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

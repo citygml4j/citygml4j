@@ -37,6 +37,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class SolitaryVegetationObject extends AbstractVegetationObject implements StandardObjectClassifier {
 	private Code clazz;
@@ -432,7 +433,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 
@@ -482,7 +483,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

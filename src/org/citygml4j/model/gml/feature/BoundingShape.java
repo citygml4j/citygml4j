@@ -89,6 +89,11 @@ public class BoundingShape implements GML, Child, Copyable {
 		else
 			envelope.update(boundingBox);
 	}
+	
+	public void updateEnvelope(Envelope envelope) {
+		if (envelope != null)
+			updateEnvelope(envelope.toBoundingBox());			
+	}
 
 	public void setNull(Null _null) {
 		if (_null != null)

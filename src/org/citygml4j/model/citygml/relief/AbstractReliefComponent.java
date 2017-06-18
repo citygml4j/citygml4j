@@ -27,6 +27,7 @@ import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractReliefComponent extends AbstractCityObject implements ReliefModuleComponent {
 	private int lod;
@@ -111,7 +112,7 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 
 		if (isSetExtent()) {
@@ -122,7 +123,7 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 			}
 		}						
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

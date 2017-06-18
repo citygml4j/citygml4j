@@ -36,6 +36,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class BridgeRoom extends AbstractCityObject implements BridgeModuleComponent, StandardObjectClassifier {
 	private Code clazz;
@@ -322,7 +323,7 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		if (isSetLod4MultiSurface()) {
@@ -344,14 +345,14 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : boundedBySurface) {
 				if (boundarySurfaceProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, boundarySurfaceProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(boundarySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
 			}
 		}
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

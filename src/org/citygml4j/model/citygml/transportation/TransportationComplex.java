@@ -41,6 +41,7 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
 import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class TransportationComplex extends AbstractTransportationObject implements StandardObjectClassifier {
 	private Code clazz;
@@ -364,7 +365,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		MultiSurfaceProperty multiSurfaceProperty = null;
 
@@ -423,7 +424,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 		if (isSetAuxiliaryTrafficArea()) {
 			for (AuxiliaryTrafficAreaProperty auxTrafficAreaProperty : auxiliaryTrafficArea) {
 				if (auxTrafficAreaProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, auxTrafficAreaProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(auxTrafficAreaProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
@@ -433,14 +434,14 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 		if (isSetTrafficArea()) {
 			for (TrafficAreaProperty trafficAreaProperty : trafficArea) {
 				if (trafficAreaProperty.isSetObject()) {
-					calcBoundedBy(boundedBy, trafficAreaProperty.getObject(), setBoundedBy);
+					boundedBy.updateEnvelope(trafficAreaProperty.getObject().calcBoundedBy(options).getEnvelope());
 				} else {
 					// xlink
 				}
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

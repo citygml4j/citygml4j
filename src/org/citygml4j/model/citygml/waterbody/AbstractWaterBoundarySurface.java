@@ -30,6 +30,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractWaterBoundarySurface extends AbstractCityObject implements WaterBodyModuleComponent {
 	private SurfaceProperty lod2Surface;
@@ -154,7 +155,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		SurfaceProperty surfaceProperty = null;
 
@@ -180,7 +181,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 			}
 		}
 
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;

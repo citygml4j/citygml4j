@@ -25,6 +25,7 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 	private RectifiedGridDomain rectifiedGridDomain;
@@ -56,13 +57,13 @@ public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 	}
 	
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
 		
 		if (isSetRectifiedGridDomain() && rectifiedGridDomain.isSetGeometry())
 			boundedBy.updateEnvelope(rectifiedGridDomain.getGeometry().calcBoundingBox());
 		
-		if (setBoundedBy)
+		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;
