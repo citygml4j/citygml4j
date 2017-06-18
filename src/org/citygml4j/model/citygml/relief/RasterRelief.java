@@ -108,8 +108,6 @@ public class RasterRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = super.calcBoundedBy(false);
-		if (boundedBy == null)
-			boundedBy = new BoundingShape();
 
 		if (isSetGrid()) {
 			if (grid.isSetObject()) {
@@ -119,13 +117,10 @@ public class RasterRelief extends AbstractReliefComponent {
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

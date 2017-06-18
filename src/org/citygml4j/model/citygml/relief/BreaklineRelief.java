@@ -132,12 +132,10 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = super.calcBoundedBy(false);
-		if (boundedBy == null)
-			boundedBy = new BoundingShape();
 
 		if (isSetBreaklines()) {
 			if (breaklines.isSetMultiCurve()) {
-				calcBoundedBy(boundedBy, breaklines.getMultiCurve());
+				boundedBy.updateEnvelope(breaklines.getMultiCurve().calcBoundingBox());
 			} else {
 				// xlink
 			}
@@ -145,19 +143,16 @@ public class BreaklineRelief extends AbstractReliefComponent {
 
 		if (isSetRidgeOrValleyLines()) {
 			if (ridgeOrValleyLines.isSetMultiCurve()) {
-				calcBoundedBy(boundedBy, ridgeOrValleyLines.getMultiCurve());
+				boundedBy.updateEnvelope(ridgeOrValleyLines.getMultiCurve().calcBoundingBox());
 			} else {
 				// xlink
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

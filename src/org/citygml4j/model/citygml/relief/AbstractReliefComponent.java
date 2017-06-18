@@ -116,7 +116,7 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 
 		if (isSetExtent()) {
 			if (extent.isSetPolygon()) {
-				calcBoundedBy(boundedBy, extent.getPolygon());	
+				boundedBy.updateEnvelope(extent.getPolygon().calcBoundingBox());	
 			} else {
 				// xlink
 			}

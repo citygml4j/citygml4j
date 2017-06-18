@@ -274,7 +274,7 @@ public class AuxiliaryTrafficArea extends AbstractTransportationObject implement
 
 			if (multiSurfaceProperty != null) {
 				if (multiSurfaceProperty.isSetMultiSurface()) {
-					calcBoundedBy(boundedBy, multiSurfaceProperty.getMultiSurface());
+					boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
 				} else {
 					// xlink
 				}

@@ -226,7 +226,7 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 
 		if (isSetLod4Geometry()) {
 			if (lod4Geometry.isSetGeometry()) {
-				calcBoundedBy(boundedBy, lod4Geometry.getGeometry());	
+				boundedBy.updateEnvelope(lod4Geometry.getGeometry().calcBoundingBox());	
 			} else {
 				// xlink
 			}

@@ -259,7 +259,7 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		
 		if (isSetGeometry()) {
 			if (geometry.isSetGeometry()) {
-				calcBoundedBy(boundedBy, geometry.getGeometry());
+				boundedBy.updateEnvelope(geometry.getGeometry().calcBoundingBox());
 			} else {
 				// xlink
 			}

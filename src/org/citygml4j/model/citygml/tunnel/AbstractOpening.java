@@ -194,7 +194,7 @@ public abstract class AbstractOpening extends AbstractCityObject implements Tunn
 
 			if (geometryProperty != null) {
 				if (geometryProperty.isSetGeometry()) {
-					calcBoundedBy(boundedBy, geometryProperty.getGeometry());
+					boundedBy.updateEnvelope(geometryProperty.getGeometry().calcBoundingBox());
 				} else {
 					// xlink
 				}

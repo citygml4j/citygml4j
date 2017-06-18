@@ -27,7 +27,6 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AbstractGML;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public abstract class AbstractFeature extends AbstractGML {
 	private BoundingShape boundedBy;
@@ -167,13 +166,6 @@ public abstract class AbstractFeature extends AbstractGML {
 			if (nestedBoundedBy != null && nestedBoundedBy.isSetEnvelope())
 				boundedBy.updateEnvelope(nestedBoundedBy.getEnvelope().toBoundingBox());
 		}	
-
-		return boundedBy;
-	}
-
-	protected BoundingShape calcBoundedBy(BoundingShape boundedBy, AbstractGeometry abstractGeometry) {
-		if (boundedBy != null)
-			boundedBy.updateEnvelope(abstractGeometry.calcBoundingBox());
 
 		return boundedBy;
 	}

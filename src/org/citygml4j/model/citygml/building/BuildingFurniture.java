@@ -226,7 +226,7 @@ public class BuildingFurniture extends AbstractCityObject implements BuildingMod
 
 		if (isSetLod4Geometry()) {
 			if (lod4Geometry.isSetGeometry()) {
-				calcBoundedBy(boundedBy, lod4Geometry.getGeometry());	
+				boundedBy.updateEnvelope(lod4Geometry.getGeometry().calcBoundingBox());	
 			} else {
 				// xlink
 			}

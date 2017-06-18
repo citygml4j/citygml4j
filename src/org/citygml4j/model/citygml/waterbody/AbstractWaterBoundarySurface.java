@@ -173,7 +173,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 
 			if (surfaceProperty != null) {
 				if (surfaceProperty.isSetSurface()) {
-					calcBoundedBy(boundedBy, surfaceProperty.getSurface());
+					boundedBy.updateEnvelope(surfaceProperty.getSurface().calcBoundingBox());
 				} else {
 					// xlink
 				}

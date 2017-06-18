@@ -109,24 +109,19 @@ public class MassPointRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = super.calcBoundedBy(false);
-		if (boundedBy == null)
-			boundedBy = new BoundingShape();
 
 		if (isSetReliefPoints()) {
 			if (reliefPoints.isSetMultiPoint()) {
-				calcBoundedBy(boundedBy, reliefPoints.getMultiPoint());
+				boundedBy.updateEnvelope(reliefPoints.getMultiPoint().calcBoundingBox());
 			} else {
 				// xlink
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

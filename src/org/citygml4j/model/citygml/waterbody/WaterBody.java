@@ -407,7 +407,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 
 			if (solidProperty != null) {
 				if (solidProperty.isSetSolid()) {
-					calcBoundedBy(boundedBy, solidProperty.getSolid());
+					boundedBy.updateEnvelope(solidProperty.getSolid().calcBoundingBox());
 				} else {
 					// xlink
 				}
@@ -427,7 +427,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 
 			if (multiSurfaceProperty != null) {
 				if (multiSurfaceProperty.isSetMultiSurface()) {
-					calcBoundedBy(boundedBy, multiSurfaceProperty.getMultiSurface());
+					boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
 				} else {
 					// xlink
 				}
@@ -447,7 +447,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 
 			if (multiCurveProperty != null) {
 				if (multiCurveProperty.isSetMultiCurve()) {
-					calcBoundedBy(boundedBy, multiCurveProperty.getMultiCurve());
+					boundedBy.updateEnvelope(multiCurveProperty.getMultiCurve().calcBoundingBox());
 				} else {
 					// xlink
 				}

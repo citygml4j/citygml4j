@@ -113,7 +113,7 @@ public class TINRelief extends AbstractReliefComponent {
 
 		if (isSetTin()) {
 			if (tin.isSetObject()) {
-				calcBoundedBy(boundedBy, tin.getObject());
+				boundedBy.updateEnvelope(tin.getObject().calcBoundingBox());
 			} else {
 				// xlink
 			}

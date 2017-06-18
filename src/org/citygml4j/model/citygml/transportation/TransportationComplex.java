@@ -386,7 +386,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 
 			if (multiSurfaceProperty != null) {
 				if (multiSurfaceProperty.isSetMultiSurface()) {
-					calcBoundedBy(boundedBy, multiSurfaceProperty.getMultiSurface());
+					boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
 				} else {
 					// xlink
 				}
@@ -398,7 +398,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 			for (GeometricComplexProperty geomProperty : lod0Network) {
 				if (geomProperty.isSetCompositeCurve()) {
 					if (geomProperty.isSetCompositeCurve()) {
-						calcBoundedBy(boundedBy, geomProperty.getCompositeCurve());
+						boundedBy.updateEnvelope(geomProperty.getCompositeCurve().calcBoundingBox());
 					} else {
 						// xlink
 					}
@@ -410,7 +410,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 						for (GeometricPrimitiveProperty primitiveProperty : complex.getElement()) {
 							AbstractGeometricPrimitive absPrimitive = primitiveProperty.getGeometricPrimitive();
 							if (absPrimitive != null && absPrimitive instanceof AbstractCurve) {
-								calcBoundedBy(boundedBy, absPrimitive);
+								boundedBy.updateEnvelope(absPrimitive.calcBoundingBox());
 							} else {
 								// xlink
 							}

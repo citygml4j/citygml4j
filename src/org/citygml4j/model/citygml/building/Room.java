@@ -327,7 +327,7 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 		
 		if (isSetLod4MultiSurface()) {
 			if (lod4MultiSurface.isSetMultiSurface()) {
-				calcBoundedBy(boundedBy, lod4MultiSurface.getMultiSurface());			
+				boundedBy.updateEnvelope(lod4MultiSurface.getMultiSurface().calcBoundingBox());			
 			} else {
 				// xlink
 			}
@@ -335,7 +335,7 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 		
 		if (isSetLod4Solid()) {
 			if (lod4Solid.isSetSolid()) {
-				calcBoundedBy(boundedBy, lod4Solid.getSolid());			
+				boundedBy.updateEnvelope(lod4Solid.getSolid().calcBoundingBox());			
 			} else {
 				// xlink
 			}

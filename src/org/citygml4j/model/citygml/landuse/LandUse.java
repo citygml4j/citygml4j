@@ -315,7 +315,7 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 
 			if (multiSurfaceProperty != null) {
 				if (multiSurfaceProperty.isSetMultiSurface()) {
-					calcBoundedBy(boundedBy, multiSurfaceProperty.getMultiSurface());
+					boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
 				} else {
 					// xlink
 				}

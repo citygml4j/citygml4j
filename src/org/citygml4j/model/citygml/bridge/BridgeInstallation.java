@@ -366,7 +366,7 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 			
 			if (geometryProperty != null) {
 				if (geometryProperty.isSetGeometry()) {
-					calcBoundedBy(boundedBy, geometryProperty.getGeometry());
+					boundedBy.updateEnvelope(geometryProperty.getGeometry().calcBoundingBox());
 				} else {
 					// xlink
 				}

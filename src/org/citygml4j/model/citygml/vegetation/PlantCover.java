@@ -392,7 +392,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 
 			if (multiSolidProperty != null) {
 				if (multiSolidProperty.isSetMultiSolid()) {
-					calcBoundedBy(boundedBy, multiSolidProperty.getMultiSolid());
+					boundedBy.updateEnvelope(multiSolidProperty.getMultiSolid().calcBoundingBox());
 				} else {
 					// xlink
 				}
@@ -418,7 +418,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 
 			if (multiSurfaceProperty != null) {
 				if (multiSurfaceProperty.isSetMultiSurface()) {
-					calcBoundedBy(boundedBy, multiSurfaceProperty.getMultiSurface());
+					boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
 				} else {
 					// xlink
 				}

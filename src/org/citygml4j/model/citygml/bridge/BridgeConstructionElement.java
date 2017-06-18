@@ -508,7 +508,7 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 			
 			if (geometryProperty != null) {
 				if (geometryProperty.isSetGeometry()) {
-					calcBoundedBy(boundedBy, geometryProperty.getGeometry());
+					boundedBy.updateEnvelope(geometryProperty.getGeometry().calcBoundingBox());
 				} else {
 					// xlink
 				}
