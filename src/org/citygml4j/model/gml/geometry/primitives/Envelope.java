@@ -44,14 +44,17 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	private List<String> axisLabels;
 	private List<String> uomLabels;
 	private ModelObject parent;
-	
+
 	public Envelope() {
-		
+
 	}
-	
+
 	public Envelope(BoundingBox boundingBox) {
-		setLowerCorner(boundingBox.getLowerCorner());
-		setUpperCorner(boundingBox.getUpperCorner());
+		if (boundingBox != null && !boundingBox.isNull()) {
+			setLowerCorner(boundingBox.getLowerCorner());
+			setUpperCorner(boundingBox.getUpperCorner());
+			setSrsDimension(3);
+		}
 	}
 
 	public void addCoord(Coord coord) {
@@ -138,7 +141,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 				setLowerCorner(new DirectPosition());
 			else
 				this.lowerCorner.unsetValue();
-			
+
 			this.lowerCorner.addValue(lowerCorner.getX());
 			this.lowerCorner.addValue(lowerCorner.getY());
 			this.lowerCorner.addValue(lowerCorner.getZ());
@@ -162,13 +165,13 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 				setUpperCorner(new DirectPosition());
 			else
 				this.upperCorner.unsetValue();
-			
+
 			this.upperCorner.addValue(upperCorner.getX());
 			this.upperCorner.addValue(upperCorner.getY());
 			this.upperCorner.addValue(upperCorner.getZ());
 		}
 	}
-	
+
 	public void unsetCoord() {
 		if (isSetCoord())
 			coord.clear();
@@ -223,7 +226,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	public String getSrsName() {
 		return srsName;
 	}
-	
+
 	public String getInheritedSrsName() {
 		if (srsName == null) {
 			Child child = this;
@@ -412,21 +415,32 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 		return copy;
 	}
 
-	public Envelope convert3d() {	
-		BoundingBox bbox = toBoundingBox();
-		
-		if (bbox != null) {
-			Envelope envelope = new Envelope();			
-
-			envelope.setLowerCorner(bbox.getLowerCorner());
-			envelope.setUpperCorner(bbox.getUpperCorner());
-			envelope.setSrsDimension(3);
-			
-			return envelope;
-		} else
-			return null;
+	public boolean isNull() {
+		return toBoundingBox().isNull();
 	}
 	
+	public void setBoundingBox(BoundingBox boundingBox) {
+		if (boundingBox != null && !boundingBox.isNull()) {
+			setLowerCorner(boundingBox.getLowerCorner());
+			setUpperCorner(boundingBox.getUpperCorner());
+			setSrsDimension(3);
+
+			unsetPos();
+			unsetCoord();
+			unsetCoordinates();
+		}
+	}
+
+	public void update(BoundingBox boundingBox) {
+		BoundingBox bbox = toBoundingBox();
+		bbox.update(boundingBox);
+		setBoundingBox(bbox);
+	}
+
+	public Envelope convert3d() {	
+		return new Envelope(toBoundingBox());
+	}
+
 	public BoundingBox toBoundingBox() {
 		BoundingBox bbox = new BoundingBox();
 
@@ -460,11 +474,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 				bbox.update(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
 		}
 
-		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
-				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
-			return null;
-		else
-			return bbox;
+		return bbox;
 	}
 
 }

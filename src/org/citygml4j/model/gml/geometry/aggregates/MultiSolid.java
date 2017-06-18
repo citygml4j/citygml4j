@@ -122,11 +122,7 @@ public class MultiSolid extends AbstractGeometricAggregate {
 					bbox.update(abstractSolid.calcBoundingBox());
 		}
 		
-		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
-				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
-			return null;
-		else
-			return bbox;
+		return bbox;
 	}
 
 	public GMLClass getGMLClass() {

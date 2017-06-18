@@ -90,11 +90,7 @@ public class CompositeSurface extends AbstractSurface {
 					bbox.update(surfaceProperty.getSurface().calcBoundingBox());
 		}
 
-		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
-				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
-			return null;
-					else
-						return bbox;
+		return bbox;
 	}
 
 	public GMLClass getGMLClass() {

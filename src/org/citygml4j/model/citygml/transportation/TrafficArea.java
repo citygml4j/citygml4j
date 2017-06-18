@@ -281,13 +281,10 @@ public class TrafficArea extends AbstractTransportationObject implements Standar
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 	
 	@Override

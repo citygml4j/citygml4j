@@ -266,19 +266,8 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 			}
 		}
 		
-		if (isSetLod4ImplicitRepresentation() && 
-				lod4ImplicitRepresentation.isSetImplicitGeometry() &&
-				lod4ImplicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-			GeometryProperty<? extends AbstractGeometry> geometryProperty = lod4ImplicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
-
-			if (geometryProperty != null) {
-				if (geometryProperty.isSetGeometry()) {
-					calcBoundedBy(boundedBy, geometryProperty.getGeometry());
-				} else {
-					// xlink
-				}
-			}
-		}
+		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
+			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : getBoundedBySurface()) {
@@ -290,13 +279,10 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

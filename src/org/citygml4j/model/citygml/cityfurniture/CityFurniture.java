@@ -502,13 +502,10 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

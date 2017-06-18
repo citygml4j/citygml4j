@@ -387,19 +387,8 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 				break;
 			}
 
-			if (implicitRepresentation != null && 
-					implicitRepresentation.isSetImplicitGeometry() &&
-					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-				geometryProperty = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
-
-				if (geometryProperty != null) {
-					if (geometryProperty.isSetGeometry()) {
-						calcBoundedBy(boundedBy, geometryProperty.getGeometry());
-					} else {
-						// xlink
-					}
-				}
-			}
+			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 		
 		if (isSetBoundedBySurface()) {
@@ -412,13 +401,10 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 			}
 		}
 		
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

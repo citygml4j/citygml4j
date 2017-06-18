@@ -44,11 +44,7 @@ public class LineString extends AbstractCurve {
 		for (int i = 0; i < points.size(); i += 3)
 			bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
 
-		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
-				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
-			return null;
-		else
-			return bbox;
+		return bbox;
 	}
 
 	public GMLClass getGMLClass() {

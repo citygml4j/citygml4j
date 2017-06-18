@@ -90,11 +90,7 @@ public class CompositeCurve extends AbstractCurve {
 					bbox.update(curvePropery.getCurve().calcBoundingBox());
 		}
 		
-		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
-				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
-			return null;
-		else
-			return bbox;
+		return bbox;
 	}
 
 	public GMLClass getGMLClass() {

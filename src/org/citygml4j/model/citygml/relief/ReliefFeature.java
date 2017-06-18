@@ -151,13 +151,10 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

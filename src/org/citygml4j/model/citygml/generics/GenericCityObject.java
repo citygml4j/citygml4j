@@ -543,13 +543,10 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

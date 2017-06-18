@@ -351,13 +351,10 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 			}
 		}
 		
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 	
 	@Override

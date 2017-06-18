@@ -464,13 +464,10 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 	
 	@Override

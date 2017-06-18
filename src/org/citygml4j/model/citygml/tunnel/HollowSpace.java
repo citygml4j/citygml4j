@@ -351,13 +351,10 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 			}
 		}
 		
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 	
 	@Override

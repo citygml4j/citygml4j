@@ -62,13 +62,10 @@ public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 		if (isSetRectifiedGridDomain() && rectifiedGridDomain.isSetGeometry())
 			calcBoundedBy(boundedBy, rectifiedGridDomain.getGeometry());
 		
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

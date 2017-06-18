@@ -90,11 +90,7 @@ public class MultiLineString extends AbstractGeometricAggregate {
 					bbox.update(lineStringProperty.getLineString().calcBoundingBox());
 		}
 		
-		if (bbox.getLowerCorner().isEqual(Double.MAX_VALUE) && 
-				bbox.getUpperCorner().isEqual(-Double.MAX_VALUE))
-			return null;
-		else
-			return bbox;
+		return bbox;
 	}
 
 	public GMLClass getGMLClass() {

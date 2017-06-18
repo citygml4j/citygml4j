@@ -38,6 +38,10 @@ public class BoundingBox implements Geometry {
 		this.lowerCorner = new Point(boundingBox.getLowerCorner());
 		this.upperCorner = new Point(boundingBox.getUpperCorner());
 	}
+	
+	public boolean isNull() {
+		return lowerCorner.isEqual(Double.MAX_VALUE) && upperCorner.isEqual(-Double.MAX_VALUE);
+	}
 
 	public Point getLowerCorner() {
 		return lowerCorner;
@@ -113,7 +117,7 @@ public class BoundingBox implements Geometry {
 		}
 	}
 
-	public void transform3D(Matrix m) {
+	public void transform3d(Matrix m) {
 		if (!lowerCorner.isEqual(Double.MAX_VALUE))
 			lowerCorner.transform3D(m);
 

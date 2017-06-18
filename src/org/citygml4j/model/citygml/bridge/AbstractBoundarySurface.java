@@ -190,8 +190,8 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	@Override
 	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
 		BoundingShape boundedBy = new BoundingShape();
+		
 		MultiSurfaceProperty multiSurfaceProperty = null;
-
 		for (int lod = 2; lod < 5; lod++) {
 			switch (lod) {
 			case 2:
@@ -214,13 +214,10 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 			}
 		}
 
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

@@ -32,19 +32,23 @@ public class BoundingShape implements GML, Child, Copyable {
 	private Envelope envelope;
 	private Null _null;
 	private ModelObject parent;
-	
+
 	public BoundingShape() {
-		
+
 	}
 
 	public BoundingShape(Envelope envelope) {
 		setEnvelope(envelope);
 	}
-	
+
 	public BoundingShape(BoundingBox boundingBox) {
 		setEnvelope(boundingBox);
 	}
 	
+	public boolean isEmpty() {
+		return !isSetNull() && (!isSetEnvelope() || envelope.isNull());
+	}
+
 	public Envelope getEnvelope() {
 		return envelope;
 	}
@@ -62,41 +66,28 @@ public class BoundingShape implements GML, Child, Copyable {
 	}
 
 	public void setEnvelope(Envelope envelope) {
-		if (envelope != null)
+		if (envelope != null) {
+			if (envelope.isNull())
+				return;
+			
 			envelope.setParent(this);
-
+		}
+			
 		this.envelope = envelope;
 	}
 
 	public void setEnvelope(BoundingBox boundingBox) {
-		if (boundingBox != null) {
-			if (!isSetEnvelope())
-				setEnvelope(new Envelope());
-			else {
-				envelope.unsetPos();
-				envelope.unsetCoord();
-				envelope.unsetCoordinates();
-			}
-
-			envelope.setLowerCorner(boundingBox.getLowerCorner());
-			envelope.setUpperCorner(boundingBox.getUpperCorner());
-			envelope.setSrsDimension(3);
-		}
+		if (!isSetEnvelope())
+			setEnvelope(new Envelope(boundingBox));
+		else
+			envelope.setBoundingBox(boundingBox);
 	}
 
 	public void updateEnvelope(BoundingBox boundingBox) {
-		if (boundingBox != null) {
-			if (!isSetEnvelope())
-				setEnvelope(boundingBox);
-			else {
-				BoundingBox bbox = envelope.toBoundingBox();
-				if (bbox != null) {
-					bbox.update(boundingBox);
-					setEnvelope(bbox);
-				} else
-					setEnvelope(boundingBox);
-			}
-		}
+		if (!isSetEnvelope())
+			setEnvelope(new Envelope(boundingBox));
+		else
+			envelope.update(boundingBox);
 	}
 
 	public void setNull(Null _null) {

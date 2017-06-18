@@ -191,13 +191,10 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 			}
 		}
 		
-		if (boundedBy.isSetEnvelope()) {
-			if (setBoundedBy)
-				setBoundedBy(boundedBy);
-
-			return boundedBy;
-		} else
-			return null;
+		if (setBoundedBy)
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

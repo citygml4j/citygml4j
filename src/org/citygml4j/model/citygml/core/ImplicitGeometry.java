@@ -160,7 +160,7 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 						m.set(0, 3, m.get(0, 3) + point.get(0));
 						m.set(1, 3, m.get(1, 3) + point.get(1));
 						m.set(2, 3, m.get(2, 3) + point.get(2));
-						bbox.transform3D(m);
+						bbox.transform3d(m);
 					}
 					
 					return bbox;
