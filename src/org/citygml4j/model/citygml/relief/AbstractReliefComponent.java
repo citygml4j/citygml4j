@@ -117,7 +117,9 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetExtent()) {
 			if (extent.isSetPolygon()) {
 				boundedBy.updateEnvelope(extent.getPolygon().calcBoundingBox());	

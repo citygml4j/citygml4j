@@ -376,7 +376,9 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		MultiSolidProperty multiSolidProperty = null;
 		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {

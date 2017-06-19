@@ -492,6 +492,8 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 		for (int lod = 1; lod < 5; lod++) {

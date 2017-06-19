@@ -112,7 +112,9 @@ public class RasterRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetGrid()) {
 			if (grid.isSetObject()) {
 				boundedBy.updateEnvelope(grid.getObject().calcBoundedBy(options).getEnvelope());

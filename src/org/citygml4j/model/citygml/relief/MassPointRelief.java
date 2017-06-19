@@ -113,7 +113,9 @@ public class MassPointRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetReliefPoints()) {
 			if (reliefPoints.isSetMultiPoint()) {
 				boundedBy.updateEnvelope(reliefPoints.getMultiPoint().calcBoundingBox());

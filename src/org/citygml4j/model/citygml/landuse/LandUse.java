@@ -296,6 +296,8 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		MultiSurfaceProperty multiSurfaceProperty = null;
 		for (int lod = 0; lod < 5; lod++) {

@@ -370,6 +370,8 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		MultiSurfaceProperty multiSurfaceProperty = null;
 		for (int lod = 1; lod < 5; lod++) {

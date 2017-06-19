@@ -87,6 +87,8 @@ public class Square extends TransportationComplex {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetGenericApplicationPropertyOfSquare()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

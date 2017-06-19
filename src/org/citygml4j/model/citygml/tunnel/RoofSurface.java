@@ -86,6 +86,8 @@ public class RoofSurface extends AbstractBoundarySurface implements TunnelModule
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetGenericApplicationPropertyOfRoofSurface()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

@@ -85,6 +85,8 @@ public class WallSurface extends AbstractBoundarySurface implements BridgeModule
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetGenericApplicationPropertyOfWallSurface()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

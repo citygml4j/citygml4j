@@ -490,6 +490,8 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 		for (int lod = 0; lod < 5; lod++) {

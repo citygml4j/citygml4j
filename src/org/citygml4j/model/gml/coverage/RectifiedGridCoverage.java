@@ -59,6 +59,8 @@ public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetRectifiedGridDomain() && rectifiedGridDomain.isSetGeometry())
 			boundedBy.updateEnvelope(rectifiedGridDomain.getGeometry().calcBoundingBox());

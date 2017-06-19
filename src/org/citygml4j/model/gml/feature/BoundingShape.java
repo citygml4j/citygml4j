@@ -46,7 +46,7 @@ public class BoundingShape implements GML, Child, Copyable {
 	}
 	
 	public boolean isEmpty() {
-		return !isSetNull() && (!isSetEnvelope() || envelope.isNull());
+		return isSetNull() || !isSetEnvelope() || envelope.isNull();
 	}
 
 	public Envelope getEnvelope() {
@@ -71,8 +71,9 @@ public class BoundingShape implements GML, Child, Copyable {
 				return;
 			
 			envelope.setParent(this);
+			_null = null;
 		}
-			
+		
 		this.envelope = envelope;
 	}
 
@@ -96,8 +97,10 @@ public class BoundingShape implements GML, Child, Copyable {
 	}
 
 	public void setNull(Null _null) {
-		if (_null != null)
+		if (_null != null) {
 			_null.setParent(this);
+			envelope = null;
+		}
 
 		this._null = _null;
 	}

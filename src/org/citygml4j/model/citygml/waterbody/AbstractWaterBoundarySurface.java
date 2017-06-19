@@ -160,6 +160,8 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		SurfaceProperty surfaceProperty = null;
 		for (int lod = 2; lod < 5; lod++) {

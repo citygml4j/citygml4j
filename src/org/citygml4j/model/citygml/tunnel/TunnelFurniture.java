@@ -227,7 +227,9 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetLod4Geometry()) {
 			if (lod4Geometry.isSetGeometry()) {
 				boundedBy.updateEnvelope(lod4Geometry.getGeometry().calcBoundingBox());	

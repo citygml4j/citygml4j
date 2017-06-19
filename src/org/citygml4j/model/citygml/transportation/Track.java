@@ -87,6 +87,8 @@ public class Track extends TransportationComplex {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetGenericApplicationPropertyOfTrack()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

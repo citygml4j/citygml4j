@@ -260,6 +260,8 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetGeometry()) {
 			if (geometry.isSetGeometry()) {

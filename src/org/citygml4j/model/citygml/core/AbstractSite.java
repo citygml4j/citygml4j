@@ -68,6 +68,8 @@ public abstract class AbstractSite extends AbstractCityObject {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetGenericApplicationPropertyOfSite()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

@@ -928,6 +928,8 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (lod0FootPrint != null) {
 			if (lod0FootPrint.isSetMultiSurface()) {

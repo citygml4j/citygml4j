@@ -144,7 +144,9 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetReliefComponent()) {
 			for (ReliefComponentProperty reliefComponentProperty : reliefComponent) {
 				if (reliefComponentProperty.isSetObject()) {

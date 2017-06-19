@@ -391,7 +391,9 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		SolidProperty solidProperty = null;
 		for (int lod = 1; lod < 5; lod++) {
 			switch (lod) {

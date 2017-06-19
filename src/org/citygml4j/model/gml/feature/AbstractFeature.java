@@ -67,7 +67,7 @@ public abstract class AbstractFeature extends AbstractGML {
 	public boolean isSetGenericADEElement() {
 		return genericADEElement != null && !genericADEElement.isEmpty();
 	}
-
+	
 	public void setBoundedBy(BoundingShape boundingShape) {
 		if (boundingShape != null) {
 			if (boundingShape.isEmpty())
@@ -120,8 +120,7 @@ public abstract class AbstractFeature extends AbstractGML {
 	}
 
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		// return empty bounding shape by default
-		return new BoundingShape();
+		return (options.isUseExistingEnvelopes() && boundedBy != null && !boundedBy.isEmpty()) ? boundedBy : new BoundingShape();
 	}
 	
 	@Override

@@ -194,6 +194,8 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		MultiSurfaceProperty multiSurfaceProperty = null;
 		for (int lod = 2; lod < 5; lod++) {

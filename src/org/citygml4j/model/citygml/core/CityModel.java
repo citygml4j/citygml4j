@@ -167,6 +167,8 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetCityObjectMember()) {
 			for (CityObjectMember member : cityObjectMember) {

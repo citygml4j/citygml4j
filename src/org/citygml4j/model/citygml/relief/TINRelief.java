@@ -112,7 +112,9 @@ public class TINRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetTin()) {
 			if (tin.isSetObject()) {
 				boundedBy.updateEnvelope(tin.getObject().calcBoundingBox());

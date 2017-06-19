@@ -353,6 +353,8 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
 		for (int lod = 2; lod < 5; lod++) {

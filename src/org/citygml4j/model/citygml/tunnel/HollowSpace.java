@@ -328,6 +328,8 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (isSetLod4MultiSurface()) {
 			if (lod4MultiSurface.isSetMultiSurface()) {

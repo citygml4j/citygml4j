@@ -136,7 +136,9 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
-
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
+		
 		if (isSetBreaklines()) {
 			if (breaklines.isSetMultiCurve()) {
 				boundedBy.updateEnvelope(breaklines.getMultiCurve().calcBoundingBox());

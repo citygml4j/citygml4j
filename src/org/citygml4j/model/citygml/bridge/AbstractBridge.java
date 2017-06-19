@@ -809,6 +809,8 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		SolidProperty solidProperty = null;
 		for (int lod = 1; lod < 5; lod++) {

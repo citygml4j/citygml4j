@@ -7,6 +7,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEContext;
 
 public class BoundingBoxOptions {
 	private boolean assignResultToFeatures;
+	private boolean useExistingEnvelopes;
 	private List<ADEContext> adeContexts = new ArrayList<>();
 	
 	private BoundingBoxOptions() {
@@ -26,6 +27,15 @@ public class BoundingBoxOptions {
 		return this;
 	}
 	
+	public boolean isUseExistingEnvelopes() {
+		return useExistingEnvelopes;
+	}
+
+	public BoundingBoxOptions useExistingEnvelopes(boolean useExistingEnvelopes) {
+		this.useExistingEnvelopes = useExistingEnvelopes;
+		return this;
+	}
+
 	public BoundingBoxOptions useADEContext(ADEContext context) {
 		adeContexts.add(context);
 		return this;

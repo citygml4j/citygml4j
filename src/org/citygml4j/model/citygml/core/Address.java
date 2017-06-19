@@ -143,6 +143,8 @@ public class Address extends AbstractFeature implements CoreModuleComponent {
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
 		if (multiPoint != null && multiPoint.isSetMultiPoint())
 			boundedBy.updateEnvelope(getMultiPoint().getGeometry().calcBoundingBox());
