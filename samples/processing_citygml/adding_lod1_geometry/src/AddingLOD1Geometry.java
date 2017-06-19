@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -81,7 +82,7 @@ public class AddingLOD1Geometry {
 				Building building = (Building)feature;
 				System.out.println(df.format(new Date()) + "adding LOD1 geometry representation to building " + building.getId());
 				
-				BoundingShape boundingShape = building.calcBoundedBy(false);
+				BoundingShape boundingShape = building.calcBoundedBy(BoundingBoxOptions.defaults());
 				building.setBoundedBy(boundingShape);
 				BoundingBox bbox = boundingShape.getEnvelope().toBoundingBox();
 				

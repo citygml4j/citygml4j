@@ -22,7 +22,9 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
 import org.citygml4j.model.common.child.ChildList;
@@ -38,6 +40,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class WaterBody extends AbstractWaterObject implements StandardObjectClassifier {
@@ -387,7 +390,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 
 		SolidProperty solidProperty = null;
 		for (int lod = 1; lod < 5; lod++) {
@@ -462,6 +465,14 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 				} else {
 					// xlink
 				}
+			}
+		}
+		
+		if (isSetGenericApplicationPropertyOfWaterBody()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfWaterBody()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
 			}
 		}
 

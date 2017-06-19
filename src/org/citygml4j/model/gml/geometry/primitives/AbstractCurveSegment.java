@@ -126,5 +126,4 @@ public abstract class AbstractCurveSegment implements GML, Associable, Child, Co
 	}
 	
 	public abstract BoundingBox calcBoundingBox();
-
 }

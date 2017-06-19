@@ -22,13 +22,18 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
+import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class Road extends TransportationComplex {
 	private List<ADEComponent> ade;
@@ -77,6 +82,24 @@ public class Road extends TransportationComplex {
 	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ROAD;
+	}
+	
+	@Override
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		
+		if (isSetGenericApplicationPropertyOfRoad()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfRoad()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
+		if (options.isAssignResultToFeatures())
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

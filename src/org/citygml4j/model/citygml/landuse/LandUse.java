@@ -22,7 +22,9 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
@@ -37,6 +39,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.LandUseModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class LandUse extends AbstractCityObject implements LandUseModuleComponent, StandardObjectClassifier {
@@ -292,9 +295,9 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		
 		MultiSurfaceProperty multiSurfaceProperty = null;
-
 		for (int lod = 0; lod < 5; lod++) {
 			switch (lod) {
 			case 0:
@@ -320,6 +323,14 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 				} else {
 					// xlink
 				}
+			}
+		}
+		
+		if (isSetGenericApplicationPropertyOfLandUse()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfLandUse()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
 			}
 		}
 

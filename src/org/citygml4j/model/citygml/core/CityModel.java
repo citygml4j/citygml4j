@@ -22,7 +22,9 @@ import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
@@ -34,6 +36,7 @@ import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class CityModel extends AbstractFeatureCollection implements CoreModuleComponent {
@@ -163,7 +166,7 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 		
 		if (isSetCityObjectMember()) {
 			for (CityObjectMember member : cityObjectMember) {
@@ -189,6 +192,14 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 			for (AbstractFeature abstractFeature : getFeatureMembers().getFeature()) {
 				if (abstractFeature != null)
 					boundedBy.updateEnvelope(abstractFeature.calcBoundedBy(options).getEnvelope());
+			}
+		}
+		
+		if (isSetGenericApplicationPropertyOfCityModel()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfCityModel()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
 			}
 		}
 		

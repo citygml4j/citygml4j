@@ -42,6 +42,7 @@ import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
@@ -113,7 +114,7 @@ public class BuildingCreator {
 		building.setBoundedBySurface(boundedBy);
 
 		CityModel cityModel = new CityModel();
-		cityModel.setBoundedBy(building.calcBoundedBy(false));
+		cityModel.setBoundedBy(building.calcBoundedBy(BoundingBoxOptions.defaults()));
 		cityModel.addCityObjectMember(new CityObjectMember(building));
 
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree");

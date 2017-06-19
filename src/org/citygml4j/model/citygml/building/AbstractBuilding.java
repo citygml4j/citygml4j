@@ -927,7 +927,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 		
 		if (lod0FootPrint != null) {
 			if (lod0FootPrint.isSetMultiSurface()) {
@@ -1051,10 +1051,10 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		}
 		
 		if (isSetGenericApplicationPropertyOfAbstractBuilding()) {
-			ADEBoundingBoxCalculator adeBBox = new ADEBoundingBoxCalculator(this, options);
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfAbstractBuilding()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(adeBBox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
 			}
 		}
 		

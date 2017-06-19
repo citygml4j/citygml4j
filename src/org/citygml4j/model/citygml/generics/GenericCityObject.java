@@ -489,9 +489,9 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		
 		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
-
 		for (int lod = 0; lod < 5; lod++) {
 			switch (lod) {
 			case 0:
@@ -543,7 +543,7 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
-
+		
 		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		

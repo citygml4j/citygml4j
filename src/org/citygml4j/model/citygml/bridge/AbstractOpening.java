@@ -21,7 +21,9 @@ package org.citygml4j.model.citygml.bridge;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -31,6 +33,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractOpening extends AbstractCityObject implements BridgeModuleComponent {	
@@ -180,9 +183,9 @@ public abstract class AbstractOpening extends AbstractCityObject implements Brid
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
-		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 		
+		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;		
 		for (int lod = 3; lod < 5; lod++) {
 			switch (lod) {
 			case 3:
@@ -216,7 +219,15 @@ public abstract class AbstractOpening extends AbstractCityObject implements Brid
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
 				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
 		}
-
+		
+		if (isSetGenericApplicationPropertyOfOpening()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfOpening()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
 		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		

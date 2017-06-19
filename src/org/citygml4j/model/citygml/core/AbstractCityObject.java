@@ -22,12 +22,17 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.CityGMLModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractCityObject extends AbstractFeature implements CoreModuleComponent {
 	private GregorianCalendar creationDate;
@@ -282,6 +287,24 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	public LodRepresentation getLodRepresentation() {
 		// return empty LodRepresentation instance by default
 		return new LodRepresentation();
+	}
+
+	@Override
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		
+		if (isSetGenericApplicationPropertyOfCityObject()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfCityObject()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
+		if (options.isAssignResultToFeatures())
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

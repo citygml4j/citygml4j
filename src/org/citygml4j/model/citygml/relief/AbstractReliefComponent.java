@@ -21,12 +21,15 @@ package org.citygml4j.model.citygml.relief;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractReliefComponent extends AbstractCityObject implements ReliefModuleComponent {
@@ -113,7 +116,7 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
+		BoundingShape boundedBy = super.calcBoundedBy(options);
 
 		if (isSetExtent()) {
 			if (extent.isSetPolygon()) {
@@ -121,8 +124,16 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 			} else {
 				// xlink
 			}
-		}						
-
+		}
+		
+		if (isSetGenericApplicationPropertyOfReliefComponent()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfReliefComponent()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
 		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
 		

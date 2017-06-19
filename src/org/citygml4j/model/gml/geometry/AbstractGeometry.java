@@ -202,5 +202,4 @@ public abstract class AbstractGeometry extends AbstractGML implements SRSReferen
 	public abstract BoundingBox calcBoundingBox();	
 	public abstract void accept(GeometryVisitor visitor);
 	public abstract <T> T accept(GeometryFunctor<T> visitor);
-
 }

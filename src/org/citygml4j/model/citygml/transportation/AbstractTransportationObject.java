@@ -21,10 +21,15 @@ package org.citygml4j.model.citygml.transportation;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractTransportationObject extends AbstractCityObject implements TransportationModuleComponent {
 	private List<ADEComponent> ade;
@@ -77,6 +82,24 @@ public abstract class AbstractTransportationObject extends AbstractCityObject im
 
 	public boolean isSetCityGMLModule() {
 		return module != null;
+	}
+	
+	@Override
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		
+		if (isSetGenericApplicationPropertyOfTransportationObject()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfTransportationObject()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
+		if (options.isAssignResultToFeatures())
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override

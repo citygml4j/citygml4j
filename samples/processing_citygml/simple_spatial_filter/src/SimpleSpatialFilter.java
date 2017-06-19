@@ -30,6 +30,7 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
@@ -84,7 +85,7 @@ public class SimpleSpatialFilter {
 				AbstractFeature feature = (AbstractFeature)chunk;
 
 				System.out.println(df.format(new Date()) + "calculating bounding box of feature " + feature.getId());
-				BoundingShape boundedBy = feature.calcBoundedBy(false);
+				BoundingShape boundedBy = feature.calcBoundedBy(BoundingBoxOptions.defaults());
 
 				if (boundedBy != null) {
 					BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();

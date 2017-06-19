@@ -35,6 +35,7 @@ import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
 import org.citygml4j.model.gml.geometry.primitives.LinearRing;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.walker.GMLWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -62,7 +63,7 @@ public class TranslateScaleAndRotate {
 		DeepCopyBuilder copyBuilder = new DeepCopyBuilder();
 		Building copy = (Building)building.copy(copyBuilder);
 
-		BoundingShape boundedBy = copy.calcBoundedBy(false);
+		BoundingShape boundedBy = copy.calcBoundedBy(BoundingBoxOptions.defaults());
 		BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
 		double width = bbox.getUpperCorner().getX() - bbox.getLowerCorner().getX();
 		

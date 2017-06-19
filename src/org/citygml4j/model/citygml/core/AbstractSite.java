@@ -21,8 +21,13 @@ package org.citygml4j.model.citygml.core;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractSite extends AbstractCityObject {
 	private List<ADEComponent> ade;
@@ -58,6 +63,24 @@ public abstract class AbstractSite extends AbstractCityObject {
 
 	public boolean unsetGenericApplicationPropertyOfSite(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfSite() ? this.ade.remove(ade) : false;
+	}
+	
+	@Override
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		
+		if (isSetGenericApplicationPropertyOfSite()) {
+			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
+			for (ADEComponent ade : getGenericApplicationPropertyOfSite()) {
+				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+			}
+		}
+		
+		if (options.isAssignResultToFeatures())
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 
 	@Override
