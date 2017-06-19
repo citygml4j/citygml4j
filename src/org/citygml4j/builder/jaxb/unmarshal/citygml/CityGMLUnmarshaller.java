@@ -53,8 +53,11 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody100Unmars
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody200Unmarshaller;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLModuleComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.module.Modules;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.model.module.citygml.BuildingModule;
@@ -62,6 +65,7 @@ import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
 import org.citygml4j.model.module.citygml.CityGMLModuleVersion;
+import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.citygml.GenericsModule;
@@ -313,10 +317,25 @@ public class CityGMLUnmarshaller {
 	}
 
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGMLModuleComponent dest) {
-		String namespaceURI = substitutionGroup.getNamespaceURI();
-		CityGMLModuleVersion version = dest.getCityGMLModule().getVersion();
-
-		if (version == CityGMLModuleVersion.v2_0_0) {			
+		String namespaceURI = substitutionGroup.getNamespaceURI();		
+		CityGMLVersion version = null;		
+		
+		// try and identify CityGML version of feature 
+		if (dest.isSetCityGMLModule()) {
+			version = CityGMLVersion.fromCityGMLModule(dest.getCityGMLModule());
+		} else if (dest instanceof ADEModelObject && dest instanceof AbstractCityObject) {
+			CityGMLVersion tmp = CityGMLVersion.fromCityGMLNamespaceURI(namespaceURI);
+			
+			for (ADEModule module : Modules.getADEModules()) {
+				if (module.getCityGMLVersion() == tmp
+						&& module.getFeatureName(((AbstractCityObject)dest).getClass()) != null) {
+					version = tmp;
+					break;
+				}					
+			}
+		}
+		
+		if (version == CityGMLVersion.v2_0_0) {			
 			if (namespaceURI.equals(AppearanceModule.v2_0_0.getNamespaceURI()))
 				return app200.assignGenericProperty(genericProperty, substitutionGroup, dest);
 			else if (namespaceURI.equals(BridgeModule.v2_0_0.getNamespaceURI()))
@@ -343,7 +362,7 @@ public class CityGMLUnmarshaller {
 				return wtr200.assignGenericProperty(genericProperty, substitutionGroup, dest);	
 		}
 
-		else if (version == CityGMLModuleVersion.v1_0_0) {			
+		else if (version == CityGMLVersion.v1_0_0) {			
 			if (namespaceURI.equals(AppearanceModule.v1_0_0.getNamespaceURI()))
 				return app100.assignGenericProperty(genericProperty, substitutionGroup, dest);
 			else if (namespaceURI.equals(BuildingModule.v1_0_0.getNamespaceURI()))
