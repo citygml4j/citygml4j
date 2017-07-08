@@ -70,7 +70,7 @@ public class Relief100Unmarshaller {
 		CityGML dest = null;
 					
 		if (src instanceof BreaklineReliefType)
-			dest = unmarshalBreaklineRelief((BreaklineReliefType)dest);
+			dest = unmarshalBreaklineRelief((BreaklineReliefType)src);
 		else if (src instanceof GridPropertyType)
 			dest = unmarshalGridProperty((GridPropertyType)src);
 		else if (src instanceof MassPointReliefType)

@@ -376,9 +376,9 @@ public class GMLUnmarshaller {
 		else if (src instanceof OrientableCurveType)
 			dest = unmarshalOrientableCurve((OrientableCurveType)src);
 		else if (src instanceof net.opengis.citygml.texturedsurface._2.TexturedSurfaceType)
-			jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((net.opengis.citygml.texturedsurface._2.TexturedSurfaceType)src);
+			dest = jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller().unmarshalTexturedSurface((net.opengis.citygml.texturedsurface._2.TexturedSurfaceType)src);
 		else if (src instanceof net.opengis.citygml.texturedsurface._1.TexturedSurfaceType)
-			jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((net.opengis.citygml.texturedsurface._1.TexturedSurfaceType)src);
+			dest = jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller().unmarshalTexturedSurface((net.opengis.citygml.texturedsurface._1.TexturedSurfaceType)src);
 		else if (src instanceof OrientableSurfaceType)
 			dest = unmarshalOrientableSurface((OrientableSurfaceType)src);
 		else if (src instanceof PointType)
