@@ -32,7 +32,6 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.GenericsModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
@@ -47,20 +46,10 @@ public class Generics100Unmarshaller {
 	private final GenericsModule module = GenericsModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Generics100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
-				.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
-				.with(DateAttributeType.class, this::unmarshalDateAttribute)
-				.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
-				.with(IntAttributeType.class, this::unmarshalIntAttribute)
-				.with(StringAttributeType.class, this::unmarshalStringAttribute)
-				.with(UriAttributeType.class, this::unmarshalUriAttribute)
-				.with(JAXBElement.class, this::unmarshal);
 	}
 	
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -68,7 +57,22 @@ public class Generics100Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		if (src instanceof GenericCityObjectType)
+			return unmarshalGenericCityObject((GenericCityObjectType)src);
+		else if (src instanceof DateAttributeType)
+			return unmarshalDateAttribute((DateAttributeType)src);
+		else if (src instanceof DoubleAttributeType)
+			return unmarshalDoubleAttribute((DoubleAttributeType)src);
+		else if (src instanceof IntAttributeType)
+			return unmarshalIntAttribute((IntAttributeType)src);
+		else if (src instanceof StringAttributeType)
+			return unmarshalStringAttribute((StringAttributeType)src);
+		else if (src instanceof UriAttributeType)
+			return unmarshalUriAttribute((UriAttributeType)src);
+		else if (src instanceof JAXBElement<?>)
+			return unmarshal((JAXBElement<?>)src);
+		
+		return null;
 	}
 	
 	public void unmarshalAbstractGenericAttribute(AbstractGenericAttributeType src, AbstractGenericAttribute dest) {

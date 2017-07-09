@@ -58,7 +58,6 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TunnelModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
@@ -94,38 +93,10 @@ public class Tunnel200Unmarshaller {
 	private final TunnelModule module = TunnelModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Tunnel200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
-				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
-				.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
-				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
-				.with(DoorType.class, this::unmarshalDoor)
-				.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
-				.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
-				.with(HollowSpaceType.class, this::unmarshalHollowSpace)
-				.with(IntTunnelInstallationType.class, this::unmarshalIntTunnelInstallation)
-				.with(IntTunnelInstallationPropertyType.class, this::unmarshalIntTunnelInstallationProperty)
-				.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
-				.with(InteriorHollowSpacePropertyType.class, this::unmarshalInteriorHollowSpaceProperty)
-				.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
-				.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
-				.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
-				.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
-				.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
-				.with(TunnelType.class, this::unmarshalTunnel)
-				.with(TunnelFurnitureType.class, this::unmarshalTunnelFurniture)
-				.with(TunnelInstallationType.class, this::unmarshalTunnelInstallation)
-				.with(TunnelInstallationPropertyType.class, this::unmarshalTunnelInstallationProperty)
-				.with(TunnelPartType.class, this::unmarshalTunnelPart)
-				.with(TunnelPartPropertyType.class, this::unmarshalTunnelPartProperty)
-				.with(WallSurfaceType.class, this::unmarshalWallSurface)
-				.with(WindowType.class, this::unmarshalWindow)
-				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -133,7 +104,58 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		if (src instanceof BoundarySurfacePropertyType)
+			return unmarshalBoundarySurfaceProperty((BoundarySurfacePropertyType)src);
+		else if (src instanceof CeilingSurfaceType)
+			return unmarshalCeilingSurface((CeilingSurfaceType)src);
+		else if (src instanceof ClosureSurfaceType)
+			return unmarshalClosureSurface((ClosureSurfaceType)src);		
+		else if (src instanceof DoorType)
+			return unmarshalDoor((DoorType)src);
+		else if (src instanceof FloorSurfaceType)
+			return unmarshalFloorSurface((FloorSurfaceType)src);
+		else if (src instanceof GroundSurfaceType)
+			return unmarshalGroundSurface((GroundSurfaceType)src);
+		else if (src instanceof HollowSpaceType)
+			return unmarshalHollowSpace((HollowSpaceType)src);
+		else if (src instanceof IntTunnelInstallationType)
+			return unmarshalIntTunnelInstallation((IntTunnelInstallationType)src);
+		else if (src instanceof IntTunnelInstallationPropertyType)
+			return unmarshalIntTunnelInstallationProperty((IntTunnelInstallationPropertyType)src);
+		else if (src instanceof InteriorFurniturePropertyType)
+			return unmarshalInteriorFurnitureProperty((InteriorFurniturePropertyType)src);
+		else if (src instanceof InteriorHollowSpacePropertyType)
+			return unmarshalInteriorHollowSpaceProperty((InteriorHollowSpacePropertyType)src);
+		else if (src instanceof InteriorWallSurfaceType)
+			return unmarshalInteriorWallSurface((InteriorWallSurfaceType)src);	
+		else if (src instanceof OpeningPropertyType)
+			return unmarshalOpeningProperty((OpeningPropertyType)src);
+		else if (src instanceof OuterCeilingSurfaceType)
+			return unmarshalOuterCeilingSurface((OuterCeilingSurfaceType)src);
+		else if (src instanceof OuterFloorSurfaceType)
+			return unmarshalOuterFloorSurface((OuterFloorSurfaceType)src);
+		else if (src instanceof RoofSurfaceType)
+			return unmarshalRoofSurface((RoofSurfaceType)src);	
+		else if (src instanceof TunnelType)
+			return unmarshalTunnel((TunnelType)src);		
+		else if (src instanceof TunnelFurnitureType)
+			return unmarshalTunnelFurniture((TunnelFurnitureType)src);
+		else if (src instanceof TunnelInstallationType)
+			return unmarshalTunnelInstallation((TunnelInstallationType)src);
+		else if (src instanceof TunnelInstallationPropertyType)
+			return unmarshalTunnelInstallationProperty((TunnelInstallationPropertyType)src);
+		else if (src instanceof TunnelPartType)
+			return unmarshalTunnelPart((TunnelPartType)src);
+		else if (src instanceof TunnelPartPropertyType)
+			return unmarshalTunnelPartProperty((TunnelPartPropertyType)src);
+		else if (src instanceof WallSurfaceType)
+			return unmarshalWallSurface((WallSurfaceType)src);	
+		else if (src instanceof WindowType)
+			return unmarshalWindow((WindowType)src);
+		else if (src instanceof JAXBElement<?>)
+			return unmarshal((JAXBElement<?>)src);
+		
+		return null;
 	}
 
 	public void unmarshalAbstractTunnel(AbstractTunnelType src, AbstractTunnel dest) throws MissingADESchemaException {

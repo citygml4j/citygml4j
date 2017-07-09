@@ -32,7 +32,6 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -48,32 +47,39 @@ import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 public class TexturedSurface100Marshaller {
 	private final ObjectFactory tex = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
 	
 	public TexturedSurface100Marshaller(CityGMLMarshaller citygml) {
 		jaxb = citygml.getJAXBMarshaller();
-		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
-				.with(_Material.class, this::createMaterial)
-				.with(_SimpleTexture.class, this::createSimpleTexture)
-				.with(_TexturedSurface.class, this::createTexturedSurface);
-		
-		typeMapper = JAXBMapper.create()
-				.with(_AppearanceProperty.class, this::marshalAppearanceProperty)
-				.with(_Color.class, this::marshalColor)
-				.with(_Material.class, this::marshalMaterial)
-				.with(_SimpleTexture.class, this::marshalSimpleTexture)
-				.with(_TexturedSurface.class, this::marshalTexturedSurface)
-				.with(_TextureType.class, this::marshalTextureType);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		Object object = marshal(src);
+		
+		if (object instanceof MaterialType)
+			return tex.createMaterial((MaterialType)object);
+		else if (object instanceof SimpleTextureType)
+			return tex.createSimpleTexture((SimpleTextureType)object);
+		else if (object instanceof TexturedSurfaceType)
+			return tex.createTexturedSurface((TexturedSurfaceType)object);
+		
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		if (src instanceof _AppearanceProperty)
+			return marshalAppearanceProperty((_AppearanceProperty)src);
+		else if (src instanceof _Color)
+			return marshalColor((_Color)src);
+		else if (src instanceof _Material)
+			return marshalMaterial((_Material)src);
+		else if (src instanceof _SimpleTexture)
+			return marshalSimpleTexture((_SimpleTexture)src);
+		else if (src instanceof _TexturedSurface)
+			return marshalTexturedSurface((_TexturedSurface)src);
+		else if (src instanceof _TextureType)
+			return marshalTextureType((_TextureType)src);
+		
+		return null;
 	}
 	
 	public void marshalAbstractAppearance(_AbstractAppearance src, AbstractAppearanceType dest) {
@@ -194,18 +200,6 @@ public class TexturedSurface100Marshaller {
 	
 	public TextureTypeType marshalTextureType(_TextureType src) {
 		return TextureTypeType.fromValue(src.getValue());
-	}
-	
-	private JAXBElement<?> createMaterial(_Material src) {
-		return tex.createMaterial(marshalMaterial(src));
-	}
-	
-	private JAXBElement<?> createSimpleTexture(_SimpleTexture src) {
-		return tex.createSimpleTexture(marshalSimpleTexture(src));
-	}
-	
-	private JAXBElement<?> createTexturedSurface(_TexturedSurface src) {
-		return tex.createTexturedSurface(marshalTexturedSurface(src));
 	}
 	
 }

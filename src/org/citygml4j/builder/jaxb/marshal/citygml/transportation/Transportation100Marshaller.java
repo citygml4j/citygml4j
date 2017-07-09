@@ -36,7 +36,6 @@ import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
-import org.citygml4j.util.jaxb.JAXBMapper;
 
 import net.opengis.citygml.transportation._1.AbstractTransportationObjectType;
 import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaPropertyType;
@@ -54,40 +53,54 @@ public class Transportation100Marshaller {
 	private final ObjectFactory tran = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
 	
 	public Transportation100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
-				.with(AuxiliaryTrafficArea.class, this::createAuxiliaryTrafficArea)
-				.with(Railway.class, this::createRailway)
-				.with(Road.class, this::createRoad)
-				.with(Square.class, this::createSquare)
-				.with(Track.class, this::createTrack)
-				.with(TrafficArea.class, this::createTrafficArea)
-				.with(TransportationComplex.class, this::createTransportationComplex);
-		
-		typeMapper = JAXBMapper.create()
-				.with(AuxiliaryTrafficArea.class, this::marshalAuxiliaryTrafficArea)
-				.with(AuxiliaryTrafficAreaProperty.class, this::marshalAuxiliaryTrafficAreaProperty)
-				.with(Railway.class, this::marshalRailway)
-				.with(Road.class, this::marshalRoad)
-				.with(Square.class, this::marshalSquare)
-				.with(Track.class, this::marshalTrack)
-				.with(TrafficArea.class, this::marshalTrafficArea)
-				.with(TrafficAreaProperty.class, this::marshalTrafficAreaProperty)
-				.with(TransportationComplex.class, this::marshalTransportationComplex);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		Object object = marshal(src);
+		
+		if (object instanceof AuxiliaryTrafficAreaType)
+			return tran.createAuxiliaryTrafficArea((AuxiliaryTrafficAreaType)object);
+		else if (object instanceof RailwayType)
+			return tran.createRailway((RailwayType)object);
+		else if (object instanceof RoadType)
+			return tran.createRoad((RoadType)object);
+		else if (object instanceof SquareType)
+			return tran.createSquare((SquareType)object);
+		else if (object instanceof TrackType)
+			return tran.createTrack((TrackType)object);		
+		else if (object instanceof TrafficAreaType)
+			return tran.createTrafficArea((TrafficAreaType)object);
+		else if (object instanceof TransportationComplexType)
+			return tran.createTransportationComplex((TransportationComplexType)object);
+		
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		if (src instanceof AuxiliaryTrafficArea)
+			return marshalAuxiliaryTrafficArea((AuxiliaryTrafficArea)src);
+		else if (src instanceof AuxiliaryTrafficAreaProperty)
+			return marshalAuxiliaryTrafficAreaProperty((AuxiliaryTrafficAreaProperty)src);
+		else if (src instanceof Railway)
+			return marshalRailway((Railway)src);
+		else if (src instanceof Road)
+			return marshalRoad((Road)src);
+		else if (src instanceof Square)
+			return marshalSquare((Square)src);
+		else if (src instanceof Track)
+			return marshalTrack((Track)src);
+		else if (src instanceof TrafficArea)
+			return marshalTrafficArea((TrafficArea)src);
+		else if (src instanceof TrafficAreaProperty)
+			return marshalTrafficAreaProperty((TrafficAreaProperty)src);
+		else if (src instanceof TransportationComplex)
+			return marshalTransportationComplex((TransportationComplex)src);
+		
+		return null;
 	}
 	
 	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractTransportationObjectType dest) {
@@ -335,34 +348,6 @@ public class Transportation100Marshaller {
 		marshalTransportationComplex(src, dest);
 
 		return dest;
-	}
-	
-	private JAXBElement<?> createAuxiliaryTrafficArea(AuxiliaryTrafficArea src) {
-		return tran.createAuxiliaryTrafficArea(marshalAuxiliaryTrafficArea(src));
-	}
-	
-	private JAXBElement<?> createRailway(Railway src) {
-		return tran.createRailway(marshalRailway(src));
-	}
-	
-	private JAXBElement<?> createRoad(Road src) {
-		return tran.createRoad(marshalRoad(src));
-	}
-	
-	private JAXBElement<?> createSquare(Square src) {
-		return tran.createSquare(marshalSquare(src));
-	}
-	
-	private JAXBElement<?> createTrack(Track src) {
-		return tran.createTrack(marshalTrack(src));
-	}
-	
-	private JAXBElement<?> createTrafficArea(TrafficArea src) {
-		return tran.createTrafficArea(marshalTrafficArea(src));
-	}
-	
-	private JAXBElement<?> createTransportationComplex(TransportationComplex src) {
-		return tran.createTransportationComplex(marshalTransportationComplex(src));
 	}
 	
 }

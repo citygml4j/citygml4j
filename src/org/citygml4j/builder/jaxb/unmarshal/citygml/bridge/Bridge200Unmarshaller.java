@@ -60,7 +60,6 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.BridgeModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml._2.AddressPropertyType;
@@ -99,40 +98,10 @@ public class Bridge200Unmarshaller {
 	private final BridgeModule module = BridgeModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
 	
 	public Bridge200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
-				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
-				.with(BridgeType.class, this::unmarshalBridge)
-				.with(BridgeConstructionElementType.class, this::unmarshalBridgeConstructionElement)
-				.with(BridgeConstructionElementPropertyType.class, this::unmarshalBridgeConstructionElementProperty)
-				.with(BridgeFurnitureType.class, this::unmarshalBridgeFurniture)
-				.with(BridgeInstallationType.class, this::unmarshalBridgeInstallation)
-				.with(BridgeInstallationPropertyType.class, this::unmarshalBridgeInstallationProperty)
-				.with(BridgePartType.class, this::unmarshalBridgePart)
-				.with(BridgePartPropertyType.class, this::unmarshalBridgePartProperty)
-				.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
-				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
-				.with(DoorType.class, this::unmarshalDoor)
-				.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
-				.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
-				.with(IntBridgeInstallationType.class, this::unmarshalIntBridgeInstallation)
-				.with(IntBridgeInstallationPropertyType.class, this::unmarshalIntBridgeInstallationProperty)
-				.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
-				.with(InteriorBridgeRoomPropertyType.class, this::unmarshalInteriorBridgeRoomProperty)
-				.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
-				.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
-				.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
-				.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
-				.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
-				.with(BridgeRoomType.class, this::unmarshalBridgeRoom)
-				.with(WallSurfaceType.class, this::unmarshalWallSurface)
-				.with(WindowType.class, this::unmarshalWindow)
-				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -140,7 +109,62 @@ public class Bridge200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		if (src instanceof BoundarySurfacePropertyType)
+			return unmarshalBoundarySurfaceProperty((BoundarySurfacePropertyType)src);
+		else if (src instanceof BridgeType)
+			return unmarshalBridge((BridgeType)src);
+		else if (src instanceof BridgeConstructionElementType)
+			return unmarshalBridgeConstructionElement((BridgeConstructionElementType)src);
+		else if (src instanceof BridgeConstructionElementProperty)
+			return unmarshalBridgeConstructionElementProperty((BridgeConstructionElementPropertyType)src);
+		else if (src instanceof BridgeFurnitureType)
+			return unmarshalBridgeFurniture((BridgeFurnitureType)src);
+		else if (src instanceof BridgeInstallationType)
+			return unmarshalBridgeInstallation((BridgeInstallationType)src);
+		else if (src instanceof BridgeInstallationPropertyType)
+			return unmarshalBridgeInstallationProperty((BridgeInstallationPropertyType)src);
+		else if (src instanceof BridgePartType)
+			return unmarshalBridgePart((BridgePartType)src);
+		else if (src instanceof BridgePartPropertyType)
+			return unmarshalBridgePartProperty((BridgePartPropertyType)src);
+		else if (src instanceof CeilingSurfaceType)
+			return unmarshalCeilingSurface((CeilingSurfaceType)src);
+		else if (src instanceof ClosureSurfaceType)
+			return unmarshalClosureSurface((ClosureSurfaceType)src);		
+		else if (src instanceof DoorType)
+			return unmarshalDoor((DoorType)src);
+		else if (src instanceof FloorSurfaceType)
+			return unmarshalFloorSurface((FloorSurfaceType)src);
+		else if (src instanceof GroundSurfaceType)
+			return unmarshalGroundSurface((GroundSurfaceType)src);
+		else if (src instanceof IntBridgeInstallationType)
+			return unmarshalIntBridgeInstallation((IntBridgeInstallationType)src);
+		else if (src instanceof IntBridgeInstallationPropertyType)
+			return unmarshalIntBridgeInstallationProperty((IntBridgeInstallationPropertyType)src);
+		else if (src instanceof InteriorFurniturePropertyType)
+			return unmarshalInteriorFurnitureProperty((InteriorFurniturePropertyType)src);
+		else if (src instanceof InteriorBridgeRoomPropertyType)
+			return unmarshalInteriorBridgeRoomProperty((InteriorBridgeRoomPropertyType)src);
+		else if (src instanceof InteriorWallSurfaceType)
+			return unmarshalInteriorWallSurface((InteriorWallSurfaceType)src);	
+		else if (src instanceof OuterCeilingSurfaceType)
+			return unmarshalOuterCeilingSurface((OuterCeilingSurfaceType)src);
+		else if (src instanceof OuterFloorSurfaceType)
+			return unmarshalOuterFloorSurface((OuterFloorSurfaceType)src);
+		else if (src instanceof OpeningPropertyType)
+			return unmarshalOpeningProperty((OpeningPropertyType)src);
+		else if (src instanceof RoofSurfaceType)
+			return unmarshalRoofSurface((RoofSurfaceType)src);	
+		else if (src instanceof BridgeRoomType)
+			return unmarshalBridgeRoom((BridgeRoomType)src);
+		else if (src instanceof WallSurfaceType)
+			return unmarshalWallSurface((WallSurfaceType)src);	
+		else if (src instanceof WindowType)
+			return unmarshalWindow((WindowType)src);
+		else if (src instanceof JAXBElement<?>)
+			return unmarshal((JAXBElement<?>)src);
+		
+		return null;
 	}
 
 	public void unmarshalAbstractBridge(AbstractBridgeType src, AbstractBridge dest) throws MissingADESchemaException {

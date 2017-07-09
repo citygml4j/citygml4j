@@ -41,7 +41,6 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TransportationModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
@@ -61,23 +60,10 @@ public class Transportation200Unmarshaller {
 	private final TransportationModule module = TransportationModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public Transportation200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
-				.with(AuxiliaryTrafficAreaType.class, this::unmarshalAuxiliaryTrafficArea)
-				.with(AuxiliaryTrafficAreaPropertyType.class, this::unmarshalAuxiliaryTrafficAreaProperty)
-				.with(RailwayType.class, this::unmarshalRailway)
-				.with(RoadType.class, this::unmarshalRoad)
-				.with(SquareType.class, this::unmarshalSquare)
-				.with(TrackType.class, this::unmarshalTrack)
-				.with(TrafficAreaType.class, this::unmarshalTrafficArea)
-				.with(TrafficAreaPropertyType.class, this::unmarshalTrafficAreaProperty)
-				.with(TransportationComplexType.class, this::unmarshalTransportationComplex)
-				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -85,7 +71,28 @@ public class Transportation200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		if (src instanceof AuxiliaryTrafficAreaType)
+			return unmarshalAuxiliaryTrafficArea((AuxiliaryTrafficAreaType)src);
+		else if (src instanceof AuxiliaryTrafficAreaPropertyType)
+			return unmarshalAuxiliaryTrafficAreaProperty((AuxiliaryTrafficAreaPropertyType)src);
+		else if (src instanceof RailwayType)
+			return unmarshalRailway((RailwayType)src);
+		else if (src instanceof RoadType)
+			return unmarshalRoad((RoadType)src);
+		else if (src instanceof SquareType)
+			return unmarshalSquare((SquareType)src);
+		else if (src instanceof TrackType)
+			return unmarshalTrack((TrackType)src);		
+		else if (src instanceof TrafficAreaType)
+			return unmarshalTrafficArea((TrafficAreaType)src);
+		else if (src instanceof TrafficAreaPropertyType)
+			return unmarshalTrafficAreaProperty((TrafficAreaPropertyType)src);
+		else if (src instanceof TransportationComplexType)
+			return unmarshalTransportationComplex((TransportationComplexType)src);
+		else if (src instanceof JAXBElement<?>)
+			return unmarshal((JAXBElement<?>)src);
+		
+		return null;
 	}
 	
 	public void unmarshalAbstractTransportationObject(AbstractTransportationObjectType src, AbstractTransportationObject dest) throws MissingADESchemaException {

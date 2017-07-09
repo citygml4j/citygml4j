@@ -28,7 +28,6 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
 
 import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
 import net.opengis.citygml.vegetation._1.ObjectFactory;
@@ -39,28 +38,30 @@ public class Vegetation100Marshaller {
 	private final ObjectFactory veg = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
 	
 	public Vegetation100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
-				.with(PlantCover.class, this::createPlantCover)
-				.with(SolitaryVegetationObject.class, this::createSolitaryVegetationObject);
-		
-		typeMapper = JAXBMapper.create()
-				.with(PlantCover.class, this::marshalPlantCover)
-				.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		Object object = marshal(src);
+		
+		if (object instanceof PlantCoverType)
+			return veg.createPlantCover((PlantCoverType)object);
+		else if (object instanceof SolitaryVegetationObjectType)
+			return veg.createSolitaryVegetationObject((SolitaryVegetationObjectType)object);
+		
+		return null;
 	}
 	
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		if (src instanceof PlantCover)
+			return marshalPlantCover((PlantCover)src);
+		else if (src instanceof SolitaryVegetationObject)
+			return marshalSolitaryVegetationObject((SolitaryVegetationObject)src);
+		
+		return null;
 	}
 	
 	public void marshalVegetationObject(AbstractVegetationObject src, AbstractVegetationObjectType dest) {
@@ -187,14 +188,6 @@ public class Vegetation100Marshaller {
 		marshalSolitaryVegetationObject(src, dest);
 
 		return dest;
-	}
-	
-	private JAXBElement<?> createPlantCover(PlantCover src) {
-		return veg.createPlantCover(marshalPlantCover(src));
-	}
-	
-	private JAXBElement<?> createSolitaryVegetationObject(SolitaryVegetationObject src) {
-		return veg.createSolitaryVegetationObject(marshalSolitaryVegetationObject(src));
 	}
 	
 }
