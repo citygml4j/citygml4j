@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.util.jaxb.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.waterbody._2.AbstractWaterBoundarySurfaceType;
@@ -53,10 +54,19 @@ public class WaterBody200Unmarshaller {
 	private final WaterBodyModule module = WaterBodyModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public WaterBody200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(BoundedByWaterSurfacePropertyType.class, this::unmarshalBoundedByWaterSurfaceProperty)
+				.with(WaterBodyType.class, this::unmarshalWaterBody)
+				.with(WaterClosureSurfaceType.class, this::unmarshalWaterClosureSurface)
+				.with(WaterGroundSurfaceType.class, this::unmarshalWaterGroundSurface)
+				.with(WaterSurfaceType.class, this::unmarshalWaterSurface)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -64,20 +74,7 @@ public class WaterBody200Unmarshaller {
 	}
 	
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof BoundedByWaterSurfacePropertyType)
-			return unmarshalBoundedByWaterSurfaceProperty((BoundedByWaterSurfacePropertyType)src);
-		else if (src instanceof WaterBodyType)
-			return unmarshalWaterBody((WaterBodyType)src);
-		else if (src instanceof WaterClosureSurfaceType)
-			return unmarshalWaterClosureSurface((WaterClosureSurfaceType)src);
-		else if (src instanceof WaterGroundSurfaceType)
-			return unmarshalWaterGroundSurface((WaterGroundSurfaceType)src);
-		else if (src instanceof WaterSurfaceType)
-			return unmarshalWaterSurface((WaterSurfaceType)src);
-		else if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-		
-		return null;
+		return typeMapper.apply(src);
 	}
 	
 	public void unmarshalAbstractWaterObject(AbstractWaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {

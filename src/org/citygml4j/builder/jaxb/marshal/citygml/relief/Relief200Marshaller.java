@@ -33,6 +33,7 @@ import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -55,48 +56,37 @@ public class Relief200Marshaller {
 	private final ObjectFactory dem = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public Relief200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(BreaklineRelief.class, this::createBreaklineRelief)
+				.with(MassPointRelief.class, this::createMassPointRelief)
+				.with(RasterRelief.class, this::createRasterRelief)
+				.with(ReliefFeature.class, this::createReliefFeature)
+				.with(TINRelief.class, this::createTINRelief);
+		
+		typeMapper = JAXBMapper.create()
+				.with(BreaklineRelief.class, this::marshalBreaklineRelief)
+				.with(GridProperty.class, this::marshalGridProperty)
+				.with(MassPointRelief.class, this::marshalMassPointRelief)
+				.with(RasterRelief.class, this::marshalRasterRelief)
+				.with(ReliefComponentProperty.class, this::marshalReliefComponentProperty)
+				.with(ReliefFeature.class, this::marshalReliefFeature)
+				.with(TinProperty.class, this::marshalTinProperty)
+				.with(TINRelief.class, this::marshalTINRelief);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		Object object = marshal(src);
-		
-		if (object instanceof BreaklineReliefType)
-			return dem.createBreaklineRelief((BreaklineReliefType)object);
-		else if (object instanceof MassPointReliefType)
-			return dem.createMassPointRelief((MassPointReliefType)object);
-		else if (object instanceof RasterReliefType)
-			return dem.createRasterRelief((RasterReliefType)object);
-		else if (object instanceof ReliefFeatureType)
-			return dem.createReliefFeature((ReliefFeatureType)object);
-		else if (object instanceof TINReliefType)
-			return dem.createTINRelief((TINReliefType)object);
-		
-		return null;
+		return elementMapper.apply(src);
 	}
 	
 	public Object marshal(ModelObject src) {
-		if (src instanceof BreaklineRelief)
-			return marshalBreaklineRelief((BreaklineRelief)src);
-		else if (src instanceof GridProperty)
-			return marshalGridProperty((GridProperty)src);
-		else if (src instanceof MassPointRelief)
-			return marshalMassPointRelief((MassPointRelief)src);
-		else if (src instanceof RasterRelief)
-			return marshalRasterRelief((RasterRelief)src);
-		else if (src instanceof ReliefComponentProperty)
-			return marshalReliefComponentProperty((ReliefComponentProperty)src);
-		else if (src instanceof ReliefFeature)
-			return marshalReliefFeature((ReliefFeature)src);
-		else if (src instanceof TinProperty)
-			return marshalTinProperty((TinProperty)src);
-		else if (src instanceof TINRelief)
-			return marshalTINRelief((TINRelief)src);
-		
-		return null;
+		return typeMapper.apply(src);
 	}
 	
 	public void marshalAbstractReliefComponent(AbstractReliefComponent src, AbstractReliefComponentType dest) {
@@ -356,6 +346,26 @@ public class Relief200Marshaller {
 		marshalTINRelief(src, dest);
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createBreaklineRelief(BreaklineRelief src) {
+		return dem.createBreaklineRelief(marshalBreaklineRelief(src));
+	}
+	
+	private JAXBElement<?> createMassPointRelief(MassPointRelief src) {
+		return dem.createMassPointRelief(marshalMassPointRelief(src));
+	}
+	
+	private JAXBElement<?> createRasterRelief(RasterRelief src) {
+		return dem.createRasterRelief(marshalRasterRelief(src));
+	}
+	
+	private JAXBElement<?> createReliefFeature(ReliefFeature src) {
+		return dem.createReliefFeature(marshalReliefFeature(src));
+	}
+	
+	private JAXBElement<?> createTINRelief(TINRelief src) {
+		return dem.createTINRelief(marshalTINRelief(src));
 	}
 	
 }

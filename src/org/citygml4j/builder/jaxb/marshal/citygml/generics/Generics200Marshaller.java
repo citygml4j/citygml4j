@@ -40,6 +40,7 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.jaxb.JAXBMapper;
 
 import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
 import net.opengis.citygml.generics._2.DateAttributeType;
@@ -56,54 +57,40 @@ public class Generics200Marshaller {
 	private final ObjectFactory gen = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public Generics200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(GenericCityObject.class, this::createGenericCityObject)
+				.with(DateAttribute.class, this::createDateAttribute)
+				.with(DoubleAttribute.class, this::createDoubleAttribute)
+				.with(IntAttribute.class, this::createIntAttribute)
+				.with(StringAttribute.class, this::createStringAttribute)
+				.with(UriAttribute.class, this::createUriAttribute)
+				.with(MeasureAttribute.class, this::createMeasureAttribute)
+				.with(GenericAttributeSet.class, this::createGenericAttributeSet);
+		
+		typeMapper = JAXBMapper.create()
+				.with(GenericCityObject.class, this::marshalGenericCityObject)
+				.with(DateAttribute.class, this::marshalDateAttribute)
+				.with(DoubleAttribute.class, this::marshalDoubleAttribute)
+				.with(IntAttribute.class, this::marshalIntAttribute)
+				.with(StringAttribute.class, this::marshalStringAttribute)
+				.with(UriAttribute.class, this::marshalUriAttribute)
+				.with(MeasureAttribute.class, this::marshalMeasureAttribute)
+				.with(GenericAttributeSet.class, this::marshalGenericAttributeSet);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		Object object = marshal(src);
-		
-		if (object instanceof GenericCityObjectType)
-			return gen.createGenericCityObject((GenericCityObjectType)object);
-		else if (object instanceof DateAttributeType)
-			return gen.createDateAttribute((DateAttributeType)object);
-		else if (object instanceof DoubleAttributeType)
-			return gen.createDoubleAttribute((DoubleAttributeType)object);
-		else if (object instanceof IntAttributeType)
-			return gen.createIntAttribute((IntAttributeType)object);
-		else if (object instanceof StringAttributeType)
-			return gen.createStringAttribute((StringAttributeType)object);
-		else if (object instanceof UriAttributeType)
-			return gen.createUriAttribute((UriAttributeType)object);
-		else if (object instanceof MeasureAttributeType)
-			return gen.createMeasureAttribute((MeasureAttributeType)object);
-		else if (object instanceof GenericAttributeSetType)
-			return gen.createGenericAttributeSet((GenericAttributeSetType)object);
-
-		return null;
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		if (src instanceof GenericCityObject)
-			return marshalGenericCityObject((GenericCityObject)src);
-		else if (src instanceof DateAttribute)
-			return marshalDateAttribute((DateAttribute)src);
-		else if (src instanceof DoubleAttribute)
-			return marshalDoubleAttribute((DoubleAttribute)src);
-		else if (src instanceof IntAttribute)
-			return marshalIntAttribute((IntAttribute)src);
-		else if (src instanceof StringAttribute)
-			return marshalStringAttribute((StringAttribute)src);
-		else if (src instanceof UriAttribute)
-			return marshalUriAttribute((UriAttribute)src);
-		else if (src instanceof MeasureAttribute)
-			return marshalMeasureAttribute((MeasureAttribute)src);
-		else if (src instanceof GenericAttributeSet)
-			return marshalGenericAttributeSet((GenericAttributeSet)src);
-
-		return null;
+		return typeMapper.apply(src);
 	}
 
 	public void marshalAbstractGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {
@@ -296,6 +283,38 @@ public class Generics200Marshaller {
 					dest.get_GenericAttribute().add((JAXBElement<? extends AbstractGenericAttributeType>)elem);
 			}
 		}
+	}
+	
+	private JAXBElement<?> createGenericCityObject(GenericCityObject src) {
+		return gen.createGenericCityObject(marshalGenericCityObject(src));
+	}
+	
+	private JAXBElement<?> createDateAttribute(DateAttribute src) {
+		return gen.createDateAttribute(marshalDateAttribute(src));
+	}
+	
+	private JAXBElement<?> createDoubleAttribute(DoubleAttribute src) {
+		return gen.createDoubleAttribute(marshalDoubleAttribute(src));
+	}
+	
+	private JAXBElement<?> createIntAttribute(IntAttribute src) {
+		return gen.createIntAttribute(marshalIntAttribute(src));
+	}
+	
+	private JAXBElement<?> createStringAttribute(StringAttribute src) {
+		return gen.createStringAttribute(marshalStringAttribute(src));
+	}
+	
+	private JAXBElement<?> createUriAttribute(UriAttribute src) {
+		return gen.createUriAttribute(marshalUriAttribute(src));
+	}
+	
+	private JAXBElement<?> createMeasureAttribute(MeasureAttribute src) {
+		return gen.createMeasureAttribute(marshalMeasureAttribute(src));
+	}
+	
+	private JAXBElement<?> createGenericAttributeSet(GenericAttributeSet src) {
+		return gen.createGenericAttributeSet(marshalGenericAttributeSet(src));
 	}
 
 }

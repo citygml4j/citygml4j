@@ -28,6 +28,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -43,10 +44,16 @@ public class CityObjectGroup100Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public CityObjectGroup100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		typeMapper = JAXBMapper.create()
+				.with(CityObjectGroup.class, this::marshalCityObjectGroup)
+				.with(CityObjectGroupMember.class, this::marshalCityObjectGroupMember)
+				.with(CityObjectGroupParent.class, this::marshalCityObjectGroupParent);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
@@ -57,14 +64,7 @@ public class CityObjectGroup100Marshaller {
 	}
 	
 	public Object marshal(ModelObject src) {
-		if (src instanceof CityObjectGroup)
-			return marshalCityObjectGroup((CityObjectGroup)src);
-		else if (src instanceof CityObjectGroupMember)
-			return marshalCityObjectGroupMember((CityObjectGroupMember)src);
-		else if (src instanceof CityObjectGroupParent)
-			return marshalCityObjectGroupParent((CityObjectGroupParent)src);
-		
-		return null;
+		return typeMapper.apply(src);
 	}
 	
 	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {

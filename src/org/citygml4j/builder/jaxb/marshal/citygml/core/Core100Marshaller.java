@@ -52,6 +52,7 @@ import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.GenericAttributeSet;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -77,50 +78,38 @@ public class Core100Marshaller {
 	private final ObjectFactory core = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 	
 	public Core100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(Address.class, this::createAddress)
+				.with(CityModel.class, this::createCityModel)
+				.with(CityObjectMember.class, this::createCityObjectMember)
+				.with(ImplicitGeometry.class, this::createImplicitGeometry);
+		
+		typeMapper = JAXBMapper.create()
+				.with(Address.class, this::marshalAddress)
+				.with(AddressProperty.class, this::marshalAddressProperty)
+				.with(CityModel.class, this::marshalCityModel)
+				.with(CityObjectMember.class, this::marshalCityObjectMember)
+				.with(ExternalObject.class, this::marshalExternalObject)
+				.with(ExternalReference.class, this::marshalExternalReference)
+				.with(GeneralizationRelation.class, this::marshalGeneralizationRelation)
+				.with(ImplicitGeometry.class, this::marshalImplicitGeometry)
+				.with(ImplicitRepresentationProperty.class, this::marshalImplicitRepresentationProperty)
+				.with(XalAddressProperty.class, this::marshalXalAddressProperty);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		Object object = marshal(src);
-		
-		if (object instanceof AddressType)
-			return core.createAddress((AddressType)object);
-		else if (object instanceof CityModelType)
-			return core.createCityModel((CityModelType)object);
-		else if (object instanceof FeaturePropertyType && src instanceof CityObjectMember)
-			return core.createCityObjectMember((FeaturePropertyType)object);
-		else if (object instanceof ImplicitGeometryType)
-			return core.createImplicitGeometry((ImplicitGeometryType)object);
-
-		return null;
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		if (src instanceof Address)
-			return marshalAddress((Address)src);
-		else if (src instanceof AddressProperty)
-			return marshalAddressProperty((AddressProperty)src);
-		else if (src instanceof CityModel)
-			return marshalCityModel((CityModel)src);
-		else if (src instanceof CityObjectMember)
-			return marshalCityObjectMember((CityObjectMember)src);
-		else if (src instanceof ExternalObject)
-			return marshalExternalObject((ExternalObject)src);
-		else if (src instanceof ExternalReference)
-			return marshalExternalReference((ExternalReference)src);
-		else if (src instanceof GeneralizationRelation)
-			return marshalGeneralizationRelation((GeneralizationRelation)src);
-		else if (src instanceof ImplicitGeometry)
-			return marshalImplicitGeometry((ImplicitGeometry)src);
-		else if (src instanceof ImplicitRepresentationProperty)
-			return marshalImplicitRepresentationProperty((ImplicitRepresentationProperty)src);
-		else if (src instanceof XalAddressProperty)
-			return marshalXalAddressProperty((XalAddressProperty)src);
-
-		return null;
+		return typeMapper.apply(src);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -443,6 +432,22 @@ public class Core100Marshaller {
 			dest.setAddressDetails(jaxb.getXALMarshaller().marshalAddressDetails(src.getAddressDetails()));		
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createAddress(Address src) {
+		return core.createAddress(marshalAddress(src));
+	}
+	
+	private JAXBElement<?> createCityModel(CityModel src) {
+		return core.createCityModel(marshalCityModel(src));
+	}
+	
+	private JAXBElement<?> createCityObjectMember(CityObjectMember src) {
+		return core.createCityObjectMember(marshalCityObjectMember(src));
+	}
+	
+	private JAXBElement<?> createImplicitGeometry(ImplicitGeometry src) {
+		return core.createImplicitGeometry(marshalImplicitGeometry(src));
 	}
 
 }

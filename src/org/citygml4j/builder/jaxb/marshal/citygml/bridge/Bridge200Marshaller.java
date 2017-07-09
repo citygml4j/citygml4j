@@ -61,6 +61,7 @@ import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -101,108 +102,67 @@ public class Bridge200Marshaller {
 	private final ObjectFactory brid = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 
 	public Bridge200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(Bridge.class, this::createBridge)
+				.with(BridgeConstructionElement.class, this::createBridgeConstructionElement)
+				.with(BridgeFurniture.class, this::createBridgeFurniture)
+				.with(BridgeInstallation.class, this::createBridgeInstallation)
+				.with(BridgePart.class, this::createBridgePart)
+				.with(CeilingSurface.class, this::createCeilingSurface)
+				.with(ClosureSurface.class, this::createClosureSurface)
+				.with(Door.class, this::createDoor)
+				.with(FloorSurface.class, this::createFloorSurface)
+				.with(GroundSurface.class, this::createGroundSurface)
+				.with(IntBridgeInstallation.class, this::createIntBridgeInstallation)
+				.with(InteriorWallSurface.class, this::createInteriorWallSurface)
+				.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
+				.with(OuterFloorSurface.class, this::createOuterFloorSurface)
+				.with(RoofSurface.class, this::createRoofSurface)
+				.with(BridgeRoom.class, this::createBridgeRoom)
+				.with(WallSurface.class, this::createWallSurface)
+				.with(Window.class, this::createWindow);
+		
+		typeMapper = JAXBMapper.create()
+				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
+				.with(Bridge.class, this::marshalBridge)
+				.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)
+				.with(BridgeFurniture.class, this::marshalBridgeFurniture)
+				.with(BridgeInstallation.class, this::marshalBridgeInstallation)
+				.with(BridgeInstallationProperty.class, this::marshalBridgeInstallationProperty)
+				.with(BridgePart.class, this::marshalBridgePart)
+				.with(BridgePartProperty.class, this::marshalBridgePartProperty)
+				.with(CeilingSurface.class, this::marshalCeilingSurface)
+				.with(ClosureSurface.class, this::marshalClosureSurface)
+				.with(Door.class, this::marshalDoor)
+				.with(FloorSurface.class, this::marshalFloorSurface)
+				.with(GroundSurface.class, this::marshalGroundSurface)
+				.with(IntBridgeInstallation.class, this::marshalIntBridgeInstallation)
+				.with(IntBridgeInstallationProperty.class, this::marshalIntBridgeInstallationProperty)
+				.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
+				.with(InteriorBridgeRoomProperty.class, this::marshalInteriorBridgeRoomProperty)
+				.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
+				.with(OpeningProperty.class, this::marshalOpeningProperty)
+				.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+				.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+				.with(RoofSurface.class, this::marshalRoofSurface)
+				.with(BridgeRoom.class, this::marshalBridgeRoom)
+				.with(WallSurface.class, this::marshalWallSurface)
+				.with(Window.class, this::marshalWindow);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		Object object = marshal(src);
-		
-		if (object instanceof BridgeType)
-			return brid.createBridge((BridgeType)object);
-		else if (object instanceof BridgeConstructionElementType)
-			return brid.createBridgeConstructionElement((BridgeConstructionElementType)object);
-		else if (object instanceof BridgeFurnitureType)
-			return brid.createBridgeFurniture((BridgeFurnitureType)object);
-		else if (object instanceof BridgeInstallationType)
-			return brid.createBridgeInstallation((BridgeInstallationType)object);
-		else if (object instanceof BridgePartType)
-			return brid.createBridgePart((BridgePartType)object);
-		else if (object instanceof CeilingSurfaceType)
-			return brid.createCeilingSurface((CeilingSurfaceType)object);
-		else if (object instanceof ClosureSurfaceType)
-			return brid.createClosureSurface((ClosureSurfaceType)object);
-		else if (object instanceof DoorType)
-			return brid.createDoor((DoorType)object);
-		else if (object instanceof FloorSurfaceType)
-			return brid.createFloorSurface((FloorSurfaceType)object);
-		else if (object instanceof GroundSurfaceType)
-			return brid.createGroundSurface((GroundSurfaceType)object);
-		else if (object instanceof IntBridgeInstallationType)
-			return brid.createIntBridgeInstallation((IntBridgeInstallationType)object);
-		else if (object instanceof InteriorWallSurfaceType)
-			return brid.createInteriorWallSurface((InteriorWallSurfaceType)object);
-		else if (object instanceof OuterCeilingSurfaceType)
-			return brid.createOuterCeilingSurface((OuterCeilingSurfaceType)object);
-		else if (object instanceof OuterFloorSurfaceType)
-			return brid.createOuterFloorSurface((OuterFloorSurfaceType)object);
-		else if (object instanceof RoofSurfaceType)
-			return brid.createRoofSurface((RoofSurfaceType)object);
-		else if (object instanceof BridgeRoomType)
-			return brid.createBridgeRoom((BridgeRoomType)object);
-		else if (object instanceof WallSurfaceType)
-			return brid.createWallSurface((WallSurfaceType)object);
-		else if (object instanceof WindowType)
-			return brid.createWindow((WindowType)object);
-
-		return null;
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		if (src instanceof BoundarySurfaceProperty)
-			return marshalBoundarySurfaceProperty((BoundarySurfaceProperty)src);
-		else if (src instanceof Bridge)
-			return marshalBridge((Bridge)src);
-		else if (src instanceof BridgeConstructionElement)
-			return marshalBridgeConstructionElement((BridgeConstructionElement)src);
-		else if (src instanceof BridgeFurniture)
-			return marshalBridgeFurniture((BridgeFurniture)src);
-		else if (src instanceof BridgeInstallation)
-			return marshalBridgeInstallation((BridgeInstallation)src);
-		else if (src instanceof BridgeInstallationProperty)
-			return marshalBridgeInstallationProperty((BridgeInstallationProperty)src);
-		else if (src instanceof BridgePart)
-			return marshalBridgePart((BridgePart)src);
-		else if (src instanceof BridgePartProperty)
-			return marshalBridgePartProperty((BridgePartProperty)src);
-		else if (src instanceof CeilingSurface)
-			return marshalCeilingSurface((CeilingSurface)src);
-		else if (src instanceof ClosureSurface)
-			return marshalClosureSurface((ClosureSurface)src);
-		else if (src instanceof Door)
-			return marshalDoor((Door)src);
-		else if (src instanceof FloorSurface)
-			return marshalFloorSurface((FloorSurface)src);
-		else if (src instanceof GroundSurface)
-			return marshalGroundSurface((GroundSurface)src);
-		else if (src instanceof IntBridgeInstallation)
-			return marshalIntBridgeInstallation((IntBridgeInstallation)src);
-		else if (src instanceof IntBridgeInstallationProperty)
-			return marshalIntBridgeInstallationProperty((IntBridgeInstallationProperty)src);
-		else if (src instanceof InteriorFurnitureProperty)
-			return marshalInteriorFurnitureProperty((InteriorFurnitureProperty)src);
-		else if (src instanceof InteriorBridgeRoomProperty)
-			return marshalInteriorBridgeRoomProperty((InteriorBridgeRoomProperty)src);
-		else if (src instanceof InteriorWallSurface)
-			return marshalInteriorWallSurface((InteriorWallSurface)src);
-		else if (src instanceof OpeningProperty)
-			return marshalOpeningProperty((OpeningProperty)src);
-		else if (src instanceof OuterCeilingSurface)
-			return marshalOuterCeilingSurface((OuterCeilingSurface)src);
-		else if (src instanceof OuterFloorSurface)
-			return marshalOuterFloorSurface((OuterFloorSurface)src);
-		else if (src instanceof RoofSurface)
-			return marshalRoofSurface((RoofSurface)src);
-		else if (src instanceof BridgeRoom)
-			return marshalBridgeRoom((BridgeRoom)src);
-		else if (src instanceof WallSurface)
-			return marshalWallSurface((WallSurface)src);
-		else if (src instanceof Window)
-			return marshalWindow((Window)src);
-
-		return null;
+		return typeMapper.apply(src);
 	}
 
 	public void marshalAbstractBridge(AbstractBridge src, AbstractBridgeType dest) {
@@ -1247,6 +1207,78 @@ public class Bridge200Marshaller {
 		marshalWindow(src, dest);
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createBridge(Bridge src) {
+		return brid.createBridge(marshalBridge(src));
+	}
+	
+	private JAXBElement<?> createBridgeConstructionElement(BridgeConstructionElement src) {
+		return brid.createBridgeConstructionElement(marshalBridgeConstructionElement(src));
+	}
+	
+	private JAXBElement<?> createBridgeFurniture(BridgeFurniture src) {
+		return brid.createBridgeFurniture(marshalBridgeFurniture(src));
+	}
+	
+	private JAXBElement<?> createBridgeInstallation(BridgeInstallation src) {
+		return brid.createBridgeInstallation(marshalBridgeInstallation(src));
+	}
+	
+	private JAXBElement<?> createBridgePart(BridgePart src) {
+		return brid.createBridgePart(marshalBridgePart(src));
+	}
+	
+	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
+		return brid.createCeilingSurface(marshalCeilingSurface(src));
+	}
+	
+	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
+		return brid.createClosureSurface(marshalClosureSurface(src));
+	}
+	
+	private JAXBElement<?> createDoor(Door src) {
+		return brid.createDoor(marshalDoor(src));
+	}
+	
+	private JAXBElement<?> createFloorSurface(FloorSurface src) {
+		return brid.createFloorSurface(marshalFloorSurface(src));
+	}
+	
+	private JAXBElement<?> createGroundSurface(GroundSurface src) {
+		return brid.createGroundSurface(marshalGroundSurface(src));
+	}
+	
+	private JAXBElement<?> createIntBridgeInstallation(IntBridgeInstallation src) {
+		return brid.createIntBridgeInstallation(marshalIntBridgeInstallation(src));
+	}
+	
+	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
+		return brid.createInteriorWallSurface(marshalInteriorWallSurface(src));
+	}
+	
+	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
+		return brid.createOuterCeilingSurface(marshalOuterCeilingSurface(src));
+	}
+	
+	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
+		return brid.createOuterFloorSurface(marshalOuterFloorSurface(src));
+	}
+	
+	private JAXBElement<?> createRoofSurface(RoofSurface src) {
+		return brid.createRoofSurface(marshalRoofSurface(src));
+	}
+	
+	private JAXBElement<?> createBridgeRoom(BridgeRoom src) {
+		return brid.createBridgeRoom(marshalBridgeRoom(src));
+	}
+	
+	private JAXBElement<?> createWallSurface(WallSurface src) {
+		return brid.createWallSurface(marshalWallSurface(src));
+	}
+	
+	private JAXBElement<?> createWindow(Window src) {
+		return brid.createWindow(marshalWindow(src));
 	}
 
 }

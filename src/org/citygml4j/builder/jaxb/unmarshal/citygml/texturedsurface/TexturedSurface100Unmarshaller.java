@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+import org.citygml4j.util.jaxb.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
@@ -50,9 +51,18 @@ import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 public class TexturedSurface100Unmarshaller {
 	private final TexturedSurfaceModule module = TexturedSurfaceModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
+	private final JAXBCheckedMapper<CityGML> typeMapper;
 
 	public TexturedSurface100Unmarshaller(CityGMLUnmarshaller citygml) {
 		jaxb = citygml.getJAXBUnmarshaller();
+		
+		typeMapper = JAXBCheckedMapper.<CityGML>create()
+				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
+				.with(MaterialType.class, this::unmarshalMaterial)
+				.with(SimpleTextureType.class, this::unmarshalSimpleTexture)
+				.with(TexturedSurfaceType.class, this::unmarshalTexturedSurface)
+				.with(TextureTypeType.class, this::unmarshalTextureType)
+				.with(JAXBElement.class, this::unmarshal);
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -60,20 +70,7 @@ public class TexturedSurface100Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof AppearancePropertyType)
-			return unmarshalAppearanceProperty((AppearancePropertyType)src);
-		else if (src instanceof MaterialType)
-			return unmarshalMaterial((MaterialType)src);
-		else if (src instanceof SimpleTextureType)
-			return unmarshalSimpleTexture((SimpleTextureType)src);
-		else if (src instanceof TexturedSurfaceType)
-			return unmarshalTexturedSurface((TexturedSurfaceType)src);		
-		else if (src instanceof TextureTypeType)
-			return unmarshalTextureType((TextureTypeType)src);
-		else if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		return null;
+		return typeMapper.apply(src);
 	}
 
 	public void unmarshalAbstractAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {

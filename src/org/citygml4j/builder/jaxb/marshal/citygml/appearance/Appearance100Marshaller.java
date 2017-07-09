@@ -31,6 +31,7 @@ import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
+import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.appearance.Color;
 import org.citygml4j.model.citygml.appearance.ColorPlusOpacity;
@@ -46,6 +47,7 @@ import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -71,60 +73,44 @@ public class Appearance100Marshaller {
 	private final ObjectFactory app = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
 
 	public Appearance100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+		
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(AppearanceMember.class, this::createAppearanceMember)
+				.with(GeoreferencedTexture.class, this::createGeoreferencedTexture)
+				.with(ParameterizedTexture.class, this::createParameterizedTexture)
+				.with(TexCoordGen.class, this::createTexCoordGen)
+				.with(TexCoordList.class, this::createTexCoordList)
+				.with(X3DMaterial.class, this::createX3DMaterial);
+		
+		typeMapper = JAXBMapper.create()
+				.with(Appearance.class, this::marshalAppearance)
+				.with(AppearanceMember.class, this::marshalAppearanceProperty)
+				.with(AppearanceProperty.class, this::marshalAppearanceProperty)
+				.with(GeoreferencedTexture.class, this::marshalGeoreferencedTexture)
+				.with(ParameterizedTexture.class, this::marshalParameterizedTexture)
+				.with(SurfaceDataProperty.class, this::marshalSurfaceDataProperty)
+				.with(TexCoordGen.class, this::marshalTexCoordGen)
+				.with(TexCoordList.class, this::marshalTexCoordList)
+				.with(TextureAssociation.class, this::marshalTextureAssociation)
+				.with(TextureCoordinates.class, this::marshalTextureCoordinates)
+				.with(TextureType.class, this::marshalTextureType)
+				.with(WorldToTexture.class, this::marshalWorldToTexture)
+				.with(WrapMode.class, this::marshalWrapMode)
+				.with(X3DMaterial.class, this::marshalX3DMaterial);
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		Object object = marshal(src);
-
-		if (object instanceof AppearancePropertyType)
-			return app.createAppearanceMember((AppearancePropertyType)object);
-		else if (object instanceof GeoreferencedTextureType)
-			return app.createGeoreferencedTexture((GeoreferencedTextureType)object);
-		else if (object instanceof ParameterizedTextureType)
-			return app.createParameterizedTexture((ParameterizedTextureType)object);
-		else if (object instanceof TexCoordGenType)
-			return app.createTexCoordGen((TexCoordGenType)object);		
-		else if (object instanceof TexCoordListType)
-			return app.createTexCoordList((TexCoordListType)object);
-		else if (object instanceof X3DMaterialType)
-			return app.createX3DMaterial((X3DMaterialType)object);	
-
-		return null;
+		return elementMapper.apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		if (src instanceof Appearance)
-			return marshalAppearance((Appearance)src);			
-		else if (src instanceof AppearanceProperty)
-			return marshalAppearanceProperty((AppearanceProperty)src);
-		else if (src instanceof GeoreferencedTexture)
-			return marshalGeoreferencedTexture((GeoreferencedTexture)src);
-		else if (src instanceof ParameterizedTexture)
-			return marshalParameterizedTexture((ParameterizedTexture)src);
-		else if (src instanceof SurfaceDataProperty)
-			return marshalSurfaceDataProperty((SurfaceDataProperty)src);
-		else if (src instanceof TexCoordGen)
-			return marshalTexCoordGen((TexCoordGen)src);
-		else if (src instanceof TexCoordList)
-			return marshalTexCoordList((TexCoordList)src);
-		else if (src instanceof TextureAssociation)
-			return marshalTextureAssociation((TextureAssociation)src);
-		else if (src instanceof TextureCoordinates)
-			return marshalTextureCoordinates((TextureCoordinates)src);			
-		else if (src instanceof WorldToTexture)
-			return marshalWorldToTexture((WorldToTexture)src);			
-		else if (src instanceof X3DMaterial)
-			return marshalX3DMaterial((X3DMaterial)src);
-		else if (src instanceof TextureType)
-			return marshalTextureType((TextureType)src);
-		else if (src instanceof WrapMode)
-			return marshalWrapMode((WrapMode)src);
-
-		return null;
+		return typeMapper.apply(src);
 	}
 
 	public void marshalAbstractSurfaceData(AbstractSurfaceData src, AbstractSurfaceDataType dest) {
@@ -506,6 +492,30 @@ public class Appearance100Marshaller {
 		marshalX3DMaterial(src, dest);
 
 		return dest;
+	}
+		
+	private JAXBElement<?> createAppearanceMember(AppearanceProperty src) {
+		return app.createAppearanceMember(marshalAppearanceProperty(src));
+	}
+	
+	private JAXBElement<?> createGeoreferencedTexture(GeoreferencedTexture src) {
+		return app.createGeoreferencedTexture(marshalGeoreferencedTexture(src));
+	}
+	
+	private JAXBElement<?> createParameterizedTexture(ParameterizedTexture src) {
+		return app.createParameterizedTexture(marshalParameterizedTexture(src));
+	}
+	
+	private JAXBElement<?> createTexCoordGen(TexCoordGen src) {
+		return app.createTexCoordGen(marshalTexCoordGen(src));
+	}
+	
+	private JAXBElement<?> createTexCoordList(TexCoordList src) {
+		return app.createTexCoordList(marshalTexCoordList(src));
+	}
+	
+	private JAXBElement<?> createX3DMaterial(X3DMaterial src) {
+		return app.createX3DMaterial(marshalX3DMaterial(src));
 	}
 
 }
