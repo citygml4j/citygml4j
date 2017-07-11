@@ -214,10 +214,6 @@ public class TrafficArea extends AbstractTransportationObject implements Standar
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	public boolean unsetFunction(String function) {
-		return isSetFunction() ? this.function.remove(function) : false;
-	}
-
 	public void unsetGenericApplicationPropertyOfTrafficArea() {
 		if (isSetGenericApplicationPropertyOfTrafficArea())
 			ade.clear();

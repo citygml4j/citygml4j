@@ -18,7 +18,6 @@
  */
 package org.citygml4j.model.xal;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -91,25 +90,6 @@ public class ThoroughfareNumberTo implements XAL, GrPostal, Child, Copyable {
 		this.content = new ChildList<ThoroughfareNumberToContent>(this, content);
 	}
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		boolean success = false;
-
-		if (isSetContent()) {
-			Iterator<ThoroughfareNumberToContent> iter = content.iterator();
-			while (iter.hasNext()) {
-				ThoroughfareNumberToContent content = iter.next();
-
-				if (content != null && content.equals(addressLine)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
-
-		return success;
-	}
-
 	public void unsetContent() {
 		if (isSetContent())
 			content.clear();
@@ -121,80 +101,24 @@ public class ThoroughfareNumberTo implements XAL, GrPostal, Child, Copyable {
 		return isSetContent() ? this.content.remove(content) : false;
 	}
 
+	public boolean unsetAddressLine(AddressLine addressLine) {
+		return isSetContent() ? content.removeIf(c -> c.getAddressLine() == addressLine) : false;
+	}
+	
 	public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		boolean success = false;
-
-		if (isSetContent()) {
-			Iterator<ThoroughfareNumberToContent> iter = content.iterator();
-			while (iter.hasNext()) {
-				ThoroughfareNumberToContent content = iter.next();
-
-				if (content != null && content.equals(thoroughfareNumber)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
-
-		return success;	
+		return isSetContent() ? content.removeIf(c -> c.getThoroughfareNumber() == thoroughfareNumber) : false;
 	}
 
 	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		boolean success = false;
-
-		if (isSetContent()) {
-			Iterator<ThoroughfareNumberToContent> iter = content.iterator();
-			while (iter.hasNext()) {
-				ThoroughfareNumberToContent content = iter.next();
-
-				if (content != null && content.equals(thoroughfareNumberPrefix)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
-
-		return success;
+		return isSetContent() ? content.removeIf(c -> c.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix) : false;
 	}
 
 	public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		boolean success = false;
-
-		if (isSetContent()) {
-			Iterator<ThoroughfareNumberToContent> iter = content.iterator();
-			while (iter.hasNext()) {
-				ThoroughfareNumberToContent content = iter.next();
-
-				if (content != null && content.equals(thoroughfareNumberSuffix)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
-
-		return success;
+		return isSetContent() ? content.removeIf(c -> c.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix) : false;
 	}
 
 	public boolean unsetString(String string) {
-		boolean success = false;
-
-		if (isSetContent()) {
-			Iterator<ThoroughfareNumberToContent> iter = content.iterator();
-			while (iter.hasNext()) {
-				ThoroughfareNumberToContent content = iter.next();
-
-				if (content != null && content.equals(string)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
-
-		return success;
+		return isSetContent() ? content.removeIf(c -> c.isSetString() && c.getString().equals(string)) : false;
 	}
 
 	public XALClass getXALClass() {

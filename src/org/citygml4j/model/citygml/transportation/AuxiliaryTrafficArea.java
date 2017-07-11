@@ -214,10 +214,6 @@ public class AuxiliaryTrafficArea extends AbstractTransportationObject implement
 		return isSetUsage() ? this.usage.remove(usage) : false;
 	}
 
-	public boolean unsetFunction(String function) {
-		return isSetFunction() ? this.function.remove(function) : false;
-	}
-
 	public void unsetGenericApplicationPropertyOfAuxiliaryTrafficArea() {
 		if (isSetGenericApplicationPropertyOfAuxiliaryTrafficArea())
 			ade.clear();
