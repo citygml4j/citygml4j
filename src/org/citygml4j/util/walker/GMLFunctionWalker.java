@@ -235,13 +235,13 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	}
 
 	public GMLFunctionWalker<T> useADEContext(ADEContext context) {
-		useADEWalker(context.getDefaultGMLFunctionWalker());
+		useADEWalker(context.createDefaultGMLFunctionWalker());
 		return this;
 	}
 
 	public GMLFunctionWalker<T> useADEContexts(List<ADEContext> contexts) {
 		for (ADEContext context : contexts)
-			useADEWalker(context.getDefaultGMLFunctionWalker());
+			useADEWalker(context.createDefaultGMLFunctionWalker());
 
 		return this;
 	}

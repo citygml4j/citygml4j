@@ -15,19 +15,19 @@ public interface ADEContext {
 	public ADEMarshaller getADEMarshaller();
 	public ADEUnmarshaller getADEUnmarshaller();
 
-	default ADEWalker<FeatureWalker> getDefaultFeatureWalker() {
+	default ADEWalker<FeatureWalker> createDefaultFeatureWalker() {
 		return null;
 	}
 	
-	default ADEWalker<GMLWalker> getDefaultGMLWalker() {
+	default ADEWalker<GMLWalker> createDefaultGMLWalker() {
 		return null;
 	}
 	
-	default <T> ADEWalker<FeatureFunctionWalker<T>> getDefaultFeatureFunctionWalker() {
+	default <T> ADEWalker<FeatureFunctionWalker<T>> createDefaultFeatureFunctionWalker() {
 		return null;
 	}
 	
-	default <T> ADEWalker<GMLFunctionWalker<T>> getDefaultGMLFunctionWalker() {
+	default <T> ADEWalker<GMLFunctionWalker<T>> createDefaultGMLFunctionWalker() {
 		return null;
 	}
 }

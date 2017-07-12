@@ -48,7 +48,7 @@ public class XLinkResolver {
 	}
 
 	public XLinkResolver useADEContext(ADEContext context) {
-		ADEWalker<GMLFunctionWalker<ModelObject>> walker = context.getDefaultGMLFunctionWalker();
+		ADEWalker<GMLFunctionWalker<ModelObject>> walker = context.createDefaultGMLFunctionWalker();
 		if (walker != null) {
 			if (walkers == null)
 				walkers = new ArrayList<>();

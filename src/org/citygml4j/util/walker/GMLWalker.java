@@ -231,13 +231,13 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	}
 
 	public GMLWalker useADEContext(ADEContext context) {
-		useADEWalker(context.getDefaultGMLWalker());
+		useADEWalker(context.createDefaultGMLWalker());
 		return this;
 	}
 
 	public GMLWalker useADEContexts(List<ADEContext> contexts) {
 		for (ADEContext context : contexts)
-			useADEWalker(context.getDefaultGMLWalker());
+			useADEWalker(context.createDefaultGMLWalker());
 
 		return this;
 	}

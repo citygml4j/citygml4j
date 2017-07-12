@@ -108,13 +108,13 @@ public class FeatureSplitter {
 	}
 
 	public FeatureSplitter useADEContext(ADEContext context) {
-		splitter.useADEWalker(context.getDefaultFeatureWalker());
+		splitter.useADEWalker(context.createDefaultFeatureWalker());
 		return this;
 	}
 
 	public FeatureSplitter useADEContexts(List<ADEContext> contexts) {
 		for (ADEContext context : contexts)
-			splitter.useADEWalker(context.getDefaultFeatureWalker());
+			splitter.useADEWalker(context.createDefaultFeatureWalker());
 
 		return this;
 	}

@@ -168,13 +168,13 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 	}
 
 	public FeatureFunctionWalker<T> useADEContext(ADEContext context) {
-		useADEWalker(context.getDefaultFeatureFunctionWalker());
+		useADEWalker(context.createDefaultFeatureFunctionWalker());
 		return this;
 	}
 
 	public FeatureFunctionWalker<T> useADEContexts(List<ADEContext> contexts) {
 		for (ADEContext context : contexts)
-			useADEWalker(context.getDefaultFeatureFunctionWalker());
+			useADEWalker(context.createDefaultFeatureFunctionWalker());
 
 		return this;
 	}

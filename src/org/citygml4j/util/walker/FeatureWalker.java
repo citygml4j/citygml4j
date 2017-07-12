@@ -176,13 +176,13 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 	}
 
 	public FeatureWalker useADEContext(ADEContext context) {
-		useADEWalker(context.getDefaultFeatureWalker());
+		useADEWalker(context.createDefaultFeatureWalker());
 		return this;
 	}
 
 	public FeatureWalker useADEContexts(List<ADEContext> contexts) {
 		for (ADEContext context : contexts)
-			useADEWalker(context.getDefaultFeatureWalker());
+			useADEWalker(context.createDefaultFeatureWalker());
 
 		return this;
 	}
