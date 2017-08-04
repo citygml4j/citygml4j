@@ -24,6 +24,13 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Length extends Measure {
 	
+	public Length() {
+	}
+	
+	public Length(double value) {
+		super(value);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.LENGTH;

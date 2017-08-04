@@ -24,6 +24,13 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Angle extends Measure {
 	
+	public Angle() {
+	}
+	
+	public Angle(double value) {
+		super(value);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.ANGLE;

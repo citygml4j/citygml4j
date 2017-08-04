@@ -23,6 +23,13 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Speed extends Measure {
+	
+	public Speed() {
+	}
+	
+	public Speed(double value) {
+		super(value);
+	}
 
 	@Override
 	public GMLClass getGMLClass() {

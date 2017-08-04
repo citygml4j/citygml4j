@@ -30,6 +30,13 @@ public class Measure implements GML, Child, Copyable {
 	private String uom;
 	private ModelObject parent;
 	
+	public Measure() {
+	}
+	
+	public Measure(double value) {
+		this.value = value;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.MEASURE;
 	}

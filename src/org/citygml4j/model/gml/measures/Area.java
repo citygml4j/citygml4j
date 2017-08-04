@@ -24,6 +24,13 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Area extends Measure {
 	
+	public Area() {
+	}
+	
+	public Area(double value) {
+		super(value);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.AREA;

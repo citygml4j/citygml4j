@@ -24,6 +24,13 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Volume extends Measure {
 	
+	public Volume() {
+	}
+	
+	public Volume(double value) {
+		super(value);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.VOLUME;

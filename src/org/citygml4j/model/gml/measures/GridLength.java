@@ -24,6 +24,13 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class GridLength extends Measure {
 	
+	public GridLength() {
+	}
+	
+	public GridLength(double value) {
+		super(value);
+	}
+	
 	@Override
 	public GMLClass getGMLClass() {
 		return GMLClass.GRID_LENGTH;
