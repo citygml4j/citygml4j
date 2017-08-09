@@ -39,6 +39,13 @@ public class StringOrRef implements AssociationAttributeGroup, Child, Copyable {
 	private XLinkType type;
 	private ModelObject parent;
 	
+	public StringOrRef() {
+	}
+	
+	public StringOrRef(String value) {
+		this.value = value;
+	}
+	
 	public GMLClass getGMLClass() {
 		return GMLClass.STRING_OR_REF;
 	}
