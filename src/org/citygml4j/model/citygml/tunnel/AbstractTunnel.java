@@ -901,7 +901,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 				property = lod3MultiCurve;
 				break;
 			case 4:
-				property = lod3MultiCurve;
+				property = lod4MultiCurve;
 				break;
 			}
 			

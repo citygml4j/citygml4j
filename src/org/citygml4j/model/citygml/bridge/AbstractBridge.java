@@ -997,7 +997,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 				property = lod3MultiCurve;
 				break;
 			case 4:
-				property = lod3MultiCurve;
+				property = lod4MultiCurve;
 				break;
 			}
 			
