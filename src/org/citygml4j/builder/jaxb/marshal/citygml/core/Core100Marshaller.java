@@ -23,9 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
@@ -80,17 +78,17 @@ public class Core100Marshaller {
 	private final CityGMLMarshaller citygml;
 	private final JAXBMapper<JAXBElement<?>> elementMapper;
 	private final JAXBMapper<Object> typeMapper;
-	
+
 	public Core100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
+
 		elementMapper = JAXBMapper.<JAXBElement<?>>create()
 				.with(Address.class, this::createAddress)
 				.with(CityModel.class, this::createCityModel)
 				.with(CityObjectMember.class, this::createCityObjectMember)
 				.with(ImplicitGeometry.class, this::createImplicitGeometry);
-		
+
 		typeMapper = JAXBMapper.create()
 				.with(Address.class, this::marshalAddress)
 				.with(AddressProperty.class, this::marshalAddressProperty)
@@ -117,31 +115,21 @@ public class Core100Marshaller {
 		jaxb.getGMLMarshaller().marshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate()) {
-			try {
-				GregorianCalendar date = src.getCreationDate();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setCreationDate(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getCreationDate();
+			dest.setCreationDate(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetTerminationDate()) {
-			try {
-				GregorianCalendar date = src.getTerminationDate();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setTerminationDate(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getTerminationDate();
+			dest.setTerminationDate(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetExternalReference()) {
@@ -260,7 +248,7 @@ public class Core100Marshaller {
 					dest.getFeatureMember().add((JAXBElement<AppearancePropertyType>)elem);
 			}
 		}
-		
+
 		if (src.isSetCityObjectMember()) {
 			for (CityObjectMember member : src.getCityObjectMember()) {
 				JAXBElement<?> elem = jaxb.marshalJAXBElement(member);
@@ -433,19 +421,19 @@ public class Core100Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createAddress(Address src) {
 		return core.createAddress(marshalAddress(src));
 	}
-	
+
 	private JAXBElement<?> createCityModel(CityModel src) {
 		return core.createCityModel(marshalCityModel(src));
 	}
-	
+
 	private JAXBElement<?> createCityObjectMember(CityObjectMember src) {
 		return core.createCityObjectMember(marshalCityObjectMember(src));
 	}
-	
+
 	private JAXBElement<?> createImplicitGeometry(ImplicitGeometry src) {
 		return core.createImplicitGeometry(marshalImplicitGeometry(src));
 	}

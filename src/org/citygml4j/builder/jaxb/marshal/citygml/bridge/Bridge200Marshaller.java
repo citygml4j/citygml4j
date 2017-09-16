@@ -22,9 +22,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
@@ -108,7 +106,7 @@ public class Bridge200Marshaller {
 	public Bridge200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
+
 		elementMapper = JAXBMapper.<JAXBElement<?>>create()
 				.with(Bridge.class, this::createBridge)
 				.with(BridgeConstructionElement.class, this::createBridgeConstructionElement)
@@ -128,7 +126,7 @@ public class Bridge200Marshaller {
 				.with(BridgeRoom.class, this::createBridgeRoom)
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
-		
+
 		typeMapper = JAXBMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Bridge.class, this::marshalBridge)
@@ -182,33 +180,23 @@ public class Bridge200Marshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) {
-			try {
-				GregorianCalendar date = src.getYearOfConstruction();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfConstruction(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfConstruction();
+			dest.setYearOfConstruction(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetYearOfDemolition()) {
-			try {
-				GregorianCalendar date = src.getYearOfDemolition();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfDemolition(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfDemolition();
+			dest.setYearOfDemolition(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
-		
+
 		if (src.isSetIsMovable())
 			dest.setIsMovable(src.getIsMovable());
 
@@ -261,7 +249,7 @@ public class Bridge200Marshaller {
 			for (BridgeInstallationProperty bridgeInstallationProperty : src.getOuterBridgeInstallation())
 				dest.getOuterBridgeInstallation().add(marshalBridgeInstallationProperty(bridgeInstallationProperty));
 		}
-		
+
 		if (src.isSetOuterBridgeConstructionElement()) {
 			for (BridgeConstructionElementProperty bridgeConstructionElementProperty : src.getOuterBridgeConstructionElement())
 				dest.getOuterBridgeConstruction().add(marshalBridgeConstructionElementProperty(bridgeConstructionElementProperty));
@@ -341,7 +329,7 @@ public class Bridge200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetGenericApplicationPropertyOfOpening()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOpening()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -360,7 +348,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractBoundarySurfaceType)
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -412,7 +400,7 @@ public class Bridge200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalBridgeConstructionElement(BridgeConstructionElement src, BridgeConstructionElementType dest) {
 		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
@@ -452,7 +440,7 @@ public class Bridge200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetLod1TerrainIntersection())
 			dest.setLod1TerrainIntersection(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod1TerrainIntersection()));
 
@@ -478,14 +466,14 @@ public class Bridge200Marshaller {
 			}
 		}
 	}
-	
+
 	public BridgeConstructionElementType marshalBridgeConstructionElement(BridgeConstructionElement src) {
 		BridgeConstructionElementType dest = new BridgeConstructionElementType();
 		marshalBridgeConstructionElement(src, dest);
-		
+
 		return dest;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public BridgeConstructionElementPropertyType marshalBridgeConstructionElementProperty(BridgeConstructionElementProperty src) {
 		BridgeConstructionElementPropertyType dest = brid.createBridgeConstructionElementPropertyType();
@@ -495,7 +483,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof BridgeConstructionElementType)
 				dest.set_CityObject((JAXBElement<? extends BridgeConstructionElementType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -600,7 +588,7 @@ public class Bridge200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
@@ -631,7 +619,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof BridgeInstallationType)
 				dest.set_CityObject((JAXBElement<? extends BridgeInstallationType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -683,7 +671,7 @@ public class Bridge200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalBridgeRoom(BridgeRoom src, BridgeRoomType dest) {
 		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
@@ -746,7 +734,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof BridgePartType)
 				dest.set_AbstractBridge((JAXBElement<? extends BridgePartType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -901,7 +889,7 @@ public class Bridge200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
@@ -932,7 +920,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof IntBridgeInstallationType)
 				dest.set_CityObject((JAXBElement<? extends IntBridgeInstallationType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -965,7 +953,7 @@ public class Bridge200Marshaller {
 
 		return dest;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public InteriorBridgeRoomPropertyType marshalInteriorBridgeRoomProperty(InteriorBridgeRoomProperty src) {
 		InteriorBridgeRoomPropertyType dest = brid.createInteriorBridgeRoomPropertyType();
@@ -975,7 +963,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof BridgeRoomType)
 				dest.set_CityObject((JAXBElement<? extends BridgeRoomType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -1018,7 +1006,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof BridgeFurnitureType)
 				dest.set_CityObject((JAXBElement<? extends BridgeFurnitureType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -1080,7 +1068,7 @@ public class Bridge200Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractOpeningType)
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -1113,7 +1101,7 @@ public class Bridge200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterCeilingSurface(OuterCeilingSurface src, OuterCeilingSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -1132,7 +1120,7 @@ public class Bridge200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterFloorSurface(OuterFloorSurface src, OuterFloorSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -1208,75 +1196,75 @@ public class Bridge200Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createBridge(Bridge src) {
 		return brid.createBridge(marshalBridge(src));
 	}
-	
+
 	private JAXBElement<?> createBridgeConstructionElement(BridgeConstructionElement src) {
 		return brid.createBridgeConstructionElement(marshalBridgeConstructionElement(src));
 	}
-	
+
 	private JAXBElement<?> createBridgeFurniture(BridgeFurniture src) {
 		return brid.createBridgeFurniture(marshalBridgeFurniture(src));
 	}
-	
+
 	private JAXBElement<?> createBridgeInstallation(BridgeInstallation src) {
 		return brid.createBridgeInstallation(marshalBridgeInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createBridgePart(BridgePart src) {
 		return brid.createBridgePart(marshalBridgePart(src));
 	}
-	
+
 	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
 		return brid.createCeilingSurface(marshalCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
 		return brid.createClosureSurface(marshalClosureSurface(src));
 	}
-	
+
 	private JAXBElement<?> createDoor(Door src) {
 		return brid.createDoor(marshalDoor(src));
 	}
-	
+
 	private JAXBElement<?> createFloorSurface(FloorSurface src) {
 		return brid.createFloorSurface(marshalFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createGroundSurface(GroundSurface src) {
 		return brid.createGroundSurface(marshalGroundSurface(src));
 	}
-	
+
 	private JAXBElement<?> createIntBridgeInstallation(IntBridgeInstallation src) {
 		return brid.createIntBridgeInstallation(marshalIntBridgeInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
 		return brid.createInteriorWallSurface(marshalInteriorWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
 		return brid.createOuterCeilingSurface(marshalOuterCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
 		return brid.createOuterFloorSurface(marshalOuterFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createRoofSurface(RoofSurface src) {
 		return brid.createRoofSurface(marshalRoofSurface(src));
 	}
-	
+
 	private JAXBElement<?> createBridgeRoom(BridgeRoom src) {
 		return brid.createBridgeRoom(marshalBridgeRoom(src));
 	}
-	
+
 	private JAXBElement<?> createWallSurface(WallSurface src) {
 		return brid.createWallSurface(marshalWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createWindow(Window src) {
 		return brid.createWindow(marshalWindow(src));
 	}

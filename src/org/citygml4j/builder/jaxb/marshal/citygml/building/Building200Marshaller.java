@@ -23,9 +23,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
@@ -105,7 +103,7 @@ public class Building200Marshaller {
 	public Building200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
+
 		elementMapper = JAXBMapper.<JAXBElement<?>>create()
 				.with(Building.class, this::createBuilding)
 				.with(BuildingFurniture.class, this::createBuildingFurniture)
@@ -124,7 +122,7 @@ public class Building200Marshaller {
 				.with(Room.class, this::createRoom)
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
-		
+
 		typeMapper = JAXBMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Building.class, this::marshalBuilding)
@@ -151,7 +149,7 @@ public class Building200Marshaller {
 				.with(WallSurface.class, this::marshalWallSurface)
 				.with(Window.class, this::marshalWindow);
 	}
-	
+
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
 		return elementMapper.apply(src);
 	}
@@ -177,31 +175,21 @@ public class Building200Marshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) {
-			try {
-				GregorianCalendar date = src.getYearOfConstruction();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfConstruction(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfConstruction();
+			dest.setYearOfConstruction(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetYearOfDemolition()) {
-			try {
-				GregorianCalendar date = src.getYearOfDemolition();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfDemolition(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfDemolition();
+			dest.setYearOfDemolition(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetRoofType())
@@ -221,7 +209,7 @@ public class Building200Marshaller {
 
 		if (src.isSetStoreyHeightsBelowGround())
 			dest.setStoreyHeightsBelowGround(jaxb.getGMLMarshaller().marshalMeasureOrNullList(src.getStoreyHeightsBelowGround()));
-		
+
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLMarshaller().marshalSolidProperty(src.getLod1Solid()));
 
@@ -260,10 +248,10 @@ public class Building200Marshaller {
 
 		if (src.isSetLod0FootPrint())
 			dest.setLod0FootPrint(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0FootPrint()));
-		
+
 		if (src.isSetLod0RoofEdge())
 			dest.setLod0RoofEdge(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0RoofEdge()));
-		
+
 		if (src.isSetLod2MultiCurve())
 			dest.setLod2MultiCurve(jaxb.getGMLMarshaller().marshalMultiCurveProperty(src.getLod2MultiCurve()));
 
@@ -352,7 +340,7 @@ public class Building200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetGenericApplicationPropertyOfOpening()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOpening()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -371,7 +359,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractBoundarySurfaceType)
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -495,7 +483,7 @@ public class Building200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
@@ -527,7 +515,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof BuildingInstallationType)
 				dest.set_CityObject((JAXBElement<? extends BuildingInstallationType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -589,7 +577,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof BuildingPartType)
 				dest.set_AbstractBuilding((JAXBElement<? extends BuildingPartType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -744,7 +732,7 @@ public class Building200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
@@ -775,7 +763,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof IntBuildingInstallationType)
 				dest.set_CityObject((JAXBElement<? extends IntBuildingInstallationType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -818,7 +806,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof BuildingFurnitureType)
 				dest.set_CityObject((JAXBElement<? extends BuildingFurnitureType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -861,7 +849,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof RoomType)
 				dest.set_CityObject((JAXBElement<? extends RoomType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -923,7 +911,7 @@ public class Building200Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractOpeningType)
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -956,7 +944,7 @@ public class Building200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterCeilingSurface(OuterCeilingSurface src, OuterCeilingSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -975,7 +963,7 @@ public class Building200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterFloorSurface(OuterFloorSurface src, OuterFloorSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -1104,71 +1092,71 @@ public class Building200Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createBuilding(Building src) {
 		return bldg.createBuilding(marshalBuilding(src));
 	}
-	
+
 	private JAXBElement<?> createBuildingFurniture(BuildingFurniture src) {
 		return bldg.createBuildingFurniture(marshalBuildingFurniture(src));
 	}
-	
+
 	private JAXBElement<?> createBuildingInstallation(BuildingInstallation src) {
 		return bldg.createBuildingInstallation(marshalBuildingInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createBuildingPart(BuildingPart src) {
 		return bldg.createBuildingPart(marshalBuildingPart(src));
 	}
-	
+
 	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
 		return bldg.createCeilingSurface(marshalCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
 		return bldg.createClosureSurface(marshalClosureSurface(src));
 	}
-	
+
 	private JAXBElement<?> createDoor(Door src) {
 		return bldg.createDoor(marshalDoor(src));
 	}
-	
+
 	private JAXBElement<?> createFloorSurface(FloorSurface src) {
 		return bldg.createFloorSurface(marshalFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createGroundSurface(GroundSurface src) {
 		return bldg.createGroundSurface(marshalGroundSurface(src));
 	}
-	
+
 	private JAXBElement<?> createIntBuildingInstallation(IntBuildingInstallation src) {
 		return bldg.createIntBuildingInstallation(marshalIntBuildingInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
 		return bldg.createInteriorWallSurface(marshalInteriorWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
 		return bldg.createOuterCeilingSurface(marshalOuterCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
 		return bldg.createOuterFloorSurface(marshalOuterFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createRoofSurface(RoofSurface src) {
 		return bldg.createRoofSurface(marshalRoofSurface(src));
 	}
-	
+
 	private JAXBElement<?> createRoom(Room src) {
 		return bldg.createRoom(marshalRoom(src));
 	}
-	
+
 	private JAXBElement<?> createWallSurface(WallSurface src) {
 		return bldg.createWallSurface(marshalWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createWindow(Window src) {
 		return bldg.createWindow(marshalWindow(src));
 	}

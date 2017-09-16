@@ -23,9 +23,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
@@ -59,11 +57,11 @@ public class Generics200Marshaller {
 	private final CityGMLMarshaller citygml;
 	private final JAXBMapper<JAXBElement<?>> elementMapper;
 	private final JAXBMapper<Object> typeMapper;
-	
+
 	public Generics200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
+
 		elementMapper = JAXBMapper.<JAXBElement<?>>create()
 				.with(GenericCityObject.class, this::createGenericCityObject)
 				.with(DateAttribute.class, this::createDateAttribute)
@@ -73,7 +71,7 @@ public class Generics200Marshaller {
 				.with(UriAttribute.class, this::createUriAttribute)
 				.with(MeasureAttribute.class, this::createMeasureAttribute)
 				.with(GenericAttributeSet.class, this::createGenericAttributeSet);
-		
+
 		typeMapper = JAXBMapper.create()
 				.with(GenericCityObject.class, this::marshalGenericCityObject)
 				.with(DateAttribute.class, this::marshalDateAttribute)
@@ -171,17 +169,12 @@ public class Generics200Marshaller {
 		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue()) {
-			try {
-				GregorianCalendar date = src.getValue();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setValue(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getValue();
+			dest.setValue(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 	}
 
@@ -272,7 +265,7 @@ public class Generics200Marshaller {
 	@SuppressWarnings("unchecked")
 	private void marshalGenericAttributeSet(GenericAttributeSet src, GenericAttributeSetType dest) {
 		marshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetCodeSpace())
 			dest.setCodeSpace(src.getCodeSpace());
 
@@ -284,35 +277,35 @@ public class Generics200Marshaller {
 			}
 		}
 	}
-	
+
 	private JAXBElement<?> createGenericCityObject(GenericCityObject src) {
 		return gen.createGenericCityObject(marshalGenericCityObject(src));
 	}
-	
+
 	private JAXBElement<?> createDateAttribute(DateAttribute src) {
 		return gen.createDateAttribute(marshalDateAttribute(src));
 	}
-	
+
 	private JAXBElement<?> createDoubleAttribute(DoubleAttribute src) {
 		return gen.createDoubleAttribute(marshalDoubleAttribute(src));
 	}
-	
+
 	private JAXBElement<?> createIntAttribute(IntAttribute src) {
 		return gen.createIntAttribute(marshalIntAttribute(src));
 	}
-	
+
 	private JAXBElement<?> createStringAttribute(StringAttribute src) {
 		return gen.createStringAttribute(marshalStringAttribute(src));
 	}
-	
+
 	private JAXBElement<?> createUriAttribute(UriAttribute src) {
 		return gen.createUriAttribute(marshalUriAttribute(src));
 	}
-	
+
 	private JAXBElement<?> createMeasureAttribute(MeasureAttribute src) {
 		return gen.createMeasureAttribute(marshalMeasureAttribute(src));
 	}
-	
+
 	private JAXBElement<?> createGenericAttributeSet(GenericAttributeSet src) {
 		return gen.createGenericAttributeSet(marshalGenericAttributeSet(src));
 	}

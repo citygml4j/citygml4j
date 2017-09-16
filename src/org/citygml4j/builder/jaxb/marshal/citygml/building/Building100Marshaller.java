@@ -23,9 +23,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
@@ -99,7 +97,7 @@ public class Building100Marshaller {
 	public Building100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
+
 		elementMapper = JAXBMapper.<JAXBElement<?>>create()
 				.with(Building.class, this::createBuilding)
 				.with(BuildingFurniture.class, this::createBuildingFurniture)
@@ -118,7 +116,7 @@ public class Building100Marshaller {
 				.with(Room.class, this::createRoom)
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
-		
+
 		typeMapper = JAXBMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Building.class, this::marshalBuilding)
@@ -171,31 +169,21 @@ public class Building100Marshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) {
-			try {
-				GregorianCalendar date = src.getYearOfConstruction();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfConstruction(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfConstruction();
+			dest.setYearOfConstruction(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetYearOfDemolition()) {
-			try {
-				GregorianCalendar date = src.getYearOfDemolition();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfDemolition(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfDemolition();
+			dest.setYearOfDemolition(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetRoofType())
@@ -600,7 +588,7 @@ public class Building100Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterCeilingSurface(OuterCeilingSurface src, WallSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -619,7 +607,7 @@ public class Building100Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterFloorSurface(OuterFloorSurface src, WallSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -854,71 +842,71 @@ public class Building100Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createBuilding(Building src) {
 		return bldg.createBuilding(marshalBuilding(src));
 	}
-	
+
 	private JAXBElement<?> createBuildingFurniture(BuildingFurniture src) {
 		return bldg.createBuildingFurniture(marshalBuildingFurniture(src));
 	}
-	
+
 	private JAXBElement<?> createBuildingInstallation(BuildingInstallation src) {
 		return bldg.createBuildingInstallation(marshalBuildingInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createBuildingPart(BuildingPart src) {
 		return bldg.createBuildingPart(marshalBuildingPart(src));
 	}
-	
+
 	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
 		return bldg.createCeilingSurface(marshalCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
 		return bldg.createClosureSurface(marshalClosureSurface(src));
 	}
-	
+
 	private JAXBElement<?> createDoor(Door src) {
 		return bldg.createDoor(marshalDoor(src));
 	}
-	
+
 	private JAXBElement<?> createFloorSurface(FloorSurface src) {
 		return bldg.createFloorSurface(marshalFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createGroundSurface(GroundSurface src) {
 		return bldg.createGroundSurface(marshalGroundSurface(src));
 	}
-	
+
 	private JAXBElement<?> createIntBuildingInstallation(IntBuildingInstallation src) {
 		return bldg.createIntBuildingInstallation(marshalIntBuildingInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
 		return bldg.createInteriorWallSurface(marshalInteriorWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
 		return bldg.createWallSurface(marshalOuterCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
 		return bldg.createWallSurface(marshalOuterFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createRoofSurface(RoofSurface src) {
 		return bldg.createRoofSurface(marshalRoofSurface(src));
 	}
-	
+
 	private JAXBElement<?> createRoom(Room src) {
 		return bldg.createRoom(marshalRoom(src));
 	}
-	
+
 	private JAXBElement<?> createWallSurface(WallSurface src) {
 		return bldg.createWallSurface(marshalWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createWindow(Window src) {
 		return bldg.createWindow(marshalWindow(src));
 	}

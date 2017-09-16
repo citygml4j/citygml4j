@@ -24,6 +24,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -47,6 +49,7 @@ public class JAXBMarshaller {
 	private final XALMarshaller xal;
 	private final ADEMarshaller ade;
 	private final JAXBBuilder jaxbBuilder;
+	private final DatatypeFactory dataTypeFactory;
 
 	private ModuleContext moduleContext;	
 	private Document document;
@@ -59,6 +62,12 @@ public class JAXBMarshaller {
 		gml = new GMLMarshaller(this);
 		xal = new XALMarshaller();
 		ade = new ADEMarshaller(this, adeContexts);
+		
+		try {
+			dataTypeFactory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			throw new RuntimeException("Failed to create DatatypeFactory.", e);
+		}
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
@@ -168,6 +177,10 @@ public class JAXBMarshaller {
 			throw new IllegalArgumentException("module context URI may not be null.");
 
 		this.moduleContext = moduleContext;
+	}
+
+	public DatatypeFactory getDataTypeFactory() {
+		return dataTypeFactory;
 	}
 
 	public CityGMLMarshaller getCityGMLMarshaller() {

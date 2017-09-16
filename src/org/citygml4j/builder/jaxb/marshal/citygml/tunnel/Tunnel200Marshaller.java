@@ -22,9 +22,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
@@ -103,7 +101,7 @@ public class Tunnel200Marshaller {
 	public Tunnel200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
+
 		elementMapper = JAXBMapper.<JAXBElement<?>>create()
 				.with(Tunnel.class, this::createTunnel)
 				.with(TunnelFurniture.class, this::createTunnelFurniture)
@@ -122,7 +120,7 @@ public class Tunnel200Marshaller {
 				.with(HollowSpace.class, this::createHollowSpace)
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
-		
+
 		typeMapper = JAXBMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Tunnel.class, this::marshalTunnel)
@@ -149,7 +147,7 @@ public class Tunnel200Marshaller {
 				.with(WallSurface.class, this::marshalWallSurface)
 				.with(Window.class, this::marshalWindow);
 	}
-	
+
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
 		return elementMapper.apply(src);
 	}
@@ -175,31 +173,21 @@ public class Tunnel200Marshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) {
-			try {
-				GregorianCalendar date = src.getYearOfConstruction();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfConstruction(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfConstruction();
+			dest.setYearOfConstruction(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetYearOfDemolition()) {
-			try {
-				GregorianCalendar date = src.getYearOfDemolition();
-				DatatypeFactory factory = DatatypeFactory.newInstance();
-				dest.setYearOfDemolition(factory.newXMLGregorianCalendarDate(
-						date.get(Calendar.YEAR),
-						date.get(Calendar.MONTH) + 1,
-						date.get(Calendar.DAY_OF_MONTH),
-						DatatypeConstants.FIELD_UNDEFINED));
-			} catch (DatatypeConfigurationException e) {
-				// 
-			}
+			GregorianCalendar date = src.getYearOfDemolition();
+			dest.setYearOfDemolition(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
+					date.get(Calendar.YEAR),
+					date.get(Calendar.MONTH) + 1,
+					date.get(Calendar.DAY_OF_MONTH),
+					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetLod1Solid())
@@ -321,7 +309,7 @@ public class Tunnel200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetGenericApplicationPropertyOfOpening()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfOpening()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -340,7 +328,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractBoundarySurfaceType)
 				dest.set_BoundarySurface((JAXBElement<? extends AbstractBoundarySurfaceType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -468,7 +456,7 @@ public class Tunnel200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalHollowSpace(HollowSpace src, HollowSpaceType dest) {
 		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
@@ -531,7 +519,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof TunnelFurnitureType)
 				dest.set_CityObject((JAXBElement<? extends TunnelFurnitureType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -574,7 +562,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof HollowSpaceType)
 				dest.set_CityObject((JAXBElement<? extends HollowSpaceType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -626,7 +614,7 @@ public class Tunnel200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalIntTunnelInstallation(IntTunnelInstallation src, IntTunnelInstallationType dest) {
 		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
@@ -648,7 +636,7 @@ public class Tunnel200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
@@ -679,7 +667,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof IntTunnelInstallationType)
 				dest.set_CityObject((JAXBElement<? extends IntTunnelInstallationType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -722,7 +710,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractOpeningType)
 				dest.set_Opening((JAXBElement<? extends AbstractOpeningType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -755,7 +743,7 @@ public class Tunnel200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterCeilingSurface(OuterCeilingSurface src, OuterCeilingSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -774,7 +762,7 @@ public class Tunnel200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalOuterFloorSurface(OuterFloorSurface src, OuterFloorSurfaceType dest) {
 		marshalAbstractBoundarySurface(src, dest);
 
@@ -812,7 +800,7 @@ public class Tunnel200Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalTunnel(Tunnel src, TunnelType dest) {
 		marshalAbstractTunnel(src, dest);
 
@@ -903,7 +891,7 @@ public class Tunnel200Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.getBoundedBySurface().add(marshalBoundarySurfaceProperty(boundarySurfaceProperty));
@@ -935,7 +923,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof TunnelInstallationType)
 				dest.set_CityObject((JAXBElement<? extends TunnelInstallationType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -997,7 +985,7 @@ public class Tunnel200Marshaller {
 			if (elem != null && elem.getValue() instanceof TunnelPartType)
 				dest.set_AbstractTunnel((JAXBElement<? extends TunnelPartType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -1068,71 +1056,71 @@ public class Tunnel200Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createTunnel(Tunnel src) {
 		return tun.createTunnel(marshalTunnel(src));
 	}
-	
+
 	private JAXBElement<?> createTunnelFurniture(TunnelFurniture src) {
 		return tun.createTunnelFurniture(marshalTunnelFurniture(src));
 	}
-	
+
 	private JAXBElement<?> createTunnelInstallation(TunnelInstallation src) {
 		return tun.createTunnelInstallation(marshalTunnelInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createTunnelPart(TunnelPart src) {
 		return tun.createTunnelPart(marshalTunnelPart(src));
 	}
-	
+
 	private JAXBElement<?> createCeilingSurface(CeilingSurface src) {
 		return tun.createCeilingSurface(marshalCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createClosureSurface(ClosureSurface src) {
 		return tun.createClosureSurface(marshalClosureSurface(src));
 	}
-	
+
 	private JAXBElement<?> createDoor(Door src) {
 		return tun.createDoor(marshalDoor(src));
 	}
-	
+
 	private JAXBElement<?> createFloorSurface(FloorSurface src) {
 		return tun.createFloorSurface(marshalFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createGroundSurface(GroundSurface src) {
 		return tun.createGroundSurface(marshalGroundSurface(src));
 	}
-	
+
 	private JAXBElement<?> createIntTunnelInstallation(IntTunnelInstallation src) {
 		return tun.createIntTunnelInstallation(marshalIntTunnelInstallation(src));
 	}
-	
+
 	private JAXBElement<?> createInteriorWallSurface(InteriorWallSurface src) {
 		return tun.createInteriorWallSurface(marshalInteriorWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterCeilingSurface(OuterCeilingSurface src) {
 		return tun.createOuterCeilingSurface(marshalOuterCeilingSurface(src));
 	}
-	
+
 	private JAXBElement<?> createOuterFloorSurface(OuterFloorSurface src) {
 		return tun.createOuterFloorSurface(marshalOuterFloorSurface(src));
 	}
-	
+
 	private JAXBElement<?> createRoofSurface(RoofSurface src) {
 		return tun.createRoofSurface(marshalRoofSurface(src));
 	}
-	
+
 	private JAXBElement<?> createHollowSpace(HollowSpace src) {
 		return tun.createHollowSpace(marshalHollowSpace(src));
 	}
-	
+
 	private JAXBElement<?> createWallSurface(WallSurface src) {
 		return tun.createWallSurface(marshalWallSurface(src));
 	}
-	
+
 	private JAXBElement<?> createWindow(Window src) {
 		return tun.createWindow(marshalWindow(src));
 	}
