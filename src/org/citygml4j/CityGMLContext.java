@@ -122,14 +122,27 @@ public class CityGMLContext {
 
 	public synchronized JAXBBuilder createJAXBBuilder() throws CityGMLBuilderException {
 		if (builder == null)
-			builder = JAXBBuilderFactory.defaults().withADEContexts(adeContexts).build();
+			builder = JAXBBuilderFactory.defaults()
+			.withADEContexts(adeContexts).build();
 
 		return builder;
 	}
 
 	public synchronized JAXBBuilder createJAXBBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
 		if (builder == null)
-			builder = JAXBBuilderFactory.defaults().withADEContexts(adeContexts).withClassLoader(classLoader).build();
+			builder = JAXBBuilderFactory.defaults()
+			.withADEContexts(adeContexts)
+			.withClassLoader(classLoader).build();
+
+		return builder;
+	}
+	
+	public synchronized JAXBBuilder createJAXBBuilder(ClassLoader classLoader, String... packageNames) throws CityGMLBuilderException {
+		if (builder == null)
+			builder = JAXBBuilderFactory.defaults()
+			.withADEContexts(adeContexts)
+			.withClassLoader(classLoader)
+			.withPackageNames(packageNames).build();
 
 		return builder;
 	}
