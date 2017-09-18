@@ -82,6 +82,11 @@ public abstract class ADEModule extends AbstractModule {
 	public final String getNamespacePrefix() {
 		return super.getNamespacePrefix();
 	}
+	
+	public final void setNamespacePrefix(String prefix) {
+		if (prefix != null && prefix.trim().length() != 0)
+			namespacePrefix = prefix;
+	}
 
 	@Override
 	public final String getSchemaLocation() {

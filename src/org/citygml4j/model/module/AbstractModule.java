@@ -22,7 +22,7 @@ public abstract class AbstractModule implements Module {
 	private final ModuleType type;
 	private final ModuleVersion version;
 	private final String namespaceURI;
-	private final String namespacePrefix;
+	protected String namespacePrefix;
 	private final String schemaLocation;
 	private final Module[] dependencies;
 	
