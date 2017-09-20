@@ -21,9 +21,11 @@ package org.citygml4j.xml.schema;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -33,7 +35,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Modules;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
@@ -74,9 +78,29 @@ public class SchemaHandler {
 		SchemaHandler schemaHandler = new SchemaHandler();
 		schemaHandler.schemaSets.addAll(instance.schemaSets);
 		schemaHandler.visited.putAll(instance.visited);
-		
+
 		// CityGML 0.4.0
 		schemaHandler.schemaLocations.put("http://www.citygml.org/citygml/1/0/0", CityGMLContext.class.getResource("/org/citygml4j/schemas/CityGML/0.4.0/CityGML.xsd").toString());
+
+		return schemaHandler;
+	}
+
+	public static synchronized SchemaHandler newInstance(List<ADEContext> adeContexts) throws SAXException {
+		SchemaHandler schemaHandler = newInstance();
+
+		// parse local schemas provided by ADE modules 
+		for (ADEContext adeContext : adeContexts) {
+			for (ADEModule adeModule : adeContext.getADEModules()) {
+				URL schemaResource = adeModule.getSchemaResource();
+				if (schemaResource != null) {
+					try {
+						schemaHandler.parse(schemaResource.toURI().toString());
+					} catch (URISyntaxException e) {
+						throw new SAXException("Failed to parse XML schema file for ADE namespace '" + adeModule.getNamespaceURI() + "'.", e);
+					}
+				}
+			}
+		}
 
 		return schemaHandler;
 	}
@@ -103,7 +127,7 @@ public class SchemaHandler {
 		Schema schema = schemas.get(namespaceURI);
 		if (schema != null)
 			return schema;
-		
+
 		// CityGML 0.4.0
 		if ("http://www.citygml.org/citygml/1/0/0".equals(namespaceURI)) {
 			try {
@@ -158,7 +182,7 @@ public class SchemaHandler {
 	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation) {
 		if (Modules.getModule(namespaceURI) != null)
 			return false;
-		
+
 		// CityGML 0.4.0
 		if ("http://www.citygml.org/citygml/1/0/0".equals(namespaceURI))
 			return false;
@@ -268,10 +292,10 @@ public class SchemaHandler {
 
 		if (schemaErrorHandler != null)
 			parser.setErrorHandler(schemaErrorHandler);
-		
+
 		if (annotationParserFactory != null)
 			parser.setAnnotationParser(annotationParserFactory);
-		
+
 		parser.parse(is);
 		XSSchemaSet schemaSet = parser.getResult();
 
@@ -288,11 +312,11 @@ public class SchemaHandler {
 						try {
 							URL cachedURL = new URL(visitedId);						
 							URL offeredURL = new URL(systemId);
-							
+
 							if (!(cachedURL.getProtocol().equals("file") || cachedURL.getProtocol().equals("jar")) && 
 									(offeredURL.getProtocol().equals("file") || offeredURL.getProtocol().equals("jar")))
 								visited.put(schema.getTargetNamespace(), systemId);
-							
+
 						} catch (MalformedURLException e) {
 							//
 						}
