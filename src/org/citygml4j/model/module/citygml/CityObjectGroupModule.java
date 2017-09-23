@@ -85,5 +85,10 @@ public class CityObjectGroupModule extends AbstractCityGMLModule {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "CityObjectGroup".equals(name);
+	}
 
 }

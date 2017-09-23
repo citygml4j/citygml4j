@@ -80,4 +80,9 @@ public class CityFurnitureModule extends AbstractCityGMLModule {
 		}
 	}
 	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "CityFurniture".equals(name);
+	}
+	
 }

@@ -95,5 +95,10 @@ public class ReliefModule extends AbstractCityGMLModule {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "ReliefFeature".equals(name);
+	}
 
 }

@@ -18,6 +18,13 @@
  */
 package org.citygml4j.model.module;
 
+import java.util.Collections;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+
+import org.citygml4j.model.gml.feature.AbstractFeature;
+
 public abstract class AbstractModule implements Module {
 	private final ModuleType type;
 	private final ModuleVersion version;
@@ -76,6 +83,30 @@ public abstract class AbstractModule implements Module {
 			}
 		}
 
+		return false;
+	}
+	
+	public boolean hasFeatureProperty(String name) {
+		return false;
+	}
+	
+	public boolean hasFeature(String name) {
+		return false;
+	}
+	
+	public Class<? extends AbstractFeature> getFeatureClass(String name) {
+		return null;
+	}
+	
+	public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
+		return null;
+	}
+	
+	public Map<String, Class<? extends AbstractFeature>> getFeatures() {
+		return Collections.emptyMap();
+	}
+	
+	public boolean isTopLevelFeature(String name) {
 		return false;
 	}
 

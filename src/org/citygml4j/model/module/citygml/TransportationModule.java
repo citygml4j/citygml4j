@@ -99,5 +99,14 @@ public class TransportationModule extends AbstractCityGMLModule {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "TransportationComplex".equals(name)
+				|| "Road".equals(name)
+				|| "Railway".equals(name)
+				|| "Track".equals(name)
+				|| "Square".equals(name);
+	}
 
 }

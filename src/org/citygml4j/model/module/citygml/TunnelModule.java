@@ -117,4 +117,9 @@ public class TunnelModule extends AbstractCityGMLModule {
 		}
 	}
 	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "Tunnel".equals(name);
+	}
+	
 }

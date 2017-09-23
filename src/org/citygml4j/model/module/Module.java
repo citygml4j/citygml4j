@@ -18,6 +18,8 @@
  */
 package org.citygml4j.model.module;
 
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -29,21 +31,11 @@ public interface Module {
 	public String getNamespacePrefix();
 	public String getSchemaLocation();
 	public Module[] getDependencies();
-	public boolean isDependentOn(Module module, boolean transitive);
-	
-	default boolean hasFeatureProperty(String name) {
-		return false;
-	}
-	
-	default boolean hasFeature(String name) {
-		return false;
-	}
-	
-	default Class<? extends AbstractFeature> getFeatureClass(String name) {
-		return null;
-	}
-	
-	default QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
-		return null;
-	}
+	public boolean isDependentOn(Module module, boolean transitive);	
+	public boolean hasFeatureProperty(String name);	
+	public boolean hasFeature(String name);	
+	public Class<? extends AbstractFeature> getFeatureClass(String name);	
+	public QName getFeatureName(Class<? extends AbstractFeature> featureClass);	
+	public Map<String, Class<? extends AbstractFeature>> getFeatures();	
+	public boolean isTopLevelFeature(String name);	
 }

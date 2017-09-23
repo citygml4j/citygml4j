@@ -3,6 +3,7 @@ package org.citygml4j.model.module.ade;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -62,6 +63,10 @@ public abstract class ADEModule extends AbstractModule {
 	public abstract Class<? extends AbstractFeature> getFeatureClass(String name);
 	@Override
 	public abstract QName getFeatureName(Class<? extends AbstractFeature> featureClass);
+	@Override
+	public abstract Map<String, Class<? extends AbstractFeature>> getFeatures();
+	@Override
+	public abstract boolean isTopLevelFeature(String name);
 
 	@Override
 	public final ADEModuleType getType() {

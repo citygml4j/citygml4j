@@ -83,5 +83,11 @@ public class VegetationModule extends AbstractCityGMLModule {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "SolitaryVegetationObject".equals(name)
+				|| "PlantCover".equals(name);
+	}
 
 }

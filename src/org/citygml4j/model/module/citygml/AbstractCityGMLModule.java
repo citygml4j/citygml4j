@@ -21,6 +21,7 @@ package org.citygml4j.model.module.citygml;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
@@ -80,6 +81,11 @@ public abstract class AbstractCityGMLModule extends AbstractModule implements Ci
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public Map<String, Class<? extends AbstractFeature>> getFeatures() {
+		return features != null ? new HashMap<>(features) : super.getFeatures();
 	}
 
 }

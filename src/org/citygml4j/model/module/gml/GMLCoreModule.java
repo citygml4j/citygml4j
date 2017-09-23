@@ -30,7 +30,7 @@ public class GMLCoreModule extends AbstractGMLModule {
 	
 	HashSet<String> featureProperties;
 	
-	public GMLCoreModule (
+	private GMLCoreModule (
 			GMLModuleType type,
 			GMLModuleVersion version,
 			String namespaceURI, 
@@ -70,7 +70,7 @@ public class GMLCoreModule extends AbstractGMLModule {
 	
 	@Override
 	public boolean hasFeatureProperty(String name) {
-		return featureProperties != null ? featureProperties.contains(name) : false;
+		return featureProperties.contains(name);
 	}
 	
 }

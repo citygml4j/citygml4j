@@ -132,4 +132,9 @@ public class BuildingModule extends AbstractCityGMLModule {
 		}
 	}
 	
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return "Building".equals(name);
+	}
+	
 }
