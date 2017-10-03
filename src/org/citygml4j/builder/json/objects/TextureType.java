@@ -1,37 +1,80 @@
 package org.citygml4j.builder.json.objects;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
-public enum TextureType {
-	@SerializedName("unknown")
-	UNKNOWN("unknown"),
-	@SerializedName("specific")
-	SPECIFIC("specific"),
-	@SerializedName("typical")
-	TYPICAL("typical");
+public class TextureType {
+	private TextureTypeName type;
+	private String image;
+	private WrapModeType wrapMode;	
+	private TextureTypeType textureType;
+	private List<Double> borderColor;
 	
-	private final String name;
-	
-	private TextureType(String name) {
-		this.name = name;
+	public boolean isSetType() {
+		return type != null;
 	}
 	
-	public String getName() {
-		return name;
+	public TextureTypeName getType() {
+		return type;
 	}
 	
-	@Override
-	public String toString() {
-		return name;
+	public void setType(TextureTypeName type) {
+		this.type = type;
 	}
 	
-	public static TextureType fromName(String name) {
-		for (TextureType type : TextureType.values()) {
-			if (type.name.equals(name))
-				return type;
-		}
+	public boolean isSetImage() {
+		return image != null;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+	
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public boolean isSetWrapMode() {
+		return wrapMode != null;
+	}
+	
+	public WrapModeType getWrapMode() {
+		return wrapMode;
+	}
+	
+	public void setWrapMode(WrapModeType wrapMode) {
+		this.wrapMode = wrapMode;
+	}
+	
+	public boolean isSetTextureType() {
+		return textureType != null;
+	}
+	
+	public TextureTypeType getTextureType() {
+		return textureType;
+	}
+	
+	public void setTextureType(TextureTypeType textureType) {
+		this.textureType = textureType;
+	}
+	
+	public boolean isSetBorderColor() {
+		return borderColor != null && borderColor.size() >= 3;
+	}
+	
+	public List<Double> getBorderColor() {
+		if (isSetBorderColor())
+			return borderColor.size() == 3 ? borderColor : borderColor.subList(0, 4);
 		
 		return null;
+	}
+	
+	public void setBorderColor(List<Double> borderColor) {
+		if (borderColor == null)
+			this.borderColor = null;
+		else if (borderColor.size() == 3)
+			this.borderColor = borderColor;
+		else if (borderColor.size() >= 4)
+			this.borderColor = borderColor.subList(0, 4);
 	}
 	
 }

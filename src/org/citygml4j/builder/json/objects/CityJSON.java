@@ -10,12 +10,12 @@ import com.google.gson.annotations.SerializedName;
 public class CityJSON {
 	private final String type = "CityModel";
 	private String version = "http://www.cityjson.org/version/0.2";
-	private Metadata metadata;
+	private MetadataType metadata;
 	@SerializedName("CityObjects")
-	private Map<String, AbstractCityObject> cityObjects = new HashMap<>();
+	private Map<String, AbstractCityObjectType> cityObjects = new HashMap<>();
 	private List<List<Double>> vertices = new ArrayList<>();
-	private Transform transform;
-	private Appearance appearance;
+	private TransformType transform;
+	private AppearanceType appearance;
 	
 	public String getType() {
 		return type;
@@ -37,23 +37,23 @@ public class CityJSON {
 		return metadata != null;
 	}
 	
-	public Metadata getMetadata() {
+	public MetadataType getMetadata() {
 		return metadata;
 	}
 
-	public void setMetadata(Metadata metadata) {
+	public void setMetadata(MetadataType metadata) {
 		this.metadata = metadata;
 	}
 	
-	public void addCityObject(String id, AbstractCityObject cityObject) {
+	public void addCityObject(String id, AbstractCityObjectType cityObject) {
 		cityObjects.put(id, cityObject);
 	}
 
-	public Map<String, AbstractCityObject> getCityObjects() {
+	public Map<String, AbstractCityObjectType> getCityObjects() {
 		return cityObjects;
 	}
 
-	public void setCityObjects(Map<String, AbstractCityObject> cityObjects) {
+	public void setCityObjects(Map<String, AbstractCityObjectType> cityObjects) {
 		if (cityObjects != null)
 			this.cityObjects = cityObjects;
 	}
@@ -76,11 +76,11 @@ public class CityJSON {
 		return transform != null;
 	}
 	
-	public Transform getTransform() {
+	public TransformType getTransform() {
 		return transform;
 	}
 
-	public void setTransform(Transform transform) {
+	public void setTransform(TransformType transform) {
 		this.transform = transform;
 	}
 
@@ -88,11 +88,11 @@ public class CityJSON {
 		return appearance != null;
 	}
 	
-	public Appearance getAppearance() {
+	public AppearanceType getAppearance() {
 		return appearance;
 	}
 
-	public void setAppearance(Appearance appearance) {
+	public void setAppearance(AppearanceType appearance) {
 		this.appearance = appearance;
 	}
 	
