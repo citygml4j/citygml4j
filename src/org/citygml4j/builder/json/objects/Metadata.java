@@ -42,7 +42,7 @@ public class Metadata {
 	public void setBBox(List<Double> bbox) {
 		if (bbox == null)
 			this.bbox = null;
-		if (bbox != null && bbox.size() >= 6)
+		else if (bbox.size() >= 6)
 			this.bbox = bbox.subList(0, 6);
 	}
 	

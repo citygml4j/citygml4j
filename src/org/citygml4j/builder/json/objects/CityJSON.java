@@ -13,7 +13,7 @@ public class CityJSON {
 	private Metadata metadata;
 	@SerializedName("CityObjects")
 	private Map<String, AbstractCityObject> cityObjects = new HashMap<>();
-	private List<Double> vertices = new ArrayList<>();
+	private List<List<Double>> vertices = new ArrayList<>();
 	private Transform transform;
 	private Appearance appearance;
 	
@@ -57,12 +57,17 @@ public class CityJSON {
 		if (cityObjects != null)
 			this.cityObjects = cityObjects;
 	}
+	
+	public void addVertex(List<Double> vertex) {
+		if (vertex != null && vertex.size() == 3)
+			vertices.add(vertex);
+	}
 
-	public List<Double> getVertices() {
+	public List<List<Double>> getVertices() {
 		return vertices;
 	}
 
-	public void setVertices(List<Double> vertices) {
+	public void setVertices(List<List<Double>> vertices) {
 		if (vertices != null)
 			this.vertices = vertices;
 	}
