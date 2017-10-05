@@ -25,7 +25,7 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null) {
-			CityObjectTypeName objectType = CityObjectTypeName.fromName(type.getAsString());
+			CityObjectTypeName objectType = CityObjectTypeName.fromValue(type.getAsString());
 			if (object != null)
 				cityObject = context.deserialize(json, objectType.getTypeClass());
 		}

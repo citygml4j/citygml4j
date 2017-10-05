@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
 	private final String type = "CityModel";
-	private String version = "http://www.cityjson.org/version/0.2";
+	private final String version = "0.3";
 	private MetadataType metadata;
 	@SerializedName("CityObjects")
 	private Map<String, AbstractCityObjectType> cityObjects = new HashMap<>();
@@ -27,10 +27,6 @@ public class CityJSON {
 
 	public String getVersion() {
 		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
 	}
 
 	public boolean isSetMetadata() {

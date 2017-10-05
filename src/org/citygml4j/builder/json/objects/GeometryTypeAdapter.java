@@ -25,7 +25,7 @@ public class GeometryTypeAdapter implements JsonSerializer<AbstractGeometryType>
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null) {
-			GeometryTypeName geometryType = GeometryTypeName.fromName(type.getAsString());
+			GeometryTypeName geometryType = GeometryTypeName.fromValue(type.getAsString());
 			if (object != null)
 				geometryObject = context.deserialize(json, geometryType.getTypeClass());
 		}

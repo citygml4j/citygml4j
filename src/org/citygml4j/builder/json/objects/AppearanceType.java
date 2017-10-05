@@ -5,11 +5,39 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class AppearanceType {
+	@SerializedName("default-theme-texture")
+	private String defaultTextureTheme;
+	@SerializedName("default-theme-material")
+	private String defaultMaterialTheme;
 	private List<MaterialType> materials;
 	private List<TextureType> textures;
 	@SerializedName("vertices-texture")
 	private List<List<Double>> textureVertices;
 	
+	public boolean isSetDefaultTextureTheme() {
+		return defaultTextureTheme != null;
+	}
+	
+	public String getDefaultTextureTheme() {
+		return defaultTextureTheme;
+	}
+
+	public void setDefaultTextureTheme(String defaultTextureTheme) {
+		this.defaultTextureTheme = defaultTextureTheme;
+	}
+
+	public boolean isSetDefaultMaterialTheme() {
+		return defaultMaterialTheme != null;
+	}
+	
+	public String getDefaultMaterialTheme() {
+		return defaultMaterialTheme;
+	}
+
+	public void setDefaultMaterialTheme(String defaultMaterialTheme) {
+		this.defaultMaterialTheme = defaultMaterialTheme;
+	}
+
 	public boolean isSetMaterials() {
 		return materials != null;
 	}

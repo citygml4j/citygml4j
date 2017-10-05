@@ -26,24 +26,24 @@ public enum SemanticsTypeName {
 	@SerializedName("WaterClosureSurface")
 	WATER_CLOSURE_SURFACE("WaterClosureSurface");
 	
-	private final String name;
+	private final String value;
 	
-	private SemanticsTypeName(String name) {
-		this.name = name;
+	private SemanticsTypeName(String value) {
+		this.value = value;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 	
 	@Override
 	public String toString() {
-		return name;
+		return value;
 	}
 	
-	public static SemanticsTypeName fromName(String name) {
+	public static SemanticsTypeName fromValue(String value) {
 		for (SemanticsTypeName type : SemanticsTypeName.values()) {
-			if (type.name.equals(name))
+			if (type.value.equals(value))
 				return type;
 		}
 		

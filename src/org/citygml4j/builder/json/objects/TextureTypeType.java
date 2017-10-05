@@ -10,24 +10,24 @@ public enum TextureTypeType {
 	@SerializedName("typical")
 	TYPICAL("typical");
 	
-	private final String name;
+	private final String value;
 	
-	private TextureTypeType(String name) {
-		this.name = name;
+	private TextureTypeType(String value) {
+		this.value = value;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 	
 	@Override
 	public String toString() {
-		return name;
+		return value;
 	}
 	
-	public static TextureTypeType fromName(String name) {
+	public static TextureTypeType fromValue(String value) {
 		for (TextureTypeType type : TextureTypeType.values()) {
-			if (type.name.equals(name))
+			if (type.value.equals(value))
 				return type;
 		}
 		

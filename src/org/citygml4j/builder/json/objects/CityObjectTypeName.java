@@ -24,16 +24,16 @@ public enum CityObjectTypeName {
 	@SerializedName("GenericCityObject")
 	GENERIC_CITY_OBJECT("GenericCityObject", GenericCityObjectType.class);
 	
-	private final String name;
+	private final String value;
 	private final Class<? extends AbstractCityObjectType> typeClass;
 	
-	private CityObjectTypeName(String name, Class<? extends AbstractCityObjectType> typeClass) {
-		this.name = name;
+	private CityObjectTypeName(String value, Class<? extends AbstractCityObjectType> typeClass) {
+		this.value = value;
 		this.typeClass = typeClass;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 	
 	public Class<? extends AbstractCityObjectType> getTypeClass() {
@@ -42,12 +42,12 @@ public enum CityObjectTypeName {
 
 	@Override
 	public String toString() {
-		return name;
+		return value;
 	}
 	
-	public static CityObjectTypeName fromName(String name) {
+	public static CityObjectTypeName fromValue(String value) {
 		for (CityObjectTypeName type : CityObjectTypeName.values()) {
-			if (type.name.equals(name))
+			if (type.value.equals(value))
 				return type;
 		}
 		

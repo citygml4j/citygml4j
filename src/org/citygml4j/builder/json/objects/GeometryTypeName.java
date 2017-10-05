@@ -18,16 +18,16 @@ public enum GeometryTypeName {
 	@SerializedName("CompositeSolid")
 	COMPOSITE_SOLID("CompositeSolid", CompositeSolidType.class);
 	
-	private final String name;
+	private final String value;
 	private final Class<? extends AbstractGeometryType> typeClass;
 	
-	private GeometryTypeName(String name, Class<? extends AbstractGeometryType> typeClass) {
-		this.name = name;
+	private GeometryTypeName(String value, Class<? extends AbstractGeometryType> typeClass) {
+		this.value = value;
 		this.typeClass = typeClass;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 	
 	public Class<? extends AbstractGeometryType> getTypeClass() {
@@ -36,12 +36,12 @@ public enum GeometryTypeName {
 
 	@Override
 	public String toString() {
-		return name;
+		return value;
 	}
 	
-	public static GeometryTypeName fromName(String name) {
+	public static GeometryTypeName fromValue(String value) {
 		for (GeometryTypeName type : GeometryTypeName.values()) {
-			if (type.name.equals(name))
+			if (type.value.equals(value))
 				return type;
 		}
 		

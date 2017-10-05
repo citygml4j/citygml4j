@@ -1,6 +1,7 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TextureType {
 	private TextureTypeName type;
@@ -75,6 +76,27 @@ public class TextureType {
 			this.borderColor = borderColor;
 		else if (borderColor.size() >= 4)
 			this.borderColor = borderColor.subList(0, 4);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(type, image, wrapMode, textureType, borderColor);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		
+		if (!(obj instanceof TextureType))
+			return false;
+		
+		TextureType other = (TextureType)obj;
+		return Objects.equals(type, other.type)
+				&& Objects.equals(image, other.image)
+				&& Objects.equals(wrapMode, other.wrapMode)
+				&& Objects.equals(textureType, other.textureType)
+				&& Objects.equals(borderColor, other.borderColor);
 	}
 	
 }

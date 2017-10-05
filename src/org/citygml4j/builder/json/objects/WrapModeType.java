@@ -14,24 +14,24 @@ public enum WrapModeType {
 	@SerializedName("border")
 	BORDER("border");
 	
-	private final String name;
+	private final String value;
 	
-	private WrapModeType(String name) {
-		this.name = name;
+	private WrapModeType(String value) {
+		this.value = value;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 	
 	@Override
 	public String toString() {
-		return name;
+		return value;
 	}
 	
-	public static WrapModeType fromName(String name) {
+	public static WrapModeType fromValue(String value) {
 		for (WrapModeType type : WrapModeType.values()) {
-			if (type.name.equals(name))
+			if (type.value.equals(value))
 				return type;
 		}
 		

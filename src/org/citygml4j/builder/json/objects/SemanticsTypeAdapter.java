@@ -20,7 +20,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 			return new JsonObject();
 
 		JsonObject object = new JsonObject();
-		object.add("type", new JsonPrimitive(semantics.getType().getName()));
+		object.add("type", new JsonPrimitive(semantics.getType().getValue()));
 
 		// serialize properties
 		if (semantics.isSetProperties()) {
@@ -38,7 +38,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null) {		
-			SemanticsTypeName semanticsType = SemanticsTypeName.fromName(type.getAsString());
+			SemanticsTypeName semanticsType = SemanticsTypeName.fromValue(type.getAsString());
 			if (semanticsType != null) {
 				SemanticsType semantics = new SemanticsType(semanticsType);
 

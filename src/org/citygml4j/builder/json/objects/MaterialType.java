@@ -1,6 +1,7 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MaterialType {
 	private String name;
@@ -117,6 +118,30 @@ public class MaterialType {
 
 	public void setIsSmooth(Boolean isSmooth) {
 		this.isSmooth = isSmooth;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, ambientIntensity, diffuseColor, emissiveColor, specularColor, shininess, transparency, isSmooth);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+
+		if (!(obj instanceof MaterialType))
+			return false;
+
+		MaterialType other = (MaterialType)obj;
+		return Objects.equals(name, other.name)
+				&& Objects.equals(ambientIntensity, other.ambientIntensity)
+				&& Objects.equals(diffuseColor, other.diffuseColor)
+				&& Objects.equals(emissiveColor, other.emissiveColor)
+				&& Objects.equals(specularColor, other.specularColor)
+				&& Objects.equals(shininess, other.shininess)
+				&& Objects.equals(transparency, other.transparency)
+				&& Objects.equals(isSmooth, other.isSmooth);
 	}
 
 }
