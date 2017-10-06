@@ -41,4 +41,11 @@ public class SolitaryVegetationObjectAttributes extends DefaultAttributes {
 		this.crownDiameter = crownDiameter;
 	}
 	
+	public boolean hasAttributes() {
+		return super.hasAttributes()
+				|| species != null
+				|| trunkDiameter != null
+				|| crownDiameter != null;
+	}
+	
 }

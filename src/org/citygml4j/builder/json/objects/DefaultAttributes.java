@@ -1,40 +1,12 @@
 package org.citygml4j.builder.json.objects;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 
 public class DefaultAttributes extends AbstractAttributes {
-	private Date creationDate;
-	private Date terminationDate;
 	@SerializedName("class")
 	private String clazz;
 	private String function;
 	private String usage;
-	
-	public boolean isSetCreationDate() {
-		return creationDate != null;
-	}
-	
-	public Date getCreationDate() {
-		return creationDate;
-	}
-	
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-	
-	public boolean isSetTerminationDate() {
-		return terminationDate != null;
-	}
-	
-	public Date getTerminationDate() {
-		return terminationDate;
-	}
-	
-	public void setTerminationDate(Date terminationDate) {
-		this.terminationDate = terminationDate;
-	}
 	
 	public boolean isSetClazz() {
 		return clazz != null;
@@ -70,6 +42,13 @@ public class DefaultAttributes extends AbstractAttributes {
 	
 	public void setUsage(String usage) {
 		this.usage = usage;
+	}
+	
+	public boolean hasAttributes() {
+		return super.hasAttributes()
+				|| clazz != null
+				|| function!= null
+				|| usage != null;
 	}
 		
 }

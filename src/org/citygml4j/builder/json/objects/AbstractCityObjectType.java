@@ -7,12 +7,21 @@ import com.google.gson.annotations.JsonAdapter;
 
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
+	private transient String gmlId;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	public abstract CityObjectTypeName getType();
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
 	public abstract boolean isSetAttributes();
 	public abstract AbstractAttributes getAttributes();
+	
+	public String getGmlId() {
+		return gmlId;
+	}
+	
+	public void setGmlId(String gmlId) {
+		this.gmlId = gmlId;
+	}
 	
 	public void addGeometry(AbstractGeometryType geometry) {
 		if (isValidGeometryType(geometry.getType()))

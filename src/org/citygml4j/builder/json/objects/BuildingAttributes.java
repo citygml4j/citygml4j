@@ -1,5 +1,6 @@
 package org.citygml4j.builder.json.objects;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,13 @@ public class BuildingAttributes extends DefaultAttributes {
 		return storeyHeightsAboveGround != null;
 	}
 	
+	public void addStoreyHeightsAboveGround(double value) {
+		if (storeyHeightsAboveGround == null)
+			storeyHeightsAboveGround = new ArrayList<>();
+		
+		storeyHeightsAboveGround.add(value);
+	}
+	
 	public List<Double> getStoreyHeightsAboveGround() {
 		return storeyHeightsAboveGround;
 	}
@@ -75,6 +83,13 @@ public class BuildingAttributes extends DefaultAttributes {
 	
 	public boolean isSetStoreyHeightsBelowGround() {
 		return storeyHeightsBelowGround != null;
+	}
+	
+	public void addStoreyHeightsBelowGround(double value) {
+		if (storeyHeightsBelowGround == null)
+			storeyHeightsBelowGround = new ArrayList<>();
+		
+		storeyHeightsBelowGround.add(value);
 	}
 	
 	public List<Double> getStoreyHeightsBelowGround() {
@@ -109,4 +124,15 @@ public class BuildingAttributes extends DefaultAttributes {
 		this.yearOfDemolition = yearOfDemolition;
 	}
 	
+	public boolean hasAttributes() {
+		return super.hasAttributes()
+				|| measuredHeight != null
+				|| roofType != null
+				|| storeysAboveGround != null
+				|| storeysBelowGround != null
+				|| storeyHeightsAboveGround != null
+				|| storeyHeightsBelowGround != null
+				|| yearOfConstruction != null
+				|| yearOfDemolition != null;
+	}
 }

@@ -15,4 +15,9 @@ public class PlantCoverAttributes extends DefaultAttributes {
 		this.averageHeight = averageHeight;
 	}
 	
+	public boolean hasAttributes() {
+		return super.hasAttributes()
+				|| averageHeight != null;
+	}
+	
 }
