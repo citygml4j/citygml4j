@@ -41,8 +41,8 @@ public class CityJSON {
 		this.metadata = metadata;
 	}
 	
-	public void addCityObject(String id, AbstractCityObjectType cityObject) {
-		cityObjects.put(id, cityObject);
+	public void addCityObject(AbstractCityObjectType cityObject) {
+		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
 
 	public Map<String, AbstractCityObjectType> getCityObjects() {

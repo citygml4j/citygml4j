@@ -7,7 +7,7 @@ import com.google.gson.annotations.JsonAdapter;
 
 @JsonAdapter(SemanticsTypeAdapter.class)
 public class SemanticsType {
-	public static final SemanticsType EMPTY = new SemanticsType();
+	public static final SemanticsType NULL_VALUE = new SemanticsType();
 	private final SemanticsTypeName type;
 	private transient Map<String, Object> properties;
 	

@@ -16,7 +16,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 
 	@Override
 	public JsonElement serialize(SemanticsType semantics, Type typeOfSrc, JsonSerializationContext context) {
-		if (semantics == SemanticsType.EMPTY)
+		if (semantics == SemanticsType.NULL_VALUE)
 			return new JsonObject();
 
 		JsonObject object = new JsonObject();
@@ -69,7 +69,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 			}
 		}
 
-		return SemanticsType.EMPTY;
+		return SemanticsType.NULL_VALUE;
 	}
 
 }

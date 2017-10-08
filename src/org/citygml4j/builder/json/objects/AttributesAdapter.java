@@ -13,10 +13,10 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public abstract class AbstractAttributesAdapter<T extends AbstractAttributes> implements JsonSerializer<T>, JsonDeserializer<T> {
+public abstract class AttributesAdapter<T extends AbstractAttributes> implements JsonSerializer<T>, JsonDeserializer<T> {
 	private final Class<T> type;
 	
-	public AbstractAttributesAdapter(Class<T> type) {
+	protected AttributesAdapter(Class<T> type) {
 		this.type = type;
 	}
 	
