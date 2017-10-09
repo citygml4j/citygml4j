@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SolidType extends AbstractSolidType {
+public class SolidType extends AbstractSolidType
+implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 	private final GeometryTypeName type = GeometryTypeName.SOLID;
 	private List<List<List<List<Integer>>>> geometry = new ArrayList<>();
 	private List<List<SemanticsType>> semantics;
@@ -50,6 +51,17 @@ public class SolidType extends AbstractSolidType {
 		this.semantics = semantics;
 	}
 	
+	@Override
+	public boolean hasSemantics() {
+		return semantics != null && semantics.stream().flatMap(List::stream).filter(s -> s != SemanticsType.NULL_VALUE).findFirst().isPresent();
+	}
+
+	@Override
+	public void unsetSemantics() {
+		semantics = null;
+	}
+	
+	@Override
 	public boolean isSetMaterial() {
 		return material != null;
 	}
@@ -61,6 +73,7 @@ public class SolidType extends AbstractSolidType {
 		material.put(materialObject.getTheme(), materialObject);
 	}
 	
+	@Override
 	public Map<String, SolidMaterialObject> getMaterial() {
 		return material;
 	}
@@ -72,7 +85,8 @@ public class SolidType extends AbstractSolidType {
 	public void setMaterial(Map<String, SolidMaterialObject> material) {
 		this.material = material;
 	}
-	
+
+	@Override
 	public boolean isSetTexture() {
 		return texture != null;
 	}
@@ -84,6 +98,7 @@ public class SolidType extends AbstractSolidType {
 		texture.put(textureObject.getTheme(), textureObject);
 	}
 	
+	@Override
 	public Map<String, SolidTextureObject> getTexture() {
 		return texture;
 	}

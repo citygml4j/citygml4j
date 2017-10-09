@@ -1,9 +1,11 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SolidCollectionTextureObject extends AbstractTextureObject {
+	public static final List<List<List<List<Integer>>>> NULL_VALUE = Collections.singletonList(SolidTextureObject.NULL_VALUE);
 	private List<List<List<List<List<Integer>>>>> values;
 	
 	public SolidCollectionTextureObject() {
@@ -23,6 +25,11 @@ public class SolidCollectionTextureObject extends AbstractTextureObject {
 
 		values.add(value);
 	}
+	
+	@Override
+	public void addNull() {
+		addValue(NULL_VALUE);
+	}
 
 	public List<List<List<List<List<Integer>>>>> getValues() {
 		return values;
@@ -32,6 +39,7 @@ public class SolidCollectionTextureObject extends AbstractTextureObject {
 		this.values = values;
 	}
 	
+	@Override
 	public int size() {
 		return values != null ? values.size() : 0;
 	}

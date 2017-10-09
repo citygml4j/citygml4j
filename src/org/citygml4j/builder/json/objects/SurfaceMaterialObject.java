@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SurfaceMaterialObject extends AbstractMaterialObject {
+	public static final Integer NULL_VALUE = null;
 	private List<Integer> values;
 	
 	public SurfaceMaterialObject() {
@@ -23,6 +24,11 @@ public class SurfaceMaterialObject extends AbstractMaterialObject {
 		
 		values.add(value);
 	}
+	
+	@Override
+	public void addNull() {
+		addValue(NULL_VALUE);
+	}
 
 	public List<Integer> getValues() {
 		return values;
@@ -32,6 +38,7 @@ public class SurfaceMaterialObject extends AbstractMaterialObject {
 		this.values = values;
 	}
 	
+	@Override
 	public int size() {
 		return values != null ? values.size() : 0;
 	}
