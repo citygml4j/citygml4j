@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.citygml4j.builder.json.objects.appearance.AppearanceType;
+import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
+import org.citygml4j.builder.json.objects.feature.MetadataType;
+import org.citygml4j.builder.json.objects.geometry.TransformType;
+
 import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
