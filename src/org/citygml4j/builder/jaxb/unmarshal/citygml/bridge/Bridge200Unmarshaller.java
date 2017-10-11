@@ -60,7 +60,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.BridgeModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml._2.AddressPropertyType;
@@ -99,13 +99,13 @@ public class Bridge200Unmarshaller {
 	private final BridgeModule module = BridgeModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 	
 	public Bridge200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
 				.with(BridgeType.class, this::unmarshalBridge)
 				.with(BridgeConstructionElementType.class, this::unmarshalBridgeConstructionElement)

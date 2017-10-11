@@ -25,7 +25,7 @@ public abstract class AbstractCityObjectType {
 	public void setGmlId(String gmlId) {
 		this.gmlId = gmlId;
 	}
-	
+		
 	public void addGeometry(AbstractGeometryType geometry) {
 		if (isValidGeometryType(geometry.getType()))
 			this.geometry.add(geometry);

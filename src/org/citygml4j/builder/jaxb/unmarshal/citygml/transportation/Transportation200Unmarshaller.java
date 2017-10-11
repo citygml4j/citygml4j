@@ -41,7 +41,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TransportationModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
@@ -61,13 +61,13 @@ public class Transportation200Unmarshaller {
 	private final TransportationModule module = TransportationModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Transportation200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(AuxiliaryTrafficAreaType.class, this::unmarshalAuxiliaryTrafficArea)
 				.with(AuxiliaryTrafficAreaPropertyType.class, this::unmarshalAuxiliaryTrafficAreaProperty)
 				.with(RailwayType.class, this::unmarshalRailway)

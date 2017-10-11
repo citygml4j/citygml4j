@@ -104,7 +104,7 @@ import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
 import org.citygml4j.model.xal.XAL;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 
 import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
 import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
@@ -138,10 +138,10 @@ import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
 import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 
 public class XALUnmarshaller {
-	private final JAXBMapper<XAL> typeMapper;
+	private final TypeMapper<XAL> typeMapper;
 	
 	public XALUnmarshaller() {
-		typeMapper = JAXBMapper.<XAL>create()
+		typeMapper = TypeMapper.<XAL>create()
 				.with(AddressDetails.Address.class, this::unmarshalAddress)
 				.with(AddressDetails.class, this::unmarshalAddressDetails)
 				.with(AddressDetails.PostalServiceElements.AddressIdentifier.class, this::unmarshalAddressIdentifier)

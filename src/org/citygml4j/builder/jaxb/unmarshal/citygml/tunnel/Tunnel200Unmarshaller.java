@@ -58,7 +58,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TunnelModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
@@ -94,13 +94,13 @@ public class Tunnel200Unmarshaller {
 	private final TunnelModule module = TunnelModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Tunnel200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
 				.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
 				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)

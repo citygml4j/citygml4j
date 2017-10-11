@@ -47,7 +47,7 @@ import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -73,14 +73,14 @@ public class Appearance100Marshaller {
 	private final ObjectFactory app = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	public Appearance100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(AppearanceMember.class, this::createAppearanceMember)
 				.with(GeoreferencedTexture.class, this::createGeoreferencedTexture)
 				.with(ParameterizedTexture.class, this::createParameterizedTexture)
@@ -88,7 +88,7 @@ public class Appearance100Marshaller {
 				.with(TexCoordList.class, this::createTexCoordList)
 				.with(X3DMaterial.class, this::createX3DMaterial);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(Appearance.class, this::marshalAppearance)
 				.with(AppearanceMember.class, this::marshalAppearanceProperty)
 				.with(AppearanceProperty.class, this::marshalAppearanceProperty)

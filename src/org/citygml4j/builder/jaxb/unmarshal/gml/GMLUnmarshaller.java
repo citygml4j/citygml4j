@@ -186,7 +186,7 @@ import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
@@ -196,12 +196,12 @@ import net.opengis.gml.*;
 
 public class GMLUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
-	private final JAXBCheckedMapper<GML> typeMapper;
+	private final CheckedTypeMapper<GML> typeMapper;
 
 	public GMLUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
 		
-		typeMapper = JAXBCheckedMapper.<GML>create()
+		typeMapper = CheckedTypeMapper.<GML>create()
 				.with(BoundingShapeType.class, this::unmarshalBoundingShape)
 				.with(CodeType.class, this::unmarshalCode)
 				.with(CategoryExtentType.class, this::unmarshalCategoryExtent)

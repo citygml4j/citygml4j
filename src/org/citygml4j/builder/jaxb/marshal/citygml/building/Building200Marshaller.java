@@ -58,7 +58,7 @@ import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -97,14 +97,14 @@ public class Building200Marshaller {
 	private final ObjectFactory bldg = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	public Building200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(Building.class, this::createBuilding)
 				.with(BuildingFurniture.class, this::createBuildingFurniture)
 				.with(BuildingInstallation.class, this::createBuildingInstallation)
@@ -123,7 +123,7 @@ public class Building200Marshaller {
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
 
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Building.class, this::marshalBuilding)
 				.with(BuildingFurniture.class, this::marshalBuildingFurniture)

@@ -1,6 +1,7 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,13 +51,15 @@ public class CityJSON {
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
 
-	public Map<String, AbstractCityObjectType> getCityObjects() {
-		return cityObjects;
+	public Collection<AbstractCityObjectType> getCityObjects() {
+		return cityObjects.values();
 	}
 
-	public void setCityObjects(Map<String, AbstractCityObjectType> cityObjects) {
-		if (cityObjects != null)
-			this.cityObjects = cityObjects;
+	public void setCityObjects(List<AbstractCityObjectType> cityObjects) {
+		if (cityObjects != null) {
+			for (AbstractCityObjectType cityObject : cityObjects)
+				this.cityObjects.put(cityObject.getGmlId(), cityObject);
+		}
 	}
 	
 	public void addVertex(List<Double> vertex) {

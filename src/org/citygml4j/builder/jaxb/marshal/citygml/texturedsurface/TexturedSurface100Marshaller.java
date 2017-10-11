@@ -32,7 +32,7 @@ import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
 import org.citygml4j.model.citygml.texturedsurface._TextureType;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -48,18 +48,18 @@ import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 public class TexturedSurface100Marshaller {
 	private final ObjectFactory tex = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public TexturedSurface100Marshaller(CityGMLMarshaller citygml) {
 		jaxb = citygml.getJAXBMarshaller();
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(_Material.class, this::createMaterial)
 				.with(_SimpleTexture.class, this::createSimpleTexture)
 				.with(_TexturedSurface.class, this::createTexturedSurface);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(_AppearanceProperty.class, this::marshalAppearanceProperty)
 				.with(_Color.class, this::marshalColor)
 				.with(_Material.class, this::marshalMaterial)

@@ -15,6 +15,10 @@ public class MultiPointType extends AbstractGeometryType {
 	public void addPoint(int point) {
 		geometry.add(point);
 	}
+	
+	public void addPoints(List<Integer> points) {
+		geometry.addAll(points);
+	}
 
 	public List<Integer> getPoints() {
 		return geometry;

@@ -59,7 +59,7 @@ import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -100,14 +100,14 @@ public class Bridge200Marshaller {
 	private final ObjectFactory brid = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	public Bridge200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(Bridge.class, this::createBridge)
 				.with(BridgeConstructionElement.class, this::createBridgeConstructionElement)
 				.with(BridgeFurniture.class, this::createBridgeFurniture)
@@ -127,7 +127,7 @@ public class Bridge200Marshaller {
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
 
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Bridge.class, this::marshalBridge)
 				.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)

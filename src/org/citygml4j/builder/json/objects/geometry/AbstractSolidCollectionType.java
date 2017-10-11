@@ -1,6 +1,7 @@
 package org.citygml4j.builder.json.objects.geometry;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,16 +83,21 @@ implements GeometryWithAppearance<SolidCollectionMaterialObject, SolidCollection
 	}
 	
 	@Override
-	public Map<String, SolidCollectionMaterialObject> getMaterial() {
-		return material;
+	public Collection<SolidCollectionMaterialObject> getMaterial() {
+		return material.values();
 	}
 	
 	public SolidCollectionMaterialObject getMaterial(String theme) {
 		return material != null ? material.get(theme) : null;
 	}
 
-	public void setMaterial(Map<String, SolidCollectionMaterialObject> material) {
-		this.material = material;
+	public void setMaterial(List<SolidCollectionMaterialObject> material) {
+		if (material == null)
+			this.material = null;
+		else {
+			for (SolidCollectionMaterialObject object : material)
+				this.material.put(object.getTheme(), object);
+		}
 	}
 	
 	@Override
@@ -107,16 +113,21 @@ implements GeometryWithAppearance<SolidCollectionMaterialObject, SolidCollection
 	}
 	
 	@Override
-	public Map<String, SolidCollectionTextureObject> getTexture() {
-		return texture;
+	public Collection<SolidCollectionTextureObject> getTexture() {
+		return texture.values();
 	}
 	
 	public SolidCollectionTextureObject getTexture(String theme) {
 		return texture != null ? texture.get(theme) : null;
 	}
 
-	public void setTexture(Map<String, SolidCollectionTextureObject> texture) {
-		this.texture = texture;
+	public void setTexture(List<SolidCollectionTextureObject> texture) {
+		if (texture == null)
+			this.texture = null;
+		else {
+			for (SolidCollectionTextureObject object : texture)
+				this.texture.put(object.getTheme(), object);
+		}
 	}
 
 }

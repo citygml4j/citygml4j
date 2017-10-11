@@ -28,7 +28,7 @@ import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupParent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -44,13 +44,13 @@ public class CityObjectGroup200Marshaller {
 	private final ObjectFactory grp = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public CityObjectGroup200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(CityObjectGroup.class, this::marshalCityObjectGroup)
 				.with(CityObjectGroupMember.class, this::marshalCityObjectGroupMember)
 				.with(CityObjectGroupParent.class, this::marshalCityObjectGroupParent);

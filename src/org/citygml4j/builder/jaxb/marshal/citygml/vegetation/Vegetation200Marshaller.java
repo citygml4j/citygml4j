@@ -28,7 +28,7 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 
 import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
 import net.opengis.citygml.vegetation._2.ObjectFactory;
@@ -39,18 +39,18 @@ public class Vegetation200Marshaller {
 	private final ObjectFactory veg = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public Vegetation200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(PlantCover.class, this::createPlantCover)
 				.with(SolitaryVegetationObject.class, this::createSolitaryVegetationObject);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(PlantCover.class, this::marshalPlantCover)
 				.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
 	}
