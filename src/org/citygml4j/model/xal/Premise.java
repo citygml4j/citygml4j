@@ -625,11 +625,11 @@ public class Premise implements XAL, Child, Copyable {
 		return copy;
 	}
 	
-	public void visit(XALVisitor visitor) {
+	public void accept(XALVisitor visitor) {
 		visitor.visit(this);
 	}
 	
-	public <T> T visit(XALFunctor<T> visitor) {
+	public <T> T accept(XALFunctor<T> visitor) {
 		return visitor.apply(this);
 	}
 
