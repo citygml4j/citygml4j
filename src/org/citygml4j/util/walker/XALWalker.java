@@ -115,25 +115,25 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 
 	public void visit(AddressDetails addressDetails) {
 		if (addressDetails.isSetPostalServiceElements() && shouldWalk)
-			addressDetails.getPostalServiceElements().visit(this);
+			addressDetails.getPostalServiceElements().accept(this);
 
 		if (addressDetails.isSetAddress() && shouldWalk)
-			addressDetails.getAddress().visit(this);
+			addressDetails.getAddress().accept(this);
 
 		if (addressDetails.isSetAddressLines() && shouldWalk)
-			addressDetails.getAddressLines().visit(this);
+			addressDetails.getAddressLines().accept(this);
 
 		if (addressDetails.isSetCountry() && shouldWalk)
-			addressDetails.getCountry().visit(this);
+			addressDetails.getCountry().accept(this);
 
 		if (addressDetails.isSetAdministrativeArea() && shouldWalk)
-			addressDetails.getAdministrativeArea().visit(this);
+			addressDetails.getAdministrativeArea().accept(this);
 
 		if (addressDetails.isSetLocality() && shouldWalk)
-			addressDetails.getLocality().visit(this);
+			addressDetails.getLocality().accept(this);
 
 		if (addressDetails.isSetThoroughfare() && shouldWalk)
-			addressDetails.getThoroughfare().visit(this);			
+			addressDetails.getThoroughfare().accept(this);			
 	}
 
 	public void visit(AddressIdentifier addressIdentifier) {
@@ -152,7 +152,7 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (addressLines.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(addressLines.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 	}
 
@@ -166,26 +166,26 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (administrativeArea.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(administrativeArea.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (administrativeArea.isSetAdministrativeAreaName()) {
 			for (AdministrativeAreaName administrativeAreaName : new ArrayList<AdministrativeAreaName>(administrativeArea.getAdministrativeAreaName()))
 				if (shouldWalk)
-					administrativeAreaName.visit(this);
+					administrativeAreaName.accept(this);
 		}
 
 		if (administrativeArea.isSetSubAdministrativeArea() && shouldWalk)
-			administrativeArea.getSubAdministrativeArea().visit(this);
+			administrativeArea.getSubAdministrativeArea().accept(this);
 
 		if (administrativeArea.isSetLocality() && shouldWalk)
-			administrativeArea.getLocality().visit(this);
+			administrativeArea.getLocality().accept(this);
 
 		if (administrativeArea.isSetPostOffice() && shouldWalk)
-			administrativeArea.getPostOffice().visit(this);
+			administrativeArea.getPostOffice().accept(this);
 
 		if (administrativeArea.isSetPostalCode() && shouldWalk)
-			administrativeArea.getPostalCode().visit(this);
+			administrativeArea.getPostalCode().accept(this);
 	}
 
 	public void visit(AdministrativeAreaName administrativeAreaName) {
@@ -201,29 +201,29 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (country.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(country.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (country.isSetCountryNameCode()) {
 			for (CountryNameCode countryNameCode : new ArrayList<CountryNameCode>(country.getCountryNameCode()))
 				if (shouldWalk)
-					countryNameCode.visit(this);
+					countryNameCode.accept(this);
 		}
 
 		if (country.isSetCountryName()) {
 			for (CountryName countryName : new ArrayList<CountryName>(country.getCountryName()))
 				if (shouldWalk)
-					countryName.visit(this);
+					countryName.accept(this);
 		}
 
 		if (country.isSetAdministrativeArea() && shouldWalk)
-			country.getAdministrativeArea().visit(this);
+			country.getAdministrativeArea().accept(this);
 
 		if (country.isSetLocality() && shouldWalk)
-			country.getLocality().visit(this);
+			country.getLocality().accept(this);
 
 		if (country.isSetThoroughfare() && shouldWalk)
-			country.getThoroughfare().visit(this);	
+			country.getThoroughfare().accept(this);	
 	}
 
 	public void visit(CountryName countryName) {
@@ -236,20 +236,20 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (department.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(department.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (department.isSetDepartmentName()) {
 			for (DepartmentName departmentName : new ArrayList<DepartmentName>(department.getDepartmentName()))
 				if (shouldWalk)
-					departmentName.visit(this);
+					departmentName.accept(this);
 		}
 
 		if (department.isSetMailStop() && shouldWalk)
-			department.getMailStop().visit(this);
+			department.getMailStop().accept(this);
 
 		if (department.isSetPostalCode() && shouldWalk)
-			department.getPostalCode().visit(this);
+			department.getPostalCode().accept(this);
 	}
 
 	public void visit(DepartmentName departmentName) {
@@ -259,41 +259,41 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (dependentLocality.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(dependentLocality.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (dependentLocality.isSetDependentLocalityName()) {
 			for (DependentLocalityName dependentLocalityName : new ArrayList<DependentLocalityName>(dependentLocality.getDependentLocalityName()))
 				if (shouldWalk)
-					dependentLocalityName.visit(this);
+					dependentLocalityName.accept(this);
 		}
 
 		if (dependentLocality.isSetDependentLocalityNumber() && shouldWalk)
-			dependentLocality.getDependentLocalityNumber().visit(this);
+			dependentLocality.getDependentLocalityNumber().accept(this);
 
 		if (dependentLocality.isSetPostBox() && shouldWalk)
-			dependentLocality.getPostBox().visit(this);
+			dependentLocality.getPostBox().accept(this);
 
 		if (dependentLocality.isSetLargeMailUser() & shouldWalk)
-			dependentLocality.getLargeMailUser().visit(this);
+			dependentLocality.getLargeMailUser().accept(this);
 
 		if (dependentLocality.isSetPostOffice() && shouldWalk)
-			dependentLocality.getPostOffice().visit(this);
+			dependentLocality.getPostOffice().accept(this);
 
 		if (dependentLocality.isSetPostalRoute() && shouldWalk)
-			dependentLocality.getPostalRoute().visit(this);
+			dependentLocality.getPostalRoute().accept(this);
 
 		if (dependentLocality.isSetThoroughfare() && shouldWalk)
-			dependentLocality.getThoroughfare().visit(this);	
+			dependentLocality.getThoroughfare().accept(this);	
 
 		if (dependentLocality.isSetPremise() && shouldWalk)
-			dependentLocality.getPremise().visit(this);
+			dependentLocality.getPremise().accept(this);
 
 		if (dependentLocality.isSetDependentLocality() && shouldWalk)
-			dependentLocality.getDependentLocality().visit(this);
+			dependentLocality.getDependentLocality().accept(this);
 
 		if (dependentLocality.isSetPostalCode() && shouldWalk)
-			dependentLocality.getPostalCode().visit(this);
+			dependentLocality.getPostalCode().accept(this);
 	}
 
 	public void visit(DependentLocalityName dependentLocalityName) {
@@ -306,26 +306,26 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (dependentThoroughfare.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(dependentThoroughfare.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (dependentThoroughfare.isSetThoroughfareName()) {
 			for (ThoroughfareName thoroughfareName : new ArrayList<ThoroughfareName>(dependentThoroughfare.getThoroughfareName()))
 				if (shouldWalk)
-					thoroughfareName.visit(this);
+					thoroughfareName.accept(this);
 		}
 
 		if (dependentThoroughfare.isSetThoroughfarePreDirection() && shouldWalk)
-			dependentThoroughfare.getThoroughfarePreDirection().visit(this);
+			dependentThoroughfare.getThoroughfarePreDirection().accept(this);
 
 		if (dependentThoroughfare.isSetThoroughfareLeadingType() && shouldWalk)
-			dependentThoroughfare.getThoroughfareLeadingType().visit(this);
+			dependentThoroughfare.getThoroughfareLeadingType().accept(this);
 
 		if (dependentThoroughfare.isSetThoroughfareTrailingType() && shouldWalk)
-			dependentThoroughfare.getThoroughfareTrailingType().visit(this);
+			dependentThoroughfare.getThoroughfareTrailingType().accept(this);
 
 		if (dependentThoroughfare.isSetThoroughfarePostDirection() && shouldWalk)
-			dependentThoroughfare.getThoroughfarePostDirection().visit(this);			
+			dependentThoroughfare.getThoroughfarePostDirection().accept(this);			
 	}
 
 	public void visit(EndorsementLineCode endorsementLineCode) {
@@ -335,26 +335,26 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (firm.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(firm.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (firm.isSetFirmName()) {
 			for (FirmName firmName : new ArrayList<FirmName>(firm.getFirmName()))
 				if (shouldWalk)
-					firmName.visit(this);
+					firmName.accept(this);
 		}
 
 		if (firm.isSetDepartment()) {
 			for (Department department : new ArrayList<Department>(firm.getDepartment()))
 				if (shouldWalk)
-					department.visit(this);
+					department.accept(this);
 		}
 
 		if (firm.isSetMailStop() && shouldWalk)
-			firm.getMailStop().visit(this);
+			firm.getMailStop().accept(this);
 
 		if (firm.isSetPostalCode() && shouldWalk)
-			firm.getPostalCode().visit(this);
+			firm.getPostalCode().accept(this);
 	}
 
 	public void visit(FirmName firmName) {
@@ -367,35 +367,35 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (largeMailUser.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(largeMailUser.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (largeMailUser.isSetLargeMailUserName()) {
 			for (LargeMailUserName largeMailUserName : new ArrayList<LargeMailUserName>(largeMailUser.getLargeMailUserName()))
 				if (shouldWalk)
-					largeMailUserName.visit(this);
+					largeMailUserName.accept(this);
 		}
 
 		if (largeMailUser.isSetBuildingName()) {
 			for (BuildingName buildingName : new ArrayList<BuildingName>(largeMailUser.getBuildingName()))
 				if (shouldWalk)
-					buildingName.visit(this);
+					buildingName.accept(this);
 		}
 
 		if (largeMailUser.isSetLargeMailUserIdentifier() && shouldWalk)
-			largeMailUser.getLargeMailUserIdentifier().visit(this);
+			largeMailUser.getLargeMailUserIdentifier().accept(this);
 
 		if (largeMailUser.isSetDepartment() && shouldWalk)
-			largeMailUser.getDepartment().visit(this);
+			largeMailUser.getDepartment().accept(this);
 
 		if (largeMailUser.isSetPostBox() && shouldWalk)
-			largeMailUser.getPostBox().visit(this);
+			largeMailUser.getPostBox().accept(this);
 
 		if (largeMailUser.isSetThoroughfare() && shouldWalk)
-			largeMailUser.getThoroughfare().visit(this);	
+			largeMailUser.getThoroughfare().accept(this);	
 
 		if (largeMailUser.isSetPostalCode() && shouldWalk)
-			largeMailUser.getPostalCode().visit(this);
+			largeMailUser.getPostalCode().accept(this);
 	}
 
 	public void visit(LargeMailUserIdentifier largeMailUserIdentifier) {
@@ -408,38 +408,38 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (locality.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(locality.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (locality.isSetLocalityName()) {
 			for (LocalityName localityName : new ArrayList<LocalityName>(locality.getLocalityName()))
 				if (shouldWalk)
-					localityName.visit(this);
+					localityName.accept(this);
 		}
 
 		if (locality.isSetPostBox() && shouldWalk)
-			locality.getPostBox().visit(this);
+			locality.getPostBox().accept(this);
 
 		if (locality.isSetLargeMailUser() && shouldWalk)
-			locality.getLargeMailUser().visit(this);
+			locality.getLargeMailUser().accept(this);
 
 		if (locality.isSetPostOffice() && shouldWalk)
-			locality.getPostOffice().visit(this);
+			locality.getPostOffice().accept(this);
 
 		if (locality.isSetPostalRoute() && shouldWalk)
-			locality.getPostalRoute().visit(this);
+			locality.getPostalRoute().accept(this);
 
 		if (locality.isSetThoroughfare() && shouldWalk)
-			locality.getThoroughfare().visit(this);	
+			locality.getThoroughfare().accept(this);	
 
 		if (locality.isSetPremise() && shouldWalk)
-			locality.getPremise().visit(this);
+			locality.getPremise().accept(this);
 
 		if (locality.isSetDependentLocality() && shouldWalk)
-			locality.getDependentLocality().visit(this);
+			locality.getDependentLocality().accept(this);
 
 		if (locality.isSetPostalCode() && shouldWalk)
-			locality.getPostalCode().visit(this);
+			locality.getPostalCode().accept(this);
 	}
 
 	public void visit(LocalityName localityName) {
@@ -449,14 +449,14 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (mailStop.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(mailStop.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (mailStop.isSetMailStopName() && shouldWalk)
-			mailStop.getMailStopName().visit(this);
+			mailStop.getMailStopName().accept(this);
 
 		if (mailStop.isSetMailStopNumber() && shouldWalk)
-			mailStop.getMailStopNumber().visit(this);
+			mailStop.getMailStopNumber().accept(this);
 	}
 
 	public void visit(MailStopName mailStopName) {
@@ -469,23 +469,23 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (postalCode.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(postalCode.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (postalCode.isSetPostalCodeNumber()) {
 			for (PostalCodeNumber postalCodeNumber : new ArrayList<PostalCodeNumber>(postalCode.getPostalCodeNumber()))
 				if (shouldWalk)
-					postalCodeNumber.visit(this);
+					postalCodeNumber.accept(this);
 		}
 
 		if (postalCode.isSetPostalCodeNumberExtension()) {
 			for (PostalCodeNumberExtension postalCodeNumberExtension : new ArrayList<PostalCodeNumberExtension>(postalCode.getPostalCodeNumberExtension()))
 				if (shouldWalk)
-					postalCodeNumberExtension.visit(this);
+					postalCodeNumberExtension.accept(this);
 		}
 
 		if (postalCode.isSetPostTown() && shouldWalk)
-			postalCode.getPostTown().visit(this);
+			postalCode.getPostTown().accept(this);
 	}
 
 	public void visit(PostalCodeNumber postalCodeNumber) {
@@ -498,20 +498,20 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (postalRoute.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(postalRoute.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (postalRoute.isSetPostalRouteName()) {
 			for (PostalRouteName postalRouteName : new ArrayList<PostalRouteName>(postalRoute.getPostalRouteName()))
 				if (shouldWalk)
-					postalRouteName.visit(this);
+					postalRouteName.accept(this);
 		}
 
 		if (postalRoute.isSetPostalRouteNumber() && shouldWalk)
-			postalRoute.getPostalRouteNumber().visit(this);
+			postalRoute.getPostalRouteNumber().accept(this);
 
 		if (postalRoute.isSetPostBox() && shouldWalk)
-			postalRoute.getPostBox().visit(this);
+			postalRoute.getPostBox().accept(this);
 	}
 
 	public void visit(PostalRouteName postalRouteName) {
@@ -524,64 +524,64 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (postalServiceElements.isSetAddressIdentifier()) {
 			for (AddressIdentifier addressIdentifier : new ArrayList<AddressIdentifier>(postalServiceElements.getAddressIdentifier()))
 				if (shouldWalk)
-					addressIdentifier.visit(this);
+					addressIdentifier.accept(this);
 		}
 
 		if (postalServiceElements.isSetSupplementaryPostalServiceData()) {
 			for (SupplementaryPostalServiceData supplementaryPostalServiceData : new ArrayList<SupplementaryPostalServiceData>(postalServiceElements.getSupplementaryPostalServiceData()))
 				if (shouldWalk)
-					supplementaryPostalServiceData.visit(this);
+					supplementaryPostalServiceData.accept(this);
 		}
 
 		if (postalServiceElements.isSetEndorsementLineCode() && shouldWalk)
-			postalServiceElements.getEndorsementLineCode().visit(this);
+			postalServiceElements.getEndorsementLineCode().accept(this);
 
 		if (postalServiceElements.isSetKeyLineCode() && shouldWalk)
-			postalServiceElements.getKeyLineCode().visit(this);
+			postalServiceElements.getKeyLineCode().accept(this);
 
 		if (postalServiceElements.isSetBarcode() && shouldWalk)
-			postalServiceElements.getBarcode().visit(this);
+			postalServiceElements.getBarcode().accept(this);
 
 		if (postalServiceElements.isSetSortingCode() && shouldWalk)
-			postalServiceElements.getSortingCode().visit(this);
+			postalServiceElements.getSortingCode().accept(this);
 
 		if (postalServiceElements.isSetAddressLatitude() && shouldWalk)
-			postalServiceElements.getAddressLatitude().visit(this);
+			postalServiceElements.getAddressLatitude().accept(this);
 
 		if (postalServiceElements.isSetAddressLatitudeDirection() && shouldWalk)
-			postalServiceElements.getAddressLatitudeDirection().visit(this);
+			postalServiceElements.getAddressLatitudeDirection().accept(this);
 
 		if (postalServiceElements.isSetAddressLongitude() && shouldWalk)
-			postalServiceElements.getAddressLongitude().visit(this);
+			postalServiceElements.getAddressLongitude().accept(this);
 
 		if (postalServiceElements.isSetAddressLongitudeDirection() && shouldWalk)
-			postalServiceElements.getAddressLongitudeDirection().visit(this);
+			postalServiceElements.getAddressLongitudeDirection().accept(this);
 	}
 
 	public void visit(PostBox postBox) {
 		if (postBox.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(postBox.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (postBox.isSetPostBoxNumber() && shouldWalk)
-			postBox.getPostBoxNumber().visit(this);
+			postBox.getPostBoxNumber().accept(this);
 
 		if (postBox.isSetPostBoxNumberPrefix() && shouldWalk)
-			postBox.getPostBoxNumberPrefix().visit(this);
+			postBox.getPostBoxNumberPrefix().accept(this);
 
 		if (postBox.isSetPostBoxNumberSuffix() && shouldWalk)
-			postBox.getPostBoxNumberSuffix().visit(this);
+			postBox.getPostBoxNumberSuffix().accept(this);
 
 		if (postBox.isSetPostBoxNumberExtension() && shouldWalk)
-			postBox.getPostBoxNumberExtension().visit(this);
+			postBox.getPostBoxNumberExtension().accept(this);
 
 		if (postBox.isSetFirm() && shouldWalk)
-			postBox.getFirm().visit(this);
+			postBox.getFirm().accept(this);
 
 		if (postBox.isSetPostalCode() && shouldWalk)
-			postBox.getPostalCode().visit(this);
+			postBox.getPostalCode().accept(this);
 	}
 
 	public void visit(PostBoxNumber postBoxNumber) {
@@ -600,26 +600,26 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (postOffice.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(postOffice.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (postOffice.isSetPostOfficeName()) {
 			for (PostOfficeName postOfficeName : new ArrayList<PostOfficeName>(postOffice.getPostOfficeName()))
 				if (shouldWalk)
-					postOfficeName.visit(this);
+					postOfficeName.accept(this);
 		}
 
 		if (postOffice.isSetPostOfficeNumber() && shouldWalk)
-			postOffice.getPostOfficeNumber().visit(this);
+			postOffice.getPostOfficeNumber().accept(this);
 
 		if (postOffice.isSetPostalRoute() && shouldWalk)
-			postOffice.getPostalRoute().visit(this);
+			postOffice.getPostalRoute().accept(this);
 
 		if (postOffice.isSetPostBox() && shouldWalk)
-			postOffice.getPostBox().visit(this);
+			postOffice.getPostBox().accept(this);
 
 		if (postOffice.isSetPostalCode() && shouldWalk)
-			postOffice.getPostalCode().visit(this);
+			postOffice.getPostalCode().accept(this);
 	}
 
 	public void visit(PostOfficeName postOfficeName) {
@@ -632,17 +632,17 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (postTown.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(postTown.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (postTown.isSetPostTownName()) {
 			for (PostTownName postTownName : new ArrayList<PostTownName>(postTown.getPostTownName()))
 				if (shouldWalk)
-					postTownName.visit(this);
+					postTownName.accept(this);
 		}
 
 		if (postTown.isSetPostTownSuffix() && shouldWalk)
-			postTown.getPostTownSuffix().visit(this);
+			postTown.getPostTownSuffix().accept(this);
 	}
 
 	public void visit(PostTownName postTownName) {
@@ -655,62 +655,62 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (premise.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(premise.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (premise.isSetPremiseName()) {
 			for (PremiseName premiseName : new ArrayList<PremiseName>(premise.getPremiseName()))
 				if (shouldWalk)
-					premiseName.visit(this);
+					premiseName.accept(this);
 		}
 
 		if (premise.isSetPremiseNumber()) {
 			for (PremiseNumber premiseNumber : new ArrayList<PremiseNumber>(premise.getPremiseNumber()))
 				if (shouldWalk)
-					premiseNumber.visit(this);
+					premiseNumber.accept(this);
 		}
 
 		if (premise.isSetPremiseNumberPrefix()) {
 			for (PremiseNumberPrefix premiseNumberPrefix : new ArrayList<PremiseNumberPrefix>(premise.getPremiseNumberPrefix()))
 				if (shouldWalk)
-					premiseNumberPrefix.visit(this);
+					premiseNumberPrefix.accept(this);
 		}
 
 		if (premise.isSetPremiseNumberSuffix()) {
 			for (PremiseNumberSuffix premiseNumberSuffix : new ArrayList<PremiseNumberSuffix>(premise.getPremiseNumberSuffix()))
 				if (shouldWalk)
-					premiseNumberSuffix.visit(this);
+					premiseNumberSuffix.accept(this);
 		}
 
 		if (premise.isSetBuildingName()) {
 			for (BuildingName buildingName : new ArrayList<BuildingName>(premise.getBuildingName()))
 				if (shouldWalk)
-					buildingName.visit(this);
+					buildingName.accept(this);
 		}
 
 		if (premise.isSetSubPremise()) {
 			for (SubPremise subPremise : new ArrayList<SubPremise>(premise.getSubPremise()))
 				if (shouldWalk)
-					subPremise.visit(this);
+					subPremise.accept(this);
 		}
 
 		if (premise.isSetPremiseLocation() && shouldWalk)
-			premise.getPremiseLocation().visit(this);
+			premise.getPremiseLocation().accept(this);
 
 		if (premise.isSetPremiseNumberRange() && shouldWalk)
-			premise.getPremiseNumberRange().visit(this);
+			premise.getPremiseNumberRange().accept(this);
 
 		if (premise.isSetFirm() && shouldWalk)
-			premise.getFirm().visit(this);
+			premise.getFirm().accept(this);
 
 		if (premise.isSetMailStop() && shouldWalk)
-			premise.getMailStop().visit(this);
+			premise.getMailStop().accept(this);
 
 		if (premise.isSetPostalCode() && shouldWalk)
-			premise.getPostalCode().visit(this);
+			premise.getPostalCode().accept(this);
 
 		if (premise.isSetPremise() && shouldWalk)
-			premise.getPremise().visit(this);
+			premise.getPremise().accept(this);
 	}
 
 	public void visit(PremiseLocation premiseLocation) {
@@ -727,35 +727,35 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 
 	public void visit(PremiseNumberRange premiseNumberRange) {
 		if (premiseNumberRange.isSetPremiseNumberRangeFrom() && shouldWalk)
-			premiseNumberRange.getPremiseNumberRangeFrom().visit(this);
+			premiseNumberRange.getPremiseNumberRangeFrom().accept(this);
 
 		if (premiseNumberRange.isSetPremiseNumberRangeTo() && shouldWalk)
-			premiseNumberRange.getPremiseNumberRangeTo().visit(this);
+			premiseNumberRange.getPremiseNumberRangeTo().accept(this);
 	}
 
 	public void visit(PremiseNumberRangeFrom premiseNumberRangeFrom) {
 		if (premiseNumberRangeFrom.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(premiseNumberRangeFrom.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (premiseNumberRangeFrom.isSetPremiseNumberPrefix()) {
 			for (PremiseNumberPrefix premiseNumberPrefix : new ArrayList<PremiseNumberPrefix>(premiseNumberRangeFrom.getPremiseNumberPrefix()))
 				if (shouldWalk)
-					premiseNumberPrefix.visit(this);
+					premiseNumberPrefix.accept(this);
 		}
 
 		if (premiseNumberRangeFrom.isSetPremiseNumber()) {
 			for (PremiseNumber premiseNumber : new ArrayList<PremiseNumber>(premiseNumberRangeFrom.getPremiseNumber()))
 				if (shouldWalk)
-					premiseNumber.visit(this);
+					premiseNumber.accept(this);
 		}
 
 		if (premiseNumberRangeFrom.isSetPremiseNumberSuffix()) {
 			for (PremiseNumberSuffix premiseNumberSuffix : new ArrayList<PremiseNumberSuffix>(premiseNumberRangeFrom.getPremiseNumberSuffix()))
 				if (shouldWalk)
-					premiseNumberSuffix.visit(this);
+					premiseNumberSuffix.accept(this);
 		}
 	}
 
@@ -763,25 +763,25 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (premiseNumberRangeTo.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(premiseNumberRangeTo.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (premiseNumberRangeTo.isSetPremiseNumberPrefix()) {
 			for (PremiseNumberPrefix premiseNumberPrefix : new ArrayList<PremiseNumberPrefix>(premiseNumberRangeTo.getPremiseNumberPrefix()))
 				if (shouldWalk)
-					premiseNumberPrefix.visit(this);
+					premiseNumberPrefix.accept(this);
 		}
 
 		if (premiseNumberRangeTo.isSetPremiseNumber()) {
 			for (PremiseNumber premiseNumber : new ArrayList<PremiseNumber>(premiseNumberRangeTo.getPremiseNumber()))
 				if (shouldWalk)
-					premiseNumber.visit(this);
+					premiseNumber.accept(this);
 		}
 
 		if (premiseNumberRangeTo.isSetPremiseNumberSuffix()) {
 			for (PremiseNumberSuffix premiseNumberSuffix : new ArrayList<PremiseNumberSuffix>(premiseNumberRangeTo.getPremiseNumberSuffix()))
 				if (shouldWalk)
-					premiseNumberSuffix.visit(this);
+					premiseNumberSuffix.accept(this);
 		}
 	}
 
@@ -795,23 +795,23 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (subAdministrativeArea.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(subAdministrativeArea.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (subAdministrativeArea.isSetSubAdministrativeAreaName()) {
 			for (SubAdministrativeAreaName subAdministrativeAreaName : new ArrayList<SubAdministrativeAreaName>(subAdministrativeArea.getSubAdministrativeAreaName()))
 				if (shouldWalk)
-					subAdministrativeAreaName.visit(this);
+					subAdministrativeAreaName.accept(this);
 		}
 
 		if (subAdministrativeArea.isSetLocality() && shouldWalk)
-			subAdministrativeArea.getLocality().visit(this);
+			subAdministrativeArea.getLocality().accept(this);
 
 		if (subAdministrativeArea.isSetPostOffice() && shouldWalk)
-			subAdministrativeArea.getPostOffice().visit(this);
+			subAdministrativeArea.getPostOffice().accept(this);
 
 		if (subAdministrativeArea.isSetPostalCode() && shouldWalk)
-			subAdministrativeArea.getPostalCode().visit(this);
+			subAdministrativeArea.getPostalCode().accept(this);
 	}
 
 	public void visit(SubAdministrativeAreaName subAdministrativeAreaName) {
@@ -821,53 +821,53 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (subPremise.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(subPremise.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (subPremise.isSetSubPremiseName()) {
 			for (SubPremiseName subPremiseName : new ArrayList<SubPremiseName>(subPremise.getSubPremiseName()))
 				if (shouldWalk)
-					subPremiseName.visit(this);
+					subPremiseName.accept(this);
 		}
 
 		if (subPremise.isSetSubPremiseNumber()) {
 			for (SubPremiseNumber subPremiseNumber : new ArrayList<SubPremiseNumber>(subPremise.getSubPremiseNumber()))
 				if (shouldWalk)
-					subPremiseNumber.visit(this);
+					subPremiseNumber.accept(this);
 		}
 
 		if (subPremise.isSetSubPremiseNumberPrefix()) {
 			for (SubPremiseNumberPrefix subPremiseNumberPrefix : new ArrayList<SubPremiseNumberPrefix>(subPremise.getSubPremiseNumberPrefix()))
 				if (shouldWalk)
-					subPremiseNumberPrefix.visit(this);
+					subPremiseNumberPrefix.accept(this);
 		}
 
 		if (subPremise.isSetSubPremiseNumberSuffix()) {
 			for (SubPremiseNumberSuffix subPremiseNumberSuffix : new ArrayList<SubPremiseNumberSuffix>(subPremise.getSubPremiseNumberSuffix()))
 				if (shouldWalk)
-					subPremiseNumberSuffix.visit(this);
+					subPremiseNumberSuffix.accept(this);
 		}
 
 		if (subPremise.isSetBuildingName()) {
 			for (BuildingName buildingName : new ArrayList<BuildingName>(subPremise.getBuildingName()))
 				if (shouldWalk)
-					buildingName.visit(this);
+					buildingName.accept(this);
 		}
 
 		if (subPremise.isSetFirm() && shouldWalk)
-			subPremise.getFirm().visit(this);
+			subPremise.getFirm().accept(this);
 
 		if (subPremise.isSetSubPremiseLocation() && shouldWalk)
-			subPremise.getSubPremiseLocation().visit(this);
+			subPremise.getSubPremiseLocation().accept(this);
 
 		if (subPremise.isSetMailStop() && shouldWalk)
-			subPremise.getMailStop().visit(this);
+			subPremise.getMailStop().accept(this);
 
 		if (subPremise.isSetPostalCode() && shouldWalk)
-			subPremise.getPostalCode().visit(this);
+			subPremise.getPostalCode().accept(this);
 
 		if (subPremise.isSetSubPremise() && shouldWalk)
-			subPremise.getSubPremise().visit(this);
+			subPremise.getSubPremise().accept(this);
 	}
 
 	public void visit(SubPremiseLocation subPremiseLocation) {
@@ -892,16 +892,16 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (thoroughfare.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(thoroughfare.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 
 		if (thoroughfare.isSetThoroughfareNumberOrThoroughfareNumberRange()) {
 			for (ThoroughfareNumberOrRange thoroughfareNumberOrRange : new ArrayList<ThoroughfareNumberOrRange>(thoroughfare.getThoroughfareNumberOrThoroughfareNumberRange())) {
 				if (shouldWalk) {
 					if (thoroughfareNumberOrRange.isSetThoroughfareNumber())
-						thoroughfareNumberOrRange.getThoroughfareNumber().visit(this);
+						thoroughfareNumberOrRange.getThoroughfareNumber().accept(this);
 					else if (thoroughfareNumberOrRange.isSetThoroughfareNumberRange())
-						thoroughfareNumberOrRange.getThoroughfareNumberRange().visit(this);
+						thoroughfareNumberOrRange.getThoroughfareNumberRange().accept(this);
 				}
 			}
 		}
@@ -909,47 +909,47 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (thoroughfare.isSetThoroughfareNumberPrefix()) {
 			for (ThoroughfareNumberPrefix numberPrefix : new ArrayList<ThoroughfareNumberPrefix>(thoroughfare.getThoroughfareNumberPrefix()))
 				if (shouldWalk)
-					numberPrefix.visit(this);
+					numberPrefix.accept(this);
 		}
 
 		if (thoroughfare.isSetThoroughfareNumberSuffix()) {
 			for (ThoroughfareNumberSuffix numberSuffix : new ArrayList<ThoroughfareNumberSuffix>(thoroughfare.getThoroughfareNumberSuffix()))
 				if (shouldWalk)
-					numberSuffix.visit(this);
+					numberSuffix.accept(this);
 		}
 
 		if (thoroughfare.isSetThoroughfareName()) {
 			for (ThoroughfareName thoroughfareName : new ArrayList<ThoroughfareName>(thoroughfare.getThoroughfareName()))
 				if (shouldWalk)
-					thoroughfareName.visit(this);
+					thoroughfareName.accept(this);
 		}		
 
 		if (thoroughfare.isSetThoroughfarePreDirection() && shouldWalk)
-			thoroughfare.getThoroughfarePreDirection().visit(this);
+			thoroughfare.getThoroughfarePreDirection().accept(this);
 
 		if (thoroughfare.isSetThoroughfareLeadingType() && shouldWalk)
-			thoroughfare.getThoroughfareLeadingType().visit(this);
+			thoroughfare.getThoroughfareLeadingType().accept(this);
 
 		if (thoroughfare.isSetThoroughfareTrailingType() && shouldWalk)
-			thoroughfare.getThoroughfareTrailingType().visit(this);
+			thoroughfare.getThoroughfareTrailingType().accept(this);
 
 		if (thoroughfare.isSetThoroughfarePostDirection() && shouldWalk)
-			thoroughfare.getThoroughfarePostDirection().visit(this);
+			thoroughfare.getThoroughfarePostDirection().accept(this);
 
 		if (thoroughfare.isSetDependentThoroughfare() && shouldWalk)
-			thoroughfare.getDependentThoroughfare().visit(this);
+			thoroughfare.getDependentThoroughfare().accept(this);
 
 		if (thoroughfare.isSetDependentLocality() && shouldWalk)
-			thoroughfare.getDependentLocality().visit(this);
+			thoroughfare.getDependentLocality().accept(this);
 
 		if (thoroughfare.isSetPremise() && shouldWalk)
-			thoroughfare.getPremise().visit(this);
+			thoroughfare.getPremise().accept(this);
 
 		if (thoroughfare.isSetFirm() && shouldWalk)
-			thoroughfare.getFirm().visit(this);
+			thoroughfare.getFirm().accept(this);
 
 		if (thoroughfare.isSetPostalCode() && shouldWalk)
-			thoroughfare.getPostalCode().visit(this);
+			thoroughfare.getPostalCode().accept(this);
 	}
 
 	public void visit(ThoroughfareLeadingType thoroughfareLeadingType) {
@@ -966,13 +966,13 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 			for (ThoroughfareNumberFromContent content : new ArrayList<ThoroughfareNumberFromContent>(thoroughfareNumberFrom.getContent())) {
 				if (shouldWalk) {
 					if (content.isSetAddressLine())
-						content.getAddressLine().visit(this);
+						content.getAddressLine().accept(this);
 					else if (content.isSetThoroughfareNumber())
-						content.getThoroughfareNumber().visit(this);
+						content.getThoroughfareNumber().accept(this);
 					else if (content.isSetThoroughfareNumberPrefix())
-						content.getThoroughfareNumberPrefix().visit(this);
+						content.getThoroughfareNumberPrefix().accept(this);
 					else if (content.isSetThoroughfareNumberSuffix())
-						content.getThoroughfareNumberSuffix().visit(this);
+						content.getThoroughfareNumberSuffix().accept(this);
 				}
 			}
 		}
@@ -985,14 +985,14 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 		if (thoroughfareNumberRange.isSetAddressLine()) {
 			for (AddressLine addressLine : new ArrayList<AddressLine>(thoroughfareNumberRange.getAddressLine()))
 				if (shouldWalk)
-					addressLine.visit(this);
+					addressLine.accept(this);
 		}
 		
 		if (thoroughfareNumberRange.isSetThoroughfareNumberFrom() && shouldWalk)
-			thoroughfareNumberRange.getThoroughfareNumberFrom().visit(this);
+			thoroughfareNumberRange.getThoroughfareNumberFrom().accept(this);
 		
 		if (thoroughfareNumberRange.isSetThoroughfareNumberTo() && shouldWalk)
-			thoroughfareNumberRange.getThoroughfareNumberTo().visit(this);
+			thoroughfareNumberRange.getThoroughfareNumberTo().accept(this);
 	}
 
 	public void visit(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
@@ -1003,13 +1003,13 @@ public abstract class XALWalker extends Walker implements XALVisitor {
 			for (ThoroughfareNumberToContent content : new ArrayList<ThoroughfareNumberToContent>(thoroughfareNumberTo.getContent())) {
 				if (shouldWalk) {
 					if (content.isSetAddressLine())
-						content.getAddressLine().visit(this);
+						content.getAddressLine().accept(this);
 					else if (content.isSetThoroughfareNumber())
-						content.getThoroughfareNumber().visit(this);
+						content.getThoroughfareNumber().accept(this);
 					else if (content.isSetThoroughfareNumberPrefix())
-						content.getThoroughfareNumberPrefix().visit(this);
+						content.getThoroughfareNumberPrefix().accept(this);
 					else if (content.isSetThoroughfareNumberSuffix())
-						content.getThoroughfareNumberSuffix().visit(this);
+						content.getThoroughfareNumberSuffix().accept(this);
 				}
 			}
 		}
