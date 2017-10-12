@@ -1,7 +1,6 @@
 package org.citygml4j.builder.json.objects.feature;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.citygml4j.builder.json.objects.geometry.MultiPointType;
 
 public class AddressType {
 	private String CountryName;
@@ -9,7 +8,7 @@ public class AddressType {
 	private String ThoroughfareNumber;
 	private String ThoroughfareName;
 	private String PostalCode;
-	private List<Integer> location;
+	private MultiPointType location;
 	
 	public boolean isSetCountryName() {
 		return CountryName != null;
@@ -47,6 +46,10 @@ public class AddressType {
 		ThoroughfareNumber = thoroughfareNumber;
 	}
 	
+	public boolean isSetThoroughfareName() {
+		return ThoroughfareName != null;
+	}
+	
 	public String getThoroughfareName() {
 		return ThoroughfareName;
 	}
@@ -70,19 +73,12 @@ public class AddressType {
 	public boolean isSetLocation() {
 		return location != null;
 	}
-
-	public void addLocation(int point) {
-		if (location == null)
-			location = new ArrayList<>();
-			
-		location.add(point);
-	}
 	
-	public List<Integer> getLocation() {
+	public MultiPointType getLocation() {
 		return location;
 	}
 	
-	public void setLocation(List<Integer> location) {
+	public void setLocation(MultiPointType location) {
 		this.location = location;
 	}
 	

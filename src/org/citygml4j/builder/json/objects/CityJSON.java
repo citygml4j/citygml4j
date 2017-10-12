@@ -3,13 +3,18 @@ package org.citygml4j.builder.json.objects;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.citygml4j.builder.json.objects.appearance.AppearanceType;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
 import org.citygml4j.builder.json.objects.feature.MetadataType;
+import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.TransformType;
+import org.citygml4j.geometry.BoundingBox;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -22,7 +27,7 @@ public class CityJSON {
 	private List<List<Double>> vertices = new ArrayList<>();
 	private TransformType transform;
 	private AppearanceType appearance;
-	
+
 	public String getType() {
 		return type;
 	}
@@ -38,7 +43,7 @@ public class CityJSON {
 	public boolean isSetMetadata() {
 		return metadata != null;
 	}
-	
+
 	public MetadataType getMetadata() {
 		return metadata;
 	}
@@ -46,7 +51,7 @@ public class CityJSON {
 	public void setMetadata(MetadataType metadata) {
 		this.metadata = metadata;
 	}
-	
+
 	public void addCityObject(AbstractCityObjectType cityObject) {
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
@@ -61,7 +66,7 @@ public class CityJSON {
 				this.cityObjects.put(cityObject.getGmlId(), cityObject);
 		}
 	}
-	
+
 	public void addVertex(List<Double> vertex) {
 		if (vertex != null && vertex.size() == 3)
 			vertices.add(vertex);
@@ -79,7 +84,7 @@ public class CityJSON {
 	public boolean isSetTransform() {
 		return transform != null;
 	}
-	
+
 	public TransformType getTransform() {
 		return transform;
 	}
@@ -91,7 +96,7 @@ public class CityJSON {
 	public boolean isSetAppearance() {
 		return appearance != null;
 	}
-	
+
 	public AppearanceType getAppearance() {
 		return appearance;
 	}
@@ -99,5 +104,27 @@ public class CityJSON {
 	public void setAppearance(AppearanceType appearance) {
 		this.appearance = appearance;
 	}
+
+	public BoundingBox calcBoundingBox() {
+		BoundingBox bbox = new BoundingBox();
+		for (List<Double> vertex : vertices) {
+			if (vertex.size() == 3)
+				bbox.update(vertex.get(0), vertex.get(1), vertex.get(2));
+		}
+
+		return bbox;
+	}
 	
+	public List<Number> calcPresentLoDs() {
+		Set<Number> lods = new HashSet<>();
+		
+		for (AbstractCityObjectType cityObject : cityObjects.values()) {
+			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
+				lods.add(geometry.getLod());
+			}
+		}
+		
+		return lods.stream().sorted().collect(Collectors.toList());
+	}
+
 }
