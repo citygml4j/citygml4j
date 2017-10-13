@@ -19,7 +19,7 @@ import org.citygml4j.geometry.BoundingBox;
 import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
-	private final String type = "CityModel";
+	private final String type = "CityJSON";
 	private final String version = "0.3";
 	private MetadataType metadata;
 	@SerializedName("CityObjects")
