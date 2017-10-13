@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MultiPointType extends AbstractGeometryType {
 	private final GeometryTypeName type = GeometryTypeName.MULTI_POINT;
-	private List<Integer> geometry = new ArrayList<>();
+	private List<Integer> boundaries = new ArrayList<>();
 	
 	@Override
 	public GeometryTypeName getType() {
@@ -13,20 +13,20 @@ public class MultiPointType extends AbstractGeometryType {
 	}
 	
 	public void addPoint(int point) {
-		geometry.add(point);
+		boundaries.add(point);
 	}
 	
 	public void addPoints(List<Integer> points) {
-		geometry.addAll(points);
+		boundaries.addAll(points);
 	}
 
 	public List<Integer> getPoints() {
-		return geometry;
+		return boundaries;
 	}
 
 	public void setPoints(List<Integer> points) {
 		if (points != null)
-			geometry = points;
+			boundaries = points;
 	}
 	
 }

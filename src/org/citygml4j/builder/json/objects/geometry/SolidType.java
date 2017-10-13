@@ -12,7 +12,7 @@ import org.citygml4j.builder.json.objects.appearance.SolidTextureObject;
 public class SolidType extends AbstractSolidType
 implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 	private final GeometryTypeName type = GeometryTypeName.SOLID;
-	private List<List<List<List<Integer>>>> geometry = new ArrayList<>();
+	private List<List<List<List<Integer>>>> boundaries = new ArrayList<>();
 	private List<List<SemanticsType>> semantics;
 	private Map<String, SolidMaterialObject> material;
 	private Map<String, SolidTextureObject> texture;
@@ -24,16 +24,16 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 	
 	public void addShell(List<List<List<Integer>>> shell) {
 		if (shell != null && shell.size() > 0)
-			geometry.add(shell);
+			boundaries.add(shell);
 	}
 
 	public List<List<List<List<Integer>>>> getShells() {
-		return geometry;
+		return boundaries;
 	}
 
 	public void setShells(List<List<List<List<Integer>>>> shells) {
 		if (shells != null)
-			geometry = shells;
+			boundaries = shells;
 	}
 	
 	public boolean isSetSemantics() {

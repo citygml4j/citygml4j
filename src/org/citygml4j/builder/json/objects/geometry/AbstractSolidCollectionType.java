@@ -12,7 +12,7 @@ import org.citygml4j.builder.json.objects.appearance.SolidCollectionTextureObjec
 public abstract class AbstractSolidCollectionType extends AbstractSolidType
 implements GeometryWithAppearance<SolidCollectionMaterialObject, SolidCollectionTextureObject> {
 	private final GeometryTypeName type;
-	private List<List<List<List<List<Integer>>>>> geometry = new ArrayList<>();
+	private List<List<List<List<List<Integer>>>>> boundaries = new ArrayList<>();
 	private List<List<List<SemanticsType>>> semantics;
 	private Map<String, SolidCollectionMaterialObject> material;
 	private Map<String, SolidCollectionTextureObject> texture;
@@ -28,16 +28,16 @@ implements GeometryWithAppearance<SolidCollectionMaterialObject, SolidCollection
 	
 	public void addSolid(List<List<List<List<Integer>>>> solid) {
 		if (solid != null && solid.size() > 0)
-			geometry.add(solid);
+			boundaries.add(solid);
 	}
 
 	public List<List<List<List<List<Integer>>>>> getSolids() {
-		return geometry;
+		return boundaries;
 	}
 
 	public void setSolids(List<List<List<List<List<Integer>>>>> solids) {
 		if (solids != null)
-			geometry = solids;
+			boundaries = solids;
 	}
 	
 	public boolean isSetSemantics() {

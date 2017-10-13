@@ -12,7 +12,7 @@ import org.citygml4j.builder.json.objects.appearance.SurfaceTextureObject;
 public abstract class AbstractSurfaceType extends AbstractGeometryType 
 implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, SurfaceTextureObject> {
 	private final GeometryTypeName type;
-	private List<List<List<Integer>>> geometry = new ArrayList<>();
+	private List<List<List<Integer>>> boundaries = new ArrayList<>();
 	private List<SemanticsType> semantics;
 	private Map<String, SurfaceMaterialObject> material;
 	private Map<String, SurfaceTextureObject> texture;
@@ -28,16 +28,16 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, 
 	
 	public void addSurface(List<List<Integer>> surface) {
 		if (surface != null && surface.size() > 0)
-			geometry.add(surface);
+			boundaries.add(surface);
 	}
 
 	public List<List<List<Integer>>> getSurfaces() {
-		return geometry;
+		return boundaries;
 	}
 
 	public void setSurfaces(List<List<List<Integer>>> surfaces) {
 		if (surfaces != null)
-			geometry = surfaces;
+			boundaries = surfaces;
 	}
 	
 	public boolean isSetSemantics() {

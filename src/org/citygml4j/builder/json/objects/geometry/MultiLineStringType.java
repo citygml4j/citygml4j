@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MultiLineStringType extends AbstractGeometryType {
 	private final GeometryTypeName type = GeometryTypeName.MULTI_LINE_STRING;
-	private List<List<Integer>> geometry = new ArrayList<>();
+	private List<List<Integer>> boundaries = new ArrayList<>();
 	
 	@Override
 	public GeometryTypeName getType() {
@@ -14,16 +14,16 @@ public class MultiLineStringType extends AbstractGeometryType {
 	
 	public void addLineString(List<Integer> lineString) {
 		if (lineString != null && lineString.size() > 0)
-			geometry.add(lineString);
+			boundaries.add(lineString);
 	}
 
 	public List<List<Integer>> getLineStrings() {
-		return geometry;
+		return boundaries;
 	}
 
 	public void setLineStrings(List<List<Integer>> lineStrings) {
 		if (lineStrings != null)
-			geometry = lineStrings;
+			boundaries = lineStrings;
 	}
 	
 }
