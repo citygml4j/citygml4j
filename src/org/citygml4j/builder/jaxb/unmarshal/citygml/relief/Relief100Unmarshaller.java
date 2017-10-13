@@ -39,7 +39,7 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.module.citygml.ReliefModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.relief._1.AbstractReliefComponentType;
@@ -56,13 +56,13 @@ public class Relief100Unmarshaller {
 	private final ReliefModule module = ReliefModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Relief100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(BreaklineReliefType.class, this::unmarshalBreaklineRelief)
 				.with(GridPropertyType.class, this::unmarshalGridProperty)
 				.with(MassPointReliefType.class, this::unmarshalMassPointRelief)

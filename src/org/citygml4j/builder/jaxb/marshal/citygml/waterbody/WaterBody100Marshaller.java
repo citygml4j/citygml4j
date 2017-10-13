@@ -32,7 +32,7 @@ import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 
 import net.opengis.citygml.waterbody._1.AbstractWaterBoundarySurfaceType;
 import net.opengis.citygml.waterbody._1.AbstractWaterObjectType;
@@ -47,20 +47,20 @@ public class WaterBody100Marshaller {
 	private final ObjectFactory wtr = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public WaterBody100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(WaterBody.class, this::createWaterBody)
 				.with(WaterClosureSurface.class, this::createWaterClosureSurface)
 				.with(WaterGroundSurface.class, this::createWaterGroundSurface)
 				.with(WaterSurface.class, this::createWaterSurface);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(BoundedByWaterSurfaceProperty.class, this::marshalBoundedByWaterSurfaceProperty)
 				.with(WaterBody.class, this::marshalWaterBody)
 				.with(WaterClosureSurface.class, this::marshalWaterClosureSurface)

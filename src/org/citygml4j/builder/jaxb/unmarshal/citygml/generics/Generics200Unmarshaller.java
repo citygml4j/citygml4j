@@ -34,7 +34,7 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.GenericsModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
@@ -52,13 +52,13 @@ public class Generics200Unmarshaller {
 	private final GenericsModule module = GenericsModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Generics200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
 				.with(DateAttributeType.class, this::unmarshalDateAttribute)
 				.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)

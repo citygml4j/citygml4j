@@ -106,7 +106,7 @@ import org.citygml4j.model.xal.ThoroughfareNumberToContent;
 import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 
 import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
 import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
@@ -142,10 +142,10 @@ import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 
 public class XALMarshaller {
 	private final ObjectFactory xal= new ObjectFactory();
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public XALMarshaller() {
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(Address.class, this::marshalAddress)
 				.with(org.citygml4j.model.xal.AddressDetails.class, this::marshalAddressDetails)
 				.with(AddressIdentifier.class, this::marshalAddressIdentifier)

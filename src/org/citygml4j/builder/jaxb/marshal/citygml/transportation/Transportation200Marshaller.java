@@ -36,7 +36,7 @@ import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -58,14 +58,14 @@ public class Transportation200Marshaller {
 	private final ObjectFactory tran = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public Transportation200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(AuxiliaryTrafficArea.class, this::createAuxiliaryTrafficArea)
 				.with(Railway.class, this::createRailway)
 				.with(Road.class, this::createRoad)
@@ -74,7 +74,7 @@ public class Transportation200Marshaller {
 				.with(TrafficArea.class, this::createTrafficArea)
 				.with(TransportationComplex.class, this::createTransportationComplex);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(AuxiliaryTrafficArea.class, this::marshalAuxiliaryTrafficArea)
 				.with(AuxiliaryTrafficAreaProperty.class, this::marshalAuxiliaryTrafficAreaProperty)
 				.with(Railway.class, this::marshalRailway)

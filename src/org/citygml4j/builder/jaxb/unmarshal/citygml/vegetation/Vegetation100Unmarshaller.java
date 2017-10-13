@@ -31,7 +31,7 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.VegetationModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
@@ -42,13 +42,13 @@ public class Vegetation100Unmarshaller {
 	private final VegetationModule module = VegetationModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Vegetation100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(PlantCoverType.class, this::unmarshalPlantCover)
 				.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject)
 				.with(JAXBElement.class, this::unmarshal);

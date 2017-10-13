@@ -1,10 +1,10 @@
-package org.citygml4j.util.jaxb;
+package org.citygml4j.util.mapper;
 
 import java.util.HashMap;
 
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-public class JAXBCheckedMapper<R> {
+public class CheckedTypeMapper<R> {
 
 	@FunctionalInterface
 	public interface CheckedFunction<T, R> {
@@ -13,16 +13,16 @@ public class JAXBCheckedMapper<R> {
 
 	private HashMap<Class<?>, CheckedFunction<Object, R>> functionMap = new HashMap<>();
 
-	private JAXBCheckedMapper() {
+	private CheckedTypeMapper() {
 		// just to thwart instantiation
 	}
 
-	public static <R> JAXBCheckedMapper<R> create() {
-		return new JAXBCheckedMapper<>();
+	public static <R> CheckedTypeMapper<R> create() {
+		return new CheckedTypeMapper<>();
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> JAXBCheckedMapper<R> with(final Class<T> target, final CheckedFunction<T, R> function) {
+	public <T> CheckedTypeMapper<R> with(final Class<T> target, final CheckedFunction<T, R> function) {
 		functionMap.put(target, (CheckedFunction<Object, R>)function);		
 		return this;
 	}

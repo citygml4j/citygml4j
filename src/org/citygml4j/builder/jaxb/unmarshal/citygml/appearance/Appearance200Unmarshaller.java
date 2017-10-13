@@ -53,7 +53,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 
@@ -78,13 +78,13 @@ public class Appearance200Unmarshaller {
 	private final AppearanceModule module = AppearanceModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;	
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Appearance200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(AppearanceType.class, this::unmarshalAppearance)
 				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
 				.with(AppearancePropertyElement.class, this::unmarshalAppearanceProperty)

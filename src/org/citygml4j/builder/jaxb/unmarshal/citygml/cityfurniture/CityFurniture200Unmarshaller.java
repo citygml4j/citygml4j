@@ -28,7 +28,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
@@ -38,13 +38,13 @@ public class CityFurniture200Unmarshaller {
 	private final CityFurnitureModule module = CityFurnitureModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public CityFurniture200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(CityFurnitureType.class, this::unmarshalCityFurniture)
 				.with(JAXBElement.class, this::unmarshal);
 	}

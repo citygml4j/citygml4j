@@ -56,7 +56,7 @@ import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -95,14 +95,14 @@ public class Tunnel200Marshaller {
 	private final ObjectFactory tun = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	public Tunnel200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(Tunnel.class, this::createTunnel)
 				.with(TunnelFurniture.class, this::createTunnelFurniture)
 				.with(TunnelInstallation.class, this::createTunnelInstallation)
@@ -121,7 +121,7 @@ public class Tunnel200Marshaller {
 				.with(WallSurface.class, this::createWallSurface)
 				.with(Window.class, this::createWindow);
 
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
 				.with(Tunnel.class, this::marshalTunnel)
 				.with(TunnelFurniture.class, this::marshalTunnelFurniture)

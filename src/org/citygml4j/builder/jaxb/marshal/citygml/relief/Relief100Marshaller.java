@@ -33,7 +33,7 @@ import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 
 import net.opengis.citygml.relief._1.AbstractReliefComponentType;
 import net.opengis.citygml.relief._1.BreaklineReliefType;
@@ -52,21 +52,21 @@ public class Relief100Marshaller {
 	private final ObjectFactory dem = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public Relief100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(BreaklineRelief.class, this::createBreaklineRelief)
 				.with(MassPointRelief.class, this::createMassPointRelief)
 				.with(RasterRelief.class, this::createRasterRelief)
 				.with(ReliefFeature.class, this::createReliefFeature)
 				.with(TINRelief.class, this::createTINRelief);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(BreaklineRelief.class, this::marshalBreaklineRelief)
 				.with(GridProperty.class, this::marshalGridProperty)
 				.with(MassPointRelief.class, this::marshalMassPointRelief)

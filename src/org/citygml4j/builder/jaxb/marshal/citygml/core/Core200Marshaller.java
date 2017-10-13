@@ -49,7 +49,7 @@ import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -76,20 +76,20 @@ public class Core200Marshaller {
 	private final ObjectFactory core = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	public Core200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(Address.class, this::createAddress)
 				.with(CityModel.class, this::createCityModel)
 				.with(CityObjectMember.class, this::createCityObjectMember)
 				.with(ImplicitGeometry.class, this::createImplicitGeometry);
 
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(Address.class, this::marshalAddress)
 				.with(AddressProperty.class, this::marshalAddressProperty)
 				.with(CityModel.class, this::marshalCityModel)

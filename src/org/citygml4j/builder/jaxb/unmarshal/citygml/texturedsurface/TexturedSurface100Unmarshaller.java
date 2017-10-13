@@ -38,7 +38,7 @@ import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
@@ -51,12 +51,12 @@ import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 public class TexturedSurface100Unmarshaller {
 	private final TexturedSurfaceModule module = TexturedSurfaceModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public TexturedSurface100Unmarshaller(CityGMLUnmarshaller citygml) {
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
 				.with(MaterialType.class, this::unmarshalMaterial)
 				.with(SimpleTextureType.class, this::unmarshalSimpleTexture)

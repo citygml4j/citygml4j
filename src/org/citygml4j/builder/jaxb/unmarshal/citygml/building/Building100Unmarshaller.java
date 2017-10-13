@@ -54,7 +54,7 @@ import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.BuildingModule;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.citygml._1.AddressPropertyType;
@@ -88,13 +88,13 @@ public class Building100Unmarshaller {
 	private final BuildingModule module = BuildingModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final JAXBCheckedMapper<CityGML> typeMapper;
+	private final CheckedTypeMapper<CityGML> typeMapper;
 
 	public Building100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
 		
-		typeMapper = JAXBCheckedMapper.<CityGML>create()
+		typeMapper = CheckedTypeMapper.<CityGML>create()
 				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
 				.with(BuildingType.class, this::unmarshalBuilding)
 				.with(BuildingFurnitureType.class, this::unmarshalBuildingFurniture)

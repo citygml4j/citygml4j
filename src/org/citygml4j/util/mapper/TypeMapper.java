@@ -1,21 +1,21 @@
-package org.citygml4j.util.jaxb;
+package org.citygml4j.util.mapper;
 
 import java.util.HashMap;
 import java.util.function.Function;
 
-public class JAXBMapper<R> {
+public class TypeMapper<R> {
 	private HashMap<Class<?>, Function<Object, R>> functionMap = new HashMap<>();
 
-	private JAXBMapper() {
+	private TypeMapper() {
 		// just to thwart instantiation
 	}
 
-	public static <R> JAXBMapper<R> create() {
-		return new JAXBMapper<>();
+	public static <R> TypeMapper<R> create() {
+		return new TypeMapper<>();
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> JAXBMapper<R> with(final Class<T> target, final Function<T, R> function) {
+	public <T> TypeMapper<R> with(final Class<T> target, final Function<T, R> function) {
 		functionMap.put(target, (Function<Object, R>)function);		
 		return this;
 	}

@@ -40,7 +40,7 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 
 import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
 import net.opengis.citygml.generics._1.DateAttributeType;
@@ -55,14 +55,14 @@ public class Generics100Marshaller {
 	private final ObjectFactory gen = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	public Generics100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
 
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(GenericCityObject.class, this::createGenericCityObject)
 				.with(DateAttribute.class, this::createDateAttribute)
 				.with(DoubleAttribute.class, this::createDoubleAttribute)
@@ -71,7 +71,7 @@ public class Generics100Marshaller {
 				.with(UriAttribute.class, this::createUriAttribute)
 				.with(MeasureAttribute.class, this::createMeasureAttribute);
 
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(GenericCityObject.class, this::marshalGenericCityObject)
 				.with(DateAttribute.class, this::marshalDateAttribute)
 				.with(DoubleAttribute.class, this::marshalDoubleAttribute)

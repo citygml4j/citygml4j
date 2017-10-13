@@ -175,7 +175,7 @@ import org.citygml4j.model.gml.valueObjects.ValueArrayProperty;
 import org.citygml4j.model.gml.valueObjects.ValueExtent;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 import org.citygml4j.model.gml.valueObjects.ValueProperty;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -186,14 +186,14 @@ import net.opengis.gml.*;
 public class GMLMarshaller {
 	private final JAXBMarshaller jaxb;
 	private final ObjectFactory gml = new ObjectFactory();
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 
 	@SuppressWarnings("unchecked")
 	public GMLMarshaller(JAXBMarshaller jaxb) {
 		this.jaxb = jaxb;
 		
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(Angle.class, this::createAngle)
 				.with(Exterior.class, this::createExterior)
 				.with(Interior.class, this::createInterior)
@@ -283,7 +283,7 @@ public class GMLMarshaller {
 				.with(Vector.class, this::createVector)
 				.with((Class<GeometryArrayProperty<? extends AbstractGeometry>>)(Class<?>)GeometryArrayProperty.class, this::createGeometryMembers);				
 				
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(Angle.class, this::marshalAngle)
 				.with(Area.class, this::marshalArea)
 				.with(BoundingShape.class, this::marshalBoundingShape)
