@@ -6,8 +6,8 @@ import com.google.gson.annotations.JsonAdapter;
 
 public class CityFurnitureType extends AbstractCityObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.CITY_FURNITURE;
-	@JsonAdapter(DefaultAttributesAdapter.class)
-	private DefaultAttributes attributes;
+	@JsonAdapter(AttributesAdapter.class)
+	private Attributes attributes;
 	
 	@Override
 	public CityObjectTypeName getType() {
@@ -20,11 +20,11 @@ public class CityFurnitureType extends AbstractCityObjectType {
 	}
 
 	@Override
-	public DefaultAttributes getAttributes() {
+	public Attributes getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(DefaultAttributes attributes) {
+	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
 

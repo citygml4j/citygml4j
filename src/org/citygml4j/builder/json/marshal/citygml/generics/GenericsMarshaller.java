@@ -9,9 +9,8 @@ import java.util.Map.Entry;
 
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.json.objects.feature.AbstractAttributes;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.DefaultAttributes;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.feature.GenericCityObjectType;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
@@ -45,7 +44,7 @@ public class GenericsMarshaller {
 	}
 
 	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest) {
-		DefaultAttributes attributes = new DefaultAttributes();
+		Attributes attributes = new Attributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
@@ -149,7 +148,7 @@ public class GenericsMarshaller {
 		return dest;
 	}
 	
-	public void marshalGenericAttributes(List<AbstractGenericAttribute> src, AbstractAttributes dest) {
+	public void marshalGenericAttributes(List<AbstractGenericAttribute> src, Attributes dest) {
 		Map<String, Object> attributes = marshalGenericAttributes(src);
 		if (!attributes.isEmpty()) {
 			for (Entry<String, Object> entry : attributes.entrySet())

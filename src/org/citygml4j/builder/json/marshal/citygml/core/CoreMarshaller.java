@@ -7,9 +7,9 @@ import java.util.List;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.json.marshal.util.AffineTransform;
-import org.citygml4j.builder.json.objects.feature.AbstractAttributes;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
 import org.citygml4j.builder.json.objects.feature.AddressType;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
 import org.citygml4j.builder.json.objects.geometry.MultiPointType;
@@ -46,7 +46,7 @@ public class CoreMarshaller {
 		return Collections.emptyList();	
 	}
 
-	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, AbstractAttributes attributes) {
+	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, Attributes attributes) {
 		dest.setGmlId(src.isSetId() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
 
 		if (src.isSetCreationDate())

@@ -1,6 +1,6 @@
 package org.citygml4j.builder.json.objects.feature;
 
-public class SolitaryVegetationObjectAttributes extends DefaultAttributes {
+public class SolitaryVegetationObjectAttributes extends Attributes {
 	private String species;
 	private Double trunkDiameter;
 	private Double crownDiameter;

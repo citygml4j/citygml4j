@@ -7,7 +7,7 @@ import java.util.List;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.TINReliefAttributes;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.feature.TINReliefType;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
@@ -47,7 +47,7 @@ public class ReliefMarshaller {
 	}
 	
 	public void marshalTINRelief(TINRelief src, TINReliefType dest) {
-		TINReliefAttributes attributes = new TINReliefAttributes();
+		Attributes attributes = new Attributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (attributes.hasAttributes())

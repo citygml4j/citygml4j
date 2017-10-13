@@ -16,7 +16,7 @@ public abstract class AbstractCityObjectType {
 	public abstract CityObjectTypeName getType();
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
 	public abstract boolean isSetAttributes();
-	public abstract AbstractAttributes getAttributes();
+	public abstract Attributes getAttributes();
 	
 	public String getGmlId() {
 		return gmlId;

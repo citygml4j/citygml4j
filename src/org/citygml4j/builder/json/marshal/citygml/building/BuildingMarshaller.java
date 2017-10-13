@@ -14,7 +14,7 @@ import org.citygml4j.builder.json.objects.feature.BuildingAttributes;
 import org.citygml4j.builder.json.objects.feature.BuildingInstallationType;
 import org.citygml4j.builder.json.objects.feature.BuildingPartType;
 import org.citygml4j.builder.json.objects.feature.BuildingType;
-import org.citygml4j.builder.json.objects.feature.DefaultAttributes;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.SemanticsType;
 import org.citygml4j.builder.json.objects.geometry.SemanticsTypeName;
@@ -274,7 +274,7 @@ public class BuildingMarshaller {
 	}
 
 	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest) {
-		DefaultAttributes attributes = new DefaultAttributes();
+		Attributes attributes = new Attributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())

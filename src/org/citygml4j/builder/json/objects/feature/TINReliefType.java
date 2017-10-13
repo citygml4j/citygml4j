@@ -6,8 +6,8 @@ import com.google.gson.annotations.JsonAdapter;
 
 public class TINReliefType extends AbstractCityObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.TIN_RELIEF;
-	@JsonAdapter(TINReliefAttributesAdapter.class)
-	private TINReliefAttributes attributes;
+	@JsonAdapter(AttributesAdapter.class)
+	private Attributes attributes;
 	
 	@Override
 	public CityObjectTypeName getType() {
@@ -20,11 +20,11 @@ public class TINReliefType extends AbstractCityObjectType {
 	}
 
 	@Override
-	public TINReliefAttributes getAttributes() {
+	public Attributes getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(TINReliefAttributes attributes) {
+	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
 

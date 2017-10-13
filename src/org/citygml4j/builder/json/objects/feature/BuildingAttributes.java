@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BuildingAttributes extends DefaultAttributes {
+public class BuildingAttributes extends Attributes {
 	private Double measuredHeight;
 	private String roofType;
 	private Integer storeysAboveGround;

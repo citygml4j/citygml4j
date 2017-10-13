@@ -9,7 +9,7 @@ import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
 import org.citygml4j.builder.json.objects.feature.CityFurnitureType;
-import org.citygml4j.builder.json.objects.feature.DefaultAttributes;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
@@ -33,7 +33,7 @@ public class CityFurnitureMarshaller {
 	}
 	
 	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {
-		DefaultAttributes attributes = new DefaultAttributes();
+		Attributes attributes = new Attributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())

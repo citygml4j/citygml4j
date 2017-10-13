@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.DefaultAttributes;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.feature.WaterBodyType;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.SemanticsType;
@@ -68,7 +68,7 @@ public class WaterBodyMarshaller {
 	}
 	
 	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
-		DefaultAttributes attributes = new DefaultAttributes();
+		Attributes attributes = new Attributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
