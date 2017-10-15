@@ -21,6 +21,7 @@ import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CoreModuleComponent;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
+import org.citygml4j.model.citygml.landuse.LandUseModuleComponent;
 import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
@@ -64,7 +65,9 @@ public class CityGMLMarshaller {
 		else if (src instanceof CityFurnitureModuleComponent)
 			dest = frn.marshal(src);		
 		else if (src instanceof GenericsModuleComponent)
-			dest = gen.marshal(src);		
+			dest = gen.marshal(src);
+		else if (src instanceof LandUseModuleComponent)
+			dest = luse.marshal(src);
 		else if (src instanceof ReliefModuleComponent)
 			dest = dem.marshal(src);
 		else if (src instanceof TransportationModuleComponent)
