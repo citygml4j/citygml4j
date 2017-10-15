@@ -27,7 +27,7 @@ public class SolidCollectionTextureObject extends AbstractTextureObject {
 	}
 	
 	@Override
-	public void addNull() {
+	public void addNullValue() {
 		addValue(NULL_VALUE);
 	}
 
@@ -40,7 +40,7 @@ public class SolidCollectionTextureObject extends AbstractTextureObject {
 	}
 	
 	@Override
-	public int size() {
+	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}
 

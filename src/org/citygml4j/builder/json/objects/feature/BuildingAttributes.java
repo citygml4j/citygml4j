@@ -1,7 +1,6 @@
 package org.citygml4j.builder.json.objects.feature;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class BuildingAttributes extends Attributes {
@@ -11,8 +10,8 @@ public class BuildingAttributes extends Attributes {
 	private Integer storeysBelowGround;
 	private List<Double> storeyHeightsAboveGround;
 	private List<Double> storeyHeightsBelowGround;
-	private Date yearOfConstruction;
-	private Date yearOfDemolition;
+	private Integer yearOfConstruction;
+	private Integer yearOfDemolition;
 	
 	public boolean isSetMeasuredHeight() {
 		return measuredHeight != null;
@@ -104,11 +103,11 @@ public class BuildingAttributes extends Attributes {
 		return yearOfConstruction != null;
 	}
 	
-	public Date getYearOfConstruction() {
+	public Integer getYearOfConstruction() {
 		return yearOfConstruction;
 	}
 	
-	public void setYearOfConstruction(Date yearOfConstruction) {
+	public void setYearOfConstruction(Integer yearOfConstruction) {
 		this.yearOfConstruction = yearOfConstruction;
 	}
 	
@@ -116,11 +115,11 @@ public class BuildingAttributes extends Attributes {
 		return yearOfDemolition != null;
 	}
 	
-	public Date getYearOfDemolition() {
+	public Integer getYearOfDemolition() {
 		return yearOfDemolition;
 	}
 	
-	public void setYearOfDemolition(Date yearOfDemolition) {
+	public void setYearOfDemolition(Integer yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
 	}
 	

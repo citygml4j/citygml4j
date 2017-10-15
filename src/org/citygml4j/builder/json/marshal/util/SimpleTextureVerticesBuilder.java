@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class SimpleTextureVerticesBuilder implements TextureVerticesBuilder {
 	private final ReentrantLock lock = new ReentrantLock();
-	private List<List<Double>> vertices = new ArrayList<>();
+	private final List<List<Double>> vertices = new ArrayList<>();
 	
 	@Override
 	public List<Integer> addTextureVertices(List<Double> textureVertices) {

@@ -1,19 +1,11 @@
-package org.citygml4j.builder.json.objects.appearance;
+package org.citygml4j.builder.json.objects.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SurfaceMaterialObject extends AbstractMaterialObject {
-	public static final Integer NULL_VALUE = null;
+public class SurfaceCollectionSemanticsObject extends AbstractSemanticsObject {
 	private List<Integer> values;
-	
-	public SurfaceMaterialObject() {
-	}
-	
-	public SurfaceMaterialObject(String theme) {
-		super(theme);
-	}
-	
+		
 	public boolean isSetValues() {
 		return values != null;
 	}
@@ -26,20 +18,20 @@ public class SurfaceMaterialObject extends AbstractMaterialObject {
 	}
 	
 	@Override
-	public void addNull() {
-		addValue(NULL_VALUE);
+	public void addNullValue() {
+		addValue(null);
 	}
 
 	public List<Integer> getValues() {
 		return values;
 	}
-
+	
 	public void setValues(List<Integer> values) {
 		this.values = values;
 	}
 	
 	@Override
-	public int size() {
+	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}
 	

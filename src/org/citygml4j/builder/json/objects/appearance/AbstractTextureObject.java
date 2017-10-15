@@ -3,8 +3,8 @@ package org.citygml4j.builder.json.objects.appearance;
 public abstract class AbstractTextureObject {
 	private transient String theme;
 	
-	public abstract void addNull();
-	public abstract int size();
+	public abstract void addNullValue();
+	public abstract int getNumValues();
 	
 	public AbstractTextureObject() {
 	}

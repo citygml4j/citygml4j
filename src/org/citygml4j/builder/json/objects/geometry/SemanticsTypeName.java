@@ -24,7 +24,11 @@ public enum SemanticsTypeName {
 	@SerializedName("WaterGroundSurface")
 	WATER_GROUND_SURFACE("WaterGroundSurface"),
 	@SerializedName("WaterClosureSurface")
-	WATER_CLOSURE_SURFACE("WaterClosureSurface");
+	WATER_CLOSURE_SURFACE("WaterClosureSurface"),
+	@SerializedName("TrafficArea")
+	TRAFFIC_AREA("TrafficArea"),
+	@SerializedName("AuxiliaryTrafficArea")
+	AUXILIARY_TRAFFIC_AREA("AuxiliaryTrafficArea");
 	
 	private final String value;
 	

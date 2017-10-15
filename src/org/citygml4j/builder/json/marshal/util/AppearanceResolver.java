@@ -33,8 +33,8 @@ public class AppearanceResolver {
 	
 	private final AtomicInteger texturesIndex = new AtomicInteger(0);
 	private final AtomicInteger materialsIndex = new AtomicInteger(0);
-	private ConcurrentHashMap<TextureType, Integer> textures = new ConcurrentHashMap<>();
-	private ConcurrentHashMap<MaterialType, Integer> materials = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<TextureType, Integer> textures = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<MaterialType, Integer> materials = new ConcurrentHashMap<>();
 	
 	private enum ResolverState {
 		GET_SURFACE_DATA,

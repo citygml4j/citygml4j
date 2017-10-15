@@ -22,7 +22,13 @@ public enum CityObjectTypeName {
 	@SerializedName("CityFurniture")
 	CITY_FURNITURE("CityFurniture", CityFurnitureType.class),
 	@SerializedName("GenericCityObject")
-	GENERIC_CITY_OBJECT("GenericCityObject", GenericCityObjectType.class);
+	GENERIC_CITY_OBJECT("GenericCityObject", GenericCityObjectType.class),
+	@SerializedName("Road")
+	ROAD("Road", RoadType.class),
+	@SerializedName("Railway")
+	RAILWAY("Railway", RailwayType.class),
+	@SerializedName("TransportSquare")
+	TRANSPOR_SQUARE("TransportSquare", TransportSquareType.class);
 	
 	private final String value;
 	private final Class<? extends AbstractCityObjectType> typeClass;

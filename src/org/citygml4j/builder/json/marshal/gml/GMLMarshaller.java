@@ -8,17 +8,19 @@ import java.util.Map.Entry;
 
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.util.AffineTransform;
+import org.citygml4j.builder.json.marshal.util.SemanticsBuilder;
 import org.citygml4j.builder.json.objects.appearance.AbstractMaterialObject;
 import org.citygml4j.builder.json.objects.appearance.AbstractTextureObject;
 import org.citygml4j.builder.json.objects.appearance.SolidCollectionMaterialObject;
 import org.citygml4j.builder.json.objects.appearance.SolidCollectionTextureObject;
 import org.citygml4j.builder.json.objects.appearance.SolidMaterialObject;
 import org.citygml4j.builder.json.objects.appearance.SolidTextureObject;
-import org.citygml4j.builder.json.objects.appearance.SurfaceMaterialObject;
-import org.citygml4j.builder.json.objects.appearance.SurfaceTextureObject;
+import org.citygml4j.builder.json.objects.appearance.SurfaceCollectionMaterialObject;
+import org.citygml4j.builder.json.objects.appearance.SurfaceCollectionTextureObject;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
+import org.citygml4j.builder.json.objects.geometry.AbstractSemanticsObject;
 import org.citygml4j.builder.json.objects.geometry.AbstractSolidCollectionType;
-import org.citygml4j.builder.json.objects.geometry.AbstractSurfaceType;
+import org.citygml4j.builder.json.objects.geometry.AbstractSurfaceCollectionType;
 import org.citygml4j.builder.json.objects.geometry.CompositeSolidType;
 import org.citygml4j.builder.json.objects.geometry.CompositeSurfaceType;
 import org.citygml4j.builder.json.objects.geometry.GeometryWithAppearance;
@@ -27,8 +29,10 @@ import org.citygml4j.builder.json.objects.geometry.MultiLineStringType;
 import org.citygml4j.builder.json.objects.geometry.MultiPointType;
 import org.citygml4j.builder.json.objects.geometry.MultiSolidType;
 import org.citygml4j.builder.json.objects.geometry.MultiSurfaceType;
-import org.citygml4j.builder.json.objects.geometry.SemanticsType;
+import org.citygml4j.builder.json.objects.geometry.SolidCollectionSemanticsObject;
+import org.citygml4j.builder.json.objects.geometry.SolidSemanticsObject;
 import org.citygml4j.builder.json.objects.geometry.SolidType;
+import org.citygml4j.builder.json.objects.geometry.SurfaceCollectionSemanticsObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
@@ -84,15 +88,15 @@ public class GMLMarshaller {
 				.with(CompositeSolid.class, this::marshalCompositeSolid)
 				.with(MultiSolid.class, this::marshalMultiSolid);
 	}
-	
+
 	public AbstractGeometryType marshal(ModelObject src, AffineTransform transformer) {
 		return typeMapper.apply(src, transformer);
 	}
-	
+
 	public AbstractGeometryType marshal(ModelObject src) {
 		return typeMapper.apply(src, null);
 	}
-	
+
 	public void marshalMultiPoint(MultiPoint src, MultiPointType dest, AffineTransform transformer) {
 		if (src.isSetPointMember()) {
 			for (PointProperty pointProperty : src.getPointMember())
@@ -101,7 +105,7 @@ public class GMLMarshaller {
 					if (!vertex.isEmpty()) {
 						if (transformer != null)
 							transformer.transform(vertex);
-						
+
 						dest.addPoints(json.getVertexArrayBuilder().addVertices(vertex));
 					}
 				}
@@ -113,73 +117,81 @@ public class GMLMarshaller {
 				if (!vertex.isEmpty()) {
 					if (transformer != null)
 						transformer.transform(vertex);
-					
+
 					dest.addPoints(json.getVertexArrayBuilder().addVertices(vertex));
 				}
 			}
 		}
 	}
-	
+
 	public MultiPointType marshalMultiPoint(MultiPoint src, AffineTransform transformer) {
 		MultiPointType dest = new MultiPointType();
 		marshalMultiPoint(src, dest, transformer);
-		
+
 		return dest;
 	}
-	
+
 	public void marshalMultiLineString(MultiCurve src, MultiLineStringType dest, AffineTransform transformer) {
 		MultiLineStringBuilder builder = new MultiLineStringBuilder();
 		builder.process(src, dest, transformer);
 	}
-	
+
 	public MultiLineStringType marshalMultiLineString(MultiCurve src, AffineTransform transformer) {
 		MultiLineStringType dest = new MultiLineStringType();
 		marshalMultiLineString(src, dest, transformer);
-		
+
 		return dest;
 	}
-	
+
 	public void marshalSurface(Surface src, CompositeSurfaceType dest, AffineTransform transformer) {
-		SurfaceCollectionBuilder builder = new SurfaceCollectionBuilder();
-		builder.process(src, dest, transformer, false);		
+		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		surfaceBuilder.process(src, dest, semanticsBuilder, transformer);
+
+		if (dest.isSetSemantics())
+			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
 	}
-	
+
 	public CompositeSurfaceType marshalSurface(Surface src, AffineTransform transformer) {
 		CompositeSurfaceType dest = new CompositeSurfaceType();
 		marshalSurface(src, dest, transformer);
-		
+
 		return dest;
 	}
-	
+
 	public CompositeSurfaceType marshalTriangulatedSurface(TriangulatedSurface src, AffineTransform transformer) {
 		return marshalSurface(src, transformer);
 	}
-	
+
 	public CompositeSurfaceType marshalTin(Tin src, AffineTransform transformer) {
 		return marshalTriangulatedSurface(src, transformer);
 	}
-	
-	public void marshalSurfaceCollection(AbstractGeometry src, AbstractSurfaceType dest, AffineTransform transformer, boolean forceNullSemantics) {
-		SurfaceCollectionBuilder builder = new SurfaceCollectionBuilder();
-		builder.process(src, dest, transformer, forceNullSemantics);		
+
+	public void marshalSurfaceCollection(AbstractGeometry src, AbstractSurfaceCollectionType dest, AffineTransform transformer) {
+		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		surfaceBuilder.process(src, dest, semanticsBuilder, transformer);
+		
+		if (dest.isSetSemantics())
+			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
 	}
 
 	public MultiSurfaceType marshalMultiSurface(MultiSurface src, AffineTransform transformer) {
 		MultiSurfaceType dest = new MultiSurfaceType();
-		marshalSurfaceCollection(src, dest, transformer, false);
+		marshalSurfaceCollection(src, dest, transformer);
 
 		return dest;
 	}
 
 	public CompositeSurfaceType marshalCompositeSurface(CompositeSurface src, AffineTransform transformer) {
 		CompositeSurfaceType dest = new CompositeSurfaceType();
-		marshalSurfaceCollection(src, dest, transformer, false);
-
+		marshalSurfaceCollection(src, dest, transformer);
+		
 		return dest;
 	}
 
-	public void marshalSolid(Solid src, SolidType dest, AffineTransform transformer, boolean forceNullSemantics) {
-		SurfaceCollectionBuilder builder = new SurfaceCollectionBuilder();
+	public void marshalSolid(Solid src, SolidType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer) {
+		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
 		int index = 0;
 
 		if (src.isSetExterior() && src.getExterior().getSurface() instanceof CompositeSurface) {
@@ -195,14 +207,25 @@ public class GMLMarshaller {
 
 			for (CompositeSurface shell : shells) {
 				CompositeSurfaceType shellType = new CompositeSurfaceType();
-				builder.process(shell, shellType, transformer, true);
+				surfaceBuilder.process(shell, shellType, semanticsBuilder, transformer);
 
 				if (!shellType.getSurfaces().isEmpty()) {
 					dest.addShell(shellType.getSurfaces());
-					dest.addSemantics(shellType.getSemantics());
+
+					if (shellType.isSetSemantics()) {
+						SolidSemanticsObject semantics = dest.getSemantics();
+						if (semantics == null) {
+							semantics = new SolidSemanticsObject();
+							dest.setSemantics(semantics);
+						}
+
+						// add null values for non-semantic surfaces
+						appendNulls(semantics, index);
+						semantics.addValues(shellType.getSemantics().getValues());
+					}
 
 					if (shellType.isSetMaterial()) {
-						for (SurfaceMaterialObject object : shellType.getMaterial()) {
+						for (SurfaceCollectionMaterialObject object : shellType.getMaterial()) {
 							SolidMaterialObject material = dest.getMaterial(object.getTheme());
 							if (material == null) {
 								material = new SolidMaterialObject(object.getTheme());
@@ -216,7 +239,7 @@ public class GMLMarshaller {
 					}
 
 					if (shellType.isSetTexture()) {
-						for (SurfaceTextureObject object : shellType.getTexture()) {
+						for (SurfaceCollectionTextureObject object : shellType.getTexture()) {
 							SolidTextureObject texture = dest.getTexture(object.getTheme());
 							if (texture == null) {
 								texture = new SolidTextureObject(object.getTheme());
@@ -234,26 +257,33 @@ public class GMLMarshaller {
 					break;
 			}
 
-			cleanSemantics(dest, forceNullSemantics);
-			appendNulls(dest, index);
+			postprocess(dest, index);
 		}
 	}
 
 	public SolidType marshalSolid(Solid src, AffineTransform transformer) {
 		SolidType dest = new SolidType();
-		marshalSolid(src, dest, transformer, false);
-
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		marshalSolid(src, dest, semanticsBuilder, transformer);
+		
+		if (dest.isSetSemantics())
+			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
+		
 		return dest;
 	}
 
 	public void marshalSolidCollection(AbstractGeometry src, AbstractSolidCollectionType dest, AffineTransform transformer) {
 		SolidCollectionBuilder builder = new SolidCollectionBuilder();
-		builder.process(src, dest, transformer);
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		builder.process(src, dest, semanticsBuilder, transformer);
+		
+		if (dest.isSetSemantics())
+			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
 	}
 
 	public CompositeSolidType marshalCompositeSolid(CompositeSolid src, AffineTransform transformer) {
 		CompositeSolidType dest = new CompositeSolidType();
-		marshalSolidCollection(src, dest, transformer);
+		marshalSolidCollection(src, dest, transformer);		
 
 		return dest;
 	}
@@ -261,10 +291,10 @@ public class GMLMarshaller {
 	public MultiSolidType marshalMultiSolid(MultiSolid src, AffineTransform transformer) {
 		MultiSolidType dest = new MultiSolidType();
 		marshalSolidCollection(src, dest, transformer);
-
+		
 		return dest;
 	}
-	
+
 	public AbstractGeometryType marshalGeometryProperty(GeometryProperty<?> src, AffineTransform transformer) {
 		Object dest = null;
 		if (src.isSetGeometry())
@@ -274,11 +304,11 @@ public class GMLMarshaller {
 
 		return dest instanceof AbstractGeometryType ? (AbstractGeometryType)dest : null;
 	}
-	
+
 	public AbstractGeometryType marshalGeometryProperty(GeometryProperty<?> src) {
 		return marshalGeometryProperty(src, null);
 	}
-	
+
 	private List<List<Integer>> marshalPolygon(Polygon polygon, AffineTransform transformer, boolean reverse) {
 		List<List<Integer>> vertices = null;
 
@@ -314,52 +344,25 @@ public class GMLMarshaller {
 		if (values.size() > 11) {
 			if (transformer != null)
 				transformer.transform(values);
-			
+
 			vertices = json.getVertexArrayBuilder().addVertices(values.subList(0, values.size() - 3));
 		}
 
 		return vertices;
 	}
-	
-	private void appendNulls(AbstractMaterialObject material, int index) {
-		while (material.size() < index)
-			material.addNull();
-	}
-	
-	private void appendNulls(AbstractTextureObject texture, int index) {
-		while (texture.size() < index)
-			texture.addNull();
-	}
-	
-	private void cleanSemantics(GeometryWithSemantics dest, boolean forceNullSemantics) {
-		if (!forceNullSemantics && !dest.hasSemantics())
-			dest.unsetSemantics();
-	}
-	
-	private void appendNulls(GeometryWithAppearance<? extends AbstractMaterialObject, ? extends AbstractTextureObject> dest, int index) {
-		if (dest.isSetMaterial()) {
-			for (AbstractMaterialObject material : dest.getMaterial())
-				appendNulls(material, index);
-		}
-		
-		if (dest.isSetTexture()) {
-			for (AbstractTextureObject texture : dest.getTexture())
-				appendNulls(texture, index);
-		}
-	}
-	
+
 	private final class MultiLineStringBuilder extends GeometryWalker {
 		private MultiLineStringType dest;
 		private AffineTransform transformer;
 		private boolean reverse = false;
-		
+
 		@Override
 		public void visit(LineString lineString) {
 			List<Double> vertices = lineString.toList3d(reverse);
 			if (!vertices.isEmpty()) {
 				if (transformer != null)
 					transformer.transform(vertices);
-				
+
 				dest.addLineString(json.getVertexArrayBuilder().addVertices(vertices));
 			}
 		}
@@ -376,7 +379,7 @@ public class GMLMarshaller {
 							if (!values.isEmpty()) {
 								if (transformer != null)
 									transformer.transform(values);
-								
+
 								vertices.addAll(values);
 							}
 						}
@@ -403,7 +406,7 @@ public class GMLMarshaller {
 			} else
 				super.visit(orientableCurve);
 		}
-		
+
 		@Override
 		public <T extends AbstractGeometry> void visit(GeometryProperty<T> property) {
 			if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
@@ -420,7 +423,8 @@ public class GMLMarshaller {
 	}
 
 	private final class SurfaceCollectionBuilder extends GeometryWalker {
-		private AbstractSurfaceType dest;
+		private AbstractSurfaceCollectionType dest;
+		private SemanticsBuilder semanticsBuilder;
 		private AffineTransform transformer;
 		private boolean reverse = false;
 		private int index = 0;
@@ -429,25 +433,24 @@ public class GMLMarshaller {
 		public void visit(Polygon polygon) {			
 			List<List<Integer>> surface = marshalPolygon(polygon, transformer, reverse);
 			if (surface != null) {
-				SemanticsType semantics = json.getCityGMLMarshaller().marshalSemantics(childInfo.getParentCityObject(polygon));
+				Integer semanticsIndex = semanticsBuilder.addSemanticSurface(childInfo.getParentCityObject(polygon));
 				Map<String, Integer> materials = json.getCityGMLMarshaller().getAppearanceMarshaller().getMaterials(polygon, reverse);
 				Map<String, List<List<Integer>>> textures = json.getCityGMLMarshaller().getAppearanceMarshaller().getTextures(polygon, reverse);
-				
-				addSurface(surface, semantics, materials, textures);
+
+				addSurface(surface, semanticsIndex, materials, textures);
 			}
 		}
-		
+
 		@Override
 		public void visit(LinearRing linearRing) {
 			// required for gml:Rectangle and gml:Triangle
 			List<Integer> vertices = marshalLinearRing(linearRing, transformer, reverse);
 			if (vertices != null) {
-				List<List<Integer>> surface = Collections.singletonList(vertices);
-				SemanticsType semantics = json.getCityGMLMarshaller().marshalSemantics(childInfo.getParentCityObject(linearRing));
+				Integer semanticsIndex = semanticsBuilder.addSemanticSurface(childInfo.getParentCityObject(linearRing));
 				Map<String, Integer> materials = json.getCityGMLMarshaller().getAppearanceMarshaller().getMaterials(linearRing, reverse);
 				Map<String, List<List<Integer>>> textures = json.getCityGMLMarshaller().getAppearanceMarshaller().getTextures(linearRing, reverse);
-				
-				addSurface(surface, semantics, materials, textures);				
+
+				addSurface(Collections.singletonList(vertices), semanticsIndex, materials, textures);				
 			}
 		}
 
@@ -468,16 +471,26 @@ public class GMLMarshaller {
 			else
 				super.visit(property);
 		}
-		
-		private void addSurface(List<List<Integer>> surface, SemanticsType semantics, Map<String, Integer> materials, Map<String, List<List<Integer>>> textures) {
+
+		private void addSurface(List<List<Integer>> surface, Integer semanticsIndex, Map<String, Integer> materials, Map<String, List<List<Integer>>> textures) {
 			dest.addSurface(surface);
-			dest.addSemantics(semantics != null ? semantics : SemanticsType.NULL_VALUE);
+			
+			if (semanticsIndex != null) {
+				SurfaceCollectionSemanticsObject semantics = dest.getSemantics();
+				if (semantics == null) {
+					semantics = new SurfaceCollectionSemanticsObject();
+					dest.setSemantics(semantics);
+				}
+				
+				appendNulls(dest.getSemantics(), index);
+				dest.getSemantics().addValue(semanticsIndex);
+			}
 
 			if (materials != null) {
 				for (Entry<String, Integer> entry : materials.entrySet()) {
-					SurfaceMaterialObject material = dest.getMaterial(entry.getKey());
+					SurfaceCollectionMaterialObject material = dest.getMaterial(entry.getKey());
 					if (material == null) {
-						material = new SurfaceMaterialObject(entry.getKey());
+						material = new SurfaceCollectionMaterialObject(entry.getKey());
 						dest.addMaterial(material);
 					}
 
@@ -489,9 +502,9 @@ public class GMLMarshaller {
 
 			if (textures != null) {
 				for (Entry<String, List<List<Integer>>> entry : textures.entrySet()) {
-					SurfaceTextureObject texture = dest.getTexture(entry.getKey());
+					SurfaceCollectionTextureObject texture = dest.getTexture(entry.getKey());
 					if (texture == null) {
-						texture = new SurfaceTextureObject(entry.getKey());
+						texture = new SurfaceCollectionTextureObject(entry.getKey());
 						dest.addTexture(texture);
 					}
 
@@ -504,28 +517,41 @@ public class GMLMarshaller {
 			index++;
 		}
 
-		public void process(AbstractGeometry src, AbstractSurfaceType dest, AffineTransform transformer, boolean forceNullSemantics) {
+		public void process(AbstractGeometry src, AbstractSurfaceCollectionType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer) {
 			this.dest = dest;
+			this.semanticsBuilder = semanticsBuilder;
 			this.transformer = transformer;
+			
 			src.accept(this);
-			cleanSemantics(dest, forceNullSemantics);			
-			appendNulls(dest, index);
+			postprocess(dest, index);
 		}
 	}
 
 	private final class SolidCollectionBuilder extends GeometryWalker {
 		private AbstractSolidCollectionType dest;
+		private SemanticsBuilder semanticsBuilder;
 		private AffineTransform transformer;
 		private int index = 0;
 
 		@Override
 		public void visit(Solid solid) {
 			SolidType solidType = new SolidType();
-			marshalSolid(solid, solidType, transformer, true);
-			
+			marshalSolid(solid, solidType, semanticsBuilder, transformer);
+
 			if (!solidType.getShells().isEmpty()) {
 				dest.addSolid(solidType.getShells());
-				dest.addSemantics(solidType.getSemantics());
+
+				if (solidType.isSetSemantics()) {
+					SolidCollectionSemanticsObject semantics = dest.getSemantics();
+					if (semantics == null) {
+						semantics = new SolidCollectionSemanticsObject();
+						dest.setSemantics(semantics);
+					}
+
+					// add null values for non-semantic surfaces
+					appendNulls(semantics, index);
+					semantics.addValues(solidType.getSemantics().getValues());
+				}
 
 				if (solidType.isSetMaterial()) {
 					for (SolidMaterialObject object : solidType.getMaterial()) {
@@ -567,13 +593,52 @@ public class GMLMarshaller {
 				super.visit(property);
 		}
 
-		public void process(AbstractGeometry src, AbstractSolidCollectionType dest, AffineTransform transformer) {
+		public void process(AbstractGeometry src, AbstractSolidCollectionType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer) {
 			this.dest = dest;
 			this.transformer = transformer;
+			this.semanticsBuilder = semanticsBuilder;
+			
 			src.accept(this);
-			cleanSemantics(dest, false);
-			appendNulls(dest, index);
+			postprocess(dest, index);
 		}
 	}
-	
+
+	private void appendNulls(AbstractSemanticsObject semantics, int index) {
+		while (semantics.getNumValues() < index)
+			semantics.addNullValue();
+	}
+
+	private void appendNulls(AbstractMaterialObject material, int index) {
+		while (material.getNumValues() < index)
+			material.addNullValue();
+	}
+
+	private void appendNulls(AbstractTextureObject texture, int index) {
+		while (texture.getNumValues() < index)
+			texture.addNullValue();
+	}
+
+	private void postprocess(AbstractGeometryType dest, int index) {
+		if (dest instanceof GeometryWithSemantics) {
+			GeometryWithSemantics geometry = (GeometryWithSemantics)dest;
+			if (geometry.isSetSemantics())
+				appendNulls(geometry.getSemantics(), index);
+		}
+		
+		if (dest instanceof GeometryWithAppearance<?, ?>) {
+			GeometryWithAppearance<?, ?> geometry = (GeometryWithAppearance<?, ?>)dest;			
+			if (geometry.isSetMaterial()) {			
+				for (AbstractMaterialObject material : geometry.getMaterial()) {
+					if (!material.flattenValues())
+						appendNulls(material, index);
+				}
+			}
+
+			if (geometry.isSetTexture()) {
+				for (AbstractTextureObject texture : geometry.getTexture())
+					appendNulls(texture, index);
+			}
+		}
+	}
+
 }

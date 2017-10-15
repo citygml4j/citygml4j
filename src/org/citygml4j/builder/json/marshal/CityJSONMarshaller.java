@@ -28,14 +28,14 @@ public class CityJSONMarshaller {
 	private final GeometryXlinkResolver xlinkResolver;
 	private final AppearanceResolver appearanceResolver;
 	private String defaultTheme = "";
-	
+
 	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder) {
 		this.verticesBuilder = verticesBuilder;
 		this.textureVerticesBuilder = textureVerticesBuilder;
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this);
-		
+
 		xlinkResolver = new GeometryXlinkResolver();
 		appearanceResolver = new AppearanceResolver(defaultTheme, citygml.getAppearanceMarshaller());
 	}
@@ -49,26 +49,26 @@ public class CityJSONMarshaller {
 		xlinkResolver.resolve(src);
 		appearanceResolver.resolve(src);
 
-		// marshal city model to json
 		CityJSON dest = new CityJSON();
+		
+		// marshal city model to json
 		List<AbstractCityObjectType> cityObjects = citygml.marshal(src);
-		if (cityObjects.isEmpty())
-			return null;
+		if (!cityObjects.isEmpty()) {
+			dest.setCityObjects(cityObjects);
+			dest.setVertices(verticesBuilder.getVertices());
 
-		dest.setCityObjects(cityObjects);
-		dest.setVertices(verticesBuilder.getVertices());
+			if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
+				AppearanceType appearance = new AppearanceType();
+				dest.setAppearance(appearance);
 
-		if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
-			AppearanceType appearance = new AppearanceType();
-			dest.setAppearance(appearance);
+				if (appearanceResolver.hasTextures() && textureVerticesBuilder.getNumTextureVertices() > 0) {
+					appearance.setTextures(appearanceResolver.getTextures());
+					appearance.setTextureVertices(textureVerticesBuilder.getTextureVertices());
+				}
 
-			if (appearanceResolver.hasTextures() && textureVerticesBuilder.getNumTextureVertices() > 0) {
-				appearance.setTextures(appearanceResolver.getTextures());
-				appearance.setTextureVertices(textureVerticesBuilder.getTextureVertices());
+				if (appearanceResolver.hasMaterials())
+					appearance.setMaterials(appearanceResolver.getMaterials());			
 			}
-
-			if (appearanceResolver.hasMaterials())
-				appearance.setMaterials(appearanceResolver.getMaterials());			
 		}
 
 		return dest;
@@ -81,11 +81,11 @@ public class CityJSONMarshaller {
 	public GMLMarshaller getGMLMarshaller() {
 		return gml;
 	}
-	
+
 	public GeometryXlinkResolver getGeometryXlinkResolver() {
 		return xlinkResolver;
 	}
-	
+
 	public AppearanceResolver getAppearanceResolver() {
 		return appearanceResolver;
 	}

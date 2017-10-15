@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class SolidTextureObject extends AbstractTextureObject {
-	public static final List<List<List<Integer>>> NULL_VALUE = Collections.singletonList(SurfaceTextureObject.NULL_VALUE);
+	public static final List<List<List<Integer>>> NULL_VALUE = Collections.singletonList(SurfaceCollectionTextureObject.NULL_VALUE);
 	private List<List<List<List<Integer>>>> values;
 	
 	public SolidTextureObject() {
@@ -27,7 +27,7 @@ public class SolidTextureObject extends AbstractTextureObject {
 	}
 	
 	@Override
-	public void addNull() {
+	public void addNullValue() {
 		addValue(NULL_VALUE);
 	}
 
@@ -40,7 +40,7 @@ public class SolidTextureObject extends AbstractTextureObject {
 	}
 	
 	@Override
-	public int size() {
+	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}
 

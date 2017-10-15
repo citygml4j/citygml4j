@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
 	private final String type = "CityJSON";
-	private final String version = "0.3";
+	private final String version = "0.5";
 	private MetadataType metadata;
 	@SerializedName("CityObjects")
 	private Map<String, AbstractCityObjectType> cityObjects = new HashMap<>();
@@ -51,7 +51,11 @@ public class CityJSON {
 	public void setMetadata(MetadataType metadata) {
 		this.metadata = metadata;
 	}
-
+	
+	public boolean hasCityObjects() {
+		return !cityObjects.isEmpty();
+	}
+	
 	public void addCityObject(AbstractCityObjectType cityObject) {
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
@@ -116,8 +120,7 @@ public class CityJSON {
 	}
 	
 	public List<Number> calcPresentLoDs() {
-		Set<Number> lods = new HashSet<>();
-		
+		Set<Number> lods = new HashSet<>();		
 		for (AbstractCityObjectType cityObject : cityObjects.values()) {
 			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
 				lods.add(geometry.getLod());

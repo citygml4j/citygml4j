@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class SimpleVerticesBuilder implements VerticesBuilder {
 	private final ReentrantLock lock = new ReentrantLock();
-	private List<List<Double>> vertices = new ArrayList<>();
+	private final List<List<Double>> vertices = new ArrayList<>();
 
 
 	@Override

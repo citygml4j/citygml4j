@@ -1,20 +1,21 @@
 package org.citygml4j.builder.json.marshal.citygml.building;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.json.marshal.util.SurfaceCollector;
 import org.citygml4j.builder.json.objects.feature.AbstractBuildingType;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
+import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.feature.BuildingAttributes;
 import org.citygml4j.builder.json.objects.feature.BuildingInstallationType;
 import org.citygml4j.builder.json.objects.feature.BuildingPartType;
 import org.citygml4j.builder.json.objects.feature.BuildingType;
-import org.citygml4j.builder.json.objects.feature.Attributes;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.SemanticsType;
 import org.citygml4j.builder.json.objects.geometry.SemanticsTypeName;
@@ -45,14 +46,9 @@ import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
-import org.citygml4j.model.gml.geometry.primitives.Polygon;
-import org.citygml4j.model.gml.geometry.primitives.Surface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.mapper.TypeMapper;
-import org.citygml4j.util.walker.GeometryWalker;
 
 public class BuildingMarshaller {
 	private final CityJSONMarshaller json;
@@ -151,10 +147,10 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) 
-			attributes.setYearOfConstruction(src.getYearOfConstruction().getTime());
+			attributes.setYearOfConstruction(src.getYearOfConstruction().get(Calendar.YEAR));
 
 		if (src.isSetYearOfDemolition())
-			attributes.setYearOfDemolition(src.getYearOfDemolition().getTime());
+			attributes.setYearOfDemolition(src.getYearOfDemolition().get(Calendar.YEAR));
 
 		if (attributes.hasAttributes())
 			dest.setAttributes(attributes);
@@ -329,10 +325,10 @@ public class BuildingMarshaller {
 	}
 
 	private void preprocessGeometry(AbstractBuilding building) {
-		BoundarySurfaceCollector collector = collectBoundarySurfaces(building.getBoundedBySurface());		
-		if (!collector.surfaces.isEmpty()) {		
+		SurfaceCollector collector = collectBoundarySurfaces(building.getBoundedBySurface());		
+		if (collector.hasSurfaces()) {		
 			for (int lod = 2; lod < 4; lod++) {
-				List<AbstractSurface> surfaces = collector.surfaces.get(lod);
+				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
 				if (surfaces != null) {
 					MultiSurface multiSurface = null;
 					switch (lod) {
@@ -365,10 +361,10 @@ public class BuildingMarshaller {
 	}
 
 	private void preprocessGeometry(BuildingInstallation installation) {
-		BoundarySurfaceCollector collector = collectBoundarySurfaces(installation.getBoundedBySurface());		
-		if (!collector.surfaces.isEmpty()) {		
+		SurfaceCollector collector = collectBoundarySurfaces(installation.getBoundedBySurface());		
+		if (collector.hasSurfaces()) {		
 			for (int lod = 2; lod < 4; lod++) {
-				List<AbstractSurface> surfaces = collector.surfaces.get(lod);
+				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
 				if (surfaces != null) {
 					MultiSurface multiSurface = null;
 					switch (lod) {
@@ -400,8 +396,8 @@ public class BuildingMarshaller {
 		}
 	}
 
-	private BoundarySurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
-		BoundarySurfaceCollector collector = new BoundarySurfaceCollector();
+	private SurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
+		SurfaceCollector collector = new SurfaceCollector();
 
 		for (BoundarySurfaceProperty boundaryProperty : boundaryProperties) {
 			if (boundaryProperty.isSetBoundarySurface()) {
@@ -409,7 +405,7 @@ public class BuildingMarshaller {
 				LodRepresentation lodRepresentation = boundarySurface.getLodRepresentation();
 				for (int lod = 2; lod < 4; lod++) {
 					if (lodRepresentation.isSetLodGeometry(lod)) {
-						collector.lod = lod;
+						collector.setLod(lod);
 						for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod))
 							collector.visit(geometryProperty);
 					}
@@ -422,7 +418,7 @@ public class BuildingMarshaller {
 							lodRepresentation = opening.getLodRepresentation();
 							for (int lod = 2; lod < 4; lod++) {
 								if (lodRepresentation.isSetLodGeometry(lod)) {
-									collector.lod = lod;
+									collector.setLod(lod);
 									for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod))
 										collector.visit(geometryProperty);
 								}
@@ -434,42 +430,5 @@ public class BuildingMarshaller {
 		}
 
 		return collector;
-	}
-
-	private final class BoundarySurfaceCollector extends GeometryWalker {
-		private int lod;
-		private Map<Integer, List<AbstractSurface>> surfaces = new HashMap<>();
-
-		@Override
-		public void visit(CompositeSurface surface) {
-			collect(surface);
-		}
-
-		@Override
-		public void visit(OrientableSurface surface) {
-			collect(surface);
-		}
-
-		@Override
-		public void visit(Surface surface) {
-			collect(surface);
-		}
-
-		@Override
-		public void visit(Polygon surface) {
-			collect(surface);
-		}
-
-		private void collect(AbstractSurface surface) {
-			if (!surface.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET)) {
-				List<AbstractSurface> tmp = surfaces.get(lod);
-				if (tmp == null) {
-					tmp = new ArrayList<>();
-					surfaces.put(lod, tmp);
-				}
-
-				tmp.add(surface);
-			}
-		}
 	}
 }

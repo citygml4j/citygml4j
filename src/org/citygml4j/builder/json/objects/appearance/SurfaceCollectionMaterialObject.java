@@ -2,56 +2,51 @@ package org.citygml4j.builder.json.objects.appearance;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class SolidMaterialObject extends AbstractMaterialObject {
-	private List<List<Integer>> values;
-	
-	public SolidMaterialObject() {
+public class SurfaceCollectionMaterialObject extends AbstractMaterialObject {
+	private List<Integer> values;
+
+	public SurfaceCollectionMaterialObject() {
 	}
-	
-	public SolidMaterialObject(String theme) {
+
+	public SurfaceCollectionMaterialObject(String theme) {
 		super(theme);
 	}
-	
+
 	public boolean isSetValues() {
 		return values != null;
 	}
-	
-	public void addValue(List<Integer> value) {
+
+	public void addValue(Integer value) {
 		if (values == null)
 			values = new ArrayList<>();
-		
+
 		values.add(value);
 	}
-	
+
 	@Override
 	public void addNullValue() {
 		addValue(null);
 	}
 
-	public List<List<Integer>> getValues() {
+	public List<Integer> getValues() {
 		return values;
 	}
 
-	public void setValues(List<List<Integer>> values) {
+	public void setValues(List<Integer> values) {
 		this.values = values;
 	}
-	
+
 	@Override
 	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}
-	
+
 	@Override
 	public boolean flattenValues() {
 		if (values == null)
-			return true;
-		
-		List<Integer> values = this.values.stream()
-				.flatMap(a -> a != null ? a.stream() : Stream.of((Integer)null)).collect(Collectors.toList());
-		
+			return true;	
+
 		Integer compareTo = null;
 		if (!values.isEmpty()) {
 			compareTo = values.get(0);
@@ -60,17 +55,17 @@ public class SolidMaterialObject extends AbstractMaterialObject {
 					return false;
 			}
 		}
-		
+
 		unsetValues();
 		if (compareTo != null)
 			setValue(compareTo);
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void unsetValues() {
 		values = null;
 	}
-	
+
 }

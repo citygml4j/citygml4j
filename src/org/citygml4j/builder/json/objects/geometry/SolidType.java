@@ -12,8 +12,8 @@ import org.citygml4j.builder.json.objects.appearance.SolidTextureObject;
 public class SolidType extends AbstractSolidType
 implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 	private final GeometryTypeName type = GeometryTypeName.SOLID;
-	private List<List<List<List<Integer>>>> boundaries = new ArrayList<>();
-	private List<List<SemanticsType>> semantics;
+	private List<List<List<List<Integer>>>> boundaries = new ArrayList<>();	
+	private SolidSemanticsObject semantics;
 	private Map<String, SolidMaterialObject> material;
 	private Map<String, SolidTextureObject> texture;
 	
@@ -36,33 +36,18 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 			boundaries = shells;
 	}
 	
+	@Override
 	public boolean isSetSemantics() {
 		return semantics != null;
 	}
-	
-	public void addSemantics(List<SemanticsType> semantics) {
-		if (this.semantics == null)
-			this.semantics = new ArrayList<>();
-		
-		this.semantics.add(semantics);
-	}
 
-	public List<List<SemanticsType>> getSemantics() {
+	@Override
+	public SolidSemanticsObject getSemantics() {
 		return semantics;
 	}
 
-	public void setSemantics(List<List<SemanticsType>> semantics) {
+	public void setSemantics(SolidSemanticsObject semantics) {
 		this.semantics = semantics;
-	}
-	
-	@Override
-	public boolean hasSemantics() {
-		return semantics != null && semantics.stream().flatMap(List::stream).filter(s -> s != SemanticsType.NULL_VALUE).findFirst().isPresent();
-	}
-
-	@Override
-	public void unsetSemantics() {
-		semantics = null;
 	}
 	
 	@Override

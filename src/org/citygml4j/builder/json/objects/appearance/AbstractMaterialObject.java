@@ -2,9 +2,12 @@ package org.citygml4j.builder.json.objects.appearance;
 
 public abstract class AbstractMaterialObject {
 	private transient String theme;
+	private Integer value;
 	
-	public abstract void addNull();
-	public abstract int size();
+	public abstract void addNullValue();
+	public abstract int getNumValues();
+	public abstract boolean flattenValues();
+	public abstract void unsetValues();
 	
 	public AbstractMaterialObject() {
 	}
@@ -19,6 +22,22 @@ public abstract class AbstractMaterialObject {
 
 	public void setTheme(String theme) {
 		this.theme = theme;
+	}
+	
+	public boolean isSetValue() {
+		return value != null;
+	}
+	
+	public Integer getValue() {
+		return value;
+	}
+	
+	public void setValue(int value) {
+		this.value = value;
+	}
+	
+	public void unsetValue() {
+		value = null;
 	}
 	
 }

@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SurfaceTextureObject extends AbstractTextureObject {
-	public static final List<List<Integer>> NULL_VALUE = Collections.singletonList(Arrays.asList(new Integer[]{null}));	
+public class SurfaceCollectionTextureObject extends AbstractTextureObject {
+	public static final List<List<Integer>> NULL_VALUE = Collections.singletonList(Arrays.asList(new Integer[]{null}));
 	private List<List<List<Integer>>> values;
 	
-	public SurfaceTextureObject() {
+	public SurfaceCollectionTextureObject() {
 	}
 	
-	public SurfaceTextureObject(String theme) {
+	public SurfaceCollectionTextureObject(String theme) {
 		super(theme);
 	}
 
@@ -28,7 +28,7 @@ public class SurfaceTextureObject extends AbstractTextureObject {
 	}
 	
 	@Override
-	public void addNull() {
+	public void addNullValue() {
 		addValue(NULL_VALUE);
 	}
 
@@ -41,7 +41,7 @@ public class SurfaceTextureObject extends AbstractTextureObject {
 	}
 	
 	@Override
-	public int size() {
+	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}
 

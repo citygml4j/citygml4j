@@ -6,18 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.citygml4j.builder.json.objects.appearance.SurfaceMaterialObject;
-import org.citygml4j.builder.json.objects.appearance.SurfaceTextureObject;
+import org.citygml4j.builder.json.objects.appearance.SurfaceCollectionMaterialObject;
+import org.citygml4j.builder.json.objects.appearance.SurfaceCollectionTextureObject;
 
-public abstract class AbstractSurfaceType extends AbstractGeometryType 
-implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, SurfaceTextureObject> {
+public abstract class AbstractSurfaceCollectionType extends AbstractGeometryType 
+implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMaterialObject, SurfaceCollectionTextureObject> {
 	private final GeometryTypeName type;
 	private List<List<List<Integer>>> boundaries = new ArrayList<>();
-	private List<SemanticsType> semantics;
-	private Map<String, SurfaceMaterialObject> material;
-	private Map<String, SurfaceTextureObject> texture;
+	private SurfaceCollectionSemanticsObject semantics;	
+	private Map<String, SurfaceCollectionMaterialObject> material;
+	private Map<String, SurfaceCollectionTextureObject> texture;
 	
-	protected AbstractSurfaceType(GeometryTypeName type) {
+	protected AbstractSurfaceCollectionType(GeometryTypeName type) {
 		this.type = type;
 	}
 	
@@ -40,33 +40,18 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, 
 			boundaries = surfaces;
 	}
 	
+	@Override
 	public boolean isSetSemantics() {
 		return semantics != null;
 	}
 
-	public void addSemantics(SemanticsType semantics) {
-		if (this.semantics == null)
-			this.semantics = new ArrayList<>();
-		
-		this.semantics.add(semantics);
-	}
-
-	public List<SemanticsType> getSemantics() {
+	@Override
+	public SurfaceCollectionSemanticsObject getSemantics() {
 		return semantics;
 	}
 
-	public void setSemantics(List<SemanticsType> semantics) {
+	public void setSemantics(SurfaceCollectionSemanticsObject semantics) {
 		this.semantics = semantics;
-	}
-	
-	@Override
-	public boolean hasSemantics() {
-		return semantics != null && semantics.stream().filter(s -> s != SemanticsType.NULL_VALUE).findFirst().isPresent();
-	}
-
-	@Override
-	public void unsetSemantics() {
-		semantics = null;
 	}
 	
 	@Override
@@ -74,7 +59,7 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, 
 		return material != null;
 	}
 	
-	public void addMaterial(SurfaceMaterialObject materialObject) {
+	public void addMaterial(SurfaceCollectionMaterialObject materialObject) {
 		if (material == null)
 			material = new HashMap<>();
 		
@@ -82,19 +67,19 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, 
 	}
 	
 	@Override
-	public Collection<SurfaceMaterialObject> getMaterial() {
+	public Collection<SurfaceCollectionMaterialObject> getMaterial() {
 		return material.values();
 	}
 	
-	public SurfaceMaterialObject getMaterial(String theme) {
+	public SurfaceCollectionMaterialObject getMaterial(String theme) {
 		return material != null ? material.get(theme) : null;
 	}
 
-	public void setMaterial(List<SurfaceMaterialObject> material) {
+	public void setMaterial(List<SurfaceCollectionMaterialObject> material) {
 		if (material == null)
 			this.material = null;
 		else {
-			for (SurfaceMaterialObject object : material)
+			for (SurfaceCollectionMaterialObject object : material)
 				this.material.put(object.getTheme(), object);
 		}
 	}
@@ -104,7 +89,7 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, 
 		return texture != null;
 	}
 	
-	public void addTexture(SurfaceTextureObject textureObject) {
+	public void addTexture(SurfaceCollectionTextureObject textureObject) {
 		if (texture == null)
 			texture = new HashMap<>();
 		
@@ -112,19 +97,19 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceMaterialObject, 
 	}
 	
 	@Override
-	public Collection<SurfaceTextureObject> getTexture() {
+	public Collection<SurfaceCollectionTextureObject> getTexture() {
 		return texture.values();
 	}
 	
-	public SurfaceTextureObject getTexture(String theme) {
+	public SurfaceCollectionTextureObject getTexture(String theme) {
 		return texture != null ? texture.get(theme) : null;
 	}
 
-	public void setTexture(List<SurfaceTextureObject> texture) {
+	public void setTexture(List<SurfaceCollectionTextureObject> texture) {
 		if (texture == null)
 			this.texture = null;
 		else {
-			for (SurfaceTextureObject object : texture)
+			for (SurfaceCollectionTextureObject object : texture)
 				this.texture.put(object.getTheme(), object);
 		}
 	}

@@ -11,6 +11,7 @@ import org.citygml4j.builder.json.marshal.citygml.core.CoreMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.generics.GenericsMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.landuse.LandUseMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.relief.ReliefMarshaller;
+import org.citygml4j.builder.json.marshal.citygml.transportation.TransportationMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.vegetation.VegetationMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.waterbody.WaterBodyMarshaller;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
@@ -21,6 +22,7 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CoreModuleComponent;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
 import org.citygml4j.model.citygml.relief.ReliefModuleComponent;
+import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
@@ -35,6 +37,7 @@ public class CityGMLMarshaller {
 	private final GenericsMarshaller gen;
 	private final LandUseMarshaller luse;
 	private final ReliefMarshaller dem;
+	private final TransportationMarshaller tran;
 	private final VegetationMarshaller veg;
 	private final WaterBodyMarshaller wtr;
 	
@@ -48,6 +51,7 @@ public class CityGMLMarshaller {
 		gen = new GenericsMarshaller(this);
 		luse = new LandUseMarshaller(this);
 		dem = new ReliefMarshaller(this);
+		tran = new TransportationMarshaller(this);
 		veg = new VegetationMarshaller(this);
 		wtr = new WaterBodyMarshaller(this);
 	}
@@ -56,20 +60,19 @@ public class CityGMLMarshaller {
 		List<AbstractCityObjectType> dest = null;
 		
 		if (src instanceof BuildingModuleComponent)
-			dest = bldg.marshal(src);
-		
+			dest = bldg.marshal(src);		
 		else if (src instanceof CityFurnitureModuleComponent)
-			dest = frn.marshal(src);
-		
+			dest = frn.marshal(src);		
 		else if (src instanceof GenericsModuleComponent)
-			dest = gen.marshal(src);
-		
+			dest = gen.marshal(src);		
 		else if (src instanceof ReliefModuleComponent)
 			dest = dem.marshal(src);
-		else if (src instanceof WaterBodyModuleComponent)
-			dest = wtr.marshal(src);
+		else if (src instanceof TransportationModuleComponent)
+			dest = tran.marshal(src);
 		else if (src instanceof VegetationModuleComponent)
 			dest = veg.marshal(src);
+		else if (src instanceof WaterBodyModuleComponent)
+			dest = wtr.marshal(src);
 		else if (src instanceof CoreModuleComponent)
 			dest = core.marshal(src);
 
@@ -81,6 +84,8 @@ public class CityGMLMarshaller {
 		
 		if (cityObject instanceof BuildingModuleComponent)
 			semantics = bldg.marshalSemantics(cityObject);
+		else if (cityObject instanceof TransportationModuleComponent)
+			semantics = tran.marshalSemantics(cityObject);
 		else if (cityObject instanceof WaterBodyModuleComponent)
 			semantics = wtr.marshalSemantics(cityObject);
 		
@@ -115,13 +120,17 @@ public class CityGMLMarshaller {
 		return dem;
 	}
 	
-	public WaterBodyMarshaller getWaterBodyMarshaller() {
-		return wtr;
+	public TransportationMarshaller getTransportationMarshaller() {
+		return tran;
 	}
 	
 	public VegetationMarshaller getVegetationMarshaller() {
 		return veg;
 	} 
+	
+	public WaterBodyMarshaller getWaterBodyMarshaller() {
+		return wtr;
+	}
 
 	public CityJSONMarshaller getCityJSONMarshaller() {
 		return json;
