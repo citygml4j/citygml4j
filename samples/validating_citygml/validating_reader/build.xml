@@ -34,7 +34,7 @@
 	<target name="compile" description="compile all java source files">
 		<echo message="Compiling the Java source files..." />
 		<mkdir dir="classes" />
-		<javac destdir="classes" debug="on">
+		<javac includeantruntime="false" destdir="classes" debug="on">
 			<src path="src" />
 			<classpath refid="classpath" />
 		</javac>
