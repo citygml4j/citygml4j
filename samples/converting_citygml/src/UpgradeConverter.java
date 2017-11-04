@@ -39,7 +39,7 @@ public class UpgradeConverter {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 		
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
-		CityGMLContext ctx = new CityGMLContext();
+		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
 		System.out.println(df.format(new Date()) + "reading CityGML 1.0.0 file LOD2_Buildings_v100.gml");

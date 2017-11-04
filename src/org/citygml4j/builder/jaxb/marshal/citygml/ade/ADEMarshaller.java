@@ -19,11 +19,11 @@
 package org.citygml4j.builder.jaxb.marshal.citygml.ade;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
@@ -35,13 +35,14 @@ import org.w3c.dom.Element;
 public class ADEMarshaller {
 	private HashMap<String, ADEContext> adeContexts;
 
-	public ADEMarshaller(JAXBMarshaller jaxb, List<ADEContext> adeContexts) {
-		if (adeContexts != null && !adeContexts.isEmpty()) {
+	public ADEMarshaller(JAXBMarshaller jaxb) {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
 			this.adeContexts = new HashMap<>();
 
-			for (ADEContext adeContext : adeContexts) {
+			for (ADEContext adeContext : context.getADEContexts()) {
 				for (ADEModule module : adeContext.getADEModules()) {
-					if  (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
+					if (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
 						adeContext.getADEMarshaller().setADEMarshallerHelper(new ADEMarshallerHelper(jaxb));
 						for (String packageName : adeContext.getModelPackageNames())
 							this.adeContexts.put(packageName, adeContext);	

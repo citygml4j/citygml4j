@@ -36,8 +36,6 @@ public class ADEBoundingBoxCalculator {
 		this.options = options;
 		
 		walker = new ADEFeatureWalker();
-		walker.useADEContexts(options.getADEContexts());
-
 		info = new ChildInfo();
 	}
 

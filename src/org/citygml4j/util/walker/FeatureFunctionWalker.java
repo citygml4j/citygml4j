@@ -21,6 +21,7 @@ package org.citygml4j.util.walker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -135,6 +136,21 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 	protected ADEWalkerHelper<FeatureFunctionWalker<T>> adeWalkerHelper;
 
 	public FeatureFunctionWalker() {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
+				ADEWalker<FeatureFunctionWalker<T>> walker = adeContext.createDefaultFeatureFunctionWalker();
+				if (walker != null) {
+					if (adeWalkerHelper == null) {
+						adeWalkerHelper = new ADEWalkerHelper<>();
+						adeWalkerHelper.inferFunctionType(this, FeatureFunctionWalker.class);
+					}
+
+					walker.setParentWalker(this);
+					adeWalkerHelper.addADEWalker(walker);
+				}
+			}
+		}
 	}
 
 	public FeatureFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
@@ -146,39 +162,6 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		return schemaHandler;
 	}
 
-	public FeatureFunctionWalker<T> useADEWalker(ADEWalker<FeatureFunctionWalker<T>> walker) {
-		if (walker != null) {
-			if (adeWalkerHelper == null) {
-				adeWalkerHelper = new ADEWalkerHelper<>();
-				adeWalkerHelper.inferFunctionType(this, FeatureFunctionWalker.class);
-			}
-
-			walker.setParentWalker(this);
-			adeWalkerHelper.addADEWalker(walker);
-		}
-
-		return this;
-	}
-
-	public FeatureFunctionWalker<T> useADEWalkers(List<ADEWalker<FeatureFunctionWalker<T>>> walkers) {
-		for (ADEWalker<FeatureFunctionWalker<T>> walker : walkers)
-			useADEWalker(walker);
-
-		return this;
-	}
-
-	public FeatureFunctionWalker<T> useADEContext(ADEContext context) {
-		useADEWalker(context.createDefaultFeatureFunctionWalker());
-		return this;
-	}
-
-	public FeatureFunctionWalker<T> useADEContexts(List<ADEContext> contexts) {
-		for (ADEContext context : contexts)
-			useADEWalker(context.createDefaultFeatureFunctionWalker());
-
-		return this;
-	}
-	
 	public T apply(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractBoundarySurface);
 		if (object != null)
@@ -202,7 +185,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.building.AbstractBoundarySurface abstractBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractBoundarySurface);
 		if (object != null)
@@ -226,7 +209,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface abstractBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractBoundarySurface);
 		if (object != null)
@@ -250,7 +233,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractBridge abstractBridge) {
 		T object = apply((AbstractSite)abstractBridge);
 		if (object != null)
@@ -263,7 +246,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		if (abstractBridge.isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationProperty bridgeInstallationProperty : new ArrayList<BridgeInstallationProperty>(abstractBridge.getOuterBridgeInstallation())) {
 				object = apply(bridgeInstallationProperty);
@@ -322,7 +305,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractBuilding abstractBuilding) {
 		T object = apply((AbstractSite)abstractBuilding);
 		if (object != null)
@@ -386,7 +369,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractCityObject abstractCityObject) {
 		T object = apply((AbstractFeature)abstractCityObject);
 		if (object != null)
@@ -418,7 +401,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractCoverage abstractCoverage) {
 		return apply((AbstractFeature)abstractCoverage);
 	}
@@ -426,11 +409,11 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 	public T apply(AbstractDiscreteCoverage abstractDiscreteCoverage) {
 		return apply((AbstractCoverage)abstractDiscreteCoverage);
 	}
-	
+
 	public T apply(AbstractFeature abstractFeature) {
 		return null;
 	}
-	
+
 	public T apply(AbstractFeatureCollection abstractFeatureCollection) {
 		T object = apply((AbstractFeature)abstractFeatureCollection);
 		if (object != null)
@@ -449,7 +432,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.bridge.AbstractOpening abstractOpening) {
 		T object = apply((AbstractCityObject)abstractOpening);
 		if (object != null)
@@ -465,7 +448,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.building.AbstractOpening abstractOpening) {
 		T object = apply((AbstractCityObject)abstractOpening);
 		if (object != null)
@@ -481,7 +464,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.tunnel.AbstractOpening abstractOpening) {
 		T object = apply((AbstractCityObject)abstractOpening);
 		if (object != null)
@@ -497,7 +480,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractReliefComponent abstractReliefComponent) {
 		T object = apply((AbstractCityObject)abstractReliefComponent);
 		if (object != null)
@@ -513,7 +496,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractSite abstractSite) {
 		T object = apply((AbstractCityObject)abstractSite);
 		if (object != null)
@@ -529,7 +512,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractSurfaceData abstractSurfaceData) {
 		T object = apply((AbstractFeature)abstractSurfaceData);
 		if (object != null)
@@ -545,7 +528,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTexture abstractTexture) {
 		T object = apply((AbstractSurfaceData)abstractTexture);
 		if (object != null)
@@ -561,7 +544,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTransportationObject abstractTransportationObject) {
 		T object = apply((AbstractCityObject)abstractTransportationObject);
 		if (object != null)
@@ -577,7 +560,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTunnel abstractTunnel) {
 		T object = apply((AbstractSite)abstractTunnel);
 		if (object != null)
@@ -633,7 +616,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractVegetationObject abstractVegetationObject) {
 		T object = apply((AbstractCityObject)abstractVegetationObject);
 		if (object != null)
@@ -649,7 +632,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractWaterBoundarySurface);
 		if (object != null)
@@ -665,7 +648,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 
 		return null;
 	}
-	
+
 	public T apply(AbstractWaterObject abstractWaterObject) {
 		T object = apply((AbstractCityObject)abstractWaterObject);
 		if (object != null)
@@ -717,7 +700,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -779,7 +762,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -795,7 +778,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -811,7 +794,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -819,7 +802,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)bridgeConstructionElement);
 		if (object != null)
 			return object;
-		
+
 		if (bridgeConstructionElement.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeConstructionElement.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -851,7 +834,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -859,7 +842,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)bridgeInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (bridgeInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -891,7 +874,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -931,7 +914,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -939,7 +922,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)intBridgeInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (intBridgeInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(intBridgeInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -955,7 +938,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -971,7 +954,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -987,7 +970,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1003,7 +986,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1019,7 +1002,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1035,7 +1018,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1051,7 +1034,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1067,7 +1050,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1083,7 +1066,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1099,7 +1082,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1123,7 +1106,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1139,7 +1122,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1155,7 +1138,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1171,7 +1154,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1179,7 +1162,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)buildingInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (buildingInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(buildingInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -1211,7 +1194,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1219,7 +1202,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)intBuildingInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (intBuildingInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(intBuildingInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -1235,7 +1218,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1275,7 +1258,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1291,7 +1274,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1307,7 +1290,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1323,7 +1306,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1339,7 +1322,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1355,7 +1338,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1371,7 +1354,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1387,7 +1370,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1403,7 +1386,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1419,7 +1402,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1443,7 +1426,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1459,7 +1442,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1499,7 +1482,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1507,7 +1490,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)intTunnelInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (intTunnelInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(intTunnelInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -1523,7 +1506,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1531,7 +1514,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractTunnel)tunnel);
 		if (object != null)
 			return object;
-		
+
 		if (tunnel.isSetGenericApplicationPropertyOfTunnel()) {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnel.getGenericApplicationPropertyOfTunnel())) {
 				object = apply(ade);
@@ -1539,7 +1522,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1547,7 +1530,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)tunnelFurniture);
 		if (object != null)
 			return object;
-		
+
 		if (tunnelFurniture.isSetGenericApplicationPropertyOfTunnelFurniture()) {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnelFurniture.getGenericApplicationPropertyOfTunnelFurniture())) {
 				object = apply(ade);
@@ -1555,7 +1538,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1563,7 +1546,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)tunnelInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (tunnelInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(tunnelInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -1579,7 +1562,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1587,7 +1570,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractTunnel)tunnelPart);
 		if (object != null)
 			return object;
-		
+
 		if (tunnelPart.isSetGenericApplicationPropertyOfTunnelPart()) {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnelPart.getGenericApplicationPropertyOfTunnelPart())) {
 				object = apply(ade);
@@ -1595,7 +1578,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1611,7 +1594,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1627,7 +1610,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1643,7 +1626,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1659,7 +1642,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1675,7 +1658,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1691,7 +1674,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1707,7 +1690,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1723,7 +1706,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1739,7 +1722,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1755,7 +1738,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1771,7 +1754,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1787,7 +1770,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1817,7 +1800,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1833,7 +1816,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1865,7 +1848,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1873,7 +1856,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractCityObject)genericCityObject);
 		if (object != null)
 			return object;
-		
+
 		return null;
 	}
 
@@ -1889,7 +1872,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1905,7 +1888,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1921,7 +1904,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1943,7 +1926,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1967,7 +1950,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1983,7 +1966,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1999,7 +1982,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2015,7 +1998,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2023,7 +2006,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 		T object = apply((AbstractDiscreteCoverage)rectifiedGridCoverage);
 		if (object != null)
 			return object;
-		
+
 		return null;
 	}
 
@@ -2039,7 +2022,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2055,7 +2038,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2071,7 +2054,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2087,7 +2070,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2119,7 +2102,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2135,7 +2118,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2151,7 +2134,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2175,7 +2158,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2191,7 +2174,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2207,7 +2190,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2223,10 +2206,10 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public <E extends AbstractFeature> T apply(FeatureProperty<E> featureProperty) {
 		if (featureProperty.isSetFeature() && shouldWalk) {
 			T object = featureProperty.getFeature().accept(this);
@@ -2268,7 +2251,7 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 	public T apply(Element element, ElementDecl decl) {
 		return null;
 	}
-	
+
 	public T apply(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:

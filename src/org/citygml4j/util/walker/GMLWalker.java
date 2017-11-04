@@ -21,6 +21,7 @@ package org.citygml4j.util.walker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -200,6 +201,19 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	protected ADEWalkerHelper<GMLWalker> adeWalkerHelper;
 
 	public GMLWalker() {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
+				ADEWalker<GMLWalker> walker = adeContext.createDefaultGMLWalker();
+				if (walker != null) {
+					if (adeWalkerHelper == null)
+						adeWalkerHelper = new ADEWalkerHelper<>();
+
+					walker.setParentWalker(this);
+					adeWalkerHelper.addADEWalker(walker);
+				}
+			}
+		}
 	}
 
 	public GMLWalker setSchemaHandler(SchemaHandler schemaHandler) {
@@ -211,37 +225,6 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		return schemaHandler;
 	}
 
-	public GMLWalker useADEWalker(ADEWalker<GMLWalker> walker) {
-		if (walker != null) {
-			if (adeWalkerHelper == null)
-				adeWalkerHelper = new ADEWalkerHelper<>();
-
-			walker.setParentWalker(this);
-			adeWalkerHelper.addADEWalker(walker);
-		}
-
-		return this;
-	}
-
-	public GMLWalker useADEWalkers(List<ADEWalker<GMLWalker>> walkers) {
-		for (ADEWalker<GMLWalker> walker : walkers)
-			useADEWalker(walker);
-
-		return this;
-	}
-
-	public GMLWalker useADEContext(ADEContext context) {
-		useADEWalker(context.createDefaultGMLWalker());
-		return this;
-	}
-
-	public GMLWalker useADEContexts(List<ADEContext> contexts) {
-		for (ADEContext context : contexts)
-			useADEWalker(context.createDefaultGMLWalker());
-
-		return this;
-	}
-	
 	public void visit(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {
@@ -254,7 +237,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(AbstractGML abstractGML) {
 	}
-	
+
 	public void visit(AbstractGeometry abstractGeometry) {
 		visit((AbstractGML)abstractGeometry);
 	}
@@ -348,7 +331,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (multiCurve.isSetCurveMembers())
 			visit(multiCurve.getCurveMembers());
 	}
-	
+
 	public void visit(MultiGeometry multiGeometry) {
 		visit((AbstractGeometricAggregate)multiGeometry);
 
@@ -482,14 +465,14 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	public void visit(TriangulatedSurface triangulatedSurface) {
 		visit((Surface)triangulatedSurface);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {
 		visit((AbstractCityObject)abstractBoundarySurface);
 
 		if (abstractBoundarySurface.isSetOpening())
 			for (org.citygml4j.model.citygml.bridge.OpeningProperty openingProperty : new ArrayList<org.citygml4j.model.citygml.bridge.OpeningProperty>(abstractBoundarySurface.getOpening()))
 				visit(openingProperty);
-					
+
 		if (abstractBoundarySurface.isSetLod2MultiSurface())
 			visit(abstractBoundarySurface.getLod2MultiSurface());
 
@@ -503,7 +486,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.building.AbstractBoundarySurface abstractBoundarySurface) {
 		visit((AbstractCityObject)abstractBoundarySurface);
 
@@ -519,12 +502,12 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractBoundarySurface.isSetLod4MultiSurface())
 			visit(abstractBoundarySurface.getLod4MultiSurface());
-					
+
 		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface abstractBoundarySurface) {
 		visit((AbstractCityObject)abstractBoundarySurface);
 
@@ -540,23 +523,23 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractBoundarySurface.isSetLod4MultiSurface())
 			visit(abstractBoundarySurface.getLod4MultiSurface());
-					
+
 		if (abstractBoundarySurface.isSetGenericApplicationPropertyOfBoundarySurface())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractBridge abstractBridge) {
 		visit((AbstractSite)abstractBridge);
 
 		if (abstractBridge.isSetOuterBridgeInstallation())
 			for (BridgeInstallationProperty bridgeInstallationProperty : new ArrayList<BridgeInstallationProperty>(abstractBridge.getOuterBridgeInstallation()))
 				visit(bridgeInstallationProperty);
-					
+
 		if (abstractBridge.isSetOuterBridgeConstructionElement())
 			for (BridgeConstructionElementProperty constructionElementProperty : new ArrayList<BridgeConstructionElementProperty>(abstractBridge.getOuterBridgeConstructionElement()))
 				visit(constructionElementProperty);
-				
+
 		if (abstractBridge.isSetInteriorBridgeInstallation())
 			for (IntBridgeInstallationProperty intBridgeInstallationProperty : new ArrayList<IntBridgeInstallationProperty>(abstractBridge.getInteriorBridgeInstallation())) 
 				visit(intBridgeInstallationProperty);
@@ -621,12 +604,12 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractBridge.isSetLod4MultiSurface())
 			visit(abstractBridge.getLod4MultiSurface());
-					
+
 		if (abstractBridge.isSetGenericApplicationPropertyOfAbstractBridge())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBridge.getGenericApplicationPropertyOfAbstractBridge()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractBuilding abstractBuilding) {
 		visit((AbstractSite)abstractBuilding);
 
@@ -653,7 +636,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (abstractBuilding.isSetAddress())
 			for (AddressProperty addressProperty : new ArrayList<AddressProperty>(abstractBuilding.getAddress()))
 				visit(addressProperty);
-					
+
 		if (abstractBuilding.isSetLod1Solid())
 			visit(abstractBuilding.getLod1Solid());
 
@@ -686,10 +669,10 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractBuilding.isSetLod4MultiCurve())
 			visit(abstractBuilding.getLod4MultiCurve());
-		
+
 		if (abstractBuilding.isSetLod0FootPrint())
 			visit(abstractBuilding.getLod0FootPrint());
-		
+
 		if (abstractBuilding.isSetLod0RoofEdge())
 			visit(abstractBuilding.getLod0RoofEdge());
 
@@ -709,7 +692,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractCityObject abstractCityObject) {
 		visit((AbstractFeature)abstractCityObject);
 
@@ -727,7 +710,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractCoverage abstractCoverage) {
 		visit((AbstractFeature)abstractCoverage);
 
@@ -751,14 +734,14 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			}
 		}
 	}
-	
+
 	public void visit(AbstractDiscreteCoverage abstractDiscreteCoverage) {
 		visit((AbstractCoverage)abstractDiscreteCoverage);
 	}
-	
+
 	public void visit(AbstractFeature abstractFeature) {
 		visit((AbstractGML)abstractFeature);
-		
+
 		if (abstractFeature.isSetLocation())
 			visit(abstractFeature.getLocation());
 
@@ -766,7 +749,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEElement()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractFeatureCollection abstractFeatureCollection) {
 		visit((AbstractFeature)abstractFeatureCollection);
 
@@ -777,19 +760,19 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (abstractFeatureCollection.isSetFeatureMembers())
 			visit(abstractFeatureCollection.getFeatureMembers());
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.bridge.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
-		
+
 		if (abstractOpening.isSetLod3MultiSurface())
 			visit(abstractOpening.getLod3MultiSurface());
 
 		if (abstractOpening.isSetLod4MultiSurface())
 			visit(abstractOpening.getLod4MultiSurface());
-		
+
 		if (abstractOpening.isSetLod3ImplicitRepresentation())
 			visit(abstractOpening.getLod3ImplicitRepresentation());
-		
+
 		if (abstractOpening.isSetLod4ImplicitRepresentation())
 			visit(abstractOpening.getLod4ImplicitRepresentation());
 
@@ -797,7 +780,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.building.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
 
@@ -806,18 +789,18 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractOpening.isSetLod4MultiSurface())
 			visit(abstractOpening.getLod4MultiSurface());
-		
+
 		if (abstractOpening.isSetLod3ImplicitRepresentation())
 			visit(abstractOpening.getLod3ImplicitRepresentation());
-		
+
 		if (abstractOpening.isSetLod4ImplicitRepresentation())
 			visit(abstractOpening.getLod4ImplicitRepresentation());
-		
+
 		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.tunnel.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
 
@@ -826,29 +809,29 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractOpening.isSetLod4MultiSurface())
 			visit(abstractOpening.getLod4MultiSurface());
-		
+
 		if (abstractOpening.isSetLod3ImplicitRepresentation())
 			visit(abstractOpening.getLod3ImplicitRepresentation());
-		
+
 		if (abstractOpening.isSetLod4ImplicitRepresentation())
 			visit(abstractOpening.getLod4ImplicitRepresentation());
-		
+
 		if (abstractOpening.isSetGenericApplicationPropertyOfOpening())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractReliefComponent abstractReliefComponent) {
 		visit((AbstractCityObject)abstractReliefComponent);
 
 		if (abstractReliefComponent.isSetExtent())
 			visit(abstractReliefComponent.getExtent());
-		
+
 		if (abstractReliefComponent.isSetGenericApplicationPropertyOfReliefComponent())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractSite abstractSite) {
 		visit((AbstractCityObject)abstractSite);
 
@@ -856,7 +839,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractSurfaceData abstractSurfaceData) {
 		visit((AbstractFeature)abstractSurfaceData);
 
@@ -864,7 +847,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTexture abstractTexture) {
 		visit((AbstractSurfaceData)abstractTexture);
 
@@ -872,7 +855,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTransportationObject abstractTransportationObject) {
 		visit((AbstractCityObject)abstractTransportationObject);
 
@@ -880,7 +863,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTunnel abstractTunnel) {
 		visit((AbstractSite)abstractTunnel);
 
@@ -948,12 +931,12 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (abstractTunnel.isSetLod4MultiSurface())
 			visit(abstractTunnel.getLod4MultiSurface());
-					
+
 		if (abstractTunnel.isSetGenericApplicationPropertyOfAbstractTunnel())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTunnel.getGenericApplicationPropertyOfAbstractTunnel()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractVegetationObject abstractVegetationObject) {
 		visit((AbstractCityObject)abstractVegetationObject);
 
@@ -961,7 +944,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractWaterObject abstractWaterObject) {
 		visit((AbstractCityObject)abstractWaterObject);
 
@@ -972,7 +955,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
 		visit((AbstractCityObject)abstractWaterBoundarySurface);
-		
+
 		if (abstractWaterBoundarySurface.isSetLod2Surface())
 			visit(abstractWaterBoundarySurface.getLod2Surface());
 
@@ -986,7 +969,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(Appearance appearance) {
 		visit((AbstractFeature)appearance);
 
@@ -1001,7 +984,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(GeoreferencedTexture georeferencedTexture) {
 		visit((AbstractTexture)georeferencedTexture);
-		
+
 		if (georeferencedTexture.isSetReferencePoint())
 			visit(georeferencedTexture.getReferencePoint());
 
@@ -1044,10 +1027,10 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (bridgeConstructionElement.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeConstructionElement.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-					
+
 		if (bridgeConstructionElement.isSetLod1Geometry())
 			visit(bridgeConstructionElement.getLod1Geometry());
-					
+
 		if (bridgeConstructionElement.isSetLod2Geometry())
 			visit(bridgeConstructionElement.getLod2Geometry());
 
@@ -1056,19 +1039,19 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (bridgeConstructionElement.isSetLod4Geometry())
 			visit(bridgeConstructionElement.getLod4Geometry());
-					
+
 		if (bridgeConstructionElement.isSetLod1ImplicitRepresentation())
 			visit(bridgeConstructionElement.getLod1ImplicitRepresentation());
-		
+
 		if (bridgeConstructionElement.isSetLod2ImplicitRepresentation())
 			visit(bridgeConstructionElement.getLod2ImplicitRepresentation());
-					
+
 		if (bridgeConstructionElement.isSetLod3ImplicitRepresentation())
 			visit(bridgeConstructionElement.getLod3ImplicitRepresentation());
-					
+
 		if (bridgeConstructionElement.isSetLod4ImplicitRepresentation())
 			visit(bridgeConstructionElement.getLod4ImplicitRepresentation());
-		
+
 		if (bridgeConstructionElement.isSetLod1TerrainIntersection())
 			visit(bridgeConstructionElement.getLod1TerrainIntersection());
 
@@ -1088,7 +1071,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(BridgeFurniture bridgeFurniture) {
 		visit((AbstractCityObject)bridgeFurniture);
-		
+
 		if (bridgeFurniture.isSetLod4Geometry())
 			visit(bridgeFurniture.getLod4Geometry());
 
@@ -1102,11 +1085,11 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(BridgeInstallation bridgeInstallation) {
 		visit((AbstractCityObject)bridgeInstallation);
-		
+
 		if (bridgeInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-					
+
 		if (bridgeInstallation.isSetLod2Geometry())
 			visit(bridgeInstallation.getLod2Geometry());
 
@@ -1115,13 +1098,13 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (bridgeInstallation.isSetLod4Geometry())
 			visit(bridgeInstallation.getLod4Geometry());
-					
+
 		if (bridgeInstallation.isSetLod2ImplicitRepresentation())
 			visit(bridgeInstallation.getLod2ImplicitRepresentation());
-					
+
 		if (bridgeInstallation.isSetLod3ImplicitRepresentation())
 			visit(bridgeInstallation.getLod3ImplicitRepresentation());
-					
+
 		if (bridgeInstallation.isSetLod4ImplicitRepresentation())
 			visit(bridgeInstallation.getLod4ImplicitRepresentation());
 
@@ -1152,13 +1135,13 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (bridgeRoom.isSetBridgeRoomInstallation())
 			for (IntBridgeInstallationProperty intBridgeInstallationProperty : new ArrayList<IntBridgeInstallationProperty>(bridgeRoom.getBridgeRoomInstallation()))
 				visit(intBridgeInstallationProperty);
-					
+
 		if (bridgeRoom.isSetLod4MultiSurface())
 			visit(bridgeRoom.getLod4MultiSurface());
 
 		if (bridgeRoom.isSetLod4Solid())
 			visit(bridgeRoom.getLod4Solid());
-			
+
 		if (bridgeRoom.isSetGenericApplicationPropertyOfBridgeRoom())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(bridgeRoom.getGenericApplicationPropertyOfBridgeRoom()))
 				visit(ade);
@@ -1173,10 +1156,10 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (intBridgeInstallation.isSetLod4Geometry())
 			visit(intBridgeInstallation.getLod4Geometry());
-					
+
 		if (intBridgeInstallation.isSetLod4ImplicitRepresentation())
 			visit(intBridgeInstallation.getLod4ImplicitRepresentation());
-	
+
 		if (intBridgeInstallation.isSetGenericApplicationPropertyOfIntBridgeInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBridgeInstallation.getGenericApplicationPropertyOfIntBridgeInstallation()))
 				visit(ade);
@@ -1284,7 +1267,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(BuildingFurniture buildingFurniture) {
 		visit((AbstractCityObject)buildingFurniture);
-		
+
 		if (buildingFurniture.isSetLod4Geometry())
 			visit(buildingFurniture.getLod4Geometry());
 
@@ -1298,11 +1281,11 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(BuildingInstallation buildingInstallation) {
 		visit((AbstractCityObject)buildingInstallation);
-		
+
 		if (buildingInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(buildingInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-					
+
 		if (buildingInstallation.isSetLod2Geometry())
 			visit(buildingInstallation.getLod2Geometry());
 
@@ -1311,13 +1294,13 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (buildingInstallation.isSetLod4Geometry())
 			visit(buildingInstallation.getLod4Geometry());
-		
+
 		if (buildingInstallation.isSetLod2ImplicitRepresentation())
 			visit(buildingInstallation.getLod2ImplicitRepresentation());
-		
+
 		if (buildingInstallation.isSetLod3ImplicitRepresentation())
 			visit(buildingInstallation.getLod3ImplicitRepresentation());
-		
+
 		if (buildingInstallation.isSetLod4ImplicitRepresentation())
 			visit(buildingInstallation.getLod4ImplicitRepresentation());
 
@@ -1340,13 +1323,13 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (intBuildingInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(intBuildingInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-					
+
 		if (intBuildingInstallation.isSetLod4Geometry())
 			visit(intBuildingInstallation.getLod4Geometry());
-					
+
 		if (intBuildingInstallation.isSetLod4ImplicitRepresentation())
 			visit(intBuildingInstallation.getLod4ImplicitRepresentation());
-					
+
 		if (intBuildingInstallation.isSetGenericApplicationPropertyOfIntBuildingInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()))
 				visit(ade);
@@ -1366,7 +1349,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (room.isSetRoomInstallation())
 			for (IntBuildingInstallationProperty intBuildingInstallationProperty : new ArrayList<IntBuildingInstallationProperty>(room.getRoomInstallation()))
 				visit(intBuildingInstallationProperty);
-					
+
 		if (room.isSetLod4MultiSurface())
 			visit(room.getLod4MultiSurface());
 
@@ -1472,7 +1455,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(HollowSpace hollowSpace) {
 		visit((AbstractCityObject)hollowSpace);
-		
+
 		if (hollowSpace.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(hollowSpace.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
@@ -1484,7 +1467,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (hollowSpace.isSetHollowSpaceInstallation())
 			for (IntTunnelInstallationProperty intTunnelInstallationProperty : new ArrayList<IntTunnelInstallationProperty>(hollowSpace.getHollowSpaceInstallation()))
 				visit(intTunnelInstallationProperty);
-					
+
 		if (hollowSpace.isSetLod4MultiSurface())
 			visit(hollowSpace.getLod4MultiSurface());
 
@@ -1498,17 +1481,17 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(IntTunnelInstallation intTunnelInstallation) {
 		visit((AbstractCityObject)intTunnelInstallation);
-		
+
 		if (intTunnelInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(intTunnelInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
 
 		if (intTunnelInstallation.isSetLod4Geometry())
 			visit(intTunnelInstallation.getLod4Geometry());
-					
+
 		if (intTunnelInstallation.isSetLod4ImplicitRepresentation())
 			visit(intTunnelInstallation.getLod4ImplicitRepresentation());
-					
+
 		if (intTunnelInstallation.isSetGenericApplicationPropertyOfIntTunnelInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intTunnelInstallation.getGenericApplicationPropertyOfIntTunnelInstallation()))
 				visit(ade);
@@ -1524,7 +1507,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(TunnelFurniture tunnelFurniture) {
 		visit((AbstractCityObject)tunnelFurniture);
-		
+
 		if (tunnelFurniture.isSetLod4Geometry())
 			visit(tunnelFurniture.getLod4Geometry());
 
@@ -1538,11 +1521,11 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(TunnelInstallation tunnelInstallation) {
 		visit((AbstractCityObject)tunnelInstallation);
-		
+
 		if (tunnelInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(tunnelInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-		
+
 		if (tunnelInstallation.isSetLod2Geometry())
 			visit(tunnelInstallation.getLod2Geometry());
 
@@ -1551,16 +1534,16 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (tunnelInstallation.isSetLod4Geometry())
 			visit(tunnelInstallation.getLod4Geometry());
-		
+
 		if (tunnelInstallation.isSetLod2ImplicitRepresentation())
 			visit(tunnelInstallation.getLod2ImplicitRepresentation());
-		
+
 		if (tunnelInstallation.isSetLod3ImplicitRepresentation())
 			visit(tunnelInstallation.getLod3ImplicitRepresentation());
-		
+
 		if (tunnelInstallation.isSetLod4ImplicitRepresentation())
 			visit(tunnelInstallation.getLod4ImplicitRepresentation());
-		
+
 		if (tunnelInstallation.isSetGenericApplicationPropertyOfTunnelInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(tunnelInstallation.getGenericApplicationPropertyOfTunnelInstallation()))
 				visit(ade);
@@ -1664,7 +1647,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(CityFurniture cityFurniture) {
 		visit((AbstractCityObject)cityFurniture);
-		
+
 		if (cityFurniture.isSetLod1Geometry())
 			visit(cityFurniture.getLod1Geometry());
 
@@ -1715,7 +1698,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (cityObjectGroup.isSetGroupParent())
 			visit(cityObjectGroup.getGroupParent());
-					
+
 		if (cityObjectGroup.isSetGeometry())
 			visit(cityObjectGroup.getGeometry());
 
@@ -1729,7 +1712,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (address.isSetMultiPoint())
 			visit(address.getMultiPoint());
-		
+
 		if (address.isSetGenericApplicationPropertyOfAddress())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(address.getGenericApplicationPropertyOfAddress()))
 				visit(ade);
@@ -1753,7 +1736,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(GenericCityObject genericCityObject) {
 		visit((AbstractCityObject)genericCityObject);
-		
+
 		if (genericCityObject.isSetLod0Geometry())
 			visit(genericCityObject.getLod0Geometry());
 
@@ -1802,7 +1785,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(LandUse landUse) {
 		visit((AbstractCityObject)landUse);
-		
+
 		if (landUse.isSetLod0MultiSurface())
 			visit(landUse.getLod0MultiSurface());
 
@@ -1825,7 +1808,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(BreaklineRelief breaklineRelief) {
 		visit((AbstractReliefComponent)breaklineRelief);
-		
+
 		if (breaklineRelief.isSetBreaklines())
 			visit(breaklineRelief.getBreaklines());
 
@@ -1839,7 +1822,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(MassPointRelief massPointRelief) {
 		visit((AbstractReliefComponent)massPointRelief);
-		
+
 		if (massPointRelief.isSetReliefPoints())
 			visit(massPointRelief.getReliefPoints());
 
@@ -1853,7 +1836,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (rasterRelief.isSetGrid())
 			visit(rasterRelief.getGrid());
-		
+
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				visit(ade);
@@ -1873,7 +1856,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(TINRelief tinRelief) {
 		visit((AbstractReliefComponent)tinRelief);
-		
+
 		if (tinRelief.isSetTin())
 			visit(tinRelief.getTin());
 
@@ -1893,7 +1876,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (auxiliaryTrafficArea.isSetLod4MultiSurface())
 			visit(auxiliaryTrafficArea.getLod4MultiSurface());
-		
+
 		if (auxiliaryTrafficArea.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(auxiliaryTrafficArea.getGenericApplicationPropertyOfAuxiliaryTrafficArea()))
 				visit(ade);
@@ -1909,7 +1892,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(RectifiedGridCoverage rectifiedGridCoverage) {
 		visit((AbstractDiscreteCoverage)rectifiedGridCoverage);
-		
+
 		if (rectifiedGridCoverage.isSetRectifiedGridDomain())
 			visit(rectifiedGridCoverage.getRectifiedGridDomain());
 	}
@@ -1940,7 +1923,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(TrafficArea trafficArea) {
 		visit((AbstractTransportationObject)trafficArea);
-		
+
 		if (trafficArea.isSetLod2MultiSurface())
 			visit(trafficArea.getLod2MultiSurface());
 
@@ -1965,7 +1948,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (transportationComplex.isSetAuxiliaryTrafficArea())
 			for (AuxiliaryTrafficAreaProperty auxiliaryTrafficAreaProperty : new ArrayList<AuxiliaryTrafficAreaProperty>(transportationComplex.getAuxiliaryTrafficArea()))
 				visit(auxiliaryTrafficAreaProperty);
-					
+
 		if (transportationComplex.isSetLod0Network())
 			for (GeometricComplexProperty geometricComplexProperty : new ArrayList<GeometricComplexProperty>(transportationComplex.getLod0Network()))
 				visit(geometricComplexProperty);
@@ -1989,7 +1972,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 	public void visit(PlantCover plantCover) {
 		visit((AbstractVegetationObject)plantCover);
-		
+
 		if (plantCover.isSetLod1MultiSurface())
 			visit(plantCover.getLod1MultiSurface());
 
@@ -2010,7 +1993,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (plantCover.isSetLod3MultiSolid())
 			visit(plantCover.getLod3MultiSolid());
-		
+
 		if (plantCover.isSetLod4MultiSolid())
 			visit(plantCover.getLod4MultiSolid());
 
@@ -2024,7 +2007,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (solitaryVegetationObject.isSetLod1Geometry())
 			visit(solitaryVegetationObject.getLod1Geometry());
-		
+
 		if (solitaryVegetationObject.isSetLod2Geometry())
 			visit(solitaryVegetationObject.getLod2Geometry());
 
@@ -2045,7 +2028,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (solitaryVegetationObject.isSetLod4ImplicitRepresentation())
 			visit(solitaryVegetationObject.getLod4ImplicitRepresentation());
-		
+
 		if (solitaryVegetationObject.isSetGenericApplicationPropertyOfSolitaryVegetationObject())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(solitaryVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				visit(ade);
@@ -2081,7 +2064,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 
 		if (waterBody.isSetLod4Solid())
 			visit(waterBody.getLod4Solid());
-					
+
 		if (waterBody.isSetGenericApplicationPropertyOfWaterBody())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterBody.getGenericApplicationPropertyOfWaterBody()))
 				visit(ade);
@@ -2110,7 +2093,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTextureParameterization abstractTextureParameterization) {
 		visit((AbstractGML)abstractTextureParameterization);
 
@@ -2122,7 +2105,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTextureParameterization.getGenericADEElement()))
 				visit(ade);		
 	}
-	
+
 	public void visit(_AbstractAppearance abstractAppearance) {
 		visit((AbstractGML)abstractAppearance);
 	}
@@ -2183,7 +2166,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	public void visit(_SimpleTexture simpleTexture) {
 		visit((_AbstractAppearance)simpleTexture);
 	}
-	
+
 	public <T extends AbstractGML> void visit(AssociationByRep<T> association) {
 		if (association.isSetObject() && shouldWalk)
 			association.getObject().accept(this);
@@ -2192,7 +2175,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	public <T extends AbstractGML> void visit(AssociationByRepOrRef<T> association) {
 		visit((AssociationByRep<T>)association);
 	}
-	
+
 	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
 		if (featureProperty.isSetFeature() && shouldWalk)
 			featureProperty.getFeature().accept(this);
@@ -2200,7 +2183,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		if (featureProperty.isSetGenericADEElement())
 			visit(featureProperty.getGenericADEElement());
 	}
-	
+
 	public void visit(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
 			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
@@ -2212,7 +2195,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 					visit(ade);
 		}
 	}
-	
+
 	public <T extends AbstractGeometry> void visit(GeometryProperty<T> geometryProperty) {
 		if (geometryProperty.isSetGeometry() && shouldWalk)
 			geometryProperty.getGeometry().accept(this);
@@ -2246,7 +2229,7 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	public void visit(Element element, ElementDecl decl) {
 		iterateNodeList(element, decl);
 	}
-	
+
 	public void visit(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:

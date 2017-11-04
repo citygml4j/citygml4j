@@ -38,7 +38,7 @@ public class ValidatingChunkReader {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
-		CityGMLContext ctx = new CityGMLContext();
+		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
 		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml feature by feature");

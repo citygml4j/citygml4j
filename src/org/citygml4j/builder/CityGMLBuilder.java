@@ -18,31 +18,23 @@
  */
 package org.citygml4j.builder;
 
-import java.util.List;
-
-import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
-import org.citygml4j.xml.io.reader.CityGMLReadException;
-import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.citygml4j.xml.validation.Validator;
 
 public interface CityGMLBuilder {
-	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException;	
-	public CityGMLInputFactory createCityGMLInputFactory(SchemaHandler schemaHandler);	
-	public CityGMLOutputFactory createCityGMLOutputFactory() throws CityGMLWriteException;	
-	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext) throws CityGMLWriteException;	
-	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext, SchemaHandler schemaHandler);	
-	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) throws CityGMLWriteException;	
-	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version, SchemaHandler schemaHandler);	
-	public CityGMLOutputFactory createCityGMLOutputFactory(SchemaHandler schemaHandler);	
-	public Validator createValidator() throws CityGMLBuilderException;	
+	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLBuilderException;
+	public CityGMLInputFactory createCityGMLInputFactory(SchemaHandler schemaHandler);
+	public CityGMLOutputFactory createCityGMLOutputFactory();
+	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext);
+	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext, SchemaHandler schemaHandler);
+	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version);
+	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version, SchemaHandler schemaHandler);
+	public CityGMLOutputFactory createCityGMLOutputFactory(SchemaHandler schemaHandler);
+	public Validator createValidator() throws CityGMLBuilderException;
 	public Validator createValidator(SchemaHandler schemaHandler);
 	public SchemaHandler getDefaultSchemaHandler() throws CityGMLBuilderException;
-	public ADEContext getADEContext(String namespaceURI);
-	public List<ADEContext> getADEContexts();
-	public boolean isSetADEContexts();
 }

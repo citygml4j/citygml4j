@@ -20,11 +20,11 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.xml.namespace.QName;
+
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.building.AbstractOpening;
-import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
@@ -36,13 +36,13 @@ public class FeatureChunkReader {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
-		CityGMLContext ctx = new CityGMLContext();
+		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v200.gml feature by feature");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
-		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new Class[]{AbstractOpening.class, Address.class});
+		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new QName[]{new QName("Door"), new QName("Address")});
 
 		// see difference when setting to true
 		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);

@@ -20,6 +20,8 @@ package org.citygml4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.CityGMLBuilderException;
@@ -31,22 +33,26 @@ import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
 
 public class CityGMLContext {
-	private JAXBBuilder builder;
-	private List<ADEContext> adeContexts;
+	private static CityGMLContext instance;	
+	private final Set<ADEContext> adeContexts;
 
-	public CityGMLContext() {
-		adeContexts = new ArrayList<>();
+	private CityGMLContext() {
+		adeContexts = ConcurrentHashMap.newKeySet();
 	}
-
+	
+	public static synchronized CityGMLContext getInstance() {
+		if (instance == null)
+			instance = new CityGMLContext();
+		
+		return instance;
+	}
+	
 	public void registerADEContext(ADEContext adeContext) throws ADEException {
 		if (adeContext == null)
 			throw new ADEException("The ADE context must not be null.");
 
 		if (adeContexts.contains(adeContext))
 			return;
-
-		if (builder != null)
-			throw new ADEException("An ADE context cannot be registered after the CityGML builder has been created.");
 
 		if (adeContext.getModelPackageNames() == null || adeContext.getModelPackageNames().isEmpty())
 			throw new ADEException("No model package names defined for the ADE context.");
@@ -65,13 +71,13 @@ public class CityGMLContext {
 
 		for (ADEModule module : adeContext.getADEModules()) {		
 			if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty())
-				throw new ADEException("The namespace URI of the ADE module must not be null.");		
+				throw new ADEException("The namespace URI of the ADE module must not be null.");
+
+			if (Modules.getModule(module.getNamespaceURI()) != null)
+				throw new ADEException("A module has already been registered for the namespace '" + module.getNamespaceURI() + "'.");
 
 			for (ADEContext registeredContext : adeContexts) {
 				for (ADEModule registeredModule : registeredContext.getADEModules()) {
-					if (registeredModule.getNamespaceURI().equals(module.getNamespaceURI()))
-						throw new ADEException("An ADE module has already been registered for the namespace '" + module.getNamespaceURI() + "'.");
-
 					for (String packageName : adeContext.getModelPackageNames()) {
 						if (registeredModule.getCityGMLVersion() == module.getCityGMLVersion() && registeredContext.getModelPackageNames().contains(packageName))
 							throw new ADEException("An ADE module has already been registered for the package '" + packageName + "' and CityGML version " + module.getCityGMLVersion() + ".");					
@@ -93,7 +99,7 @@ public class CityGMLContext {
 		adeContexts.remove(adeContext);
 	}
 
-	public boolean isSetADEContexts() {
+	public boolean hasADEContexts() {
 		return !adeContexts.isEmpty();
 	}
 
@@ -120,31 +126,24 @@ public class CityGMLContext {
 		return createJAXBBuilder(classLoader);
 	}
 
-	public synchronized JAXBBuilder createJAXBBuilder() throws CityGMLBuilderException {
-		if (builder == null)
-			builder = JAXBBuilderFactory.defaults()
-			.withADEContexts(adeContexts).build();
-
-		return builder;
+	public JAXBBuilder createJAXBBuilder() throws CityGMLBuilderException {
+		return JAXBBuilderFactory.defaults().build();
 	}
 
-	public synchronized JAXBBuilder createJAXBBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
-		if (builder == null)
-			builder = JAXBBuilderFactory.defaults()
-			.withADEContexts(adeContexts)
-			.withClassLoader(classLoader).build();
-
-		return builder;
+	public JAXBBuilder createJAXBBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
+		return JAXBBuilderFactory.defaults()
+				.withClassLoader(classLoader).build();
 	}
-	
-	public synchronized JAXBBuilder createJAXBBuilder(ClassLoader classLoader, String... packageNames) throws CityGMLBuilderException {
-		if (builder == null)
-			builder = JAXBBuilderFactory.defaults()
-			.withADEContexts(adeContexts)
-			.withClassLoader(classLoader)
-			.withPackageNames(packageNames).build();
 
-		return builder;
+	public JAXBBuilder createJAXBBuilder(String... packageNames) throws CityGMLBuilderException {
+		return JAXBBuilderFactory.defaults()
+				.withPackageNames(packageNames).build();
+	}
+
+	public JAXBBuilder createJAXBBuilder(ClassLoader classLoader, String... packageNames) throws CityGMLBuilderException {
+		return JAXBBuilderFactory.defaults()
+				.withClassLoader(classLoader)
+				.withPackageNames(packageNames).build();
 	}
 
 }

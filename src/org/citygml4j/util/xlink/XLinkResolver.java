@@ -18,12 +18,6 @@
  */
 package org.citygml4j.util.xlink;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.citygml4j.model.citygml.ade.binding.ADEContext;
-import org.citygml4j.model.citygml.ade.binding.ADEWalker;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AppearanceModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
@@ -40,33 +34,13 @@ import org.w3c.dom.NodeList;
 
 public class XLinkResolver {
 	private SchemaHandler schemaHandler;
-	private List<ADEWalker<GMLFunctionWalker<ModelObject>>> walkers;
 
 	public XLinkResolver setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public XLinkResolver useADEContext(ADEContext context) {
-		ADEWalker<GMLFunctionWalker<ModelObject>> walker = context.createDefaultGMLFunctionWalker();
-		if (walker != null) {
-			if (walkers == null)
-				walkers = new ArrayList<>();
-
-			walkers.add(walker);
-		}
-		
-		return this;
-	}
-
-	public XLinkResolver useADEContexts(List<ADEContext> contexts) {
-		for (ADEContext context : contexts)
-			useADEContext(context);
-
-		return this;
-	}
-
-	private ModelObject resolveXlink(String target, AbstractGML root, GMLFunctionWalker<ModelObject> walker) {
+	private ModelObject resolveXlink(String target, AbstractGML root, GMLIdWalker walker) {
 		if (target == null || target.length() == 0)
 			return null;
 		
@@ -77,25 +51,16 @@ public class XLinkResolver {
 	}
 	
 	public ModelObject getObject(String target, AbstractGML root) {
-		return resolveXlink(target, root, 
-				new GMLWalker(clipGMLId(target))
-				.setSchemaHandler(schemaHandler)
-				.useADEWalkers(walkers != null ? walkers : Collections.emptyList()));
+		return resolveXlink(target, root, new GMLWalker(clipGMLId(target), schemaHandler));
 	}	
 	
 	public AbstractGeometry getGeometry(String target, AbstractGML root) {
-		ModelObject object = resolveXlink(target, root,
-				new GeometryWalker(clipGMLId(target))
-				.setSchemaHandler(schemaHandler)
-				.useADEWalkers(walkers != null ? walkers : Collections.emptyList()));
+		ModelObject object = resolveXlink(target, root, new GeometryWalker(clipGMLId(target), schemaHandler));
 		return object instanceof AbstractGeometry ? (AbstractGeometry)object : null;
 	}
 	
 	public AbstractFeature getFeature(String target, AbstractGML root) {
-		ModelObject object = resolveXlink(target, root, 
-				new FeatureWalker(clipGMLId(target))
-				.setSchemaHandler(schemaHandler)
-				.useADEWalkers(walkers != null ? walkers : Collections.emptyList()));
+		ModelObject object = resolveXlink(target, root, new FeatureWalker(clipGMLId(target), schemaHandler));
 		return object instanceof AbstractFeature ? (AbstractFeature)object : null;
 	}
 	
@@ -114,8 +79,8 @@ public class XLinkResolver {
 	
 	private static final class GMLWalker extends GMLIdWalker {
 		
-		GMLWalker(String gmlId) {
-			super(gmlId);
+		GMLWalker(String gmlId, SchemaHandler schemaHandler) {
+			super(gmlId, schemaHandler);
 		}
 
 		@Override
@@ -126,8 +91,8 @@ public class XLinkResolver {
 	
 	private static final class FeatureWalker extends GMLIdWalker {
 		
-		FeatureWalker(String gmlId) {
-			super(gmlId);
+		FeatureWalker(String gmlId, SchemaHandler schemaHandler) {
+			super(gmlId, schemaHandler);
 		}
 
 		@Override
@@ -138,8 +103,8 @@ public class XLinkResolver {
 	
 	private static final class GeometryWalker extends GMLIdWalker {
 		
-		GeometryWalker(String gmlId) {
-			super(gmlId);
+		GeometryWalker(String gmlId, SchemaHandler schemaHandler) {
+			super(gmlId, schemaHandler);
 		}
 		
 		@Override
@@ -168,8 +133,9 @@ public class XLinkResolver {
 	private static abstract class GMLIdWalker extends GMLFunctionWalker<ModelObject> {
 		private final String gmlId;
 		
-		GMLIdWalker(String gmlId) {
+		GMLIdWalker(String gmlId, SchemaHandler schemaHandler) {
 			this.gmlId = gmlId;
+			setSchemaHandler(schemaHandler);
 		}
 		
 		@Override

@@ -19,10 +19,10 @@
 package org.citygml4j.builder.jaxb.unmarshal.citygml.ade;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -36,13 +36,14 @@ public class ADEUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
 	private HashMap<String, ADEContext> adeContexts;
 
-	public ADEUnmarshaller(JAXBUnmarshaller jaxb, List<ADEContext> adeContexts) {
+	public ADEUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
 
-		if (adeContexts != null && !adeContexts.isEmpty()) {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
 			this.adeContexts = new HashMap<>();
 
-			for (ADEContext adeContext : adeContexts) {
+			for (ADEContext adeContext : context.getADEContexts()) {
 				adeContext.getADEUnmarshaller().setADEUnmarshallerHelper(new ADEUnmarshallerHelper(jaxb));
 				for (ADEModule module : adeContext.getADEModules())
 					this.adeContexts.put(module.getNamespaceURI(), adeContext);					

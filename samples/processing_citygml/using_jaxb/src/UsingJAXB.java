@@ -52,7 +52,7 @@ public class UsingJAXB {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
-		CityGMLContext cityGMLCtx = new CityGMLContext();
+		CityGMLContext cityGMLCtx = CityGMLContext.getInstance();
 		JAXBBuilder builder = cityGMLCtx.createJAXBBuilder();
 		
 		System.out.println(df.format(new Date()) + "creating JAXB Unmarshaller instance");

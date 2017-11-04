@@ -25,7 +25,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -82,21 +81,18 @@ public class SchemaHandler {
 		// CityGML 0.4.0
 		schemaHandler.schemaLocations.put("http://www.citygml.org/citygml/1/0/0", CityGMLContext.class.getResource("/org/citygml4j/schemas/CityGML/0.4.0/CityGML.xsd").toString());
 
-		return schemaHandler;
-	}
-
-	public static synchronized SchemaHandler newInstance(List<ADEContext> adeContexts) throws SAXException {
-		SchemaHandler schemaHandler = newInstance();
-
-		// parse local schemas provided by ADE modules 
-		for (ADEContext adeContext : adeContexts) {
-			for (ADEModule adeModule : adeContext.getADEModules()) {
-				URL schemaResource = adeModule.getSchemaResource();
-				if (schemaResource != null) {
-					try {
-						schemaHandler.parse(schemaResource.toURI().toString());
-					} catch (URISyntaxException e) {
-						throw new SAXException("Failed to parse XML schema file for ADE namespace '" + adeModule.getNamespaceURI() + "'.", e);
+		// parse local schemas provided by ADE modules
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
+				for (ADEModule adeModule : adeContext.getADEModules()) {
+					URL schemaResource = adeModule.getSchemaResource();
+					if (schemaResource != null) {
+						try {
+							schemaHandler.parse(schemaResource.toURI().toString());
+						} catch (URISyntaxException e) {
+							throw new SAXException("Failed to parse XML schema file for ADE namespace '" + adeModule.getNamespaceURI() + "'.", e);
+						}
 					}
 				}
 			}

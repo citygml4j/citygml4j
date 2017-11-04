@@ -44,7 +44,7 @@ public class SimpleSpatialFilter {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
-		CityGMLContext ctx = new CityGMLContext();
+		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 		
 		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
@@ -85,7 +85,7 @@ public class SimpleSpatialFilter {
 				AbstractFeature feature = (AbstractFeature)chunk;
 
 				System.out.println(df.format(new Date()) + "calculating bounding box of feature " + feature.getId());
-				BoundingShape boundedBy = feature.calcBoundedBy(BoundingBoxOptions.defaults());
+				BoundingShape boundedBy = feature.calcBoundedBy(BoundingBoxOptions.defaults().useExistingEnvelopes(true));
 
 				if (boundedBy != null) {
 					BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
