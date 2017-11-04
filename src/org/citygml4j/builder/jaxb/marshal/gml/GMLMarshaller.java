@@ -221,6 +221,7 @@ public class GMLMarshaller {
 				.with(DirectPositionList.class, this::createPosList)
 				.with(Envelope.class, this::createEnvelope)
 				.with(FeatureArrayProperty.class, this::createFeatureMembers)
+				.with(FeatureMember.class, this::createFeatureMember)
 				.with((Class<FeatureProperty<? extends AbstractFeature>>)(Class<?>)FeatureProperty.class, this::createFeatureMember)
 				.with(File.class, this::createFile)
 				.with(GeometricComplex.class, this::createGeometricComplex)
