@@ -21,6 +21,7 @@ package org.citygml4j.util.bbox;
 public class BoundingBoxOptions {
 	private boolean assignResultToFeatures;
 	private boolean useExistingEnvelopes;
+	private boolean useReferencePoint;
 	
 	private BoundingBoxOptions() {
 		// just to thwart instantiation
@@ -45,6 +46,15 @@ public class BoundingBoxOptions {
 
 	public BoundingBoxOptions useExistingEnvelopes(boolean useExistingEnvelopes) {
 		this.useExistingEnvelopes = useExistingEnvelopes;
+		return this;
+	}
+	
+	public boolean isUseReferencePointAsFallbackForImplicitGeometries() {
+		return useReferencePoint;
+	}
+	
+	public BoundingBoxOptions useReferencePointAsFallbackForImplicitGeometries(boolean useReferencePoint) {
+		this.useReferencePoint = useReferencePoint;
 		return this;
 	}
 	

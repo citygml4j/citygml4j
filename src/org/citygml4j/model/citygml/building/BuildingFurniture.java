@@ -239,7 +239,7 @@ public class BuildingFurniture extends AbstractCityObject implements BuildingMod
 		}	
 		
 		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
-			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
+			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		
 		if (isSetGenericApplicationPropertyOfBuildingFurniture()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

@@ -543,7 +543,7 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 			}
 
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
-				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		}
 		
 		if (options.isAssignResultToFeatures())

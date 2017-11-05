@@ -273,7 +273,7 @@ public class IntTunnelInstallation extends AbstractCityObject implements TunnelM
 		}
 		
 		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
-			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
+			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		
 		if (isSetBoundedBySurface()) {
 			for (BoundarySurfaceProperty boundarySurfaceProperty : getBoundedBySurface()) {

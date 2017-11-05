@@ -539,7 +539,7 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 			}
 
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
-				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		}
 		
 		if (isSetBoundedBySurface()) {

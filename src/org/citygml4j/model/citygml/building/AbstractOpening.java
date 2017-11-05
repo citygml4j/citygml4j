@@ -219,7 +219,7 @@ public abstract class AbstractOpening extends AbstractCityObject implements Buil
 			}
 
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
-				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		}
 
 		if (isSetGenericApplicationPropertyOfOpening()) {

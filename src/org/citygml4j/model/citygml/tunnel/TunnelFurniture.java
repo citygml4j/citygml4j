@@ -239,7 +239,7 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 		}	
 		
 		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
-			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
+			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		
 		if (isSetGenericApplicationPropertyOfTunnelFurniture()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);

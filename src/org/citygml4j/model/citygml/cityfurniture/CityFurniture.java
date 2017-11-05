@@ -505,7 +505,7 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 			}
 
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
-				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		}
 		
 		if (isSetGenericApplicationPropertyOfCityFurniture()) {

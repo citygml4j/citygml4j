@@ -239,7 +239,7 @@ public class BridgeFurniture extends AbstractCityObject implements BridgeModuleC
 		}	
 		
 		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
-			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
+			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		
 		if (isSetGenericApplicationPropertyOfBridgeFurniture()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
