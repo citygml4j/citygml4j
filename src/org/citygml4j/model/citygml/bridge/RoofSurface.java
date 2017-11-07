@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
@@ -32,7 +33,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.BridgeModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class RoofSurface extends AbstractBoundarySurface implements BridgeModuleComponent {
@@ -90,10 +90,9 @@ public class RoofSurface extends AbstractBoundarySurface implements BridgeModule
 			return boundedBy;
 		
 		if (isSetGenericApplicationPropertyOfRoofSurface()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfRoofSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		

@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
@@ -43,7 +44,6 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
 import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 import org.citygml4j.model.module.citygml.TransportationModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class TransportationComplex extends AbstractTransportationObject implements StandardObjectClassifier {
@@ -447,10 +447,9 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 		}
 		
 		if (isSetGenericApplicationPropertyOfTransportationComplex()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfTransportationComplex()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 

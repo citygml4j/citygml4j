@@ -24,6 +24,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -37,7 +38,6 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.TunnelModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractTunnel extends AbstractSite implements TunnelModuleComponent, StandardObjectClassifier {
@@ -832,10 +832,9 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 		}
 		
 		if (isSetGenericApplicationPropertyOfAbstractTunnel()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfAbstractTunnel()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		

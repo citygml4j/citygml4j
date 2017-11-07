@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
@@ -40,7 +41,6 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class CityFurniture extends AbstractCityObject implements CityFurnitureModuleComponent, StandardObjectClassifier {
@@ -509,10 +509,9 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 		}
 		
 		if (isSetGenericApplicationPropertyOfCityFurniture()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfCityFurniture()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 

@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -38,7 +39,6 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.BridgeModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class BridgeRoom extends AbstractCityObject implements BridgeModuleComponent, StandardObjectClassifier {
@@ -358,10 +358,9 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 		}
 		
 		if (isSetGenericApplicationPropertyOfBridgeRoom()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfBridgeRoom()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		

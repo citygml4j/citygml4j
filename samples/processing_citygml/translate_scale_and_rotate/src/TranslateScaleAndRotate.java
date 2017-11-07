@@ -91,27 +91,11 @@ public class TranslateScaleAndRotate {
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 
-	/**
-	 * The Class GMLVisitor.
-	 */
 	private static class GMLVisitor extends GMLWalker {
-		
-		/** The translate. */
 		private Matrix translate;
-		
-		/** The scale. */
 		private Matrix scale;
-		
-		/** The rotate. */
 		private Matrix rotate;
 		
-		/**
-		 * Instantiates a new GML visitor.
-		 *
-		 * @param translateBy the translate by
-		 * @param scaleBy the scale by
-		 * @param rotateBy the rotate by
-		 */
 		GMLVisitor(double translateBy, double scaleBy, double rotateBy) {
 			translate = new Matrix(new double[][]{
 					{1,0,0,translateBy},
@@ -133,9 +117,6 @@ public class TranslateScaleAndRotate {
 					{0,0,0,1}});
 		}
 		
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.walker.GMLWalker#visit(org.citygml4j.model.gml.base.AbstractGML)
-		 */
 		@Override
 		public void visit(AbstractGML abstractGML) {
 			if (abstractGML.isSetId())
@@ -144,9 +125,6 @@ public class TranslateScaleAndRotate {
 			super.visit(abstractGML);
 		}
 
-		/* (non-Javadoc)
-		 * @see org.citygml4j.util.walker.GMLWalker#visit(org.citygml4j.model.gml.geometry.primitives.LinearRing)
-		 */
 		@Override
 		public void visit(LinearRing linearRing) {
 
