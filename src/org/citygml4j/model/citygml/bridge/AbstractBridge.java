@@ -963,7 +963,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -984,7 +984,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -1002,7 +1002,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

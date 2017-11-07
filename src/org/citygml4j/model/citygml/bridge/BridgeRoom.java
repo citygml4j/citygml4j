@@ -375,11 +375,11 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
-		if (isSetLod4MultiSurface())
-			lodRepresentation.getLod4Geometry().add(lod4MultiSurface);
+		if (lod4MultiSurface != null)
+			lodRepresentation.addRepresentation(4, lod4MultiSurface);
 		
-		if (isSetLod4Solid())
-			lodRepresentation.getLod4Geometry().add(lod4Solid);
+		if (lod4Solid != null)
+			lodRepresentation.addRepresentation(4, lod4Solid);
 		
 		return lodRepresentation;
 	}

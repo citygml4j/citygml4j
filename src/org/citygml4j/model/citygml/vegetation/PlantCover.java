@@ -467,7 +467,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -488,7 +488,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

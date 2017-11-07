@@ -83,9 +83,9 @@ public class DowngradeConverter {
 						System.out.println(df.format(new Date()) + "adding geometry of " + abstractCityObject.getCityGMLClass());				
 
 						LodRepresentation lods = abstractCityObject.getLodRepresentation();
-						if (lods.isSetLod3Geometry()) {
+						if (lods.isSetGeometry(3)) {
 							MultiGeometry multiGeometry = (MultiGeometry)proxy.getLod3Geometry().getGeometry();
-							multiGeometry.getGeometryMember().addAll(lods.getLodGeometry(3));	
+							multiGeometry.getGeometryMember().addAll(lods.getGeometry(3));
 						}
 					}
 

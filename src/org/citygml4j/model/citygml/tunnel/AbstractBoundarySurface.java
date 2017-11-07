@@ -253,7 +253,7 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

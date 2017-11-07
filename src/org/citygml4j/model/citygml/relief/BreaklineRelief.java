@@ -32,8 +32,6 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
@@ -138,7 +136,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
 		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
 			return boundedBy;
-		
+
 		if (isSetBreaklines()) {
 			if (breaklines.isSetMultiCurve()) {
 				boundedBy.updateEnvelope(breaklines.getMultiCurve().calcBoundingBox());
@@ -154,7 +152,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 				// xlink
 			}
 		}
-		
+
 		if (isSetGenericApplicationPropertyOfBreaklineRelief()) {
 			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfBreaklineRelief()) {
@@ -165,7 +163,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 
 		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
-		
+
 		return boundedBy;
 	}
 
@@ -173,14 +171,11 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
-		if (propertyList != null) {
-			if (isSetRidgeOrValleyLines())
-				propertyList.add(ridgeOrValleyLines);
+		if (ridgeOrValleyLines != null)
+			lodRepresentation.addRepresentation(getLod(), ridgeOrValleyLines);
 
-			if (isSetBreaklines())
-				propertyList.add(breaklines);
-		}
+		if (breaklines != null)
+			lodRepresentation.addRepresentation(getLod(), breaklines);
 
 		return lodRepresentation;
 	}

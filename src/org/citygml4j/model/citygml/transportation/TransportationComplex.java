@@ -464,9 +464,13 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		if (isSetLod0Network())
-			lodRepresentation.getLod0Geometry().addAll(lod0Network);
-
+		if (lod0Network != null) {
+			for (GeometricComplexProperty property : lod0Network) {
+				if (property != null)
+					lodRepresentation.addRepresentation(0, property);
+			}
+		}
+		
 		GeometryProperty<? extends AbstractGeometry> property = null;		
 		for (int lod = 2; lod < 5; lod++) {
 			switch (lod) {
@@ -484,7 +488,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 
 		return lodRepresentation;

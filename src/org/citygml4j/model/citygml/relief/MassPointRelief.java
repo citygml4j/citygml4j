@@ -32,8 +32,6 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
@@ -145,12 +143,9 @@ public class MassPointRelief extends AbstractReliefComponent {
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-
-		if (isSetReliefPoints()) {
-			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
-			if (propertyList != null)
-				propertyList.add(reliefPoints);
-		}
+		
+		if (reliefPoints != null)
+			lodRepresentation.addRepresentation(getLod(), reliefPoints);
 
 		return lodRepresentation;
 	}

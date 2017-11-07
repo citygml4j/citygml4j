@@ -1071,10 +1071,10 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
 		if (lod0FootPrint != null)
-			lodRepresentation.getLod0Geometry().add(lod0FootPrint);
+			lodRepresentation.addRepresentation(0, lod0FootPrint);
 		
 		if (lod0RoofEdge != null)
-			lodRepresentation.getLod0Geometry().add(lod0RoofEdge);
+			lodRepresentation.addRepresentation(0, lod0RoofEdge);
 		
 		GeometryProperty<? extends AbstractGeometry> property = null;		
 		for (int lod = 1; lod < 5; lod++) {
@@ -1094,7 +1094,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -1115,7 +1115,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -1133,7 +1133,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

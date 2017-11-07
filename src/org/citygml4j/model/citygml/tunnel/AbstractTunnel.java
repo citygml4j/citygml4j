@@ -867,7 +867,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -888,7 +888,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -906,7 +906,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

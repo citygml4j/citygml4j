@@ -303,14 +303,11 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
-		if (isSetLod4Geometry())
-			lodRepresentation.getLod4Geometry().add(lod4Geometry);
+		if (lod4Geometry != null)
+			lodRepresentation.addRepresentation(4, lod4Geometry);
 		
-		if (lod4ImplicitRepresentation != null && 
-				lod4ImplicitRepresentation.isSetImplicitGeometry() &&
-				lod4ImplicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-			lodRepresentation.getLod4Geometry().add(lod4ImplicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry());
-		}
+		if (lod4ImplicitRepresentation != null)
+			lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
 		
 		return lodRepresentation;
 	}

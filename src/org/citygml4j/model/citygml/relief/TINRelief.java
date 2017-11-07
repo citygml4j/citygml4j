@@ -32,8 +32,6 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
@@ -141,12 +139,9 @@ public class TINRelief extends AbstractReliefComponent {
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		if (isSetTin()) {
-			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
-			if (propertyList != null)
-				propertyList.add(tin);
-		}
-
+		if (tin != null)
+			lodRepresentation.addRepresentation(getLod(), tin);
+		
 		return lodRepresentation;
 	}
 

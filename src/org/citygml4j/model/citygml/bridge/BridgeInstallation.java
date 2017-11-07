@@ -440,7 +440,7 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		ImplicitRepresentationProperty implicitRepresentation = null;
@@ -457,12 +457,8 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 				break;
 			}
 
-			if (implicitRepresentation != null && 
-					implicitRepresentation.isSetImplicitGeometry() &&
-					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-				property = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
-				lodRepresentation.getLodGeometry(lod).add(property);
-			}
+			if (implicitRepresentation != null)
+				lodRepresentation.addRepresentation(lod, implicitRepresentation);
 		}
 		
 		return lodRepresentation;

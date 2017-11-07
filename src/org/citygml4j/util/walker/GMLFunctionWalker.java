@@ -232,12 +232,10 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	public T apply(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {
-				if (lodRepresentation.isSetLodGeometry(lod)) {
-					for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod)) {
-						T object = apply(geometryProperty);
-						if (object != null)
-							return object;
-					}
+				for (AssociationByRepOrRef<? extends AbstractGML> property : lodRepresentation.getRepresentation(lod)) {
+					T object = apply(property);
+					if (object != null)
+						return object;
 				}
 			}
 		}

@@ -219,7 +219,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

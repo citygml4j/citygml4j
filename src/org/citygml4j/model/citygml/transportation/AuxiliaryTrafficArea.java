@@ -316,7 +316,7 @@ public class AuxiliaryTrafficArea extends AbstractTransportationObject implement
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

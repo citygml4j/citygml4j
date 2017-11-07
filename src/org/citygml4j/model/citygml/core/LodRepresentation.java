@@ -19,113 +19,83 @@
 package org.citygml4j.model.citygml.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class LodRepresentation {
-	private List<GeometryProperty<? extends AbstractGeometry>> lod0Geometry;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod1Geometry;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod2Geometry;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod3Geometry;
-	private List<GeometryProperty<? extends AbstractGeometry>> lod4Geometry;
+	private Map<Integer, List<AssociationByRepOrRef<? extends AbstractGML>>> lods = new HashMap<>();
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod0Geometry() {
-		if (lod0Geometry == null)
-			lod0Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
+	public void addRepresentation(int lod, AssociationByRepOrRef<? extends AbstractGML> property) {
+		if (property != null) {
+			List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
+			if (tmp == null) {
+				tmp = new ArrayList<>();
+				lods.put(lod, tmp);
+			}
 
-		return lod0Geometry;
-	}
-
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod1Geometry() {
-		if (lod1Geometry == null)
-			lod1Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
-
-		return lod1Geometry;
-	}
-
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod2Geometry() {
-		if (lod2Geometry == null)
-			lod2Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
-
-		return lod2Geometry;
-	}
-
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod3Geometry() {
-		if (lod3Geometry == null)
-			lod3Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
-
-		return lod3Geometry;
-	}
-
-	public List<GeometryProperty<? extends AbstractGeometry>> getLod4Geometry() {
-		if (lod4Geometry == null)
-			lod4Geometry = new ArrayList<GeometryProperty<? extends AbstractGeometry>>();
-
-		return lod4Geometry;
-	}
-
-	public List<GeometryProperty<? extends AbstractGeometry>> getLodGeometry(int lod) {
-		switch (lod) {
-		case 0:
-			return getLod0Geometry();
-		case 1:
-			return getLod1Geometry();
-		case 2:
-			return getLod2Geometry();
-		case 3:
-			return getLod3Geometry();
-		case 4:
-			return getLod4Geometry();
-		default:
-			return null;
+			tmp.add(property);
 		}
 	}
 
-	public boolean isSetLod0Geometry() {
-		return lod0Geometry != null && !lod0Geometry.isEmpty();
+	public List<AssociationByRepOrRef<? extends AbstractGML>> getRepresentation(int lod) {
+		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
+		return tmp != null ? tmp : Collections.emptyList();
 	}
 
-	public boolean isSetLod1Geometry() {
-		return lod1Geometry != null && !lod1Geometry.isEmpty();
+	public boolean isSetRepresentation(int lod) {
+		return lods.containsKey(lod);
 	}
 
-	public boolean isSetLod2Geometry() {
-		return lod2Geometry != null && !lod2Geometry.isEmpty();
+	public boolean hasRepresentations() {
+		return !lods.isEmpty();
 	}
 
-	public boolean isSetLod3Geometry() {
-		return lod3Geometry != null && !lod3Geometry.isEmpty();
+	public List<GeometryProperty<? extends AbstractGeometry>> getGeometry(int lod) {
+		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
+		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance).map(GeometryProperty.class::cast).collect(Collectors.toList()) 
+				: Collections.emptyList();
 	}
 
-	public boolean isSetLod4Geometry() {
-		return lod4Geometry != null && !lod4Geometry.isEmpty();
+	public boolean isSetGeometry(int lod) {
+		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
+		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance).findFirst().isPresent() : false;
 	}
 
-	public boolean isSetLodGeometry(int lod) {
-		switch (lod) {
-		case 0:
-			return isSetLod0Geometry();
-		case 1:
-			return isSetLod1Geometry();
-		case 2:
-			return isSetLod2Geometry();
-		case 3:
-			return isSetLod3Geometry();
-		case 4:
-			return isSetLod4Geometry();
-		default:
-			return false;
+	public boolean hasGeometries() {
+		for (int lod : lods.keySet()) {
+			if (isSetGeometry(lod))
+				return true;
 		}
+
+		return false;
 	}
 
-	public boolean hasGeometry() {
-		return isSetLod0Geometry()
-				|| isSetLod1Geometry()
-				|| isSetLod2Geometry()
-				|| isSetLod3Geometry()
-				|| isSetLod4Geometry();
+	public List<ImplicitRepresentationProperty> getImplicitGeometry(int lod) {
+		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
+		return tmp != null ? tmp.stream().filter(ImplicitRepresentationProperty.class::isInstance).map(ImplicitRepresentationProperty.class::cast).collect(Collectors.toList()) 
+				: Collections.emptyList();
+	}
+
+	public boolean isSetImplicitGeometry(int lod) {
+		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
+		return tmp != null ? tmp.stream().filter(ImplicitRepresentationProperty.class::isInstance).findFirst().isPresent() : false;
+	}
+
+	public boolean hasImplicitGeometries() {
+		for (int lod : lods.keySet()) {
+			if (isSetImplicitGeometry(lod))
+				return true;
+		}
+
+		return false;
 	}
 
 }

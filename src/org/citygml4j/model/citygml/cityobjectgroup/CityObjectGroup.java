@@ -301,7 +301,7 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		
 		if (isSetGeometry()) {
 			for (int lod = 0; lod < 5; lod++)
-				lodRepresentation.getLodGeometry(lod).add(geometry);
+				lodRepresentation.addRepresentation(lod, geometry);
 		}
 		
 		return lodRepresentation;

@@ -506,7 +506,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 
 		property = null;
@@ -521,7 +521,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 
 		property = null;
@@ -536,7 +536,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

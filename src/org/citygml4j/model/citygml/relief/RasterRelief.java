@@ -32,8 +32,6 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
@@ -141,11 +139,8 @@ public class RasterRelief extends AbstractReliefComponent {
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		if (isSetGrid() && grid.isSetObject() && grid.getObject().isSetRectifiedGridDomain()) {
-			List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
-			if (propertyList != null) 
-				propertyList.add(grid.getObject().getRectifiedGridDomain());
-		}
+		if (grid != null && grid.isSetObject() && grid.getRectifiedGridCoverage().isSetRectifiedGridDomain())
+			lodRepresentation.addRepresentation(getLod(), grid.getRectifiedGridCoverage().getRectifiedGridDomain());
 
 		return lodRepresentation;
 	}
