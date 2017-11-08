@@ -205,30 +205,42 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	public GMLFunctionWalker() {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
-			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-				ADEWalker<GMLFunctionWalker<T>> walker = adeContext.createDefaultGMLFunctionWalker();
-				if (walker != null) {
-					if (adeWalkerHelper == null) {
-						adeWalkerHelper = new ADEWalkerHelper<>();
-						adeWalkerHelper.inferFunctionType(this, GMLFunctionWalker.class);
-					}
-
-					walker.setParentWalker(this);
-					adeWalkerHelper.addADEWalker(walker);
-				}
-			}
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts())
+				useADEWalker(adeContext.createDefaultGMLFunctionWalker());
 		}
 	}
 
-	public GMLFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
+	public final GMLFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public SchemaHandler getSchemaHandler() {
+	public final SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
 
+	public final GMLFunctionWalker<T> useADEWalker(ADEWalker<GMLFunctionWalker<T>> walker) {
+		if (walker != null) {
+			if (adeWalkerHelper == null) {
+				adeWalkerHelper = new ADEWalkerHelper<>();
+				adeWalkerHelper.inferFunctionType(this, GMLFunctionWalker.class);
+			}
+
+			walker.setParentWalker(this);
+			adeWalkerHelper.addADEWalker(walker);
+		}
+
+		return this;
+	}
+	
+	@SafeVarargs
+	public final GMLFunctionWalker<T> useADEWalkers(ADEWalker<GMLFunctionWalker<T>>... walkers) {
+		for (ADEWalker<GMLFunctionWalker<T>> walker : walkers)
+			useADEWalker(walker);
+
+		return this;
+	}
+	
 	public T apply(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {

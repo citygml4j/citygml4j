@@ -148,26 +148,38 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 	public FeatureWalker() {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
-			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-				ADEWalker<FeatureWalker> walker = adeContext.createDefaultFeatureWalker();
-				if (walker != null) {
-					if (adeWalkerHelper == null)
-						adeWalkerHelper = new ADEWalkerHelper<>();
-
-					walker.setParentWalker(this);
-					adeWalkerHelper.addADEWalker(walker);
-				}
-			}
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts())
+				useADEWalker(adeContext.createDefaultFeatureWalker());
 		}
 	}
 
-	public FeatureWalker setSchemaHandler(SchemaHandler schemaHandler) {
+	public final FeatureWalker setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public SchemaHandler getSchemaHandler() {
+	public final SchemaHandler getSchemaHandler() {
 		return schemaHandler;
+	}
+	
+	public final FeatureWalker useADEWalker(ADEWalker<FeatureWalker> walker) {
+		if (walker != null) {
+			if (adeWalkerHelper == null)
+				adeWalkerHelper = new ADEWalkerHelper<>();
+
+			walker.setParentWalker(this);
+			adeWalkerHelper.addADEWalker(walker);
+		}
+
+		return this;
+	}
+	
+	@SafeVarargs
+	public final FeatureWalker useADEWalkers(ADEWalker<FeatureWalker>... walkers) {
+		for (ADEWalker<FeatureWalker> walker : walkers)
+			useADEWalker(walker);
+
+		return this;
 	}
 
 	public void visit(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {

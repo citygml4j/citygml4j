@@ -203,26 +203,38 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 	public GMLWalker() {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
-			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-				ADEWalker<GMLWalker> walker = adeContext.createDefaultGMLWalker();
-				if (walker != null) {
-					if (adeWalkerHelper == null)
-						adeWalkerHelper = new ADEWalkerHelper<>();
-
-					walker.setParentWalker(this);
-					adeWalkerHelper.addADEWalker(walker);
-				}
-			}
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts())
+				useADEWalker(adeContext.createDefaultGMLWalker());
 		}
 	}
 
-	public GMLWalker setSchemaHandler(SchemaHandler schemaHandler) {
+	public final GMLWalker setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public SchemaHandler getSchemaHandler() {
+	public final SchemaHandler getSchemaHandler() {
 		return schemaHandler;
+	}
+	
+	public final GMLWalker useADEWalker(ADEWalker<GMLWalker> walker) {
+		if (walker != null) {
+			if (adeWalkerHelper == null)
+				adeWalkerHelper = new ADEWalkerHelper<>();
+
+			walker.setParentWalker(this);
+			adeWalkerHelper.addADEWalker(walker);
+		}
+
+		return this;
+	}
+	
+	@SafeVarargs
+	public final GMLWalker useADEWalkers(ADEWalker<GMLWalker>... walkers) {
+		for (ADEWalker<GMLWalker> walker : walkers)
+			useADEWalker(walker);
+
+		return this;
 	}
 
 	public void visit(LodRepresentation lodRepresentation) {

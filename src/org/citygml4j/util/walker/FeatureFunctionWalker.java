@@ -138,28 +138,40 @@ public abstract class FeatureFunctionWalker<T> extends Walker implements Feature
 	public FeatureFunctionWalker() {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
-			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-				ADEWalker<FeatureFunctionWalker<T>> walker = adeContext.createDefaultFeatureFunctionWalker();
-				if (walker != null) {
-					if (adeWalkerHelper == null) {
-						adeWalkerHelper = new ADEWalkerHelper<>();
-						adeWalkerHelper.inferFunctionType(this, FeatureFunctionWalker.class);
-					}
-
-					walker.setParentWalker(this);
-					adeWalkerHelper.addADEWalker(walker);
-				}
-			}
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts())
+				useADEWalker(adeContext.createDefaultFeatureFunctionWalker());
 		}
 	}
 
-	public FeatureFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
+	public final FeatureFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public SchemaHandler getSchemaHandler() {
+	public final SchemaHandler getSchemaHandler() {
 		return schemaHandler;
+	}
+	
+	public final FeatureFunctionWalker<T> useADEWalker(ADEWalker<FeatureFunctionWalker<T>> walker) {
+		if (walker != null) {
+			if (adeWalkerHelper == null) {
+				adeWalkerHelper = new ADEWalkerHelper<>();
+				adeWalkerHelper.inferFunctionType(this, FeatureFunctionWalker.class);
+			}
+
+			walker.setParentWalker(this);
+			adeWalkerHelper.addADEWalker(walker);
+		}
+
+		return this;
+	}
+	
+	@SafeVarargs
+	public final FeatureFunctionWalker<T> useADEWalkers(ADEWalker<FeatureFunctionWalker<T>>... walkers) {
+		for (ADEWalker<FeatureFunctionWalker<T>> walker : walkers)
+			useADEWalker(walker);
+
+		return this;
 	}
 
 	public T apply(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {
