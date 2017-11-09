@@ -58,9 +58,10 @@ public class LodRepresentation {
 		return !lods.isEmpty();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<GeometryProperty<? extends AbstractGeometry>> getGeometry(int lod) {
 		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
-		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance).map(GeometryProperty.class::cast).collect(Collectors.toList()) 
+		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance).map(p -> (GeometryProperty<? extends AbstractGeometry>)p).collect(Collectors.toList()) 
 				: Collections.emptyList();
 	}
 
