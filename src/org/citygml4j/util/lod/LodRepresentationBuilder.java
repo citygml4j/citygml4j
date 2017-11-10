@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
-import org.citygml4j.model.common.annotations.Lod;
+import org.citygml4j.model.common.annotation.Lod;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.GeometryProperty;

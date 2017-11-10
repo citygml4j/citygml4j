@@ -1,4 +1,4 @@
-package org.citygml4j.model.common.annotations;
+package org.citygml4j.model.common.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
