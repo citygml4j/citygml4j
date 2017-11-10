@@ -102,17 +102,17 @@ public class Coordinates implements GML, Child, Copyable {
 
 		if (isSetValue()) {
 			String coordinates = getValue();
-			String decimal = getDecimal();
-			String cs = getCs();
-			String ts = getTs();
+			String decimal = prepareRegex(getDecimal());
+			String cs = prepareRegex(getCs());
+			String ts = prepareRegex(getTs());
 
 			isValid = true;
-			decimal = prepareRegex(decimal);
+			coordinates = coordinates.replaceAll("[\\t\\n\\r]+", ts);
 
-			String[] tupels = coordinates.split(prepareRegex(ts));
+			String[] tupels = coordinates.split(ts);
 			for (int i = 0; i < tupels.length && isValid ; ++i) {
-				if (tupels[i] != null && tupels[i].trim().length() != 0) {				
-					String[] coords = tupels[i].split(prepareRegex(cs));
+				if (tupels[i] != null && tupels[i].length() != 0) {
+					String[] coords = tupels[i].split(cs);
 					List<Double> point = new ArrayList<Double>();
 
 					for (int j = 0; j < coords.length && isValid; ++j) {
