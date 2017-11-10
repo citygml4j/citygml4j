@@ -17,12 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="run">
+<project basedir="." default="local">
 	<description>
 
 	</description>
-	<property name="lib" value="../../../lib" />
-	<property name="datasets" value="../../../samples/datasets" />
+	<property name="lib" value="../../../../lib" />
+	<property name="datasets" value="../../../../samples/datasets" />
 	<path id="classpath">
 		<pathelement path="src" />
 		<pathelement path="classes" />
@@ -40,10 +40,18 @@
 		</javac>
 	</target>
 
-	<!-- run sample app -->
-	<target name="run" depends="compile" description="run the sample app">
+	<!-- run sample app reading local schema -->
+	<target name="local" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="CityGMLADERoundTrip" fork="true">
+		<java classname="ReadingADE" fork="true">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<!-- run sample app reading remote schema -->
+	<target name="remote" depends="compile" description="run the sample app">
+		<echo message="Running the sample citygml4j ADE reader (remote schema) application..." />
+		<java classname="ReadingRemoteADE" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -51,8 +59,5 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
-		<delete>
-			<fileset dir="." includes="*.gml"/>
-		</delete>
 	</target>
 </project>

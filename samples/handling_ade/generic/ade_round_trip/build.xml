@@ -21,8 +21,8 @@
 	<description>
 
 	</description>
-	<property name="lib" value="../../../lib" />
-	<property name="datasets" value="../../../samples/datasets" />
+	<property name="lib" value="../../../../lib" />
+	<property name="datasets" value="../../../../samples/datasets" />
 	<path id="classpath">
 		<pathelement path="src" />
 		<pathelement path="classes" />
@@ -43,7 +43,7 @@
 	<!-- run sample app -->
 	<target name="run" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="InterpretingSchema" fork="true">
+		<java classname="CityGMLADERoundTrip" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -51,6 +51,8 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
-		<delete file="CityGML-SubsurfaceADE-0_9_0.xml" />
+		<delete>
+			<fileset dir="." includes="*.gml"/>
+		</delete>
 	</target>
 </project>

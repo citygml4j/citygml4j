@@ -55,7 +55,7 @@ public class WrongSchemaLocation {
 		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
 		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
 		
 		while (reader.hasNext()) {
 			CityGML citygml = reader.nextFeature();

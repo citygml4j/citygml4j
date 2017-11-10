@@ -51,7 +51,7 @@ public class UnmarshallingADE {
 
 		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 

@@ -40,8 +40,8 @@ import org.w3c.dom.NodeList;
 
 import com.sun.xml.xsom.XSType;
 
-public class ReadingRemoteADE {
-	
+public class ReadingADE {
+
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
@@ -49,11 +49,11 @@ public class ReadingRemoteADE {
 		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_from_Web_v200.gml");
-		System.out.println(df.format(new Date()) + "remote ADE schema file is read from xsi:schemaLocation attribute on root XML element");
+		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v200.gml");
+		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_from_Web_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
 		CityGML citygml = reader.nextFeature();
 		reader.close();
 
@@ -120,4 +120,5 @@ public class ReadingRemoteADE {
 
 		return indent.toString();
 	}
+
 }

@@ -43,13 +43,13 @@ public class CityGMLADERoundTrip {
 		
 		System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-NoiseADE-2_0_0.xsd");
 		SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		schemaHandler.parseSchema(new File("../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd"));
+		schemaHandler.parseSchema(new File("../../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd"));
 		
 		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_v200.gml");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 		in.setSchemaHandler(schemaHandler);
 		
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../../datasets/LOD0_Railway_NoiseADE_v200.gml"));
 		CityGML citygml = reader.nextFeature();
 		reader.close();
 		
@@ -60,7 +60,7 @@ public class CityGMLADERoundTrip {
 		writer.setPrefixes(CityGMLVersion.v2_0_0);
 		writer.setPrefix("noise", "http://www.citygml.org/ade/noise_de/2.0");
 		writer.setDefaultNamespace(CoreModule.v2_0_0);
-		writer.setSchemaLocation("http://www.citygml.org/ade/noise_de/2.0", "../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd");
+		writer.setSchemaLocation("http://www.citygml.org/ade/noise_de/2.0", "../../../datasets/schemas/CityGML-NoiseADE-2_0_0.xsd");
 		writer.setIndentString("  ");
 		
 		writer.write((AbstractFeature)citygml);

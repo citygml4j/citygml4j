@@ -65,7 +65,7 @@ public class UsingJAXBBinder {
 		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
 		CityGMLInputFactory in = builder.createCityGMLInputFactory();
 
-		CityGMLReader reader = in.createCityGMLReader(new File("../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
+		CityGMLReader reader = in.createCityGMLReader(new File("../../../datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
@@ -128,7 +128,7 @@ public class UsingJAXBBinder {
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
 		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
 		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocation("http://citygml.org/ade/sub/0.9.0", "../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
+		writer.setSchemaLocation("http://citygml.org/ade/sub/0.9.0", "../../../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
 		writer.setIndentString("  ");
 
 		writer.writeStartDocument();

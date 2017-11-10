@@ -4,12 +4,12 @@
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="samples/converting_citygml/src"/>
 	<classpathentry kind="src" path="samples/creating_citygml/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/ade_round_trip/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/catching_schema_parse_errors/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/interpreting_schema/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/reading_ade/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/unmarshalling_ade/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/unmarshalling_ade_using_jaxb/src"/>
+	<classpathentry kind="src" path="samples/handling_ade/generic/ade_round_trip/src"/>
+	<classpathentry kind="src" path="samples/handling_ade/generic/catching_schema_parse_errors/src"/>
+	<classpathentry kind="src" path="samples/handling_ade/generic/interpreting_schema/src"/>
+	<classpathentry kind="src" path="samples/handling_ade/generic/reading_ade/src"/>
+	<classpathentry kind="src" path="samples/handling_ade/generic/unmarshalling_ade/src"/>
+	<classpathentry kind="src" path="samples/handling_ade/generic/unmarshalling_ade_using_jaxb/src"/>
 	<classpathentry kind="src" path="samples/processing_citygml/accessing_parent_elements/src"/>
 	<classpathentry kind="src" path="samples/processing_citygml/adding_lod1_geometry/src"/>
 	<classpathentry kind="src" path="samples/processing_citygml/feature_visitor/src"/>

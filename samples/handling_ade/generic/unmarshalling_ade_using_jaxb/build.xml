@@ -17,12 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="run">
+<project basedir="." default="binder">
 	<description>
 
 	</description>
-	<property name="lib" value="../../../lib" />
-	<property name="datasets" value="../../../samples/datasets" />
+	<property name="lib" value="../../../../lib" />
+	<property name="datasets" value="../../../../samples/datasets" />
 	<path id="classpath">
 		<pathelement path="src" />
 		<pathelement path="classes" />
@@ -41,9 +41,17 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="run" depends="compile" description="run the sample app">
+	<target name="binder" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="UnmarshallingADE" fork="true">
+		<java classname="UsingJAXBBinder" fork="true">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<!-- run sample app -->
+	<target name="unmarshaller" depends="compile" description="run the sample app">
+		<echo message="Running the sample citygml4j ADE unmarshalling using JAXBUnmarshaller application..." />
+		<java classname="UsingJAXBUnmarshaller" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
