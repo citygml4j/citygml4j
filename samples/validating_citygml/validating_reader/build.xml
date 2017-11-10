@@ -18,15 +18,9 @@
  * limitations under the License.
 -->
 <project basedir="." default="simple">
-	<description>
-
-	</description>
 	<property name="lib" value="../../../lib" />
-	<property name="datasets" value="../../../samples/datasets" />
 	<path id="classpath">
-		<pathelement path="src" />
 		<pathelement path="classes" />
-		<pathelement path="${datasets}" />
 		<fileset dir="${lib}" includes="*.jar" />
 	</path>
 
@@ -35,7 +29,7 @@
 		<echo message="Compiling the Java source files..." />
 		<mkdir dir="classes" />
 		<javac includeantruntime="false" destdir="classes" debug="on">
-			<src path="src" />
+			<src path="." />
 			<classpath refid="classpath" />
 		</javac>
 	</target>
@@ -43,7 +37,7 @@
 	<!-- run sample app -->
 	<target name="simple" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="ValidatingSimpleReader" fork="true">
+		<java classname="validating_citygml.validating_reader.ValidatingSimpleReader" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -51,7 +45,7 @@
 	<!-- run sample app -->
 	<target name="chunk" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="ValidatingChunkReader" fork="true">
+		<java classname="validating_citygml.validating_reader.ValidatingChunkReader" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
