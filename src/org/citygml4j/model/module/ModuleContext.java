@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
@@ -36,46 +37,27 @@ import org.citygml4j.model.module.xal.XALModuleType;
 
 public class ModuleContext {
 	private CityGMLVersion version;
-	private HashMap<ModuleType, Module> modules = new HashMap<ModuleType, Module>();
+	private HashMap<ModuleType, Module> modules = new HashMap<>();
 	private HashSet<ADEModule> adeModules;
 
 	public ModuleContext() {
 		this(CityGMLVersion.DEFAULT);
 	}
-	
+
 	public ModuleContext(CityGMLVersion version) {
+		this.version = version;
 		for (Module module : version.getModules())
 			modules.put(module.getType(), module);
 
-		this.version = version;
+		addADEModules();
 	}
-	
+
 	public ModuleContext(ModuleContext moduleContext) {
-		for (Module module : moduleContext.getModules())
-			modules.put(module.getType(), module);
+		version = moduleContext.version;
+		modules = new HashMap<>(moduleContext.modules);
 
 		if (moduleContext.adeModules != null)
 			adeModules = new HashSet<>(moduleContext.adeModules);
-
-		version = moduleContext.version;
-	}
-
-	public ModuleContext(CityGMLVersion version, List<ADEContext> adeContexts) {
-		this(version);
-
-		for (ADEContext adeContext : adeContexts) {
-			for (ADEModule module : adeContext.getADEModules())
-				addADEModule(module);
-		}
-	}
-
-	public ModuleContext(ModuleContext moduleContext, List<ADEContext> adeContexts) {
-		this(moduleContext);
-
-		for (ADEContext adeContext : adeContexts) {
-			for (ADEModule module : adeContext.getADEModules())
-				addADEModule(module);
-		}
 	}
 
 	public Module getModule(CityGMLModuleType type) {
@@ -103,68 +85,69 @@ public class ModuleContext {
 			modules.addAll(adeModules);
 
 		return modules;
-	}	
-	
+	}
+
 	public List<CityGMLModule> getCityGMLModules() {
-		List<CityGMLModule> modules = new ArrayList<CityGMLModule>();
-		for (Module module : this.modules.values())
-			if (module instanceof CityGMLModule)
-				modules.add((CityGMLModule)module);
-		
-		return modules;
+		return getModules(CityGMLModule.class);
 	}
-	
+
 	public List<GMLModule> getGMLModules() {
-		List<GMLModule> modules = new ArrayList<GMLModule>();
-		for (Module module : this.modules.values())
-			if (module instanceof GMLModule)
-				modules.add((GMLModule)module);
-		
-		return modules;
+		return getModules(GMLModule.class);
 	}
-	
+
 	public List<XALModule> getXALModules() {
-		List<XALModule> modules = new ArrayList<XALModule>();
-		for (Module module : this.modules.values())
-			if (module instanceof XALModule)
-				modules.add((XALModule)module);
-		
-		return modules;
+		return getModules(XALModule.class);
 	}
 
 	public List<ADEModule> getADEModules() {
 		return adeModules != null ? new ArrayList<>(adeModules) : Collections.emptyList();
 	}
 
-	public boolean addADEModule(ADEModule adeModule) {
-		for (Module dependency : adeModule.getDependencies())
-			if (!contains(dependency))
-				return false;
-
-		if (adeModules == null)
-			adeModules = new HashSet<>();
-
-		return adeModules.add((ADEModule)adeModule);
-	}
-
 	public CityGMLVersion getCityGMLVersion() {
 		return version;
 	}
-	
+
 	public void setCityGMLVersion(CityGMLVersion version) {
 		this.version = version;
+		modules = new HashMap<>();
+		adeModules = null;
 
-		modules.clear();
 		for (Module module : version.getModules())
 			modules.put(module.getType(), module);
 
-		if (adeModules != null) {
-			HashSet<ADEModule> tmp = adeModules;
-			adeModules = null;
-			
-			for (ADEModule module : tmp)
-				addADEModule(module);
+		addADEModules();
+	}
+
+	private void addADEModules() {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
+			for (ADEContext adeContext : context.getADEContexts()) {
+				for (ADEModule module : adeContext.getADEModules()) {
+					if (module.getCityGMLVersion() != version)
+						continue;
+
+					for (Module dependency : module.getDependencies()) {
+						if (contains(dependency)) {
+							if (adeModules == null)
+								adeModules = new HashSet<>();
+
+							adeModules.add(module);
+							break;
+						}
+					}
+				}
+			}
 		}
+	}
+
+	private <T extends Module> List<T> getModules(Class<T> moduleClass) {
+		List<T> result = new ArrayList<>();
+		for (Module module : modules.values()) {
+			if (moduleClass.isInstance(module))
+				result.add(moduleClass.cast(module));
+		}
+
+		return result;
 	}
 
 }
