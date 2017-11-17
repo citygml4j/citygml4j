@@ -42,6 +42,8 @@ public class ADEWalkerHelper<T extends Walker> {
 
 	public void addADEWalker(ADEWalker<T> walker) {
 		walkers.addFirst(walker);
+		if (!methods.isEmpty())
+			methods.clear();
 	}
 
 	public Object invokeWalkerMethod(ADEModelObject adeModelObject, String methodName) {
