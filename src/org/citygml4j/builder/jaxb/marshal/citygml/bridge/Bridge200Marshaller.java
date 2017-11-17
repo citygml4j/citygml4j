@@ -20,6 +20,7 @@ package org.citygml4j.builder.jaxb.marshal.citygml.bridge;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -97,70 +98,97 @@ import net.opengis.citygml.bridge._2.WallSurfaceType;
 import net.opengis.citygml.bridge._2.WindowType;
 
 public class Bridge200Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory brid = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
 
 	public Bridge200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+	}
 
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(Bridge.class, this::createBridge)
-				.with(BridgeConstructionElement.class, this::createBridgeConstructionElement)
-				.with(BridgeFurniture.class, this::createBridgeFurniture)
-				.with(BridgeInstallation.class, this::createBridgeInstallation)
-				.with(BridgePart.class, this::createBridgePart)
-				.with(CeilingSurface.class, this::createCeilingSurface)
-				.with(ClosureSurface.class, this::createClosureSurface)
-				.with(Door.class, this::createDoor)
-				.with(FloorSurface.class, this::createFloorSurface)
-				.with(GroundSurface.class, this::createGroundSurface)
-				.with(IntBridgeInstallation.class, this::createIntBridgeInstallation)
-				.with(InteriorWallSurface.class, this::createInteriorWallSurface)
-				.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
-				.with(OuterFloorSurface.class, this::createOuterFloorSurface)
-				.with(RoofSurface.class, this::createRoofSurface)
-				.with(BridgeRoom.class, this::createBridgeRoom)
-				.with(WallSurface.class, this::createWallSurface)
-				.with(Window.class, this::createWindow);
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(Bridge.class, this::createBridge)
+							.with(BridgeConstructionElement.class, this::createBridgeConstructionElement)
+							.with(BridgeFurniture.class, this::createBridgeFurniture)
+							.with(BridgeInstallation.class, this::createBridgeInstallation)
+							.with(BridgePart.class, this::createBridgePart)
+							.with(CeilingSurface.class, this::createCeilingSurface)
+							.with(ClosureSurface.class, this::createClosureSurface)
+							.with(Door.class, this::createDoor)
+							.with(FloorSurface.class, this::createFloorSurface)
+							.with(GroundSurface.class, this::createGroundSurface)
+							.with(IntBridgeInstallation.class, this::createIntBridgeInstallation)
+							.with(InteriorWallSurface.class, this::createInteriorWallSurface)
+							.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
+							.with(OuterFloorSurface.class, this::createOuterFloorSurface)
+							.with(RoofSurface.class, this::createRoofSurface)
+							.with(BridgeRoom.class, this::createBridgeRoom)
+							.with(WallSurface.class, this::createWallSurface)
+							.with(Window.class, this::createWindow);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 
-		typeMapper = TypeMapper.create()
-				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
-				.with(Bridge.class, this::marshalBridge)
-				.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)
-				.with(BridgeFurniture.class, this::marshalBridgeFurniture)
-				.with(BridgeInstallation.class, this::marshalBridgeInstallation)
-				.with(BridgeInstallationProperty.class, this::marshalBridgeInstallationProperty)
-				.with(BridgePart.class, this::marshalBridgePart)
-				.with(BridgePartProperty.class, this::marshalBridgePartProperty)
-				.with(CeilingSurface.class, this::marshalCeilingSurface)
-				.with(ClosureSurface.class, this::marshalClosureSurface)
-				.with(Door.class, this::marshalDoor)
-				.with(FloorSurface.class, this::marshalFloorSurface)
-				.with(GroundSurface.class, this::marshalGroundSurface)
-				.with(IntBridgeInstallation.class, this::marshalIntBridgeInstallation)
-				.with(IntBridgeInstallationProperty.class, this::marshalIntBridgeInstallationProperty)
-				.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
-				.with(InteriorBridgeRoomProperty.class, this::marshalInteriorBridgeRoomProperty)
-				.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
-				.with(OpeningProperty.class, this::marshalOpeningProperty)
-				.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
-				.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
-				.with(RoofSurface.class, this::marshalRoofSurface)
-				.with(BridgeRoom.class, this::marshalBridgeRoom)
-				.with(WallSurface.class, this::marshalWallSurface)
-				.with(Window.class, this::marshalWindow);
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
+							.with(Bridge.class, this::marshalBridge)
+							.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)
+							.with(BridgeFurniture.class, this::marshalBridgeFurniture)
+							.with(BridgeInstallation.class, this::marshalBridgeInstallation)
+							.with(BridgeInstallationProperty.class, this::marshalBridgeInstallationProperty)
+							.with(BridgePart.class, this::marshalBridgePart)
+							.with(BridgePartProperty.class, this::marshalBridgePartProperty)
+							.with(CeilingSurface.class, this::marshalCeilingSurface)
+							.with(ClosureSurface.class, this::marshalClosureSurface)
+							.with(Door.class, this::marshalDoor)
+							.with(FloorSurface.class, this::marshalFloorSurface)
+							.with(GroundSurface.class, this::marshalGroundSurface)
+							.with(IntBridgeInstallation.class, this::marshalIntBridgeInstallation)
+							.with(IntBridgeInstallationProperty.class, this::marshalIntBridgeInstallationProperty)
+							.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
+							.with(InteriorBridgeRoomProperty.class, this::marshalInteriorBridgeRoomProperty)
+							.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
+							.with(OpeningProperty.class, this::marshalOpeningProperty)
+							.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+							.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+							.with(RoofSurface.class, this::marshalRoofSurface)
+							.with(BridgeRoom.class, this::marshalBridgeRoom)
+							.with(WallSurface.class, this::marshalWallSurface)
+							.with(Window.class, this::marshalWindow);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void marshalAbstractBridge(AbstractBridge src, AbstractBridgeType dest) {

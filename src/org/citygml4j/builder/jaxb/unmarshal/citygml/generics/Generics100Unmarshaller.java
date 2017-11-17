@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.generics;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
@@ -44,33 +46,47 @@ import net.opengis.citygml.generics._1.StringAttributeType;
 import net.opengis.citygml.generics._1.UriAttributeType;
 
 public class Generics100Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final GenericsModule module = GenericsModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public Generics100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
-				.with(DateAttributeType.class, this::unmarshalDateAttribute)
-				.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
-				.with(IntAttributeType.class, this::unmarshalIntAttribute)
-				.with(StringAttributeType.class, this::unmarshalStringAttribute)
-				.with(UriAttributeType.class, this::unmarshalUriAttribute)
-				.with(JAXBElement.class, this::unmarshal);
 	}
-	
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
+							.with(DateAttributeType.class, this::unmarshalDateAttribute)
+							.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
+							.with(IntAttributeType.class, this::unmarshalIntAttribute)
+							.with(StringAttributeType.class, this::unmarshalStringAttribute)
+							.with(UriAttributeType.class, this::unmarshalUriAttribute)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
+	}
+
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
-	
+
 	public void unmarshalAbstractGenericAttribute(AbstractGenericAttributeType src, AbstractGenericAttribute dest) {
 		if (src.isSetName())
 			dest.setName(src.getName());
@@ -78,7 +94,7 @@ public class Generics100Unmarshaller {
 
 	public void unmarshalGenericCityObject(GenericCityObjectType src, GenericCityObject dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
-		
+
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
 
@@ -91,25 +107,25 @@ public class Generics100Unmarshaller {
 			for (String usage : src.getUsage())
 				dest.addUsage(new Code(usage));
 		}
-		
+
 		if (src.isSetLod0Geometry())
 			dest.setLod0Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod0Geometry()));
-		
+
 		if (src.isSetLod1Geometry())
 			dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
-		
+
 		if (src.isSetLod2Geometry())
 			dest.setLod2Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod2Geometry()));
-		
+
 		if (src.isSetLod3Geometry())
 			dest.setLod3Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod3Geometry()));
-		
+
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
-		
+
 		if (src.isSetLod0ImplicitRepresentation())
 			dest.setLod0ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod0ImplicitRepresentation()));
-		
+
 		if (src.isSetLod1ImplicitRepresentation())
 			dest.setLod1ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
 
@@ -118,16 +134,16 @@ public class Generics100Unmarshaller {
 
 		if (src.isSetLod3ImplicitRepresentation())
 			dest.setLod3ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
-		
+
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetLod0TerrainIntersection())
 			dest.setLod0TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod0TerrainIntersection()));
-		
+
 		if (src.isSetLod1TerrainIntersection())
 			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
-		
+
 		if (src.isSetLod2TerrainIntersection())
 			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
 
@@ -137,82 +153,82 @@ public class Generics100Unmarshaller {
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 	}
-	
+
 	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src) throws MissingADESchemaException {
 		GenericCityObject dest = new GenericCityObject(module);
 		unmarshalGenericCityObject(src, dest);
 
 		return dest;
 	}
-	
+
 	public void unmarshalDateAttribute(DateAttributeType src, DateAttribute dest) {
 		unmarshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetValue())
 			dest.setValue(src.getValue().toGregorianCalendar());
 	}
-	
+
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {
 		DateAttribute dest = new DateAttribute(module);
 		unmarshalDateAttribute(src, dest);
 
 		return dest;		
 	}
-	
+
 	public void unmarshalDoubleAttribute(DoubleAttributeType src, DoubleAttribute dest) {
 		unmarshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
 	}
-	
+
 	public DoubleAttribute unmarshalDoubleAttribute(DoubleAttributeType src) {
 		DoubleAttribute dest = new DoubleAttribute(module);
 		unmarshalDoubleAttribute(src, dest);
 
 		return dest;		
 	}
-	
+
 	public void unmarshalIntAttribute(IntAttributeType src, IntAttribute dest) {
 		unmarshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetValue())
 			dest.setValue(src.getValue().intValue());
 	}
-	
+
 	public IntAttribute unmarshalIntAttribute(IntAttributeType src) {
 		IntAttribute dest = new IntAttribute(module);
 		unmarshalIntAttribute(src, dest);
 
 		return dest;		
 	}
-	
+
 	public void unmarshalStringAttribute(StringAttributeType src, StringAttribute dest) {
 		unmarshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
 	}
-	
+
 	public StringAttribute unmarshalStringAttribute(StringAttributeType src) {
 		StringAttribute dest = new StringAttribute(module);
 		unmarshalStringAttribute(src, dest);
 
 		return dest;		
 	}
-	
+
 	public void unmarshalUriAttribute(UriAttributeType src, UriAttribute dest) {
 		unmarshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetValue())
 			dest.setValue(src.getValue());
 	}
-	
+
 	public UriAttribute unmarshalUriAttribute(UriAttributeType src) {
 		UriAttribute dest = new UriAttribute(module);
 		unmarshalUriAttribute(src, dest);
 
 		return dest;		
 	}
-	
+
 }

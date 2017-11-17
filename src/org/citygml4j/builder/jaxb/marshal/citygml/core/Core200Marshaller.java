@@ -21,6 +21,7 @@ package org.citygml4j.builder.jaxb.marshal.citygml.core;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -73,43 +74,70 @@ import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
 import net.opengis.gml.FeaturePropertyType;
 
 public class Core200Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory core = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
 
 	public Core200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+	}
 
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(Address.class, this::createAddress)
-				.with(CityModel.class, this::createCityModel)
-				.with(CityObjectMember.class, this::createCityObjectMember)
-				.with(ImplicitGeometry.class, this::createImplicitGeometry);
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(Address.class, this::createAddress)
+							.with(CityModel.class, this::createCityModel)
+							.with(CityObjectMember.class, this::createCityObjectMember)
+							.with(ImplicitGeometry.class, this::createImplicitGeometry);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 
-		typeMapper = TypeMapper.create()
-				.with(Address.class, this::marshalAddress)
-				.with(AddressProperty.class, this::marshalAddressProperty)
-				.with(CityModel.class, this::marshalCityModel)
-				.with(CityObjectMember.class, this::marshalCityObjectMember)
-				.with(ExternalObject.class, this::marshalExternalObject)
-				.with(ExternalReference.class, this::marshalExternalReference)
-				.with(GeneralizationRelation.class, this::marshalGeneralizationRelation)
-				.with(ImplicitGeometry.class, this::marshalImplicitGeometry)
-				.with(ImplicitRepresentationProperty.class, this::marshalImplicitRepresentationProperty)
-				.with(RelativeToTerrain.class, this::marshalRelativeToTerrain)
-				.with(RelativeToWater.class, this::marshalRelativeToWater)
-				.with(XalAddressProperty.class, this::marshalXalAddressProperty);
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(Address.class, this::marshalAddress)
+							.with(AddressProperty.class, this::marshalAddressProperty)
+							.with(CityModel.class, this::marshalCityModel)
+							.with(CityObjectMember.class, this::marshalCityObjectMember)
+							.with(ExternalObject.class, this::marshalExternalObject)
+							.with(ExternalReference.class, this::marshalExternalReference)
+							.with(GeneralizationRelation.class, this::marshalGeneralizationRelation)
+							.with(ImplicitGeometry.class, this::marshalImplicitGeometry)
+							.with(ImplicitRepresentationProperty.class, this::marshalImplicitRepresentationProperty)
+							.with(RelativeToTerrain.class, this::marshalRelativeToTerrain)
+							.with(RelativeToWater.class, this::marshalRelativeToWater)
+							.with(XalAddressProperty.class, this::marshalXalAddressProperty);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	@SuppressWarnings("unchecked")

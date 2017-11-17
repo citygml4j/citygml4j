@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -35,18 +37,32 @@ import net.opengis.citygml.cityfurniture._2.CityFurnitureType;
 import net.opengis.gml.CodeType;
 
 public class CityFurniture200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityFurnitureModule module = CityFurnitureModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public CityFurniture200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(CityFurnitureType.class, this::unmarshalCityFurniture)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(CityFurnitureType.class, this::unmarshalCityFurniture)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -54,7 +70,7 @@ public class CityFurniture200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) throws MissingADESchemaException {
@@ -108,7 +124,7 @@ public class CityFurniture200Unmarshaller {
 
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfCityFurniture()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityFurniture()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -124,16 +140,16 @@ public class CityFurniture200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof CityFurniture && name.equals("_GenericApplicationPropertyOfCityFurniture"))
 			((CityFurniture)dest).addGenericApplicationPropertyOfCityFurniture(genericProperty);		
 		else
 			success = false;
-		
+
 		return success;
 	}
 

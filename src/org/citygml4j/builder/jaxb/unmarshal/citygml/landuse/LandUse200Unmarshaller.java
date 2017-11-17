@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.landuse;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -35,18 +37,32 @@ import net.opengis.citygml.landuse._2.LandUseType;
 import net.opengis.gml.CodeType;
 
 public class LandUse200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final LandUseModule module = LandUseModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public LandUse200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(LandUseType.class, this::unmarshalLandUse)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(LandUseType.class, this::unmarshalLandUse)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -54,7 +70,7 @@ public class LandUse200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalLandUse(LandUseType src, LandUse dest) throws MissingADESchemaException {
@@ -87,7 +103,7 @@ public class LandUse200Unmarshaller {
 
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfLandUse()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfLandUse()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -103,16 +119,16 @@ public class LandUse200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof LandUse && name.equals("_GenericApplicationPropertyOfLandUse"))
 			((LandUse)dest).addGenericApplicationPropertyOfLandUse(genericProperty);
 		else 
 			success = false;
-		
+
 		return success;
 	}
 

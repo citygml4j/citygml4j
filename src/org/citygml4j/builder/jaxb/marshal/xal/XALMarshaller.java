@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.marshal.xal;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.model.common.base.ModelObject;
@@ -141,123 +143,135 @@ import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
 import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 
 public class XALMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory xal= new ObjectFactory();
-	private final TypeMapper<Object> typeMapper;
-	
-	public XALMarshaller() {
-		typeMapper = TypeMapper.create()
-				.with(Address.class, this::marshalAddress)
-				.with(org.citygml4j.model.xal.AddressDetails.class, this::marshalAddressDetails)
-				.with(AddressIdentifier.class, this::marshalAddressIdentifier)
-				.with(AddressLatitude.class, this::marshalAddressLatitude)
-				.with(AddressLatitudeDirection.class, this::marshalAddressLatitudeDirection)
-				.with(AddressLine.class, this::marshalAddressLine)
-				.with(AddressLines.class, this::marshalAddressLines)
-				.with(AddressLongitude.class, this::marshalAddressLongitude)
-				.with(AddressLongitudeDirection.class, this::marshalAddressLongitudeDirection)
-				.with(AdministrativeArea.class, this::marshalAdministrativeArea)
-				.with(AdministrativeAreaName.class, this::marshalAdministrativeAreaName)
-				.with(Barcode.class, this::marshalBarcode)
-				.with(BuildingName.class, this::marshalBuildingName)
-				.with(Country.class, this::marshalCountry)
-				.with(CountryName.class, this::marshalCountryName)
-				.with(CountryNameCode.class, this::marshalCountryNameCode)
-				.with(Department.class, this::marshalDepartment)
-				.with(DepartmentName.class, this::marshalDepartmentName)
-				.with(DependentLocality.class, this::marshalDependentLocality)
-				.with(DependentLocalityName.class, this::marshalDependentLocalityName)
-				.with(DependentLocalityNumber.class, this::marshalDependentLocalityNumber)
-				.with(DependentThoroughfare.class, this::marshalDependentThoroughfare)
-				.with(EndorsementLineCode.class, this::marshalEndorsementLineCode)
-				.with(Firm.class, this::marshalFirm)
-				.with(FirmName.class, this::marshalFirmName)
-				.with(KeyLineCode.class, this::marshalKeyLineCode)
-				.with(LargeMailUser.class, this::marshalLargeMailUser)
-				.with(LargeMailUserIdentifier.class, this::marshalLargeMailUserIdentifier)
-				.with(LargeMailUserName.class, this::marshalLargeMailUserName)
-				.with(Locality.class, this::marshalLocality)
-				.with(LocalityName.class, this::marshalLocalityName)
-				.with(MailStop.class, this::marshalMailStop)
-				.with(MailStopName.class, this::marshalMailStopName)
-				.with(MailStopNumber.class, this::marshalMailStopNumber)
-				.with(PostalCode.class, this::marshalPostalCode)
-				.with(PostalCodeNumber.class, this::marshalPostalCodeNumber)
-				.with(PostalCodeNumberExtension.class, this::marshalPostalCodeNumberExtension)
-				.with(PostalRoute.class, this::marshalPostalRoute)
-				.with(PostalRouteName.class, this::marshalPostalRouteName)
-				.with(PostalRouteNumber.class, this::marshalPostalRouteNumber)
-				.with(PostalServiceElements.class, this::marshalPostalServiceElements)
-				.with(PostBox.class, this::marshalPostBox)
-				.with(PostBoxNumber.class, this::marshalPostBoxNumber)
-				.with(PostBoxNumberExtension.class, this::marshalPostBoxNumberExtension)
-				.with(PostBoxNumberPrefix.class, this::marshalPostBoxNumberPrefix)
-				.with(PostBoxNumberSuffix.class, this::marshalPostBoxNumberSuffix)
-				.with(PostOffice.class, this::marshalPostOffice)
-				.with(PostOfficeName.class, this::marshalPostOfficeName)
-				.with(PostOfficeNumber.class, this::marshalPostOfficeNumber)
-				.with(PostTown.class, this::marshalPostTown)
-				.with(PostTownName.class, this::marshalPostTownName)
-				.with(PostTownSuffix.class, this::marshalPostTownSuffix)
-				.with(Premise.class, this::marshalPremise)
-				.with(PremiseLocation.class, this::marshalPremiseLocation)
-				.with(PremiseName.class, this::marshalPremiseName)
-				.with(PremiseNumber.class, this::marshalPremiseNumber)
-				.with(PremiseNumberPrefix.class, this::marshalPremiseNumberPrefix)
-				.with(PremiseNumberRange.class, this::marshalPremiseNumberRange)
-				.with(PremiseNumberRangeFrom.class, this::marshalPremiseNumberRangeFrom)
-				.with(PremiseNumberRangeTo.class, this::marshalPremiseNumberRangeTo)
-				.with(PremiseNumberSuffix.class, this::marshalPremiseNumberSuffix)
-				.with(SortingCode.class, this::marshalSortingCode)
-				.with(SubAdministrativeArea.class, this::marshalSubAdministrativeArea)
-				.with(SubAdministrativeAreaName.class, this::marshalSubAdministrativeAreaName)
-				.with(SubPremise.class, this::marshalSubPremise)
-				.with(SubPremiseLocation.class, this::marshalSubPremiseLocation)
-				.with(SubPremiseName.class, this::marshalSubPremiseName)
-				.with(SubPremiseNumber.class, this::marshalSubPremiseNumber)
-				.with(SubPremiseNumberPrefix.class, this::marshalSubPremiseNumberPrefix)
-				.with(SubPremiseNumberSuffix.class, this::marshalSubPremiseNumberSuffix)
-				.with(SupplementaryPostalServiceData.class, this::marshalSupplementaryPostalServiceData)
-				.with(Thoroughfare.class, this::marshalThoroughfare)
-				.with(ThoroughfareLeadingType.class, this::marshalThoroughfareLeadingType)
-				.with(ThoroughfareName.class, this::marshalThoroughfareName)
-				.with(ThoroughfareNumber.class, this::marshalThoroughfareNumber)
-				.with(ThoroughfareNumberFrom.class, this::marshalThoroughfareNumberFrom)
-				.with(ThoroughfareNumberPrefix.class, this::marshalThoroughfareNumberPrefix)
-				.with(ThoroughfareNumberRange.class, this::marshalThoroughfareNumberRange)
-				.with(ThoroughfareNumberSuffix.class, this::marshalThoroughfareNumberSuffix)
-				.with(ThoroughfareNumberTo.class, this::marshalThoroughfareNumberTo)
-				.with(ThoroughfarePostDirection.class, this::marshalThoroughfarePostDirection)
-				.with(ThoroughfarePreDirection.class, this::marshalThoroughfarePreDirection)
-				.with(ThoroughfareTrailingType.class, this::marshalThoroughfareTrailingType);
+	private TypeMapper<Object> typeMapper;
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(Address.class, this::marshalAddress)
+							.with(org.citygml4j.model.xal.AddressDetails.class, this::marshalAddressDetails)
+							.with(AddressIdentifier.class, this::marshalAddressIdentifier)
+							.with(AddressLatitude.class, this::marshalAddressLatitude)
+							.with(AddressLatitudeDirection.class, this::marshalAddressLatitudeDirection)
+							.with(AddressLine.class, this::marshalAddressLine)
+							.with(AddressLines.class, this::marshalAddressLines)
+							.with(AddressLongitude.class, this::marshalAddressLongitude)
+							.with(AddressLongitudeDirection.class, this::marshalAddressLongitudeDirection)
+							.with(AdministrativeArea.class, this::marshalAdministrativeArea)
+							.with(AdministrativeAreaName.class, this::marshalAdministrativeAreaName)
+							.with(Barcode.class, this::marshalBarcode)
+							.with(BuildingName.class, this::marshalBuildingName)
+							.with(Country.class, this::marshalCountry)
+							.with(CountryName.class, this::marshalCountryName)
+							.with(CountryNameCode.class, this::marshalCountryNameCode)
+							.with(Department.class, this::marshalDepartment)
+							.with(DepartmentName.class, this::marshalDepartmentName)
+							.with(DependentLocality.class, this::marshalDependentLocality)
+							.with(DependentLocalityName.class, this::marshalDependentLocalityName)
+							.with(DependentLocalityNumber.class, this::marshalDependentLocalityNumber)
+							.with(DependentThoroughfare.class, this::marshalDependentThoroughfare)
+							.with(EndorsementLineCode.class, this::marshalEndorsementLineCode)
+							.with(Firm.class, this::marshalFirm)
+							.with(FirmName.class, this::marshalFirmName)
+							.with(KeyLineCode.class, this::marshalKeyLineCode)
+							.with(LargeMailUser.class, this::marshalLargeMailUser)
+							.with(LargeMailUserIdentifier.class, this::marshalLargeMailUserIdentifier)
+							.with(LargeMailUserName.class, this::marshalLargeMailUserName)
+							.with(Locality.class, this::marshalLocality)
+							.with(LocalityName.class, this::marshalLocalityName)
+							.with(MailStop.class, this::marshalMailStop)
+							.with(MailStopName.class, this::marshalMailStopName)
+							.with(MailStopNumber.class, this::marshalMailStopNumber)
+							.with(PostalCode.class, this::marshalPostalCode)
+							.with(PostalCodeNumber.class, this::marshalPostalCodeNumber)
+							.with(PostalCodeNumberExtension.class, this::marshalPostalCodeNumberExtension)
+							.with(PostalRoute.class, this::marshalPostalRoute)
+							.with(PostalRouteName.class, this::marshalPostalRouteName)
+							.with(PostalRouteNumber.class, this::marshalPostalRouteNumber)
+							.with(PostalServiceElements.class, this::marshalPostalServiceElements)
+							.with(PostBox.class, this::marshalPostBox)
+							.with(PostBoxNumber.class, this::marshalPostBoxNumber)
+							.with(PostBoxNumberExtension.class, this::marshalPostBoxNumberExtension)
+							.with(PostBoxNumberPrefix.class, this::marshalPostBoxNumberPrefix)
+							.with(PostBoxNumberSuffix.class, this::marshalPostBoxNumberSuffix)
+							.with(PostOffice.class, this::marshalPostOffice)
+							.with(PostOfficeName.class, this::marshalPostOfficeName)
+							.with(PostOfficeNumber.class, this::marshalPostOfficeNumber)
+							.with(PostTown.class, this::marshalPostTown)
+							.with(PostTownName.class, this::marshalPostTownName)
+							.with(PostTownSuffix.class, this::marshalPostTownSuffix)
+							.with(Premise.class, this::marshalPremise)
+							.with(PremiseLocation.class, this::marshalPremiseLocation)
+							.with(PremiseName.class, this::marshalPremiseName)
+							.with(PremiseNumber.class, this::marshalPremiseNumber)
+							.with(PremiseNumberPrefix.class, this::marshalPremiseNumberPrefix)
+							.with(PremiseNumberRange.class, this::marshalPremiseNumberRange)
+							.with(PremiseNumberRangeFrom.class, this::marshalPremiseNumberRangeFrom)
+							.with(PremiseNumberRangeTo.class, this::marshalPremiseNumberRangeTo)
+							.with(PremiseNumberSuffix.class, this::marshalPremiseNumberSuffix)
+							.with(SortingCode.class, this::marshalSortingCode)
+							.with(SubAdministrativeArea.class, this::marshalSubAdministrativeArea)
+							.with(SubAdministrativeAreaName.class, this::marshalSubAdministrativeAreaName)
+							.with(SubPremise.class, this::marshalSubPremise)
+							.with(SubPremiseLocation.class, this::marshalSubPremiseLocation)
+							.with(SubPremiseName.class, this::marshalSubPremiseName)
+							.with(SubPremiseNumber.class, this::marshalSubPremiseNumber)
+							.with(SubPremiseNumberPrefix.class, this::marshalSubPremiseNumberPrefix)
+							.with(SubPremiseNumberSuffix.class, this::marshalSubPremiseNumberSuffix)
+							.with(SupplementaryPostalServiceData.class, this::marshalSupplementaryPostalServiceData)
+							.with(Thoroughfare.class, this::marshalThoroughfare)
+							.with(ThoroughfareLeadingType.class, this::marshalThoroughfareLeadingType)
+							.with(ThoroughfareName.class, this::marshalThoroughfareName)
+							.with(ThoroughfareNumber.class, this::marshalThoroughfareNumber)
+							.with(ThoroughfareNumberFrom.class, this::marshalThoroughfareNumberFrom)
+							.with(ThoroughfareNumberPrefix.class, this::marshalThoroughfareNumberPrefix)
+							.with(ThoroughfareNumberRange.class, this::marshalThoroughfareNumberRange)
+							.with(ThoroughfareNumberSuffix.class, this::marshalThoroughfareNumberSuffix)
+							.with(ThoroughfareNumberTo.class, this::marshalThoroughfareNumberTo)
+							.with(ThoroughfarePostDirection.class, this::marshalThoroughfarePostDirection)
+							.with(ThoroughfarePreDirection.class, this::marshalThoroughfarePreDirection)
+							.with(ThoroughfareTrailingType.class, this::marshalThoroughfareTrailingType);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
-	
+
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
 		Object dest = marshal(src);
 		if (dest instanceof AddressDetails)
 			return xal.createAddressDetails((AddressDetails)dest);
-				
+
 		return null;
 	}
-	
+
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}	
 
 	public AddressDetails.Address marshalAddress(Address src) {
 		AddressDetails.Address dest = xal.createAddressDetailsAddress();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
-		
+
 		if (src.isSetType())
 			dest.setType(src.getType());
-		
+
 		if (src.isSetCode())
 			dest.setCode(src.getCode());
 
 		return dest;
 	}
-	
+
 	public AddressDetails marshalAddressDetails(org.citygml4j.model.xal.AddressDetails src) {
 		AddressDetails dest = xal.createAddressDetails();
 
@@ -305,10 +319,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-		
+
 	public AddressDetails.PostalServiceElements.AddressIdentifier marshalAddressIdentifier(AddressIdentifier src) {
 		AddressDetails.PostalServiceElements.AddressIdentifier dest = xal.createAddressDetailsPostalServiceElementsAddressIdentifier();
-		
+
 		if (src.isSetCode())
 			dest.setCode(src.getCode());
 
@@ -323,10 +337,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.AddressLatitude marshalAddressLatitude(AddressLatitude src) {
 		AddressDetails.PostalServiceElements.AddressLatitude dest = xal.createAddressDetailsPostalServiceElementsAddressLatitude();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -341,7 +355,7 @@ public class XALMarshaller {
 
 	public AddressDetails.PostalServiceElements.AddressLatitudeDirection marshalAddressLatitudeDirection(AddressLatitudeDirection src) {
 		AddressDetails.PostalServiceElements.AddressLatitudeDirection dest = xal.createAddressDetailsPostalServiceElementsAddressLatitudeDirection();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -353,10 +367,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressLineElement marshalAddressLine(AddressLine src) {
 		AddressLineElement dest = xal.createAddressLineElement();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -368,21 +382,21 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressLinesType marshalAddressLines(AddressLines src) {
 		AddressLinesType dest = xal.createAddressLinesType();
-		
+
 		if (src.isSetAddressLine()) {
 			for (AddressLine addressLine : src.getAddressLine())
 				dest.getAddressLine().add(marshalAddressLine(addressLine));
 		}
-		
+
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.AddressLongitude marshalAddressLongitude(AddressLongitude src) {
 		AddressDetails.PostalServiceElements.AddressLongitude dest = xal.createAddressDetailsPostalServiceElementsAddressLongitude();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -394,10 +408,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.AddressLongitudeDirection marshalAddressLongitudeDirection(AddressLongitudeDirection src) {
 		AddressDetails.PostalServiceElements.AddressLongitudeDirection dest = xal.createAddressDetailsPostalServiceElementsAddressLongitudeDirection();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -409,7 +423,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AdministrativeAreaElement marshalAdministrativeArea(AdministrativeArea src) {
 		AdministrativeAreaElement dest = xal.createAdministrativeAreaElement();
 
@@ -446,10 +460,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AdministrativeAreaElement.AdministrativeAreaName marshalAdministrativeAreaName(AdministrativeAreaName src) {
 		AdministrativeAreaElement.AdministrativeAreaName dest = xal.createAdministrativeAreaElementAdministrativeAreaName();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -461,10 +475,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.Barcode marshalBarcode(Barcode src) {
 		AddressDetails.PostalServiceElements.Barcode dest = xal.createAddressDetailsPostalServiceElementsBarcode();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -476,10 +490,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public BuildingNameType marshalBuildingName(BuildingName src) {
 		BuildingNameType dest = xal.createBuildingNameType();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -494,7 +508,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.Country marshalCountry(Country src) {
 		AddressDetails.Country dest = xal.createAddressDetailsCountry();
 
@@ -524,10 +538,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public CountryNameElement marshalCountryName(CountryName src) {
 		CountryNameElement dest = xal.createCountryNameElement();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -539,10 +553,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.Country.CountryNameCode marshalCountryNameCode(CountryNameCode src) {
 		AddressDetails.Country.CountryNameCode dest = xal.createAddressDetailsCountryCountryNameCode();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -554,7 +568,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public DepartmentElement marshalDepartment(Department src) {
 		DepartmentElement dest = xal.createDepartmentElement();
 
@@ -579,10 +593,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public DepartmentElement.DepartmentName marshalDepartmentName(DepartmentName src) {
 		DepartmentElement.DepartmentName dest = xal.createDepartmentElementDepartmentName();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -594,7 +608,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public DependentLocalityType marshalDependentLocality(DependentLocality src) {
 		DependentLocalityType dest = xal.createDependentLocalityType();
 
@@ -649,10 +663,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public DependentLocalityType.DependentLocalityName marshalDependentLocalityName(DependentLocalityName src) {
 		DependentLocalityType.DependentLocalityName dest = xal.createDependentLocalityTypeDependentLocalityName();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -664,10 +678,10 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public DependentLocalityType.DependentLocalityNumber marshalDependentLocalityNumber(DependentLocalityNumber src) {
 		DependentLocalityType.DependentLocalityNumber dest = xal.createDependentLocalityTypeDependentLocalityNumber();
-		
+
 		if (src.isSetContent())
 			dest.setContent(src.getContent());
 
@@ -679,7 +693,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareElement.DependentThoroughfare marshalDependentThoroughfare(DependentThoroughfare src) {
 		ThoroughfareElement.DependentThoroughfare dest = xal.createThoroughfareElementDependentThoroughfare();
 
@@ -710,7 +724,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.EndorsementLineCode marshalEndorsementLineCode(EndorsementLineCode src) {
 		AddressDetails.PostalServiceElements.EndorsementLineCode dest = xal.createAddressDetailsPostalServiceElementsEndorsementLineCode();
 
@@ -725,7 +739,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public FirmType marshalFirm(Firm src) {
 		FirmType dest = xal.createFirmType();
 
@@ -755,7 +769,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-		
+
 	public FirmType.FirmName marshalFirmName(FirmName src) {
 		FirmType.FirmName dest = xal.createFirmTypeFirmName();
 
@@ -770,7 +784,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.KeyLineCode marshalKeyLineCode(KeyLineCode src) {
 		AddressDetails.PostalServiceElements.KeyLineCode dest = xal.createAddressDetailsPostalServiceElementsKeyLineCode();
 
@@ -785,7 +799,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public LargeMailUserType marshalLargeMailUser(LargeMailUser src) {
 		LargeMailUserType dest = xal.createLargeMailUserType();
 
@@ -824,7 +838,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-		
+
 	public LargeMailUserType.LargeMailUserIdentifier marshalLargeMailUserIdentifier(LargeMailUserIdentifier src) {
 		LargeMailUserType.LargeMailUserIdentifier dest = xal.createLargeMailUserTypeLargeMailUserIdentifier();
 
@@ -842,7 +856,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public LargeMailUserType.LargeMailUserName marshalLargeMailUserName(LargeMailUserName src) {
 		LargeMailUserType.LargeMailUserName dest = xal.createLargeMailUserTypeLargeMailUserName();
 
@@ -857,7 +871,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public LocalityElement marshalLocality(Locality src) {
 		LocalityElement dest = xal.createLocalityElement();
 
@@ -906,7 +920,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-		
+
 	public LocalityElement.LocalityName marshalLocalityName(LocalityName src) {
 		LocalityElement.LocalityName dest = xal.createLocalityElementLocalityName();
 
@@ -921,7 +935,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public MailStopType marshalMailStop(MailStop src) {
 		MailStopType dest = xal.createMailStopType();
 
@@ -941,7 +955,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public MailStopType.MailStopName marshalMailStopName(MailStopName src) {
 		MailStopType.MailStopName dest = xal.createMailStopTypeMailStopName();
 
@@ -956,7 +970,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public MailStopType.MailStopNumber marshalMailStopNumber(MailStopNumber src) {
 		MailStopType.MailStopNumber dest = xal.createMailStopTypeMailStopNumber();
 
@@ -971,7 +985,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalCodeElement marshalPostalCode(PostalCode src) {
 		PostalCodeElement dest = xal.createPostalCodeElement();
 
@@ -998,7 +1012,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-		
+
 	public PostalCodeElement.PostalCodeNumber marshalPostalCodeNumber(PostalCodeNumber src) {
 		PostalCodeElement.PostalCodeNumber dest = xal.createPostalCodeElementPostalCodeNumber();
 
@@ -1013,7 +1027,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalCodeElement.PostalCodeNumberExtension marshalPostalCodeNumberExtension(PostalCodeNumberExtension src) {
 		PostalCodeElement.PostalCodeNumberExtension dest = xal.createPostalCodeElementPostalCodeNumberExtension();
 
@@ -1031,7 +1045,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalRouteType marshalPostalRoute(PostalRoute src) {
 		PostalRouteType dest = xal.createPostalRouteType();
 
@@ -1056,7 +1070,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalRouteType.PostalRouteName marshalPostalRouteName(PostalRouteName src) {
 		PostalRouteType.PostalRouteName dest = xal.createPostalRouteTypePostalRouteName();
 
@@ -1071,7 +1085,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalRouteType.PostalRouteNumber marshalPostalRouteNumber(PostalRouteNumber src) {
 		PostalRouteType.PostalRouteNumber dest = xal.createPostalRouteTypePostalRouteNumber();
 
@@ -1083,7 +1097,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements marshalPostalServiceElements(PostalServiceElements src) {
 		AddressDetails.PostalServiceElements dest = xal.createAddressDetailsPostalServiceElements();
 
@@ -1126,7 +1140,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostBoxElement marshalPostBox(PostBox src) {
 		PostBoxElement dest = xal.createPostBoxElement();
 
@@ -1161,7 +1175,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostBoxElement.PostBoxNumber marshalPostBoxNumber(PostBoxNumber src) {
 		PostBoxElement.PostBoxNumber dest = xal.createPostBoxElementPostBoxNumber();
 
@@ -1173,7 +1187,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostBoxElement.PostBoxNumberExtension marshalPostBoxNumberExtension(PostBoxNumberExtension src) {
 		PostBoxElement.PostBoxNumberExtension dest = xal.createPostBoxElementPostBoxNumberExtension();
 
@@ -1185,7 +1199,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostBoxElement.PostBoxNumberPrefix marshalPostBoxNumberPrefix(PostBoxNumberPrefix src) {
 		PostBoxElement.PostBoxNumberPrefix dest = xal.createPostBoxElementPostBoxNumberPrefix();
 
@@ -1200,7 +1214,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostBoxElement.PostBoxNumberSuffix marshalPostBoxNumberSuffix(PostBoxNumberSuffix src) {
 		PostBoxElement.PostBoxNumberSuffix dest = xal.createPostBoxElementPostBoxNumberSuffix();
 
@@ -1215,7 +1229,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostOfficeElement marshalPostOffice(PostOffice src) {
 		PostOfficeElement dest = xal.createPostOfficeElement();
 
@@ -1246,7 +1260,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostOfficeElement.PostOfficeName marshalPostOfficeName(PostOfficeName src) {
 		PostOfficeElement.PostOfficeName dest = xal.createPostOfficeElementPostOfficeName();
 
@@ -1261,7 +1275,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostOfficeElement.PostOfficeNumber marshalPostOfficeNumber(PostOfficeNumber src) {
 		PostOfficeElement.PostOfficeNumber dest = xal.createPostOfficeElementPostOfficeNumber();
 
@@ -1279,7 +1293,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalCodeElement.PostTown marshalPostTown(PostTown src) {
 		PostalCodeElement.PostTown dest = xal.createPostalCodeElementPostTown();
 
@@ -1301,7 +1315,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalCodeElement.PostTown.PostTownName marshalPostTownName(PostTownName src) {
 		PostalCodeElement.PostTown.PostTownName dest = xal.createPostalCodeElementPostTownPostTownName();
 
@@ -1316,7 +1330,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PostalCodeElement.PostTown.PostTownSuffix marshalPostTownSuffix(PostTownSuffix src) {
 		PostalCodeElement.PostTown.PostTownSuffix dest = xal.createPostalCodeElementPostTownPostTownSuffix();
 
@@ -1328,7 +1342,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseElement marshalPremise(Premise src) {
 		PremiseElement dest = xal.createPremiseElement();
 
@@ -1399,7 +1413,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseElement.PremiseLocation marshalPremiseLocation(PremiseLocation src) {
 		PremiseElement.PremiseLocation dest = xal.createPremiseElementPremiseLocation();
 
@@ -1411,7 +1425,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseElement.PremiseName marshalPremiseName(PremiseName src) {
 		PremiseElement.PremiseName dest = xal.createPremiseElementPremiseName();
 
@@ -1429,7 +1443,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseNumberElement marshalPremiseNumber(PremiseNumber src) {
 		PremiseNumberElement dest = xal.createPremiseNumberElement();
 
@@ -1456,7 +1470,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseNumberPrefixElement marshalPremiseNumberPrefix(PremiseNumberPrefix src) {
 		PremiseNumberPrefixElement dest = xal.createPremiseNumberPrefixElement();
 
@@ -1474,7 +1488,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseElement.PremiseNumberRange marshalPremiseNumberRange(PremiseNumberRange src) {
 		PremiseElement.PremiseNumberRange dest = xal.createPremiseElementPremiseNumberRange();
 
@@ -1504,7 +1518,7 @@ public class XALMarshaller {
 
 		return dest;		
 	}
-	
+
 	public PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom marshalPremiseNumberRangeFrom(PremiseNumberRangeFrom src) {
 		PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom dest = xal.createPremiseElementPremiseNumberRangePremiseNumberRangeFrom();
 
@@ -1530,7 +1544,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseElement.PremiseNumberRange.PremiseNumberRangeTo marshalPremiseNumberRangeTo(PremiseNumberRangeTo src) {
 		PremiseElement.PremiseNumberRange.PremiseNumberRangeTo dest = xal.createPremiseElementPremiseNumberRangePremiseNumberRangeTo();
 
@@ -1556,7 +1570,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public PremiseNumberSuffixElement marshalPremiseNumberSuffix(PremiseNumberSuffix src) {
 		PremiseNumberSuffixElement dest = xal.createPremiseNumberSuffixElement();
 
@@ -1574,7 +1588,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.SortingCode marshalSortingCode(SortingCode src) {
 		AddressDetails.PostalServiceElements.SortingCode dest = xal.createAddressDetailsPostalServiceElementsSortingCode();
 
@@ -1586,7 +1600,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AdministrativeAreaElement.SubAdministrativeArea marshalSubAdministrativeArea(SubAdministrativeArea src) {
 		AdministrativeAreaElement.SubAdministrativeArea dest = xal.createAdministrativeAreaElementSubAdministrativeArea();
 
@@ -1620,7 +1634,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName marshalSubAdministrativeAreaName(SubAdministrativeAreaName src) {
 		AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName dest = xal.createAdministrativeAreaElementSubAdministrativeAreaSubAdministrativeAreaName();
 
@@ -1635,7 +1649,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public SubPremiseType marshalSubPremise(SubPremise src) {
 		SubPremiseType dest = xal.createSubPremiseType();
 
@@ -1689,7 +1703,7 @@ public class XALMarshaller {
 
 		return dest;
 	}	
-	
+
 	public SubPremiseType.SubPremiseLocation marshalSubPremiseLocation(SubPremiseLocation src) {
 		SubPremiseType.SubPremiseLocation dest = xal.createSubPremiseTypeSubPremiseLocation();
 
@@ -1701,7 +1715,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public SubPremiseType.SubPremiseName marshalSubPremiseName(SubPremiseName src) {
 		SubPremiseType.SubPremiseName dest = xal.createSubPremiseTypeSubPremiseName();
 
@@ -1719,7 +1733,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public SubPremiseType.SubPremiseNumber marshalSubPremiseNumber(SubPremiseNumber src) {
 		SubPremiseType.SubPremiseNumber dest = xal.createSubPremiseTypeSubPremiseNumber();
 
@@ -1746,7 +1760,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public SubPremiseType.SubPremiseNumberPrefix marshalSubPremiseNumberPrefix(SubPremiseNumberPrefix src) {
 		SubPremiseType.SubPremiseNumberPrefix dest = xal.createSubPremiseTypeSubPremiseNumberPrefix();
 
@@ -1764,7 +1778,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public SubPremiseType.SubPremiseNumberSuffix marshalSubPremiseNumberSuffix(SubPremiseNumberSuffix src) {
 		SubPremiseType.SubPremiseNumberSuffix dest = xal.createSubPremiseTypeSubPremiseNumberSuffix();
 
@@ -1782,7 +1796,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public AddressDetails.PostalServiceElements.SupplementaryPostalServiceData marshalSupplementaryPostalServiceData(SupplementaryPostalServiceData src) {
 		AddressDetails.PostalServiceElements.SupplementaryPostalServiceData dest = xal.createAddressDetailsPostalServiceElementsSupplementaryPostalServiceData();
 
@@ -1797,7 +1811,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareElement marshalThoroughfare(Thoroughfare src) {
 		ThoroughfareElement dest = xal.createThoroughfareElement();
 
@@ -1874,7 +1888,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareLeadingTypeType marshalThoroughfareLeadingType(ThoroughfareLeadingType src) {
 		ThoroughfareLeadingTypeType dest = xal.createThoroughfareLeadingTypeType();
 
@@ -1889,7 +1903,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareNameType marshalThoroughfareName(ThoroughfareName src) {
 		ThoroughfareNameType dest = xal.createThoroughfareNameType();
 
@@ -1904,7 +1918,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareNumberElement marshalThoroughfareNumber(ThoroughfareNumber src) {
 		ThoroughfareNumberElement dest = xal.createThoroughfareNumberElement();
 
@@ -1931,7 +1945,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom marshalThoroughfareNumberFrom(ThoroughfareNumberFrom src) {
 		ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom dest = xal.createThoroughfareElementThoroughfareNumberRangeThoroughfareNumberFrom();
 
@@ -1955,7 +1969,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareNumberPrefixElement marshalThoroughfareNumberPrefix(ThoroughfareNumberPrefix src) {
 		ThoroughfareNumberPrefixElement dest = xal.createThoroughfareNumberPrefixElement();
 
@@ -1973,7 +1987,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareElement.ThoroughfareNumberRange marshalThoroughfareNumberRange(ThoroughfareNumberRange src) {
 		ThoroughfareElement.ThoroughfareNumberRange dest = xal.createThoroughfareElementThoroughfareNumberRange();
 
@@ -2011,7 +2025,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareNumberSuffixElement marshalThoroughfareNumberSuffix(ThoroughfareNumberSuffix src) {
 		ThoroughfareNumberSuffixElement dest = xal.createThoroughfareNumberSuffixElement();
 
@@ -2029,7 +2043,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo marshalThoroughfareNumberTo(ThoroughfareNumberTo src) {
 		ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo dest = xal.createThoroughfareElementThoroughfareNumberRangeThoroughfareNumberTo();
 
@@ -2053,7 +2067,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfarePostDirectionType marshalThoroughfarePostDirection(ThoroughfarePostDirection src) {
 		ThoroughfarePostDirectionType dest = xal.createThoroughfarePostDirectionType();
 
@@ -2068,7 +2082,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfarePreDirectionType marshalThoroughfarePreDirection(ThoroughfarePreDirection src) {
 		ThoroughfarePreDirectionType dest = xal.createThoroughfarePreDirectionType();
 
@@ -2083,7 +2097,7 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 	public ThoroughfareTrailingTypeType marshalThoroughfareTrailingType(ThoroughfareTrailingType src) {
 		ThoroughfareTrailingTypeType dest = xal.createThoroughfareTrailingTypeType();
 
@@ -2098,5 +2112,5 @@ public class XALMarshaller {
 
 		return dest;
 	}
-	
+
 }

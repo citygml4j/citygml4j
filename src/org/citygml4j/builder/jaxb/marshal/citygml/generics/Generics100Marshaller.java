@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -52,41 +53,68 @@ import net.opengis.citygml.generics._1.StringAttributeType;
 import net.opengis.citygml.generics._1.UriAttributeType;
 
 public class Generics100Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory gen = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
 
 	public Generics100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+	}
 
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(GenericCityObject.class, this::createGenericCityObject)
-				.with(DateAttribute.class, this::createDateAttribute)
-				.with(DoubleAttribute.class, this::createDoubleAttribute)
-				.with(IntAttribute.class, this::createIntAttribute)
-				.with(StringAttribute.class, this::createStringAttribute)
-				.with(UriAttribute.class, this::createUriAttribute)
-				.with(MeasureAttribute.class, this::createMeasureAttribute);
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(GenericCityObject.class, this::createGenericCityObject)
+							.with(DateAttribute.class, this::createDateAttribute)
+							.with(DoubleAttribute.class, this::createDoubleAttribute)
+							.with(IntAttribute.class, this::createIntAttribute)
+							.with(StringAttribute.class, this::createStringAttribute)
+							.with(UriAttribute.class, this::createUriAttribute)
+							.with(MeasureAttribute.class, this::createMeasureAttribute);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 
-		typeMapper = TypeMapper.create()
-				.with(GenericCityObject.class, this::marshalGenericCityObject)
-				.with(DateAttribute.class, this::marshalDateAttribute)
-				.with(DoubleAttribute.class, this::marshalDoubleAttribute)
-				.with(IntAttribute.class, this::marshalIntAttribute)
-				.with(StringAttribute.class, this::marshalStringAttribute)
-				.with(UriAttribute.class, this::marshalUriAttribute)
-				.with(MeasureAttribute.class, this::marshalMeasureAttribute);
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(GenericCityObject.class, this::marshalGenericCityObject)
+							.with(DateAttribute.class, this::marshalDateAttribute)
+							.with(DoubleAttribute.class, this::marshalDoubleAttribute)
+							.with(IntAttribute.class, this::marshalIntAttribute)
+							.with(StringAttribute.class, this::marshalStringAttribute)
+							.with(UriAttribute.class, this::marshalUriAttribute)
+							.with(MeasureAttribute.class, this::marshalMeasureAttribute);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void marshalAbstractGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {

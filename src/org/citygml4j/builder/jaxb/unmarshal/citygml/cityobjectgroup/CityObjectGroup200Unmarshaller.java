@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -44,20 +46,34 @@ import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupType;
 import net.opengis.gml.CodeType;
 
 public class CityObjectGroup200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityObjectGroupModule module = CityObjectGroupModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
-	
+	private CheckedTypeMapper<CityGML> typeMapper;
+
 	public CityObjectGroup200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(CityObjectGroupType.class, this::unmarshalCityObjectGroup)
-				.with(CityObjectGroupMemberType.class, this::unmarshalCityObjectGroupMember)
-				.with(CityObjectGroupParentType.class, this::unmarshalCityObjectGroupParent)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(CityObjectGroupType.class, this::unmarshalCityObjectGroup)
+							.with(CityObjectGroupMemberType.class, this::unmarshalCityObjectGroupMember)
+							.with(CityObjectGroupParentType.class, this::unmarshalCityObjectGroupParent)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -65,7 +81,7 @@ public class CityObjectGroup200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest) throws MissingADESchemaException {
@@ -94,7 +110,7 @@ public class CityObjectGroup200Unmarshaller {
 
 		if (src.isSetParent())
 			dest.setGroupParent(unmarshalCityObjectGroupParent(src.getParent()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfCityObjectGroup()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityObjectGroup()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -119,13 +135,13 @@ public class CityObjectGroup200Unmarshaller {
 			if (object instanceof AbstractCityObject)
 				dest.setObject((AbstractCityObject)object);
 		}
-		
+
 		if (src.isSetGroupRole())
 			dest.setGroupRole(src.getGroupRole());
 
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
-		
+
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -161,7 +177,7 @@ public class CityObjectGroup200Unmarshaller {
 			if (object instanceof AbstractCityObject)
 				dest.setObject((AbstractCityObject)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -191,16 +207,16 @@ public class CityObjectGroup200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof CityObjectGroup && name.equals("_GenericApplicationPropertyOfCityObjectGroup"))
 			((CityObjectGroup)dest).addGenericApplicationPropertyOfCityObjectGroup(genericProperty);
 		else 
 			success = false;
-		
+
 		return success;
 	}
 

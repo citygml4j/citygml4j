@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.generics;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
@@ -49,25 +51,39 @@ import net.opengis.citygml.generics._2.UriAttributeType;
 import net.opengis.gml.CodeType;
 
 public class Generics200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final GenericsModule module = GenericsModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public Generics200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
-				.with(DateAttributeType.class, this::unmarshalDateAttribute)
-				.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
-				.with(GenericAttributeSetType.class, this::unmarshalGenericAttributeSet)
-				.with(IntAttributeType.class, this::unmarshalIntAttribute)
-				.with(MeasureAttributeType.class, this::unmarshalMeasureAttribute)
-				.with(StringAttributeType.class, this::unmarshalStringAttribute)
-				.with(UriAttributeType.class, this::unmarshalUriAttribute)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(GenericCityObjectType.class, this::unmarshalGenericCityObject)
+							.with(DateAttributeType.class, this::unmarshalDateAttribute)
+							.with(DoubleAttributeType.class, this::unmarshalDoubleAttribute)
+							.with(GenericAttributeSetType.class, this::unmarshalGenericAttributeSet)
+							.with(IntAttributeType.class, this::unmarshalIntAttribute)
+							.with(MeasureAttributeType.class, this::unmarshalMeasureAttribute)
+							.with(StringAttributeType.class, this::unmarshalStringAttribute)
+							.with(UriAttributeType.class, this::unmarshalUriAttribute)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -75,7 +91,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractGenericAttribute(AbstractGenericAttributeType src, AbstractGenericAttribute dest) {
@@ -168,7 +184,7 @@ public class Generics200Unmarshaller {
 
 	public void unmarshalGenericAttributeSet(GenericAttributeSetType src, GenericAttributeSet dest) throws MissingADESchemaException {
 		unmarshalAbstractGenericAttribute(src, dest);
-		
+
 		if (src.isSetCodeSpace())
 			dest.setCodeSpace(src.getCodeSpace());
 

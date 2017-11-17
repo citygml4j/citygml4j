@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
@@ -41,32 +43,46 @@ import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
 import net.opengis.citygml.cityobjectgroup._1.ObjectFactory;
 
 public class CityObjectGroup100Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory grp = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<Object> typeMapper;
-	
+	private TypeMapper<Object> typeMapper;
+
 	public CityObjectGroup100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
-		typeMapper = TypeMapper.create()
-				.with(CityObjectGroup.class, this::marshalCityObjectGroup)
-				.with(CityObjectGroupMember.class, this::marshalCityObjectGroupMember)
-				.with(CityObjectGroupParent.class, this::marshalCityObjectGroupParent);
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(CityObjectGroup.class, this::marshalCityObjectGroup)
+							.with(CityObjectGroupMember.class, this::marshalCityObjectGroupMember)
+							.with(CityObjectGroupParent.class, this::marshalCityObjectGroupParent);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
 		if (src instanceof CityObjectGroup)
 			return grp.createCityObjectGroup(marshalCityObjectGroup((CityObjectGroup)src));
-		
+
 		return null;
 	}
-	
+
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
-	
+
 	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
 		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
 
@@ -93,7 +109,7 @@ public class CityObjectGroup100Marshaller {
 
 		if (src.isSetGroupParent())
 			dest.setParent(marshalCityObjectGroupParent(src.getGroupParent()));	
-		
+
 		if (src.isSetGenericApplicationPropertyOfCityObjectGroup()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfCityObjectGroup()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -109,7 +125,7 @@ public class CityObjectGroup100Marshaller {
 
 		return dest;
 	}
-		
+
 	@SuppressWarnings("unchecked")
 	public CityObjectGroupMemberType marshalCityObjectGroupMember(CityObjectGroupMember src) {
 		CityObjectGroupMemberType dest = grp.createCityObjectGroupMemberType();
@@ -119,16 +135,16 @@ public class CityObjectGroup100Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractCityObjectType)
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
-		
+
 		if (src.isSetGroupRole())
 			dest.setGroupRole(src.getGroupRole());
-		
+
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -155,7 +171,7 @@ public class CityObjectGroup100Marshaller {
 
 		return dest;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public CityObjectGroupParentType marshalCityObjectGroupParent(CityObjectGroupParent src) {
 		CityObjectGroupParentType dest = grp.createCityObjectGroupParentType();
@@ -165,7 +181,7 @@ public class CityObjectGroup100Marshaller {
 			if (elem != null && elem.getValue() instanceof AbstractCityObjectType)
 				dest.set_CityObject((JAXBElement<? extends AbstractCityObjectType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
@@ -198,5 +214,5 @@ public class CityObjectGroup100Marshaller {
 
 		return dest;
 	}
-	
+
 }

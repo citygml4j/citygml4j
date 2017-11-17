@@ -21,6 +21,7 @@ package org.citygml4j.builder.jaxb.marshal.citygml.generics;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -52,43 +53,70 @@ import net.opengis.citygml.generics._2.StringAttributeType;
 import net.opengis.citygml.generics._2.UriAttributeType;
 
 public class Generics200Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory gen = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
 
 	public Generics200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+	}
 
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(GenericCityObject.class, this::createGenericCityObject)
-				.with(DateAttribute.class, this::createDateAttribute)
-				.with(DoubleAttribute.class, this::createDoubleAttribute)
-				.with(IntAttribute.class, this::createIntAttribute)
-				.with(StringAttribute.class, this::createStringAttribute)
-				.with(UriAttribute.class, this::createUriAttribute)
-				.with(MeasureAttribute.class, this::createMeasureAttribute)
-				.with(GenericAttributeSet.class, this::createGenericAttributeSet);
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(GenericCityObject.class, this::createGenericCityObject)
+							.with(DateAttribute.class, this::createDateAttribute)
+							.with(DoubleAttribute.class, this::createDoubleAttribute)
+							.with(IntAttribute.class, this::createIntAttribute)
+							.with(StringAttribute.class, this::createStringAttribute)
+							.with(UriAttribute.class, this::createUriAttribute)
+							.with(MeasureAttribute.class, this::createMeasureAttribute)
+							.with(GenericAttributeSet.class, this::createGenericAttributeSet);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 
-		typeMapper = TypeMapper.create()
-				.with(GenericCityObject.class, this::marshalGenericCityObject)
-				.with(DateAttribute.class, this::marshalDateAttribute)
-				.with(DoubleAttribute.class, this::marshalDoubleAttribute)
-				.with(IntAttribute.class, this::marshalIntAttribute)
-				.with(StringAttribute.class, this::marshalStringAttribute)
-				.with(UriAttribute.class, this::marshalUriAttribute)
-				.with(MeasureAttribute.class, this::marshalMeasureAttribute)
-				.with(GenericAttributeSet.class, this::marshalGenericAttributeSet);
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(GenericCityObject.class, this::marshalGenericCityObject)
+							.with(DateAttribute.class, this::marshalDateAttribute)
+							.with(DoubleAttribute.class, this::marshalDoubleAttribute)
+							.with(IntAttribute.class, this::marshalIntAttribute)
+							.with(StringAttribute.class, this::marshalStringAttribute)
+							.with(UriAttribute.class, this::marshalUriAttribute)
+							.with(MeasureAttribute.class, this::marshalMeasureAttribute)
+							.with(GenericAttributeSet.class, this::marshalGenericAttributeSet);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void marshalAbstractGenericAttribute(AbstractGenericAttribute src, AbstractGenericAttributeType dest) {

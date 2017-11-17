@@ -19,6 +19,7 @@
 package org.citygml4j.builder.jaxb.unmarshal.citygml.texturedsurface;
 
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 
@@ -48,20 +49,34 @@ import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 public class TexturedSurface200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final TexturedSurfaceModule module = TexturedSurfaceModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public TexturedSurface200Unmarshaller(CityGMLUnmarshaller citygml) {
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
-				.with(MaterialType.class, this::unmarshalMaterial)
-				.with(SimpleTextureType.class, this::unmarshalSimpleTexture)
-				.with(TexturedSurfaceType.class, this::unmarshalTexturedSurface)
-				.with(TextureTypeType.class, this::unmarshalTextureType)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
+							.with(MaterialType.class, this::unmarshalMaterial)
+							.with(SimpleTextureType.class, this::unmarshalSimpleTexture)
+							.with(TexturedSurfaceType.class, this::unmarshalTexturedSurface)
+							.with(TextureTypeType.class, this::unmarshalTextureType)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -69,7 +84,7 @@ public class TexturedSurface200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {
