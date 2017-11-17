@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.ade.ADEModuleType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -78,6 +79,16 @@ public class Modules {
 
 	public static Module getModule(String namespaceURI) {
 		return modules.get(namespaceURI);
+	}
+	
+	public static Module getModule(Class<? extends AbstractFeature> featureClass) {
+		for (Module module : modules.values()) {
+			Map<String, Class<? extends AbstractFeature>> features = module.getFeatures();
+			if (features != null && features.values().contains(featureClass))
+				return module;
+		}
+		
+		return null;
 	}
 
 	public static List<Module> getModules() {
