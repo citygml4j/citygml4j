@@ -43,7 +43,7 @@ public class ResolvingInternalXlinks {
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
 		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 

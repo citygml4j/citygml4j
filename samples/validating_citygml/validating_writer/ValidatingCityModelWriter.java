@@ -60,7 +60,7 @@ public class ValidatingCityModelWriter {
 		
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
+		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
 		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
