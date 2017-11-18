@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="simple">
+<project basedir="." default="chunk">
 	<property name="lib" value="../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
@@ -35,17 +35,9 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="simple" depends="compile" description="run the sample app">
+	<target name="chunk" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="validating_citygml.object_tree_validation.ObjectTreeValidation" fork="true">
-			<classpath refid="classpath" />
-		</java>
-	</target>
-
-	<!-- run sample app -->
-	<target name="splitter" depends="compile" description="run the sample app">
-		<echo message="Running sample citygml4j application..." />
-		<java classname="validating_citygml.object_tree_validation.ObjectTreeValidationUsingSplitter" fork="true">
+		<java classname="validating_citygml.validating_reader.ValidatingChunkReader" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>

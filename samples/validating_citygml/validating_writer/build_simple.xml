@@ -42,14 +42,6 @@
 		</java>
 	</target>
 
-	<!-- run sample app -->
-	<target name="model" depends="compile" description="run the sample app">
-		<echo message="Running sample citygml4j application..." />
-		<java classname="validating_citygml.validating_writer.ValidatingCityModelWriter" fork="true">
-			<classpath refid="classpath" />
-		</java>
-	</target>
-
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />

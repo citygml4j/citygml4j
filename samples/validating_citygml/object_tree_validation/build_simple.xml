@@ -17,13 +17,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="run">
-	<property name="citygml4j_lib" value="../../../../lib" />
-	<property name="ade_module_lib" value="../../../lib" />
+<project basedir="." default="simple">
+	<property name="lib" value="../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
-		<fileset dir="${citygml4j_lib}" includes="*.jar" />
-		<fileset dir="${ade_module_lib}" includes="*.jar" />
+		<fileset dir="${lib}" includes="*.jar" />
 	</path>
 
 	<!--compile Java source files-->
@@ -37,9 +35,9 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="run" depends="compile" description="run the sample app">
-		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="handling_ade.ade_context.feature_visitor.ADEVisitor" fork="true">
+	<target name="simple" depends="compile" description="run the sample app">
+		<echo message="Running sample citygml4j application..." />
+		<java classname="validating_citygml.object_tree_validation.ObjectTreeValidation" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>

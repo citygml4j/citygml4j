@@ -17,13 +17,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="run">
-	<property name="citygml4j_lib" value="../../../../lib" />
-	<property name="ade_module_lib" value="../../../lib" />
+<project basedir="." default="binder">
+	<property name="lib" value="../../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
-		<fileset dir="${citygml4j_lib}" includes="*.jar" />
-		<fileset dir="${ade_module_lib}" includes="*.jar" />
+		<fileset dir="${lib}" includes="*.jar" />
 	</path>
 
 	<!--compile Java source files-->
@@ -37,9 +35,9 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="run" depends="compile" description="run the sample app">
+	<target name="binder" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="handling_ade.ade_context.feature_visitor.ADEVisitor" fork="true">
+		<java classname="handling_ade.generic.unmarshalling_ade_using_jaxb.UsingJAXBBinder" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -47,5 +45,8 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
+		<delete>
+			<fileset dir="." includes="*.gml"/>
+		</delete>
 	</target>
 </project>

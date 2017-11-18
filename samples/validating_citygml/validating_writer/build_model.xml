@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="simple">
+<project basedir="." default="model">
 	<property name="lib" value="../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
@@ -35,17 +35,9 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="simple" depends="compile" description="run the sample app">
+	<target name="model" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="validating_citygml.validating_reader.ValidatingSimpleReader" fork="true">
-			<classpath refid="classpath" />
-		</java>
-	</target>
-
-	<!-- run sample app -->
-	<target name="chunk" depends="compile" description="run the sample app">
-		<echo message="Running sample citygml4j application..." />
-		<java classname="validating_citygml.validating_reader.ValidatingChunkReader" fork="true">
+		<java classname="validating_citygml.validating_writer.ValidatingCityModelWriter" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -53,5 +45,8 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
+		<delete>
+			<fileset dir="." includes="*.gml"/>
+		</delete>
 	</target>
 </project>

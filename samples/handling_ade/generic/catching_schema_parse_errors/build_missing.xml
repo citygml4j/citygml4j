@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project basedir="." default="binder">
+<project basedir="." default="missing">
 	<property name="lib" value="../../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
@@ -35,17 +35,9 @@
 	</target>
 
 	<!-- run sample app -->
-	<target name="binder" depends="compile" description="run the sample app">
+	<target name="missing" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="handling_ade.generic.unmarshalling_ade_using_jaxb.UsingJAXBBinder" fork="true">
-			<classpath refid="classpath" />
-		</java>
-	</target>
-
-	<!-- run sample app -->
-	<target name="unmarshaller" depends="compile" description="run the sample app">
-		<echo message="Running the sample citygml4j ADE unmarshalling using JAXBUnmarshaller application..." />
-		<java classname="handling_ade.generic.unmarshalling_ade_using_jaxb.UsingJAXBUnmarshaller" fork="true">
+		<java classname="handling_ade.generic.catching_schema_parse_errors.MissingSchemaReference" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -54,7 +46,7 @@
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
 		<delete>
-			<fileset dir="." includes="*.gml"/>
+			<fileset dir="." includes="*.gml" />
 		</delete>
 	</target>
 </project>

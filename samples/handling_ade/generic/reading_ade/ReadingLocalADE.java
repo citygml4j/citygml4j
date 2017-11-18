@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
 
 import com.sun.xml.xsom.XSType;
 
-public class ReadingADE {
+public class ReadingLocalADE {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 

@@ -47,8 +47,5 @@
 	<!-- clean up -->
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
-		<delete>
-			<fileset dir="." includes="*.gml"/>
-		</delete>
 	</target>
 </project>
