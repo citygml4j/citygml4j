@@ -78,6 +78,7 @@ public class ReadingADE {
 		}
 
 		// step 3: create CityGMLBuilder which automatically supports the ADE modules
+		System.out.println(df.format(new Date()) + "creating CityGMLBuilder object");
 		CityGMLBuilder builder = context.createCityGMLBuilder();
 
 		// read an ADE-enriched dataset. There is no need for ADE-specific code.
