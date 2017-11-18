@@ -11,9 +11,9 @@ Note that releases of the software before version 2.3.0 continue to be licensed 
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.4.4.
+The latest stable release of citygml4j is 2.5.0.
 
-Download the citygml4j 2.4.4 release binariers [here](https://github.com/citygml4j/citygml4j/archive/v2.4.4.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.5.0 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.5.0/citygml4j-2.5.0.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
@@ -43,7 +43,7 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.4.4</version>
+  <version>2.5.0</version>
 </dependency>
 ```
 
@@ -51,7 +51,15 @@ Sample programs
 ---------------
 citygml4j provides a number of sample programs that demonstrate the use of the library. Download the library or build it from source with [Apache Ant](http://ant.apache.org/) as described above. This will deploy the sample programs in the `citygml4j-<version>/samples` folder.
 
-The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Ant `build.xml` files are provided to easily run the sample programs. Note that the `build.xml` files may contain more than just the default target.
+The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Ant build files are provided to easily run the sample programs. Note that a subfolder may contain more than just one sample program and, thus, more than one build file.
+
+To run a sample program, simply open a shell environment, change to the corresponding subfolder and invoke Ant with the following command:
+
+    % ant
+
+Ant will search for and execute the default build file `build.xml` in this case. If you want to make Ant use a specific build file, provide the filename as parameter:
+
+    % ant -f <buildfile.xml>
 
 More information
 ----------------
