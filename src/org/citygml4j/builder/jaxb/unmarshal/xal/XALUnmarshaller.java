@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.xal;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.model.module.xal.XALCoreModule;
@@ -138,96 +140,108 @@ import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
 import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 
 public class XALUnmarshaller {
-	private final TypeMapper<XAL> typeMapper;
-	
-	public XALUnmarshaller() {
-		typeMapper = TypeMapper.<XAL>create()
-				.with(AddressDetails.Address.class, this::unmarshalAddress)
-				.with(AddressDetails.class, this::unmarshalAddressDetails)
-				.with(AddressDetails.PostalServiceElements.AddressIdentifier.class, this::unmarshalAddressIdentifier)
-				.with(AddressDetails.PostalServiceElements.AddressLatitude.class, this::unmarshalAddressLatitude)
-				.with(AddressDetails.PostalServiceElements.AddressLatitudeDirection.class, this::unmarshalAddressLatitudeDirection)
-				.with(AddressLineElement.class, this::unmarshalAddressLine)
-				.with(AddressLinesType.class, this::unmarshalAddressLines)
-				.with(AddressDetails.PostalServiceElements.AddressLongitude.class, this::unmarshalAddressLongitude)
-				.with(AddressDetails.PostalServiceElements.AddressLongitudeDirection.class, this::unmarshalAddressLongitudeDirection)
-				.with(AdministrativeAreaElement.class, this::unmarshalAdministrativeArea)
-				.with(AdministrativeAreaElement.AdministrativeAreaName.class, this::unmarshalAdministrativeAreaName)
-				.with(AddressDetails.PostalServiceElements.Barcode.class, this::unmarshalBarcode)
-				.with(BuildingNameType.class, this::unmarshalBuildingName)
-				.with(AddressDetails.Country.class, this::unmarshalCountry)
-				.with(CountryNameElement.class, this::unmarshalCountryName)
-				.with(AddressDetails.Country.CountryNameCode.class, this::unmarshalCountryNameCode)
-				.with(DepartmentElement.class, this::unmarshalDepartment)
-				.with(DepartmentElement.DepartmentName.class, this::unmarshalDepartmentName)
-				.with(DependentLocalityType.class, this::unmarshalDependentLocality)
-				.with(DependentLocalityType.DependentLocalityName.class, this::unmarshalDependentLocalityName)
-				.with(DependentLocalityType.DependentLocalityNumber.class, this::unmarshalDependentLocalityNumber)
-				.with(ThoroughfareElement.DependentThoroughfare.class, this::unmarshalDependentThoroughfare)
-				.with(AddressDetails.PostalServiceElements.EndorsementLineCode.class, this::unmarshalEndorsementLineCode)
-				.with(FirmType.class, this::unmarshalFirm)
-				.with(FirmType.FirmName.class, this::unmarshalFirmName)
-				.with(AddressDetails.PostalServiceElements.KeyLineCode.class, this::unmarshalKeyLineCode)
-				.with(LargeMailUserType.class, this::unmarshalLargeMailUser)
-				.with(LargeMailUserType.LargeMailUserIdentifier.class, this::unmarshalLargeMailUserIdentifier)
-				.with(LargeMailUserType.LargeMailUserName.class, this::unmarshalLargeMailUserName)
-				.with(LocalityElement.class, this::unmarshalLocality)
-				.with(LocalityElement.LocalityName.class, this::unmarshalLocalityName)
-				.with(MailStopType.class, this::unmarshalMailStop)
-				.with(MailStopType.MailStopName.class, this::unmarshalMailStopName)
-				.with(MailStopType.MailStopNumber.class, this::unmarshalMailStopNumber)
-				.with(PostalCodeElement.class, this::unmarshalPostalCode)
-				.with(PostalCodeElement.PostalCodeNumber.class, this::unmarshalPostalCodeNumber)
-				.with(PostalCodeElement.PostalCodeNumberExtension.class, this::unmarshalPostalCodeNumberExtension)
-				.with(PostalRouteType.class, this::unmarshalPostalRoute)
-				.with(PostalRouteType.PostalRouteName.class, this::unmarshalPostalRouteName)
-				.with(PostalRouteType.PostalRouteNumber.class, this::unmarshalPostalRouteNumber)
-				.with(AddressDetails.PostalServiceElements.class, this::unmarshalPostalServiceElements)
-				.with(PostBoxElement.class, this::unmarshalPostBox)
-				.with(PostBoxElement.PostBoxNumber.class, this::unmarshalPostBoxNumber)
-				.with(PostBoxElement.PostBoxNumberExtension.class, this::unmarshalPostBoxNumberExtension)
-				.with(PostBoxElement.PostBoxNumberPrefix.class, this::unmarshalPostBoxNumberPrefix)
-				.with(PostBoxElement.PostBoxNumberSuffix.class, this::unmarshalPostBoxNumberSuffix)
-				.with(PostOfficeElement.class, this::unmarshalPostOffice)
-				.with(PostOfficeElement.PostOfficeName.class, this::unmarshalPostOfficeName)
-				.with(PostOfficeElement.PostOfficeNumber.class, this::unmarshalPostOfficeNumber)
-				.with(PostalCodeElement.PostTown.class, this::unmarshalPostTown)
-				.with(PostalCodeElement.PostTown.PostTownName.class, this::unmarshalPostTownName)
-				.with(PostalCodeElement.PostTown.PostTownSuffix.class, this::unmarshalPostTownSuffix)
-				.with(PremiseElement.class, this::unmarshalPremise)
-				.with(PremiseElement.PremiseLocation.class, this::unmarshalPremiseLocation)
-				.with(PremiseElement.PremiseName.class, this::unmarshalPremiseName)
-				.with(PremiseNumberElement.class, this::unmarshalPremiseNumber)
-				.with(PremiseNumberPrefixElement.class, this::unmarshalPremiseNumberPrefix)
-				.with(PremiseElement.PremiseNumberRange.class, this::unmarshalPremiseNumberRange)
-				.with(PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom.class, this::unmarshalPremiseNumberRangeFrom)
-				.with(PremiseElement.PremiseNumberRange.PremiseNumberRangeTo.class, this::unmarshalPremiseNumberRangeTo)
-				.with(PremiseNumberSuffixElement.class, this::unmarshalPremiseNumberSuffix)
-				.with(AddressDetails.PostalServiceElements.SortingCode.class, this::unmarshalSortingCode)
-				.with(AdministrativeAreaElement.SubAdministrativeArea.class, this::unmarshalSubAdministrativeArea)
-				.with(AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName.class, this::unmarshalSubAdministrativeAreaName)
-				.with(SubPremiseType.class, this::unmarshalSubPremise)
-				.with(SubPremiseType.SubPremiseLocation.class, this::unmarshalSubPremiseLocation)
-				.with(SubPremiseType.SubPremiseName.class, this::unmarshalSubPremiseName)
-				.with(SubPremiseType.SubPremiseNumber.class, this::unmarshalSubPremiseNumber)
-				.with(SubPremiseType.SubPremiseNumberPrefix.class, this::unmarshalSubPremiseNumberPrefix)
-				.with(SubPremiseType.SubPremiseNumberSuffix.class, this::unmarshalSubPremiseNumberSuffix)
-				.with(AddressDetails.PostalServiceElements.SupplementaryPostalServiceData.class, this::unmarshalSupplementaryPostalServiceData)
-				.with(ThoroughfareElement.class, this::unmarshalThoroughfare)
-				.with(ThoroughfareLeadingTypeType.class, this::unmarshalThoroughfareLeadingType)
-				.with(ThoroughfareNameType.class, this::unmarshalThoroughfareName)
-				.with(ThoroughfareNumberElement.class, this::unmarshalThoroughfareNumber)
-				.with(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom.class, this::unmarshalThoroughfareNumberFrom)
-				.with(ThoroughfareNumberPrefixElement.class, this::unmarshalThoroughfareNumberPrefix)
-				.with(ThoroughfareElement.ThoroughfareNumberRange.class, this::unmarshalThoroughfareNumberRange)
-				.with(ThoroughfareNumberSuffixElement.class, this::unmarshalThoroughfareNumberSuffix)
-				.with(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo.class, this::unmarshalThoroughfareNumberTo)
-				.with(ThoroughfarePostDirectionType.class, this::unmarshalThoroughfarePostDirection)
-				.with(ThoroughfarePreDirectionType.class, this::unmarshalThoroughfarePreDirection)
-				.with(ThoroughfareTrailingTypeType.class, this::unmarshalThoroughfareTrailingType)
-				.with(JAXBElement.class, this::unmarshal);
+	private final ReentrantLock lock = new ReentrantLock();
+	private TypeMapper<XAL> typeMapper;
+
+	private TypeMapper<XAL> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.<XAL>create()
+							.with(AddressDetails.Address.class, this::unmarshalAddress)
+							.with(AddressDetails.class, this::unmarshalAddressDetails)
+							.with(AddressDetails.PostalServiceElements.AddressIdentifier.class, this::unmarshalAddressIdentifier)
+							.with(AddressDetails.PostalServiceElements.AddressLatitude.class, this::unmarshalAddressLatitude)
+							.with(AddressDetails.PostalServiceElements.AddressLatitudeDirection.class, this::unmarshalAddressLatitudeDirection)
+							.with(AddressLineElement.class, this::unmarshalAddressLine)
+							.with(AddressLinesType.class, this::unmarshalAddressLines)
+							.with(AddressDetails.PostalServiceElements.AddressLongitude.class, this::unmarshalAddressLongitude)
+							.with(AddressDetails.PostalServiceElements.AddressLongitudeDirection.class, this::unmarshalAddressLongitudeDirection)
+							.with(AdministrativeAreaElement.class, this::unmarshalAdministrativeArea)
+							.with(AdministrativeAreaElement.AdministrativeAreaName.class, this::unmarshalAdministrativeAreaName)
+							.with(AddressDetails.PostalServiceElements.Barcode.class, this::unmarshalBarcode)
+							.with(BuildingNameType.class, this::unmarshalBuildingName)
+							.with(AddressDetails.Country.class, this::unmarshalCountry)
+							.with(CountryNameElement.class, this::unmarshalCountryName)
+							.with(AddressDetails.Country.CountryNameCode.class, this::unmarshalCountryNameCode)
+							.with(DepartmentElement.class, this::unmarshalDepartment)
+							.with(DepartmentElement.DepartmentName.class, this::unmarshalDepartmentName)
+							.with(DependentLocalityType.class, this::unmarshalDependentLocality)
+							.with(DependentLocalityType.DependentLocalityName.class, this::unmarshalDependentLocalityName)
+							.with(DependentLocalityType.DependentLocalityNumber.class, this::unmarshalDependentLocalityNumber)
+							.with(ThoroughfareElement.DependentThoroughfare.class, this::unmarshalDependentThoroughfare)
+							.with(AddressDetails.PostalServiceElements.EndorsementLineCode.class, this::unmarshalEndorsementLineCode)
+							.with(FirmType.class, this::unmarshalFirm)
+							.with(FirmType.FirmName.class, this::unmarshalFirmName)
+							.with(AddressDetails.PostalServiceElements.KeyLineCode.class, this::unmarshalKeyLineCode)
+							.with(LargeMailUserType.class, this::unmarshalLargeMailUser)
+							.with(LargeMailUserType.LargeMailUserIdentifier.class, this::unmarshalLargeMailUserIdentifier)
+							.with(LargeMailUserType.LargeMailUserName.class, this::unmarshalLargeMailUserName)
+							.with(LocalityElement.class, this::unmarshalLocality)
+							.with(LocalityElement.LocalityName.class, this::unmarshalLocalityName)
+							.with(MailStopType.class, this::unmarshalMailStop)
+							.with(MailStopType.MailStopName.class, this::unmarshalMailStopName)
+							.with(MailStopType.MailStopNumber.class, this::unmarshalMailStopNumber)
+							.with(PostalCodeElement.class, this::unmarshalPostalCode)
+							.with(PostalCodeElement.PostalCodeNumber.class, this::unmarshalPostalCodeNumber)
+							.with(PostalCodeElement.PostalCodeNumberExtension.class, this::unmarshalPostalCodeNumberExtension)
+							.with(PostalRouteType.class, this::unmarshalPostalRoute)
+							.with(PostalRouteType.PostalRouteName.class, this::unmarshalPostalRouteName)
+							.with(PostalRouteType.PostalRouteNumber.class, this::unmarshalPostalRouteNumber)
+							.with(AddressDetails.PostalServiceElements.class, this::unmarshalPostalServiceElements)
+							.with(PostBoxElement.class, this::unmarshalPostBox)
+							.with(PostBoxElement.PostBoxNumber.class, this::unmarshalPostBoxNumber)
+							.with(PostBoxElement.PostBoxNumberExtension.class, this::unmarshalPostBoxNumberExtension)
+							.with(PostBoxElement.PostBoxNumberPrefix.class, this::unmarshalPostBoxNumberPrefix)
+							.with(PostBoxElement.PostBoxNumberSuffix.class, this::unmarshalPostBoxNumberSuffix)
+							.with(PostOfficeElement.class, this::unmarshalPostOffice)
+							.with(PostOfficeElement.PostOfficeName.class, this::unmarshalPostOfficeName)
+							.with(PostOfficeElement.PostOfficeNumber.class, this::unmarshalPostOfficeNumber)
+							.with(PostalCodeElement.PostTown.class, this::unmarshalPostTown)
+							.with(PostalCodeElement.PostTown.PostTownName.class, this::unmarshalPostTownName)
+							.with(PostalCodeElement.PostTown.PostTownSuffix.class, this::unmarshalPostTownSuffix)
+							.with(PremiseElement.class, this::unmarshalPremise)
+							.with(PremiseElement.PremiseLocation.class, this::unmarshalPremiseLocation)
+							.with(PremiseElement.PremiseName.class, this::unmarshalPremiseName)
+							.with(PremiseNumberElement.class, this::unmarshalPremiseNumber)
+							.with(PremiseNumberPrefixElement.class, this::unmarshalPremiseNumberPrefix)
+							.with(PremiseElement.PremiseNumberRange.class, this::unmarshalPremiseNumberRange)
+							.with(PremiseElement.PremiseNumberRange.PremiseNumberRangeFrom.class, this::unmarshalPremiseNumberRangeFrom)
+							.with(PremiseElement.PremiseNumberRange.PremiseNumberRangeTo.class, this::unmarshalPremiseNumberRangeTo)
+							.with(PremiseNumberSuffixElement.class, this::unmarshalPremiseNumberSuffix)
+							.with(AddressDetails.PostalServiceElements.SortingCode.class, this::unmarshalSortingCode)
+							.with(AdministrativeAreaElement.SubAdministrativeArea.class, this::unmarshalSubAdministrativeArea)
+							.with(AdministrativeAreaElement.SubAdministrativeArea.SubAdministrativeAreaName.class, this::unmarshalSubAdministrativeAreaName)
+							.with(SubPremiseType.class, this::unmarshalSubPremise)
+							.with(SubPremiseType.SubPremiseLocation.class, this::unmarshalSubPremiseLocation)
+							.with(SubPremiseType.SubPremiseName.class, this::unmarshalSubPremiseName)
+							.with(SubPremiseType.SubPremiseNumber.class, this::unmarshalSubPremiseNumber)
+							.with(SubPremiseType.SubPremiseNumberPrefix.class, this::unmarshalSubPremiseNumberPrefix)
+							.with(SubPremiseType.SubPremiseNumberSuffix.class, this::unmarshalSubPremiseNumberSuffix)
+							.with(AddressDetails.PostalServiceElements.SupplementaryPostalServiceData.class, this::unmarshalSupplementaryPostalServiceData)
+							.with(ThoroughfareElement.class, this::unmarshalThoroughfare)
+							.with(ThoroughfareLeadingTypeType.class, this::unmarshalThoroughfareLeadingType)
+							.with(ThoroughfareNameType.class, this::unmarshalThoroughfareName)
+							.with(ThoroughfareNumberElement.class, this::unmarshalThoroughfareNumber)
+							.with(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberFrom.class, this::unmarshalThoroughfareNumberFrom)
+							.with(ThoroughfareNumberPrefixElement.class, this::unmarshalThoroughfareNumberPrefix)
+							.with(ThoroughfareElement.ThoroughfareNumberRange.class, this::unmarshalThoroughfareNumberRange)
+							.with(ThoroughfareNumberSuffixElement.class, this::unmarshalThoroughfareNumberSuffix)
+							.with(ThoroughfareElement.ThoroughfareNumberRange.ThoroughfareNumberTo.class, this::unmarshalThoroughfareNumberTo)
+							.with(ThoroughfarePostDirectionType.class, this::unmarshalThoroughfarePostDirection)
+							.with(ThoroughfarePreDirectionType.class, this::unmarshalThoroughfarePreDirection)
+							.with(ThoroughfareTrailingTypeType.class, this::unmarshalThoroughfareTrailingType)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
-	
+
 	public XAL unmarshal(JAXBElement<?> src) {
 		if (src.getName().getNamespaceURI().equals(XALCoreModule.v2_0.getNamespaceURI()))
 			return unmarshal(src.getValue());
@@ -236,7 +250,7 @@ public class XALUnmarshaller {
 	}
 
 	public XAL unmarshal(Object src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public Address unmarshalAddress(AddressDetails.Address src) {

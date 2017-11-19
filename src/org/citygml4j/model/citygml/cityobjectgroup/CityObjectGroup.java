@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -38,7 +39,6 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class CityObjectGroup extends AbstractCityObject implements CityObjectGroupModuleComponent, StandardObjectClassifier {
@@ -282,10 +282,9 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		}
 		
 		if (isSetGenericApplicationPropertyOfCityObjectGroup()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfCityObjectGroup()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		
@@ -301,7 +300,7 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		
 		if (isSetGeometry()) {
 			for (int lod = 0; lod < 5; lod++)
-				lodRepresentation.getLodGeometry(lod).add(geometry);
+				lodRepresentation.addRepresentation(lod, geometry);
 		}
 		
 		return lodRepresentation;

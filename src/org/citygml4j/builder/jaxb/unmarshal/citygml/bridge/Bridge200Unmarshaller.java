@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.bridge;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -96,43 +98,57 @@ import net.opengis.citygml.bridge._2.WindowType;
 import net.opengis.gml.CodeType;
 
 public class Bridge200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final BridgeModule module = BridgeModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
-	
+	private CheckedTypeMapper<CityGML> typeMapper;
+
 	public Bridge200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
-				.with(BridgeType.class, this::unmarshalBridge)
-				.with(BridgeConstructionElementType.class, this::unmarshalBridgeConstructionElement)
-				.with(BridgeConstructionElementPropertyType.class, this::unmarshalBridgeConstructionElementProperty)
-				.with(BridgeFurnitureType.class, this::unmarshalBridgeFurniture)
-				.with(BridgeInstallationType.class, this::unmarshalBridgeInstallation)
-				.with(BridgeInstallationPropertyType.class, this::unmarshalBridgeInstallationProperty)
-				.with(BridgePartType.class, this::unmarshalBridgePart)
-				.with(BridgePartPropertyType.class, this::unmarshalBridgePartProperty)
-				.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
-				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
-				.with(DoorType.class, this::unmarshalDoor)
-				.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
-				.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
-				.with(IntBridgeInstallationType.class, this::unmarshalIntBridgeInstallation)
-				.with(IntBridgeInstallationPropertyType.class, this::unmarshalIntBridgeInstallationProperty)
-				.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
-				.with(InteriorBridgeRoomPropertyType.class, this::unmarshalInteriorBridgeRoomProperty)
-				.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
-				.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
-				.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
-				.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
-				.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
-				.with(BridgeRoomType.class, this::unmarshalBridgeRoom)
-				.with(WallSurfaceType.class, this::unmarshalWallSurface)
-				.with(WindowType.class, this::unmarshalWindow)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
+							.with(BridgeType.class, this::unmarshalBridge)
+							.with(BridgeConstructionElementType.class, this::unmarshalBridgeConstructionElement)
+							.with(BridgeConstructionElementPropertyType.class, this::unmarshalBridgeConstructionElementProperty)
+							.with(BridgeFurnitureType.class, this::unmarshalBridgeFurniture)
+							.with(BridgeInstallationType.class, this::unmarshalBridgeInstallation)
+							.with(BridgeInstallationPropertyType.class, this::unmarshalBridgeInstallationProperty)
+							.with(BridgePartType.class, this::unmarshalBridgePart)
+							.with(BridgePartPropertyType.class, this::unmarshalBridgePartProperty)
+							.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
+							.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
+							.with(DoorType.class, this::unmarshalDoor)
+							.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
+							.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
+							.with(IntBridgeInstallationType.class, this::unmarshalIntBridgeInstallation)
+							.with(IntBridgeInstallationPropertyType.class, this::unmarshalIntBridgeInstallationProperty)
+							.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
+							.with(InteriorBridgeRoomPropertyType.class, this::unmarshalInteriorBridgeRoomProperty)
+							.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
+							.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
+							.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
+							.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
+							.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
+							.with(BridgeRoomType.class, this::unmarshalBridgeRoom)
+							.with(WallSurfaceType.class, this::unmarshalWallSurface)
+							.with(WindowType.class, this::unmarshalWindow)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -140,12 +156,12 @@ public class Bridge200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractBridge(AbstractBridgeType src, AbstractBridge dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractSite(src, dest);
-		
+
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
 
@@ -158,96 +174,96 @@ public class Bridge200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetYearOfConstruction())
 			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar());
-		
+
 		if (src.isSetYearOfDemolition())
 			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
-		
+
 		if (src.isSetIsMovable())
 			dest.setIsMovable(src.isIsMovable());
-				
+
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod1Solid()));
-		
+
 		if (src.isSetLod2Solid())
 			dest.setLod2Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod2Solid()));
-		
+
 		if (src.isSetLod3Solid())
 			dest.setLod3Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod3Solid()));
-		
+
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod4Solid()));
-		
+
 		if (src.isSetLod1MultiSurface())
 			dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
-		
+
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
-		
+
 		if (src.isSetLod3MultiSurface())
 			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
-		
+
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
+
 		if (src.isSetLod1TerrainIntersection())
 			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
-		
+
 		if (src.isSetLod2TerrainIntersection())
 			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
-		
+
 		if (src.isSetLod3TerrainIntersection())
 			dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3TerrainIntersection()));
-		
+
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
-		
+
 		if (src.isSetLod2MultiCurve())
 			dest.setLod2MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2MultiCurve()));
-		
+
 		if (src.isSetLod3MultiCurve())
 			dest.setLod3MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3MultiCurve()));
-		
+
 		if (src.isSetLod4MultiCurve())
 			dest.setLod4MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4MultiCurve()));	
-		
+
 		if (src.isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationPropertyType bridgeInstallationProperty : src.getOuterBridgeInstallation())
 				dest.addOuterBridgeInstallation(unmarshalBridgeInstallationProperty(bridgeInstallationProperty));
 		}
-		
+
 		if (src.isSetOuterBridgeConstruction()) {
 			for (BridgeConstructionElementPropertyType bridgeConstructionElementProperty : src.getOuterBridgeConstruction())
 				dest.addOuterBridgeConstructionElement(unmarshalBridgeConstructionElementProperty(bridgeConstructionElementProperty));
 		}
-		
+
 		if (src.isSetInteriorBridgeInstallation()) {
 			for (IntBridgeInstallationPropertyType intBridgeInstallationProperty : src.getInteriorBridgeInstallation())
 				dest.addInteriorBridgeInstallation(unmarshalIntBridgeInstallationProperty(intBridgeInstallationProperty));
 		}
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSetConsistsOfBridgePart()) {
 			for (BridgePartPropertyType bridgePartProperty : src.getConsistsOfBridgePart())
 				dest.addConsistsOfBridgePart(unmarshalBridgePartProperty(bridgePartProperty));
 		}
-		
+
 		if (src.isSetInteriorBridgeRoom()) {
 			for (InteriorBridgeRoomPropertyType interiorBridgeRoomProperty : src.getInteriorBridgeRoom())
 				dest.addInteriorBridgeRoom(unmarshalInteriorBridgeRoomProperty(interiorBridgeRoomProperty));
 		}
-		
+
 		if (src.isSetAddress()) {
 			for (AddressPropertyType addressProperty : src.getAddress())
 				dest.addAddress(citygml.getCore200Unmarshaller().unmarshalAddressProperty(addressProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfAbstractBridge()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAbstractBridge()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -256,7 +272,7 @@ public class Bridge200Unmarshaller {
 			}
 		}
 	}
-	
+
 	public void unmarshalAbstractBoundarySurface(AbstractBoundarySurfaceType src, AbstractBoundarySurface dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -273,7 +289,7 @@ public class Bridge200Unmarshaller {
 			for (OpeningPropertyType openingProperty : src.getOpening())
 				dest.addOpening(unmarshalOpeningProperty(openingProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBoundarySurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBoundarySurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -282,7 +298,7 @@ public class Bridge200Unmarshaller {
 			}
 		}
 	}
-	
+
 	public void unmarshalAbstractOpening(AbstractOpeningType src, AbstractOpening dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -297,7 +313,7 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfOpening()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOpening()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -315,7 +331,7 @@ public class Bridge200Unmarshaller {
 			if (object instanceof AbstractBoundarySurface)
 				dest.setObject((AbstractBoundarySurface)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -342,13 +358,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalBridge(BridgeType src, Bridge dest) throws MissingADESchemaException {
 		unmarshalAbstractBridge(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBridge()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBridge()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -364,7 +380,7 @@ public class Bridge200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalBridgeConstructionElement(BridgeConstructionElementType src, BridgeConstructionElement dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -380,7 +396,7 @@ public class Bridge200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetLod1Geometry())
 			dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
 
@@ -407,13 +423,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetLod1TerrainIntersection())
 			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
-		
+
 		if (src.isSetLod2TerrainIntersection())
 			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
-		
+
 		if (src.isSetLod3TerrainIntersection())
 			dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3TerrainIntersection()));
-		
+
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 
@@ -421,7 +437,7 @@ public class Bridge200Unmarshaller {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBridgeConstructionElement()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBridgeConstructionElement()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -430,14 +446,14 @@ public class Bridge200Unmarshaller {
 			}
 		}
 	}
-	
+
 	public BridgeConstructionElement unmarshalBridgeConstructionElement(BridgeConstructionElementType src) throws MissingADESchemaException {
 		BridgeConstructionElement dest = new BridgeConstructionElement(module);
 		unmarshalBridgeConstructionElement(src, dest);
-		
+
 		return dest;
 	}
-	
+
 	public BridgeConstructionElementProperty unmarshalBridgeConstructionElementProperty(BridgeConstructionElementPropertyType src) throws MissingADESchemaException {
 		BridgeConstructionElementProperty dest = new BridgeConstructionElementProperty(module);
 
@@ -446,7 +462,7 @@ public class Bridge200Unmarshaller {
 			if (object instanceof BridgeConstructionElement)
 				dest.setBridgeConstructionElement((BridgeConstructionElement)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -473,10 +489,10 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-			
+
 		return dest;
 	}
-	
+
 	public void unmarshalBridgeFurniture(BridgeFurnitureType src, BridgeFurniture dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -498,7 +514,7 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBridgeFurniture()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBridgeFurniture()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -553,7 +569,7 @@ public class Bridge200Unmarshaller {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBridgeInstallation()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBridgeInstallation()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -572,7 +588,7 @@ public class Bridge200Unmarshaller {
 
 	public BridgeInstallationProperty unmarshalBridgeInstallationProperty(BridgeInstallationPropertyType src) throws MissingADESchemaException {
 		BridgeInstallationProperty dest = new BridgeInstallationProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof BridgeInstallation)
@@ -605,13 +621,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-			
+
 		return dest;
 	}
 
 	public void unmarshalBridgePart(BridgePartType src, BridgePart dest) throws MissingADESchemaException {
 		unmarshalAbstractBridge(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBridgePart()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBridgePart()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -630,7 +646,7 @@ public class Bridge200Unmarshaller {
 
 	public BridgePartProperty unmarshalBridgePartProperty(BridgePartPropertyType src) throws MissingADESchemaException {
 		BridgePartProperty dest = new BridgePartProperty(module);
-		
+
 		if (src.isSet_AbstractBridge()) {
 			ModelObject object = jaxb.unmarshal(src.get_AbstractBridge());
 			if (object instanceof BridgePart)
@@ -663,10 +679,10 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
-	
+
 	public void unmarshalBridgeRoom(BridgeRoomType src, BridgeRoom dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -682,28 +698,28 @@ public class Bridge200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod4Solid()));
-		
+
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSetInteriorFurniture()) {
 			for (InteriorFurniturePropertyType interiorFurnitureProperty : src.getInteriorFurniture())
 				dest.addInteriorFurniture(unmarshalInteriorFurnitureProperty(interiorFurnitureProperty));
 		}
-		
+
 		if (src.isSetBridgeRoomInstallation()) {
 			for (IntBridgeInstallationPropertyType intBridgeInstallationProperty : src.getBridgeRoomInstallation())
 				dest.addBridgeRoomInstallation(unmarshalIntBridgeInstallationProperty(intBridgeInstallationProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBridgeRoom()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBridgeRoom()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -722,7 +738,7 @@ public class Bridge200Unmarshaller {
 
 	public void unmarshalCeilingSurface(CeilingSurfaceType src, CeilingSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfCeilingSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCeilingSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -741,7 +757,7 @@ public class Bridge200Unmarshaller {
 
 	public void unmarshalClosureSurface(ClosureSurfaceType src, ClosureSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfClosureSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfClosureSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -765,7 +781,7 @@ public class Bridge200Unmarshaller {
 			for (AddressPropertyType addressProperty : src.getAddress())
 				dest.addAddress(citygml.getCore200Unmarshaller().unmarshalAddressProperty(addressProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfDoor()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfDoor()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -784,7 +800,7 @@ public class Bridge200Unmarshaller {
 
 	public void unmarshalFloorSurface(FloorSurfaceType src, FloorSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfFloorSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfFloorSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -803,7 +819,7 @@ public class Bridge200Unmarshaller {
 
 	public void unmarshalGroundSurface(GroundSurfaceType src, GroundSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfGroundSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfGroundSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -835,10 +851,10 @@ public class Bridge200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
-		
+
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));	
 
@@ -846,7 +862,7 @@ public class Bridge200Unmarshaller {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfIntBridgeInstallation()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfIntBridgeInstallation()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -865,7 +881,7 @@ public class Bridge200Unmarshaller {
 
 	public IntBridgeInstallationProperty unmarshalIntBridgeInstallationProperty(IntBridgeInstallationPropertyType src) throws MissingADESchemaException {
 		IntBridgeInstallationProperty dest = new IntBridgeInstallationProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof IntBridgeInstallation)
@@ -898,13 +914,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public InteriorFurnitureProperty unmarshalInteriorFurnitureProperty(InteriorFurniturePropertyType src) throws MissingADESchemaException {
 		InteriorFurnitureProperty dest = new InteriorFurnitureProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof BridgeFurniture)
@@ -937,13 +953,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public InteriorBridgeRoomProperty unmarshalInteriorBridgeRoomProperty(InteriorBridgeRoomPropertyType src) throws MissingADESchemaException {
 		InteriorBridgeRoomProperty dest = new InteriorBridgeRoomProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof BridgeRoom)
@@ -976,13 +992,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalInteriorWallSurface(InteriorWallSurfaceType src, InteriorWallSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfInteriorWallSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfInteriorWallSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -998,10 +1014,10 @@ public class Bridge200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalOuterCeilingSurface(OuterCeilingSurfaceType src, OuterCeilingSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfOuterCeilingSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOuterCeilingSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -1017,10 +1033,10 @@ public class Bridge200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalOuterFloorSurface(OuterFloorSurfaceType src, OuterFloorSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfOuterFloorSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOuterFloorSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -1045,7 +1061,7 @@ public class Bridge200Unmarshaller {
 			if (object instanceof AbstractOpening)
 				dest.setObject((AbstractOpening)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -1072,13 +1088,13 @@ public class Bridge200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalRoofSurface(RoofSurfaceType src, RoofSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfRoofSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRoofSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -1097,7 +1113,7 @@ public class Bridge200Unmarshaller {
 
 	public void unmarshalWallSurface(WallSurfaceType src, WallSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWallSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWallSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -1116,7 +1132,7 @@ public class Bridge200Unmarshaller {
 
 	public void unmarshalWindow(WindowType src, Window dest) throws MissingADESchemaException {
 		unmarshalAbstractOpening(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWindow()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWindow()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -1132,11 +1148,11 @@ public class Bridge200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof AbstractBridge && name.equals("_GenericApplicationPropertyOfAbstractBridge"))
 			((AbstractBridge)dest).addGenericApplicationPropertyOfAbstractBridge(genericProperty);
 		else if (dest instanceof Bridge && name.equals("_GenericApplicationPropertyOfBridge"))
@@ -1181,8 +1197,8 @@ public class Bridge200Unmarshaller {
 			((BridgeRoom)dest).addGenericApplicationPropertyOfBridgeRoom(genericProperty);		
 		else 
 			success = false;
-		
+
 		return success;
 	}
-	
+
 }

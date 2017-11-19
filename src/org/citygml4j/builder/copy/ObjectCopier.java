@@ -25,7 +25,11 @@ import org.citygml4j.model.common.child.Child;
 
 public class ObjectCopier {
 	
-	public <T> T copyTo(T source, T target, CopyBuilder copyBuilder) {
+	private ObjectCopier() {
+		// just to thwart instantiation
+	}
+	
+	public static <T> T copyTo(T source, T target, CopyBuilder copyBuilder) {
 		ModelObject tmp = null;
 		if (copyBuilder instanceof DeepCopyBuilder && target instanceof ModelObject) {
 			DeepCopyBuilder deepCopyBuilder = (DeepCopyBuilder)copyBuilder;

@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
@@ -39,7 +40,6 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.TunnelModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class TunnelFurniture extends AbstractCityObject implements TunnelModuleComponent, StandardObjectClassifier {
@@ -239,13 +239,12 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 		}	
 		
 		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
-			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox());
+			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		
 		if (isSetGenericApplicationPropertyOfTunnelFurniture()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfTunnelFurniture()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 
@@ -259,14 +258,11 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
-		if (isSetLod4Geometry())
-			lodRepresentation.getLod4Geometry().add(lod4Geometry);
+		if (lod4Geometry != null)
+			lodRepresentation.addRepresentation(4, lod4Geometry);
 		
-		if (lod4ImplicitRepresentation != null && 
-				lod4ImplicitRepresentation.isSetImplicitGeometry() &&
-				lod4ImplicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-			lodRepresentation.getLod4Geometry().add(lod4ImplicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry());
-		}
+		if (lod4ImplicitRepresentation != null)
+			lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
 		
 		return lodRepresentation;
 	}

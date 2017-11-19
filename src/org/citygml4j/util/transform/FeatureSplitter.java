@@ -26,9 +26,7 @@ import java.util.Set;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
-import org.citygml4j.model.citygml.ade.binding.ADEWalker;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.common.base.ModelObject;
@@ -93,30 +91,6 @@ public class FeatureSplitter {
 
 	public SchemaHandler getSchemaHandler() {
 		return splitter.getSchemaHandler();
-	}
-
-	public FeatureSplitter useADEWalker(ADEWalker<FeatureWalker> walker) {
-		splitter.useADEWalker(walker);
-		return this;
-	}
-
-	public FeatureSplitter useADEWalkers(List<ADEWalker<FeatureWalker>> walkers) {
-		for (ADEWalker<FeatureWalker> walker : walkers)
-			splitter.useADEWalker(walker);
-
-		return this;
-	}
-
-	public FeatureSplitter useADEContext(ADEContext context) {
-		splitter.useADEWalker(context.createDefaultFeatureWalker());
-		return this;
-	}
-
-	public FeatureSplitter useADEContexts(List<ADEContext> contexts) {
-		for (ADEContext context : contexts)
-			splitter.useADEWalker(context.createDefaultFeatureWalker());
-
-		return this;
 	}
 
 	public FeatureSplitter setGMLIdManager(GMLIdManager gmlIdManager) {

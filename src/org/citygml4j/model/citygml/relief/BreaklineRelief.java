@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.common.child.ChildList;
@@ -32,11 +33,8 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class BreaklineRelief extends AbstractReliefComponent {
@@ -138,7 +136,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 		BoundingShape boundedBy = super.calcBoundedBy(options);
 		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
 			return boundedBy;
-		
+
 		if (isSetBreaklines()) {
 			if (breaklines.isSetMultiCurve()) {
 				boundedBy.updateEnvelope(breaklines.getMultiCurve().calcBoundingBox());
@@ -154,18 +152,17 @@ public class BreaklineRelief extends AbstractReliefComponent {
 				// xlink
 			}
 		}
-		
+
 		if (isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfBreaklineRelief()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 
 		if (options.isAssignResultToFeatures())
 			setBoundedBy(boundedBy);
-		
+
 		return boundedBy;
 	}
 
@@ -173,14 +170,11 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		List<GeometryProperty<? extends AbstractGeometry>> propertyList = lodRepresentation.getLodGeometry(getLod());
-		if (propertyList != null) {
-			if (isSetRidgeOrValleyLines())
-				propertyList.add(ridgeOrValleyLines);
+		if (ridgeOrValleyLines != null)
+			lodRepresentation.addRepresentation(getLod(), ridgeOrValleyLines);
 
-			if (isSetBreaklines())
-				propertyList.add(breaklines);
-		}
+		if (breaklines != null)
+			lodRepresentation.addRepresentation(getLod(), breaklines);
 
 		return lodRepresentation;
 	}

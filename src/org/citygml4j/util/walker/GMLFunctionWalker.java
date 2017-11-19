@@ -21,6 +21,7 @@ package org.citygml4j.util.walker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -202,18 +203,23 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	protected ADEWalkerHelper<GMLFunctionWalker<T>> adeWalkerHelper;
 
 	public GMLFunctionWalker() {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts())
+				useADEWalker(adeContext.createDefaultGMLFunctionWalker());
+		}
 	}
 
-	public GMLFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
+	public final GMLFunctionWalker<T> setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public SchemaHandler getSchemaHandler() {
+	public final SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
 
-	public GMLFunctionWalker<T> useADEWalker(ADEWalker<GMLFunctionWalker<T>> walker) {
+	public final GMLFunctionWalker<T> useADEWalker(ADEWalker<GMLFunctionWalker<T>> walker) {
 		if (walker != null) {
 			if (adeWalkerHelper == null) {
 				adeWalkerHelper = new ADEWalkerHelper<>();
@@ -226,35 +232,22 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return this;
 	}
-
-	public GMLFunctionWalker<T> useADEWalkers(List<ADEWalker<GMLFunctionWalker<T>>> walkers) {
+	
+	@SafeVarargs
+	public final GMLFunctionWalker<T> useADEWalkers(ADEWalker<GMLFunctionWalker<T>>... walkers) {
 		for (ADEWalker<GMLFunctionWalker<T>> walker : walkers)
 			useADEWalker(walker);
 
 		return this;
 	}
-
-	public GMLFunctionWalker<T> useADEContext(ADEContext context) {
-		useADEWalker(context.createDefaultGMLFunctionWalker());
-		return this;
-	}
-
-	public GMLFunctionWalker<T> useADEContexts(List<ADEContext> contexts) {
-		for (ADEContext context : contexts)
-			useADEWalker(context.createDefaultGMLFunctionWalker());
-
-		return this;
-	}
-
+	
 	public T apply(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {
-				if (lodRepresentation.isSetLodGeometry(lod)) {
-					for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod)) {
-						T object = apply(geometryProperty);
-						if (object != null)
-							return object;
-					}
+				for (AssociationByRepOrRef<? extends AbstractGML> property : lodRepresentation.getRepresentation(lod)) {
+					T object = apply(property);
+					if (object != null)
+						return object;
 				}
 			}
 		}
@@ -415,7 +408,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(MultiGeometry multiGeometry) {
 		T object = apply((AbstractGeometricAggregate)multiGeometry);
 		if (object != null)
@@ -679,13 +672,13 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	public T apply(TriangulatedSurface triangulatedSurface) {
 		return apply((Surface)triangulatedSurface);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	public T apply(org.citygml4j.model.citygml.bridge.AbstractBoundarySurface abstractBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractBoundarySurface);
 		if (object != null)
@@ -727,7 +720,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.building.AbstractBoundarySurface abstractBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractBoundarySurface);
 		if (object != null)
@@ -769,7 +762,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface abstractBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractBoundarySurface);
 		if (object != null)
@@ -811,7 +804,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractBridge abstractBridge) {
 		T object = apply((AbstractSite)abstractBridge);
 		if (object != null)
@@ -824,7 +817,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		if (abstractBridge.isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationProperty bridgeInstallationProperty : new ArrayList<BridgeInstallationProperty>(abstractBridge.getOuterBridgeInstallation())) {
 				object = apply(bridgeInstallationProperty);
@@ -973,7 +966,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractBuilding abstractBuilding) {
 		T object = apply((AbstractSite)abstractBuilding);
 		if (object != null)
@@ -1092,13 +1085,13 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractBuilding.isSetLod0FootPrint()) {
 			object = apply(abstractBuilding.getLod0FootPrint());
 			if (object != null)
 				return object;		
 		}
-		
+
 		if (abstractBuilding.isSetLod0RoofEdge()) {
 			object = apply(abstractBuilding.getLod0RoofEdge());
 			if (object != null)
@@ -1139,7 +1132,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractCityObject abstractCityObject) {
 		T object = apply((AbstractFeature)abstractCityObject);
 		if (object != null)
@@ -1171,7 +1164,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractCoverage abstractCoverage) {
 		T object = apply((AbstractFeature)abstractCoverage);
 		if (object != null)
@@ -1212,7 +1205,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	public T apply(AbstractDiscreteCoverage abstractDiscreteCoverage) {
 		return apply((AbstractCoverage)abstractDiscreteCoverage);
 	}
-	
+
 	public T apply(AbstractFeature abstractFeature) {
 		T object = apply((AbstractGML)abstractFeature);
 		if (object != null)
@@ -1234,7 +1227,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractFeatureCollection abstractFeatureCollection) {
 		T object = apply((AbstractFeature)abstractFeatureCollection);
 		if (object != null)
@@ -1253,7 +1246,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.bridge.AbstractOpening abstractOpening) {
 		T object = apply((AbstractCityObject)abstractOpening);
 		if (object != null)
@@ -1270,13 +1263,13 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractOpening.isSetLod3ImplicitRepresentation()) {
 			object = apply(abstractOpening.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractOpening.isSetLod4ImplicitRepresentation()) {
 			object = apply(abstractOpening.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -1293,7 +1286,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.building.AbstractOpening abstractOpening) {
 		T object = apply((AbstractCityObject)abstractOpening);
 		if (object != null)
@@ -1310,13 +1303,13 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractOpening.isSetLod3ImplicitRepresentation()) {
 			object = apply(abstractOpening.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractOpening.isSetLod4ImplicitRepresentation()) {
 			object = apply(abstractOpening.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -1333,7 +1326,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractReliefComponent abstractReliefComponent) {
 		T object = apply((AbstractCityObject)abstractReliefComponent);
 		if (object != null)
@@ -1355,7 +1348,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(org.citygml4j.model.citygml.tunnel.AbstractOpening abstractOpening) {
 		T object = apply((AbstractCityObject)abstractOpening);
 		if (object != null)
@@ -1372,13 +1365,13 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractOpening.isSetLod3ImplicitRepresentation()) {
 			object = apply(abstractOpening.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractOpening.isSetLod4ImplicitRepresentation()) {
 			object = apply(abstractOpening.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -1395,7 +1388,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractSite abstractSite) {
 		T object = apply((AbstractCityObject)abstractSite);
 		if (object != null)
@@ -1411,7 +1404,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractSurfaceData abstractSurfaceData) {
 		T object = apply((AbstractFeature)abstractSurfaceData);
 		if (object != null)
@@ -1427,7 +1420,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTexture abstractTexture) {
 		T object = apply((AbstractSurfaceData)abstractTexture);
 		if (object != null)
@@ -1443,7 +1436,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTextureParameterization abstractTextureParameterization) {
 		T object = apply((AbstractGML)abstractTextureParameterization);
 		if (object != null)
@@ -1467,7 +1460,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTransportationObject abstractTransportationObject) {
 		T object = apply((AbstractCityObject)abstractTransportationObject);
 		if (object != null)
@@ -1483,7 +1476,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractTunnel abstractTunnel) {
 		T object = apply((AbstractSite)abstractTunnel);
 		if (object != null)
@@ -1594,7 +1587,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (abstractTunnel.isSetLod1MultiSurface()) {
 			object = apply(abstractTunnel.getLod1MultiSurface());
 			if (object != null)
@@ -1629,7 +1622,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractVegetationObject abstractVegetationObject) {
 		T object = apply((AbstractCityObject)abstractVegetationObject);
 		if (object != null)
@@ -1645,7 +1638,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
 		T object = apply((AbstractCityObject)abstractWaterBoundarySurface);
 		if (object != null)
@@ -1679,7 +1672,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
+
 	public T apply(AbstractWaterObject abstractWaterObject) {
 		T object = apply((AbstractCityObject)abstractWaterObject);
 		if (object != null)
@@ -1695,19 +1688,19 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public T apply(Appearance appearance) {
 		T object = apply((AbstractFeature)appearance);
@@ -1728,7 +1721,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1750,7 +1743,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1774,7 +1767,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1806,7 +1799,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1814,7 +1807,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)bridgeConstructionElement);
 		if (object != null)
 			return object;
-		
+
 		if (bridgeConstructionElement.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeConstructionElement.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -1828,7 +1821,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod2Geometry()) {
 			object = apply(bridgeConstructionElement.getLod2Geometry());
 			if (object != null)
@@ -1840,37 +1833,37 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod4Geometry()) {
 			object = apply(bridgeConstructionElement.getLod4Geometry());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod1ImplicitRepresentation()) {
 			object = apply(bridgeConstructionElement.getLod1ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod2ImplicitRepresentation()) {
 			object = apply(bridgeConstructionElement.getLod2ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod3ImplicitRepresentation()) {
 			object = apply(bridgeConstructionElement.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod4ImplicitRepresentation()) {
 			object = apply(bridgeConstructionElement.getLod4ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeConstructionElement.isSetLod1TerrainIntersection()) {
 			object = apply(bridgeConstructionElement.getLod1TerrainIntersection());
 			if (object != null)
@@ -1902,7 +1895,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1930,7 +1923,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -1938,7 +1931,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)bridgeInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (bridgeInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(bridgeInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -1958,25 +1951,25 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeInstallation.isSetLod4Geometry()) {
 			object = apply(bridgeInstallation.getLod4Geometry());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeInstallation.isSetLod2ImplicitRepresentation()) {
 			object = apply(bridgeInstallation.getLod2ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeInstallation.isSetLod3ImplicitRepresentation()) {
 			object = apply(bridgeInstallation.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (bridgeInstallation.isSetLod4ImplicitRepresentation()) {
 			object = apply(bridgeInstallation.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -1990,7 +1983,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2006,7 +1999,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2058,7 +2051,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2066,7 +2059,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)intBridgeInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (intBridgeInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty>(intBridgeInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -2080,7 +2073,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (intBridgeInstallation.isSetLod4ImplicitRepresentation()) {
 			object = apply(intBridgeInstallation.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -2094,7 +2087,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2110,7 +2103,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2126,7 +2119,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2142,7 +2135,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2158,7 +2151,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2174,7 +2167,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2190,7 +2183,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2206,7 +2199,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2222,7 +2215,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2238,7 +2231,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2262,7 +2255,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2278,7 +2271,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2294,7 +2287,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2322,7 +2315,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2330,7 +2323,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)buildingInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (buildingInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(buildingInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -2350,25 +2343,25 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (buildingInstallation.isSetLod4Geometry()) {
 			object = apply(buildingInstallation.getLod4Geometry());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (buildingInstallation.isSetLod2ImplicitRepresentation()) {
 			object = apply(buildingInstallation.getLod2ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (buildingInstallation.isSetLod3ImplicitRepresentation()) {
 			object = apply(buildingInstallation.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (buildingInstallation.isSetLod4ImplicitRepresentation()) {
 			object = apply(buildingInstallation.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -2382,7 +2375,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2398,7 +2391,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2406,7 +2399,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)intBuildingInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (intBuildingInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(intBuildingInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -2420,7 +2413,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (intBuildingInstallation.isSetLod4ImplicitRepresentation()) {
 			object = apply(intBuildingInstallation.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -2434,7 +2427,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2486,7 +2479,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2502,7 +2495,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2518,7 +2511,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2534,7 +2527,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2550,7 +2543,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2566,7 +2559,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2582,7 +2575,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2598,7 +2591,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2614,7 +2607,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2630,7 +2623,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2654,7 +2647,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2722,7 +2715,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2730,7 +2723,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)intTunnelInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (intTunnelInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(intTunnelInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -2744,7 +2737,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (intTunnelInstallation.isSetLod4ImplicitRepresentation()) {
 			object = apply(intTunnelInstallation.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -2758,7 +2751,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2774,7 +2767,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2802,7 +2795,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2810,7 +2803,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		T object = apply((AbstractCityObject)tunnelInstallation);
 		if (object != null)
 			return object;
-		
+
 		if (tunnelInstallation.isSetBoundedBySurface()) {
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(tunnelInstallation.getBoundedBySurface())) {
 				object = apply(boundarySurfaceProperty);
@@ -2830,25 +2823,25 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (tunnelInstallation.isSetLod4Geometry()) {
 			object = apply(tunnelInstallation.getLod4Geometry());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (tunnelInstallation.isSetLod2ImplicitRepresentation()) {
 			object = apply(tunnelInstallation.getLod2ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (tunnelInstallation.isSetLod3ImplicitRepresentation()) {
 			object = apply(tunnelInstallation.getLod3ImplicitRepresentation());
 			if (object != null)
 				return object;
 		}
-		
+
 		if (tunnelInstallation.isSetLod4ImplicitRepresentation()) {
 			object = apply(tunnelInstallation.getLod4ImplicitRepresentation());
 			if (object != null)
@@ -2862,7 +2855,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2878,7 +2871,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2894,7 +2887,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2910,7 +2903,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2926,7 +2919,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2942,7 +2935,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2958,7 +2951,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2974,7 +2967,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -2990,7 +2983,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3006,7 +2999,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3022,7 +3015,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3038,7 +3031,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3054,7 +3047,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3142,7 +3135,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3178,7 +3171,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3200,7 +3193,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3232,7 +3225,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3330,7 +3323,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		return null;
 	}
 
@@ -3376,7 +3369,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3404,7 +3397,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3426,7 +3419,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3448,7 +3441,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3472,7 +3465,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3494,7 +3487,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3528,7 +3521,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3544,7 +3537,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3558,7 +3551,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		return null;
 	}
 
@@ -3574,7 +3567,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3590,7 +3583,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3606,7 +3599,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3640,7 +3633,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3704,7 +3697,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3754,7 +3747,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (plantCover.isSetLod4MultiSolid()) {
 			object = apply(plantCover.getLod4MultiSolid());
 			if (object != null)
@@ -3768,7 +3761,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3782,7 +3775,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		if (solitaryVegetationObject.isSetLod2Geometry()) {
 			object = apply(solitaryVegetationObject.getLod2Geometry());
 			if (object != null)
@@ -3832,7 +3825,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3904,7 +3897,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3920,7 +3913,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3936,7 +3929,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -3952,14 +3945,14 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public T apply(_AbstractAppearance abstractAppearance) {
 		return apply((AbstractGML)abstractAppearance);
 	}
-	
+
 	public T apply(CompositeValue compositeValue) {
 		T object = apply((AbstractGML)compositeValue);
 		if (object != null)
@@ -3985,7 +3978,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -4005,7 +3998,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -4021,7 +4014,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 					return object;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -4041,7 +4034,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 			if (object != null)
 				return object;
 		}
-		
+
 		return null;
 	}
 
@@ -4150,7 +4143,7 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	public T apply(Element element, ElementDecl decl) {
 		return null;
 	}
-	
+
 	public T apply(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:

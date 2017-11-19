@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.tunnel;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -91,41 +93,55 @@ import net.opengis.citygml.tunnel._2.WindowType;
 import net.opengis.gml.CodeType;
 
 public class Tunnel200Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final TunnelModule module = TunnelModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public Tunnel200Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
-				.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
-				.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
-				.with(DoorType.class, this::unmarshalDoor)
-				.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
-				.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
-				.with(HollowSpaceType.class, this::unmarshalHollowSpace)
-				.with(IntTunnelInstallationType.class, this::unmarshalIntTunnelInstallation)
-				.with(IntTunnelInstallationPropertyType.class, this::unmarshalIntTunnelInstallationProperty)
-				.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
-				.with(InteriorHollowSpacePropertyType.class, this::unmarshalInteriorHollowSpaceProperty)
-				.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
-				.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
-				.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
-				.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
-				.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
-				.with(TunnelType.class, this::unmarshalTunnel)
-				.with(TunnelFurnitureType.class, this::unmarshalTunnelFurniture)
-				.with(TunnelInstallationType.class, this::unmarshalTunnelInstallation)
-				.with(TunnelInstallationPropertyType.class, this::unmarshalTunnelInstallationProperty)
-				.with(TunnelPartType.class, this::unmarshalTunnelPart)
-				.with(TunnelPartPropertyType.class, this::unmarshalTunnelPartProperty)
-				.with(WallSurfaceType.class, this::unmarshalWallSurface)
-				.with(WindowType.class, this::unmarshalWindow)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(BoundarySurfacePropertyType.class, this::unmarshalBoundarySurfaceProperty)
+							.with(CeilingSurfaceType.class, this::unmarshalCeilingSurface)
+							.with(ClosureSurfaceType.class, this::unmarshalClosureSurface)
+							.with(DoorType.class, this::unmarshalDoor)
+							.with(FloorSurfaceType.class, this::unmarshalFloorSurface)
+							.with(GroundSurfaceType.class, this::unmarshalGroundSurface)
+							.with(HollowSpaceType.class, this::unmarshalHollowSpace)
+							.with(IntTunnelInstallationType.class, this::unmarshalIntTunnelInstallation)
+							.with(IntTunnelInstallationPropertyType.class, this::unmarshalIntTunnelInstallationProperty)
+							.with(InteriorFurniturePropertyType.class, this::unmarshalInteriorFurnitureProperty)
+							.with(InteriorHollowSpacePropertyType.class, this::unmarshalInteriorHollowSpaceProperty)
+							.with(InteriorWallSurfaceType.class, this::unmarshalInteriorWallSurface)
+							.with(OpeningPropertyType.class, this::unmarshalOpeningProperty)
+							.with(OuterCeilingSurfaceType.class, this::unmarshalOuterCeilingSurface)
+							.with(OuterFloorSurfaceType.class, this::unmarshalOuterFloorSurface)
+							.with(RoofSurfaceType.class, this::unmarshalRoofSurface)
+							.with(TunnelType.class, this::unmarshalTunnel)
+							.with(TunnelFurnitureType.class, this::unmarshalTunnelFurniture)
+							.with(TunnelInstallationType.class, this::unmarshalTunnelInstallation)
+							.with(TunnelInstallationPropertyType.class, this::unmarshalTunnelInstallationProperty)
+							.with(TunnelPartType.class, this::unmarshalTunnelPart)
+							.with(TunnelPartPropertyType.class, this::unmarshalTunnelPartProperty)
+							.with(WallSurfaceType.class, this::unmarshalWallSurface)
+							.with(WindowType.class, this::unmarshalWindow)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -133,12 +149,12 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractTunnel(AbstractTunnelType src, AbstractTunnel dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractSite(src, dest);
-		
+
 		if (src.isSetClazz())
 			dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
 
@@ -151,83 +167,83 @@ public class Tunnel200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetYearOfConstruction())
 			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar());
-		
+
 		if (src.isSetYearOfDemolition())
 			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
-		
+
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod1Solid()));
-		
+
 		if (src.isSetLod2Solid())
 			dest.setLod2Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod2Solid()));
-		
+
 		if (src.isSetLod3Solid())
 			dest.setLod3Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod3Solid()));
-		
+
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod4Solid()));
-		
+
 		if (src.isSetLod1MultiSurface())
 			dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
-		
+
 		if (src.isSetLod2MultiSurface())
 			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
-		
+
 		if (src.isSetLod3MultiSurface())
 			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
-		
+
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
+
 		if (src.isSetLod1TerrainIntersection())
 			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
-		
+
 		if (src.isSetLod2TerrainIntersection())
 			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
-		
+
 		if (src.isSetLod3TerrainIntersection())
 			dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3TerrainIntersection()));
-		
+
 		if (src.isSetLod4TerrainIntersection())
 			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
-		
+
 		if (src.isSetLod2MultiCurve())
 			dest.setLod2MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2MultiCurve()));
-		
+
 		if (src.isSetLod3MultiCurve())
 			dest.setLod3MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3MultiCurve()));
-		
+
 		if (src.isSetLod4MultiCurve())
 			dest.setLod4MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4MultiCurve()));	
-		
+
 		if (src.isSetOuterTunnelInstallation()) {
 			for (TunnelInstallationPropertyType tunnelInstallationProperty : src.getOuterTunnelInstallation())
 				dest.addOuterTunnelInstallation(unmarshalTunnelInstallationProperty(tunnelInstallationProperty));
 		}
-		
+
 		if (src.isSetInteriorTunnelInstallation()) {
 			for (IntTunnelInstallationPropertyType intTunnelInstallationProperty : src.getInteriorTunnelInstallation())
 				dest.addInteriorTunnelInstallation(unmarshalIntTunnelInstallationProperty(intTunnelInstallationProperty));
 		}
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSetConsistsOfTunnelPart()) {
 			for (TunnelPartPropertyType tunnelPartProperty : src.getConsistsOfTunnelPart())
 				dest.addConsistsOfTunnelPart(unmarshalTunnelPartProperty(tunnelPartProperty));
 		}
-		
+
 		if (src.isSetInteriorHollowSpace()) {
 			for (InteriorHollowSpacePropertyType interiorHollowSpaceProperty : src.getInteriorHollowSpace())
 				dest.addInteriorHollowSpace(unmarshalInteriorHollowSpaceProperty(interiorHollowSpaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfAbstractTunnel()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAbstractTunnel()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -236,7 +252,7 @@ public class Tunnel200Unmarshaller {
 			}
 		}
 	}
-	
+
 	public void unmarshalAbstractBoundarySurface(AbstractBoundarySurfaceType src, AbstractBoundarySurface dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -253,7 +269,7 @@ public class Tunnel200Unmarshaller {
 			for (OpeningPropertyType openingProperty : src.getOpening())
 				dest.addOpening(unmarshalOpeningProperty(openingProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfBoundarySurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfBoundarySurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -262,7 +278,7 @@ public class Tunnel200Unmarshaller {
 			}
 		}
 	}
-	
+
 	public void unmarshalAbstractOpening(AbstractOpeningType src, AbstractOpening dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -277,7 +293,7 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfOpening()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOpening()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -295,7 +311,7 @@ public class Tunnel200Unmarshaller {
 			if (object instanceof AbstractBoundarySurface)
 				dest.setObject((AbstractBoundarySurface)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -322,13 +338,13 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalCeilingSurface(CeilingSurfaceType src, CeilingSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfCeilingSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCeilingSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -347,7 +363,7 @@ public class Tunnel200Unmarshaller {
 
 	public void unmarshalClosureSurface(ClosureSurfaceType src, ClosureSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfClosureSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfClosureSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -366,7 +382,7 @@ public class Tunnel200Unmarshaller {
 
 	public void unmarshalDoor(DoorType src, Door dest) throws MissingADESchemaException {
 		unmarshalAbstractOpening(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfDoor()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfDoor()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -385,7 +401,7 @@ public class Tunnel200Unmarshaller {
 
 	public void unmarshalFloorSurface(FloorSurfaceType src, FloorSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfFloorSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfFloorSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -404,7 +420,7 @@ public class Tunnel200Unmarshaller {
 
 	public void unmarshalGroundSurface(GroundSurfaceType src, GroundSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfGroundSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfGroundSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -420,7 +436,7 @@ public class Tunnel200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalHollowSpace(HollowSpaceType src, HollowSpace dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -436,28 +452,28 @@ public class Tunnel200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod4Solid()));
-		
+
 		if (src.isSetLod4MultiSurface())
 			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSetInteriorFurniture()) {
 			for (InteriorFurniturePropertyType interiorFurnitureProperty : src.getInteriorFurniture())
 				dest.addInteriorFurniture(unmarshalInteriorFurnitureProperty(interiorFurnitureProperty));
 		}
-		
+
 		if (src.isSetHollowSpaceInstallation()) {
 			for (IntTunnelInstallationPropertyType intTunnelInstallationProperty : src.getHollowSpaceInstallation())
 				dest.addHollowSpaceInstallation(unmarshalIntTunnelInstallationProperty(intTunnelInstallationProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfHollowSpace()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfHollowSpace()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -489,10 +505,10 @@ public class Tunnel200Unmarshaller {
 			for (CodeType usage : src.getUsage())
 				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
 		}
-		
+
 		if (src.isSetLod4Geometry())
 			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
-		
+
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));	
 
@@ -500,7 +516,7 @@ public class Tunnel200Unmarshaller {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfIntTunnelInstallation()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfIntTunnelInstallation()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -519,7 +535,7 @@ public class Tunnel200Unmarshaller {
 
 	public IntTunnelInstallationProperty unmarshalIntTunnelInstallationProperty(IntTunnelInstallationPropertyType src) throws MissingADESchemaException {
 		IntTunnelInstallationProperty dest = new IntTunnelInstallationProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof IntTunnelInstallation)
@@ -552,7 +568,7 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
@@ -564,7 +580,7 @@ public class Tunnel200Unmarshaller {
 			if (object instanceof TunnelFurniture)
 				dest.setTunnelFurniture((TunnelFurniture)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -591,13 +607,13 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public InteriorHollowSpaceProperty unmarshalInteriorHollowSpaceProperty(InteriorHollowSpacePropertyType src) throws MissingADESchemaException {
 		InteriorHollowSpaceProperty dest = new InteriorHollowSpaceProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof HollowSpace)
@@ -630,13 +646,13 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalInteriorWallSurface(InteriorWallSurfaceType src, InteriorWallSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfInteriorWallSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfInteriorWallSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -652,10 +668,10 @@ public class Tunnel200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalOuterCeilingSurface(OuterCeilingSurfaceType src, OuterCeilingSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfOuterCeilingSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOuterCeilingSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -671,10 +687,10 @@ public class Tunnel200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalOuterFloorSurface(OuterFloorSurfaceType src, OuterFloorSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfOuterFloorSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfOuterFloorSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -699,7 +715,7 @@ public class Tunnel200Unmarshaller {
 			if (object instanceof AbstractOpening)
 				dest.setObject((AbstractOpening)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -726,13 +742,13 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalRoofSurface(RoofSurfaceType src, RoofSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfRoofSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfRoofSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -748,10 +764,10 @@ public class Tunnel200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalTunnel(TunnelType src, Tunnel dest) throws MissingADESchemaException {
 		unmarshalAbstractTunnel(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTunnel()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTunnel()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -767,7 +783,7 @@ public class Tunnel200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalTunnelFurniture(TunnelFurnitureType src, TunnelFurniture dest) throws MissingADESchemaException {
 		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -789,7 +805,7 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTunnelFurniture()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTunnelFurniture()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -844,7 +860,7 @@ public class Tunnel200Unmarshaller {
 			for (BoundarySurfacePropertyType boundarySurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundarySurfaceProperty(boundarySurfaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTunnelInstallation()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTunnelInstallation()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -863,7 +879,7 @@ public class Tunnel200Unmarshaller {
 
 	public TunnelInstallationProperty unmarshalTunnelInstallationProperty(TunnelInstallationPropertyType src) throws MissingADESchemaException {
 		TunnelInstallationProperty dest = new TunnelInstallationProperty(module);
-		
+
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
 			if (object instanceof TunnelInstallation)
@@ -896,13 +912,13 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-			
+
 		return dest;
 	}
 
 	public void unmarshalTunnelPart(TunnelPartType src, TunnelPart dest) throws MissingADESchemaException {
 		unmarshalAbstractTunnel(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTunnelPart()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTunnelPart()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -927,7 +943,7 @@ public class Tunnel200Unmarshaller {
 			if (object instanceof TunnelPart)
 				dest.setTunnelPart((TunnelPart)object);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -954,13 +970,13 @@ public class Tunnel200Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
 	public void unmarshalWallSurface(WallSurfaceType src, WallSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWallSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWallSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -979,7 +995,7 @@ public class Tunnel200Unmarshaller {
 
 	public void unmarshalWindow(WindowType src, Window dest) throws MissingADESchemaException {
 		unmarshalAbstractOpening(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWindow()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWindow()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -995,11 +1011,11 @@ public class Tunnel200Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof AbstractTunnel && name.equals("_GenericApplicationPropertyOfAbstractTunnel"))
 			((AbstractTunnel)dest).addGenericApplicationPropertyOfAbstractTunnel(genericProperty);
 		else if (dest instanceof Tunnel && name.equals("_GenericApplicationPropertyOfTunnel"))
@@ -1042,8 +1058,8 @@ public class Tunnel200Unmarshaller {
 			((HollowSpace)dest).addGenericApplicationPropertyOfHollowSpace(genericProperty);		
 		else 
 			success = false;
-		
+
 		return success;
 	}
-	
+
 }

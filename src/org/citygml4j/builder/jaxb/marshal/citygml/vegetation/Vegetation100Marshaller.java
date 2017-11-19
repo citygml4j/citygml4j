@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.vegetation;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
@@ -36,36 +38,63 @@ import net.opengis.citygml.vegetation._1.PlantCoverType;
 import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
 
 public class Vegetation100Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory veg = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
-	
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
+
 	public Vegetation100Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(PlantCover.class, this::createPlantCover)
-				.with(SolitaryVegetationObject.class, this::createSolitaryVegetationObject);
-		
-		typeMapper = TypeMapper.create()
-				.with(PlantCover.class, this::marshalPlantCover)
-				.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
+	}
+
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(PlantCover.class, this::createPlantCover)
+							.with(SolitaryVegetationObject.class, this::createSolitaryVegetationObject);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(PlantCover.class, this::marshalPlantCover)
+							.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
-	
+
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
-	
+
 	public void marshalVegetationObject(AbstractVegetationObject src, AbstractVegetationObjectType dest) {
 		citygml.getCore100Marshaller().marshalAbstractCityObject(src, dest);
-		
+
 		if (src.isSetGenericApplicationPropertyOfVegetationObject()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfVegetationObject()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -74,7 +103,7 @@ public class Vegetation100Marshaller {
 			}
 		}
 	}
-	
+
 	public void marshalPlantCover(PlantCover src, PlantCoverType dest) {
 		marshalVegetationObject(src, dest);
 
@@ -109,7 +138,7 @@ public class Vegetation100Marshaller {
 
 		if (src.isSetLod3MultiSolid())
 			dest.setLod3MultiSolid(jaxb.getGMLMarshaller().marshalMultiSolidProperty(src.getLod3MultiSolid()));
-		
+
 		if (src.isSetGenericApplicationPropertyOfPlantCover()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfPlantCover()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -125,7 +154,7 @@ public class Vegetation100Marshaller {
 
 		return dest;
 	}
-	
+
 	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest) {
 		marshalVegetationObject(src, dest);
 
@@ -172,7 +201,7 @@ public class Vegetation100Marshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore100Marshaller().marshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSetGenericApplicationPropertyOfSolitaryVegetationObject()) {
 			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfSolitaryVegetationObject()) {
 				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
@@ -188,13 +217,13 @@ public class Vegetation100Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createPlantCover(PlantCover src) {
 		return veg.createPlantCover(marshalPlantCover(src));
 	}
-	
+
 	private JAXBElement<?> createSolitaryVegetationObject(SolitaryVegetationObject src) {
 		return veg.createSolitaryVegetationObject(marshalSolitaryVegetationObject(src));
 	}
-	
+
 }

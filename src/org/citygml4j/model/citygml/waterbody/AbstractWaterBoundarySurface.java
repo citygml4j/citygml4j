@@ -23,6 +23,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
@@ -32,7 +33,6 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractWaterBoundarySurface extends AbstractCityObject implements WaterBodyModuleComponent {
@@ -187,10 +187,9 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 		}
 		
 		if (isSetGenericApplicationPropertyOfWaterBoundarySurface()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfWaterBoundarySurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		
@@ -219,7 +218,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

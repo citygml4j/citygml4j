@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
@@ -39,7 +40,6 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class BuildingInstallation extends AbstractCityObject implements BuildingModuleComponent, StandardObjectClassifier {
@@ -394,7 +394,7 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 			}
 
 			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
-				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox());
+				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
 		}
 		
 		if (isSetBoundedBySurface()) {
@@ -408,10 +408,9 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 		}
 		
 		if (isSetGenericApplicationPropertyOfBuildingInstallation()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfBuildingInstallation()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		
@@ -440,7 +439,7 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		ImplicitRepresentationProperty implicitRepresentation = null;
@@ -457,12 +456,8 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 				break;
 			}
 
-			if (implicitRepresentation != null && 
-					implicitRepresentation.isSetImplicitGeometry() &&
-					implicitRepresentation.getImplicitGeometry().isSetRelativeGMLGeometry()) {
-				property = implicitRepresentation.getImplicitGeometry().getRelativeGMLGeometry();
-				lodRepresentation.getLodGeometry(lod).add(property);
-			}
+			if (implicitRepresentation != null)
+				lodRepresentation.addRepresentation(lod, implicitRepresentation);
 		}
 		
 		return lodRepresentation;

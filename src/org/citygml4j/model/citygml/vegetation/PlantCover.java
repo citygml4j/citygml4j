@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
@@ -40,7 +41,6 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.VegetationModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class PlantCover extends AbstractVegetationObject implements StandardObjectClassifier {
@@ -432,10 +432,9 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 		}
 		
 		if (isSetGenericApplicationPropertyOfPlantCover()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfPlantCover()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 
@@ -467,7 +466,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -488,7 +487,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

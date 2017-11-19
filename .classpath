@@ -2,42 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="src" path="samples/converting_citygml/src"/>
-	<classpathentry kind="src" path="samples/creating_citygml/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/ade_round_trip/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/catching_schema_parse_errors/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/interpreting_schema/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/reading_ade/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/unmarshalling_ade/src"/>
-	<classpathentry kind="src" path="samples/handling_ade/unmarshalling_ade_using_jaxb/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/accessing_parent_elements/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/adding_lod1_geometry/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/feature_visitor/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/generating_statistics/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/resolving_internal_xlinks/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/simple_spatial_filter/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/splitting_features/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/translate_scale_and_rotate/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/using_dom_and_xpath/src"/>
-	<classpathentry kind="src" path="samples/processing_citygml/using_jaxb/src"/>
-	<classpathentry kind="src" path="samples/reading_citygml/chunk_per_feature_reader/src"/>
-	<classpathentry kind="src" path="samples/reading_citygml/citygml_v040_reader/src"/>
-	<classpathentry kind="src" path="samples/reading_citygml/filtered_reader/src"/>
-	<classpathentry kind="src" path="samples/reading_citygml/multithreaded_reader/src"/>
-	<classpathentry kind="src" path="samples/reading_citygml/simple_citygml_reader/src"/>
-	<classpathentry kind="src" path="samples/reading_citygml/applying_xslt/src"/>
-	<classpathentry kind="src" path="samples/validating_citygml/object_tree_validation/src"/>
-	<classpathentry kind="src" path="samples/validating_citygml/using_jaxp/src"/>
-	<classpathentry kind="src" path="samples/validating_citygml/validating_reader/src"/>
-	<classpathentry kind="src" path="samples/validating_citygml/validating_writer/src"/>
-	<classpathentry kind="src" path="samples/writing_citygml/citygml_writer/src"/>
-	<classpathentry kind="src" path="samples/writing_citygml/citymodel_writer/src"/>
-	<classpathentry kind="src" path="samples/writing_citygml/mixed_versions_writer/src"/>
-	<classpathentry kind="src" path="samples/writing_citygml/applying_xslt/src"/>
+	<classpathentry excluding="datasets/|lib/" kind="src" path="samples"/>
 	<classpathentry kind="lib" path="resources/xml"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype.jar"/>
 	<classpathentry kind="lib" path="lib/xsom.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/gson-2.8.2.jar"/>
+	<classpathentry kind="lib" path="samples/lib/module-noise-ade-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

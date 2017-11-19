@@ -20,9 +20,12 @@ package org.citygml4j.util.walker;
 
 import java.util.ArrayList;
 
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -79,12 +82,10 @@ public abstract class GeometryFunctionWalker<T> extends Walker implements Geomet
 	public T apply(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {
-				if (lodRepresentation.isSetLodGeometry(lod)) {
-					for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod)) {
-						T object = apply(geometryProperty);
-						if (object != null)
-							return object;
-					}
+				for (AssociationByRepOrRef<? extends AbstractGML> property : lodRepresentation.getRepresentation(lod)) {
+					T object = apply(property);
+					if (object != null)
+						return object;
 				}
 			}
 		}
@@ -496,6 +497,27 @@ public abstract class GeometryFunctionWalker<T> extends Walker implements Geomet
 
 	public T apply(TriangulatedSurface triangulatedSurface) {
 		return apply((Surface)triangulatedSurface);
+	}
+	
+	public T apply(ImplicitGeometry implicitGeometry) {
+		// to be overridden in subclasses
+		return null;
+	}
+	
+	public <E extends AbstractGML> T apply(AssociationByRepOrRef<E> association) {
+		if (shouldWalk) {
+			if (association.getObject() instanceof AbstractGeometry) {
+				T object = ((AbstractGeometry)association.getObject()).accept(this);
+				if (object != null)
+					return object;
+			} else if (association.getObject() instanceof ImplicitGeometry) {
+				T object = apply((ImplicitGeometry)association.getObject());
+				if (object != null)
+					return object;
+			}
+		}
+
+		return null;
 	}
 
 	public <E extends AbstractGeometry> T apply(GeometryProperty<E> geometryProperty) {

@@ -18,8 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.marshal;
 
-import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -35,7 +33,6 @@ import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshaller;
 import org.citygml4j.builder.jaxb.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.xal.XALMarshaller;
-import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.ModuleContext;
@@ -54,14 +51,14 @@ public class JAXBMarshaller {
 	private ModuleContext moduleContext;	
 	private Document document;
 
-	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext, List<ADEContext> adeContexts) {
+	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext) {
 		this.jaxbBuilder = jaxbBuilder;
 		this.moduleContext = moduleContext;
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this);
 		xal = new XALMarshaller();
-		ade = new ADEMarshaller(this, adeContexts);
+		ade = new ADEMarshaller(this);
 		
 		try {
 			dataTypeFactory = DatatypeFactory.newInstance();

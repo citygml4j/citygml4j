@@ -85,9 +85,8 @@ Have fun :-)
 
 A collection of sample programs that demonstrate the use of the library are
 provided in the "samples" folder. The sample programs are organized into
-subfolders, each addressing a different use case of !citygml4j.name!. Ant build.xml
-files are provided to easily run the sample programs. Note that the build.xml
-files may contain more than just the default target.
+subfolders, each addressing a different use case of !citygml4j.name!. Ant build
+files are provided to easily run the sample programs.
 
    
 6. Developers

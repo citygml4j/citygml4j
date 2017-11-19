@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -48,35 +50,49 @@ import net.opengis.citygml.waterbody._1.WaterGroundSurfaceType;
 import net.opengis.citygml.waterbody._1.WaterSurfaceType;
 
 public class WaterBody100Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final WaterBodyModule module = WaterBodyModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public WaterBody100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(BoundedByWaterSurfacePropertyType.class, this::unmarshalBoundedByWaterSurfaceProperty)
-				.with(WaterBodyType.class, this::unmarshalWaterBody)
-				.with(WaterClosureSurfaceType.class, this::unmarshalWaterClosureSurface)
-				.with(WaterGroundSurfaceType.class, this::unmarshalWaterGroundSurface)
-				.with(WaterSurfaceType.class, this::unmarshalWaterSurface)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(BoundedByWaterSurfacePropertyType.class, this::unmarshalBoundedByWaterSurfaceProperty)
+							.with(WaterBodyType.class, this::unmarshalWaterBody)
+							.with(WaterClosureSurfaceType.class, this::unmarshalWaterClosureSurface)
+							.with(WaterGroundSurfaceType.class, this::unmarshalWaterGroundSurface)
+							.with(WaterSurfaceType.class, this::unmarshalWaterSurface)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		return unmarshal(src.getValue());
 	}
-	
+
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
-	
+
 	public void unmarshalAbstractWaterObject(AbstractWaterObjectType src, AbstractWaterObject dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWaterObject()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWaterObject()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -85,19 +101,19 @@ public class WaterBody100Unmarshaller {
 			}
 		}
 	}
-	
+
 	public void unmarshalAbstractWaterBoundarySurface(AbstractWaterBoundarySurfaceType src, AbstractWaterBoundarySurface dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
-		
+
 		if (src.isSetLod2Surface())
 			dest.setLod2Surface(jaxb.getGMLUnmarshaller().unmarshalSurfaceProperty(src.getLod2Surface()));
-		
+
 		if (src.isSetLod3Surface())
 			dest.setLod3Surface(jaxb.getGMLUnmarshaller().unmarshalSurfaceProperty(src.getLod3Surface()));
-		
+
 		if (src.isSetLod4Surface())
 			dest.setLod4Surface(jaxb.getGMLUnmarshaller().unmarshalSurfaceProperty(src.getLod4Surface()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWaterBoundarySurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWaterBoundarySurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -119,10 +135,10 @@ public class WaterBody100Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest) throws MissingADESchemaException {
 		unmarshalAbstractWaterObject(src, dest);
-		
+
 		if (src.isSetClazz())
 			dest.setClazz(new Code(src.getClazz()));
 
@@ -135,36 +151,36 @@ public class WaterBody100Unmarshaller {
 			for (String usage : src.getUsage())
 				dest.addUsage(new Code(usage));
 		}
-		
+
 		if (src.isSetLod0MultiSurface())
 			dest.setLod0MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod0MultiSurface()));
-		
+
 		if (src.isSetLod1MultiSurface())
 			dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
-		
+
 		if (src.isSetLod0MultiCurve())
 			dest.setLod0MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod0MultiCurve()));
-		
+
 		if (src.isSetLod1MultiCurve())
 			dest.setLod1MultiCurve(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1MultiCurve()));
-		
+
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod1Solid()));
-		
+
 		if (src.isSetLod2Solid())
 			dest.setLod2Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod2Solid()));
-		
+
 		if (src.isSetLod3Solid())
 			dest.setLod3Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod3Solid()));
-		
+
 		if (src.isSetLod4Solid())
 			dest.setLod4Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod4Solid()));
-		
+
 		if (src.isSetBoundedBySurface()) {
 			for (BoundedByWaterSurfacePropertyType boundedByWaterSurfaceProperty : src.getBoundedBySurface())
 				dest.addBoundedBySurface(unmarshalBoundedByWaterSurfaceProperty(boundedByWaterSurfaceProperty));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWaterBody()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWaterBody()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -173,17 +189,17 @@ public class WaterBody100Unmarshaller {
 			}
 		}
 	}
-	
+
 	public WaterBody unmarshalWaterBody(WaterBodyType src) throws MissingADESchemaException {
 		WaterBody dest = new WaterBody(module);
 		unmarshalWaterBody(src, dest);
 
 		return dest;
 	}
-	
+
 	public void unmarshalWaterClosureSurface(WaterClosureSurfaceType src, WaterClosureSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractWaterBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWaterClosureSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWaterClosureSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -192,17 +208,17 @@ public class WaterBody100Unmarshaller {
 			}
 		}
 	}
-	
+
 	public WaterClosureSurface unmarshalWaterClosureSurface(WaterClosureSurfaceType src) throws MissingADESchemaException {
 		WaterClosureSurface dest = new WaterClosureSurface(module);
 		unmarshalWaterClosureSurface(src, dest);
 
 		return dest;
 	}
-	
+
 	public void unmarshalWaterGroundSurface(WaterGroundSurfaceType src, WaterGroundSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractWaterBoundarySurface(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWaterGroundSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWaterGroundSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -211,20 +227,20 @@ public class WaterBody100Unmarshaller {
 			}
 		}
 	}
-	
+
 	public WaterGroundSurface unmarshalWaterGroundSurface(WaterGroundSurfaceType src) throws MissingADESchemaException {
 		WaterGroundSurface dest = new WaterGroundSurface(module);
 		unmarshalWaterGroundSurface(src, dest);
 
 		return dest;
 	}
-	
+
 	public void unmarshalWaterSurface(WaterSurfaceType src, WaterSurface dest) throws MissingADESchemaException {
 		unmarshalAbstractWaterBoundarySurface(src, dest);
-		
+
 		if (src.isSetWaterLevel())
 			dest.setWaterLevel(new Code(src.getWaterLevel()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfWaterSurface()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfWaterSurface()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -233,18 +249,18 @@ public class WaterBody100Unmarshaller {
 			}
 		}
 	}
-	
+
 	public WaterSurface unmarshalWaterSurface(WaterSurfaceType src) throws MissingADESchemaException {
 		WaterSurface dest = new WaterSurface(module);
 		unmarshalWaterSurface(src, dest);
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof AbstractWaterObject && name.equals("_GenericApplicationPropertyOfWaterObject"))
 			((AbstractWaterObject)dest).addGenericApplicationPropertyOfWaterObject(genericProperty);		
 		else if (dest instanceof AbstractWaterBoundarySurface && name.equals("_GenericApplicationPropertyOfWaterBoundarySurface"))
@@ -259,8 +275,8 @@ public class WaterBody100Unmarshaller {
 			((WaterSurface)dest).addGenericApplicationPropertyOfWaterSurface(genericProperty);		
 		else
 			success = false;
-		
+
 		return success;
 	}
-	
+
 }

@@ -24,6 +24,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
@@ -40,7 +41,6 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class WaterBody extends AbstractWaterObject implements StandardObjectClassifier {
@@ -471,10 +471,9 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 		}
 		
 		if (isSetGenericApplicationPropertyOfWaterBody()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfWaterBody()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 
@@ -506,7 +505,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 
 		property = null;
@@ -521,7 +520,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 
 		property = null;
@@ -536,7 +535,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 			}
 
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

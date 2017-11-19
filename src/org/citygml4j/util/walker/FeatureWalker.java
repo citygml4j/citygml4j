@@ -21,6 +21,7 @@ package org.citygml4j.util.walker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -145,18 +146,23 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 	protected ADEWalkerHelper<FeatureWalker> adeWalkerHelper;
 
 	public FeatureWalker() {
+		CityGMLContext context = CityGMLContext.getInstance();
+		if (context.hasADEContexts()) {
+			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts())
+				useADEWalker(adeContext.createDefaultFeatureWalker());
+		}
 	}
 
-	public FeatureWalker setSchemaHandler(SchemaHandler schemaHandler) {
+	public final FeatureWalker setSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		return this;
 	}
 
-	public SchemaHandler getSchemaHandler() {
+	public final SchemaHandler getSchemaHandler() {
 		return schemaHandler;
 	}
-
-	public FeatureWalker useADEWalker(ADEWalker<FeatureWalker> walker) {
+	
+	public final FeatureWalker useADEWalker(ADEWalker<FeatureWalker> walker) {
 		if (walker != null) {
 			if (adeWalkerHelper == null)
 				adeWalkerHelper = new ADEWalkerHelper<>();
@@ -167,22 +173,11 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 
 		return this;
 	}
-
-	public FeatureWalker useADEWalkers(List<ADEWalker<FeatureWalker>> walkers) {
+	
+	@SafeVarargs
+	public final FeatureWalker useADEWalkers(ADEWalker<FeatureWalker>... walkers) {
 		for (ADEWalker<FeatureWalker> walker : walkers)
 			useADEWalker(walker);
-
-		return this;
-	}
-
-	public FeatureWalker useADEContext(ADEContext context) {
-		useADEWalker(context.createDefaultFeatureWalker());
-		return this;
-	}
-
-	public FeatureWalker useADEContexts(List<ADEContext> contexts) {
-		for (ADEContext context : contexts)
-			useADEWalker(context.createDefaultFeatureWalker());
 
 		return this;
 	}
@@ -198,7 +193,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.building.AbstractBoundarySurface abstractBoundarySurface) {
 		visit((AbstractCityObject)abstractBoundarySurface);
 
@@ -210,7 +205,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface abstractBoundarySurface) {
 		visit((AbstractCityObject)abstractBoundarySurface);
 
@@ -222,18 +217,18 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBoundarySurface.getGenericApplicationPropertyOfBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractBridge abstractBridge) {
 		visit((AbstractSite)abstractBridge);
 
 		if (abstractBridge.isSetOuterBridgeInstallation())
 			for (BridgeInstallationProperty bridgeInstallationProperty : new ArrayList<BridgeInstallationProperty>(abstractBridge.getOuterBridgeInstallation()))
 				visit(bridgeInstallationProperty);
-					
+
 		if (abstractBridge.isSetOuterBridgeConstructionElement())
 			for (BridgeConstructionElementProperty constructionElementProperty : new ArrayList<BridgeConstructionElementProperty>(abstractBridge.getOuterBridgeConstructionElement()))
 				visit(constructionElementProperty);
-				
+
 		if (abstractBridge.isSetInteriorBridgeInstallation())
 			for (IntBridgeInstallationProperty intBridgeInstallationProperty : new ArrayList<IntBridgeInstallationProperty>(abstractBridge.getInteriorBridgeInstallation())) 
 				visit(intBridgeInstallationProperty);
@@ -258,7 +253,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBridge.getGenericApplicationPropertyOfAbstractBridge()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractBuilding abstractBuilding) {
 		visit((AbstractSite)abstractBuilding);
 
@@ -290,7 +285,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractBuilding.getGenericApplicationPropertyOfAbstractBuilding()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractCityObject abstractCityObject) {
 		visit((AbstractFeature)abstractCityObject);
 
@@ -308,21 +303,21 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractCityObject.getGenericApplicationPropertyOfCityObject()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractCoverage abstractCoverage) {
 		visit((AbstractFeature)abstractCoverage);
 	}
-	
+
 	public void visit(AbstractDiscreteCoverage abstractDiscreteCoverage) {
 		visit((AbstractCoverage)abstractDiscreteCoverage);
 	}
-	
+
 	public void visit(AbstractFeature abstractFeature) {
 		if (abstractFeature.isSetGenericADEElement())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractFeature.getGenericADEElement()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractFeatureCollection abstractFeatureCollection) {
 		visit((AbstractFeature)abstractFeatureCollection);
 
@@ -333,7 +328,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 		if (abstractFeatureCollection.isSetFeatureMembers())
 			visit(abstractFeatureCollection.getFeatureMembers());
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.bridge.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
 
@@ -341,7 +336,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.building.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
 
@@ -349,7 +344,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
-	
+
 	public void visit(org.citygml4j.model.citygml.tunnel.AbstractOpening abstractOpening) {
 		visit((AbstractCityObject)abstractOpening);
 
@@ -357,7 +352,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractOpening.getGenericApplicationPropertyOfOpening()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractReliefComponent abstractReliefComponent) {
 		visit((AbstractCityObject)abstractReliefComponent);
 
@@ -365,7 +360,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractReliefComponent.getGenericApplicationPropertyOfReliefComponent()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractSite abstractSite) {
 		visit((AbstractCityObject)abstractSite);
 
@@ -373,7 +368,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSite.getGenericApplicationPropertyOfSite()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractSurfaceData abstractSurfaceData) {
 		visit((AbstractFeature)abstractSurfaceData);
 
@@ -381,7 +376,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractSurfaceData.getGenericApplicationPropertyOfSurfaceData()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTexture abstractTexture) {
 		visit((AbstractSurfaceData)abstractTexture);
 
@@ -389,7 +384,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTexture.getGenericApplicationPropertyOfTexture()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTransportationObject abstractTransportationObject) {
 		visit((AbstractCityObject)abstractTransportationObject);
 
@@ -397,7 +392,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTransportationObject.getGenericApplicationPropertyOfTransportationObject()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractTunnel abstractTunnel) {
 		visit((AbstractSite)abstractTunnel);
 
@@ -425,7 +420,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractTunnel.getGenericApplicationPropertyOfAbstractTunnel()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractVegetationObject abstractVegetationObject) {
 		visit((AbstractCityObject)abstractVegetationObject);
 
@@ -433,7 +428,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractVegetationObject.getGenericApplicationPropertyOfVegetationObject()))
 				visit(ade);
 	}
-	
+
 	public void visit(AbstractWaterObject abstractWaterObject) {
 		visit((AbstractCityObject)abstractWaterObject);
 
@@ -449,7 +444,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(abstractWaterBoundarySurface.getGenericApplicationPropertyOfWaterBoundarySurface()))
 				visit(ade);
 	}
-	
+
 	public void visit(Appearance appearance) {
 		visit((AbstractFeature)appearance);
 
@@ -706,7 +701,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 
 	public void visit(BuildingInstallation buildingInstallation) {
 		visit((AbstractCityObject)buildingInstallation);
-		
+
 		if (buildingInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(buildingInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
@@ -730,7 +725,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 		if (intBuildingInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.building.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.building.BoundarySurfaceProperty>(intBuildingInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-					
+
 		if (intBuildingInstallation.isSetGenericApplicationPropertyOfIntBuildingInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intBuildingInstallation.getGenericApplicationPropertyOfIntBuildingInstallation()))
 				visit(ade);
@@ -874,7 +869,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 		if (intTunnelInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(intTunnelInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
-					
+
 		if (intTunnelInstallation.isSetGenericApplicationPropertyOfIntTunnelInstallation())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(intTunnelInstallation.getGenericApplicationPropertyOfIntTunnelInstallation()))
 				visit(ade);
@@ -898,7 +893,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 
 	public void visit(TunnelInstallation tunnelInstallation) {
 		visit((AbstractCityObject)tunnelInstallation);
-		
+
 		if (tunnelInstallation.isSetBoundedBySurface())
 			for (org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty boundarySurfaceProperty : new ArrayList<org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty>(tunnelInstallation.getBoundedBySurface()))
 				visit(boundarySurfaceProperty);
@@ -1084,7 +1079,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 
 		if (rasterRelief.isSetGrid())
 			visit(rasterRelief.getGrid());
-		
+
 		if (rasterRelief.isSetGenericApplicationPropertyOfRasterRelief())
 			for (ADEComponent ade : new ArrayList<ADEComponent>(rasterRelief.getGenericApplicationPropertyOfRasterRelief()))
 				visit(ade);
@@ -1229,7 +1224,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			for (ADEComponent ade : new ArrayList<ADEComponent>(waterSurface.getGenericApplicationPropertyOfWaterSurface()))
 				visit(ade);
 	}
-	
+
 	public <T extends AbstractFeature> void visit(FeatureProperty<T> featureProperty) {
 		if (featureProperty.isSetFeature() && shouldWalk)
 			featureProperty.getFeature().accept(this);
@@ -1237,7 +1232,7 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 		if (featureProperty.isSetGenericADEElement())
 			visit(featureProperty.getGenericADEElement());
 	}
-	
+
 	public void visit(FeatureArrayProperty featureArrayProperty) {
 		if (featureArrayProperty.isSetFeature()) {
 			for (AbstractFeature feature : new ArrayList<AbstractFeature>(featureArrayProperty.getFeature()))
@@ -1249,11 +1244,11 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 					visit(ade);
 		}
 	}
-	
+
 	public void visit(Element element, ElementDecl decl) {
 		iterateNodeList(element, decl);
 	}
-	
+
 	public void visit(ADEComponent adeComponent) {
 		switch (adeComponent.getADEClass()) {
 		case GENERIC_ELEMENT:
@@ -1301,5 +1296,5 @@ public abstract class FeatureWalker extends Walker implements FeatureVisitor {
 			if (shouldWalk)
 				adeGenericElement((Element)child, decl);
 	}
-	
+
 }

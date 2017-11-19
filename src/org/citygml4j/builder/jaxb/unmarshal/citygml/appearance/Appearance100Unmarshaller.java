@@ -19,6 +19,7 @@
 package org.citygml4j.builder.jaxb.unmarshal.citygml.appearance;
 
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -74,30 +75,44 @@ import net.opengis.citygml.appearance._1.WrapModeType;
 import net.opengis.citygml.appearance._1.X3DMaterialType;
 
 public class Appearance100Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final AppearanceModule module = AppearanceModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public Appearance100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(AppearanceType.class, this::unmarshalAppearance)
-				.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
-				.with(GeoreferencedTextureType.class, this::unmarshalGeoreferencedTexture)
-				.with(ParameterizedTextureType.class, this::unmarshalParameterizedTexture)
-				.with(SurfaceDataPropertyType.class, this::unmarshalSurfaceDataProperty)
-				.with(TexCoordGenType.class, this::unmarshalTexCoordGen)
-				.with(TexCoordListType.class, this::unmarshalTexCoordList)
-				.with(TextureAssociationType.class, this::unmarshalTextureAssociation)
-				.with(TexCoordListType.TextureCoordinates.class, this::unmarshalTextureCoordinates)
-				.with(TextureTypeType.class, this::unmarshalTextureType)
-				.with(TexCoordGenType.WorldToTexture.class, this::unmarshalWorldToTexture)
-				.with(WrapModeType.class, this::unmarshalWrapMode)
-				.with(X3DMaterialType.class, this::unmarshalX3DMaterial)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(AppearanceType.class, this::unmarshalAppearance)
+							.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
+							.with(GeoreferencedTextureType.class, this::unmarshalGeoreferencedTexture)
+							.with(ParameterizedTextureType.class, this::unmarshalParameterizedTexture)
+							.with(SurfaceDataPropertyType.class, this::unmarshalSurfaceDataProperty)
+							.with(TexCoordGenType.class, this::unmarshalTexCoordGen)
+							.with(TexCoordListType.class, this::unmarshalTexCoordList)
+							.with(TextureAssociationType.class, this::unmarshalTextureAssociation)
+							.with(TexCoordListType.TextureCoordinates.class, this::unmarshalTextureCoordinates)
+							.with(TextureTypeType.class, this::unmarshalTextureType)
+							.with(TexCoordGenType.WorldToTexture.class, this::unmarshalWorldToTexture)
+							.with(WrapModeType.class, this::unmarshalWrapMode)
+							.with(X3DMaterialType.class, this::unmarshalX3DMaterial)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -105,7 +120,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractSurfaceData(AbstractSurfaceDataType src, AbstractSurfaceData dest) throws MissingADESchemaException {
@@ -113,7 +128,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetIsFront())
 			dest.setIsFront(src.isIsFront());
-		
+
 		if (src.isSet_GenericApplicationPropertyOfSurfaceData()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSurfaceData()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -140,7 +155,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetBorderColor())
 			dest.setBorderColor(unmarshalColorPlusOpacity(src.getBorderColor()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTexture()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTexture()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -157,7 +172,7 @@ public class Appearance100Unmarshaller {
 			for (Element dom : src.get_ADEComponent())
 				dest.addGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(dom));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTextureParameterization()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTextureParameterization()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -177,7 +192,7 @@ public class Appearance100Unmarshaller {
 			for (SurfaceDataPropertyType surfaceDataMember : src.getSurfaceDataMember())
 				dest.addSurfaceDataMember(unmarshalSurfaceDataProperty(surfaceDataMember));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfAppearance()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfAppearance()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -249,7 +264,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetTarget())
 			dest.setTarget(src.getTarget());
-		
+
 		if (src.isSet_GenericApplicationPropertyOfGeoreferencedTexture()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfGeoreferencedTexture()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -273,7 +288,7 @@ public class Appearance100Unmarshaller {
 			for (TextureAssociationType textureAssociation : src.getTarget()) 
 				dest.addTarget(unmarshalTextureAssociation(textureAssociation));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfParameterizedTexture()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfParameterizedTexture()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -292,13 +307,13 @@ public class Appearance100Unmarshaller {
 
 	public SurfaceDataProperty unmarshalSurfaceDataProperty(SurfaceDataPropertyType src) throws MissingADESchemaException {
 		SurfaceDataProperty dest = new SurfaceDataProperty(module);
-		
+
 		if (src.isSet_SurfaceData()) {
 			ModelObject surfaceData = jaxb.unmarshal(src.get_SurfaceData());
 			if (surfaceData instanceof AbstractSurfaceData)
 				dest.setSurfaceData((AbstractSurfaceData)surfaceData);
 		}
-		
+
 		if (src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
@@ -325,7 +340,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;
 	}
 
@@ -334,7 +349,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetWorldToTexture())
 			dest.setWorldToTexture(unmarshalWorldToTexture(src.getWorldToTexture()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTexCoordGen()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTexCoordGen()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -358,7 +373,7 @@ public class Appearance100Unmarshaller {
 			for (TexCoordListType.TextureCoordinates textureCoordinates : src.getTextureCoordinates())
 				dest.addTextureCoordinates(unmarshalTextureCoordinates(textureCoordinates));
 		}
-		
+
 		if (src.isSet_GenericApplicationPropertyOfTexCoordList()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfTexCoordList()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -410,7 +425,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
-		
+
 		return dest;			
 	}
 
@@ -494,7 +509,7 @@ public class Appearance100Unmarshaller {
 
 		if (src.isSetTarget())
 			dest.setTarget(src.getTarget());
-		
+
 		if (src.isSet_GenericApplicationPropertyOfX3DMaterial()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfX3DMaterial()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -510,11 +525,11 @@ public class Appearance100Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof AbstractSurfaceData && name.equals("_GenericApplicationPropertyOfSurfaceData"))
 			((AbstractSurfaceData)dest).addGenericApplicationPropertyOfSurfaceData(genericProperty);
 		else if (dest instanceof AbstractTexture && name.equals("_GenericApplicationPropertyOfTexture"))
@@ -535,7 +550,7 @@ public class Appearance100Unmarshaller {
 			((X3DMaterial)dest).addGenericApplicationPropertyOfX3DMaterial(genericProperty);
 		else
 			success = false;
-		
+
 		return success;
 	}
 

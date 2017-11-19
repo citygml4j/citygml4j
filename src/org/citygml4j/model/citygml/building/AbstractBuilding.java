@@ -24,6 +24,7 @@ import java.util.List;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.AddressProperty;
@@ -40,7 +41,6 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.BuildingModule;
-import org.citygml4j.util.bbox.ADEBoundingBoxCalculator;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public abstract class AbstractBuilding extends AbstractSite implements BuildingModuleComponent, StandardObjectClassifier {
@@ -1053,10 +1053,9 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		}
 		
 		if (isSetGenericApplicationPropertyOfAbstractBuilding()) {
-			ADEBoundingBoxCalculator bbox = new ADEBoundingBoxCalculator(this, options);
 			for (ADEComponent ade : getGenericApplicationPropertyOfAbstractBuilding()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(bbox.calcBoundedBy((ADEModelObject)ade).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
 			}
 		}
 		
@@ -1071,10 +1070,10 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
 		if (lod0FootPrint != null)
-			lodRepresentation.getLod0Geometry().add(lod0FootPrint);
+			lodRepresentation.addRepresentation(0, lod0FootPrint);
 		
 		if (lod0RoofEdge != null)
-			lodRepresentation.getLod0Geometry().add(lod0RoofEdge);
+			lodRepresentation.addRepresentation(0, lod0RoofEdge);
 		
 		GeometryProperty<? extends AbstractGeometry> property = null;		
 		for (int lod = 1; lod < 5; lod++) {
@@ -1094,7 +1093,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -1115,7 +1114,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		property = null;
@@ -1133,7 +1132,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			}
 			
 			if (property != null)
-				lodRepresentation.getLodGeometry(lod).add(property);
+				lodRepresentation.addRepresentation(lod, property);
 		}
 		
 		return lodRepresentation;

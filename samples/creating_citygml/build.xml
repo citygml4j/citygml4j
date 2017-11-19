@@ -18,12 +18,8 @@
  * limitations under the License.
 -->
 <project basedir="." default="run">
-	<description>
-
-	</description>
 	<property name="lib" value="../../lib" />
 	<path id="classpath">
-		<pathelement path="src" />
 		<pathelement path="classes" />
 		<fileset dir="${lib}" includes="*.jar" />
 	</path>
@@ -32,8 +28,8 @@
 	<target name="compile" description="compile all java source files">
 		<echo message="Compiling the Java source files..." />
 		<mkdir dir="classes" />
-		<javac destdir="classes" debug="on">
-			<src path="src" />
+		<javac includeantruntime="false" destdir="classes" debug="on">
+			<src path="." />
 			<classpath refid="classpath" />
 		</javac>
 	</target>
@@ -41,7 +37,7 @@
 	<!-- run sample app -->
 	<target name="run" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j application..." />
-		<java classname="BuildingCreator" fork="true">
+		<java classname="creating_citygml.BuildingCreator" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>

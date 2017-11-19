@@ -20,6 +20,7 @@ package org.citygml4j.builder.jaxb.marshal.citygml.appearance;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 
@@ -72,48 +73,75 @@ import net.opengis.citygml.appearance._2.X3DMaterialType;
 import net.opengis.gml.FeaturePropertyType;
 
 public class Appearance200Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory app = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
-	
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
+
 	public Appearance200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
-		
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(Appearance.class, this::createAppearance)
-				.with(AppearanceMember.class, this::createAppearanceMember)
-				.with(GeoreferencedTexture.class, this::createGeoreferencedTexture)
-				.with(ParameterizedTexture.class, this::createParameterizedTexture)
-				.with(TexCoordGen.class, this::createTexCoordGen)
-				.with(TexCoordList.class, this::createTexCoordList)
-				.with(X3DMaterial.class, this::createX3DMaterial);
-		
-		typeMapper = TypeMapper.create()
-				.with(Appearance.class, this::marshalAppearance)
-				.with(AppearanceMember.class, this::marshalAppearanceMember)
-				.with(AppearanceProperty.class, this::marshalAppearanceProperty)
-				.with(GeoreferencedTexture.class, this::marshalGeoreferencedTexture)
-				.with(ParameterizedTexture.class, this::marshalParameterizedTexture)
-				.with(SurfaceDataProperty.class, this::marshalSurfaceDataProperty)
-				.with(TexCoordGen.class, this::marshalTexCoordGen)
-				.with(TexCoordList.class, this::marshalTexCoordList)
-				.with(TextureAssociation.class, this::marshalTextureAssociation)
-				.with(TextureCoordinates.class, this::marshalTextureCoordinates)
-				.with(TextureType.class, this::marshalTextureType)
-				.with(WorldToTexture.class, this::marshalWorldToTexture)
-				.with(WrapMode.class, this::marshalWrapMode)
-				.with(X3DMaterial.class, this::marshalX3DMaterial);
 	}
-	
+
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(Appearance.class, this::createAppearance)
+							.with(AppearanceMember.class, this::createAppearanceMember)
+							.with(GeoreferencedTexture.class, this::createGeoreferencedTexture)
+							.with(ParameterizedTexture.class, this::createParameterizedTexture)
+							.with(TexCoordGen.class, this::createTexCoordGen)
+							.with(TexCoordList.class, this::createTexCoordList)
+							.with(X3DMaterial.class, this::createX3DMaterial);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(Appearance.class, this::marshalAppearance)
+							.with(AppearanceMember.class, this::marshalAppearanceMember)
+							.with(AppearanceProperty.class, this::marshalAppearanceProperty)
+							.with(GeoreferencedTexture.class, this::marshalGeoreferencedTexture)
+							.with(ParameterizedTexture.class, this::marshalParameterizedTexture)
+							.with(SurfaceDataProperty.class, this::marshalSurfaceDataProperty)
+							.with(TexCoordGen.class, this::marshalTexCoordGen)
+							.with(TexCoordList.class, this::marshalTexCoordList)
+							.with(TextureAssociation.class, this::marshalTextureAssociation)
+							.with(TextureCoordinates.class, this::marshalTextureCoordinates)
+							.with(TextureType.class, this::marshalTextureType)
+							.with(WorldToTexture.class, this::marshalWorldToTexture)
+							.with(WrapMode.class, this::marshalWrapMode)
+							.with(X3DMaterial.class, this::marshalX3DMaterial);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
+	}
+
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void marshalAbstractSurfaceData(AbstractSurfaceData src, AbstractSurfaceDataType dest) {
@@ -212,13 +240,13 @@ public class Appearance200Marshaller {
 			if (elem != null && elem.getValue() instanceof AppearanceType)
 				dest.set_Feature((JAXBElement<? extends AppearanceType>)elem);
 		}
-		
+
 		if (src.isSetGenericADEElement()) {
 			Element element = jaxb.getADEMarshaller().marshalDOMElement(src.getGenericADEElement());
 			if (element != null)
 				dest.set_ADEComponent(element);
 		}
-		
+
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
 
@@ -250,11 +278,11 @@ public class Appearance200Marshaller {
 
 		return dest;
 	}
-	
+
 	public FeaturePropertyType marshalAppearanceMember(AppearanceMember src) {
 		return jaxb.getGMLMarshaller().marshalFeatureProperty(src);
 	}
-	
+
 	public AppearancePropertyElement marshalAppearancePropertyElement(AppearanceProperty src) {
 		AppearancePropertyType dest = app.createAppearancePropertyType();
 		marshalAppearanceProperty(src, dest);
@@ -543,31 +571,31 @@ public class Appearance200Marshaller {
 
 		return dest;
 	}
-	
+
 	private JAXBElement<?> createAppearance(Appearance src) {
 		return app.createAppearance(marshalAppearance(src));
 	}
-	
+
 	private JAXBElement<?> createAppearanceMember(AppearanceMember src) {
 		return app.createAppearanceMember(marshalAppearanceMember(src));
 	}
-	
+
 	private JAXBElement<?> createGeoreferencedTexture(GeoreferencedTexture src) {
 		return app.createGeoreferencedTexture(marshalGeoreferencedTexture(src));
 	}
-	
+
 	private JAXBElement<?> createParameterizedTexture(ParameterizedTexture src) {
 		return app.createParameterizedTexture(marshalParameterizedTexture(src));
 	}
-	
+
 	private JAXBElement<?> createTexCoordGen(TexCoordGen src) {
 		return app.createTexCoordGen(marshalTexCoordGen(src));
 	}
-	
+
 	private JAXBElement<?> createTexCoordList(TexCoordList src) {
 		return app.createTexCoordList(marshalTexCoordList(src));
 	}
-	
+
 	private JAXBElement<?> createX3DMaterial(X3DMaterial src) {
 		return app.createX3DMaterial(marshalX3DMaterial(src));
 	}

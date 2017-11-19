@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -39,19 +41,33 @@ import net.opengis.citygml.vegetation._1.PlantCoverType;
 import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
 
 public class Vegetation100Unmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final VegetationModule module = VegetationModule.v1_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private final CityGMLUnmarshaller citygml;
-	private final CheckedTypeMapper<CityGML> typeMapper;
+	private CheckedTypeMapper<CityGML> typeMapper;
 
 	public Vegetation100Unmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBUnmarshaller();
-		
-		typeMapper = CheckedTypeMapper.<CityGML>create()
-				.with(PlantCoverType.class, this::unmarshalPlantCover)
-				.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<CityGML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<CityGML>create()
+							.with(PlantCoverType.class, this::unmarshalPlantCover)
+							.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -59,12 +75,12 @@ public class Vegetation100Unmarshaller {
 	}
 
 	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
 		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
-		
+
 		if (src.isSet_GenericApplicationPropertyOfVegetationObject()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfVegetationObject()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -108,7 +124,7 @@ public class Vegetation100Unmarshaller {
 
 		if (src.isSetLod3MultiSolid())
 			dest.setLod3MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod3MultiSolid()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfPlantCover()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfPlantCover()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -171,7 +187,7 @@ public class Vegetation100Unmarshaller {
 
 		if (src.isSetLod4ImplicitRepresentation())
 			dest.setLod4ImplicitRepresentation(citygml.getCore100Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
-		
+
 		if (src.isSet_GenericApplicationPropertyOfSolitaryVegetationObject()) {
 			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSolitaryVegetationObject()) {
 				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
@@ -187,11 +203,11 @@ public class Vegetation100Unmarshaller {
 
 		return dest;
 	}
-	
+
 	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
-		
+
 		if (dest instanceof AbstractVegetationObject && name.equals("_GenericApplicationPropertyOfVegetationObject"))
 			((AbstractVegetationObject)dest).addGenericApplicationPropertyOfVegetationObject(genericProperty);		
 		else if (dest instanceof PlantCover && name.equals("_GenericApplicationPropertyOfPlantCover"))
@@ -200,7 +216,7 @@ public class Vegetation100Unmarshaller {
 			((SolitaryVegetationObject)dest).addGenericApplicationPropertyOfSolitaryVegetationObject(genericProperty);		
 		else
 			success = false;
-		
+
 		return success;
 	}
 

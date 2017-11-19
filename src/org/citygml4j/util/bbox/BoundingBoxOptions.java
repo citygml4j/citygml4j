@@ -18,15 +18,10 @@
  */
 package org.citygml4j.util.bbox;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.citygml4j.model.citygml.ade.binding.ADEContext;
-
 public class BoundingBoxOptions {
 	private boolean assignResultToFeatures;
 	private boolean useExistingEnvelopes;
-	private List<ADEContext> adeContexts = new ArrayList<>();
+	private boolean useReferencePoint;
 	
 	private BoundingBoxOptions() {
 		// just to thwart instantiation
@@ -53,23 +48,14 @@ public class BoundingBoxOptions {
 		this.useExistingEnvelopes = useExistingEnvelopes;
 		return this;
 	}
-
-	public BoundingBoxOptions useADEContext(ADEContext context) {
-		adeContexts.add(context);
-		return this;
-	}
-
-	public BoundingBoxOptions useADEContexts(List<ADEContext> contexts) {
-		adeContexts.addAll(contexts);
-		return this;
+	
+	public boolean isUseReferencePointAsFallbackForImplicitGeometries() {
+		return useReferencePoint;
 	}
 	
-	public List<ADEContext> getADEContexts() {
-		return adeContexts;
-	}
-	
-	public boolean hasADEContexts() {
-		return !adeContexts.isEmpty();
+	public BoundingBoxOptions useReferencePointAsFallbackForImplicitGeometries(boolean useReferencePoint) {
+		this.useReferencePoint = useReferencePoint;
+		return this;
 	}
 	
 }

@@ -22,25 +22,28 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.Map;
 
 import org.citygml4j.util.walker.Walker;
 
 public class ADEWalkerHelper<T extends Walker> {
-	private Set<ADEWalker<T>> walkers;
-	private HashMap<String, SimpleEntry<ADEWalker<T>, Method>> methods;
+	private Deque<ADEWalker<T>> walkers;
+	private Map<String, SimpleEntry<ADEWalker<T>, Method>> methods;
 	private Class<?> returnType;
 
 	public ADEWalkerHelper() {
-		walkers = new HashSet<>();
+		walkers = new ArrayDeque<>();
 		methods = new HashMap<>();
 	}
 
 	public void addADEWalker(ADEWalker<T> walker) {
-		walkers.add(walker);
+		walkers.addFirst(walker);
+		if (!methods.isEmpty())
+			methods.clear();
 	}
 
 	public Object invokeWalkerMethod(ADEModelObject adeModelObject, String methodName) {

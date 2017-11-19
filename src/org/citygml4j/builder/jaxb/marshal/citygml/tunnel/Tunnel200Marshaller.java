@@ -20,6 +20,7 @@ package org.citygml4j.builder.jaxb.marshal.citygml.tunnel;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -92,68 +93,95 @@ import net.opengis.citygml.tunnel._2.WallSurfaceType;
 import net.opengis.citygml.tunnel._2.WindowType;
 
 public class Tunnel200Marshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory tun = new ObjectFactory();
 	private final JAXBMarshaller jaxb;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
 
 	public Tunnel200Marshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		jaxb = citygml.getJAXBMarshaller();
+	}
 
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(Tunnel.class, this::createTunnel)
-				.with(TunnelFurniture.class, this::createTunnelFurniture)
-				.with(TunnelInstallation.class, this::createTunnelInstallation)
-				.with(TunnelPart.class, this::createTunnelPart)
-				.with(CeilingSurface.class, this::createCeilingSurface)
-				.with(ClosureSurface.class, this::createClosureSurface)
-				.with(Door.class, this::createDoor)
-				.with(FloorSurface.class, this::createFloorSurface)
-				.with(GroundSurface.class, this::createGroundSurface)
-				.with(IntTunnelInstallation.class, this::createIntTunnelInstallation)
-				.with(InteriorWallSurface.class, this::createInteriorWallSurface)
-				.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
-				.with(OuterFloorSurface.class, this::createOuterFloorSurface)
-				.with(RoofSurface.class, this::createRoofSurface)
-				.with(HollowSpace.class, this::createHollowSpace)
-				.with(WallSurface.class, this::createWallSurface)
-				.with(Window.class, this::createWindow);
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(Tunnel.class, this::createTunnel)
+							.with(TunnelFurniture.class, this::createTunnelFurniture)
+							.with(TunnelInstallation.class, this::createTunnelInstallation)
+							.with(TunnelPart.class, this::createTunnelPart)
+							.with(CeilingSurface.class, this::createCeilingSurface)
+							.with(ClosureSurface.class, this::createClosureSurface)
+							.with(Door.class, this::createDoor)
+							.with(FloorSurface.class, this::createFloorSurface)
+							.with(GroundSurface.class, this::createGroundSurface)
+							.with(IntTunnelInstallation.class, this::createIntTunnelInstallation)
+							.with(InteriorWallSurface.class, this::createInteriorWallSurface)
+							.with(OuterCeilingSurface.class, this::createOuterCeilingSurface)
+							.with(OuterFloorSurface.class, this::createOuterFloorSurface)
+							.with(RoofSurface.class, this::createRoofSurface)
+							.with(HollowSpace.class, this::createHollowSpace)
+							.with(WallSurface.class, this::createWallSurface)
+							.with(Window.class, this::createWindow);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
 
-		typeMapper = TypeMapper.create()
-				.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
-				.with(Tunnel.class, this::marshalTunnel)
-				.with(TunnelFurniture.class, this::marshalTunnelFurniture)
-				.with(TunnelInstallation.class, this::marshalTunnelInstallation)
-				.with(TunnelInstallationProperty.class, this::marshalTunnelInstallationProperty)
-				.with(TunnelPart.class, this::marshalTunnelPart)
-				.with(TunnelPartProperty.class, this::marshalTunnelPartProperty)
-				.with(CeilingSurface.class, this::marshalCeilingSurface)
-				.with(ClosureSurface.class, this::marshalClosureSurface)
-				.with(Door.class, this::marshalDoor)
-				.with(FloorSurface.class, this::marshalFloorSurface)
-				.with(GroundSurface.class, this::marshalGroundSurface)
-				.with(IntTunnelInstallation.class, this::marshalIntTunnelInstallation)
-				.with(IntTunnelInstallationProperty.class, this::marshalIntTunnelInstallationProperty)
-				.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
-				.with(InteriorHollowSpaceProperty.class, this::marshalInteriorHollowSpaceProperty)
-				.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
-				.with(OpeningProperty.class, this::marshalOpeningProperty)
-				.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
-				.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
-				.with(RoofSurface.class, this::marshalRoofSurface)
-				.with(HollowSpace.class, this::marshalHollowSpace)
-				.with(WallSurface.class, this::marshalWallSurface)
-				.with(Window.class, this::marshalWindow);
+		return elementMapper;
+	}
+
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(BoundarySurfaceProperty.class, this::marshalBoundarySurfaceProperty)
+							.with(Tunnel.class, this::marshalTunnel)
+							.with(TunnelFurniture.class, this::marshalTunnelFurniture)
+							.with(TunnelInstallation.class, this::marshalTunnelInstallation)
+							.with(TunnelInstallationProperty.class, this::marshalTunnelInstallationProperty)
+							.with(TunnelPart.class, this::marshalTunnelPart)
+							.with(TunnelPartProperty.class, this::marshalTunnelPartProperty)
+							.with(CeilingSurface.class, this::marshalCeilingSurface)
+							.with(ClosureSurface.class, this::marshalClosureSurface)
+							.with(Door.class, this::marshalDoor)
+							.with(FloorSurface.class, this::marshalFloorSurface)
+							.with(GroundSurface.class, this::marshalGroundSurface)
+							.with(IntTunnelInstallation.class, this::marshalIntTunnelInstallation)
+							.with(IntTunnelInstallationProperty.class, this::marshalIntTunnelInstallationProperty)
+							.with(InteriorFurnitureProperty.class, this::marshalInteriorFurnitureProperty)
+							.with(InteriorHollowSpaceProperty.class, this::marshalInteriorHollowSpaceProperty)
+							.with(InteriorWallSurface.class, this::marshalInteriorWallSurface)
+							.with(OpeningProperty.class, this::marshalOpeningProperty)
+							.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+							.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+							.with(RoofSurface.class, this::marshalRoofSurface)
+							.with(HollowSpace.class, this::marshalHollowSpace)
+							.with(WallSurface.class, this::marshalWallSurface)
+							.with(Window.class, this::marshalWindow);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	public Object marshal(ModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest) {

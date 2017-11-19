@@ -21,6 +21,7 @@ package org.citygml4j.builder.jaxb.unmarshal.gml;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -195,120 +196,134 @@ import org.w3c.dom.Element;
 import net.opengis.gml.*;
 
 public class GMLUnmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final JAXBUnmarshaller jaxb;
-	private final CheckedTypeMapper<GML> typeMapper;
+	private CheckedTypeMapper<GML> typeMapper;
 
 	public GMLUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
-		
-		typeMapper = CheckedTypeMapper.<GML>create()
-				.with(BoundingShapeType.class, this::unmarshalBoundingShape)
-				.with(CodeType.class, this::unmarshalCode)
-				.with(CategoryExtentType.class, this::unmarshalCategoryExtent)
-				.with(CodeOrNullListType.class, this::unmarshalCodeOrNullList)
-				.with(CompositeCurveType.class, this::unmarshalCompositeCurve)
-				.with(CompositeCurvePropertyType.class, this::unmarshalCompositeCurveProperty)
-				.with(CompositeSolidType.class, this::unmarshalCompositeSolid)
-				.with(CompositeSolidPropertyType.class, this::unmarshalCompositeSolidProperty)
-				.with(CompositeSurfaceType.class, this::unmarshalCompositeSurface)
-				.with(CompositeSurfacePropertyType.class, this::unmarshalCompositeSurfaceProperty)
-				.with(ValueArrayType.class, this::unmarshalValueArray)
-				.with(CompositeValueType.class, this::unmarshalCompositeValue)
-				.with(TinType.ControlPoint.class, this::unmarshalControlPoint)
-				.with(CoordType.class, this::unmarshalCoord)
-				.with(CoordinatesType.class, this::unmarshalCoordinates)
-				.with(CoverageFunctionType.class, this::unmarshalCoverageFunction)
-				.with(CurveType.class, this::unmarshalCurve)
-				.with(CurveArrayPropertyType.class, this::unmarshalCurveArrayProperty)
-				.with(CurveInterpolationType.class, this::unmarshalCurveInterpolation)
-				.with(CurvePropertyType.class, this::unmarshalCurveProperty)
-				.with(CurveSegmentArrayPropertyType.class, this::unmarshalCurveSegmentArrayProperty)
-				.with(DataBlockType.class, this::unmarshalDataBlock)
-				.with(DirectPositionType.class, this::unmarshalDirectPosition)
-				.with(DirectPositionListType.class, this::unmarshalDirectPositionList)
-				.with(EnvelopeType.class, this::unmarshalEnvelope)
-				.with(FeatureArrayPropertyType.class, this::unmarshalFeatureArrayProperty)
-				.with(FeaturePropertyType.class, this::unmarshalFeatureProperty)
-				.with(FileType.class, this::unmarshalFile)
-				.with(FileValueModelType.class, this::unmarshalFileValueModel)
-				.with(GeometricComplexType.class, this::unmarshalGeometricComplex)
-				.with(GeometricComplexPropertyType.class, this::unmarshalGeometricComplexProperty)
-				.with(GeometricPrimitivePropertyType.class, this::unmarshalGeometricPrimitiveProperty)
-				.with(GeometryPropertyType.class, this::unmarshalGeometryProperty)
-				.with(RectifiedGridType.class, this::unmarshalRectifiedGrid)
-				.with(GridType.class, this::unmarshalGrid)
-				.with(GridEnvelopeType.class, this::unmarshalGridEnvelope)
-				.with(IndexMapType.class, this::unmarshalIndexMap)
-				.with(GridFunctionType.class, this::unmarshalGridFunction)
-				.with(GridLimitsType.class, this::unmarshalGridLimits)
-				.with(LengthType.class, this::unmarshalLength)
-				.with(LinearRingType.class, this::unmarshalLinearRing)
-				.with(LinearRingPropertyType.class, this::unmarshalLinearRingProperty)
-				.with(LineStringType.class, this::unmarshalLineString)
-				.with(LineStringPropertyType.class, this::unmarshalLineStringProperty)
-				.with(LineStringSegmentType.class, this::unmarshalLineStringSegment)
-				.with(LineStringSegmentArrayPropertyType.class, this::unmarshalLineStringSegmentArrayProperty)
-				.with(PriorityLocationPropertyType.class, this::unmarshalPriorityLocationProperty)
-				.with(LocationPropertyType.class, this::unmarshalLocationProperty)
-				.with(AngleType.class, this::unmarshalAngle)
-				.with(AreaType.class, this::unmarshalArea)
-				.with(GridLengthType.class, this::unmarshalGridLength)
-				.with(ScaleType.class, this::unmarshalScale)
-				.with(TimeType.class, this::unmarshalTime)
-				.with(VolumeType.class, this::unmarshalVolume)
-				.with(SpeedType.class, this::unmarshalSpeed)
-				.with(MeasureType.class, this::unmarshalMeasure)
-				.with(QuantityExtentType.class, this::unmarshalQuantityExtent)
-				.with(MeasureOrNullListType.class, this::unmarshalMeasureOrNullList)
-				.with(MetaDataPropertyType.class, this::unmarshalMetaDataProperty)
-				.with(MultiCurveType.class, this::unmarshalMultiCurve)
-				.with(MultiCurvePropertyType.class, this::unmarshalMultiCurveProperty)
-				.with(MultiLineStringType.class, this::unmarshalMultiLineString)
-				.with(MultiLineStringPropertyType.class, this::unmarshalMultiLineStringProperty)
-				.with(MultiPointType.class, this::unmarshalMultiPoint)
-				.with(MultiPointPropertyType.class, this::unmarshalMultiPointProperty)
-				.with(MultiPolygonType.class, this::unmarshalMultiPolygon)
-				.with(MultiPolygonPropertyType.class, this::unmarshalMultiPolygonProperty)
-				.with(MultiSolidType.class, this::unmarshalMultiSolid)
-				.with(MultiSolidPropertyType.class, this::unmarshalMultiSolidProperty)
-				.with(MultiSurfaceType.class, this::unmarshalMultiSurface)
-				.with(MultiSurfacePropertyType.class, this::unmarshalMultiSurfaceProperty)
-				.with(OrientableCurveType.class, this::unmarshalOrientableCurve)
-				.with(net.opengis.citygml.texturedsurface._2.TexturedSurfaceType.class, jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller()::unmarshalTexturedSurface)
-				.with(net.opengis.citygml.texturedsurface._1.TexturedSurfaceType.class, jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller()::unmarshalTexturedSurface)
-				.with(OrientableSurfaceType.class, this::unmarshalOrientableSurface)
-				.with(PointType.class, this::unmarshalPoint)
-				.with(PointArrayPropertyType.class, this::unmarshalPointArrayProperty)
-				.with(PointPropertyType.class, this::unmarshalPointProperty)
-				.with(PolygonType.class, this::unmarshalPolygon)
-				.with(PolygonPropertyType.class, this::unmarshalPolygonProperty)
-				.with(RangeParametersType.class, this::unmarshalRangeParameters)
-				.with(RangeSetType.class, this::unmarshalRangeSet)
-				.with(RectangleType.class, this::unmarshalRectangle)
-				.with(RectifiedGridCoverageType.class, this::unmarshalRectifiedGridCoverage)
-				.with(RectifiedGridDomainType.class, this::unmarshalRectifiedGridDomain)
-				.with(SequenceRuleNames.class, this::unmarshalSequenceRuleNames)
-				.with(SequenceRuleType.class, this::unmarshalSequenceRule)
-				.with(RingType.class, this::unmarshalRing)
-				.with(SolidType.class, this::unmarshalSolid)
-				.with(SolidArrayPropertyType.class, this::unmarshalSolidArrayProperty)
-				.with(SolidPropertyType.class, this::unmarshalSolidProperty)
-				.with(StringOrRefType.class, this::unmarshalStringOrRef)
-				.with(TinType.class, this::unmarshalTin)
-				.with(TriangleType.class, this::unmarshalTriangle)
-				.with(TriangulatedSurfaceType.class, this::unmarshalTriangulatedSurface)
-				.with(SurfaceType.class, this::unmarshalSurface)
-				.with(SurfaceArrayPropertyType.class, this::unmarshalSurfaceArrayProperty)
-				.with(SurfaceInterpolationType.class, this::unmarshalSurfaceInterpolation)
-				.with(TrianglePatchArrayPropertyType.class, this::unmarshalTrianglePatchArrayProperty)
-				.with(SurfacePatchArrayPropertyType.class, this::unmarshalSurfacePatchArrayProperty)
-				.with(SurfacePropertyType.class, this::unmarshalSurfaceProperty)
-				.with(ValueArrayPropertyType.class, this::unmarshalValueArrayProperty)
-				.with(ValuePropertyType.class, this::unmarshalValueProperty)
-				.with(VectorType.class, this::unmarshalVector)
-				.with(MultiGeometryType.class, this::unmarshalMultiGeometry)
-				.with(MultiGeometryPropertyType.class, this::unmarshalMultiGeometryProperty)
-				.with(JAXBElement.class, this::unmarshal);
+	}
+
+	private CheckedTypeMapper<GML> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<GML>create()
+							.with(BoundingShapeType.class, this::unmarshalBoundingShape)
+							.with(CodeType.class, this::unmarshalCode)
+							.with(CategoryExtentType.class, this::unmarshalCategoryExtent)
+							.with(CodeOrNullListType.class, this::unmarshalCodeOrNullList)
+							.with(CompositeCurveType.class, this::unmarshalCompositeCurve)
+							.with(CompositeCurvePropertyType.class, this::unmarshalCompositeCurveProperty)
+							.with(CompositeSolidType.class, this::unmarshalCompositeSolid)
+							.with(CompositeSolidPropertyType.class, this::unmarshalCompositeSolidProperty)
+							.with(CompositeSurfaceType.class, this::unmarshalCompositeSurface)
+							.with(CompositeSurfacePropertyType.class, this::unmarshalCompositeSurfaceProperty)
+							.with(ValueArrayType.class, this::unmarshalValueArray)
+							.with(CompositeValueType.class, this::unmarshalCompositeValue)
+							.with(TinType.ControlPoint.class, this::unmarshalControlPoint)
+							.with(CoordType.class, this::unmarshalCoord)
+							.with(CoordinatesType.class, this::unmarshalCoordinates)
+							.with(CoverageFunctionType.class, this::unmarshalCoverageFunction)
+							.with(CurveType.class, this::unmarshalCurve)
+							.with(CurveArrayPropertyType.class, this::unmarshalCurveArrayProperty)
+							.with(CurveInterpolationType.class, this::unmarshalCurveInterpolation)
+							.with(CurvePropertyType.class, this::unmarshalCurveProperty)
+							.with(CurveSegmentArrayPropertyType.class, this::unmarshalCurveSegmentArrayProperty)
+							.with(DataBlockType.class, this::unmarshalDataBlock)
+							.with(DirectPositionType.class, this::unmarshalDirectPosition)
+							.with(DirectPositionListType.class, this::unmarshalDirectPositionList)
+							.with(EnvelopeType.class, this::unmarshalEnvelope)
+							.with(FeatureArrayPropertyType.class, this::unmarshalFeatureArrayProperty)
+							.with(FeaturePropertyType.class, this::unmarshalFeatureProperty)
+							.with(FileType.class, this::unmarshalFile)
+							.with(FileValueModelType.class, this::unmarshalFileValueModel)
+							.with(GeometricComplexType.class, this::unmarshalGeometricComplex)
+							.with(GeometricComplexPropertyType.class, this::unmarshalGeometricComplexProperty)
+							.with(GeometricPrimitivePropertyType.class, this::unmarshalGeometricPrimitiveProperty)
+							.with(GeometryPropertyType.class, this::unmarshalGeometryProperty)
+							.with(RectifiedGridType.class, this::unmarshalRectifiedGrid)
+							.with(GridType.class, this::unmarshalGrid)
+							.with(GridEnvelopeType.class, this::unmarshalGridEnvelope)
+							.with(IndexMapType.class, this::unmarshalIndexMap)
+							.with(GridFunctionType.class, this::unmarshalGridFunction)
+							.with(GridLimitsType.class, this::unmarshalGridLimits)
+							.with(LengthType.class, this::unmarshalLength)
+							.with(LinearRingType.class, this::unmarshalLinearRing)
+							.with(LinearRingPropertyType.class, this::unmarshalLinearRingProperty)
+							.with(LineStringType.class, this::unmarshalLineString)
+							.with(LineStringPropertyType.class, this::unmarshalLineStringProperty)
+							.with(LineStringSegmentType.class, this::unmarshalLineStringSegment)
+							.with(LineStringSegmentArrayPropertyType.class, this::unmarshalLineStringSegmentArrayProperty)
+							.with(PriorityLocationPropertyType.class, this::unmarshalPriorityLocationProperty)
+							.with(LocationPropertyType.class, this::unmarshalLocationProperty)
+							.with(AngleType.class, this::unmarshalAngle)
+							.with(AreaType.class, this::unmarshalArea)
+							.with(GridLengthType.class, this::unmarshalGridLength)
+							.with(ScaleType.class, this::unmarshalScale)
+							.with(TimeType.class, this::unmarshalTime)
+							.with(VolumeType.class, this::unmarshalVolume)
+							.with(SpeedType.class, this::unmarshalSpeed)
+							.with(MeasureType.class, this::unmarshalMeasure)
+							.with(QuantityExtentType.class, this::unmarshalQuantityExtent)
+							.with(MeasureOrNullListType.class, this::unmarshalMeasureOrNullList)
+							.with(MetaDataPropertyType.class, this::unmarshalMetaDataProperty)
+							.with(MultiCurveType.class, this::unmarshalMultiCurve)
+							.with(MultiCurvePropertyType.class, this::unmarshalMultiCurveProperty)
+							.with(MultiLineStringType.class, this::unmarshalMultiLineString)
+							.with(MultiLineStringPropertyType.class, this::unmarshalMultiLineStringProperty)
+							.with(MultiPointType.class, this::unmarshalMultiPoint)
+							.with(MultiPointPropertyType.class, this::unmarshalMultiPointProperty)
+							.with(MultiPolygonType.class, this::unmarshalMultiPolygon)
+							.with(MultiPolygonPropertyType.class, this::unmarshalMultiPolygonProperty)
+							.with(MultiSolidType.class, this::unmarshalMultiSolid)
+							.with(MultiSolidPropertyType.class, this::unmarshalMultiSolidProperty)
+							.with(MultiSurfaceType.class, this::unmarshalMultiSurface)
+							.with(MultiSurfacePropertyType.class, this::unmarshalMultiSurfaceProperty)
+							.with(OrientableCurveType.class, this::unmarshalOrientableCurve)
+							.with(net.opengis.citygml.texturedsurface._2.TexturedSurfaceType.class, jaxb.getCityGMLUnmarshaller().getTexturedSurface200Unmarshaller()::unmarshalTexturedSurface)
+							.with(net.opengis.citygml.texturedsurface._1.TexturedSurfaceType.class, jaxb.getCityGMLUnmarshaller().getTexturedSurface100Unmarshaller()::unmarshalTexturedSurface)
+							.with(OrientableSurfaceType.class, this::unmarshalOrientableSurface)
+							.with(PointType.class, this::unmarshalPoint)
+							.with(PointArrayPropertyType.class, this::unmarshalPointArrayProperty)
+							.with(PointPropertyType.class, this::unmarshalPointProperty)
+							.with(PolygonType.class, this::unmarshalPolygon)
+							.with(PolygonPropertyType.class, this::unmarshalPolygonProperty)
+							.with(RangeParametersType.class, this::unmarshalRangeParameters)
+							.with(RangeSetType.class, this::unmarshalRangeSet)
+							.with(RectangleType.class, this::unmarshalRectangle)
+							.with(RectifiedGridCoverageType.class, this::unmarshalRectifiedGridCoverage)
+							.with(RectifiedGridDomainType.class, this::unmarshalRectifiedGridDomain)
+							.with(SequenceRuleNames.class, this::unmarshalSequenceRuleNames)
+							.with(SequenceRuleType.class, this::unmarshalSequenceRule)
+							.with(RingType.class, this::unmarshalRing)
+							.with(SolidType.class, this::unmarshalSolid)
+							.with(SolidArrayPropertyType.class, this::unmarshalSolidArrayProperty)
+							.with(SolidPropertyType.class, this::unmarshalSolidProperty)
+							.with(StringOrRefType.class, this::unmarshalStringOrRef)
+							.with(TinType.class, this::unmarshalTin)
+							.with(TriangleType.class, this::unmarshalTriangle)
+							.with(TriangulatedSurfaceType.class, this::unmarshalTriangulatedSurface)
+							.with(SurfaceType.class, this::unmarshalSurface)
+							.with(SurfaceArrayPropertyType.class, this::unmarshalSurfaceArrayProperty)
+							.with(SurfaceInterpolationType.class, this::unmarshalSurfaceInterpolation)
+							.with(TrianglePatchArrayPropertyType.class, this::unmarshalTrianglePatchArrayProperty)
+							.with(SurfacePatchArrayPropertyType.class, this::unmarshalSurfacePatchArrayProperty)
+							.with(SurfacePropertyType.class, this::unmarshalSurfaceProperty)
+							.with(ValueArrayPropertyType.class, this::unmarshalValueArrayProperty)
+							.with(ValuePropertyType.class, this::unmarshalValueProperty)
+							.with(VectorType.class, this::unmarshalVector)
+							.with(MultiGeometryType.class, this::unmarshalMultiGeometry)
+							.with(MultiGeometryPropertyType.class, this::unmarshalMultiGeometryProperty)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public GML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -337,7 +352,7 @@ public class GMLUnmarshaller {
 	}
 
 	public GML unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public void unmarshalAbstractCoverage(AbstractCoverageType src, AbstractCoverage dest) {
@@ -2695,42 +2710,42 @@ public class GMLUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public Angle unmarshalAngle(AngleType src) {
 		Angle dest = new Angle();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
-	
+
 	public Area unmarshalArea(AreaType src) {
 		Area dest = new Area();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
-	
+
 	public GridLength unmarshalGridLength(GridLengthType src) {
 		GridLength dest = new GridLength();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
-	
+
 	public Scale unmarshalScale(ScaleType src) {
 		Scale dest = new Scale();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
-	
+
 	public Time unmarshalTime(TimeType src) {
 		Time dest = new Time();
 		unmarshalMeasure(src, dest);
 
 		return dest;
 	}
-	
+
 	public Volume unmarshalVolume(VolumeType src) {
 		Volume dest = new Volume();
 		unmarshalMeasure(src, dest);

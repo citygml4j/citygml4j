@@ -80,7 +80,6 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 		if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER) {
 			featureSplitter = new FeatureSplitter()
 					.setSchemaHandler(schemaHandler)
-					.useADEContexts(factory.builder.getADEContexts())
 					.setGMLIdManager(factory.getGMLIdManager())
 					.setSplitMode(FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER)
 					.keepInlineAppearance((Boolean)factory.getProperty(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE))

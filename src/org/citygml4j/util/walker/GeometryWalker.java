@@ -20,9 +20,12 @@ package org.citygml4j.util.walker;
 
 import java.util.ArrayList;
 
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -79,9 +82,8 @@ public abstract class GeometryWalker extends Walker implements GeometryVisitor {
 	public void visit(LodRepresentation lodRepresentation) {
 		if (lodRepresentation != null) {
 			for (int lod = 0; lod < 5; lod++) {
-				if (lodRepresentation.isSetLodGeometry(lod))
-					for (GeometryProperty<? extends AbstractGeometry> geometryProperty : lodRepresentation.getLodGeometry(lod))
-						visit(geometryProperty);
+				for (AssociationByRepOrRef<? extends AbstractGML> property : lodRepresentation.getRepresentation(lod))
+					visit(property);
 			}
 		}
 	}
@@ -308,6 +310,19 @@ public abstract class GeometryWalker extends Walker implements GeometryVisitor {
 
 	public void visit(TriangulatedSurface triangulatedSurface) {
 		visit((Surface)triangulatedSurface);
+	}
+	
+	public void visit(ImplicitGeometry implicitGeometry) {
+		// to be overridden in subclasses
+	}
+	
+	public <T extends AbstractGML> void visit(AssociationByRepOrRef<T> association) {
+		if (shouldWalk) {
+			if (association.getObject() instanceof AbstractGeometry)
+				((AbstractGeometry)association.getObject()).accept(this);
+			else if (association.getObject() instanceof ImplicitGeometry)
+				visit((ImplicitGeometry)association.getObject());
+		}
 	}
 
 	public <T extends AbstractGeometry> void visit(GeometryProperty<T> geometryProperty) {
