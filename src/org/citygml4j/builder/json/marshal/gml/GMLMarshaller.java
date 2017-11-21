@@ -106,7 +106,7 @@ public class GMLMarshaller {
 						if (transformer != null)
 							transformer.transform(vertex);
 
-						dest.addPoints(json.getVertexArrayBuilder().addVertices(vertex));
+						dest.addPoints(json.getVerticesBuilder().addVertices(vertex));
 					}
 				}
 
@@ -118,7 +118,7 @@ public class GMLMarshaller {
 					if (transformer != null)
 						transformer.transform(vertex);
 
-					dest.addPoints(json.getVertexArrayBuilder().addVertices(vertex));
+					dest.addPoints(json.getVerticesBuilder().addVertices(vertex));
 				}
 			}
 		}
@@ -345,7 +345,7 @@ public class GMLMarshaller {
 			if (transformer != null)
 				transformer.transform(values);
 
-			vertices = json.getVertexArrayBuilder().addVertices(values.subList(0, values.size() - 3));
+			vertices = json.getVerticesBuilder().addVertices(values.subList(0, values.size() - 3));
 		}
 
 		return vertices;
@@ -363,7 +363,7 @@ public class GMLMarshaller {
 				if (transformer != null)
 					transformer.transform(vertices);
 
-				dest.addLineString(json.getVertexArrayBuilder().addVertices(vertices));
+				dest.addLineString(json.getVerticesBuilder().addVertices(vertices));
 			}
 		}
 
@@ -387,10 +387,10 @@ public class GMLMarshaller {
 
 					if (!vertices.isEmpty()) {
 						if (!reverse)
-							dest.addLineString(json.getVertexArrayBuilder().addVertices(vertices));
+							dest.addLineString(json.getVerticesBuilder().addVertices(vertices));
 						else {
 							for (int i = vertices.size() - 3; i >= 0; i -= 3)
-								dest.addLineString(json.getVertexArrayBuilder().addVertices(vertices.subList(i, i + 3)));
+								dest.addLineString(json.getVerticesBuilder().addVertices(vertices.subList(i, i + 3)));
 						}
 					}
 				}

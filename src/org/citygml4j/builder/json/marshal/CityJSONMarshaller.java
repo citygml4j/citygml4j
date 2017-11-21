@@ -90,11 +90,11 @@ public class CityJSONMarshaller {
 		return appearanceResolver;
 	}
 
-	public VerticesBuilder getVertexArrayBuilder() {
+	public VerticesBuilder getVerticesBuilder() {
 		return verticesBuilder;
 	}
 
-	public TextureVerticesBuilder getTextureVertexArrayBuilder() {
+	public TextureVerticesBuilder getTextureVerticesBuilder() {
 		return textureVerticesBuilder;
 	}
 

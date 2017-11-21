@@ -34,5 +34,10 @@ public class SurfaceCollectionSemanticsObject extends AbstractSemanticsObject {
 	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}
+
+	@Override
+	public List<Integer> flattenValues() {
+		return values;
+	}
 	
 }

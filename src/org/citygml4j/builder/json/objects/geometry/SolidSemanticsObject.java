@@ -2,6 +2,8 @@ package org.citygml4j.builder.json.objects.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SolidSemanticsObject extends AbstractSemanticsObject {
 	private List<List<Integer>> values;
@@ -33,6 +35,11 @@ public class SolidSemanticsObject extends AbstractSemanticsObject {
 	@Override
 	public int getNumValues() {
 		return values != null ? values.size() : 0;
+	}
+
+	@Override
+	public List<Integer> flattenValues() {
+		return values.stream().flatMap(a -> a != null ? a.stream() : Stream.of((Integer)null)).collect(Collectors.toList());
 	}
 
 }

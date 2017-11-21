@@ -1,7 +1,6 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -59,9 +58,13 @@ public class CityJSON {
 	public void addCityObject(AbstractCityObjectType cityObject) {
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
+	
+	public AbstractCityObjectType getCityObject(String gmlId) {
+		return cityObjects.get(gmlId);
+	}
 
-	public Collection<AbstractCityObjectType> getCityObjects() {
-		return cityObjects.values();
+	public Map<String, AbstractCityObjectType> getCityObjects() {
+		return cityObjects;
 	}
 
 	public void setCityObjects(List<AbstractCityObjectType> cityObjects) {

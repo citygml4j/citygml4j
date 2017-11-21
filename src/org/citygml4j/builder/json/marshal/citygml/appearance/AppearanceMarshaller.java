@@ -33,7 +33,7 @@ public class AppearanceMarshaller {
 	private final ChildInfo childInfo;
 
 	public AppearanceMarshaller(CityGMLMarshaller citygml) {
-		textureVertexArrayBuilder= citygml.getCityJSONMarshaller().getTextureVertexArrayBuilder();
+		textureVertexArrayBuilder= citygml.getCityJSONMarshaller().getTextureVerticesBuilder();
 		childInfo = new ChildInfo();
 	}
 

@@ -1,6 +1,11 @@
 package org.citygml4j.builder.json.objects.geometry;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gson.JsonDeserializationContext;
@@ -13,6 +18,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, JsonDeserializer<SemanticsType> {
+	private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
 	public JsonElement serialize(SemanticsType semantics, Type typeOfSrc, JsonSerializationContext context) {
@@ -43,28 +49,10 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 				SemanticsType semantics = new SemanticsType(semanticsType);
 
 				// deserialize properties
-				for (Entry<String, JsonElement> entry : object.entrySet()) {
-					String key = entry.getKey();					
-					if (key.equals("type"))
-						continue;
-						
-					JsonElement value = entry.getValue();
-					if (value.isJsonPrimitive()) {
-						JsonPrimitive primitive = entry.getValue().getAsJsonPrimitive();
-						if (primitive != null) {
-							if (primitive.isBoolean())
-								semantics.addProperty(key, primitive.getAsBoolean());
-							else if (primitive.isNumber())
-								semantics.addProperty(key, primitive.getAsNumber());
-							else if (primitive.isString())
-								semantics.addProperty(key, primitive.getAsString());
-							else
-								semantics.addProperty(key, context.deserialize(primitive, Object.class));
-						}
-					} else
-						semantics.addProperty(key, context.deserialize(value, Object.class));	
-				}
-
+				Map<String, Object> properties = deserialize(object, context);
+				if (!properties.isEmpty())
+					semantics.setProperties(properties);
+				
 				return semantics;
 			}
 		}
@@ -72,4 +60,45 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		return null;
 	}
 
+	private Map<String, Object> deserialize(JsonObject object, JsonDeserializationContext context) {
+		Map<String, Object> properties = new HashMap<>();
+		
+		for (Entry<String, JsonElement> entry : object.entrySet()) {
+			String key = entry.getKey();					
+			if (key.equals("type"))
+				continue;
+				
+			JsonElement element = entry.getValue();
+			if (element.isJsonPrimitive()) {
+				JsonPrimitive primitive = element.getAsJsonPrimitive();
+				if (primitive != null) {
+					if (primitive.isBoolean())
+						properties.put(key, primitive.getAsBoolean());
+					else if (primitive.isNumber()) {
+						Number value = primitive.getAsNumber();						
+						if (value.intValue() == value.doubleValue())
+							properties.put(key, value.intValue());	
+						else
+							properties.put(key, value.doubleValue());
+					} else if (primitive.isString()) {
+						String value = primitive.getAsString();
+						try {
+							Date date = formatter.parse(value);
+							properties.put(key, date);
+						} catch (ParseException e) {
+							properties.put(key, value);
+						}
+					} else
+						properties.put(key, context.deserialize(primitive, Object.class));
+				}
+			} else {
+				Map<String, Object> propertySet = deserialize(element.getAsJsonObject(), context);
+				if (!propertySet.isEmpty())
+					properties.put(key, propertySet);
+			}
+		}
+		
+		return properties;
+	}
+	
 }
