@@ -182,9 +182,9 @@ public class WaterBodyMarshaller {
 			if (property.isSetWaterBoundarySurface()) {
 				LodRepresentation lodRepresentation = property.getWaterBoundarySurface().getLodRepresentation();
 				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetLodGeometry(lod)) {
+					if (lodRepresentation.isSetGeometry(lod)) {
 						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod))
+						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
 							collector.visit(geometryProperty);
 					}
 				}

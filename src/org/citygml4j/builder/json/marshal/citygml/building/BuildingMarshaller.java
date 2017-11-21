@@ -404,9 +404,9 @@ public class BuildingMarshaller {
 				AbstractBoundarySurface boundarySurface = boundaryProperty.getBoundarySurface();
 				LodRepresentation lodRepresentation = boundarySurface.getLodRepresentation();
 				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetLodGeometry(lod)) {
+					if (lodRepresentation.isSetGeometry(lod)) {
 						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod))
+						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
 							collector.visit(geometryProperty);
 					}
 				}
@@ -417,9 +417,9 @@ public class BuildingMarshaller {
 							AbstractOpening opening = openingProperty.getOpening();
 							lodRepresentation = opening.getLodRepresentation();
 							for (int lod = 2; lod < 4; lod++) {
-								if (lodRepresentation.isSetLodGeometry(lod)) {
+								if (lodRepresentation.isSetGeometry(lod)) {
 									collector.setLod(lod);
-									for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod))
+									for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
 										collector.visit(geometryProperty);
 								}
 							}

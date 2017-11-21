@@ -235,9 +235,9 @@ public class TransportationMarshaller {
 			if (property.getFeature() instanceof AbstractCityObject) {
 				LodRepresentation lodRepresentation = ((AbstractCityObject)property.getFeature()).getLodRepresentation();
 				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetLodGeometry(lod)) {
+					if (lodRepresentation.isSetGeometry(lod)) {
 						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getLodGeometry(lod))
+						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
 							collector.visit(geometryProperty);
 					}
 				}
