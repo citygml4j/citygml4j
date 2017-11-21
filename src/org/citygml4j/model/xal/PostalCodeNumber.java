@@ -31,6 +31,13 @@ public class PostalCodeNumber implements XAL, GrPostal, Child, Copyable {
 	private String code;
 	private ModelObject parent;
 	
+	public PostalCodeNumber() {
+	}
+	
+	public PostalCodeNumber(String content) {
+		this.content = content;
+	}
+	
 	public String getContent() {
 		return content;
 	}

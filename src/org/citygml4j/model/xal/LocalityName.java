@@ -31,6 +31,13 @@ public class LocalityName implements XAL, GrPostal, Child, Copyable {
 	private String code;
 	private ModelObject parent;
 	
+	public LocalityName() {
+	}
+	
+	public LocalityName(String content) {
+		this.content = content;
+	}
+	
 	public String getContent() {
 		return content;
 	}

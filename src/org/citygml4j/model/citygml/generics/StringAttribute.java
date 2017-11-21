@@ -28,6 +28,10 @@ public class StringAttribute extends AbstractGenericAttribute {
 	public StringAttribute() {
 
 	}
+	
+	public StringAttribute(String value) {
+		this.value = value;
+	}
 
 	public StringAttribute(GenericsModule module) {
 		super(module);

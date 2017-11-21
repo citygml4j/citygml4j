@@ -18,6 +18,7 @@
  */
 package org.citygml4j.model.citygml.generics;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.citygml4j.builder.copy.CopyBuilder;
@@ -29,6 +30,15 @@ public class DateAttribute extends AbstractGenericAttribute {
 	
 	public DateAttribute() {
 		
+	}
+	
+	public DateAttribute(GregorianCalendar value) {
+		this.value = value;
+	}
+	
+	public DateAttribute(Date date) {
+		value = new GregorianCalendar();
+		value.setTime(date);
 	}
 	
 	public DateAttribute(GenericsModule module) {

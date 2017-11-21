@@ -28,6 +28,10 @@ public class UriAttribute extends AbstractGenericAttribute {
 	public UriAttribute() {
 
 	}
+	
+	public UriAttribute(String value) {
+		this.value = value;
+	}
 
 	public UriAttribute(GenericsModule module) {
 		super(module);

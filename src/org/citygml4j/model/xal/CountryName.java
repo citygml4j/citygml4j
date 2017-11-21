@@ -31,6 +31,13 @@ public class CountryName implements XAL, GrPostal, Child, Copyable {
 	private String code;
 	private ModelObject parent;
 	
+	public CountryName() {
+	}
+	
+	public CountryName(String content) {
+		this.content = content;
+	}
+	
 	public String getContent() {
 		return content;
 	}

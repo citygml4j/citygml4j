@@ -28,15 +28,19 @@ import org.citygml4j.model.module.citygml.GenericsModule;
 public class GenericAttributeSet extends AbstractGenericAttribute {
 	private List<AbstractGenericAttribute> genericAttribute;
 	private String codeSpace;
-	
+
 	public GenericAttributeSet() {
-		
+
 	}
-	
+
+	public GenericAttributeSet(List<AbstractGenericAttribute> attributes) {
+		this.genericAttribute = attributes;
+	}
+
 	public GenericAttributeSet(GenericsModule module) {
 		super(module);
 	}
-	
+
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GENERIC_ATTRIBUTE_SET;
 	}
@@ -44,14 +48,14 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	public void addGenericAttribute(AbstractGenericAttribute genericAttribute) {
 		if (this.genericAttribute == null)
 			this.genericAttribute = new ChildList<AbstractGenericAttribute>(this);
-		
+
 		this.genericAttribute.add(genericAttribute);
 	}
-	
+
 	public List<AbstractGenericAttribute> getGenericAttribute() {
 		if (genericAttribute == null)
 			genericAttribute = new ChildList<AbstractGenericAttribute>(this);
-		
+
 		return genericAttribute;
 	}
 
@@ -78,7 +82,7 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	public void unsetGenericAttribute() {
 		if (isSetGenericAttribute())
 			genericAttribute.clear();
-		
+
 		genericAttribute = null;
 	}
 
@@ -89,29 +93,29 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	public void unsetCodeSpace() {
 		codeSpace = null;
 	}
-	
+
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new GenericAttributeSet(), copyBuilder);
 	}
-	
+
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		GenericAttributeSet copy = (target == null) ? new GenericAttributeSet() : (GenericAttributeSet)target;
 		super.copyTo(copy, copyBuilder);
-		
+
 		if (isSetCodeSpace())
 			copy.setCodeSpace(copyBuilder.copy(codeSpace));
-		
+
 		if (isSetGenericAttribute()) {
 			for (AbstractGenericAttribute part : genericAttribute) {
 				AbstractGenericAttribute copyPart = (AbstractGenericAttribute)copyBuilder.copy(part);
 				copy.addGenericAttribute(copyPart);
-				
+
 				if (part != null && copyPart == part)
 					part.setParent(this);
 			}
 		}
-		
+
 		return copy;
 	}
 

@@ -28,6 +28,10 @@ public class DoubleAttribute extends AbstractGenericAttribute {
 	public DoubleAttribute() {
 
 	}
+	
+	public DoubleAttribute(double value) {
+		this.value = value;
+	}
 
 	public DoubleAttribute(GenericsModule module) {
 		super(module);

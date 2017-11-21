@@ -35,6 +35,13 @@ public class ThoroughfareNumber implements XAL, GrPostal, Child, Copyable {
 	private String code;
 	private ModelObject parent;
 	
+	public ThoroughfareNumber() {
+	}
+	
+	public ThoroughfareNumber(String content) {
+		this.content = content;
+	}
+	
 	public String getContent() {
 		return content;
 	}

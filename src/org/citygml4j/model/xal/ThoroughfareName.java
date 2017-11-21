@@ -31,6 +31,13 @@ public class ThoroughfareName implements XAL, GrPostal, Child, Copyable {
 	private String code;
 	private ModelObject parent;
 	
+	public ThoroughfareName() {
+	}
+	
+	public ThoroughfareName(String content) {
+		this.content = content;
+	}
+	
 	public String getContent() {
 		return content;
 	}
