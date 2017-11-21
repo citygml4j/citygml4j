@@ -46,27 +46,9 @@ public class SolidMaterialObject extends AbstractMaterialObject {
 	}
 	
 	@Override
-	public boolean collapseValues() {
-		if (values == null)
-			return true;
-		
-		List<Integer> values = this.values.stream()
-				.flatMap(a -> a != null ? a.stream() : Stream.of((Integer)null)).collect(Collectors.toList());
-		
-		Integer compareTo = null;
-		if (!values.isEmpty()) {
-			compareTo = values.get(0);
-			for (int i = 1 ; i < values.size(); i++) {
-				if (values.get(i) != compareTo)
-					return false;
-			}
-		}
-		
-		unsetValues();
-		if (compareTo != null)
-			setValue(compareTo);
-		
-		return true;
+	public List<Integer> flatValues() {
+		return values != null ? values.stream()
+				.flatMap(a -> a != null ? a.stream() : Stream.of((Integer)null)).collect(Collectors.toList()) : null;
 	}
 	
 	@Override

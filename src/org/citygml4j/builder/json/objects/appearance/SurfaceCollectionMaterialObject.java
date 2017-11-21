@@ -44,24 +44,8 @@ public class SurfaceCollectionMaterialObject extends AbstractMaterialObject {
 	}
 
 	@Override
-	public boolean collapseValues() {
-		if (values == null)
-			return true;	
-
-		Integer compareTo = null;
-		if (!values.isEmpty()) {
-			compareTo = values.get(0);
-			for (int i = 1 ; i < values.size(); i++) {
-				if (values.get(i) != compareTo)
-					return false;
-			}
-		}
-
-		unsetValues();
-		if (compareTo != null)
-			setValue(compareTo);
-
-		return true;
+	public List<Integer> flatValues() {
+		return values;
 	}
 
 	@Override
