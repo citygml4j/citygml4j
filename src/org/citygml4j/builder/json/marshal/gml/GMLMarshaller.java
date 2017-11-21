@@ -146,7 +146,7 @@ public class GMLMarshaller {
 	public void marshalSurface(Surface src, CompositeSurfaceType dest, AffineTransform transformer) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
 		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
-		surfaceBuilder.process(src, dest, semanticsBuilder, transformer);
+		surfaceBuilder.process(src, dest, semanticsBuilder, transformer, true);
 
 		if (dest.isSetSemantics())
 			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
@@ -170,7 +170,7 @@ public class GMLMarshaller {
 	public void marshalSurfaceCollection(AbstractGeometry src, AbstractSurfaceCollectionType dest, AffineTransform transformer) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
 		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
-		surfaceBuilder.process(src, dest, semanticsBuilder, transformer);
+		surfaceBuilder.process(src, dest, semanticsBuilder, transformer, true);
 		
 		if (dest.isSetSemantics())
 			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
@@ -190,7 +190,7 @@ public class GMLMarshaller {
 		return dest;
 	}
 
-	public void marshalSolid(Solid src, SolidType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer) {
+	public void marshalSolid(Solid src, SolidType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer, boolean collapseMaterialValues) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
 		int index = 0;
 
@@ -207,7 +207,7 @@ public class GMLMarshaller {
 
 			for (CompositeSurface shell : shells) {
 				CompositeSurfaceType shellType = new CompositeSurfaceType();
-				surfaceBuilder.process(shell, shellType, semanticsBuilder, transformer);
+				surfaceBuilder.process(shell, shellType, semanticsBuilder, transformer, false);
 
 				if (!shellType.getSurfaces().isEmpty()) {
 					dest.addShell(shellType.getSurfaces());
@@ -257,14 +257,14 @@ public class GMLMarshaller {
 					break;
 			}
 
-			postprocess(dest, index);
+			postprocess(dest, index, collapseMaterialValues);
 		}
 	}
 
 	public SolidType marshalSolid(Solid src, AffineTransform transformer) {
 		SolidType dest = new SolidType();
 		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
-		marshalSolid(src, dest, semanticsBuilder, transformer);
+		marshalSolid(src, dest, semanticsBuilder, transformer, true);
 		
 		if (dest.isSetSemantics())
 			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
@@ -517,13 +517,13 @@ public class GMLMarshaller {
 			index++;
 		}
 
-		public void process(AbstractGeometry src, AbstractSurfaceCollectionType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer) {
+		public void process(AbstractGeometry src, AbstractSurfaceCollectionType dest, SemanticsBuilder semanticsBuilder, AffineTransform transformer, boolean collapseMaterialValues) {
 			this.dest = dest;
 			this.semanticsBuilder = semanticsBuilder;
 			this.transformer = transformer;
 			
 			src.accept(this);
-			postprocess(dest, index);
+			postprocess(dest, index, collapseMaterialValues);
 		}
 	}
 
@@ -536,7 +536,7 @@ public class GMLMarshaller {
 		@Override
 		public void visit(Solid solid) {
 			SolidType solidType = new SolidType();
-			marshalSolid(solid, solidType, semanticsBuilder, transformer);
+			marshalSolid(solid, solidType, semanticsBuilder, transformer, false);
 
 			if (!solidType.getShells().isEmpty()) {
 				dest.addSolid(solidType.getShells());
@@ -599,7 +599,7 @@ public class GMLMarshaller {
 			this.semanticsBuilder = semanticsBuilder;
 			
 			src.accept(this);
-			postprocess(dest, index);
+			postprocess(dest, index, true);
 		}
 	}
 
@@ -618,7 +618,7 @@ public class GMLMarshaller {
 			texture.addNullValue();
 	}
 
-	private void postprocess(AbstractGeometryType dest, int index) {
+	private void postprocess(AbstractGeometryType dest, int index, boolean collapseMaterialValues) {
 		if (dest instanceof GeometryWithSemantics) {
 			GeometryWithSemantics geometry = (GeometryWithSemantics)dest;
 			if (geometry.isSetSemantics())
@@ -629,7 +629,7 @@ public class GMLMarshaller {
 			GeometryWithAppearance<?, ?> geometry = (GeometryWithAppearance<?, ?>)dest;			
 			if (geometry.isSetMaterial()) {			
 				for (AbstractMaterialObject material : geometry.getMaterial()) {
-					if (!material.collapseValues())
+					if (!collapseMaterialValues || !material.collapseValues())
 						appendNulls(material, index);
 				}
 			}
