@@ -36,7 +36,7 @@ public class SurfaceCollectionSemanticsObject extends AbstractSemanticsObject {
 	}
 
 	@Override
-	public List<Integer> flattenValues() {
+	public List<Integer> flatValues() {
 		return values;
 	}
 	

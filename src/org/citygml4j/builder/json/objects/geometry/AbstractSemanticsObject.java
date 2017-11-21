@@ -8,7 +8,7 @@ public abstract class AbstractSemanticsObject {
 
 	public abstract void addNullValue();
 	public abstract int getNumValues();
-	public abstract List<Integer> flattenValues();
+	public abstract List<Integer> flatValues();
 
 	public boolean isSetSurfaces() {
 		return surfaces != null;

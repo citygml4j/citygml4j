@@ -38,7 +38,7 @@ public class SolidCollectionSemanticsObject extends AbstractSemanticsObject {
 	}
 
 	@Override
-	public List<Integer> flattenValues() {
+	public List<Integer> flatValues() {
 		return values.stream()
 				.flatMap(a -> a != null ? a.stream() : Stream.of((List<Integer>)null))
 				.flatMap(b -> b != null ? b.stream() : Stream.of((Integer)null)).collect(Collectors.toList());

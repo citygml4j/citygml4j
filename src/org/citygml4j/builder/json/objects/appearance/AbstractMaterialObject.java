@@ -4,6 +4,7 @@ public abstract class AbstractMaterialObject {
 	private transient String theme;
 	private Integer value;
 	
+	public abstract boolean isSetValues();
 	public abstract void addNullValue();
 	public abstract int getNumValues();
 	public abstract boolean collapseValues();

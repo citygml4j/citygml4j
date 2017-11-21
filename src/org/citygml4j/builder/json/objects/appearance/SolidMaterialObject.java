@@ -15,6 +15,7 @@ public class SolidMaterialObject extends AbstractMaterialObject {
 		super(theme);
 	}
 	
+	@Override
 	public boolean isSetValues() {
 		return values != null;
 	}
