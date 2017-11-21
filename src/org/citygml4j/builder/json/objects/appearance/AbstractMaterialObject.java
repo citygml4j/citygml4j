@@ -6,7 +6,7 @@ public abstract class AbstractMaterialObject {
 	
 	public abstract void addNullValue();
 	public abstract int getNumValues();
-	public abstract boolean flattenValues();
+	public abstract boolean collapseValues();
 	public abstract void unsetValues();
 	
 	public AbstractMaterialObject() {

@@ -629,7 +629,7 @@ public class GMLMarshaller {
 			GeometryWithAppearance<?, ?> geometry = (GeometryWithAppearance<?, ?>)dest;			
 			if (geometry.isSetMaterial()) {			
 				for (AbstractMaterialObject material : geometry.getMaterial()) {
-					if (!material.flattenValues())
+					if (!material.collapseValues())
 						appendNulls(material, index);
 				}
 			}

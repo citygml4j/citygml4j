@@ -45,7 +45,7 @@ public class SolidCollectionMaterialObject extends AbstractMaterialObject {
 	}
 
 	@Override
-	public boolean flattenValues() {
+	public boolean collapseValues() {
 		if (values == null)
 			return true;
 
