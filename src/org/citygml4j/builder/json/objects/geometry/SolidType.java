@@ -6,15 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.citygml4j.builder.json.objects.appearance.MaterialAdapter;
 import org.citygml4j.builder.json.objects.appearance.SolidMaterialObject;
 import org.citygml4j.builder.json.objects.appearance.SolidTextureObject;
+import org.citygml4j.builder.json.objects.appearance.TextureAdapter;
+
+import com.google.gson.annotations.JsonAdapter;
 
 public class SolidType extends AbstractSolidType
 implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 	private final GeometryTypeName type = GeometryTypeName.SOLID;
 	private List<List<List<List<Integer>>>> boundaries = new ArrayList<>();	
 	private SolidSemanticsObject semantics;
+	@JsonAdapter(MaterialAdapter.class)
 	private Map<String, SolidMaterialObject> material;
+	@JsonAdapter(TextureAdapter.class)
 	private Map<String, SolidTextureObject> texture;
 	
 	@Override

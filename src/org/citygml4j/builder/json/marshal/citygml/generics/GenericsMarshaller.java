@@ -142,7 +142,7 @@ public class GenericsMarshaller {
 	}
 	
 	public GenericCityObjectType marshalGenericCityObject(GenericCityObject src) {
-		GenericCityObjectType dest = new GenericCityObjectType();
+		GenericCityObjectType dest = new GenericCityObjectType(src.getId());
 		marshalGenericCityObject(src, dest);
 		
 		return dest;

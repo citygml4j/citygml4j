@@ -33,7 +33,7 @@ public class AppearanceMarshaller {
 	private final ChildInfo childInfo;
 
 	public AppearanceMarshaller(CityGMLMarshaller citygml) {
-		textureVertexArrayBuilder= citygml.getCityJSONMarshaller().getTextureVerticesBuilder();
+		textureVertexArrayBuilder = citygml.getCityJSONMarshaller().getTextureVerticesBuilder();
 		childInfo = new ChildInfo();
 	}
 
@@ -161,7 +161,7 @@ public class AppearanceMarshaller {
 								if (tmp != null && !tmp.isEmpty()) {
 									for (Entry<String, List<Integer>> entry : tmp.entrySet()) {
 										List<List<Integer>> indexes = textures.get(entry.getKey());
-										if (indexes != null && indexes.size() == 1)
+										if (indexes != null && indexes.size() > 0)
 											indexes.add(entry.getValue());
 									}
 								}

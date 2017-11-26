@@ -8,7 +8,14 @@ import com.google.gson.annotations.SerializedName;
 public class BuildingType extends AbstractBuildingType {
 	private final CityObjectTypeName type = CityObjectTypeName.BUILDING;
 	@SerializedName("Parts")
-	private List<String> parts; 
+	private List<String> parts;
+	
+	BuildingType() {
+	}
+	
+	public BuildingType(String gmlId) {
+		super(gmlId);
+	}
 	
 	@Override
 	public CityObjectTypeName getType() {

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
@@ -17,6 +19,7 @@ import org.citygml4j.builder.json.objects.feature.BuildingInstallationType;
 import org.citygml4j.builder.json.objects.feature.BuildingPartType;
 import org.citygml4j.builder.json.objects.feature.BuildingType;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
+import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
 import org.citygml4j.builder.json.objects.geometry.SemanticsType;
 import org.citygml4j.builder.json.objects.geometry.SemanticsTypeName;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
@@ -254,7 +257,7 @@ public class BuildingMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBuilding(Building src) {
-		BuildingType dest = new BuildingType();
+		BuildingType dest = new BuildingType(src.getId());
 		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest);
 		cityObjects.add(dest);
 
@@ -262,7 +265,7 @@ public class BuildingMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src) {
-		BuildingPartType dest = new BuildingPartType();
+		BuildingPartType dest = new BuildingPartType(src.getId());
 		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest);
 		cityObjects.add(dest);
 
@@ -300,11 +303,13 @@ public class BuildingMarshaller {
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
 
+		Map<Integer, GeometryTypeName> geometryTypes = new HashMap<>();
 		if (src.isSetLod2Geometry()) {
 			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry());
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
+				geometryTypes.put(2, geometry.getType());
 			}
 		}
 
@@ -313,12 +318,29 @@ public class BuildingMarshaller {
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
+				geometryTypes.put(3, geometry.getType());
+			}
+		}
+		
+		if (src.isSetLod2ImplicitRepresentation()) {
+			AbstractGeometryType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation());
+			if (geometry != null && geometryTypes.get(2) != geometry.getType()) {
+				geometry.setLod(2);
+				dest.addGeometry(geometry);
+			}
+		}
+		
+		if (src.isSetLod3ImplicitRepresentation()) {
+			AbstractGeometryType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation());
+			if (geometry != null && geometryTypes.get(3) != geometry.getType()) {
+				geometry.setLod(3);
+				dest.addGeometry(geometry);
 			}
 		}
 	}
 
 	public List<AbstractCityObjectType> marshalBuildingInstallation(BuildingInstallation src) {
-		BuildingInstallationType dest = new BuildingInstallationType();
+		BuildingInstallationType dest = new BuildingInstallationType(src.getId());
 		marshalBuildingInstallation(src, dest);
 
 		return Collections.singletonList(dest);

@@ -8,6 +8,13 @@ public class WaterBodyType extends AbstractCityObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.WATER_BODY;
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
+	
+	WaterBodyType() {
+	}
+	
+	public WaterBodyType(String gmlId) {
+		super(gmlId);
+	}
 
 	@Override
 	public CityObjectTypeName getType() {

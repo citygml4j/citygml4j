@@ -4,10 +4,17 @@ import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
 
 import com.google.gson.annotations.JsonAdapter;
 
-public class SolitaryVegetationObjectType extends AbstractCityObjectType {
+public class SolitaryVegetationObjectType extends AbstractVegetationObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.SOLITARY_VEGETATION_OBJECT;
 	@JsonAdapter(SolitaryVegetationObjectAttributesAdapter.class)
 	private SolitaryVegetationObjectAttributes attributes;
+	
+	SolitaryVegetationObjectType() {
+	}
+	
+	public SolitaryVegetationObjectType(String gmlId) {
+		super(gmlId);
+	}
 	
 	@Override
 	public CityObjectTypeName getType() {

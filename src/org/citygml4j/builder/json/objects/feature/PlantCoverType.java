@@ -4,10 +4,17 @@ import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
 
 import com.google.gson.annotations.JsonAdapter;
 
-public class PlantCoverType extends AbstractCityObjectType {
+public class PlantCoverType extends AbstractVegetationObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.PLANT_COVER;
 	@JsonAdapter(PlantCoverAttributesAdapter.class)
 	private PlantCoverAttributes attributes;
+	
+	PlantCoverType() {
+	}
+	
+	public PlantCoverType(String gmlId) {
+		super(gmlId);
+	}
 	
 	@Override
 	public CityObjectTypeName getType() {

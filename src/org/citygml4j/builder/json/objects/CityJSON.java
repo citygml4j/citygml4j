@@ -1,6 +1,7 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,11 +11,13 @@ import java.util.stream.Collectors;
 
 import org.citygml4j.builder.json.objects.appearance.AppearanceType;
 import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
+import org.citygml4j.builder.json.objects.feature.CityObjectsAdapter;
 import org.citygml4j.builder.json.objects.feature.MetadataType;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.TransformType;
 import org.citygml4j.geometry.BoundingBox;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
@@ -22,6 +25,7 @@ public class CityJSON {
 	private final String version = "0.5";
 	private MetadataType metadata;
 	@SerializedName("CityObjects")
+	@JsonAdapter(CityObjectsAdapter.class)
 	private Map<String, AbstractCityObjectType> cityObjects = new HashMap<>();
 	private List<List<Double>> vertices = new ArrayList<>();
 	private TransformType transform;
@@ -62,9 +66,14 @@ public class CityJSON {
 	public AbstractCityObjectType getCityObject(String gmlId) {
 		return cityObjects.get(gmlId);
 	}
+	
+	public <T extends AbstractCityObjectType> T getCityObject(String gmlId, Class<T> type) {
+		AbstractCityObjectType cityObject = cityObjects.get(gmlId);
+		return type.isInstance(cityObject) ? type.cast(cityObject) : null;
+	}
 
-	public Map<String, AbstractCityObjectType> getCityObjects() {
-		return cityObjects;
+	public Collection<AbstractCityObjectType> getCityObjects() {
+		return cityObjects.values();
 	}
 
 	public void setCityObjects(List<AbstractCityObjectType> cityObjects) {

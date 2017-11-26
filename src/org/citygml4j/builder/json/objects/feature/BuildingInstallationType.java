@@ -9,6 +9,13 @@ public class BuildingInstallationType extends AbstractCityObjectType {
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
 	
+	BuildingInstallationType() {
+	}
+	
+	public BuildingInstallationType(String gmlId) {
+		super(gmlId);
+	}
+	
 	@Override
 	public CityObjectTypeName getType() {
 		return type;

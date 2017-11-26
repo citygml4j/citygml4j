@@ -6,7 +6,7 @@ import java.util.List;
 public class SurfaceCollectionMaterialObject extends AbstractMaterialObject {
 	private List<Integer> values;
 
-	public SurfaceCollectionMaterialObject() {
+	SurfaceCollectionMaterialObject() {
 	}
 
 	public SurfaceCollectionMaterialObject(String theme) {

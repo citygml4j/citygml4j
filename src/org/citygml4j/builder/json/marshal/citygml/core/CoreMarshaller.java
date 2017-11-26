@@ -27,7 +27,6 @@ import org.citygml4j.model.xal.LocalityName;
 import org.citygml4j.model.xal.PostalCodeNumber;
 import org.citygml4j.model.xal.ThoroughfareName;
 import org.citygml4j.model.xal.ThoroughfareNumber;
-import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.walker.XALWalker;
 
 public class CoreMarshaller {
@@ -47,8 +46,6 @@ public class CoreMarshaller {
 	}
 
 	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, Attributes attributes) {
-		dest.setGmlId(src.isSetId() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
-
 		if (src.isSetCreationDate())
 			attributes.setCreationDate(src.getCreationDate().getTime());
 

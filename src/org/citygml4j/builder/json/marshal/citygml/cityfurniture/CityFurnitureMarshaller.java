@@ -114,7 +114,7 @@ public class CityFurnitureMarshaller {
 	}
 	
 	public CityFurnitureType marshalCityFurniture(CityFurniture src) {
-		CityFurnitureType dest = new CityFurnitureType();
+		CityFurnitureType dest = new CityFurnitureType(src.getId());
 		marshalCityFurniture(src, dest);
 		
 		return dest;

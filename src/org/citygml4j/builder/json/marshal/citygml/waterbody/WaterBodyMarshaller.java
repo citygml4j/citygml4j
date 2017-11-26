@@ -163,7 +163,7 @@ public class WaterBodyMarshaller {
 	}
 
 	public WaterBodyType marshalWaterBody(WaterBody src) {
-		WaterBodyType dest = new WaterBodyType();
+		WaterBodyType dest = new WaterBodyType(src.getId());
 		marshalWaterBody(src, dest);
 
 		return dest;

@@ -15,7 +15,7 @@ public class GeometryTypeAdapter implements JsonSerializer<AbstractGeometryType>
 
 	@Override
 	public JsonElement serialize(AbstractGeometryType geometryObject, Type typeOfSrc, JsonSerializationContext context) {
-		return context.serialize(geometryObject, geometryObject.getClass());
+		return context.serialize(geometryObject);
 	}
 
 	@Override

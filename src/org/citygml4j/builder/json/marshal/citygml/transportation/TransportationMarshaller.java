@@ -150,21 +150,21 @@ public class TransportationMarshaller {
 	}
 	
 	public List<AbstractCityObjectType> marshalRoad(Road src) {
-		RoadType dest = new RoadType();
+		RoadType dest = new RoadType(src.getId());
 		marshalTransportationComplex(src, dest);
 		
 		return Collections.singletonList(dest);
 	}
 	
 	public List<AbstractCityObjectType> marshalRailway(Railway src) {
-		RailwayType dest = new RailwayType();
+		RailwayType dest = new RailwayType(src.getId());
 		marshalTransportationComplex(src, dest);
 		
 		return Collections.singletonList(dest);
 	}
 	
 	public List<AbstractCityObjectType> marshalSquare(Square src) {
-		TransportSquareType dest = new TransportSquareType();
+		TransportSquareType dest = new TransportSquareType(src.getId());
 		marshalTransportationComplex(src, dest);
 		
 		return Collections.singletonList(dest);

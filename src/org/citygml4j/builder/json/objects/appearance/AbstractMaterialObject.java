@@ -3,7 +3,7 @@ package org.citygml4j.builder.json.objects.appearance;
 import java.util.List;
 
 public abstract class AbstractMaterialObject {
-	private transient String theme;
+	protected transient String theme;
 	private Integer value;
 
 	public abstract boolean isSetValues();
@@ -12,19 +12,15 @@ public abstract class AbstractMaterialObject {
 	public abstract List<Integer> flatValues();
 	public abstract void unsetValues();
 
-	public AbstractMaterialObject() {
+	AbstractMaterialObject() {
 	}
 
 	public AbstractMaterialObject(String theme) {
-		this.theme = theme;
+		this.theme = theme != null ? theme : "";
 	}
 
 	public String getTheme() {
 		return theme;
-	}
-
-	public void setTheme(String theme) {
-		this.theme = theme;
 	}
 
 	public boolean isSetValue() {

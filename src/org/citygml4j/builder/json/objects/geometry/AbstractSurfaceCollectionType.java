@@ -6,15 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.citygml4j.builder.json.objects.appearance.MaterialAdapter;
 import org.citygml4j.builder.json.objects.appearance.SurfaceCollectionMaterialObject;
 import org.citygml4j.builder.json.objects.appearance.SurfaceCollectionTextureObject;
+import org.citygml4j.builder.json.objects.appearance.TextureAdapter;
+
+import com.google.gson.annotations.JsonAdapter;
 
 public abstract class AbstractSurfaceCollectionType extends AbstractGeometryType 
 implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMaterialObject, SurfaceCollectionTextureObject> {
 	private final GeometryTypeName type;
 	private List<List<List<Integer>>> boundaries = new ArrayList<>();
-	private SurfaceCollectionSemanticsObject semantics;	
+	private SurfaceCollectionSemanticsObject semantics;
+	@JsonAdapter(MaterialAdapter.class)
 	private Map<String, SurfaceCollectionMaterialObject> material;
+	@JsonAdapter(TextureAdapter.class)
 	private Map<String, SurfaceCollectionTextureObject> texture;
 	
 	protected AbstractSurfaceCollectionType(GeometryTypeName type) {

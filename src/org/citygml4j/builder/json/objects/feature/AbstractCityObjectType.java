@@ -5,12 +5,10 @@ import java.util.List;
 
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
-import com.google.gson.annotations.JsonAdapter;
-
-@JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
-	private transient String gmlId;
+	protected transient String gmlId;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	public abstract CityObjectTypeName getType();
@@ -18,12 +16,15 @@ public abstract class AbstractCityObjectType {
 	public abstract boolean isSetAttributes();
 	public abstract Attributes getAttributes();
 	
-	public String getGmlId() {
-		return gmlId;
+	AbstractCityObjectType() {
 	}
 	
-	public void setGmlId(String gmlId) {
-		this.gmlId = gmlId;
+	public AbstractCityObjectType(String gmlId) {
+		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : DefaultGMLIdManager.getInstance().generateUUID();
+	}
+	
+	public String getGmlId() {
+		return gmlId;
 	}
 		
 	public void addGeometry(AbstractGeometryType geometry) {

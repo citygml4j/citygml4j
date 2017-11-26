@@ -15,6 +15,13 @@ public abstract class AbstractBuildingType extends AbstractCityObjectType {
 	@SerializedName("Installations")
 	private List<String> installations;
 	
+	AbstractBuildingType() {
+	}
+	
+	public AbstractBuildingType(String gmlId) {
+		super(gmlId);
+	}
+	
 	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;

@@ -63,7 +63,7 @@ public class ReliefMarshaller {
 	}
 	
 	public List<AbstractCityObjectType> marshalTINRelief(TINRelief src) {
-		TINReliefType dest = new TINReliefType();
+		TINReliefType dest = new TINReliefType(src.getId());
 		marshalTINRelief(src, dest);
 		
 		return Collections.singletonList(dest);

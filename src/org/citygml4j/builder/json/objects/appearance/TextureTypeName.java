@@ -4,18 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public enum TextureTypeName {
 	@SerializedName("PNG")
-	PNG("PNG"),
+	PNG("PNG", "image/png"),
 	@SerializedName("JPG")
-	JPG("JPG");
+	JPG("JPG", "image/jpeg");
 	
 	private final String value;
+	private final String mimeType;
 	
-	private TextureTypeName(String value) {
+	private TextureTypeName(String value, String mimeType) {
 		this.value = value;
+		this.mimeType = mimeType;
 	}
 	
 	public String getValue() {
 		return value;
+	}
+	
+	public String getMimeType() {
+		return mimeType;
 	}
 	
 	@Override

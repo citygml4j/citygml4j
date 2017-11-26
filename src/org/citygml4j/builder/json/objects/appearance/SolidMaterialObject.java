@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class SolidMaterialObject extends AbstractMaterialObject {
 	private List<List<Integer>> values;
 	
-	public SolidMaterialObject() {
+	SolidMaterialObject() {
 	}
 	
 	public SolidMaterialObject(String theme) {

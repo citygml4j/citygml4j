@@ -9,6 +9,13 @@ public class LandUseType extends AbstractCityObjectType {
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
 	
+	LandUseType() {
+	}
+	
+	public LandUseType(String gmlId) {
+		super(gmlId);
+	}
+	
 	@Override
 	public CityObjectTypeName getType() {
 		return type;

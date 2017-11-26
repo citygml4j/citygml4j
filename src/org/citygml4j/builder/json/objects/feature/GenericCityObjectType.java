@@ -9,6 +9,13 @@ public class GenericCityObjectType extends AbstractCityObjectType {
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
 	
+	GenericCityObjectType() {
+	}
+	
+	public GenericCityObjectType(String gmlId) {
+		super(gmlId);
+	}
+	
 	@Override
 	public CityObjectTypeName getType() {
 		return type;

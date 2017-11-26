@@ -24,8 +24,8 @@ public class TransportationComplexAttributes extends Attributes {
 		return surfaceMaterials;
 	}
 
-	public void setSurfaceMaterials(List<String> surfaceMaterials) {
-		this.surfaceMaterials = surfaceMaterials;
+	public void setSurfaceMaterials(List<String> surfaceMaterial) {
+		this.surfaceMaterials = surfaceMaterial;
 	}
 	
 }

@@ -9,6 +9,13 @@ public class TINReliefType extends AbstractCityObjectType {
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
 	
+	TINReliefType() {
+	}
+	
+	public TINReliefType(String gmlId) {
+		super(gmlId);
+	}
+	
 	@Override
 	public CityObjectTypeName getType() {
 		return type;

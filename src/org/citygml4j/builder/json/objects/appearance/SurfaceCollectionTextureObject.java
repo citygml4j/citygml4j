@@ -9,13 +9,14 @@ public class SurfaceCollectionTextureObject extends AbstractTextureObject {
 	public static final List<List<Integer>> NULL_VALUE = Collections.singletonList(Arrays.asList(new Integer[]{null}));
 	private List<List<List<Integer>>> values;
 	
-	public SurfaceCollectionTextureObject() {
+	SurfaceCollectionTextureObject() {
 	}
 	
 	public SurfaceCollectionTextureObject(String theme) {
 		super(theme);
 	}
 
+	@Override
 	public boolean isSetValues() {
 		return values != null;
 	}
@@ -43,6 +44,11 @@ public class SurfaceCollectionTextureObject extends AbstractTextureObject {
 	@Override
 	public int getNumValues() {
 		return values != null ? values.size() : 0;
+	}
+
+	@Override
+	public List<List<List<Integer>>> flatValues() {
+		return values;
 	}
 
 }

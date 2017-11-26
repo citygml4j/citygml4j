@@ -119,7 +119,7 @@ public class VegetationMarshaller {
 	}
 	
 	public List<AbstractCityObjectType> marshalPlantCover(PlantCover src) {
-		PlantCoverType dest = new PlantCoverType();
+		PlantCoverType dest = new PlantCoverType(src.getId());
 		marshalPlantCover(src, dest);
 
 		return Collections.singletonList(dest);
@@ -216,7 +216,7 @@ public class VegetationMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalSolitaryVegetationObject(SolitaryVegetationObject src) {
-		SolitaryVegetationObjectType dest = new SolitaryVegetationObjectType();
+		SolitaryVegetationObjectType dest = new SolitaryVegetationObjectType(src.getId());
 		marshalSolitaryVegetationObject(src, dest);
 
 		return Collections.singletonList(dest);
