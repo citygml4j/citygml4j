@@ -1,6 +1,7 @@
 package org.citygml4j.builder.json.objects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,7 +16,6 @@ import org.citygml4j.builder.json.objects.feature.CityObjectsAdapter;
 import org.citygml4j.builder.json.objects.feature.MetadataType;
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.TransformType;
-import org.citygml4j.geometry.BoundingBox;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -121,11 +121,24 @@ public class CityJSON {
 		this.appearance = appearance;
 	}
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
+	public List<Double> calcBoundingBox() {
+		List<Double> bbox = Arrays.asList(new Double[] {
+				Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, 
+				-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE});
+		
 		for (List<Double> vertex : vertices) {
-			if (vertex.size() == 3)
-				bbox.update(vertex.get(0), vertex.get(1), vertex.get(2));
+			if (vertex.size() > 2) {
+				double x = vertex.get(0);
+				double y = vertex.get(1);
+				double z = vertex.get(2);
+				
+				if (x < bbox.get(0)) bbox.set(0, x);
+				if (y < bbox.get(1)) bbox.set(1, y);
+				if (z < bbox.get(2)) bbox.set(2, z);
+				if (x > bbox.get(3)) bbox.set(3, x);
+				if (y > bbox.get(4)) bbox.set(4, y);
+				if (z > bbox.get(5)) bbox.set(5, z);
+			}
 		}
 
 		return bbox;
@@ -134,9 +147,8 @@ public class CityJSON {
 	public List<Number> calcPresentLoDs() {
 		Set<Number> lods = new HashSet<>();		
 		for (AbstractCityObjectType cityObject : cityObjects.values()) {
-			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
+			for (AbstractGeometryType geometry : cityObject.getGeometry())
 				lods.add(geometry.getLod());
-			}
 		}
 		
 		return lods.stream().sorted().collect(Collectors.toList());
