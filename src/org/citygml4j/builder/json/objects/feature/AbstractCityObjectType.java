@@ -2,10 +2,10 @@ package org.citygml4j.builder.json.objects.feature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
-import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 public abstract class AbstractCityObjectType {
 	protected transient String gmlId;
@@ -20,7 +20,7 @@ public abstract class AbstractCityObjectType {
 	}
 	
 	public AbstractCityObjectType(String gmlId) {
-		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : DefaultGMLIdManager.getInstance().generateUUID();
+		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : new StringBuilder("UUID_").append(UUID.randomUUID().toString()).toString();
 	}
 	
 	public String getGmlId() {
