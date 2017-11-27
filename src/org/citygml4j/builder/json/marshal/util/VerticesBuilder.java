@@ -4,6 +4,5 @@ import java.util.List;
 
 public interface VerticesBuilder {
 	public List<Integer> addVertices(List<Double> vertices);
-	public List<List<Double>> getVertices();
-	public int getNumVertices();
+	public List<List<Double>> build();
 }

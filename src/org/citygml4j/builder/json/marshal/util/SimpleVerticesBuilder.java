@@ -2,39 +2,64 @@ package org.citygml4j.builder.json.marshal.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SimpleVerticesBuilder implements VerticesBuilder {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final List<List<Double>> vertices = new ArrayList<>();
+	private final Map<Integer, Integer> indexes = new ConcurrentHashMap<>();
+	private final TreeMap<Integer, List<Double>> vertices = new TreeMap<>();
+	private final AtomicInteger counter = new AtomicInteger(0);
 
+	private double significantDigits = Math.pow(10, 3);
+	
+	public SimpleVerticesBuilder withSignificantDigits(int significantDigits) {
+		if (significantDigits > 0)
+			this.significantDigits = Math.pow(10, significantDigits);
+		
+		return this;
+	}
+	
+	public int getSignificantDigits() {
+		return (int)Math.log10(significantDigits);
+	}
 
 	@Override
 	public List<Integer> addVertices(List<Double> vertices) {
-		lock.lock();
-		try {
-			List<Integer> indexes = new ArrayList<>();
-			int index = this.vertices.size();
+		List<Integer> result = new ArrayList<>();
 
-			for (int i = 0; i < vertices.size(); i += 3) {
-				this.vertices.add(vertices.subList(i, i + 3));
-				indexes.add(index++);
+		for (int i = 0; i < vertices.size(); i += 3) {
+			List<Double> vertex = vertices.subList(i, i + 3);
+			int key = Objects.hash(round(vertex.get(0)), round(vertex.get(1)), round(vertex.get(2)));
+
+			Integer index = indexes.get(key);
+			if (index == null) {				
+				Integer tmp = counter.getAndIncrement();				
+				index = indexes.putIfAbsent(key, tmp);
+				if (index == null)
+					index = tmp;
+				
+				this.vertices.put(index, vertex);
 			}
 
-			return indexes;
-		} finally {
-			lock.unlock();
+			result.add(index);
 		}
+		
+		return result;
 	}
 
 	@Override
-	public List<List<Double>> getVertices() {
-		return vertices;
+	public List<List<Double>> build() {
+		List<List<Double>> result = new ArrayList<>(vertices.values());
+		indexes.clear();
+		vertices.clear();
+		
+		return result;
 	}
 
-	@Override
-	public int getNumVertices() {
-		return vertices.size();
+	private double round(double value) {
+		return Math.floor(value * significantDigits) / significantDigits;
 	}
-
 }

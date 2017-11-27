@@ -50,20 +50,23 @@ public class CityJSONMarshaller {
 		appearanceResolver.resolve(src);
 
 		CityJSON dest = new CityJSON();
-		
+
 		// marshal city model to json
 		List<AbstractCityObjectType> cityObjects = citygml.marshal(src);
 		if (!cityObjects.isEmpty()) {
 			dest.setCityObjects(cityObjects);
-			dest.setVertices(verticesBuilder.getVertices());
+			dest.setVertices(verticesBuilder.build());
 
 			if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
 				AppearanceType appearance = new AppearanceType();
 				dest.setAppearance(appearance);
 
-				if (appearanceResolver.hasTextures() && textureVerticesBuilder.getNumTextureVertices() > 0) {
-					appearance.setTextures(appearanceResolver.getTextures());
-					appearance.setTextureVertices(textureVerticesBuilder.getTextureVertices());
+				if (appearanceResolver.hasTextures()) {
+					List<List<Double>> textureVertices = textureVerticesBuilder.build();
+					if (textureVertices.size() > 0) {
+						appearance.setTextures(appearanceResolver.getTextures());
+						appearance.setTextureVertices(textureVertices);
+					}
 				}
 
 				if (appearanceResolver.hasMaterials())
