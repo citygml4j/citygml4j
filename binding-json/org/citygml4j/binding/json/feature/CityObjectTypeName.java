@@ -8,7 +8,15 @@ public enum CityObjectTypeName {
 	@SerializedName("BuildingPart")
 	BUILDING_PART("BuildingPart", BuildingPartType.class),
 	@SerializedName("BuildingInstallation")
-	BUILDING_INSTALLATION("BuildingInstallation", BuildingInstallationType.class),
+	BUILDING_INSTALLATION("BuildingInstallation", BuildingInstallationType.class),	
+	@SerializedName("Bridge")
+	BRIDGE("Bridge", BridgeType.class),
+	@SerializedName("BridgePart")
+	BRIDGE_PART("BridgePart", BridgePartType.class),
+	@SerializedName("BridgeInstallation")
+	BRIDGE_INSTALLATION("BridgeInstallation", BridgeInstallationType.class),
+	@SerializedName("BridgeConstructionElement")
+	BRIDGE_CONSTRUCTION_ELEMENT("BridgeConstructionElement", BridgeConstructionElementType.class),	
 	@SerializedName("TINRelief")
 	TIN_RELIEF("TINRelief", TINReliefType.class),
 	@SerializedName("WaterBody")
@@ -28,7 +36,13 @@ public enum CityObjectTypeName {
 	@SerializedName("Railway")
 	RAILWAY("Railway", RailwayType.class),
 	@SerializedName("TransportSquare")
-	TRANSPOR_SQUARE("TransportSquare", TransportSquareType.class);
+	TRANSPOR_SQUARE("TransportSquare", TransportSquareType.class),
+	@SerializedName("Tunnel")
+	TUNNEL("Tunnel", TunnelType.class),
+	@SerializedName("TunnelPart")
+	TUNNEL_PART("TunnelPart", TunnelPartType.class),
+	@SerializedName("TunnelInstallation")
+	TUNNEL_INSTALLATION("TunnelInstallation", TunnelInstallationType.class);
 	
 	private final String value;
 	private final Class<? extends AbstractCityObjectType> typeClass;

@@ -6,7 +6,9 @@ import java.util.Map;
 import org.citygml4j.binding.json.CityJSON;
 import org.citygml4j.binding.json.feature.AbstractCityObjectType;
 import org.citygml4j.binding.json.feature.AbstractTransportationComplexType;
+import org.citygml4j.binding.json.feature.AbstractTunnelType;
 import org.citygml4j.binding.json.feature.AbstractVegetationObjectType;
+import org.citygml4j.binding.json.feature.BridgeType;
 import org.citygml4j.binding.json.feature.BuildingType;
 import org.citygml4j.binding.json.feature.CityFurnitureType;
 import org.citygml4j.binding.json.feature.GenericCityObjectType;
@@ -16,6 +18,7 @@ import org.citygml4j.binding.json.feature.WaterBodyType;
 import org.citygml4j.binding.json.geometry.AbstractSemanticsObject;
 import org.citygml4j.builder.json.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.appearance.AppearanceUnmarshaller;
+import org.citygml4j.builder.json.unmarshal.citygml.bridge.BridgeUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.building.BuildingUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.cityfurniture.CityFurnitureUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.core.CoreUnmarshaller;
@@ -23,11 +26,14 @@ import org.citygml4j.builder.json.unmarshal.citygml.gen.GenericsUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.landuse.LandUseUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.relief.ReliefUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.transportation.TransportationUnmarshaller;
+import org.citygml4j.builder.json.unmarshal.citygml.tunnel.TunnelUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.vegetation.VegetationUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.waterbody.WaterBodyUnmarshaller;
+import org.citygml4j.model.citygml.bridge.BridgeModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.transportation.TransportationModuleComponent;
+import org.citygml4j.model.citygml.tunnel.TunnelModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 
@@ -35,6 +41,7 @@ public class CityGMLUnmarshaller {
 	private final CityJSONUnmarshaller json;
 	
 	private final AppearanceUnmarshaller app;
+	private final BridgeUnmarshaller brid;
 	private final BuildingUnmarshaller bldg;
 	private final CityFurnitureUnmarshaller frn;
 	private final CoreUnmarshaller core;
@@ -42,6 +49,7 @@ public class CityGMLUnmarshaller {
 	private final LandUseUnmarshaller luse;
 	private final ReliefUnmarshaller dem;
 	private final TransportationUnmarshaller tran;
+	private final TunnelUnmarshaller tun;
 	private final VegetationUnmarshaller veg;
 	private final WaterBodyUnmarshaller wtr;
 
@@ -49,6 +57,7 @@ public class CityGMLUnmarshaller {
 		this.json = json;
 		
 		app = new AppearanceUnmarshaller();
+		brid = new BridgeUnmarshaller(this);
 		bldg = new BuildingUnmarshaller(this);
 		frn = new CityFurnitureUnmarshaller(this);
 		core = new CoreUnmarshaller(this);
@@ -56,6 +65,7 @@ public class CityGMLUnmarshaller {
 		luse = new LandUseUnmarshaller(this);		
 		dem = new ReliefUnmarshaller(this);
 		tran = new TransportationUnmarshaller(this);
+		tun = new TunnelUnmarshaller(this);
 		veg = new VegetationUnmarshaller(this);
 		wtr = new WaterBodyUnmarshaller(this);
 	}
@@ -63,7 +73,9 @@ public class CityGMLUnmarshaller {
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		AbstractCityObject cityObject = null;
 		
-		if (src instanceof BuildingType)
+		if (src instanceof BridgeType)
+			cityObject = brid.unmarshal(src, cityJSON);
+		else if (src instanceof BuildingType)
 			cityObject = bldg.unmarshal(src, cityJSON);
 		else if (src instanceof CityFurnitureType)
 			cityObject = frn.unmarshalCityFurniture((CityFurnitureType)src);		
@@ -75,6 +87,8 @@ public class CityGMLUnmarshaller {
 			cityObject = dem.unmarshalTINRelief((TINReliefType)src);
 		else if (src instanceof AbstractTransportationComplexType)
 			cityObject = tran.unmarshal(src, cityJSON);
+		else if (src instanceof AbstractTunnelType)
+			cityObject = tun.unmarshal(src, cityJSON);
 		else if (src instanceof AbstractVegetationObjectType)
 			cityObject = veg.unmarshal(src, cityJSON);
 		else if (src instanceof WaterBodyType)
@@ -84,16 +98,24 @@ public class CityGMLUnmarshaller {
 	}
 	
 	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject parent) {
-		if (parent instanceof BuildingModuleComponent)
+		if (parent instanceof BridgeModuleComponent)
+			brid.unmarshalSemantics(src, surfaces, lod, parent);
+		else if (parent instanceof BuildingModuleComponent)
 			bldg.unmarshalSemantics(src, surfaces, lod, parent);
 		else if (parent instanceof TransportationModuleComponent)
 			tran.unmarshalSemantics(src, surfaces, lod, parent);
+		else if (parent instanceof TunnelModuleComponent)
+			tun.unmarshalSemantics(src, surfaces, lod, parent);
 		else if (parent instanceof WaterBodyModuleComponent)
 			wtr.unmarshalSemantics(src, surfaces, lod, parent);
 	}
 	
 	public AppearanceUnmarshaller getAppearanceUnmarshaller() {
 		return app;
+	}
+	
+	public BridgeUnmarshaller getBridgeUnmarshaller() {
+		return brid;
 	}
 	
 	public BuildingUnmarshaller getBuildingUnmarshaller() {
