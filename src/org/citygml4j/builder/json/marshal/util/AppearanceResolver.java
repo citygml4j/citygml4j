@@ -9,10 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import org.citygml4j.binding.json.appearance.MaterialType;
+import org.citygml4j.binding.json.appearance.TextureType;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.appearance.AppearanceMarshaller;
-import org.citygml4j.builder.json.objects.appearance.MaterialType;
-import org.citygml4j.builder.json.objects.appearance.TextureType;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;

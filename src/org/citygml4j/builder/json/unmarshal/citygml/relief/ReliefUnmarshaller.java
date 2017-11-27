@@ -1,11 +1,11 @@
 package org.citygml4j.builder.json.unmarshal.citygml.relief;
 
-import org.citygml4j.builder.json.objects.CityJSON;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.Attributes;
-import org.citygml4j.builder.json.objects.feature.TINReliefType;
-import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
-import org.citygml4j.builder.json.objects.geometry.CompositeSurfaceType;
+import org.citygml4j.binding.json.CityJSON;
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.feature.Attributes;
+import org.citygml4j.binding.json.feature.TINReliefType;
+import org.citygml4j.binding.json.geometry.AbstractGeometryType;
+import org.citygml4j.binding.json.geometry.CompositeSurfaceType;
 import org.citygml4j.builder.json.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

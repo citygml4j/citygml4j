@@ -1,12 +1,12 @@
 package org.citygml4j.builder.json.unmarshal.citygml.vegetation;
 
-import org.citygml4j.builder.json.objects.CityJSON;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.PlantCoverAttributes;
-import org.citygml4j.builder.json.objects.feature.PlantCoverType;
-import org.citygml4j.builder.json.objects.feature.SolitaryVegetationObjectAttributes;
-import org.citygml4j.builder.json.objects.feature.SolitaryVegetationObjectType;
-import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
+import org.citygml4j.binding.json.CityJSON;
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.feature.PlantCoverAttributes;
+import org.citygml4j.binding.json.feature.PlantCoverType;
+import org.citygml4j.binding.json.feature.SolitaryVegetationObjectAttributes;
+import org.citygml4j.binding.json.feature.SolitaryVegetationObjectType;
+import org.citygml4j.binding.json.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

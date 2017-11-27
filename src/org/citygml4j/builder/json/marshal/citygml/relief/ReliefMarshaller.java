@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.feature.Attributes;
+import org.citygml4j.binding.json.feature.TINReliefType;
+import org.citygml4j.binding.json.geometry.AbstractGeometryType;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.Attributes;
-import org.citygml4j.builder.json.objects.feature.TINReliefType;
-import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;

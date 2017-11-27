@@ -2,9 +2,9 @@ package org.citygml4j.builder.json.unmarshal.citygml.core;
 
 import java.util.GregorianCalendar;
 
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.AddressType;
-import org.citygml4j.builder.json.objects.feature.Attributes;
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.feature.AddressType;
+import org.citygml4j.binding.json.feature.Attributes;
 import org.citygml4j.builder.json.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

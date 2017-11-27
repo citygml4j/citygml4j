@@ -1,7 +1,7 @@
 package org.citygml4j.builder.json.unmarshal;
 
-import org.citygml4j.builder.json.objects.CityJSON;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.CityJSON;
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
 import org.citygml4j.builder.json.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.json.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

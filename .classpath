@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry excluding="datasets/|lib/" kind="src" path="samples"/>
+	<classpathentry kind="src" path="binding-jaxb"/>
+	<classpathentry kind="src" path="binding-json"/>
 	<classpathentry kind="lib" path="resources/xml"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype.jar"/>
 	<classpathentry kind="lib" path="lib/xsom.jar"/>

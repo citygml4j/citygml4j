@@ -3,6 +3,8 @@ package org.citygml4j.builder.json.marshal.citygml;
 import java.util.Collections;
 import java.util.List;
 
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.geometry.SemanticsType;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.appearance.AppearanceMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.building.BuildingMarshaller;
@@ -14,8 +16,6 @@ import org.citygml4j.builder.json.marshal.citygml.relief.ReliefMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.transportation.TransportationMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.vegetation.VegetationMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.waterbody.WaterBodyMarshaller;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.geometry.SemanticsType;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

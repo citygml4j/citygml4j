@@ -2,6 +2,9 @@ package org.citygml4j.builder.json.marshal;
 
 import java.util.List;
 
+import org.citygml4j.binding.json.CityJSON;
+import org.citygml4j.binding.json.appearance.AppearanceType;
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.json.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.json.marshal.util.AppearanceResolver;
@@ -10,9 +13,6 @@ import org.citygml4j.builder.json.marshal.util.SimpleTextureVerticesBuilder;
 import org.citygml4j.builder.json.marshal.util.SimpleVerticesBuilder;
 import org.citygml4j.builder.json.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.json.marshal.util.VerticesBuilder;
-import org.citygml4j.builder.json.objects.CityJSON;
-import org.citygml4j.builder.json.objects.appearance.AppearanceType;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
 import org.citygml4j.model.citygml.core.CityModel;
 
 public class CityJSONMarshaller {

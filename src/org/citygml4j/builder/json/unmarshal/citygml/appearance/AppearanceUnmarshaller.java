@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.citygml4j.builder.json.objects.appearance.AbstractMaterialObject;
-import org.citygml4j.builder.json.objects.appearance.AbstractTextureObject;
-import org.citygml4j.builder.json.objects.appearance.AppearanceType;
-import org.citygml4j.builder.json.objects.appearance.MaterialType;
-import org.citygml4j.builder.json.objects.appearance.TextureType;
+import org.citygml4j.binding.json.appearance.AbstractMaterialObject;
+import org.citygml4j.binding.json.appearance.AbstractTextureObject;
+import org.citygml4j.binding.json.appearance.AppearanceType;
+import org.citygml4j.binding.json.appearance.MaterialType;
+import org.citygml4j.binding.json.appearance.TextureType;
 import org.citygml4j.builder.json.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.Appearance;

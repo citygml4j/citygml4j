@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.citygml4j.binding.json.feature.AbstractCityObjectType;
+import org.citygml4j.binding.json.feature.Attributes;
+import org.citygml4j.binding.json.feature.CityFurnitureType;
+import org.citygml4j.binding.json.geometry.AbstractGeometryType;
+import org.citygml4j.binding.json.geometry.GeometryTypeName;
 import org.citygml4j.builder.json.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.json.objects.feature.AbstractCityObjectType;
-import org.citygml4j.builder.json.objects.feature.CityFurnitureType;
-import org.citygml4j.builder.json.objects.feature.Attributes;
-import org.citygml4j.builder.json.objects.geometry.AbstractGeometryType;
-import org.citygml4j.builder.json.objects.geometry.GeometryTypeName;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;

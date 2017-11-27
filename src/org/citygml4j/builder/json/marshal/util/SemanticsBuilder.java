@@ -5,8 +5,8 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.citygml4j.binding.json.geometry.SemanticsType;
 import org.citygml4j.builder.json.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.json.objects.geometry.SemanticsType;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 
 public class SemanticsBuilder {
