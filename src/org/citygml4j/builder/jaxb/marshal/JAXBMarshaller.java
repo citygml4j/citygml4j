@@ -28,7 +28,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshaller;
 import org.citygml4j.builder.jaxb.marshal.gml.GMLMarshaller;
@@ -45,14 +45,14 @@ public class JAXBMarshaller {
 	private final GMLMarshaller gml;
 	private final XALMarshaller xal;
 	private final ADEMarshaller ade;
-	private final JAXBBuilder jaxbBuilder;
+	private final CityGMLBuilder builder;
 	private final DatatypeFactory dataTypeFactory;
 
 	private ModuleContext moduleContext;	
 	private Document document;
 
-	public JAXBMarshaller(JAXBBuilder jaxbBuilder, ModuleContext moduleContext) {
-		this.jaxbBuilder = jaxbBuilder;
+	public JAXBMarshaller(CityGMLBuilder builder, ModuleContext moduleContext) {
+		this.builder = builder;
 		this.moduleContext = moduleContext;
 
 		citygml = new CityGMLMarshaller(this);
@@ -104,7 +104,7 @@ public class JAXBMarshaller {
 		Element dest = null;
 
 		try {
-			Marshaller marshaller = jaxbBuilder.getJAXBContext().createMarshaller();
+			Marshaller marshaller = builder.getJAXBContext().createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
 			Element foo = document.createElement("foo");

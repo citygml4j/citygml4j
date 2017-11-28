@@ -26,7 +26,7 @@ import java.util.ServiceLoader;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.CityGMLBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;

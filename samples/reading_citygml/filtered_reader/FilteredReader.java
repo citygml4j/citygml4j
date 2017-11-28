@@ -25,7 +25,7 @@ import java.util.Date;
 import javax.xml.namespace.QName;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.CityGMLBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.transportation.Road;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;

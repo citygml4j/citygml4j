@@ -22,7 +22,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.gml.GMLUnmarshaller;
@@ -38,14 +38,14 @@ public class JAXBUnmarshaller {
 	private final XALUnmarshaller xal;
 	private final ADEUnmarshaller ade;
 
-	private final JAXBBuilder jaxbBuilder;
+	private final CityGMLBuilder builder;
 	private final SchemaHandler schemaHandler;
 	private boolean parseSchema = true;
 	private boolean throwMissingADESchema = true;
 	private boolean releaseJAXBElements = true;
 
-	public JAXBUnmarshaller(JAXBBuilder jaxbBuilder, SchemaHandler schemaHandler) {
-		this.jaxbBuilder = jaxbBuilder;
+	public JAXBUnmarshaller(CityGMLBuilder builder, SchemaHandler schemaHandler) {
+		this.builder = builder;
 		this.schemaHandler = schemaHandler;
 
 		citygml = new CityGMLUnmarshaller(this);
@@ -74,7 +74,7 @@ public class JAXBUnmarshaller {
 		ModelObject dest = null;
 
 		try {
-			Unmarshaller um = jaxbBuilder.getJAXBContext().createUnmarshaller();			
+			Unmarshaller um = builder.getJAXBContext().createUnmarshaller();			
 			Object jaxb = um.unmarshal(element);	
 			if (jaxb instanceof JAXBElement<?>)
 				dest = unmarshal((JAXBElement<?>)jaxb);

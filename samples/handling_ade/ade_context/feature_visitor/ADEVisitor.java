@@ -26,7 +26,7 @@ import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.walker.NoiseADEFeatureWalker;
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.CityGMLBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.util.walker.FeatureWalker;

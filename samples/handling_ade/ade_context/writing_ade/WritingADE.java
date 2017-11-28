@@ -29,7 +29,7 @@ import org.citygml.ade.noise.model.NoiseRailwaySegmentPropertyElement;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.CityGMLBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.factory.GMLGeometryFactory;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;

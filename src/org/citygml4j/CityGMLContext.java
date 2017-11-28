@@ -23,10 +23,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.builder.CityGMLBuilderException;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
-import org.citygml4j.builder.jaxb.JAXBBuilderFactory;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilderException;
+import org.citygml4j.builder.jaxb.CityGMLBuilderFactory;
 import org.citygml4j.model.citygml.ade.ADEException;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Modules;
@@ -119,29 +118,21 @@ public class CityGMLContext {
 	}
 
 	public CityGMLBuilder createCityGMLBuilder() throws CityGMLBuilderException {
-		return createJAXBBuilder();
+		return CityGMLBuilderFactory.defaults().build();
 	}
 
 	public CityGMLBuilder createCityGMLBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
-		return createJAXBBuilder(classLoader);
-	}
-
-	public JAXBBuilder createJAXBBuilder() throws CityGMLBuilderException {
-		return JAXBBuilderFactory.defaults().build();
-	}
-
-	public JAXBBuilder createJAXBBuilder(ClassLoader classLoader) throws CityGMLBuilderException {
-		return JAXBBuilderFactory.defaults()
+		return CityGMLBuilderFactory.defaults()
 				.withClassLoader(classLoader).build();
 	}
 
-	public JAXBBuilder createJAXBBuilder(String... packageNames) throws CityGMLBuilderException {
-		return JAXBBuilderFactory.defaults()
+	public CityGMLBuilder createCityGMLBuilder(String... packageNames) throws CityGMLBuilderException {
+		return CityGMLBuilderFactory.defaults()
 				.withPackageNames(packageNames).build();
 	}
 
-	public JAXBBuilder createJAXBBuilder(ClassLoader classLoader, String... packageNames) throws CityGMLBuilderException {
-		return JAXBBuilderFactory.defaults()
+	public CityGMLBuilder createCityGMLBuilder(ClassLoader classLoader, String... packageNames) throws CityGMLBuilderException {
+		return CityGMLBuilderFactory.defaults()
 				.withClassLoader(classLoader)
 				.withPackageNames(packageNames).build();
 	}

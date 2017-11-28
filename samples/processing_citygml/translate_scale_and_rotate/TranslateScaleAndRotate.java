@@ -25,8 +25,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.CityGMLBuilder;
 import org.citygml4j.builder.copy.DeepCopyBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.building.Building;

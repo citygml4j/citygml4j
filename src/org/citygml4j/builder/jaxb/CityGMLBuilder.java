@@ -20,8 +20,6 @@ package org.citygml4j.builder.jaxb;
 
 import javax.xml.bind.JAXBContext;
 
-import org.citygml4j.builder.CityGMLBuilder;
-import org.citygml4j.builder.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.io.reader.JAXBInputFactory;
@@ -35,11 +33,11 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.citygml4j.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
-public class JAXBBuilder implements CityGMLBuilder {
+public class CityGMLBuilder {
 	private final JAXBContext context;
 	private SchemaHandler schemaHandler;
 
-	protected JAXBBuilder(JAXBContext context) {
+	protected CityGMLBuilder(JAXBContext context) {
 		this.context = context;
 	}
 

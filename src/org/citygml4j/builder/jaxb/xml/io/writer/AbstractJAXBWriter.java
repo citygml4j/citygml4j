@@ -24,7 +24,7 @@ import java.util.Set;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.ValidationEventHandler;
 
-import org.citygml4j.builder.CityGMLBuilderException;
+import org.citygml4j.builder.jaxb.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.model.citygml.CityGML;

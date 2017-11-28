@@ -37,7 +37,7 @@ import net.opengis.gml.ObjectFactory;
 import net.opengis.gml.StringOrRefType;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.CityObjectMember;
@@ -55,7 +55,7 @@ public class UsingJAXB {
 
 		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
 		CityGMLContext cityGMLCtx = CityGMLContext.getInstance();
-		JAXBBuilder builder = cityGMLCtx.createJAXBBuilder();
+		CityGMLBuilder builder = cityGMLCtx.createCityGMLBuilder();
 		
 		System.out.println(df.format(new Date()) + "creating JAXB Unmarshaller instance");
 		JAXBContext ctx = builder.getJAXBContext();		

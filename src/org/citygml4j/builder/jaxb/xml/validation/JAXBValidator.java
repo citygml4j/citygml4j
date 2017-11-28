@@ -29,7 +29,7 @@ import javax.xml.bind.helpers.ValidationEventLocatorImpl;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.validation.Schema;
 
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.base.ModelObject;
@@ -45,11 +45,11 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class JAXBValidator implements Validator {
-	private final JAXBBuilder builder;
+	private final CityGMLBuilder builder;
 	private ValidationSchemaHandler validationSchemaHandler;
 	private ValidationEventHandler validationEventHandler;
 
-	public JAXBValidator(JAXBBuilder builder, SchemaHandler schemaHandler) {
+	public JAXBValidator(CityGMLBuilder builder, SchemaHandler schemaHandler) {
 		this.builder = builder;
 		validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
 	}

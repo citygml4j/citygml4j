@@ -24,50 +24,48 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import org.citygml4j.builder.CityGMLBuilderException;
-
-public class JAXBBuilderFactory {
+public class CityGMLBuilderFactory {
 	private ClassLoader classLoader;
 	private HashSet<String> packageNames;
 
-	private JAXBBuilderFactory() {
+	private CityGMLBuilderFactory() {
 		classLoader = ClassLoader.getSystemClassLoader();
 		packageNames = new HashSet<>();
 	}
 
-	public static JAXBBuilderFactory defaults() {
-		return new JAXBBuilderFactory();
+	public static CityGMLBuilderFactory defaults() {
+		return new CityGMLBuilderFactory();
 	}
 
-	public JAXBBuilderFactory withClassLoader(ClassLoader classLoader) {
+	public CityGMLBuilderFactory withClassLoader(ClassLoader classLoader) {
 		this.classLoader = classLoader;
 		return this;
 	}
 	
-	public JAXBBuilderFactory withPackageName(String packageName) {
+	public CityGMLBuilderFactory withPackageName(String packageName) {
 		if (packageName != null)
 			this.packageNames.add(packageName);
 		
 		return this;
 	}
 
-	public JAXBBuilderFactory withPackageNames(List<String> packageNames) {
+	public CityGMLBuilderFactory withPackageNames(List<String> packageNames) {
 		for (String packageName : packageNames)
 			withPackageName(packageName);
 		
 		return this;
 	}
 
-	public JAXBBuilderFactory withPackageNames(String... packageNames) {
+	public CityGMLBuilderFactory withPackageNames(String... packageNames) {
 		for (String packageName : packageNames)
 			withPackageName(packageName);
 		
 		return this;
 	}
 
-	public JAXBBuilder build() throws CityGMLBuilderException {
+	public CityGMLBuilder build() throws CityGMLBuilderException {
 		try {
-			return new JAXBBuilder(JAXBContext.newInstance(JAXBContextPath.getContextPath(packageNames), classLoader));
+			return new CityGMLBuilder(JAXBContext.newInstance(JAXBContextPath.getContextPath(packageNames), classLoader));
 		} catch (JAXBException e) {
 			throw new CityGMLBuilderException("Failed to build JAXB context.", e);
 		}

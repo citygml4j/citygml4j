@@ -28,7 +28,7 @@ import java.io.Writer;
 
 import javax.xml.transform.stream.StreamResult;
 
-import org.citygml4j.builder.jaxb.JAXBBuilder;
+import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.io.AbstractCityGMLOutputFactory;
@@ -38,24 +38,24 @@ import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.schema.SchemaHandler;
 
 public class JAXBOutputFactory extends AbstractCityGMLOutputFactory {
-	JAXBBuilder builder;
+	CityGMLBuilder builder;
 	
-	public JAXBOutputFactory(JAXBBuilder builder) {
+	public JAXBOutputFactory(CityGMLBuilder builder) {
 		super();
 		this.builder = builder;
 	}
 	
-	public JAXBOutputFactory(JAXBBuilder builder, ModuleContext moduleContext) {
+	public JAXBOutputFactory(CityGMLBuilder builder, ModuleContext moduleContext) {
 		super(moduleContext);
 		this.builder = builder;
 	}
 	
-	public JAXBOutputFactory(JAXBBuilder builder, SchemaHandler schemaHandler) {
+	public JAXBOutputFactory(CityGMLBuilder builder, SchemaHandler schemaHandler) {
 		super(schemaHandler);
 		this.builder = builder;
 	}
 	
-	public JAXBOutputFactory(JAXBBuilder builder, ModuleContext moduleContext, SchemaHandler schemaHandler) {
+	public JAXBOutputFactory(CityGMLBuilder builder, ModuleContext moduleContext, SchemaHandler schemaHandler) {
 		super(moduleContext, schemaHandler);
 		this.builder = builder;
 	}
