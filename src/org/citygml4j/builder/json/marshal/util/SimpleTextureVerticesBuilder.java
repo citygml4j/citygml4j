@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class SimpleTextureVerticesBuilder implements TextureVerticesBuilder {
+	private final ReentrantLock lock = new ReentrantLock();	
 	private final Map<Integer, Integer> indexes = new ConcurrentHashMap<>();
-	private final TreeMap<Integer, List<Double>> vertices = new TreeMap<>();
-	private final AtomicInteger counter = new AtomicInteger(0);
+	private final List<List<Double>> vertices = new ArrayList<>();	
 
 	private double significantDigits = Math.pow(10, 5);
 	
@@ -21,11 +20,11 @@ public class SimpleTextureVerticesBuilder implements TextureVerticesBuilder {
 		
 		return this;
 	}
-
+	
 	public int getSignificantDigits() {
 		return (int)Math.log10(significantDigits);
 	}
-	
+
 	@Override
 	public List<Integer> addTextureVertices(List<Double> vertices) {
 		List<Integer> result = new ArrayList<>();
@@ -35,15 +34,22 @@ public class SimpleTextureVerticesBuilder implements TextureVerticesBuilder {
 			int key = Objects.hash(round(vertex.get(0)), round(vertex.get(1)));
 
 			Integer index = indexes.get(key);
-			if (index == null) {				
-				Integer tmp = counter.getAndIncrement();				
+			if (index == null) {
+				Integer tmp = null;
+				
+				lock.lock();
+				try {
+					tmp = this.vertices.size();
+					this.vertices.add(vertex);
+				} finally {
+					lock.unlock();
+				}
+				
 				index = indexes.putIfAbsent(key, tmp);
 				if (index == null)
 					index = tmp;
-				
-				this.vertices.put(index, vertex);
 			}
-
+			
 			result.add(index);
 		}
 		
@@ -52,11 +58,8 @@ public class SimpleTextureVerticesBuilder implements TextureVerticesBuilder {
 
 	@Override
 	public List<List<Double>> build() {
-		List<List<Double>> result = new ArrayList<>(vertices.values());
 		indexes.clear();
-		vertices.clear();
-		
-		return result;
+		return vertices;
 	}
 
 	private double round(double value) {
