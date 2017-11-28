@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="datasets/|lib/" kind="src" path="samples"/>
 	<classpathentry kind="src" path="binding-jaxb"/>
-	<classpathentry kind="src" path="binding-json"/>
+	<classpathentry kind="src" path="binding-cityjson"/>
 	<classpathentry kind="lib" path="resources/xml"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype.jar"/>
 	<classpathentry kind="lib" path="lib/xsom.jar"/>

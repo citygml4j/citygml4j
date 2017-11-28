@@ -91,7 +91,7 @@
 		<replace file="${dir.resources.javadoc}/overview_adapted.html" token="!copyright.owner.email!" value="${copyright.owner.email}" />
 
 		<!-- create javadoc from source files -->
-		<javadoc access="public" author="true" classpathref="classpath" destdir="${dir.dist.javadoc}" doctitle="${citygml4j.name} - ${citygml4j.description}" encoding="UTF-8" charset="UTF-8" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${dir.resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" sourcepath="${dir.src};${dir.binding-jaxb};${dir.binding-json}" splitindex="true" use="true" version="true" />
+		<javadoc access="public" author="true" classpathref="classpath" destdir="${dir.dist.javadoc}" doctitle="${citygml4j.name} - ${citygml4j.description}" encoding="UTF-8" charset="UTF-8" maxmemory="256m" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" overview="${dir.resources.javadoc}/overview_adapted.html" packagenames="org.citygml4j.*" sourcepath="${dir.src};${dir.binding-jaxb};${dir.binding-cityjson}" splitindex="true" use="true" version="true" />
 
 		<delete file="${dir.resources.javadoc}/overview_adapted.html" />
 	</target>
@@ -102,7 +102,7 @@
 
 		<!-- compile the java source code into ${build} -->
 		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.binding-jaxb}" destdir="${dir.build.classes}" debug="on" />
-		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.binding-json}" destdir="${dir.build.classes}" debug="on" />
+		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.binding-cityjson}" destdir="${dir.build.classes}" debug="on" />
 		<javac includeantruntime="false" classpathref="classpath" srcdir="${dir.src}" destdir="${dir.build.classes}" debug="on" />
 	</target>
 
