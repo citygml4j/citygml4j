@@ -27,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.xml.bind.ValidationEventHandler;
@@ -365,8 +366,7 @@ public class JAXBOutputFactory implements CityGMLOutputFactory {
 	}
 
 	public Object getProperty(String name) {
-		if (name == null)
-			throw new IllegalArgumentException("name may not be null.");
+		Objects.requireNonNull("property name may not be null.");
 
 		if (name.equals(CityGMLOutputFactory.FEATURE_WRITE_MODE))
 			return featureWriteMode;
@@ -384,8 +384,7 @@ public class JAXBOutputFactory implements CityGMLOutputFactory {
 
 	@SuppressWarnings("unchecked")
 	public void setProperty(String name, Object value) {
-		if (name == null)
-			throw new IllegalArgumentException("name may not be null.");
+		Objects.requireNonNull("property name may not be null.");
 
 		if (name.equals(CityGMLOutputFactory.FEATURE_WRITE_MODE)) {
 			FeatureWriteMode mode = FeatureWriteMode.fromValue(value.toString());

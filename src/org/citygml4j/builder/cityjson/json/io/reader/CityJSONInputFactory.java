@@ -13,16 +13,14 @@ public class CityJSONInputFactory {
 	
 	public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
 		try {
-			JsonReader reader = new JsonReader(new BufferedReader(new FileReader(file)));
-			return new CityJSONReader(reader);
+			return new CityJSONReader(new JsonReader(new BufferedReader(new FileReader(file))));
 		} catch (FileNotFoundException e) {
 			throw new CityJSONReadException("Caused by: ", e);
 		}
 	}
 
-	public CityJSONReader createCityJSONReader(InputStream stream) throws CityJSONReadException {
-		JsonReader reader = new JsonReader(new InputStreamReader(stream));
-		return new CityJSONReader(reader);
+	public CityJSONReader createCityJSONReader(InputStream inputStream) throws CityJSONReadException {
+		return new CityJSONReader(new JsonReader(new InputStreamReader(inputStream)));
 	}
 	
 	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityJSONInputFilter filter) throws CityJSONReadException {

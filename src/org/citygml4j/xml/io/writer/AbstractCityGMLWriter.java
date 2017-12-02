@@ -44,7 +44,7 @@ public interface AbstractCityGMLWriter extends AutoCloseable {
 	
 	public void setEscapeCharacters(boolean escapeCharacters);
 	public void setNamespaceContext(CityGMLNamespaceContext context);
-	public void setIndentString(String indentString);
+	public void setIndentString(String indent);
 	public void setWriteEncoding(boolean writeEncoding);
 	public void setWriteXMLDecl(boolean writeXMLDecl);
 	public void setHeaderComment(String... comment);

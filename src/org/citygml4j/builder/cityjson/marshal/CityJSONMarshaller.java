@@ -13,6 +13,7 @@ import org.citygml4j.builder.cityjson.marshal.util.SimpleTextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.SimpleVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 
 public class CityJSONMarshaller {
@@ -30,8 +31,8 @@ public class CityJSONMarshaller {
 	private String defaultTheme = "";
 
 	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder) {
-		this.verticesBuilder = verticesBuilder;
-		this.textureVerticesBuilder = textureVerticesBuilder;
+		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new SimpleVerticesBuilder();
+		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new SimpleTextureVerticesBuilder();
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this);
@@ -43,15 +44,13 @@ public class CityJSONMarshaller {
 	public CityJSONMarshaller() {
 		this (new SimpleVerticesBuilder(), new SimpleTextureVerticesBuilder());
 	}
-
+	
 	public CityJSON marshal(CityModel src) {
-		// preprocess city model
 		xlinkResolver.resolve(src);
 		appearanceResolver.resolve(src);
 
 		CityJSON dest = new CityJSON();
 
-		// marshal city model to json
 		List<AbstractCityObjectType> cityObjects = citygml.marshal(src);
 		if (!cityObjects.isEmpty()) {
 			dest.setCityObjects(cityObjects);
@@ -61,6 +60,9 @@ public class CityJSONMarshaller {
 				AppearanceType appearance = new AppearanceType();
 				dest.setAppearance(appearance);
 
+				if (appearanceResolver.hasMaterials())
+					appearance.setMaterials(appearanceResolver.getMaterials());			
+
 				if (appearanceResolver.hasTextures()) {
 					List<List<Double>> textureVertices = textureVerticesBuilder.build();
 					if (textureVertices.size() > 0) {
@@ -68,13 +70,17 @@ public class CityJSONMarshaller {
 						appearance.setTextureVertices(textureVertices);
 					}
 				}
-
-				if (appearanceResolver.hasMaterials())
-					appearance.setMaterials(appearanceResolver.getMaterials());			
 			}
 		}
 
 		return dest;
+	}
+	
+	public List<AbstractCityObjectType> marshal(AbstractCityObject src) {
+		xlinkResolver.resolve(src);
+		appearanceResolver.resolve(src);
+
+		return citygml.marshal(src);
 	}
 
 	public CityGMLMarshaller getCityGMLMarshaller() {

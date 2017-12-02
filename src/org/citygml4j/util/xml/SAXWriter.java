@@ -73,7 +73,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private boolean writeEncoding = false;
 	private boolean writeXMLDecl = true;
 
-	private String indentString;
+	private String indent;
 	private String[] headerComment;
 	private HashMap<String, String> schemaLocations;
 	private int depth = 0;
@@ -130,7 +130,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		escapeCharacters = true;
 		writeEncoding = false;
 		writeXMLDecl = true;
-		indentString = null;
+		indent = null;
 		headerComment = null;
 		schemaLocations.clear();
 		depth = 0;
@@ -286,14 +286,14 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	}
 
 	public String getIndentString() {
-		return indentString;
+		return indent;
 	}
 
-	public void setIndentString(String indentString) {
-		if (indentString == null)
+	public void setIndentString(String indent) {
+		if (indent == null)
 			throw new IllegalArgumentException("indentation string may not be null.");
 
-		this.indentString = indentString;
+		this.indent = indent;
 	}
 
 	public boolean isWriteEncoding() {
@@ -677,7 +677,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	}
 
 	private void writeIndent() throws SAXException {
-		if (indentString == null || indentString.length() == 0)
+		if (indent == null || indent.length() == 0)
 			return;
 		
 		if (lastXMLContent == XMLContentType.CHARACTERS)
@@ -686,7 +686,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		try {
 			writer.write(LINE_SEPARATOR);
 			for (int i = 0; i < depth; i++)
-				writer.write(indentString);
+				writer.write(indent);
 		} catch (IOException e) {
 			throw new SAXException(e);
 		}

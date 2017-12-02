@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.CityObjectTypeAdapter;
+import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.model.citygml.core.CityModel;
 
@@ -15,6 +16,8 @@ public class CityJSONReader implements AutoCloseable {
 	private final JsonReader reader;
 	private final GsonBuilder builder;
 	private final CityJSONUnmarshaller unmarshaller;
+	
+	private MetadataType metadata;
 
 	public CityJSONReader(JsonReader reader) {
 		this.reader = reader;
@@ -25,7 +28,20 @@ public class CityJSONReader implements AutoCloseable {
 
 	public CityModel read() {
 		CityJSON cityJSON = builder.create().fromJson(reader, CityJSON.class);
-		return cityJSON != null ? unmarshaller.unmarshal(cityJSON) : null;
+		if (cityJSON != null) {
+			metadata = cityJSON.getMetadata();
+			return unmarshaller.unmarshal(cityJSON);
+		}
+		
+		return null;
+	}
+	
+	public boolean isSetMetadata() {
+		return metadata != null;
+	}
+	
+	public MetadataType getMetadata() {
+		return metadata;
 	}
 
 	protected void setInputFilter(CityJSONInputFilter filter) {
@@ -35,6 +51,7 @@ public class CityJSONReader implements AutoCloseable {
 	@Override
 	public void close() throws CityJSONReadException {
 		try {
+			metadata = null;
 			reader.close();
 		} catch (IOException e) {
 			throw new CityJSONReadException("Caused by: ", e);

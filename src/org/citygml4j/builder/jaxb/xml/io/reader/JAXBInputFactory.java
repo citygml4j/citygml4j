@@ -26,6 +26,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
@@ -239,8 +240,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	}
 
 	public Object getProperty(String name) {
-		if (name == null)
-			throw new IllegalArgumentException("name may not be null.");
+		Objects.requireNonNull("property name may not be null.");
 
 		if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE))
 			return featureReadMode;
@@ -263,8 +263,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	}
 
 	public void setProperty(String name, Object value) {
-		if (name == null)
-			throw new IllegalArgumentException("name may not be null.");
+		Objects.requireNonNull("property name may not be null.");
 
 		if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE)) {
 			FeatureReadMode mode = FeatureReadMode.fromValue(value.toString());

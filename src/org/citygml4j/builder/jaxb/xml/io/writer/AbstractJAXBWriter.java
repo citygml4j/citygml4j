@@ -188,8 +188,8 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 		writer.unsetHeaderComment();
 	}
 
-	public void setIndentString(String indentString) {
-		writer.setIndentString(indentString);
+	public void setIndentString(String indent) {
+		writer.setIndentString(indent);
 	}
 
 	public void setNamespaceContext(CityGMLNamespaceContext context) {
