@@ -1,12 +1,9 @@
 package org.citygml4j.builder.cityjson.unmarshal;
 
 import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObjectMember;
 
 public class CityJSONUnmarshaller {
 	public static final String SURFACE_DATA_ID = "org.citygml4j.appearance.id";
@@ -21,8 +18,6 @@ public class CityJSONUnmarshaller {
 	}
 
 	public CityModel unmarshal(CityJSON src) {
-		CityModel dest = new CityModel();
-	
 		gml.setVertices(src.getVertices());
 		if (src.isSetTransform())
 			gml.applyTransformation(src.getTransform());
@@ -30,13 +25,7 @@ public class CityJSONUnmarshaller {
 		if (src.isSetAppearance())
 			citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
 
-		for (AbstractCityObjectType cityObjectType : src.getCityObjects()) {
-			AbstractCityObject cityObject = citygml.unmarshal(cityObjectType, src);
-			if (cityObject != null)
-				dest.addCityObjectMember(new CityObjectMember(cityObject));
-		}
-		
-		return dest;
+		return citygml.getCoreUnmarshaller().unmarshalCityModel(src);
 	}
 	
 	public CityGMLUnmarshaller getCityGMLUnmarshaller() {

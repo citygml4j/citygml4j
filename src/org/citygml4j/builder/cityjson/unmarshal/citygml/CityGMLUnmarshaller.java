@@ -6,7 +6,6 @@ import java.util.Map;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
-import org.citygml4j.binding.cityjson.feature.AbstractTunnelType;
 import org.citygml4j.binding.cityjson.feature.AbstractVegetationObjectType;
 import org.citygml4j.binding.cityjson.feature.BridgeType;
 import org.citygml4j.binding.cityjson.feature.BuildingType;
@@ -14,6 +13,7 @@ import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
 import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
 import org.citygml4j.binding.cityjson.feature.LandUseType;
 import org.citygml4j.binding.cityjson.feature.TINReliefType;
+import org.citygml4j.binding.cityjson.feature.TunnelType;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
@@ -87,7 +87,7 @@ public class CityGMLUnmarshaller {
 			cityObject = dem.unmarshalTINRelief((TINReliefType)src);
 		else if (src instanceof AbstractTransportationComplexType)
 			cityObject = tran.unmarshal(src, cityJSON);
-		else if (src instanceof AbstractTunnelType)
+		else if (src instanceof TunnelType)
 			cityObject = tun.unmarshal(src, cityJSON);
 		else if (src instanceof AbstractVegetationObjectType)
 			cityObject = veg.unmarshal(src, cityJSON);

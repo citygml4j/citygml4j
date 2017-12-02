@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.CityGMLBuilderFactory;
@@ -135,6 +136,10 @@ public class CityGMLContext {
 		return CityGMLBuilderFactory.defaults()
 				.withClassLoader(classLoader)
 				.withPackageNames(packageNames).build();
+	}
+	
+	public CityJSONBuilder createCityJSONBuilder() {
+		return new CityJSONBuilder();
 	}
 
 }

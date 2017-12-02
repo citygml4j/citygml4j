@@ -7,6 +7,9 @@ import java.util.UUID;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
+import com.google.gson.annotations.JsonAdapter;
+
+@JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
 	protected transient String gmlId;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();

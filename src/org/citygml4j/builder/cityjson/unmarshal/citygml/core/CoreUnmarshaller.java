@@ -1,15 +1,23 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
+import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;
+import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
+import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
 import org.citygml4j.model.xal.AddressDetails;
 import org.citygml4j.model.xal.Country;
@@ -30,7 +38,7 @@ public class CoreUnmarshaller {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
 	}
-	
+
 	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) {
 		dest.setId(src.getGmlId());
 		
@@ -52,6 +60,39 @@ public class CoreUnmarshaller {
 			if (attributes.isSetGenericAttributes())
 				citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(attributes, dest);
 		}
+	}
+	
+	public void unmarshalCityModel(CityJSON src, CityModel dest) {
+		for (AbstractCityObjectType type : src.getCityObjects()) {	
+			AbstractCityObject cityObject = citygml.unmarshal(type, src);
+			if (cityObject != null)
+				dest.addCityObjectMember(new CityObjectMember(cityObject));
+		}
+		
+		if (src.isSetMetadata()) {
+			MetadataType metadata = src.getMetadata();
+
+			if (metadata.isSetBBox()) {
+				List<Double> bbox = metadata.getBBox();
+				if (bbox.size() > 5) {
+					BoundingShape boundedBy = new BoundingShape(new BoundingBox(
+							new Point(bbox.get(0), bbox.get(1), bbox.get(2)),
+							new Point(bbox.get(3), bbox.get(4), bbox.get(5))));
+					
+					if (metadata.isSetCRS())
+						boundedBy.getEnvelope().setSrsName("EPSG:" + metadata.getCRS().getEpsg());
+					
+					dest.setBoundedBy(boundedBy);
+				}
+			}
+		}
+	}
+	
+	public CityModel unmarshalCityModel(CityJSON src) {
+		CityModel dest = new CityModel();
+		unmarshalCityModel(src, dest);
+		
+		return dest;
 	}
 	
 	public void unmarshalAddress(AddressType src, Address dest) {		
