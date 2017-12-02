@@ -20,7 +20,7 @@ package org.citygml4j.xml.io.reader;
 
 import org.citygml4j.model.citygml.CityGML;
 
-public interface CityGMLReader {
+public interface CityGMLReader extends AutoCloseable {
 	public boolean hasNext() throws CityGMLReadException;
 	public CityGML nextFeature() throws CityGMLReadException;
 	public XMLChunk nextChunk() throws CityGMLReadException;

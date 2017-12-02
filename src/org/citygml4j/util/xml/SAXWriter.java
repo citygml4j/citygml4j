@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.NamespaceSupport;
 import org.xml.sax.helpers.XMLFilterImpl;
 
-public class SAXWriter extends XMLFilterImpl {
+public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private final String OPEN_COMMENT = "<!--";
 	private final String END_COMMENT = "-->";
 	private final String XML_DECL_ENCODING = " encoding=";
@@ -202,6 +202,7 @@ public class SAXWriter extends XMLFilterImpl {
 		}
 	}
 
+	@Override
 	public void close() throws SAXException {
 		try {
 			if (writer != null) {

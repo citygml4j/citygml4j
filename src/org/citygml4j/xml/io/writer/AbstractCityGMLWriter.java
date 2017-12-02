@@ -26,7 +26,7 @@ import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.CityGMLNamespaceContext;
 
-public interface AbstractCityGMLWriter {
+public interface AbstractCityGMLWriter extends AutoCloseable {
 	public void close() throws CityGMLWriteException;
 	public void flush() throws CityGMLWriteException;
 	public void reset();
