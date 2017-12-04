@@ -22,6 +22,8 @@ import org.citygml4j.model.citygml.appearance.TexCoordList;
 import org.citygml4j.model.citygml.appearance.TextureAssociation;
 import org.citygml4j.model.citygml.appearance.TextureCoordinates;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
@@ -35,6 +37,9 @@ public class AppearanceResolver {
 	private final AtomicInteger materialsIndex = new AtomicInteger(0);
 	private final ConcurrentHashMap<TextureType, Integer> textures = new ConcurrentHashMap<>();
 	private final ConcurrentHashMap<MaterialType, Integer> materials = new ConcurrentHashMap<>();
+	private final Map<String, List<SurfaceDataInfo>> globalSurfaceDatas = new ConcurrentHashMap<>();
+	
+	private volatile boolean hasGlobalAppearance;
 	
 	private enum ResolverState {
 		GET_SURFACE_DATA,
@@ -46,7 +51,15 @@ public class AppearanceResolver {
 		this.app = app;
 	}
 
-	public void resolve(AbstractGML object) {
+	public void resolve(AbstractCityObject cityObject) {
+		resolve((AbstractGML)cityObject);
+	}
+	
+	public void resolve(CityModel cityModel) {
+		resolve((AbstractGML)cityModel);
+	}
+	
+	private void resolve(AbstractGML object) {
 		Walker walker = new Walker();
 		object.accept(walker);
 
@@ -54,6 +67,22 @@ public class AppearanceResolver {
 			walker.state = ResolverState.ASSIGN_SURFACE_DATA;
 			object.accept(walker);
 		}
+	}
+	
+	public void registerGlobalAppearance(Appearance appearance) {
+		Walker walker = new Walker();
+		appearance.accept(walker);
+		
+		if (!walker.surfaceDatas.isEmpty()) {
+			globalSurfaceDatas.putAll(walker.surfaceDatas);
+			hasGlobalAppearance = true;
+		}
+	}
+	
+	public void resolveGlobalAppearance(AbstractGeometry geometry) {
+		List<SurfaceDataInfo> surfaceData = globalSurfaceDatas.get(geometry.getId());
+		if (surfaceData != null)
+			geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);		
 	}
 	
 	public boolean hasTextures() {
@@ -82,6 +111,10 @@ public class AppearanceResolver {
 		materials.clear();
 		materialsIndex.set(0);
 		return result;
+	}
+	
+	public boolean hasGlobalAppearance() {
+		return hasGlobalAppearance;
 	}
 
 	private class Walker extends GMLWalker {

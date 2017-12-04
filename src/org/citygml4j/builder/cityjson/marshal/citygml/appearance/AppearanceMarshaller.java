@@ -30,11 +30,13 @@ import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 public class AppearanceMarshaller {
+	private final CityJSONMarshaller json;
 	private final TextureVerticesBuilder textureVertexArrayBuilder;
 	private final TextureFileHandler textureFileHandler;
 	private final ChildInfo childInfo;
 
 	public AppearanceMarshaller(CityGMLMarshaller citygml) {
+		json = citygml.getCityJSONMarshaller();
 		textureVertexArrayBuilder = citygml.getCityJSONMarshaller().getTextureVerticesBuilder();
 		textureFileHandler = citygml.getCityJSONMarshaller().getTextureFileHandler();
 		childInfo = new ChildInfo();
@@ -114,6 +116,9 @@ public class AppearanceMarshaller {
 		Map<String, Integer> materials = null;
 		
 		do {
+			if (json.getAppearanceResolver().hasGlobalAppearance() && !geometry.hasLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA))
+				json.getAppearanceResolver().resolveGlobalAppearance(geometry);
+			
 			if (geometry.hasLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA)) {
 				materials = new HashMap<>();
 				
@@ -198,6 +203,9 @@ public class AppearanceMarshaller {
 	private Map<String, List<Integer>> collectTextures(LinearRing linearRing, boolean reverse) {
 		Map<String, List<Integer>> textures = null;
 		
+		if (json.getAppearanceResolver().hasGlobalAppearance() && !linearRing.hasLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA))
+			json.getAppearanceResolver().resolveGlobalAppearance(linearRing);
+		
 		if (linearRing.hasLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA)) {
 			textures = new HashMap<>();
 			
@@ -222,7 +230,7 @@ public class AppearanceMarshaller {
 						textures.put(theme, indexes);
 					}
 				}
-			}			
+			}
 		}
 		
 		return textures;

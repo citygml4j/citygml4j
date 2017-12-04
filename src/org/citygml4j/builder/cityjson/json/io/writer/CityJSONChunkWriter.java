@@ -12,6 +12,7 @@ import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
+import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 
 import com.google.gson.stream.JsonWriter;
@@ -40,6 +41,18 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	public CityJSONChunkWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		super(writer, factory);
 		lods = new HashSet<>();
+	}
+
+	public void registerGlobalAppearance(Appearance appearance) {
+		switch (documentState) {
+		case START_DOCUMENT:
+		case END_DOCUMENT:
+			throw new IllegalStateException("Global appearances cannot be registered after document has been initialized.");
+		case INITIAL:
+			break;
+		}
+		
+		marshaller.getAppearanceResolver().registerGlobalAppearance(appearance);
 	}
 
 	public void writeStartDocument() throws CityJSONWriteException {
