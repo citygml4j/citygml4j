@@ -9,8 +9,10 @@ import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
+import org.citygml4j.builder.cityjson.marshal.util.SimpleTextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.SimpleTextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.SimpleVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -23,6 +25,7 @@ public class CityJSONMarshaller {
 
 	private final VerticesBuilder verticesBuilder;
 	private final TextureVerticesBuilder textureVerticesBuilder;
+	private final TextureFileHandler textureFileHandler;
 	private final CityGMLMarshaller citygml;
 	private final GMLMarshaller gml;	
 
@@ -30,9 +33,10 @@ public class CityJSONMarshaller {
 	private final AppearanceResolver appearanceResolver;
 	private String defaultTheme = "";
 
-	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder) {
+	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder, TextureFileHandler textureFileHandler) {
 		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new SimpleVerticesBuilder();
 		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new SimpleTextureVerticesBuilder();
+		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new SimpleTextureFileHandler();
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this);
@@ -42,7 +46,7 @@ public class CityJSONMarshaller {
 	}
 
 	public CityJSONMarshaller() {
-		this (new SimpleVerticesBuilder(), new SimpleTextureVerticesBuilder());
+		this (new SimpleVerticesBuilder(), new SimpleTextureVerticesBuilder(), new SimpleTextureFileHandler());
 	}
 	
 	public CityJSON marshal(CityModel src) {
@@ -105,6 +109,10 @@ public class CityJSONMarshaller {
 
 	public TextureVerticesBuilder getTextureVerticesBuilder() {
 		return textureVerticesBuilder;
+	}
+
+	public TextureFileHandler getTextureFileHandler() {
+		return textureFileHandler;
 	}
 
 }

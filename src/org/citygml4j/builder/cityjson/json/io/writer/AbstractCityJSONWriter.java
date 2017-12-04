@@ -19,7 +19,7 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
 				
-		marshaller = new CityJSONMarshaller(factory.verticesBuilder, factory.textureVerticesBuilder);		
+		marshaller = new CityJSONMarshaller(factory.verticesBuilder, factory.textureVerticesBuilder, factory.textureFileHandler);		
 		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	}
 

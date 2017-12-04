@@ -16,6 +16,7 @@ import org.citygml4j.binding.cityjson.appearance.WrapModeType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceDataInfo;
+import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
@@ -30,16 +31,21 @@ import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 public class AppearanceMarshaller {
 	private final TextureVerticesBuilder textureVertexArrayBuilder;
+	private final TextureFileHandler textureFileHandler;
 	private final ChildInfo childInfo;
 
 	public AppearanceMarshaller(CityGMLMarshaller citygml) {
 		textureVertexArrayBuilder = citygml.getCityJSONMarshaller().getTextureVerticesBuilder();
+		textureFileHandler = citygml.getCityJSONMarshaller().getTextureFileHandler();
 		childInfo = new ChildInfo();
 	}
 
 	public void marshalParameterizedTexture(ParameterizedTexture src, TextureType dest) {
 		if (src.isSetImageURI()) {
-			String fileName = Paths.get(src.getImageURI()).getFileName().toString();
+			String fileName = textureFileHandler.getImageFileName(Paths.get(src.getImageURI()));
+			if (fileName == null)
+				return;
+			
 			dest.setType(TextureTypeName.fromFileName(fileName));
 			dest.setImage(fileName);
 		}

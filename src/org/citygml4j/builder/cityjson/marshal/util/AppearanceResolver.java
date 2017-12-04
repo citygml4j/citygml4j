@@ -105,7 +105,7 @@ public class AppearanceResolver {
 		public void visit(ParameterizedTexture parameterizedTexture) {
 			if (state == ResolverState.GET_SURFACE_DATA) {
 				TextureType texture = app.marshalParameterizedTexture(parameterizedTexture);
-				if (!texture.isSetType())
+				if (!texture.isSetImage() || !texture.isSetType())
 					return;
 				
 				int sequenceNumber = addTexture(texture);

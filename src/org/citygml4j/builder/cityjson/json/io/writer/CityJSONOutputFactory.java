@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Objects;
 
+import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 
@@ -17,10 +18,12 @@ import com.google.gson.stream.JsonWriter;
 public class CityJSONOutputFactory {
 	public static final String VERTICES_BUILDER = "org.citygml4j.cityjson.verticesBuilder";
 	public static final String TEXTURE_VERTICES_BUILDER = "org.citygml4j.cityjson.textureVerticesBuilder";
+	public static final String TEXTURE_FILE_HANDLER = "org.citygml4j.cityjson.textureFileHandler";
 
 	protected VerticesBuilder verticesBuilder;
 	protected TextureVerticesBuilder textureVerticesBuilder;
-
+	protected TextureFileHandler textureFileHandler;
+	
 	public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
 		try {
 			return new CityJSONWriter(new JsonWriter(new BufferedWriter(new FileWriter(file))), this);
@@ -60,6 +63,8 @@ public class CityJSONOutputFactory {
 			return verticesBuilder;
 		if (name.equals(TEXTURE_VERTICES_BUILDER))
 			return textureVerticesBuilder;
+		if (name.equals(TEXTURE_FILE_HANDLER))
+			return textureFileHandler;
 
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
@@ -77,6 +82,13 @@ public class CityJSONOutputFactory {
 		if (name.equals(TEXTURE_VERTICES_BUILDER)) {
 			if (value instanceof TextureVerticesBuilder)
 				textureVerticesBuilder = (TextureVerticesBuilder)value;
+			
+			return;
+		}
+		
+		if (name.equals(TEXTURE_FILE_HANDLER)) {
+			if (value instanceof TextureFileHandler)
+				textureFileHandler = (TextureFileHandler)value;
 			
 			return;
 		}
