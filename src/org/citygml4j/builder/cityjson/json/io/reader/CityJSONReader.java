@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.CityObjectTypeAdapter;
+import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -44,7 +45,7 @@ public class CityJSONReader implements AutoCloseable {
 		return metadata;
 	}
 
-	protected void setInputFilter(CityJSONInputFilter filter) {
+	protected void setInputFilter(CityObjectTypeFilter filter) {
 		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter(filter));
 	}
 	

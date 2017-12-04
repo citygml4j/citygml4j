@@ -1,6 +1,5 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.appearance;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,7 +43,7 @@ public class AppearanceMarshaller {
 
 	public void marshalParameterizedTexture(ParameterizedTexture src, TextureType dest) {
 		if (src.isSetImageURI()) {
-			String fileName = textureFileHandler.getImageFileName(Paths.get(src.getImageURI()));
+			String fileName = textureFileHandler.getImageFileName(src.getImageURI());
 			if (fileName == null)
 				return;
 			

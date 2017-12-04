@@ -16,8 +16,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml4j.builder.cityjson.json.io.reader;
+package org.citygml4j.binding.cityjson.feature;
 
-public interface CityJSONInputFilter {
+public interface CityObjectTypeFilter {
 	public boolean accept(String type);
 }
