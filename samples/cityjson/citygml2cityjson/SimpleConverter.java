@@ -39,7 +39,7 @@ public class SimpleConverter {
 		CityJSONBuilder jsonBuilder = ctx.createCityJSONBuilder();
 		
 		// create a CityJSON output factory
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityJSON dataset");
+		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityJSON file");
 		CityJSONOutputFactory out = jsonBuilder.createCityJSONOutputFactory();		
 
 		/**
