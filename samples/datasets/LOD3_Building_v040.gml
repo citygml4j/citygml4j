@@ -33,7 +33,7 @@
         <Appearance gml:id="UUID_c6f74342-f2aa-4fd6-9c8b-ecb3296343c6">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_9f07c839-b234-4cb8-84d3-71f413e67aac">
-              <imageURI>appearance\testtown-004.jpg</imageURI>
+              <imageURI>appearances\testtown-004.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -2926,7 +2926,7 @@
           </surfaceDataMember>
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_2d80d7ea-b9b0-4a3a-87e9-772176d6a793">
-              <imageURI>appearance\testtown-003.jpg</imageURI>
+              <imageURI>appearances\testtown-003.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -16571,7 +16571,7 @@
           </surfaceDataMember>
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_81a60e35-c168-42f3-94e7-450863a68f7c">
-              <imageURI>appearance\testtown-006.JPG</imageURI>
+              <imageURI>appearances\testtown-006.JPG</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -16811,7 +16811,7 @@
           </surfaceDataMember>
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_44bed858-541a-4a48-8a9a-afd2db0b581b">
-              <imageURI>appearance\testtown-005.PNG</imageURI>
+              <imageURI>appearances\testtown-005.PNG</imageURI>
               <mimeType>image/png</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -19337,7 +19337,7 @@
         <Appearance gml:id="UUID_b1481a90-3495-4f1f-a553-181feff0d179">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_ca504700-69e1-4eeb-975f-4dcf6ffea665">
-              <imageURI>appearance\testtown-001.jpg</imageURI>
+              <imageURI>appearances\testtown-001.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -19902,7 +19902,7 @@
         <Appearance gml:id="UUID_7779b2e9-393e-445f-b61e-fbfbe224afff">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_6eebda83-b522-4fef-8e63-16a051c9df25">
-              <imageURI>appearance\testtown-001.jpg</imageURI>
+              <imageURI>appearances\testtown-001.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -20467,7 +20467,7 @@
         <Appearance gml:id="UUID_4152d3b4-ccb3-45e6-9afc-76a76a33fbac">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_976cacf3-cbb5-4ab2-ba42-6587c9f5957c">
-              <imageURI>appearance\testtown-001.jpg</imageURI>
+              <imageURI>appearances\testtown-001.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -20887,7 +20887,7 @@
         <Appearance gml:id="UUID_c27c1c91-fe0a-4a8b-9549-793b46d049e9">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_6b5c530a-cc25-4b4e-a832-eb9863374795">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -21393,7 +21393,7 @@
         <Appearance gml:id="UUID_fa777c67-f195-4aae-9dc6-3ef60216b10c">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_5f13c851-886b-4a72-89cd-438fa26cf160">
-              <imageURI>appearance\testtown-001.jpg</imageURI>
+              <imageURI>appearances\testtown-001.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -21813,7 +21813,7 @@
         <Appearance gml:id="UUID_53709271-3dfc-4668-aabf-009ae1b71e58">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_07179706-b141-4473-acb6-808a225b86d4">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -21849,7 +21849,7 @@
         <Appearance gml:id="UUID_d4e9a831-3f2e-4bee-9af9-ee9b50e4f700">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_71a0a6b4-1758-440d-bbc7-adaf8896cb27">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -21885,7 +21885,7 @@
         <Appearance gml:id="UUID_40f66113-2edf-4ec8-be86-cbde90f31cd2">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_eea6b095-038b-43ea-b722-9f790fea47c5">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -21921,7 +21921,7 @@
         <Appearance gml:id="UUID_7e581dc3-4dd4-42a6-bf84-b11406b9283f">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_3171f184-a111-42d4-a201-af1f8d9e45ea">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -21957,7 +21957,7 @@
         <Appearance gml:id="UUID_6bf68c24-94a2-41a8-9137-e478be961068">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_03051487-48c2-4328-a2e6-528f83e17098">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22009,7 +22009,7 @@
         <Appearance gml:id="UUID_3ff89c80-4b71-4983-9023-fe88657a8c36">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_671ad65e-4422-460c-b157-2cb9410921f1">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22045,7 +22045,7 @@
         <Appearance gml:id="UUID_f617a067-f139-40dc-8be1-208a715049b4">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_7e8d9a5c-7b8f-47eb-a176-7b68278c3e5a">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22081,7 +22081,7 @@
         <Appearance gml:id="UUID_9f0ed644-e0cf-45fa-b26c-1c8ebd6c2a88">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_d28e3903-219f-4aba-846d-c9bcff9b7cab">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22133,7 +22133,7 @@
         <Appearance gml:id="UUID_b940b544-9199-4e3f-9d22-94fd878dd60e">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_60fda51a-62df-4ac0-8b3a-d932bf1dc31a">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22169,7 +22169,7 @@
         <Appearance gml:id="UUID_69d8c672-9f2d-4391-9ebb-0ae561154137">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_767164ae-a560-44da-ab75-c57484d4e769">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22205,7 +22205,7 @@
         <Appearance gml:id="UUID_644d2303-1919-4e03-afe4-b40094b5719a">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_da44bcd1-3353-4188-b9a7-1e37959e1637">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22241,7 +22241,7 @@
         <Appearance gml:id="UUID_89826989-35f2-4501-8b30-12a0e6b6ac9e">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_dab7609b-ac8d-4ec8-bf23-2885acd73709">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22277,7 +22277,7 @@
         <Appearance gml:id="UUID_fd49c9f1-3eb6-4590-a727-7330dc6f01a6">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_0c8f60ad-7589-4fb5-904a-0a7299df6b78">
-              <imageURI>appearance\testtown-004.jpg</imageURI>
+              <imageURI>appearances\testtown-004.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22489,7 +22489,7 @@
         <Appearance gml:id="UUID_213a4028-cbfa-4a77-8c37-91f9c45f0ea0">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_6a17563c-7cf3-4787-b2ac-3aec77b1a087">
-              <imageURI>appearance\testtown-007.jpg</imageURI>
+              <imageURI>appearances\testtown-007.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -22845,7 +22845,7 @@
         <Appearance gml:id="UUID_8951023b-16c5-4839-ac63-8f6a6a8d33c5">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_995996ad-6443-4ca4-9a86-b3e682efcfb3">
-              <imageURI>appearance\testtown-008.jpg</imageURI>
+              <imageURI>appearances\testtown-008.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24169,7 +24169,7 @@
         <Appearance gml:id="UUID_07230ff6-df5a-4d24-bb52-1503c41b89f5">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_7f211a57-ba55-43e9-92f4-246e940f35d3">
-              <imageURI>appearance\testtown-008.jpg</imageURI>
+              <imageURI>appearances\testtown-008.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24253,7 +24253,7 @@
         <Appearance gml:id="UUID_d2922307-1336-4b03-b8e1-950a2975458e">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_138a8167-31aa-4b34-8b7c-bb08fd296543">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24289,7 +24289,7 @@
         <Appearance gml:id="UUID_ca54d32b-c446-4b7b-a6d1-9f2a2e450f28">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_fa04f1de-8803-4656-a3c7-9d770cc034c4">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24325,7 +24325,7 @@
         <Appearance gml:id="UUID_ab6d6af0-33a8-4596-8124-97241300294f">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_510d5a76-1c1e-4c64-a1a1-24d42ca6edaf">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24361,7 +24361,7 @@
         <Appearance gml:id="UUID_1f0226db-c560-4df8-808b-4104f369d912">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_d399a0b7-ab77-4f91-8d24-86364bb3061f">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24397,7 +24397,7 @@
         <Appearance gml:id="UUID_378d6fb3-d0bd-40e3-8fc5-3ca0f69c54fa">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_d369c285-85a2-4fe8-823d-749bc4c44ce2">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24433,7 +24433,7 @@
         <Appearance gml:id="UUID_7cb6082c-eb02-4b2b-893a-56c54d103983">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_138e0cfe-4245-40c6-9ca2-e9fbf24b2c49">
-              <imageURI>appearance\testtown-002.jpg</imageURI>
+              <imageURI>appearances\testtown-002.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24469,7 +24469,7 @@
         <Appearance gml:id="UUID_49df023a-0a86-4e6a-8503-c009c6058b16">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_927b27a0-5221-4145-9e27-237ae435a1de">
-              <imageURI>appearance\testtown-004.jpg</imageURI>
+              <imageURI>appearances\testtown-004.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -24709,7 +24709,7 @@
           </surfaceDataMember>
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_418a21cd-6a22-40da-bdd5-76474ca229fd">
-              <imageURI>appearance\testtown-003.jpg</imageURI>
+              <imageURI>appearances\testtown-003.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -25137,7 +25137,7 @@
         <Appearance gml:id="UUID_35adeeab-371c-4dfd-8d18-1d1e6e40be67">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_f4ee3142-63d5-4667-937f-aca259e9f2f6">
-              <imageURI>appearance\testtown-004.jpg</imageURI>
+              <imageURI>appearances\testtown-004.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
@@ -25389,7 +25389,7 @@
         <Appearance gml:id="UUID_a0c9a157-d5c9-4b2e-981e-1938bbd324d4">
           <surfaceDataMember>
             <ParameterizedTexture gml:id="UUID_7733cf98-52a8-473a-9e4b-a41f8a2f6c26">
-              <imageURI>appearance\testtown-004.jpg</imageURI>
+              <imageURI>appearances\testtown-004.jpg</imageURI>
               <mimeType>image/jpeg</mimeType>
               <textureType>unknown</textureType>
               <wrapMode>wrap</wrapMode>
