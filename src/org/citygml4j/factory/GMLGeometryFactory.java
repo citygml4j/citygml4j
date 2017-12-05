@@ -21,6 +21,8 @@ package org.citygml4j.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
 import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
 import org.citygml4j.model.gml.geometry.primitives.Exterior;
@@ -29,13 +31,11 @@ import org.citygml4j.model.gml.geometry.primitives.LineString;
 import org.citygml4j.model.gml.geometry.primitives.LinearRing;
 import org.citygml4j.model.gml.geometry.primitives.Point;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.Solid;
+import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 
 public class GMLGeometryFactory {
 
-	public GMLGeometryFactory() {
-
-	}
-	
 	public Point createPoint(List<Double> coordinates, int dim) throws DimensionMismatchException {
 		Point point = new Point();
 		point.setPos(createDirectPosition(coordinates, dim));
@@ -71,25 +71,6 @@ public class GMLGeometryFactory {
 	public Polygon createLinearPolygon(double[] coordinates, int dim) throws DimensionMismatchException {
 		return createLinearPolygon(asList(coordinates), dim);
 	}
-
-	public Polygon createLinearPolygon(Object[] coordinates, int dim) throws DimensionMismatchException {
-		Polygon polygon = null;
-		List<List<Double>> coordList = asList(coordinates);
-
-		if (coordList.size() > 0) {
-			polygon = createLinearPolygon(coordList.get(0), dim);
-
-			for (int i = 1; i < coordList.size(); i++) {
-				LinearRing linearRing = createLinearRing(coordList.get(i), dim);
-				Interior interior = new Interior();
-				interior.setRing(linearRing);
-
-				polygon.addInterior(interior);
-			}
-		}
-
-		return polygon;
-	}
 	
 	public Polygon createLinearPolygon(double[][] coordinates, int dim) throws DimensionMismatchException {
 		Polygon polygon = null;
@@ -107,6 +88,32 @@ public class GMLGeometryFactory {
 		}
 		
 		return polygon;
+	}
+	
+	public MultiSurface createMultiSurface(Polygon... polygons) {
+		MultiSurface multiSurface = new MultiSurface();
+		
+		for (Polygon polygon : polygons) {
+			if (polygon != null && polygon.isSetExterior())
+				multiSurface.addSurfaceMember(new SurfaceProperty(polygon));
+		}
+		
+		return multiSurface;
+	}
+	
+	public Solid createSolid(Polygon... polygons) {
+		Solid solid = new Solid();
+		
+		CompositeSurface exterior = new CompositeSurface();
+		for (Polygon polygon : polygons) {
+			if (polygon != null && polygon.isSetExterior())
+				exterior.addSurfaceMember(new SurfaceProperty(polygon));
+		}
+		
+		if (exterior.isSetSurfaceMember())
+			solid.setExterior(new SurfaceProperty(exterior));
+		
+		return solid;
 	}
 	
 	public DirectPosition createDirectPosition(List<Double> coordinates, int dim) throws DimensionMismatchException {
@@ -159,38 +166,6 @@ public class GMLGeometryFactory {
 	
 	public LinearRing createLinearRing(double[] coordinates, int dim) throws DimensionMismatchException {
 		return createLinearRing(asList(coordinates), dim);
-	}
-	
-	@SuppressWarnings("unchecked")
-	private List<List<Double>> asList(Object[] array) {
-		List<List<Double>> list = new ArrayList<List<Double>>(array.length);
-		boolean isValid = true;
-		
-		for (int i = 0; isValid && i < array.length; i++) {
-			if (array[i] instanceof List<?>) {
-				boolean isDoubleList = true;
-
-				for (Object item : (List<?>)array[i]) {
-					if (!(item instanceof Double)) {
-						isDoubleList = false;
-						break;
-					}
-				}
-
-				if (isDoubleList)
-					list.add((List<Double>)array[i]);
-				else 
-					isValid = false;
-			}
-
-			else if (array[i] instanceof double[])
-				list.add(asList((double[])array[i]));
-
-			else
-				isValid = false;
-		}
-		
-		return list;
 	}
 	
 	private List<Double> asList(double[] array) {

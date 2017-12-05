@@ -73,8 +73,6 @@ public class ChunkConverter {
 		
 		// create chunk-wise CityJSON writer
 		CityJSONChunkWriter writer = out.createCityJSONChunkWriter(new File("LOD2_Buildings_v100.json"));
-		writer.setIndent(" ");
-		writer.setHtmlSafe(true);
 		
 		System.out.println(df.format(new Date()) + "reading city objects from LOD2_Buildings_v100.gml");
 		while (reader.hasNext()) {

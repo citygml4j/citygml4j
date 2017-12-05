@@ -14,7 +14,6 @@ import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.appearance.AppearanceMarshaller;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
-import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
@@ -25,7 +24,6 @@ import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.AbstractGML;
-import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.util.walker.GMLWalker;
 
@@ -126,12 +124,6 @@ public class AppearanceResolver {
 		public void visit(Appearance appearance) {
 			theme = appearance.isSetTheme() ? appearance.getTheme() : defaultTheme;
 			super.visit(appearance);
-		}
-
-		@Override
-		public void visit(AbstractSurfaceData surfaceData) {
-			if (surfaceData.getParent() instanceof FeatureProperty<?>)
-				((FeatureProperty<?>)surfaceData.getParent()).unsetFeature();
 		}
 
 		@Override

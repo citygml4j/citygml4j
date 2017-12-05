@@ -569,9 +569,17 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	public void setYearOfConstruction(GregorianCalendar yearOfConstruction) {
 		this.yearOfConstruction = yearOfConstruction;
 	}
+	
+	public void setYearOfConstruction(int yearOfConstruction) {
+		this.yearOfConstruction = new GregorianCalendar(yearOfConstruction, 0, 1);
+	}
 
 	public void setYearOfDemolition(GregorianCalendar yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
+	}
+	
+	public void setYearOfDemolition(int yearOfDemolition) {
+		this.yearOfDemolition = new GregorianCalendar(yearOfDemolition, 0, 1);
 	}
 
 	public void unsetAddress() {
