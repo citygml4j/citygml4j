@@ -18,6 +18,9 @@
  */
 package org.citygml4j.geometry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.citygml4j.builder.copy.CopyBuilder;
 
 public class BoundingBox implements Geometry {
@@ -136,6 +139,14 @@ public class BoundingBox implements Geometry {
 		copy.setUpperCorner((Point)copyBuilder.copy(upperCorner));
 
 		return copy;
+	}
+	
+	public List<Double> toList() {
+		List<Double> values = new ArrayList<>();
+		values.addAll(lowerCorner.toList());
+		values.addAll(upperCorner.toList());
+		
+		return values;
 	}
 
 }

@@ -72,9 +72,9 @@ public class ChunkConverter {
 		out.setProperty(CityJSONOutputFactory.VERTICES_BUILDER, verticesBuilder);
 		
 		// create chunk-wise CityJSON writer
-		CityJSONChunkWriter writer = out.createCityJSONChunkWriter(new File("LOD2_Buildings_v100.json"));
+		CityJSONChunkWriter writer = out.createCityJSONChunkWriter(new File("LOD2_Buildings.json"));
 		
-		System.out.println(df.format(new Date()) + "reading city objects from LOD2_Buildings_v100.gml");
+		System.out.println(df.format(new Date()) + "reading city objects from LOD2_Buildings_v100.gml and writing to LOD2_Buildings.json");
 		while (reader.hasNext()) {
 			CityGML cityGML = reader.nextFeature();
 
@@ -90,7 +90,7 @@ public class ChunkConverter {
 		reader.close();
 		writer.close();
 		
-		System.out.println(df.format(new Date()) + "CityJSON file LOD2_Buildings_v100.json written");
+		System.out.println(df.format(new Date()) + "CityJSON file LOD2_Buildings.json written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
 

@@ -18,6 +18,9 @@
  */
 package org.citygml4j.geometry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.citygml4j.builder.copy.CopyBuilder;
 
 public class Point implements Geometry {
@@ -98,6 +101,15 @@ public class Point implements Geometry {
 		copy.setZ(copyBuilder.copy(z));
 
 		return copy;
+	}
+	
+	public List<Double> toList() {
+		List<Double> values = new ArrayList<>();
+		values.add(x);
+		values.add(y);
+		values.add(z);
+		
+		return values;
 	}
 
 }

@@ -37,7 +37,7 @@
 	<!-- run sample app -->
 	<target name="run" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="cityjson.citygml2cityjson.ChunkConverter" fork="true">
+		<java classname="cityjson.cityjson2citygml.CityJSONConverter" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>
@@ -46,8 +46,8 @@
 	<target name="clean" description="Deletes all the generated artifacts">
 		<delete dir="classes" />
 		<delete>
-			<fileset dir="." includes="*.json" />
+			<fileset dir="." includes="*.gml" />
 		</delete>
-		<delete dir="appearances" />
+		<delete dir="appearance" />
 	</target>
 </project>
