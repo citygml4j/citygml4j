@@ -56,7 +56,7 @@ public class CityGMLUnmarshaller {
 	public CityGMLUnmarshaller(CityJSONUnmarshaller json) {
 		this.json = json;
 		
-		app = new AppearanceUnmarshaller();
+		app = new AppearanceUnmarshaller(this);
 		brid = new BridgeUnmarshaller(this);
 		bldg = new BuildingUnmarshaller(this);
 		frn = new CityFurnitureUnmarshaller(this);

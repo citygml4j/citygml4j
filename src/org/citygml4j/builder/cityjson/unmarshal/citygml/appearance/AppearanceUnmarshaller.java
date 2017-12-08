@@ -12,6 +12,8 @@ import org.citygml4j.binding.cityjson.appearance.AppearanceType;
 import org.citygml4j.binding.cityjson.appearance.MaterialType;
 import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
@@ -33,13 +35,17 @@ import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.GeometryWalker;
 
 public class AppearanceUnmarshaller {
+	private final TextureFileHandler textureFileHandler;
+	
 	private List<MaterialType> materials;
 	private List<TextureType> textures;
-	private List<List<Double>> textureVertices;
-	
+	private List<List<Double>> textureVertices;	
 	private int numTextureVertices;
-	private String textureFolder = "appearances";
 	private GMLIdManager gmlIdManager;
+	
+	public AppearanceUnmarshaller(CityGMLUnmarshaller citygml) {
+		textureFileHandler = citygml.getCityJSONUnmarshaller().getTextureFileHandler();
+	}
 	
 	public void setAppearanceInfo(AppearanceType appearanceType) {
 		this.materials = appearanceType.isSetMaterials() ? appearanceType.getMaterials() : Collections.emptyList();
@@ -78,6 +84,9 @@ public class AppearanceUnmarshaller {
 				continue;
 
 			ParameterizedTexture texture = getOrCreateParameterizedTexture(textureType, entry.getKey(), appearance);
+			if (texture == null)
+				continue;
+			
 			for (AbstractSurface surface : entry.getValue()) {
 				TexCoordList texCoordList = new TexCoordList();
 				List<List<Integer>> values = (List<List<Integer>>)surface.getLocalProperty(CityJSONUnmarshaller.TEXTURE_COORDINATES);
@@ -121,8 +130,13 @@ public class AppearanceUnmarshaller {
 	}
 
 	public void unmarshalParameterizedTexture(TextureType src, ParameterizedTexture dest) {
-		if (src.isSetImage())
-			dest.setImageURI(new StringBuilder(textureFolder).append("/").append(src.getImage()).toString());
+		if (src.isSetImage()) {
+			String imageURI = textureFileHandler.getImageURI(src.getImage());
+			if (imageURI == null)
+				return;
+			
+			dest.setImageURI(imageURI);
+		}
 
 		if (src.isSetType())
 			dest.setMimeType(new Code(src.getType().getMimeType()));
@@ -257,6 +271,9 @@ public class AppearanceUnmarshaller {
 
 		if (dest == null) {
 			dest = unmarshalParameterizedTexture(src);
+			if (!dest.isSetImageURI())
+				return null;
+			
 			dest.setLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID, surfaceDataId);
 			appearance.addSurfaceDataMember(new SurfaceDataProperty(dest));
 		}

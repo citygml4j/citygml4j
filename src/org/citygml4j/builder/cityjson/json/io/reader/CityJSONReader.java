@@ -20,11 +20,11 @@ public class CityJSONReader implements AutoCloseable {
 	
 	private MetadataType metadata;
 
-	public CityJSONReader(JsonReader reader) {
+	public CityJSONReader(JsonReader reader, CityJSONInputFactory factory) {
 		this.reader = reader;
 		
 		builder = new GsonBuilder().setDateFormat("yyyy-MM-dd");
-		unmarshaller = new CityJSONUnmarshaller();
+		unmarshaller = new CityJSONUnmarshaller(factory.textureFileHandler);
 	}
 
 	public CityModel read() {
