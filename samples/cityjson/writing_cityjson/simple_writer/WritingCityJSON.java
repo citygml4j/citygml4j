@@ -1,4 +1,4 @@
-package cityjson.writing_cityjson;
+package cityjson.writing_cityjson.simple_writer;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

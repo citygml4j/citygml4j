@@ -18,7 +18,7 @@
  * limitations under the License.
 -->
 <project basedir="." default="run">
-	<property name="lib" value="../../../lib" />
+	<property name="lib" value="../../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
 		<fileset dir="${lib}" includes="*.jar" />
@@ -37,7 +37,7 @@
 	<!-- run sample app -->
 	<target name="run" depends="compile" description="run the sample app">
 		<echo message="Running sample citygml4j ADE application..." />
-		<java classname="cityjson.writing_cityjson.WritingCityJSON" fork="true">
+		<java classname="cityjson.writing_cityjson.simple_writer.WritingCityJSON" fork="true">
 			<classpath refid="classpath" />
 		</java>
 	</target>

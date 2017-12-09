@@ -32,15 +32,13 @@ public class CityJSONConverter {
 		CityJSONInputFactory in = builder.createCityJSONInputFactory();
 
 		/**
-		 * we can use different helpers on the CityJSON output factory such as builders
-		 * for the "vertices" and "vertices-texture" arrays. Especially when converting
-		 * an existing CityGML dataset, it is recommended that you provide your own 
-		 * texture file handler.
-		 * A texture file handler is invoked for every texture image found in the CityGML
-		 * data. Its task is to generate a filename for the "image" property of a CityJSON
-		 * texture object and to possibly copy the image file to the "appearances" folder.
+		 * When converting an existing CityJSON dataset, it is recommended that you register 
+		 * your own texture file handler with the CityJSON input factory.
+		 * A texture file handler is invoked for every texture image found in the CityJSON
+		 * dataset. Its task is to generate a value for the <imageURI> property of a CityGML
+		 * parameterized texture object and to possibly copy the image file to a target folder.
 		 * If you do not provide your own texture file handler, a default one will be used
-		 * which only adapts the file name for the CityJSON file. 
+		 * which lets the <imageURI> point to the image file in the "appearances" folder. 
 		 */
 
 		SimpleTextureFileHandler textureFileHandler = new SimpleTextureFileHandler(Paths.get("../../datasets/appearances"), Paths.get("appearance"));

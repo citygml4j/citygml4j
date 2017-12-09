@@ -18,7 +18,7 @@
  * limitations under the License.
 -->
 <project basedir="." default="run">
-	<property name="lib" value="../../../lib" />
+	<property name="lib" value="../../../../lib" />
 	<path id="classpath">
 		<pathelement path="classes" />
 		<fileset dir="${lib}" includes="*.jar" />
