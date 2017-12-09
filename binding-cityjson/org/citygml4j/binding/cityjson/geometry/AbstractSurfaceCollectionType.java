@@ -46,6 +46,10 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 			boundaries = surfaces;
 	}
 	
+	public void unsetSurfaces() {
+		boundaries.clear();
+	}
+	
 	@Override
 	public boolean isSetSemantics() {
 		return semantics != null;
@@ -58,6 +62,10 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 
 	public void setSemantics(SurfaceCollectionSemanticsObject semantics) {
 		this.semantics = semantics;
+	}
+	
+	public void unsetSemantics() {
+		semantics = null;
 	}
 	
 	@Override
@@ -89,6 +97,20 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 				this.material.put(object.getTheme(), object);
 		}
 	}
+	
+	public void removeMaterial(SurfaceCollectionMaterialObject materialObject) {
+		if (this.material != null)
+			this.material.remove(materialObject.getTheme());
+	}
+	
+	public void removeMaterial(String theme) {
+		if (this.material != null)
+			this.material.remove(theme);
+	}
+	
+	public void unsetMaterial() {
+		material = null;
+	}
 
 	@Override
 	public boolean isSetTexture() {
@@ -118,6 +140,20 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 			for (SurfaceCollectionTextureObject object : texture)
 				this.texture.put(object.getTheme(), object);
 		}
+	}
+	
+	public void removeTexture(SurfaceCollectionTextureObject textureObject) {
+		if (texture != null)
+			texture.remove(textureObject.getTheme());
+	}
+	
+	public void removeTexture(String theme) {
+		if (texture != null)
+			texture.remove(theme);
+	}
+	
+	public void unsetTexture() {
+		texture = null;
 	}
 
 }

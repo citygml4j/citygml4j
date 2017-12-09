@@ -24,6 +24,10 @@ public class MaterialType {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public void unsetName() {
+		name = null;
+	}
 
 	public boolean isSetAmbientIntensity() {
 		return ambientIntensity != null;
@@ -37,6 +41,10 @@ public class MaterialType {
 		if (ambientIntensity == null
 				|| (ambientIntensity >= 0 && ambientIntensity <= 1))
 			this.ambientIntensity = ambientIntensity;
+	}
+	
+	public void unsetAmbientIntensity() {
+		ambientIntensity = null;
 	}
 
 	public boolean isSetDiffuseColor() {
@@ -53,6 +61,10 @@ public class MaterialType {
 		else if (diffuseColor.size() >= 3)
 			this.diffuseColor = diffuseColor.subList(0, 3);
 	}
+	
+	public void unsetDiffuseColor() {
+		diffuseColor = null;
+	}
 
 	public boolean isSetEmissiveColor() {
 		return emissiveColor != null && emissiveColor.size() >= 3;
@@ -67,6 +79,10 @@ public class MaterialType {
 			this.emissiveColor = null;
 		else if (emissiveColor.size() >= 3)
 			this.emissiveColor = emissiveColor.subList(0, 3);
+	}
+	
+	public void unsetEmissiveColor() {
+		emissiveColor = null;
 	}
 
 	public boolean isSetSpecularColor() {
@@ -83,6 +99,10 @@ public class MaterialType {
 		else if (specularColor.size() >= 3)
 			this.specularColor = specularColor.subList(0, 3);
 	}
+	
+	public void unsetSpecularColor() {
+		specularColor = null;
+	}
 
 	public boolean isSetShininess() {
 		return shininess != null;
@@ -96,6 +116,10 @@ public class MaterialType {
 		if (shininess == null
 				|| (shininess >= 0 && shininess <= 1))
 			this.shininess = shininess;
+	}
+	
+	public void unsetShininess() {
+		shininess = null;
 	}
 
 	public boolean isSetTransparency() {
@@ -111,6 +135,10 @@ public class MaterialType {
 				|| (transparency >= 0 && transparency <= 1))
 			this.transparency = transparency;
 	}
+	
+	public void unsetTransparency() {
+		transparency = null;
+	}
 
 	public boolean isSmooth() {
 		return isSmooth != null && isSmooth.booleanValue();
@@ -118,6 +146,10 @@ public class MaterialType {
 
 	public void setIsSmooth(Boolean isSmooth) {
 		this.isSmooth = isSmooth;
+	}
+	
+	public void unsetIsSmooth() {
+		isSmooth = null;
 	}
 
 	@Override

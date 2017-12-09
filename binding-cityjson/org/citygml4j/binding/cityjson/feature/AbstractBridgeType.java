@@ -38,6 +38,11 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 		this.attributes = attributes;
 	}
 	
+	@Override
+	public void unsetAttributes() {
+		attributes = null;
+	}
+	
 	public boolean isSetAddress() {
 		return address != null;
 	}

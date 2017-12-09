@@ -55,6 +55,10 @@ public class CityJSON {
 		this.metadata = metadata;
 	}
 	
+	public void unsetMetadata() {
+		metadata = null;
+	}
+	
 	public boolean hasCityObjects() {
 		return !cityObjects.isEmpty();
 	}
@@ -82,6 +86,18 @@ public class CityJSON {
 				this.cityObjects.put(cityObject.getGmlId(), cityObject);
 		}
 	}
+	
+	public void removeCityObject(AbstractCityObjectType cityObject) {
+		cityObjects.remove(cityObject.getGmlId());
+	}
+	
+	public void removeCityObject(String gmlId) {
+		cityObjects.remove(gmlId);
+	}
+	
+	public void unsetCityObjects() {
+		cityObjects.clear();
+	}
 
 	public void addVertex(List<Double> vertex) {
 		if (vertex != null && vertex.size() == 3)
@@ -96,6 +112,10 @@ public class CityJSON {
 		if (vertices != null)
 			this.vertices = vertices;
 	}
+	
+	public void unsetVertices() {
+		vertices.clear();
+	}
 
 	public boolean isSetTransform() {
 		return transform != null;
@@ -108,6 +128,10 @@ public class CityJSON {
 	public void setTransform(TransformType transform) {
 		this.transform = transform;
 	}
+	
+	public void unsetTransform() {
+		transform = null;
+	}
 
 	public boolean isSetAppearance() {
 		return appearance != null;
@@ -119,6 +143,10 @@ public class CityJSON {
 
 	public void setAppearance(AppearanceType appearance) {
 		this.appearance = appearance;
+	}
+	
+	public void unsetAppearance() {
+		appearance = null;
 	}
 
 	public List<Double> calcBoundingBox() {

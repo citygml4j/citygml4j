@@ -36,6 +36,11 @@ public class BridgeConstructionElementType extends AbstractCityObjectType {
 	}
 
 	@Override
+	public void unsetAttributes() {
+		attributes = null;
+	}
+
+	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {
 		return true;
 	}

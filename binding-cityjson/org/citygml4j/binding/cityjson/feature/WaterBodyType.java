@@ -36,6 +36,11 @@ public class WaterBodyType extends AbstractCityObjectType {
 	}
 
 	@Override
+	public void unsetAttributes() {
+		attributes = null;
+	}
+
+	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {
 		return type == GeometryTypeName.MULTI_LINE_STRING
 				|| type == GeometryTypeName.MULTI_SURFACE

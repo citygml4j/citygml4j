@@ -31,6 +31,10 @@ public class Attributes {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
+	
+	public void unsetCreationDate() {
+		creationDate = null;
+	}
 
 	public boolean isSetTerminationDate() {
 		return terminationDate != null;
@@ -42,6 +46,10 @@ public class Attributes {
 
 	public void setTerminationDate(Date terminationDate) {
 		this.terminationDate = terminationDate;
+	}
+	
+	public void unsetTerminationDate() {
+		terminationDate = null;
 	}
 
 	public boolean isSetClazz() {
@@ -56,6 +64,10 @@ public class Attributes {
 		this.clazz = clazz;
 	}
 
+	public void unsetClazz() {
+		clazz = null;
+	}
+	
 	public boolean isSetFunction() {
 		return function != null;
 	}
@@ -66,6 +78,10 @@ public class Attributes {
 
 	public void setFunction(String function) {
 		this.function = function;
+	}
+	
+	public void unsetFunction() {
+		function = null;
 	}
 
 	public boolean isSetUsage() {
@@ -78,6 +94,10 @@ public class Attributes {
 
 	public void setUsage(String usage) {
 		this.usage = usage;
+	}
+	
+	public void unsetUsage() {
+		usage = null;
 	}
 
 	public boolean isSetGenericAttributes() {
@@ -97,6 +117,15 @@ public class Attributes {
 
 	public void setGenericAttributes(Map<String, Object> genericAttributes) {
 		this.genericAttributes = genericAttributes;
+	}
+	
+	public void removeGenericAttribute(String name) {
+		if (genericAttributes != null)
+			genericAttributes.remove(name);
+	}
+	
+	public void unsetGenericAttributes() {
+		genericAttributes = null;
 	}
 
 	public boolean hasAttributes() {

@@ -50,5 +50,10 @@ public class SurfaceCollectionTextureObject extends AbstractTextureObject {
 	public List<List<List<Integer>>> flatValues() {
 		return values;
 	}
+	
+	@Override
+	public void unsetValues() {
+		values = null;
+	}
 
 }

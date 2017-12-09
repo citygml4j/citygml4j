@@ -26,4 +26,8 @@ public class MultiLineStringType extends AbstractGeometryType {
 			boundaries = lineStrings;
 	}
 	
+	public void unsetLineStrings() {
+		boundaries.clear();
+	}
+	
 }

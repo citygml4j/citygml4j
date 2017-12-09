@@ -29,4 +29,8 @@ public class MultiPointType extends AbstractGeometryType {
 			boundaries = points;
 	}
 	
+	public void unsetPoints() {
+		boundaries.clear();
+	}
+	
 }

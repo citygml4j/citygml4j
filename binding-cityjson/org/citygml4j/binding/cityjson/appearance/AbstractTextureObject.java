@@ -9,6 +9,7 @@ public abstract class AbstractTextureObject {
 	public abstract void addNullValue();
 	public abstract int getNumValues();
 	public abstract List<List<List<Integer>>> flatValues();
+	public abstract void unsetValues();
 	
 	protected AbstractTextureObject() {
 	}

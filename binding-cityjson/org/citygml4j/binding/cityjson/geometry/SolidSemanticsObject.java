@@ -31,6 +31,11 @@ public class SolidSemanticsObject extends AbstractSemanticsObject {
 	public void setValues(List<List<Integer>> values) {
 		this.values = values;
 	}
+	
+	@Override
+	public void unsetValues() {
+		values = null;
+	}
 
 	@Override
 	public int getNumValues() {

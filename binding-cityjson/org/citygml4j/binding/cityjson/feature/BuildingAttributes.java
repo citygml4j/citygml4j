@@ -25,6 +25,10 @@ public class BuildingAttributes extends Attributes {
 		this.measuredHeight = measuredHeight;
 	}
 	
+	public void unsetMeasuredHeight() {
+		measuredHeight = null;
+	}
+	
 	public boolean isSetRoofType() {
 		return roofType != null;
 	}
@@ -35,6 +39,10 @@ public class BuildingAttributes extends Attributes {
 	
 	public void setRoofType(String roofType) {
 		this.roofType = roofType;
+	}
+	
+	public void unsetRoofType() {
+		roofType = null;
 	}
 	
 	public boolean isSetStoreysAboveGround() {
@@ -49,6 +57,10 @@ public class BuildingAttributes extends Attributes {
 		this.storeysAboveGround = storeysAboveGround;
 	}
 	
+	public void unsetStoreysAboveGround() {
+		storeysAboveGround = null;
+	}
+	
 	public boolean isSetStoreysBelowGround() {
 		return storeysBelowGround != null;
 	}
@@ -59,6 +71,10 @@ public class BuildingAttributes extends Attributes {
 	
 	public void setStoreysBelowGround(Integer storeysBelowGround) {
 		this.storeysBelowGround = storeysBelowGround;
+	}
+	
+	public void unsetStoreysBelowGround() {
+		storeysBelowGround = null;
 	}
 	
 	public boolean isSetStoreyHeightsAboveGround() {
@@ -80,6 +96,10 @@ public class BuildingAttributes extends Attributes {
 		this.storeyHeightsAboveGround = storeyHeightsAboveGround;
 	}
 	
+	public void unsetStoreyHeightsAboveGround() {
+		storeyHeightsAboveGround = null;
+	}
+	
 	public boolean isSetStoreyHeightsBelowGround() {
 		return storeyHeightsBelowGround != null;
 	}
@@ -99,6 +119,10 @@ public class BuildingAttributes extends Attributes {
 		this.storeyHeightsBelowGround = storeyHeightsBelowGround;
 	}
 	
+	public void unsetStoreyHeightsBelowGround() {
+		storeyHeightsBelowGround = null;
+	}
+	
 	public boolean isSetYearOfConstruction() {
 		return yearOfConstruction != null;
 	}
@@ -111,6 +135,10 @@ public class BuildingAttributes extends Attributes {
 		this.yearOfConstruction = yearOfConstruction;
 	}
 	
+	public void unsetYearOfConstruction() {
+		yearOfConstruction = null;
+	}
+	
 	public boolean isSetYearOfDemolition() {
 		return yearOfDemolition != null;
 	}
@@ -121,6 +149,10 @@ public class BuildingAttributes extends Attributes {
 	
 	public void setYearOfDemolition(Integer yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
+	}
+	
+	public void unsetYearOfDemolition() {
+		yearOfDemolition = null;
 	}
 	
 	public boolean hasAttributes() {

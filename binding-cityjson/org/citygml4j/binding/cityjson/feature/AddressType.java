@@ -22,6 +22,10 @@ public class AddressType {
 		CountryName = countryName;
 	}
 	
+	public void unsetCountryName() {
+		CountryName = null;
+	}
+	
 	public boolean isSetLocalityName() {
 		return LocalityName != null;
 	}
@@ -32,6 +36,10 @@ public class AddressType {
 	
 	public void setLocalityName(String localityName) {
 		LocalityName = localityName;
+	}
+	
+	public void unsetLocalityName() {
+		LocalityName = null;
 	}
 	
 	public boolean isSetThoroughfareNumber() {
@@ -46,6 +54,10 @@ public class AddressType {
 		ThoroughfareNumber = thoroughfareNumber;
 	}
 	
+	public void unsetThoroughfareNumber() {
+		ThoroughfareNumber = null;
+	}
+	
 	public boolean isSetThoroughfareName() {
 		return ThoroughfareName != null;
 	}
@@ -56,6 +68,10 @@ public class AddressType {
 	
 	public void setThoroughfareName(String thoroughfareName) {
 		ThoroughfareName = thoroughfareName;
+	}
+	
+	public void unsetThoroughfareName() {
+		ThoroughfareName = null;
 	}
 	
 	public boolean isSetPostalCode() {
@@ -70,6 +86,10 @@ public class AddressType {
 		PostalCode = postalCode;
 	}
 	
+	public void unsetPostalCode() {
+		PostalCode = null;
+	}
+	
 	public boolean isSetLocation() {
 		return location != null;
 	}
@@ -80,6 +100,10 @@ public class AddressType {
 	
 	public void setLocation(MultiPointType location) {
 		this.location = location;
+	}
+	
+	public void unsetLocation() {
+		location = null;
 	}
 	
 }

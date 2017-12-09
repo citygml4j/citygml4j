@@ -21,6 +21,10 @@ public class TransformType {
 			this.scale = scale.subList(0, 3);
 	}
 	
+	public void unsetScale() {
+		scale = null;
+	}
+	
 	public boolean isSetTranslate() {
 		return translate != null && translate.size() >= 3;
 	}
@@ -34,6 +38,10 @@ public class TransformType {
 			this.translate = null;
 		else if (translate != null && translate.size() >= 3)
 			this.translate = translate.subList(0, 3);
+	}
+	
+	public void unsetTranslate() {
+		translate = null;
 	}
 	
 }

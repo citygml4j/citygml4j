@@ -9,6 +9,7 @@ public abstract class AbstractSemanticsObject {
 	public abstract void addNullValue();
 	public abstract int getNumValues();
 	public abstract List<Integer> flatValues();
+	public abstract void unsetValues();
 
 	public boolean isSetSurfaces() {
 		return surfaces != null;
@@ -28,7 +29,16 @@ public abstract class AbstractSemanticsObject {
 	public void setSurfaces(List<SemanticsType> surfaces) {
 		this.surfaces = surfaces;
 	}
+	
+	public void removeSurface(SemanticsType surface) {
+		if (surfaces != null)
+			surfaces.remove(surface);
+	}
 
+	public void unsetSurfaces() {
+		surfaces = null;
+	}
+	
 	public int getNumSurfaces() {
 		return surfaces != null ? surfaces.size() : 0;
 	}

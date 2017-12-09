@@ -34,6 +34,11 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 	public void setAttributes(TunnelAttributes attributes) {
 		this.attributes = attributes;
 	}
+	
+	@Override
+	public void unsetAttributes() {
+		attributes = null;
+	}
 		
 	public boolean isSetInstallations() {
 		return installations != null;

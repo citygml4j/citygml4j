@@ -22,6 +22,10 @@ public class TextureType {
 		this.type = type;
 	}
 	
+	public void unsetType() {
+		type = null;
+	}
+	
 	public boolean isSetImage() {
 		return image != null;
 	}
@@ -32,6 +36,10 @@ public class TextureType {
 	
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	public void unsetImage() {
+		image = null;
 	}
 	
 	public boolean isSetWrapMode() {
@@ -46,6 +54,10 @@ public class TextureType {
 		this.wrapMode = wrapMode;
 	}
 	
+	public void unsetWrapMode() {
+		wrapMode = null;
+	}
+	
 	public boolean isSetTextureType() {
 		return textureType != null;
 	}
@@ -56,6 +68,10 @@ public class TextureType {
 	
 	public void setTextureType(TextureTypeType textureType) {
 		this.textureType = textureType;
+	}
+	
+	public void unsetTextureType() {
+		textureType = null;
 	}
 	
 	public boolean isSetBorderColor() {
@@ -76,6 +92,10 @@ public class TextureType {
 			this.borderColor = borderColor;
 		else if (borderColor.size() >= 4)
 			this.borderColor = borderColor.subList(0, 4);
+	}
+	
+	public void unsetBorderColor() {
+		borderColor = null;
 	}
 
 	@Override

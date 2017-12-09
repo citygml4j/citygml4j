@@ -17,6 +17,10 @@ public class BridgeAttributes extends Attributes {
 		this.yearOfConstruction = yearOfConstruction;
 	}
 	
+	public void unsetYearOfConstruction() {
+		yearOfConstruction = null;
+	}
+	
 	public boolean isSetYearOfDemolition() {
 		return yearOfDemolition != null;
 	}
@@ -29,6 +33,10 @@ public class BridgeAttributes extends Attributes {
 		this.yearOfDemolition = yearOfDemolition;
 	}
 	
+	public void unsetYearOfDemolition() {
+		yearOfDemolition = null;
+	}
+	
 	public boolean isSetIsMovable() {
 		return isMovable != null;
 	}
@@ -39,6 +47,10 @@ public class BridgeAttributes extends Attributes {
 	
 	public void setIsMovable(boolean isMovable) {
 		this.isMovable = isMovable;
+	}
+	
+	public void unsetIsMovable() {
+		isMovable = null;
 	}
 	
 	public boolean hasAttributes() {

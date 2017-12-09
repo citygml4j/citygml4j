@@ -34,6 +34,11 @@ public class BridgeInstallationType extends AbstractCityObjectType {
 	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
+	
+	@Override
+	public void unsetAttributes() {
+		attributes = null;
+	}
 
 	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {

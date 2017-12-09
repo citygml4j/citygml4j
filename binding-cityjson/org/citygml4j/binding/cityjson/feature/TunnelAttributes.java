@@ -16,6 +16,10 @@ public class TunnelAttributes extends Attributes {
 		this.yearOfConstruction = yearOfConstruction;
 	}
 	
+	public void unsetYearOfConstruction() {
+		yearOfConstruction = null;
+	}
+	
 	public boolean isSetYearOfDemolition() {
 		return yearOfDemolition != null;
 	}
@@ -26,6 +30,10 @@ public class TunnelAttributes extends Attributes {
 	
 	public void setYearOfDemolition(Integer yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
+	}
+	
+	public void unsetYearOfDemolition() {
+		yearOfDemolition = null;
 	}
 	
 	public boolean hasAttributes() {

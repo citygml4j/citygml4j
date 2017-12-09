@@ -33,6 +33,11 @@ public class SolidCollectionSemanticsObject extends AbstractSemanticsObject {
 	}
 
 	@Override
+	public void unsetValues() {
+		values = null;
+	}
+
+	@Override
 	public int getNumValues() {
 		return values != null ? values.size() : 0;
 	}

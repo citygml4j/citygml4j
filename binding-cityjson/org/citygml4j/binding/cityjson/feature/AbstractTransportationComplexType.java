@@ -30,6 +30,11 @@ public abstract class AbstractTransportationComplexType extends AbstractCityObje
 	}
 
 	@Override
+	public void unsetAttributes() {
+		attributes = null;
+	}
+	
+	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {
 		return type == GeometryTypeName.MULTI_SURFACE
 				|| type == GeometryTypeName.COMPOSITE_SURFACE;

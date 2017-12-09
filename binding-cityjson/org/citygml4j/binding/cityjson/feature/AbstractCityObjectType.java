@@ -18,6 +18,7 @@ public abstract class AbstractCityObjectType {
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
 	public abstract boolean isSetAttributes();
 	public abstract Attributes getAttributes();
+	public abstract void unsetAttributes();
 	
 	AbstractCityObjectType() {
 	}
@@ -44,6 +45,14 @@ public abstract class AbstractCityObjectType {
 			this.geometry = new ArrayList<>(geometry);
 			this.geometry.removeIf(g -> !isValidGeometryType(g.getType()));
 		}
+	}
+	
+	public void removeGeometry(AbstractGeometryType geometry) {
+		this.geometry.remove(geometry);
+	}
+	
+	public void unsetGeometry() {
+		geometry.clear();
 	}
 
 }

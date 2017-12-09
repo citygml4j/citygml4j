@@ -54,4 +54,9 @@ public class SolidCollectionTextureObject extends AbstractTextureObject {
 				.flatMap(b -> b != null ? b.stream() : Stream.of((List<List<Integer>>)null)).collect(Collectors.toList()) : null;
 	}
 
+	@Override
+	public void unsetValues() {
+		values = null;
+	}
+
 }

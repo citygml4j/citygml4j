@@ -42,6 +42,10 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 			boundaries = shells;
 	}
 	
+	public void unsetShells() {
+		boundaries.clear();
+	}
+	
 	@Override
 	public boolean isSetSemantics() {
 		return semantics != null;
@@ -54,6 +58,10 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 
 	public void setSemantics(SolidSemanticsObject semantics) {
 		this.semantics = semantics;
+	}
+	
+	public void unsetSemantics() {
+		semantics = null;
 	}
 	
 	@Override
@@ -85,6 +93,20 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 				this.material.put(object.getTheme(), object);
 		}
 	}
+	
+	public void removeMaterial(SolidMaterialObject materialObject) {
+		if (this.material != null)
+			this.material.remove(materialObject.getTheme());
+	}
+	
+	public void removeMaterial(String theme) {
+		if (this.material != null)
+			this.material.remove(theme);
+	}
+	
+	public void unsetMaterial() {
+		material = null;
+	}
 
 	@Override
 	public boolean isSetTexture() {
@@ -114,6 +136,20 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 			for (SolidTextureObject object : texture)
 				this.texture.put(object.getTheme(), object);
 		}
+	}
+	
+	public void removeTexture(SolidTextureObject textureObject) {
+		if (texture != null)
+			texture.remove(textureObject.getTheme());
+	}
+	
+	public void removeTexture(String theme) {
+		if (texture != null)
+			texture.remove(theme);
+	}
+	
+	public void unsetTexture() {
+		texture = null;
 	}
 	
 }

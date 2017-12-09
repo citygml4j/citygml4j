@@ -42,4 +42,13 @@ public class SemanticsType {
 			this.properties = properties;
 	}
 	
+	public void removeProperty(String name) {
+		if (properties != null)
+			properties.remove(name);
+	}
+	
+	public void unsetProperties() {
+		properties = null;
+	}
+	
 }

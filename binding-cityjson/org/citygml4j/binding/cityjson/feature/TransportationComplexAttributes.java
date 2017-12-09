@@ -28,4 +28,14 @@ public class TransportationComplexAttributes extends Attributes {
 		this.surfaceMaterials = surfaceMaterial;
 	}
 	
+	public void unsetSurfaceMaterials() {
+		surfaceMaterials = null;
+	}
+
+	@Override
+	public boolean hasAttributes() {
+		return super.hasAttributes()
+				|| surfaceMaterials != null;
+	}
+	
 }

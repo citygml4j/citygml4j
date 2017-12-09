@@ -16,6 +16,10 @@ public class SolitaryVegetationObjectAttributes extends Attributes {
 	public void setSpecies(String species) {
 		this.species = species;
 	}
+	
+	public void unsetSpecies() {
+		species = null;
+	}
 
 	public boolean isSetTrunkDiameter() {
 		return trunkDiameter != null;
@@ -28,6 +32,10 @@ public class SolitaryVegetationObjectAttributes extends Attributes {
 	public void setTrunkDiameter(Double trunkDiameter) {
 		this.trunkDiameter = trunkDiameter;
 	}
+	
+	public void unsetTrunkDiameter() {
+		trunkDiameter = null;
+	}
 
 	public boolean isSetCrownDiameter() {
 		return crownDiameter != null;
@@ -39,6 +47,10 @@ public class SolitaryVegetationObjectAttributes extends Attributes {
 
 	public void setCrownDiameter(Double crownDiameter) {
 		this.crownDiameter = crownDiameter;
+	}
+	
+	public void unsetCrownDiameter() {
+		crownDiameter = null;
 	}
 	
 	public boolean hasAttributes() {
