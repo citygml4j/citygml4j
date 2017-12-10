@@ -34,7 +34,12 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	}
 
 	public GenericAttributeSet(List<AbstractGenericAttribute> attributes) {
-		this.genericAttribute = attributes;
+		genericAttribute = attributes;
+	}
+	
+	public GenericAttributeSet(String name, List<AbstractGenericAttribute> attributes) {
+		genericAttribute = attributes;
+		setName(name);
 	}
 
 	public GenericAttributeSet(GenericsModule module) {

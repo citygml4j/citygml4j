@@ -36,9 +36,19 @@ public class DateAttribute extends AbstractGenericAttribute {
 		this.value = value;
 	}
 	
-	public DateAttribute(Date date) {
-		value = new GregorianCalendar();
-		value.setTime(date);
+	public DateAttribute(Date value) {
+		this.value = new GregorianCalendar();
+		this.value.setTime(value);
+	}
+	
+	public DateAttribute(String name, GregorianCalendar value) {
+		this(value);
+		setName(name);
+	}
+	
+	public DateAttribute(String name, Date value) {
+		this(value);
+		setName(name);
 	}
 	
 	public DateAttribute(GenericsModule module) {

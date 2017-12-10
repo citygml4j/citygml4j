@@ -33,6 +33,11 @@ public class MeasureAttribute extends AbstractGenericAttribute {
 	public MeasureAttribute(Measure value) {
 		this.value = value;
 	}
+	
+	public MeasureAttribute(String name, Measure value) {
+		this.value = value;
+		setName(name);
+	}
 
 	public MeasureAttribute(GenericsModule module) {
 		super(module);

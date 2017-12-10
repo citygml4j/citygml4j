@@ -33,6 +33,11 @@ public class StringAttribute extends AbstractGenericAttribute {
 		this.value = value;
 	}
 
+	public StringAttribute(String name, String value) {
+		this.value = value;
+		setName(name);
+	}
+	
 	public StringAttribute(GenericsModule module) {
 		super(module);
 	}

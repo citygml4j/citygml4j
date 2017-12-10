@@ -32,6 +32,11 @@ public class IntAttribute extends AbstractGenericAttribute {
 	public IntAttribute(int value) {
 		this.value = value;
 	}
+	
+	public IntAttribute(String name, int value) {
+		this.value = value;
+		setName(name);
+	}
 
 	public IntAttribute(GenericsModule module) {
 		super(module);
