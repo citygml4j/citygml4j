@@ -96,7 +96,8 @@
 		<!-- build the sources artifact -->
 		<jar jarfile="${dir.maven.dist}/${maven.sources.jar}">
 			<fileset dir="${dir.src}" />
-			<fileset dir="${dir.src-gen}" />
+			<fileset dir="${dir.binding-jaxb}" />
+			<fileset dir="${dir.binding-cityjson}" />
 		</jar>
 
 		<!-- build the javadoc artifact -->
