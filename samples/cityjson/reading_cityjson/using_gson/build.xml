@@ -36,7 +36,7 @@
 
 	<!-- run sample app -->
 	<target name="run" depends="compile" description="run the sample app">
-		<echo message="Running sample citygml4j ADE application..." />
+		<echo message="Running sample citygml4j application..." />
 		<java classname="cityjson.reading_cityjson.using_gson.GsonReader" fork="true">
 			<classpath refid="classpath" />
 		</java>
