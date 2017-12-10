@@ -1,7 +1,6 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.appearance;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -48,9 +47,9 @@ public class AppearanceUnmarshaller {
 	}
 	
 	public void setAppearanceInfo(AppearanceType appearanceType) {
-		this.materials = appearanceType.isSetMaterials() ? appearanceType.getMaterials() : Collections.emptyList();
-		this.textures = appearanceType.isSetTextures() ? appearanceType.getTextures() : Collections.emptyList();
-		this.textureVertices = appearanceType.isSetTextureVertices() ? appearanceType.getTextureVertices() : Collections.emptyList();
+		this.materials = appearanceType.getMaterials();
+		this.textures = appearanceType.getTextures();
+		this.textureVertices = appearanceType.getTextureVertices();
 		
 		numTextureVertices = textureVertices.size();
 		gmlIdManager = DefaultGMLIdManager.getInstance();
@@ -60,7 +59,7 @@ public class AppearanceUnmarshaller {
 		Appearance appearance = getOrCreateAppearance(src.getTheme(), parent);
 
 		for (Entry<Integer, List<AbstractSurface>> entry : surfaces.entrySet()) {
-			MaterialType materialType = materials.get(entry.getKey());
+			MaterialType materialType = materials != null ? materials.get(entry.getKey()) : null;
 			if (materialType == null)
 				continue;
 
@@ -79,7 +78,7 @@ public class AppearanceUnmarshaller {
 		Appearance appearance = getOrCreateAppearance(src.getTheme(), parent);
 
 		for (Entry<Integer, List<AbstractSurface>> entry : surfaces.entrySet()) {
-			TextureType textureType = textures.get(entry.getKey());
+			TextureType textureType = textures != null ? textures.get(entry.getKey()) : null;
 			if (textureType == null)
 				continue;
 

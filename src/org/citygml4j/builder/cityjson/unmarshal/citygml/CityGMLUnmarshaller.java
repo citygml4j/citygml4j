@@ -71,30 +71,30 @@ public class CityGMLUnmarshaller {
 	}
 
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		AbstractCityObject cityObject = null;
+		AbstractCityObject dest = null;
 		
 		if (src instanceof BridgeType)
-			cityObject = brid.unmarshal(src, cityJSON);
+			dest = brid.unmarshal(src, cityJSON);
 		else if (src instanceof BuildingType)
-			cityObject = bldg.unmarshal(src, cityJSON);
+			dest = bldg.unmarshal(src, cityJSON);
 		else if (src instanceof CityFurnitureType)
-			cityObject = frn.unmarshalCityFurniture((CityFurnitureType)src);		
+			dest = frn.unmarshalCityFurniture((CityFurnitureType)src);		
 		else if (src instanceof GenericCityObjectType)
-			cityObject = gen.unmarshalGenericCityObject((GenericCityObjectType)src);
+			dest = gen.unmarshalGenericCityObject((GenericCityObjectType)src);
 		else if (src instanceof LandUseType)
-			cityObject = luse.unmarshalLandUse((LandUseType)src);
+			dest = luse.unmarshalLandUse((LandUseType)src);
 		else if (src instanceof TINReliefType)
-			cityObject = dem.unmarshalTINRelief((TINReliefType)src);
+			dest = dem.unmarshalTINRelief((TINReliefType)src);
 		else if (src instanceof AbstractTransportationComplexType)
-			cityObject = tran.unmarshal(src, cityJSON);
+			dest = tran.unmarshal(src, cityJSON);
 		else if (src instanceof TunnelType)
-			cityObject = tun.unmarshal(src, cityJSON);
+			dest = tun.unmarshal(src, cityJSON);
 		else if (src instanceof AbstractVegetationObjectType)
-			cityObject = veg.unmarshal(src, cityJSON);
+			dest = veg.unmarshal(src, cityJSON);
 		else if (src instanceof WaterBodyType)
-			cityObject = wtr.unmarshalWaterBody((WaterBodyType)src);
+			dest = wtr.unmarshalWaterBody((WaterBodyType)src);
 		
-		return cityObject;
+		return dest;
 	}
 	
 	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject parent) {
