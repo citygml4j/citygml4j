@@ -16,6 +16,12 @@ public abstract class AbstractTransportationComplexType extends AbstractCityObje
 	}
 	
 	@Override
+	public TransportationComplexAttributes newAttributes() {
+		attributes = new TransportationComplexAttributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

@@ -23,6 +23,12 @@ public abstract class AbstractBuildingType extends AbstractCityObjectType {
 	}
 	
 	@Override
+	public BuildingAttributes newAttributes() {
+		attributes = new BuildingAttributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

@@ -22,6 +22,12 @@ public class SolitaryVegetationObjectType extends AbstractVegetationObjectType {
 	}
 	
 	@Override
+	public SolitaryVegetationObjectAttributes newAttributes() {
+		attributes = new SolitaryVegetationObjectAttributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

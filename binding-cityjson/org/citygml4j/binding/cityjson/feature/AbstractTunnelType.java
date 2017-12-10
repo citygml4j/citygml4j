@@ -22,6 +22,12 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 	}
 	
 	@Override
+	public TunnelAttributes newAttributes() {
+		attributes = new TunnelAttributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

@@ -64,6 +64,7 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 		this.semantics = semantics;
 	}
 	
+	@Override
 	public void unsetSemantics() {
 		semantics = null;
 	}
@@ -85,6 +86,7 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 		return material.values();
 	}
 	
+	@Override
 	public SurfaceCollectionMaterialObject getMaterial(String theme) {
 		return material != null ? material.get(theme) : null;
 	}
@@ -98,16 +100,19 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 		}
 	}
 	
+	@Override
 	public void removeMaterial(SurfaceCollectionMaterialObject materialObject) {
 		if (this.material != null)
 			this.material.remove(materialObject.getTheme());
 	}
 	
+	@Override
 	public void removeMaterial(String theme) {
 		if (this.material != null)
 			this.material.remove(theme);
 	}
 	
+	@Override
 	public void unsetMaterial() {
 		material = null;
 	}
@@ -129,6 +134,7 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 		return texture.values();
 	}
 	
+	@Override
 	public SurfaceCollectionTextureObject getTexture(String theme) {
 		return texture != null ? texture.get(theme) : null;
 	}
@@ -142,17 +148,26 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 		}
 	}
 	
+	@Override
 	public void removeTexture(SurfaceCollectionTextureObject textureObject) {
 		if (texture != null)
 			texture.remove(textureObject.getTheme());
 	}
 	
+	@Override
 	public void removeTexture(String theme) {
 		if (texture != null)
 			texture.remove(theme);
 	}
 	
+	@Override
 	public void unsetTexture() {
+		texture = null;
+	}
+	
+	@Override
+	public void unsetAppearance() {
+		material = null;
 		texture = null;
 	}
 

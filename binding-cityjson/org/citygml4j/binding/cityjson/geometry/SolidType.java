@@ -60,6 +60,7 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 		this.semantics = semantics;
 	}
 	
+	@Override
 	public void unsetSemantics() {
 		semantics = null;
 	}
@@ -81,6 +82,7 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 		return material.values();
 	}
 	
+	@Override
 	public SolidMaterialObject getMaterial(String theme) {
 		return material != null ? material.get(theme) : null;
 	}
@@ -94,16 +96,19 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 		}
 	}
 	
+	@Override
 	public void removeMaterial(SolidMaterialObject materialObject) {
 		if (this.material != null)
 			this.material.remove(materialObject.getTheme());
 	}
 	
+	@Override
 	public void removeMaterial(String theme) {
 		if (this.material != null)
 			this.material.remove(theme);
 	}
 	
+	@Override
 	public void unsetMaterial() {
 		material = null;
 	}
@@ -125,6 +130,7 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 		return texture.values();
 	}
 	
+	@Override
 	public SolidTextureObject getTexture(String theme) {
 		return texture != null ? texture.get(theme) : null;
 	}
@@ -138,17 +144,26 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 		}
 	}
 	
+	@Override
 	public void removeTexture(SolidTextureObject textureObject) {
 		if (texture != null)
 			texture.remove(textureObject.getTheme());
 	}
 	
+	@Override
 	public void removeTexture(String theme) {
 		if (texture != null)
 			texture.remove(theme);
 	}
 	
+	@Override
 	public void unsetTexture() {
+		texture = null;
+	}
+	
+	@Override
+	public void unsetAppearance() {
+		material = null;
 		texture = null;
 	}
 	

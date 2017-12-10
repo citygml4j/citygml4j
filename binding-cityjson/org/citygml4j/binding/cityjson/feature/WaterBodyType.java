@@ -20,6 +20,12 @@ public class WaterBodyType extends AbstractCityObjectType {
 	public CityObjectTypeName getType() {
 		return type;
 	}
+	
+	@Override
+	public Attributes newAttributes() {
+		attributes = new Attributes();
+		return attributes;
+	}
 
 	@Override
 	public boolean isSetAttributes() {

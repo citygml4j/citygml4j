@@ -22,6 +22,12 @@ public class PlantCoverType extends AbstractVegetationObjectType {
 	}
 	
 	@Override
+	public PlantCoverAttributes newAttributes() {
+		attributes = new PlantCoverAttributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

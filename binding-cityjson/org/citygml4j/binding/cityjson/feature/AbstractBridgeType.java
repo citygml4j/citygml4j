@@ -25,6 +25,12 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	}
 	
 	@Override
+	public BridgeAttributes newAttributes() {
+		attributes = new BridgeAttributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

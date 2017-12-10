@@ -22,6 +22,12 @@ public class BridgeInstallationType extends AbstractCityObjectType {
 	}
 	
 	@Override
+	public Attributes newAttributes() {
+		attributes = new Attributes();
+		return attributes;
+	}
+	
+	@Override
 	public boolean isSetAttributes() {
 		return attributes != null;
 	}

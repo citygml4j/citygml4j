@@ -16,6 +16,7 @@ public abstract class AbstractCityObjectType {
 
 	public abstract CityObjectTypeName getType();
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
+	public abstract Attributes newAttributes();
 	public abstract boolean isSetAttributes();
 	public abstract Attributes getAttributes();
 	public abstract void unsetAttributes();
