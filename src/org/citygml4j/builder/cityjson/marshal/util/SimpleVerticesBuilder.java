@@ -1,28 +1,29 @@
 package org.citygml4j.builder.cityjson.marshal.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class SimpleVerticesBuilder implements VerticesBuilder {
 	private final ReentrantLock lock = new ReentrantLock();	
-	private final Map<Integer, Integer> indexes = new ConcurrentHashMap<>();
+	private final Map<String, Integer> indexes = new ConcurrentHashMap<>();
 	private final List<List<Double>> vertices = new ArrayList<>();	
 
-	private double significantDigits = Math.pow(10, 3);
+	private int significantDigits = 3;
 	
 	public SimpleVerticesBuilder withSignificantDigits(int significantDigits) {
 		if (significantDigits > 0)
-			this.significantDigits = Math.pow(10, significantDigits);
+			this.significantDigits = significantDigits;
 		
 		return this;
 	}
 	
 	public int getSignificantDigits() {
-		return (int)Math.log10(significantDigits);
+		return significantDigits;
 	}
 
 	@Override
@@ -31,8 +32,11 @@ public class SimpleVerticesBuilder implements VerticesBuilder {
 
 		for (int i = 0; i < vertices.size(); i += 3) {
 			List<Double> vertex = vertices.subList(i, i + 3);
-			int key = Objects.hash(round(vertex.get(0)), round(vertex.get(1)), round(vertex.get(2)));
-
+			String key = new StringBuilder()
+					.append(round(vertex.get(0)))
+					.append(round(vertex.get(1)))
+					.append(round(vertex.get(2))).toString();
+			
 			Integer index = indexes.get(key);
 			if (index == null) {
 				Integer tmp = null;
@@ -62,7 +66,7 @@ public class SimpleVerticesBuilder implements VerticesBuilder {
 		return vertices;
 	}
 
-	private double round(double value) {
-		return Math.floor(value * significantDigits) / significantDigits;
+	private String round(double value) {
+		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.FLOOR).toString();
 	}
 }
