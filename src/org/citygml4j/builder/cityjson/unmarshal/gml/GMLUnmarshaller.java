@@ -108,7 +108,7 @@ public class GMLUnmarshaller {
 		if (transform.isSetScale() && transform.isSetTranslate() && numVertices > 0) {
 			for (List<Double> vertex : vertices) {
 				for (int i = 0; i < vertex.size(); i++)
-					vertex.set(i, vertex.get(i) * transform.getScale().get(i) + transform.getScale().get(i));
+					vertex.set(i, vertex.get(i) * transform.getScale().get(i) + transform.getTranslate().get(i));
 			}
 		}
 	}
