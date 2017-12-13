@@ -16,17 +16,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml4j.builder.cityjson.marshal.util;
+package org.citygml4j.builder.cityjson.unmarshal.util;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-public class SimpleTextureFileHandler implements TextureFileHandler {
+public class DefaultTextureFileHandler implements TextureFileHandler {
 
 	@Override
-	public String getImageFileName(String imageURI) {
-		Path fileName = Paths.get(imageURI).getFileName();
-		return fileName != null ? fileName.toString() : null;		
+	public String getImageURI(String imageFileName) {
+		return new StringBuilder("appearances").append("/").append(imageFileName).toString();
 	}
 
 }

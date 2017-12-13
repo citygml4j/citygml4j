@@ -21,7 +21,7 @@ package org.citygml4j.builder.cityjson.unmarshal;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
-import org.citygml4j.builder.cityjson.unmarshal.util.SimpleTextureFileHandler;
+import org.citygml4j.builder.cityjson.unmarshal.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
 import org.citygml4j.model.citygml.core.CityModel;
 
@@ -34,14 +34,14 @@ public class CityJSONUnmarshaller {
 	private final GMLUnmarshaller gml;
 	
 	public CityJSONUnmarshaller(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new SimpleTextureFileHandler();
+		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
 		
 		citygml = new CityGMLUnmarshaller(this);
 		gml = new GMLUnmarshaller(this);
 	}
 	
 	public CityJSONUnmarshaller() {
-		this(new SimpleTextureFileHandler());
+		this(new DefaultTextureFileHandler());
 	}
 
 	public CityModel unmarshal(CityJSON src) {
