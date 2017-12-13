@@ -75,15 +75,15 @@ public class CoreMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalCityModel(CityModel src) {
-		List<AbstractCityObjectType> cityObjects = new ArrayList<>();
+		List<AbstractCityObjectType> dest = new ArrayList<>();
 		if (src.isSetCityObjectMember()) {
 			for (CityObjectMember property : src.getCityObjectMember()) {
 				if (property.isSetCityObject())
-					cityObjects.addAll(citygml.marshal(property.getCityObject()));			
+					dest.addAll(citygml.marshal(property.getCityObject()));
 			}
 		}
 
-		return cityObjects;
+		return dest;
 	}
 
 	public AbstractGeometryType marshalImplicitGeometry(ImplicitGeometry src) {	

@@ -28,6 +28,7 @@ import org.citygml4j.builder.cityjson.marshal.citygml.appearance.AppearanceMarsh
 import org.citygml4j.builder.cityjson.marshal.citygml.bridge.BridgeMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.building.BuildingMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.cityfurniture.CityFurnitureMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.cityobjectgroup.CityObjectGroupMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.core.CoreMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.generics.GenericsMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.landuse.LandUseMarshaller;
@@ -39,6 +40,7 @@ import org.citygml4j.builder.cityjson.marshal.citygml.waterbody.WaterBodyMarshal
 import org.citygml4j.model.citygml.bridge.BridgeModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
+import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupModuleComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CoreModuleComponent;
 import org.citygml4j.model.citygml.generics.GenericsModuleComponent;
@@ -57,6 +59,7 @@ public class CityGMLMarshaller {
 	private final BridgeMarshaller brid;
 	private final BuildingMarshaller bldg;
 	private final CityFurnitureMarshaller frn;
+	private final CityObjectGroupMarshaller grp;
 	private final CoreMarshaller core;
 	private final GenericsMarshaller gen;
 	private final LandUseMarshaller luse;
@@ -73,6 +76,7 @@ public class CityGMLMarshaller {
 		brid = new BridgeMarshaller(this);
 		bldg = new BuildingMarshaller(this);
 		frn = new CityFurnitureMarshaller(this);
+		grp = new CityObjectGroupMarshaller(this);
 		core = new CoreMarshaller(this);
 		gen = new GenericsMarshaller(this);
 		luse = new LandUseMarshaller(this);
@@ -106,6 +110,8 @@ public class CityGMLMarshaller {
 			dest = veg.marshal(src);
 		else if (src instanceof WaterBodyModuleComponent)
 			dest = wtr.marshal(src);
+		else if (src instanceof CityObjectGroupModuleComponent)
+			dest = grp.marshal(src);
 		else if (src instanceof CoreModuleComponent)
 			dest = core.marshal(src);
 
@@ -147,6 +153,10 @@ public class CityGMLMarshaller {
 	
 	public CityFurnitureMarshaller getCityFurnitureMarshaller() {
 		return frn;
+	}
+	
+	public CityObjectGroupMarshaller getCityObjectGroupMarshaller() {
+		return grp;
 	}
 	
 	public GenericsMarshaller getGenericsMarshaller() {

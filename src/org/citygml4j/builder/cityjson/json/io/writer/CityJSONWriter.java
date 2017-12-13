@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.citygml.core.CityModel;
 
 import com.google.gson.stream.JsonWriter;
@@ -38,13 +37,8 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 		if (cityJSON != null) {
 			MetadataType metadata = this.metadata != null ? this.metadata : new MetadataType();
 
-			if (!metadata.isSetBBox()) {
-				if (cityModel.isSetBoundedBy() && cityModel.getBoundedBy().isSetEnvelope()) {
-					BoundingBox bbox = cityModel.getBoundedBy().getEnvelope().toBoundingBox();
-					metadata.setBBox(bbox.toList());						
-				} else if (!cityJSON.getVertices().isEmpty())
-					metadata.setBBox(cityJSON.calcBoundingBox());
-			}
+			if (!metadata.isSetBBox() && !cityJSON.getVertices().isEmpty())
+				metadata.setBBox(cityJSON.calcBoundingBox());
 
 			if (!metadata.isSetPresentLoDs() && cityJSON.hasCityObjects()) {
 				List<Number> lods = cityJSON.calcPresentLoDs();
