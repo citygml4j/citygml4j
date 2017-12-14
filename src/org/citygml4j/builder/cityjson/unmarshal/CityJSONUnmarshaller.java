@@ -18,6 +18,8 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal;
 
+import java.util.Objects;
+
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
@@ -29,10 +31,11 @@ public class CityJSONUnmarshaller {
 	public static final String SURFACE_DATA_ID = "org.citygml4j.appearance.id";
 	public static final String TEXTURE_COORDINATES = "org.citygml4j.textureCoordinates";
 	
-	private final TextureFileHandler textureFileHandler;
 	private final CityGMLUnmarshaller citygml;
 	private final GMLUnmarshaller gml;
-	
+
+	private TextureFileHandler textureFileHandler;
+
 	public CityJSONUnmarshaller(TextureFileHandler textureFileHandler) {
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
 		
@@ -65,6 +68,10 @@ public class CityJSONUnmarshaller {
 
 	public TextureFileHandler getTextureFileHandler() {
 		return textureFileHandler;
+	}
+	
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 	
 }

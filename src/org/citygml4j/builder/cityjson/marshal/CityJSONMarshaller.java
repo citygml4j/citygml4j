@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.marshal;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
@@ -26,10 +27,10 @@ import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
-import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
 import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
@@ -41,14 +42,14 @@ public class CityJSONMarshaller {
 	public static final String GEOMETRY_XLINK_TARGET = "org.citygml4j.geometry.xlinkTarget";
 	public static final String GEOMETRY_SURFACE_DATA = "org.citygml4j.geometry.surfaceData";
 
-	private final VerticesBuilder verticesBuilder;
-	private final TextureVerticesBuilder textureVerticesBuilder;
-	private final TextureFileHandler textureFileHandler;
 	private final CityGMLMarshaller citygml;
 	private final GMLMarshaller gml;	
-
 	private final GeometryXlinkResolver xlinkResolver;
 	private final AppearanceResolver appearanceResolver;
+	
+	private VerticesBuilder verticesBuilder;
+	private TextureVerticesBuilder textureVerticesBuilder;
+	private TextureFileHandler textureFileHandler;
 	private String defaultTheme = "";
 
 	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder, TextureFileHandler textureFileHandler) {
@@ -125,12 +126,24 @@ public class CityJSONMarshaller {
 		return verticesBuilder;
 	}
 
+	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
+		this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
+	}
+
 	public TextureVerticesBuilder getTextureVerticesBuilder() {
 		return textureVerticesBuilder;
 	}
 
+	public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
+		this.textureVerticesBuilder = Objects.requireNonNull(textureVerticesBuilder, "texture vertices builder may not be null.");
+	}
+
 	public TextureFileHandler getTextureFileHandler() {
 		return textureFileHandler;
+	}
+
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 
 }

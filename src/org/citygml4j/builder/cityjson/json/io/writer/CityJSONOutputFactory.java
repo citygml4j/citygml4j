@@ -73,6 +73,30 @@ public class CityJSONOutputFactory {
 	public CityJSONChunkWriter createCityJSONChunkWriter(Writer writer) throws CityJSONWriteException {
 		return new CityJSONChunkWriter(new JsonWriter(writer), this);
 	}
+	
+	public VerticesBuilder getVerticesBuilder() {
+		return verticesBuilder;
+	}
+
+	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
+		this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
+	}
+
+	public TextureVerticesBuilder getTextureVerticesBuilder() {
+		return textureVerticesBuilder;
+	}
+
+	public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
+		this.textureVerticesBuilder = Objects.requireNonNull(textureVerticesBuilder, "texture vertices builder may not be null.");
+	}
+
+	public TextureFileHandler getTextureFileHandler() {
+		return textureFileHandler;
+	}
+
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
+	}
 
 	public Object getProperty(String name) {
 		Objects.requireNonNull(name, "property name may not be null.");

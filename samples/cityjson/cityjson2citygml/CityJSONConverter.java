@@ -60,7 +60,7 @@ public class CityJSONConverter {
 		 */
 
 		SimpleTextureFileHandler textureFileHandler = new SimpleTextureFileHandler(Paths.get("../../datasets/appearances"), Paths.get("appearance"));
-		in.setProperty(CityJSONInputFactory.TEXTURE_FILE_HANDLER, textureFileHandler);
+		in.setTextureFileHandler(textureFileHandler);
 
 		CityJSONReader reader = in.createCityJSONReader(new File("../../datasets/LOD3_Railway.json"));
 

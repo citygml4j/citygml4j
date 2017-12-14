@@ -87,7 +87,7 @@ public class ChunkConverter {
 		 */
 		
 		DefaultVerticesBuilder verticesBuilder = new DefaultVerticesBuilder().withSignificantDigits(5);
-		out.setProperty(CityJSONOutputFactory.VERTICES_BUILDER, verticesBuilder);
+		out.setVerticesBuilder(verticesBuilder);
 		
 		// create chunk-wise CityJSON writer
 		CityJSONChunkWriter writer = out.createCityJSONChunkWriter(new File("LOD2_Buildings.json"));

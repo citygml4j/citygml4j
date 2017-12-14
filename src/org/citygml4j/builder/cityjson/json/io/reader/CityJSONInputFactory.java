@@ -53,6 +53,14 @@ public class CityJSONInputFactory {
 		return reader;
 	}
 	
+	public TextureFileHandler getTextureFileHandler() {
+		return textureFileHandler;
+	}
+	
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
+	}
+	
 	public Object getProperty(String name) {
 		Objects.requireNonNull(name, "property name may not be null.");
 

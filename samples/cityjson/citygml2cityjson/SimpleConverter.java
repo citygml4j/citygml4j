@@ -73,7 +73,7 @@ public class SimpleConverter {
 		 */
 		
 		SimpleTextureFileHandler textureFileHandler = new SimpleTextureFileHandler(Paths.get("../../datasets"), Paths.get("appearances"));
-		out.setProperty(CityJSONOutputFactory.TEXTURE_FILE_HANDLER, textureFileHandler);
+		out.setTextureFileHandler(textureFileHandler);
 		
 		// create a simple CityJSON writer
 		CityJSONWriter writer = out.createCityJSONWriter(new File("LOD3_Building.json"));
