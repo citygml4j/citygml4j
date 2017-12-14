@@ -37,7 +37,7 @@ import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.binding.cityjson.geometry.SolidSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.SolidType;
-import org.citygml4j.builder.cityjson.marshal.util.SimpleVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -69,7 +69,7 @@ public class GsonWriter {
 
 		// we are using a helper class for building the CityJSON "vertices" array.
 		// this helper class makes sure that there are not duplicate vertices
-		SimpleVerticesBuilder verticesBuilder = new SimpleVerticesBuilder();
+		DefaultVerticesBuilder verticesBuilder = new DefaultVerticesBuilder();
 
 		// ok, let's create a building
 		BuildingType building = new BuildingType("ID_test-building");

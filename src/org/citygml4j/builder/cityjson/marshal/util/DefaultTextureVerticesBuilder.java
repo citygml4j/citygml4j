@@ -26,14 +26,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SimpleTextureVerticesBuilder implements TextureVerticesBuilder {
+public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 	private final ReentrantLock lock = new ReentrantLock();	
 	private final Map<String, Integer> indexes = new ConcurrentHashMap<>();
 	private final List<List<Double>> vertices = new ArrayList<>();	
 
 	private int significantDigits = 5;
 
-	public SimpleTextureVerticesBuilder withSignificantDigits(int significantDigits) {
+	public DefaultTextureVerticesBuilder withSignificantDigits(int significantDigits) {
 		if (significantDigits > 0)
 			this.significantDigits = significantDigits;
 

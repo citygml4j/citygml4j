@@ -26,14 +26,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SimpleVerticesBuilder implements VerticesBuilder {
+public class DefaultVerticesBuilder implements VerticesBuilder {
 	private final ReentrantLock lock = new ReentrantLock();	
 	private final Map<String, Integer> indexes = new ConcurrentHashMap<>();
 	private final List<List<Double>> vertices = new ArrayList<>();	
 
 	private int significantDigits = 3;
 	
-	public SimpleVerticesBuilder withSignificantDigits(int significantDigits) {
+	public DefaultVerticesBuilder withSignificantDigits(int significantDigits) {
 		if (significantDigits > 0)
 			this.significantDigits = significantDigits;
 		

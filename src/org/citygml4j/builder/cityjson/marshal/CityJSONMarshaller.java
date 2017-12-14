@@ -28,8 +28,8 @@ import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureFileHandler;
-import org.citygml4j.builder.cityjson.marshal.util.SimpleTextureVerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.SimpleVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
@@ -52,8 +52,8 @@ public class CityJSONMarshaller {
 	private String defaultTheme = "";
 
 	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder, TextureFileHandler textureFileHandler) {
-		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new SimpleVerticesBuilder();
-		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new SimpleTextureVerticesBuilder();
+		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new DefaultVerticesBuilder();
+		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new DefaultTextureVerticesBuilder();
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
 
 		citygml = new CityGMLMarshaller(this);
@@ -64,7 +64,7 @@ public class CityJSONMarshaller {
 	}
 
 	public CityJSONMarshaller() {
-		this (new SimpleVerticesBuilder(), new SimpleTextureVerticesBuilder(), new DefaultTextureFileHandler());
+		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler());
 	}
 	
 	public CityJSON marshal(CityModel src) {

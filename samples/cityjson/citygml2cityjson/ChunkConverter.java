@@ -26,7 +26,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONChunkWriter;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
-import org.citygml4j.builder.cityjson.marshal.util.SimpleVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -86,7 +86,7 @@ public class ChunkConverter {
 		 * significant digits as shown below.
 		 */
 		
-		SimpleVerticesBuilder verticesBuilder = new SimpleVerticesBuilder().withSignificantDigits(5);
+		DefaultVerticesBuilder verticesBuilder = new DefaultVerticesBuilder().withSignificantDigits(5);
 		out.setProperty(CityJSONOutputFactory.VERTICES_BUILDER, verticesBuilder);
 		
 		// create chunk-wise CityJSON writer
