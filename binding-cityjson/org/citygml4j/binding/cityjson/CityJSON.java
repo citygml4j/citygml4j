@@ -18,7 +18,6 @@
  */
 package org.citygml4j.binding.cityjson;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,6 +33,7 @@ import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
+import org.citygml4j.binding.cityjson.geometry.VerticesList;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -45,7 +45,7 @@ public class CityJSON {
 	@SerializedName("CityObjects")
 	@JsonAdapter(CityObjectsAdapter.class)
 	private Map<String, AbstractCityObjectType> cityObjects = new HashMap<>();
-	private List<List<Double>> vertices = new ArrayList<>();
+	private VerticesList vertices = new VerticesList();
 	private TransformType transform;
 	private AppearanceType appearance;
 
@@ -119,16 +119,16 @@ public class CityJSON {
 
 	public void addVertex(List<Double> vertex) {
 		if (vertex != null && vertex.size() == 3)
-			vertices.add(vertex);
+			vertices.addVertex(vertex);
 	}
 
 	public List<List<Double>> getVertices() {
-		return vertices;
+		return vertices.getVertices();
 	}
 
 	public void setVertices(List<List<Double>> vertices) {
 		if (vertices != null)
-			this.vertices = vertices;
+			this.vertices.setVertices(vertices);
 	}
 	
 	public void unsetVertices() {
@@ -172,7 +172,7 @@ public class CityJSON {
 				Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, 
 				-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE});
 		
-		for (List<Double> vertex : vertices) {
+		for (List<Double> vertex : vertices.getVertices()) {
 			if (vertex.size() > 2) {
 				double x = vertex.get(0);
 				double y = vertex.get(1);

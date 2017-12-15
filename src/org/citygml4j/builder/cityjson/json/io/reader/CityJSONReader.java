@@ -87,7 +87,7 @@ public class CityJSONReader implements AutoCloseable {
 	}
 
 	protected void setInputFilter(CityObjectTypeFilter filter) {
-		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter(filter));
+		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter().withTypeFilter(filter));
 	}
 	
 	@Override

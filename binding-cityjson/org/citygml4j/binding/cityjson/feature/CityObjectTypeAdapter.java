@@ -30,14 +30,11 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectType>, JsonDeserializer<AbstractCityObjectType> {
-	private final CityObjectTypeFilter typeFilter;
+	private CityObjectTypeFilter typeFilter;
 	
-	public CityObjectTypeAdapter(CityObjectTypeFilter inputFilter) {
+	public CityObjectTypeAdapter withTypeFilter(CityObjectTypeFilter inputFilter) {
 		this.typeFilter = inputFilter;
-	}
-	
-	public CityObjectTypeAdapter() {
-		this(null);
+		return this;
 	}
 	
 	@Override

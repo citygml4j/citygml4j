@@ -30,15 +30,18 @@ import java.util.Objects;
 import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
 
 import com.google.gson.stream.JsonWriter;
 
 public class CityJSONOutputFactory {
 	public static final String VERTICES_BUILDER = "org.citygml4j.cityjson.verticesBuilder";
+	public static final String VERTICES_TRANSFORMER = "org.citygml4j.cityjson.verticesTransformer";
 	public static final String TEXTURE_VERTICES_BUILDER = "org.citygml4j.cityjson.textureVerticesBuilder";
 	public static final String TEXTURE_FILE_HANDLER = "org.citygml4j.cityjson.textureFileHandler";
 
 	protected VerticesBuilder verticesBuilder;
+	protected VerticesTransformer verticesTransformer;
 	protected TextureVerticesBuilder textureVerticesBuilder;
 	protected TextureFileHandler textureFileHandler;
 	
@@ -82,6 +85,14 @@ public class CityJSONOutputFactory {
 		this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
 	}
 
+	public VerticesTransformer getVerticesTransformer() {
+		return verticesTransformer;
+	}
+
+	public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
+		this.verticesTransformer = Objects.requireNonNull(verticesTransformer, "vertices transformer may not be null.");
+	}
+
 	public TextureVerticesBuilder getTextureVerticesBuilder() {
 		return textureVerticesBuilder;
 	}
@@ -103,6 +114,8 @@ public class CityJSONOutputFactory {
 
 		if (name.equals(VERTICES_BUILDER))
 			return verticesBuilder;
+		if (name.equals(VERTICES_TRANSFORMER))
+			return verticesTransformer;
 		if (name.equals(TEXTURE_VERTICES_BUILDER))
 			return textureVerticesBuilder;
 		if (name.equals(TEXTURE_FILE_HANDLER))
@@ -117,6 +130,13 @@ public class CityJSONOutputFactory {
 		if (name.equals(VERTICES_BUILDER)) {
 			if (value instanceof VerticesBuilder)
 				verticesBuilder = (VerticesBuilder)value;
+			
+			return;
+		}
+		
+		if (name.equals(VERTICES_TRANSFORMER)) {
+			if (value instanceof VerticesTransformer)
+				verticesTransformer = (VerticesTransformer)value;
 			
 			return;
 		}

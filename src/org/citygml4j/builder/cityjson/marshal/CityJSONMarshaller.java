@@ -24,6 +24,7 @@ import java.util.Objects;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
@@ -34,6 +35,7 @@ import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
 import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 
@@ -48,6 +50,7 @@ public class CityJSONMarshaller {
 	private final AppearanceResolver appearanceResolver;
 	
 	private VerticesBuilder verticesBuilder;
+	private VerticesTransformer verticesTransformer;
 	private TextureVerticesBuilder textureVerticesBuilder;
 	private TextureFileHandler textureFileHandler;
 	private String defaultTheme = "";
@@ -77,7 +80,15 @@ public class CityJSONMarshaller {
 		List<AbstractCityObjectType> cityObjects = citygml.marshal(src);
 		if (!cityObjects.isEmpty()) {
 			dest.setCityObjects(cityObjects);
-			dest.setVertices(verticesBuilder.build());
+			
+			List<List<Double>> vertices = verticesBuilder.build();
+			if (verticesTransformer != null) {
+				TransformType transform = verticesTransformer.applyTransformation(vertices);
+				if (transform != null)
+					dest.setTransform(transform);
+			}
+			
+			dest.setVertices(vertices);
 
 			if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
 				AppearanceType appearance = new AppearanceType();
@@ -129,7 +140,15 @@ public class CityJSONMarshaller {
 	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
 		this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
 	}
+	
+	public VerticesTransformer getVerticesTransformer() {
+		return verticesTransformer;
+	}
 
+	public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
+		this.verticesTransformer = Objects.requireNonNull(verticesTransformer, "vertices transformer may not be null.");
+	}
+	
 	public TextureVerticesBuilder getTextureVerticesBuilder() {
 		return textureVerticesBuilder;
 	}

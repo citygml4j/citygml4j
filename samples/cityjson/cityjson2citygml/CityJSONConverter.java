@@ -59,8 +59,7 @@ public class CityJSONConverter {
 		 * which lets the <imageURI> point to the image file in the "appearances" folder. 
 		 */
 
-		SimpleTextureFileHandler textureFileHandler = new SimpleTextureFileHandler(Paths.get("../../datasets/appearances"), Paths.get("appearance"));
-		in.setTextureFileHandler(textureFileHandler);
+		in.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("../../datasets/appearances"), Paths.get("appearance")));
 
 		CityJSONReader reader = in.createCityJSONReader(new File("../../datasets/LOD3_Railway.json"));
 

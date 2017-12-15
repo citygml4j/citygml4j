@@ -21,6 +21,8 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 import java.io.IOException;
 
 import org.citygml4j.binding.cityjson.feature.MetadataType;
+import org.citygml4j.binding.cityjson.geometry.VerticesList;
+import org.citygml4j.binding.cityjson.geometry.VerticesListAdapter;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 
 import com.google.gson.Gson;
@@ -36,9 +38,17 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
-				
-		marshaller = new CityJSONMarshaller(factory.verticesBuilder, factory.textureVerticesBuilder, factory.textureFileHandler);		
-		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		marshaller = new CityJSONMarshaller(factory.verticesBuilder, factory.textureVerticesBuilder, factory.textureFileHandler);	
+		GsonBuilder builder = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		
+		// apply transformation to vertices
+		if (factory.verticesTransformer != null) {
+			marshaller.setVerticesTransformer(factory.verticesTransformer);
+			builder.registerTypeAdapter(VerticesList.class, new VerticesListAdapter().serializeAsInteger(true));
+		}
+		
+		gson = builder.create();
 	}
 
 	public MetadataType getMetadata() {

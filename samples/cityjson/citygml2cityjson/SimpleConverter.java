@@ -27,6 +27,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONWriter;
+import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesTransformer;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.CityGMLInputFactory;
@@ -72,8 +73,20 @@ public class SimpleConverter {
 		 * which only adapts the file name for the CityJSON file. 
 		 */
 		
-		SimpleTextureFileHandler textureFileHandler = new SimpleTextureFileHandler(Paths.get("../../datasets"), Paths.get("appearances"));
-		out.setTextureFileHandler(textureFileHandler);
+		out.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("../../datasets"), Paths.get("appearances")));
+		
+		/**
+		 * citygml4j also supports the transformation of the coordinates of the vertices
+		 * to integer values. This transformation might substantially reduce the size
+		 * of the CityJSON file and thus is a simple but efficient compression method.
+		 * The transformation parameters are stored as "transform" in the file to be able
+		 * to retrieve the original coordinate values.
+		 * In order to apply compression, you can simple register a vertices transformer
+		 * with the output factory. citygml4j provides a default transformer which lets 
+		 * you define the number of significant digits to keep (3 per default).
+		 */
+		
+		out.setVerticesTransformer(new DefaultVerticesTransformer().withSignificantDigits(3));
 		
 		// create a simple CityJSON writer
 		CityJSONWriter writer = out.createCityJSONWriter(new File("LOD3_Building.json"));
