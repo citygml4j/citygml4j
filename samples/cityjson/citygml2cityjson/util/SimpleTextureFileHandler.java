@@ -57,17 +57,19 @@ public class SimpleTextureFileHandler implements TextureFileHandler {
 		 * Finally, copying the texture images could be done in multiple threads to
 		 * speed up the process.
 		 */
-		
-		try {
-			Path source = baseDir.resolve(imageURI);
-			Path fileName = source.getFileName();
-			if (fileName != null) {
-				Path target = targetDir.resolve(fileName);
-				copy(source, target);
-				return fileName.toString();
+
+		if (imageURI != null) {
+			try {
+				Path source = baseDir.resolve(imageURI.replace('\\', '/'));
+				Path fileName = source.getFileName();
+				if (fileName != null) {
+					Path target = targetDir.resolve(fileName);
+					copy(source, target);
+					return fileName.toString();
+				}
+			} catch (IOException e) {
+				// 
 			}
-		} catch (IOException e) {
-			// 
 		}
 
 		// return null if we cannot handle the texture image

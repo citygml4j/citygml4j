@@ -25,8 +25,14 @@ public class DefaultTextureFileHandler implements TextureFileHandler {
 
 	@Override
 	public String getImageFileName(String imageURI) {
-		Path fileName = Paths.get(imageURI).getFileName();
-		return fileName != null ? fileName.toString() : null;		
+		if (imageURI != null) {
+			imageURI = imageURI.replace('\\', '/');
+			Path fileName = Paths.get(imageURI).getFileName();
+			if (fileName != null)
+				return fileName.toString();
+		}
+		
+		return null;
 	}
 
 }
