@@ -29,6 +29,7 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.VerticesList;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -46,7 +47,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String TEXTURES = "textures";
 	private final String VERTICES_TEXTURE = "vertices-texture";
 	private final String METADATA = "metadata";
-	
+
 	private DocumentState documentState = DocumentState.INITIAL;
 	private Set<Number> lods; 
 
@@ -69,7 +70,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 		case INITIAL:
 			break;
 		}
-		
+
 		marshaller.getAppearanceResolver().registerGlobalAppearance(appearance);
 	}
 
@@ -110,17 +111,32 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			break;
 		}
 
+		List<AbstractCityObjectType> cityObjects = marshaller.marshal(cityObject);
+		for (AbstractCityObjectType tmp : cityObjects)
+			write(tmp);
+	}
+	
+	public void writeCityObject(AbstractCityObjectType cityObject) throws CityJSONWriteException {
+		switch (documentState) {
+		case END_DOCUMENT:
+			throw new IllegalStateException("CityJSON document is already complete.");
+		case INITIAL:
+			writeStartDocument();
+			break;
+		case START_DOCUMENT:
+			break;
+		}
+
+		write(cityObject);
+	}
+
+	private void write(AbstractCityObjectType cityObject) throws CityJSONWriteException {
 		try {
-			List<AbstractCityObjectType> cityObjects = marshaller.marshal(cityObject);
-			if (!cityObjects.isEmpty()) {
-				for (AbstractCityObjectType tmp : cityObjects) {
-					for (AbstractGeometryType geometry : tmp.getGeometry())
-						lods.add(geometry.getLod());
-					
-					writer.name(tmp.getGmlId());
-					gson.toJson(tmp, AbstractCityObjectType.class, writer);
-				}
-			}
+			for (AbstractGeometryType geometry : cityObject.getGeometry())
+				lods.add(geometry.getLod());
+
+			writer.name(cityObject.getGmlId());
+			gson.toJson(cityObject, AbstractCityObjectType.class, writer);
 		} catch (IOException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
@@ -145,7 +161,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 				vertices = Collections.emptyList();
 
 			writer.name(VERTICES);
-			gson.toJson(vertices, List.class, writer);			
+			gson.toJson(new VerticesList(vertices), VerticesList.class, writer);
 
 			// appearance
 			AppearanceResolver appearanceResolver = marshaller.getAppearanceResolver();
@@ -186,20 +202,20 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 			writer.name(METADATA);
 			gson.toJson(metadata, MetadataType.class, writer);
-			
+
 			writer.endObject();
-			
+
 			documentState = DocumentState.END_DOCUMENT;
 		} catch (IOException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
 	}
-	
+
 	@Override
 	public void close() throws CityJSONWriteException {
 		if (documentState == DocumentState.START_DOCUMENT)
 			writeEndDocument();
-		
+
 		lods.clear();
 		super.close();
 	}

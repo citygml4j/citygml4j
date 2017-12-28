@@ -71,6 +71,10 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 		writer.setHtmlSafe(htmlSafe);
 	}
 	
+	public CityJSONMarshaller getCityJSONMarshaller() {
+		return marshaller;
+	}
+
 	public void flush() throws CityJSONWriteException {
 		try {
 			writer.flush();
