@@ -29,8 +29,10 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 
@@ -42,6 +44,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String VERSION = "version";
 	private final String CITY_OBJECTS = "CityObjects";
 	private final String VERTICES = "vertices";
+	private final String TRANSFORM = "transform";
 	private final String APPEARANCE = "appearance";
 	private final String MATERIALS = "materials";
 	private final String TEXTURES = "textures";
@@ -115,7 +118,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 		for (AbstractCityObjectType tmp : cityObjects)
 			write(tmp);
 	}
-	
+
 	public void writeCityObject(AbstractCityObjectType cityObject) throws CityJSONWriteException {
 		switch (documentState) {
 		case END_DOCUMENT:
@@ -160,6 +163,16 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			if (vertices == null)
 				vertices = Collections.emptyList();
 
+			TransformType transform = null;
+			VerticesTransformer verticesTransformer = marshaller.getVerticesTransformer();
+			if (!vertices.isEmpty() && verticesTransformer != null) {
+				transform = verticesTransformer.applyTransformation(vertices);
+				if (transform != null) {
+					writer.name(TRANSFORM);
+					gson.toJson(transform, TransformType.class, writer);
+				}
+			}
+
 			writer.name(VERTICES);
 			gson.toJson(new VerticesList(vertices), VerticesList.class, writer);
 
@@ -194,7 +207,14 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			if (!metadata.isSetBBox() && !vertices.isEmpty()) {
 				CityJSON cityJSON = new CityJSON();
 				cityJSON.setVertices(vertices);
-				metadata.setBBox(cityJSON.calcBoundingBox());
+
+				List<Double> bbox = cityJSON.calcBoundingBox();
+				if (transform != null) {
+					for (int i = 0; i < bbox.size(); i++)
+						bbox.set(i, bbox.get(i) * transform.getScale().get(i%3) + transform.getTranslate().get(i%3));
+				}
+
+				metadata.setBBox(bbox);
 			}
 
 			if (!metadata.isSetPresentLoDs() && !lods.isEmpty())
