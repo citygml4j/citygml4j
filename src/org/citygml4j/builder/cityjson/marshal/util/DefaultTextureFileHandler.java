@@ -18,6 +18,9 @@
  */
 package org.citygml4j.builder.cityjson.marshal.util;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -26,6 +29,15 @@ public class DefaultTextureFileHandler implements TextureFileHandler {
 	@Override
 	public String getImageFileName(String imageURI) {
 		if (imageURI != null) {
+			
+			try {
+				// remote URLs are not supported
+				new URL(imageURI).toURI();
+				return null;
+			} catch (MalformedURLException | URISyntaxException e) {
+				//
+			}
+			
 			imageURI = imageURI.replace('\\', '/');
 			Path fileName = Paths.get(imageURI).getFileName();
 			if (fileName != null)
