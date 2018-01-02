@@ -44,7 +44,7 @@ public class GeometryTypeAdapter implements JsonSerializer<AbstractGeometryType>
 
 		if (type != null && type.isString()) {
 			GeometryTypeName geometryType = GeometryTypeName.fromValue(type.getAsString());
-			if (object != null)
+			if (geometryType != null)
 				geometryObject = context.deserialize(json, geometryType.getTypeClass());
 		}
 
