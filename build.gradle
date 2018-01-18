@@ -54,7 +54,8 @@ task generateJaxb {
         ant.xjc(destdir: genSrcDir,
                 schema: 'resources/jaxb/CityGML/citygml4j_profile.xsd',
                 binding: 'resources/jaxb/CityGML/binding.xjb',
-                extension: 'true') {
+                extension: 'true',
+                encoding: 'UTF-8') {
             produces(dir: genSrcDir, includes: '**/*.java')
             arg(line: '-Xnamespace-prefix -Xsetters -Xsetters-mode=direct')
         }
