@@ -1,6 +1,6 @@
-!citygml4j.name! - !citygml4j.description!
+citygml4j - The Open Source Java API for CityGML
 
-Version !citygml4j.version! (!build.date!)
+Version @version@ (@date@)
 
   This library is free software and is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ Version !citygml4j.version! (!build.date!)
 1. License
 ----------
 
-The !citygml4j.name! library is licensed under the Apache License,
+The citygml4j library is licensed under the Apache License,
 Version 2.0 (the "License"); you may not use this library except in compliance
 with the License. You may obtain a copy of the License at
 
@@ -34,14 +34,14 @@ with the License. You may obtain a copy of the License at
 2. Copyright
 ------------
 
-(C) !copyright.year!,
-!copyright.owner! <!copyright.owner.email!>
+(C) 2013-@copyright@,
+Claus Nagel <claus.nagel@gmail.com>
 
 
 3. About
 --------
 
-!citygml4j.name! is a Java class library and API for facilitating work with the
+citygml4j is a Java class library and API for facilitating work with the
 City Geography Markup Language (CityGML). It makes it easy to read, process, and
 write CityGML datasets, and to develop CityGML-aware software applications.
 
@@ -65,47 +65,47 @@ CityGML is an international OGC standard and can be used free of charge.
 4. System requirements
 ----------------------
 
-* Java JRE or JDK >= 1.8
+* Java JRE or JDK >= @javaCompatibility@
 
 
 5. How to use it
 ----------------
 
-Simply put the !citygml4j.name!-!citygml4j.version!.jar library file and its mandatory dependencies
-from the "lib" folder on your classpath to start developing with !citygml4j.name!.
+Simply put the @jar@ library file and its mandatory dependencies
+from the "lib" folder on your classpath to start developing with citygml4j.
 Have fun :-)
 
-!citygml4j.name! is also available as Maven artifact: 
+citygml4j is also available as Maven artifact: 
 
   <dependency>
-    <groupId>org.!citygml4j.name!</groupId>
-    <artifactId>!citygml4j.name!</artifactId>
-    <version>!citygml4j.version!</version>
+    <groupId>@groupId@</groupId>
+    <artifactId>@artifactId@</artifactId>
+    <version>@version@</version>
   </dependency>
 
 A collection of sample programs that demonstrate the use of the library are
 provided in the "samples" folder. The sample programs are organized into
-subfolders, each addressing a different use case of !citygml4j.name!. Ant build
+subfolders, each addressing a different use case of citygml4j. Ant build
 files are provided to easily run the sample programs.
 
    
 6. Developers
 -------------
 
-!developer.main.name! <!developer.main.email!>
+Claus Nagel <claus.nagel@gmail.com>
 
 
 7. Contact
 ----------
 
-!developer.main.email!
+claus.nagel@gmail.com
 
 
 8. Websites
 -----------
 
-Official !citygml4j.name! website: 
-!citygml4j.git!
+Official citygml4j website: 
+https://github.com/citygml4j
 
 Related websites:
 http://www.citygml.org/

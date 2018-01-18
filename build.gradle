@@ -1,0 +1,206 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+}
+
+apply plugin: 'java'
+apply plugin: 'distribution'
+apply plugin: 'maven-publish'
+
+allprojects {
+    group 'org.citygml4j'
+    version '2.6.1-SNAPSHOT'
+    description 'The Open Source Java API for CityGML'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    genSrcDir = "src-gen/main/java"
+    date = new Date()
+}
+
+sourceSets {
+    main.java.srcDir genSrcDir
+}
+
+configurations {
+    jaxb
+}
+
+dependencies {
+    compile 'com.sun.xsom:xsom:20140925'
+    compile 'com.google.code.gson:gson:2.8.2'
+
+    jaxb 'com.sun.xml.bind:jaxb-jxc:2.2.7'
+    jaxb 'org.jvnet.jaxb2_commons:jaxb2-basics:0.11.1'
+    jaxb 'org.jvnet.jaxb2_commons:jaxb2-namespace-prefix:1.3'
+    jaxb 'org.slf4j:slf4j-simple:1.7.25'
+}
+
+task generateJaxb {
+    outputs.dir genSrcDir
+    mkdir genSrcDir
+
+    doLast {
+        System.setProperty('javax.xml.accessExternalSchema', 'file')
+        ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJC2Task', classpath: configurations.jaxb.asPath)
+        ant.xjc(destdir: genSrcDir,
+                schema: 'resources/jaxb/CityGML/citygml4j_profile.xsd',
+                binding: 'resources/jaxb/CityGML/binding.xjb',
+                extension: 'true') {
+            produces(dir: genSrcDir, includes: '**/*.java')
+            arg(line: '-Xnamespace-prefix -Xsetters -Xsetters-mode=direct')
+        }
+
+        delete "$genSrcDir/org/citygml4j"
+    }
+}
+
+task cleanJaxb(type: Delete) {
+    delete 'src-gen'
+}
+
+compileJava.dependsOn(generateJaxb)
+
+javadoc {
+    copy {
+        from 'resources/javadoc/overview.html'
+        into "$buildDir/tmp/javadoc"
+        filter(ReplaceTokens, tokens: [
+                version: project.version,
+                copyright: date.format('yyyy')
+        ])
+    }
+
+    options.author true
+    options.overview "$buildDir/tmp/javadoc/overview.html"
+    options.addStringOption('doctitle', project.name + ' - ' + project.description)
+    include "org/citygml4j/**"
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': name,
+                'Implementation-Version': version
+        )
+    }
+    into('META-INF') {
+        from 'LICENSE'
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from('resources/doc/README') {
+                filter(ReplaceTokens, tokens: [
+                        version: project.version,
+                        date: date.format('yyy-MM-dd'),
+                        copyright: date.format('yyyy'),
+                        javaCompatibility: sourceCompatibility.toString(),
+                        jar: jar.archiveName,
+                        groupId: project.group,
+                        artifactId: project.name
+                ])
+            }
+            into('lib') {
+                from jar
+                from configurations.runtime
+            }
+            into('javadoc') {
+                from javadoc
+            }
+            into('license') {
+                from 'LICENSE'
+            }
+            into('samples') {
+                from tasks.getByPath(':samples:copySamples').outputs
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+def createPom = {
+    name project.name
+    url 'https://github.com/citygml4j'
+    description project.description
+    licenses {
+        license {
+            name 'The Apache License, Version 2.0'
+            url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+        }
+    }
+    developers {
+        developer {
+            id 'clausnagel'
+            name 'Claus Nagel'
+            email 'claus.nagel@gmail.com'
+            roles {
+                role 'architect'
+                role 'developer'
+            }
+            timezone '+1'
+        }
+    }
+    scm {
+        url 'https://github.com/citygml4j/citygml4j'
+        connection 'scm:git:https://github.com/citygml4j/citygml4j.git'
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom.withXml {
+                def parent = asNode()
+                parent.appendNode('description', project.description)
+                asNode().children().last() + createPom
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+    publications = ['mavenJava']
+    pkg {
+        repo = 'maven'
+        name = project.name
+        desc = project.description
+        websiteUrl = 'https://github.com/citygml4j'
+        vcsUrl = 'https://github.com/citygml4j/citygml4j.git'
+        issueTrackerUrl = 'https://github.com/citygml4j/citygml4j/issues'
+        labels = ['citygml', 'java', 'ade', 'gis', 'ogc', 'parsing', 'writing']
+        licenses = ['Apache-2.0']
+        version {
+            name = project.version
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4.1'
+}
