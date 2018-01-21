@@ -39,7 +39,7 @@ Maven artifact
 --------------
 citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22citygml4j%22). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`. You may need to adapt the citygml4j version number.
 
-```xml
+```Maven POM
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
@@ -49,7 +49,11 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 
 Here is how you use citygml4j with your Gradle project:
 
-    compile 'org.citygml4j:citygml4j:2.6.0'
+```gradle
+dependencies {
+  compile 'org.citygml4j:citygml4j:2.6.0'
+}
+```
 
 Sample programs
 ---------------
