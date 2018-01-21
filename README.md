@@ -23,34 +23,17 @@ Contributing
 
 Building
 --------
-citygml4j depends on JRE 8. The project uses [Apache Ant](http://ant.apache.org/) as build tool. To build the library, run the `build.xml` file from the root of the repository with `dist` as target. 
+citygml4j requires Java 8 or higher. The project uses [Gradle](https://gradle.org/) as build system. To build the library from source, run the following command from the root of the repository. 
 
-    % ant dist
+    % gradlew installDist
 
-This will create a folder `citygml4j-<version>` with the following subfolders:
+This will create a folder `build/install/citygml4j` with the following subfolders:
 * `javadoc` -- the Javadoc documentation
 * `lib` -- the citygml4j library and its mandatory dependencies
 * `license` -- license information
 * `samples` -- a collection of citygml4j sample programs
 
 Simply put the `citygml4j-<version>.jar` library file and its mandatory dependencies from the `lib` folder on your classpath to start developing with citygml4j. Have fun :-)
-
-Note that due to Java 8+ XML security restrictions, the build process might fail because of lacking 'file' access to the CityGML XML schema documents. To fix this error, you can set the system property `javax.xml.accessExternalSchema`. The easiest way is to populate the `ANT_OPTS` environment variable before invoking ant.
-
-For bash:
-
-    % export ANT_OPTS="-Djavax.xml.accessExternalSchema=file"
-    % ant dist
-
-For csh/tcsh:
-
-    % setenv ANT_OPTS "-Djavax.xml.accessExternalSchema=file"
-    % ant dist
-
-For Windows:
-
-    % set ANT_OPTS="-Djavax.xml.accessExternalSchema=file"
-    % ant dist
 
 Maven artifact
 --------------
