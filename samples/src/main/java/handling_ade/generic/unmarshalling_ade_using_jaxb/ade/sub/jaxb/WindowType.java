@@ -1,3 +1,10 @@
+//
+// Generated with ade-xjc - XML Schema binding compiler for CityGML ADEs, version 2.6.1
+// ade-xjc is part of the citygml4j project, see https://github.com/citygml4j
+// Any modifications to this file will be lost upon recompilation of the source
+// Generated: Sun Jan 21 21:03:34 CET 2018
+//
+
 
 package handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb;
 
@@ -12,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *  Type for windows in walls. Used in LOD3 and LOD4 only . As subclass of _CityObject, a window inherits all attributes and relations, in particular an
  * 				id, names, external references, and generalization relations. 
  * 
- * <p>Java-Klasse f�r WindowType complex type.
+ * <p>Java-Klasse für WindowType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
