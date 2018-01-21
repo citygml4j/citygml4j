@@ -13,3 +13,4 @@ bin/
 .idea/
 *.iml
 *.iws
+out/
