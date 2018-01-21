@@ -22,7 +22,7 @@ allprojects {
 }
 
 ext {
-    genSrcDir = "src-gen/main/java"
+    genSrcDir = 'src-gen/main/java'
     date = new Date()
 }
 
