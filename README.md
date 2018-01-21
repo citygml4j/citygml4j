@@ -47,6 +47,10 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 </dependency>
 ```
 
+Here is how you use citygml4j with your Gradle project:
+
+    compile 'org.citygml4j:citygml4j:2.6.0'
+
 Sample programs
 ---------------
 citygml4j provides a number of sample programs that demonstrate the use of the library. Download the library or build it from source with [Apache Ant](http://ant.apache.org/) as described above. This will deploy the sample programs in the `citygml4j-<version>/samples` folder.
