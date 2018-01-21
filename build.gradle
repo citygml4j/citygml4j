@@ -88,8 +88,8 @@ javadoc {
 
 jar {
     manifest {
-        attributes('Implementation-Title': name,
-                'Implementation-Version': version
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version
         )
     }
     into('META-INF') {

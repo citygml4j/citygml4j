@@ -3,7 +3,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  * 
- * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2018 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<xs:schema xmlns="http://www.igg.tu-berlin.de/citygml4j/ade_hooks" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="http://www.igg.tu-berlin.de/citygml4j/ade_hooks"
+<xs:schema xmlns="http://www.citygml4j.org/ade_hooks" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.citygml4j.org/ade_hooks"
     xmlns:core1="http://www.opengis.net/citygml/1.0" xmlns:app1="http://www.opengis.net/citygml/appearance/1.0"
     xmlns:bldg1="http://www.opengis.net/citygml/building/1.0" xmlns:frn1="http://www.opengis.net/citygml/cityfurniture/1.0"
     xmlns:grp1="http://www.opengis.net/citygml/cityobjectgroup/1.0" xmlns:luse1="http://www.opengis.net/citygml/landuse/1.0"
