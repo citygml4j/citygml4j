@@ -57,17 +57,15 @@ dependencies {
 
 Sample programs
 ---------------
-citygml4j provides a number of sample programs that demonstrate the use of the library. Download the library or build it from source with [Apache Ant](http://ant.apache.org/) as described above. This will deploy the sample programs in the `citygml4j-<version>/samples` folder.
+citygml4j provides a number of sample programs that demonstrate the use of the library. Download the library or build it from source with [Gradle](https://gradle.org/) as described above. This will deploy the sample programs in the `build/install/citygml4j/samples` folder.
 
-The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Ant build files are provided to easily run the sample programs. Note that a subfolder may contain more than just one sample program and, thus, more than one build file.
+The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Gradle tasks are provided to easily compile and run the sample programs.
 
-To run a sample program, simply open a shell environment, change to the corresponding subfolder and invoke Ant with the following command:
+To run a sample program, simply open a shell environment, change to the `build/install/citygml4j/samples` folder and invoke the Gradle wrapper using the fully qualified name of the Java class as task name. The package name follows the folder structure. For example, issue the following command to run the `SimpleReader.java` program from the subfolder `reading_citygml/simple_citygml_reader`: 
 
-    % ant
+    % gradlew reading_citygml.simple_citygml_reader.SimpleReader
 
-Ant will search for and execute the default build file `build.xml` in this case. If you want to make Ant use a specific build file, provide the filename as parameter:
-
-    % ant -f <buildfile.xml>
+Alternatively, you can load the citygml4j source into your preferred IDE and run the sample programs from there. Please note that the sample programs use relative paths to access the test datasets in the folder `samples/datasets` and to write their output to `samples/output`. You might have to adapt the working directory in the run configuration of your IDE so that the relative paths are correctly resolved. For [Eclipse](https://www.eclipse.org/), everything should work just fine without having to change any settings. When using [IntelliJ](https://www.jetbrains.com/idea/), simply use `$MODULE_DIR$` as working directory.
 
 More information
 ----------------
