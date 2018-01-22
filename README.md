@@ -61,7 +61,7 @@ citygml4j provides a number of sample programs that demonstrate the use of the l
 
 The sample programs are organized into subfolders, each addressing a different use case of citygml4j. Gradle tasks are provided to easily compile and run the sample programs.
 
-To run a sample program, simply open a shell environment, change to the `build/install/citygml4j/samples` folder and invoke the Gradle wrapper using the fully qualified name of the Java class as task name. The package name follows the folder structure. For example, issue the following command to run the `SimpleReader.java` program from the subfolder `reading_citygml/simple_citygml_reader`: 
+To run a sample program, simply open a shell environment, change to the `samples` folder and invoke the Gradle wrapper using the fully qualified name of the Java class as task name. The package name follows the folder structure. For example, issue the following command to run the `SimpleReader.java` program from the subfolder `reading_citygml/simple_citygml_reader`: 
 
     % gradlew reading_citygml.simple_citygml_reader.SimpleReader
 
