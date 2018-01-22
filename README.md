@@ -50,8 +50,12 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 Here is how you use citygml4j with your Gradle project:
 
 ```gradle
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-  compile 'org.citygml4j:citygml4j:2.6.0'
+    compile 'org.citygml4j:citygml4j:2.6.0'
 }
 ```
 
