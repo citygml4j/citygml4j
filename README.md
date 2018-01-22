@@ -51,11 +51,11 @@ Here is how you use citygml4j with your Gradle project:
 
 ```gradle
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    compile 'org.citygml4j:citygml4j:2.6.0'
+  compile 'org.citygml4j:citygml4j:2.6.0'
 }
 ```
 
