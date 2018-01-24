@@ -141,7 +141,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 def createPom = {
     name project.name
     url 'https://github.com/citygml4j'
-    description project.description
     licenses {
         license {
             name 'The Apache License, Version 2.0'
