@@ -175,7 +175,7 @@ publishing {
             pom.withXml {
                 def parent = asNode()
                 parent.appendNode('description', project.description)
-                asNode().children().last() + createPom
+                parent.children().last() + createPom
             }
         }
     }
