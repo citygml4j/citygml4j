@@ -11,9 +11,9 @@ Note that releases of the software before version 2.3.0 continue to be licensed 
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.6.0.
+The latest stable release of citygml4j is 2.6.1.
 
-Download the citygml4j 2.6.0 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.6.0/citygml4j-2.6.0.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.6.1 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.6.1/citygml4j-2.6.1.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
@@ -37,13 +37,13 @@ Simply put the `citygml4j-<version>.jar` library file and its mandatory dependen
 
 Maven artifact
 --------------
-citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22citygml4j%22). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`. You may need to adapt the citygml4j version number.
+citygml4j is also available as [Maven](http://maven.apache.org/) artifact from the [Central Maven Repository](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22citygml4j%22) and [JCenter](https://bintray.com/bintray/jcenter). To add citygml4j  to your project with Maven, add the following code to your `pom.xml`. You may need to adapt the citygml4j version number.
 
 ```xml
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.6.0</version>
+  <version>2.6.1</version>
 </dependency>
 ```
 
@@ -55,7 +55,7 @@ repositories {
 }
 
 dependencies {
-  compile 'org.citygml4j:citygml4j:2.6.0'
+  compile 'org.citygml4j:citygml4j:2.6.1'
 }
 ```
 
