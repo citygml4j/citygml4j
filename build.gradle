@@ -14,7 +14,6 @@ allprojects {
     description 'The Open Source Java API for CityGML'
 
     sourceCompatibility = 1.8
-    targetCompatibility = 1.8
 
     repositories {
         jcenter()
