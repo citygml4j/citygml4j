@@ -98,34 +98,30 @@ jar {
     }
 }
 
-distributions {
-    main {
-        contents {
-            from('resources/doc/README') {
-                filter(ReplaceTokens, tokens: [
-                        version: project.version,
-                        date: date.format('yyy-MM-dd'),
-                        copyright: date.format('yyyy'),
-                        javaCompatibility: sourceCompatibility.toString(),
-                        jar: jar.archiveName,
-                        groupId: project.group,
-                        artifactId: project.name
-                ])
-            }
-            into('lib') {
-                from jar
-                from configurations.runtime
-            }
-            into('javadoc') {
-                from javadoc
-            }
-            into('license') {
-                from 'LICENSE'
-            }
-            into('samples') {
-                from tasks.getByPath(':samples:copySamples').outputs
-            }
-        }
+distributions.main.contents {
+    from('resources/doc/README') {
+        filter(ReplaceTokens, tokens: [
+                version: project.version,
+                date: date.format('yyy-MM-dd'),
+                copyright: date.format('yyyy'),
+                javaCompatibility: sourceCompatibility.toString(),
+                jar: jar.archiveName,
+                groupId: project.group,
+                artifactId: project.name
+        ])
+    }
+    into('lib') {
+        from jar
+        from configurations.runtime
+    }
+    into('javadoc') {
+        from javadoc
+    }
+    into('license') {
+        from 'LICENSE'
+    }
+    into('samples') {
+        from tasks.getByPath(':samples:copySamples').outputs
     }
 }
 
