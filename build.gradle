@@ -194,7 +194,7 @@ bintray {
         websiteUrl = 'https://github.com/citygml4j'
         vcsUrl = 'https://github.com/citygml4j/citygml4j.git'
         issueTrackerUrl = 'https://github.com/citygml4j/citygml4j/issues'
-        labels = ['CityGML', 'Java', 'ADE', 'GIS', 'OGC', 'Parsing', 'Writing']
+        labels = ['citygml', 'java', 'ade', 'gis', 'ogc', 'parsing', 'writing']
         licenses = ['Apache-2.0']
         version {
             name = project.version
