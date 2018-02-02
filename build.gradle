@@ -70,7 +70,6 @@ task cleanJaxb(type: Delete) {
 compileJava.dependsOn(generateJaxb)
 
 javadoc {
-    options.author true
     options.overview "$buildDir/tmp/javadoc/overview.html"
     options.addStringOption('doctitle', project.name + ' - ' + project.description)
     include "org/citygml4j/**"
