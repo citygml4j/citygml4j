@@ -1,7 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id "com.jfrog.bintray" version "1.8.0"
+    id 'com.jfrog.bintray' version '1.8.0'
 }
 
 apply plugin: 'java'
@@ -198,5 +198,5 @@ bintray {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.5'
+    gradleVersion = '4.5.1'
 }
