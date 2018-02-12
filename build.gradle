@@ -101,7 +101,7 @@ distributions.main.contents {
     from('resources/doc/README') {
         filter(ReplaceTokens, tokens: [
                 version: project.version,
-                date: date.format('yyy-MM-dd'),
+                date: date.format('yyyy-MM-dd'),
                 copyright: date.format('yyyy'),
                 javaCompatibility: sourceCompatibility.toString(),
                 jar: jar.archiveName,
