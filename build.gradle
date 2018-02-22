@@ -121,7 +121,7 @@ distributions.main.contents {
         from 'LICENSE'
     }
     into('samples') {
-        from tasks.getByPath(':samples:copySamples').outputs
+        from tasks.getByPath(':citygml4j-samples:copySamples').outputs
     }
 }
 
