@@ -68,8 +68,6 @@ task cleanJaxb(type: Delete, group: 'jaxb') {
     delete 'src-gen'
 }
 
-compileJava.dependsOn(generateJaxb)
-
 javadoc {
     options.overview "$buildDir/tmp/javadoc/overview.html"
     options.addStringOption('doctitle', project.name + ' - ' + project.description)
