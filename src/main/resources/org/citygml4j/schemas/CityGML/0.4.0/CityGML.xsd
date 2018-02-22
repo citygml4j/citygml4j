@@ -5,8 +5,8 @@
 <!-- For further information see: www.citygml.org -->
 <!-- For the history of changes and additions to this CityGML schema see file history.txt -->
 <xs:schema xmlns="http://www.citygml.org/citygml/1/0/0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://www.citygml.org/citygml/1/0/0" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../GML/3.1.1/base/gml.xsd"/>
-	<xs:import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xAL/2.0/xAL.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xal/2.0/xAL.xsd"/>
 	<!-- ========================================================================================= -->
 	<!-- ======================Root Element: CityModel================================================ -->
 	<!-- ========================================================================================= -->

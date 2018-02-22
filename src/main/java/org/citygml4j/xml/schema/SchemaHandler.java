@@ -67,9 +67,9 @@ public class SchemaHandler {
 		if (instance == null) {
 			instance = new SchemaHandler();
 
-			URL schemaURL = SchemaHandler.class.getResource("/org/citygml4j/schemas/CityGML/citygml4j_profile.xsd");
+			URL schemaURL = SchemaHandler.class.getResource("/org/citygml4j/schemas/citygml4j.xsd");
 			if (schemaURL == null)
-				throw new SAXException("Failed to parse CityGML schemas. Could not find '/org/citygml4j/schemas/CityGML/citygml4j_profile.xsd' on classpath.");
+				throw new SAXException("Failed to parse CityGML schemas. Could not find '/org/citygml4j/schemas/citygml4j.xsd' on classpath.");
 
 			instance.parse(schemaURL.toString());
 		}
@@ -79,7 +79,7 @@ public class SchemaHandler {
 		schemaHandler.visited.putAll(instance.visited);
 
 		// CityGML 0.4.0
-		schemaHandler.schemaLocations.put("http://www.citygml.org/citygml/1/0/0", CityGMLContext.class.getResource("/org/citygml4j/schemas/CityGML/0.4.0/CityGML.xsd").toString());
+		schemaHandler.schemaLocations.put("http://www.citygml.org/citygml/1/0/0", CityGMLContext.class.getResource("/org/citygml4j/schemas/citygml/0.4.0/CityGML.xsd").toString());
 
 		// parse local schemas provided by ADE modules
 		CityGMLContext context = CityGMLContext.getInstance();
