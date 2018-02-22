@@ -21,7 +21,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!-- Specific settings for the citygml4j mapping file -->
-    <jaxb:bindings schemaLocation="citygml4j_profile.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml4j.xsd" node="/xs:schema">
 
         <!-- globalBindings do impact all schema files imported/included by the CityGML schema as well.
 			Therefore, the following settings in globalBindings also influence the mapping of
@@ -34,21 +34,21 @@
     <!-- ============= -->
 
     <!-- Specific settings for the CityGML Core module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/cityGMLBase.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/cityGMLBase.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="core"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Appearance module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/appearance.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/appearance.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="app"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Building module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/building.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/building.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="bldg"/>
         </jaxb:bindings>
@@ -73,14 +73,14 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML CityFurniture module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/cityFurniture.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/cityFurniture.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="frn"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/cityObjectGroup.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/cityObjectGroup.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="grp"/>
         </jaxb:bindings>
@@ -95,7 +95,7 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Generics module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/generics.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/generics.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="gen"/>
         </jaxb:bindings>
@@ -109,42 +109,42 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML LandUse module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/landUse.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/landUse.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="luse"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Relief module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/relief.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/relief.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="dem"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML TexturedSurface module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/texturedSurface.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/texturedSurface.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="tex"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Transportation module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/transportation.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/transportation.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="tran"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Vegetation module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/vegetation.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/vegetation.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="veg"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML WaterBody module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/1.0.0/waterBody.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/1.0.0/waterBody.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="wtr"/>
         </jaxb:bindings>
@@ -164,14 +164,14 @@
     <!-- ============= -->
 
     <!-- Specific settings for the CityGML Core module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/cityGMLBase.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/cityGMLBase.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="core"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Appearance module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/appearance.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/appearance.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="app"/>
         </jaxb:bindings>
@@ -184,7 +184,7 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Bridge module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/bridge.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/bridge.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="brid"/>
         </jaxb:bindings>
@@ -236,7 +236,7 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Building module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/building.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/building.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="bldg"/>
         </jaxb:bindings>
@@ -279,14 +279,14 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML CityFurniture module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/cityFurniture.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/cityFurniture.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="frn"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/cityObjectGroup.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/cityObjectGroup.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="grp"/>
         </jaxb:bindings>
@@ -301,7 +301,7 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Generics module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/generics.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/generics.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="gen"/>
         </jaxb:bindings>
@@ -315,35 +315,35 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML LandUse module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/landUse.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/landUse.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="luse"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Relief module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/relief.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/relief.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="dem"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML TexturedSurface module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/texturedSurface.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/texturedSurface.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="tex"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Transportation module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/transportation.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/transportation.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="tran"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Tunnel module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/tunnel.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/tunnel.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="tun"/>
         </jaxb:bindings>
@@ -386,14 +386,14 @@
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML Vegetation module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/vegetation.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/vegetation.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="veg"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the CityGML WaterBody module schema file -->
-    <jaxb:bindings schemaLocation="CityGML/2.0.0/waterBody.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/2.0.0/waterBody.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="wtr"/>
         </jaxb:bindings>
@@ -413,14 +413,14 @@
     <!-- ========= -->
 
     <!-- Specific settings for the GML schema file -->
-    <jaxb:bindings schemaLocation="GML/3.1.1/base/gml.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="gml/3.1.1/base/gml.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="gml"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the GML schema file 'defaultStyle.xsd' -->
-    <jaxb:bindings schemaLocation="GML/3.1.1/base/defaultStyle.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="gml/3.1.1/base/defaultStyle.xsd" node="/xs:schema">
         <!-- This is tricky. The schema file, for example, denotes both the element 'featureStyle' as well as 'FeatureStyle'.
 			As both elements are mapped to the Java class 'FeatureStyle', a renaming is necessary. -->
         <jaxb:bindings node="xs:element[@name='graphStyle']">
@@ -445,12 +445,12 @@
     <!-- ========== -->
 
     <!-- Specific settings for the XLink schema file -->
-    <jaxb:bindings schemaLocation="GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="gml/3.1.1/xlink/xlink.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="xlink"/>
         </jaxb:bindings>
 
-        <jaxb:bindings schemaLocation="GML/3.1.1/xlink/xlink.xsd" node="/xs:schema">
+        <jaxb:bindings schemaLocation="gml/3.1.1/xlink/xlink.xsd" node="/xs:schema">
             <!-- 'title' property is referenced both as attribute and as element. -->
             <jaxb:bindings node="//xs:group[@name='locatorModel']">
                 <jaxb:bindings node=".//xs:element[@ref='xlink:title']">
@@ -470,7 +470,7 @@
     <!-- ======= -->
 
     <!-- Specific settings for the xAl schema file -->
-    <jaxb:bindings schemaLocation="xAL/2.0/xAL.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="xal/2.0/xAL.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
             <!-- append "Element" to element declarations -->
             <jaxb:nameXmlTransform>
@@ -487,14 +487,14 @@
     <!-- ==== -->
 
     <!-- Specific settings for the SMIL schema file 'smil20.xsd' -->
-    <jaxb:bindings schemaLocation="GML/3.1.1/smil/smil20.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="gml/3.1.1/smil/smil20.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="smil20"/>
         </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- Specific settings for the SMIL schema file 'smil20-language.xsd' -->
-    <jaxb:bindings schemaLocation="GML/3.1.1/smil/smil20-language.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="gml/3.1.1/smil/smil20-language.xsd" node="/xs:schema">
         <jaxb:bindings>
             <namespace:prefix name="smil20lang"/>
         </jaxb:bindings>
@@ -505,7 +505,7 @@
     <!-- =============== -->
 
     <!-- Specific settings for the artifical schema file 'ade_hook.xsd' -->
-    <jaxb:bindings schemaLocation="CityGML/ade_hooks/ade_hooks.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="citygml/ade_hooks/ade_hooks.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
             <!-- set package name of the generated classes -->
             <jaxb:package name="org.citygml4j.jaxb.ade_hooks"/>

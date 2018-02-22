@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- CityGML Version No. 2.0, February 2012 -->
-<!-- CityGML - GML 3.1.1 application schema for 3D city models -->
-<!-- International encoding standard of the Open Geospatial Consortium, see http://www.opengeospatial.org/standards/citygml -->
-<!-- Jointly developed by the Special Interest Group 3D (SIG 3D) of GDI-DE, see http://www.sig3d.org               -->
-<!-- For further information see: http://www.citygml.org -->
-<xs:schema xmlns="http://www.opengis.net/citygml/generics/2.0" xmlns:core="http://www.opengis.net/citygml/2.0"
+<!-- CityGML Version No. 1.0.0, May 19th, 2008-->
+<!-- CityGML - GML3 application schema for the 3D city model of the Special Interest Group 3D (SIG 3D) of GDI NRW-->
+<!-- Editors: PD Dr. Gerhard Groeger, Institute for Geodesy and Geoinformation, University of Bonn & -->
+<!-- Prof. Dr. Thomas H. Kolbe, Institute for Geodesy and Geoinformation Science, Technical University of Berlin -->
+<!-- For further information see: www.citygml.org -->
+<!-- For the history of changes and additions to this CityGML schema see file history.txt -->
+<xs:schema xmlns="http://www.opengis.net/citygml/generics/1.0" xmlns:core="http://www.opengis.net/citygml/1.0"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml"
-	targetNamespace="http://www.opengis.net/citygml/generics/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
-	<xs:annotation>
-		<xs:documentation>
-	CityGML is an OGC Standard.
-	Copyright (c) 2012 Open Geospatial Consortium.
-	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
-		</xs:documentation>
-	</xs:annotation>
-	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../GML/3.1.1/base/gml.xsd"/>
-	<xs:import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="cityGMLBase.xsd"/>
+	targetNamespace="http://www.opengis.net/citygml/generics/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/1.0" schemaLocation="cityGMLBase.xsd"/>
 	<!-- ========================================================================================= -->
 	<!-- ===============================CityGML Generics module ===================================== -->
 	<!-- ========================================================================================= -->
@@ -32,9 +26,9 @@
 		<xs:complexContent>
 			<xs:extension base="core:AbstractCityObjectType">
 				<xs:sequence>
-					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
-					<xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="class" type="xs:string" minOccurs="0"/>
+					<xs:element name="function" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="usage" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
 					<xs:element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
 					<xs:element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
@@ -146,38 +140,5 @@
 	</xs:complexType>
 	<!-- ========================================================================================= -->
 	<xs:element name="uriAttribute" type="UriAttributeType" substitutionGroup="_genericAttribute"/>
-	<!-- ========================================================================================= -->
-	<xs:complexType name="MeasureAttributeType">
-		<xs:annotation>
-			<xs:documentation/>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="AbstractGenericAttributeType">
-				<xs:sequence>
-					<xs:element name="value" type="gml:MeasureType"/>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<!-- ========================================================================================= -->
-	<xs:element name="measureAttribute" type="MeasureAttributeType" substitutionGroup="_genericAttribute"/>
-	<!-- ========================================================================================= -->
-	<xs:complexType name="GenericAttributeSetType">
-		<xs:annotation>
-			<xs:documentation>Set of generic attributes with an optional codeSpace. If the codeSpace attribute is present, then its
-				value should identify an authority for the set, such as the organisation or community who defined its content. The generic
-				attribute set may contain arbitrary generic attributes.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="AbstractGenericAttributeType">
-				<xs:sequence>
-					<xs:element ref="_genericAttribute" minOccurs="1" maxOccurs="unbounded"/>
-				</xs:sequence>
-				<xs:attribute name="codeSpace" type="xs:anyURI" use="optional"/>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<!-- ========================================================================================= -->
-	<xs:element name="genericAttributeSet" type="GenericAttributeSetType" substitutionGroup="_genericAttribute"/>
 	<!-- ========================================================================================= -->
 </xs:schema>

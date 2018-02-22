@@ -51,7 +51,7 @@ task generateJaxb(group: 'jaxb') {
         System.setProperty('javax.xml.accessExternalSchema', 'file')
         ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJC2Task', classpath: configurations.jaxb.asPath)
         ant.xjc(destdir: genSrcDir,
-                schema: 'resources/jaxb/citygml4j_profile.xsd',
+                schema: 'resources/jaxb/citygml4j.xsd',
                 binding: 'resources/jaxb/binding.xjb',
                 extension: 'true',
                 encoding: 'UTF-8') {

@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- CityGML Version No. 1.0.0, May 19th, 2008-->
-<!-- CityGML - GML3 application schema for the 3D city model of the Special Interest Group 3D (SIG 3D) of GDI NRW-->
-<!-- Editors: PD Dr. Gerhard Groeger, Institute for Geodesy and Geoinformation, University of Bonn & -->
-<!-- Prof. Dr. Thomas H. Kolbe, Institute for Geodesy and Geoinformation Science, Technical University of Berlin -->
-<!-- For further information see: www.citygml.org -->
-<!-- For the history of changes and additions to this CityGML schema see file history.txt -->
-<xs:schema xmlns="http://www.opengis.net/citygml/1.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+<!-- CityGML Version No. 2.0, February 2012 -->
+<!-- CityGML - GML 3.1.1 application schema for 3D city models -->
+<!-- International encoding standard of the Open Geospatial Consortium, see http://www.opengeospatial.org/standards/citygml -->
+<!-- Jointly developed by the Special Interest Group 3D (SIG 3D) of GDI-DE, see http://www.sig3d.org               -->
+<!-- For further information see: http://www.citygml.org -->
+<xs:schema xmlns="http://www.opengis.net/citygml/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml"
-	xmlns:app="http://www.opengis.net/citygml/appearance/1.0" xmlns:gen="http://www.opengis.net/citygml/generics/1.0"
-	targetNamespace="http://www.opengis.net/citygml/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../GML/3.1.1/base/gml.xsd"/>
-	<xs:import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xAL/2.0/xAL.xsd"/>
-	<xs:import namespace="http://www.opengis.net/citygml/generics/1.0" schemaLocation="generics.xsd"/>
-	<xs:import namespace="http://www.opengis.net/citygml/appearance/1.0" schemaLocation="appearance.xsd"/>
+	xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:gen="http://www.opengis.net/citygml/generics/2.0"
+	targetNamespace="http://www.opengis.net/citygml/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation>
+    CityGML is an OGC Standard.
+    Copyright (c) 2012 Open Geospatial Consortium.
+    To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="../../gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xal/2.0/xAL.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/generics/2.0" schemaLocation="generics.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/appearance/2.0" schemaLocation="appearance.xsd"/>
 	<!-- ========================================================================================= -->
 	<!-- ======================CityGML Core module ================================================== -->
 	<!-- ========================================================================================= -->
@@ -57,6 +63,8 @@
 					<xs:element name="terminationDate" type="xs:date" minOccurs="0"/>
 					<xs:element name="externalReference" type="ExternalReferenceType" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="generalizesTo" type="GeneralizationRelationType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="relativeToTerrain" type="RelativeToTerrainType" minOccurs="0"/>
+					<xs:element name="relativeToWater" type="RelativeToWaterType" minOccurs="0"/>
 					<xs:element ref="gen:_genericAttribute" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="app:appearance" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="_GenericApplicationPropertyOfCityObject" minOccurs="0" maxOccurs="unbounded"/>
@@ -145,6 +153,39 @@
 		</xs:choice>
 	</xs:complexType>
 	<!-- ========================================================================================== -->
+	<!-- ==Qualitative location of the feature with respect to terrain and water surface (all LOD)== -->
+	<!-- ========================================================================================= -->
+	<xs:simpleType name="RelativeToTerrainType">
+		<xs:annotation>
+			<xs:documentation>Specifies the spatial relation of a CityObject realativ to terrain in a qualitative way. The values of
+				this type are defined in the XML file RelativeToTerrainType.xml, according to the dictionary concept of
+				GML3.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="entirelyAboveTerrain"/>
+			<xs:enumeration value="substantiallyAboveTerrain"/>
+			<xs:enumeration value="substantiallyAboveAndBelowTerrain"/>
+			<xs:enumeration value="substantiallyBelowTerrain"/>
+			<xs:enumeration value="entirelyBelowTerrain"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ========================================================================================= -->
+	<xs:simpleType name="RelativeToWaterType">
+		<xs:annotation>
+			<xs:documentation>Specifies the spatial relation of a CityObject realativ to the water surface in a qualitative way. The
+				values of this type are defined in the XML file RelativeToTerrainType.xml, according to the dictionary concept of
+				GML3.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="entirelyAboveWaterSurface"/>
+			<xs:enumeration value="substantiallyAboveWaterSurface"/>
+			<xs:enumeration value="substantiallyAboveAndBelowWaterSurface"/>
+			<xs:enumeration value="substantiallyBelowWaterSurface"/>
+			<xs:enumeration value="entirelyBelowWaterSurface"/>
+			<xs:enumeration value="temporarilyAboveAndBelowWaterSurface"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ========================================================================================== -->
 	<!--======================================= Address (all LOD) ===================================== -->
 	<!-- ======================================uses OASIS xAL Standard================================ -->
 	<!-- ========================================================================================== -->
@@ -153,13 +194,11 @@
 			<xs:documentation>Denotes the relation of an _CityObject to its addresses. The AddressPropertyType element must either carry
 				a reference to an Address object or contain an Address object inline, but neither both nor none. </xs:documentation>
 		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="gml:AssociationType">
-				<xs:sequence minOccurs="0">
-					<xs:element ref="Address"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="gml:_Feature"/>
+			<xs:element ref="gml:_ADEComponent" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
 	<!-- ========================================================================================== -->
 	<xs:complexType name="AddressType">
@@ -211,7 +250,7 @@
 		<xs:complexContent>
 			<xs:extension base="gml:AbstractGMLType">
 				<xs:sequence>
-					<xs:element name="mimeType" type="MimeTypeType" minOccurs="0"/>
+					<xs:element name="mimeType" type="gml:CodeType" minOccurs="0"/>
 					<xs:element name="transformationMatrix" type="TransformationMatrix4x4Type" minOccurs="0"/>
 					<xs:element name="libraryObject" type="xs:anyURI" minOccurs="0"/>
 					<xs:element name="relativeGMLGeometry" type="gml:GeometryPropertyType" minOccurs="0"/>
@@ -230,13 +269,10 @@
 				ImplicitRepresentationPropertyType element must either carry a reference to a ImplicitGeometry object or contain a
 				ImplicitGeometry object inline, but neither both nor none. </xs:documentation>
 		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="gml:AssociationType">
-				<xs:sequence minOccurs="0">
-					<xs:element ref="ImplicitGeometry"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
+		<xs:sequence minOccurs="0">
+			<xs:element ref="ImplicitGeometry"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
 	</xs:complexType>
 	<!-- ========================================================================================== -->
 	<!-- ==========================================Basic Types===================================== -->
@@ -302,15 +338,6 @@
 			<xs:minInclusive value="0"/>
 			<xs:maxInclusive value="4"/>
 		</xs:restriction>
-	</xs:simpleType>
-	<!-- ========================================================================================= -->
-	<xs:simpleType name="MimeTypeType">
-		<xs:annotation>
-			<xs:documentation>MIME type of a geometry in an external library file. MIME types are defined by the IETF (Internet
-				Engineering Task Force). The values of this type are defined in the XML file MimeTypeType.xml, according to the dictionary
-				concept of GML3. </xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string"/>
 	</xs:simpleType>
 	<!-- ========================================================================================= -->
 </xs:schema>
