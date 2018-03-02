@@ -117,6 +117,7 @@ import net.opengis.gml.RectangleType;
 import net.opengis.gml.RectifiedGridCoverageType;
 import net.opengis.gml.RectifiedGridDomainType;
 import net.opengis.gml.RectifiedGridType;
+import net.opengis.gml.ReferenceType;
 import net.opengis.gml.RingType;
 import net.opengis.gml.ScaleType;
 import net.opengis.gml.SequenceRuleType;
@@ -149,6 +150,7 @@ import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.base.MetaData;
 import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.Reference;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
@@ -515,6 +517,7 @@ public class GMLMarshaller {
 							.with(Rectangle.class, this::marshalRectangle)
 							.with(RectifiedGridCoverage.class, this::marshalRectifiedGridCoverage)
 							.with(RectifiedGridDomain.class, this::marshalRectifiedGridDomain)
+							.with(Reference.class, this::marshalReference)
 							.with(Ring.class, this::marshalRing)
 							.with(Scale.class, this::marshalScale)
 							.with(SequenceRuleNames.class, this::marshalSequenceRuleNames)
@@ -2692,6 +2695,36 @@ public class GMLMarshaller {
 			if (elem != null && elem.getValue() instanceof RectifiedGridType)
 				dest.set_Geometry((JAXBElement<? extends AbstractGeometryType>)elem);
 		}
+
+		return dest;
+	}
+
+	public ReferenceType marshalReference(Reference<? extends AbstractGML> src) {
+		ReferenceType dest = gml.createReferenceType();
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(TypeType.fromValue(src.getType().getValue()));
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(ShowType.fromValue(src.getShow().getValue()));
+
+		if (src.isSetActuate())
+			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
 	}

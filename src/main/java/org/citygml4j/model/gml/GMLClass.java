@@ -27,6 +27,7 @@ import org.citygml4j.model.gml.base.AssociationByRep;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.base.MetaData;
 import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.Reference;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
@@ -188,6 +189,7 @@ public enum GMLClass implements ModelClassEnum {
 	ARRAY_ASSOCIATION(ArrayAssociation.class),
 	ASSOCIATION_BY_REP(AssociationByRep.class),
 	ASSOCIATION_BY_REP_OR_REF(AssociationByRepOrRef.class),
+	REFERENCE(Reference.class),
 	META_DATA(MetaData.class),
 	META_DATA_PROPERTY(MetaDataProperty.class),
 	STRING_OR_REF(StringOrRef.class),

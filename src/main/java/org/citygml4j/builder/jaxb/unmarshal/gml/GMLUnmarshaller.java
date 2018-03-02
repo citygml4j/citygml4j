@@ -116,6 +116,7 @@ import net.opengis.gml.RectangleType;
 import net.opengis.gml.RectifiedGridCoverageType;
 import net.opengis.gml.RectifiedGridDomainType;
 import net.opengis.gml.RectifiedGridType;
+import net.opengis.gml.ReferenceType;
 import net.opengis.gml.RingType;
 import net.opengis.gml.ScaleType;
 import net.opengis.gml.SequenceRuleNames;
@@ -151,6 +152,7 @@ import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.base.MetaData;
 import org.citygml4j.model.gml.base.MetaDataProperty;
+import org.citygml4j.model.gml.base.Reference;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNull;
 import org.citygml4j.model.gml.basicTypes.BooleanOrNullList;
@@ -416,6 +418,7 @@ public class GMLUnmarshaller {
 							.with(RectangleType.class, this::unmarshalRectangle)
 							.with(RectifiedGridCoverageType.class, this::unmarshalRectifiedGridCoverage)
 							.with(RectifiedGridDomainType.class, this::unmarshalRectifiedGridDomain)
+							.with(ReferenceType.class, this::unmarshalReference)
 							.with(SequenceRuleNames.class, this::unmarshalSequenceRuleNames)
 							.with(SequenceRuleType.class, this::unmarshalSequenceRule)
 							.with(RingType.class, this::unmarshalRing)
@@ -2739,6 +2742,36 @@ public class GMLUnmarshaller {
 				//
 			}
 		}
+
+		return dest;
+	}
+
+	public Reference<? extends AbstractGML> unmarshalReference(ReferenceType src) {
+		Reference<? extends AbstractGML> dest = new Reference<>();
+
+		if (src.isSetRemoteSchema())
+			dest.setRemoteSchema(src.getRemoteSchema());
+
+		if (src.isSetType())
+			dest.setType(XLinkType.fromValue(src.getType().value()));
+
+		if (src.isSetHref())
+			dest.setHref(src.getHref());
+
+		if (src.isSetRole())
+			dest.setRole(src.getRole());
+
+		if (src.isSetArcrole())
+			dest.setArcrole(src.getArcrole());
+
+		if (src.isSetTitle())
+			dest.setTitle(src.getTitle());
+
+		if (src.isSetShow())
+			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
+
+		if (src.isSetActuate())
+			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
 		return dest;
 	}
