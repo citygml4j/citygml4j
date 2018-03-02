@@ -18,14 +18,128 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.gml;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.gml.AbstractCoverageType;
+import net.opengis.gml.AbstractCurveSegmentType;
+import net.opengis.gml.AbstractCurveType;
+import net.opengis.gml.AbstractDiscreteCoverageType;
+import net.opengis.gml.AbstractFeatureCollectionType;
+import net.opengis.gml.AbstractFeatureType;
+import net.opengis.gml.AbstractGMLType;
+import net.opengis.gml.AbstractGeometricAggregateType;
+import net.opengis.gml.AbstractGeometricPrimitiveType;
+import net.opengis.gml.AbstractGeometryType;
+import net.opengis.gml.AbstractRingPropertyType;
+import net.opengis.gml.AbstractRingType;
+import net.opengis.gml.AbstractSolidType;
+import net.opengis.gml.AbstractSurfacePatchType;
+import net.opengis.gml.AbstractSurfaceType;
+import net.opengis.gml.AngleType;
+import net.opengis.gml.AreaType;
+import net.opengis.gml.AssociationType;
+import net.opengis.gml.BoundingShapeType;
+import net.opengis.gml.CategoryExtentType;
+import net.opengis.gml.CodeOrNullListType;
+import net.opengis.gml.CodeType;
+import net.opengis.gml.CompositeCurvePropertyType;
+import net.opengis.gml.CompositeCurveType;
+import net.opengis.gml.CompositeSolidPropertyType;
+import net.opengis.gml.CompositeSolidType;
+import net.opengis.gml.CompositeSurfacePropertyType;
+import net.opengis.gml.CompositeSurfaceType;
+import net.opengis.gml.CompositeValueType;
+import net.opengis.gml.CoordType;
+import net.opengis.gml.CoordinatesType;
+import net.opengis.gml.CoverageFunctionType;
+import net.opengis.gml.CurveArrayPropertyType;
+import net.opengis.gml.CurveInterpolationType;
+import net.opengis.gml.CurvePropertyType;
+import net.opengis.gml.CurveSegmentArrayPropertyType;
+import net.opengis.gml.CurveType;
+import net.opengis.gml.DataBlockType;
+import net.opengis.gml.DirectPositionListType;
+import net.opengis.gml.DirectPositionType;
+import net.opengis.gml.DomainSetType;
+import net.opengis.gml.EnvelopeType;
+import net.opengis.gml.FeatureArrayPropertyType;
+import net.opengis.gml.FeaturePropertyType;
+import net.opengis.gml.FileType;
+import net.opengis.gml.FileValueModelType;
+import net.opengis.gml.GeometricComplexPropertyType;
+import net.opengis.gml.GeometricComplexType;
+import net.opengis.gml.GeometricPrimitivePropertyType;
+import net.opengis.gml.GeometryArrayPropertyType;
+import net.opengis.gml.GeometryPropertyType;
+import net.opengis.gml.GridEnvelopeType;
+import net.opengis.gml.GridFunctionType;
+import net.opengis.gml.GridLengthType;
+import net.opengis.gml.GridLimitsType;
+import net.opengis.gml.GridType;
+import net.opengis.gml.IndexMapType;
+import net.opengis.gml.LengthType;
+import net.opengis.gml.LineStringPropertyType;
+import net.opengis.gml.LineStringSegmentArrayPropertyType;
+import net.opengis.gml.LineStringSegmentType;
+import net.opengis.gml.LineStringType;
+import net.opengis.gml.LinearRingPropertyType;
+import net.opengis.gml.LinearRingType;
+import net.opengis.gml.LocationPropertyType;
+import net.opengis.gml.MeasureListType;
+import net.opengis.gml.MeasureOrNullListType;
+import net.opengis.gml.MeasureType;
+import net.opengis.gml.MetaDataPropertyType;
+import net.opengis.gml.MultiCurvePropertyType;
+import net.opengis.gml.MultiCurveType;
+import net.opengis.gml.MultiGeometryPropertyType;
+import net.opengis.gml.MultiGeometryType;
+import net.opengis.gml.MultiLineStringPropertyType;
+import net.opengis.gml.MultiLineStringType;
+import net.opengis.gml.MultiPointPropertyType;
+import net.opengis.gml.MultiPointType;
+import net.opengis.gml.MultiPolygonPropertyType;
+import net.opengis.gml.MultiPolygonType;
+import net.opengis.gml.MultiSolidPropertyType;
+import net.opengis.gml.MultiSolidType;
+import net.opengis.gml.MultiSurfacePropertyType;
+import net.opengis.gml.MultiSurfaceType;
+import net.opengis.gml.OrientableCurveType;
+import net.opengis.gml.OrientableSurfaceType;
+import net.opengis.gml.PointArrayPropertyType;
+import net.opengis.gml.PointPropertyType;
+import net.opengis.gml.PointType;
+import net.opengis.gml.PolygonPropertyType;
+import net.opengis.gml.PolygonType;
+import net.opengis.gml.PriorityLocationPropertyType;
+import net.opengis.gml.QuantityExtentType;
+import net.opengis.gml.RangeParametersType;
+import net.opengis.gml.RangeSetType;
+import net.opengis.gml.RectangleType;
+import net.opengis.gml.RectifiedGridCoverageType;
+import net.opengis.gml.RectifiedGridDomainType;
+import net.opengis.gml.RectifiedGridType;
+import net.opengis.gml.RingType;
+import net.opengis.gml.ScaleType;
+import net.opengis.gml.SequenceRuleNames;
+import net.opengis.gml.SequenceRuleType;
+import net.opengis.gml.SolidArrayPropertyType;
+import net.opengis.gml.SolidPropertyType;
+import net.opengis.gml.SolidType;
+import net.opengis.gml.SpeedType;
+import net.opengis.gml.StringOrRefType;
+import net.opengis.gml.SurfaceArrayPropertyType;
+import net.opengis.gml.SurfaceInterpolationType;
+import net.opengis.gml.SurfacePatchArrayPropertyType;
+import net.opengis.gml.SurfacePropertyType;
+import net.opengis.gml.SurfaceType;
+import net.opengis.gml.TimeType;
+import net.opengis.gml.TinType;
+import net.opengis.gml.TrianglePatchArrayPropertyType;
+import net.opengis.gml.TriangleType;
+import net.opengis.gml.TriangulatedSurfaceType;
+import net.opengis.gml.ValueArrayPropertyType;
+import net.opengis.gml.ValueArrayType;
+import net.opengis.gml.ValuePropertyType;
+import net.opengis.gml.VectorType;
+import net.opengis.gml.VolumeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.CityGMLModuleComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
@@ -48,6 +162,7 @@ import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 import org.citygml4j.model.gml.basicTypes.Measure;
+import org.citygml4j.model.gml.basicTypes.MeasureList;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 import org.citygml4j.model.gml.basicTypes.NameOrNull;
 import org.citygml4j.model.gml.basicTypes.Null;
@@ -193,7 +308,12 @@ import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.w3c.dom.Element;
 
-import net.opengis.gml.*;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class GMLUnmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -266,6 +386,7 @@ public class GMLUnmarshaller {
 							.with(VolumeType.class, this::unmarshalVolume)
 							.with(SpeedType.class, this::unmarshalSpeed)
 							.with(MeasureType.class, this::unmarshalMeasure)
+							.with(MeasureListType.class, this::unmarshalMeasureList)
 							.with(QuantityExtentType.class, this::unmarshalQuantityExtent)
 							.with(MeasureOrNullListType.class, this::unmarshalMeasureOrNullList)
 							.with(MetaDataPropertyType.class, this::unmarshalMetaDataProperty)
@@ -1860,6 +1981,18 @@ public class GMLUnmarshaller {
 	public Measure unmarshalMeasure(MeasureType src) {
 		Measure dest = new Measure();
 		unmarshalMeasure(src, dest);
+
+		return dest;
+	}
+
+	public MeasureList unmarshalMeasureList(MeasureListType src) {
+		MeasureList dest = new MeasureList();
+
+		if (src.isSetValue())
+			dest.setValue(src.getValue());
+
+		if (src.isSetUom())
+			dest.setUom(src.getUom());
 
 		return dest;
 	}
