@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.base;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.association.Association;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
@@ -31,7 +30,7 @@ import org.citygml4j.model.gml.xlink.XLinkType;
 
 import java.util.HashMap;
 
-public class Reference<T extends AbstractGML & Associable> implements AssociationAttributeGroup, Association<T>, Child, Copyable {
+public class Reference implements AssociationAttributeGroup, Association<AbstractGML>, Child, Copyable {
 	private XLinkActuate actuate;
 	private String arcrole;
 	private String href;
@@ -51,7 +50,7 @@ public class Reference<T extends AbstractGML & Associable> implements Associatio
 		this.href = href;
 	}
 
-	public Reference(T object) {
+	public Reference(AbstractGML object) {
 		this("#" + object.getId());
 	}
 
@@ -183,9 +182,8 @@ public class Reference<T extends AbstractGML & Associable> implements Associatio
 		type = null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Class<T> getAssociableClass() {
-		return (Class<T>)AbstractGML.class;
+	public Class<AbstractGML> getAssociableClass() {
+		return AbstractGML.class;
 	}
 
 	public GMLClass getGMLClass() {
@@ -218,12 +216,11 @@ public class Reference<T extends AbstractGML & Associable> implements Associatio
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Reference<T>(), copyBuilder);
+		return copyTo(new Reference(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Reference<T> copy = (target == null) ? new Reference<>() : (Reference<T>)target;
+		Reference copy = (target == null) ? new Reference() : (Reference)target;
 
 		if (isSetActuate())
 			copy.setActuate((XLinkActuate)copyBuilder.copy(actuate));

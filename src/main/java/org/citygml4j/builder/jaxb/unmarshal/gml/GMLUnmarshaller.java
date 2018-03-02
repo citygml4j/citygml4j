@@ -2746,8 +2746,8 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public Reference<? extends AbstractGML> unmarshalReference(ReferenceType src) {
-		Reference<? extends AbstractGML> dest = new Reference<>();
+	public Reference unmarshalReference(ReferenceType src) {
+		Reference dest = new Reference();
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());

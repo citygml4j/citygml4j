@@ -517,7 +517,7 @@ public class GMLMarshaller {
 							.with(Rectangle.class, this::marshalRectangle)
 							.with(RectifiedGridCoverage.class, this::marshalRectifiedGridCoverage)
 							.with(RectifiedGridDomain.class, this::marshalRectifiedGridDomain)
-							.with((Class<Reference<? extends AbstractGML>>)(Class<?>)Reference.class, this::marshalReference)
+							.with(Reference.class, this::marshalReference)
 							.with(Ring.class, this::marshalRing)
 							.with(Scale.class, this::marshalScale)
 							.with(SequenceRuleNames.class, this::marshalSequenceRuleNames)
@@ -2699,7 +2699,7 @@ public class GMLMarshaller {
 		return dest;
 	}
 
-	public ReferenceType marshalReference(Reference<? extends AbstractGML> src) {
+	public ReferenceType marshalReference(Reference src) {
 		ReferenceType dest = gml.createReferenceType();
 
 		if (src.isSetRemoteSchema())
