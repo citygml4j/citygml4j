@@ -517,7 +517,7 @@ public class GMLMarshaller {
 							.with(Rectangle.class, this::marshalRectangle)
 							.with(RectifiedGridCoverage.class, this::marshalRectifiedGridCoverage)
 							.with(RectifiedGridDomain.class, this::marshalRectifiedGridDomain)
-							.with(Reference.class, this::marshalReference)
+							.with((Class<Reference<? extends AbstractGML>>)(Class<?>)Reference.class, this::marshalReference)
 							.with(Ring.class, this::marshalRing)
 							.with(Scale.class, this::marshalScale)
 							.with(SequenceRuleNames.class, this::marshalSequenceRuleNames)
