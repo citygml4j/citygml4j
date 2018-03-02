@@ -38,6 +38,7 @@ import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNull;
 import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 import org.citygml4j.model.gml.basicTypes.Measure;
+import org.citygml4j.model.gml.basicTypes.MeasureList;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 import org.citygml4j.model.gml.basicTypes.NameOrNull;
 import org.citygml4j.model.gml.basicTypes.Null;
@@ -202,6 +203,7 @@ public enum GMLClass implements ModelClassEnum {
 	INTEGER_OR_NULL(IntegerOrNull.class),
 	INTEGER_OR_NULL_LIST(IntegerOrNullList.class),
 	MEASURE(Measure.class),
+	MEASURE_LIST(MeasureList.class),
 	MEASURE_OR_NULL_LIST(MeasureOrNullList.class),
 	NAME_OR_NULL(NameOrNull.class),
 	NULL(Null.class),
