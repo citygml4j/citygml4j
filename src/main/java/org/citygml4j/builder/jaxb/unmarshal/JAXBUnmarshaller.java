@@ -21,6 +21,8 @@ package org.citygml4j.builder.jaxb.unmarshal;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
@@ -40,6 +42,7 @@ public class JAXBUnmarshaller {
 
 	private final CityGMLBuilder builder;
 	private final SchemaHandler schemaHandler;
+	private final DatatypeFactory dataTypeFactory;
 	private boolean parseSchema = true;
 	private boolean throwMissingADESchema = true;
 	private boolean releaseJAXBElements = true;
@@ -52,6 +55,12 @@ public class JAXBUnmarshaller {
 		gml = new GMLUnmarshaller(this);
 		xal = new XALUnmarshaller();
 		ade = new ADEUnmarshaller(this);
+
+		try {
+			dataTypeFactory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			throw new RuntimeException("Failed to create DatatypeFactory.", e);
+		}
 	}
 
 	public ModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
@@ -101,6 +110,10 @@ public class JAXBUnmarshaller {
 			dest = ade.unmarshal(src);
 		
 		return dest;
+	}
+
+	public DatatypeFactory getDataTypeFactory() {
+		return dataTypeFactory;
 	}
 
 	public CityGMLUnmarshaller getCityGMLUnmarshaller() {
