@@ -15,4 +15,4 @@ bin/
 out/
 
 # samples
-samples/output/
+citygml4j-samples/output/
