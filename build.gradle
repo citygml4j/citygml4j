@@ -34,6 +34,10 @@ configurations {
 }
 
 dependencies {
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    compile 'com.sun.xml.bind:jaxb-core:2.3.0'
+    compile 'com.sun.xml.bind:jaxb-impl:2.3.0'
+    compile 'javax.activation:activation:1.1.1'
     compile 'com.sun.xsom:xsom:20140925'
     compile 'com.google.code.gson:gson:2.8.2'
 
