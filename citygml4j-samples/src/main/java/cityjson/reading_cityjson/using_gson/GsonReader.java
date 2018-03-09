@@ -60,12 +60,12 @@ public class GsonReader {
 				.setDateFormat("yyyy-MM-dd")
 				.create();
 
-		JsonReader reader = new JsonReader(new FileReader(new File("datasets/LoD3_Railway.json")));
+		JsonReader reader = new JsonReader(new FileReader(new File("datasets/LOD3_Railway.json")));
 
 		// read the CityJSON file into main memory
 		// afterwards, the Json content is accessible through the
 		// Gson binding class org.citygml4j.binding.cityjson.CityJSON
-		System.out.println(df.format(new Date()) + "reading CityJSON file LoD3_Railway.json completely into main memory");
+		System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
 		CityJSON cityJSON = gson.fromJson(reader, CityJSON.class);
 		reader.close();
 		
