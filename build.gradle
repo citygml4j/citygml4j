@@ -10,7 +10,7 @@ apply plugin: 'maven-publish'
 
 allprojects {
     group 'org.citygml4j'
-    version '2.6.1'
+    version '2.6.2'
     description 'The Open Source Java API for CityGML'
 
     sourceCompatibility = 1.8
