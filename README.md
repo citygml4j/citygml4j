@@ -1,7 +1,9 @@
 citygml4j
 =========
 
-citygml4j is an open source Java class library and API for facilitating work with the [OGC City Geography Markup Language (CityGML)](http://www.opengeospatial.org/standards/citygml). citygml4j makes it easy to read, process, and write CityGML datasets, and to develop CityGML-aware software applications.
+citygml4j is an open source Java class library and API for facilitating work with the [OGC City Geography Markup Language (CityGML)](http://www.opengeospatial.org/standards/citygml). citygml4j makes it easy to read, process and write CityGML datasets, and to develop CityGML-aware software applications.
+
+Starting from version 2.6.0, citygml4j supports [CityJSON](http://www.cityjson.org/en/0.5/), a format for encoding a subset of the CityGML data model using JSON instead of GML. citygml4j supports reading and writing of CityJSON datasets, and thus makes it easy to work with either representation.
 
 License
 -------
@@ -76,3 +78,5 @@ More information
 [OGC CityGML](http://www.opengeospatial.org/standards/citygml) is an open data model and XML-based format for the storage and exchange of semantic 3D city models. It is an application schema for the [Geography Markup Language version 3.1.1 (GML3)](http://www.opengeospatial.org/standards/gml), the extendible international standard for spatial data exchange issued by the Open Geospatial Consortium (OGC) and the ISO TC211. The aim of the development of CityGML is to reach a common definition of the basic entities, attributes, and relations of a 3D city model.
 
 CityGML is an international OGC standard and can be used free of charge.
+
+The [CityJSON specification](https://github.com/tudelft3d/cityjson) is developed and maintained on GitHub by the [3D geoinformation group at TU Delft](https://3d.bk.tudelft.nl/). 
