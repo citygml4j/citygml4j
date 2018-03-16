@@ -3,7 +3,7 @@ citygml4j
 
 citygml4j is an open source Java class library and API for facilitating work with the [OGC City Geography Markup Language (CityGML)](http://www.opengeospatial.org/standards/citygml). citygml4j makes it easy to read, process and write CityGML datasets, and to develop CityGML-aware software applications.
 
-Starting from version 2.6.0, citygml4j supports [CityJSON](http://www.cityjson.org/en/0.5/), a format for encoding a subset of the CityGML data model using JSON instead of GML. citygml4j supports reading and writing of CityJSON datasets, and thus makes it easy to work with either representation.
+Starting from version 2.6.0, citygml4j supports parsing and writing [CityJSON](http://www.cityjson.org/en/0.5/), a format for encoding a subset of the CityGML data model using JSON instead of GML. 
 
 License
 -------
