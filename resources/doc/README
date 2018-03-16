@@ -51,6 +51,7 @@ Feature list:
 * Support for CityGML specific subset of GML 3.1.1
 * Support for the eXtensible Address Language (xAL)
 * Support for user-defined CityGML Application Domain Extensions (ADE)
+* Support for CityJSON 0.5
 
 CityGML is an open data model and XML-based format for the storage and exchange
 of semantic 3D city models. It is an application schema for the Geography Markup
