@@ -30,6 +30,7 @@ import com.google.gson.annotations.JsonAdapter;
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
 	protected transient String gmlId;
+	private List<Double> bbox;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	public abstract CityObjectTypeName getType();
@@ -48,6 +49,25 @@ public abstract class AbstractCityObjectType {
 	
 	public String getGmlId() {
 		return gmlId;
+	}
+
+	public boolean isSetBBox() {
+		return bbox != null && bbox.size() >= 6;
+	}
+
+	public List<Double> getBBox() {
+		return isSetBBox() ? bbox.subList(0, 6) : null;
+	}
+
+	public void setBBox(List<Double> bbox) {
+		if (bbox == null)
+			this.bbox = null;
+		else if (bbox.size() >= 6)
+			this.bbox = bbox.subList(0, 6);
+	}
+
+	public void unsetBBox() {
+		bbox = null;
 	}
 		
 	public void addGeometry(AbstractGeometryType geometry) {

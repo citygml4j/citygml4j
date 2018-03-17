@@ -31,6 +31,7 @@ import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AffineTransform;
+import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;
@@ -64,6 +65,9 @@ public class CoreMarshaller {
 	}
 
 	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, Attributes attributes) {
+		if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
+			dest.setBBox(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
+
 		if (src.isSetCreationDate())
 			attributes.setCreationDate(src.getCreationDate().getTime());
 

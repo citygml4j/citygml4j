@@ -40,7 +40,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
 	private final String type = "CityJSON";
-	private final String version = "0.5";
+	private final String version = "0.6";
 	private MetadataType metadata;
 	@SerializedName("CityObjects")
 	@JsonAdapter(CityObjectsAdapter.class)
