@@ -65,11 +65,11 @@ public class AppearanceUnmarshaller {
 	}
 	
 	public void setAppearanceInfo(AppearanceType appearanceType) {
-		this.materials = appearanceType.getMaterials();
-		this.textures = appearanceType.getTextures();
-		this.textureVertices = appearanceType.getTextureVertices();
-		
-		numTextureVertices = textureVertices.size();
+		materials = appearanceType.getMaterials();
+		textures = appearanceType.getTextures();
+		textureVertices = appearanceType.getTextureVertices();
+
+		numTextureVertices = textureVertices != null ? textureVertices.size() : 0;
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 	}
 
