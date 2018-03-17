@@ -37,6 +37,7 @@ import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.primitives.Envelope;
 import org.citygml4j.model.xal.AddressDetails;
 import org.citygml4j.model.xal.Country;
 import org.citygml4j.model.xal.CountryName;
@@ -59,6 +60,17 @@ public class CoreUnmarshaller {
 
 	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) {
 		dest.setId(src.getGmlId());
+
+		if (src.isSetBBox()) {
+			List<Double> bbox = src.getBBox();
+
+			Envelope envelope = new Envelope();
+			envelope.setLowerCorner(new Point(bbox.get(0), bbox.get(1), bbox.get(2)));
+			envelope.setUpperCorner(new Point(bbox.get(3), bbox.get(4), bbox.get(5)));
+			envelope.setSrsDimension(3);
+
+			dest.setBoundedBy(new BoundingShape(envelope));
+		}
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
