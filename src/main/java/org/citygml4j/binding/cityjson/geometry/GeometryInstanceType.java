@@ -2,6 +2,7 @@ package org.citygml4j.binding.cityjson.geometry;
 
 import org.citygml4j.geometry.Matrix;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +10,11 @@ public class GeometryInstanceType extends AbstractGeometryType {
     private final GeometryTypeName type = GeometryTypeName.GEOMETRY_INSTANCE;
     private int template;
     private List<Integer> boundaries = Collections.singletonList(0);
-    private List<Double> transformationMatrix = Matrix.identity(4, 4).toRowPackedList();
+    private List<Double> transformationMatrix = Arrays.asList(
+            1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0);
 
     @Override
     public GeometryTypeName getType() {
