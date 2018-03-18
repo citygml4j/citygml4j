@@ -69,7 +69,7 @@ public class LandUseUnmarshaller {
 				MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest);
 				
 				if (multiSurface != null) {
-					int lod = geometryType.getLod().intValue();
+					int lod = surfaceType.getLod().intValue();
 					switch (lod) {
 					case 0:
 						dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));

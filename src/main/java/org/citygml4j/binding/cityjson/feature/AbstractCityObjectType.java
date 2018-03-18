@@ -44,7 +44,7 @@ public abstract class AbstractCityObjectType {
 	}
 	
 	public AbstractCityObjectType(String gmlId) {
-		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : new StringBuilder("UUID_").append(UUID.randomUUID().toString()).toString();
+		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : "UUID_" + UUID.randomUUID().toString();
 	}
 	
 	public String getGmlId() {

@@ -21,7 +21,7 @@ package org.citygml4j.binding.cityjson.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiPointType extends AbstractGeometryType {
+public class MultiPointType extends AbstractGeometryObjectType {
 	private final GeometryTypeName type = GeometryTypeName.MULTI_POINT;
 	private List<Integer> boundaries = new ArrayList<>();
 	

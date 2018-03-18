@@ -18,10 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.transportation;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
@@ -53,6 +49,10 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TransportationUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -134,7 +134,7 @@ public class TransportationUnmarshaller {
 				MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest);
 
 				if (multiSurface != null) {
-					int lod = geometryType.getLod().intValue();
+					int lod = surfaceType.getLod().intValue();
 					switch (lod) {
 					case 1:
 						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));

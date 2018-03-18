@@ -31,7 +31,7 @@ import org.citygml4j.binding.cityjson.appearance.TextureAdapter;
 
 import com.google.gson.annotations.JsonAdapter;
 
-public abstract class AbstractSurfaceCollectionType extends AbstractGeometryType 
+public abstract class AbstractSurfaceCollectionType extends AbstractGeometryObjectType
 implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMaterialObject, SurfaceCollectionTextureObject> {
 	private final GeometryTypeName type;
 	private List<List<List<Integer>>> boundaries = new ArrayList<>();

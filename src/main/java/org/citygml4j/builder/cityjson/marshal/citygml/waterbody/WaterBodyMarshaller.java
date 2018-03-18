@@ -28,7 +28,7 @@ import java.util.Map.Entry;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
@@ -115,7 +115,7 @@ public class WaterBodyMarshaller {
 
 		if (multiSurfaces != null) {
 			for (Entry<Integer, MultiSurface> entry : multiSurfaces.entrySet()) {
-				AbstractGeometryType geometry = json.getGMLMarshaller().marshal(entry.getValue());
+				AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshal(entry.getValue());
 				if (geometry != null) {
 					geometry.setLod(entry.getKey());
 					dest.addGeometry(geometry);
@@ -124,7 +124,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod0MultiCurve()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiCurve());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiCurve());
 			if (geometry != null) {
 				geometry.setLod(0);
 				dest.addGeometry(geometry);
@@ -132,7 +132,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod1MultiCurve()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiCurve());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiCurve());
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -140,7 +140,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod0MultiSurface()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface());
 			if (geometry != null) {
 				geometry.setLod(0);
 				dest.addGeometry(geometry);
@@ -148,7 +148,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -156,7 +156,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod1Solid()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid());
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -164,7 +164,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod2Solid()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid());
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -172,7 +172,7 @@ public class WaterBodyMarshaller {
 		}
 
 		if (src.isSetLod3Solid()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid());
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);

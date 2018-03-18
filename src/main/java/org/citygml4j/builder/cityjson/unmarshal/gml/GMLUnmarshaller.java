@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.AbstractSolidCollectionType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSurfaceCollectionType;
@@ -91,11 +91,11 @@ public class GMLUnmarshaller {
 				.with(CompositeSolidType.class, this::unmarshalCompositeSolid);
 	}
 
-	public AbstractGeometry unmarshal(AbstractGeometryType geometry, AbstractCityObject cityObject) {
+	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry, AbstractCityObject cityObject) {
 		return typeMapper.apply(geometry, cityObject);
 	}
 
-	public AbstractGeometry unmarshal(AbstractGeometryType geometry) {
+	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry) {
 		return typeMapper.apply(geometry, null);
 	}
 

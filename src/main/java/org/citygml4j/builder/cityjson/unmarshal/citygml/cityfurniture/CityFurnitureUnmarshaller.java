@@ -22,6 +22,7 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
@@ -63,22 +64,25 @@ public class CityFurnitureUnmarshaller {
 		}
 		
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
-				switch (lod) {
-				case 1:
-					dest.setLod1Geometry(new GeometryProperty<>(geometry));
-					break;
-				case 2:
-					dest.setLod2Geometry(new GeometryProperty<>(geometry));
-					break;
-				case 3:
-					dest.setLod3Geometry(new GeometryProperty<>(geometry));
-					break;
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
+					switch (lod) {
+						case 1:
+							dest.setLod1Geometry(new GeometryProperty<>(geometry));
+							break;
+						case 2:
+							dest.setLod2Geometry(new GeometryProperty<>(geometry));
+							break;
+						case 3:
+							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
 				}
-			}	
+			}
 		}
 	}
 	

@@ -18,16 +18,11 @@
  */
 package org.citygml4j.builder.cityjson.json.io.writer;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.google.gson.stream.JsonWriter;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
@@ -36,7 +31,12 @@ import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 
-import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String TYPE = "type";
@@ -92,7 +92,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			writer.name(TYPE);
 			writer.value(CITYJSON);
 			writer.name(VERSION);
-			writer.value("0.5");
+			writer.value("0.6");
 
 			writer.name(CITY_OBJECTS);
 			writer.beginObject();
@@ -135,8 +135,12 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 	private void write(AbstractCityObjectType cityObject) throws CityJSONWriteException {
 		try {
-			for (AbstractGeometryType geometry : cityObject.getGeometry())
-				lods.add(geometry.getLod());
+			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
+				if (geometry instanceof AbstractGeometryObjectType)
+					lods.add(((AbstractGeometryObjectType) geometry).getLod());
+
+				// TODO: handle geometry instance
+			}
 
 			writer.name(cityObject.getGmlId());
 			gson.toJson(cityObject, AbstractCityObjectType.class, writer);

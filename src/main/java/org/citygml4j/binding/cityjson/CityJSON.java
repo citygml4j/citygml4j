@@ -18,6 +18,17 @@
  */
 package org.citygml4j.binding.cityjson;
 
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import org.citygml4j.binding.cityjson.appearance.AppearanceType;
+import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
+import org.citygml4j.binding.cityjson.feature.MetadataType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.TransformType;
+import org.citygml4j.binding.cityjson.geometry.VerticesList;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,17 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.citygml4j.binding.cityjson.appearance.AppearanceType;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.TransformType;
-import org.citygml4j.binding.cityjson.geometry.VerticesList;
-
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
 
 public class CityJSON {
 	private final String type = "CityJSON";
@@ -168,9 +168,8 @@ public class CityJSON {
 	}
 
 	public List<Double> calcBoundingBox() {
-		List<Double> bbox = Arrays.asList(new Double[] {
-				Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, 
-				-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE});
+		List<Double> bbox = Arrays.asList(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE,
+				-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE);
 		
 		for (List<Double> vertex : vertices.getVertices()) {
 			if (vertex.size() > 2) {
@@ -193,8 +192,12 @@ public class CityJSON {
 	public List<Number> calcPresentLoDs() {
 		Set<Number> lods = new HashSet<>();		
 		for (AbstractCityObjectType cityObject : cityObjects.values()) {
-			for (AbstractGeometryType geometry : cityObject.getGeometry())
-				lods.add(geometry.getLod());
+			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
+				if (geometry instanceof AbstractGeometryObjectType)
+					lods.add(((AbstractGeometryObjectType) geometry).getLod());
+
+				// TODO: handle geometry instance
+			}
 		}
 		
 		return lods.stream().sorted().collect(Collectors.toList());

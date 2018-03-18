@@ -18,13 +18,11 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.waterbody;
 
-import java.util.List;
-import java.util.Map;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
@@ -49,6 +47,9 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+
+import java.util.List;
+import java.util.Map;
 
 public class WaterBodyUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -115,58 +116,57 @@ public class WaterBodyUnmarshaller {
 		}
 		
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
 
-				if (geometry instanceof MultiCurve) {
-					MultiCurve multiCurve = (MultiCurve)geometry;
-					switch (lod) {
-					case 0:
-						dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
-						break;
-					case 1:
-						dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
-						break;
+					if (geometry instanceof MultiCurve) {
+						MultiCurve multiCurve = (MultiCurve) geometry;
+						switch (lod) {
+							case 0:
+								dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
+								break;
+							case 1:
+								dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
+								break;
+						}
+					} else if (geometry instanceof MultiSurface || geometry instanceof CompositeSurface) {
+						MultiSurface multiSurface = null;
+
+						if (geometry instanceof MultiSurface)
+							multiSurface = (MultiSurface) geometry;
+						else {
+							multiSurface = new MultiSurface();
+							multiSurface.setSurfaceMember(((CompositeSurface) geometry).getSurfaceMember());
+						}
+
+						switch (lod) {
+							case 0:
+								dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+							case 1:
+								dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+						}
+					} else if (geometry instanceof AbstractSolid) {
+						AbstractSolid solid = (AbstractSolid) geometry;
+						switch (lod) {
+							case 1:
+								dest.setLod1Solid(new SolidProperty(solid));
+								break;
+							case 2:
+								dest.setLod2Solid(new SolidProperty(solid));
+								break;
+							case 3:
+								dest.setLod3Solid(new SolidProperty(solid));
+								break;
+						}
 					}
 				}
-				
-				else if (geometry instanceof MultiSurface || geometry instanceof CompositeSurface) {
-					MultiSurface multiSurface = null;
-					
-					if (geometry instanceof MultiSurface) 
-						multiSurface = (MultiSurface)geometry;
-					else {
-						multiSurface = new MultiSurface();
-						multiSurface.setSurfaceMember(((CompositeSurface)geometry).getSurfaceMember());
-					}
-					
-					switch (lod) {
-					case 0:
-						dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 1:
-						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					}
-				}
-
-				else if (geometry instanceof AbstractSolid) {
-					AbstractSolid solid = (AbstractSolid)geometry;
-					switch (lod) {
-					case 1:
-						dest.setLod1Solid(new SolidProperty(solid));
-						break;
-					case 2:
-						dest.setLod2Solid(new SolidProperty(solid));
-						break;
-					case 3:
-						dest.setLod3Solid(new SolidProperty(solid));
-						break;
-					}
-				}
-			}	
+			}
 		}
 	}
 	

@@ -24,6 +24,7 @@ import org.citygml4j.binding.cityjson.feature.PlantCoverAttributes;
 import org.citygml4j.binding.cityjson.feature.PlantCoverType;
 import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectAttributes;
 import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
@@ -78,38 +79,39 @@ public class VegetationUnmarshaller {
 		}
 		
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
 
-				if (geometry instanceof MultiSurface) {
-					MultiSurface multiSurface = (MultiSurface)geometry;
-					switch (lod) {
-					case 1:
-						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 2:
-						dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 3:
-						dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					}
-				}
-
-				else if (geometry instanceof MultiSolid) {
-					MultiSolid multiSolid = (MultiSolid)geometry;
-					switch (lod) {
-					case 1:
-						dest.setLod1MultiSolid(new MultiSolidProperty(multiSolid));
-						break;
-					case 2:
-						dest.setLod2MultiSolid(new MultiSolidProperty(multiSolid));
-						break;
-					case 3:
-						dest.setLod3MultiSolid(new MultiSolidProperty(multiSolid));
-						break;
+					if (geometry instanceof MultiSurface) {
+						MultiSurface multiSurface = (MultiSurface) geometry;
+						switch (lod) {
+							case 1:
+								dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+							case 2:
+								dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+							case 3:
+								dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+						}
+					} else if (geometry instanceof MultiSolid) {
+						MultiSolid multiSolid = (MultiSolid) geometry;
+						switch (lod) {
+							case 1:
+								dest.setLod1MultiSolid(new MultiSolidProperty(multiSolid));
+								break;
+							case 2:
+								dest.setLod2MultiSolid(new MultiSolidProperty(multiSolid));
+								break;
+							case 3:
+								dest.setLod3MultiSolid(new MultiSolidProperty(multiSolid));
+								break;
+						}
 					}
 				}
 			}
@@ -149,22 +151,25 @@ public class VegetationUnmarshaller {
 		}
 		
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
-				switch (lod) {
-				case 1:
-					dest.setLod1Geometry(new GeometryProperty<>(geometry));
-					break;
-				case 2:
-					dest.setLod2Geometry(new GeometryProperty<>(geometry));
-					break;
-				case 3:
-					dest.setLod3Geometry(new GeometryProperty<>(geometry));
-					break;
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
+					switch (lod) {
+						case 1:
+							dest.setLod1Geometry(new GeometryProperty<>(geometry));
+							break;
+						case 2:
+							dest.setLod2Geometry(new GeometryProperty<>(geometry));
+							break;
+						case 3:
+							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
 				}
-			}	
+			}
 		}
 	}
 	

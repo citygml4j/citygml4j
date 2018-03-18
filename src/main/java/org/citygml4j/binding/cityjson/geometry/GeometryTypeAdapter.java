@@ -32,23 +32,23 @@ import com.google.gson.JsonSerializer;
 public class GeometryTypeAdapter implements JsonSerializer<AbstractGeometryType>, JsonDeserializer<AbstractGeometryType> {
 
 	@Override
-	public JsonElement serialize(AbstractGeometryType geometryObject, Type typeOfSrc, JsonSerializationContext context) {
-		return context.serialize(geometryObject);
+	public JsonElement serialize(AbstractGeometryType geometry, Type typeOfSrc, JsonSerializationContext context) {
+		return context.serialize(geometry);
 	}
 
 	@Override
 	public AbstractGeometryType deserialize(JsonElement json, Type typeOfSrc, JsonDeserializationContext context) throws JsonParseException {
-		AbstractGeometryType geometryObject = null;
+		AbstractGeometryType geometry = null;
 		JsonObject object = json.getAsJsonObject();
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
 			GeometryTypeName geometryType = GeometryTypeName.fromValue(type.getAsString());
 			if (geometryType != null)
-				geometryObject = context.deserialize(json, geometryType.getTypeClass());
+				geometry = context.deserialize(json, geometryType.getTypeClass());
 		}
 
-		return geometryObject;
+		return geometry;
 	}
 
 }

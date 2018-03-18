@@ -18,11 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.bridge;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Map;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractBridgeType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
@@ -32,6 +27,7 @@ import org.citygml4j.binding.cityjson.feature.BridgeConstructionElementType;
 import org.citygml4j.binding.cityjson.feature.BridgeInstallationType;
 import org.citygml4j.binding.cityjson.feature.BridgePartType;
 import org.citygml4j.binding.cityjson.feature.BridgeType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
@@ -70,6 +66,11 @@ import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
 
 public class BridgeUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -180,38 +181,39 @@ public class BridgeUnmarshaller {
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
 
-				if (geometry instanceof MultiSurface) {
-					MultiSurface multiSurface = (MultiSurface)geometry;
-					switch (lod) {
-					case 1:
-						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 2:
-						dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 3:
-						dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					}
-				}
-
-				else if (geometry instanceof AbstractSolid) {
-					AbstractSolid solid = (AbstractSolid)geometry;
-					switch (lod) {
-					case 1:
-						dest.setLod1Solid(new SolidProperty(solid));
-						break;
-					case 2:
-						dest.setLod2Solid(new SolidProperty(solid));
-						break;
-					case 3:
-						dest.setLod3Solid(new SolidProperty(solid));
-						break;
+					if (geometry instanceof MultiSurface) {
+						MultiSurface multiSurface = (MultiSurface) geometry;
+						switch (lod) {
+							case 1:
+								dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+							case 2:
+								dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+							case 3:
+								dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+								break;
+						}
+					} else if (geometry instanceof AbstractSolid) {
+						AbstractSolid solid = (AbstractSolid) geometry;
+						switch (lod) {
+							case 1:
+								dest.setLod1Solid(new SolidProperty(solid));
+								break;
+							case 2:
+								dest.setLod2Solid(new SolidProperty(solid));
+								break;
+							case 3:
+								dest.setLod3Solid(new SolidProperty(solid));
+								break;
+						}
 					}
 				}
 			}
@@ -278,19 +280,22 @@ public class BridgeUnmarshaller {
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
-				switch (lod) {
-				case 2:
-					dest.setLod2Geometry(new GeometryProperty<>(geometry));
-					break;
-				case 3:
-					dest.setLod3Geometry(new GeometryProperty<>(geometry));
-					break;
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
+					switch (lod) {
+						case 2:
+							dest.setLod2Geometry(new GeometryProperty<>(geometry));
+							break;
+						case 3:
+							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
 				}
-			}	
+			}
 		}
 	}
 
@@ -317,19 +322,22 @@ public class BridgeUnmarshaller {
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryType, dest);
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
 
-			if (geometry != null) {
-				int lod = geometryType.getLod().intValue();
-				switch (lod) {
-				case 2:
-					dest.setLod2Geometry(new GeometryProperty<>(geometry));
-					break;
-				case 3:
-					dest.setLod3Geometry(new GeometryProperty<>(geometry));
-					break;
+				if (geometry != null) {
+					int lod = geometryObject.getLod().intValue();
+					switch (lod) {
+						case 2:
+							dest.setLod2Geometry(new GeometryProperty<>(geometry));
+							break;
+						case 3:
+							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
 				}
-			}	
+			}
 		}
 	}
 

@@ -18,12 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.gml;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
 import org.citygml4j.binding.cityjson.appearance.SolidCollectionMaterialObject;
@@ -32,7 +26,7 @@ import org.citygml4j.binding.cityjson.appearance.SolidMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.SolidTextureObject;
 import org.citygml4j.binding.cityjson.appearance.SurfaceCollectionMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.SurfaceCollectionTextureObject;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.AbstractSolidCollectionType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSurfaceCollectionType;
@@ -51,7 +45,6 @@ import org.citygml4j.binding.cityjson.geometry.SurfaceCollectionSemanticsObject;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AffineTransform;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticsBuilder;
-import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -85,16 +78,22 @@ import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 import org.citygml4j.util.walker.GeometryWalker;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class GMLMarshaller {
 	private final CityJSONMarshaller json;
 	private final ChildInfo childInfo;
-	private final BiFunctionTypeMapper<AffineTransform, AbstractGeometryType> typeMapper;
+	private final BiFunctionTypeMapper<AffineTransform, AbstractGeometryObjectType> typeMapper;
 
 	public GMLMarshaller(CityJSONMarshaller json) {
 		this.json = json;
 		childInfo = new ChildInfo();
 
-		typeMapper = BiFunctionTypeMapper.<AffineTransform, AbstractGeometryType>create()
+		typeMapper = BiFunctionTypeMapper.<AffineTransform, AbstractGeometryObjectType>create()
 				.with(MultiPoint.class, this::marshalMultiPoint)
 				.with(MultiCurve.class, this::marshalMultiLineString)
 				.with(Surface.class, this::marshalSurface)
@@ -107,11 +106,11 @@ public class GMLMarshaller {
 				.with(MultiSolid.class, this::marshalMultiSolid);
 	}
 
-	public AbstractGeometryType marshal(ModelObject src, AffineTransform transformer) {
+	public AbstractGeometryObjectType marshal(AbstractGeometry src, AffineTransform transformer) {
 		return typeMapper.apply(src, transformer);
 	}
 
-	public AbstractGeometryType marshal(ModelObject src) {
+	public AbstractGeometryObjectType marshal(AbstractGeometry src) {
 		return typeMapper.apply(src, null);
 	}
 
@@ -313,17 +312,17 @@ public class GMLMarshaller {
 		return dest;
 	}
 
-	public AbstractGeometryType marshalGeometryProperty(GeometryProperty<?> src, AffineTransform transformer) {
+	public AbstractGeometryObjectType marshalGeometryProperty(GeometryProperty<?> src, AffineTransform transformer) {
 		Object dest = null;
 		if (src.isSetGeometry())
 			dest = marshal(src.getGeometry(), transformer);
 		else if (src.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
 			dest = marshal((AbstractGeometry)src.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK), transformer);
 
-		return dest instanceof AbstractGeometryType ? (AbstractGeometryType)dest : null;
+		return dest instanceof AbstractGeometryObjectType ? (AbstractGeometryObjectType)dest : null;
 	}
 
-	public AbstractGeometryType marshalGeometryProperty(GeometryProperty<?> src) {
+	public AbstractGeometryObjectType marshalGeometryProperty(GeometryProperty<?> src) {
 		return marshalGeometryProperty(src, null);
 	}
 
@@ -636,7 +635,7 @@ public class GMLMarshaller {
 			texture.addNullValue();
 	}
 
-	private void postprocess(AbstractGeometryType dest, int index, boolean collapseMaterialValues) {
+	private void postprocess(AbstractGeometryObjectType dest, int index, boolean collapseMaterialValues) {
 		if (dest instanceof GeometryWithSemantics) {
 			GeometryWithSemantics geometry = (GeometryWithSemantics)dest;
 			if (geometry.isSetSemantics())

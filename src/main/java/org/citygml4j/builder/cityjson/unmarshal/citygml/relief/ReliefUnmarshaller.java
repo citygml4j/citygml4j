@@ -76,10 +76,12 @@ public class ReliefUnmarshaller {
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
 			if (geometryType instanceof CompositeSurfaceType) {
-				TriangulatedSurface geometry = json.getGMLUnmarshaller().unmarshalTriangulatedSurface((CompositeSurfaceType)geometryType, dest);
+				CompositeSurfaceType compositeSurface = (CompositeSurfaceType) geometryType;
+				TriangulatedSurface geometry = json.getGMLUnmarshaller().unmarshalTriangulatedSurface(compositeSurface, dest);
+
 				if (geometry != null) {
 					TINRelief tinRelief = new TINRelief();
-					int lod = geometryType.getLod().intValue();
+					int lod = compositeSurface.getLod().intValue();
 					
 					tinRelief.setLod(lod);
 					if (lod > dest.getLod())

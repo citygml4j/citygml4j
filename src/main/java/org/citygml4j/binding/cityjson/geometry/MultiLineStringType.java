@@ -21,7 +21,7 @@ package org.citygml4j.binding.cityjson.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiLineStringType extends AbstractGeometryType {
+public class MultiLineStringType extends AbstractGeometryObjectType {
 	private final GeometryTypeName type = GeometryTypeName.MULTI_LINE_STRING;
 	private List<List<Integer>> boundaries = new ArrayList<>();
 	

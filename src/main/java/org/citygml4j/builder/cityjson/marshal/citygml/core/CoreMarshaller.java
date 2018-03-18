@@ -25,13 +25,12 @@ import java.util.List;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AffineTransform;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;
@@ -90,7 +89,7 @@ public class CoreMarshaller {
 		return dest;
 	}
 
-	public AbstractGeometryType marshalImplicitGeometry(ImplicitGeometry src) {	
+	public AbstractGeometryObjectType marshalImplicitGeometry(ImplicitGeometry src) {
 		AffineTransform transformer = null;
 
 		// get transformation matrix
@@ -111,14 +110,14 @@ public class CoreMarshaller {
 		return json.getGMLMarshaller().marshalGeometryProperty(src.getRelativeGMLGeometry(), transformer);
 	}
 
-	public AbstractGeometryType marshalImplicitRepresentationProperty(ImplicitRepresentationProperty src) {
+	public AbstractGeometryObjectType marshalImplicitRepresentationProperty(ImplicitRepresentationProperty src) {
 		Object dest = null;
 		if (src.isSetImplicitGeometry())
 			dest = marshalImplicitGeometry(src.getImplicitGeometry());
 		else if (src.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
 			dest = marshal((AbstractGeometry)src.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK));
 
-		return dest instanceof AbstractGeometryType ? (AbstractGeometryType)dest : null;
+		return dest instanceof AbstractGeometryObjectType ? (AbstractGeometryObjectType)dest : null;
 	}
 	
 	public void marshalAddress(Address src, AddressType dest) {
@@ -168,7 +167,7 @@ public class CoreMarshaller {
 		}
 		
 		if (src.isSetMultiPoint()) {
-			AbstractGeometryType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getMultiPoint());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getMultiPoint());
 			if (geometry != null && geometry.getType() == GeometryTypeName.MULTI_POINT)
 				dest.setLocation((MultiPointType)geometry);
 		}
