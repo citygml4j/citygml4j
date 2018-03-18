@@ -34,7 +34,9 @@ public enum GeometryTypeName {
 	@SerializedName("MultiSolid")
 	MULTI_SOLID("MultiSolid", MultiSolidType.class),
 	@SerializedName("CompositeSolid")
-	COMPOSITE_SOLID("CompositeSolid", CompositeSolidType.class);
+	COMPOSITE_SOLID("CompositeSolid", CompositeSolidType.class),
+	@SerializedName("GeometryInstance")
+	GEOMETRY_INSTANCE("GeometryInstance", GeometryInstanceType.class);
 	
 	private final String value;
 	private final Class<? extends AbstractGeometryType> typeClass;

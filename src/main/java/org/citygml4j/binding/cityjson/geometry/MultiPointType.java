@@ -35,7 +35,8 @@ public class MultiPointType extends AbstractGeometryObjectType {
 	}
 	
 	public void addPoints(List<Integer> points) {
-		boundaries.addAll(points);
+		if (points != null && points.size() > 0)
+			boundaries.addAll(points);
 	}
 
 	public List<Integer> getPoints() {
