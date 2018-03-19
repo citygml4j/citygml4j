@@ -80,7 +80,7 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	}
 	
 	public boolean isSetInstallations() {
-		return installations != null;
+		return installations != null && !installations.isEmpty();
 	}
 	
 	public void addInstallation(String installation) {
@@ -97,9 +97,13 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	public void setInstallations(List<String> installations) {
 		this.installations = installations;
 	}
+
+	public void unsetInstallations() {
+		installations = null;
+	}
 	
 	public boolean isSetConstructionElements() {
-		return constructionElements != null;
+		return constructionElements != null && !constructionElements.isEmpty();
 	}
 	
 	public void addConstructionElement(String constructionElement) {
@@ -115,7 +119,11 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 
 	public void setConstructionElements(List<String> constructionElements) {
 		this.constructionElements = constructionElements;
-	}	
+	}
+
+	public void unsetConstructionElements() {
+		constructionElements = null;
+	}
 
 	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {
