@@ -65,7 +65,7 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 	}
 		
 	public boolean isSetInstallations() {
-		return installations != null;
+		return installations != null && !installations.isEmpty();
 	}
 	
 	public void addInstallation(String installation) {
@@ -81,6 +81,10 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 
 	public void setInstallations(List<String> installations) {
 		this.installations = installations;
+	}
+
+	public void unsetInstallations() {
+		installations = null;
 	}
 
 	@Override
