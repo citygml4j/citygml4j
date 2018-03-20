@@ -18,9 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
@@ -30,6 +27,7 @@ import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
+import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.CityModel;
@@ -48,6 +46,10 @@ import org.citygml4j.model.xal.PostalCodeNumber;
 import org.citygml4j.model.xal.Thoroughfare;
 import org.citygml4j.model.xal.ThoroughfareName;
 import org.citygml4j.model.xal.ThoroughfareNumber;
+import org.citygml4j.util.walker.FeatureWalker;
+
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class CoreUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -93,10 +95,24 @@ public class CoreUnmarshaller {
 	}
 	
 	public void unmarshalCityModel(CityJSON src, CityModel dest) {
+		boolean hasGroups = false;
 		for (AbstractCityObjectType type : src.getCityObjects()) {	
 			AbstractCityObject cityObject = citygml.unmarshal(type, src);
-			if (cityObject != null)
+			if (cityObject != null) {
 				dest.addCityObjectMember(new CityObjectMember(cityObject));
+
+				if (cityObject instanceof CityObjectGroup)
+					hasGroups = true;
+			}
+		}
+
+		// postprocess group members
+		if (hasGroups) {
+			dest.accept(new FeatureWalker() {
+				public void visit(CityObjectGroup cityObjectGroup) {
+					citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(cityObjectGroup, dest);
+				}
+			});
 		}
 		
 		if (src.isSetMetadata()) {

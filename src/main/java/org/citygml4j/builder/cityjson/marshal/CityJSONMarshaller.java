@@ -107,12 +107,6 @@ public class CityJSONMarshaller {
 					}
 				}
 			}
-
-			// postprocess group members
-			for (CityObjectGroupType cityObjectGroup : dest.getCityObjects(CityObjectGroupType.class)) {
-				if (cityObjectGroup.hasLocalProperty(POSTPROCESS_GROUP_MEMBERS))
-					citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(cityObjectGroup, src, dest);
-			}
 		}
 
 		return dest;

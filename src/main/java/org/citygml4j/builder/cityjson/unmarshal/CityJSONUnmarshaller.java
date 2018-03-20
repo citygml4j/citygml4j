@@ -23,9 +23,7 @@ import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
-import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.util.walker.FeatureWalker;
 
 import java.util.Objects;
 
@@ -57,16 +55,7 @@ public class CityJSONUnmarshaller {
 		if (src.isSetAppearance())
 			citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
 
-		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
-
-		// postprocess group members
-		dest.accept(new FeatureWalker() {
-			public void visit(CityObjectGroup cityObjectGroup) {
-				citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(cityObjectGroup, dest);
-			}
-		});
-
-		return dest;
+		return citygml.getCoreUnmarshaller().unmarshalCityModel(src);
 	}
 	
 	public CityGMLUnmarshaller getCityGMLUnmarshaller() {

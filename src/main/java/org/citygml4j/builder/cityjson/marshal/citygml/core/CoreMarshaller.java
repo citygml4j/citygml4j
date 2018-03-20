@@ -18,13 +18,10 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.core;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
+import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
@@ -39,6 +36,9 @@ import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureArrayProperty;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.xal.CountryName;
 import org.citygml4j.model.xal.LocalityName;
@@ -46,6 +46,10 @@ import org.citygml4j.model.xal.PostalCodeNumber;
 import org.citygml4j.model.xal.ThoroughfareName;
 import org.citygml4j.model.xal.ThoroughfareNumber;
 import org.citygml4j.util.walker.XALWalker;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CoreMarshaller {
 	private final CityJSONMarshaller json;
@@ -77,14 +81,41 @@ public class CoreMarshaller {
 			citygml.getGenericsMarshaller().marshalGenericAttributes(src.getGenericAttribute(), attributes);
 	}
 
-	public List<AbstractCityObjectType> marshalCityModel(CityModel src) {
-		List<AbstractCityObjectType> dest = new ArrayList<>();
+	private void marshalCityModel(CityModel src, List<AbstractCityObjectType> dest) {
 		if (src.isSetCityObjectMember()) {
 			for (CityObjectMember property : src.getCityObjectMember()) {
 				if (property.isSetCityObject())
 					dest.addAll(citygml.marshal(property.getCityObject()));
 			}
 		}
+
+		if (src.isSetFeatureMember()) {
+			for (FeatureProperty<?> property : src.getFeatureMember()) {
+				if (property.getFeature() instanceof CityModel)
+					marshalCityModel((CityModel) property.getFeature(), dest);
+				else if (property.isSetFeature())
+					dest.addAll(citygml.marshal(property.getFeature()));
+			}
+		}
+
+		if (src.isSetFeatureMembers()) {
+			FeatureArrayProperty property = src.getFeatureMembers();
+			for (AbstractFeature feature : property.getFeature()) {
+				if (feature instanceof CityModel)
+					marshalCityModel((CityModel) feature, dest);
+				else
+					dest.addAll(citygml.marshal(feature));
+			}
+		}
+	}
+
+	public List<AbstractCityObjectType> marshalCityModel(CityModel src) {
+		List<AbstractCityObjectType> dest = new ArrayList<>();
+		marshalCityModel(src, dest);
+
+		// postprocess group members
+		if (dest.stream().anyMatch(CityObjectGroupType.class::isInstance))
+			citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(src, dest);
 
 		return dest;
 	}

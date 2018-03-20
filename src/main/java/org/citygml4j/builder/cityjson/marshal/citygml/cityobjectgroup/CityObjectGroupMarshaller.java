@@ -1,6 +1,5 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.cityobjectgroup;
 
-import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.BuildingAttributes;
 import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
@@ -25,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CityObjectGroupMarshaller {
 	private final CityJSONMarshaller json;
@@ -124,49 +124,58 @@ public class CityObjectGroupMarshaller {
 		return cityObjects;
 	}
 
-	public void postprocessGroupMembers(CityObjectGroupType cityObjectGroup, CityModel src, CityJSON dest) {
-		Set<String> candidates = new HashSet<>();
+	public void postprocessGroupMembers(CityModel src, List<AbstractCityObjectType> dest) {
+		Set<String> gmlIds = dest.stream().map(AbstractCityObjectType::getGmlId).collect(Collectors.toSet());
+		List<CityObjectGroupType> groups = dest.stream()
+				.filter(CityObjectGroupType.class::isInstance)
+				.map(CityObjectGroupType.class::cast)
+				.collect(Collectors.toList());
+
 		ChildInfo childInfo = new ChildInfo();
 
-		for (Iterator<String> iter = cityObjectGroup.getMembers().iterator(); iter.hasNext(); ) {
-			String gmlId = iter.next();
-			if (dest.hasCityObject(gmlId))
-				continue;
+		for (CityObjectGroupType group : groups) {
+			Set<String> candidates = new HashSet<>();
 
-			iter.remove();
+			for (Iterator<String> iter = group.getMembers().iterator(); iter.hasNext(); ) {
+				String gmlId = iter.next();
+				if (gmlIds.contains(gmlId))
+					continue;
 
-			AbstractCityObject member = src.accept(new FeatureFunctionWalker<AbstractCityObject>() {
-				public AbstractCityObject apply(AbstractCityObject cityObject) {
-					return gmlId.equals(cityObject.getId()) ? cityObject : super.apply(cityObject);
-				}
-			});
+				iter.remove();
 
-			if (member != null) {
-				member.accept(new FeatureWalker() {
-					public void visit(AbstractCityObject cityObject) {
-						if (cityObject != member && cityObject.isSetId() && dest.hasCityObject(cityObject.getId())) {
-							boolean addCandidate = true;
-
-							AbstractFeature parent = cityObject;
-							while ((parent = childInfo.getParentFeature(parent)) != null) {
-								if (parent.isSetId() && candidates.contains(parent.getId())) {
-									addCandidate = false;
-									break;
-								}
-							}
-
-							if (addCandidate)
-								candidates.add(cityObject.getId());
-						}
-
-						super.visit(cityObject);
+				AbstractCityObject member = src.accept(new FeatureFunctionWalker<AbstractCityObject>() {
+					public AbstractCityObject apply(AbstractCityObject cityObject) {
+						return gmlId.equals(cityObject.getId()) ? cityObject : super.apply(cityObject);
 					}
 				});
-			}
-		}
 
-		if (!candidates.isEmpty())
-			candidates.forEach(cityObjectGroup::addMember);
+				if (member != null) {
+					member.accept(new FeatureWalker() {
+						public void visit(AbstractCityObject cityObject) {
+							if (cityObject != member && cityObject.isSetId() && gmlIds.contains(cityObject.getId())) {
+								boolean addCandidate = true;
+
+								AbstractFeature parent = cityObject;
+								while ((parent = childInfo.getParentFeature(parent)) != null) {
+									if (parent.isSetId() && candidates.contains(parent.getId())) {
+										addCandidate = false;
+										break;
+									}
+								}
+
+								if (addCandidate)
+									candidates.add(cityObject.getId());
+							}
+
+							super.visit(cityObject);
+						}
+					});
+				}
+			}
+
+			if (!candidates.isEmpty())
+				candidates.forEach(group::addMember);
+		}
 	}
 
 }
