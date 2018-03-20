@@ -18,13 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.appearance;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.citygml4j.binding.cityjson.appearance.MaterialType;
 import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.binding.cityjson.appearance.TextureTypeName;
@@ -33,8 +26,6 @@ import org.citygml4j.binding.cityjson.appearance.WrapModeType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceDataInfo;
-import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
-import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -46,22 +37,25 @@ import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class AppearanceMarshaller {
 	private final CityJSONMarshaller json;
-	private final TextureVerticesBuilder textureVertexArrayBuilder;
-	private final TextureFileHandler textureFileHandler;
 	private final ChildInfo childInfo;
 
 	public AppearanceMarshaller(CityGMLMarshaller citygml) {
 		json = citygml.getCityJSONMarshaller();
-		textureVertexArrayBuilder = citygml.getCityJSONMarshaller().getTextureVerticesBuilder();
-		textureFileHandler = citygml.getCityJSONMarshaller().getTextureFileHandler();
 		childInfo = new ChildInfo();
 	}
 
 	public void marshalParameterizedTexture(ParameterizedTexture src, TextureType dest) {
 		if (src.isSetImageURI()) {
-			String fileName = textureFileHandler.getImageFileName(src.getImageURI());
+			String fileName = json.getTextureFileHandler().getImageFileName(src.getImageURI());
 			if (fileName == null)
 				return;
 			
@@ -240,7 +234,7 @@ public class AppearanceMarshaller {
 
 					List<Double> textureCoordinates = surfaceData.getTextureCoordinates();
 					if (textureCoordinates != null && textureCoordinates.size() > 7) {
-						List<Integer> indexes = textureVertexArrayBuilder.addTextureVertices(textureCoordinates.subList(0, textureCoordinates.size() - 2));
+						List<Integer> indexes = json.getTextureVerticesBuilder().addTextureVertices(textureCoordinates.subList(0, textureCoordinates.size() - 2));
 						
 						// add reference to texture
 						indexes.add(0, surfaceData.getSequenceNumber());
