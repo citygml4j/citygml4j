@@ -163,8 +163,11 @@ public class BuildingUnmarshaller {
 			if (attributes.isSetUsage())
 				dest.addUsage(new Code(attributes.getUsage()));
 
-			if (attributes.isSetMeasuredHeight())
-				dest.setMeasuredHeight(new Length(attributes.getMeasuredHeight()));
+			if (attributes.isSetMeasuredHeight()) {
+				Length measuredHeight = new Length(attributes.getMeasuredHeight());
+				measuredHeight.setUom("#m");
+				dest.setMeasuredHeight(measuredHeight);
+			}
 
 			if (attributes.isSetRoofType())
 				dest.setRoofType(new Code(attributes.getRoofType()));
@@ -180,6 +183,7 @@ public class BuildingUnmarshaller {
 				for (Double height : attributes.getStoreyHeightsAboveGround())
 					heights.addDoubleOrNull(new DoubleOrNull(height));
 
+				heights.setUom("#m");
 				dest.setStoreyHeightsAboveGround(heights);
 			}
 
@@ -188,6 +192,7 @@ public class BuildingUnmarshaller {
 				for (Double height : attributes.getStoreyHeightsBelowGround())
 					heights.addDoubleOrNull(new DoubleOrNull(height));
 
+				heights.setUom("#m");
 				dest.setStoreyHeightsBelowGround(heights);
 			}
 
