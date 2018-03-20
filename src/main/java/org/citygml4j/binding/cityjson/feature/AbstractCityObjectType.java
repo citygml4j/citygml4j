@@ -18,20 +18,22 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
+import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
-import com.google.gson.annotations.JsonAdapter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
 	protected transient String gmlId;
 	private List<Double> bbox;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
+
+	private transient HashMap<String, Object> localProperties;
 
 	public abstract CityObjectTypeName getType();
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
@@ -71,7 +73,7 @@ public abstract class AbstractCityObjectType {
 	}
 		
 	public void addGeometry(AbstractGeometryType geometry) {
-		if (isValidGeometryType(geometry.getType()))
+		if (geometry != null && isValidGeometryType(geometry.getType()))
 			this.geometry.add(geometry);
 	}
 
@@ -92,6 +94,31 @@ public abstract class AbstractCityObjectType {
 	
 	public void unsetGeometry() {
 		geometry.clear();
+	}
+
+	public Object getLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.get(name);
+
+		return null;
+	}
+
+	public void setLocalProperty(String name, Object value) {
+		if (localProperties == null)
+			localProperties = new HashMap<String, Object>();
+
+		localProperties.put(name, value);
+	}
+
+	public boolean hasLocalProperty(String name) {
+		return localProperties != null && localProperties.containsKey(name);
+	}
+
+	public Object unsetLocalProperty(String name) {
+		if (localProperties != null)
+			return localProperties.remove(name);
+
+		return null;
 	}
 
 }

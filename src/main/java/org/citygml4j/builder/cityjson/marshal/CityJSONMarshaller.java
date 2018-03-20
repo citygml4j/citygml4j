@@ -18,12 +18,10 @@
  */
 package org.citygml4j.builder.cityjson.marshal;
 
-import java.util.List;
-import java.util.Objects;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
@@ -39,10 +37,14 @@ import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 
+import java.util.List;
+import java.util.Objects;
+
 public class CityJSONMarshaller {
 	public static final String GEOMETRY_XLINK = "org.citygml4j.geometry.xlink";
 	public static final String GEOMETRY_XLINK_TARGET = "org.citygml4j.geometry.xlinkTarget";
 	public static final String GEOMETRY_SURFACE_DATA = "org.citygml4j.geometry.surfaceData";
+	public static final String POSTPROCESS_GROUP_MEMBERS = "org.citygml4j.group.checkMembers";
 
 	private final CityGMLMarshaller citygml;
 	private final GMLMarshaller gml;	
@@ -104,6 +106,12 @@ public class CityJSONMarshaller {
 						appearance.setTextureVertices(textureVertices);
 					}
 				}
+			}
+
+			// postprocess group members
+			for (CityObjectGroupType cityObjectGroup : dest.getCityObjects(CityObjectGroupType.class)) {
+				if (cityObjectGroup.hasLocalProperty(POSTPROCESS_GROUP_MEMBERS))
+					citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(cityObjectGroup, src, dest);
 			}
 		}
 

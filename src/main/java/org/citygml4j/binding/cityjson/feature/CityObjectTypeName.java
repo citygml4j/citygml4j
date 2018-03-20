@@ -60,7 +60,9 @@ public enum CityObjectTypeName {
 	@SerializedName("TunnelPart")
 	TUNNEL_PART("TunnelPart", TunnelPartType.class),
 	@SerializedName("TunnelInstallation")
-	TUNNEL_INSTALLATION("TunnelInstallation", TunnelInstallationType.class);
+	TUNNEL_INSTALLATION("TunnelInstallation", TunnelInstallationType.class),
+	@SerializedName("CityObjectGroup")
+	CITY_OBJECT_GROUP("CityObjectGroup", CityObjectGroupType.class);
 	
 	private final String value;
 	private final Class<? extends AbstractCityObjectType> typeClass;

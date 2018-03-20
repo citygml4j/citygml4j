@@ -18,14 +18,16 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal;
 
-import java.util.Objects;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
+import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.util.walker.FeatureWalker;
+
+import java.util.Objects;
 
 public class CityJSONUnmarshaller {
 	public static final String SURFACE_DATA_ID = "org.citygml4j.appearance.id";
@@ -55,7 +57,16 @@ public class CityJSONUnmarshaller {
 		if (src.isSetAppearance())
 			citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
 
-		return citygml.getCoreUnmarshaller().unmarshalCityModel(src);
+		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
+
+		// postprocess group members
+		dest.accept(new FeatureWalker() {
+			public void visit(CityObjectGroup cityObjectGroup) {
+				citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(cityObjectGroup, dest);
+			}
+		});
+
+		return dest;
 	}
 	
 	public CityGMLUnmarshaller getCityGMLUnmarshaller() {

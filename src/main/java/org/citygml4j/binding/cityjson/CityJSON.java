@@ -88,6 +88,14 @@ public class CityJSON {
 	public AbstractCityObjectType getCityObject(String gmlId) {
 		return cityObjects.get(gmlId);
 	}
+
+	public boolean hasCityObject(String gmlId) {
+		return cityObjects.containsKey(gmlId);
+	}
+
+	public <T extends AbstractCityObjectType> List<T> getCityObjects(Class<T> type) {
+		return cityObjects.values().stream().filter(type::isInstance).map(type::cast).collect(Collectors.toList());
+	}
 	
 	public <T extends AbstractCityObjectType> T getCityObject(String gmlId, Class<T> type) {
 		AbstractCityObjectType cityObject = cityObjects.get(gmlId);

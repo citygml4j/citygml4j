@@ -18,9 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml;
 
-import java.util.List;
-import java.util.Map;
-
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
@@ -28,6 +25,7 @@ import org.citygml4j.binding.cityjson.feature.AbstractVegetationObjectType;
 import org.citygml4j.binding.cityjson.feature.BridgeType;
 import org.citygml4j.binding.cityjson.feature.BuildingType;
 import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
+import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
 import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
 import org.citygml4j.binding.cityjson.feature.LandUseType;
 import org.citygml4j.binding.cityjson.feature.TINReliefType;
@@ -39,6 +37,7 @@ import org.citygml4j.builder.cityjson.unmarshal.citygml.appearance.AppearanceUnm
 import org.citygml4j.builder.cityjson.unmarshal.citygml.bridge.BridgeUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.building.BuildingUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.cityfurniture.CityFurnitureUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.cityobjectgroup.CityObjectGroupUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.core.CoreUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.gen.GenericsUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.landuse.LandUseUnmarshaller;
@@ -55,6 +54,9 @@ import org.citygml4j.model.citygml.tunnel.TunnelModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 
+import java.util.List;
+import java.util.Map;
+
 public class CityGMLUnmarshaller {
 	private final CityJSONUnmarshaller json;
 	
@@ -62,6 +64,7 @@ public class CityGMLUnmarshaller {
 	private final BridgeUnmarshaller brid;
 	private final BuildingUnmarshaller bldg;
 	private final CityFurnitureUnmarshaller frn;
+	private final CityObjectGroupUnmarshaller grp;
 	private final CoreUnmarshaller core;
 	private final GenericsUnmarshaller gen;
 	private final LandUseUnmarshaller luse;
@@ -78,6 +81,7 @@ public class CityGMLUnmarshaller {
 		brid = new BridgeUnmarshaller(this);
 		bldg = new BuildingUnmarshaller(this);
 		frn = new CityFurnitureUnmarshaller(this);
+		grp = new CityObjectGroupUnmarshaller(this);
 		core = new CoreUnmarshaller(this);
 		gen = new GenericsUnmarshaller(this);
 		luse = new LandUseUnmarshaller(this);		
@@ -96,7 +100,9 @@ public class CityGMLUnmarshaller {
 		else if (src instanceof BuildingType)
 			dest = bldg.unmarshal(src, cityJSON);
 		else if (src instanceof CityFurnitureType)
-			dest = frn.unmarshalCityFurniture((CityFurnitureType)src);		
+			dest = frn.unmarshalCityFurniture((CityFurnitureType)src);
+		else if (src instanceof CityObjectGroupType)
+			dest = grp.unmarshalCityObjectGroup((CityObjectGroupType)src);
 		else if (src instanceof GenericCityObjectType)
 			dest = gen.unmarshalGenericCityObject((GenericCityObjectType)src);
 		else if (src instanceof LandUseType)
@@ -143,7 +149,11 @@ public class CityGMLUnmarshaller {
 	public CityFurnitureUnmarshaller getCityFurnitureUnmarshaller() {
 		return frn;
 	}
-	
+
+	public CityObjectGroupUnmarshaller getCiyCityObjectGroupUnmarshaller() {
+		return grp;
+	}
+
 	public CoreUnmarshaller getCoreUnmarshaller() {
 		return core;
 	}
