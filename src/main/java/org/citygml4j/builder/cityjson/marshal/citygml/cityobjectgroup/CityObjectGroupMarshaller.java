@@ -105,7 +105,7 @@ public class CityObjectGroupMarshaller {
 				}
 
 				else if (property.isSetHref()) {
-					String member = property.getHref().replaceAll("^#+", "");
+					String member = property.getHref().replaceAll("^.*?#+?", "");
 					dest.addMember(member);
 
 					dest.setLocalProperty(CityJSONMarshaller.POSTPROCESS_GROUP_MEMBERS, true);
