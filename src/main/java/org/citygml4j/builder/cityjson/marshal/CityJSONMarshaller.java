@@ -21,7 +21,7 @@ package org.citygml4j.builder.cityjson.marshal;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
+import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
@@ -55,22 +55,27 @@ public class CityJSONMarshaller {
 	private VerticesTransformer verticesTransformer;
 	private TextureVerticesBuilder textureVerticesBuilder;
 	private TextureFileHandler textureFileHandler;
+	private VerticesBuilder templatesVerticesBuilder;
 	private String defaultTheme = "";
 
-	public CityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder, TextureFileHandler textureFileHandler) {
+	public CityJSONMarshaller(VerticesBuilder verticesBuilder,
+							  TextureVerticesBuilder textureVerticesBuilder,
+							  TextureFileHandler textureFileHandler,
+							  VerticesBuilder templatesVerticesBuilder) {
 		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new DefaultVerticesBuilder();
 		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new DefaultTextureVerticesBuilder();
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
+		this.templatesVerticesBuilder = templatesVerticesBuilder != null ? templatesVerticesBuilder : new DefaultVerticesBuilder();
 
 		citygml = new CityGMLMarshaller(this);
-		gml = new GMLMarshaller(this);
+		gml = new GMLMarshaller(this, this::getVerticesBuilder);
 
 		xlinkResolver = new GeometryXlinkResolver();
 		appearanceResolver = new AppearanceResolver(defaultTheme, citygml.getAppearanceMarshaller());
 	}
 
 	public CityJSONMarshaller() {
-		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler());
+		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler(), new DefaultVerticesBuilder());
 	}
 	
 	public CityJSON marshal(CityModel src) {
@@ -106,6 +111,14 @@ public class CityJSONMarshaller {
 						appearance.setTextureVertices(textureVertices);
 					}
 				}
+			}
+
+			if (citygml.getCoreMarshaller().hasGeometryTemplates()) {
+				GeometryTemplatesType geometryTemplates = new GeometryTemplatesType();
+				dest.setGeometryTemplates(geometryTemplates);
+
+				geometryTemplates.setTemplates(citygml.getCoreMarshaller().getGeometryTemplates());
+				geometryTemplates.setTemplatesVertices(templatesVerticesBuilder.build());
 			}
 		}
 
@@ -167,4 +180,11 @@ public class CityJSONMarshaller {
 		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 
+	public VerticesBuilder getTemplatesVerticesBuilder() {
+		return templatesVerticesBuilder;
+	}
+
+	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
+		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
+	}
 }

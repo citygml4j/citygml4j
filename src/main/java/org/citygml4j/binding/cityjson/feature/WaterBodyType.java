@@ -69,7 +69,8 @@ public class WaterBodyType extends AbstractCityObjectType {
 		return type == GeometryTypeName.MULTI_LINE_STRING
 				|| type == GeometryTypeName.MULTI_SURFACE
 				|| type == GeometryTypeName.COMPOSITE_SURFACE
-				|| type == GeometryTypeName.SOLID;
+				|| type == GeometryTypeName.SOLID
+				|| type == GeometryTypeName.COMPOSITE_SOLID;
 	}
 
 }

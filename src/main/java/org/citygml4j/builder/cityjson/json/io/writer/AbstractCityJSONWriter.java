@@ -39,7 +39,10 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
 		
-		marshaller = new CityJSONMarshaller(factory.verticesBuilder, factory.textureVerticesBuilder, factory.textureFileHandler);	
+		marshaller = new CityJSONMarshaller(factory.verticesBuilder,
+				factory.textureVerticesBuilder,
+				factory.textureFileHandler,
+				factory.templatesVerticesBuilder);
 		GsonBuilder builder = new GsonBuilder().setDateFormat("yyyy-MM-dd");
 		
 		// apply transformation to vertices

@@ -89,7 +89,7 @@ public class CityObjectGroupType extends AbstractCityObjectType {
 
     @Override
     public boolean isValidGeometryType(GeometryTypeName type) {
-        return true;
+        return type != GeometryTypeName.GEOMETRY_INSTANCE;
     }
 
 }

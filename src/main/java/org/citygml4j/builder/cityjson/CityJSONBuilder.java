@@ -36,8 +36,11 @@ public class CityJSONBuilder {
 		return new CityJSONMarshaller();
 	}
 	
-	public CityJSONMarshaller createCityJSONMarshaller(VerticesBuilder verticesBuilder, TextureVerticesBuilder textureVerticesBuilder, TextureFileHandler textureFileHandler) {
-		return new CityJSONMarshaller(verticesBuilder, textureVerticesBuilder, textureFileHandler);
+	public CityJSONMarshaller createCityJSONMarshaller(VerticesBuilder verticesBuilder,
+													   TextureVerticesBuilder textureVerticesBuilder,
+													   TextureFileHandler textureFileHandler,
+													   VerticesBuilder templatesVerticesBuilder) {
+		return new CityJSONMarshaller(verticesBuilder, textureVerticesBuilder, textureFileHandler, templatesVerticesBuilder);
 	}
 	
 	public CityJSONInputFactory createCityJSONInputFactory() throws CityJSONBuilderException {

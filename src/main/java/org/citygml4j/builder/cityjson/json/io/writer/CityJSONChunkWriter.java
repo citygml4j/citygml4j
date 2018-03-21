@@ -24,8 +24,10 @@ import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
+import org.citygml4j.builder.cityjson.marshal.citygml.core.CoreMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -49,6 +51,9 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String MATERIALS = "materials";
 	private final String TEXTURES = "textures";
 	private final String VERTICES_TEXTURE = "vertices-texture";
+	private final String GEOMETRY_TEMPLATES = "geometry-templates";
+	private final String TEMPLATES = "templates";
+	private final String VERTICES_TEMPLATES = "vertices-templates";
 	private final String METADATA = "metadata";
 
 	private DocumentState documentState = DocumentState.INITIAL;
@@ -138,8 +143,6 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
 				if (geometry instanceof AbstractGeometryObjectType)
 					lods.add(((AbstractGeometryObjectType) geometry).getLod());
-
-				// TODO: handle geometry instance
 			}
 
 			writer.name(cityObject.getGmlId());
@@ -200,6 +203,26 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 						writer.name(VERTICES_TEXTURE);
 						gson.toJson(textureVertices, List.class, writer);
 					}
+				}
+
+				writer.endObject();
+			}
+
+			// geometry templates
+			CoreMarshaller coreMarshaller = marshaller.getCityGMLMarshaller().getCoreMarshaller();
+			if (coreMarshaller.hasGeometryTemplates()) {
+				writer.name(GEOMETRY_TEMPLATES);
+				writer.beginObject();
+
+				List<AbstractGeometryObjectType> geometryTemplates = coreMarshaller.getGeometryTemplates();
+				writer.name(TEMPLATES);
+				gson.toJson(geometryTemplates, List.class, writer);
+				geometryTemplates.forEach(g -> lods.add(g.getLod()));
+
+				List<List<Double>> templatesVertices = marshaller.getTemplatesVerticesBuilder().build();
+				if (templatesVertices.size() > 0) {
+					writer.name(VERTICES_TEMPLATES);
+					gson.toJson(templatesVertices, List.class, writer);
 				}
 
 				writer.endObject();

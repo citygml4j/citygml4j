@@ -23,11 +23,12 @@ import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.util.AffineTransform;
+import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;
@@ -40,6 +41,9 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
+import org.citygml4j.model.gml.geometry.primitives.Point;
 import org.citygml4j.model.xal.CountryName;
 import org.citygml4j.model.xal.LocalityName;
 import org.citygml4j.model.xal.PostalCodeNumber;
@@ -50,14 +54,25 @@ import org.citygml4j.util.walker.XALWalker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class CoreMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
+	private final GMLMarshaller implicit;
+
+	private final AtomicInteger templatesIndex = new AtomicInteger(0);
+	private final ConcurrentHashMap<String, Integer> templateIds = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<Integer, AbstractGeometryObjectType> templates = new ConcurrentHashMap<>();
 
 	public CoreMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
+		implicit = new GMLMarshaller(json, json::getTemplatesVerticesBuilder);
 	}
 
 	public List<AbstractCityObjectType> marshal(ModelObject src) {
@@ -120,35 +135,70 @@ public class CoreMarshaller {
 		return dest;
 	}
 
-	public AbstractGeometryObjectType marshalImplicitGeometry(ImplicitGeometry src) {
-		AffineTransform transformer = null;
+	public GeometryInstanceType marshalImplicitGeometry(ImplicitGeometry src, int lod) {
+		// get relative geometry
+		AbstractGeometry relativeGeometry;
+		GeometryProperty<?> property = src.getRelativeGMLGeometry();
 
-		// get transformation matrix
-		Matrix matrix = src.isSetTransformationMatrix() ? src.getTransformationMatrix().getMatrix().copy() : null;
+		if (property.isSetGeometry())
+			relativeGeometry = property.getGeometry();
+		else if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
+			relativeGeometry = (AbstractGeometry)property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK);
+		else
+			return null;
 
-		// add translation
-		if (matrix != null && src.isSetReferencePoint() && src.getReferencePoint().isSetPoint()) {
-			List<Double> point = src.getReferencePoint().getPoint().toList3d();
-			matrix.set(0, 3, matrix.get(0, 3) + point.get(0));
-			matrix.set(1, 3, matrix.get(1, 3) + point.get(1));
-			matrix.set(2, 3, matrix.get(2, 3) + point.get(2));
+		String templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : "UUID_" + UUID.randomUUID().toString();
+		Integer sequenceNumber = templateIds.get(templateId);
+		if (sequenceNumber == null) {
+			int tmp = templatesIndex.getAndIncrement();
+			sequenceNumber = templateIds.putIfAbsent(templateId, tmp);
+			if (sequenceNumber == null) {
+				sequenceNumber = tmp;
+
+				// marshal template geometry
+				AbstractGeometryObjectType template = implicit.marshalGeometryProperty(property);
+				template.setLod(lod);
+				templates.put(sequenceNumber, template);
+			}
 		}
 
-		// create affine transform if required
-		if (matrix != null)
-			transformer = new AffineTransform(matrix);
+		// get transformation matrix and reference point
+		Matrix matrix = src.isSetTransformationMatrix() ? src.getTransformationMatrix().getMatrix().copy() : null;
+		Point referencePoint = src.isSetReferencePoint() && src.getReferencePoint().isSetPoint() ?
+				src.getReferencePoint().getPoint() : null;
 
-		return json.getGMLMarshaller().marshalGeometryProperty(src.getRelativeGMLGeometry(), transformer);
+		if (matrix == null || referencePoint == null)
+			return null;
+
+		// move translation part of transformation matrix to reference point
+		List<Double> coords = referencePoint.toList3d();
+		coords.set(0, coords.get(0) + matrix.get(0, 3));
+		coords.set(1, coords.get(1) + matrix.get(1, 3));
+		coords.set(2, coords.get(2) + matrix.get(2, 3));
+		matrix.set(0, 3, 0);
+		matrix.set(1, 3, 0);
+		matrix.set(2, 3, 0);
+
+		// create new reference point
+		referencePoint = new Point();
+		DirectPosition pos = new DirectPosition();
+		pos.setValue(coords);
+		referencePoint.setPos(pos);
+
+		MultiPointType boundary = json.getGMLMarshaller().marshalPoint(referencePoint);
+		if (boundary == null)
+			return null;
+
+		GeometryInstanceType dest = new GeometryInstanceType();
+		dest.setTemplate(sequenceNumber);
+		dest.setTransformationMatrix(matrix.toRowPackedList());
+		dest.setReferencePoint(boundary.getPoints().get(0));
+
+		return dest;
 	}
 
-	public AbstractGeometryObjectType marshalImplicitRepresentationProperty(ImplicitRepresentationProperty src) {
-		Object dest = null;
-		if (src.isSetImplicitGeometry())
-			dest = marshalImplicitGeometry(src.getImplicitGeometry());
-		else if (src.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
-			dest = marshal((AbstractGeometry)src.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK));
-
-		return dest instanceof AbstractGeometryObjectType ? (AbstractGeometryObjectType)dest : null;
+	public GeometryInstanceType marshalImplicitRepresentationProperty(ImplicitRepresentationProperty src, int lod) {
+		return src.isSetImplicitGeometry() ? marshalImplicitGeometry(src.getImplicitGeometry(), lod) : null;
 	}
 	
 	public void marshalAddress(Address src, AddressType dest) {
@@ -209,6 +259,21 @@ public class CoreMarshaller {
 		marshalAddress(src, dest);
 		
 		return dest;
+	}
+
+	public boolean hasGeometryTemplates() {
+		return !templates.isEmpty();
+	}
+
+	public List<AbstractGeometryObjectType> getGeometryTemplates() {
+		List<AbstractGeometryObjectType> result = templates.entrySet().stream()
+				.sorted(Map.Entry.comparingByKey())
+				.map(Map.Entry::getValue).collect(Collectors.toList());
+
+		templates.clear();
+		templateIds.clear();
+		templatesIndex.set(0);
+		return result;
 	}
 
 }

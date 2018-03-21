@@ -18,6 +18,12 @@
  */
 package org.citygml4j.builder.cityjson.json.io.writer;
 
+import com.google.gson.stream.JsonWriter;
+import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
+import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -29,23 +35,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
-import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
-
-import com.google.gson.stream.JsonWriter;
-
 public class CityJSONOutputFactory {
 	public static final String VERTICES_BUILDER = "org.citygml4j.cityjson.verticesBuilder";
 	public static final String VERTICES_TRANSFORMER = "org.citygml4j.cityjson.verticesTransformer";
 	public static final String TEXTURE_VERTICES_BUILDER = "org.citygml4j.cityjson.textureVerticesBuilder";
 	public static final String TEXTURE_FILE_HANDLER = "org.citygml4j.cityjson.textureFileHandler";
+	public static final String TEMPLATES_VERTICES_BUILDER = "org.citygml4j.cityjson.templatesVerticesBuilder";
 
 	protected VerticesBuilder verticesBuilder;
 	protected VerticesTransformer verticesTransformer;
 	protected TextureVerticesBuilder textureVerticesBuilder;
 	protected TextureFileHandler textureFileHandler;
+	protected VerticesBuilder templatesVerticesBuilder;
 	
 	public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
 		try {
@@ -113,6 +114,14 @@ public class CityJSONOutputFactory {
 		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 
+	public VerticesBuilder getTemplatesVerticesBuilder() {
+		return templatesVerticesBuilder;
+	}
+
+	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
+		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
+	}
+
 	public Object getProperty(String name) {
 		Objects.requireNonNull(name, "property name may not be null.");
 
@@ -124,6 +133,8 @@ public class CityJSONOutputFactory {
 			return textureVerticesBuilder;
 		if (name.equals(TEXTURE_FILE_HANDLER))
 			return textureFileHandler;
+		if (name.equals(TEMPLATES_VERTICES_BUILDER))
+			return templatesVerticesBuilder;
 
 		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
 	}
@@ -156,6 +167,13 @@ public class CityJSONOutputFactory {
 			if (value instanceof TextureFileHandler)
 				textureFileHandler = (TextureFileHandler)value;
 			
+			return;
+		}
+
+		if (name.equals(TEMPLATES_VERTICES_BUILDER)) {
+			if (value instanceof VerticesBuilder)
+				templatesVerticesBuilder = (VerticesBuilder)value;
+
 			return;
 		}
 

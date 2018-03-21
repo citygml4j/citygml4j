@@ -26,6 +26,7 @@ import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
 
@@ -48,6 +49,8 @@ public class CityJSON {
 	private VerticesList vertices = new VerticesList();
 	private TransformType transform;
 	private AppearanceType appearance;
+	@SerializedName("geometry-templates")
+	private GeometryTemplatesType geometryTemplates;
 
 	public String getType() {
 		return type;
@@ -175,6 +178,22 @@ public class CityJSON {
 		appearance = null;
 	}
 
+	public boolean isSetGeometryTemplates() {
+		return geometryTemplates != null;
+	}
+
+	public GeometryTemplatesType getGeometryTemplates() {
+		return geometryTemplates;
+	}
+
+	public void setGeometryTemplates(GeometryTemplatesType geometryTemplates) {
+		this.geometryTemplates = geometryTemplates;
+	}
+
+	public void unsetGeometryTemplates() {
+		geometryTemplates = null;
+	}
+
 	public List<Double> calcBoundingBox() {
 		List<Double> bbox = Arrays.asList(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE,
 				-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE);
@@ -203,9 +222,12 @@ public class CityJSON {
 			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
 				if (geometry instanceof AbstractGeometryObjectType)
 					lods.add(((AbstractGeometryObjectType) geometry).getLod());
-
-				// TODO: handle geometry instance
 			}
+		}
+
+		if (geometryTemplates != null) {
+			for (AbstractGeometryObjectType geometry : geometryTemplates.getTemplates())
+				lods.add(geometry.getLod());
 		}
 		
 		return lods.stream().sorted().collect(Collectors.toList());

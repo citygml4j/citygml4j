@@ -18,18 +18,11 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.generics;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
@@ -44,6 +37,12 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GenericsMarshaller {
 	private final CityJSONMarshaller json;
@@ -89,13 +88,11 @@ public class GenericsMarshaller {
 		if (attributes.hasAttributes())
 			dest.setAttributes(attributes);
 		
-		Map<Integer, GeometryTypeName> geometryTypes = new HashMap<>();
 		if (src.isSetLod0Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0Geometry());
 			if (geometry != null) {
 				geometry.setLod(0);
 				dest.addGeometry(geometry);
-				geometryTypes.put(0, geometry.getType());
 			}
 		}
 		
@@ -104,7 +101,6 @@ public class GenericsMarshaller {
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
-				geometryTypes.put(1, geometry.getType());
 			}
 		}
 		
@@ -113,7 +109,6 @@ public class GenericsMarshaller {
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
-				geometryTypes.put(2, geometry.getType());
 			}
 		}
 		
@@ -122,40 +117,31 @@ public class GenericsMarshaller {
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
-				geometryTypes.put(3, geometry.getType());
 			}
 		}
 		
 		if (src.isSetLod0ImplicitRepresentation()) {
-			AbstractGeometryObjectType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod0ImplicitRepresentation());
-			if (geometry != null && geometryTypes.get(0) != geometry.getType()) {
-				geometry.setLod(0);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod0ImplicitRepresentation(), 0);
+			if (geometry != null)
 				dest.addGeometry(geometry);
-			}
 		}
 		
 		if (src.isSetLod1ImplicitRepresentation()) {
-			AbstractGeometryObjectType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation());
-			if (geometry != null && geometryTypes.get(1) != geometry.getType()) {
-				geometry.setLod(1);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1);
+			if (geometry != null)
 				dest.addGeometry(geometry);
-			}
 		}
 		
 		if (src.isSetLod2ImplicitRepresentation()) {
-			AbstractGeometryObjectType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation());
-			if (geometry != null && geometryTypes.get(2) != geometry.getType()) {
-				geometry.setLod(2);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2);
+			if (geometry != null)
 				dest.addGeometry(geometry);
-			}
 		}
 		
 		if (src.isSetLod3ImplicitRepresentation()) {
-			AbstractGeometryObjectType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation());
-			if (geometry != null && geometryTypes.get(3) != geometry.getType()) {
-				geometry.setLod(3);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3);
+			if (geometry != null)
 				dest.addGeometry(geometry);
-			}
 		}
 	}
 	

@@ -18,6 +18,8 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+
 public class TransportSquareType extends AbstractTransportationComplexType {
 	private final CityObjectTypeName type = CityObjectTypeName.TRANSPOR_SQUARE;
 	
@@ -31,6 +33,12 @@ public class TransportSquareType extends AbstractTransportationComplexType {
 	@Override
 	public CityObjectTypeName getType() {
 		return type;
+	}
+
+	@Override
+	public boolean isValidGeometryType(GeometryTypeName type) {
+		return super.isValidGeometryType(type)
+				|| type == GeometryTypeName.GEOMETRY_INSTANCE;
 	}
 
 }
