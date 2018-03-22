@@ -26,9 +26,12 @@ import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectAttributes
 import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
+import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -79,39 +82,45 @@ public class VegetationUnmarshaller {
 		}
 		
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
+			AbstractGeometry geometry = null;
+			int lod = 0;
+
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometryObject.getLod().intValue();
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
+			}
 
-				if (geometry != null) {
-					int lod = geometryObject.getLod().intValue();
-
-					if (geometry instanceof MultiSurface) {
-						MultiSurface multiSurface = (MultiSurface) geometry;
-						switch (lod) {
-							case 1:
-								dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-							case 2:
-								dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-							case 3:
-								dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-						}
-					} else if (geometry instanceof MultiSolid) {
-						MultiSolid multiSolid = (MultiSolid) geometry;
-						switch (lod) {
-							case 1:
-								dest.setLod1MultiSolid(new MultiSolidProperty(multiSolid));
-								break;
-							case 2:
-								dest.setLod2MultiSolid(new MultiSolidProperty(multiSolid));
-								break;
-							case 3:
-								dest.setLod3MultiSolid(new MultiSolidProperty(multiSolid));
-								break;
-						}
+			if (geometry != null) {
+				if (geometry instanceof MultiSurface) {
+					MultiSurface multiSurface = (MultiSurface) geometry;
+					switch (lod) {
+						case 1:
+							dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 2:
+							dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 3:
+							dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+					}
+				} else if (geometry instanceof MultiSolid) {
+					MultiSolid multiSolid = (MultiSolid) geometry;
+					switch (lod) {
+						case 1:
+							dest.setLod1MultiSolid(new MultiSolidProperty(multiSolid));
+							break;
+						case 2:
+							dest.setLod2MultiSolid(new MultiSolidProperty(multiSolid));
+							break;
+						case 3:
+							dest.setLod3MultiSolid(new MultiSolidProperty(multiSolid));
+							break;
 					}
 				}
 			}
@@ -166,6 +175,23 @@ public class VegetationUnmarshaller {
 							break;
 						case 3:
 							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
+				}
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+
+				if (geometry != null) {
+					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
+						case 1:
+							dest.setLod1ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 2:
+							dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 3:
+							dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
 							break;
 					}
 				}

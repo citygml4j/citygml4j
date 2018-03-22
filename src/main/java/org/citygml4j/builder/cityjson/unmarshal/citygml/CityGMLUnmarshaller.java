@@ -39,7 +39,7 @@ import org.citygml4j.builder.cityjson.unmarshal.citygml.building.BuildingUnmarsh
 import org.citygml4j.builder.cityjson.unmarshal.citygml.cityfurniture.CityFurnitureUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.cityobjectgroup.CityObjectGroupUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.core.CoreUnmarshaller;
-import org.citygml4j.builder.cityjson.unmarshal.citygml.gen.GenericsUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.generics.GenericsUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.landuse.LandUseUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.relief.ReliefUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.transportation.TransportationUnmarshaller;

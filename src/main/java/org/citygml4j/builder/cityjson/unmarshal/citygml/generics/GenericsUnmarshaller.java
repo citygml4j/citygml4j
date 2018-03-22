@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml4j.builder.cityjson.unmarshal.citygml.gen;
+package org.citygml4j.builder.cityjson.unmarshal.citygml.generics;
 
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
@@ -24,9 +24,12 @@ import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
+import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
@@ -97,6 +100,26 @@ public class GenericsUnmarshaller {
 							break;
 						case 3:
 							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
+				}
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+
+				if (geometry != null) {
+					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
+						case 0:
+							dest.setLod1ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 1:
+							dest.setLod1ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 2:
+							dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 3:
+							dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
 							break;
 					}
 				}

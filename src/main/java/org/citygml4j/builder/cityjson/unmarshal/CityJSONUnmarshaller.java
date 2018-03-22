@@ -30,7 +30,8 @@ import java.util.Objects;
 public class CityJSONUnmarshaller {
 	public static final String SURFACE_DATA_ID = "org.citygml4j.appearance.id";
 	public static final String TEXTURE_COORDINATES = "org.citygml4j.textureCoordinates";
-	
+	public static final String GEOMETRY_INSTANCE_LOD = "org.citygml4j.implicitGeometry.lod";
+
 	private final CityGMLUnmarshaller citygml;
 	private final GMLUnmarshaller gml;
 
@@ -55,7 +56,15 @@ public class CityJSONUnmarshaller {
 		if (src.isSetAppearance())
 			citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
 
-		return citygml.getCoreUnmarshaller().unmarshalCityModel(src);
+		if (src.isSetGeometryTemplates())
+			citygml.getCoreUnmarshaller().setGeometryTemplatesInfo(src.getGeometryTemplates());
+
+		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
+
+		if (dest != null && citygml.getCoreUnmarshaller().hasGlobalAppearances())
+			dest.setAppearanceMember(citygml.getCoreUnmarshaller().getGlobalAppearances());
+
+		return dest;
 	}
 	
 	public CityGMLUnmarshaller getCityGMLUnmarshaller() {

@@ -29,6 +29,7 @@ import org.citygml4j.binding.cityjson.feature.BuildingType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
@@ -52,6 +53,8 @@ import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
+import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.DoubleOrNull;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
@@ -211,42 +214,48 @@ public class BuildingUnmarshaller {
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
+			AbstractGeometry geometry = null;
+			int lod = 0;
+
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometryObject.getLod().intValue();
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
+			}
 
-				if (geometry != null) {
-					int lod = geometryObject.getLod().intValue();
-
-					if (geometry instanceof MultiSurface) {
-						MultiSurface multiSurface = (MultiSurface) geometry;
-						switch (lod) {
-							case 0:
-								dest.setLod0FootPrint(new MultiSurfaceProperty(multiSurface));
-								break;
-							case 1:
-								dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-							case 2:
-								dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-							case 3:
-								dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-						}
-					} else if (geometry instanceof AbstractSolid) {
-						AbstractSolid solid = (AbstractSolid) geometry;
-						switch (lod) {
-							case 1:
-								dest.setLod1Solid(new SolidProperty(solid));
-								break;
-							case 2:
-								dest.setLod2Solid(new SolidProperty(solid));
-								break;
-							case 3:
-								dest.setLod3Solid(new SolidProperty(solid));
-								break;
-						}
+			if (geometry != null) {
+				if (geometry instanceof MultiSurface) {
+					MultiSurface multiSurface = (MultiSurface) geometry;
+					switch (lod) {
+						case 0:
+							dest.setLod0FootPrint(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 1:
+							dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 2:
+							dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 3:
+							dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+					}
+				} else if (geometry instanceof AbstractSolid) {
+					AbstractSolid solid = (AbstractSolid) geometry;
+					switch (lod) {
+						case 1:
+							dest.setLod1Solid(new SolidProperty(solid));
+							break;
+						case 2:
+							dest.setLod2Solid(new SolidProperty(solid));
+							break;
+						case 3:
+							dest.setLod3Solid(new SolidProperty(solid));
+							break;
 					}
 				}
 			}
@@ -317,6 +326,20 @@ public class BuildingUnmarshaller {
 							break;
 						case 3:
 							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
+				}
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+
+				if (geometry != null) {
+					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
+						case 2:
+							dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 3:
+							dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
 							break;
 					}
 				}

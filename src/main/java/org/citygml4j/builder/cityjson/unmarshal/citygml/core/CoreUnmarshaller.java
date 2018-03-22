@@ -23,19 +23,41 @@ import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
+import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
+import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.util.AffineTransform;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.geometry.Matrix;
 import org.citygml4j.geometry.Point;
+import org.citygml4j.model.citygml.appearance.AppearanceMember;
+import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
+import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
+import org.citygml4j.model.citygml.generics.GenericCityObject;
+import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
+import org.citygml4j.model.gml.geometry.primitives.Curve;
+import org.citygml4j.model.gml.geometry.primitives.CurveSegmentArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.Envelope;
+import org.citygml4j.model.gml.geometry.primitives.LineString;
+import org.citygml4j.model.gml.geometry.primitives.LineStringSegment;
+import org.citygml4j.model.gml.geometry.primitives.LinearRing;
 import org.citygml4j.model.xal.AddressDetails;
 import org.citygml4j.model.xal.Country;
 import org.citygml4j.model.xal.CountryName;
@@ -46,18 +68,40 @@ import org.citygml4j.model.xal.PostalCodeNumber;
 import org.citygml4j.model.xal.Thoroughfare;
 import org.citygml4j.model.xal.ThoroughfareName;
 import org.citygml4j.model.xal.ThoroughfareNumber;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.FeatureWalker;
+import org.citygml4j.util.walker.GeometryWalker;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class CoreUnmarshaller {
 	private final CityJSONUnmarshaller json;
 	private final CityGMLUnmarshaller citygml;
-	
+
+	private List<AbstractGeometryObjectType> templates;
+	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
+	private GMLUnmarshaller implicit;
+	private AbstractCityObject appearanceContainer;
+	private GMLIdManager gmlIdManager;
+
 	public CoreUnmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
+	}
+
+	public void setGeometryTemplatesInfo(GeometryTemplatesType geometryTemplates) {
+		templates = geometryTemplates.getTemplates();
+		implicit = new GMLUnmarshaller(json);
+		implicit.setVertices(geometryTemplates.getTemplatesVertices());
+
+		templateInfos = new ConcurrentHashMap<>();
+		appearanceContainer = new GenericCityObject();
+		gmlIdManager = DefaultGMLIdManager.getInstance();
 	}
 
 	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) {
@@ -140,7 +184,127 @@ public class CoreUnmarshaller {
 		
 		return dest;
 	}
-	
+
+	public void unmarshalGeometryInstance(GeometryInstanceType src, ImplicitGeometry dest) {
+		// get relative geometry
+		SimpleEntry<String, Integer> templateInfo = templateInfos.get(src.getTemplate());
+		GeometryProperty<AbstractGeometry> property = new GeometryProperty<>();
+
+		if (templateInfo == null) {
+			if (templates != null && templates.size() > src.getTemplate()) {
+				AbstractGeometryObjectType template = templates.get(src.getTemplate());
+				AbstractGeometry geometry = implicit.unmarshal(template, appearanceContainer);
+				if (geometry != null) {
+					geometry.setId(gmlIdManager.generateUUID());
+					property.setGeometry(geometry);
+					dest.setLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD, template.getLod().intValue());
+
+					templateInfos.putIfAbsent(src.getTemplate(), new SimpleEntry<String, Integer>(geometry.getId(), template.getLod().intValue()));
+				}
+			}
+		} else {
+			property.setHref("#" + templateInfo.getKey());
+			dest.setLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD, templateInfo.getValue());
+		}
+
+		dest.setRelativeGeometry(property);
+
+		// get transformation matrix
+		List<Double> transformationMatrix = src.getTransformationMatrix();
+		if (transformationMatrix != null && transformationMatrix.size() > 15) {
+			Matrix matrix = new Matrix(transformationMatrix.subList(0, 16), 4);
+			dest.setTransformationMatrix(new TransformationMatrix4x4(matrix));
+		}
+
+		// get reference point
+		MultiPointType referencePoint = new MultiPointType();
+		referencePoint.addPoint(src.getReferencePoint());
+		MultiPoint multiPoint = json.getGMLUnmarshaller().unmarshalMultiPoint(referencePoint);
+		if (multiPoint != null)
+			dest.setReferencePoint(multiPoint.getPointMember().get(0));
+	}
+
+	public ImplicitGeometry unmarshalGeometryInstance(GeometryInstanceType src) {
+		ImplicitGeometry dest = new ImplicitGeometry();
+		unmarshalGeometryInstance(src, dest);
+
+		return dest;
+	}
+
+	public AbstractGeometry unmarshalAndTransformGeometryInstance(GeometryInstanceType src, AbstractCityObject parent) {
+		if (templates == null || templates.size() <= src.getTemplate())
+			return null;
+
+		// get template geometry
+		AbstractGeometryObjectType template = templates.get(src.getTemplate());
+		AbstractGeometry geometry = implicit.unmarshal(template, parent);
+		if (geometry == null)
+			return null;
+
+		// get transformation matrix and reference point
+		List<Double> transformationMatrix = src.getTransformationMatrix();
+		MultiPointType referencePoint = new MultiPointType();
+		referencePoint.addPoint(src.getReferencePoint());
+		MultiPoint multiPoint = json.getGMLUnmarshaller().unmarshalMultiPoint(referencePoint);
+		if (transformationMatrix == null || transformationMatrix.size() < 16 || multiPoint == null)
+			return null;
+
+		Matrix matrix = new Matrix(transformationMatrix.subList(0, 16), 4);
+		List<Double> point = multiPoint.getPointMember().get(0).getPoint().toList3d();
+		matrix.set(0, 3, matrix.get(0, 3) + point.get(0));
+		matrix.set(1, 3, matrix.get(1, 3) + point.get(1));
+		matrix.set(2, 3, matrix.get(2, 3) + point.get(2));
+
+		// transform geometry
+		AffineTransform transformer = new AffineTransform(matrix);
+		geometry.accept(new GeometryWalker() {
+			public void visit(org.citygml4j.model.gml.geometry.primitives.Point point) {
+				List<Double> vertex = point.toList3d();
+				if (!vertex.isEmpty()) {
+					transformer.transform(vertex);
+					point.getPos().setValue(vertex);
+				}
+			}
+
+			public void visit(LineString lineString) {
+				List<Double> vertices = lineString.toList3d();
+				if (!vertices.isEmpty()) {
+					transformer.transform(vertices);
+					lineString.getPosList().setValue(vertices);
+				}
+			}
+
+			public void visit(Curve curve) {
+				if (curve.isSetSegments()) {
+					CurveSegmentArrayProperty arrayProperty = curve.getSegments();
+					if (arrayProperty.isSetCurveSegment()) {
+						for (AbstractCurveSegment abstractCurveSegment : arrayProperty.getCurveSegment()) {
+							if (abstractCurveSegment.getGMLClass() == GMLClass.LINE_STRING_SEGMENT) {
+								List<Double> vertices = ((LineStringSegment)abstractCurveSegment).toList3d();
+								if (!vertices.isEmpty()) {
+									transformer.transform(vertices);
+									((LineStringSegment)abstractCurveSegment).getPosList().setValue(vertices);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			public void visit(LinearRing linearRing) {
+				List<Double> vertices = linearRing.toList3d();
+				if (!vertices.isEmpty()) {
+					transformer.transform(vertices);
+					linearRing.getPosList().setValue(vertices);
+				}
+			}
+		});
+
+
+		geometry.setLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD, template.getLod().intValue());
+		return geometry;
+	}
+
 	public void unmarshalAddress(AddressType src, Address dest) {		
 		AddressDetails addressDetails = new AddressDetails();		
 		Country country = new Country();
@@ -192,6 +356,21 @@ public class CoreUnmarshaller {
 		unmarshalAddress(src, dest);
 		
 		return dest;
+	}
+
+	public boolean hasGlobalAppearances() {
+		return appearanceContainer.isSetAppearance();
+	}
+
+	public List<AppearanceMember> getGlobalAppearances() {
+		List<AppearanceMember> result = appearanceContainer.getAppearance().stream()
+				.map(AppearanceProperty::getAppearance)
+				.map(AppearanceMember::new)
+				.collect(Collectors.toList());
+
+		templateInfos.clear();
+		appearanceContainer.unsetAppearance();
+		return result;
 	}
 	
 }

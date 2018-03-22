@@ -49,6 +49,8 @@ import org.citygml4j.model.xal.LocalityName;
 import org.citygml4j.model.xal.PostalCodeNumber;
 import org.citygml4j.model.xal.ThoroughfareName;
 import org.citygml4j.model.xal.ThoroughfareNumber;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.XALWalker;
 
 import java.util.ArrayList;
@@ -68,6 +70,7 @@ public class CoreMarshaller {
 	private final AtomicInteger templatesIndex = new AtomicInteger(0);
 	private final ConcurrentHashMap<String, Integer> templateIds = new ConcurrentHashMap<>();
 	private final ConcurrentHashMap<Integer, AbstractGeometryObjectType> templates = new ConcurrentHashMap<>();
+	private final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 
 	public CoreMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
@@ -147,7 +150,7 @@ public class CoreMarshaller {
 		else
 			return null;
 
-		String templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : "UUID_" + UUID.randomUUID().toString();
+		String templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : gmlIdManager.generateUUID();
 		Integer sequenceNumber = templateIds.get(templateId);
 		if (sequenceNumber == null) {
 			int tmp = templatesIndex.getAndIncrement();
@@ -171,10 +174,10 @@ public class CoreMarshaller {
 			return null;
 
 		// move translation part of transformation matrix to reference point
-		List<Double> coords = referencePoint.toList3d();
-		coords.set(0, coords.get(0) + matrix.get(0, 3));
-		coords.set(1, coords.get(1) + matrix.get(1, 3));
-		coords.set(2, coords.get(2) + matrix.get(2, 3));
+		List<Double> vertex = referencePoint.toList3d();
+		vertex.set(0, vertex.get(0) + matrix.get(0, 3));
+		vertex.set(1, vertex.get(1) + matrix.get(1, 3));
+		vertex.set(2, vertex.get(2) + matrix.get(2, 3));
 		matrix.set(0, 3, 0);
 		matrix.set(1, 3, 0);
 		matrix.set(2, 3, 0);
@@ -182,7 +185,7 @@ public class CoreMarshaller {
 		// create new reference point
 		referencePoint = new Point();
 		DirectPosition pos = new DirectPosition();
-		pos.setValue(coords);
+		pos.setValue(vertex);
 		referencePoint.setPos(pos);
 
 		MultiPointType boundary = json.getGMLMarshaller().marshalPoint(referencePoint);

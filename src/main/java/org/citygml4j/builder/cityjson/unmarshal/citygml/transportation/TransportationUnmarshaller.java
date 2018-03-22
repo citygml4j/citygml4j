@@ -28,6 +28,7 @@ import org.citygml4j.binding.cityjson.feature.TransportationComplexAttributes;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.AbstractSurfaceCollectionType;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
@@ -43,6 +44,7 @@ import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
@@ -129,13 +131,24 @@ public class TransportationUnmarshaller {
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			if (geometryType instanceof AbstractSurfaceCollectionType) {
-				AbstractSurfaceCollectionType surfaceType = (AbstractSurfaceCollectionType)geometryType;
-				MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest);
+			MultiSurface multiSurface = null;
+			int lod = 0;
 
-				if (multiSurface != null) {
-					int lod = surfaceType.getLod().intValue();
-					switch (lod) {
+			if (geometryType instanceof AbstractSurfaceCollectionType) {
+				AbstractSurfaceCollectionType surfaceType = (AbstractSurfaceCollectionType) geometryType;
+				multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest);
+				lod = surfaceType.getLod().intValue();
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				AbstractGeometry geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				if (geometry instanceof MultiSurface) {
+					multiSurface = (MultiSurface)geometry;
+					lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
+				}
+			}
+
+			if (multiSurface != null) {
+				switch (lod) {
 					case 1:
 						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
 						break;
@@ -145,9 +158,8 @@ public class TransportationUnmarshaller {
 					case 3:
 						dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
 						break;
-					}
 				}
-			}	
+			}
 		}
 	}
 

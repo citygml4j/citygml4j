@@ -24,10 +24,13 @@ import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.ImplicitGeometry;
+import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -79,6 +82,23 @@ public class CityFurnitureUnmarshaller {
 							break;
 						case 3:
 							dest.setLod3Geometry(new GeometryProperty<>(geometry));
+							break;
+					}
+				}
+			} else if (geometryType instanceof GeometryInstanceType) {
+				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+
+				if (geometry != null) {
+					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
+						case 1:
+							dest.setLod1ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 2:
+							dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+							break;
+						case 3:
+							dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
 							break;
 					}
 				}

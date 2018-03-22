@@ -381,7 +381,7 @@ public class GMLMarshaller {
 			if (curve.isSetSegments()) {
 				CurveSegmentArrayProperty arrayProperty = curve.getSegments();
 				if (arrayProperty.isSetCurveSegment()) {
-					List<Double> vertices = new ArrayList<Double>();
+					List<Double> vertices = new ArrayList<>();
 					for (AbstractCurveSegment abstractCurveSegment : arrayProperty.getCurveSegment()) {
 						if (abstractCurveSegment.getGMLClass() == GMLClass.LINE_STRING_SEGMENT) {
 							List<Double> values = ((LineStringSegment)abstractCurveSegment).toList3d();

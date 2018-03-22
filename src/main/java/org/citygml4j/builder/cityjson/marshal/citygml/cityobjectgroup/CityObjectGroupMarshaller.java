@@ -14,6 +14,8 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.util.child.ChildInfo;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.FeatureFunctionWalker;
 import org.citygml4j.util.walker.FeatureWalker;
 
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 public class CityObjectGroupMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
+	private final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 
 	public CityObjectGroupMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
@@ -85,7 +88,7 @@ public class CityObjectGroupMarshaller {
 				if (property.isSetCityObject()) {
 					AbstractCityObject cityObject = property.getCityObject();
 					if (!cityObject.isSetId())
-						cityObject.setId("UUID_" + UUID.randomUUID().toString());
+						cityObject.setId(gmlIdManager.generateUUID());
 
 					String gmlId = cityObject.getId();
 					List<AbstractCityObjectType> members = citygml.marshal(property.getCityObject());
