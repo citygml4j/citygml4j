@@ -74,6 +74,7 @@ import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.util.walker.GeometryWalker;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -82,21 +83,21 @@ import java.util.stream.Collectors;
 public class CoreUnmarshaller {
 	private final CityJSONUnmarshaller json;
 	private final CityGMLUnmarshaller citygml;
+	private final GMLUnmarshaller implicit;
 
 	private List<AbstractGeometryObjectType> templates;
 	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
-	private GMLUnmarshaller implicit;
 	private AbstractCityObject appearanceContainer;
 	private GMLIdManager gmlIdManager;
 
 	public CoreUnmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
+		implicit = new GMLUnmarshaller(json);
 	}
 
 	public void setGeometryTemplatesInfo(GeometryTemplatesType geometryTemplates) {
 		templates = geometryTemplates.getTemplates();
-		implicit = new GMLUnmarshaller(json);
 		implicit.setVertices(geometryTemplates.getTemplatesVertices());
 
 		templateInfos = new ConcurrentHashMap<>();
@@ -359,17 +360,24 @@ public class CoreUnmarshaller {
 	}
 
 	public boolean hasGlobalAppearances() {
-		return appearanceContainer.isSetAppearance();
+		return appearanceContainer != null && appearanceContainer.isSetAppearance();
 	}
 
 	public List<AppearanceMember> getGlobalAppearances() {
-		List<AppearanceMember> result = appearanceContainer.getAppearance().stream()
-				.map(AppearanceProperty::getAppearance)
-				.map(AppearanceMember::new)
-				.collect(Collectors.toList());
+		List<AppearanceMember> result;
 
-		templateInfos.clear();
-		appearanceContainer.unsetAppearance();
+		if (hasGlobalAppearances()) {
+			result = appearanceContainer.getAppearance().stream()
+					.map(AppearanceProperty::getAppearance)
+					.map(AppearanceMember::new)
+					.collect(Collectors.toList());
+
+			templates = null;
+			templateInfos = null;
+			appearanceContainer = null;
+		} else
+			result = Collections.emptyList();
+
 		return result;
 	}
 	
