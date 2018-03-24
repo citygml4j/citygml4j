@@ -18,11 +18,7 @@
  */
 package cityjson.citygml2cityjson;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import cityjson.util.SimpleTextureFileHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
@@ -33,7 +29,10 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 
-import cityjson.citygml2cityjson.util.SimpleTextureFileHandler;
+import java.io.File;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SimpleConverter {
 
@@ -61,21 +60,24 @@ public class SimpleConverter {
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityJSON file");
 		CityJSONOutputFactory out = jsonBuilder.createCityJSONOutputFactory();		
 
-		/**
+		/*
 		 * we can use different helpers on the CityJSON output factory such as builders
 		 * for the "vertices" and "vertices-texture" arrays. Especially when converting
 		 * an existing CityGML dataset, it is recommended that you provide your own 
 		 * texture file handler.
 		 * A texture file handler is invoked for every texture image found in the CityGML
-		 * data. Its task is to generate a filename for the "image" property of a CityJSON
-		 * texture object and to possibly copy the image file to the "appearances" folder.
+		 * dataset. Its task is to generate a value for the "image" property of a CityJSON
+		 * texture object and to possibly copy the image file to the target appearance folder.
 		 * If you do not provide your own texture file handler, a default one will be used
-		 * which only adapts the file name for the CityJSON file. 
+		 * that simply takes the <imageURI> value from the CityGML input file as value for the
+		 * "image" property. Note that you should create the target CityJSON file in the same
+		 * folder as the input CityGML file when using the default handler. Otherwise
+		 * "image" property values being relative paths cannot be correctly resolved.
 		 */
 		
-		out.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output/appearances")));
+		out.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
 		
-		/**
+		/*
 		 * citygml4j also supports the transformation of the coordinates of the vertices
 		 * to integer values. This transformation might substantially reduce the size
 		 * of the CityJSON file and thus is a simple but efficient compression method.

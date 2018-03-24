@@ -16,7 +16,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cityjson.citygml2cityjson.util;
+package cityjson.util;
+
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,8 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
-
 public class SimpleTextureFileHandler implements TextureFileHandler {
 	private Path baseDir;
 	private Path targetDir;
@@ -35,46 +35,44 @@ public class SimpleTextureFileHandler implements TextureFileHandler {
 	public SimpleTextureFileHandler(Path baseDir, Path targetDir) throws IOException {
 		this.baseDir = baseDir;
 		this.targetDir = targetDir;
-		
-		if (!Files.exists(targetDir))
-			Files.createDirectories(targetDir);
 	}
 
 	@Override
-	public String getImageFileName(String imageURI) {
-		/** 
-		 * This is a very simple implementation of the TextureFileHandler interface.
-		 * We simply copy the incoming texture image to the target directory. A real
-		 * implementation should consider the following:
-		 * 
-		 * Firstly, the same texture image might be reused by several ParameterizedTexture
-		 * elements in CityGML. So we should make sure not to copy the same image file
-		 * multiple times.
-		 * 
-		 * Secondly, an imageURI may be any URI reference and not just a pointer into the
-		 * local file system. For instance, the imageURI might also reference an HTTP resource. 
-		 * So we should parse the imageURI more carefully.
-		 * 
-		 * Finally, copying the texture images could be done in multiple threads to
-		 * speed up the process.
+	public String getImageURI(String imageURI) {
+		/*
+		  This is a very simple implementation of the TextureFileHandler interface.
+		  We simply copy the incoming texture image to the target directory. A real
+		  implementation should consider the following:
+
+		  Firstly, the same texture image might be reused several times in the input
+		  file. So we should make sure not to copy the same image file multiple times.
+
+		  Secondly, an imageURI may be any URI reference and not just a pointer into the
+		  local file system. For instance, the imageURI might also reference an HTTP resource.
+		  So we should parse the imageURI more carefully.
+
+		  Finally, copying the texture images could be done in multiple threads to
+		  speed up the process.
 		 */
 
 		if (imageURI != null) {
 			try {
-				Path source = Paths.get(imageURI.replace('\\', '/'));
-				if (!source.isAbsolute())
-					source = baseDir.resolve(source);
+				imageURI = imageURI.replace('\\', '/');
+				Path imagePath = Paths.get(imageURI);
 
-				Path fileName = source.getFileName();
-				if (fileName != null) {
-					Path target = targetDir.resolve(fileName);
-					if (!Files.exists(target.getParent()))
-						Files.createDirectories(target.getParent());
+				// simply return imageURI in case it is an absolute path
+				if (imagePath.isAbsolute())
+					return imageURI;
 
-					copy(source, target);
-					return fileName.toString();
-				}
-			} catch (IOException e) {
+				Path source = baseDir.resolve(imagePath).normalize().toAbsolutePath();
+				Path target = targetDir.resolve(imagePath).normalize().toAbsolutePath();
+
+				if (!Files.exists(target.getParent()))
+					Files.createDirectories(target.getParent());
+
+				copy(source, target);
+				return imagePath.toString().replace('\\', '/');
+			} catch (Exception e) {
 				// 
 			}
 		}

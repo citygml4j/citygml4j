@@ -18,11 +18,7 @@
  */
 package cityjson.cityjson2citygml;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import cityjson.util.SimpleTextureFileHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.reader.CityJSONInputFactory;
@@ -34,7 +30,10 @@ import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 
-import cityjson.cityjson2citygml.util.SimpleTextureFileHandler;
+import java.io.File;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CityJSONConverter {
 
@@ -49,18 +48,20 @@ public class CityJSONConverter {
 		System.out.println(df.format(new Date()) + "reading LOD3_Railway.json into main memory");
 		CityJSONInputFactory in = builder.createCityJSONInputFactory();
 
-		/**
+		/*
 		 * When converting an existing CityJSON dataset, it is recommended that you register 
 		 * your own texture file handler with the CityJSON input factory.
 		 * A texture file handler is invoked for every texture image found in the CityJSON
 		 * dataset. Its task is to generate a value for the <imageURI> property of a CityGML
-		 * parameterized texture object and to possibly copy the image file to a target folder.
-		 * If you do not provide your own texture file handler, a default one will be used
-		 * which lets the <imageURI> point to the image file in the "appearances" folder. 
+		 * parameterized texture object and to possibly copy the image file to the target
+		 * appearance folder. If you do not provide your own texture file handler, a default
+		 * one will be used that simply takes the "image" value from the CityJSON input file
+		 * as value for the <imageURI> property. Note that you should create the target CityGML
+		 * file in the same folder as the input CityJSON file when using the default handler.
+		 * Otherwise <imageURI> property values being relative paths cannot be correctly resolved.
 		 */
 
-		in.setTextureFileHandler(new SimpleTextureFileHandler(
-				Paths.get("datasets/appearances"), Paths.get("output"), Paths.get("appearance")));
+		in.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
 
 		CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
 

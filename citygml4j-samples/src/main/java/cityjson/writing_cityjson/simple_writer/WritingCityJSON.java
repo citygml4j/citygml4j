@@ -65,7 +65,7 @@ public class WritingCityJSON {
 		CityGMLContext ctx = CityGMLContext.getInstance();
 		CityJSONBuilder builder = ctx.createCityJSONBuilder();
 
-		/**
+		/*
 		 * let's create some dummy and simple city objects using
 		 * the citygml4j model classes
 		 */
@@ -153,7 +153,7 @@ public class WritingCityJSON {
 		metadata.setDatasetLanguage("en");
 		metadata.setDatasetReferenceDate(Date.from(Instant.now()));
 
-		/**
+		/*
 		 * Now we are ready to write the citygml4j object tree as CityJSON.
 		 * Similar to writing a CityGML file, you simply have to create a
 		 * CityJSON output factory and use it to create a CityJSON writer.
@@ -174,7 +174,7 @@ public class WritingCityJSON {
 
 		System.out.println(df.format(new Date()) + "CityJSON file SimpleCityJSON.json written");
 
-		/**
+		/*
 		 * And we easily can write the same citygml4j object tree as CityGML... 
 		 */
 

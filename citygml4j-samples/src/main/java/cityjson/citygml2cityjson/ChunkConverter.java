@@ -38,7 +38,7 @@ public class ChunkConverter {
 
 	public static void main(String[] args) throws Exception {
 		
-		/**
+		/*
 		 * This example demonstrates how to write a CityJSON file chunk-wise.
 		 * Note that the chunk-wise approach faces some limitations in CityJSON v0.5:
 		 * 
@@ -75,7 +75,7 @@ public class ChunkConverter {
 		CityJSONBuilder jsonBuilder = ctx.createCityJSONBuilder();
 		CityJSONOutputFactory out = jsonBuilder.createCityJSONOutputFactory();
 		
-		/**
+		/*
 		 * we can use different helpers on the CityJSON output factory such as builders
 		 * for the "vertices" and "vertices-texture" arrays. citygml4j provides default
 		 * builders for both arrays, but you may also implement your own builders.

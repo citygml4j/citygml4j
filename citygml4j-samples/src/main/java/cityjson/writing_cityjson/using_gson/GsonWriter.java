@@ -64,7 +64,7 @@ public class GsonWriter {
 				.setDateFormat("yyyy-MM-dd")
 				.create();
 		
-		/**
+		/*
 		 * step 1: create an LOD2 building using the Gson binding classes for CityJSON
 		 */
 		System.out.println(df.format(new Date()) + "creating LOD2 building as Gson in-memory object tree");
@@ -147,7 +147,7 @@ public class GsonWriter {
 		metadata.setDatasetTitle("LOD2 building created with citygml4j");
 		cityJSON.setMetadata(metadata);
 
-		/**
+		/*
 		 * step 2: write the CityJSON object to a file
 		 */
 		System.out.println(df.format(new Date()) + "writing Gson object tree as CityJSON file");
@@ -161,7 +161,7 @@ public class GsonWriter {
 		
 		System.out.println(df.format(new Date()) + "CityJSON file LOD2_Building.json written");
 		
-		/**
+		/*
 		 * setp 3: let's also create a CityGML representation
 		 * This is just to again demonstrate the simple conversion from CityJSON to CityGML
 		 */

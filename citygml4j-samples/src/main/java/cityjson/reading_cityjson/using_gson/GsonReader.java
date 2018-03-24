@@ -77,7 +77,7 @@ public class GsonReader {
 			while (iter.hasNext()) {
 				AbstractCityObjectType cityObject = iter.next();
 
-				// firstly, remove all city objects that are related to buildings
+				// firstly, remove all city objects but buildings
 				if (cityObject.getType() != CityObjectTypeName.BUILDING
 						&& cityObject.getType() != CityObjectTypeName.BUILDING_PART
 						&& cityObject.getType() != CityObjectTypeName.BUILDING_INSTALLATION) {

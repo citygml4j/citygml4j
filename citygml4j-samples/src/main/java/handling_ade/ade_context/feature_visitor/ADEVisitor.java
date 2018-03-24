@@ -38,7 +38,7 @@ public class ADEVisitor {
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		/**
+		/*
 		 * For using ADE modules implemented against the ADEContext interface, 
 		 * please apply the following steps:
 		 * 
