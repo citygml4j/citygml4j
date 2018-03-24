@@ -300,8 +300,7 @@ public class CoreUnmarshaller {
 				}
 			}
 		});
-
-
+		
 		geometry.setLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD, template.getLod().intValue());
 		return geometry;
 	}
