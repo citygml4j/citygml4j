@@ -19,7 +19,7 @@
 package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
-import org.citygml4j.builder.cityjson.marshal.util.TextureFileHandler;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;

@@ -55,7 +55,7 @@ public class AppearanceMarshaller {
 
 	public void marshalParameterizedTexture(ParameterizedTexture src, TextureType dest) {
 		if (src.isSetImageURI()) {
-			String fileName = json.getTextureFileHandler().getImageFileName(src.getImageURI());
+			String fileName = json.getTextureFileHandler().getImageURI(src.getImageURI());
 			if (fileName == null)
 				return;
 			

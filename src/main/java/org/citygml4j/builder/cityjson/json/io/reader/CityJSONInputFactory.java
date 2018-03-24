@@ -27,9 +27,9 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
-import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
 
 import com.google.gson.stream.JsonReader;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 
 public class CityJSONInputFactory {
 	public static final String TEXTURE_FILE_HANDLER = "org.citygml4j.cityjson.textureFileHandler";

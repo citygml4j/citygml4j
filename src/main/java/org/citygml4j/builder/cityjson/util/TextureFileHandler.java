@@ -16,8 +16,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml4j.builder.cityjson.marshal.util;
+package org.citygml4j.builder.cityjson.util;
 
 public interface TextureFileHandler {
-	public String getImageFileName(String imageURI);
+	public String getImageURI(String imageURI);
 }

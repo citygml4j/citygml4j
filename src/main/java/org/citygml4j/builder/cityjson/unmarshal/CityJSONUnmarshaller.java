@@ -21,8 +21,8 @@ package org.citygml4j.builder.cityjson.unmarshal;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
-import org.citygml4j.builder.cityjson.unmarshal.util.DefaultTextureFileHandler;
-import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
+import org.citygml4j.builder.cityjson.util.DefaultTextureFileHandler;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.model.citygml.core.CityModel;
 
 import java.util.Objects;

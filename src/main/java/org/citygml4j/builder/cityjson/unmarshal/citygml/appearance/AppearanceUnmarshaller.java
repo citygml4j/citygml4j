@@ -30,7 +30,7 @@ import org.citygml4j.binding.cityjson.appearance.MaterialType;
 import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.builder.cityjson.unmarshal.util.TextureFileHandler;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
