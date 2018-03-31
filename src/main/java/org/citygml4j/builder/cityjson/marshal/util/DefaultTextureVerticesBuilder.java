@@ -50,9 +50,7 @@ public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 
 		for (int i = 0; i < vertices.size(); i += 2) {
 			List<Double> vertex = vertices.subList(i, i + 2);
-			String key = new StringBuilder()
-					.append(round(vertex.get(0)))
-					.append(round(vertex.get(1))).toString();
+			String key = round(vertex.get(0)) + round(vertex.get(1));
 			
 			Integer index = indexes.get(key);
 			if (index == null) {

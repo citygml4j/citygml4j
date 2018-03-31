@@ -26,7 +26,7 @@ public class DefaultVerticesTransformer implements VerticesTransformer {
 		// calculate translation as minimum x, y, z
 		for (List<Double> vertex : vertices) {
 			for (int i = 0; i < vertex.size(); i++) {
-				double value = vertex.get(i).doubleValue();
+				double value = vertex.get(i);
 				if (value < translate[i])
 					translate[i] = value;
 			}
@@ -42,7 +42,7 @@ public class DefaultVerticesTransformer implements VerticesTransformer {
 		scale = 1 / scale;
 		TransformType transform = new TransformType();
 		transform.setTranslate(Arrays.asList(translate));		
-		transform.setScale(Arrays.asList(new Double[] {scale, scale, scale}));
+		transform.setScale(Arrays.asList(scale, scale, scale));
 		
 		return transform;
 	}

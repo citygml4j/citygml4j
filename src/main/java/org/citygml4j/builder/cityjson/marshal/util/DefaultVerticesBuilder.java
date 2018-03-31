@@ -50,10 +50,7 @@ public class DefaultVerticesBuilder implements VerticesBuilder {
 
 		for (int i = 0; i < vertices.size(); i += 3) {
 			List<Double> vertex = vertices.subList(i, i + 3);
-			String key = new StringBuilder()
-					.append(round(vertex.get(0)))
-					.append(round(vertex.get(1)))
-					.append(round(vertex.get(2))).toString();
+			String key = round(vertex.get(0)) + round(vertex.get(1)) + round(vertex.get(2));
 			
 			Integer index = indexes.get(key);
 			if (index == null) {
