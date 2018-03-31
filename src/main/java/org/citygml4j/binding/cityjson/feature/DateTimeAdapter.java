@@ -39,7 +39,8 @@ public class DateTimeAdapter implements JsonSerializer<ZonedDateTime>, JsonDeser
     @Override
     public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context) {
         // return "date-time" only if the time is not set to start of day
-        DateTimeFormatter formatter = src.toLocalTime().equals(LocalTime.MIN) ? DateTimeFormatter.ISO_LOCAL_DATE : this.formatter;
+        DateTimeFormatter formatter = src.toLocalTime().equals(LocalTime.MIN) ?
+                DateTimeFormatter.ISO_LOCAL_DATE : DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         return new JsonPrimitive(src.format(formatter));
     }
 
