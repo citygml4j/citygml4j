@@ -18,18 +18,8 @@
  */
 package cityjson.writing_cityjson.using_gson;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonWriter;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.BuildingAttributes;
@@ -48,9 +38,17 @@ import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class GsonWriter {
 
@@ -60,9 +58,7 @@ public class GsonWriter {
 		// creating a Gson instance. Note that we have to define the
 		// date format as specified by CityJSON
 		System.out.println(df.format(new Date()) + "setting up Gson builder");
-		Gson gson = new GsonBuilder()
-				.setDateFormat("yyyy-MM-dd")
-				.create();
+		Gson gson = new Gson();
 		
 		/*
 		 * step 1: create an LOD2 building using the Gson binding classes for CityJSON
@@ -78,7 +74,7 @@ public class GsonWriter {
 		
 		// add some attributes
 		BuildingAttributes attributes = new BuildingAttributes();
-		attributes.setCreationDate(Date.from(Instant.now()));
+		attributes.setCreationDate(LocalDate.now());
 		attributes.setClazz("residential building");
 		attributes.addGenericAttribute("noOfInhabitants", 5);
 		building.setAttributes(attributes);

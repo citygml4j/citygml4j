@@ -18,8 +18,13 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
+import com.google.gson.annotations.JsonAdapter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MetadataType {
@@ -27,12 +32,14 @@ public class MetadataType {
 	private List<Double> bbox;
 	private List<String> keywords;
 	private String datasetTitle;
-	private Date datasetReferenceDate;
+	@JsonAdapter(DateTimeAdapter.class)
+	private ZonedDateTime datasetReferenceDate;
 	private String geographicLocation;
 	private String datasetLanguage;
 	private String datasetTopicCategory;
 	private String datasetAbstract;
-	private Date metadataDateStamp;
+	@JsonAdapter(DateTimeAdapter.class)
+	private ZonedDateTime metadataDateStamp;
 	private String pointOfContact;
 	private String copyright;
 	private List<Number> presentLoDs;
@@ -120,12 +127,20 @@ public class MetadataType {
 		return datasetReferenceDate != null;
 	}
 
-	public Date getDatasetReferenceDate() {
+	public ZonedDateTime getDatasetReferenceDate() {
 		return datasetReferenceDate;
 	}
 
-	public void setDatasetReferenceDate(Date datasetReferenceDate) {
+	public void setDatasetReferenceDate(ZonedDateTime datasetReferenceDate) {
 		this.datasetReferenceDate = datasetReferenceDate;
+	}
+
+	public void setDatasetReferenceDate(LocalDate datasetReferenceDate) {
+		this.datasetReferenceDate = datasetReferenceDate.atStartOfDay(ZoneId.systemDefault());
+	}
+
+	public void setDatasetReferenceDate(LocalDateTime datasetReferenceDate) {
+		this.datasetReferenceDate = datasetReferenceDate.atZone(ZoneId.systemDefault());
 	}
 
 	public void unsetDatasetReferenceDate() {
@@ -200,12 +215,20 @@ public class MetadataType {
 		return metadataDateStamp != null;
 	}
 
-	public Date getMetadataDateStamp() {
+	public ZonedDateTime getMetadataDateStamp() {
 		return metadataDateStamp;
 	}
 
-	public void setMetadataDateStamp(Date metadataDateStamp) {
+	public void setMetadataDateStamp(ZonedDateTime metadataDateStamp) {
 		this.metadataDateStamp = metadataDateStamp;
+	}
+
+	public void setMetadataDateStamp(LocalDate metadataDateStamp) {
+		this.metadataDateStamp = metadataDateStamp.atStartOfDay(ZoneId.systemDefault());
+	}
+
+	public void setMetadataDateStamp(LocalDateTime metadataDateStamp) {
+		this.metadataDateStamp = metadataDateStamp.atZone(ZoneId.systemDefault());
 	}
 
 	public void unsetMetadataDateStamp() {

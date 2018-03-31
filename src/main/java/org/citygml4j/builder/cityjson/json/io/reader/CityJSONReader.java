@@ -45,7 +45,7 @@ public class CityJSONReader implements AutoCloseable {
 	public CityJSONReader(JsonReader reader, CityJSONInputFactory factory) {
 		this.reader = reader;
 		
-		builder = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		builder = new GsonBuilder();
 		unmarshaller = new CityJSONUnmarshaller(factory.textureFileHandler);
 	}
 

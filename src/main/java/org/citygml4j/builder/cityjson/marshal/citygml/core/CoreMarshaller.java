@@ -57,7 +57,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -90,10 +89,10 @@ public class CoreMarshaller {
 			dest.setBBox(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
 		if (src.isSetCreationDate())
-			attributes.setCreationDate(src.getCreationDate().getTime());
+			attributes.setCreationDate(src.getCreationDate().toZonedDateTime());
 
 		if (src.isSetTerminationDate())
-			attributes.setTerminationDate(src.getTerminationDate().getTime());
+			attributes.setTerminationDate(src.getTerminationDate().toZonedDateTime());
 
 		if (src.isSetGenericAttribute())
 			citygml.getGenericsMarshaller().marshalGenericAttributes(src.getGenericAttribute(), attributes);

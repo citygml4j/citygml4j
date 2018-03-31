@@ -122,18 +122,12 @@ public class CoreUnmarshaller {
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
 			
-			if (attributes.isSetCreationDate()) {
-				GregorianCalendar creationDate = new GregorianCalendar();
-				creationDate.setTime(attributes.getCreationDate());
-				dest.setCreationDate(creationDate);
-			}
-			
-			if (attributes.isSetTerminationDate()) {
-				GregorianCalendar terminationDate = new GregorianCalendar();
-				terminationDate.setTime(attributes.getCreationDate());
-				dest.setTerminationDate(terminationDate);
-			}
-			
+			if (attributes.isSetCreationDate())
+				dest.setCreationDate(GregorianCalendar.from(attributes.getCreationDate()));
+
+			if (attributes.isSetTerminationDate())
+				dest.setTerminationDate(GregorianCalendar.from(attributes.getTerminationDate()));
+
 			if (attributes.isSetGenericAttributes())
 				citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(attributes, dest);
 		}

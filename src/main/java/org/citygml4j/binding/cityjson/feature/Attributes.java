@@ -18,19 +18,25 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Attributes {
-	private Date creationDate;
-	private Date terminationDate;
+	@JsonAdapter(DateTimeAdapter.class)
+	private ZonedDateTime creationDate;
+	@JsonAdapter(DateTimeAdapter.class)
+	private ZonedDateTime terminationDate;
 	@SerializedName("class")
 	private String clazz;
 	private String function;
@@ -42,12 +48,20 @@ public class Attributes {
 		return creationDate != null;
 	}
 
-	public Date getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate.atStartOfDay(ZoneId.systemDefault());
+	}
+
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate.atZone(ZoneId.systemDefault());
 	}
 	
 	public void unsetCreationDate() {
@@ -58,12 +72,20 @@ public class Attributes {
 		return terminationDate != null;
 	}
 
-	public Date getTerminationDate() {
+	public ZonedDateTime getTerminationDate() {
 		return terminationDate;
 	}
 
-	public void setTerminationDate(Date terminationDate) {
+	public void setTerminationDate(ZonedDateTime terminationDate) {
 		this.terminationDate = terminationDate;
+	}
+
+	public void setTerminationDate(LocalDate terminationDate) {
+		this.terminationDate = terminationDate.atStartOfDay(ZoneId.systemDefault());
+	}
+
+	public void setTerminationDate(LocalDateTime terminationDate) {
+		this.terminationDate = terminationDate.atZone(ZoneId.systemDefault());
 	}
 	
 	public void unsetTerminationDate() {

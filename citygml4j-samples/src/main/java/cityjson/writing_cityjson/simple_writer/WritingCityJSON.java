@@ -18,11 +18,6 @@
  */
 package cityjson.writing_cityjson.simple_writer;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.feature.CRSType;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
@@ -55,6 +50,11 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class WritingCityJSON {
 
@@ -151,7 +151,7 @@ public class WritingCityJSON {
 		// add some further metadata tags
 		metadata.setDatasetTitle("CityJSON sample file created with citygml4j");
 		metadata.setDatasetLanguage("en");
-		metadata.setDatasetReferenceDate(Date.from(Instant.now()));
+		metadata.setDatasetReferenceDate(ZonedDateTime.now());
 
 		/*
 		 * Now we are ready to write the citygml4j object tree as CityJSON.

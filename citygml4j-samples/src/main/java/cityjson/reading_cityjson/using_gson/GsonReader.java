@@ -18,13 +18,8 @@
  */
 package cityjson.reading_cityjson.using_gson;
 
-import java.io.File;
-import java.io.FileReader;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
@@ -44,9 +39,12 @@ import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
+import java.io.File;
+import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 
 public class GsonReader {
 
@@ -56,9 +54,7 @@ public class GsonReader {
 		// creating a Gson instance. Note that we have to define the
 		// date format as specified by CityJSON
 		System.out.println(df.format(new Date()) + "setting up Gson builder and reader");
-		Gson gson = new GsonBuilder()
-				.setDateFormat("yyyy-MM-dd")
-				.create();
+		Gson gson = new Gson();
 
 		JsonReader reader = new JsonReader(new FileReader(new File("datasets/LOD3_Railway.json")));
 
