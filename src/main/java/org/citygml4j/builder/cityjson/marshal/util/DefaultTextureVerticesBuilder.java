@@ -84,6 +84,6 @@ public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 	}
 
 	private String round(double value) {
-		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.FLOOR).toString();
+		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP).toString();
 	}
 }
