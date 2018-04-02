@@ -18,13 +18,34 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.tunnel;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConstants;
-
+import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
+import net.opengis.citygml.tunnel._2.AbstractOpeningType;
+import net.opengis.citygml.tunnel._2.AbstractTunnelType;
+import net.opengis.citygml.tunnel._2.BoundarySurfacePropertyType;
+import net.opengis.citygml.tunnel._2.CeilingSurfaceType;
+import net.opengis.citygml.tunnel._2.ClosureSurfaceType;
+import net.opengis.citygml.tunnel._2.DoorType;
+import net.opengis.citygml.tunnel._2.FloorSurfaceType;
+import net.opengis.citygml.tunnel._2.GroundSurfaceType;
+import net.opengis.citygml.tunnel._2.HollowSpaceType;
+import net.opengis.citygml.tunnel._2.IntTunnelInstallationPropertyType;
+import net.opengis.citygml.tunnel._2.IntTunnelInstallationType;
+import net.opengis.citygml.tunnel._2.InteriorFurniturePropertyType;
+import net.opengis.citygml.tunnel._2.InteriorHollowSpacePropertyType;
+import net.opengis.citygml.tunnel._2.InteriorWallSurfaceType;
+import net.opengis.citygml.tunnel._2.ObjectFactory;
+import net.opengis.citygml.tunnel._2.OpeningPropertyType;
+import net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType;
+import net.opengis.citygml.tunnel._2.OuterFloorSurfaceType;
+import net.opengis.citygml.tunnel._2.RoofSurfaceType;
+import net.opengis.citygml.tunnel._2.TunnelFurnitureType;
+import net.opengis.citygml.tunnel._2.TunnelInstallationPropertyType;
+import net.opengis.citygml.tunnel._2.TunnelInstallationType;
+import net.opengis.citygml.tunnel._2.TunnelPartPropertyType;
+import net.opengis.citygml.tunnel._2.TunnelPartType;
+import net.opengis.citygml.tunnel._2.TunnelType;
+import net.opengis.citygml.tunnel._2.WallSurfaceType;
+import net.opengis.citygml.tunnel._2.WindowType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -63,34 +84,10 @@ import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 import org.w3c.dom.Element;
 
-import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
-import net.opengis.citygml.tunnel._2.AbstractOpeningType;
-import net.opengis.citygml.tunnel._2.AbstractTunnelType;
-import net.opengis.citygml.tunnel._2.BoundarySurfacePropertyType;
-import net.opengis.citygml.tunnel._2.CeilingSurfaceType;
-import net.opengis.citygml.tunnel._2.ClosureSurfaceType;
-import net.opengis.citygml.tunnel._2.DoorType;
-import net.opengis.citygml.tunnel._2.FloorSurfaceType;
-import net.opengis.citygml.tunnel._2.GroundSurfaceType;
-import net.opengis.citygml.tunnel._2.HollowSpaceType;
-import net.opengis.citygml.tunnel._2.IntTunnelInstallationPropertyType;
-import net.opengis.citygml.tunnel._2.IntTunnelInstallationType;
-import net.opengis.citygml.tunnel._2.InteriorFurniturePropertyType;
-import net.opengis.citygml.tunnel._2.InteriorHollowSpacePropertyType;
-import net.opengis.citygml.tunnel._2.InteriorWallSurfaceType;
-import net.opengis.citygml.tunnel._2.ObjectFactory;
-import net.opengis.citygml.tunnel._2.OpeningPropertyType;
-import net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType;
-import net.opengis.citygml.tunnel._2.OuterFloorSurfaceType;
-import net.opengis.citygml.tunnel._2.RoofSurfaceType;
-import net.opengis.citygml.tunnel._2.TunnelFurnitureType;
-import net.opengis.citygml.tunnel._2.TunnelInstallationPropertyType;
-import net.opengis.citygml.tunnel._2.TunnelInstallationType;
-import net.opengis.citygml.tunnel._2.TunnelPartPropertyType;
-import net.opengis.citygml.tunnel._2.TunnelPartType;
-import net.opengis.citygml.tunnel._2.TunnelType;
-import net.opengis.citygml.tunnel._2.WallSurfaceType;
-import net.opengis.citygml.tunnel._2.WindowType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConstants;
+import java.time.LocalDate;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Tunnel200Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -201,20 +198,20 @@ public class Tunnel200Marshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) {
-			GregorianCalendar date = src.getYearOfConstruction();
+			LocalDate date = src.getYearOfConstruction();
 			dest.setYearOfConstruction(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetYearOfDemolition()) {
-			GregorianCalendar date = src.getYearOfDemolition();
+			LocalDate date = src.getYearOfDemolition();
 			dest.setYearOfDemolition(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 

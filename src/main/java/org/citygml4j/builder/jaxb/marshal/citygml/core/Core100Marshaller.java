@@ -18,14 +18,21 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.core;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConstants;
-
+import net.opengis.citygml._1.AbstractCityObjectType;
+import net.opengis.citygml._1.AbstractSiteType;
+import net.opengis.citygml._1.AddressPropertyType;
+import net.opengis.citygml._1.AddressType;
+import net.opengis.citygml._1.CityModelType;
+import net.opengis.citygml._1.ExternalObjectReferenceType;
+import net.opengis.citygml._1.ExternalReferenceType;
+import net.opengis.citygml._1.GeneralizationRelationType;
+import net.opengis.citygml._1.ImplicitGeometryType;
+import net.opengis.citygml._1.ImplicitRepresentationPropertyType;
+import net.opengis.citygml._1.ObjectFactory;
+import net.opengis.citygml._1.XalAddressPropertyType;
+import net.opengis.citygml.appearance._1.AppearancePropertyType;
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.gml.FeaturePropertyType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -57,21 +64,11 @@ import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 import org.w3c.dom.Element;
 
-import net.opengis.citygml._1.AbstractCityObjectType;
-import net.opengis.citygml._1.AbstractSiteType;
-import net.opengis.citygml._1.AddressPropertyType;
-import net.opengis.citygml._1.AddressType;
-import net.opengis.citygml._1.CityModelType;
-import net.opengis.citygml._1.ExternalObjectReferenceType;
-import net.opengis.citygml._1.ExternalReferenceType;
-import net.opengis.citygml._1.GeneralizationRelationType;
-import net.opengis.citygml._1.ImplicitGeometryType;
-import net.opengis.citygml._1.ImplicitRepresentationPropertyType;
-import net.opengis.citygml._1.ObjectFactory;
-import net.opengis.citygml._1.XalAddressPropertyType;
-import net.opengis.citygml.appearance._1.AppearancePropertyType;
-import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
-import net.opengis.gml.FeaturePropertyType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConstants;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Core100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -143,20 +140,20 @@ public class Core100Marshaller {
 		jaxb.getGMLMarshaller().marshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate()) {
-			GregorianCalendar date = src.getCreationDate();
+			ZonedDateTime date = src.getCreationDate();
 			dest.setCreationDate(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetTerminationDate()) {
-			GregorianCalendar date = src.getTerminationDate();
+			ZonedDateTime date = src.getTerminationDate();
 			dest.setTerminationDate(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 

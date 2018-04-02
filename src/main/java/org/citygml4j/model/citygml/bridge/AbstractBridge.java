@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.citygml.bridge;
 
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -41,13 +38,16 @@ import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public abstract class AbstractBridge extends AbstractSite implements BridgeModuleComponent, StandardObjectClassifier {
 	private Code clazz;
 	private List<Code> function;
 	private List<Code> usage;
 	private Boolean isMovable;
-	private GregorianCalendar yearOfConstruction;
-	private GregorianCalendar yearOfDemolition;
+	private LocalDate yearOfConstruction;
+	private LocalDate yearOfDemolition;
 	private SolidProperty lod1Solid;
 	private SolidProperty lod2Solid;
 	private SolidProperty lod3Solid;
@@ -289,11 +289,11 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		return outerBridgeConstructionElement;
 	}
 
-	public GregorianCalendar getYearOfConstruction() {
+	public LocalDate getYearOfConstruction() {
 		return yearOfConstruction;
 	}
 
-	public GregorianCalendar getYearOfDemolition() {
+	public LocalDate getYearOfDemolition() {
 		return yearOfDemolition;
 	}
 
@@ -566,20 +566,20 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		this.outerBridgeConstructionElement = new ChildList<BridgeConstructionElementProperty>(this, outerBridgeConstructionElement);
 	}
 
-	public void setYearOfConstruction(GregorianCalendar yearOfConstruction) {
+	public void setYearOfConstruction(LocalDate yearOfConstruction) {
 		this.yearOfConstruction = yearOfConstruction;
 	}
 	
 	public void setYearOfConstruction(int yearOfConstruction) {
-		this.yearOfConstruction = new GregorianCalendar(yearOfConstruction, 0, 1);
+		this.yearOfConstruction = LocalDate.of(yearOfConstruction, 1, 1);
 	}
 
-	public void setYearOfDemolition(GregorianCalendar yearOfDemolition) {
+	public void setYearOfDemolition(LocalDate yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
 	}
 	
 	public void setYearOfDemolition(int yearOfDemolition) {
-		this.yearOfDemolition = new GregorianCalendar(yearOfDemolition, 0, 1);
+		this.yearOfDemolition = LocalDate.of(yearOfDemolition, 1, 1);
 	}
 
 	public void unsetAddress() {
@@ -1047,10 +1047,10 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		}
 		
 		if (isSetYearOfConstruction())
-			copy.setYearOfConstruction((GregorianCalendar)copyBuilder.copy(yearOfConstruction));
+			copy.setYearOfConstruction((LocalDate)copyBuilder.copy(yearOfConstruction));
 		
 		if (isSetYearOfDemolition())
-			copy.setYearOfDemolition((GregorianCalendar)copyBuilder.copy(yearOfDemolition));
+			copy.setYearOfDemolition((LocalDate)copyBuilder.copy(yearOfDemolition));
 		
 		if (isSetIsMovable())
 			copy.setIsMovable(copyBuilder.copy(isMovable));

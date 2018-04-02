@@ -18,11 +18,35 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.building;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml._2.AddressPropertyType;
+import net.opengis.citygml.building._2.AbstractBoundarySurfaceType;
+import net.opengis.citygml.building._2.AbstractBuildingType;
+import net.opengis.citygml.building._2.AbstractOpeningType;
+import net.opengis.citygml.building._2.BoundarySurfacePropertyType;
+import net.opengis.citygml.building._2.BuildingFurnitureType;
+import net.opengis.citygml.building._2.BuildingInstallationPropertyType;
+import net.opengis.citygml.building._2.BuildingInstallationType;
+import net.opengis.citygml.building._2.BuildingPartPropertyType;
+import net.opengis.citygml.building._2.BuildingPartType;
+import net.opengis.citygml.building._2.BuildingType;
+import net.opengis.citygml.building._2.CeilingSurfaceType;
+import net.opengis.citygml.building._2.ClosureSurfaceType;
+import net.opengis.citygml.building._2.DoorType;
+import net.opengis.citygml.building._2.FloorSurfaceType;
+import net.opengis.citygml.building._2.GroundSurfaceType;
+import net.opengis.citygml.building._2.IntBuildingInstallationPropertyType;
+import net.opengis.citygml.building._2.IntBuildingInstallationType;
+import net.opengis.citygml.building._2.InteriorFurniturePropertyType;
+import net.opengis.citygml.building._2.InteriorRoomPropertyType;
+import net.opengis.citygml.building._2.InteriorWallSurfaceType;
+import net.opengis.citygml.building._2.OpeningPropertyType;
+import net.opengis.citygml.building._2.OuterCeilingSurfaceType;
+import net.opengis.citygml.building._2.OuterFloorSurfaceType;
+import net.opengis.citygml.building._2.RoofSurfaceType;
+import net.opengis.citygml.building._2.RoomType;
+import net.opengis.citygml.building._2.WallSurfaceType;
+import net.opengis.citygml.building._2.WindowType;
+import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -63,35 +87,9 @@ import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml._2.AddressPropertyType;
-import net.opengis.citygml.building._2.AbstractBoundarySurfaceType;
-import net.opengis.citygml.building._2.AbstractBuildingType;
-import net.opengis.citygml.building._2.AbstractOpeningType;
-import net.opengis.citygml.building._2.BoundarySurfacePropertyType;
-import net.opengis.citygml.building._2.BuildingFurnitureType;
-import net.opengis.citygml.building._2.BuildingInstallationPropertyType;
-import net.opengis.citygml.building._2.BuildingInstallationType;
-import net.opengis.citygml.building._2.BuildingPartPropertyType;
-import net.opengis.citygml.building._2.BuildingPartType;
-import net.opengis.citygml.building._2.BuildingType;
-import net.opengis.citygml.building._2.CeilingSurfaceType;
-import net.opengis.citygml.building._2.ClosureSurfaceType;
-import net.opengis.citygml.building._2.DoorType;
-import net.opengis.citygml.building._2.FloorSurfaceType;
-import net.opengis.citygml.building._2.GroundSurfaceType;
-import net.opengis.citygml.building._2.IntBuildingInstallationPropertyType;
-import net.opengis.citygml.building._2.IntBuildingInstallationType;
-import net.opengis.citygml.building._2.InteriorFurniturePropertyType;
-import net.opengis.citygml.building._2.InteriorRoomPropertyType;
-import net.opengis.citygml.building._2.InteriorWallSurfaceType;
-import net.opengis.citygml.building._2.OpeningPropertyType;
-import net.opengis.citygml.building._2.OuterCeilingSurfaceType;
-import net.opengis.citygml.building._2.OuterFloorSurfaceType;
-import net.opengis.citygml.building._2.RoofSurfaceType;
-import net.opengis.citygml.building._2.RoomType;
-import net.opengis.citygml.building._2.WallSurfaceType;
-import net.opengis.citygml.building._2.WindowType;
-import net.opengis.gml.CodeType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Building200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -170,10 +168,10 @@ public class Building200Unmarshaller {
 		}
 
 		if (src.isSetYearOfConstruction())
-			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar());
+			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetYearOfDemolition())
-			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
+			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetRoofType())
 			dest.setRoofType(jaxb.getGMLUnmarshaller().unmarshalCode(src.getRoofType()));

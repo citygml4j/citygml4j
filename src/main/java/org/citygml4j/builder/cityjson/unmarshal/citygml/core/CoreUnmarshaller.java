@@ -75,7 +75,6 @@ import org.citygml4j.util.walker.GeometryWalker;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -123,10 +122,10 @@ public class CoreUnmarshaller {
 			Attributes attributes = src.getAttributes();
 			
 			if (attributes.isSetCreationDate())
-				dest.setCreationDate(GregorianCalendar.from(attributes.getCreationDate()));
+				dest.setCreationDate(attributes.getCreationDate());
 
 			if (attributes.isSetTerminationDate())
-				dest.setTerminationDate(GregorianCalendar.from(attributes.getTerminationDate()));
+				dest.setTerminationDate(attributes.getTerminationDate());
 
 			if (attributes.isSetGenericAttributes())
 				citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(attributes, dest);

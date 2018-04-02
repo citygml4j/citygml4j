@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.citygml.building;
 
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -43,12 +40,15 @@ import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public abstract class AbstractBuilding extends AbstractSite implements BuildingModuleComponent, StandardObjectClassifier {
 	private Code clazz;
 	private List<Code> function;
 	private List<Code> usage;
-	private GregorianCalendar yearOfConstruction;
-	private GregorianCalendar yearOfDemolition;
+	private LocalDate yearOfConstruction;
+	private LocalDate yearOfDemolition;
 	private Code roofType;
 	private Length measuredHeight;
 	private Integer storeysAboveGround;
@@ -303,11 +303,11 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		return storeysBelowGround;
 	}
 
-	public GregorianCalendar getYearOfConstruction() {
+	public LocalDate getYearOfConstruction() {
 		return yearOfConstruction;
 	}
 
-	public GregorianCalendar getYearOfDemolition() {
+	public LocalDate getYearOfDemolition() {
 		return yearOfDemolition;
 	}
 
@@ -623,20 +623,20 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			this.storeysBelowGround = storeysBelowGround;
 	}
 
-	public void setYearOfConstruction(GregorianCalendar yearOfConstruction) {
+	public void setYearOfConstruction(LocalDate yearOfConstruction) {
 		this.yearOfConstruction = yearOfConstruction;
 	}
 	
 	public void setYearOfConstruction(int yearOfConstruction) {
-		this.yearOfConstruction = new GregorianCalendar(yearOfConstruction, 0, 1);
+		this.yearOfConstruction = LocalDate.of(yearOfConstruction, 1, 1);
 	}
 
-	public void setYearOfDemolition(GregorianCalendar yearOfDemolition) {
+	public void setYearOfDemolition(LocalDate yearOfDemolition) {
 		this.yearOfDemolition = yearOfDemolition;
 	}
 	
 	public void setYearOfDemolition(int yearOfDemolition) {
-		this.yearOfDemolition = new GregorianCalendar(yearOfDemolition, 0, 1);
+		this.yearOfDemolition = LocalDate.of(yearOfDemolition, 1, 1);
 	}
 
 	public void unsetAddress() {
@@ -1178,10 +1178,10 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		}
 		
 		if (isSetYearOfConstruction())
-			copy.setYearOfConstruction((GregorianCalendar)copyBuilder.copy(yearOfConstruction));
+			copy.setYearOfConstruction((LocalDate)copyBuilder.copy(yearOfConstruction));
 		
 		if (isSetYearOfDemolition())
-			copy.setYearOfDemolition((GregorianCalendar)copyBuilder.copy(yearOfDemolition));
+			copy.setYearOfDemolition((LocalDate)copyBuilder.copy(yearOfDemolition));
 		
 		if (isSetRoofType())
 			copy.setRoofType((Code)copyBuilder.copy(roofType));

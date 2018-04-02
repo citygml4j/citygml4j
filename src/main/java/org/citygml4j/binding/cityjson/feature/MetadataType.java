@@ -135,12 +135,12 @@ public class MetadataType {
 		this.datasetReferenceDate = datasetReferenceDate;
 	}
 
-	public void setDatasetReferenceDate(LocalDate datasetReferenceDate) {
-		this.datasetReferenceDate = datasetReferenceDate.atStartOfDay(ZoneId.systemDefault());
-	}
-
 	public void setDatasetReferenceDate(LocalDateTime datasetReferenceDate) {
 		this.datasetReferenceDate = datasetReferenceDate.atZone(ZoneId.systemDefault());
+	}
+
+	public void setDatasetReferenceDate(LocalDate datasetReferenceDate) {
+		this.datasetReferenceDate = datasetReferenceDate.atStartOfDay(ZoneId.systemDefault());
 	}
 
 	public void unsetDatasetReferenceDate() {
@@ -223,12 +223,12 @@ public class MetadataType {
 		this.metadataDateStamp = metadataDateStamp;
 	}
 
-	public void setMetadataDateStamp(LocalDate metadataDateStamp) {
-		this.metadataDateStamp = metadataDateStamp.atStartOfDay(ZoneId.systemDefault());
-	}
-
 	public void setMetadataDateStamp(LocalDateTime metadataDateStamp) {
 		this.metadataDateStamp = metadataDateStamp.atZone(ZoneId.systemDefault());
+	}
+
+	public void setMetadataDateStamp(LocalDate metadataDateStamp) {
+		this.metadataDateStamp = metadataDateStamp.atStartOfDay(ZoneId.systemDefault());
 	}
 
 	public void unsetMetadataDateStamp() {

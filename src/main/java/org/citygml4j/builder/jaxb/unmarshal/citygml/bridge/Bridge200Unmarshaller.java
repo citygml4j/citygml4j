@@ -18,11 +18,37 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.bridge;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml._2.AddressPropertyType;
+import net.opengis.citygml.bridge._2.AbstractBoundarySurfaceType;
+import net.opengis.citygml.bridge._2.AbstractBridgeType;
+import net.opengis.citygml.bridge._2.AbstractOpeningType;
+import net.opengis.citygml.bridge._2.BoundarySurfacePropertyType;
+import net.opengis.citygml.bridge._2.BridgeConstructionElementPropertyType;
+import net.opengis.citygml.bridge._2.BridgeConstructionElementType;
+import net.opengis.citygml.bridge._2.BridgeFurnitureType;
+import net.opengis.citygml.bridge._2.BridgeInstallationPropertyType;
+import net.opengis.citygml.bridge._2.BridgeInstallationType;
+import net.opengis.citygml.bridge._2.BridgePartPropertyType;
+import net.opengis.citygml.bridge._2.BridgePartType;
+import net.opengis.citygml.bridge._2.BridgeRoomType;
+import net.opengis.citygml.bridge._2.BridgeType;
+import net.opengis.citygml.bridge._2.CeilingSurfaceType;
+import net.opengis.citygml.bridge._2.ClosureSurfaceType;
+import net.opengis.citygml.bridge._2.DoorType;
+import net.opengis.citygml.bridge._2.FloorSurfaceType;
+import net.opengis.citygml.bridge._2.GroundSurfaceType;
+import net.opengis.citygml.bridge._2.IntBridgeInstallationPropertyType;
+import net.opengis.citygml.bridge._2.IntBridgeInstallationType;
+import net.opengis.citygml.bridge._2.InteriorBridgeRoomPropertyType;
+import net.opengis.citygml.bridge._2.InteriorFurniturePropertyType;
+import net.opengis.citygml.bridge._2.InteriorWallSurfaceType;
+import net.opengis.citygml.bridge._2.OpeningPropertyType;
+import net.opengis.citygml.bridge._2.OuterCeilingSurfaceType;
+import net.opengis.citygml.bridge._2.OuterFloorSurfaceType;
+import net.opengis.citygml.bridge._2.RoofSurfaceType;
+import net.opengis.citygml.bridge._2.WallSurfaceType;
+import net.opengis.citygml.bridge._2.WindowType;
+import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -65,37 +91,9 @@ import org.citygml4j.model.module.citygml.BridgeModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml._2.AddressPropertyType;
-import net.opengis.citygml.bridge._2.AbstractBoundarySurfaceType;
-import net.opengis.citygml.bridge._2.AbstractBridgeType;
-import net.opengis.citygml.bridge._2.AbstractOpeningType;
-import net.opengis.citygml.bridge._2.BoundarySurfacePropertyType;
-import net.opengis.citygml.bridge._2.BridgeConstructionElementPropertyType;
-import net.opengis.citygml.bridge._2.BridgeConstructionElementType;
-import net.opengis.citygml.bridge._2.BridgeFurnitureType;
-import net.opengis.citygml.bridge._2.BridgeInstallationPropertyType;
-import net.opengis.citygml.bridge._2.BridgeInstallationType;
-import net.opengis.citygml.bridge._2.BridgePartPropertyType;
-import net.opengis.citygml.bridge._2.BridgePartType;
-import net.opengis.citygml.bridge._2.BridgeRoomType;
-import net.opengis.citygml.bridge._2.BridgeType;
-import net.opengis.citygml.bridge._2.CeilingSurfaceType;
-import net.opengis.citygml.bridge._2.ClosureSurfaceType;
-import net.opengis.citygml.bridge._2.DoorType;
-import net.opengis.citygml.bridge._2.FloorSurfaceType;
-import net.opengis.citygml.bridge._2.GroundSurfaceType;
-import net.opengis.citygml.bridge._2.IntBridgeInstallationPropertyType;
-import net.opengis.citygml.bridge._2.IntBridgeInstallationType;
-import net.opengis.citygml.bridge._2.InteriorBridgeRoomPropertyType;
-import net.opengis.citygml.bridge._2.InteriorFurniturePropertyType;
-import net.opengis.citygml.bridge._2.InteriorWallSurfaceType;
-import net.opengis.citygml.bridge._2.OpeningPropertyType;
-import net.opengis.citygml.bridge._2.OuterCeilingSurfaceType;
-import net.opengis.citygml.bridge._2.OuterFloorSurfaceType;
-import net.opengis.citygml.bridge._2.RoofSurfaceType;
-import net.opengis.citygml.bridge._2.WallSurfaceType;
-import net.opengis.citygml.bridge._2.WindowType;
-import net.opengis.gml.CodeType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Bridge200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -176,10 +174,10 @@ public class Bridge200Unmarshaller {
 		}
 
 		if (src.isSetYearOfConstruction())
-			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar());
+			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetYearOfDemolition())
-			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
+			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetIsMovable())
 			dest.setIsMovable(src.isIsMovable());

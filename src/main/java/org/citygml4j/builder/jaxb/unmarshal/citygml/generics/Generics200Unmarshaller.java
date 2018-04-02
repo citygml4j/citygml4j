@@ -18,10 +18,16 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.generics;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
+import net.opengis.citygml.generics._2.DateAttributeType;
+import net.opengis.citygml.generics._2.DoubleAttributeType;
+import net.opengis.citygml.generics._2.GenericAttributeSetType;
+import net.opengis.citygml.generics._2.GenericCityObjectType;
+import net.opengis.citygml.generics._2.IntAttributeType;
+import net.opengis.citygml.generics._2.MeasureAttributeType;
+import net.opengis.citygml.generics._2.StringAttributeType;
+import net.opengis.citygml.generics._2.UriAttributeType;
+import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -39,16 +45,8 @@ import org.citygml4j.model.module.citygml.GenericsModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
-import net.opengis.citygml.generics._2.DateAttributeType;
-import net.opengis.citygml.generics._2.DoubleAttributeType;
-import net.opengis.citygml.generics._2.GenericAttributeSetType;
-import net.opengis.citygml.generics._2.GenericCityObjectType;
-import net.opengis.citygml.generics._2.IntAttributeType;
-import net.opengis.citygml.generics._2.MeasureAttributeType;
-import net.opengis.citygml.generics._2.StringAttributeType;
-import net.opengis.citygml.generics._2.UriAttributeType;
-import net.opengis.gml.CodeType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Generics200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -172,7 +170,7 @@ public class Generics200Unmarshaller {
 		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
-			dest.setValue(src.getValue().toGregorianCalendar());
+			dest.setValue(src.getValue().toGregorianCalendar().toZonedDateTime().toLocalDate());
 	}
 
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {

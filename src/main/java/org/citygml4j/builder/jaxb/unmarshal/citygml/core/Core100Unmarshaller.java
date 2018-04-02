@@ -18,12 +18,20 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.core;
 
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml._1.AbstractCityObjectType;
+import net.opengis.citygml._1.AbstractSiteType;
+import net.opengis.citygml._1.AddressPropertyType;
+import net.opengis.citygml._1.AddressType;
+import net.opengis.citygml._1.CityModelType;
+import net.opengis.citygml._1.ExternalObjectReferenceType;
+import net.opengis.citygml._1.ExternalReferenceType;
+import net.opengis.citygml._1.GeneralizationRelationType;
+import net.opengis.citygml._1.ImplicitGeometryType;
+import net.opengis.citygml._1.ImplicitRepresentationPropertyType;
+import net.opengis.citygml._1.XalAddressPropertyType;
+import net.opengis.citygml.appearance._1.AppearancePropertyType;
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.gml.FeaturePropertyType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.Matrix;
@@ -55,20 +63,10 @@ import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml._1.AbstractCityObjectType;
-import net.opengis.citygml._1.AbstractSiteType;
-import net.opengis.citygml._1.AddressPropertyType;
-import net.opengis.citygml._1.AddressType;
-import net.opengis.citygml._1.CityModelType;
-import net.opengis.citygml._1.ExternalObjectReferenceType;
-import net.opengis.citygml._1.ExternalReferenceType;
-import net.opengis.citygml._1.GeneralizationRelationType;
-import net.opengis.citygml._1.ImplicitGeometryType;
-import net.opengis.citygml._1.ImplicitRepresentationPropertyType;
-import net.opengis.citygml._1.XalAddressPropertyType;
-import net.opengis.citygml.appearance._1.AppearancePropertyType;
-import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
-import net.opengis.gml.FeaturePropertyType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Core100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -120,10 +118,10 @@ public class Core100Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 
 		if (src.isSetCreationDate())
-			dest.setCreationDate(src.getCreationDate().toGregorianCalendar());
+			dest.setCreationDate(src.getCreationDate().toGregorianCalendar().toZonedDateTime());
 
 		if (src.isSetTerminationDate())
-			dest.setTerminationDate(src.getTerminationDate().toGregorianCalendar());
+			dest.setTerminationDate(src.getTerminationDate().toGregorianCalendar().toZonedDateTime());
 
 		if (src.isSetExternalReference()) {
 			for (ExternalReferenceType externalReference : src.getExternalReference())

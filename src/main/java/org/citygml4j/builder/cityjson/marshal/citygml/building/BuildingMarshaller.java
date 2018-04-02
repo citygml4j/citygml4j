@@ -64,7 +64,6 @@ import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.mapper.TypeMapper;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -166,10 +165,10 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) 
-			attributes.setYearOfConstruction(src.getYearOfConstruction().get(Calendar.YEAR));
+			attributes.setYearOfConstruction(src.getYearOfConstruction().getYear());
 
 		if (src.isSetYearOfDemolition())
-			attributes.setYearOfDemolition(src.getYearOfDemolition().get(Calendar.YEAR));
+			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
 
 		if (attributes.hasAttributes())
 			dest.setAttributes(attributes);

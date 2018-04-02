@@ -38,6 +38,7 @@ import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -177,7 +178,7 @@ public class GenericsMarshaller {
 			
 			switch (attribute.getCityGMLClass()) {
 			case DATE_ATTRIBUTE:
-				value = ((DateAttribute)attribute).getValue().getTime();
+				value = ((DateAttribute)attribute).getValue().format(DateTimeFormatter.ISO_LOCAL_DATE);
 				break;
 			case DOUBLE_ATTRIBUTE:
 				value = ((DoubleAttribute)attribute).getValue();

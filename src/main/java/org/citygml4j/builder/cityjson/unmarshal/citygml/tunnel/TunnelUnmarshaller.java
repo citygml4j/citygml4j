@@ -66,8 +66,7 @@ import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -163,17 +162,11 @@ public class TunnelUnmarshaller {
 			if (attributes.isSetUsage())
 				dest.addUsage(new Code(attributes.getUsage()));
 
-			if (attributes.isSetYearOfConstruction()) {
-				GregorianCalendar yearOfConstruction = new GregorianCalendar();
-				yearOfConstruction.set(Calendar.YEAR, attributes.getYearOfConstruction());
-				dest.setYearOfConstruction(yearOfConstruction);
-			}
+			if (attributes.isSetYearOfConstruction())
+				dest.setYearOfConstruction(LocalDate.of(attributes.getYearOfConstruction(), 1, 1));
 
-			if (attributes.isSetYearOfDemolition()) {
-				GregorianCalendar yearOfDemolition = new GregorianCalendar();
-				yearOfDemolition.set(Calendar.YEAR, attributes.getYearOfDemolition());
-				dest.setYearOfDemolition(yearOfDemolition);
-			}
+			if (attributes.isSetYearOfDemolition())
+				dest.setYearOfConstruction(LocalDate.of(attributes.getYearOfDemolition(), 1, 1));
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {

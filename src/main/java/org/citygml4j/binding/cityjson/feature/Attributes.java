@@ -56,12 +56,12 @@ public class Attributes {
 		this.creationDate = creationDate;
 	}
 
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate.atStartOfDay(ZoneId.systemDefault());
-	}
-
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate.atZone(ZoneId.systemDefault());
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate.atStartOfDay(ZoneId.systemDefault());
 	}
 	
 	public void unsetCreationDate() {
@@ -80,14 +80,14 @@ public class Attributes {
 		this.terminationDate = terminationDate;
 	}
 
+	public void setTerminationDate(LocalDateTime terminationDate) {
+		this.terminationDate = terminationDate.atZone(ZoneId.systemDefault());
+	}
+
 	public void setTerminationDate(LocalDate terminationDate) {
 		this.terminationDate = terminationDate.atStartOfDay(ZoneId.systemDefault());
 	}
 
-	public void setTerminationDate(LocalDateTime terminationDate) {
-		this.terminationDate = terminationDate.atZone(ZoneId.systemDefault());
-	}
-	
 	public void unsetTerminationDate() {
 		terminationDate = null;
 	}

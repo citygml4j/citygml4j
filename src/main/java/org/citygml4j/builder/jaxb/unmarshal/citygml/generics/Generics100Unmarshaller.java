@@ -18,10 +18,13 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.generics;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.citygml.generics._1.DateAttributeType;
+import net.opengis.citygml.generics._1.DoubleAttributeType;
+import net.opengis.citygml.generics._1.GenericCityObjectType;
+import net.opengis.citygml.generics._1.IntAttributeType;
+import net.opengis.citygml.generics._1.StringAttributeType;
+import net.opengis.citygml.generics._1.UriAttributeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -37,13 +40,8 @@ import org.citygml4j.model.module.citygml.GenericsModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
-import net.opengis.citygml.generics._1.DateAttributeType;
-import net.opengis.citygml.generics._1.DoubleAttributeType;
-import net.opengis.citygml.generics._1.GenericCityObjectType;
-import net.opengis.citygml.generics._1.IntAttributeType;
-import net.opengis.citygml.generics._1.StringAttributeType;
-import net.opengis.citygml.generics._1.UriAttributeType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Generics100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -165,7 +163,7 @@ public class Generics100Unmarshaller {
 		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
-			dest.setValue(src.getValue().toGregorianCalendar());
+			dest.setValue(src.getValue().toGregorianCalendar().toZonedDateTime().toLocalDate());
 	}
 
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {

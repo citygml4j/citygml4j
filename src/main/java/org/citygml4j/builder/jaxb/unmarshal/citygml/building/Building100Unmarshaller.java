@@ -18,11 +18,32 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.building;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml._1.AddressPropertyType;
+import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
+import net.opengis.citygml.building._1.AbstractBuildingType;
+import net.opengis.citygml.building._1.AbstractOpeningType;
+import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
+import net.opengis.citygml.building._1.BuildingFurnitureType;
+import net.opengis.citygml.building._1.BuildingInstallationPropertyType;
+import net.opengis.citygml.building._1.BuildingInstallationType;
+import net.opengis.citygml.building._1.BuildingPartPropertyType;
+import net.opengis.citygml.building._1.BuildingPartType;
+import net.opengis.citygml.building._1.BuildingType;
+import net.opengis.citygml.building._1.CeilingSurfaceType;
+import net.opengis.citygml.building._1.ClosureSurfaceType;
+import net.opengis.citygml.building._1.DoorType;
+import net.opengis.citygml.building._1.FloorSurfaceType;
+import net.opengis.citygml.building._1.GroundSurfaceType;
+import net.opengis.citygml.building._1.IntBuildingInstallationPropertyType;
+import net.opengis.citygml.building._1.IntBuildingInstallationType;
+import net.opengis.citygml.building._1.InteriorFurniturePropertyType;
+import net.opengis.citygml.building._1.InteriorRoomPropertyType;
+import net.opengis.citygml.building._1.InteriorWallSurfaceType;
+import net.opengis.citygml.building._1.OpeningPropertyType;
+import net.opengis.citygml.building._1.RoofSurfaceType;
+import net.opengis.citygml.building._1.RoomType;
+import net.opengis.citygml.building._1.WallSurfaceType;
+import net.opengis.citygml.building._1.WindowType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -59,32 +80,9 @@ import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml._1.AddressPropertyType;
-import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
-import net.opengis.citygml.building._1.AbstractBuildingType;
-import net.opengis.citygml.building._1.AbstractOpeningType;
-import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
-import net.opengis.citygml.building._1.BuildingFurnitureType;
-import net.opengis.citygml.building._1.BuildingInstallationPropertyType;
-import net.opengis.citygml.building._1.BuildingInstallationType;
-import net.opengis.citygml.building._1.BuildingPartPropertyType;
-import net.opengis.citygml.building._1.BuildingPartType;
-import net.opengis.citygml.building._1.BuildingType;
-import net.opengis.citygml.building._1.CeilingSurfaceType;
-import net.opengis.citygml.building._1.ClosureSurfaceType;
-import net.opengis.citygml.building._1.DoorType;
-import net.opengis.citygml.building._1.FloorSurfaceType;
-import net.opengis.citygml.building._1.GroundSurfaceType;
-import net.opengis.citygml.building._1.IntBuildingInstallationPropertyType;
-import net.opengis.citygml.building._1.IntBuildingInstallationType;
-import net.opengis.citygml.building._1.InteriorFurniturePropertyType;
-import net.opengis.citygml.building._1.InteriorRoomPropertyType;
-import net.opengis.citygml.building._1.InteriorWallSurfaceType;
-import net.opengis.citygml.building._1.OpeningPropertyType;
-import net.opengis.citygml.building._1.RoofSurfaceType;
-import net.opengis.citygml.building._1.RoomType;
-import net.opengis.citygml.building._1.WallSurfaceType;
-import net.opengis.citygml.building._1.WindowType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Building100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -161,10 +159,10 @@ public class Building100Unmarshaller {
 		}
 
 		if (src.isSetYearOfConstruction())
-			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar());
+			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetYearOfDemolition())
-			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
+			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetRoofType())
 			dest.setRoofType(new Code(src.getRoofType()));

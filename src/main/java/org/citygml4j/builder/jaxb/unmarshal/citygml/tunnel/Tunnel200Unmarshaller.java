@@ -18,11 +18,34 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.tunnel;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
+import net.opengis.citygml.tunnel._2.AbstractOpeningType;
+import net.opengis.citygml.tunnel._2.AbstractTunnelType;
+import net.opengis.citygml.tunnel._2.BoundarySurfacePropertyType;
+import net.opengis.citygml.tunnel._2.CeilingSurfaceType;
+import net.opengis.citygml.tunnel._2.ClosureSurfaceType;
+import net.opengis.citygml.tunnel._2.DoorType;
+import net.opengis.citygml.tunnel._2.FloorSurfaceType;
+import net.opengis.citygml.tunnel._2.GroundSurfaceType;
+import net.opengis.citygml.tunnel._2.HollowSpaceType;
+import net.opengis.citygml.tunnel._2.IntTunnelInstallationPropertyType;
+import net.opengis.citygml.tunnel._2.IntTunnelInstallationType;
+import net.opengis.citygml.tunnel._2.InteriorFurniturePropertyType;
+import net.opengis.citygml.tunnel._2.InteriorHollowSpacePropertyType;
+import net.opengis.citygml.tunnel._2.InteriorWallSurfaceType;
+import net.opengis.citygml.tunnel._2.OpeningPropertyType;
+import net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType;
+import net.opengis.citygml.tunnel._2.OuterFloorSurfaceType;
+import net.opengis.citygml.tunnel._2.RoofSurfaceType;
+import net.opengis.citygml.tunnel._2.TunnelFurnitureType;
+import net.opengis.citygml.tunnel._2.TunnelInstallationPropertyType;
+import net.opengis.citygml.tunnel._2.TunnelInstallationType;
+import net.opengis.citygml.tunnel._2.TunnelPartPropertyType;
+import net.opengis.citygml.tunnel._2.TunnelPartType;
+import net.opengis.citygml.tunnel._2.TunnelType;
+import net.opengis.citygml.tunnel._2.WallSurfaceType;
+import net.opengis.citygml.tunnel._2.WindowType;
+import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -63,34 +86,9 @@ import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.tunnel._2.AbstractBoundarySurfaceType;
-import net.opengis.citygml.tunnel._2.AbstractOpeningType;
-import net.opengis.citygml.tunnel._2.AbstractTunnelType;
-import net.opengis.citygml.tunnel._2.BoundarySurfacePropertyType;
-import net.opengis.citygml.tunnel._2.CeilingSurfaceType;
-import net.opengis.citygml.tunnel._2.ClosureSurfaceType;
-import net.opengis.citygml.tunnel._2.DoorType;
-import net.opengis.citygml.tunnel._2.FloorSurfaceType;
-import net.opengis.citygml.tunnel._2.GroundSurfaceType;
-import net.opengis.citygml.tunnel._2.HollowSpaceType;
-import net.opengis.citygml.tunnel._2.IntTunnelInstallationPropertyType;
-import net.opengis.citygml.tunnel._2.IntTunnelInstallationType;
-import net.opengis.citygml.tunnel._2.InteriorFurniturePropertyType;
-import net.opengis.citygml.tunnel._2.InteriorHollowSpacePropertyType;
-import net.opengis.citygml.tunnel._2.InteriorWallSurfaceType;
-import net.opengis.citygml.tunnel._2.OpeningPropertyType;
-import net.opengis.citygml.tunnel._2.OuterCeilingSurfaceType;
-import net.opengis.citygml.tunnel._2.OuterFloorSurfaceType;
-import net.opengis.citygml.tunnel._2.RoofSurfaceType;
-import net.opengis.citygml.tunnel._2.TunnelFurnitureType;
-import net.opengis.citygml.tunnel._2.TunnelInstallationPropertyType;
-import net.opengis.citygml.tunnel._2.TunnelInstallationType;
-import net.opengis.citygml.tunnel._2.TunnelPartPropertyType;
-import net.opengis.citygml.tunnel._2.TunnelPartType;
-import net.opengis.citygml.tunnel._2.TunnelType;
-import net.opengis.citygml.tunnel._2.WallSurfaceType;
-import net.opengis.citygml.tunnel._2.WindowType;
-import net.opengis.gml.CodeType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Tunnel200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -169,10 +167,10 @@ public class Tunnel200Unmarshaller {
 		}
 
 		if (src.isSetYearOfConstruction())
-			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar());
+			dest.setYearOfConstruction(src.getYearOfConstruction().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetYearOfDemolition())
-			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar());
+			dest.setYearOfDemolition(src.getYearOfDemolition().toGregorianCalendar().toZonedDateTime().toLocalDate());
 
 		if (src.isSetLod1Solid())
 			dest.setLod1Solid(jaxb.getGMLUnmarshaller().unmarshalSolidProperty(src.getLod1Solid()));

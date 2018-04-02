@@ -18,14 +18,32 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.building;
 
-import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConstants;
-
+import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
+import net.opengis.citygml.building._1.AbstractBuildingType;
+import net.opengis.citygml.building._1.AbstractOpeningType;
+import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
+import net.opengis.citygml.building._1.BuildingFurnitureType;
+import net.opengis.citygml.building._1.BuildingInstallationPropertyType;
+import net.opengis.citygml.building._1.BuildingInstallationType;
+import net.opengis.citygml.building._1.BuildingPartPropertyType;
+import net.opengis.citygml.building._1.BuildingPartType;
+import net.opengis.citygml.building._1.BuildingType;
+import net.opengis.citygml.building._1.CeilingSurfaceType;
+import net.opengis.citygml.building._1.ClosureSurfaceType;
+import net.opengis.citygml.building._1.DoorType;
+import net.opengis.citygml.building._1.FloorSurfaceType;
+import net.opengis.citygml.building._1.GroundSurfaceType;
+import net.opengis.citygml.building._1.IntBuildingInstallationPropertyType;
+import net.opengis.citygml.building._1.IntBuildingInstallationType;
+import net.opengis.citygml.building._1.InteriorFurniturePropertyType;
+import net.opengis.citygml.building._1.InteriorRoomPropertyType;
+import net.opengis.citygml.building._1.InteriorWallSurfaceType;
+import net.opengis.citygml.building._1.ObjectFactory;
+import net.opengis.citygml.building._1.OpeningPropertyType;
+import net.opengis.citygml.building._1.RoofSurfaceType;
+import net.opengis.citygml.building._1.RoomType;
+import net.opengis.citygml.building._1.WallSurfaceType;
+import net.opengis.citygml.building._1.WindowType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -61,32 +79,11 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
-import net.opengis.citygml.building._1.AbstractBuildingType;
-import net.opengis.citygml.building._1.AbstractOpeningType;
-import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
-import net.opengis.citygml.building._1.BuildingFurnitureType;
-import net.opengis.citygml.building._1.BuildingInstallationPropertyType;
-import net.opengis.citygml.building._1.BuildingInstallationType;
-import net.opengis.citygml.building._1.BuildingPartPropertyType;
-import net.opengis.citygml.building._1.BuildingPartType;
-import net.opengis.citygml.building._1.BuildingType;
-import net.opengis.citygml.building._1.CeilingSurfaceType;
-import net.opengis.citygml.building._1.ClosureSurfaceType;
-import net.opengis.citygml.building._1.DoorType;
-import net.opengis.citygml.building._1.FloorSurfaceType;
-import net.opengis.citygml.building._1.GroundSurfaceType;
-import net.opengis.citygml.building._1.IntBuildingInstallationPropertyType;
-import net.opengis.citygml.building._1.IntBuildingInstallationType;
-import net.opengis.citygml.building._1.InteriorFurniturePropertyType;
-import net.opengis.citygml.building._1.InteriorRoomPropertyType;
-import net.opengis.citygml.building._1.InteriorWallSurfaceType;
-import net.opengis.citygml.building._1.ObjectFactory;
-import net.opengis.citygml.building._1.OpeningPropertyType;
-import net.opengis.citygml.building._1.RoofSurfaceType;
-import net.opengis.citygml.building._1.RoomType;
-import net.opengis.citygml.building._1.WallSurfaceType;
-import net.opengis.citygml.building._1.WindowType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConstants;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Building100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -197,20 +194,20 @@ public class Building100Marshaller {
 		}
 
 		if (src.isSetYearOfConstruction()) {
-			GregorianCalendar date = src.getYearOfConstruction();
+			LocalDate date = src.getYearOfConstruction();
 			dest.setYearOfConstruction(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 
 		if (src.isSetYearOfDemolition()) {
-			GregorianCalendar date = src.getYearOfDemolition();
+			LocalDate date = src.getYearOfDemolition();
 			dest.setYearOfDemolition(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 

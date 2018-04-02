@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.citygml.core;
 
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -34,9 +31,15 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
+
 public abstract class AbstractCityObject extends AbstractFeature implements CoreModuleComponent {
-	private GregorianCalendar creationDate;
-	private GregorianCalendar terminationDate;
+	private ZonedDateTime creationDate;
+	private ZonedDateTime terminationDate;
 	private List<ExternalReference> externalReference;
 	private List<AbstractGenericAttribute> genericAttribute;
 	private List<GeneralizationRelation> generalizesTo;
@@ -87,7 +90,7 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		return appearance;
 	}
 
-	public GregorianCalendar getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
@@ -127,7 +130,7 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		return relativeToWater;
 	}
 
-	public GregorianCalendar getTerminationDate() {
+	public ZonedDateTime getTerminationDate() {
 		return terminationDate;
 	}
 
@@ -171,8 +174,16 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		this.appearance = new ChildList<AppearanceProperty>(this, appearance);
 	}
 
-	public void setCreationDate(GregorianCalendar creationDate) {
+	public void setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate.atZone(ZoneId.systemDefault());
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate.atStartOfDay(ZoneId.systemDefault());
 	}
 
 	public void setExternalReference(List<ExternalReference> externalReference) {
@@ -199,8 +210,16 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		this.relativeToWater = relativeToWater;
 	}
 
-	public void setTerminationDate(GregorianCalendar terminationDate) {
+	public void setTerminationDate(ZonedDateTime terminationDate) {
 		this.terminationDate = terminationDate;
+	}
+
+	public void setTerminationDate(LocalDateTime terminationDate) {
+		this.terminationDate = terminationDate.atZone(ZoneId.systemDefault());
+	}
+
+	public void setTerminationDate(LocalDate terminationDate) {
+		this.terminationDate = terminationDate.atStartOfDay(ZoneId.systemDefault());
 	}
 
 	public void unsetAppearance() {
@@ -317,10 +336,10 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetCreationDate())
-			copy.setCreationDate((GregorianCalendar)copyBuilder.copy(creationDate));
+			copy.setCreationDate((ZonedDateTime)copyBuilder.copy(creationDate));
 		
 		if (isSetTerminationDate())
-			copy.setTerminationDate((GregorianCalendar)copyBuilder.copy(terminationDate));
+			copy.setTerminationDate((ZonedDateTime)copyBuilder.copy(terminationDate));
 		
 		if (isSetRelativeToTerrain())
 			copy.setRelativeToTerrain((RelativeToTerrain)copyBuilder.copy(relativeToTerrain));

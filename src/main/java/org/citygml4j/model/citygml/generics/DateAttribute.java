@@ -18,30 +18,30 @@
  */
 package org.citygml4j.model.citygml.generics;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.module.citygml.GenericsModule;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 public class DateAttribute extends AbstractGenericAttribute {
-	private GregorianCalendar value;
+	private LocalDate value;
 	
 	public DateAttribute() {
 		
 	}
 	
-	public DateAttribute(GregorianCalendar value) {
+	public DateAttribute(LocalDate value) {
 		this.value = value;
 	}
 	
 	public DateAttribute(Date value) {
-		this.value = new GregorianCalendar();
-		this.value.setTime(value);
+		this.value = value.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 	
-	public DateAttribute(String name, GregorianCalendar value) {
+	public DateAttribute(String name, LocalDate value) {
 		this(value);
 		setName(name);
 	}
@@ -55,7 +55,7 @@ public class DateAttribute extends AbstractGenericAttribute {
 		super(module);
 	}
 	
-	public GregorianCalendar getValue() {
+	public LocalDate getValue() {
 		return value;
 	}
 
@@ -63,7 +63,7 @@ public class DateAttribute extends AbstractGenericAttribute {
 		return value != null;
 	}
 
-	public void setValue(GregorianCalendar value) {
+	public void setValue(LocalDate value) {
 		this.value = value;
 	}
 
@@ -85,7 +85,7 @@ public class DateAttribute extends AbstractGenericAttribute {
 		super.copyTo(copy, copyBuilder);
 		
 		if (isSetValue())
-			copy.setValue((GregorianCalendar)copyBuilder.copy(value));
+			copy.setValue((LocalDate)copyBuilder.copy(value));
 		
 		return copy;
 	}

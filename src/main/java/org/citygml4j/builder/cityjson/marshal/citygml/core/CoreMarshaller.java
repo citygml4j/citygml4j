@@ -89,10 +89,10 @@ public class CoreMarshaller {
 			dest.setBBox(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
 		if (src.isSetCreationDate())
-			attributes.setCreationDate(src.getCreationDate().toZonedDateTime());
+			attributes.setCreationDate(src.getCreationDate());
 
 		if (src.isSetTerminationDate())
-			attributes.setTerminationDate(src.getTerminationDate().toZonedDateTime());
+			attributes.setTerminationDate(src.getTerminationDate());
 
 		if (src.isSetGenericAttribute())
 			citygml.getGenericsMarshaller().marshalGenericAttributes(src.getGenericAttribute(), attributes);

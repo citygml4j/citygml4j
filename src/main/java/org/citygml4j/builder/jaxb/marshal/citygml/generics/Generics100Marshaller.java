@@ -18,16 +18,14 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.generics;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConstants;
-
+import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
+import net.opengis.citygml.generics._1.DateAttributeType;
+import net.opengis.citygml.generics._1.DoubleAttributeType;
+import net.opengis.citygml.generics._1.GenericCityObjectType;
+import net.opengis.citygml.generics._1.IntAttributeType;
+import net.opengis.citygml.generics._1.ObjectFactory;
+import net.opengis.citygml.generics._1.StringAttributeType;
+import net.opengis.citygml.generics._1.UriAttributeType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
@@ -43,14 +41,13 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import net.opengis.citygml.generics._1.AbstractGenericAttributeType;
-import net.opengis.citygml.generics._1.DateAttributeType;
-import net.opengis.citygml.generics._1.DoubleAttributeType;
-import net.opengis.citygml.generics._1.GenericCityObjectType;
-import net.opengis.citygml.generics._1.IntAttributeType;
-import net.opengis.citygml.generics._1.ObjectFactory;
-import net.opengis.citygml.generics._1.StringAttributeType;
-import net.opengis.citygml.generics._1.UriAttributeType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConstants;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Generics100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -195,11 +192,11 @@ public class Generics100Marshaller {
 		marshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue()) {
-			GregorianCalendar date = src.getValue();
+			LocalDate date = src.getValue();
 			dest.setValue(jaxb.getDataTypeFactory().newXMLGregorianCalendarDate(
-					date.get(Calendar.YEAR),
-					date.get(Calendar.MONTH) + 1,
-					date.get(Calendar.DAY_OF_MONTH),
+					date.getYear(),
+					date.getMonthValue(),
+					date.getDayOfMonth(),
 					DatatypeConstants.FIELD_UNDEFINED));
 		}
 	}
