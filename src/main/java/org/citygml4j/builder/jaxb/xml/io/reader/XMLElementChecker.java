@@ -18,16 +18,10 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.xml.namespace.QName;
-
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.Modules;
+import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityObjectGroupModule;
@@ -40,6 +34,12 @@ import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.Schema;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.SAXException;
+
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class XMLElementChecker {
 	private final SchemaHandler schemaHandler;
@@ -96,16 +96,14 @@ public class XMLElementChecker {
 
 	public boolean isParentInfoElement(String namespaceURI, String localPart) {
 		if (isGMLElement(namespaceURI)) {
-			if (localPart.equals("metaDataProperty") ||
+			return localPart.equals("metaDataProperty") ||
 					localPart.equals("description") ||
 					localPart.equals("name") ||
 					localPart.equals("boundedBy") ||
-					localPart.equals("location"))
-				return true;					
+					localPart.equals("location");
 		} else if (isCityGMLElement(namespaceURI)) {
-			if (localPart.equals("appearance") ||
-					localPart.equals("appearanceMember"))
-				return true;
+			return localPart.equals("appearance") ||
+					localPart.equals("appearanceMember");
 		}
 
 		return false;
@@ -160,6 +158,12 @@ public class XMLElementChecker {
 				elementInfo = new ElementInfo();
 				elementInfo.isFeature = true;
 				elementInfo.featureClass = featureClass;
+
+				if (module instanceof ADEModule) {
+					Schema schema = schemaHandler.getSchema(namespaceURI);
+					if (schema != null)
+						elementInfo.elementDecl = schema.getGlobalElementDecl(localName);
+				}
 
 				if (excludes != null) {
 					List<String> localNames = excludes.get(namespaceURI);
@@ -244,7 +248,7 @@ public class XMLElementChecker {
 
 		if (featureReadMode == FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER) {
 			HashSet<String> properties = cityGMLFeatureProperties.get(namespaceURI);
-			isFeatureProperty = properties != null ? properties.contains(localName) : false;
+			isFeatureProperty = properties != null && properties.contains(localName);
 		} else {
 			Module module = Modules.getModule(namespaceURI);
 			if (module instanceof CityGMLModule) {
@@ -286,14 +290,9 @@ public class XMLElementChecker {
 				String namespaceURI = exclude.getNamespaceURI();
 
 				if (namespaceURI.length() == 0)
-					continue;				
+					continue;
 
-				List<String> localNames = this.excludes.get(namespaceURI);
-				if (localNames == null) {
-					localNames = new ArrayList<>();
-					this.excludes.put(namespaceURI, localNames);
-				}
-
+				List<String> localNames = this.excludes.computeIfAbsent(namespaceURI, k -> new ArrayList<>());
 				localNames.add(localName);
 			}
 		}
@@ -322,26 +321,16 @@ public class XMLElementChecker {
 			CityGMLModule module = Modules.getCityGMLModule(namespaceURI);
 			if (module != null) {
 				if (module.hasFeatureProperty(localName)) {
-					HashSet<String> properties = cityGMLFeatureProperties.get(namespaceURI);
-					if (properties == null) {
-						properties = new HashSet<String>();
-						cityGMLFeatureProperties.put(namespaceURI, properties);
-					}
-
+					HashSet<String> properties = cityGMLFeatureProperties.computeIfAbsent(namespaceURI, k -> new HashSet<>());
 					properties.add(localName);
 				}
 			}
 
 			else {
 				if (adeFeatureProperties == null)
-					adeFeatureProperties = new HashMap<String, HashSet<String>>();
+					adeFeatureProperties = new HashMap<>();
 
-				HashSet<String> properties = adeFeatureProperties.get(namespaceURI);
-				if (properties == null) {
-					properties = new HashSet<String>();
-					adeFeatureProperties.put(namespaceURI, properties);
-				}
-
+				HashSet<String> properties = adeFeatureProperties.computeIfAbsent(namespaceURI, k -> new HashSet<>());
 				properties.add(localName);
 			}
 		}
@@ -366,8 +355,7 @@ public class XMLElementChecker {
 	}
 
 	static class ElementInfo {
-		private final ElementDecl elementDecl;
-
+		private ElementDecl elementDecl;
 		private boolean isFeature = false;
 		private boolean isFeatureProperty = false;
 		private boolean hasXLink = false;
