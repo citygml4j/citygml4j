@@ -18,13 +18,13 @@
  */
 package org.citygml4j.model.citygml.ade.binding;
 
-import java.lang.reflect.ParameterizedType;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
+
+import java.lang.reflect.ParameterizedType;
 
 public abstract class ADEGenericApplicationProperty<T> implements ADEModelObject {
 	private T value;
@@ -39,6 +39,10 @@ public abstract class ADEGenericApplicationProperty<T> implements ADEModelObject
 	
 	public T getValue() {
 		return value;
+	}
+
+	public boolean isSetValue() {
+		return value != null;
 	}
 
 	public void setValue(T value) {
