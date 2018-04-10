@@ -31,7 +31,7 @@ public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 	private final Map<String, Integer> indexes = new ConcurrentHashMap<>();
 	private final List<List<Double>> vertices = new ArrayList<>();	
 
-	private int significantDigits = 5;
+	private int significantDigits = 7;
 
 	public DefaultTextureVerticesBuilder withSignificantDigits(int significantDigits) {
 		if (significantDigits > 0)
@@ -50,7 +50,11 @@ public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 
 		for (int i = 0; i < vertices.size(); i += 2) {
 			List<Double> vertex = vertices.subList(i, i + 2);
-			String key = round(vertex.get(0)) + round(vertex.get(1));
+
+			vertex.set(0, round(vertex.get(0)).doubleValue());
+			vertex.set(1, round(vertex.get(1)).doubleValue());
+
+			String key = vertex.get(0).toString() + vertex.get(1).toString();
 			
 			Integer index = indexes.get(key);
 			if (index == null) {
@@ -81,7 +85,7 @@ public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 		return vertices;
 	}
 
-	private String round(double value) {
-		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP).toString();
+	private BigDecimal round(double value) {
+		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP);
 	}
 }

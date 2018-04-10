@@ -50,7 +50,12 @@ public class DefaultVerticesBuilder implements VerticesBuilder {
 
 		for (int i = 0; i < vertices.size(); i += 3) {
 			List<Double> vertex = vertices.subList(i, i + 3);
-			String key = round(vertex.get(0)) + round(vertex.get(1)) + round(vertex.get(2));
+
+			vertex.set(0, round(vertex.get(0)).doubleValue());
+			vertex.set(1, round(vertex.get(1)).doubleValue());
+			vertex.set(2, round(vertex.get(2)).doubleValue());
+
+			String key = vertex.get(0).toString() + vertex.get(1).toString() + vertex.get(2).toString();
 			
 			Integer index = indexes.get(key);
 			if (index == null) {
@@ -81,7 +86,7 @@ public class DefaultVerticesBuilder implements VerticesBuilder {
 		return vertices;
 	}
 
-	private String round(double value) {
-		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP).toString();
+	private BigDecimal round(double value) {
+		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP);
 	}
 }
