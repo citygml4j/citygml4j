@@ -18,18 +18,17 @@
  */
 package org.citygml4j.binding.cityjson.geometry;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.appearance.MaterialAdapter;
 import org.citygml4j.binding.cityjson.appearance.SurfaceCollectionMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.SurfaceCollectionTextureObject;
 import org.citygml4j.binding.cityjson.appearance.TextureAdapter;
 
-import com.google.gson.annotations.JsonAdapter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractSurfaceCollectionType extends AbstractGeometryObjectType
 implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMaterialObject, SurfaceCollectionTextureObject> {
@@ -189,4 +188,16 @@ implements GeometryWithSemantics, GeometryWithAppearance<SurfaceCollectionMateri
 		texture = null;
 	}
 
+	@Override
+	public void updateIndexes(Map<Integer, Integer> indexMap) {
+		for (List<List<Integer>> surface : boundaries) {
+			for (List<Integer> ring : surface) {
+				for (int index = 0; index < ring.size(); index++) {
+					Integer update = indexMap.get(ring.get(index));
+					if (update != null)
+						ring.set(index, update);
+				}
+			}
+		}
+	}
 }

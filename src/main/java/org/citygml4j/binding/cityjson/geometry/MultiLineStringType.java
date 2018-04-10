@@ -20,6 +20,7 @@ package org.citygml4j.binding.cityjson.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MultiLineStringType extends AbstractGeometryObjectType {
 	private final GeometryTypeName type = GeometryTypeName.MULTI_LINE_STRING;
@@ -47,5 +48,15 @@ public class MultiLineStringType extends AbstractGeometryObjectType {
 	public void unsetLineStrings() {
 		boundaries.clear();
 	}
-	
+
+	@Override
+	public void updateIndexes(Map<Integer, Integer> indexMap) {
+		for (List<Integer> lineString : boundaries) {
+			for (int index = 0; index < lineString.size(); index++) {
+				Integer update = indexMap.get(lineString.get(index));
+				if (update != null)
+					lineString.set(index, update);
+			}
+		}
+	}
 }

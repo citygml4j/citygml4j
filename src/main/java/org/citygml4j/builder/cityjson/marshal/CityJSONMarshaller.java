@@ -89,13 +89,15 @@ public class CityJSONMarshaller {
 			dest.setCityObjects(cityObjects);
 			
 			List<List<Double>> vertices = verticesBuilder.build();
+			dest.setVertices(vertices);
+
 			if (verticesTransformer != null) {
 				TransformType transform = verticesTransformer.applyTransformation(vertices);
-				if (transform != null)
+				if (transform != null) {
 					dest.setTransform(transform);
+					dest.removeDuplicateVertices();
+				}
 			}
-			
-			dest.setVertices(vertices);
 
 			if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
 				AppearanceType appearance = new AppearanceType();

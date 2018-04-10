@@ -1,10 +1,9 @@
 package org.citygml4j.binding.cityjson.geometry;
 
-import org.citygml4j.geometry.Matrix;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class GeometryInstanceType extends AbstractGeometryType {
     private final GeometryTypeName type = GeometryTypeName.GEOMETRY_INSTANCE;
@@ -46,4 +45,10 @@ public class GeometryInstanceType extends AbstractGeometryType {
             this.transformationMatrix = transformationMatrix.subList(0, 16);
     }
 
+    @Override
+    public void updateIndexes(Map<Integer, Integer> indexMap) {
+        Integer update = indexMap.get(getReferencePoint());
+        if (update != null)
+            setReferencePoint(update);
+    }
 }

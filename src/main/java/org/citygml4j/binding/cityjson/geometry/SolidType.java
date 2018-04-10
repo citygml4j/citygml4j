@@ -18,18 +18,17 @@
  */
 package org.citygml4j.binding.cityjson.geometry;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.appearance.MaterialAdapter;
 import org.citygml4j.binding.cityjson.appearance.SolidMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.SolidTextureObject;
 import org.citygml4j.binding.cityjson.appearance.TextureAdapter;
 
-import com.google.gson.annotations.JsonAdapter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SolidType extends AbstractSolidType
 implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
@@ -184,5 +183,19 @@ implements GeometryWithAppearance<SolidMaterialObject, SolidTextureObject> {
 		material = null;
 		texture = null;
 	}
-	
+
+	@Override
+	public void updateIndexes(Map<Integer, Integer> indexMap) {
+		for (List<List<List<Integer>>> shell : boundaries) {
+			for (List<List<Integer>> surface : shell) {
+				for (List<Integer> ring : surface) {
+					for (int index = 0; index < ring.size(); index++) {
+						Integer update = indexMap.get(ring.get(index));
+						if (update != null)
+							ring.set(index, update);
+					}
+				}
+			}
+		}
+	}
 }

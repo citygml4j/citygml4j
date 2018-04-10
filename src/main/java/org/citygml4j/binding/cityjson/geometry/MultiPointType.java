@@ -20,6 +20,7 @@ package org.citygml4j.binding.cityjson.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MultiPointType extends AbstractGeometryObjectType {
 	private final GeometryTypeName type = GeometryTypeName.MULTI_POINT;
@@ -51,5 +52,13 @@ public class MultiPointType extends AbstractGeometryObjectType {
 	public void unsetPoints() {
 		boundaries.clear();
 	}
-	
+
+	@Override
+	public void updateIndexes(Map<Integer, Integer> indexMap) {
+		for (int index = 0; index < boundaries.size(); index++) {
+			Integer update = indexMap.get(boundaries.get(index));
+			if (update != null)
+				boundaries.set(index, update);
+		}
+	}
 }

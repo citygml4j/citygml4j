@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -231,6 +232,39 @@ public class CityJSON {
 		}
 		
 		return lods.stream().sorted().collect(Collectors.toList());
+	}
+
+	public void removeDuplicateVertices() {
+		Map<String, Integer> indexes = new HashMap<>();
+		Map<Integer, Integer> indexMap = new HashMap<>();
+		int oldIndex = 0, newIndex = 0;
+
+		for (Iterator<List<Double>> iter = getVertices().iterator(); iter.hasNext(); ) {
+			List<Double> vertex = iter.next();
+			String key = vertex.get(0).intValue() + " " + vertex.get(1).intValue() + " " + vertex.get(2).intValue();
+
+			Integer index = indexes.get(key);
+			if (index == null) {
+				indexes.put(key, newIndex);
+				indexMap.put(oldIndex, newIndex);
+				newIndex++;
+			} else {
+				iter.remove();
+				indexMap.put(oldIndex, index);
+			}
+
+			oldIndex++;
+		}
+
+		indexes = null;
+		if (getVertices().size() != indexMap.size()) {
+			for (AbstractCityObjectType cityObject : getCityObjects()) {
+				for (AbstractGeometryType geometry : cityObject.getGeometry())
+					geometry.updateIndexes(indexMap);
+			}
+		}
+
+		indexMap = null;
 	}
 
 }
