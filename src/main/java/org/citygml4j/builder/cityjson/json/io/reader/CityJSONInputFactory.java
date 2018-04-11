@@ -18,6 +18,10 @@
  */
 package org.citygml4j.builder.cityjson.json.io.reader;
 
+import com.google.gson.stream.JsonReader;
+import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,14 +30,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
-
-import com.google.gson.stream.JsonReader;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
-
 public class CityJSONInputFactory {
-	public static final String TEXTURE_FILE_HANDLER = "org.citygml4j.cityjson.textureFileHandler";
-	
 	protected TextureFileHandler textureFileHandler;
 	
 	public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
@@ -59,28 +56,6 @@ public class CityJSONInputFactory {
 	
 	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
 		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
-	}
-	
-	public Object getProperty(String name) {
-		Objects.requireNonNull(name, "property name may not be null.");
-
-		if (name.equals(TEXTURE_FILE_HANDLER))
-			return textureFileHandler;
-
-		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
-	}
-
-	public void setProperty(String name, Object value) {
-		Objects.requireNonNull(name, "property name may not be null.");
-
-		if (name.equals(TEXTURE_FILE_HANDLER)) {
-			if (value instanceof TextureFileHandler)
-				textureFileHandler = (TextureFileHandler)value;
-			
-			return;
-		}
-
-		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
 	}
 
 }

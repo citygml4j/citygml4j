@@ -19,10 +19,10 @@
 package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,12 +36,6 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public class CityJSONOutputFactory {
-	public static final String VERTICES_BUILDER = "org.citygml4j.cityjson.verticesBuilder";
-	public static final String VERTICES_TRANSFORMER = "org.citygml4j.cityjson.verticesTransformer";
-	public static final String TEXTURE_VERTICES_BUILDER = "org.citygml4j.cityjson.textureVerticesBuilder";
-	public static final String TEXTURE_FILE_HANDLER = "org.citygml4j.cityjson.textureFileHandler";
-	public static final String TEMPLATES_VERTICES_BUILDER = "org.citygml4j.cityjson.templatesVerticesBuilder";
-
 	protected VerticesBuilder verticesBuilder;
 	protected VerticesTransformer verticesTransformer;
 	protected TextureVerticesBuilder textureVerticesBuilder;
@@ -120,64 +114,6 @@ public class CityJSONOutputFactory {
 
 	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
 		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
-	}
-
-	public Object getProperty(String name) {
-		Objects.requireNonNull(name, "property name may not be null.");
-
-		if (name.equals(VERTICES_BUILDER))
-			return verticesBuilder;
-		if (name.equals(VERTICES_TRANSFORMER))
-			return verticesTransformer;
-		if (name.equals(TEXTURE_VERTICES_BUILDER))
-			return textureVerticesBuilder;
-		if (name.equals(TEXTURE_FILE_HANDLER))
-			return textureFileHandler;
-		if (name.equals(TEMPLATES_VERTICES_BUILDER))
-			return templatesVerticesBuilder;
-
-		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
-	}
-
-	public void setProperty(String name, Object value) {
-		Objects.requireNonNull(name, "property name may not be null.");
-
-		if (name.equals(VERTICES_BUILDER)) {
-			if (value instanceof VerticesBuilder)
-				verticesBuilder = (VerticesBuilder)value;
-			
-			return;
-		}
-		
-		if (name.equals(VERTICES_TRANSFORMER)) {
-			if (value instanceof VerticesTransformer)
-				verticesTransformer = (VerticesTransformer)value;
-			
-			return;
-		}
-		
-		if (name.equals(TEXTURE_VERTICES_BUILDER)) {
-			if (value instanceof TextureVerticesBuilder)
-				textureVerticesBuilder = (TextureVerticesBuilder)value;
-			
-			return;
-		}
-		
-		if (name.equals(TEXTURE_FILE_HANDLER)) {
-			if (value instanceof TextureFileHandler)
-				textureFileHandler = (TextureFileHandler)value;
-			
-			return;
-		}
-
-		if (name.equals(TEMPLATES_VERTICES_BUILDER)) {
-			if (value instanceof VerticesBuilder)
-				templatesVerticesBuilder = (VerticesBuilder)value;
-
-			return;
-		}
-
-		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
 	}
 
 	private void createParentDirectories(Path path) throws IOException {

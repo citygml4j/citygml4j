@@ -64,7 +64,6 @@ public class GsonReader {
 		System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
 		CityJSON cityJSON = gson.fromJson(reader, CityJSON.class);
 		reader.close();
-		
 
 		// iterate over the city objects
 		System.out.println(df.format(new Date()) + "changing the CityJSON content using Gson binding classes");

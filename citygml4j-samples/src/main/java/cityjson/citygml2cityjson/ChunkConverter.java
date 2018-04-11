@@ -50,9 +50,9 @@ public class ChunkConverter {
 		 * eye on main memory when you write a large number of objects. 
 		 * 
 		 * Secondly, and in contrast to CityGML, CityJSON does not support cross-links
-		 * between city objects, e.g. to reuse implicit geometries or global appearances.
-		 * Thus, this cross-linked information gets lost when writing CityJSON chunk-wise.
-		 * You will need some preprocessing to handle these cases correctly.
+		 * between city objects, e.g. to reuse global appearances. Thus, this cross-linked
+		 * information gets lost when writing CityJSON chunk-wise. You will need some
+		 * preprocessing to handle these cases correctly.
 		 * 
 		 * A benefit of the chunk-wise approach is that both reading and writing of the
 		 * individual city objects can be delegated to multiple threads improving the
@@ -81,7 +81,7 @@ public class ChunkConverter {
 		 * builders for both arrays, but you may also implement your own builders.
 		 * The default builders try and merge coordinates to reduce the overall number of
 		 * "vertices" and "vertices-texture" based on the number of significant digits 
-		 * (3 for "vertices" and 5 for "vertices-texture").
+		 * (3 for "vertices" and 7 for "vertices-texture" per default).
 		 * You can create an instance of the default builders to adapt the number of
 		 * significant digits as shown below.
 		 */
