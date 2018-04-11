@@ -3,7 +3,7 @@ citygml4j
 
 citygml4j is an open source Java class library and API for facilitating work with the [OGC City Geography Markup Language (CityGML)](http://www.opengeospatial.org/standards/citygml). citygml4j makes it easy to read, process and write CityGML datasets, and to develop CityGML-aware software applications.
 
-Starting from version 2.6.0, citygml4j supports parsing and writing [CityJSON](http://www.cityjson.org/en/0.5/), a format for encoding a subset of the CityGML data model using JSON instead of GML. 
+Starting from version 2.6.0, citygml4j supports parsing and writing [CityJSON](http://www.cityjson.org/), a format for encoding a subset of the CityGML data model using JSON instead of GML. 
 
 License
 -------
@@ -13,9 +13,9 @@ Note that releases of the software before version 2.3.0 continue to be licensed 
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.6.2.
+The latest stable release of citygml4j is 2.7.0.
 
-Download the citygml4j 2.6.2 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.6.2/citygml4j-2.6.2.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.7.0 release binariers [here](https://github.com/citygml4j/citygml4j/releases/download/v2.7.0/citygml4j-2.7.0.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
@@ -45,7 +45,7 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.6.2</version>
+  <version>2.7.0</version>
 </dependency>
 ```
 
@@ -57,7 +57,7 @@ repositories {
 }
 
 dependencies {
-  compile 'org.citygml4j:citygml4j:2.6.2'
+  compile 'org.citygml4j:citygml4j:2.7.0'
 }
 ```
 
