@@ -1,12 +1,15 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+}
+
 apply from: 'samples.gradle'
 
 jar.enabled false
 javadoc.enabled false
 
 dependencies {
-    compile rootProject
-    compile fileTree(dir: 'lib', include: '*.jar')
+    implementation rootProject
+    implementation fileTree(dir: 'lib', include: '*.jar')
 }
 
 clean.dependsOn(cleanOutput)
