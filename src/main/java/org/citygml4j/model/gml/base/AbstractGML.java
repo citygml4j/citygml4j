@@ -34,6 +34,8 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Code;
 
 public abstract class AbstractGML implements GML, StandardObjectProperties, Associable, Child, Copyable {
+	private static final long serialVersionUID = 8038430725115673854L;
+
 	private String id;
 	private StringOrRef description;
 	private List<Code> name;

@@ -18,13 +18,14 @@
  */
 package org.citygml4j.model.module;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
 import org.citygml4j.model.gml.feature.AbstractFeature;
 
-public interface Module {
+public interface Module extends Serializable {
 	public ModuleType getType();
 	public ModuleVersion getVersion();
 	public String getNamespaceURI();

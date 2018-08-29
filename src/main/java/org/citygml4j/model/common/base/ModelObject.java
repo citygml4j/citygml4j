@@ -18,6 +18,8 @@
  */
 package org.citygml4j.model.common.base;
 
-public interface ModelObject {
+import java.io.Serializable;
+
+public interface ModelObject extends Serializable {
 
 }
