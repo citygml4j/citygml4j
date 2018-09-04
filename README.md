@@ -27,7 +27,7 @@ Building
 --------
 citygml4j requires Java 8 or higher. The project uses [Gradle](https://gradle.org/) as build system. To build the library from source, run the following command from the root of the repository. 
 
-    % gradlew installDist
+    > gradlew installDist
 
 This will create a folder `build/install/citygml4j` with the following subfolders:
 * `javadoc` -- the Javadoc documentation
