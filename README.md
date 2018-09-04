@@ -69,7 +69,7 @@ The sample programs are organized into subfolders, each addressing a different u
 
 To run a sample program, simply open a shell environment, change to the `samples` folder and invoke the Gradle wrapper using the fully qualified name of the Java class as task name. The package name follows the folder structure. For example, issue the following command to run the `SimpleReader.java` program from the subfolder `reading_citygml/simple_citygml_reader`: 
 
-    % gradlew reading_citygml.simple_citygml_reader.SimpleReader
+    > gradlew reading_citygml.simple_citygml_reader.SimpleReader
 
 Alternatively, you can load the citygml4j source into your preferred IDE and run the sample programs from there. Please note that the sample programs use relative paths to access the test datasets in the folder `samples/datasets` and to write their output to `samples/output`. You might have to adapt the working directory in the run configuration of your IDE so that the relative paths are correctly resolved. For [Eclipse](https://www.eclipse.org/), everything should work just fine without having to change any settings. When using [IntelliJ](https://www.jetbrains.com/idea/), simply use `$MODULE_DIR$` as working directory.
 
