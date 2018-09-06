@@ -96,11 +96,9 @@ public class AppearanceResolver {
 	}
 	
 	public void resolveGlobalAppearance(AbstractGeometry geometry) {
-		if (geometry.isSetId()) {
-			List<SurfaceDataInfo> surfaceData = globalSurfaceDatas.get(geometry.getId());
-			if (surfaceData != null)
-				geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);
-		}
+		List<SurfaceDataInfo> surfaceData = globalSurfaceDatas.get(geometry.getId());
+		if (surfaceData != null)
+			geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);		
 	}
 	
 	public boolean hasTextures() {
