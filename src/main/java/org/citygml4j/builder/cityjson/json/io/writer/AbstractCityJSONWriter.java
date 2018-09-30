@@ -20,7 +20,7 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 
 import java.io.IOException;
 
-import org.citygml4j.binding.cityjson.feature.MetadataType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
 import org.citygml4j.binding.cityjson.geometry.VerticesListAdapter;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;

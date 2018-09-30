@@ -21,12 +21,12 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 import com.google.gson.stream.JsonWriter;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
+import org.citygml4j.binding.cityjson.metadata.LoDType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.marshal.citygml.core.CoreMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
@@ -35,10 +35,9 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String TYPE = "type";
@@ -57,7 +56,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String METADATA = "metadata";
 
 	private DocumentState documentState = DocumentState.INITIAL;
-	private Set<Number> lods; 
+	private Map<LoDType, Integer> lods;
 
 	private enum DocumentState {
 		INITIAL,
@@ -67,7 +66,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 	public CityJSONChunkWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		super(writer, factory);
-		lods = new HashSet<>();
+		lods = new HashMap<>();
 	}
 
 	public void registerGlobalAppearance(Appearance appearance) {
@@ -97,7 +96,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			writer.name(TYPE);
 			writer.value(CITYJSON);
 			writer.name(VERSION);
-			writer.value("0.6");
+			writer.value("0.8");
 
 			writer.name(CITY_OBJECTS);
 			writer.beginObject();
@@ -141,8 +140,11 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private void write(AbstractCityObjectType cityObject) throws CityJSONWriteException {
 		try {
 			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
-				if (geometry instanceof AbstractGeometryObjectType)
-					lods.add(((AbstractGeometryObjectType) geometry).getLod());
+				if (geometry instanceof AbstractGeometryObjectType) {
+					LoDType lod = LoDType.fromLoD(((AbstractGeometryObjectType) geometry).getLod());
+					if (lod != null)
+						lods.merge(lod, 1, Integer::sum);
+				}
 			}
 
 			writer.name(cityObject.getGmlId());
@@ -217,7 +219,11 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 				List<AbstractGeometryObjectType> geometryTemplates = coreMarshaller.getGeometryTemplates();
 				writer.name(TEMPLATES);
 				gson.toJson(geometryTemplates, List.class, writer);
-				geometryTemplates.forEach(g -> lods.add(g.getLod()));
+				geometryTemplates.forEach(g -> {
+					LoDType lod = LoDType.fromLoD(g.getLod());
+					if (lod != null)
+						lods.merge(lod, 1, Integer::sum);
+				});
 
 				List<List<Double>> templatesVertices = marshaller.getTemplatesVerticesBuilder().build();
 				if (templatesVertices.size() > 0) {
@@ -231,7 +237,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			// metadata
 			MetadataType metadata = this.metadata != null ? this.metadata : new MetadataType();
 
-			if (!metadata.isSetBBox() && !vertices.isEmpty()) {
+			if (!metadata.isSetGeographicalExtent() && !vertices.isEmpty()) {
 				CityJSON cityJSON = new CityJSON();
 				cityJSON.setVertices(vertices);
 
@@ -241,11 +247,11 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 						bbox.set(i, bbox.get(i) * transform.getScale().get(i%3) + transform.getTranslate().get(i%3));
 				}
 
-				metadata.setBBox(bbox);
+				metadata.setGeographicalExtent(bbox);
 			}
 
 			if (!metadata.isSetPresentLoDs() && !lods.isEmpty())
-				metadata.setPresentLoDs(lods.stream().sorted().collect(Collectors.toList()));
+				metadata.setPresentLoDs(lods);
 
 			writer.name(METADATA);
 			gson.toJson(metadata, MetadataType.class, writer);

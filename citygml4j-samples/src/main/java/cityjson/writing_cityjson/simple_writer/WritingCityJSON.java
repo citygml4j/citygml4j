@@ -19,8 +19,7 @@
 package cityjson.writing_cityjson.simple_writer;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.binding.cityjson.feature.CRSType;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONWriter;
@@ -144,9 +143,7 @@ public class WritingCityJSON {
 		MetadataType metadata = new MetadataType();
 
 		// add a CRS
-		CRSType crs = new CRSType();
-		crs.setEpsg(3068);
-		metadata.setCRS(crs);
+		metadata.setReferenceSystem(3068);
 
 		// add some further metadata tags
 		metadata.setDatasetTitle("CityJSON sample file created with citygml4j");

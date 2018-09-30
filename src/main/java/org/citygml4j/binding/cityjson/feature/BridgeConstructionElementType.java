@@ -18,14 +18,14 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
-
 import com.google.gson.annotations.JsonAdapter;
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class BridgeConstructionElementType extends AbstractCityObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.BRIDGE_CONSTRUCTION_ELEMENT;
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
+	private String parent;
 	
 	BridgeConstructionElementType() {
 	}
@@ -62,6 +62,22 @@ public class BridgeConstructionElementType extends AbstractCityObjectType {
 	@Override
 	public void unsetAttributes() {
 		attributes = null;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public String getParent() {
+		return parent;
+	}
+
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
+
+	public void unsetParent() {
+		parent = null;
 	}
 
 	@Override

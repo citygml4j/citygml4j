@@ -23,26 +23,25 @@ import com.google.gson.annotations.SerializedName;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
+import org.citygml4j.binding.cityjson.metadata.LoDType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CityJSON {
 	private final String type = "CityJSON";
-	private final String version = "0.6";
+	private final String version = "0.8";
 	private MetadataType metadata;
 	@SerializedName("CityObjects")
 	@JsonAdapter(CityObjectsAdapter.class)
@@ -217,21 +216,27 @@ public class CityJSON {
 		return bbox;
 	}
 	
-	public List<Number> calcPresentLoDs() {
-		Set<Number> lods = new HashSet<>();		
+	public Map<LoDType, Integer> calcPresentLoDs() {
+		Map<LoDType, Integer> lods = new HashMap<>();
 		for (AbstractCityObjectType cityObject : cityObjects.values()) {
 			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
-				if (geometry instanceof AbstractGeometryObjectType)
-					lods.add(((AbstractGeometryObjectType) geometry).getLod());
+				if (geometry instanceof AbstractGeometryObjectType) {
+					LoDType lod = LoDType.fromLoD(((AbstractGeometryObjectType) geometry).getLod());
+					if (lod != null)
+						lods.merge(lod, 1, Integer::sum);
+				}
 			}
 		}
 
 		if (geometryTemplates != null) {
-			for (AbstractGeometryObjectType geometry : geometryTemplates.getTemplates())
-				lods.add(geometry.getLod());
+			for (AbstractGeometryObjectType geometry : geometryTemplates.getTemplates()) {
+				LoDType lod = LoDType.fromLoD(geometry.getLod());
+				if (lod != null)
+					lods.merge(lod, 1, Integer::sum);
+			}
 		}
 		
-		return lods.stream().sorted().collect(Collectors.toList());
+		return lods;
 	}
 
 	public void removeDuplicateVertices() {

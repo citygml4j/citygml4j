@@ -22,11 +22,11 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
@@ -107,8 +107,8 @@ public class CoreUnmarshaller {
 	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) {
 		dest.setId(src.getGmlId());
 
-		if (src.isSetBBox()) {
-			List<Double> bbox = src.getBBox();
+		if (src.isSetGeographicalExtent()) {
+			List<Double> bbox = src.getGeographicalExtent();
 
 			Envelope envelope = new Envelope();
 			envelope.setLowerCorner(new Point(bbox.get(0), bbox.get(1), bbox.get(2)));
@@ -156,15 +156,15 @@ public class CoreUnmarshaller {
 		if (src.isSetMetadata()) {
 			MetadataType metadata = src.getMetadata();
 
-			if (metadata.isSetBBox()) {
-				List<Double> bbox = metadata.getBBox();
+			if (metadata.isSetGeographicalExtent()) {
+				List<Double> bbox = metadata.getGeographicalExtent();
 				if (bbox.size() > 5) {
 					BoundingShape boundedBy = new BoundingShape(new BoundingBox(
 							new Point(bbox.get(0), bbox.get(1), bbox.get(2)),
 							new Point(bbox.get(3), bbox.get(4), bbox.get(5))));
 					
-					if (metadata.isSetCRS())
-						boundedBy.getEnvelope().setSrsName("EPSG:" + metadata.getCRS().getEpsg());
+					if (metadata.isSetReferenceSystem())
+						boundedBy.getEnvelope().setSrsName(metadata.getReferenceSystem());
 					
 					dest.setBoundedBy(boundedBy);
 				}

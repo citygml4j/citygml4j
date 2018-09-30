@@ -254,21 +254,16 @@ public class BuildingUnmarshaller {
 			}
 		}
 
-		if (src.isSetInstallations()) {
-			for (String gmlId : src.getInstallations()) {
-				BuildingInstallationType installation = cityJSON.getCityObject(gmlId, BuildingInstallationType.class);
-				if (installation != null)
-					dest.addOuterBuildingInstallation(new BuildingInstallationProperty(unmarshalBuildingInstallation(installation, cityJSON)));
-			}
-		}
+		if (src.isSetChildren()) {
+			for (String gmlId : src.getChildren()) {
+				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
 
-		if (src instanceof BuildingType) {
-			BuildingType building = (BuildingType)src;
-			if (building.isSetParts()) {
-				for (String gmlId : building.getParts()) {
-					BuildingPartType buildingPart = cityJSON.getCityObject(gmlId, BuildingPartType.class);
-					if (buildingPart != null)
-						dest.addConsistsOfBuildingPart(new BuildingPartProperty(unmarshalBuildingPart(buildingPart, cityJSON)));
+				if (cityObject instanceof BuildingInstallationType) {
+					BuildingInstallation installation = unmarshalBuildingInstallation((BuildingInstallationType) cityObject, cityJSON);
+					dest.addOuterBuildingInstallation(new BuildingInstallationProperty(installation));
+				} else if (cityObject instanceof BuildingPartType && src instanceof BuildingType) {
+					BuildingPart part = unmarshalBuildingPart((BuildingPartType) cityObject, cityJSON);
+					dest.addConsistsOfBuildingPart(new BuildingPartProperty(part));
 				}
 			}
 		}

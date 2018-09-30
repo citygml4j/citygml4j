@@ -18,22 +18,17 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	@JsonAdapter(BridgeAttributesAdapter.class)
 	private BridgeAttributes attributes;
 	private AddressType address;
-	@SerializedName("Installations")
-	private List<String> installations;
-	@SerializedName("ConstructionElements")
-	private List<String> constructionElements;
+	private List<String> children;
 	
 	AbstractBridgeType() {
 	}
@@ -78,51 +73,28 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	public void setAddress(AddressType address) {
 		this.address = address;
 	}
-	
-	public boolean isSetInstallations() {
-		return installations != null && !installations.isEmpty();
-	}
-	
-	public void addInstallation(String installation) {
-		if (installations == null)
-			installations = new ArrayList<>();
-		
-		installations.add(installation);
+
+	public boolean isSetChildren() {
+		return children != null && !children.isEmpty();
 	}
 
-	public List<String> getInstallations() {
-		return installations;
+	public void addChild(String child) {
+		if (children == null)
+			children = new ArrayList<>();
+
+		children.add(child);
 	}
 
-	public void setInstallations(List<String> installations) {
-		this.installations = installations;
+	public List<String> getChildren() {
+		return children;
 	}
 
-	public void unsetInstallations() {
-		installations = null;
-	}
-	
-	public boolean isSetConstructionElements() {
-		return constructionElements != null && !constructionElements.isEmpty();
-	}
-	
-	public void addConstructionElement(String constructionElement) {
-		if (constructionElements == null)
-			constructionElements = new ArrayList<>();
-		
-		constructionElements.add(constructionElement);
+	public void setChildren(List<String> Children) {
+		this.children = Children;
 	}
 
-	public List<String> getConstructionElements() {
-		return constructionElements;
-	}
-
-	public void setConstructionElements(List<String> constructionElements) {
-		this.constructionElements = constructionElements;
-	}
-
-	public void unsetConstructionElements() {
-		constructionElements = null;
+	public void unsetChildren() {
+		children = null;
 	}
 
 	@Override

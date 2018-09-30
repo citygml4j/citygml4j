@@ -86,7 +86,7 @@ public class CoreMarshaller {
 
 	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, Attributes attributes) {
 		if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
-			dest.setBBox(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
+			dest.setGeographicalExtent(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
 		if (src.isSetCreationDate())
 			attributes.setCreationDate(src.getCreationDate());

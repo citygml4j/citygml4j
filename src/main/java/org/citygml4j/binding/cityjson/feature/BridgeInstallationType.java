@@ -26,6 +26,7 @@ public class BridgeInstallationType extends AbstractCityObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.BRIDGE_INSTALLATION;
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
+	private String parent;
 	
 	BridgeInstallationType() {
 	}
@@ -62,6 +63,22 @@ public class BridgeInstallationType extends AbstractCityObjectType {
 	@Override
 	public void unsetAttributes() {
 		attributes = null;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public String getParent() {
+		return parent;
+	}
+
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
+
+	public void unsetParent() {
+		parent = null;
 	}
 
 	@Override
