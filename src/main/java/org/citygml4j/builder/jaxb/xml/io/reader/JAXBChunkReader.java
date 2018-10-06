@@ -170,14 +170,10 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 							current = null;
 					}
 				}
-			} catch (XMLStreamException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			} catch (SAXException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			} catch (MissingADESchemaException e) {
+			} catch (XMLStreamException | SAXException | MissingADESchemaException e) {
 				throw new CityGMLReadException("Caused by: ", e);
 			}
-			
+
 			if (current == null)
 				throw new NoSuchElementException();
 		} else

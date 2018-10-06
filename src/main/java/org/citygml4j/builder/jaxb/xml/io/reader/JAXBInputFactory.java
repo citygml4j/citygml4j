@@ -53,7 +53,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public class JAXBInputFactory implements CityGMLInputFactory {
-	CityGMLBuilder builder;
+	final CityGMLBuilder builder;
 	private SchemaHandler schemaHandler;
 	private XMLInputFactory xmlInputFactory;
 	private GMLIdManager gmlIdManager;
@@ -138,9 +138,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 			default:
 				return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
 			}			
-		} catch (XMLStreamException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		} catch (FileNotFoundException e) {
+		} catch (XMLStreamException | FileNotFoundException e) {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
@@ -157,9 +155,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 			default:
 				return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
 			}			
-		} catch (XMLStreamException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		} catch (FileNotFoundException e) {
+		} catch (XMLStreamException | FileNotFoundException e) {
 			throw new CityGMLReadException("Caused by: ", e);
 		}
 	}
@@ -240,7 +236,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	}
 
 	public Object getProperty(String name) {
-		Objects.requireNonNull("property name may not be null.");
+		Objects.requireNonNull(name, "property name may not be null.");
 
 		if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE))
 			return featureReadMode;
@@ -263,7 +259,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	}
 
 	public void setProperty(String name, Object value) {
-		Objects.requireNonNull("property name may not be null.");
+		Objects.requireNonNull(name, "property name may not be null.");
 
 		if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE)) {
 			FeatureReadMode mode = FeatureReadMode.fromValue(value.toString());
@@ -275,21 +271,21 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 
 		if (name.equals(CityGMLInputFactory.KEEP_INLINE_APPEARANCE)) {
 			if (value instanceof Boolean)
-				keepInlineAppearance = ((Boolean)value).booleanValue();
+				keepInlineAppearance = (Boolean) value;
 
 			return;		
 		}
 
 		if (name.equals(CityGMLInputFactory.PARSE_SCHEMA)) {
 			if (value instanceof Boolean)
-				parseSchema = ((Boolean)value).booleanValue();
+				parseSchema = (Boolean) value;
 
 			return;		
 		}
 		
 		if (name.equals(CityGMLInputFactory.USE_VALIDATION)) {
 			if (value instanceof Boolean)
-				useValidation = ((Boolean)value).booleanValue();
+				useValidation = (Boolean) value;
 
 			return;		
 		}
@@ -354,14 +350,14 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 		
 		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA)) {
 			if (value instanceof Boolean)
-				failOnMissingADESchema = ((Boolean)value).booleanValue();
+				failOnMissingADESchema = (Boolean) value;
 
 			return;		
 		}
 		
 		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0)) {
 			if (value instanceof Boolean)
-				supportCityGML040 = ((Boolean)value).booleanValue();
+				supportCityGML040 = (Boolean) value;
 
 			return;		
 		}
@@ -386,7 +382,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	}
 
 	private URI toURI(String baseURI) {
-		URI uri = null;
+		URI uri;
 
 		try {
 			uri = new URI(baseURI).normalize();
