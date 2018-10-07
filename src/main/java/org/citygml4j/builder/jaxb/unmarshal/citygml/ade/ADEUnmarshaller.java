@@ -18,10 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.ade;
 
-import java.util.HashMap;
-
-import javax.xml.bind.JAXBElement;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
@@ -32,9 +28,13 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBElement;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ADEUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
-	private HashMap<String, ADEContext> adeContexts;
+	private Map<String, ADEContext> adeContexts;
 
 	public ADEUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
@@ -42,9 +42,10 @@ public class ADEUnmarshaller {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
 			this.adeContexts = new HashMap<>();
+			ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(jaxb);
 
 			for (ADEContext adeContext : context.getADEContexts()) {
-				adeContext.getADEUnmarshaller().setADEUnmarshallerHelper(new ADEUnmarshallerHelper(jaxb));
+				adeContext.getADEUnmarshaller().setADEUnmarshallerHelper(helper);
 				for (ADEModule module : adeContext.getADEModules())
 					this.adeContexts.put(module.getNamespaceURI(), adeContext);					
 			}

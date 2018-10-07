@@ -18,11 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.ade;
 
-import java.util.HashMap;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -32,18 +27,24 @@ import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ADEMarshaller {
-	private HashMap<String, ADEContext> adeContexts;
+	private Map<String, ADEContext> adeContexts;
 
 	public ADEMarshaller(JAXBMarshaller jaxb) {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
 			this.adeContexts = new HashMap<>();
+			ADEMarshallerHelper helper = new ADEMarshallerHelper(jaxb);
 
 			for (ADEContext adeContext : context.getADEContexts()) {
 				for (ADEModule module : adeContext.getADEModules()) {
 					if (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
-						adeContext.getADEMarshaller().setADEMarshallerHelper(new ADEMarshallerHelper(jaxb));
+						adeContext.getADEMarshaller().setADEMarshallerHelper(helper);
 						for (String packageName : adeContext.getModelPackageNames())
 							this.adeContexts.put(packageName, adeContext);	
 					}
@@ -57,7 +58,7 @@ public class ADEMarshaller {
 		switch (ade.getADEClass()) {
 		case MODEL_OBJECT:
 			JAXBElement<?> elem = marshalJAXBElement((ADEModelObject)ade);
-			if (elem != null && elem.getValue() instanceof Object)
+			if (elem != null && elem.getValue() != null)
 				return (JAXBElement<Object>)elem;
 			break;
 		case GENERIC_ELEMENT:	
@@ -71,11 +72,7 @@ public class ADEMarshaller {
 	}
 
 	public Element marshalDOMElement(ADEGenericElement ade) {
-		ADEGenericElement adeGenericElement = (ADEGenericElement)ade;
-		if (adeGenericElement.isSetContent())
-			return adeGenericElement.getContent();
-
-		return null;
+		return ade.isSetContent() ? ade.getContent() : null;
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ADEModelObject ade) {
