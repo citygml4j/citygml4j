@@ -20,8 +20,7 @@ package org.citygml4j.binding.cityjson.feature;
 
 public class TunnelPartType extends AbstractTunnelType {
 	private final CityObjectTypeName type = CityObjectTypeName.TUNNEL_PART;
-	private String parent;
-
+	
 	TunnelPartType() {
 	}
 	
@@ -32,22 +31,6 @@ public class TunnelPartType extends AbstractTunnelType {
 	@Override
 	public CityObjectTypeName getType() {
 		return type;
-	}
-
-	public boolean isSetParent() {
-		return parent != null;
-	}
-
-	public String getParent() {
-		return parent;
-	}
-
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
-
-	public void unsetParent() {
-		parent = null;
 	}
 
 }

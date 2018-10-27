@@ -18,17 +18,20 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
 
 public abstract class AbstractBuildingType extends AbstractCityObjectType {
 	@JsonAdapter(BuildingAttributesAdapter.class)
 	private BuildingAttributes attributes;
 	private AddressType address;
-	private List<String> children;
+	@SerializedName("Installations")
+	private List<String> installations;
 	
 	AbstractBuildingType() {
 	}
@@ -73,28 +76,28 @@ public abstract class AbstractBuildingType extends AbstractCityObjectType {
 	public void setAddress(AddressType address) {
 		this.address = address;
 	}
-
-	public boolean isSetChildren() {
-		return children != null && !children.isEmpty();
+	
+	public boolean isSetInstallations() {
+		return installations != null && !installations.isEmpty();
 	}
-
-	public void addChild(String child) {
-		if (children == null)
-			children = new ArrayList<>();
+	
+	public void addInstallation(String installation) {
+		if (installations == null)
+			installations = new ArrayList<>();
 		
-		children.add(child);
+		installations.add(installation);
 	}
 
-	public List<String> getChildren() {
-		return children;
+	public List<String> getInstallations() {
+		return installations;
 	}
 
-	public void setChildren(List<String> Children) {
-		this.children = Children;
+	public void setInstallations(List<String> installations) {
+		this.installations = installations;
 	}
 
-	public void unsetChildren() {
-		children = null;
+	public void unsetInstallations() {
+		installations = null;
 	}
 
 	@Override

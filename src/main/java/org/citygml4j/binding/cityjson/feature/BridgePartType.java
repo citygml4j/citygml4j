@@ -20,7 +20,6 @@ package org.citygml4j.binding.cityjson.feature;
 
 public class BridgePartType extends AbstractBridgeType {
 	private final CityObjectTypeName type = CityObjectTypeName.BRIDGE_PART;
-	private String parent;
 	
 	BridgePartType() {
 	}
@@ -32,22 +31,6 @@ public class BridgePartType extends AbstractBridgeType {
 	@Override
 	public CityObjectTypeName getType() {
 		return type;
-	}
-
-	public boolean isSetParent() {
-		return parent != null;
-	}
-
-	public String getParent() {
-		return parent;
-	}
-
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
-
-	public void unsetParent() {
-		parent = null;
 	}
 
 }

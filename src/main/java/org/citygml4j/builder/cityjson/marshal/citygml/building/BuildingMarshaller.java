@@ -238,13 +238,9 @@ public class BuildingMarshaller {
 		if (src.isSetOuterBuildingInstallation()) {
 			for (BuildingInstallationProperty property : src.getOuterBuildingInstallation()) {
 				if (property.isSetBuildingInstallation()) {
-					for (AbstractCityObjectType cityObject : marshalBuildingInstallation(property.getBuildingInstallation())) {
-						if (cityObject instanceof BuildingInstallationType) {
-							dest.addChild(cityObject.getGmlId());
-							((BuildingInstallationType) cityObject).setParent(dest.getGmlId());
-						}
-
-						cityObjects.add(cityObject);
+					for (AbstractCityObjectType type : marshalBuildingInstallation(property.getBuildingInstallation())) {
+						dest.addInstallation(type.getGmlId());
+						cityObjects.add(type);
 					}
 				}
 			}
@@ -254,10 +250,8 @@ public class BuildingMarshaller {
 			for (BuildingPartProperty property : src.getConsistsOfBuildingPart()) {
 				if (property.isSetBuildingPart()) {
 					for (AbstractCityObjectType cityObject : marshalBuildingPart(property.getBuildingPart())) {
-						if (cityObject instanceof BuildingPartType) {
-							dest.addChild(cityObject.getGmlId());
-							((BuildingPartType) cityObject).setParent(dest.getGmlId());
-						}
+						if (cityObject instanceof BuildingPartType)
+							((BuildingType)dest).addPart(cityObject.getGmlId());
 
 						cityObjects.add(cityObject);
 					}

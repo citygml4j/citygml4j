@@ -16,35 +16,96 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml4j.binding.cityjson.metadata;
+package org.citygml4j.binding.cityjson.feature;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import org.citygml4j.binding.cityjson.feature.DateAdapter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MetadataType {
+	private CRSType crs;
+	private List<Double> bbox;
+	private List<String> keywords;
 	private String datasetTitle;
-	@JsonAdapter(DateAdapter.class)
-	private LocalDate datasetReferenceDate;
+	@JsonAdapter(DateTimeAdapter.class)
+	private ZonedDateTime datasetReferenceDate;
 	private String geographicLocation;
 	private String datasetLanguage;
 	private String datasetTopicCategory;
-	private String referenceSystem;
-	@JsonAdapter(DateAdapter.class)
-	private LocalDate metadataDateStamp;
-	private List<Double> geographicalExtent;
-	@SerializedName("abstract")
 	private String datasetAbstract;
-	private List<String> keywords;
-	private Map<LoDType, Integer> presentLoDs;
+	@JsonAdapter(DateTimeAdapter.class)
+	private ZonedDateTime metadataDateStamp;
+	private String pointOfContact;
+	private String copyright;
+	private List<Number> presentLoDs;
+
+	public boolean isSetCRS() {
+		return crs != null;
+	}
+
+	public CRSType getCRS() {
+		return crs;
+	}
+
+	public void setCRS(CRSType crs) {
+		this.crs = crs;
+	}
+
+	public void unsetCRS() {
+		crs = null;
+	}
+
+	public boolean isSetBBox() {
+		return bbox != null && bbox.size() >= 6;
+	}
+
+	public List<Double> getBBox() {
+		return isSetBBox() ? bbox.subList(0, 6) : null;
+	}
+
+	public void setBBox(List<Double> bbox) {
+		if (bbox == null)
+			this.bbox = null;
+		else if (bbox.size() >= 6)
+			this.bbox = bbox.subList(0, 6);
+	}
+
+	public void unsetBBox() {
+		bbox = null;
+	}
+
+	public boolean isSetKeywords() {
+		return keywords != null;
+	}
+
+	public List<String> getKeywords() {
+		return keywords;
+	}
+
+	public void addKeyWord(String keyword) {
+		if (keywords == null)
+			keywords = new ArrayList<>();
+
+		keywords.add(keyword);
+	}
+
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
+
+	public void removeKeyword(String keyword) {
+		if (keywords != null)
+			keywords.remove(keyword);
+	}
+
+	public void unsetsetKeywords() {
+		keywords = null;
+	}
 
 	public boolean isSetDatasetTitle() {
 		return datasetTitle != null;
@@ -66,20 +127,20 @@ public class MetadataType {
 		return datasetReferenceDate != null;
 	}
 
-	public LocalDate getDatasetReferenceDate() {
+	public ZonedDateTime getDatasetReferenceDate() {
 		return datasetReferenceDate;
 	}
 
 	public void setDatasetReferenceDate(ZonedDateTime datasetReferenceDate) {
-		this.datasetReferenceDate = datasetReferenceDate.toLocalDate();
+		this.datasetReferenceDate = datasetReferenceDate;
 	}
 
 	public void setDatasetReferenceDate(LocalDateTime datasetReferenceDate) {
-		this.datasetReferenceDate = datasetReferenceDate.toLocalDate();
+		this.datasetReferenceDate = datasetReferenceDate.atZone(ZoneId.systemDefault());
 	}
 
 	public void setDatasetReferenceDate(LocalDate datasetReferenceDate) {
-		this.datasetReferenceDate = datasetReferenceDate;
+		this.datasetReferenceDate = datasetReferenceDate.atStartOfDay(ZoneId.systemDefault());
 	}
 
 	public void unsetDatasetReferenceDate() {
@@ -134,128 +195,102 @@ public class MetadataType {
 		datasetTopicCategory = null;
 	}
 
-	public boolean isSetReferenceSystem() {
-		return referenceSystem != null;
+	public boolean isSetDatasetAbstract() {
+		return datasetAbstract != null;
 	}
 
-	public String getReferenceSystem() {
-		return referenceSystem;
+	public String getDatasetAbstract() {
+		return datasetAbstract;
 	}
 
-	public void setReferenceSystem(int epsg) {
-		if (epsg > 999 && epsg < 100000)
-			referenceSystem = "urn:ogc:def:crs:EPSG::" + epsg;
+	public void setDatasetAbstract(String datasetAbstract) {
+		this.datasetAbstract = datasetAbstract;
 	}
 
-	public void unsetReferenceSystem() {
-		referenceSystem = null;
+	public void unsetDatasetAbstract() {
+		datasetAbstract = null;
 	}
 
 	public boolean isSetMetadataDateStamp() {
 		return metadataDateStamp != null;
 	}
 
-	public LocalDate getMetadataDateStamp() {
+	public ZonedDateTime getMetadataDateStamp() {
 		return metadataDateStamp;
 	}
 
 	public void setMetadataDateStamp(ZonedDateTime metadataDateStamp) {
-		this.metadataDateStamp = metadataDateStamp.toLocalDate();
+		this.metadataDateStamp = metadataDateStamp;
 	}
 
 	public void setMetadataDateStamp(LocalDateTime metadataDateStamp) {
-		this.metadataDateStamp = metadataDateStamp.toLocalDate();
+		this.metadataDateStamp = metadataDateStamp.atZone(ZoneId.systemDefault());
 	}
 
 	public void setMetadataDateStamp(LocalDate metadataDateStamp) {
-		this.metadataDateStamp = metadataDateStamp;
+		this.metadataDateStamp = metadataDateStamp.atStartOfDay(ZoneId.systemDefault());
 	}
 
 	public void unsetMetadataDateStamp() {
 		metadataDateStamp = null;
 	}
 
-	public boolean isSetGeographicalExtent() {
-		return geographicalExtent != null && geographicalExtent.size() >= 6;
+	public boolean isSetPointOfContact() {
+		return pointOfContact != null;
 	}
 
-	public List<Double> getGeographicalExtent() {
-		return isSetGeographicalExtent() ? geographicalExtent.subList(0, 6) : null;
+	public String getPointOfContact() {
+		return pointOfContact;
 	}
 
-	public void setGeographicalExtent(List<Double> geographicalExtent) {
-		if (geographicalExtent == null)
-			this.geographicalExtent = null;
-		else if (geographicalExtent.size() >= 6)
-			this.geographicalExtent = geographicalExtent.subList(0, 6);
+	public void setPointOfContact(String pointOfContact) {
+		this.pointOfContact = pointOfContact;
 	}
 
-	public void unsetGeographicalExtent() {
-		geographicalExtent = null;
+	public void unsetPointOfContact() {
+		pointOfContact = null;
 	}
 
-	public boolean isSetAbstract() {
-		return datasetAbstract != null;
+	public boolean isSetCopyright() {
+		return copyright != null;
 	}
 
-	public String getAbstract() {
-		return datasetAbstract;
+	public String getCopyright() {
+		return copyright;
 	}
 
-	public void setAbstract(String datasetAbstract) {
-		this.datasetAbstract = datasetAbstract;
+	public void setCopyright(String copyright) {
+		this.copyright = copyright;
 	}
 
-	public void unsetAbstract() {
-		datasetAbstract = null;
-	}
-
-	public boolean isSetKeywords() {
-		return keywords != null;
-	}
-
-	public List<String> getKeywords() {
-		return keywords;
-	}
-
-	public void addKeyWord(String keyword) {
-		if (keywords == null)
-			keywords = new ArrayList<>();
-
-		keywords.add(keyword);
-	}
-
-	public void setKeywords(List<String> keywords) {
-		this.keywords = keywords;
-	}
-
-	public void removeKeyword(String keyword) {
-		if (keywords != null)
-			keywords.remove(keyword);
-	}
-
-	public void unsetsetKeywords() {
-		keywords = null;
+	public void unsetCopyright() {
+		copyright = null;
 	}
 
 	public boolean isSetPresentLoDs() {
 		return presentLoDs != null;
 	}
 
-	public void addPresentLoD(LoDType lod) {
-		if (presentLoDs == null)
-			presentLoDs = new HashMap<>();
+	public void addPresentLoD(Number lod) {
+		if (lod != null && (lod.doubleValue() < 0.0 || lod.doubleValue() >= 4.0)) {
+			if (presentLoDs == null)
+				presentLoDs = new ArrayList<>();
 
-		presentLoDs.merge(lod, 1, Integer::sum);
+			presentLoDs.add(lod);
+		}
 	}
 
-	public Map<LoDType, Integer> getPresentLoDs() {
+	public List<Number> getPresentLoDs() {
 		return presentLoDs;
 	}
 
-	public void setPresentLoDs(Map<LoDType, Integer> presentLoDs) {
-		if (presentLoDs != null && !presentLoDs.isEmpty())
-			this.presentLoDs = presentLoDs;
+	public void setPresentLoDs(List<Number> presentLoDs) {
+		if (presentLoDs != null) {
+			presentLoDs = new ArrayList<>(presentLoDs);
+			presentLoDs.removeIf(lod -> lod.doubleValue() < 0.0 || lod.doubleValue() >= 4.0);
+		}
+
+		this.presentLoDs = presentLoDs;
 	}
 	
 	public void unsetPresentLoDs() {

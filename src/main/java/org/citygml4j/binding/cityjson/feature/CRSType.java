@@ -18,45 +18,15 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CRSType {
+	private int epsg;
 
-import com.google.gson.annotations.SerializedName;
-
-public class TunnelType extends AbstractTunnelType {
-	private final CityObjectTypeName type = CityObjectTypeName.TUNNEL;
-	@SerializedName("Parts")
-	private List<String> parts;
-	
-	TunnelType() {
-	}
-	
-	public TunnelType(String gmlId) {
-		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
-	}
-	
-	public boolean isSetParts() {
-		return parts != null;
-	}
-	
-	public void addPart(String part) {
-		if (parts == null)
-			parts = new ArrayList<>();
-		
-		parts.add(part);
+	public int getEpsg() {
+		return epsg;
 	}
 
-	public List<String> getParts() {
-		return parts;
+	public void setEpsg(int epsg) {
+		this.epsg = epsg;
 	}
-
-	public void setParts(List<String> parts) {
-		this.parts = parts;
-	}
-		
+	
 }
