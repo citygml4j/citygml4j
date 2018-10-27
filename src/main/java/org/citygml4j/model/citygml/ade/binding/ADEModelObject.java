@@ -35,8 +35,4 @@ public interface ADEModelObject extends ADEComponent {
 		return ADEClass.MODEL_OBJECT;
 	}
 	
-	default ADEModule getADEModule() {
-		return null;
-	}
-	
 }
