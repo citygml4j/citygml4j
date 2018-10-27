@@ -43,7 +43,7 @@ public class Serialization {
         Files.createDirectories(Paths.get("output"));
 
         // create an ObjectOutputStream to serialize the CityModel
-        // make sure to use an BufferedOutputStream for performance reasons
+        // make sure to use a BufferedOutputStream for performance reasons
         // to keep the file size small, consider using a GZIPOutputStream in addition
         try (ObjectOutputStream stream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("output/out.ser")))) {
             stream.writeObject(cityModel);
@@ -55,17 +55,17 @@ public class Serialization {
         System.out.println(df.format(new Date()) + "deserializing out.ser back into main memory");
 
         // create an ObjectInputStream to deserialize the CityModel
-        // again, make sure to use an BufferedInputStream for performance reasons
+        // again, make sure to use a BufferedInputStream for performance reasons
         try (ObjectInputStream stream = new ObjectInputStream(new BufferedInputStream(new FileInputStream("output/out.ser")))) {
             Object o = stream.readObject();
+
             if (o instanceof CityModel) {
                 System.out.println(df.format(new Date()) + "successfully read citygml4j object tree from file out.ser");
                 cityModel = (CityModel) o;
 
+                System.out.println(df.format(new Date()) + "Found the following cityObjectMembers in out.ser:");
                 EnumMap<CityGMLClass, Integer> features = new EnumMap<>(CityGMLClass.class);
                 cityModel.getCityObjectMember().forEach(m -> features.merge(m.getCityObject().getCityGMLClass(), 1, Integer::sum));
-
-                System.out.println(df.format(new Date()) + "Found the following cityObjectMembers in out.ser:");
                 features.forEach((key, value) -> System.out.println(key + ": " + value));
             } else
                 throw new CityGMLReadException("Failed to deserialize the file out.ser");
