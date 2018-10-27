@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.building;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
@@ -40,6 +38,8 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public class Room extends AbstractCityObject implements BuildingModuleComponent, StandardObjectClassifier {
 	private Code clazz;

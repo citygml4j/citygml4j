@@ -18,14 +18,14 @@
  */
 package org.citygml4j.model.module.citygml;
 
+import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.Module;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
-import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
-import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.module.Module;
 
 public class CityObjectGroupModule extends AbstractCityGMLModule {
 	private static final List<CityObjectGroupModule> instances = new ArrayList<CityObjectGroupModule>();

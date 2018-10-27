@@ -18,10 +18,10 @@
  */
 package org.citygml4j.binding.cityjson.geometry;
 
+import com.google.gson.annotations.JsonAdapter;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.gson.annotations.JsonAdapter;
 
 @JsonAdapter(SemanticsTypeAdapter.class)
 public class SemanticsType {

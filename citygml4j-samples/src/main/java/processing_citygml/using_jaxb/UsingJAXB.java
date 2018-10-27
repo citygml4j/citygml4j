@@ -18,17 +18,6 @@
  */
 package processing_citygml.using_jaxb;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
 import net.opengis.citygml._1.CityModelType;
 import net.opengis.citygml.building._1.AbstractBoundarySurfaceType;
 import net.opengis.citygml.building._1.BoundarySurfacePropertyType;
@@ -37,7 +26,6 @@ import net.opengis.gml.AbstractFeatureType;
 import net.opengis.gml.FeaturePropertyType;
 import net.opengis.gml.ObjectFactory;
 import net.opengis.gml.StringOrRefType;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
@@ -48,6 +36,16 @@ import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UsingJAXB {
 

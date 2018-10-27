@@ -18,10 +18,14 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.waterbody;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.waterbody._1.AbstractWaterBoundarySurfaceType;
+import net.opengis.citygml.waterbody._1.AbstractWaterObjectType;
+import net.opengis.citygml.waterbody._1.BoundedByWaterSurfacePropertyType;
+import net.opengis.citygml.waterbody._1.ObjectFactory;
+import net.opengis.citygml.waterbody._1.WaterBodyType;
+import net.opengis.citygml.waterbody._1.WaterClosureSurfaceType;
+import net.opengis.citygml.waterbody._1.WaterGroundSurfaceType;
+import net.opengis.citygml.waterbody._1.WaterSurfaceType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -36,14 +40,8 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import net.opengis.citygml.waterbody._1.AbstractWaterBoundarySurfaceType;
-import net.opengis.citygml.waterbody._1.AbstractWaterObjectType;
-import net.opengis.citygml.waterbody._1.BoundedByWaterSurfacePropertyType;
-import net.opengis.citygml.waterbody._1.ObjectFactory;
-import net.opengis.citygml.waterbody._1.WaterBodyType;
-import net.opengis.citygml.waterbody._1.WaterClosureSurfaceType;
-import net.opengis.citygml.waterbody._1.WaterGroundSurfaceType;
-import net.opengis.citygml.waterbody._1.WaterSurfaceType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class WaterBody100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.child.ChildList;
@@ -32,6 +29,9 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MultiSurface extends AbstractGeometricAggregate {
 	private List<SurfaceProperty> surfaceMember;

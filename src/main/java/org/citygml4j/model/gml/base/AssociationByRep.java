@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.gml.base;
 
-import java.util.HashMap;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.association.Association;
@@ -28,6 +26,8 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
+
+import java.util.HashMap;
 
 public abstract class AssociationByRep<T extends Associable & Child> implements GML, Association<T>, Child, Copyable {
 	private T object;

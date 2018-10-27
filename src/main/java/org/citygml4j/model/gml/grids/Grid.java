@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.grids;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
@@ -30,6 +27,9 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Grid extends AbstractGeometry {
 	private GridLimits limits;

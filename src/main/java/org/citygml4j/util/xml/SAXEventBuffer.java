@@ -18,13 +18,13 @@
  */
 package org.citygml4j.util.xml;
 
-import javax.xml.XMLConstants;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
+
+import javax.xml.XMLConstants;
 
 public class SAXEventBuffer implements ContentHandler {
 	private final String END_PREFIX_MAPPING      = "END_PREFIX_MAPPING";

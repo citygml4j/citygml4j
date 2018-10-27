@@ -18,10 +18,10 @@
  */
 package org.citygml4j.model.module.gml;
 
+import org.citygml4j.model.module.Module;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.citygml4j.model.module.Module;
 
 public class XLinkModule extends AbstractGMLModule {
 	private static final List<XLinkModule> instances = new ArrayList<XLinkModule>();

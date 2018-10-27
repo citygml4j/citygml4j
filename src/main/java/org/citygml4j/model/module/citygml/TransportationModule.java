@@ -18,11 +18,6 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.Railway;
@@ -33,6 +28,11 @@ import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class TransportationModule extends AbstractCityGMLModule {
 	private static final List<TransportationModule> instances = new ArrayList<TransportationModule>();

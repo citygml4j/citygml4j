@@ -18,11 +18,17 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.transportation;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.transportation._1.AbstractTransportationObjectType;
+import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaPropertyType;
+import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaType;
+import net.opengis.citygml.transportation._1.RailwayType;
+import net.opengis.citygml.transportation._1.RoadType;
+import net.opengis.citygml.transportation._1.SquareType;
+import net.opengis.citygml.transportation._1.TrackType;
+import net.opengis.citygml.transportation._1.TrafficAreaPropertyType;
+import net.opengis.citygml.transportation._1.TrafficAreaType;
+import net.opengis.citygml.transportation._1.TransportationComplexType;
+import net.opengis.gml.GeometricComplexPropertyType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -44,17 +50,9 @@ import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.transportation._1.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._1.RailwayType;
-import net.opengis.citygml.transportation._1.RoadType;
-import net.opengis.citygml.transportation._1.SquareType;
-import net.opengis.citygml.transportation._1.TrackType;
-import net.opengis.citygml.transportation._1.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._1.TrafficAreaType;
-import net.opengis.citygml.transportation._1.TransportationComplexType;
-import net.opengis.gml.GeometricComplexPropertyType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Transportation100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

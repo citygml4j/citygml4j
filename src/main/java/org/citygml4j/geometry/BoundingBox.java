@@ -18,10 +18,10 @@
  */
 package org.citygml4j.geometry;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.citygml4j.builder.copy.CopyBuilder;
 
 public class BoundingBox implements Geometry {
 	private Point lowerCorner;

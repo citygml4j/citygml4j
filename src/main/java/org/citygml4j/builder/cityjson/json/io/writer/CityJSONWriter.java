@@ -18,14 +18,13 @@
  */
 package org.citygml4j.builder.cityjson.json.io.writer;
 
-import java.util.List;
-
+import com.google.gson.stream.JsonWriter;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.model.citygml.core.CityModel;
 
-import com.google.gson.stream.JsonWriter;
+import java.util.List;
 
 public class CityJSONWriter extends AbstractCityJSONWriter {
 

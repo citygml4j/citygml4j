@@ -18,11 +18,6 @@
  */
 package org.citygml4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilderException;
@@ -31,6 +26,11 @@ import org.citygml4j.model.citygml.ade.ADEException;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CityGMLContext {
 	private static CityGMLContext instance;	

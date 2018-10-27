@@ -18,20 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import java.io.InputStream;
-import java.net.URI;
-import java.util.NoSuchElementException;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.UnmarshallerHandler;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.sax.SAXResult;
-
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.common.base.ModelObject;
@@ -45,6 +31,19 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.io.reader.ParentInfo;
 import org.citygml4j.xml.io.reader.XMLChunk;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.UnmarshallerHandler;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXResult;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.NoSuchElementException;
 
 public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReader {
 	private boolean iterator;

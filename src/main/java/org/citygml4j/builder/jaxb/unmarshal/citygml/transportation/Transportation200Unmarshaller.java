@@ -18,11 +18,18 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.transportation;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
+import net.opengis.citygml.transportation._2.RailwayType;
+import net.opengis.citygml.transportation._2.RoadType;
+import net.opengis.citygml.transportation._2.SquareType;
+import net.opengis.citygml.transportation._2.TrackType;
+import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
+import net.opengis.citygml.transportation._2.TrafficAreaType;
+import net.opengis.citygml.transportation._2.TransportationComplexType;
+import net.opengis.gml.CodeType;
+import net.opengis.gml.GeometricComplexPropertyType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -46,18 +53,9 @@ import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._2.RailwayType;
-import net.opengis.citygml.transportation._2.RoadType;
-import net.opengis.citygml.transportation._2.SquareType;
-import net.opengis.citygml.transportation._2.TrackType;
-import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.TrafficAreaType;
-import net.opengis.citygml.transportation._2.TransportationComplexType;
-import net.opengis.gml.CodeType;
-import net.opengis.gml.GeometricComplexPropertyType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Transportation200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

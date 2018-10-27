@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -29,6 +26,9 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Point extends AbstractGeometricPrimitive {
 	private DirectPosition pos;

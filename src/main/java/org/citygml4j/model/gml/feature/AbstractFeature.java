@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.gml.feature;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.child.ChildList;
@@ -28,6 +26,8 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public abstract class AbstractFeature extends AbstractGML {
 	private BoundingShape boundedBy;

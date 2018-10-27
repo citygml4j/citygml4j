@@ -18,9 +18,9 @@
  */
 package org.citygml4j.model.gml.geometry;
 
-import java.util.List;
-
 import org.citygml4j.model.gml.GML;
+
+import java.util.List;
 
 public interface SRSInformationGroup extends GML {
 	public List<String> getAxisLabels();

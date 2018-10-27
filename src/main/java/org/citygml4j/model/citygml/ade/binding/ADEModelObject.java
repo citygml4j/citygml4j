@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.ade.binding;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.module.ade.ADEModule;
 
 public interface ADEModelObject extends ADEComponent {
 

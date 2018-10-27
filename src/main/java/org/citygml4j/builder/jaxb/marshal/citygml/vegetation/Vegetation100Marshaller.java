@@ -18,10 +18,10 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.vegetation;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._1.ObjectFactory;
+import net.opengis.citygml.vegetation._1.PlantCoverType;
+import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -32,10 +32,8 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import net.opengis.citygml.vegetation._1.AbstractVegetationObjectType;
-import net.opengis.citygml.vegetation._1.ObjectFactory;
-import net.opengis.citygml.vegetation._1.PlantCoverType;
-import net.opengis.citygml.vegetation._1.SolitaryVegetationObjectType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Vegetation100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

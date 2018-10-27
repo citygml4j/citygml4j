@@ -18,12 +18,6 @@
  */
 package validating_citygml.object_tree_validation;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.building.Building;
@@ -33,6 +27,11 @@ import org.citygml4j.model.citygml.generics.GenericAttributeSet;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.citygml4j.xml.validation.Validator;
+
+import javax.xml.bind.ValidationEvent;
+import javax.xml.bind.ValidationEventHandler;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ObjectTreeValidation {
 

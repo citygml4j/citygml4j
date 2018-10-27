@@ -18,14 +18,14 @@
  */
 package org.citygml4j.model.citygml.appearance;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.module.citygml.AppearanceModule;
+
+import java.util.List;
 
 public class ColorPlusOpacity implements AppearanceModuleComponent, Child, Copyable {
 	private Color color;

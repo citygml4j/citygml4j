@@ -18,9 +18,6 @@
  */
 package org.citygml4j.factory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
@@ -33,6 +30,9 @@ import org.citygml4j.model.gml.geometry.primitives.Point;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GMLGeometryFactory {
 

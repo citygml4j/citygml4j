@@ -18,9 +18,6 @@
  */
 package org.citygml4j.util.walker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
@@ -195,6 +192,9 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GMLWalker extends Walker implements GMLVisitor {
 	protected SchemaHandler schemaHandler;

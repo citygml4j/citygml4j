@@ -18,13 +18,13 @@
  */
 package org.citygml4j.xml.io.writer;
 
-import java.util.List;
-
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.CityGMLNamespaceContext;
+
+import java.util.List;
 
 public interface AbstractCityGMLWriter extends AutoCloseable {
 	public void close() throws CityGMLWriteException;

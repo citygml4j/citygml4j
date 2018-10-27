@@ -18,14 +18,14 @@
  */
 package org.citygml4j.builder.cityjson.marshal.util;
 
+import org.citygml4j.binding.cityjson.geometry.SemanticsType;
+import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
-import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
 
 public class SemanticsBuilder {
 	private final CityGMLMarshaller citygml;

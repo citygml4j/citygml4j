@@ -26,14 +26,14 @@ import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
-import org.citygml4j.builder.cityjson.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.builder.cityjson.util.DefaultTextureFileHandler;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 

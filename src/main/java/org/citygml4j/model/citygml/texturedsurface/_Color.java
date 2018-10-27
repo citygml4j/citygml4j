@@ -18,15 +18,15 @@
  */
 package org.citygml4j.model.citygml.texturedsurface;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class _Color implements TexturedSurfaceModuleComponent, Child, Copyable {
 	private Double red = 0.0;

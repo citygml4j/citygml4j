@@ -18,11 +18,6 @@
  */
 package org.citygml4j.xml.schema;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.citygml4j.util.walker.Walker;
-
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.XSAttGroupDecl;
 import com.sun.xml.xsom.XSAttributeDecl;
@@ -43,6 +38,10 @@ import com.sun.xml.xsom.XSType;
 import com.sun.xml.xsom.XSWildcard;
 import com.sun.xml.xsom.XSXPath;
 import com.sun.xml.xsom.visitor.XSVisitor;
+import org.citygml4j.util.walker.Walker;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class SchemaWalker extends Walker implements XSVisitor {
 	private final Set<Object> visited = new HashSet<Object>();

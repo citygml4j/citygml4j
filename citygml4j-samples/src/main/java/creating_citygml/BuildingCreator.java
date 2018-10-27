@@ -18,12 +18,6 @@
  */
 package creating_citygml;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.factory.GMLGeometryFactory;
@@ -49,6 +43,12 @@ import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class BuildingCreator {
 

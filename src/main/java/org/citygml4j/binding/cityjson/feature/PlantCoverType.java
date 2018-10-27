@@ -18,9 +18,8 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
-
 import com.google.gson.annotations.JsonAdapter;
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class PlantCoverType extends AbstractVegetationObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.PLANT_COVER;

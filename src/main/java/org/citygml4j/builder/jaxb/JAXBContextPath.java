@@ -18,12 +18,12 @@
  */
 package org.citygml4j.builder.jaxb;
 
+import org.citygml4j.CityGMLContext;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.StringJoiner;
-
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.citygml.ade.binding.ADEContext;
 
 public class JAXBContextPath {
 

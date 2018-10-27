@@ -18,17 +18,17 @@
  */
 package org.citygml4j.model.citygml.core;
 
+import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.GeometryProperty;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.citygml4j.model.gml.base.AbstractGML;
-import org.citygml4j.model.gml.base.AssociationByRepOrRef;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class LodRepresentation {
 	private Map<Integer, List<AssociationByRepOrRef<? extends AbstractGML>>> lods = new HashMap<>();

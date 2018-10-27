@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.waterbody;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -30,6 +28,8 @@ import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public abstract class AbstractWaterObject extends AbstractCityObject implements WaterBodyModuleComponent {
 	private List<ADEComponent> ade;

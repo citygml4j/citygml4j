@@ -18,6 +18,8 @@
  */
 package org.citygml4j.model.citygml.ade.binding;
 
+import org.citygml4j.util.walker.Walker;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -27,8 +29,6 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.citygml4j.util.walker.Walker;
 
 public class ADEWalkerHelper<T extends Walker> {
 	private Deque<ADEWalker<T>> walkers;

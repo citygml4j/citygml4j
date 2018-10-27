@@ -18,13 +18,13 @@
  */
 package org.citygml4j.model.citygml.ade.binding;
 
-import java.util.List;
-
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.util.walker.FeatureFunctionWalker;
 import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.util.walker.GMLFunctionWalker;
 import org.citygml4j.util.walker.GMLWalker;
+
+import java.util.List;
 
 public interface ADEContext {
 	public List<ADEModule> getADEModules();

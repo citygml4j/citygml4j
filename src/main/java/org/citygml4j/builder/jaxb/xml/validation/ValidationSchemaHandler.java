@@ -18,14 +18,13 @@
  */
 package org.citygml4j.builder.jaxb.xml.validation;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import org.citygml4j.xml.schema.SchemaHandler;
+import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
-import org.citygml4j.xml.schema.SchemaHandler;
-import org.xml.sax.SAXException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ValidationSchemaHandler {
 	private final SchemaFactory schemaFactory;

@@ -18,12 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.writer;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.ValidationEventHandler;
-
 import org.citygml4j.builder.jaxb.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
@@ -50,6 +44,11 @@ import org.citygml4j.xml.schema.Schema;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.ValidationEventHandler;
+import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 	SAXWriter writer;

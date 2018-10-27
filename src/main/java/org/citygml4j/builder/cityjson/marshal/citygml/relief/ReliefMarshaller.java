@@ -18,10 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.relief;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.TINReliefType;
@@ -33,6 +29,10 @@ import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.util.mapper.TypeMapper;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ReliefMarshaller {
 	private final CityJSONMarshaller json;

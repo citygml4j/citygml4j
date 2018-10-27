@@ -18,6 +18,14 @@
  */
 package org.citygml4j.util.xml;
 
+import org.citygml4j.xml.CityGMLNamespaceContext;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.NamespaceSupport;
+import org.xml.sax.helpers.XMLFilterImpl;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,15 +38,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Stack;
-
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamResult;
-
-import org.citygml4j.xml.CityGMLNamespaceContext;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.NamespaceSupport;
-import org.xml.sax.helpers.XMLFilterImpl;
 
 public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private final String OPEN_COMMENT = "<!--";

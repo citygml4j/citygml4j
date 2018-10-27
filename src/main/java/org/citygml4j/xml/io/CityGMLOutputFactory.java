@@ -18,14 +18,6 @@
  */
 package org.citygml4j.xml.io;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.io.Writer;
-
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.transform.Templates;
-import javax.xml.transform.stream.StreamResult;
-
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.util.gmlid.GMLIdManager;
@@ -33,6 +25,13 @@ import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.schema.SchemaHandler;
+
+import javax.xml.bind.ValidationEventHandler;
+import javax.xml.transform.Templates;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.OutputStream;
+import java.io.Writer;
 
 public interface CityGMLOutputFactory {
 	public static final String FEATURE_WRITE_MODE = "org.citygml4j.featureWriteMode";

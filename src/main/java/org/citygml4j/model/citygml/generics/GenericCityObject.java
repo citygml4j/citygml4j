@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.generics;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -38,6 +36,8 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.module.citygml.GenericsModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public class GenericCityObject extends AbstractCityObject implements GenericsModuleComponent, StandardObjectClassifier {
 	private Code clazz;

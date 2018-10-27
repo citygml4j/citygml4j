@@ -18,11 +18,12 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.texturedsurface;
 
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
+import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
+import net.opengis.citygml.texturedsurface._1.MaterialType;
+import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
+import net.opengis.citygml.texturedsurface._1.TextureTypeType;
+import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -42,12 +43,9 @@ import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
-import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
-import net.opengis.citygml.texturedsurface._1.MaterialType;
-import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
-import net.opengis.citygml.texturedsurface._1.TextureTypeType;
-import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
+import javax.xml.bind.JAXBElement;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TexturedSurface100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

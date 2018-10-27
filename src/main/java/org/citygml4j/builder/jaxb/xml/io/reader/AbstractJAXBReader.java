@@ -18,16 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.List;
-
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.xml.validation.ValidationSchemaHandler;
 import org.citygml4j.util.internal.xml.TransformerChainFactory;
@@ -37,6 +27,15 @@ import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.List;
 
 public abstract class AbstractJAXBReader {
 	final XMLStreamReader reader;

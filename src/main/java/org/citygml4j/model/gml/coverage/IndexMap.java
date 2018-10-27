@@ -18,11 +18,11 @@
  */
 package org.citygml4j.model.gml.coverage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IndexMap extends GridFunction {
 	private List<Integer> lookUpTable;

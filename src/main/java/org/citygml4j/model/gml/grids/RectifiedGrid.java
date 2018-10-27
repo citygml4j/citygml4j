@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.gml.grids;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
@@ -31,6 +29,8 @@ import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.Vector;
+
+import java.util.List;
 
 public class RectifiedGrid extends Grid {
 	private PointProperty origin;

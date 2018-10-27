@@ -1,9 +1,9 @@
 package org.citygml4j.builder.cityjson.marshal.util;
 
+import org.citygml4j.binding.cityjson.geometry.TransformType;
+
 import java.util.Arrays;
 import java.util.List;
-
-import org.citygml4j.binding.cityjson.geometry.TransformType;
 
 public class DefaultVerticesTransformer implements VerticesTransformer {
 	private int significantDigits = 3;

@@ -18,11 +18,6 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.bridge.AbstractBridge;
 import org.citygml4j.model.citygml.bridge.AbstractOpening;
@@ -46,6 +41,11 @@ import org.citygml4j.model.citygml.bridge.WallSurface;
 import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class BridgeModule extends AbstractCityGMLModule {
 	private static final List<BridgeModule> instances = new ArrayList<BridgeModule>();

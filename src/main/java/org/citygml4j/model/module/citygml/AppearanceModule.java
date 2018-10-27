@@ -18,11 +18,6 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.AbstractTexture;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -31,6 +26,11 @@ import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class AppearanceModule extends AbstractCityGMLModule {
 	private static final List<AppearanceModule> instances = new ArrayList<AppearanceModule>();

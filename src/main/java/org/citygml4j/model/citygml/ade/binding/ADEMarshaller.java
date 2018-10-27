@@ -18,9 +18,9 @@
  */
 package org.citygml4j.model.citygml.ade.binding;
 
-import javax.xml.bind.JAXBElement;
-
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshallerHelper;
+
+import javax.xml.bind.JAXBElement;
 
 public interface ADEMarshaller {
 	public void setADEMarshallerHelper(ADEMarshallerHelper helper);

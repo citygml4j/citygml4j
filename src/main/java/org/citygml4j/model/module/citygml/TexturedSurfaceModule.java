@@ -18,10 +18,10 @@
  */
 package org.citygml4j.model.module.citygml;
 
+import org.citygml4j.model.module.Module;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.citygml4j.model.module.Module;
 
 public class TexturedSurfaceModule extends AbstractCityGMLModule {
 	private static final List<TexturedSurfaceModule> instances = new ArrayList<TexturedSurfaceModule>();

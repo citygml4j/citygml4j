@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.complexes;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.child.ChildList;
@@ -32,6 +29,9 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
 import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class GeometricComplex extends AbstractGeometry {
 	private List<GeometricPrimitiveProperty> element;

@@ -18,11 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.transportation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
 import org.citygml4j.binding.cityjson.feature.RailwayType;
@@ -54,6 +49,11 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.mapper.TypeMapper;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class TransportationMarshaller {
 	private final CityJSONMarshaller json;

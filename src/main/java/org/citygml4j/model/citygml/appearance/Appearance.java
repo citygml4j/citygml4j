@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.appearance;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -30,6 +28,8 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.AppearanceModule;
+
+import java.util.List;
 
 public class Appearance extends AbstractFeature implements AppearanceModuleComponent {
 	private String theme;

@@ -18,12 +18,12 @@
  */
 package org.citygml4j.util.xml;
 
-import javax.xml.namespace.QName;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.XMLFilterImpl;
+
+import javax.xml.namespace.QName;
 
 public class SAXFragmentWriter extends XMLFilterImpl {
 	private final ContentHandler writer;

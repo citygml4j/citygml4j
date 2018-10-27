@@ -18,18 +18,17 @@
  */
 package org.citygml4j.xml;
 
+import org.citygml4j.model.module.Module;
+import org.citygml4j.model.module.ModuleContext;
+import org.citygml4j.model.module.citygml.CityGMLVersion;
+
+import javax.xml.XMLConstants;
+import javax.xml.namespace.NamespaceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
-
-import javax.xml.XMLConstants;
-import javax.xml.namespace.NamespaceContext;
-
-import org.citygml4j.model.module.Module;
-import org.citygml4j.model.module.ModuleContext;
-import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 public class CityGMLNamespaceContext implements NamespaceContext {
 	private HashMap<String, String> namespaces;

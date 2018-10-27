@@ -18,19 +18,18 @@
  */
 package org.citygml4j.model.module.ade;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.namespace.QName;
-
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.AbstractModule;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.ModuleType;
 import org.citygml4j.model.module.ModuleVersion;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
+
+import javax.xml.namespace.QName;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ADEModule extends AbstractModule {
 	private final CityGMLVersion cityGMLVersion;

@@ -18,8 +18,8 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.landuse;
 
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.landuse._1.LandUseType;
+import net.opengis.citygml.landuse._1.ObjectFactory;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -27,8 +27,7 @@ import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
-import net.opengis.citygml.landuse._1.LandUseType;
-import net.opengis.citygml.landuse._1.ObjectFactory;
+import javax.xml.bind.JAXBElement;
 
 public class LandUse100Marshaller {
 	private final ObjectFactory luse = new ObjectFactory();

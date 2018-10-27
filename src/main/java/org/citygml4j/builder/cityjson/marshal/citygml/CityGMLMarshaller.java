@@ -18,9 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
@@ -51,6 +48,9 @@ import org.citygml4j.model.citygml.tunnel.TunnelModuleComponent;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
+
+import java.util.Collections;
+import java.util.List;
 
 public class CityGMLMarshaller {
 	private final CityJSONMarshaller json;

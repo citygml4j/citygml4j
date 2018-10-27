@@ -18,8 +18,6 @@
  */
 package org.citygml4j.util.walker;
 
-import java.util.ArrayList;
-
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
@@ -73,6 +71,8 @@ import org.citygml4j.model.gml.geometry.primitives.Triangle;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
+
+import java.util.ArrayList;
 
 public abstract class GeometryFunctionWalker<T> extends Walker implements GeometryFunctor<T> {
 

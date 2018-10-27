@@ -18,11 +18,7 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.cityfurniture;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.cityfurniture._1.CityFurnitureType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -34,7 +30,9 @@ import org.citygml4j.model.module.citygml.CityFurnitureModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.cityfurniture._1.CityFurnitureType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class CityFurniture100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

@@ -18,11 +18,6 @@
  */
 package cityjson.reading_cityjson.simple_reader;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.reader.CityJSONInputFactory;
@@ -34,6 +29,11 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.util.walker.GMLWalker;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 public class SimpleReader {
 

@@ -18,12 +18,6 @@
  */
 package reading_citygml.filtered_reader;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.namespace.QName;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.transportation.Road;
@@ -33,6 +27,11 @@ import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
+
+import javax.xml.namespace.QName;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FilteredReader {
 

@@ -18,11 +18,9 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.cityobjectgroup;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
+import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -41,9 +39,9 @@ import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupMemberType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupParentType;
-import net.opengis.citygml.cityobjectgroup._1.CityObjectGroupType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class CityObjectGroup100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

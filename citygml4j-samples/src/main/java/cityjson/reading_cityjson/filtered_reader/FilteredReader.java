@@ -18,10 +18,6 @@
  */
 package cityjson.reading_cityjson.filtered_reader;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.binding.cityjson.feature.CityObjectTypeName;
@@ -32,6 +28,10 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FilteredReader {
 

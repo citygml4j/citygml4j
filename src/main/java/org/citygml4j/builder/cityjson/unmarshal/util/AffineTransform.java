@@ -18,9 +18,9 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.util;
 
-import java.util.List;
-
 import org.citygml4j.geometry.Matrix;
+
+import java.util.List;
 
 public class AffineTransform {
     private final Matrix matrix;

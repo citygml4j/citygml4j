@@ -1,8 +1,5 @@
 package org.citygml4j.binding.cityjson.geometry;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -11,6 +8,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class VerticesListAdapter implements JsonSerializer<VerticesList>, JsonDeserializer<VerticesList> {
 	private boolean asInteger;

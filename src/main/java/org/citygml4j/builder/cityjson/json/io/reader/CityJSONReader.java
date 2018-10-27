@@ -18,9 +18,8 @@
  */
 package org.citygml4j.builder.cityjson.json.io.reader;
 
-import java.io.IOException;
-import java.util.List;
-
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.CityObjectTypeAdapter;
@@ -32,8 +31,8 @@ import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.BoundingShape;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
+import java.io.IOException;
+import java.util.List;
 
 public class CityJSONReader implements AutoCloseable {
 	private final JsonReader reader;

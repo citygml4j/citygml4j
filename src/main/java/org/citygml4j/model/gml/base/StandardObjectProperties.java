@@ -18,10 +18,10 @@
  */
 package org.citygml4j.model.gml.base;
 
-import java.util.List;
-
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import java.util.List;
 
 public interface StandardObjectProperties extends GML {
 	public List<Code> getName();

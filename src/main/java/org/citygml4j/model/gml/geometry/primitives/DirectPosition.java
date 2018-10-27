@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
@@ -29,6 +26,9 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DirectPosition implements SRSReferenceGroup, Child, Copyable {
 	private List<Double> value;

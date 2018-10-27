@@ -18,12 +18,11 @@
  */
 package org.citygml4j.model.module;
 
-import java.util.Collections;
-import java.util.Map;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 
 import javax.xml.namespace.QName;
-
-import org.citygml4j.model.gml.feature.AbstractFeature;
+import java.util.Collections;
+import java.util.Map;
 
 public abstract class AbstractModule implements Module {
 	private final ModuleType type;

@@ -18,10 +18,10 @@
  */
 package org.citygml4j.model.module.xal;
 
+import org.citygml4j.model.module.Module;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.citygml4j.model.module.Module;
 
 public class XALCoreModule extends AbstractXALModule {	
 	private static final List<XALCoreModule> instances = new ArrayList<XALCoreModule>();

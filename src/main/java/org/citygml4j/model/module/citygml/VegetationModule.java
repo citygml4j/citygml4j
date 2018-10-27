@@ -18,15 +18,15 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class VegetationModule extends AbstractCityGMLModule {
 	private static final List<VegetationModule> instances = new ArrayList<VegetationModule>();

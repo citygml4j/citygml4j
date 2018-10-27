@@ -18,8 +18,6 @@
  */
 package org.citygml4j.util.walker;
 
-import java.util.ArrayList;
-
 import org.citygml4j.model.common.visitor.XALVisitor;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressDetails;
@@ -107,6 +105,8 @@ import org.citygml4j.model.xal.ThoroughfareNumberToContent;
 import org.citygml4j.model.xal.ThoroughfarePostDirection;
 import org.citygml4j.model.xal.ThoroughfarePreDirection;
 import org.citygml4j.model.xal.ThoroughfareTrailingType;
+
+import java.util.ArrayList;
 
 public abstract class XALWalker extends Walker implements XALVisitor {
 	

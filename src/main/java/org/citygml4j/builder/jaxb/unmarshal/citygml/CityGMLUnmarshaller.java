@@ -18,12 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance200Unmarshaller;
@@ -77,6 +71,11 @@ import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CityGMLUnmarshaller {
 	private final JAXBUnmarshaller jaxb;

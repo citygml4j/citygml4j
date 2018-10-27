@@ -18,20 +18,18 @@
  */
 package org.citygml4j.xml.schema;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
-import javax.xml.namespace.QName;
-
-import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.model.module.gml.GMLCoreModule;
-import org.citygml4j.model.module.gml.XLinkModule;
-
 import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchema;
 import com.sun.xml.xsom.XSType;
+import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.model.module.gml.GMLCoreModule;
+import org.citygml4j.model.module.gml.XLinkModule;
+
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 public class ElementDecl {
 	private final XSElementDecl element;

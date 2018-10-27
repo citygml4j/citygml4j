@@ -18,9 +18,6 @@
  */
 package org.citygml4j.xml.io.writer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.DeepCopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
@@ -31,6 +28,9 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.LocationProperty;
 import org.citygml4j.xml.io.reader.ParentInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CityModelInfo {
 	private String id;

@@ -18,12 +18,12 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.CodeOrNullList;
 import org.citygml4j.model.gml.basicTypes.NameOrNull;
+
+import java.util.List;
 
 public class CategoryExtent extends CodeOrNullList {
 

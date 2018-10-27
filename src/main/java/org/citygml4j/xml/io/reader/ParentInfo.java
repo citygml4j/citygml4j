@@ -18,8 +18,6 @@
  */
 package org.citygml4j.xml.io.reader;
 
-import java.util.List;
-
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.gml.base.MetaDataProperty;
@@ -27,6 +25,8 @@ import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.LocationProperty;
+
+import java.util.List;
 
 public interface ParentInfo {
 	public boolean isSetParentInfo();

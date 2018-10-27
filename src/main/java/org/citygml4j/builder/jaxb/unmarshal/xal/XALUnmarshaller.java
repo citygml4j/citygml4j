@@ -18,10 +18,36 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.xal;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
+import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
+import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
+import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
+import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
 import org.citygml4j.model.module.xal.XALCoreModule;
 import org.citygml4j.model.xal.Address;
 import org.citygml4j.model.xal.AddressIdentifier;
@@ -108,36 +134,8 @@ import org.citygml4j.model.xal.ThoroughfareTrailingType;
 import org.citygml4j.model.xal.XAL;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressDetails;
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressLineElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.AddressLinesType;
-import oasis.names.tc.ciq.xsdschema.xal._2.AdministrativeAreaElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.BuildingNameType;
-import oasis.names.tc.ciq.xsdschema.xal._2.CountryNameElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.DepartmentElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.DependentLocalityType;
-import oasis.names.tc.ciq.xsdschema.xal._2.FirmType;
-import oasis.names.tc.ciq.xsdschema.xal._2.LargeMailUserType;
-import oasis.names.tc.ciq.xsdschema.xal._2.LocalityElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.MailStopType;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostBoxElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostOfficeElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostalCodeElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PostalRouteType;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberPrefixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.PremiseNumberSuffixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.SubPremiseType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareLeadingTypeType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNameType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberPrefixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareNumberSuffixElement;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePostDirectionType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfarePreDirectionType;
-import oasis.names.tc.ciq.xsdschema.xal._2.ThoroughfareTrailingTypeType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class XALUnmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

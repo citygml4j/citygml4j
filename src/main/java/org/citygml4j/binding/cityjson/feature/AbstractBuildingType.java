@@ -18,13 +18,12 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
-
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractBuildingType extends AbstractCityObjectType {
 	@JsonAdapter(BuildingAttributesAdapter.class)

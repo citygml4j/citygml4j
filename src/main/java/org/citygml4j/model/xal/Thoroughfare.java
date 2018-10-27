@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.xal;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
@@ -28,6 +25,9 @@ import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class Thoroughfare implements XAL, Child, Copyable {
 	private List<AddressLine> addressLine;

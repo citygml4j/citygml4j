@@ -18,12 +18,20 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.appearance;
 
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.appearance._1.AbstractSurfaceDataType;
+import net.opengis.citygml.appearance._1.AbstractTextureParameterizationType;
+import net.opengis.citygml.appearance._1.AbstractTextureType;
+import net.opengis.citygml.appearance._1.AppearancePropertyType;
+import net.opengis.citygml.appearance._1.AppearanceType;
+import net.opengis.citygml.appearance._1.GeoreferencedTextureType;
+import net.opengis.citygml.appearance._1.ParameterizedTextureType;
+import net.opengis.citygml.appearance._1.SurfaceDataPropertyType;
+import net.opengis.citygml.appearance._1.TexCoordGenType;
+import net.opengis.citygml.appearance._1.TexCoordListType;
+import net.opengis.citygml.appearance._1.TextureAssociationType;
+import net.opengis.citygml.appearance._1.TextureTypeType;
+import net.opengis.citygml.appearance._1.WrapModeType;
+import net.opengis.citygml.appearance._1.X3DMaterialType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.geometry.Matrix;
@@ -59,20 +67,10 @@ import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
 
-import net.opengis.citygml.appearance._1.AbstractSurfaceDataType;
-import net.opengis.citygml.appearance._1.AbstractTextureParameterizationType;
-import net.opengis.citygml.appearance._1.AbstractTextureType;
-import net.opengis.citygml.appearance._1.AppearancePropertyType;
-import net.opengis.citygml.appearance._1.AppearanceType;
-import net.opengis.citygml.appearance._1.GeoreferencedTextureType;
-import net.opengis.citygml.appearance._1.ParameterizedTextureType;
-import net.opengis.citygml.appearance._1.SurfaceDataPropertyType;
-import net.opengis.citygml.appearance._1.TexCoordGenType;
-import net.opengis.citygml.appearance._1.TexCoordListType;
-import net.opengis.citygml.appearance._1.TextureAssociationType;
-import net.opengis.citygml.appearance._1.TextureTypeType;
-import net.opengis.citygml.appearance._1.WrapModeType;
-import net.opengis.citygml.appearance._1.X3DMaterialType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Appearance100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

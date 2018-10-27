@@ -18,11 +18,11 @@
  */
 package org.citygml4j.xml.io.writer;
 
-import java.util.List;
-
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+
+import java.util.List;
 
 public interface CityModelWriter extends AbstractCityGMLWriter {
 	public void writeStartDocument() throws CityGMLWriteException;

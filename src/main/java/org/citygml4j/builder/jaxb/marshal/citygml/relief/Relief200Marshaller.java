@@ -18,10 +18,18 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.relief;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.relief._2.AbstractReliefComponentType;
+import net.opengis.citygml.relief._2.BreaklineReliefType;
+import net.opengis.citygml.relief._2.GridPropertyType;
+import net.opengis.citygml.relief._2.MassPointReliefType;
+import net.opengis.citygml.relief._2.ObjectFactory;
+import net.opengis.citygml.relief._2.RasterReliefType;
+import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
+import net.opengis.citygml.relief._2.ReliefFeatureType;
+import net.opengis.citygml.relief._2.TINReliefType;
+import net.opengis.citygml.relief._2.TinPropertyType;
+import net.opengis.gml.RectifiedGridCoverageType;
+import net.opengis.gml.TriangulatedSurfaceType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -41,18 +49,8 @@ import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 import org.w3c.dom.Element;
 
-import net.opengis.citygml.relief._2.AbstractReliefComponentType;
-import net.opengis.citygml.relief._2.BreaklineReliefType;
-import net.opengis.citygml.relief._2.GridPropertyType;
-import net.opengis.citygml.relief._2.MassPointReliefType;
-import net.opengis.citygml.relief._2.ObjectFactory;
-import net.opengis.citygml.relief._2.RasterReliefType;
-import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
-import net.opengis.citygml.relief._2.ReliefFeatureType;
-import net.opengis.citygml.relief._2.TINReliefType;
-import net.opengis.citygml.relief._2.TinPropertyType;
-import net.opengis.gml.RectifiedGridCoverageType;
-import net.opengis.gml.TriangulatedSurfaceType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Relief200Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

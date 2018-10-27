@@ -18,11 +18,11 @@
  */
 package org.citygml4j.model.module.gml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.model.module.AbstractModuleConfiguration;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GMLVersion extends AbstractModuleConfiguration {
 	private static final List<GMLVersion> instances = new ArrayList<GMLVersion>();

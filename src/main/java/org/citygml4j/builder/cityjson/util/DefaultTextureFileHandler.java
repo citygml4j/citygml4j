@@ -18,8 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.util;
 
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
-
 public class DefaultTextureFileHandler implements TextureFileHandler {
 
 	@Override

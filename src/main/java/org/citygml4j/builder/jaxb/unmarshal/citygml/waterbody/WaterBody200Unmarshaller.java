@@ -18,11 +18,14 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.waterbody._2.AbstractWaterBoundarySurfaceType;
+import net.opengis.citygml.waterbody._2.AbstractWaterObjectType;
+import net.opengis.citygml.waterbody._2.BoundedByWaterSurfacePropertyType;
+import net.opengis.citygml.waterbody._2.WaterBodyType;
+import net.opengis.citygml.waterbody._2.WaterClosureSurfaceType;
+import net.opengis.citygml.waterbody._2.WaterGroundSurfaceType;
+import net.opengis.citygml.waterbody._2.WaterSurfaceType;
+import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -43,14 +46,9 @@ import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.waterbody._2.AbstractWaterBoundarySurfaceType;
-import net.opengis.citygml.waterbody._2.AbstractWaterObjectType;
-import net.opengis.citygml.waterbody._2.BoundedByWaterSurfacePropertyType;
-import net.opengis.citygml.waterbody._2.WaterBodyType;
-import net.opengis.citygml.waterbody._2.WaterClosureSurfaceType;
-import net.opengis.citygml.waterbody._2.WaterGroundSurfaceType;
-import net.opengis.citygml.waterbody._2.WaterSurfaceType;
-import net.opengis.gml.CodeType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class WaterBody200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

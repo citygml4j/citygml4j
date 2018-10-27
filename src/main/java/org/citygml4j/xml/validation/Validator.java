@@ -18,11 +18,11 @@
  */
 package org.citygml4j.xml.validation;
 
-import javax.xml.bind.ValidationEventHandler;
-
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.xml.schema.SchemaHandler;
+
+import javax.xml.bind.ValidationEventHandler;
 
 public interface Validator {
 	public SchemaHandler getSchemaHandler();

@@ -18,11 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.bind.JAXBElement;
-
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance100Marshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.appearance.Appearance200Marshaller;
@@ -83,6 +78,10 @@ import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
+
+import javax.xml.bind.JAXBElement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CityGMLMarshaller {
 	private final JAXBMarshaller jaxb;

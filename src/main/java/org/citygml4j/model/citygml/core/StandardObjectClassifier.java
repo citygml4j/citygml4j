@@ -18,9 +18,9 @@
  */
 package org.citygml4j.model.citygml.core;
 
-import java.util.List;
-
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import java.util.List;
 
 public interface StandardObjectClassifier {
 	public Code getClazz();

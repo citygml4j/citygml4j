@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.landuse;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
@@ -41,6 +39,8 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public class LandUse extends AbstractCityObject implements LandUseModuleComponent, StandardObjectClassifier {
 	private Code clazz;

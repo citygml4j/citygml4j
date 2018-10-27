@@ -18,15 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
 import org.citygml4j.binding.cityjson.appearance.MaterialType;
 import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
@@ -44,6 +35,15 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.util.walker.GMLWalker;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class AppearanceResolver {
 	private final String defaultTheme;

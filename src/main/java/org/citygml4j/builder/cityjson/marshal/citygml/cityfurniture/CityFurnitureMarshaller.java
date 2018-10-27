@@ -18,22 +18,19 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.cityfurniture;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import java.util.Collections;
+import java.util.List;
 
 public class CityFurnitureMarshaller {
 	private final CityJSONMarshaller json;

@@ -18,10 +18,10 @@
  */
 package org.citygml4j.builder.copy;
 
-import java.lang.reflect.Field;
-
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
+
+import java.lang.reflect.Field;
 
 public class ObjectCopier {
 	

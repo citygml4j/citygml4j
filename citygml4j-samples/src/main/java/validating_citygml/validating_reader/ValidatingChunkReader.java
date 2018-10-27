@@ -18,13 +18,6 @@
  */
 package validating_citygml.validating_reader;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
@@ -33,6 +26,12 @@ import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.w3c.dom.Element;
+
+import javax.xml.bind.ValidationEvent;
+import javax.xml.bind.ValidationEventHandler;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ValidatingChunkReader {
 

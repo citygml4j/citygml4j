@@ -18,17 +18,16 @@
  */
 package org.citygml4j.model.module.citygml;
 
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.AbstractModule;
+import org.citygml4j.model.module.Module;
+
+import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.xml.namespace.QName;
-
-import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.module.AbstractModule;
-import org.citygml4j.model.module.Module;
 
 public abstract class AbstractCityGMLModule extends AbstractModule implements CityGMLModule {
 	HashMap<String, Class<? extends AbstractFeature>> features;

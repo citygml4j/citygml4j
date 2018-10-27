@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObject;
@@ -29,6 +26,9 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractGeometry extends AbstractGML implements SRSReferenceGroup {
 	private String gid;

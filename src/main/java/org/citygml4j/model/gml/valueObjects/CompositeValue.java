@@ -18,15 +18,15 @@
  */
 package org.citygml4j.model.gml.valueObjects;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AbstractGML;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CompositeValue extends AbstractGML {
 	private List<ValueProperty> valueComponent;

@@ -18,14 +18,14 @@
  */
 package org.citygml4j.model.citygml.appearance;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.module.citygml.AppearanceModule;
+
+import java.util.List;
 
 public abstract class AbstractTextureParameterization extends AbstractGML implements AppearanceModuleComponent {
 	private List<ADEGenericElement> genericADEElement;

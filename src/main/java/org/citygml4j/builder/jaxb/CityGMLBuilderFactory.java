@@ -18,11 +18,10 @@
  */
 package org.citygml4j.builder.jaxb;
 
-import java.util.HashSet;
-import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import java.util.HashSet;
+import java.util.List;
 
 public class CityGMLBuilderFactory {
 	private ClassLoader classLoader;

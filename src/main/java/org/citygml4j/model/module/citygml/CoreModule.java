@@ -18,11 +18,6 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
@@ -31,6 +26,11 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.model.module.xal.XALCoreModule;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class CoreModule extends AbstractCityGMLModule {
 	private static final List<CoreModule> instances = new ArrayList<CoreModule>();

@@ -18,16 +18,15 @@
  */
 package org.citygml4j.builder.cityjson.json.io.writer;
 
-import java.io.IOException;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonWriter;
 import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
 import org.citygml4j.binding.cityjson.geometry.VerticesListAdapter;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
 public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	protected final JsonWriter writer;

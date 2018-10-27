@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.building;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEClass;
@@ -35,6 +33,8 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.BuildingModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public class Door extends AbstractOpening implements BuildingModuleComponent {
 	private List<AddressProperty> address;

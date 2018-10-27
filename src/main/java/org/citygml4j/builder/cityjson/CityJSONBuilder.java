@@ -21,10 +21,10 @@ package org.citygml4j.builder.cityjson;
 import org.citygml4j.builder.cityjson.json.io.reader.CityJSONInputFactory;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 
 public class CityJSONBuilder {
 

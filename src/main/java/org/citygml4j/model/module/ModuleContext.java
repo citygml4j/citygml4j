@@ -18,12 +18,6 @@
  */
 package org.citygml4j.model.module;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.ade.ADEModule;
@@ -34,6 +28,12 @@ import org.citygml4j.model.module.gml.GMLModule;
 import org.citygml4j.model.module.gml.GMLModuleType;
 import org.citygml4j.model.module.xal.XALModule;
 import org.citygml4j.model.module.xal.XALModuleType;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class ModuleContext {
 	private CityGMLVersion version;

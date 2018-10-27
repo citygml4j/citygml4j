@@ -18,11 +18,6 @@
  */
 package processing_citygml.splitting_features;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
@@ -45,6 +40,11 @@ import org.citygml4j.xml.io.writer.AbstractCityGMLWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.schema.SchemaHandler;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class SplittingFeature {
 

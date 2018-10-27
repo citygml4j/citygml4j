@@ -18,11 +18,10 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
+import net.opengis.citygml.vegetation._2.PlantCoverType;
+import net.opengis.citygml.vegetation._2.SolitaryVegetationObjectType;
+import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -35,10 +34,9 @@ import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.vegetation._2.AbstractVegetationObjectType;
-import net.opengis.citygml.vegetation._2.PlantCoverType;
-import net.opengis.citygml.vegetation._2.SolitaryVegetationObjectType;
-import net.opengis.gml.CodeType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Vegetation200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

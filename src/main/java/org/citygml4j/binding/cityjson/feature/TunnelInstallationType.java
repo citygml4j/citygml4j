@@ -18,9 +18,8 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
-
 import com.google.gson.annotations.JsonAdapter;
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class TunnelInstallationType extends AbstractCityObjectType {
 	private final CityObjectTypeName type = CityObjectTypeName.TUNNEL_INSTALLATION;

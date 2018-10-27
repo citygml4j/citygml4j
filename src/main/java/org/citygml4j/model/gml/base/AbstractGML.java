@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.base;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
@@ -32,6 +29,9 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Code;
+
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class AbstractGML implements GML, StandardObjectProperties, Associable, Child, Copyable {
 	private static final long serialVersionUID = 8038430725115673854L;

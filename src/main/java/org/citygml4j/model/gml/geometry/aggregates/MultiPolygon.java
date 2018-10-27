@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.aggregates;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.child.ChildList;
@@ -31,6 +28,9 @@ import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MultiPolygon extends AbstractGeometricAggregate {
 	private List<PolygonProperty> polygonMember;

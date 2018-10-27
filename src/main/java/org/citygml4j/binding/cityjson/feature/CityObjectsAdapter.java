@@ -18,10 +18,6 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import java.lang.reflect.Type;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -30,6 +26,10 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.internal.LinkedTreeMap;
+
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class CityObjectsAdapter implements JsonSerializer<Map<String, AbstractCityObjectType>>, JsonDeserializer<Map<String, AbstractCityObjectType>> {
 

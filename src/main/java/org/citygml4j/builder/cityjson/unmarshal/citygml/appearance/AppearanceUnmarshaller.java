@@ -18,11 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.appearance;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
@@ -50,6 +45,11 @@ import org.citygml4j.model.gml.geometry.primitives.LinearRing;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.GeometryWalker;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class AppearanceUnmarshaller {
 	private final TextureFileHandler textureFileHandler;

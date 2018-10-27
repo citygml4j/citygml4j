@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
@@ -32,6 +29,9 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	private DirectPosition lowerCorner;

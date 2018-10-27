@@ -18,15 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.writer;
 
-import java.util.HashSet;
-import java.util.List;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.sax.SAXResult;
-
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.Appearance;
@@ -45,6 +36,14 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 import org.citygml4j.xml.io.writer.CityModelInfo;
 import org.citygml4j.xml.io.writer.FeatureWriteMode;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXResult;
+import java.util.HashSet;
+import java.util.List;
 
 public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWriter {
 

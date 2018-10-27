@@ -18,11 +18,11 @@
  */
 package org.citygml4j.model.module.gml;
 
+import org.citygml4j.model.module.Module;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import org.citygml4j.model.module.Module;
 
 public class GMLCoreModule extends AbstractGMLModule {	
 	private static final List<GMLCoreModule> instances = new ArrayList<GMLCoreModule>();

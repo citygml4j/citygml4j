@@ -18,13 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.gml;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
@@ -68,6 +61,13 @@ import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GMLUnmarshaller {
 	private final CityJSONUnmarshaller json;

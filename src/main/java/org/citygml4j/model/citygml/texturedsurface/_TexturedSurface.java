@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.texturedsurface;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.child.ChildList;
@@ -30,6 +28,8 @@ import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+
+import java.util.List;
 
 public class _TexturedSurface extends OrientableSurface implements TexturedSurfaceModuleComponent {
 	private List<_AppearanceProperty> appearance;

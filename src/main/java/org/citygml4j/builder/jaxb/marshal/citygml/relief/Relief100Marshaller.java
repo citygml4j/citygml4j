@@ -18,10 +18,18 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.relief;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.relief._1.AbstractReliefComponentType;
+import net.opengis.citygml.relief._1.BreaklineReliefType;
+import net.opengis.citygml.relief._1.GridPropertyType;
+import net.opengis.citygml.relief._1.MassPointReliefType;
+import net.opengis.citygml.relief._1.ObjectFactory;
+import net.opengis.citygml.relief._1.RasterReliefType;
+import net.opengis.citygml.relief._1.ReliefComponentPropertyType;
+import net.opengis.citygml.relief._1.ReliefFeatureType;
+import net.opengis.citygml.relief._1.TINReliefType;
+import net.opengis.citygml.relief._1.TinPropertyType;
+import net.opengis.gml.RectifiedGridCoverageType;
+import net.opengis.gml.TriangulatedSurfaceType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -37,18 +45,8 @@ import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import net.opengis.citygml.relief._1.AbstractReliefComponentType;
-import net.opengis.citygml.relief._1.BreaklineReliefType;
-import net.opengis.citygml.relief._1.GridPropertyType;
-import net.opengis.citygml.relief._1.MassPointReliefType;
-import net.opengis.citygml.relief._1.ObjectFactory;
-import net.opengis.citygml.relief._1.RasterReliefType;
-import net.opengis.citygml.relief._1.ReliefComponentPropertyType;
-import net.opengis.citygml.relief._1.ReliefFeatureType;
-import net.opengis.citygml.relief._1.TINReliefType;
-import net.opengis.citygml.relief._1.TinPropertyType;
-import net.opengis.gml.RectifiedGridCoverageType;
-import net.opengis.gml.TriangulatedSurfaceType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Relief100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

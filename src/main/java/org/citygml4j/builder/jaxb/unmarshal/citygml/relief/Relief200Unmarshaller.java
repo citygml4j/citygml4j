@@ -18,11 +18,15 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.relief;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.relief._2.AbstractReliefComponentType;
+import net.opengis.citygml.relief._2.BreaklineReliefType;
+import net.opengis.citygml.relief._2.GridPropertyType;
+import net.opengis.citygml.relief._2.MassPointReliefType;
+import net.opengis.citygml.relief._2.RasterReliefType;
+import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
+import net.opengis.citygml.relief._2.ReliefFeatureType;
+import net.opengis.citygml.relief._2.TINReliefType;
+import net.opengis.citygml.relief._2.TinPropertyType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -47,15 +51,9 @@ import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.relief._2.AbstractReliefComponentType;
-import net.opengis.citygml.relief._2.BreaklineReliefType;
-import net.opengis.citygml.relief._2.GridPropertyType;
-import net.opengis.citygml.relief._2.MassPointReliefType;
-import net.opengis.citygml.relief._2.RasterReliefType;
-import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
-import net.opengis.citygml.relief._2.ReliefFeatureType;
-import net.opengis.citygml.relief._2.TINReliefType;
-import net.opengis.citygml.relief._2.TinPropertyType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Relief200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

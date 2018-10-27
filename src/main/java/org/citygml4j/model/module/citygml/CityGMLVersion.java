@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.model.module.AbstractModuleConfiguration;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.gml.GMLCoreModule;
@@ -28,6 +25,9 @@ import org.citygml4j.model.module.gml.GMLModule;
 import org.citygml4j.model.module.gml.XLinkModule;
 import org.citygml4j.model.module.xal.AbstractXALModule;
 import org.citygml4j.model.module.xal.XALCoreModule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CityGMLVersion extends AbstractModuleConfiguration {
 	private static final List<CityGMLVersion> instances = new ArrayList<CityGMLVersion>();

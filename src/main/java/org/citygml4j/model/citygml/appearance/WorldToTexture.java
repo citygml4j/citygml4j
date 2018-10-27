@@ -18,9 +18,6 @@
  */
 package org.citygml4j.model.citygml.appearance;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -32,6 +29,9 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
 import org.citygml4j.model.module.citygml.AppearanceModule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorldToTexture extends TransformationMatrix3x4 implements AppearanceModuleComponent, SRSReferenceGroup {
 	private Integer srsDimension;

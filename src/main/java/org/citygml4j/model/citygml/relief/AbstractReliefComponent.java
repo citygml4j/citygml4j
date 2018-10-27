@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.relief;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -31,6 +29,8 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.module.citygml.ReliefModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public abstract class AbstractReliefComponent extends AbstractCityObject implements ReliefModuleComponent {
 	private int lod;

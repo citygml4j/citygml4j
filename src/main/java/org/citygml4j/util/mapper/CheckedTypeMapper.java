@@ -18,9 +18,9 @@
  */
 package org.citygml4j.util.mapper;
 
-import java.util.HashMap;
-
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+
+import java.util.HashMap;
 
 public class CheckedTypeMapper<R> {
 

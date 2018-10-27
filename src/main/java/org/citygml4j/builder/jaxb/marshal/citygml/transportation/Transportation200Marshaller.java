@@ -18,10 +18,17 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.transportation;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
+import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
+import net.opengis.citygml.transportation._2.ObjectFactory;
+import net.opengis.citygml.transportation._2.RailwayType;
+import net.opengis.citygml.transportation._2.RoadType;
+import net.opengis.citygml.transportation._2.SquareType;
+import net.opengis.citygml.transportation._2.TrackType;
+import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
+import net.opengis.citygml.transportation._2.TrafficAreaType;
+import net.opengis.citygml.transportation._2.TransportationComplexType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -44,17 +51,8 @@ import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 import org.w3c.dom.Element;
 
-import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._2.ObjectFactory;
-import net.opengis.citygml.transportation._2.RailwayType;
-import net.opengis.citygml.transportation._2.RoadType;
-import net.opengis.citygml.transportation._2.SquareType;
-import net.opengis.citygml.transportation._2.TrackType;
-import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.TrafficAreaType;
-import net.opengis.citygml.transportation._2.TransportationComplexType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Transportation200Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

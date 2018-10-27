@@ -18,12 +18,11 @@
  */
 package org.citygml4j.model.module;
 
-import java.io.Serializable;
-import java.util.Map;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 
 import javax.xml.namespace.QName;
-
-import org.citygml4j.model.gml.feature.AbstractFeature;
+import java.io.Serializable;
+import java.util.Map;
 
 public interface Module extends Serializable {
 	public ModuleType getType();

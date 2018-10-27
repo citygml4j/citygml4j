@@ -18,11 +18,7 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.landuse;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
+import net.opengis.citygml.landuse._1.LandUseType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
@@ -34,7 +30,9 @@ import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.citygml.landuse._1.LandUseType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class LandUse100Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

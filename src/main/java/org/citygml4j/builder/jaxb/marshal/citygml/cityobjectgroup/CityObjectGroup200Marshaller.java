@@ -18,10 +18,11 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.cityobjectgroup;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml._2.AbstractCityObjectType;
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupMemberType;
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupParentType;
+import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupType;
+import net.opengis.citygml.cityobjectgroup._2.ObjectFactory;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -36,11 +37,8 @@ import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 import org.w3c.dom.Element;
 
-import net.opengis.citygml._2.AbstractCityObjectType;
-import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupMemberType;
-import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupParentType;
-import net.opengis.citygml.cityobjectgroup._2.CityObjectGroupType;
-import net.opengis.citygml.cityobjectgroup._2.ObjectFactory;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class CityObjectGroup200Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

@@ -18,17 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.validation;
 
-import java.io.IOException;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.helpers.ValidationEventImpl;
-import javax.xml.bind.helpers.ValidationEventLocatorImpl;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.validation.Schema;
-
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
@@ -43,6 +32,16 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.ValidationEvent;
+import javax.xml.bind.ValidationEventHandler;
+import javax.xml.bind.helpers.ValidationEventImpl;
+import javax.xml.bind.helpers.ValidationEventLocatorImpl;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.validation.Schema;
+import java.io.IOException;
 
 public class JAXBValidator implements Validator {
 	private final CityGMLBuilder builder;

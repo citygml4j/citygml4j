@@ -18,14 +18,14 @@
  */
 package org.citygml4j.model.gml.feature;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
+
+import java.util.List;
 
 public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 	private List<ADEGenericElement> genericADEElement;

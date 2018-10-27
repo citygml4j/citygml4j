@@ -18,15 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import java.io.InputStream;
-import java.net.URI;
-import java.util.NoSuchElementException;
-import java.util.Stack;
-
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
@@ -38,6 +29,14 @@ import org.citygml4j.xml.io.reader.ParentInfo;
 import org.citygml4j.xml.io.reader.UnmarshalException;
 import org.citygml4j.xml.io.reader.XMLChunk;
 import org.xml.sax.SAXException;
+
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
 public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader {
 	private XMLChunkImpl current;

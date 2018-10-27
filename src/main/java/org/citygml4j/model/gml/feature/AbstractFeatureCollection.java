@@ -18,11 +18,11 @@
  */
 package org.citygml4j.model.gml.feature;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
+
+import java.util.List;
 
 public abstract class AbstractFeatureCollection extends AbstractFeature {
 	private List<FeatureMember> featureMember;

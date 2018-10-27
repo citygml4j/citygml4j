@@ -18,10 +18,10 @@
  */
 package org.citygml4j.model.common.child;
 
+import org.citygml4j.model.common.base.ModelObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
-
-import org.citygml4j.model.common.base.ModelObject;
 
 public class ChildList<T extends Child> extends ArrayList<T> {
 	private static final long serialVersionUID = 1L;

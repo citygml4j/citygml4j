@@ -18,11 +18,11 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
+
+import java.util.List;
 
 public class CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
 

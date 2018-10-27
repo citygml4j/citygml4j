@@ -18,11 +18,6 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
 import org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.tunnel.AbstractOpening;
 import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
@@ -45,6 +40,11 @@ import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class TunnelModule extends AbstractCityGMLModule {
 	private static final List<TunnelModule> instances = new ArrayList<TunnelModule>();

@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.core;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
@@ -34,6 +32,8 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent {
 	private Code mimeType;

@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.core;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
@@ -28,6 +26,8 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CoreModule;
+
+import java.util.List;
 
 public class TransformationMatrix4x4 implements CoreModuleComponent, Child, Copyable {
 	private Matrix matrix;

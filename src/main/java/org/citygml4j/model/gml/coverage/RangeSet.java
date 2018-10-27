@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.gml.coverage;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
@@ -29,6 +27,8 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.valueObjects.ScalarValueList;
 import org.citygml4j.model.gml.valueObjects.ValueArray;
+
+import java.util.List;
 
 public class RangeSet implements GML, Child, Copyable {
 	private List<ValueArray> valueArray;

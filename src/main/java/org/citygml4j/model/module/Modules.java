@@ -18,11 +18,6 @@
  */
 package org.citygml4j.model.module;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.ade.ADEModuleType;
@@ -49,6 +44,11 @@ import org.citygml4j.model.module.gml.XLinkModule;
 import org.citygml4j.model.module.xal.XALCoreModule;
 import org.citygml4j.model.module.xal.XALModule;
 import org.citygml4j.model.module.xal.XALModuleType;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Modules {
 	static Map<String, Module> modules = new ConcurrentHashMap<>();

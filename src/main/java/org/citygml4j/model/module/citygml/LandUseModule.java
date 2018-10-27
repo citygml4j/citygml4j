@@ -18,13 +18,13 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class LandUseModule extends AbstractCityGMLModule {
 	private static final List<LandUseModule> instances = new ArrayList<LandUseModule>();

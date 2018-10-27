@@ -18,15 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import java.util.Stack;
-
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.citygml4j.model.module.citygml.AppearanceModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
@@ -34,6 +25,14 @@ import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.citygml.GenericsModule;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.namespace.QName;
+import javax.xml.stream.Location;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.Stack;
 
 public class CityGMLNamespaceMapper implements XMLStreamReader {
 	private final XMLStreamReader reader;

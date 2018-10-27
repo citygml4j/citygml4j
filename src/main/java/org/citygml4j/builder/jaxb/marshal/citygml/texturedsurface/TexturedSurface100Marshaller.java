@@ -18,11 +18,13 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.texturedsurface;
 
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
+import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
+import net.opengis.citygml.texturedsurface._1.MaterialType;
+import net.opengis.citygml.texturedsurface._1.ObjectFactory;
+import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
+import net.opengis.citygml.texturedsurface._1.TextureTypeType;
+import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
@@ -38,13 +40,9 @@ import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 
-import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
-import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
-import net.opengis.citygml.texturedsurface._1.MaterialType;
-import net.opengis.citygml.texturedsurface._1.ObjectFactory;
-import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
-import net.opengis.citygml.texturedsurface._1.TextureTypeType;
-import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
+import javax.xml.bind.JAXBElement;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TexturedSurface100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

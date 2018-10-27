@@ -18,8 +18,6 @@
  */
 package org.citygml4j.model.citygml.transportation;
 
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -30,6 +28,8 @@ import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.citygml.TransportationModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+
+import java.util.List;
 
 public abstract class AbstractTransportationObject extends AbstractCityObject implements TransportationModuleComponent {
 	private List<ADEComponent> ade;

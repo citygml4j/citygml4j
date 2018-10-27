@@ -18,10 +18,17 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.transportation;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.citygml.transportation._1.AbstractTransportationObjectType;
+import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaPropertyType;
+import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaType;
+import net.opengis.citygml.transportation._1.ObjectFactory;
+import net.opengis.citygml.transportation._1.RailwayType;
+import net.opengis.citygml.transportation._1.RoadType;
+import net.opengis.citygml.transportation._1.SquareType;
+import net.opengis.citygml.transportation._1.TrackType;
+import net.opengis.citygml.transportation._1.TrafficAreaPropertyType;
+import net.opengis.citygml.transportation._1.TrafficAreaType;
+import net.opengis.citygml.transportation._1.TransportationComplexType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
@@ -40,17 +47,8 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.citygml4j.util.mapper.TypeMapper;
 
-import net.opengis.citygml.transportation._1.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._1.ObjectFactory;
-import net.opengis.citygml.transportation._1.RailwayType;
-import net.opengis.citygml.transportation._1.RoadType;
-import net.opengis.citygml.transportation._1.SquareType;
-import net.opengis.citygml.transportation._1.TrackType;
-import net.opengis.citygml.transportation._1.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._1.TrafficAreaType;
-import net.opengis.citygml.transportation._1.TransportationComplexType;
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Transportation100Marshaller {
 	private final ReentrantLock lock = new ReentrantLock();

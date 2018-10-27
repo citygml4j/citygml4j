@@ -1,9 +1,9 @@
 package org.citygml4j.binding.cityjson.geometry;
 
+import com.google.gson.annotations.JsonAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.annotations.JsonAdapter;
 
 @JsonAdapter(VerticesListAdapter.class)
 public class VerticesList {

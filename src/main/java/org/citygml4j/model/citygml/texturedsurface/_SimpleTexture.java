@@ -18,14 +18,14 @@
  */
 package org.citygml4j.model.citygml.texturedsurface;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class _SimpleTexture extends _AbstractAppearance {
 	private String textureMap;

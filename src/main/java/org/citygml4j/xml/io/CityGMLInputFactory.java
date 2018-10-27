@@ -18,13 +18,6 @@
  */
 package org.citygml4j.xml.io;
 
-import java.io.File;
-import java.io.InputStream;
-
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.transform.Templates;
-
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
@@ -33,6 +26,12 @@ import org.citygml4j.xml.io.writer.CityGMLWriteException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.ValidationEventHandler;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.transform.Templates;
+import java.io.File;
+import java.io.InputStream;
 
 public interface CityGMLInputFactory {
 	public static final String FEATURE_READ_MODE = "org.citygml4j.featureReadMode";

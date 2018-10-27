@@ -18,12 +18,6 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.ade.ADEUnmarshaller;
@@ -33,6 +27,12 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 public class JAXBUnmarshaller {
 	private final CityGMLUnmarshaller citygml;

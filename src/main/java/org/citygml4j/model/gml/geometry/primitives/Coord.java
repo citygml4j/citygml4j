@@ -18,15 +18,15 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Coord implements GML, Child, Copyable {
 	private Double x;

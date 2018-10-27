@@ -1,5 +1,13 @@
 package org.citygml4j.geometry;
 
+import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.util.internal.jama.CholeskyDecomposition;
+import org.citygml4j.util.internal.jama.EigenvalueDecomposition;
+import org.citygml4j.util.internal.jama.LUDecomposition;
+import org.citygml4j.util.internal.jama.Maths;
+import org.citygml4j.util.internal.jama.QRDecomposition;
+import org.citygml4j.util.internal.jama.SingularValueDecomposition;
+
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.StreamTokenizer;
@@ -9,14 +17,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.util.internal.jama.CholeskyDecomposition;
-import org.citygml4j.util.internal.jama.EigenvalueDecomposition;
-import org.citygml4j.util.internal.jama.LUDecomposition;
-import org.citygml4j.util.internal.jama.Maths;
-import org.citygml4j.util.internal.jama.QRDecomposition;
-import org.citygml4j.util.internal.jama.SingularValueDecomposition;
 
 /**
    Jama = Java Matrix class.
