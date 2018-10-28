@@ -118,7 +118,7 @@ public class UsingJAXB {
 		}		
 		
 		System.out.println(df.format(new Date()) + "marshalling JAXB object tree as CityGML 1.0.0 document");
-		Files.createDirectory(Paths.get("output"));
+		Files.createDirectories(Paths.get("output"));
 
 		// customize Marshaller instance
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

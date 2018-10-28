@@ -41,7 +41,7 @@ public class InterpretingSchema {
 		// as the documentation of SchemaWriter says, SchemaWriter is not intended 
 		// to be a fully-fledged round-trippable schema writer.
 		System.out.println(df.format(new Date()) + "creating SchemaWriter instance to interpret ADE schema");
-		Files.createDirectory(Paths.get("output"));
+		Files.createDirectories(Paths.get("output"));
 
 		SchemaWriter writer = new SchemaWriter(new PrintWriter(new File("output/CityGML-SubsurfaceADE-0_9_0.xml")));
 		Schema schema = schemaHandler.getSchema("http://www.citygml.org/ade/sub/0.9.0");

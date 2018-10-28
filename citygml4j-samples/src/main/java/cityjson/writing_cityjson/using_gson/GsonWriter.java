@@ -147,7 +147,7 @@ public class GsonWriter {
 		 * step 2: write the CityJSON object to a file
 		 */
 		System.out.println(df.format(new Date()) + "writing Gson object tree as CityJSON file");
-		Files.createDirectory(Paths.get("output"));
+		Files.createDirectories(Paths.get("output"));
 
 		JsonWriter writer = new JsonWriter(new FileWriter(new File("output/LOD2_Building.json")));
 		writer.setIndent(" ");
