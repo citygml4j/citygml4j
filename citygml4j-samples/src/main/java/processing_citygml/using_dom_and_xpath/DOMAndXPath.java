@@ -29,6 +29,7 @@ import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.xml.SAXWriter;
 import org.citygml4j.xml.CityGMLNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,11 +37,10 @@ import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.sax.SAXResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -118,16 +118,18 @@ public class DOMAndXPath {
 		
 		// write DOM to file
 		System.out.println(df.format(new Date()) + "writing DOM tree");
-		TransformerFactory transFactory = TransformerFactory.newInstance();
-		Transformer trans = transFactory.newTransformer();		
-		trans.setOutputProperty(OutputKeys.INDENT, "yes");
-		trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-
 		Files.createDirectories(Paths.get("output"));
+
+		TransformerFactory transFactory = TransformerFactory.newInstance();
+		Transformer trans = transFactory.newTransformer();
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new FileOutputStream("output/LOD2_DOM_result_v200.gml"));
-		trans.transform(source, result); 
-		
+
+		try (SAXWriter saxWriter = new SAXWriter(new FileOutputStream("output/LOD2_DOM_result_v200.gml"), "UTF-8")) {
+			saxWriter.setIndentString("  ");
+			saxWriter.setNamespaceContext(nsContext);
+			trans.transform(source, new SAXResult(saxWriter));
+		}
+
 		System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v200.gml written");
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
