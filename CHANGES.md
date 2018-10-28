@@ -9,7 +9,8 @@ Change Log
   *  With this change, an `ADEModelObject` can now be used for both CityGML 2.0 and 1.0.
 
 ##### Additions
-* Added `java.io.Serializable` interface to model classes. This allows for serializing and deserializing the state of citygml4j object trees without the need for writing and reading XML datasets. See the sample program `serializing_model_classes/Serialization.java` for an example. #18
+* Added `java.io.Serializable` interface to model classes. This allows for serializing and deserializing the state of citygml4j object trees without the need for writing and reading XML datasets. [#18](https://github.com/citygml4j/citygml4j/issues/18)
+  * See the sample program `serializing_model_classes/Serialization.java` for an example.
 
 ##### Fixes
 * Fixed NPE in CityJSON appearance resolver
