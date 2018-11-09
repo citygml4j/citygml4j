@@ -34,6 +34,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -508,6 +509,17 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 				writeNamespace(prefix, uri);
 			}
 
+			for (Enumeration<String> e = reportedNS.getDeclaredPrefixes(); e.hasMoreElements();) {
+				String reportedPrefix = e.nextElement();
+				if (!reportedPrefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
+					String reportedUri = reportedNS.getURI(reportedPrefix);
+					if (localNS.getDeclaredPrefix(reportedUri) == null) {
+						localNS.declarePrefix(reportedPrefix, reportedUri);
+						writeNamespace(reportedPrefix, reportedUri);
+					}
+				}
+			}
+
 			writeAttributes(atts, uri);
 
 			lastXMLContent = XMLContentType.START_ELEMENT;
@@ -847,6 +859,10 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			}
 
 			return null;
+		}
+
+		String getDeclaredPrefix(String uri) {
+			return contexts.peek().namespaces.get(uri);
 		}
 	}
 
