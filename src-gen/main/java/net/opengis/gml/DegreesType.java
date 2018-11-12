@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -23,30 +23,30 @@ import javax.xml.bind.annotation.XmlValue;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="DegreesType">
- *   &lt;simpleContent>
- *     &lt;extension base="&lt;http://www.opengis.net/gml>DegreeValueType">
- *       &lt;attribute name="direction">
- *         &lt;simpleType>
- *           &lt;union>
- *             &lt;simpleType>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                 &lt;enumeration value="N"/>
- *                 &lt;enumeration value="E"/>
- *                 &lt;enumeration value="S"/>
- *                 &lt;enumeration value="W"/>
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *             &lt;simpleType>
- *               &lt;restriction base="{http://www.opengis.net/gml}SignType">
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *           &lt;/union>
- *         &lt;/simpleType>
- *       &lt;/attribute>
- *     &lt;/extension>
- *   &lt;/simpleContent>
- * &lt;/complexType>
+ * &lt;complexType name="DegreesType"&gt;
+ *   &lt;simpleContent&gt;
+ *     &lt;extension base="&lt;http://www.opengis.net/gml&gt;DegreeValueType"&gt;
+ *       &lt;attribute name="direction"&gt;
+ *         &lt;simpleType&gt;
+ *           &lt;union&gt;
+ *             &lt;simpleType&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                 &lt;enumeration value="N"/&gt;
+ *                 &lt;enumeration value="E"/&gt;
+ *                 &lt;enumeration value="S"/&gt;
+ *                 &lt;enumeration value="W"/&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/simpleType&gt;
+ *             &lt;simpleType&gt;
+ *               &lt;restriction base="{http://www.opengis.net/gml}SignType"&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/simpleType&gt;
+ *           &lt;/union&gt;
+ *         &lt;/simpleType&gt;
+ *       &lt;/attribute&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/simpleContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

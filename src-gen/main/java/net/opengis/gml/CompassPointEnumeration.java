@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -18,26 +18,26 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
- * &lt;simpleType name="CompassPointEnumeration">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="N"/>
- *     &lt;enumeration value="NNE"/>
- *     &lt;enumeration value="NE"/>
- *     &lt;enumeration value="ENE"/>
- *     &lt;enumeration value="E"/>
- *     &lt;enumeration value="ESE"/>
- *     &lt;enumeration value="SE"/>
- *     &lt;enumeration value="SSE"/>
- *     &lt;enumeration value="S"/>
- *     &lt;enumeration value="SSW"/>
- *     &lt;enumeration value="SW"/>
- *     &lt;enumeration value="WSW"/>
- *     &lt;enumeration value="W"/>
- *     &lt;enumeration value="WNW"/>
- *     &lt;enumeration value="NW"/>
- *     &lt;enumeration value="NNW"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="CompassPointEnumeration"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="N"/&gt;
+ *     &lt;enumeration value="NNE"/&gt;
+ *     &lt;enumeration value="NE"/&gt;
+ *     &lt;enumeration value="ENE"/&gt;
+ *     &lt;enumeration value="E"/&gt;
+ *     &lt;enumeration value="ESE"/&gt;
+ *     &lt;enumeration value="SE"/&gt;
+ *     &lt;enumeration value="SSE"/&gt;
+ *     &lt;enumeration value="S"/&gt;
+ *     &lt;enumeration value="SSW"/&gt;
+ *     &lt;enumeration value="SW"/&gt;
+ *     &lt;enumeration value="WSW"/&gt;
+ *     &lt;enumeration value="W"/&gt;
+ *     &lt;enumeration value="WNW"/&gt;
+ *     &lt;enumeration value="NW"/&gt;
+ *     &lt;enumeration value="NNW"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

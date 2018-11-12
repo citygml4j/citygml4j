@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -20,23 +20,23 @@ import javax.xml.datatype.Duration;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="TimePeriodType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.opengis.net/gml}AbstractTimeGeometricPrimitiveType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element name="beginPosition" type="{http://www.opengis.net/gml}TimePositionType"/>
- *           &lt;element name="begin" type="{http://www.opengis.net/gml}TimeInstantPropertyType"/>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="endPosition" type="{http://www.opengis.net/gml}TimePositionType"/>
- *           &lt;element name="end" type="{http://www.opengis.net/gml}TimeInstantPropertyType"/>
- *         &lt;/choice>
- *         &lt;group ref="{http://www.opengis.net/gml}timeLength" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TimePeriodType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.opengis.net/gml}AbstractTimeGeometricPrimitiveType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="beginPosition" type="{http://www.opengis.net/gml}TimePositionType"/&gt;
+ *           &lt;element name="begin" type="{http://www.opengis.net/gml}TimeInstantPropertyType"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="endPosition" type="{http://www.opengis.net/gml}TimePositionType"/&gt;
+ *           &lt;element name="end" type="{http://www.opengis.net/gml}TimeInstantPropertyType"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;group ref="{http://www.opengis.net/gml}timeLength" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

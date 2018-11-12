@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -31,12 +31,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName __VegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "_VegetationObject");
     private final static QName __GenericApplicationPropertyOfVegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "_GenericApplicationPropertyOfVegetationObject");
-    private final static QName _SolitaryVegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "SolitaryVegetationObject");
-    private final static QName __GenericApplicationPropertyOfSolitaryVegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "_GenericApplicationPropertyOfSolitaryVegetationObject");
     private final static QName _PlantCover_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "PlantCover");
     private final static QName __GenericApplicationPropertyOfPlantCover_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "_GenericApplicationPropertyOfPlantCover");
-    private final static QName __VegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "_VegetationObject");
+    private final static QName _SolitaryVegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "SolitaryVegetationObject");
+    private final static QName __GenericApplicationPropertyOfSolitaryVegetationObject_QNAME = new QName("http://www.opengis.net/citygml/vegetation/1.0", "_GenericApplicationPropertyOfSolitaryVegetationObject");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: net.opengis.citygml.vegetation._1
@@ -62,8 +62,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "_VegetationObject", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
+    public JAXBElement<AbstractVegetationObjectType> create_VegetationObject(AbstractVegetationObjectType value) {
+        return new JAXBElement<AbstractVegetationObjectType>(__VegetationObject_QNAME, AbstractVegetationObjectType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "_GenericApplicationPropertyOfVegetationObject")
     public JAXBElement<Object> create_GenericApplicationPropertyOfVegetationObject(Object value) {
@@ -71,26 +88,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "SolitaryVegetationObject", substitutionHeadNamespace = "http://www.opengis.net/citygml/vegetation/1.0", substitutionHeadName = "_VegetationObject")
-    public JAXBElement<SolitaryVegetationObjectType> createSolitaryVegetationObject(SolitaryVegetationObjectType value) {
-        return new JAXBElement<SolitaryVegetationObjectType>(_SolitaryVegetationObject_QNAME, SolitaryVegetationObjectType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "_GenericApplicationPropertyOfSolitaryVegetationObject")
-    public JAXBElement<Object> create_GenericApplicationPropertyOfSolitaryVegetationObject(Object value) {
-        return new JAXBElement<Object>(__GenericApplicationPropertyOfSolitaryVegetationObject_QNAME, Object.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "PlantCover", substitutionHeadNamespace = "http://www.opengis.net/citygml/vegetation/1.0", substitutionHeadName = "_VegetationObject")
     public JAXBElement<PlantCoverType> createPlantCover(PlantCoverType value) {
@@ -98,8 +101,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "_GenericApplicationPropertyOfPlantCover")
     public JAXBElement<Object> create_GenericApplicationPropertyOfPlantCover(Object value) {
@@ -107,12 +114,29 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
      */
-    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "_VegetationObject", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
-    public JAXBElement<AbstractVegetationObjectType> create_VegetationObject(AbstractVegetationObjectType value) {
-        return new JAXBElement<AbstractVegetationObjectType>(__VegetationObject_QNAME, AbstractVegetationObjectType.class, null, value);
+    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "SolitaryVegetationObject", substitutionHeadNamespace = "http://www.opengis.net/citygml/vegetation/1.0", substitutionHeadName = "_VegetationObject")
+    public JAXBElement<SolitaryVegetationObjectType> createSolitaryVegetationObject(SolitaryVegetationObjectType value) {
+        return new JAXBElement<SolitaryVegetationObjectType>(_SolitaryVegetationObject_QNAME, SolitaryVegetationObjectType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/vegetation/1.0", name = "_GenericApplicationPropertyOfSolitaryVegetationObject")
+    public JAXBElement<Object> create_GenericApplicationPropertyOfSolitaryVegetationObject(Object value) {
+        return new JAXBElement<Object>(__GenericApplicationPropertyOfSolitaryVegetationObject_QNAME, Object.class, null, value);
     }
 
 }

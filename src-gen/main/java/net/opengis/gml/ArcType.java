@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -22,24 +22,24 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="ArcType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.opengis.net/gml}ArcStringType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;choice maxOccurs="3" minOccurs="3">
- *             &lt;element ref="{http://www.opengis.net/gml}pos"/>
- *             &lt;element ref="{http://www.opengis.net/gml}pointProperty"/>
- *             &lt;element ref="{http://www.opengis.net/gml}pointRep"/>
- *           &lt;/choice>
- *           &lt;element ref="{http://www.opengis.net/gml}posList"/>
- *           &lt;element ref="{http://www.opengis.net/gml}coordinates"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute name="numArc" type="{http://www.w3.org/2001/XMLSchema}integer" fixed="1" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ArcType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.opengis.net/gml}ArcStringType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;choice maxOccurs="3" minOccurs="3"&gt;
+ *             &lt;element ref="{http://www.opengis.net/gml}pos"/&gt;
+ *             &lt;element ref="{http://www.opengis.net/gml}pointProperty"/&gt;
+ *             &lt;element ref="{http://www.opengis.net/gml}pointRep"/&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element ref="{http://www.opengis.net/gml}posList"/&gt;
+ *           &lt;element ref="{http://www.opengis.net/gml}coordinates"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="numArc" type="{http://www.w3.org/2001/XMLSchema}integer" fixed="1" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

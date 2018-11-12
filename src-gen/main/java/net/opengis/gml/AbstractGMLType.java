@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -33,16 +33,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="AbstractGMLType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;group ref="{http://www.opengis.net/gml}StandardObjectProperties"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://www.opengis.net/gml}id"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AbstractGMLType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;group ref="{http://www.opengis.net/gml}StandardObjectProperties"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://www.opengis.net/gml}id"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -55,23 +55,23 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 @XmlSeeAlso({
     net.opengis.citygml.appearance._1.AbstractTextureParameterizationType.class,
-    AbstractTimeSliceType.class,
-    FeatureStyleType.class,
-    AbstractStyleType.class,
-    CompositeValueType.class,
-    ArrayType.class,
-    AbstractTopologyType.class,
-    AbstractTimeObjectType.class,
     BagType.class,
-    BaseStyleDescriptorType.class,
+    ArrayType.class,
+    AbstractTimeSliceType.class,
+    AbstractTopologyType.class,
+    CompositeValueType.class,
+    AbstractStyleType.class,
+    FeatureStyleType.class,
+    AbstractTimeObjectType.class,
     DefinitionType.class,
+    BaseStyleDescriptorType.class,
     net.opengis.citygml._1.ImplicitGeometryType.class,
     net.opengis.citygml.texturedsurface._1.AbstractAppearanceType.class,
     net.opengis.citygml.appearance._2.AbstractTextureParameterizationType.class,
     net.opengis.citygml._2.ImplicitGeometryType.class,
     AbstractFeatureType.class,
-    net.opengis.citygml.texturedsurface._2.AbstractAppearanceType.class,
-    AbstractGeometryType.class
+    AbstractGeometryType.class,
+    net.opengis.citygml.texturedsurface._2.AbstractAppearanceType.class
 })
 public abstract class AbstractGMLType {
 

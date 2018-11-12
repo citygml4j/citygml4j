@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -50,14 +50,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CityObjectGroupParentType }
-     * 
-     */
-    public CityObjectGroupParentType createCityObjectGroupParentType() {
-        return new CityObjectGroupParentType();
-    }
-
-    /**
      * Create an instance of {@link CityObjectGroupMemberType }
      * 
      */
@@ -66,8 +58,20 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}}
+     * Create an instance of {@link CityObjectGroupParentType }
      * 
+     */
+    public CityObjectGroupParentType createCityObjectGroupParentType() {
+        return new CityObjectGroupParentType();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/cityobjectgroup/2.0", name = "CityObjectGroup", substitutionHeadNamespace = "http://www.opengis.net/citygml/2.0", substitutionHeadName = "_CityObject")
     public JAXBElement<CityObjectGroupType> createCityObjectGroup(CityObjectGroupType value) {
@@ -75,8 +79,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/cityobjectgroup/2.0", name = "_GenericApplicationPropertyOfCityObjectGroup")
     public JAXBElement<Object> create_GenericApplicationPropertyOfCityObjectGroup(Object value) {

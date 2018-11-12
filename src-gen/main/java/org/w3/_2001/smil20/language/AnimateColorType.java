@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -42,21 +42,21 @@ import org.w3c.dom.Element;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="animateColorType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.w3.org/2001/SMIL20/}animateColorPrototype">
- *       &lt;choice maxOccurs="unbounded" minOccurs="0">
- *         &lt;any processContents='lax' namespace='##other'/>
- *       &lt;/choice>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animModeAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/Language}TimingAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animTargetAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}skipContentAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/Language}CoreAttrs"/>
- *       &lt;anyAttribute/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="animateColorType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.w3.org/2001/SMIL20/}animateColorPrototype"&gt;
+ *       &lt;choice maxOccurs="unbounded" minOccurs="0"&gt;
+ *         &lt;any processContents='lax' namespace='##other'/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}skipContentAttrs"/&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animModeAttrs"/&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/Language}TimingAttrs"/&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/Language}CoreAttrs"/&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animTargetAttrs"/&gt;
+ *       &lt;anyAttribute/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -71,20 +71,32 @@ public class AnimateColorType
 
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    @XmlAttribute(name = "skip-content")
+    protected Boolean skipContent;
     @XmlAttribute(name = "calcMode")
     protected String calcMode;
-    @XmlAttribute(name = "syncBehavior")
-    protected SyncBehaviorType syncBehavior;
-    @XmlAttribute(name = "syncTolerance")
-    protected String syncTolerance;
-    @XmlAttribute(name = "fill")
-    protected FillTimingAttrsType fill;
-    @XmlAttribute(name = "restart")
-    protected RestartTimingType restart;
     @XmlAttribute(name = "fillDefault")
     protected FillDefaultType fillDefault;
+    @XmlAttribute(name = "fill")
+    protected FillTimingAttrsType fill;
     @XmlAttribute(name = "restartDefault")
     protected RestartDefaultType restartDefault;
+    @XmlAttribute(name = "syncBehaviorDefault")
+    protected SyncBehaviorDefaultType syncBehaviorDefault;
+    @XmlAttribute(name = "syncToleranceDefault")
+    protected String syncToleranceDefault;
+    @XmlAttribute(name = "restart")
+    protected RestartTimingType restart;
+    @XmlAttribute(name = "dur")
+    protected String dur;
+    @XmlAttribute(name = "min")
+    protected String min;
+    @XmlAttribute(name = "max")
+    protected String max;
+    @XmlAttribute(name = "begin")
+    protected String begin;
+    @XmlAttribute(name = "end")
+    protected String end;
     @XmlAttribute(name = "repeatDur")
     protected String repeatDur;
     @XmlAttribute(name = "repeatCount")
@@ -92,26 +104,10 @@ public class AnimateColorType
     @XmlAttribute(name = "repeat")
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger repeat;
-    @XmlAttribute(name = "min")
-    protected String min;
-    @XmlAttribute(name = "max")
-    protected String max;
-    @XmlAttribute(name = "dur")
-    protected String dur;
-    @XmlAttribute(name = "begin")
-    protected String begin;
-    @XmlAttribute(name = "end")
-    protected String end;
-    @XmlAttribute(name = "syncBehaviorDefault")
-    protected SyncBehaviorDefaultType syncBehaviorDefault;
-    @XmlAttribute(name = "syncToleranceDefault")
-    protected String syncToleranceDefault;
-    @XmlAttribute(name = "targetElement")
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    protected Object targetElement;
-    @XmlAttribute(name = "skip-content")
-    protected Boolean skipContent;
+    @XmlAttribute(name = "syncBehavior")
+    protected SyncBehaviorType syncBehavior;
+    @XmlAttribute(name = "syncTolerance")
+    protected String syncTolerance;
     @XmlAttribute(name = "alt")
     protected String alt;
     @XmlAttribute(name = "longdesc")
@@ -126,6 +122,10 @@ public class AnimateColorType
     protected String clazz;
     @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
     protected String lang;
+    @XmlAttribute(name = "targetElement")
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    protected Object targetElement;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -147,8 +147,8 @@ public class AnimateColorType
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Object }
      * {@link Element }
+     * {@link Object }
      * 
      * 
      */
@@ -165,6 +165,42 @@ public class AnimateColorType
 
     public void unsetAny() {
         this.any = null;
+    }
+
+    /**
+     * Ruft den Wert der skipContent-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isSkipContent() {
+        if (skipContent == null) {
+            return true;
+        } else {
+            return skipContent;
+        }
+    }
+
+    /**
+     * Legt den Wert der skipContent-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setSkipContent(boolean value) {
+        this.skipContent = value;
+    }
+
+    public boolean isSetSkipContent() {
+        return (this.skipContent!= null);
+    }
+
+    public void unsetSkipContent() {
+        this.skipContent = null;
     }
 
     /**
@@ -200,63 +236,35 @@ public class AnimateColorType
     }
 
     /**
-     * Ruft den Wert der syncBehavior-Eigenschaft ab.
+     * Ruft den Wert der fillDefault-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link SyncBehaviorType }
+     *     {@link FillDefaultType }
      *     
      */
-    public SyncBehaviorType getSyncBehavior() {
-        if (syncBehavior == null) {
-            return SyncBehaviorType.DEFAULT;
+    public FillDefaultType getFillDefault() {
+        if (fillDefault == null) {
+            return FillDefaultType.INHERIT;
         } else {
-            return syncBehavior;
+            return fillDefault;
         }
     }
 
     /**
-     * Legt den Wert der syncBehavior-Eigenschaft fest.
+     * Legt den Wert der fillDefault-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link SyncBehaviorType }
+     *     {@link FillDefaultType }
      *     
      */
-    public void setSyncBehavior(SyncBehaviorType value) {
-        this.syncBehavior = value;
+    public void setFillDefault(FillDefaultType value) {
+        this.fillDefault = value;
     }
 
-    public boolean isSetSyncBehavior() {
-        return (this.syncBehavior!= null);
-    }
-
-    /**
-     * Ruft den Wert der syncTolerance-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSyncTolerance() {
-        return syncTolerance;
-    }
-
-    /**
-     * Legt den Wert der syncTolerance-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSyncTolerance(String value) {
-        this.syncTolerance = value;
-    }
-
-    public boolean isSetSyncTolerance() {
-        return (this.syncTolerance!= null);
+    public boolean isSetFillDefault() {
+        return (this.fillDefault!= null);
     }
 
     /**
@@ -292,6 +300,102 @@ public class AnimateColorType
     }
 
     /**
+     * Ruft den Wert der restartDefault-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RestartDefaultType }
+     *     
+     */
+    public RestartDefaultType getRestartDefault() {
+        if (restartDefault == null) {
+            return RestartDefaultType.INHERIT;
+        } else {
+            return restartDefault;
+        }
+    }
+
+    /**
+     * Legt den Wert der restartDefault-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RestartDefaultType }
+     *     
+     */
+    public void setRestartDefault(RestartDefaultType value) {
+        this.restartDefault = value;
+    }
+
+    public boolean isSetRestartDefault() {
+        return (this.restartDefault!= null);
+    }
+
+    /**
+     * Ruft den Wert der syncBehaviorDefault-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SyncBehaviorDefaultType }
+     *     
+     */
+    public SyncBehaviorDefaultType getSyncBehaviorDefault() {
+        if (syncBehaviorDefault == null) {
+            return SyncBehaviorDefaultType.INHERIT;
+        } else {
+            return syncBehaviorDefault;
+        }
+    }
+
+    /**
+     * Legt den Wert der syncBehaviorDefault-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SyncBehaviorDefaultType }
+     *     
+     */
+    public void setSyncBehaviorDefault(SyncBehaviorDefaultType value) {
+        this.syncBehaviorDefault = value;
+    }
+
+    public boolean isSetSyncBehaviorDefault() {
+        return (this.syncBehaviorDefault!= null);
+    }
+
+    /**
+     * Ruft den Wert der syncToleranceDefault-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSyncToleranceDefault() {
+        if (syncToleranceDefault == null) {
+            return "inherit";
+        } else {
+            return syncToleranceDefault;
+        }
+    }
+
+    /**
+     * Legt den Wert der syncToleranceDefault-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSyncToleranceDefault(String value) {
+        this.syncToleranceDefault = value;
+    }
+
+    public boolean isSetSyncToleranceDefault() {
+        return (this.syncToleranceDefault!= null);
+    }
+
+    /**
      * Ruft den Wert der restart-Eigenschaft ab.
      * 
      * @return
@@ -324,67 +428,143 @@ public class AnimateColorType
     }
 
     /**
-     * Ruft den Wert der fillDefault-Eigenschaft ab.
+     * Ruft den Wert der dur-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link FillDefaultType }
+     *     {@link String }
      *     
      */
-    public FillDefaultType getFillDefault() {
-        if (fillDefault == null) {
-            return FillDefaultType.INHERIT;
-        } else {
-            return fillDefault;
-        }
+    public String getDur() {
+        return dur;
     }
 
     /**
-     * Legt den Wert der fillDefault-Eigenschaft fest.
+     * Legt den Wert der dur-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link FillDefaultType }
+     *     {@link String }
      *     
      */
-    public void setFillDefault(FillDefaultType value) {
-        this.fillDefault = value;
+    public void setDur(String value) {
+        this.dur = value;
     }
 
-    public boolean isSetFillDefault() {
-        return (this.fillDefault!= null);
+    public boolean isSetDur() {
+        return (this.dur!= null);
     }
 
     /**
-     * Ruft den Wert der restartDefault-Eigenschaft ab.
+     * Ruft den Wert der min-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link RestartDefaultType }
+     *     {@link String }
      *     
      */
-    public RestartDefaultType getRestartDefault() {
-        if (restartDefault == null) {
-            return RestartDefaultType.INHERIT;
-        } else {
-            return restartDefault;
-        }
+    public String getMin() {
+        return min;
     }
 
     /**
-     * Legt den Wert der restartDefault-Eigenschaft fest.
+     * Legt den Wert der min-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link RestartDefaultType }
+     *     {@link String }
      *     
      */
-    public void setRestartDefault(RestartDefaultType value) {
-        this.restartDefault = value;
+    public void setMin(String value) {
+        this.min = value;
     }
 
-    public boolean isSetRestartDefault() {
-        return (this.restartDefault!= null);
+    public boolean isSetMin() {
+        return (this.min!= null);
+    }
+
+    /**
+     * Ruft den Wert der max-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMax() {
+        return max;
+    }
+
+    /**
+     * Legt den Wert der max-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMax(String value) {
+        this.max = value;
+    }
+
+    public boolean isSetMax() {
+        return (this.max!= null);
+    }
+
+    /**
+     * Ruft den Wert der begin-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBegin() {
+        return begin;
+    }
+
+    /**
+     * Legt den Wert der begin-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBegin(String value) {
+        this.begin = value;
+    }
+
+    public boolean isSetBegin() {
+        return (this.begin!= null);
+    }
+
+    /**
+     * Ruft den Wert der end-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEnd() {
+        return end;
+    }
+
+    /**
+     * Legt den Wert der end-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEnd(String value) {
+        this.end = value;
+    }
+
+    public boolean isSetEnd() {
+        return (this.end!= null);
     }
 
     /**
@@ -472,271 +652,63 @@ public class AnimateColorType
     }
 
     /**
-     * Ruft den Wert der min-Eigenschaft ab.
+     * Ruft den Wert der syncBehavior-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link SyncBehaviorType }
      *     
      */
-    public String getMin() {
-        return min;
-    }
-
-    /**
-     * Legt den Wert der min-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMin(String value) {
-        this.min = value;
-    }
-
-    public boolean isSetMin() {
-        return (this.min!= null);
-    }
-
-    /**
-     * Ruft den Wert der max-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMax() {
-        return max;
-    }
-
-    /**
-     * Legt den Wert der max-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMax(String value) {
-        this.max = value;
-    }
-
-    public boolean isSetMax() {
-        return (this.max!= null);
-    }
-
-    /**
-     * Ruft den Wert der dur-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDur() {
-        return dur;
-    }
-
-    /**
-     * Legt den Wert der dur-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDur(String value) {
-        this.dur = value;
-    }
-
-    public boolean isSetDur() {
-        return (this.dur!= null);
-    }
-
-    /**
-     * Ruft den Wert der begin-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getBegin() {
-        return begin;
-    }
-
-    /**
-     * Legt den Wert der begin-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setBegin(String value) {
-        this.begin = value;
-    }
-
-    public boolean isSetBegin() {
-        return (this.begin!= null);
-    }
-
-    /**
-     * Ruft den Wert der end-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEnd() {
-        return end;
-    }
-
-    /**
-     * Legt den Wert der end-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEnd(String value) {
-        this.end = value;
-    }
-
-    public boolean isSetEnd() {
-        return (this.end!= null);
-    }
-
-    /**
-     * Ruft den Wert der syncBehaviorDefault-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SyncBehaviorDefaultType }
-     *     
-     */
-    public SyncBehaviorDefaultType getSyncBehaviorDefault() {
-        if (syncBehaviorDefault == null) {
-            return SyncBehaviorDefaultType.INHERIT;
+    public SyncBehaviorType getSyncBehavior() {
+        if (syncBehavior == null) {
+            return SyncBehaviorType.DEFAULT;
         } else {
-            return syncBehaviorDefault;
+            return syncBehavior;
         }
     }
 
     /**
-     * Legt den Wert der syncBehaviorDefault-Eigenschaft fest.
+     * Legt den Wert der syncBehavior-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link SyncBehaviorDefaultType }
+     *     {@link SyncBehaviorType }
      *     
      */
-    public void setSyncBehaviorDefault(SyncBehaviorDefaultType value) {
-        this.syncBehaviorDefault = value;
+    public void setSyncBehavior(SyncBehaviorType value) {
+        this.syncBehavior = value;
     }
 
-    public boolean isSetSyncBehaviorDefault() {
-        return (this.syncBehaviorDefault!= null);
+    public boolean isSetSyncBehavior() {
+        return (this.syncBehavior!= null);
     }
 
     /**
-     * Ruft den Wert der syncToleranceDefault-Eigenschaft ab.
+     * Ruft den Wert der syncTolerance-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getSyncToleranceDefault() {
-        if (syncToleranceDefault == null) {
-            return "inherit";
-        } else {
-            return syncToleranceDefault;
-        }
+    public String getSyncTolerance() {
+        return syncTolerance;
     }
 
     /**
-     * Legt den Wert der syncToleranceDefault-Eigenschaft fest.
+     * Legt den Wert der syncTolerance-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setSyncToleranceDefault(String value) {
-        this.syncToleranceDefault = value;
+    public void setSyncTolerance(String value) {
+        this.syncTolerance = value;
     }
 
-    public boolean isSetSyncToleranceDefault() {
-        return (this.syncToleranceDefault!= null);
-    }
-
-    /**
-     * Ruft den Wert der targetElement-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
-     */
-    public Object getTargetElement() {
-        return targetElement;
-    }
-
-    /**
-     * Legt den Wert der targetElement-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setTargetElement(Object value) {
-        this.targetElement = value;
-    }
-
-    public boolean isSetTargetElement() {
-        return (this.targetElement!= null);
-    }
-
-    /**
-     * Ruft den Wert der skipContent-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isSkipContent() {
-        if (skipContent == null) {
-            return true;
-        } else {
-            return skipContent;
-        }
-    }
-
-    /**
-     * Legt den Wert der skipContent-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setSkipContent(boolean value) {
-        this.skipContent = value;
-    }
-
-    public boolean isSetSkipContent() {
-        return (this.skipContent!= null);
-    }
-
-    public void unsetSkipContent() {
-        this.skipContent = null;
+    public boolean isSetSyncTolerance() {
+        return (this.syncTolerance!= null);
     }
 
     /**
@@ -877,6 +849,34 @@ public class AnimateColorType
 
     public boolean isSetLang() {
         return (this.lang!= null);
+    }
+
+    /**
+     * Ruft den Wert der targetElement-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Object }
+     *     
+     */
+    public Object getTargetElement() {
+        return targetElement;
+    }
+
+    /**
+     * Legt den Wert der targetElement-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Object }
+     *     
+     */
+    public void setTargetElement(Object value) {
+        this.targetElement = value;
+    }
+
+    public boolean isSetTargetElement() {
+        return (this.targetElement!= null);
     }
 
     /**

@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -45,47 +45,47 @@ import net.opengis.gml.SolidPropertyType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="AbstractBuildingType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.opengis.net/citygml/1.0}AbstractSiteType">
- *       &lt;sequence>
- *         &lt;element name="class" type="{http://www.opengis.net/citygml/building/1.0}BuildingClassType" minOccurs="0"/>
- *         &lt;element name="function" type="{http://www.opengis.net/citygml/building/1.0}BuildingFunctionType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="usage" type="{http://www.opengis.net/citygml/building/1.0}BuildingUsageType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="yearOfConstruction" type="{http://www.w3.org/2001/XMLSchema}gYear" minOccurs="0"/>
- *         &lt;element name="yearOfDemolition" type="{http://www.w3.org/2001/XMLSchema}gYear" minOccurs="0"/>
- *         &lt;element name="roofType" type="{http://www.opengis.net/citygml/building/1.0}RoofTypeType" minOccurs="0"/>
- *         &lt;element name="measuredHeight" type="{http://www.opengis.net/gml}LengthType" minOccurs="0"/>
- *         &lt;element name="storeysAboveGround" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" minOccurs="0"/>
- *         &lt;element name="storeysBelowGround" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" minOccurs="0"/>
- *         &lt;element name="storeyHeightsAboveGround" type="{http://www.opengis.net/gml}MeasureOrNullListType" minOccurs="0"/>
- *         &lt;element name="storeyHeightsBelowGround" type="{http://www.opengis.net/gml}MeasureOrNullListType" minOccurs="0"/>
- *         &lt;element name="lod1Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/>
- *         &lt;element name="lod1MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/>
- *         &lt;element name="lod1TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="lod2Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/>
- *         &lt;element name="lod2MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/>
- *         &lt;element name="lod2MultiCurve" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="lod2TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="outerBuildingInstallation" type="{http://www.opengis.net/citygml/building/1.0}BuildingInstallationPropertyType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="interiorBuildingInstallation" type="{http://www.opengis.net/citygml/building/1.0}IntBuildingInstallationPropertyType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="boundedBy" type="{http://www.opengis.net/citygml/building/1.0}BoundarySurfacePropertyType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="lod3Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/>
- *         &lt;element name="lod3MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/>
- *         &lt;element name="lod3MultiCurve" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="lod3TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="lod4Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/>
- *         &lt;element name="lod4MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/>
- *         &lt;element name="lod4MultiCurve" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="lod4TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/>
- *         &lt;element name="interiorRoom" type="{http://www.opengis.net/citygml/building/1.0}InteriorRoomPropertyType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="consistsOfBuildingPart" type="{http://www.opengis.net/citygml/building/1.0}BuildingPartPropertyType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="address" type="{http://www.opengis.net/citygml/1.0}AddressPropertyType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{http://www.opengis.net/citygml/building/1.0}_GenericApplicationPropertyOfAbstractBuilding" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AbstractBuildingType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.opengis.net/citygml/1.0}AbstractSiteType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="class" type="{http://www.opengis.net/citygml/building/1.0}BuildingClassType" minOccurs="0"/&gt;
+ *         &lt;element name="function" type="{http://www.opengis.net/citygml/building/1.0}BuildingFunctionType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="usage" type="{http://www.opengis.net/citygml/building/1.0}BuildingUsageType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="yearOfConstruction" type="{http://www.w3.org/2001/XMLSchema}gYear" minOccurs="0"/&gt;
+ *         &lt;element name="yearOfDemolition" type="{http://www.w3.org/2001/XMLSchema}gYear" minOccurs="0"/&gt;
+ *         &lt;element name="roofType" type="{http://www.opengis.net/citygml/building/1.0}RoofTypeType" minOccurs="0"/&gt;
+ *         &lt;element name="measuredHeight" type="{http://www.opengis.net/gml}LengthType" minOccurs="0"/&gt;
+ *         &lt;element name="storeysAboveGround" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" minOccurs="0"/&gt;
+ *         &lt;element name="storeysBelowGround" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" minOccurs="0"/&gt;
+ *         &lt;element name="storeyHeightsAboveGround" type="{http://www.opengis.net/gml}MeasureOrNullListType" minOccurs="0"/&gt;
+ *         &lt;element name="storeyHeightsBelowGround" type="{http://www.opengis.net/gml}MeasureOrNullListType" minOccurs="0"/&gt;
+ *         &lt;element name="lod1Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod1MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod1TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod2Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod2MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod2MultiCurve" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod2TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="outerBuildingInstallation" type="{http://www.opengis.net/citygml/building/1.0}BuildingInstallationPropertyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="interiorBuildingInstallation" type="{http://www.opengis.net/citygml/building/1.0}IntBuildingInstallationPropertyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="boundedBy" type="{http://www.opengis.net/citygml/building/1.0}BoundarySurfacePropertyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="lod3Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod3MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod3MultiCurve" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod3TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod4Solid" type="{http://www.opengis.net/gml}SolidPropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod4MultiSurface" type="{http://www.opengis.net/gml}MultiSurfacePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod4MultiCurve" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="lod4TerrainIntersection" type="{http://www.opengis.net/gml}MultiCurvePropertyType" minOccurs="0"/&gt;
+ *         &lt;element name="interiorRoom" type="{http://www.opengis.net/citygml/building/1.0}InteriorRoomPropertyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="consistsOfBuildingPart" type="{http://www.opengis.net/citygml/building/1.0}BuildingPartPropertyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="address" type="{http://www.opengis.net/citygml/1.0}AddressPropertyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/building/1.0}_GenericApplicationPropertyOfAbstractBuilding" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

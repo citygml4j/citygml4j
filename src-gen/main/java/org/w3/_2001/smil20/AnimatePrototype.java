@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -22,15 +22,15 @@ import org.w3._2001.smil20.language.AnimateType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="animatePrototype">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animNamedTargetAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animValuesAttrs"/>
- *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animAddAccumAttrs"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="animatePrototype"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animNamedTargetAttrs"/&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animAddAccumAttrs"/&gt;
+ *       &lt;attGroup ref="{http://www.w3.org/2001/SMIL20/}animValuesAttrs"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -46,6 +46,10 @@ public class AnimatePrototype {
     protected String attributeName;
     @XmlAttribute(name = "attributeType")
     protected String attributeType;
+    @XmlAttribute(name = "additive")
+    protected String additive;
+    @XmlAttribute(name = "accumulate")
+    protected String accumulate;
     @XmlAttribute(name = "from")
     protected String from;
     @XmlAttribute(name = "by")
@@ -54,10 +58,6 @@ public class AnimatePrototype {
     protected String values;
     @XmlAttribute(name = "to")
     protected String to;
-    @XmlAttribute(name = "additive")
-    protected String additive;
-    @XmlAttribute(name = "accumulate")
-    protected String accumulate;
 
     /**
      * Ruft den Wert der attributeName-Eigenschaft ab.
@@ -117,6 +117,70 @@ public class AnimatePrototype {
 
     public boolean isSetAttributeType() {
         return (this.attributeType!= null);
+    }
+
+    /**
+     * Ruft den Wert der additive-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAdditive() {
+        if (additive == null) {
+            return "replace";
+        } else {
+            return additive;
+        }
+    }
+
+    /**
+     * Legt den Wert der additive-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAdditive(String value) {
+        this.additive = value;
+    }
+
+    public boolean isSetAdditive() {
+        return (this.additive!= null);
+    }
+
+    /**
+     * Ruft den Wert der accumulate-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAccumulate() {
+        if (accumulate == null) {
+            return "none";
+        } else {
+            return accumulate;
+        }
+    }
+
+    /**
+     * Legt den Wert der accumulate-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAccumulate(String value) {
+        this.accumulate = value;
+    }
+
+    public boolean isSetAccumulate() {
+        return (this.accumulate!= null);
     }
 
     /**
@@ -229,70 +293,6 @@ public class AnimatePrototype {
 
     public boolean isSetTo() {
         return (this.to!= null);
-    }
-
-    /**
-     * Ruft den Wert der additive-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAdditive() {
-        if (additive == null) {
-            return "replace";
-        } else {
-            return additive;
-        }
-    }
-
-    /**
-     * Legt den Wert der additive-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAdditive(String value) {
-        this.additive = value;
-    }
-
-    public boolean isSetAdditive() {
-        return (this.additive!= null);
-    }
-
-    /**
-     * Ruft den Wert der accumulate-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAccumulate() {
-        if (accumulate == null) {
-            return "none";
-        } else {
-            return accumulate;
-        }
-    }
-
-    /**
-     * Legt den Wert der accumulate-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAccumulate(String value) {
-        this.accumulate = value;
-    }
-
-    public boolean isSetAccumulate() {
-        return (this.accumulate!= null);
     }
 
 }

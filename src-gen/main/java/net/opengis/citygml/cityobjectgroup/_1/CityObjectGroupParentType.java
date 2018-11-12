@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -80,17 +80,17 @@ import org.w3c.dom.Element;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="CityObjectGroupParentType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/citygml/1.0}_CityObject"/>
- *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CityObjectGroupParentType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence minOccurs="0"&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/1.0}_CityObject"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -129,53 +129,53 @@ public class CityObjectGroupParentType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link TransportationComplexType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingPartType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingInstallationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterBodyType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DoorType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractWaterObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WindowType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RasterReliefType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoadType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TrafficAreaType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TINReliefType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SquareType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoomType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractSiteType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ReliefFeatureType }{@code >}
      *     {@link JAXBElement }{@code <}{@link GenericCityObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractOpeningType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CityFurnitureType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MassPointReliefType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractReliefComponentType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTransportationObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCityObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link IntBuildingInstallationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingFurnitureType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefFeatureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoadType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RailwayType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractBuildingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TrackType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SquareType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TransportationComplexType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AuxiliaryTrafficAreaType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TrafficAreaType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTransportationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoomType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntBuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityFurnitureType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BreaklineReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingPartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSiteType }{@code >}
      *     {@link JAXBElement }{@code <}{@link LandUseType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BreaklineReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MassPointReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TINReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RasterReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractReliefComponentType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterBodyType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractWaterObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCityObjectType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractCityObjectType> get_CityObject() {
@@ -187,53 +187,53 @@ public class CityObjectGroupParentType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link TransportationComplexType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingPartType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingInstallationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterBodyType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DoorType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractWaterObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WindowType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RasterReliefType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoadType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TrafficAreaType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TINReliefType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SquareType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoomType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractSiteType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ReliefFeatureType }{@code >}
      *     {@link JAXBElement }{@code <}{@link GenericCityObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractOpeningType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CityFurnitureType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MassPointReliefType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractReliefComponentType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTransportationObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCityObjectType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link IntBuildingInstallationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BuildingFurnitureType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefFeatureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoadType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RailwayType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractBuildingType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TrackType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SquareType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TransportationComplexType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AuxiliaryTrafficAreaType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TrafficAreaType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTransportationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoomType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DoorType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WindowType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractOpeningType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityObjectGroupType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link IntBuildingInstallationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CityFurnitureType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link BreaklineReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingPartType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBuildingType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractSiteType }{@code >}
      *     {@link JAXBElement }{@code <}{@link LandUseType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BreaklineReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MassPointReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TINReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RasterReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractReliefComponentType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterBodyType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractWaterObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link BuildingFurnitureType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlantCoverType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SolitaryVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractVegetationObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCityObjectType }{@code >}
      *     
      */
     public void set_CityObject(JAXBElement<? extends AbstractCityObjectType> value) {

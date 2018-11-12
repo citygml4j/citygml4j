@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -32,17 +32,17 @@ import org.w3c.dom.Element;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="BoundedByWaterSurfacePropertyType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/citygml/waterbody/2.0}_WaterBoundarySurface"/>
- *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="BoundedByWaterSurfacePropertyType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence minOccurs="0"&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/waterbody/2.0}_WaterBoundarySurface"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -81,10 +81,10 @@ public class BoundedByWaterSurfacePropertyType {
      * 
      * @return
      *     possible object is
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractWaterBoundarySurfaceType> get_WaterBoundarySurface() {
@@ -96,10 +96,10 @@ public class BoundedByWaterSurfacePropertyType {
      * 
      * @param value
      *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link WaterGroundSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractWaterBoundarySurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link WaterClosureSurfaceType }{@code >}
      *     
      */
     public void set_WaterBoundarySurface(JAXBElement<? extends AbstractWaterBoundarySurfaceType> value) {

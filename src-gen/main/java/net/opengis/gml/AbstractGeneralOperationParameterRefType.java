@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -28,16 +28,16 @@ import org.w3._1999.xlink.TypeType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="AbstractGeneralOperationParameterRefType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/gml}_GeneralOperationParameter"/>
- *       &lt;/sequence>
- *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AbstractGeneralOperationParameterRefType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence minOccurs="0"&gt;
+ *         &lt;element ref="{http://www.opengis.net/gml}_GeneralOperationParameter"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attGroup ref="{http://www.opengis.net/gml}AssociationAttributeGroup"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -74,8 +74,8 @@ public class AbstractGeneralOperationParameterRefType {
      * @return
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link OperationParameterGroupType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralOperationParameterType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OperationParameterType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralOperationParameterType }{@code >}
      *     
      */
     public JAXBElement<? extends AbstractGeneralOperationParameterType> get_GeneralOperationParameter() {
@@ -88,8 +88,8 @@ public class AbstractGeneralOperationParameterRefType {
      * @param value
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link OperationParameterGroupType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralOperationParameterType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OperationParameterType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralOperationParameterType }{@code >}
      *     
      */
     public void set_GeneralOperationParameter(JAXBElement<? extends AbstractGeneralOperationParameterType> value) {

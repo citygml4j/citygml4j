@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -19,21 +19,21 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
- * &lt;simpleType name="CurveInterpolationType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="linear"/>
- *     &lt;enumeration value="geodesic"/>
- *     &lt;enumeration value="circularArc3Points"/>
- *     &lt;enumeration value="circularArc2PointWithBulge"/>
- *     &lt;enumeration value="circularArcCenterPointWithRadius"/>
- *     &lt;enumeration value="elliptical"/>
- *     &lt;enumeration value="clothoid"/>
- *     &lt;enumeration value="conic"/>
- *     &lt;enumeration value="polynomialSpline"/>
- *     &lt;enumeration value="cubicSpline"/>
- *     &lt;enumeration value="rationalSpline"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="CurveInterpolationType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="linear"/&gt;
+ *     &lt;enumeration value="geodesic"/&gt;
+ *     &lt;enumeration value="circularArc3Points"/&gt;
+ *     &lt;enumeration value="circularArc2PointWithBulge"/&gt;
+ *     &lt;enumeration value="circularArcCenterPointWithRadius"/&gt;
+ *     &lt;enumeration value="elliptical"/&gt;
+ *     &lt;enumeration value="clothoid"/&gt;
+ *     &lt;enumeration value="conic"/&gt;
+ *     &lt;enumeration value="polynomialSpline"/&gt;
+ *     &lt;enumeration value="cubicSpline"/&gt;
+ *     &lt;enumeration value="rationalSpline"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

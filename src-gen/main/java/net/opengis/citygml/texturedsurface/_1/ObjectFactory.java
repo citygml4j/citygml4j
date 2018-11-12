@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -31,17 +31,25 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Material_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "Material");
-    private final static QName __Appearance_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "_Appearance");
-    private final static QName _Appearance_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "appearance");
-    private final static QName _SimpleTexture_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "SimpleTexture");
     private final static QName _TexturedSurface_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "TexturedSurface");
+    private final static QName _Appearance_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "appearance");
+    private final static QName __Appearance_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "_Appearance");
+    private final static QName _Material_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "Material");
+    private final static QName _SimpleTexture_QNAME = new QName("http://www.opengis.net/citygml/texturedsurface/1.0", "SimpleTexture");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: net.opengis.citygml.texturedsurface._1
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link TexturedSurfaceType }
+     * 
+     */
+    public TexturedSurfaceType createTexturedSurfaceType() {
+        return new TexturedSurfaceType();
     }
 
     /**
@@ -69,34 +77,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TexturedSurfaceType }
+     * Create an instance of {@link JAXBElement }{@code <}{@link TexturedSurfaceType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TexturedSurfaceType }{@code >}
      */
-    public TexturedSurfaceType createTexturedSurfaceType() {
-        return new TexturedSurfaceType();
+    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "TexturedSurface", substitutionHeadNamespace = "http://www.opengis.net/gml", substitutionHeadName = "OrientableSurface")
+    public JAXBElement<TexturedSurfaceType> createTexturedSurface(TexturedSurfaceType value) {
+        return new JAXBElement<TexturedSurfaceType>(_TexturedSurface_QNAME, TexturedSurfaceType.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MaterialType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link AppearancePropertyType }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "Material", substitutionHeadNamespace = "http://www.opengis.net/citygml/texturedsurface/1.0", substitutionHeadName = "_Appearance")
-    public JAXBElement<MaterialType> createMaterial(MaterialType value) {
-        return new JAXBElement<MaterialType>(_Material_QNAME, MaterialType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AbstractAppearanceType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "_Appearance", substitutionHeadNamespace = "http://www.opengis.net/gml", substitutionHeadName = "_GML")
-    public JAXBElement<AbstractAppearanceType> create_Appearance(AbstractAppearanceType value) {
-        return new JAXBElement<AbstractAppearanceType>(__Appearance_QNAME, AbstractAppearanceType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AppearancePropertyType }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link AppearancePropertyType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "appearance")
     public JAXBElement<AppearancePropertyType> createAppearance(AppearancePropertyType value) {
@@ -104,21 +103,42 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SimpleTextureType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link AbstractAppearanceType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link AbstractAppearanceType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "_Appearance", substitutionHeadNamespace = "http://www.opengis.net/gml", substitutionHeadName = "_GML")
+    public JAXBElement<AbstractAppearanceType> create_Appearance(AbstractAppearanceType value) {
+        return new JAXBElement<AbstractAppearanceType>(__Appearance_QNAME, AbstractAppearanceType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MaterialType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link MaterialType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "Material", substitutionHeadNamespace = "http://www.opengis.net/citygml/texturedsurface/1.0", substitutionHeadName = "_Appearance")
+    public JAXBElement<MaterialType> createMaterial(MaterialType value) {
+        return new JAXBElement<MaterialType>(_Material_QNAME, MaterialType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SimpleTextureType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SimpleTextureType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "SimpleTexture", substitutionHeadNamespace = "http://www.opengis.net/citygml/texturedsurface/1.0", substitutionHeadName = "_Appearance")
     public JAXBElement<SimpleTextureType> createSimpleTexture(SimpleTextureType value) {
         return new JAXBElement<SimpleTextureType>(_SimpleTexture_QNAME, SimpleTextureType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TexturedSurfaceType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.opengis.net/citygml/texturedsurface/1.0", name = "TexturedSurface", substitutionHeadNamespace = "http://www.opengis.net/gml", substitutionHeadName = "OrientableSurface")
-    public JAXBElement<TexturedSurfaceType> createTexturedSurface(TexturedSurfaceType value) {
-        return new JAXBElement<TexturedSurfaceType>(_TexturedSurface_QNAME, TexturedSurfaceType.class, null, value);
     }
 
 }

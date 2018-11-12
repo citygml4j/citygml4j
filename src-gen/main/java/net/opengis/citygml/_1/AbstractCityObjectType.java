@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -57,21 +57,21 @@ import net.opengis.gml.AbstractFeatureType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="AbstractCityObjectType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.opengis.net/gml}AbstractFeatureType">
- *       &lt;sequence>
- *         &lt;element name="creationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *         &lt;element name="terminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *         &lt;element name="externalReference" type="{http://www.opengis.net/citygml/1.0}ExternalReferenceType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="generalizesTo" type="{http://www.opengis.net/citygml/1.0}GeneralizationRelationType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{http://www.opengis.net/citygml/generics/1.0}_genericAttribute" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{http://www.opengis.net/citygml/appearance/1.0}appearance" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{http://www.opengis.net/citygml/1.0}_GenericApplicationPropertyOfCityObject" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AbstractCityObjectType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.opengis.net/gml}AbstractFeatureType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="creationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;element name="terminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;element name="externalReference" type="{http://www.opengis.net/citygml/1.0}ExternalReferenceType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="generalizesTo" type="{http://www.opengis.net/citygml/1.0}GeneralizationRelationType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/generics/1.0}_genericAttribute" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/appearance/1.0}appearance" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/1.0}_GenericApplicationPropertyOfCityObject" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -88,22 +88,22 @@ import net.opengis.gml.AbstractFeatureType;
 })
 @XmlSeeAlso({
     GenericCityObjectType.class,
-    BuildingFurnitureType.class,
-    IntBuildingInstallationType.class,
     AbstractSiteType.class,
-    RoomType.class,
     BuildingInstallationType.class,
-    AbstractOpeningType.class,
+    IntBuildingInstallationType.class,
     AbstractBoundarySurfaceType.class,
+    AbstractOpeningType.class,
+    RoomType.class,
+    BuildingFurnitureType.class,
     CityFurnitureType.class,
     CityObjectGroupType.class,
     LandUseType.class,
-    AbstractReliefComponentType.class,
     ReliefFeatureType.class,
+    AbstractReliefComponentType.class,
     AbstractTransportationObjectType.class,
     AbstractVegetationObjectType.class,
-    AbstractWaterBoundarySurfaceType.class,
-    AbstractWaterObjectType.class
+    AbstractWaterObjectType.class,
+    AbstractWaterBoundarySurfaceType.class
 })
 public abstract class AbstractCityObjectType
     extends AbstractFeatureType
@@ -270,11 +270,11 @@ public abstract class AbstractCityObjectType
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link DoubleAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link IntAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link DateAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link StringAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link UriAttributeType }{@code >}
-     * {@link JAXBElement }{@code <}{@link IntAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link DoubleAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link AbstractGenericAttributeType }{@code >}
      * 
      * 

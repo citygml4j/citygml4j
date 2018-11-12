@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -31,32 +31,16 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Locator_QNAME = new QName("http://www.w3.org/1999/xlink", "locator");
-    private final static QName _Arc_QNAME = new QName("http://www.w3.org/1999/xlink", "arc");
     private final static QName _Title_QNAME = new QName("http://www.w3.org/1999/xlink", "title");
     private final static QName _Resource_QNAME = new QName("http://www.w3.org/1999/xlink", "resource");
+    private final static QName _Locator_QNAME = new QName("http://www.w3.org/1999/xlink", "locator");
+    private final static QName _Arc_QNAME = new QName("http://www.w3.org/1999/xlink", "arc");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.w3._1999.xlink
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link ArcType }
-     * 
-     */
-    public ArcType createArcType() {
-        return new ArcType();
-    }
-
-    /**
-     * Create an instance of {@link ResourceType }
-     * 
-     */
-    public ResourceType createResourceType() {
-        return new ResourceType();
     }
 
     /**
@@ -68,11 +52,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ResourceType }
+     * 
+     */
+    public ResourceType createResourceType() {
+        return new ResourceType();
+    }
+
+    /**
      * Create an instance of {@link LocatorType }
      * 
      */
     public LocatorType createLocatorType() {
         return new LocatorType();
+    }
+
+    /**
+     * Create an instance of {@link ArcType }
+     * 
+     */
+    public ArcType createArcType() {
+        return new ArcType();
     }
 
     /**
@@ -92,26 +92,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LocatorType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TitleEltType }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://www.w3.org/1999/xlink", name = "locator")
-    public JAXBElement<LocatorType> createLocator(LocatorType value) {
-        return new JAXBElement<LocatorType>(_Locator_QNAME, LocatorType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArcType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.w3.org/1999/xlink", name = "arc")
-    public JAXBElement<ArcType> createArc(ArcType value) {
-        return new JAXBElement<ArcType>(_Arc_QNAME, ArcType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TitleEltType }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link TitleEltType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.w3.org/1999/xlink", name = "title")
     public JAXBElement<TitleEltType> createTitle(TitleEltType value) {
@@ -119,12 +105,42 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ResourceType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ResourceType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ResourceType }{@code >}
      */
     @XmlElementDecl(namespace = "http://www.w3.org/1999/xlink", name = "resource")
     public JAXBElement<ResourceType> createResource(ResourceType value) {
         return new JAXBElement<ResourceType>(_Resource_QNAME, ResourceType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LocatorType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link LocatorType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.w3.org/1999/xlink", name = "locator")
+    public JAXBElement<LocatorType> createLocator(LocatorType value) {
+        return new JAXBElement<LocatorType>(_Locator_QNAME, LocatorType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ArcType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ArcType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.w3.org/1999/xlink", name = "arc")
+    public JAXBElement<ArcType> createArc(ArcType value) {
+        return new JAXBElement<ArcType>(_Arc_QNAME, ArcType.class, null, value);
     }
 
 }

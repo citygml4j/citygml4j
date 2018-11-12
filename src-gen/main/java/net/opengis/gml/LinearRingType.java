@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -26,24 +26,24 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="LinearRingType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.opengis.net/gml}AbstractRingType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;choice maxOccurs="unbounded" minOccurs="4">
- *             &lt;element ref="{http://www.opengis.net/gml}pos"/>
- *             &lt;element ref="{http://www.opengis.net/gml}pointProperty"/>
- *             &lt;element ref="{http://www.opengis.net/gml}pointRep"/>
- *           &lt;/choice>
- *           &lt;element ref="{http://www.opengis.net/gml}posList"/>
- *           &lt;element ref="{http://www.opengis.net/gml}coordinates"/>
- *           &lt;element ref="{http://www.opengis.net/gml}coord" maxOccurs="unbounded" minOccurs="4"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="LinearRingType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.opengis.net/gml}AbstractRingType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;choice maxOccurs="unbounded" minOccurs="4"&gt;
+ *             &lt;element ref="{http://www.opengis.net/gml}pos"/&gt;
+ *             &lt;element ref="{http://www.opengis.net/gml}pointProperty"/&gt;
+ *             &lt;element ref="{http://www.opengis.net/gml}pointRep"/&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element ref="{http://www.opengis.net/gml}posList"/&gt;
+ *           &lt;element ref="{http://www.opengis.net/gml}coordinates"/&gt;
+ *           &lt;element ref="{http://www.opengis.net/gml}coord" maxOccurs="unbounded" minOccurs="4"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -87,9 +87,9 @@ public class LinearRingType
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link PointPropertyType }{@code >}
-     * {@link JAXBElement }{@code <}{@link PointPropertyType }{@code >}
      * {@link JAXBElement }{@code <}{@link DirectPositionType }{@code >}
+     * {@link JAXBElement }{@code <}{@link PointPropertyType }{@code >}
+     * {@link JAXBElement }{@code <}{@link PointPropertyType }{@code >}
      * 
      * 
      */

@@ -33,14 +33,11 @@ configurations {
 }
 
 dependencies {
-    api 'javax.xml.bind:jaxb-api:2.3.0'
-    api 'com.sun.xml.bind:jaxb-core:2.3.0'
-    api 'com.sun.xml.bind:jaxb-impl:2.3.0'
-    api 'javax.activation:activation:1.1.1'
+    api 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
     api 'com.sun.xsom:xsom:20140925'
     api 'com.google.code.gson:gson:2.8.5'
 
-    jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.7'
+    jaxb 'org.glassfish.jaxb:jaxb-xjc:2.3.1'
     jaxb 'org.jvnet.jaxb2_commons:jaxb2-basics:0.11.1'
     jaxb 'org.jvnet.jaxb2_commons:jaxb2-namespace-prefix:1.3'
     jaxb 'org.slf4j:slf4j-simple:1.7.25'

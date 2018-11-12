@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -19,22 +19,22 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
- * &lt;simpleType name="AesheticCriteriaType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="MIN_CROSSINGS"/>
- *     &lt;enumeration value="MIN_AREA"/>
- *     &lt;enumeration value="MIN_BENDS"/>
- *     &lt;enumeration value="MAX_BENDS"/>
- *     &lt;enumeration value="UNIFORM_BENDS"/>
- *     &lt;enumeration value="MIN_SLOPES"/>
- *     &lt;enumeration value="MIN_EDGE_LENGTH"/>
- *     &lt;enumeration value="MAX_EDGE_LENGTH"/>
- *     &lt;enumeration value="UNIFORM_EDGE_LENGTH"/>
- *     &lt;enumeration value="MAX_ANGULAR_RESOLUTION"/>
- *     &lt;enumeration value="MIN_ASPECT_RATIO"/>
- *     &lt;enumeration value="MAX_SYMMETRIES"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="AesheticCriteriaType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="MIN_CROSSINGS"/&gt;
+ *     &lt;enumeration value="MIN_AREA"/&gt;
+ *     &lt;enumeration value="MIN_BENDS"/&gt;
+ *     &lt;enumeration value="MAX_BENDS"/&gt;
+ *     &lt;enumeration value="UNIFORM_BENDS"/&gt;
+ *     &lt;enumeration value="MIN_SLOPES"/&gt;
+ *     &lt;enumeration value="MIN_EDGE_LENGTH"/&gt;
+ *     &lt;enumeration value="MAX_EDGE_LENGTH"/&gt;
+ *     &lt;enumeration value="UNIFORM_EDGE_LENGTH"/&gt;
+ *     &lt;enumeration value="MAX_ANGULAR_RESOLUTION"/&gt;
+ *     &lt;enumeration value="MIN_ASPECT_RATIO"/&gt;
+ *     &lt;enumeration value="MAX_SYMMETRIES"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

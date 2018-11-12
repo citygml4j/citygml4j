@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -28,17 +28,17 @@ import org.w3c.dom.Element;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="AbstractFeatureType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.opengis.net/gml}AbstractGMLType">
- *       &lt;sequence>
- *         &lt;element ref="{http://www.opengis.net/gml}boundedBy" minOccurs="0"/>
- *         &lt;element ref="{http://www.opengis.net/gml}location" minOccurs="0"/>
- *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AbstractFeatureType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.opengis.net/gml}AbstractGMLType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{http://www.opengis.net/gml}boundedBy" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/gml}location" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/gml}_ADEComponent" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -52,16 +52,16 @@ import org.w3c.dom.Element;
 @XmlSeeAlso({
     net.opengis.citygml.appearance._1.AbstractSurfaceDataType.class,
     net.opengis.citygml.appearance._1.AppearanceType.class,
-    ObservationType.class,
     AbstractCoverageType.class,
-    DynamicFeatureType.class,
+    ObservationType.class,
     BoundedFeatureType.class,
+    DynamicFeatureType.class,
     net.opengis.citygml._1.AddressType.class,
     net.opengis.citygml._1.AbstractCityObjectType.class,
     net.opengis.citygml.appearance._2.AppearanceType.class,
     net.opengis.citygml.appearance._2.AbstractSurfaceDataType.class,
-    net.opengis.citygml._2.AddressType.class,
     AbstractFeatureCollectionType.class,
+    net.opengis.citygml._2.AddressType.class,
     net.opengis.citygml._2.AbstractCityObjectType.class
 })
 public abstract class AbstractFeatureType

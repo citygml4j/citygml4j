@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.7 generiert 
-// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.02.22 um 01:15:44 PM CET 
+// Generiert: 2018.11.12 um 10:17:11 PM CET 
 //
 
 
@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import net.opengis.citygml._2.AbstractCityObjectType;
 
@@ -29,17 +30,17 @@ import net.opengis.citygml._2.AbstractCityObjectType;
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="ReliefFeatureType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.opengis.net/citygml/2.0}AbstractCityObjectType">
- *       &lt;sequence>
- *         &lt;element name="lod" type="{http://www.opengis.net/citygml/2.0}integerBetween0and4"/>
- *         &lt;element name="reliefComponent" type="{http://www.opengis.net/citygml/relief/2.0}ReliefComponentPropertyType" maxOccurs="unbounded"/>
- *         &lt;element ref="{http://www.opengis.net/citygml/relief/2.0}_GenericApplicationPropertyOfReliefFeature" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ReliefFeatureType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.opengis.net/citygml/2.0}AbstractCityObjectType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="lod" type="{http://www.opengis.net/citygml/2.0}integerBetween0and4"/&gt;
+ *         &lt;element name="reliefComponent" type="{http://www.opengis.net/citygml/relief/2.0}ReliefComponentPropertyType" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.opengis.net/citygml/relief/2.0}_GenericApplicationPropertyOfReliefFeature" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -54,6 +55,7 @@ public class ReliefFeatureType
     extends AbstractCityObjectType
 {
 
+    @XmlSchemaType(name = "integer")
     protected int lod;
     @XmlElement(required = true)
     protected List<ReliefComponentPropertyType> reliefComponent;
