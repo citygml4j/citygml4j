@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+### 2.8.1 - 2018-11-13
+
+##### Miscellaneous
+* Switched to JAXB 2.3.1 to avoid the following warning when running on Java 11: `WARNING: Illegal reflective access by com.sun.xml.bind.v2.runtime.reflect.opt.Injector`
+
+##### Fixes
+* Fixed missing namespace declarations in `SAXWriter`
+
 ### 2.8.0 - 2018-10-28
 
 ##### Breaking changes
