@@ -20,6 +20,7 @@ package org.citygml4j.binding.cityjson.feature;
 
 public class BuildingPartType extends AbstractBuildingType {
 	private final CityObjectTypeName type = CityObjectTypeName.BUILDING_PART;
+	private String parent;
 	
 	BuildingPartType() {
 	}
@@ -31,6 +32,22 @@ public class BuildingPartType extends AbstractBuildingType {
 	@Override
 	public CityObjectTypeName getType() {
 		return type;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public String getParent() {
+		return parent;
+	}
+
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
+
+	public void unsetParent() {
+		parent = null;
 	}
 
 }

@@ -30,7 +30,7 @@ import java.util.UUID;
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
 	protected transient String gmlId;
-	private List<Double> bbox;
+	private List<Double> geographicalExtent;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	private transient HashMap<String, Object> localProperties;
@@ -53,23 +53,23 @@ public abstract class AbstractCityObjectType {
 		return gmlId;
 	}
 
-	public boolean isSetBBox() {
-		return bbox != null && bbox.size() >= 6;
+	public boolean isSetGeographicalExtent() {
+		return geographicalExtent != null && geographicalExtent.size() >= 6;
 	}
 
-	public List<Double> getBBox() {
-		return isSetBBox() ? bbox.subList(0, 6) : null;
+	public List<Double> getGeographicalExtent() {
+		return isSetGeographicalExtent() ? geographicalExtent.subList(0, 6) : null;
 	}
 
-	public void setBBox(List<Double> bbox) {
-		if (bbox == null)
-			this.bbox = null;
-		else if (bbox.size() >= 6)
-			this.bbox = bbox.subList(0, 6);
+	public void setGeographicalExtent(List<Double> geographicalExtent) {
+		if (geographicalExtent == null)
+			this.geographicalExtent = null;
+		else if (geographicalExtent.size() >= 6)
+			this.geographicalExtent = geographicalExtent.subList(0, 6);
 	}
 
-	public void unsetBBox() {
-		bbox = null;
+	public void unsetGeographicalExtent() {
+		geographicalExtent = null;
 	}
 		
 	public void addGeometry(AbstractGeometryType geometry) {

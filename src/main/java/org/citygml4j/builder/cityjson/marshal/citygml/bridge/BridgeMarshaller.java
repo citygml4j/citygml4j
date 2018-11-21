@@ -209,9 +209,13 @@ public class BridgeMarshaller {
 		if (src.isSetOuterBridgeConstructionElement()) {
 			for (BridgeConstructionElementProperty property : src.getOuterBridgeConstructionElement()) {
 				if (property.isSetBridgeConstructionElement()) {
-					for (AbstractCityObjectType type : marshalBridgeConstructionElement(property.getBridgeConstructionElement())) {
-						dest.addConstructionElement(type.getGmlId());
-						cityObjects.add(type);
+					for (AbstractCityObjectType cityObject : marshalBridgeConstructionElement(property.getBridgeConstructionElement())) {
+						if (cityObject instanceof BridgeConstructionElementType) {
+							dest.addChild(cityObject.getGmlId());
+							((BridgeConstructionElementType) cityObject).setParent(dest.getGmlId());
+						}
+
+						cityObjects.add(cityObject);
 					}
 				}
 			}
@@ -220,9 +224,13 @@ public class BridgeMarshaller {
 		if (src.isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationProperty property : src.getOuterBridgeInstallation()) {
 				if (property.isSetBridgeInstallation()) {
-					for (AbstractCityObjectType type : marshalBridgeInstallation(property.getBridgeInstallation())) {
-						dest.addInstallation(type.getGmlId());
-						cityObjects.add(type);
+					for (AbstractCityObjectType cityObject : marshalBridgeInstallation(property.getBridgeInstallation())) {
+						if (cityObject instanceof BridgeInstallationType) {
+							dest.addChild(cityObject.getGmlId());
+							((BridgeInstallationType) cityObject).setParent(dest.getGmlId());
+						}
+
+						cityObjects.add(cityObject);
 					}
 				}
 			}
@@ -232,8 +240,10 @@ public class BridgeMarshaller {
 			for (BridgePartProperty property : src.getConsistsOfBridgePart()) {
 				if (property.isSetBridgePart()) {
 					for (AbstractCityObjectType cityObject : marshalBridgePart(property.getBridgePart())) {
-						if (cityObject instanceof BridgePartType)
-							((BridgeType)dest).addPart(cityObject.getGmlId());
+						if (cityObject instanceof BridgePartType) {
+							dest.addChild(cityObject.getGmlId());
+							((BridgePartType) cityObject).setParent(dest.getGmlId());
+						}
 
 						cityObjects.add(cityObject);
 					}

@@ -20,8 +20,8 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
 import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.core.CityModel;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 		if (cityJSON != null) {
 			MetadataType metadata = this.metadata != null ? this.metadata : new MetadataType();
 
-			if (!metadata.isSetBBox() && !cityJSON.getVertices().isEmpty()) {
+			if (!metadata.isSetGeographicalExtent() && !cityJSON.getVertices().isEmpty()) {
 				List<Double> bbox = cityJSON.calcBoundingBox();
 				if (cityJSON.isSetTransform()) {
 					TransformType transform = cityJSON.getTransform();
@@ -45,14 +45,11 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 						bbox.set(i, bbox.get(i) * transform.getScale().get(i%3) + transform.getTranslate().get(i%3));
 				}
 				
-				metadata.setBBox(bbox);
+				metadata.setGeographicalExtent(bbox);
 			}
 
-			if (!metadata.isSetPresentLoDs() && cityJSON.hasCityObjects()) {
-				List<Number> lods = cityJSON.calcPresentLoDs();
-				if (!lods.isEmpty())
-					metadata.setPresentLoDs(lods);
-			}
+			if (!metadata.isSetPresentLoDs() && cityJSON.hasCityObjects())
+				metadata.setPresentLoDs(cityJSON.calcPresentLoDs());
 
 			cityJSON.setMetadata(metadata);			
 			gson.toJson(cityJSON, CityJSON.class, writer);

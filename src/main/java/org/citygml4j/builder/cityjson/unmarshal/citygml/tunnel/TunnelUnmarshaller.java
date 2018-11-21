@@ -214,21 +214,16 @@ public class TunnelUnmarshaller {
 			}
 		}
 
-		if (src.isSetInstallations()) {
-			for (String gmlId : src.getInstallations()) {
-				TunnelInstallationType installation = cityJSON.getCityObject(gmlId, TunnelInstallationType.class);
-				if (installation != null)
-					dest.addOuterTunnelInstallation(new TunnelInstallationProperty(unmarshalTunnelInstallation(installation, cityJSON)));
-			}
-		}
+		if (src.isSetChildren()) {
+			for (String gmlId : src.getChildren()) {
+				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
 
-		if (src instanceof TunnelType) {
-			TunnelType tunnel = (TunnelType)src;
-			if (tunnel.isSetParts()) {
-				for (String gmlId : tunnel.getParts()) {
-					TunnelPartType tunnelPart = cityJSON.getCityObject(gmlId, TunnelPartType.class);
-					if (tunnelPart != null)
-						dest.addConsistsOfTunnelPart(new TunnelPartProperty(unmarshalTunnelPart(tunnelPart, cityJSON)));
+				if (cityObject instanceof TunnelInstallationType) {
+					TunnelInstallation installation = unmarshalTunnelInstallation((TunnelInstallationType) cityObject, cityJSON);
+					dest.addOuterTunnelInstallation(new TunnelInstallationProperty(installation));
+				} else if (cityObject instanceof TunnelPartType && src instanceof TunnelType) {
+					TunnelPart part = unmarshalTunnelPart((TunnelPartType) cityObject, cityJSON);
+					dest.addConsistsOfTunnelPart(new TunnelPartProperty(part));
 				}
 			}
 		}

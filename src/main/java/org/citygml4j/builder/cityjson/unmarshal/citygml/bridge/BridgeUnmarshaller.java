@@ -222,29 +222,19 @@ public class BridgeUnmarshaller {
 			}
 		}
 
-		if (src.isSetInstallations()) {
-			for (String gmlId : src.getInstallations()) {
-				BridgeInstallationType installation = cityJSON.getCityObject(gmlId, BridgeInstallationType.class);
-				if (installation != null)
-					dest.addOuterBridgeInstallation(new BridgeInstallationProperty(unmarshalBridgeInstallation(installation, cityJSON)));
-			}
-		}
-		
-		if (src.isSetConstructionElements()) {
-			for (String gmlId : src.getConstructionElements()) {
-				BridgeConstructionElementType element = cityJSON.getCityObject(gmlId, BridgeConstructionElementType.class);
-				if (element != null)
-					dest.addOuterBridgeConstructionElement(new BridgeConstructionElementProperty(unmarshalBridgeConstructionElement(element, cityJSON)));
-			}
-		}
+		if (src.isSetChildren()) {
+			for (String gmlId : src.getChildren()) {
+				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
 
-		if (src instanceof BridgeType) {
-			BridgeType bridge = (BridgeType)src;
-			if (bridge.isSetParts()) {
-				for (String gmlId : bridge.getParts()) {
-					BridgePartType bridgePart = cityJSON.getCityObject(gmlId, BridgePartType.class);
-					if (bridgePart != null)
-						dest.addConsistsOfBridgePart(new BridgePartProperty(unmarshalBridgePart(bridgePart, cityJSON)));
+				if (cityObject instanceof BridgeInstallationType) {
+					BridgeInstallation installation = unmarshalBridgeInstallation((BridgeInstallationType) cityObject, cityJSON);
+					dest.addOuterBridgeInstallation(new BridgeInstallationProperty(installation));
+				} else if (cityObject instanceof  BridgeConstructionElementType) {
+					BridgeConstructionElement element = unmarshalBridgeConstructionElement((BridgeConstructionElementType) cityObject, cityJSON);
+					dest.addOuterBridgeConstructionElement(new BridgeConstructionElementProperty(element));
+				} else if (cityObject instanceof BridgePartType && src instanceof BridgeType) {
+					BridgePart part = unmarshalBridgePart((BridgePartType) cityObject, cityJSON);
+					dest.addConsistsOfBridgePart(new BridgePartProperty(part));
 				}
 			}
 		}

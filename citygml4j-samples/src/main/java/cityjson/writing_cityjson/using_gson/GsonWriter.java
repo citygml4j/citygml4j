@@ -24,11 +24,11 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.BuildingAttributes;
 import org.citygml4j.binding.cityjson.feature.BuildingType;
-import org.citygml4j.binding.cityjson.feature.MetadataType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.binding.cityjson.geometry.SolidSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.SolidType;
+import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
@@ -138,7 +138,7 @@ public class GsonWriter {
 
 		// add some metadata
 		MetadataType metadata = new MetadataType();
-		metadata.setBBox(cityJSON.calcBoundingBox());
+		metadata.setGeographicalExtent(cityJSON.calcBoundingBox());
 		metadata.setPresentLoDs(cityJSON.calcPresentLoDs());
 		metadata.setDatasetTitle("LOD2 building created with citygml4j");
 		cityJSON.setMetadata(metadata);

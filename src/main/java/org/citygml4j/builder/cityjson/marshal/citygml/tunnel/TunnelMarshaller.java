@@ -201,9 +201,13 @@ public class TunnelMarshaller {
 		if (src.isSetOuterTunnelInstallation()) {
 			for (TunnelInstallationProperty property : src.getOuterTunnelInstallation()) {
 				if (property.isSetTunnelInstallation()) {
-					for (AbstractCityObjectType type : marshalTunnelInstallation(property.getTunnelInstallation())) {
-						dest.addInstallation(type.getGmlId());
-						cityObjects.add(type);
+					for (AbstractCityObjectType cityObject : marshalTunnelInstallation(property.getTunnelInstallation())) {
+						if (cityObject instanceof TunnelInstallationType) {
+							dest.addChild(cityObject.getGmlId());
+							((TunnelInstallationType) cityObject).setParent(dest.getGmlId());
+						}
+
+						cityObjects.add(cityObject);
 					}
 				}
 			}
@@ -213,8 +217,10 @@ public class TunnelMarshaller {
 			for (TunnelPartProperty property : src.getConsistsOfTunnelPart()) {
 				if (property.isSetTunnelPart()) {
 					for (AbstractCityObjectType cityObject : marshalTunnelPart(property.getTunnelPart())) {
-						if (cityObject instanceof TunnelPartType)
-							((TunnelType)dest).addPart(cityObject.getGmlId());
+						if (cityObject instanceof TunnelPartType) {
+							dest.addChild(cityObject.getGmlId());
+							((TunnelPartType) cityObject).setParent(dest.getGmlId());
+						}
 
 						cityObjects.add(cityObject);
 					}
