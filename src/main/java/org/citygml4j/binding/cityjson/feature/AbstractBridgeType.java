@@ -128,7 +128,6 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	public boolean isValidGeometryType(GeometryTypeName type) {
 		return type == GeometryTypeName.MULTI_SURFACE
 				|| type == GeometryTypeName.SOLID
-				|| type == GeometryTypeName.COMPOSITE_SOLID
-				|| type == GeometryTypeName.GEOMETRY_INSTANCE;
+				|| type == GeometryTypeName.COMPOSITE_SOLID;
 	}
 }

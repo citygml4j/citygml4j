@@ -66,8 +66,7 @@ public class PlantCoverType extends AbstractVegetationObjectType {
 	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {
 		return type == GeometryTypeName.MULTI_SURFACE
-				|| type == GeometryTypeName.MULTI_SOLID
-				|| type == GeometryTypeName.GEOMETRY_INSTANCE;
+				|| type == GeometryTypeName.MULTI_SOLID;
 	}
 
 }
