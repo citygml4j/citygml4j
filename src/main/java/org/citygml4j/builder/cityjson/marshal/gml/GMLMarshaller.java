@@ -485,8 +485,8 @@ public class GMLMarshaller {
 					dest.setSemantics(semantics);
 				}
 				
-				appendNulls(dest.getSemantics(), index);
-				dest.getSemantics().addValue(semanticsIndex);
+				appendNulls(semantics, index);
+				semantics.addValue(semanticsIndex);
 			}
 
 			if (materials != null) {
