@@ -35,7 +35,14 @@ public class CityObjectsAdapter implements JsonSerializer<Map<String, AbstractCi
 
 	@Override
 	public JsonElement serialize(Map<String, AbstractCityObjectType> cityObjects, Type typeOfSrc, JsonSerializationContext context) {
-		return context.serialize(cityObjects);
+		JsonObject object = new JsonObject();
+		for (Entry<String, AbstractCityObjectType> entry : cityObjects.entrySet()) {
+			JsonElement cityObject = context.serialize(entry.getValue(), AbstractCityObjectType.class);
+			if (cityObject != null)
+				object.add(entry.getKey(), cityObject);
+		}
+
+		return object;
 	}
 
 	@Override
@@ -47,8 +54,8 @@ public class CityObjectsAdapter implements JsonSerializer<Map<String, AbstractCi
 
 			AbstractCityObjectType cityObject = context.deserialize(object, AbstractCityObjectType.class);
 			if (cityObject != null) {
-				cityObject.gmlId = entry.getKey();					
-				cityObjects.put(cityObject.gmlId, cityObject);
+				cityObject.setGmlId(entry.getKey());
+				cityObjects.put(entry.getKey(), cityObject);
 			}
 		}
 

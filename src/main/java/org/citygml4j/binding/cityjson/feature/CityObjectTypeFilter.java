@@ -19,5 +19,5 @@
 package org.citygml4j.binding.cityjson.feature;
 
 public interface CityObjectTypeFilter {
-	public boolean accept(String type);
+	boolean accept(String type);
 }

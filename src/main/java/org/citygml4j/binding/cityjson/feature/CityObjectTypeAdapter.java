@@ -26,6 +26,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import org.citygml4j.binding.cityjson.CityJSONRegistry;
 
 import java.lang.reflect.Type;
 
@@ -39,7 +40,13 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 	
 	@Override
 	public JsonElement serialize(AbstractCityObjectType cityObject, Type typeOfSrc, JsonSerializationContext context) {
-		return (typeFilter == null || typeFilter.accept(cityObject.getType().getValue())) ? context.serialize(cityObject) : null;
+		if (typeFilter != null && !typeFilter.accept(cityObject.getType()))
+			return null;
+
+		if (cityObject.type == null)
+			cityObject.type = CityJSONRegistry.getInstance().getCityObjectType(cityObject);
+
+		return context.serialize(cityObject);
 	}
 
 	@Override
@@ -49,9 +56,11 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
-			CityObjectTypeName objectType = CityObjectTypeName.fromValue(type.getAsString());
-			if (objectType != null && (typeFilter == null || typeFilter.accept(objectType.getValue())))
-				cityObject = context.deserialize(object, objectType.getTypeClass());
+			Class<?> typeClass = CityJSONRegistry.getInstance().getCityObjectClass(type.getAsString());
+			if (typeClass != null && (typeFilter == null || typeFilter.accept(type.getAsString()))) {
+				cityObject = context.deserialize(object, typeClass);
+				cityObject.type = type.getAsString();
+			}
 		}
 		
 		return cityObject;

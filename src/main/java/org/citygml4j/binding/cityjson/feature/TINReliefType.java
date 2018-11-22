@@ -22,20 +22,14 @@ import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class TINReliefType extends AbstractCityObjectType {
-	private final CityObjectTypeName type = CityObjectTypeName.TIN_RELIEF;
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
-	
-	TINReliefType() {
+
+	public TINReliefType() {
 	}
 	
 	public TINReliefType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 	
 	@Override

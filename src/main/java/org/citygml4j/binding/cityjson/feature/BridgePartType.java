@@ -19,19 +19,13 @@
 package org.citygml4j.binding.cityjson.feature;
 
 public class BridgePartType extends AbstractBridgeType {
-	private final CityObjectTypeName type = CityObjectTypeName.BRIDGE_PART;
 	private String parent;
-	
-	BridgePartType() {
+
+	public BridgePartType() {
 	}
 	
 	public BridgePartType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 
 	public boolean isSetParent() {

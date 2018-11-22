@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CityJSON {
@@ -85,6 +86,9 @@ public class CityJSON {
 	}
 	
 	public void addCityObject(AbstractCityObjectType cityObject) {
+		if (!cityObject.isSetGmlId())
+			cityObject.setGmlId("UUID_" + UUID.randomUUID().toString());
+
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
 	

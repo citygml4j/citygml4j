@@ -29,8 +29,8 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	private BridgeAttributes attributes;
 	private AddressType address;
 	private List<String> children;
-	
-	AbstractBridgeType() {
+
+	public AbstractBridgeType() {
 	}
 	
 	public AbstractBridgeType(String gmlId) {

@@ -24,8 +24,8 @@ import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 public abstract class AbstractTransportationComplexType extends AbstractCityObjectType {
 	@JsonAdapter(TransportationComplexAttributesAdapter.class)
 	private TransportationComplexAttributes attributes;
-	
-	AbstractTransportationComplexType() {
+
+	public AbstractTransportationComplexType() {
 	}
 
 	public AbstractTransportationComplexType(String gmlId) {

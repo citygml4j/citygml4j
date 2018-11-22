@@ -29,8 +29,8 @@ public abstract class AbstractBuildingType extends AbstractCityObjectType {
 	private BuildingAttributes attributes;
 	private AddressType address;
 	private List<String> children;
-	
-	AbstractBuildingType() {
+
+	public AbstractBuildingType() {
 	}
 	
 	public AbstractBuildingType(String gmlId) {

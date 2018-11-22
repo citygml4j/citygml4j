@@ -19,18 +19,12 @@
 package org.citygml4j.binding.cityjson.feature;
 
 public class TunnelType extends AbstractTunnelType {
-	private final CityObjectTypeName type = CityObjectTypeName.TUNNEL;
-	
-	TunnelType() {
+
+	public TunnelType() {
 	}
 	
 	public TunnelType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 		
 }

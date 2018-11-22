@@ -28,8 +28,8 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 	@JsonAdapter(TunnelAttributesAdapter.class)
 	private TunnelAttributes attributes;
 	private List<String> children;
-	
-	AbstractTunnelType() {
+
+	public AbstractTunnelType() {
 	}
 	
 	public AbstractTunnelType(String gmlId) {

@@ -27,12 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CityObjectGroupType extends AbstractCityObjectType {
-    private final CityObjectTypeName type = CityObjectTypeName.CITY_OBJECT_GROUP;
     @JsonAdapter(AttributesAdapter.class)
     private Attributes attributes;
     private List<String> members = new ArrayList<>();
 
-    CityObjectGroupType() {
+    public CityObjectGroupType() {
     }
 
     public CityObjectGroupType(String gmlId) {
@@ -53,11 +52,6 @@ public class CityObjectGroupType extends AbstractCityObjectType {
         // only a single geometry representation is allowed
         if (geometry != null)
             geometry.stream().filter(g -> isValidGeometryType(g.getType())).findFirst().ifPresent(this::addGeometry);
-    }
-
-    @Override
-    public CityObjectTypeName getType() {
-        return type;
     }
 
     @Override

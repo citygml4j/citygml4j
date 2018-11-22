@@ -24,7 +24,6 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.CityObjectTypeName;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryWithAppearance;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
@@ -73,9 +72,9 @@ public class GsonReader {
 				AbstractCityObjectType cityObject = iter.next();
 
 				// firstly, remove all city objects but buildings
-				if (cityObject.getType() != CityObjectTypeName.BUILDING
-						&& cityObject.getType() != CityObjectTypeName.BUILDING_PART
-						&& cityObject.getType() != CityObjectTypeName.BUILDING_INSTALLATION) {
+				if (!cityObject.getType().equals("Building")
+						&& !cityObject.getType().equals("BuildingPart")
+						&& !cityObject.getType().equals("BuildingInstallation")) {
 					System.out.println(df.format(new Date()) + "\t- removing " + cityObject.getType());
 					iter.remove();
 					continue;

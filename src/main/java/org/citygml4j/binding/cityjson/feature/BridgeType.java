@@ -19,18 +19,12 @@
 package org.citygml4j.binding.cityjson.feature;
 
 public class BridgeType extends AbstractBridgeType {
-	private final CityObjectTypeName type = CityObjectTypeName.BRIDGE;
 
-	BridgeType() {
+	public BridgeType() {
 	}
 	
 	public BridgeType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 
 }

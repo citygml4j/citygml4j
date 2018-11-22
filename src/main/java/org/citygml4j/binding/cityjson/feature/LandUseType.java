@@ -22,20 +22,14 @@ import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class LandUseType extends AbstractCityObjectType {
-	private final CityObjectTypeName type = CityObjectTypeName.LAND_USE;
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
-	
-	LandUseType() {
+
+	public LandUseType() {
 	}
 	
 	public LandUseType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 	
 	@Override

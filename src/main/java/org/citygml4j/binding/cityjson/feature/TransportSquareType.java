@@ -21,18 +21,12 @@ package org.citygml4j.binding.cityjson.feature;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class TransportSquareType extends AbstractTransportationComplexType {
-	private final CityObjectTypeName type = CityObjectTypeName.TRANSPOR_SQUARE;
-	
-	TransportSquareType() {
+
+	public TransportSquareType() {
 	}
 	
 	public TransportSquareType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 
 	@Override

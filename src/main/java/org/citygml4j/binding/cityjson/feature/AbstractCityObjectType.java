@@ -29,28 +29,40 @@ import java.util.UUID;
 
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
-	protected transient String gmlId;
+	String type;
 	private List<Double> geographicalExtent;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
+	private transient String gmlId;
 	private transient HashMap<String, Object> localProperties;
 
-	public abstract CityObjectTypeName getType();
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
 	public abstract Attributes newAttributes();
 	public abstract boolean isSetAttributes();
 	public abstract Attributes getAttributes();
 	public abstract void unsetAttributes();
 	
-	AbstractCityObjectType() {
+	public AbstractCityObjectType() {
 	}
 	
 	public AbstractCityObjectType(String gmlId) {
-		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : "UUID_" + UUID.randomUUID().toString();
+		setGmlId(gmlId);
 	}
-	
+
+	public boolean isSetGmlId() {
+		return gmlId != null;
+	}
+
 	public String getGmlId() {
 		return gmlId;
+	}
+
+	public void setGmlId(String gmlId) {
+		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : "UUID_" + UUID.randomUUID().toString();
+	}
+
+	public final String getType() {
+		return type;
 	}
 
 	public boolean isSetGeographicalExtent() {

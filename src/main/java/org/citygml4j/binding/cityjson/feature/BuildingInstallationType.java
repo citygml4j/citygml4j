@@ -22,21 +22,15 @@ import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class BuildingInstallationType extends AbstractCityObjectType {
-	private final CityObjectTypeName type = CityObjectTypeName.BUILDING_INSTALLATION;
 	@JsonAdapter(AttributesAdapter.class)
 	private Attributes attributes;
 	private String parent;
-	
-	BuildingInstallationType() {
+
+	public BuildingInstallationType() {
 	}
 	
 	public BuildingInstallationType(String gmlId) {
 		super(gmlId);
-	}
-	
-	@Override
-	public CityObjectTypeName getType() {
-		return type;
 	}
 	
 	@Override
