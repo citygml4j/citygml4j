@@ -28,7 +28,6 @@ import org.citygml4j.binding.cityjson.feature.TunnelType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
@@ -89,21 +88,21 @@ public class TunnelMarshaller {
 		SemanticsType semantics = null;
 
 		if (cityObject instanceof RoofSurface)
-			semantics = new SemanticsType(SemanticsTypeName.ROOF_SURFACE);
+			semantics = new SemanticsType("RoofSurface");
 		else if (cityObject instanceof GroundSurface)
-			semantics = new SemanticsType(SemanticsTypeName.GROUND_SURFACE);
+			semantics = new SemanticsType("GroundSurface");
 		else if (cityObject instanceof WallSurface)
-			semantics = new SemanticsType(SemanticsTypeName.WALL_SURFACE);
+			semantics = new SemanticsType("WallSurface");
 		else if (cityObject instanceof ClosureSurface)
-			semantics = new SemanticsType(SemanticsTypeName.CLOSURE_SURFACE);
+			semantics = new SemanticsType("ClosureSurface");
 		else if (cityObject instanceof OuterCeilingSurface)
-			semantics = new SemanticsType(SemanticsTypeName.OUTER_CEILING_SURFACE);
+			semantics = new SemanticsType("OuterCeilingSurface");
 		else if (cityObject instanceof OuterFloorSurface)
-			semantics = new SemanticsType(SemanticsTypeName.OUTER_FLOOR_SURFACE);
+			semantics = new SemanticsType("OuterFloorSurface");
 		else if (cityObject instanceof Window)
-			semantics = new SemanticsType(SemanticsTypeName.WINDOW);
+			semantics = new SemanticsType("Window");
 		else if (cityObject instanceof Door)
-			semantics = new SemanticsType(SemanticsTypeName.DOOR);
+			semantics = new SemanticsType("Door");
 
 		if (semantics != null && cityObject.isSetGenericAttribute())
 			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);

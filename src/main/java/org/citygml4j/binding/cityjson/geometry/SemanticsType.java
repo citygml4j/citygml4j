@@ -25,18 +25,18 @@ import java.util.Map;
 
 @JsonAdapter(SemanticsTypeAdapter.class)
 public class SemanticsType {
-	private final SemanticsTypeName type;
+	String type;
 	private transient Map<String, Object> properties;
 	
-	SemanticsType() {
+	public SemanticsType() {
 		type = null;
 	}
 	
-	public SemanticsType(SemanticsTypeName type) {
+	public SemanticsType(String type) {
 		this.type = type;
 	}
 	
-	public SemanticsTypeName getType() {
+	public final String getType() {
 		return type;
 	}
 	

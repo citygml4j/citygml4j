@@ -90,14 +90,14 @@ public class TransportationUnmarshaller {
 
 			AbstractTransportationObject traffixArea = null;
 			switch (semanticsType.getType()) {
-			case TRAFFIC_AREA:
-				traffixArea = unmarshalTrafficArea(semanticsType, tmp, lod);
-				break;
-			case AUXILIARY_TRAFFIC_AREA:
-				traffixArea = unmarshalAuxiliaryTrafficArea(semanticsType, tmp, lod);
-				break;
-			default:
-				continue;
+				case "TrafficArea":
+					traffixArea = unmarshalTrafficArea(semanticsType, tmp, lod);
+					break;
+				case "AuxiliaryTrafficArea":
+					traffixArea = unmarshalAuxiliaryTrafficArea(semanticsType, tmp, lod);
+					break;
+				default:
+					continue;
 			}
 
 			if (traffixArea instanceof TrafficArea)

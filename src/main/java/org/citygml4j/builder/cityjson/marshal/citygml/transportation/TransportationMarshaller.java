@@ -26,7 +26,6 @@ import org.citygml4j.binding.cityjson.feature.TransportSquareType;
 import org.citygml4j.binding.cityjson.feature.TransportationComplexAttributes;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
@@ -78,10 +77,10 @@ public class TransportationMarshaller {
 		SemanticsType semantics = null;
 
 		if (cityObject instanceof TrafficArea) {
-			semantics = new SemanticsType(SemanticsTypeName.TRAFFIC_AREA);
+			semantics = new SemanticsType("TrafficArea");
 			marshalTrafficArea((TrafficArea)cityObject, semantics);
 		} else if (cityObject instanceof AuxiliaryTrafficArea) {
-			semantics = new SemanticsType(SemanticsTypeName.AUXILIARY_TRAFFIC_AREA);
+			semantics = new SemanticsType("AuxiliaryTrafficArea");
 			marshalAuxiliaryTrafficArea((AuxiliaryTrafficArea)cityObject, semantics);
 		}
 

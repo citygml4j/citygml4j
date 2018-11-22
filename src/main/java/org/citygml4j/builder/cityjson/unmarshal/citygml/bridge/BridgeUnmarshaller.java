@@ -108,32 +108,32 @@ public class BridgeUnmarshaller {
 
 			AbstractCityObject cityObject = null;
 			switch (semanticsType.getType()) {
-			case ROOF_SURFACE:
-				cityObject = unmarshalRoofSurface(semanticsType, tmp, lod);
-				break;
-			case GROUND_SURFACE:
-				cityObject = unmarshalGroundSurface(semanticsType, tmp, lod);
-				break;
-			case WALL_SURFACE:
-				cityObject = unmarshalWallSurface(semanticsType, tmp, lod);
-				break;
-			case CLOSURE_SURFACE:
-				cityObject = unmarshalClosureSurface(semanticsType, tmp, lod);
-				break;
-			case OUTER_CEILING_SURFACE:
-				cityObject = unmarshalOuterCeilingSurface(semanticsType, tmp, lod);
-				break;
-			case OUTER_FLOOR_SURFACE:
-				cityObject = unmarshalOuterFloorSurface(semanticsType, tmp, lod);
-				break;
-			case WINDOW:
-				cityObject = unmarshalWindow(semanticsType, tmp, lod);
-				break;
-			case DOOR:
-				cityObject = unmarshalDoor(semanticsType, tmp, lod);
-				break;
-			default:
-				continue;
+				case "RoofSurface":
+					cityObject = unmarshalRoofSurface(semanticsType, tmp, lod);
+					break;
+				case "GroundSurface":
+					cityObject = unmarshalGroundSurface(semanticsType, tmp, lod);
+					break;
+				case "WallSurface":
+					cityObject = unmarshalWallSurface(semanticsType, tmp, lod);
+					break;
+				case "ClosureSurface":
+					cityObject = unmarshalClosureSurface(semanticsType, tmp, lod);
+					break;
+				case "OuterCeilingSurface":
+					cityObject = unmarshalOuterCeilingSurface(semanticsType, tmp, lod);
+					break;
+				case "OuterFloorSurface":
+					cityObject = unmarshalOuterFloorSurface(semanticsType, tmp, lod);
+					break;
+				case "Window":
+					cityObject = unmarshalWindow(semanticsType, tmp, lod);
+					break;
+				case "Door":
+					cityObject = unmarshalDoor(semanticsType, tmp, lod);
+					break;
+				default:
+					continue;
 			}
 
 			if (cityObject instanceof AbstractBoundarySurface) {

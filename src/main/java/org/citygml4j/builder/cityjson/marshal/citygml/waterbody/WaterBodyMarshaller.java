@@ -23,7 +23,6 @@ import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
@@ -68,12 +67,12 @@ public class WaterBodyMarshaller {
 		SemanticsType semantics = null;
 
 		if (cityObject instanceof WaterSurface) {
-			semantics = new SemanticsType(SemanticsTypeName.WATER_SURFACE);
+			semantics = new SemanticsType("WaterSurface");
 			marshalWaterSurface((WaterSurface)cityObject, semantics);
 		} else if (cityObject instanceof WaterGroundSurface)
-			semantics = new SemanticsType(SemanticsTypeName.WATER_GROUND_SURFACE);
+			semantics = new SemanticsType("WaterGroundSurface");
 		else if (cityObject instanceof WaterClosureSurface)
-			semantics = new SemanticsType(SemanticsTypeName.WATER_CLOSURE_SURFACE);
+			semantics = new SemanticsType("WaterClosureSurface");
 
 		if (semantics != null && cityObject.isSetGenericAttribute())
 			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);

@@ -25,7 +25,6 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.BuildingAttributes;
 import org.citygml4j.binding.cityjson.feature.BuildingType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsTypeName;
 import org.citygml4j.binding.cityjson.geometry.SolidSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.SolidType;
 import org.citygml4j.binding.cityjson.metadata.MetadataType;
@@ -109,13 +108,13 @@ public class GsonWriter {
 		// now let's add semantics
 		// first define the list of thematic boundary surfaces
 		SolidSemanticsObject semantics = new SolidSemanticsObject();
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.GROUND_SURFACE));
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.WALL_SURFACE));
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.WALL_SURFACE));
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.WALL_SURFACE));
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.WALL_SURFACE));
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.ROOF_SURFACE));
-		semantics.addSurface(new SemanticsType(SemanticsTypeName.ROOF_SURFACE));
+		semantics.addSurface(new SemanticsType("GroundSurface"));
+		semantics.addSurface(new SemanticsType("WallSurface"));
+		semantics.addSurface(new SemanticsType("WallSurface"));
+		semantics.addSurface(new SemanticsType("WallSurface"));
+		semantics.addSurface(new SemanticsType("WallSurface"));
+		semantics.addSurface(new SemanticsType("RoofSurface"));
+		semantics.addSurface(new SemanticsType("RoofSurface"));
 
 		// next, we define an index list which points into the list
 		// of boundary surfaces for each surface geometry

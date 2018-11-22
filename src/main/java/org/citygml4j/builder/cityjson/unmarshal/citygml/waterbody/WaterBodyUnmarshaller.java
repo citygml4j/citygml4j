@@ -82,17 +82,17 @@ public class WaterBodyUnmarshaller {
 
 			AbstractWaterBoundarySurface boundarySurface = null;
 			switch (semanticsType.getType()) {
-			case WATER_SURFACE:
-				boundarySurface = unmarshalWaterSurface(semanticsType, tmp, lod);
-				break;
-			case WATER_GROUND_SURFACE:
-				boundarySurface = unmarshalWaterGroundSurface(semanticsType, tmp, lod);
-				break;
-			case WATER_CLOSURE_SURFACE:
-				boundarySurface = unmarshalWaterClosureSurface(semanticsType, tmp, lod);
-				break;
-			default:
-				continue;
+				case "WaterSurface":
+					boundarySurface = unmarshalWaterSurface(semanticsType, tmp, lod);
+					break;
+				case "WaterGroundSurface":
+					boundarySurface = unmarshalWaterGroundSurface(semanticsType, tmp, lod);
+					break;
+				case "WaterClosureSurface":
+					boundarySurface = unmarshalWaterClosureSurface(semanticsType, tmp, lod);
+					break;
+				default:
+					continue;
 			}
 			
 			if (boundarySurface != null)
