@@ -39,11 +39,11 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class GenericsMarshaller {
 	private final CityJSONMarshaller json;
@@ -154,59 +154,61 @@ public class GenericsMarshaller {
 	}
 	
 	public void marshalGenericAttributes(List<AbstractGenericAttribute> src, Attributes dest) {
-		Map<String, Object> attributes = marshalGenericAttributes(src);
-		if (!attributes.isEmpty()) {
-			for (Entry<String, Object> entry : attributes.entrySet())
-				dest.addGenericAttribute(entry.getKey(), entry.getValue());
+		for (AbstractGenericAttribute attribute : src) {
+			Object value = marshalGenericAttribute(attribute);
+			if (value != null)
+				dest.addGenericAttribute(attribute.getName(), value);
 		}
 	}
 	
 	public void marshalSemanticsAttributes(List<AbstractGenericAttribute> src, SemanticsType dest) {
-		Map<String, Object> attributes = marshalGenericAttributes(src);
-		if (!attributes.isEmpty()) {
-			for (Entry<String, Object> entry : attributes.entrySet())
-				dest.addProperty(entry.getKey(), entry.getValue());
+		for (AbstractGenericAttribute attribute : src) {
+			Object value = marshalGenericAttribute(attribute);
+			if (value != null)
+				dest.addProperty(attribute.getName(), value);
 		}
 	}
 	
-	private Map<String, Object> marshalGenericAttributes(List<AbstractGenericAttribute> src) {
-		Map<String, Object> attributes = new LinkedHashMap<>();
-		
-		for (AbstractGenericAttribute attribute : src) {
-			String name = attribute.getName();
-			Object value = null;
-			
-			switch (attribute.getCityGMLClass()) {
+	private Object marshalGenericAttribute(AbstractGenericAttribute src) {
+		switch (src.getCityGMLClass()) {
 			case DATE_ATTRIBUTE:
-				value = ((DateAttribute)attribute).getValue().format(DateTimeFormatter.ISO_LOCAL_DATE);
-				break;
+				return ((DateAttribute) src).getValue().format(DateTimeFormatter.ISO_LOCAL_DATE);
 			case DOUBLE_ATTRIBUTE:
-				value = ((DoubleAttribute)attribute).getValue();
-				break;
+				return ((DoubleAttribute) src).getValue();
 			case INT_ATTRIBUTE:
-				value = ((IntAttribute)attribute).getValue();
-				break;
+				return ((IntAttribute) src).getValue();
 			case STRING_ATTRIBUTE:
-				value = ((StringAttribute)attribute).getValue();
-				break;
+				return ((StringAttribute) src).getValue();
 			case URI_ATTRIBUTE:
-				value = ((UriAttribute)attribute).getValue();
-				break;
+				return ((UriAttribute) src).getValue();
 			case MEASURE_ATTRIBUTE:
-				value = ((MeasureAttribute)attribute).getValue();
-				break;
+				return ((MeasureAttribute) src).getValue();
 			case GENERIC_ATTRIBUTE_SET:
-				value = marshalGenericAttributes(((GenericAttributeSet)attribute).getGenericAttribute());
-				break;
+				GenericAttributeSet attributeSet = (GenericAttributeSet) src;
+				boolean isObject = attributeSet.getGenericAttribute().stream().anyMatch(a -> !"item".equalsIgnoreCase(a.getName()));
+
+				if (isObject) {
+					Map<String, Object> result = new HashMap<>();
+					for (AbstractGenericAttribute attribute : attributeSet.getGenericAttribute()) {
+						Object value = marshalGenericAttribute(attribute);
+						if (value != null)
+							result.put(attribute.getName(), value);
+					}
+
+					return result;
+				} else {
+					List<Object> result = new ArrayList<>();
+					for (AbstractGenericAttribute attribute : attributeSet.getGenericAttribute()) {
+						Object value = marshalGenericAttribute(attribute);
+						if (value != null)
+							result.add(value);
+					}
+
+					return result;
+				}
 			default:
-				break;
-			}
-			
-			if (name != null && value != null)
-				attributes.put(name, value);
+				return null;
 		}
-		
-		return attributes;
 	}
 	
 }

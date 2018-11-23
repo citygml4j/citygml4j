@@ -19,14 +19,20 @@
 package org.citygml4j.binding.cityjson.geometry;
 
 import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JsonAdapter(SemanticsTypeAdapter.class)
 public class SemanticsType {
 	String type;
 	private transient Map<String, Object> properties;
+	private transient List<String> attributeNames;
 	
 	public SemanticsType() {
 		type = null;
@@ -67,6 +73,25 @@ public class SemanticsType {
 	
 	public void unsetProperties() {
 		properties = null;
+	}
+
+	protected List<String> getAttributeNames() {
+		if (attributeNames == null) {
+			attributeNames = new ArrayList<>();
+
+			Class<?> clazz = this.getClass();
+			do {
+				for (Field field : clazz.getDeclaredFields()) {
+					if (Modifier.isTransient(field.getModifiers()))
+						continue;
+
+					SerializedName name = field.getAnnotation(SerializedName.class);
+					attributeNames.add(name != null ? name.value() : field.getName());
+				}
+			} while ((clazz = clazz.getSuperclass()) != null);
+		}
+
+		return attributeNames;
 	}
 	
 }

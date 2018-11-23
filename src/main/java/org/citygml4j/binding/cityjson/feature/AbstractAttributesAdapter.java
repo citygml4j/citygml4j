@@ -18,6 +18,7 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -28,9 +29,10 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +40,9 @@ import java.util.Map.Entry;
 
 public abstract class AbstractAttributesAdapter<T extends Attributes> implements JsonSerializer<T>, JsonDeserializer<T> {
 	private final Class<T> type;
-	private final SimpleDateFormat formatter;
-	
+
 	protected AbstractAttributesAdapter(Class<T> type) {
 		this.type = type;
-		formatter = new SimpleDateFormat("yyyy-MM-dd");
 	}
 	
 	@Override
@@ -64,52 +64,69 @@ public abstract class AbstractAttributesAdapter<T extends Attributes> implements
 		T attributes = context.deserialize(json, type);
 
 		// deserialize generic attributes
-		Map<String, Object> genericAttributes = deserialize(json.getAsJsonObject(), attributes.getAttributeNames(), context);
+		Map<String, Object> genericAttributes = new HashMap<>();
+		List<String> predefined = attributes.getAttributeNames();
+
+		for (Entry<String, JsonElement> entry : json.getAsJsonObject().entrySet()) {
+			String key = entry.getKey();
+			if (predefined.contains(key))
+				continue;
+
+			Object value = deserialize(entry.getValue(), context);
+			if (value != null)
+				genericAttributes.put(key, value);
+		}
+
 		if (!genericAttributes.isEmpty())
 			attributes.setGenericAttributes(genericAttributes);
 		
 		return attributes;
 	}
-	
-	private Map<String, Object> deserialize(JsonObject object, List<String> attributeNames, JsonDeserializationContext context) {
-		Map<String, Object> genericAttributes = new HashMap<>();
-		
-		for (Entry<String, JsonElement> entry : object.entrySet()) {
-			String key = entry.getKey();
-			if (attributeNames.contains(key))
-				continue;
-			
-			JsonElement element = entry.getValue();
-			if (element.isJsonPrimitive()) {
-				JsonPrimitive primitive = element.getAsJsonPrimitive();
-				if (primitive != null) {
-					if (primitive.isBoolean())
-						genericAttributes.put(key, primitive.getAsBoolean());
-					else if (primitive.isNumber()) {
-						Number value = primitive.getAsNumber();						
-						if (value.intValue() == value.doubleValue())
-							genericAttributes.put(key, value.intValue());	
-						else
-							genericAttributes.put(key, value.doubleValue());
-					} else if (primitive.isString()) {
-						String value = primitive.getAsString();
-						try {
-							Date date = formatter.parse(value);
-							genericAttributes.put(key, date);
-						} catch (ParseException e) {
-							genericAttributes.put(key, value);
-						}
-					} else
-						genericAttributes.put(key, context.deserialize(primitive, Object.class));
+
+	private Object deserialize(JsonElement element, JsonDeserializationContext context) {
+		if (element.isJsonPrimitive()) {
+			JsonPrimitive primitive = element.getAsJsonPrimitive();
+			if (primitive.isBoolean())
+				return primitive.getAsBoolean();
+			else if (primitive.isNumber()) {
+				Number value = primitive.getAsNumber();
+				return (value.toString().equals(String.valueOf(value.intValue()))) ? value.intValue() : value.doubleValue();
+			} else if (primitive.isString()) {
+				String value = primitive.getAsString();
+				try {
+					return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
+				} catch (DateTimeParseException e) {
+					return value;
 				}
-			} else {
-				Map<String, Object> attributeSet = deserialize(element.getAsJsonObject(), attributeNames, context);
-				if (!attributeSet.isEmpty())
-					genericAttributes.put(key, attributeSet);
+			} else
+				return context.deserialize(primitive, Object.class);
+		} else if (element.isJsonObject()) {
+			JsonObject object = element.getAsJsonObject();
+			Map<String, Object> attributeSet = new HashMap<>();
+
+			for (Map.Entry<String, JsonElement> nested : object.entrySet()) {
+				Object value = deserialize(nested.getValue(), context);
+				if (value != null)
+					attributeSet.put(nested.getKey(), value);
 			}
+
+			if (!attributeSet.isEmpty())
+				return attributeSet;
+		} else if (element.isJsonArray()) {
+			JsonArray array = element.getAsJsonArray();
+			List<Object> items = new ArrayList<>();
+
+			for (int i = 0; i < array.size(); i++) {
+				Object value = deserialize(array.get(i), context);
+				if (value != null)
+					items.add(value);
+			}
+
+			if (!items.isEmpty())
+				return items;
 		}
-		
-		return genericAttributes;
+
+		return null;
 	}
 
 }

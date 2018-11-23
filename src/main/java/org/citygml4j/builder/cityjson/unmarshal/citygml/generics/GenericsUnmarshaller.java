@@ -44,9 +44,8 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -135,56 +134,60 @@ public class GenericsUnmarshaller {
 	}
 	
 	public void unmarshalGenericAttributes(Attributes src, AbstractCityObject dest) {
-		List<AbstractGenericAttribute> genericAttributes = unmarshalGenericAttributes(src.getGenericAttributes());
-		if (!genericAttributes.isEmpty())
-			dest.setGenericAttribute(genericAttributes);
+		if (src.isSetGenericAttributes()) {
+			for (Entry<String, Object> property : src.getGenericAttributes().entrySet()) {
+				AbstractGenericAttribute attribute = unmarshalGenericAttribute(property.getKey(), property.getValue());
+				if (attribute != null)
+					dest.addGenericAttribute(attribute);
+			}
+		}
 	}
 	
 	public void unmarshalSemanticsAttributes(Map<String, Object> src, AbstractCityObject dest) {
-		List<AbstractGenericAttribute> genericAttributes = unmarshalGenericAttributes(src);
-		if (!genericAttributes.isEmpty())
-			dest.setGenericAttribute(genericAttributes);
-	}
-	
-	private List<AbstractGenericAttribute> unmarshalGenericAttributes(Map<? extends Object, ? extends Object> src) {
-		List<AbstractGenericAttribute> attributes = new ArrayList<>();
-		
-		for (Entry<? extends Object, ? extends Object> entry : src.entrySet()) {
-			String name = entry.getKey().toString();
-			Object value = entry.getValue();			
-			AbstractGenericAttribute attribute = null;
-			
-			if (value instanceof Integer)
-				attribute = new IntAttribute((Integer)value);
-			else if (value instanceof Double)
-				attribute = new DoubleAttribute((Double)value);
-			else if (value instanceof Date)
-				attribute = new DateAttribute((Date)value);
-			else if (value instanceof String) {
-				try {
-					URI uri = new URI((String)value);
-					if (uri.getScheme() != null && uri.getPath() != null) 
-						attribute = new UriAttribute((String)value);
-				} catch (URISyntaxException e) {
-					// nothing to do
-				}
-				
-				if (attribute == null)
-					attribute = new StringAttribute((String)value);
-			} else if (value instanceof Map<?, ?>) {
-				List<AbstractGenericAttribute> attributeSet = unmarshalGenericAttributes((Map<?, ?>)value);
-				if (!attributeSet.isEmpty())
-					attribute = new GenericAttributeSet(attributeSet);
-			} else
-				attribute = new StringAttribute(value.toString());
-
-			if (attribute != null) {
-				attribute.setName(name);
-				attributes.add(attribute);
-			}
+		for (Entry<String, Object> property : src.entrySet()) {
+			AbstractGenericAttribute attribute = unmarshalGenericAttribute(property.getKey(), property.getValue());
+			if (attribute != null)
+				dest.addGenericAttribute(attribute);
 		}
-		
-		return attributes;
+	}
+
+	private AbstractGenericAttribute unmarshalGenericAttribute(Object name, Object value) {
+		AbstractGenericAttribute attribute = null;
+
+		if (value instanceof Integer)
+			attribute = new IntAttribute((Integer) value);
+		else if (value instanceof Double)
+			attribute = new DoubleAttribute((Double) value);
+		else if (value instanceof LocalDate)
+			attribute = new DateAttribute(((LocalDate) value));
+		else if (value instanceof String) {
+			try {
+				URI uri = new URI((String) value);
+				if (uri.getScheme() != null && uri.getPath() != null)
+					attribute = new UriAttribute((String) value);
+			} catch (URISyntaxException e) {
+				// nothing to do
+			}
+
+			if (attribute == null)
+				attribute = new StringAttribute((String) value);
+		} else if (value instanceof Map) {
+			attribute = new GenericAttributeSet();
+			for (Entry<?, ?> entry : ((Map<?, ?>) value).entrySet()) {
+				AbstractGenericAttribute item = unmarshalGenericAttribute(entry.getKey(), entry.getValue());
+				((GenericAttributeSet) attribute).addGenericAttribute(item);
+			}
+		} else if (value instanceof Collection) {
+			attribute = new GenericAttributeSet();
+			for (Object object : (Collection) value) {
+				AbstractGenericAttribute item = unmarshalGenericAttribute("item", object);
+				((GenericAttributeSet) attribute).addGenericAttribute(item);
+			}
+		} else
+			attribute = new StringAttribute(value.toString());
+
+		attribute.setName(name.toString());
+		return attribute;
 	}
 	
 }
