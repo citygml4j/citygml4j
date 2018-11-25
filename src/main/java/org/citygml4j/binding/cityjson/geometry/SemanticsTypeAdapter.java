@@ -27,6 +27,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -48,6 +49,12 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		JsonObject object = new JsonObject();
 		object.add("type", new JsonPrimitive(semantics.getType()));
 
+		if (semantics.isSetParent())
+			object.add("parent", new JsonPrimitive(semantics.getParent()));
+
+		if (semantics.isSetChildren())
+			object.add("children", context.serialize(semantics.getChildren()));
+
 		// serialize properties
 		if (semantics.isSetProperties()) {
 			JsonObject properties = context.serialize(semantics.getProperties()).getAsJsonObject();
@@ -65,6 +72,14 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 
 		if (type != null && type.isString()) {
 			SemanticsType semantics = new SemanticsType(type.getAsString());
+
+			Number parent = context.deserialize(object.get("parent"), Integer.class);
+			if (parent != null)
+				semantics.setParent(parent.intValue());
+
+			List<Integer> children = context.deserialize(object.get("children"), new TypeToken<List<Integer>>(){}.getType());
+			if (children != null)
+				semantics.setChildren(children);
 
 			// deserialize properties
 			Map<String, Object> properties = new HashMap<>();

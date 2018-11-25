@@ -21,6 +21,8 @@ package org.citygml4j.builder.cityjson.marshal.util;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.util.child.ChildInfo;
 
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
@@ -28,11 +30,14 @@ import java.util.List;
 import java.util.Map;
 
 public class SemanticsBuilder {
+	private final AbstractCityObject parent;
 	private final CityGMLMarshaller citygml;
 	private final List<SemanticsType> surfaces = new ArrayList<>();
 	private final Map<AbstractCityObject, Integer> cityObjects = new IdentityHashMap<>();
+	private final ChildInfo childInfo = new ChildInfo();
 	
-	public SemanticsBuilder(CityGMLMarshaller citygml) {
+	public SemanticsBuilder(AbstractCityObject parent, CityGMLMarshaller citygml) {
+		this.parent = parent;
 		this.citygml = citygml;
 	}
 	
@@ -46,6 +51,18 @@ public class SemanticsBuilder {
 			if (semantics != null) {
 				index = surfaces.size();
 				surfaces.add(semantics);
+
+				// add parent and children relationships
+				Child child = cityObject;
+				while ((child = childInfo.getParentCityObject(child)) != parent) {
+					Integer parentIndex = cityObjects.get(child);
+					if (parentIndex != null && parentIndex < surfaces.size()) {
+						SemanticsType parent = surfaces.get(parentIndex);
+						parent.addChild(index);
+						semantics.setParent(parentIndex);
+						break;
+					}
+				}
 			}
 			
 			cityObjects.put(cityObject, index);

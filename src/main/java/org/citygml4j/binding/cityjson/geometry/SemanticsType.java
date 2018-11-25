@@ -31,6 +31,8 @@ import java.util.Map;
 @JsonAdapter(SemanticsTypeAdapter.class)
 public class SemanticsType {
 	String type;
+	private Integer parent;
+	private List<Integer> children;
 	private transient Map<String, Object> properties;
 	private transient List<String> attributeNames;
 	
@@ -44,6 +46,45 @@ public class SemanticsType {
 	
 	public final String getType() {
 		return type;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public Integer getParent() {
+		return parent;
+	}
+
+	public void setParent(int parent) {
+		this.parent = parent;
+	}
+
+	public void unsetParent() {
+		parent = null;
+	}
+
+	public boolean isSetChildren() {
+		return children != null && !children.isEmpty();
+	}
+
+	public void addChild(int child) {
+		if (children == null)
+			children = new ArrayList<>();
+
+		children.add(child);
+	}
+
+	public List<Integer> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Integer> Children) {
+		this.children = Children;
+	}
+
+	public void unsetChildren() {
+		children = null;
 	}
 	
 	public boolean isSetProperties() {

@@ -167,7 +167,7 @@ public class GMLMarshaller {
 
 	public void marshalSurface(Surface src, CompositeSurfaceType dest) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
 		surfaceBuilder.process(src, dest, semanticsBuilder, true);
 
 		if (dest.isSetSemantics())
@@ -191,7 +191,7 @@ public class GMLMarshaller {
 
 	public void marshalSurfaceCollection(AbstractGeometry src, AbstractSurfaceCollectionType dest) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
 		surfaceBuilder.process(src, dest, semanticsBuilder, true);
 		
 		if (dest.isSetSemantics())
@@ -285,7 +285,7 @@ public class GMLMarshaller {
 
 	public SolidType marshalSolid(Solid src) {
 		SolidType dest = new SolidType();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
 		marshalSolid(src, dest, semanticsBuilder, true);
 		
 		if (dest.isSetSemantics())
@@ -296,7 +296,7 @@ public class GMLMarshaller {
 
 	public void marshalSolidCollection(AbstractGeometry src, AbstractSolidCollectionType dest) {
 		SolidCollectionBuilder builder = new SolidCollectionBuilder();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
 		builder.process(src, dest, semanticsBuilder);
 		
 		if (dest.isSetSemantics())
