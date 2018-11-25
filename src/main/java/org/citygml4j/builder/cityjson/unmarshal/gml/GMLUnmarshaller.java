@@ -182,7 +182,7 @@ public class GMLUnmarshaller {
 			if (!surface.isSetId())
 				dest.add(new SurfaceProperty(surface));
 			else if (useXLinks)
-				dest.add(new SurfaceProperty(new StringBuilder("#").append(surface.getId()).toString()));
+				dest.add(new SurfaceProperty("#" + surface.getId()));
 		}
 
 		if (src.isSetMaterial())
@@ -267,7 +267,7 @@ public class GMLUnmarshaller {
 			for (int j = shells.get(i); j < shells.get(i + 1); j++) {
 				AbstractSurface surface = surfaces.get(j);
 				if (surface.isSetId())
-					shell.addSurfaceMember(new SurfaceProperty(new StringBuilder("#").append(surface.getId()).toString()));
+					shell.addSurfaceMember(new SurfaceProperty("#" + surface.getId()));
 				else
 					shell.addSurfaceMember(new SurfaceProperty(surface));
 			}
@@ -314,9 +314,8 @@ public class GMLUnmarshaller {
 		if (src.isSetSemantics())
 			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject);
 
-		for (int i = 0; i < solids.size(); i++) {
+		for (List<Integer> shells : solids) {
 			Solid solid = new Solid();
-			List<Integer> shells = solids.get(i);
 
 			for (int j = 0; j < shells.size() - 1; j++) {
 				CompositeSurface shell = new CompositeSurface();
@@ -328,7 +327,7 @@ public class GMLUnmarshaller {
 				for (int k = shells.get(j); k < shells.get(j + 1); k++) {
 					AbstractSurface surface = surfaces.get(k);
 					if (surface.isSetId())
-						shell.addSurfaceMember(new SurfaceProperty(new StringBuilder("#").append(surface.getId()).toString()));
+						shell.addSurfaceMember(new SurfaceProperty("#" + surface.getId()));
 					else
 						shell.addSurfaceMember(new SurfaceProperty(surface));
 				}
@@ -459,7 +458,7 @@ public class GMLUnmarshaller {
 
 	private void unmarshalMaterial(Collection<? extends AbstractMaterialObject> materialObjects, List<AbstractSurface> surfaces, AbstractCityObject cityObject) {
 		for (AbstractMaterialObject materialObject : materialObjects) {
-			Map<Integer, List<AbstractSurface>> materials = null;
+			Map<Integer, List<AbstractSurface>> materials;
 
 			if (materialObject.isSetValues()) 
 				materials = collectSurfaces(materialObject.flatValues(), surfaces);
@@ -500,12 +499,7 @@ public class GMLUnmarshaller {
 					if (surface == null)
 						continue;
 
-					List<AbstractSurface> tmp = textures.get(textureIndex);
-					if (tmp == null) {
-						tmp = new ArrayList<>();
-						textures.put(textureIndex, tmp);
-					}
-
+					List<AbstractSurface> tmp = textures.computeIfAbsent(textureIndex, k -> new ArrayList<>());
 					surface.setLocalProperty(CityJSONUnmarshaller.TEXTURE_COORDINATES, value);
 					tmp.add(surface);
 				} else
@@ -540,7 +534,7 @@ public class GMLUnmarshaller {
 
 				if (texture == null)
 					texture = textureIndex;
-				else if (texture != textureIndex) {
+				else if (!texture.equals(textureIndex)) {
 					texture = null;
 					break;
 				}
@@ -578,12 +572,7 @@ public class GMLUnmarshaller {
 				if (surface == null)
 					continue;
 
-				List<AbstractSurface> tmp = result.get(value);
-				if (tmp == null) {
-					tmp = new ArrayList<>();
-					result.put(value, tmp);
-				}
-
+				List<AbstractSurface> tmp = result.computeIfAbsent(value, k -> new ArrayList<>());
 				tmp.add(surface);
 			} else
 				break;
