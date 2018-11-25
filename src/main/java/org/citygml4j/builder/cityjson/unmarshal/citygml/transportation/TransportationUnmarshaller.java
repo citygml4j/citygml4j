@@ -26,7 +26,6 @@ import org.citygml4j.binding.cityjson.feature.RoadType;
 import org.citygml4j.binding.cityjson.feature.TransportSquareType;
 import org.citygml4j.binding.cityjson.feature.TransportationComplexAttributes;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.AbstractSurfaceCollectionType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
@@ -53,7 +52,6 @@ import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TransportationUnmarshaller {
@@ -75,36 +73,26 @@ public class TransportationUnmarshaller {
 		return typeMapper.apply(src, cityJSON);
 	}
 
-	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject parent) {
-		if (!(parent instanceof TransportationComplex))
-			return;
-		
-		for (int i = 0; i < src.getNumSurfaces(); i++) {
-			SemanticsType semanticsType = src.getSurfaces().get(i);
-			if (semanticsType == null)
-				continue;
-
-			List<AbstractSurface> tmp = surfaces.get(i);
-			if (tmp == null || tmp.isEmpty())
-				continue;
-
-			AbstractTransportationObject traffixArea = null;
-			switch (semanticsType.getType()) {
-				case "TrafficArea":
-					traffixArea = unmarshalTrafficArea(semanticsType, tmp, lod);
-					break;
-				case "AuxiliaryTrafficArea":
-					traffixArea = unmarshalAuxiliaryTrafficArea(semanticsType, tmp, lod);
-					break;
-				default:
-					continue;
-			}
-
-			if (traffixArea instanceof TrafficArea)
-				((TransportationComplex)parent).addTrafficArea(new TrafficAreaProperty((TrafficArea)traffixArea));
-			else if (traffixArea instanceof AuxiliaryTrafficArea)
-				((TransportationComplex)parent).addAuxiliaryTrafficArea(new AuxiliaryTrafficAreaProperty((AuxiliaryTrafficArea)traffixArea));
+	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+		AbstractTransportationObject traffixArea = null;
+		switch (semanticsType.getType()) {
+			case "TrafficArea":
+				traffixArea = unmarshalTrafficArea(semanticsType, surfaces, lod);
+				break;
+			case "AuxiliaryTrafficArea":
+				traffixArea = unmarshalAuxiliaryTrafficArea(semanticsType, surfaces, lod);
+				break;
 		}
+
+		if (parent instanceof TransportationComplex) {
+			TransportationComplex complex = (TransportationComplex) parent;
+			if (traffixArea instanceof TrafficArea)
+				complex.addTrafficArea(new TrafficAreaProperty((TrafficArea) traffixArea));
+			else if (traffixArea != null)
+				complex.addAuxiliaryTrafficArea(new AuxiliaryTrafficAreaProperty((AuxiliaryTrafficArea) traffixArea));
+		}
+
+		return traffixArea;
 	}
 
 	public void unmarshalTransportationComplex(AbstractTransportationComplexType src, TransportationComplex dest) {

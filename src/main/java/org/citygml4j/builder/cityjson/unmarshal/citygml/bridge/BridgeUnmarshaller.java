@@ -29,7 +29,6 @@ import org.citygml4j.binding.cityjson.feature.BridgePartType;
 import org.citygml4j.binding.cityjson.feature.BridgeType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
@@ -72,7 +71,6 @@ import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public class BridgeUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -94,62 +92,69 @@ public class BridgeUnmarshaller {
 		return typeMapper.apply(src, cityJSON);
 	}
 
-	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject parent) {
-		AbstractBoundarySurface boundarySurface = null;
+	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+		AbstractCityObject cityObject = null;
+		switch (semanticsType.getType()) {
+			case "RoofSurface":
+				cityObject = unmarshalRoofSurface(semanticsType, surfaces, lod);
+				break;
+			case "GroundSurface":
+				cityObject = unmarshalGroundSurface(semanticsType, surfaces, lod);
+				break;
+			case "WallSurface":
+				cityObject = unmarshalWallSurface(semanticsType, surfaces, lod);
+				break;
+			case "ClosureSurface":
+				cityObject = unmarshalClosureSurface(semanticsType, surfaces, lod);
+				break;
+			case "OuterCeilingSurface":
+				cityObject = unmarshalOuterCeilingSurface(semanticsType, surfaces, lod);
+				break;
+			case "OuterFloorSurface":
+				cityObject = unmarshalOuterFloorSurface(semanticsType, surfaces, lod);
+				break;
+			case "Window":
+				cityObject = unmarshalWindow(semanticsType, surfaces, lod);
+				break;
+			case "Door":
+				cityObject = unmarshalDoor(semanticsType, surfaces, lod);
+				break;
+		}
 
-		for (int i = 0; i < src.getNumSurfaces(); i++) {
-			SemanticsType semanticsType = src.getSurfaces().get(i);
-			if (semanticsType == null)
-				continue;
+		if (cityObject instanceof AbstractBoundarySurface) {
+			AbstractBoundarySurface boundarySurface = (AbstractBoundarySurface) cityObject;
+			if (parent instanceof AbstractBridge)
+				((AbstractBridge) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
+			else if (parent instanceof BridgeInstallation)
+				((BridgeInstallation) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
+			else if (parent instanceof BridgeConstructionElement)
+				((BridgeConstructionElement) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
+		}
 
-			List<AbstractSurface> tmp = surfaces.get(i);
-			if (tmp == null || tmp.isEmpty())
-				continue;
+		else if (cityObject != null) {
+			AbstractOpening opening = (AbstractOpening) cityObject;
 
-			AbstractCityObject cityObject = null;
-			switch (semanticsType.getType()) {
-				case "RoofSurface":
-					cityObject = unmarshalRoofSurface(semanticsType, tmp, lod);
-					break;
-				case "GroundSurface":
-					cityObject = unmarshalGroundSurface(semanticsType, tmp, lod);
-					break;
-				case "WallSurface":
-					cityObject = unmarshalWallSurface(semanticsType, tmp, lod);
-					break;
-				case "ClosureSurface":
-					cityObject = unmarshalClosureSurface(semanticsType, tmp, lod);
-					break;
-				case "OuterCeilingSurface":
-					cityObject = unmarshalOuterCeilingSurface(semanticsType, tmp, lod);
-					break;
-				case "OuterFloorSurface":
-					cityObject = unmarshalOuterFloorSurface(semanticsType, tmp, lod);
-					break;
-				case "Window":
-					cityObject = unmarshalWindow(semanticsType, tmp, lod);
-					break;
-				case "Door":
-					cityObject = unmarshalDoor(semanticsType, tmp, lod);
-					break;
-				default:
-					continue;
-			}
-
-			if (cityObject instanceof AbstractBoundarySurface) {
-				boundarySurface = (AbstractBoundarySurface)cityObject;
-
+			if (parent instanceof AbstractBoundarySurface)
+				((AbstractBoundarySurface) parent).addOpening(new OpeningProperty(opening));
+			else {
+				// if the parent is not a boundary surface, then we try
+				// and add the opening to the last boundary surface of the parent
+				List<BoundarySurfaceProperty> boundedBy = null;
 				if (parent instanceof AbstractBridge)
-					((AbstractBridge)parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
+					boundedBy = ((AbstractBridge) parent).getBoundedBySurface();
 				else if (parent instanceof BridgeInstallation)
-					((BridgeInstallation)parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
-			}
+					boundedBy = ((BridgeInstallation) parent).getBoundedBySurface();
+				else if (parent instanceof BridgeConstructionElement)
+					boundedBy = ((BridgeConstructionElement) parent).getBoundedBySurface();
 
-			else if (cityObject instanceof AbstractOpening && boundarySurface != null) {
-				// we need a boundary surface to assign the opening to
-				boundarySurface.addOpening(new OpeningProperty((AbstractOpening)cityObject));
+				if (boundedBy != null && !boundedBy.isEmpty()) {
+					AbstractBoundarySurface boundarySurface = boundedBy.get(boundedBy.size() - 1).getBoundarySurface();
+					boundarySurface.addOpening(new OpeningProperty(opening));
+				}
 			}
 		}
+
+		return cityObject;
 	}
 
 	public void unmarshalAbstractBridge(AbstractBridgeType src, AbstractBridge dest, CityJSON cityJSON) {

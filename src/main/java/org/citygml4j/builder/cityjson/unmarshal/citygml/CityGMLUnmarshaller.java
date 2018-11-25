@@ -32,6 +32,7 @@ import org.citygml4j.binding.cityjson.feature.TINReliefType;
 import org.citygml4j.binding.cityjson.feature.TunnelType;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
+import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.appearance.AppearanceUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.bridge.BridgeUnmarshaller;
@@ -54,8 +55,11 @@ import org.citygml4j.model.citygml.tunnel.TunnelModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CityGMLUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -121,17 +125,59 @@ public class CityGMLUnmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject parent) {
-		if (parent instanceof BridgeModuleComponent)
-			brid.unmarshalSemantics(src, surfaces, lod, parent);
-		else if (parent instanceof BuildingModuleComponent)
-			bldg.unmarshalSemantics(src, surfaces, lod, parent);
-		else if (parent instanceof TransportationModuleComponent)
-			tran.unmarshalSemantics(src, surfaces, lod, parent);
-		else if (parent instanceof TunnelModuleComponent)
-			tun.unmarshalSemantics(src, surfaces, lod, parent);
-		else if (parent instanceof WaterBodyModuleComponent)
-			wtr.unmarshalSemantics(src, surfaces, lod, parent);
+	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject root) {
+		Map<Integer, AbstractCityObject> parents = new HashMap<>();
+		List<Integer> indexes = orderByParents(src);
+
+		for (int index : indexes) {
+			SemanticsType semanticsType = src.getSurfaces().get(index);
+			List<AbstractSurface> tmp = surfaces.get(index);
+			if (tmp == null)
+				tmp = Collections.emptyList();
+
+			AbstractCityObject parent = null;
+			if (semanticsType.isSetParent())
+				parent = parents.get(semanticsType.getParent());
+
+			if (parent == null)
+				parent = root;
+
+			AbstractCityObject cityObject = null;
+			if (parent instanceof BridgeModuleComponent)
+				cityObject = brid.unmarshalSemantics(semanticsType, tmp, lod, parent);
+			else if (parent instanceof BuildingModuleComponent)
+				cityObject = bldg.unmarshalSemantics(semanticsType, tmp, lod, parent);
+			else if (parent instanceof TransportationModuleComponent)
+				cityObject = tran.unmarshalSemantics(semanticsType, tmp, lod, parent);
+			else if (parent instanceof TunnelModuleComponent)
+				cityObject = tun.unmarshalSemantics(semanticsType, tmp, lod, parent);
+			else if (parent instanceof WaterBodyModuleComponent)
+				cityObject = wtr.unmarshalSemantics(semanticsType, tmp, lod, parent);
+
+			if (cityObject != null)
+				parents.put(index, cityObject);
+		}
+	}
+
+	private List<Integer> orderByParents(AbstractSemanticsObject semanticsObject) {
+		Map<Integer, Integer> indexes = new HashMap<>();
+		for (int i = 0; i < semanticsObject.getNumSurfaces(); i++) {
+			SemanticsType type = semanticsObject.getSurfaces().get(i);
+			int weight = 0;
+
+			SemanticsType parent = type;
+			while (parent.isSetParent()) {
+				parent = semanticsObject.getSurfaces().get(parent.getParent());
+				weight++;
+			}
+
+			indexes.put(i, weight);
+		}
+
+		return indexes.entrySet().stream()
+				.sorted(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toList());
 	}
 	
 	public AppearanceUnmarshaller getAppearanceUnmarshaller() {

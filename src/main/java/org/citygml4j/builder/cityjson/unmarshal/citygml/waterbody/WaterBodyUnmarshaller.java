@@ -24,7 +24,6 @@ import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
@@ -49,7 +48,6 @@ import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 import java.util.List;
-import java.util.Map;
 
 public class WaterBodyUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -66,38 +64,25 @@ public class WaterBodyUnmarshaller {
 
 		return null;
 	}
-	
-	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject parent) {
-		if (!(parent instanceof WaterBody))
-			return;
-		
-		for (int i = 0; i < src.getNumSurfaces(); i++) {
-			SemanticsType semanticsType = src.getSurfaces().get(i);
-			if (semanticsType == null)
-				continue;
 
-			List<AbstractSurface> tmp = surfaces.get(i);
-			if (tmp == null || tmp.isEmpty())
-				continue;
-
-			AbstractWaterBoundarySurface boundarySurface = null;
-			switch (semanticsType.getType()) {
-				case "WaterSurface":
-					boundarySurface = unmarshalWaterSurface(semanticsType, tmp, lod);
-					break;
-				case "WaterGroundSurface":
-					boundarySurface = unmarshalWaterGroundSurface(semanticsType, tmp, lod);
-					break;
-				case "WaterClosureSurface":
-					boundarySurface = unmarshalWaterClosureSurface(semanticsType, tmp, lod);
-					break;
-				default:
-					continue;
-			}
-			
-			if (boundarySurface != null)
-				((WaterBody)parent).addBoundedBySurface(new BoundedByWaterSurfaceProperty(boundarySurface));
+	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+		AbstractWaterBoundarySurface boundarySurface = null;
+		switch (semanticsType.getType()) {
+			case "WaterSurface":
+				boundarySurface = unmarshalWaterSurface(semanticsType, surfaces, lod);
+				break;
+			case "WaterGroundSurface":
+				boundarySurface = unmarshalWaterGroundSurface(semanticsType, surfaces, lod);
+				break;
+			case "WaterClosureSurface":
+				boundarySurface = unmarshalWaterClosureSurface(semanticsType, surfaces, lod);
+				break;
 		}
+
+		if (boundarySurface != null && parent instanceof WaterBody)
+			((WaterBody) parent).addBoundedBySurface(new BoundedByWaterSurfaceProperty(boundarySurface));
+
+		return boundarySurface;
 	}
 	
 	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest) {

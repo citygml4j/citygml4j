@@ -30,6 +30,7 @@ import org.citygml4j.binding.cityjson.geometry.MultiLineStringType;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.binding.cityjson.geometry.MultiSolidType;
 import org.citygml4j.binding.cityjson.geometry.MultiSurfaceType;
+import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.binding.cityjson.geometry.SolidType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
@@ -428,6 +429,23 @@ public class GMLUnmarshaller {
 
 	private void unmarshalSemantics(AbstractSemanticsObject semanticsObject, List<AbstractSurface> surfaces, Number lod, AbstractCityObject cityObject) {
 		Map<Integer, List<AbstractSurface>> semantics = collectSurfaces(semanticsObject.flatValues(), surfaces);
+
+		// remove invalid parent pointers and parent cycles
+		for (SemanticsType type : semanticsObject.getSurfaces()) {
+			SemanticsType parent = type;
+			while (parent != null && parent.isSetParent()) {
+				if (parent.getParent() < 0 || parent.getParent() >= semanticsObject.getNumSurfaces()) {
+					parent.unsetParent();
+					break;
+				} else {
+					parent = semanticsObject.getSurfaces().get(parent.getParent());
+					if (parent == type) {
+						type.unsetParent();
+						break;
+					}
+				}
+			}
+		}
 
 		// create semantic city objects
 		json.getCityGMLUnmarshaller().unmarshalSemantics(semanticsObject, semantics, lod, cityObject);
