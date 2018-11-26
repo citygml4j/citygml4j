@@ -32,6 +32,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
@@ -114,6 +115,12 @@ public class TunnelUnmarshaller {
 			case "Door":
 				cityObject = unmarshalDoor(semanticsType, surfaces, lod);
 				break;
+		}
+
+		if (parent instanceof ADEComponent) {
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, (ADEComponent) parent);
+			if (success)
+				return cityObject;
 		}
 
 		if (cityObject instanceof AbstractBoundarySurface) {

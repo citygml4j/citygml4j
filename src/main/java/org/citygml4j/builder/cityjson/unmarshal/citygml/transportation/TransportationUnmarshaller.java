@@ -31,6 +31,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
@@ -74,25 +75,31 @@ public class TransportationUnmarshaller {
 	}
 
 	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
-		AbstractTransportationObject traffixArea = null;
+		AbstractTransportationObject trafficArea = null;
 		switch (semanticsType.getType()) {
 			case "TrafficArea":
-				traffixArea = unmarshalTrafficArea(semanticsType, surfaces, lod);
+				trafficArea = unmarshalTrafficArea(semanticsType, surfaces, lod);
 				break;
 			case "AuxiliaryTrafficArea":
-				traffixArea = unmarshalAuxiliaryTrafficArea(semanticsType, surfaces, lod);
+				trafficArea = unmarshalAuxiliaryTrafficArea(semanticsType, surfaces, lod);
 				break;
+		}
+
+		if (parent instanceof ADEComponent) {
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(trafficArea, lod, (ADEComponent) parent);
+			if (success)
+				return trafficArea;
 		}
 
 		if (parent instanceof TransportationComplex) {
 			TransportationComplex complex = (TransportationComplex) parent;
-			if (traffixArea instanceof TrafficArea)
-				complex.addTrafficArea(new TrafficAreaProperty((TrafficArea) traffixArea));
-			else if (traffixArea != null)
-				complex.addAuxiliaryTrafficArea(new AuxiliaryTrafficAreaProperty((AuxiliaryTrafficArea) traffixArea));
+			if (trafficArea instanceof TrafficArea)
+				complex.addTrafficArea(new TrafficAreaProperty((TrafficArea) trafficArea));
+			else if (trafficArea != null)
+				complex.addAuxiliaryTrafficArea(new AuxiliaryTrafficAreaProperty((AuxiliaryTrafficArea) trafficArea));
 		}
 
-		return traffixArea;
+		return trafficArea;
 	}
 
 	public void unmarshalTransportationComplex(AbstractTransportationComplexType src, TransportationComplex dest) {

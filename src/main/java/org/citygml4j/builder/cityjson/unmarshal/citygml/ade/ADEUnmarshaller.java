@@ -4,6 +4,7 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
@@ -26,8 +27,12 @@ public class ADEUnmarshaller {
         return null;
     }
 
-    public void unmarshalExtensionAttribute(String name, Object value, AbstractCityObject dest) {
-        System.out.println("unmarshalling extension attribute " + name + " for " + dest);
+    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEComponent parent) {
+        return false;
+    }
+
+    public void unmarshalExtensionAttribute(String name, Object value, AbstractCityObject parent) {
+        System.out.println("unmarshalling extension attribute " + name + " for " + parent);
     }
 
 }
