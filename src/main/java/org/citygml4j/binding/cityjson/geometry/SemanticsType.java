@@ -33,7 +33,7 @@ public class SemanticsType {
 	String type;
 	private Integer parent;
 	private List<Integer> children;
-	private transient Map<String, Object> properties;
+	private transient Map<String, Object> attributes;
 	private transient List<String> attributeNames;
 	
 	public SemanticsType() {
@@ -87,33 +87,33 @@ public class SemanticsType {
 		children = null;
 	}
 	
-	public boolean isSetProperties() {
-		return properties != null;
+	public boolean isSetAttributes() {
+		return attributes != null;
 	}
 	
-	public void addProperty(String name, Object value) {
-		if (properties == null)
-			properties = new HashMap<>();
+	public void addAttribute(String name, Object value) {
+		if (attributes == null)
+			attributes = new HashMap<>();
 		
-		properties.put(name, value);
+		attributes.put(name, value);
 	}
 	
-	public Map<String, Object> getProperties() {
-		return properties;
+	public Map<String, Object> getAttributes() {
+		return attributes;
 	}
 	
-	public void setProperties(Map<String, Object> properties) {
+	public void setAttributes(Map<String, Object> properties) {
 		if (type != null)
-			this.properties = properties;
+			this.attributes = properties;
 	}
 	
-	public void removeProperty(String name) {
-		if (properties != null)
-			properties.remove(name);
+	public void removeAttribute(String name) {
+		if (attributes != null)
+			attributes.remove(name);
 	}
 	
-	public void unsetProperties() {
-		properties = null;
+	public void unsetAttributes() {
+		attributes = null;
 	}
 
 	protected List<String> getAttributeNames() {

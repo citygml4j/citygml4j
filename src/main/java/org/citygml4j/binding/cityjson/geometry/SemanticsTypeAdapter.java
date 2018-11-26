@@ -28,6 +28,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
+import org.citygml4j.binding.cityjson.CityJSONRegistry;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -56,8 +57,8 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 			object.add("children", context.serialize(semantics.getChildren()));
 
 		// serialize properties
-		if (semantics.isSetProperties()) {
-			JsonObject properties = context.serialize(semantics.getProperties()).getAsJsonObject();
+		if (semantics.isSetAttributes()) {
+			JsonObject properties = context.serialize(semantics.getAttributes()).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : properties.entrySet())
 				object.add(entry.getKey(), entry.getValue());
 		}
@@ -67,41 +68,50 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 
 	@Override
 	public SemanticsType deserialize(JsonElement json, Type typeOfSrc, JsonDeserializationContext context) throws JsonParseException {
+		SemanticsType semantics = null;
 		JsonObject object = json.getAsJsonObject();
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
-			SemanticsType semantics = new SemanticsType(type.getAsString());
+			if (type.getAsString().startsWith("+")) {
+				Class<?> semanticsTypeClass = CityJSONRegistry.getInstance().getSemanticSurfaceClass(type.getAsString());
+				if (semanticsTypeClass != null) {
+					semantics = context.deserialize(object, semanticsTypeClass);
+					semantics.type = type.getAsString();
+				}
+			} else
+				semantics = new SemanticsType(type.getAsString());
 
-			Number parent = context.deserialize(object.get("parent"), Integer.class);
-			if (parent != null)
-				semantics.setParent(parent.intValue());
+			if (semantics != null) {
+				Number parent = context.deserialize(object.get("parent"), Integer.class);
+				if (parent != null)
+					semantics.setParent(parent.intValue());
 
-			List<Integer> children = context.deserialize(object.get("children"), new TypeToken<List<Integer>>(){}.getType());
-			if (children != null)
-				semantics.setChildren(children);
+				List<Integer> children = context.deserialize(object.get("children"), new TypeToken<List<Integer>>() {
+				}.getType());
+				if (children != null)
+					semantics.setChildren(children);
 
-			// deserialize properties
-			Map<String, Object> properties = new HashMap<>();
-			List<String> predefined = semantics.getAttributeNames();
+				// deserialize properties
+				Map<String, Object> properties = new HashMap<>();
+				List<String> predefined = semantics.getAttributeNames();
 
-			for (Entry<String, JsonElement> entry : object.entrySet()) {
-				String key = entry.getKey();
-				if (predefined.contains(key))
-					continue;
+				for (Entry<String, JsonElement> entry : object.entrySet()) {
+					String key = entry.getKey();
+					if (predefined.contains(key))
+						continue;
 
-				Object value = deserialize(entry.getValue(), context);
-				if (value != null)
-					properties.put(key, value);
+					Object value = deserialize(entry.getValue(), context);
+					if (value != null)
+						properties.put(key, value);
+				}
+
+				if (!properties.isEmpty())
+					semantics.setAttributes(properties);
 			}
-
-			if (!properties.isEmpty())
-				semantics.setProperties(properties);
-
-			return semantics;
 		}
 
-		return null;
+		return semantics;
 	}
 
 	private Object deserialize(JsonElement element, JsonDeserializationContext context) {

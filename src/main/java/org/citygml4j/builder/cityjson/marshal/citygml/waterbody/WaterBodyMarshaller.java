@@ -188,7 +188,7 @@ public class WaterBodyMarshaller {
 
 	private void marshalWaterSurface(WaterSurface src, SemanticsType dest) {
 		if (src.isSetWaterLevel())
-			dest.addProperty("waterLevel", src.getWaterLevel().getValue());
+			dest.addAttribute("waterLevel", src.getWaterLevel().getValue());
 	}
 
 	private Map<Integer, MultiSurface> preprocessGeometry(WaterBody waterBody) {

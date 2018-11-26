@@ -303,8 +303,8 @@ public class TunnelUnmarshaller {
 	public void unmarshalAbstractBoundarySurface(SemanticsType src, AbstractBoundarySurface dest, List<AbstractSurface> surfaces, Number lod) {
 		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
 		
-		if (src.isSetProperties())
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getProperties(), dest);
+		if (src.isSetAttributes())
+			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
 
 		MultiSurface multiSurface = new MultiSurface();
 		for (AbstractSurface surface : surfaces)
@@ -363,8 +363,8 @@ public class TunnelUnmarshaller {
 	}
 
 	public void unmarshalAbstractOpening(SemanticsType src, AbstractOpening dest, List<AbstractSurface> surfaces, Number lod) {
-		if (src.isSetProperties())
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getProperties(), dest);
+		if (src.isSetAttributes())
+			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
 
 		if (lod.intValue() == 3) {
 			MultiSurface multiSurface = new MultiSurface();

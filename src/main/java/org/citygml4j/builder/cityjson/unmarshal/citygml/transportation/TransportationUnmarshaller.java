@@ -175,32 +175,32 @@ public class TransportationUnmarshaller {
 	public void unmarshalTrafficArea(SemanticsType src, TrafficArea dest, List<AbstractSurface> surfaces, Number lod) {
 		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
 		
-		if (src.isSetProperties()) {
-			Object attribute = src.getProperties().get("surfaceMaterial");
+		if (src.isSetAttributes()) {
+			Object attribute = src.getAttributes().get("surfaceMaterial");
 			if (attribute instanceof String) {
 				dest.setSurfaceMaterial(new Code((String)attribute));
-				src.getProperties().remove("surfaceMaterial");
+				src.getAttributes().remove("surfaceMaterial");
 			}
 			
-			attribute = src.getProperties().get("class");
+			attribute = src.getAttributes().get("class");
 			if (attribute instanceof String) {
 				dest.setClazz(new Code((String)attribute));
-				src.getProperties().remove("class");
+				src.getAttributes().remove("class");
 			}
 			
-			attribute = src.getProperties().get("function");
+			attribute = src.getAttributes().get("function");
 			if (attribute instanceof String) {
 				dest.addFunction(new Code((String)attribute));
-				src.getProperties().remove("function");
+				src.getAttributes().remove("function");
 			}
 			
-			attribute = src.getProperties().get("usage");
+			attribute = src.getAttributes().get("usage");
 			if (attribute instanceof String) {
 				dest.addFunction(new Code((String)attribute));
-				src.getProperties().remove("usage");
+				src.getAttributes().remove("usage");
 			}
 			
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getProperties(), dest);
+			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
 		}
 		
 		MultiSurface multiSurface = new MultiSurface();
@@ -227,32 +227,32 @@ public class TransportationUnmarshaller {
 	public void unmarshalAuxiliaryTrafficArea(SemanticsType src, AuxiliaryTrafficArea dest, List<AbstractSurface> surfaces, Number lod) {
 		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
 		
-		if (src.isSetProperties()) {
-			Object attribute = src.getProperties().get("surfaceMaterial");
+		if (src.isSetAttributes()) {
+			Object attribute = src.getAttributes().get("surfaceMaterial");
 			if (attribute instanceof String) {
 				dest.setSurfaceMaterial(new Code((String)attribute));
-				src.getProperties().remove("surfaceMaterial");
+				src.getAttributes().remove("surfaceMaterial");
 			}
 			
-			attribute = src.getProperties().get("class");
+			attribute = src.getAttributes().get("class");
 			if (attribute instanceof String) {
 				dest.setClazz(new Code((String)attribute));
-				src.getProperties().remove("class");
+				src.getAttributes().remove("class");
 			}
 			
-			attribute = src.getProperties().get("function");
+			attribute = src.getAttributes().get("function");
 			if (attribute instanceof String) {
 				dest.addFunction(new Code((String)attribute));
-				src.getProperties().remove("function");
+				src.getAttributes().remove("function");
 			}
 			
-			attribute = src.getProperties().get("usage");
+			attribute = src.getAttributes().get("usage");
 			if (attribute instanceof String) {
 				dest.addFunction(new Code((String)attribute));
-				src.getProperties().remove("usage");
+				src.getAttributes().remove("usage");
 			}
 			
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getProperties(), dest);
+			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
 		}
 		
 		MultiSurface multiSurface = new MultiSurface();

@@ -22,6 +22,8 @@ import org.citygml4j.binding.cityjson.feature.TunnelInstallationType;
 import org.citygml4j.binding.cityjson.feature.TunnelPartType;
 import org.citygml4j.binding.cityjson.feature.TunnelType;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
+import org.citygml4j.binding.cityjson.geometry.SemanticsType;
+import org.citygml4j.model.citygml.ade.ADEException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,10 +31,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CityJSONRegistry {
     private static CityJSONRegistry instance;
 
-    private final Map<String, Class<? extends AbstractCityObjectType>> typeToClass;
+    private final Map<String, Class<? extends AbstractCityObjectType>> types;
+    private final Map<String, Class<? extends SemanticsType>> semanticSurfaces;
+    private final Map<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> attributes;
 
     private CityJSONRegistry() {
-        typeToClass = new ConcurrentHashMap<>();
+        types = new ConcurrentHashMap<>();
+        semanticSurfaces = new ConcurrentHashMap<>();
+        attributes = new ConcurrentHashMap<>();
 
         registerType("Building", BuildingType.class);
         registerType("BuildingPart", BuildingPartType.class);
@@ -66,7 +72,7 @@ public class CityJSONRegistry {
 
     public String getCityObjectType(AbstractCityObjectType cityObject) {
         String type = null;
-        for (Map.Entry<String, Class<? extends AbstractCityObjectType>> entry : typeToClass.entrySet()) {
+        for (Map.Entry<String, Class<? extends AbstractCityObjectType>> entry : types.entrySet()) {
             if (cityObject.getClass() == entry.getValue()) {
                 type = entry.getKey();
                 break;
@@ -80,7 +86,7 @@ public class CityJSONRegistry {
     }
 
     public Class<?> getCityObjectClass(String type) {
-        Class<?> typeClass = typeToClass.get(type);
+        Class<?> typeClass = types.get(type);
         if (typeClass == null) {
             try {
                 Class<?> tmp = Class.forName(type);
@@ -94,7 +100,129 @@ public class CityJSONRegistry {
         return typeClass;
     }
 
+    public void registerCityObject(String type, Class<? extends AbstractCityObjectType> typeClass) throws ADEException {
+        if (type == null)
+            throw new ADEException("The city object type must not be null.");
+
+        if (!type.startsWith("+"))
+            throw new ADEException("The city object type '" + type + "' must start with a '+'.");
+
+        if (typeClass == null)
+            throw new ADEException("The city object type class must not be null.");
+
+        if (types.containsKey(type))
+            throw new ADEException("The city object type '" + type + "' is already registered.");
+
+        if (types.containsValue(typeClass))
+            throw new ADEException("The city object type class '" + typeClass.getTypeName() + "' is already registered.");
+
+        registerType(type, typeClass);
+    }
+
     private void registerType(String type, Class<? extends AbstractCityObjectType> typeClass) {
-        typeToClass.put(type, typeClass);
+        types.put(type, typeClass);
+    }
+
+    public void unregisterCityObject(String type) throws ADEException {
+        if (type == null)
+            throw new ADEException("The city object type must not be null.");
+
+        if (!type.startsWith("+"))
+            throw new ADEException("The city object type '" + type + "' must start with a '+'.");
+
+        types.remove(type);
+    }
+
+    public Class<?> getSemanticSurfaceClass(String type) {
+        Class<?> typeClass = semanticSurfaces.get(type);
+        if (typeClass == null) {
+            try {
+                Class<?> tmp = Class.forName(type);
+                if (SemanticsType.class.isAssignableFrom(tmp))
+                    typeClass = tmp;
+            } catch (ClassNotFoundException e) {
+                //
+            }
+        }
+
+        return typeClass;
+    }
+
+    public void registerSemanticSurface(String type, Class<? extends SemanticsType> semanticSurfaceClass) throws ADEException {
+        if (type == null)
+            throw new ADEException("The semantic surface type must not be null.");
+
+        if (!type.startsWith("+"))
+            throw new ADEException("The semantic surface type '" + type + "' must start with a '+'.");
+
+        if (semanticSurfaceClass == null)
+            throw new ADEException("The semantic surface class must not be null.");
+
+        if (semanticSurfaces.containsKey(type))
+            throw new ADEException("The semantic surface type '" + type + "' is already registered.");
+
+        if (semanticSurfaces.containsValue(semanticSurfaceClass))
+            throw new ADEException("The semantic surface class '" + semanticSurfaceClass.getTypeName() + "' is already registered.");
+
+        semanticSurfaces.put(type, semanticSurfaceClass);
+    }
+
+    public void unregisterSemanticSurface(String type) throws ADEException {
+        if (type == null)
+            throw new ADEException("The semantic surface type must not be null.");
+
+        if (!type.startsWith("+"))
+            throw new ADEException("The semantic surface type '" + type + "' must start with a '+'.");
+
+        semanticSurfaces.remove(type);
+    }
+
+    public Class<?> getExtensionAttributeClass(String propertyName, AbstractCityObjectType target) {
+        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> entry : attributes.entrySet()) {
+            if (entry.getKey().isInstance(target))
+                return entry.getValue().get(propertyName);
+        }
+
+        return null;
+    }
+
+    public void registerExtensionAttribute(String name, Class<?> attributeClass, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
+        if (name == null)
+            throw new ADEException("The extension attribute name must not be null.");
+
+        if (!name.startsWith("+"))
+            throw new ADEException("The extension attribute name '" + name + "' must start with a '+'.");
+
+        if (attributeClass == null)
+            throw new ADEException("The extension attribute class must not be null.");
+
+        if (targetClass == null)
+            throw new ADEException("The extension attribute target class must not be null.");
+
+        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> entry : attributes.entrySet()) {
+            if (entry.getKey().isAssignableFrom(targetClass) || targetClass.isAssignableFrom(entry.getKey())) {
+                if (entry.getValue().containsKey(name))
+                    throw new ADEException("The extension attribute '" + name + "' is already registered with " + entry.getKey().getTypeName());
+            }
+        }
+
+        Map<String, Class<?>> attribute = attributes.computeIfAbsent(targetClass, v -> new ConcurrentHashMap<>());
+        attribute.put(name, attributeClass);
+    }
+
+    public void unregisterExtensionAttribute(String name, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
+        if (name == null)
+            throw new ADEException("The extension attribute name must not be null.");
+
+        if (!name.startsWith("+"))
+            throw new ADEException("The extension attribute name '" + name + "' must start with a '+'.");
+
+        if (targetClass == null)
+            throw new ADEException("The extension attribute target class must not be null.");
+
+        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> entry : attributes.entrySet()) {
+            if (entry.getKey().isAssignableFrom(targetClass) || targetClass.isAssignableFrom(entry.getKey()))
+                entry.getValue().remove(name);
+        }
     }
 }

@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import org.citygml4j.binding.cityjson.CityJSON;
+import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -46,6 +47,7 @@ import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
@@ -76,6 +78,7 @@ import org.citygml4j.util.walker.GeometryWalker;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -129,19 +132,33 @@ public class CoreUnmarshaller {
 
 			if (attributes.isSetGenericAttributes())
 				citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(attributes, dest);
+
+			if (attributes.isSetExtensionAttributes()) {
+				CityJSONRegistry registry = CityJSONRegistry.getInstance();
+				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet()) {
+					Class<?> attributeClass = registry.getExtensionAttributeClass(entry.getKey(), src);
+					if (attributeClass != null && attributeClass.isInstance(entry.getValue()))
+						json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), dest);
+				}
+			}
 		}
 	}
 	
 	public void unmarshalCityModel(CityJSON src, CityModel dest) {
 		boolean hasGroups = false;
-		for (AbstractCityObjectType type : src.getCityObjects()) {	
-			AbstractCityObject cityObject = citygml.unmarshal(type, src);
-			if (cityObject != null) {
-				dest.addCityObjectMember(new CityObjectMember(cityObject));
+		for (AbstractCityObjectType type : src.getCityObjects()) {
 
-				if (cityObject instanceof CityObjectGroup)
-					hasGroups = true;
+			AbstractFeature cityObject;
+			if (type.getType().startsWith("+")) {
+				cityObject = json.getADEUnmarshaller().unmarshalCityObject(type, src, dest);
+			} else {
+				cityObject = citygml.unmarshal(type, src);
+				if (cityObject != null)
+					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
 			}
+
+			if (!hasGroups && cityObject instanceof CityObjectGroup)
+				hasGroups = true;
 		}
 
 		// postprocess group members

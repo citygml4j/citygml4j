@@ -189,12 +189,12 @@ public class TransportationMarshaller {
 
 	private void marshalTrafficArea(TrafficArea src, SemanticsType dest) {
 		if (src.isSetClazz())
-			dest.addProperty("class", src.getClazz().getValue());
+			dest.addAttribute("class", src.getClazz().getValue());
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction()) {
 				if (function.isSetValue()) {
-					dest.addProperty("function", function.getValue());
+					dest.addAttribute("function", function.getValue());
 					break;
 				}
 			}
@@ -203,24 +203,24 @@ public class TransportationMarshaller {
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage()) {
 				if (usage.isSetValue()) {
-					dest.addProperty("usage", usage.getValue());
+					dest.addAttribute("usage", usage.getValue());
 					break;
 				}
 			}
 		}
 
 		if (src.isSetSurfaceMaterial())
-			dest.addProperty("surfaceMaterial", src.getSurfaceMaterial().getValue());
+			dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
 	}
 
 	private void marshalAuxiliaryTrafficArea(AuxiliaryTrafficArea src, SemanticsType dest) {
 		if (src.isSetClazz())
-			dest.addProperty("class", src.getClazz().getValue());
+			dest.addAttribute("class", src.getClazz().getValue());
 
 		if (src.isSetFunction()) {
 			for (Code function : src.getFunction()) {
 				if (function.isSetValue()) {
-					dest.addProperty("function", function.getValue());
+					dest.addAttribute("function", function.getValue());
 					break;
 				}
 			}
@@ -229,14 +229,14 @@ public class TransportationMarshaller {
 		if (src.isSetUsage()) {
 			for (Code usage : src.getUsage()) {
 				if (usage.isSetValue()) {
-					dest.addProperty("usage", usage.getValue());
+					dest.addAttribute("usage", usage.getValue());
 					break;
 				}
 			}
 		}
 
 		if (src.isSetSurfaceMaterial())
-			dest.addProperty("surfaceMaterial", src.getSurfaceMaterial().getValue());
+			dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
 	}
 
 

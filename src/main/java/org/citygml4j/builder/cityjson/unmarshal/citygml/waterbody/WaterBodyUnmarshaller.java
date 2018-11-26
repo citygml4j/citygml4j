@@ -165,8 +165,8 @@ public class WaterBodyUnmarshaller {
 	public void unmarshalAbstractWaterBoundarySurface(SemanticsType src, AbstractWaterBoundarySurface dest, List<AbstractSurface> surfaces, Number lod) {
 		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
 		
-		if (src.isSetProperties())
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getProperties(), dest);
+		if (src.isSetAttributes())
+			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
 		
 		CompositeSurface compositeSurface = new CompositeSurface();
 		for (AbstractSurface surface : surfaces)
@@ -185,11 +185,11 @@ public class WaterBodyUnmarshaller {
 	public WaterSurface unmarshalWaterSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
 		WaterSurface dest = new WaterSurface();
 		
-		if (src.isSetProperties()) {
-			Object attribute = src.getProperties().get("waterLevel");
+		if (src.isSetAttributes()) {
+			Object attribute = src.getAttributes().get("waterLevel");
 			if (attribute instanceof String) {
 				dest.setWaterLevel(new Code((String)attribute));
-				src.getProperties().remove("waterLevel");
+				src.getAttributes().remove("waterLevel");
 			}
 		}
 		

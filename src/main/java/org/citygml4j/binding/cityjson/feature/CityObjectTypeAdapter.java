@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectType>, JsonDeserializer<AbstractCityObjectType> {
+	private final CityJSONRegistry registry = CityJSONRegistry.getInstance();
 	private CityObjectTypeFilter typeFilter;
 	
 	public CityObjectTypeAdapter withTypeFilter(CityObjectTypeFilter inputFilter) {
@@ -59,10 +60,17 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		if (result != null && cityObject.isSetAttributes()) {
 			JsonObject object = result.getAsJsonObject().getAsJsonObject("attributes");
 
+			// serialize extension attributes
+			if (cityObject.attributes.isSetExtensionAttributes()) {
+				JsonObject attributes = context.serialize(cityObject.attributes.getExtensionAttributes()).getAsJsonObject();
+				for (Map.Entry<String, JsonElement> entry : attributes.entrySet())
+					object.add(entry.getKey(), entry.getValue());
+			}
+
 			// serialize generic attributes
 			if (cityObject.attributes.isSetGenericAttributes()) {
-				JsonObject properties = context.serialize(cityObject.attributes.getGenericAttributes()).getAsJsonObject();
-				for (Map.Entry<String, JsonElement> entry : properties.entrySet())
+				JsonObject attributes = context.serialize(cityObject.attributes.getGenericAttributes()).getAsJsonObject();
+				for (Map.Entry<String, JsonElement> entry : attributes.entrySet())
 					object.add(entry.getKey(), entry.getValue());
 			}
 		}
@@ -77,7 +85,7 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
-			Class<?> typeClass = CityJSONRegistry.getInstance().getCityObjectClass(type.getAsString());
+			Class<?> typeClass = registry.getCityObjectClass(type.getAsString());
 			if (typeClass != null && (typeFilter == null || typeFilter.accept(type.getAsString()))) {
 				cityObject = context.deserialize(object, typeClass);
 				cityObject.type = type.getAsString();
@@ -94,10 +102,24 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 					List<String> predefined = cityObject.attributes.getAttributeNames();
 
 					for (Map.Entry<String, JsonElement> entry : attributes.entrySet()) {
+						// skip attributes defined by the city object type
 						String key = entry.getKey();
 						if (predefined.contains(key))
 							continue;
 
+						// check whether we found a registered extension attribute
+						if (entry.getKey().startsWith("+")) {
+							Class<?> extensionAttributeClass = registry.getExtensionAttributeClass(entry.getKey(), cityObject);
+							if (extensionAttributeClass != null) {
+								Object value = context.deserialize(entry.getValue(), extensionAttributeClass);
+								if (value != null) {
+									cityObject.attributes.addExtensionAttribute(entry.getKey(), value);
+									continue;
+								}
+							}
+						}
+
+						// otherwise, map the attribute to a generic attribute
 						Object value = deserialize(entry.getValue(), context);
 						if (value != null)
 							genericAttributes.put(key, value);

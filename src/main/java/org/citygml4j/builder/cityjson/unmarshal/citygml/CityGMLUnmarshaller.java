@@ -143,16 +143,20 @@ public class CityGMLUnmarshaller {
 				parent = root;
 
 			AbstractCityObject cityObject = null;
-			if (parent instanceof BridgeModuleComponent)
-				cityObject = brid.unmarshalSemantics(semanticsType, tmp, lod, parent);
-			else if (parent instanceof BuildingModuleComponent)
-				cityObject = bldg.unmarshalSemantics(semanticsType, tmp, lod, parent);
-			else if (parent instanceof TransportationModuleComponent)
-				cityObject = tran.unmarshalSemantics(semanticsType, tmp, lod, parent);
-			else if (parent instanceof TunnelModuleComponent)
-				cityObject = tun.unmarshalSemantics(semanticsType, tmp, lod, parent);
-			else if (parent instanceof WaterBodyModuleComponent)
-				cityObject = wtr.unmarshalSemantics(semanticsType, tmp, lod, parent);
+			if (semanticsType.getType().startsWith("+")) {
+				cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
+			} else {
+				if (parent instanceof BridgeModuleComponent)
+					cityObject = brid.unmarshalSemantics(semanticsType, tmp, lod, parent);
+				else if (parent instanceof BuildingModuleComponent)
+					cityObject = bldg.unmarshalSemantics(semanticsType, tmp, lod, parent);
+				else if (parent instanceof TransportationModuleComponent)
+					cityObject = tran.unmarshalSemantics(semanticsType, tmp, lod, parent);
+				else if (parent instanceof TunnelModuleComponent)
+					cityObject = tun.unmarshalSemantics(semanticsType, tmp, lod, parent);
+				else if (parent instanceof WaterBodyModuleComponent)
+					cityObject = wtr.unmarshalSemantics(semanticsType, tmp, lod, parent);
+			}
 
 			if (cityObject != null)
 				parents.put(index, cityObject);

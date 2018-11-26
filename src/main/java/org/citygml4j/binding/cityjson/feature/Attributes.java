@@ -41,6 +41,7 @@ public class Attributes {
 	private String function;
 	private String usage;
 	private transient Map<String, Object> genericAttributes;
+	private transient Map<String, Object> extensionAttributes;
 	private transient List<String> attributeNames;
 
 	public boolean isSetCreationDate() {
@@ -167,13 +168,42 @@ public class Attributes {
 		genericAttributes = null;
 	}
 
+	public boolean isSetExtensionAttributes() {
+		return extensionAttributes != null;
+	}
+
+	public void addExtensionAttribute(String name, Object value) {
+		if (extensionAttributes == null)
+			extensionAttributes = new HashMap<>();
+
+		extensionAttributes.put(name, value);
+	}
+
+	public Map<String, Object> getExtensionAttributes() {
+		return extensionAttributes;
+	}
+
+	public void setExtensionAttributes(Map<String, Object> extensionAttributes) {
+		this.extensionAttributes = extensionAttributes;
+	}
+
+	public void removeExtensionAttribute(String name) {
+		if (extensionAttributes != null)
+			extensionAttributes.remove(name);
+	}
+
+	public void unsetExtensionAttributes() {
+		extensionAttributes = null;
+	}
+
 	public boolean hasAttributes() {
 		return creationDate != null
 				|| terminationDate != null
 				|| clazz != null
 				|| function!= null
 				|| usage != null
-				|| genericAttributes != null;
+				|| genericAttributes != null
+				|| extensionAttributes != null;
 	}
 
 	protected List<String> getAttributeNames() {

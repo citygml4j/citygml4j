@@ -165,7 +165,7 @@ public class GenericsMarshaller {
 		for (AbstractGenericAttribute attribute : src) {
 			Object value = marshalGenericAttribute(attribute);
 			if (value != null)
-				dest.addProperty(attribute.getName(), value);
+				dest.addAttribute(attribute.getName(), value);
 		}
 	}
 	
