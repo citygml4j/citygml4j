@@ -48,7 +48,7 @@ public class LandUseMarshaller {
 	}
 	
 	public void marshalLandUse(LandUse src, LandUseType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
@@ -71,9 +71,9 @@ public class LandUseMarshaller {
 				}
 			}
 		}
-		
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 		
 		if (src.isSetLod0MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface());

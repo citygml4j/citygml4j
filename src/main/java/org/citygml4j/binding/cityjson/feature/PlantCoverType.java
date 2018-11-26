@@ -18,12 +18,9 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class PlantCoverType extends AbstractVegetationObjectType {
-	@JsonAdapter(PlantCoverAttributesAdapter.class)
-	private PlantCoverAttributes attributes;
 
 	public PlantCoverType() {
 	}
@@ -31,30 +28,15 @@ public class PlantCoverType extends AbstractVegetationObjectType {
 	public PlantCoverType(String gmlId) {
 		super(gmlId);
 	}
-	
+
 	@Override
 	public PlantCoverAttributes newAttributes() {
-		attributes = new PlantCoverAttributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
+		return super.newAttributes(new PlantCoverAttributes());
 	}
 
 	@Override
 	public PlantCoverAttributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(PlantCoverAttributes attributes) {
-		this.attributes = attributes;
-	}
-
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return (PlantCoverAttributes) attributes;
 	}
 
 	@Override

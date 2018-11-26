@@ -116,7 +116,7 @@ public class BridgeMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalAbstractBridge(AbstractBridge src, AbstractBridgeType dest) {
-		BridgeAttributes attributes = new BridgeAttributes();
+		BridgeAttributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -149,8 +149,8 @@ public class BridgeMarshaller {
 		if (src.isSetIsMovable())
 			attributes.setIsMovable(src.getIsMovable());
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -279,7 +279,7 @@ public class BridgeMarshaller {
 	}
 	
 	public void marshalBridgeConstructionElement(BridgeConstructionElement src, BridgeConstructionElementType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -303,8 +303,8 @@ public class BridgeMarshaller {
 			}
 		}
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -346,7 +346,7 @@ public class BridgeMarshaller {
 	}
 
 	public void marshalBridgeInstallation(BridgeInstallation src, BridgeInstallationType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -370,8 +370,8 @@ public class BridgeMarshaller {
 			}
 		}
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);

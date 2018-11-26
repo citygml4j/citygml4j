@@ -18,12 +18,9 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class GenericCityObjectType extends AbstractCityObjectType {
-	@JsonAdapter(AttributesAdapter.class)
-	private Attributes attributes;
 
 	public GenericCityObjectType() {
 	}
@@ -31,30 +28,10 @@ public class GenericCityObjectType extends AbstractCityObjectType {
 	public GenericCityObjectType(String gmlId) {
 		super(gmlId);
 	}
-	
+
 	@Override
 	public Attributes newAttributes() {
-		attributes = new Attributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
-	}
-
-	@Override
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
-	}
-	
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return super.newAttributes(new Attributes());
 	}
 
 	@Override

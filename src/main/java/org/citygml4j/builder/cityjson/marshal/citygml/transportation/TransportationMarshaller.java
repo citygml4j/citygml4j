@@ -91,7 +91,7 @@ public class TransportationMarshaller {
 	}
 	
 	public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest) {
-		TransportationComplexAttributes attributes = new TransportationComplexAttributes();
+		TransportationComplexAttributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -135,8 +135,8 @@ public class TransportationMarshaller {
 			}
 		}
 		
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 		
 		if (src.isSetTrafficArea() || src.isSetAuxiliaryTrafficArea())
 			preprocessGeometry(src);

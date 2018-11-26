@@ -111,7 +111,7 @@ public class TunnelMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest) {
-		TunnelAttributes attributes = new TunnelAttributes();
+		TunnelAttributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -141,8 +141,8 @@ public class TunnelMarshaller {
 		if (src.isSetYearOfDemolition())
 			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -247,7 +247,7 @@ public class TunnelMarshaller {
 	}
 
 	public void marshalTunnelInstallation(TunnelInstallation src, TunnelInstallationType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -271,8 +271,8 @@ public class TunnelMarshaller {
 			}
 		}
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);

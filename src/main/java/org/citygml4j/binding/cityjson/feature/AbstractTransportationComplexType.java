@@ -18,12 +18,9 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public abstract class AbstractTransportationComplexType extends AbstractCityObjectType {
-	@JsonAdapter(TransportationComplexAttributesAdapter.class)
-	private TransportationComplexAttributes attributes;
 
 	public AbstractTransportationComplexType() {
 	}
@@ -34,27 +31,12 @@ public abstract class AbstractTransportationComplexType extends AbstractCityObje
 	
 	@Override
 	public TransportationComplexAttributes newAttributes() {
-		attributes = new TransportationComplexAttributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
+		return super.newAttributes(new TransportationComplexAttributes());
 	}
 
 	@Override
 	public TransportationComplexAttributes getAttributes() {
-		return attributes;
-	}
-	
-	public void setAttributes(TransportationComplexAttributes attributes) {
-		this.attributes = attributes;
-	}
-
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return (TransportationComplexAttributes) attributes;
 	}
 	
 	@Override

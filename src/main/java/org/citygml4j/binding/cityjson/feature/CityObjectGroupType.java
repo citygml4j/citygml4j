@@ -19,7 +19,6 @@
 
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
@@ -27,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CityObjectGroupType extends AbstractCityObjectType {
-    @JsonAdapter(AttributesAdapter.class)
-    private Attributes attributes;
     private List<String> members = new ArrayList<>();
 
     public CityObjectGroupType() {
@@ -56,27 +53,7 @@ public class CityObjectGroupType extends AbstractCityObjectType {
 
     @Override
     public Attributes newAttributes() {
-        attributes = new Attributes();
-        return attributes;
-    }
-
-    @Override
-    public boolean isSetAttributes() {
-        return attributes != null;
-    }
-
-    @Override
-    public Attributes getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
-    }
-
-    @Override
-    public void unsetAttributes() {
-        attributes = null;
+        return super.newAttributes(new Attributes());
     }
 
     public boolean isSetMembers() {

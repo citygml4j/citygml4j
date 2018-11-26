@@ -18,15 +18,12 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractBridgeType extends AbstractCityObjectType {
-	@JsonAdapter(BridgeAttributesAdapter.class)
-	private BridgeAttributes attributes;
 	private AddressType address;
 	private List<String> children;
 
@@ -39,27 +36,12 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 	
 	@Override
 	public BridgeAttributes newAttributes() {
-		attributes = new BridgeAttributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
+		return super.newAttributes(new BridgeAttributes());
 	}
 
 	@Override
 	public BridgeAttributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(BridgeAttributes attributes) {
-		this.attributes = attributes;
-	}
-	
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return (BridgeAttributes) attributes;
 	}
 	
 	public boolean isSetAddress() {

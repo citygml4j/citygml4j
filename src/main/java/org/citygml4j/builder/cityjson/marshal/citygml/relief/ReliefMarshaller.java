@@ -65,11 +65,11 @@ public class ReliefMarshaller {
 	}
 	
 	public void marshalTINRelief(TINRelief src, TINReliefType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
-		
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 		
 		if (src.isSetTin()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getTin());

@@ -18,15 +18,12 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractTunnelType extends AbstractCityObjectType {
-	@JsonAdapter(TunnelAttributesAdapter.class)
-	private TunnelAttributes attributes;
 	private List<String> children;
 
 	public AbstractTunnelType() {
@@ -38,27 +35,12 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 	
 	@Override
 	public TunnelAttributes newAttributes() {
-		attributes = new TunnelAttributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
+		return super.newAttributes(new TunnelAttributes());
 	}
 
 	@Override
 	public TunnelAttributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(TunnelAttributes attributes) {
-		this.attributes = attributes;
-	}
-	
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return (TunnelAttributes) attributes;
 	}
 
 	public boolean isSetChildren() {

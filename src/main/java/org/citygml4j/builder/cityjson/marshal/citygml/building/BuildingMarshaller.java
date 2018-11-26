@@ -113,7 +113,7 @@ public class BuildingMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest) {
-		BuildingAttributes attributes = new BuildingAttributes();
+		BuildingAttributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -169,8 +169,8 @@ public class BuildingMarshaller {
 		if (src.isSetYearOfDemolition())
 			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -293,7 +293,7 @@ public class BuildingMarshaller {
 	}
 
 	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -317,8 +317,8 @@ public class BuildingMarshaller {
 			}
 		}
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);

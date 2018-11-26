@@ -55,7 +55,7 @@ public class VegetationMarshaller {
 	}
 
 	public void marshalPlantCover(PlantCover src, PlantCoverType dest) {
-		PlantCoverAttributes attributes = new PlantCoverAttributes();
+		PlantCoverAttributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -81,9 +81,9 @@ public class VegetationMarshaller {
 
 		if (src.isSetAverageHeight())
 			attributes.setAverageHeight(src.getAverageHeight().getValue());
-		
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 		
 		if (src.isSetLod1MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
@@ -142,7 +142,7 @@ public class VegetationMarshaller {
 	}
 
 	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest) {
-		SolitaryVegetationObjectAttributes attributes = new SolitaryVegetationObjectAttributes();
+		SolitaryVegetationObjectAttributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -173,10 +173,10 @@ public class VegetationMarshaller {
 			attributes.setTrunkDiameter(src.getTrunkDiameter().getValue());
 
 		if (src.isSetCrownDiameter())
-			attributes.setCrownDiameter(src.getCrownDiameter().getValue());		
+			attributes.setCrownDiameter(src.getCrownDiameter().getValue());
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		if (src.isSetLod1Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry());

@@ -62,7 +62,7 @@ public class GenericsMarshaller {
 	}
 
 	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
@@ -86,8 +86,8 @@ public class GenericsMarshaller {
 			}
 		}
 		
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 		
 		if (src.isSetLod0Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0Geometry());

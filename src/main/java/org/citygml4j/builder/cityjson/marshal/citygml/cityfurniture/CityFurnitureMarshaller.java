@@ -49,7 +49,7 @@ public class CityFurnitureMarshaller {
 	}
 	
 	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
@@ -73,8 +73,8 @@ public class CityFurnitureMarshaller {
 			}
 		}
 		
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 		
 		if (src.isSetLod1Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry());

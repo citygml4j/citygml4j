@@ -18,12 +18,9 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class TunnelInstallationType extends AbstractCityObjectType {
-	@JsonAdapter(AttributesAdapter.class)
-	private Attributes attributes;
 	private String parent;
 
 	public TunnelInstallationType() {
@@ -32,30 +29,10 @@ public class TunnelInstallationType extends AbstractCityObjectType {
 	public TunnelInstallationType(String gmlId) {
 		super(gmlId);
 	}
-	
+
 	@Override
 	public Attributes newAttributes() {
-		attributes = new Attributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
-	}
-
-	@Override
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
-	}
-
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return super.newAttributes(new Attributes());
 	}
 
 	public boolean isSetParent() {

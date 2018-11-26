@@ -111,7 +111,10 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 				return primitive.getAsBoolean();
 			else if (primitive.isNumber()) {
 				Number value = primitive.getAsNumber();
-				return (value.toString().equals(String.valueOf(value.intValue()))) ? value.intValue() : value.doubleValue();
+				if (value.toString().equals(String.valueOf(value.intValue())))
+					return value.intValue();
+				else
+					return value.doubleValue();
 			} else if (primitive.isString()) {
 				String value = primitive.getAsString();
 				try {

@@ -18,12 +18,9 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
 public class SolitaryVegetationObjectType extends AbstractVegetationObjectType {
-	@JsonAdapter(SolitaryVegetationObjectAttributesAdapter.class)
-	private SolitaryVegetationObjectAttributes attributes;
 
 	public SolitaryVegetationObjectType() {
 	}
@@ -34,27 +31,12 @@ public class SolitaryVegetationObjectType extends AbstractVegetationObjectType {
 	
 	@Override
 	public SolitaryVegetationObjectAttributes newAttributes() {
-		attributes = new SolitaryVegetationObjectAttributes();
-		return attributes;
-	}
-	
-	@Override
-	public boolean isSetAttributes() {
-		return attributes != null;
+		return super.newAttributes(new SolitaryVegetationObjectAttributes());
 	}
 
 	@Override
 	public SolitaryVegetationObjectAttributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(SolitaryVegetationObjectAttributes attributes) {
-		this.attributes = attributes;
-	}
-
-	@Override
-	public void unsetAttributes() {
-		attributes = null;
+		return (SolitaryVegetationObjectAttributes) attributes;
 	}
 
 	@Override

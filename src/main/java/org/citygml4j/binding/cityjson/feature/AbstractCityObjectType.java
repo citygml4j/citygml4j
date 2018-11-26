@@ -30,6 +30,7 @@ import java.util.UUID;
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
 	String type;
+	Attributes attributes;
 	private List<Double> geographicalExtent;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
@@ -38,9 +39,23 @@ public abstract class AbstractCityObjectType {
 
 	public abstract boolean isValidGeometryType(GeometryTypeName type);
 	public abstract Attributes newAttributes();
-	public abstract boolean isSetAttributes();
-	public abstract Attributes getAttributes();
-	public abstract void unsetAttributes();
+
+	protected final <T extends Attributes> T newAttributes(T attributes) {
+		this.attributes = attributes != null ? attributes : new Attributes();
+		return attributes;
+	}
+
+	public Attributes getAttributes() {
+		return attributes;
+	}
+
+	public final boolean isSetAttributes() {
+		return attributes != null;
+	}
+
+	public final void unsetAttributes() {
+		attributes = null;
+	}
 	
 	public AbstractCityObjectType() {
 	}
@@ -131,6 +146,15 @@ public abstract class AbstractCityObjectType {
 			return localProperties.remove(name);
 
 		return null;
+	}
+
+	Class<? extends Attributes> getAttributesClass() {
+		Attributes tmp = attributes;
+		newAttributes();
+		Class<? extends Attributes> attributesClass = attributes != null ? attributes.getClass() : Attributes.class;
+		attributes = tmp;
+
+		return attributesClass;
 	}
 
 }

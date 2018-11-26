@@ -81,7 +81,7 @@ public class WaterBodyMarshaller {
 	}
 
 	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
-		Attributes attributes = new Attributes();
+		Attributes attributes = dest.newAttributes();
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -105,8 +105,8 @@ public class WaterBodyMarshaller {
 			}
 		}
 
-		if (attributes.hasAttributes())
-			dest.setAttributes(attributes);
+		if (!attributes.hasAttributes())
+			dest.unsetAttributes();
 
 		Map<Integer, MultiSurface> multiSurfaces = null;
 		if (src.isSetBoundedBySurface())
