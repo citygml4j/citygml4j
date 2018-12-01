@@ -27,7 +27,7 @@ import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
@@ -80,8 +80,8 @@ public class WaterBodyUnmarshaller {
 				break;
 		}
 
-		if (parent instanceof ADEComponent) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(boundarySurface, lod, (ADEComponent) parent);
+		if (parent instanceof ADEModelObject) {
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(boundarySurface, lod, (ADEModelObject) parent);
 			if (success)
 				return boundarySurface;
 		}

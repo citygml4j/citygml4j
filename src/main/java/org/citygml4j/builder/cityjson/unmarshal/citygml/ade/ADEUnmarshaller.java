@@ -4,7 +4,7 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
@@ -27,7 +27,7 @@ public class ADEUnmarshaller {
         return null;
     }
 
-    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEComponent parent) {
+    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEModelObject parent) {
         return false;
     }
 

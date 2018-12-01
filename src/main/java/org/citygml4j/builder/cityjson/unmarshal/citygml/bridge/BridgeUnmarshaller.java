@@ -33,7 +33,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.bridge.AbstractBridge;
 import org.citygml4j.model.citygml.bridge.AbstractOpening;
@@ -122,8 +122,8 @@ public class BridgeUnmarshaller {
 				break;
 		}
 
-		if (parent instanceof ADEComponent) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, (ADEComponent) parent);
+		if (parent instanceof ADEModelObject) {
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, (ADEModelObject) parent);
 			if (success)
 				return cityObject;
 		}
