@@ -47,6 +47,9 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		if (semantics == null)
 			return null;
 
+		if (semantics.type == null)
+			semantics.type = CityJSONRegistry.getInstance().getSemanticSurfaceType(semantics);
+
 		JsonObject object = new JsonObject();
 		object.add("type", new JsonPrimitive(semantics.getType()));
 

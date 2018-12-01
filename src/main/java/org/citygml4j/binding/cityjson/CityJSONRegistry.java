@@ -133,6 +133,21 @@ public class CityJSONRegistry {
         types.remove(type);
     }
 
+    public String getSemanticSurfaceType(SemanticsType semanticsType) {
+        String type = null;
+        for (Map.Entry<String, Class<? extends SemanticsType>> entry : semanticSurfaces.entrySet()) {
+            if (semanticsType.getClass() == entry.getValue()) {
+                type = entry.getKey();
+                break;
+            }
+        }
+
+        if (type == null)
+            type = semanticsType.getClass().getTypeName();
+
+        return type;
+    }
+
     public Class<?> getSemanticSurfaceClass(String type) {
         Class<?> typeClass = semanticSurfaces.get(type);
         if (typeClass == null) {
