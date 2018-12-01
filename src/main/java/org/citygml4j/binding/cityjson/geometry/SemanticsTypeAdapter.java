@@ -90,8 +90,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 				if (parent != null)
 					semantics.setParent(parent.intValue());
 
-				List<Integer> children = context.deserialize(object.get("children"), new TypeToken<List<Integer>>() {
-				}.getType());
+				List<Integer> children = context.deserialize(object.get("children"), new TypeToken<List<Integer>>(){}.getType());
 				if (children != null)
 					semantics.setChildren(children);
 

@@ -55,9 +55,12 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		if (cityObject.type == null)
 			cityObject.type = CityJSONRegistry.getInstance().getCityObjectType(cityObject);
 
+		if (cityObject.attributes != null && !cityObject.attributes.hasAttributes())
+			cityObject.attributes = null;
+
 		JsonElement result = context.serialize(cityObject);
 
-		if (result != null && cityObject.isSetAttributes()) {
+		if (result != null && cityObject.attributes != null) {
 			JsonObject object = result.getAsJsonObject().getAsJsonObject("attributes");
 
 			// serialize extension attributes
