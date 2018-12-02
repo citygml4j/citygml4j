@@ -131,6 +131,9 @@ public class CityGMLUnmarshaller {
 
 		for (int index : indexes) {
 			SemanticsType semanticsType = src.getSurfaces().get(index);
+			if (semanticsType == null)
+				continue;
+
 			List<AbstractSurface> tmp = surfaces.get(index);
 			if (tmp == null)
 				tmp = Collections.emptyList();
@@ -170,7 +173,7 @@ public class CityGMLUnmarshaller {
 			int weight = 0;
 
 			SemanticsType parent = type;
-			while (parent.isSetParent()) {
+			while (parent != null && parent.isSetParent()) {
 				parent = semanticsObject.getSurfaces().get(parent.getParent());
 				weight++;
 			}
