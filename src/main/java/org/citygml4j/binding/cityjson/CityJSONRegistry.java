@@ -25,6 +25,7 @@ import org.citygml4j.binding.cityjson.feature.WaterBodyType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.ADEException;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,7 +34,7 @@ public class CityJSONRegistry {
 
     private final Map<String, Class<? extends AbstractCityObjectType>> types;
     private final Map<String, Class<? extends SemanticsType>> semanticSurfaces;
-    private final Map<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> attributes;
+    private final Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes;
 
     private CityJSONRegistry() {
         types = new ConcurrentHashMap<>();
@@ -192,8 +193,8 @@ public class CityJSONRegistry {
         semanticSurfaces.remove(type);
     }
 
-    public Class<?> getExtensionAttributeClass(String propertyName, AbstractCityObjectType target) {
-        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> entry : attributes.entrySet()) {
+    public Type getExtensionAttributeClass(String propertyName, AbstractCityObjectType target) {
+        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
             if (entry.getKey().isInstance(target))
                 return entry.getValue().get(propertyName);
         }
@@ -201,28 +202,28 @@ public class CityJSONRegistry {
         return null;
     }
 
-    public void registerExtensionAttribute(String name, Class<?> attributeClass, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
+    public void registerExtensionAttribute(String name, Type attributeType, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
         if (name == null)
             throw new ADEException("The extension attribute name must not be null.");
 
         if (!name.startsWith("+"))
             throw new ADEException("The extension attribute name '" + name + "' must start with a '+'.");
 
-        if (attributeClass == null)
-            throw new ADEException("The extension attribute class must not be null.");
+        if (attributeType == null)
+            throw new ADEException("The extension attribute type must not be null.");
 
         if (targetClass == null)
             throw new ADEException("The extension attribute target class must not be null.");
 
-        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> entry : attributes.entrySet()) {
+        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
             if (entry.getKey().isAssignableFrom(targetClass) || targetClass.isAssignableFrom(entry.getKey())) {
                 if (entry.getValue().containsKey(name))
                     throw new ADEException("The extension attribute '" + name + "' is already registered with " + entry.getKey().getTypeName());
             }
         }
 
-        Map<String, Class<?>> attribute = attributes.computeIfAbsent(targetClass, v -> new ConcurrentHashMap<>());
-        attribute.put(name, attributeClass);
+        Map<String, Type> attribute = attributes.computeIfAbsent(targetClass, v -> new ConcurrentHashMap<>());
+        attribute.put(name, attributeType);
     }
 
     public void unregisterExtensionAttribute(String name, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
@@ -235,7 +236,7 @@ public class CityJSONRegistry {
         if (targetClass == null)
             throw new ADEException("The extension attribute target class must not be null.");
 
-        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Class<?>>> entry : attributes.entrySet()) {
+        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
             if (entry.getKey().isAssignableFrom(targetClass) || targetClass.isAssignableFrom(entry.getKey()))
                 entry.getValue().remove(name);
         }

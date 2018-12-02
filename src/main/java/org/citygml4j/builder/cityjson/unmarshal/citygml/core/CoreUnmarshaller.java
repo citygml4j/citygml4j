@@ -19,7 +19,6 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -134,12 +133,8 @@ public class CoreUnmarshaller {
 				citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(attributes, dest);
 
 			if (attributes.isSetExtensionAttributes()) {
-				CityJSONRegistry registry = CityJSONRegistry.getInstance();
-				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet()) {
-					Class<?> attributeClass = registry.getExtensionAttributeClass(entry.getKey(), src);
-					if (attributeClass != null && attributeClass.isInstance(entry.getValue()))
-						json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), dest);
-				}
+				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet())
+					json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), dest);
 			}
 		}
 	}
