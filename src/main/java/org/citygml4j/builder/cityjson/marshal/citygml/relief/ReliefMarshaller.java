@@ -24,6 +24,9 @@ import org.citygml4j.binding.cityjson.feature.TINReliefType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
@@ -64,12 +67,18 @@ public class ReliefMarshaller {
 		return cityObjects;
 	}
 	
-	public void marshalTINRelief(TINRelief src, TINReliefType dest) {
-		Attributes attributes = dest.newAttributes();
+	public void marshalTINRelief(TINRelief src, TINReliefType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfTinRelief()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfTinRelief()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 		
 		if (src.isSetTin()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getTin());
@@ -82,7 +91,7 @@ public class ReliefMarshaller {
 	
 	public List<AbstractCityObjectType> marshalTINRelief(TINRelief src) {
 		TINReliefType dest = new TINReliefType(src.getId());
-		marshalTINRelief(src, dest);
+		marshalTINRelief(src, dest, dest.newAttributes());
 		
 		return Collections.singletonList(dest);
 	}

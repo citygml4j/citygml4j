@@ -24,6 +24,9 @@ import org.citygml4j.binding.cityjson.feature.LandUseType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -47,8 +50,7 @@ public class LandUseMarshaller {
 		return Collections.emptyList();			
 	}
 	
-	public void marshalLandUse(LandUse src, LandUseType dest) {
-		Attributes attributes = dest.newAttributes();
+	public void marshalLandUse(LandUse src, LandUseType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
@@ -72,8 +74,15 @@ public class LandUseMarshaller {
 			}
 		}
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfLandUse()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfLandUse()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 		
 		if (src.isSetLod0MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface());
@@ -110,7 +119,7 @@ public class LandUseMarshaller {
 	
 	public LandUseType marshalLandUse(LandUse src) {
 		LandUseType dest = new LandUseType(src.getId());
-		marshalLandUse(src, dest);
+		marshalLandUse(src, dest, dest.newAttributes());
 		
 		return dest;
 	}

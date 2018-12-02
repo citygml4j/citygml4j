@@ -30,7 +30,10 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.AbstractOpening;
@@ -112,9 +115,8 @@ public class BuildingMarshaller {
 		return semantics;
 	}
 
-	public List<AbstractCityObjectType> marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest) {
-		BuildingAttributes attributes = dest.newAttributes();
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest, BuildingAttributes attributes) {
+		citygml.getCoreMarshaller().marshalAbstractSite(src, dest, attributes);
 
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
@@ -169,8 +171,15 @@ public class BuildingMarshaller {
 		if (src.isSetYearOfDemolition())
 			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfAbstractBuilding()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfAbstractBuilding()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -236,30 +245,26 @@ public class BuildingMarshaller {
 
 		if (src.isSetOuterBuildingInstallation()) {
 			for (BuildingInstallationProperty property : src.getOuterBuildingInstallation()) {
-				if (property.isSetBuildingInstallation()) {
-					for (AbstractCityObjectType cityObject : marshalBuildingInstallation(property.getBuildingInstallation())) {
-						if (cityObject instanceof BuildingInstallationType) {
-							dest.addChild(cityObject.getGmlId());
-							((BuildingInstallationType) cityObject).setParent(dest.getGmlId());
-						}
-
-						cityObjects.add(cityObject);
+				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
+					if (cityObject instanceof BuildingInstallationType) {
+						dest.addChild(cityObject.getGmlId());
+						((BuildingInstallationType) cityObject).setParent(dest.getGmlId());
 					}
+
+					cityObjects.add(cityObject);
 				}
 			}
 		}
 
 		if (dest instanceof BuildingType && src.isSetConsistsOfBuildingPart()) {
 			for (BuildingPartProperty property : src.getConsistsOfBuildingPart()) {
-				if (property.isSetBuildingPart()) {
-					for (AbstractCityObjectType cityObject : marshalBuildingPart(property.getBuildingPart())) {
-						if (cityObject instanceof BuildingPartType) {
-							dest.addChild(cityObject.getGmlId());
-							((BuildingPartType) cityObject).setParent(dest.getGmlId());
-						}
-
-						cityObjects.add(cityObject);
+				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
+					if (cityObject instanceof BuildingPartType) {
+						dest.addChild(cityObject.getGmlId());
+						((BuildingPartType) cityObject).setParent(dest.getGmlId());
 					}
+
+					cityObjects.add(cityObject);
 				}
 			}
 		}
@@ -276,24 +281,55 @@ public class BuildingMarshaller {
 		return cityObjects;
 	}
 
+	public List<AbstractCityObjectType> marshalBuilding(Building src, BuildingType dest, BuildingAttributes attributes) {
+		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest, attributes);
+
+		if (src.isSetGenericApplicationPropertyOfBuilding()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuilding()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
+
+		return cityObjects;
+	}
+
 	public List<AbstractCityObjectType> marshalBuilding(Building src) {
 		BuildingType dest = new BuildingType(src.getId());
-		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest);
+		List<AbstractCityObjectType> cityObjects = marshalBuilding(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
+
+		return cityObjects;
+	}
+
+	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src, BuildingPartType dest, BuildingAttributes attributes) {
+		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest, attributes);
+
+		if (src.isSetGenericApplicationPropertyOfBuildingPart()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuildingPart()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 
 		return cityObjects;
 	}
 
 	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src) {
 		BuildingPartType dest = new BuildingPartType(src.getId());
-		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest);
+		List<AbstractCityObjectType> cityObjects = marshalBuildingPart(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
 		return cityObjects;
 	}
 
-	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest) {
-		Attributes attributes = dest.newAttributes();
+	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -317,8 +353,15 @@ public class BuildingMarshaller {
 			}
 		}
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfBuildingInstallation()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuildingInstallation()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -354,7 +397,7 @@ public class BuildingMarshaller {
 
 	public List<AbstractCityObjectType> marshalBuildingInstallation(BuildingInstallation src) {
 		BuildingInstallationType dest = new BuildingInstallationType(src.getId());
-		marshalBuildingInstallation(src, dest);
+		marshalBuildingInstallation(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);
 	}
@@ -451,7 +494,7 @@ public class BuildingMarshaller {
 						if (openingProperty.isSetOpening()) {
 							AbstractOpening opening = openingProperty.getOpening();
 							lodRepresentation = opening.getLodRepresentation();
-							for (int lod = 2; lod < 4; lod++) {
+							for (int lod = 3; lod < 4; lod++) {
 								if (lodRepresentation.isSetGeometry(lod)) {
 									collector.setLod(lod);
 									for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))

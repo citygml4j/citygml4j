@@ -28,9 +28,13 @@ import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.geometry.Matrix;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
@@ -96,22 +100,44 @@ public class CoreMarshaller {
 
 		if (src.isSetGenericAttribute())
 			citygml.getGenericsMarshaller().marshalGenericAttributes(src.getGenericAttribute(), attributes);
+
+		if (src.isSetGenericApplicationPropertyOfCityObject()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfCityObject()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
+	}
+
+	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest, Attributes attributes) {
+		marshalAbstractCityObject(src, dest, attributes);
+
+		if (src.isSetGenericApplicationPropertyOfSite()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfSite()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 	}
 
 	private void marshalCityModel(CityModel src, List<AbstractCityObjectType> dest) {
 		if (src.isSetCityObjectMember()) {
-			for (CityObjectMember property : src.getCityObjectMember()) {
-				if (property.isSetCityObject())
-					dest.addAll(citygml.marshal(property.getCityObject()));
-			}
+			for (CityObjectMember property : src.getCityObjectMember())
+				dest.addAll(json.getGMLMarshaller().marshal(property));
 		}
 
 		if (src.isSetFeatureMember()) {
 			for (FeatureProperty<?> property : src.getFeatureMember()) {
 				if (property.getFeature() instanceof CityModel)
 					marshalCityModel((CityModel) property.getFeature(), dest);
-				else if (property.isSetFeature())
-					dest.addAll(citygml.marshal(property.getFeature()));
+				else
+					dest.addAll(json.getGMLMarshaller().marshal(property));
 			}
 		}
 

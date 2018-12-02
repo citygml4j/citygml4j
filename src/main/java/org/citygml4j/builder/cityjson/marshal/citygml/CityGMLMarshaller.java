@@ -34,6 +34,7 @@ import org.citygml4j.builder.cityjson.marshal.citygml.transportation.Transportat
 import org.citygml4j.builder.cityjson.marshal.citygml.tunnel.TunnelMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.vegetation.VegetationMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.waterbody.WaterBodyMarshaller;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.bridge.BridgeModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
 import org.citygml4j.model.citygml.cityfurniture.CityFurnitureModuleComponent;
@@ -89,8 +90,10 @@ public class CityGMLMarshaller {
 	
 	public List<AbstractCityObjectType> marshal(ModelObject src) {
 		List<AbstractCityObjectType> dest = null;
-		
-		if (src instanceof BridgeModuleComponent)
+
+		if (src instanceof ADEModelObject)
+			dest = json.getADEMarshaller().marshalCityObject((ADEModelObject) src);
+		else if (src instanceof BridgeModuleComponent)
 			dest = brid.marshal(src);
 		else if (src instanceof BuildingModuleComponent)
 			dest = bldg.marshal(src);
@@ -120,8 +123,10 @@ public class CityGMLMarshaller {
 	
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
 		SemanticsType semantics = null;
-		
-		if (cityObject instanceof BridgeModuleComponent)
+
+		if (cityObject instanceof ADEModelObject)
+			semantics = json.getADEMarshaller().marshalSemanticSurface((ADEModelObject) cityObject);
+		else if (cityObject instanceof BridgeModuleComponent)
 			semantics = brid.marshalSemantics(cityObject);
 		else if (cityObject instanceof BuildingModuleComponent)
 			semantics = bldg.marshalSemantics(cityObject);

@@ -24,6 +24,7 @@ import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ADEMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureVerticesBuilder;
@@ -47,7 +48,8 @@ public class CityJSONMarshaller {
 	public static final String POSTPROCESS_GROUP_MEMBERS = "org.citygml4j.group.checkMembers";
 
 	private final CityGMLMarshaller citygml;
-	private final GMLMarshaller gml;	
+	private final GMLMarshaller gml;
+	private final ADEMarshaller ade;
 	private final GeometryXlinkResolver xlinkResolver;
 	private final AppearanceResolver appearanceResolver;
 	
@@ -69,6 +71,7 @@ public class CityJSONMarshaller {
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this, this::getVerticesBuilder);
+		ade = new ADEMarshaller(this);
 
 		xlinkResolver = new GeometryXlinkResolver();
 		appearanceResolver = new AppearanceResolver(defaultTheme, citygml.getAppearanceMarshaller());
@@ -140,6 +143,10 @@ public class CityJSONMarshaller {
 
 	public GMLMarshaller getGMLMarshaller() {
 		return gml;
+	}
+
+	public ADEMarshaller getADEMarshaller() {
+		return ade;
 	}
 
 	public GeometryXlinkResolver getGeometryXlinkResolver() {

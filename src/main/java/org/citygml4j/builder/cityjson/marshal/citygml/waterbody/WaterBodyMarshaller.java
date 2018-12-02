@@ -25,9 +25,13 @@ import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
 import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
@@ -80,9 +84,22 @@ public class WaterBodyMarshaller {
 		return semantics;
 	}
 
-	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
-		Attributes attributes = dest.newAttributes();
+	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+
+		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfWaterObject()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
+	}
+
+	public void marshalWaterBody(WaterBody src, WaterBodyType dest, Attributes attributes) {
+		marshalAbstractWaterObject(src, dest, attributes);
 
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
@@ -105,8 +122,15 @@ public class WaterBodyMarshaller {
 			}
 		}
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfWaterBody()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfWaterBody()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 
 		Map<Integer, MultiSurface> multiSurfaces = null;
 		if (src.isSetBoundedBySurface())
@@ -181,7 +205,7 @@ public class WaterBodyMarshaller {
 
 	public WaterBodyType marshalWaterBody(WaterBody src) {
 		WaterBodyType dest = new WaterBodyType(src.getId());
-		marshalWaterBody(src, dest);
+		marshalWaterBody(src, dest, dest.newAttributes());
 
 		return dest;
 	}

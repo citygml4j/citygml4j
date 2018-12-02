@@ -20,11 +20,14 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.cityobjectgroup;
 
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.BuildingAttributes;
+import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -63,8 +66,7 @@ public class CityObjectGroupMarshaller {
 		return Collections.emptyList();			
 	}
 
-	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
-		BuildingAttributes attributes = new BuildingAttributes();
+	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 
 		if (src.isSetClazz())
@@ -84,6 +86,16 @@ public class CityObjectGroupMarshaller {
 				if (usage.isSetValue()) {
 					attributes.setUsage(usage.getValue());
 					break;
+				}
+			}
+		}
+
+		if (src.isSetGenericApplicationPropertyOfCityObjectGroup()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfCityObjectGroup()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -109,7 +121,7 @@ public class CityObjectGroupMarshaller {
 						cityObject.setId(gmlIdManager.generateUUID());
 
 					String gmlId = cityObject.getId();
-					List<AbstractCityObjectType> members = citygml.marshal(property.getCityObject());
+					List<AbstractCityObjectType> members = json.getGMLMarshaller().marshal(property);
 					cityObjects.addAll(members);
 
 					boolean found = false;
@@ -139,7 +151,7 @@ public class CityObjectGroupMarshaller {
 
 	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src) {
 		CityObjectGroupType dest = new CityObjectGroupType(src.getId());
-		List<AbstractCityObjectType> cityObjects = marshalCityObjectGroup(src, dest);
+		List<AbstractCityObjectType> cityObjects = marshalCityObjectGroup(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
 		return cityObjects;

@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.vegetation;
 
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.PlantCoverAttributes;
 import org.citygml4j.binding.cityjson.feature.PlantCoverType;
 import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectAttributes;
@@ -27,6 +28,10 @@ import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.common.base.ModelObject;
@@ -54,9 +59,22 @@ public class VegetationMarshaller {
 		return typeMapper.apply(src);
 	}
 
-	public void marshalPlantCover(PlantCover src, PlantCoverType dest) {
-		PlantCoverAttributes attributes = dest.newAttributes();
+	public void marshalAbstractVegetationObject(AbstractVegetationObject src, AbstractCityObjectType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+
+		if (src.isSetGenericApplicationPropertyOfVegetationObject()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfVegetationObject()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
+	}
+
+	public void marshalPlantCover(PlantCover src, PlantCoverType dest, PlantCoverAttributes attributes) {
+		marshalAbstractVegetationObject(src, dest, attributes);
 
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
@@ -82,8 +100,15 @@ public class VegetationMarshaller {
 		if (src.isSetAverageHeight())
 			attributes.setAverageHeight(src.getAverageHeight().getValue());
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfPlantCover()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfPlantCover()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 		
 		if (src.isSetLod1MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
@@ -136,14 +161,13 @@ public class VegetationMarshaller {
 	
 	public List<AbstractCityObjectType> marshalPlantCover(PlantCover src) {
 		PlantCoverType dest = new PlantCoverType(src.getId());
-		marshalPlantCover(src, dest);
+		marshalPlantCover(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);
 	}
 
-	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest) {
-		SolitaryVegetationObjectAttributes attributes = dest.newAttributes();
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest, SolitaryVegetationObjectAttributes attributes) {
+		marshalAbstractVegetationObject(src, dest, attributes);
 
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
@@ -175,8 +199,15 @@ public class VegetationMarshaller {
 		if (src.isSetCrownDiameter())
 			attributes.setCrownDiameter(src.getCrownDiameter().getValue());
 
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
+		if (src.isSetGenericApplicationPropertyOfSolitaryVegetationObject()) {
+			for (ADEComponent ade : src.getGenericApplicationPropertyOfSolitaryVegetationObject()) {
+				if (ade instanceof ADEModelObject) {
+					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
+					if (attribute != null)
+						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+				}
+			}
+		}
 
 		if (src.isSetLod1Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry());
@@ -223,7 +254,7 @@ public class VegetationMarshaller {
 
 	public List<AbstractCityObjectType> marshalSolitaryVegetationObject(SolitaryVegetationObject src) {
 		SolitaryVegetationObjectType dest = new SolitaryVegetationObjectType(src.getId());
-		marshalSolitaryVegetationObject(src, dest);
+		marshalSolitaryVegetationObject(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);
 	}

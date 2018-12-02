@@ -61,8 +61,7 @@ public class GenericsMarshaller {
 		return Collections.emptyList();			
 	}
 
-	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest) {
-		Attributes attributes = dest.newAttributes();
+	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest, Attributes attributes) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
 		
 		if (src.isSetClazz())
@@ -85,9 +84,6 @@ public class GenericsMarshaller {
 				}
 			}
 		}
-		
-		if (!attributes.hasAttributes())
-			dest.unsetAttributes();
 		
 		if (src.isSetLod0Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0Geometry());
@@ -148,7 +144,7 @@ public class GenericsMarshaller {
 	
 	public GenericCityObjectType marshalGenericCityObject(GenericCityObject src) {
 		GenericCityObjectType dest = new GenericCityObjectType(src.getId());
-		marshalGenericCityObject(src, dest);
+		marshalGenericCityObject(src, dest, dest.newAttributes());
 		
 		return dest;
 	}

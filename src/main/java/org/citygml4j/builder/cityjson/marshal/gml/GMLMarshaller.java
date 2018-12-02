@@ -26,6 +26,7 @@ import org.citygml4j.binding.cityjson.appearance.SolidMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.SolidTextureObject;
 import org.citygml4j.binding.cityjson.appearance.SurfaceCollectionMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.SurfaceCollectionTextureObject;
+import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.binding.cityjson.geometry.AbstractSolidCollectionType;
@@ -46,6 +47,8 @@ import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticsBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.feature.FeatureProperty;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
@@ -112,6 +115,10 @@ public class GMLMarshaller {
 
 	public AbstractGeometryObjectType marshal(AbstractGeometry src) {
 		return typeMapper.apply(src);
+	}
+
+	public List<AbstractCityObjectType> marshal(FeatureProperty<? extends AbstractFeature> featureProperty) {
+		return featureProperty.isSetFeature() ? json.getCityGMLMarshaller().marshal(featureProperty.getFeature()) : Collections.emptyList();
 	}
 
 	public void marshalPoint(Point src, MultiPointType dest) {
