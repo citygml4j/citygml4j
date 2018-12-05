@@ -141,10 +141,8 @@ public class JAXBMarshaller {
 			Node child = foo.getFirstChild();
 			if (child instanceof Element)
 				dest = (Element)child;			
-		} catch (JAXBException e) {
+		} catch (JAXBException | ParserConfigurationException e) {
 			//
-		} catch (ParserConfigurationException e) {
-			// 
 		}
 
 		return dest;
@@ -171,7 +169,7 @@ public class JAXBMarshaller {
 
 	public void setModuleContext(ModuleContext moduleContext) {
 		if (moduleContext == null)
-			throw new IllegalArgumentException("module context URI may not be null.");
+			throw new IllegalArgumentException("module context may not be null.");
 
 		this.moduleContext = moduleContext;
 	}

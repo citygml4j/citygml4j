@@ -34,20 +34,21 @@ import java.util.Map;
 
 public class ADEUnmarshaller {
 	private final JAXBUnmarshaller jaxb;
-	private Map<String, ADEContext> adeContexts;
+	private Map<String, org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller> unmarshallers;
 
 	public ADEUnmarshaller(JAXBUnmarshaller jaxb) {
 		this.jaxb = jaxb;
 
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
-			this.adeContexts = new HashMap<>();
+			this.unmarshallers = new HashMap<>();
 			ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(jaxb);
 
 			for (ADEContext adeContext : context.getADEContexts()) {
-				adeContext.getADEUnmarshaller().setADEUnmarshallerHelper(helper);
+				org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = adeContext.getADEUnmarshaller();
+				unmarshaller.setADEUnmarshallerHelper(helper);
 				for (ADEModule module : adeContext.getADEModules())
-					this.adeContexts.put(module.getNamespaceURI(), adeContext);					
+					this.unmarshallers.put(module.getNamespaceURI(), unmarshaller);
 			}
 		}
 	}
@@ -75,19 +76,19 @@ public class ADEUnmarshaller {
 	}
 
 	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		if (adeContexts != null) {
-			ADEContext adeContext = adeContexts.get(src.getName().getNamespaceURI());
-			if (adeContext != null)
-				return adeContext.getADEUnmarshaller().unmarshal(src);
+		if (unmarshallers != null) {
+			org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = unmarshallers.get(src.getName().getNamespaceURI());
+			if (unmarshaller != null)
+				return unmarshaller.unmarshal(src);
 		}
 
 		return null;
 	}
 
 	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
-		if (adeContexts != null) {
-			for (ADEContext adeContext : adeContexts.values()) {
-				ADEModelObject ade = adeContext.getADEUnmarshaller().unmarshal(src);
+		if (unmarshallers != null) {
+			for (org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller : unmarshallers.values()) {
+				ADEModelObject ade = unmarshaller.unmarshal(src);
 				if (ade != null)
 					return ade;
 			}

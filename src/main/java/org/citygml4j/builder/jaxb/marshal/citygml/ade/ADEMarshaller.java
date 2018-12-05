@@ -33,22 +33,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ADEMarshaller {
-	private Map<String, ADEContext> adeContexts;
+	private Map<String, org.citygml4j.model.citygml.ade.binding.ADEMarshaller> marshallers;
 
 	public ADEMarshaller(JAXBMarshaller jaxb) {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
-			this.adeContexts = new HashMap<>();
+			this.marshallers = new HashMap<>();
 			ADEMarshallerHelper helper = new ADEMarshallerHelper(jaxb);
 
 			for (ADEContext adeContext : context.getADEContexts()) {
-				for (ADEModule module : adeContext.getADEModules()) {
-					if (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
-						adeContext.getADEMarshaller().setADEMarshallerHelper(helper);
-						for (String packageName : adeContext.getModelPackageNames())
-							this.adeContexts.put(packageName, adeContext);	
-					}
-				}
+				org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = adeContext.getADEMarshaller();
+				marshaller.setADEMarshallerHelper(helper);
+				for (String packageName : adeContext.getModelPackageNames())
+					this.marshallers.put(packageName, marshaller);
 			}
 		}
 	}
@@ -76,20 +73,20 @@ public class ADEMarshaller {
 	}
 
 	public JAXBElement<?> marshalJAXBElement(ADEModelObject ade) {
-		if (adeContexts != null) {
-			ADEContext adeContext = adeContexts.get(ade.getClass().getPackage().getName());
-			if (adeContext != null)
-				return adeContext.getADEMarshaller().marshalJAXBElement(ade);
+		if (marshallers != null) {
+			org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
+			if (marshaller != null)
+				return marshaller.marshalJAXBElement(ade);
 		}
 
 		return null;
 	}
 
 	public Object marshal(ADEModelObject ade) {
-		if (adeContexts != null) {
-			ADEContext adeContext = adeContexts.get(ade.getClass().getPackage().getName());
-			if (adeContext != null)
-				return adeContext.getADEMarshaller().marshal(ade);
+		if (marshallers != null) {
+			org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
+			if (marshaller != null)
+				return marshaller.marshal(ade);
 		}
 
 		return null;
