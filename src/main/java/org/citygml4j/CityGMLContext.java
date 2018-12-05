@@ -71,12 +71,6 @@ public class CityGMLContext {
 		if (adeContext.getJAXBPackageNames() == null || adeContext.getJAXBPackageNames().isEmpty())
 			throw new ADEException("No JAXB package names defined for the ADE context.");
 
-		if (adeContext.getADEMarshaller() == null)
-			throw new ADEException("No marshaller defined for the ADE context.");
-
-		if (adeContext.getADEUnmarshaller() == null)
-			throw new ADEException("No unmarshaller defined for the ADE context.");
-
 		for (ADEModule module : adeContext.getADEModules()) {		
 			if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty())
 				throw new ADEException("The namespace URI of the ADE module must not be null.");
@@ -111,12 +105,6 @@ public class CityGMLContext {
 	private void registerCityJSONExtension(CityJSONExtension cityJSONExtension) throws ADEException {
 		if (cityJSONExtension.getExtensionModules() == null || cityJSONExtension.getExtensionModules().isEmpty())
 			throw new ADEException("No extension module defined for the CityJSON extension.");
-
-		if (cityJSONExtension.getExtensionMarshaller() == null)
-			throw new ADEException("No marshaller defined for the CityJSON extension.");
-
-		if (cityJSONExtension.getExtensionUnmarshaller() == null)
-			throw new ADEException("No unmarshaller defined for the CityJSON extension.");
 
 		CityJSONRegistry registry = CityJSONRegistry.getInstance();
 		for (CityJSONExtensionModule module : cityJSONExtension.getExtensionModules()) {

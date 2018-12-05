@@ -36,16 +36,32 @@ public class ADEMarshaller {
 	private Map<String, org.citygml4j.model.citygml.ade.binding.ADEMarshaller> marshallers;
 
 	public ADEMarshaller(JAXBMarshaller jaxb) {
+		reset(jaxb);
+	}
+
+	public void reset(JAXBMarshaller jaxb) {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
 			this.marshallers = new HashMap<>();
 			ADEMarshallerHelper helper = new ADEMarshallerHelper(jaxb);
 
 			for (ADEContext adeContext : context.getADEContexts()) {
-				org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = adeContext.getADEMarshaller();
-				marshaller.setADEMarshallerHelper(helper);
-				for (String packageName : adeContext.getModelPackageNames())
-					this.marshallers.put(packageName, marshaller);
+				boolean supportsTargetVersion = false;
+				for (ADEModule module : adeContext.getADEModules()) {
+					if (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
+						supportsTargetVersion = true;
+						break;
+					}
+				}
+
+				if (supportsTargetVersion) {
+					org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = adeContext.createADEMarshaller();
+					if (marshaller != null) {
+						marshaller.setADEMarshallerHelper(helper);
+						for (String packageName : adeContext.getModelPackageNames())
+							this.marshallers.put(packageName, marshaller);
+					}
+				}
 			}
 		}
 	}

@@ -27,11 +27,11 @@ import org.citygml4j.util.walker.GMLWalker;
 import java.util.List;
 
 public interface ADEContext {
-	public List<ADEModule> getADEModules();
-	public List<String> getModelPackageNames();	
-	public List<String> getJAXBPackageNames();	
-	public ADEMarshaller getADEMarshaller();
-	public ADEUnmarshaller getADEUnmarshaller();
+	List<ADEModule> getADEModules();
+	List<String> getModelPackageNames();
+	List<String> getJAXBPackageNames();
+	ADEMarshaller createADEMarshaller();
+	ADEUnmarshaller createADEUnmarshaller();
 
 	default ADEWalker<FeatureWalker> createDefaultFeatureWalker() {
 		return null;

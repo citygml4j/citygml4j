@@ -45,10 +45,12 @@ public class ADEUnmarshaller {
 			ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(jaxb);
 
 			for (ADEContext adeContext : context.getADEContexts()) {
-				org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = adeContext.getADEUnmarshaller();
-				unmarshaller.setADEUnmarshallerHelper(helper);
-				for (ADEModule module : adeContext.getADEModules())
-					this.unmarshallers.put(module.getNamespaceURI(), unmarshaller);
+				org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = adeContext.createADEUnmarshaller();
+				if (unmarshaller != null) {
+					unmarshaller.setADEUnmarshallerHelper(helper);
+					for (ADEModule module : adeContext.getADEModules())
+						this.unmarshallers.put(module.getNamespaceURI(), unmarshaller);
+				}
 			}
 		}
 	}

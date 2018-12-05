@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface CityJSONExtension {
     List<CityJSONExtensionModule> getExtensionModules();
-    CityJSONExtensionUnmarshaller getExtensionUnmarshaller();
-    CityJSONExtensionMarshaller getExtensionMarshaller();
+    CityJSONExtensionMarshaller createExtensionMarshaller();
+    CityJSONExtensionUnmarshaller createExtensionUnmarshaller();
 }

@@ -8,7 +8,6 @@ import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
-import org.citygml4j.model.module.ade.ADEModule;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +24,12 @@ public class ADEMarshaller {
 
             for (ADEContext adeContext : context.getADEContexts()) {
                 if (adeContext instanceof CityJSONExtensionContext) {
-                    CityJSONExtensionMarshaller marshaller = ((CityJSONExtensionContext) adeContext).getCityJSONExtension().getExtensionMarshaller();
-                    marshaller.setADEMarshallerHelper(helper);
-                    for (String packageName : adeContext.getModelPackageNames())
-                        marshallers.put(packageName, marshaller);
+                    CityJSONExtensionMarshaller marshaller = ((CityJSONExtensionContext) adeContext).getCityJSONExtension().createExtensionMarshaller();
+                    if (marshaller != null) {
+                        marshaller.setADEMarshallerHelper(helper);
+                        for (String packageName : adeContext.getModelPackageNames())
+                            marshallers.put(packageName, marshaller);
+                    }
                 }
             }
         }

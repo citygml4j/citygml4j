@@ -24,7 +24,7 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import javax.xml.bind.JAXBElement;
 
 public interface ADEUnmarshaller {
-	public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper);
-	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException;
-	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException;
+	void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper);
+	ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException;
+	ADEModelObject unmarshal(Object src) throws MissingADESchemaException;
 }

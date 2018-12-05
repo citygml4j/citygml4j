@@ -24,18 +24,23 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ADEUnmarshaller {
     private Map<String, CityJSONExtensionUnmarshaller> unmarshallersByType;
     private Map<Class<? extends AbstractCityObjectType>, Map<String, CityJSONExtensionUnmarshaller>> unmarshallersByAttribute;
+    private Map<String, CityJSONExtensionUnmarshaller> unmarshallersByPackage;
 
     public ADEUnmarshaller(CityJSONUnmarshaller json) {
         CityGMLContext context = CityGMLContext.getInstance();
         if (context.hasCityJSONExtensionContexts()) {
             unmarshallersByType = new HashMap<>();
             unmarshallersByAttribute = new HashMap<>();
+            unmarshallersByPackage = new HashMap<>();
             ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(json);
 
             for (ADEContext adeContext : context.getADEContexts()) {
                 if (adeContext instanceof CityJSONExtensionContext) {
                     CityJSONExtension extension = ((CityJSONExtensionContext) adeContext).getCityJSONExtension();
-                    CityJSONExtensionUnmarshaller unmarshaller = extension.getExtensionUnmarshaller();
+                    CityJSONExtensionUnmarshaller unmarshaller = extension.createExtensionUnmarshaller();
+                    if (unmarshaller == null)
+                        continue;
+
                     unmarshaller.setADEUnmarshallerHelper(helper);
 
                     for (CityJSONExtensionModule module : extension.getExtensionModules()) {
@@ -62,6 +67,9 @@ public class ADEUnmarshaller {
                             }
                         }
                     }
+
+                    for (String packageName : adeContext.getModelPackageNames())
+                        unmarshallersByPackage.put(packageName, unmarshaller);
                 }
             }
         }
@@ -88,12 +96,10 @@ public class ADEUnmarshaller {
     }
 
     public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEModelObject parent) {
-        for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-            if (adeContext instanceof CityJSONExtensionContext
-                    && adeContext.getModelPackageNames().contains(parent.getClass().getPackage().getName())) {
-                CityJSONExtension extension = ((CityJSONExtensionContext) adeContext).getCityJSONExtension();
-                return extension.getExtensionUnmarshaller().assignSemanticSurface(semanticSurface, lod, parent);
-            }
+        if (unmarshallersByPackage != null) {
+            CityJSONExtensionUnmarshaller unmarshaller = unmarshallersByPackage.get(parent.getClass().getPackage().getName());
+            if (unmarshaller != null)
+                return unmarshaller.assignSemanticSurface(semanticSurface, lod, parent);
         }
 
         return false;

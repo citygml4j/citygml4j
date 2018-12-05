@@ -23,7 +23,7 @@ import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshallerHelper;
 import javax.xml.bind.JAXBElement;
 
 public interface ADEMarshaller {
-	public void setADEMarshallerHelper(ADEMarshallerHelper helper);
-	public JAXBElement<?> marshalJAXBElement(ADEModelObject src);
-	public Object marshal(ADEModelObject src);
+	void setADEMarshallerHelper(ADEMarshallerHelper helper);
+	JAXBElement<?> marshalJAXBElement(ADEModelObject src);
+	Object marshal(ADEModelObject src);
 }
