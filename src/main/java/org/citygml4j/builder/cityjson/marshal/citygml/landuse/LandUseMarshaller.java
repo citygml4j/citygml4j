@@ -118,7 +118,7 @@ public class LandUseMarshaller {
 	}
 	
 	public LandUseType marshalLandUse(LandUse src) {
-		LandUseType dest = new LandUseType(src.getId());
+		LandUseType dest = new LandUseType();
 		marshalLandUse(src, dest, dest.newAttributes());
 		
 		return dest;

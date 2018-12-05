@@ -150,7 +150,7 @@ public class CityObjectGroupMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src) {
-		CityObjectGroupType dest = new CityObjectGroupType(src.getId());
+		CityObjectGroupType dest = new CityObjectGroupType();
 		List<AbstractCityObjectType> cityObjects = marshalCityObjectGroup(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 

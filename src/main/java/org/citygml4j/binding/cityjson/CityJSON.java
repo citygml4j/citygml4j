@@ -30,6 +30,7 @@ import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
 import org.citygml4j.binding.cityjson.metadata.LoDType;
 import org.citygml4j.binding.cityjson.metadata.MetadataType;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,13 +38,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CityJSON {
 	private final String type = "CityJSON";
 	private final String version = "0.9";
 	private MetadataType metadata;
+	private Map<String, String> extensions;
 	@SerializedName("CityObjects")
 	@JsonAdapter(CityObjectsAdapter.class)
 	private Map<String, AbstractCityObjectType> cityObjects = new HashMap<>();
@@ -80,6 +81,30 @@ public class CityJSON {
 	public void unsetMetadata() {
 		metadata = null;
 	}
+
+	public boolean hasExtensions() {
+		return extensions != null && !extensions.isEmpty();
+	}
+
+	public void addExtension(String identifier, String uri) {
+		if (extensions == null)
+			extensions = new HashMap<>();
+
+		extensions.put(identifier, uri);
+	}
+
+	public Map<String, String> getExtensions() {
+		return extensions;
+	}
+
+	public void setExtensions(Map<String, String> extensions) {
+		if (extensions != null && !extensions.isEmpty())
+			this.extensions = extensions;
+	}
+
+	public void unsetExtensions() {
+		extensions = null;
+	}
 	
 	public boolean hasCityObjects() {
 		return !cityObjects.isEmpty();
@@ -87,7 +112,7 @@ public class CityJSON {
 	
 	public void addCityObject(AbstractCityObjectType cityObject) {
 		if (!cityObject.isSetGmlId())
-			cityObject.setGmlId("UUID_" + UUID.randomUUID().toString());
+			cityObject.setGmlId(DefaultGMLIdManager.getInstance().generateUUID());
 
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
@@ -116,7 +141,7 @@ public class CityJSON {
 	public void setCityObjects(List<AbstractCityObjectType> cityObjects) {
 		if (cityObjects != null) {
 			for (AbstractCityObjectType cityObject : cityObjects)
-				this.cityObjects.put(cityObject.getGmlId(), cityObject);
+				addCityObject(cityObject);
 		}
 	}
 	

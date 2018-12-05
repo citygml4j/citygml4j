@@ -109,8 +109,8 @@ public class BuildingMarshaller {
 		else if (cityObject instanceof Door)
 			semantics = new SemanticsType("Door");
 
-		if (semantics != null && cityObject.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);
+		if (semantics != null)
+			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}
@@ -298,7 +298,7 @@ public class BuildingMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBuilding(Building src) {
-		BuildingType dest = new BuildingType(src.getId());
+		BuildingType dest = new BuildingType();
 		List<AbstractCityObjectType> cityObjects = marshalBuilding(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
@@ -322,7 +322,7 @@ public class BuildingMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src) {
-		BuildingPartType dest = new BuildingPartType(src.getId());
+		BuildingPartType dest = new BuildingPartType();
 		List<AbstractCityObjectType> cityObjects = marshalBuildingPart(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
@@ -396,7 +396,7 @@ public class BuildingMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBuildingInstallation(BuildingInstallation src) {
-		BuildingInstallationType dest = new BuildingInstallationType(src.getId());
+		BuildingInstallationType dest = new BuildingInstallationType();
 		marshalBuildingInstallation(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);

@@ -26,6 +26,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.citygml.generics.DateAttribute;
 import org.citygml4j.model.citygml.generics.DoubleAttribute;
@@ -143,25 +144,29 @@ public class GenericsMarshaller {
 	}
 	
 	public GenericCityObjectType marshalGenericCityObject(GenericCityObject src) {
-		GenericCityObjectType dest = new GenericCityObjectType(src.getId());
+		GenericCityObjectType dest = new GenericCityObjectType();
 		marshalGenericCityObject(src, dest, dest.newAttributes());
 		
 		return dest;
 	}
 	
-	public void marshalGenericAttributes(List<AbstractGenericAttribute> src, Attributes dest) {
-		for (AbstractGenericAttribute attribute : src) {
-			Object value = marshalGenericAttribute(attribute);
-			if (value != null)
-				dest.addGenericAttribute(attribute.getName(), value);
+	public void marshalGenericAttributes(AbstractCityObject src, Attributes dest) {
+		if (src.isSetGenericAttribute()) {
+			for (AbstractGenericAttribute attribute : src.getGenericAttribute()) {
+				Object value = marshalGenericAttribute(attribute);
+				if (value != null)
+					dest.addGenericAttribute(attribute.getName(), value);
+			}
 		}
 	}
 	
-	public void marshalSemanticsAttributes(List<AbstractGenericAttribute> src, SemanticsType dest) {
-		for (AbstractGenericAttribute attribute : src) {
-			Object value = marshalGenericAttribute(attribute);
-			if (value != null)
-				dest.addAttribute(attribute.getName(), value);
+	public void marshalSemanticSurfaceAttributes(AbstractCityObject src, SemanticsType dest) {
+		if (src.isSetGenericAttribute()) {
+			for (AbstractGenericAttribute attribute : src.getGenericAttribute()) {
+				Object value = marshalGenericAttribute(attribute);
+				if (value != null)
+					dest.addAttribute(attribute.getName(), value);
+			}
 		}
 	}
 	

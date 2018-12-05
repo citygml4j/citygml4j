@@ -18,6 +18,12 @@
  */
 package org.citygml4j;
 
+import org.citygml4j.binding.cityjson.CityJSONRegistry;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilderException;
@@ -27,8 +33,10 @@ import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -86,21 +94,106 @@ public class CityGMLContext {
 			}
 		}
 
+		if (adeContext instanceof CityJSONExtensionContext) {
+			CityJSONExtension cityJSONExtension = ((CityJSONExtensionContext) adeContext).getCityJSONExtension();
+			if (cityJSONExtension == null)
+				throw new ADEException("The CityJSON extension must no be null.");
+
+			registerCityJSONExtension(((CityJSONExtensionContext) adeContext).getCityJSONExtension());
+		}
+
 		for (ADEModule module : adeContext.getADEModules())
 			Modules.registerADEModule(module);
 
 		adeContexts.add(adeContext);
 	}
 
+	private void registerCityJSONExtension(CityJSONExtension cityJSONExtension) throws ADEException {
+		if (cityJSONExtension.getExtensionModules() == null || cityJSONExtension.getExtensionModules().isEmpty())
+			throw new ADEException("No extension module defined for the CityJSON extension.");
+
+		if (cityJSONExtension.getExtensionMarshaller() == null)
+			throw new ADEException("No marshaller defined for the CityJSON extension.");
+
+		if (cityJSONExtension.getExtensionUnmarshaller() == null)
+			throw new ADEException("No unmarshaller defined for the CityJSON extension.");
+
+		CityJSONRegistry registry = CityJSONRegistry.getInstance();
+		for (CityJSONExtensionModule module : cityJSONExtension.getExtensionModules()) {
+			if (module.getSchemaURI() != null) {
+				for (ADEContext adeContext : adeContexts) {
+					if (adeContext instanceof CityJSONExtension) {
+						for (CityJSONExtensionModule registeredModule : ((CityJSONExtension) adeContext).getExtensionModules()) {
+							if (module.getSchemaURI().equals(registeredModule.getSchemaURI()))
+								throw new ADEException("A CityJSON extension module has already been registered for the schema URI '" + module.getSchemaURI() + "'.");
+						}
+					}
+				}
+			}
+
+			Map<String, Class<? extends AbstractCityObjectType>> cityObjects = module.getCityObjects();
+			if (cityObjects != null) {
+				for (Map.Entry<String, Class<? extends AbstractCityObjectType>> entry : cityObjects.entrySet())
+					registry.registerCityObject(entry.getKey(), entry.getValue());
+			}
+
+			Map<String, Class<? extends SemanticsType>> semanticSurfaces = module.getSemanticSurfaces();
+			if (semanticSurfaces != null) {
+				for (Map.Entry<String, Class<? extends SemanticsType>> entry : semanticSurfaces.entrySet())
+					registry.registerSemanticSurface(entry.getKey(), entry.getValue());
+			}
+
+			Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes = module.getExtensionAttributes();
+			if (attributes != null) {
+				for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+					for (Map.Entry<String, Type> attribute : entry.getValue().entrySet())
+						registry.registerExtensionAttribute(attribute.getKey(), attribute.getValue(), entry.getKey());
+				}
+			}
+		}
+	}
+
 	public void unregisterADEContext(ADEContext adeContext) {
 		for (ADEModule module : adeContext.getADEModules())
 			Modules.unregisterADEModule(module);
 
+		if (adeContext instanceof CityJSONExtensionContext)
+			unregisterCityJSONExtension(((CityJSONExtensionContext) adeContext).getCityJSONExtension());
+
 		adeContexts.remove(adeContext);
+	}
+
+	private void unregisterCityJSONExtension(CityJSONExtension cityJSONExtension) {
+		CityJSONRegistry registry = CityJSONRegistry.getInstance();
+		for (CityJSONExtensionModule module : cityJSONExtension.getExtensionModules()) {
+			Map<String, Class<? extends AbstractCityObjectType>> cityObjects = module.getCityObjects();
+			if (cityObjects != null) {
+				for (String type : cityObjects.keySet())
+					registry.unregisterCityObject(type);
+			}
+
+			Map<String, Class<? extends SemanticsType>> semanticSurfaces = module.getSemanticSurfaces();
+			if (semanticSurfaces != null) {
+				for (String type : semanticSurfaces.keySet())
+					registry.unregisterSemanticSurface(type);
+			}
+
+			Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes = module.getExtensionAttributes();
+			if (attributes != null) {
+				for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+					for (String name : entry.getValue().keySet())
+						registry.unregisterExtensionAttribute(name, entry.getKey());
+				}
+			}
+		}
 	}
 
 	public boolean hasADEContexts() {
 		return !adeContexts.isEmpty();
+	}
+
+	public boolean hasCityJSONExtensionContexts() {
+		return hasADEContexts() && adeContexts.stream().anyMatch(ade -> ade instanceof CityJSONExtensionContext);
 	}
 
 	public List<ADEContext> getADEContexts() {

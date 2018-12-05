@@ -78,8 +78,8 @@ public class WaterBodyMarshaller {
 		else if (cityObject instanceof WaterClosureSurface)
 			semantics = new SemanticsType("WaterClosureSurface");
 
-		if (semantics != null && cityObject.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);
+		if (semantics != null)
+			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}
@@ -204,7 +204,7 @@ public class WaterBodyMarshaller {
 	}
 
 	public WaterBodyType marshalWaterBody(WaterBody src) {
-		WaterBodyType dest = new WaterBodyType(src.getId());
+		WaterBodyType dest = new WaterBodyType();
 		marshalWaterBody(src, dest, dest.newAttributes());
 
 		return dest;

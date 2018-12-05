@@ -88,7 +88,7 @@ public class ADEUnmarshaller {
 		if (adeContexts != null) {
 			for (ADEContext adeContext : adeContexts.values()) {
 				ADEModelObject ade = adeContext.getADEUnmarshaller().unmarshal(src);
-				if (ade != null && adeContext.getModelPackageNames().contains(ade.getClass().getPackage().getName()))
+				if (ade != null)
 					return ade;
 			}
 		}

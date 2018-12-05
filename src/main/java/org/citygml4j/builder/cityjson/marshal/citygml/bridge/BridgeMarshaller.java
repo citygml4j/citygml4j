@@ -112,8 +112,8 @@ public class BridgeMarshaller {
 		else if (cityObject instanceof Door)
 			semantics = new SemanticsType("Door");
 
-		if (semantics != null && cityObject.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);
+		if (semantics != null)
+			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}
@@ -282,7 +282,7 @@ public class BridgeMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBridge(Bridge src) {
-		BridgeType dest = new BridgeType(src.getId());
+		BridgeType dest = new BridgeType();
 		List<AbstractCityObjectType> cityObjects = marshalBridge(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
@@ -306,7 +306,7 @@ public class BridgeMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBridgePart(BridgePart src) {
-		BridgePartType dest = new BridgePartType(src.getId());
+		BridgePartType dest = new BridgePartType();
 		List<AbstractCityObjectType> cityObjects = marshalBridgePart(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
@@ -370,7 +370,7 @@ public class BridgeMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBridgeConstructionElement(BridgeConstructionElement src) {
-		BridgeConstructionElementType dest = new BridgeConstructionElementType(src.getId());
+		BridgeConstructionElementType dest = new BridgeConstructionElementType();
 		marshalBridgeConstructionElement(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);
@@ -433,7 +433,7 @@ public class BridgeMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalBridgeInstallation(BridgeInstallation src) {
-		BridgeInstallationType dest = new BridgeInstallationType(src.getId());
+		BridgeInstallationType dest = new BridgeInstallationType();
 		marshalBridgeInstallation(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);

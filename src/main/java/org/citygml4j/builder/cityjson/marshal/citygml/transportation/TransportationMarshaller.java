@@ -89,8 +89,8 @@ public class TransportationMarshaller {
 			marshalAuxiliaryTrafficArea((AuxiliaryTrafficArea)cityObject, semantics);
 		}
 
-		if (semantics != null && cityObject.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);
+		if (semantics != null)
+			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}
@@ -204,7 +204,7 @@ public class TransportationMarshaller {
 	}
 	
 	public List<AbstractCityObjectType> marshalRoad(Road src) {
-		RoadType dest = new RoadType(src.getId());
+		RoadType dest = new RoadType();
 		marshalRoad(src, dest, dest.newAttributes());
 		
 		return Collections.singletonList(dest);
@@ -223,7 +223,7 @@ public class TransportationMarshaller {
 	}
 	
 	public List<AbstractCityObjectType> marshalRailway(Railway src) {
-		RailwayType dest = new RailwayType(src.getId());
+		RailwayType dest = new RailwayType();
 		marshalRailway(src, dest, dest.getAttributes());
 		
 		return Collections.singletonList(dest);
@@ -242,7 +242,7 @@ public class TransportationMarshaller {
 	}
 	
 	public List<AbstractCityObjectType> marshalSquare(Square src) {
-		TransportSquareType dest = new TransportSquareType(src.getId());
+		TransportSquareType dest = new TransportSquareType();
 		marshalSquare(src, dest, dest.newAttributes());
 		
 		return Collections.singletonList(dest);

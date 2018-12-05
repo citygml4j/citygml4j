@@ -107,8 +107,8 @@ public class TunnelMarshaller {
 		else if (cityObject instanceof Door)
 			semantics = new SemanticsType("Door");
 
-		if (semantics != null && cityObject.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalSemanticsAttributes(cityObject.getGenericAttribute(), semantics);
+		if (semantics != null)
+			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}
@@ -252,7 +252,7 @@ public class TunnelMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalTunnel(Tunnel src) {
-		TunnelType dest = new TunnelType(src.getId());
+		TunnelType dest = new TunnelType();
 		List<AbstractCityObjectType> cityObjects = marshalTunnel(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
@@ -276,7 +276,7 @@ public class TunnelMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalTunnelPart(TunnelPart src) {
-		TunnelPartType dest = new TunnelPartType(src.getId());
+		TunnelPartType dest = new TunnelPartType();
 		List<AbstractCityObjectType> cityObjects = marshalTunnelPart(src, dest, dest.newAttributes());
 		cityObjects.add(dest);
 
@@ -350,7 +350,7 @@ public class TunnelMarshaller {
 	}
 
 	public List<AbstractCityObjectType> marshalTunnelInstallation(TunnelInstallation src) {
-		TunnelInstallationType dest = new TunnelInstallationType(src.getId());
+		TunnelInstallationType dest = new TunnelInstallationType();
 		marshalTunnelInstallation(src, dest, dest.newAttributes());
 
 		return Collections.singletonList(dest);

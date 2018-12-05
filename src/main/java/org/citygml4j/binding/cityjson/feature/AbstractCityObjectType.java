@@ -21,11 +21,11 @@ package org.citygml4j.binding.cityjson.feature;
 import com.google.gson.annotations.JsonAdapter;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
@@ -73,7 +73,7 @@ public abstract class AbstractCityObjectType {
 	}
 
 	public void setGmlId(String gmlId) {
-		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : "UUID_" + UUID.randomUUID().toString();
+		this.gmlId = gmlId != null && !gmlId.isEmpty() ? gmlId : DefaultGMLIdManager.getInstance().generateUUID();
 	}
 
 	public final String getType() {

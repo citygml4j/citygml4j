@@ -89,6 +89,8 @@ public class CoreMarshaller {
 	}
 
 	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, Attributes attributes) {
+		dest.setGmlId(src.isSetId() && !src.getId().isEmpty() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
+
 		if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
 			dest.setGeographicalExtent(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
@@ -99,7 +101,7 @@ public class CoreMarshaller {
 			attributes.setTerminationDate(src.getTerminationDate());
 
 		if (src.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalGenericAttributes(src.getGenericAttribute(), attributes);
+			citygml.getGenericsMarshaller().marshalGenericAttributes(src, attributes);
 
 		if (src.isSetGenericApplicationPropertyOfCityObject()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfCityObject()) {
