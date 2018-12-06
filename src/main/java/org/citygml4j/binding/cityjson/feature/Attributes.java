@@ -206,7 +206,7 @@ public class Attributes {
 				|| extensionAttributes != null;
 	}
 
-	protected List<String> getAttributeNames() {
+	final List<String> getAttributeNames() {
 		if (attributeNames == null) {
 			attributeNames = new ArrayList<>();
 

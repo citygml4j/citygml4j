@@ -116,7 +116,7 @@ public class SemanticsType {
 		attributes = null;
 	}
 
-	protected List<String> getAttributeNames() {
+	final List<String> getAttributeNames() {
 		if (attributeNames == null) {
 			attributeNames = new ArrayList<>();
 
