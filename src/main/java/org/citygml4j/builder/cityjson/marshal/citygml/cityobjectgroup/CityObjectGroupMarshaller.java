@@ -108,7 +108,7 @@ public class CityObjectGroupMarshaller {
 					if (!cityObject.isSetId())
 						cityObject.setId(gmlIdManager.generateUUID());
 
-					AbstractCityObjectType member = json.getGMLMarshaller().marshal(property, cityJSON);
+					AbstractCityObjectType member = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 					dest.addMember(member.getGmlId());
 					cityJSON.addCityObject(member);
 				}

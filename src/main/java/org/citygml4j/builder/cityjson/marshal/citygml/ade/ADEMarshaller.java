@@ -47,7 +47,7 @@ public class ADEMarshaller {
             if (ade instanceof ADEGenericApplicationProperty<?> &&
                     ((ADEGenericApplicationProperty<?>) ade).getValue() instanceof FeatureProperty<?>) {
                 FeatureProperty<?> property = (FeatureProperty<?>) ((ADEGenericApplicationProperty<?>) ade).getValue();
-                AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+                AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
                 if (cityObject != null) {
                     parent.addChild(cityObject);
                     cityJSON.addCityObject(cityObject);

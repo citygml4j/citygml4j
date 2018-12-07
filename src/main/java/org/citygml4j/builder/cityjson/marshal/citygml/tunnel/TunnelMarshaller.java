@@ -196,7 +196,7 @@ public class TunnelMarshaller {
 
 		if (src.isSetOuterTunnelInstallation()) {
 			for (TunnelInstallationProperty property : src.getOuterTunnelInstallation()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof TunnelInstallationType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
@@ -206,7 +206,7 @@ public class TunnelMarshaller {
 
 		if (dest instanceof TunnelType && src.isSetConsistsOfTunnelPart()) {
 			for (TunnelPartProperty property : src.getConsistsOfTunnelPart()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof TunnelPartType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);

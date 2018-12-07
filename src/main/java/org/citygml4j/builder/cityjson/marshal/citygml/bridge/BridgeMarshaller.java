@@ -204,7 +204,7 @@ public class BridgeMarshaller {
 
 		if (src.isSetOuterBridgeConstructionElement()) {
 			for (BridgeConstructionElementProperty property : src.getOuterBridgeConstructionElement()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BridgeConstructionElementType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
@@ -214,7 +214,7 @@ public class BridgeMarshaller {
 		
 		if (src.isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationProperty property : src.getOuterBridgeInstallation()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BridgeInstallationType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
@@ -224,7 +224,7 @@ public class BridgeMarshaller {
 
 		if (dest instanceof BridgeType && src.isSetConsistsOfBridgePart()) {
 			for (BridgePartProperty property : src.getConsistsOfBridgePart()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BridgePartType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);

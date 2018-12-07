@@ -123,7 +123,7 @@ public class GMLMarshaller {
 		return typeMapper.apply(src);
 	}
 
-	public AbstractCityObjectType marshal(FeatureProperty<? extends AbstractFeature> featureProperty, CityJSON cityJSON) {
+	public AbstractCityObjectType marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> featureProperty, CityJSON cityJSON) {
 		return featureProperty.isSetFeature() ? json.getCityGMLMarshaller().marshal(featureProperty.getFeature(), cityJSON) : null;
 	}
 

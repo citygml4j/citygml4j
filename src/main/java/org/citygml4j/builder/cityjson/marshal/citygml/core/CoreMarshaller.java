@@ -114,7 +114,7 @@ public class CoreMarshaller {
 	private AbstractCityObjectType marshalCityModel(CityModel src, CityJSON cityJSON) {
 		if (src.isSetCityObjectMember()) {
 			for (CityObjectMember property : src.getCityObjectMember()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject != null)
 					cityJSON.addCityObject(cityObject);
 			}
@@ -125,7 +125,7 @@ public class CoreMarshaller {
 				if (property.getFeature() instanceof CityModel)
 					marshalCityModel((CityModel) property.getFeature(), cityJSON);
 				else {
-					AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+					AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 					if (cityObject != null)
 						cityJSON.addCityObject(cityObject);
 				}

@@ -233,7 +233,7 @@ public class BuildingMarshaller {
 
 		if (src.isSetOuterBuildingInstallation()) {
 			for (BuildingInstallationProperty property : src.getOuterBuildingInstallation()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BuildingInstallationType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
@@ -243,7 +243,7 @@ public class BuildingMarshaller {
 
 		if (dest instanceof BuildingType && src.isSetConsistsOfBuildingPart()) {
 			for (BuildingPartProperty property : src.getConsistsOfBuildingPart()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BuildingPartType) {
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
