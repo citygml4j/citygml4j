@@ -86,7 +86,7 @@ public class AppearanceUnmarshaller {
 				if (!surface.isSetId())
 					surface.setId(gmlIdManager.generateUUID());
 				
-				material.addTarget(new StringBuilder("#").append(surface.getId()).toString());
+				material.addTarget("#" + surface.getId());
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public class AppearanceUnmarshaller {
 								linearRing.setId(gmlIdManager.generateUUID());
 
 							TextureCoordinates textureCoordinates = new TextureCoordinates();
-							textureCoordinates.setRing(new StringBuilder("#").append(linearRing.getId()).toString());
+							textureCoordinates.setRing("#" + linearRing.getId());
 							textureCoordinates.setValue(coords);
 							texCoordList.addTextureCoordinates(textureCoordinates);
 						}
@@ -138,7 +138,7 @@ public class AppearanceUnmarshaller {
 						surface.setId(gmlIdManager.generateUUID()); 
 					
 					TextureAssociation target = new TextureAssociation();
-					target.setUri(new StringBuilder("#").append(surface.getId()).toString());
+					target.setUri("#" + surface.getId());
 					target.setTextureParameterization(texCoordList);
 					texture.addTarget(target);
 				}

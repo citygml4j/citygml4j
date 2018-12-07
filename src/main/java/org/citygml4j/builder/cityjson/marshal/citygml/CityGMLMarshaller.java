@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
@@ -49,9 +50,6 @@ import org.citygml4j.model.citygml.tunnel.TunnelModuleComponent;
 import org.citygml4j.model.citygml.vegetation.VegetationModuleComponent;
 import org.citygml4j.model.citygml.waterbody.WaterBodyModuleComponent;
 import org.citygml4j.model.common.base.ModelObject;
-
-import java.util.Collections;
-import java.util.List;
 
 public class CityGMLMarshaller {
 	private final CityJSONMarshaller json;
@@ -88,37 +86,37 @@ public class CityGMLMarshaller {
 		wtr = new WaterBodyMarshaller(this);
 	}
 	
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
-		List<AbstractCityObjectType> dest = null;
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+		AbstractCityObjectType dest = null;
 
 		if (src instanceof ADEModelObject)
-			dest = json.getADEMarshaller().marshalCityObject((ADEModelObject) src);
+			dest = json.getADEMarshaller().marshalCityObject((ADEModelObject) src, cityJSON);
 		else if (src instanceof BridgeModuleComponent)
-			dest = brid.marshal(src);
+			dest = brid.marshal(src, cityJSON);
 		else if (src instanceof BuildingModuleComponent)
-			dest = bldg.marshal(src);
+			dest = bldg.marshal(src, cityJSON);
 		else if (src instanceof CityFurnitureModuleComponent)
-			dest = frn.marshal(src);		
+			dest = frn.marshal(src, cityJSON);
 		else if (src instanceof GenericsModuleComponent)
-			dest = gen.marshal(src);
+			dest = gen.marshal(src, cityJSON);
 		else if (src instanceof LandUseModuleComponent)
-			dest = luse.marshal(src);
+			dest = luse.marshal(src, cityJSON);
 		else if (src instanceof ReliefModuleComponent)
-			dest = dem.marshal(src);
+			dest = dem.marshal(src, cityJSON);
 		else if (src instanceof TransportationModuleComponent)
-			dest = tran.marshal(src);
+			dest = tran.marshal(src, cityJSON);
 		else if (src instanceof TunnelModuleComponent)
-			dest = tun.marshal(src);
+			dest = tun.marshal(src, cityJSON);
 		else if (src instanceof VegetationModuleComponent)
-			dest = veg.marshal(src);
+			dest = veg.marshal(src, cityJSON);
 		else if (src instanceof WaterBodyModuleComponent)
-			dest = wtr.marshal(src);
+			dest = wtr.marshal(src, cityJSON);
 		else if (src instanceof CityObjectGroupModuleComponent)
-			dest = grp.marshal(src);
+			dest = grp.marshal(src, cityJSON);
 		else if (src instanceof CoreModuleComponent)
-			dest = core.marshal(src);
+			dest = core.marshal(src, cityJSON);
 
-		return dest != null ? dest : Collections.emptyList();
+		return dest;
 	}
 	
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {

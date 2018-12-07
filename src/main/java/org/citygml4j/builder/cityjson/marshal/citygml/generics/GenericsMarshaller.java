@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.generics;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
@@ -41,7 +42,6 @@ import org.citygml4j.model.gml.basicTypes.Code;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,15 +55,15 @@ public class GenericsMarshaller {
 		json = citygml.getCityJSONMarshaller();
 	}
 	
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		if (src instanceof GenericCityObject)
-			return Collections.singletonList(marshalGenericCityObject((GenericCityObject)src));
+			return marshalGenericCityObject((GenericCityObject) src, cityJSON);
 		
-		return Collections.emptyList();			
+		return null;
 	}
 
-	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalGenericCityObject(GenericCityObject src, GenericCityObjectType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -144,9 +144,9 @@ public class GenericsMarshaller {
 		}
 	}
 	
-	public GenericCityObjectType marshalGenericCityObject(GenericCityObject src) {
+	public GenericCityObjectType marshalGenericCityObject(GenericCityObject src, CityJSON cityJSON) {
 		GenericCityObjectType dest = new GenericCityObjectType();
-		marshalGenericCityObject(src, dest);
+		marshalGenericCityObject(src, dest, cityJSON);
 		
 		return dest;
 	}

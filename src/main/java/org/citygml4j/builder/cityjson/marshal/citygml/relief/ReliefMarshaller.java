@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.relief;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.TINReliefType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
@@ -30,44 +31,39 @@ import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.util.mapper.TypeMapper;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 public class ReliefMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<List<AbstractCityObjectType>> typeMapper;
+	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 	
 	public ReliefMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
 		
-		typeMapper = TypeMapper.<List<AbstractCityObjectType>>create()
+		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
 				.with(ReliefFeature.class, this::marshalReliefFeature)
 				.with(TINRelief.class, this::marshalTINRelief);
 	}
 	
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
-		return typeMapper.apply(src);
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+		return typeMapper.apply(src, cityJSON);
 	}
 		
-	public List<AbstractCityObjectType> marshalReliefFeature(ReliefFeature src) {
-		List<AbstractCityObjectType> cityObjects = new ArrayList<>();
+	public AbstractCityObjectType marshalReliefFeature(ReliefFeature src, CityJSON cityJSON) {
 		if (src.isSetReliefComponent()) {
 			for (ReliefComponentProperty property : src.getReliefComponent()) {
 				if (property.isSetReliefComponent() && property.getReliefComponent() instanceof TINRelief)
-					cityObjects.addAll(marshalTINRelief((TINRelief)property.getReliefComponent()));
+					cityJSON.addCityObject(marshalTINRelief((TINRelief) property.getReliefComponent(), cityJSON));
 			}
 		}
 		
-		return cityObjects;
+		return null;
 	}
 	
-	public void marshalTINRelief(TINRelief src, TINReliefType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalTINRelief(TINRelief src, TINReliefType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfTinRelief()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTinRelief()) {
@@ -88,11 +84,11 @@ public class ReliefMarshaller {
 		}
 	}
 	
-	public List<AbstractCityObjectType> marshalTINRelief(TINRelief src) {
+	public TINReliefType marshalTINRelief(TINRelief src, CityJSON cityJSON) {
 		TINReliefType dest = new TINReliefType();
-		marshalTINRelief(src, dest);
+		marshalTINRelief(src, dest, cityJSON);
 		
-		return Collections.singletonList(dest);
+		return dest;
 	}
 	
 }

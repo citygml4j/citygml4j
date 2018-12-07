@@ -19,6 +19,7 @@
 
 package org.citygml4j.builder.cityjson.marshal.citygml.cityobjectgroup;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
@@ -41,8 +42,6 @@ import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.FeatureFunctionWalker;
 import org.citygml4j.util.walker.FeatureWalker;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -59,15 +58,15 @@ public class CityObjectGroupMarshaller {
 		json = citygml.getCityJSONMarshaller();
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		if (src instanceof CityObjectGroup)
-			return marshalCityObjectGroup((CityObjectGroup)src);
+			return marshalCityObjectGroup((CityObjectGroup) src, cityJSON);
 
-		return Collections.emptyList();			
+		return null;
 	}
 
-	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -107,11 +106,9 @@ public class CityObjectGroupMarshaller {
 				dest.addGeometry(geometry);
 		}
 
-		List<AbstractCityObjectType> cityObjects = new ArrayList<>();
-
 		if (src.isSetGroupParent() && src.getGroupParent().isSetCityObject()) {
-			List<AbstractCityObjectType> parents = citygml.marshal(src.getGroupParent().getCityObject());
-			cityObjects.addAll(parents);
+			AbstractCityObjectType parent = citygml.marshal(src.getGroupParent().getCityObject(), cityJSON);
+			cityJSON.addCityObject(parent);
 		}
 
 		if (src.isSetGroupMember()) {
@@ -121,46 +118,30 @@ public class CityObjectGroupMarshaller {
 					if (!cityObject.isSetId())
 						cityObject.setId(gmlIdManager.generateUUID());
 
-					String gmlId = cityObject.getId();
-					List<AbstractCityObjectType> members = json.getGMLMarshaller().marshal(property);
-					cityObjects.addAll(members);
-
-					boolean found = false;
-					for (AbstractCityObjectType member : members) {
-						if (gmlId.equals(member.getGmlId())) {
-							dest.addMember(gmlId);
-							found = true;
-							break;
-						}
-					}
-
-					if (!found)
-						members.forEach(member -> dest.addMember(member.getGmlId()));
+					AbstractCityObjectType member = json.getGMLMarshaller().marshal(property, cityJSON);
+					dest.addMember(member.getGmlId());
+					cityJSON.addCityObject(member);
 				}
 
 				else if (property.isSetHref()) {
 					String member = property.getHref().replaceAll("^.*?#+?", "");
 					dest.addMember(member);
-
 					dest.setLocalProperty(CityJSONMarshaller.POSTPROCESS_GROUP_MEMBERS, true);
 				}
 			}
 		}
-
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src) {
+	public CityObjectGroupType marshalCityObjectGroup(CityObjectGroup src, CityJSON cityJSON) {
 		CityObjectGroupType dest = new CityObjectGroupType();
-		List<AbstractCityObjectType> cityObjects = marshalCityObjectGroup(src, dest);
-		cityObjects.add(dest);
+		marshalCityObjectGroup(src, dest, cityJSON);
 
-		return cityObjects;
+		return dest;
 	}
 
-	public void postprocessGroupMembers(CityModel src, List<AbstractCityObjectType> dest) {
-		Set<String> gmlIds = dest.stream().map(AbstractCityObjectType::getGmlId).collect(Collectors.toSet());
-		List<CityObjectGroupType> groups = dest.stream()
+	public void postprocessGroupMembers(CityModel src, CityJSON cityJSON) {
+		Set<String> gmlIds = cityJSON.getCityObjects().stream().map(AbstractCityObjectType::getGmlId).collect(Collectors.toSet());
+		List<CityObjectGroupType> groups = cityJSON.getCityObjects().stream()
 				.filter(CityObjectGroupType.class::isInstance)
 				.map(CityObjectGroupType.class::cast)
 				.collect(Collectors.toList());

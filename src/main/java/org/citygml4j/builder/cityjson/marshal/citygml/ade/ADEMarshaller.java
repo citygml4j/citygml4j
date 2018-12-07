@@ -1,6 +1,7 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.ade;
 
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionMarshaller;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
@@ -10,7 +11,6 @@ import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ADEMarshaller {
@@ -35,11 +35,11 @@ public class ADEMarshaller {
         }
     }
 
-    public List<AbstractCityObjectType> marshalCityObject(ADEModelObject src) {
+    public AbstractCityObjectType marshalCityObject(ADEModelObject src, CityJSON cityJSON) {
         if (marshallers != null) {
             CityJSONExtensionMarshaller marshaller = marshallers.get(src.getClass().getPackage().getName());
             if (marshaller != null)
-                return marshaller.marshalCityObject(src);
+                return marshaller.marshalCityObject(src, cityJSON);
         }
 
         return null;

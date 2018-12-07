@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.core;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -57,8 +58,6 @@ import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.XALWalker;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -81,14 +80,14 @@ public class CoreMarshaller {
 		implicit = new GMLMarshaller(json, json::getTemplatesVerticesBuilder);
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		if (src instanceof CityModel)
-			return marshalCityModel((CityModel)src);
+			return marshalCityModel((CityModel) src, cityJSON);
 		
-		return Collections.emptyList();	
+		return null;
 	}
 
-	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest) {
+	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
 		dest.setGmlId(src.isSetId() && !src.getId().isEmpty() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
 
 		if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
@@ -115,8 +114,8 @@ public class CoreMarshaller {
 		}
 	}
 
-	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest) {
-		marshalAbstractCityObject(src, dest);
+	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest, CityJSON cityJSON) {
+		marshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfSite()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfSite()) {
@@ -129,18 +128,24 @@ public class CoreMarshaller {
 		}
 	}
 
-	private void marshalCityModel(CityModel src, List<AbstractCityObjectType> dest) {
+	private AbstractCityObjectType marshalCityModel(CityModel src, CityJSON cityJSON) {
 		if (src.isSetCityObjectMember()) {
-			for (CityObjectMember property : src.getCityObjectMember())
-				dest.addAll(json.getGMLMarshaller().marshal(property));
+			for (CityObjectMember property : src.getCityObjectMember()) {
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				if (cityObject != null)
+					cityJSON.addCityObject(cityObject);
+			}
 		}
 
 		if (src.isSetFeatureMember()) {
 			for (FeatureProperty<?> property : src.getFeatureMember()) {
 				if (property.getFeature() instanceof CityModel)
-					marshalCityModel((CityModel) property.getFeature(), dest);
-				else
-					dest.addAll(json.getGMLMarshaller().marshal(property));
+					marshalCityModel((CityModel) property.getFeature(), cityJSON);
+				else {
+					AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+					if (cityObject != null)
+						cityJSON.addCityObject(cityObject);
+				}
 			}
 		}
 
@@ -148,22 +153,20 @@ public class CoreMarshaller {
 			FeatureArrayProperty property = src.getFeatureMembers();
 			for (AbstractFeature feature : property.getFeature()) {
 				if (feature instanceof CityModel)
-					marshalCityModel((CityModel) feature, dest);
-				else
-					dest.addAll(citygml.marshal(feature));
+					marshalCityModel((CityModel) feature, cityJSON);
+				else {
+					AbstractCityObjectType cityObject = citygml.marshal(feature, cityJSON);
+					if (cityObject != null)
+						cityJSON.addCityObject(cityObject);
+				}
 			}
 		}
-	}
-
-	public List<AbstractCityObjectType> marshalCityModel(CityModel src) {
-		List<AbstractCityObjectType> dest = new ArrayList<>();
-		marshalCityModel(src, dest);
 
 		// postprocess group members
-		if (dest.stream().anyMatch(CityObjectGroupType.class::isInstance))
-			citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(src, dest);
+		if (cityJSON.getCityObjects().stream().anyMatch(CityObjectGroupType.class::isInstance))
+			citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(src, cityJSON);
 
-		return dest;
+		return null;
 	}
 
 	public GeometryInstanceType marshalImplicitGeometry(ImplicitGeometry src, int lod) {

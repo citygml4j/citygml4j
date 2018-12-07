@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.waterbody;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
@@ -45,9 +46,7 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -60,11 +59,11 @@ public class WaterBodyMarshaller {
 		json = citygml.getCityJSONMarshaller();
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		if (src instanceof WaterBody)
-			return Collections.singletonList(marshalWaterBody((WaterBody)src));
+			return marshalWaterBody((WaterBody) src, cityJSON);
 
-		return Collections.emptyList();			
+		return null;
 	}
 
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
@@ -84,8 +83,8 @@ public class WaterBodyMarshaller {
 		return semantics;
 	}
 
-	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfWaterObject()) {
@@ -98,8 +97,8 @@ public class WaterBodyMarshaller {
 		}
 	}
 
-	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
-		marshalAbstractWaterObject(src, dest);
+	public void marshalWaterBody(WaterBody src, WaterBodyType dest, CityJSON cityJSON) {
+		marshalAbstractWaterObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -204,9 +203,9 @@ public class WaterBodyMarshaller {
 		}
 	}
 
-	public WaterBodyType marshalWaterBody(WaterBody src) {
+	public WaterBodyType marshalWaterBody(WaterBody src, CityJSON cityJSON) {
 		WaterBodyType dest = new WaterBodyType();
-		marshalWaterBody(src, dest);
+		marshalWaterBody(src, dest, cityJSON);
 
 		return dest;
 	}

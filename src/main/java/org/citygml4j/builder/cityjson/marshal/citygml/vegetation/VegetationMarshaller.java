@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.vegetation;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.PlantCoverAttributes;
 import org.citygml4j.binding.cityjson.feature.PlantCoverType;
@@ -35,31 +36,28 @@ import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.util.mapper.TypeMapper;
-
-import java.util.Collections;
-import java.util.List;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 public class VegetationMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<List<AbstractCityObjectType>> typeMapper;
+	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public VegetationMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
 
-		typeMapper = TypeMapper.<List<AbstractCityObjectType>>create()
+		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
 				.with(PlantCover.class, this::marshalPlantCover)
 				.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
-		return typeMapper.apply(src);
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+		return typeMapper.apply(src, cityJSON);
 	}
 
-	public void marshalAbstractVegetationObject(AbstractVegetationObject src, AbstractCityObjectType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalAbstractVegetationObject(AbstractVegetationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfVegetationObject()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfVegetationObject()) {
@@ -72,8 +70,8 @@ public class VegetationMarshaller {
 		}
 	}
 
-	public void marshalPlantCover(PlantCover src, PlantCoverType dest) {
-		marshalAbstractVegetationObject(src, dest);
+	public void marshalPlantCover(PlantCover src, PlantCoverType dest, CityJSON cityJSON) {
+		marshalAbstractVegetationObject(src, dest, cityJSON);
 
 		PlantCoverAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -159,15 +157,15 @@ public class VegetationMarshaller {
 		}
 	}
 	
-	public List<AbstractCityObjectType> marshalPlantCover(PlantCover src) {
+	public PlantCoverType marshalPlantCover(PlantCover src, CityJSON cityJSON) {
 		PlantCoverType dest = new PlantCoverType();
-		marshalPlantCover(src, dest);
+		marshalPlantCover(src, dest, cityJSON);
 
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
-	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest) {
-		marshalAbstractVegetationObject(src, dest);
+	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest, CityJSON cityJSON) {
+		marshalAbstractVegetationObject(src, dest, cityJSON);
 
 		SolitaryVegetationObjectAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -253,10 +251,10 @@ public class VegetationMarshaller {
 		}
 	}
 
-	public List<AbstractCityObjectType> marshalSolitaryVegetationObject(SolitaryVegetationObject src) {
+	public SolitaryVegetationObjectType marshalSolitaryVegetationObject(SolitaryVegetationObject src, CityJSON cityJSON) {
 		SolitaryVegetationObjectType dest = new SolitaryVegetationObjectType();
-		marshalSolitaryVegetationObject(src, dest);
+		marshalSolitaryVegetationObject(src, dest, cityJSON);
 
-		return Collections.singletonList(dest);
+		return dest;
 	}
 }

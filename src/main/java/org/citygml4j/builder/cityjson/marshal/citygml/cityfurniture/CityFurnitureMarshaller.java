@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.cityfurniture;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
@@ -32,9 +33,6 @@ import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
-import java.util.Collections;
-import java.util.List;
-
 public class CityFurnitureMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
@@ -44,15 +42,15 @@ public class CityFurnitureMarshaller {
 		json = citygml.getCityJSONMarshaller();
 	}
 	
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		if (src instanceof CityFurniture)
-			return Collections.singletonList(marshalCityFurniture((CityFurniture)src));
+			return marshalCityFurniture((CityFurniture) src, cityJSON);
 		
-		return Collections.emptyList();			
+		return null;
 	}
 	
-	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -129,9 +127,9 @@ public class CityFurnitureMarshaller {
 		}
 	}
 	
-	public CityFurnitureType marshalCityFurniture(CityFurniture src) {
+	public CityFurnitureType marshalCityFurniture(CityFurniture src, CityJSON cityJSON) {
 		CityFurnitureType dest = new CityFurnitureType();
-		marshalCityFurniture(src, dest);
+		marshalCityFurniture(src, dest, cityJSON);
 		
 		return dest;
 	}

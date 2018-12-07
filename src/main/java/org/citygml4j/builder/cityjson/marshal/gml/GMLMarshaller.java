@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.gml;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
 import org.citygml4j.binding.cityjson.appearance.SolidCollectionMaterialObject;
@@ -117,8 +118,8 @@ public class GMLMarshaller {
 		return typeMapper.apply(src);
 	}
 
-	public List<AbstractCityObjectType> marshal(FeatureProperty<? extends AbstractFeature> featureProperty) {
-		return featureProperty.isSetFeature() ? json.getCityGMLMarshaller().marshal(featureProperty.getFeature()) : Collections.emptyList();
+	public AbstractCityObjectType marshal(FeatureProperty<? extends AbstractFeature> featureProperty, CityJSON cityJSON) {
+		return featureProperty.isSetFeature() ? json.getCityGMLMarshaller().marshal(featureProperty.getFeature(), cityJSON) : null;
 	}
 
 	public void marshalPoint(Point src, MultiPointType dest) {

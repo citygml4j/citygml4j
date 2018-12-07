@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.transportation;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
 import org.citygml4j.binding.cityjson.feature.RailwayType;
@@ -51,30 +52,29 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.util.mapper.TypeMapper;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class TransportationMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<List<AbstractCityObjectType>> typeMapper;
+	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public TransportationMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
 
-		typeMapper = TypeMapper.<List<AbstractCityObjectType>>create()
+		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
 				.with(Road.class, this::marshalRoad)
 				.with(Railway.class, this::marshalRailway)
 				.with(Square.class, this::marshalSquare);
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
-		return typeMapper.apply(src);
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+		return typeMapper.apply(src, cityJSON);
 	}
 
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
@@ -94,8 +94,8 @@ public class TransportationMarshaller {
 		return semantics;
 	}
 
-	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractCityObjectType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfTransportationObject()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTransportationObject()) {
@@ -108,8 +108,8 @@ public class TransportationMarshaller {
 		}
 	}
 	
-	public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest) {
-		marshalAbstractTransportationObject(src, dest);
+	public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest, CityJSON cityJSON) {
+		marshalAbstractTransportationObject(src, dest, cityJSON);
 
 		TransportationComplexAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -191,8 +191,8 @@ public class TransportationMarshaller {
 		}
 	}
 
-	public void marshalRoad(Road src, RoadType dest) {
-		marshalTransportationComplex(src, dest);
+	public void marshalRoad(Road src, RoadType dest, CityJSON cityJSON) {
+		marshalTransportationComplex(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfRoad()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfRoad()) {
@@ -205,15 +205,15 @@ public class TransportationMarshaller {
 		}
 	}
 	
-	public List<AbstractCityObjectType> marshalRoad(Road src) {
+	public RoadType marshalRoad(Road src, CityJSON cityJSON) {
 		RoadType dest = new RoadType();
-		marshalRoad(src, dest);
+		marshalRoad(src, dest, cityJSON);
 		
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
-	public void marshalRailway(Railway src, RailwayType dest) {
-		marshalTransportationComplex(src, dest);
+	public void marshalRailway(Railway src, RailwayType dest, CityJSON cityJSON) {
+		marshalTransportationComplex(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfRailway()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfRailway()) {
@@ -226,15 +226,15 @@ public class TransportationMarshaller {
 		}
 	}
 	
-	public List<AbstractCityObjectType> marshalRailway(Railway src) {
+	public RailwayType marshalRailway(Railway src, CityJSON cityJSON) {
 		RailwayType dest = new RailwayType();
-		marshalRailway(src, dest);
+		marshalRailway(src, dest, cityJSON);
 		
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
-	public void marshalSquare(Square src, TransportSquareType dest) {
-		marshalTransportationComplex(src, dest);
+	public void marshalSquare(Square src, TransportSquareType dest, CityJSON cityJSON) {
+		marshalTransportationComplex(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfSquare()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfSquare()) {
@@ -247,11 +247,11 @@ public class TransportationMarshaller {
 		}
 	}
 	
-	public List<AbstractCityObjectType> marshalSquare(Square src) {
+	public TransportSquareType marshalSquare(Square src, CityJSON cityJSON) {
 		TransportSquareType dest = new TransportSquareType();
-		marshalSquare(src, dest);
+		marshalSquare(src, dest, cityJSON);
 		
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
 	private void marshalTrafficArea(TrafficArea src, SemanticsType dest) {

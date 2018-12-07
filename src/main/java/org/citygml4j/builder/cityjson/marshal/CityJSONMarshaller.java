@@ -86,11 +86,9 @@ public class CityJSONMarshaller {
 		appearanceResolver.resolve(src);
 
 		CityJSON dest = new CityJSON();
+		citygml.marshal(src, dest);
 
-		List<AbstractCityObjectType> cityObjects = citygml.marshal(src);
-		if (!cityObjects.isEmpty()) {
-			dest.setCityObjects(cityObjects);
-			
+		if (dest.hasCityObjects()) {
 			List<List<Double>> vertices = verticesBuilder.build();
 			dest.setVertices(vertices);
 
@@ -130,11 +128,11 @@ public class CityJSONMarshaller {
 		return dest;
 	}
 	
-	public List<AbstractCityObjectType> marshal(AbstractCityObject src) {
+	public AbstractCityObjectType marshal(AbstractCityObject src, CityJSON cityJSON) {
 		xlinkResolver.resolve(src);
 		appearanceResolver.resolve(src);
 
-		return citygml.marshal(src);
+		return citygml.marshal(src, cityJSON);
 	}
 
 	public CityGMLMarshaller getCityGMLMarshaller() {

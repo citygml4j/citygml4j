@@ -118,9 +118,13 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			break;
 		}
 
-		List<AbstractCityObjectType> cityObjects = marshaller.marshal(cityObject);
-		for (AbstractCityObjectType tmp : cityObjects)
-			write(tmp);
+		CityJSON cityJSON = new CityJSON();
+		AbstractCityObjectType dest = marshaller.marshal(cityObject, cityJSON);
+
+		for (AbstractCityObjectType child : cityJSON.getCityObjects())
+			write(child);
+
+		write(dest);
 	}
 
 	public void writeCityObject(AbstractCityObjectType cityObject) throws CityJSONWriteException {

@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.bridge;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractBridgeType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -65,31 +66,29 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.util.mapper.TypeMapper;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class BridgeMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<List<AbstractCityObjectType>> typeMapper;
+	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public BridgeMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
 
-		typeMapper = TypeMapper.<List<AbstractCityObjectType>>create()
+		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
 				.with(Bridge.class, this::marshalBridge)
 				.with(BridgePart.class, this::marshalBridgePart)
 				.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)
 				.with(BridgeInstallation.class, this::marshalBridgeInstallation);
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
-		return typeMapper.apply(src);
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+		return typeMapper.apply(src, cityJSON);
 	}
 
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
@@ -118,8 +117,8 @@ public class BridgeMarshaller {
 		return semantics;
 	}
 
-	public List<AbstractCityObjectType> marshalAbstractBridge(AbstractBridge src, AbstractBridgeType dest) {
-		citygml.getCoreMarshaller().marshalAbstractSite(src, dest);
+	public void marshalAbstractBridge(AbstractBridge src, AbstractBridgeType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractSite(src, dest, cityJSON);
 
 		BridgeAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -213,43 +212,32 @@ public class BridgeMarshaller {
 			}
 		}
 
-		List<AbstractCityObjectType> cityObjects = new ArrayList<>();
-
 		if (src.isSetOuterBridgeConstructionElement()) {
 			for (BridgeConstructionElementProperty property : src.getOuterBridgeConstructionElement()) {
-				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
-					if (cityObject instanceof BridgeConstructionElementType) {
-						dest.addChild(cityObject.getGmlId());
-						((BridgeConstructionElementType) cityObject).setParent(dest.getGmlId());
-					}
-
-					cityObjects.add(cityObject);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				if (cityObject instanceof BridgeConstructionElementType) {
+					dest.addChild(cityObject);
+					cityJSON.addCityObject(cityObject);
 				}
 			}
 		}
 		
 		if (src.isSetOuterBridgeInstallation()) {
 			for (BridgeInstallationProperty property : src.getOuterBridgeInstallation()) {
-				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
-					if (cityObject instanceof BridgeInstallationType) {
-						dest.addChild(cityObject.getGmlId());
-						((BridgeInstallationType) cityObject).setParent(dest.getGmlId());
-					}
-
-					cityObjects.add(cityObject);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				if (cityObject instanceof BridgeInstallationType) {
+					dest.addChild(cityObject);
+					cityJSON.addCityObject(cityObject);
 				}
 			}
 		}
 
 		if (dest instanceof BridgeType && src.isSetConsistsOfBridgePart()) {
 			for (BridgePartProperty property : src.getConsistsOfBridgePart()) {
-				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
-					if (cityObject instanceof BridgePartType) {
-						dest.addChild(cityObject.getGmlId());
-						((BridgePartType) cityObject).setParent(dest.getGmlId());
-					}
-
-					cityObjects.add(cityObject);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				if (cityObject instanceof BridgePartType) {
+					dest.addChild(cityObject);
+					cityJSON.addCityObject(cityObject);
 				}
 			}
 		}
@@ -262,12 +250,10 @@ public class BridgeMarshaller {
 				}
 			}
 		}
-
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalBridge(Bridge src, BridgeType dest) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractBridge(src, dest);
+	public void marshalBridge(Bridge src, BridgeType dest, CityJSON cityJSON) {
+		marshalAbstractBridge(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfBridge()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfBridge()) {
@@ -278,20 +264,17 @@ public class BridgeMarshaller {
 				}
 			}
 		}
-
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalBridge(Bridge src) {
+	public BridgeType marshalBridge(Bridge src, CityJSON cityJSON) {
 		BridgeType dest = new BridgeType();
-		List<AbstractCityObjectType> cityObjects = marshalBridge(src, dest);
-		cityObjects.add(dest);
+		marshalBridge(src, dest, cityJSON);
 
-		return cityObjects;
+		return dest;
 	}
 
-	public List<AbstractCityObjectType> marshalBridgePart(BridgePart src, BridgePartType dest) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractBridge(src, dest);
+	public void marshalBridgePart(BridgePart src, BridgePartType dest, CityJSON cityJSON) {
+		marshalAbstractBridge(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfBridgePart()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfBridgePart()) {
@@ -302,20 +285,17 @@ public class BridgeMarshaller {
 				}
 			}
 		}
-
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalBridgePart(BridgePart src) {
+	public BridgePartType marshalBridgePart(BridgePart src, CityJSON cityJSON) {
 		BridgePartType dest = new BridgePartType();
-		List<AbstractCityObjectType> cityObjects = marshalBridgePart(src, dest);
-		cityObjects.add(dest);
+		marshalBridgePart(src, dest, cityJSON);
 
-		return cityObjects;
+		return dest;
 	}
 	
-	public void marshalBridgeConstructionElement(BridgeConstructionElement src, BridgeConstructionElementType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalBridgeConstructionElement(BridgeConstructionElement src, BridgeConstructionElementType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -371,15 +351,15 @@ public class BridgeMarshaller {
 		}
 	}
 
-	public List<AbstractCityObjectType> marshalBridgeConstructionElement(BridgeConstructionElement src) {
+	public BridgeConstructionElementType marshalBridgeConstructionElement(BridgeConstructionElement src, CityJSON cityJSON) {
 		BridgeConstructionElementType dest = new BridgeConstructionElementType();
-		marshalBridgeConstructionElement(src, dest);
+		marshalBridgeConstructionElement(src, dest, cityJSON);
 
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
-	public void marshalBridgeInstallation(BridgeInstallation src, BridgeInstallationType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalBridgeInstallation(BridgeInstallation src, BridgeInstallationType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -435,11 +415,11 @@ public class BridgeMarshaller {
 		}
 	}
 
-	public List<AbstractCityObjectType> marshalBridgeInstallation(BridgeInstallation src) {
+	public BridgeInstallationType marshalBridgeInstallation(BridgeInstallation src, CityJSON cityJSON) {
 		BridgeInstallationType dest = new BridgeInstallationType();
-		marshalBridgeInstallation(src, dest);
+		marshalBridgeInstallation(src, dest, cityJSON);
 
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
 	private void preprocessGeometry(AbstractBridge bridge) {

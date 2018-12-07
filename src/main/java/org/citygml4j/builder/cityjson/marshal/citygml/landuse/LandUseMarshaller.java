@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.landuse;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.LandUseType;
@@ -31,9 +32,6 @@ import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
-import java.util.Collections;
-import java.util.List;
-
 public class LandUseMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
@@ -43,15 +41,15 @@ public class LandUseMarshaller {
 		json = citygml.getCityJSONMarshaller();
 	}
 	
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		if (src instanceof LandUse)
-			return Collections.singletonList(marshalLandUse((LandUse)src));
+			return marshalLandUse((LandUse) src, cityJSON);
 		
-		return Collections.emptyList();			
+		return null;
 	}
 	
-	public void marshalLandUse(LandUse src, LandUseType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalLandUse(LandUse src, LandUseType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -118,9 +116,9 @@ public class LandUseMarshaller {
 		}
 	}
 	
-	public LandUseType marshalLandUse(LandUse src) {
+	public LandUseType marshalLandUse(LandUse src, CityJSON cityJSON) {
 		LandUseType dest = new LandUseType();
-		marshalLandUse(src, dest);
+		marshalLandUse(src, dest, cityJSON);
 		
 		return dest;
 	}

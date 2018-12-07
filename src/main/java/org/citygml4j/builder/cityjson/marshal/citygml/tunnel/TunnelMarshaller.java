@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.tunnel;
 
+import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTunnelType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -61,30 +62,28 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.util.mapper.TypeMapper;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class TunnelMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final TypeMapper<List<AbstractCityObjectType>> typeMapper;
+	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public TunnelMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
 
-		typeMapper = TypeMapper.<List<AbstractCityObjectType>>create()
+		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
 				.with(Tunnel.class, this::marshalTunnel)
 				.with(TunnelPart.class, this::marshalTunnelPart)
 				.with(TunnelInstallation.class, this::marshalTunnelInstallation);
 	}
 
-	public List<AbstractCityObjectType> marshal(ModelObject src) {
-		return typeMapper.apply(src);
+	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+		return typeMapper.apply(src, cityJSON);
 	}
 
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
@@ -113,8 +112,8 @@ public class TunnelMarshaller {
 		return semantics;
 	}
 
-	public List<AbstractCityObjectType> marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest) {
-		citygml.getCoreMarshaller().marshalAbstractSite(src, dest);
+	public void marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractSite(src, dest, cityJSON);
 
 		TunnelAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -205,39 +204,29 @@ public class TunnelMarshaller {
 			}
 		}
 
-		List<AbstractCityObjectType> cityObjects = new ArrayList<>();
-
 		if (src.isSetOuterTunnelInstallation()) {
 			for (TunnelInstallationProperty property : src.getOuterTunnelInstallation()) {
-				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
-					if (cityObject instanceof TunnelInstallationType) {
-						dest.addChild(cityObject.getGmlId());
-						((TunnelInstallationType) cityObject).setParent(dest.getGmlId());
-					}
-
-					cityObjects.add(cityObject);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				if (cityObject instanceof TunnelInstallationType) {
+					dest.addChild(cityObject);
+					cityJSON.addCityObject(cityObject);
 				}
 			}
 		}
 
 		if (dest instanceof TunnelType && src.isSetConsistsOfTunnelPart()) {
 			for (TunnelPartProperty property : src.getConsistsOfTunnelPart()) {
-				for (AbstractCityObjectType cityObject : json.getGMLMarshaller().marshal(property)) {
-					if (cityObject instanceof TunnelPartType) {
-						dest.addChild(cityObject.getGmlId());
-						((TunnelPartType) cityObject).setParent(dest.getGmlId());
-					}
-
-					cityObjects.add(cityObject);
+				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshal(property, cityJSON);
+				if (cityObject instanceof TunnelPartType) {
+					dest.addChild(cityObject);
+					cityJSON.addCityObject(cityObject);
 				}
 			}
 		}
-		
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalTunnel(Tunnel src, TunnelType dest) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractTunnel(src, dest);
+	public void marshalTunnel(Tunnel src, TunnelType dest, CityJSON cityJSON) {
+		marshalAbstractTunnel(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfTunnel()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnel()) {
@@ -248,20 +237,17 @@ public class TunnelMarshaller {
 				}
 			}
 		}
-
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalTunnel(Tunnel src) {
+	public TunnelType marshalTunnel(Tunnel src, CityJSON cityJSON) {
 		TunnelType dest = new TunnelType();
-		List<AbstractCityObjectType> cityObjects = marshalTunnel(src, dest);
-		cityObjects.add(dest);
+		marshalTunnel(src, dest, cityJSON);
 
-		return cityObjects;
+		return dest;
 	}
 
-	public List<AbstractCityObjectType> marshalTunnelPart(TunnelPart src, TunnelPartType dest) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractTunnel(src, dest);
+	public void marshalTunnelPart(TunnelPart src, TunnelPartType dest, CityJSON cityJSON) {
+		marshalAbstractTunnel(src, dest, cityJSON);
 
 		if (src.isSetGenericApplicationPropertyOfTunnelPart()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnelPart()) {
@@ -272,20 +258,17 @@ public class TunnelMarshaller {
 				}
 			}
 		}
-
-		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalTunnelPart(TunnelPart src) {
+	public TunnelPartType marshalTunnelPart(TunnelPart src, CityJSON cityJSON) {
 		TunnelPartType dest = new TunnelPartType();
-		List<AbstractCityObjectType> cityObjects = marshalTunnelPart(src, dest);
-		cityObjects.add(dest);
+		marshalTunnelPart(src, dest, cityJSON);
 
-		return cityObjects;
+		return dest;
 	}
 
-	public void marshalTunnelInstallation(TunnelInstallation src, TunnelInstallationType dest) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+	public void marshalTunnelInstallation(TunnelInstallation src, TunnelInstallationType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
 		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
@@ -351,11 +334,11 @@ public class TunnelMarshaller {
 		}
 	}
 
-	public List<AbstractCityObjectType> marshalTunnelInstallation(TunnelInstallation src) {
+	public TunnelInstallationType marshalTunnelInstallation(TunnelInstallation src, CityJSON cityJSON) {
 		TunnelInstallationType dest = new TunnelInstallationType();
-		marshalTunnelInstallation(src, dest);
+		marshalTunnelInstallation(src, dest, cityJSON);
 
-		return Collections.singletonList(dest);
+		return dest;
 	}
 
 	private void preprocessGeometry(AbstractTunnel tunnel) {
