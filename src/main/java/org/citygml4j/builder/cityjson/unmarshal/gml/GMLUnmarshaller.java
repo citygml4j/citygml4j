@@ -40,8 +40,10 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
@@ -163,6 +165,23 @@ public class GMLUnmarshaller {
 
 	public MultiCurve unmarshalMultiLineString(MultiLineStringType src, AbstractCityObject cityObject) {
 		return unmarshalMultiLineString(src);
+	}
+
+	public AbstractCurve unmarshalCurve(MultiLineStringType src) {
+		MultiCurve multiCurve = new MultiCurve();
+		unmarshalMultiLineString(src, multiCurve);
+
+		AbstractCurve dest = null;
+		if (multiCurve.isSetCurveMember()) {
+			if (multiCurve.getCurveMember().size() == 1)
+				dest = multiCurve.getCurveMember().get(0).getCurve();
+			else {
+				dest = new CompositeCurve();
+				((CompositeCurve) dest).setCurveMember(multiCurve.getCurveMember());
+			}
+		}
+
+		return dest;
 	}
 
 	public List<SurfaceProperty> unmarshalSurfaceCollection(AbstractSurfaceCollectionType src, AbstractCityObject cityObject, boolean useXLinks) {

@@ -56,8 +56,10 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSolid;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
 import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
 import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
@@ -103,6 +105,9 @@ public class GMLMarshaller {
 		typeMapper = TypeMapper.<AbstractGeometryObjectType>create()
 				.with(Point.class, this::marshalPoint)
 				.with(MultiPoint.class, this::marshalMultiPoint)
+				.with(Curve.class, this::marshalMultiLineString)
+				.with(CompositeCurve.class, this::marshalMultiLineString)
+				.with(LineString.class, this::marshalMultiLineString)
 				.with(MultiCurve.class, this::marshalMultiLineString)
 				.with(Surface.class, this::marshalSurface)
 				.with(TriangulatedSurface.class, this::marshalTriangulatedSurface)
@@ -157,6 +162,32 @@ public class GMLMarshaller {
 	public MultiPointType marshalMultiPoint(MultiPoint src) {
 		MultiPointType dest = new MultiPointType();
 		marshalMultiPoint(src, dest);
+
+		return dest;
+	}
+
+	public void marshalMultiLineString(AbstractCurve src, MultiLineStringType dest) {
+		MultiLineStringBuilder builder = new MultiLineStringBuilder();
+		builder.process(src, dest);
+	}
+
+	public MultiLineStringType marshalMultiLineString(Curve src) {
+		MultiLineStringType dest = new MultiLineStringType();
+		marshalMultiLineString(src, dest);
+
+		return dest;
+	}
+
+	public MultiLineStringType marshalMultiLineString(CompositeCurve src) {
+		MultiLineStringType dest = new MultiLineStringType();
+		marshalMultiLineString(src, dest);
+
+		return dest;
+	}
+
+	public MultiLineStringType marshalMultiLineString(LineString src) {
+		MultiLineStringType dest = new MultiLineStringType();
+		marshalMultiLineString(src, dest);
 
 		return dest;
 	}
@@ -426,6 +457,11 @@ public class GMLMarshaller {
 				((AbstractGeometry)property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK)).accept(this);
 			else
 				super.visit(property);
+		}
+
+		public void process(AbstractCurve src, MultiLineStringType dest) {
+			this.dest = dest;
+			src.accept(this);
 		}
 
 		public void process(MultiCurve src, MultiLineStringType dest) {
