@@ -50,9 +50,10 @@ public class LandUseMarshaller {
 		return Collections.emptyList();			
 	}
 	
-	public void marshalLandUse(LandUse src, LandUseType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
-		
+	public void marshalLandUse(LandUse src, LandUseType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -119,7 +120,7 @@ public class LandUseMarshaller {
 	
 	public LandUseType marshalLandUse(LandUse src) {
 		LandUseType dest = new LandUseType();
-		marshalLandUse(src, dest, dest.newAttributes());
+		marshalLandUse(src, dest);
 		
 		return dest;
 	}

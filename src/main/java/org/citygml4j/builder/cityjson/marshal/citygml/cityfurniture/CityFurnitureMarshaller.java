@@ -51,9 +51,10 @@ public class CityFurnitureMarshaller {
 		return Collections.emptyList();			
 	}
 	
-	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
-		
+	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
+
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -130,7 +131,7 @@ public class CityFurnitureMarshaller {
 	
 	public CityFurnitureType marshalCityFurniture(CityFurniture src) {
 		CityFurnitureType dest = new CityFurnitureType();
-		marshalCityFurniture(src, dest, dest.newAttributes());
+		marshalCityFurniture(src, dest);
 		
 		return dest;
 	}

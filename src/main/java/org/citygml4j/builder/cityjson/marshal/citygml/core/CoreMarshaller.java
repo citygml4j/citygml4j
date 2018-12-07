@@ -88,12 +88,13 @@ public class CoreMarshaller {
 		return Collections.emptyList();	
 	}
 
-	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, Attributes attributes) {
+	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest) {
 		dest.setGmlId(src.isSetId() && !src.getId().isEmpty() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
 
 		if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
 			dest.setGeographicalExtent(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetCreationDate())
 			attributes.setCreationDate(src.getCreationDate());
 
@@ -114,15 +115,15 @@ public class CoreMarshaller {
 		}
 	}
 
-	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest, Attributes attributes) {
-		marshalAbstractCityObject(src, dest, attributes);
+	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest) {
+		marshalAbstractCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfSite()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfSite()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}

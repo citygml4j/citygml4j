@@ -84,23 +84,24 @@ public class WaterBodyMarshaller {
 		return semantics;
 	}
 
-	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfWaterObject()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
 	}
 
-	public void marshalWaterBody(WaterBody src, WaterBodyType dest, Attributes attributes) {
-		marshalAbstractWaterObject(src, dest, attributes);
+	public void marshalWaterBody(WaterBody src, WaterBodyType dest) {
+		marshalAbstractWaterObject(src, dest);
 
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -205,7 +206,7 @@ public class WaterBodyMarshaller {
 
 	public WaterBodyType marshalWaterBody(WaterBody src) {
 		WaterBodyType dest = new WaterBodyType();
-		marshalWaterBody(src, dest, dest.newAttributes());
+		marshalWaterBody(src, dest);
 
 		return dest;
 	}

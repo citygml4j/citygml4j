@@ -115,9 +115,10 @@ public class BuildingMarshaller {
 		return semantics;
 	}
 
-	public List<AbstractCityObjectType> marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest, BuildingAttributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractSite(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest) {
+		citygml.getCoreMarshaller().marshalAbstractSite(src, dest);
 
+		BuildingAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -281,15 +282,15 @@ public class BuildingMarshaller {
 		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalBuilding(Building src, BuildingType dest, BuildingAttributes attributes) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalBuilding(Building src, BuildingType dest) {
+		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfBuilding()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuilding()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -299,21 +300,21 @@ public class BuildingMarshaller {
 
 	public List<AbstractCityObjectType> marshalBuilding(Building src) {
 		BuildingType dest = new BuildingType();
-		List<AbstractCityObjectType> cityObjects = marshalBuilding(src, dest, dest.newAttributes());
+		List<AbstractCityObjectType> cityObjects = marshalBuilding(src, dest);
 		cityObjects.add(dest);
 
 		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src, BuildingPartType dest, BuildingAttributes attributes) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src, BuildingPartType dest) {
+		List<AbstractCityObjectType> cityObjects = marshalAbstractBuilding(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfBuildingPart()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuildingPart()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -323,15 +324,16 @@ public class BuildingMarshaller {
 
 	public List<AbstractCityObjectType> marshalBuildingPart(BuildingPart src) {
 		BuildingPartType dest = new BuildingPartType();
-		List<AbstractCityObjectType> cityObjects = marshalBuildingPart(src, dest, dest.newAttributes());
+		List<AbstractCityObjectType> cityObjects = marshalBuildingPart(src, dest);
 		cityObjects.add(dest);
 
 		return cityObjects;
 	}
 
-	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
 
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -397,7 +399,7 @@ public class BuildingMarshaller {
 
 	public List<AbstractCityObjectType> marshalBuildingInstallation(BuildingInstallation src) {
 		BuildingInstallationType dest = new BuildingInstallationType();
-		marshalBuildingInstallation(src, dest, dest.newAttributes());
+		marshalBuildingInstallation(src, dest);
 
 		return Collections.singletonList(dest);
 	}

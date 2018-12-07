@@ -20,7 +20,6 @@ package org.citygml4j.builder.cityjson.marshal.citygml.transportation;
 
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
 import org.citygml4j.binding.cityjson.feature.RailwayType;
 import org.citygml4j.binding.cityjson.feature.RoadType;
 import org.citygml4j.binding.cityjson.feature.TransportSquareType;
@@ -95,23 +94,24 @@ public class TransportationMarshaller {
 		return semantics;
 	}
 
-	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractCityObjectType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractCityObjectType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTransportationObject()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTransportationObject()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
 	}
 	
-	public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest, TransportationComplexAttributes attributes) {
-		marshalAbstractTransportationObject(src, dest, attributes);
+	public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest) {
+		marshalAbstractTransportationObject(src, dest);
 
+		TransportationComplexAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -191,13 +191,15 @@ public class TransportationMarshaller {
 		}
 	}
 
-	public void marshalRoad(Road src, RoadType dest, TransportationComplexAttributes attributes) {
+	public void marshalRoad(Road src, RoadType dest) {
+		marshalTransportationComplex(src, dest);
+
 		if (src.isSetGenericApplicationPropertyOfRoad()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfRoad()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -205,18 +207,20 @@ public class TransportationMarshaller {
 	
 	public List<AbstractCityObjectType> marshalRoad(Road src) {
 		RoadType dest = new RoadType();
-		marshalRoad(src, dest, dest.newAttributes());
+		marshalRoad(src, dest);
 		
 		return Collections.singletonList(dest);
 	}
 
-	public void marshalRailway(Railway src, RailwayType dest, TransportationComplexAttributes attributes) {
+	public void marshalRailway(Railway src, RailwayType dest) {
+		marshalTransportationComplex(src, dest);
+
 		if (src.isSetGenericApplicationPropertyOfRailway()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfRailway()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -224,18 +228,20 @@ public class TransportationMarshaller {
 	
 	public List<AbstractCityObjectType> marshalRailway(Railway src) {
 		RailwayType dest = new RailwayType();
-		marshalRailway(src, dest, dest.getAttributes());
+		marshalRailway(src, dest);
 		
 		return Collections.singletonList(dest);
 	}
 
-	public void marshalSquare(Square src, TransportSquareType dest, TransportationComplexAttributes attributes) {
+	public void marshalSquare(Square src, TransportSquareType dest) {
+		marshalTransportationComplex(src, dest);
+
 		if (src.isSetGenericApplicationPropertyOfSquare()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfSquare()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -243,7 +249,7 @@ public class TransportationMarshaller {
 	
 	public List<AbstractCityObjectType> marshalSquare(Square src) {
 		TransportSquareType dest = new TransportSquareType();
-		marshalSquare(src, dest, dest.newAttributes());
+		marshalSquare(src, dest);
 		
 		return Collections.singletonList(dest);
 	}

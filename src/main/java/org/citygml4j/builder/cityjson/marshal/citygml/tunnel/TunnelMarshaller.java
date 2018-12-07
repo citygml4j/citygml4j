@@ -113,9 +113,10 @@ public class TunnelMarshaller {
 		return semantics;
 	}
 
-	public List<AbstractCityObjectType> marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest, TunnelAttributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractSite(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalAbstractTunnel(AbstractTunnel src, AbstractTunnelType dest) {
+		citygml.getCoreMarshaller().marshalAbstractSite(src, dest);
 
+		TunnelAttributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -235,15 +236,15 @@ public class TunnelMarshaller {
 		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalTunnel(Tunnel src, TunnelType dest, TunnelAttributes attributes) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractTunnel(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalTunnel(Tunnel src, TunnelType dest) {
+		List<AbstractCityObjectType> cityObjects = marshalAbstractTunnel(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTunnel()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnel()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -253,21 +254,21 @@ public class TunnelMarshaller {
 
 	public List<AbstractCityObjectType> marshalTunnel(Tunnel src) {
 		TunnelType dest = new TunnelType();
-		List<AbstractCityObjectType> cityObjects = marshalTunnel(src, dest, dest.newAttributes());
+		List<AbstractCityObjectType> cityObjects = marshalTunnel(src, dest);
 		cityObjects.add(dest);
 
 		return cityObjects;
 	}
 
-	public List<AbstractCityObjectType> marshalTunnelPart(TunnelPart src, TunnelPartType dest, TunnelAttributes attributes) {
-		List<AbstractCityObjectType> cityObjects = marshalAbstractTunnel(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalTunnelPart(TunnelPart src, TunnelPartType dest) {
+		List<AbstractCityObjectType> cityObjects = marshalAbstractTunnel(src, dest);
 
 		if (src.isSetGenericApplicationPropertyOfTunnelPart()) {
 			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnelPart()) {
 				if (ade instanceof ADEModelObject) {
 					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
 					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
+						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
 				}
 			}
 		}
@@ -277,15 +278,16 @@ public class TunnelMarshaller {
 
 	public List<AbstractCityObjectType> marshalTunnelPart(TunnelPart src) {
 		TunnelPartType dest = new TunnelPartType();
-		List<AbstractCityObjectType> cityObjects = marshalTunnelPart(src, dest, dest.newAttributes());
+		List<AbstractCityObjectType> cityObjects = marshalTunnelPart(src, dest);
 		cityObjects.add(dest);
 
 		return cityObjects;
 	}
 
-	public void marshalTunnelInstallation(TunnelInstallation src, TunnelInstallationType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public void marshalTunnelInstallation(TunnelInstallation src, TunnelInstallationType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
 
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -351,7 +353,7 @@ public class TunnelMarshaller {
 
 	public List<AbstractCityObjectType> marshalTunnelInstallation(TunnelInstallation src) {
 		TunnelInstallationType dest = new TunnelInstallationType();
-		marshalTunnelInstallation(src, dest, dest.newAttributes());
+		marshalTunnelInstallation(src, dest);
 
 		return Collections.singletonList(dest);
 	}

@@ -66,9 +66,10 @@ public class CityObjectGroupMarshaller {
 		return Collections.emptyList();			
 	}
 
-	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest, Attributes attributes) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, attributes);
+	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest) {
+		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest);
 
+		Attributes attributes = dest.getAttributes();
 		if (src.isSetClazz())
 			attributes.setClazz(src.getClazz().getValue());
 
@@ -151,7 +152,7 @@ public class CityObjectGroupMarshaller {
 
 	public List<AbstractCityObjectType> marshalCityObjectGroup(CityObjectGroup src) {
 		CityObjectGroupType dest = new CityObjectGroupType();
-		List<AbstractCityObjectType> cityObjects = marshalCityObjectGroup(src, dest, dest.newAttributes());
+		List<AbstractCityObjectType> cityObjects = marshalCityObjectGroup(src, dest);
 		cityObjects.add(dest);
 
 		return cityObjects;
