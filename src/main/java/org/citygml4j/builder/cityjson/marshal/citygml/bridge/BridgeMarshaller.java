@@ -32,10 +32,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.bridge.AbstractBridge;
 import org.citygml4j.model.citygml.bridge.AbstractOpening;
@@ -151,15 +148,8 @@ public class BridgeMarshaller {
 		if (src.isSetIsMovable())
 			attributes.setIsMovable(src.getIsMovable());
 
-		if (src.isSetGenericApplicationPropertyOfAbstractBridge()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfAbstractBridge()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfAbstractBridge())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractBridge(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -255,15 +245,8 @@ public class BridgeMarshaller {
 	public void marshalBridge(Bridge src, BridgeType dest, CityJSON cityJSON) {
 		marshalAbstractBridge(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfBridge()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfBridge()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfBridge())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBridge(), dest, cityJSON);
 	}
 
 	public BridgeType marshalBridge(Bridge src, CityJSON cityJSON) {
@@ -276,15 +259,8 @@ public class BridgeMarshaller {
 	public void marshalBridgePart(BridgePart src, BridgePartType dest, CityJSON cityJSON) {
 		marshalAbstractBridge(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfBridgePart()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfBridgePart()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfBridgePart())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBridgePart(), dest, cityJSON);
 	}
 
 	public BridgePartType marshalBridgePart(BridgePart src, CityJSON cityJSON) {
@@ -318,6 +294,9 @@ public class BridgeMarshaller {
 				}
 			}
 		}
+
+		if (src.isSetGenericApplicationPropertyOfBridgeConstructionElement())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBridgeConstructionElement(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -382,6 +361,9 @@ public class BridgeMarshaller {
 				}
 			}
 		}
+
+		if (src.isSetGenericApplicationPropertyOfBridgeInstallation())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBridgeInstallation(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);

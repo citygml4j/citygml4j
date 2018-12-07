@@ -31,10 +31,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface;
@@ -143,15 +140,8 @@ public class TunnelMarshaller {
 		if (src.isSetYearOfDemolition())
 			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
 
-		if (src.isSetGenericApplicationPropertyOfAbstractTunnel()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfAbstractTunnel()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfAbstractTunnel())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractTunnel(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -228,15 +218,8 @@ public class TunnelMarshaller {
 	public void marshalTunnel(Tunnel src, TunnelType dest, CityJSON cityJSON) {
 		marshalAbstractTunnel(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfTunnel()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnel()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfTunnel())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTunnel(), dest, cityJSON);
 	}
 
 	public TunnelType marshalTunnel(Tunnel src, CityJSON cityJSON) {
@@ -249,15 +232,8 @@ public class TunnelMarshaller {
 	public void marshalTunnelPart(TunnelPart src, TunnelPartType dest, CityJSON cityJSON) {
 		marshalAbstractTunnel(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfTunnelPart()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnelPart()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfTunnelPart())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTunnelPart(), dest, cityJSON);
 	}
 
 	public TunnelPartType marshalTunnelPart(TunnelPart src, CityJSON cityJSON) {
@@ -292,15 +268,8 @@ public class TunnelMarshaller {
 			}
 		}
 
-		if (src.isSetGenericApplicationPropertyOfTunnelInstallation()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfTunnelInstallation()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfTunnelInstallation())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTunnelInstallation(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);

@@ -25,9 +25,6 @@ import org.citygml4j.binding.cityjson.feature.LandUseType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -73,15 +70,8 @@ public class LandUseMarshaller {
 			}
 		}
 
-		if (src.isSetGenericApplicationPropertyOfLandUse()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfLandUse()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfLandUse())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfLandUse(), dest, cityJSON);
 		
 		if (src.isSetLod0MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface());

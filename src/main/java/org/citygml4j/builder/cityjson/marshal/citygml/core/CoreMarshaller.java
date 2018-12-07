@@ -29,11 +29,8 @@ import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
@@ -103,29 +100,15 @@ public class CoreMarshaller {
 		if (src.isSetGenericAttribute())
 			citygml.getGenericsMarshaller().marshalGenericAttributes(src, attributes);
 
-		if (src.isSetGenericApplicationPropertyOfCityObject()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfCityObject()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfCityObject())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObject(), dest, cityJSON);
 	}
 
 	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest, CityJSON cityJSON) {
 		marshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfSite()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfSite()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfSite())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSite(), dest, cityJSON);
 	}
 
 	private AbstractCityObjectType marshalCityModel(CityModel src, CityJSON cityJSON) {

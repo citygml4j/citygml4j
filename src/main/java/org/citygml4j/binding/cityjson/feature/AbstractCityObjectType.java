@@ -41,8 +41,8 @@ public abstract class AbstractCityObjectType {
 	private transient String gmlId;
 	private transient HashMap<String, Object> localProperties;
 
-	public abstract boolean isValidGeometryType(GeometryTypeName type);
 	public abstract Attributes newAttributes();
+	public abstract boolean isValidGeometryType(GeometryTypeName type);
 
 	protected final <T extends Attributes> T newAttributes(T attributes) {
 		this.attributes = attributes != null ? attributes : new Attributes();

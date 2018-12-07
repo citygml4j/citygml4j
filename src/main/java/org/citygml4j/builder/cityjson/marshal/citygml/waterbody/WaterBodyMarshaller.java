@@ -26,10 +26,7 @@ import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
@@ -86,15 +83,8 @@ public class WaterBodyMarshaller {
 	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
 		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfWaterObject()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfWaterObject()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfWaterObject())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterObject(), dest, cityJSON);
 	}
 
 	public void marshalWaterBody(WaterBody src, WaterBodyType dest, CityJSON cityJSON) {
@@ -122,15 +112,8 @@ public class WaterBodyMarshaller {
 			}
 		}
 
-		if (src.isSetGenericApplicationPropertyOfWaterBody()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfWaterBody()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfWaterBody())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterBody(), dest, cityJSON);
 
 		Map<Integer, MultiSurface> multiSurfaces = null;
 		if (src.isSetBoundedBySurface())

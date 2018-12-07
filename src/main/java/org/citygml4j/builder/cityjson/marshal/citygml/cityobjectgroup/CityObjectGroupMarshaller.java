@@ -26,9 +26,6 @@ import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -90,15 +87,8 @@ public class CityObjectGroupMarshaller {
 			}
 		}
 
-		if (src.isSetGenericApplicationPropertyOfCityObjectGroup()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfCityObjectGroup()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfCityObjectGroup())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObjectGroup(), dest, cityJSON);
 
 		if (src.isSetGeometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getGeometry());

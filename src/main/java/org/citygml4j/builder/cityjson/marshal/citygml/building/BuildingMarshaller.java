@@ -31,10 +31,7 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
-import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.AbstractOpening;
@@ -171,15 +168,8 @@ public class BuildingMarshaller {
 		if (src.isSetYearOfDemolition())
 			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
 
-		if (src.isSetGenericApplicationPropertyOfAbstractBuilding()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfAbstractBuilding()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfAbstractBuilding())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractBuilding(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
@@ -274,15 +264,8 @@ public class BuildingMarshaller {
 	public void marshalBuilding(Building src, BuildingType dest, CityJSON cityJSON) {
 		marshalAbstractBuilding(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfBuilding()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuilding()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfBuilding())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuilding(), dest, cityJSON);
 	}
 
 	public BuildingType marshalBuilding(Building src, CityJSON cityJSON) {
@@ -295,15 +278,8 @@ public class BuildingMarshaller {
 	public void marshalBuildingPart(BuildingPart src, BuildingPartType dest, CityJSON cityJSON) {
 		marshalAbstractBuilding(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfBuildingPart()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuildingPart()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						dest.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfBuildingPart())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuildingPart(), dest, cityJSON);
 	}
 
 	public BuildingPartType marshalBuildingPart(BuildingPart src, CityJSON cityJSON) {
@@ -338,15 +314,8 @@ public class BuildingMarshaller {
 			}
 		}
 
-		if (src.isSetGenericApplicationPropertyOfBuildingInstallation()) {
-			for (ADEComponent ade : src.getGenericApplicationPropertyOfBuildingInstallation()) {
-				if (ade instanceof ADEModelObject) {
-					ExtensionAttribute attribute = json.getADEMarshaller().unmarshalExtensionAttribute((ADEModelObject) ade);
-					if (attribute != null)
-						attributes.addExtensionAttribute(attribute.getName(), attribute.getValue());
-				}
-			}
-		}
+		if (src.isSetGenericApplicationPropertyOfBuildingInstallation())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuildingInstallation(), dest, cityJSON);
 
 		if (src.isSetBoundedBySurface())
 			preprocessGeometry(src);
