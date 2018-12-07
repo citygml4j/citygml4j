@@ -37,7 +37,7 @@ public abstract class AbstractBuildingType extends AbstractCityObjectType {
 
 	@Override
 	public BuildingAttributes getAttributes() {
-		return (BuildingAttributes) attributes;
+		return (BuildingAttributes) super.getAttributes();
 	}
 	
 	public boolean isSetAddress() {

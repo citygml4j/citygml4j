@@ -36,7 +36,7 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 
 	@Override
 	public TunnelAttributes getAttributes() {
-		return (TunnelAttributes) attributes;
+		return (TunnelAttributes) super.getAttributes();
 	}
 
 	@Override

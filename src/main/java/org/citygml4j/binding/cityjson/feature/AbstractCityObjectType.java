@@ -50,7 +50,7 @@ public abstract class AbstractCityObjectType {
 	}
 
 	public Attributes getAttributes() {
-		return attributes;
+		return attributes != null ? attributes : newAttributes();
 	}
 
 	public final boolean isSetAttributes() {

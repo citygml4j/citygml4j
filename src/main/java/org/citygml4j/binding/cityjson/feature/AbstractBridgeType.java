@@ -37,7 +37,7 @@ public abstract class AbstractBridgeType extends AbstractCityObjectType {
 
 	@Override
 	public BridgeAttributes getAttributes() {
-		return (BridgeAttributes) attributes;
+		return (BridgeAttributes) super.getAttributes();
 	}
 	
 	public boolean isSetAddress() {

@@ -36,7 +36,7 @@ public abstract class AbstractTransportationComplexType extends AbstractCityObje
 
 	@Override
 	public TransportationComplexAttributes getAttributes() {
-		return (TransportationComplexAttributes) attributes;
+		return (TransportationComplexAttributes) super.getAttributes();
 	}
 	
 	@Override

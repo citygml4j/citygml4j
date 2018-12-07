@@ -36,7 +36,7 @@ public class SolitaryVegetationObjectType extends AbstractVegetationObjectType {
 
 	@Override
 	public SolitaryVegetationObjectAttributes getAttributes() {
-		return (SolitaryVegetationObjectAttributes) attributes;
+		return (SolitaryVegetationObjectAttributes) super.getAttributes();
 	}
 
 	@Override

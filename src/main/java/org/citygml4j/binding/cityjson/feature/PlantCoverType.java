@@ -36,7 +36,7 @@ public class PlantCoverType extends AbstractVegetationObjectType {
 
 	@Override
 	public PlantCoverAttributes getAttributes() {
-		return (PlantCoverAttributes) attributes;
+		return (PlantCoverAttributes) super.getAttributes();
 	}
 
 	@Override
