@@ -237,6 +237,8 @@ public class BridgeUnmarshaller {
 		if (src.isSetChildren()) {
 			for (String gmlId : src.getChildren()) {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
+				if (cityObject == null || cityObject.getType().startsWith("+"))
+					continue;
 
 				if (cityObject instanceof BridgeInstallationType) {
 					BridgeInstallation installation = unmarshalBridgeInstallation((BridgeInstallationType) cityObject, cityJSON);

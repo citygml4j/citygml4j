@@ -225,6 +225,8 @@ public class TunnelUnmarshaller {
 		if (src.isSetChildren()) {
 			for (String gmlId : src.getChildren()) {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
+				if (cityObject == null || cityObject.getType().startsWith("+"))
+					continue;
 
 				if (cityObject instanceof TunnelInstallationType) {
 					TunnelInstallation installation = unmarshalTunnelInstallation((TunnelInstallationType) cityObject, cityJSON);

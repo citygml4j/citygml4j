@@ -137,6 +137,14 @@ public class CoreUnmarshaller {
 					json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, dest);
 			}
 		}
+
+		if (src.isSetChildren()) {
+			for (String child : src.getChildren()) {
+				AbstractCityObjectType cityObject = cityJSON.getCityObject(child);
+				if (cityObject != null && cityObject.getType().startsWith("+"))
+					json.getADEUnmarshaller().unmarshalCityObject(cityObject, cityJSON, dest);
+			}
+		}
 	}
 	
 	public void unmarshalCityModel(CityJSON src, CityModel dest) {

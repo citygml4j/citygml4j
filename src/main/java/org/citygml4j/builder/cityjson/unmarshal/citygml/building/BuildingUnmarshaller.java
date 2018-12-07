@@ -265,6 +265,8 @@ public class BuildingUnmarshaller {
 		if (src.isSetChildren()) {
 			for (String gmlId : src.getChildren()) {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
+				if (cityObject == null || cityObject.getType().startsWith("+"))
+					continue;
 
 				if (cityObject instanceof BuildingInstallationType) {
 					BuildingInstallation installation = unmarshalBuildingInstallation((BuildingInstallationType) cityObject, cityJSON);
