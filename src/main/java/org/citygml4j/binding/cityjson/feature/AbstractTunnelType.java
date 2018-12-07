@@ -20,11 +20,7 @@ package org.citygml4j.binding.cityjson.feature;
 
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class AbstractTunnelType extends AbstractCityObjectType {
-	private List<String> children;
 
 	public AbstractTunnelType() {
 	}
@@ -41,29 +37,6 @@ public abstract class AbstractTunnelType extends AbstractCityObjectType {
 	@Override
 	public TunnelAttributes getAttributes() {
 		return (TunnelAttributes) attributes;
-	}
-
-	public boolean isSetChildren() {
-		return children != null && !children.isEmpty();
-	}
-
-	public void addChild(String child) {
-		if (children == null)
-			children = new ArrayList<>();
-
-		children.add(child);
-	}
-
-	public List<String> getChildren() {
-		return children;
-	}
-
-	public void setChildren(List<String> Children) {
-		this.children = Children;
-	}
-
-	public void unsetChildren() {
-		children = null;
 	}
 
 	@Override

@@ -19,29 +19,12 @@
 package org.citygml4j.binding.cityjson.feature;
 
 public class TunnelPartType extends AbstractTunnelType {
-	private String parent;
 
 	public TunnelPartType() {
 	}
 	
 	public TunnelPartType(String gmlId) {
 		super(gmlId);
-	}
-
-	public boolean isSetParent() {
-		return parent != null;
-	}
-
-	public String getParent() {
-		return parent;
-	}
-
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
-
-	public void unsetParent() {
-		parent = null;
 	}
 
 }

@@ -19,29 +19,12 @@
 package org.citygml4j.binding.cityjson.feature;
 
 public class BuildingPartType extends AbstractBuildingType {
-	private String parent;
 
 	public BuildingPartType() {
 	}
 	
 	public BuildingPartType(String gmlId) {
 		super(gmlId);
-	}
-
-	public boolean isSetParent() {
-		return parent != null;
-	}
-
-	public String getParent() {
-		return parent;
-	}
-
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
-
-	public void unsetParent() {
-		parent = null;
 	}
 
 }

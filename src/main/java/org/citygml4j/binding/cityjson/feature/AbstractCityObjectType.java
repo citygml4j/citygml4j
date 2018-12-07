@@ -32,6 +32,8 @@ public abstract class AbstractCityObjectType {
 	String type;
 	Attributes attributes;
 	private List<Double> geographicalExtent;
+	private List<String> children;
+	private String parent;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	private transient String gmlId;
@@ -97,6 +99,47 @@ public abstract class AbstractCityObjectType {
 
 	public void unsetGeographicalExtent() {
 		geographicalExtent = null;
+	}
+
+
+
+	public boolean isSetChildren() {
+		return children != null && !children.isEmpty();
+	}
+
+	public void addChild(String child) {
+		if (children == null)
+			children = new ArrayList<>();
+
+		children.add(child);
+	}
+
+	public List<String> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<String> Children) {
+		this.children = Children;
+	}
+
+	public void unsetChildren() {
+		children = null;
+	}
+
+	public boolean isSetParent() {
+		return parent != null;
+	}
+
+	public String getParent() {
+		return parent;
+	}
+
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
+
+	public void unsetParent() {
+		parent = null;
 	}
 		
 	public void addGeometry(AbstractGeometryType geometry) {
