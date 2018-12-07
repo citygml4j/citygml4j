@@ -142,6 +142,9 @@ public class CoreUnmarshaller {
 	public void unmarshalCityModel(CityJSON src, CityModel dest) {
 		boolean hasGroups = false;
 		for (AbstractCityObjectType type : src.getCityObjects()) {
+			// skip nested city objects
+			if (type.isSetParent() && src.hasCityObject(type.getParent()))
+				continue;
 
 			AbstractFeature cityObject;
 			if (type.getType().startsWith("+")) {
