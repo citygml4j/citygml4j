@@ -25,14 +25,16 @@ import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @JsonAdapter(CityObjectTypeAdapter.class)
 public abstract class AbstractCityObjectType {
 	String type;
 	Attributes attributes;
 	private List<Double> geographicalExtent;
-	private List<String> children;
+	private Set<String> children;
 	private String parent;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
@@ -101,24 +103,27 @@ public abstract class AbstractCityObjectType {
 		geographicalExtent = null;
 	}
 
-
-
 	public boolean isSetChildren() {
 		return children != null && !children.isEmpty();
 	}
 
 	public void addChild(String child) {
 		if (children == null)
-			children = new ArrayList<>();
+			children = new HashSet<>();
 
 		children.add(child);
 	}
 
-	public List<String> getChildren() {
+	public void addChild(AbstractCityObjectType child) {
+		addChild(child.gmlId);
+		child.setParent(gmlId);
+	}
+
+	public Set<String> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<String> Children) {
+	public void setChildren(Set<String> Children) {
 		this.children = Children;
 	}
 
