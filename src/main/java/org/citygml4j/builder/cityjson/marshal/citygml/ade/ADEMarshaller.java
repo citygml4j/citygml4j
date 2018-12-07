@@ -57,7 +57,7 @@ public class ADEMarshaller {
             else if (ade instanceof ADEModelObject && marshallers != null) {
                 CityJSONExtensionMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
                 if (marshaller != null) {
-                    ExtensionAttribute attribute = marshaller.unmarshalExtensionAttribute((ADEModelObject) ade);
+                    ExtensionAttribute attribute = marshaller.marshalExtensionAttribute((ADEModelObject) ade);
                     if (attribute != null)
                         parent.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
                 }
