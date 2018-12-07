@@ -104,15 +104,15 @@ public class CityGMLUnmarshaller {
 		else if (src instanceof BuildingType)
 			dest = bldg.unmarshal(src, cityJSON);
 		else if (src instanceof CityFurnitureType)
-			dest = frn.unmarshalCityFurniture((CityFurnitureType)src);
+			dest = frn.unmarshalCityFurniture((CityFurnitureType) src, cityJSON);
 		else if (src instanceof CityObjectGroupType)
-			dest = grp.unmarshalCityObjectGroup((CityObjectGroupType)src);
+			dest = grp.unmarshalCityObjectGroup((CityObjectGroupType) src, cityJSON);
 		else if (src instanceof GenericCityObjectType)
-			dest = gen.unmarshalGenericCityObject((GenericCityObjectType)src);
+			dest = gen.unmarshalGenericCityObject((GenericCityObjectType) src, cityJSON);
 		else if (src instanceof LandUseType)
-			dest = luse.unmarshalLandUse((LandUseType)src);
+			dest = luse.unmarshalLandUse((LandUseType) src, cityJSON);
 		else if (src instanceof TINReliefType)
-			dest = dem.unmarshalTINRelief((TINReliefType)src);
+			dest = dem.unmarshalTINRelief((TINReliefType) src, cityJSON);
 		else if (src instanceof AbstractTransportationComplexType)
 			dest = tran.unmarshal(src, cityJSON);
 		else if (src instanceof TunnelType)
@@ -120,7 +120,7 @@ public class CityGMLUnmarshaller {
 		else if (src instanceof AbstractVegetationObjectType)
 			dest = veg.unmarshal(src, cityJSON);
 		else if (src instanceof WaterBodyType)
-			dest = wtr.unmarshalWaterBody((WaterBodyType)src);
+			dest = wtr.unmarshalWaterBody((WaterBodyType) src, cityJSON);
 		
 		return dest;
 	}
