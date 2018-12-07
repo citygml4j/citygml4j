@@ -55,9 +55,6 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		if (cityObject.type == null)
 			cityObject.type = CityJSONRegistry.getInstance().getCityObjectType(cityObject);
 
-		if (cityObject.attributes != null && !cityObject.attributes.hasAttributes())
-			cityObject.attributes = null;
-
 		JsonElement result = context.serialize(cityObject);
 
 		if (result != null && cityObject.attributes != null) {
@@ -76,6 +73,10 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 				for (Map.Entry<String, JsonElement> entry : attributes.entrySet())
 					object.add(entry.getKey(), entry.getValue());
 			}
+
+			// remove empty attributes
+			if (object.entrySet().isEmpty())
+				result.getAsJsonObject().remove("attributes");
 		}
 
 		return result;

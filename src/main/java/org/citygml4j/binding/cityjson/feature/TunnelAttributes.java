@@ -53,10 +53,4 @@ public class TunnelAttributes extends Attributes {
 	public void unsetYearOfDemolition() {
 		yearOfDemolition = null;
 	}
-	
-	public boolean hasAttributes() {
-		return super.hasAttributes()
-				|| yearOfConstruction != null
-				|| yearOfDemolition != null;
-	}
 }

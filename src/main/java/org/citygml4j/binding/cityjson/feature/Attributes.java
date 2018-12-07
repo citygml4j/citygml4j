@@ -196,16 +196,6 @@ public class Attributes {
 		extensionAttributes = null;
 	}
 
-	public boolean hasAttributes() {
-		return creationDate != null
-				|| terminationDate != null
-				|| clazz != null
-				|| function!= null
-				|| usage != null
-				|| genericAttributes != null
-				|| extensionAttributes != null;
-	}
-
 	final List<String> getAttributeNames() {
 		if (attributeNames == null) {
 			attributeNames = new ArrayList<>();

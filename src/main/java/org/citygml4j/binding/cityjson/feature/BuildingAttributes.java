@@ -172,16 +172,4 @@ public class BuildingAttributes extends Attributes {
 	public void unsetYearOfDemolition() {
 		yearOfDemolition = null;
 	}
-	
-	public boolean hasAttributes() {
-		return super.hasAttributes()
-				|| measuredHeight != null
-				|| roofType != null
-				|| storeysAboveGround != null
-				|| storeysBelowGround != null
-				|| storeyHeightsAboveGround != null
-				|| storeyHeightsBelowGround != null
-				|| yearOfConstruction != null
-				|| yearOfDemolition != null;
-	}
 }

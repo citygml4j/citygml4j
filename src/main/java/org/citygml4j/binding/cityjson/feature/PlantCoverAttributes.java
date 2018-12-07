@@ -36,10 +36,4 @@ public class PlantCoverAttributes extends Attributes {
 	public void unsetAverageHeight() {
 		averageHeight = null;
 	}
-	
-	public boolean hasAttributes() {
-		return super.hasAttributes()
-				|| averageHeight != null;
-	}
-	
 }

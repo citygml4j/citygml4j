@@ -49,11 +49,4 @@ public class TransportationComplexAttributes extends Attributes {
 	public void unsetSurfaceMaterials() {
 		surfaceMaterials = null;
 	}
-
-	@Override
-	public boolean hasAttributes() {
-		return super.hasAttributes()
-				|| surfaceMaterials != null;
-	}
-	
 }

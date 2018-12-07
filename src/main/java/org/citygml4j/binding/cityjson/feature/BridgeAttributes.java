@@ -70,11 +70,4 @@ public class BridgeAttributes extends Attributes {
 	public void unsetIsMovable() {
 		isMovable = null;
 	}
-	
-	public boolean hasAttributes() {
-		return super.hasAttributes()
-				|| yearOfConstruction != null
-				|| yearOfDemolition != null
-				|| isMovable != null;
-	}
 }
