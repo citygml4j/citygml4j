@@ -60,13 +60,13 @@ public class GenericsUnmarshaller {
 	
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		if (src instanceof GenericCityObjectType)
-			return unmarshalGenericCityObject((GenericCityObjectType)src);
+			return unmarshalGenericCityObject((GenericCityObjectType) src, cityJSON);
 		
 		return null;
 	}
 	
-	public void unmarshalGenericCityObject(GenericCityObjectType src, GenericCityObject dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalGenericCityObject(GenericCityObjectType src, GenericCityObject dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -126,9 +126,9 @@ public class GenericsUnmarshaller {
 		}
 	}
 	
-	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src) {
+	public GenericCityObject unmarshalGenericCityObject(GenericCityObjectType src, CityJSON cityJSON) {
 		GenericCityObject dest = new GenericCityObject();
-		unmarshalGenericCityObject(src, dest);
+		unmarshalGenericCityObject(src, dest, cityJSON);
 		
 		return dest;
 	}

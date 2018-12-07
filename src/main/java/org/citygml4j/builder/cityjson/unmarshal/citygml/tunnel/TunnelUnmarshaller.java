@@ -156,7 +156,7 @@ public class TunnelUnmarshaller {
 	}
 
 	public void unmarshalAbstractTunnel(AbstractTunnelType src, AbstractTunnel dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			TunnelAttributes attributes = src.getAttributes();
@@ -237,22 +237,30 @@ public class TunnelUnmarshaller {
 		}
 	}
 
+	public void unmarshalTunnel(TunnelType src, Tunnel dest, CityJSON cityJSON) {
+		unmarshalAbstractTunnel(src, dest, cityJSON);
+	}
+
 	public Tunnel unmarshalTunnel(TunnelType src, CityJSON cityJSON) {
 		Tunnel dest = new Tunnel();
-		unmarshalAbstractTunnel(src, dest, cityJSON);
+		unmarshalTunnel(src, dest, cityJSON);
 
 		return dest;
+	}
+
+	public void unmarshalTunnelPart(TunnelPartType src, TunnelPart dest, CityJSON cityJSON) {
+		unmarshalAbstractTunnel(src, dest, cityJSON);
 	}
 	
 	public TunnelPart unmarshalTunnelPart(TunnelPartType src, CityJSON cityJSON) {
 		TunnelPart dest = new TunnelPart();
-		unmarshalAbstractTunnel(src, dest, cityJSON);
+		unmarshalTunnelPart(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public void unmarshalTunnelInstallation(TunnelInstallationType src, TunnelInstallation dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalTunnelInstallation(TunnelInstallationType src, TunnelInstallation dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -302,7 +310,7 @@ public class TunnelUnmarshaller {
 
 	public TunnelInstallation unmarshalTunnelInstallation(TunnelInstallationType src, CityJSON cityJSON) {
 		TunnelInstallation dest = new TunnelInstallation();
-		unmarshalTunnelInstallation(src, dest);
+		unmarshalTunnelInstallation(src, dest, cityJSON);
 
 		return dest;
 	}

@@ -165,7 +165,7 @@ public class BridgeUnmarshaller {
 	}
 
 	public void unmarshalAbstractBridge(AbstractBridgeType src, AbstractBridge dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			BridgeAttributes attributes = src.getAttributes();
@@ -255,22 +255,30 @@ public class BridgeUnmarshaller {
 			dest.addAddress(new AddressProperty(citygml.getCoreUnmarshaller().unmarshalAddress(src.getAddress())));
 	}
 
+	public void unmarshalBridge(BridgeType src, Bridge dest, CityJSON cityJSON) {
+		unmarshalAbstractBridge(src, dest, cityJSON);
+	}
+
 	public Bridge unmarshalBridge(BridgeType src, CityJSON cityJSON) {
 		Bridge dest = new Bridge();
-		unmarshalAbstractBridge(src, dest, cityJSON);
+		unmarshalBridge(src, dest, cityJSON);
 
 		return dest;
+	}
+
+	public void unmarshalBridgePart(BridgePartType src, BridgePart dest, CityJSON cityJSON) {
+		unmarshalAbstractBridge(src, dest, cityJSON);
 	}
 	
 	public BridgePart unmarshalBridgePart(BridgePartType src, CityJSON cityJSON) {
 		BridgePart dest = new BridgePart();
-		unmarshalAbstractBridge(src, dest, cityJSON);
+		unmarshalBridgePart(src, dest, cityJSON);
 
 		return dest;
 	}
 	
-	public void unmarshalBridgeConstructionElement(BridgeConstructionElementType src, BridgeConstructionElement dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalBridgeConstructionElement(BridgeConstructionElementType src, BridgeConstructionElement dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -326,13 +334,13 @@ public class BridgeUnmarshaller {
 
 	public BridgeConstructionElement unmarshalBridgeConstructionElement(BridgeConstructionElementType src, CityJSON cityJSON) {
 		BridgeConstructionElement dest = new BridgeConstructionElement();
-		unmarshalBridgeConstructionElement(src, dest);
+		unmarshalBridgeConstructionElement(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public void unmarshalBridgeInstallation(BridgeInstallationType src, BridgeInstallation dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalBridgeInstallation(BridgeInstallationType src, BridgeInstallation dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -382,7 +390,7 @@ public class BridgeUnmarshaller {
 
 	public BridgeInstallation unmarshalBridgeInstallation(BridgeInstallationType src, CityJSON cityJSON) {
 		BridgeInstallation dest = new BridgeInstallation();
-		unmarshalBridgeInstallation(src, dest);
+		unmarshalBridgeInstallation(src, dest, cityJSON);
 
 		return dest;
 	}

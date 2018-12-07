@@ -45,13 +45,13 @@ public class ReliefUnmarshaller {
 
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		if (src instanceof TINReliefType)
-			return unmarshalTINRelief((TINReliefType)src);
+			return unmarshalTINRelief((TINReliefType) src, cityJSON);
 
 		return null;
 	}
 
-	public void unmarshalTINRelief(TINReliefType src, ReliefFeature dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalTINRelief(TINReliefType src, ReliefFeature dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -94,9 +94,9 @@ public class ReliefUnmarshaller {
 		}
 	}
 
-	public ReliefFeature unmarshalTINRelief(TINReliefType src) {
+	public ReliefFeature unmarshalTINRelief(TINReliefType src, CityJSON cityJSON) {
 		ReliefFeature dest = new ReliefFeature();
-		unmarshalTINRelief(src, dest);
+		unmarshalTINRelief(src, dest, cityJSON);
 
 		return dest;
 	}

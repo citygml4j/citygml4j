@@ -46,13 +46,13 @@ public class CityFurnitureUnmarshaller {
 	
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		if (src instanceof CityFurnitureType)
-			return unmarshalCityFurniture((CityFurnitureType)src);
+			return unmarshalCityFurniture((CityFurnitureType) src, cityJSON);
 
 		return null;
 	}
 	
-	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -106,9 +106,9 @@ public class CityFurnitureUnmarshaller {
 		}
 	}
 	
-	public CityFurniture unmarshalCityFurniture(CityFurnitureType src) {
+	public CityFurniture unmarshalCityFurniture(CityFurnitureType src, CityJSON cityJSON) {
 		CityFurniture dest = new CityFurniture();
-		unmarshalCityFurniture(src, dest);
+		unmarshalCityFurniture(src, dest, cityJSON);
 		
 		return dest;
 	}

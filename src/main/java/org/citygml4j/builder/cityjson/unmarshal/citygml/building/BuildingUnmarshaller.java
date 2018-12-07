@@ -160,7 +160,7 @@ public class BuildingUnmarshaller {
 	}
 
 	public void unmarshalAbstractBuilding(AbstractBuildingType src, AbstractBuilding dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			BuildingAttributes attributes = src.getAttributes();
@@ -280,22 +280,30 @@ public class BuildingUnmarshaller {
 			dest.addAddress(new AddressProperty(citygml.getCoreUnmarshaller().unmarshalAddress(src.getAddress())));
 	}
 
+	public void unmarshalBuilding(BuildingType src, Building dest, CityJSON cityJSON) {
+		unmarshalAbstractBuilding(src, dest, cityJSON);
+	}
+
 	public Building unmarshalBuilding(BuildingType src, CityJSON cityJSON) {
 		Building dest = new Building();
-		unmarshalAbstractBuilding(src, dest, cityJSON);
+		unmarshalBuilding(src, dest, cityJSON);
 
 		return dest;
+	}
+
+	public void unmarshalBuildingPart(BuildingPartType src, BuildingPart dest, CityJSON cityJSON) {
+		unmarshalAbstractBuilding(src, dest, cityJSON);
 	}
 	
 	public BuildingPart unmarshalBuildingPart(BuildingPartType src, CityJSON cityJSON) {
 		BuildingPart dest = new BuildingPart();
-		unmarshalAbstractBuilding(src, dest, cityJSON);
+		unmarshalBuildingPart(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public void unmarshalBuildingInstallation(BuildingInstallationType src, BuildingInstallation dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalBuildingInstallation(BuildingInstallationType src, BuildingInstallation dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -345,7 +353,7 @@ public class BuildingUnmarshaller {
 
 	public BuildingInstallation unmarshalBuildingInstallation(BuildingInstallationType src, CityJSON cityJSON) {
 		BuildingInstallation dest = new BuildingInstallation();
-		unmarshalBuildingInstallation(src, dest);
+		unmarshalBuildingInstallation(src, dest, cityJSON);
 
 		return dest;
 	}

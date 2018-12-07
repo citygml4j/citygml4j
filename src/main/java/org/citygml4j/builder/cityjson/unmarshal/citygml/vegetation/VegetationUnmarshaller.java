@@ -20,6 +20,7 @@ package org.citygml4j.builder.cityjson.unmarshal.citygml.vegetation;
 
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.AbstractVegetationObjectType;
 import org.citygml4j.binding.cityjson.feature.PlantCoverAttributes;
 import org.citygml4j.binding.cityjson.feature.PlantCoverType;
 import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectAttributes;
@@ -32,6 +33,7 @@ import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.citygml.vegetation.PlantCover;
 import org.citygml4j.model.citygml.vegetation.SolitaryVegetationObject;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -61,9 +63,13 @@ public class VegetationUnmarshaller {
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		return typeMapper.apply(src, cityJSON);
 	}
+
+	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+	}
 	
-	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest, CityJSON cityJSON) {
+		unmarshalAbstractVegetationObject(src, dest, cityJSON);
 		
 		if (src.isSetAttributes()) {
 			PlantCoverAttributes attributes = src.getAttributes();
@@ -129,13 +135,13 @@ public class VegetationUnmarshaller {
 
 	public PlantCover unmarshalPlantCover(PlantCoverType src, CityJSON cityJSON) {
 		PlantCover dest = new PlantCover();
-		unmarshalPlantCover(src, dest);
+		unmarshalPlantCover(src, dest, cityJSON);
 		
 		return dest;
 	}
 
-	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest, CityJSON cityJSON) {
+		unmarshalAbstractVegetationObject(src, dest, cityJSON);
 		
 		if (src.isSetAttributes()) {
 			SolitaryVegetationObjectAttributes attributes = src.getAttributes();
@@ -201,7 +207,7 @@ public class VegetationUnmarshaller {
 	
 	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, CityJSON cityJSON) {
 		SolitaryVegetationObject dest = new SolitaryVegetationObject();
-		unmarshalSolitaryVegetationObject(src, dest);
+		unmarshalSolitaryVegetationObject(src, dest, cityJSON);
 
 		return dest;
 	}

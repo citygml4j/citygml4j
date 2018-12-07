@@ -43,13 +43,13 @@ public class LandUseUnmarshaller {
 	
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		if (src instanceof LandUseType)
-			return unmarshalLandUse((LandUseType)src);
+			return unmarshalLandUse((LandUseType) src, cityJSON);
 
 		return null;
 	}
 	
-	public void unmarshalLandUse(LandUseType src, LandUse dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalLandUse(LandUseType src, LandUse dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -89,9 +89,9 @@ public class LandUseUnmarshaller {
 		}
 	}
 	
-	public LandUse unmarshalLandUse(LandUseType src) {
+	public LandUse unmarshalLandUse(LandUseType src, CityJSON cityJSON) {
 		LandUse dest = new LandUse();
-		unmarshalLandUse(src, dest);
+		unmarshalLandUse(src, dest, cityJSON);
 		
 		return dest;
 	}

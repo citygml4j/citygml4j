@@ -53,7 +53,6 @@ import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransportationUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -102,8 +101,8 @@ public class TransportationUnmarshaller {
 		return trafficArea;
 	}
 
-	public void unmarshalTransportationComplex(AbstractTransportationComplexType src, TransportationComplex dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalTransportationComplex(AbstractTransportationComplexType src, TransportationComplex dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
 		if (src.isSetAttributes()) {
 			TransportationComplexAttributes attributes = src.getAttributes();
@@ -120,7 +119,7 @@ public class TransportationUnmarshaller {
 			if (attributes.isSetSurfaceMaterials()) {
 				StringAttribute surfaceMaterial = new StringAttribute();
 				surfaceMaterial.setName("surfaceMaterial");
-				surfaceMaterial.setValue(attributes.getSurfaceMaterials().stream().collect(Collectors.joining(" ")));
+				surfaceMaterial.setValue(String.join(" ", attributes.getSurfaceMaterials()));
 				dest.addGenericAttribute(surfaceMaterial);
 			}
 		}
@@ -158,23 +157,35 @@ public class TransportationUnmarshaller {
 		}
 	}
 
+	public void unmarshalRoad(RoadType src, Road dest, CityJSON cityJSON) {
+		unmarshalTransportationComplex(src, dest, cityJSON);
+	}
+
 	public Road unmarshalRoad(RoadType src, CityJSON cityJSON) {
 		Road dest = new Road();
-		unmarshalTransportationComplex(src, dest);
+		unmarshalRoad(src, dest, cityJSON);
 
 		return dest;
+	}
+
+	public void unmarshalRailway(RailwayType src, Railway dest, CityJSON cityJSON) {
+		unmarshalTransportationComplex(src, dest, cityJSON);
 	}
 
 	public Railway unmarshalRailway(RailwayType src, CityJSON cityJSON) {
 		Railway dest = new Railway();
-		unmarshalTransportationComplex(src, dest);
+		unmarshalRailway(src, dest, cityJSON);
 
 		return dest;
 	}
 
+	public void unmarshalTransportSquare(TransportSquareType src, Square dest, CityJSON cityJSON) {
+		unmarshalTransportationComplex(src, dest, cityJSON);
+	}
+
 	public Square unmarshalTransportSquare(TransportSquareType src, CityJSON cityJSON) {
 		Square dest = new Square();
-		unmarshalTransportationComplex(src, dest);
+		unmarshalTransportSquare(src, dest, cityJSON);
 
 		return dest;
 	}

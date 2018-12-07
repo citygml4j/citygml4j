@@ -49,13 +49,13 @@ public class CityObjectGroupUnmarshaller {
 
     public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
         if (src instanceof CityObjectGroupType)
-            return unmarshalCityObjectGroup((CityObjectGroupType)src);
+            return unmarshalCityObjectGroup((CityObjectGroupType) src, cityJSON);
 
         return null;
     }
 
-    public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest) {
-        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+    public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
         if (src.isSetAttributes()) {
             Attributes attributes = src.getAttributes();
@@ -87,9 +87,9 @@ public class CityObjectGroupUnmarshaller {
         }
     }
 
-    public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src) {
+    public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src, CityJSON cityJSON) {
         CityObjectGroup dest = new CityObjectGroup();
-        unmarshalCityObjectGroup(src, dest);
+        unmarshalCityObjectGroup(src, dest, cityJSON);
 
         return dest;
     }

@@ -106,7 +106,7 @@ public class CoreUnmarshaller {
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 	}
 
-	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest) {
+	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest, CityJSON cityJSON) {
 		dest.setId(src.getGmlId());
 
 		if (src.isSetGeographicalExtent()) {

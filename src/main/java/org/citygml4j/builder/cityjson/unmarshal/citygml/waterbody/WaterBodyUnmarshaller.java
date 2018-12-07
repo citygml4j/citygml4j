@@ -61,7 +61,7 @@ public class WaterBodyUnmarshaller {
 	
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
 		if (src instanceof WaterBodyType)
-			return unmarshalWaterBody((WaterBodyType)src);
+			return unmarshalWaterBody((WaterBodyType) src, cityJSON);
 
 		return null;
 	}
@@ -92,8 +92,8 @@ public class WaterBodyUnmarshaller {
 		return boundarySurface;
 	}
 	
-	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest);
+	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -162,9 +162,9 @@ public class WaterBodyUnmarshaller {
 		}
 	}
 	
-	public WaterBody unmarshalWaterBody(WaterBodyType src) {
+	public WaterBody unmarshalWaterBody(WaterBodyType src, CityJSON cityJSON) {
 		WaterBody dest = new WaterBody();
-		unmarshalWaterBody(src, dest);
+		unmarshalWaterBody(src, dest, cityJSON);
 		
 		return dest;
 	}
