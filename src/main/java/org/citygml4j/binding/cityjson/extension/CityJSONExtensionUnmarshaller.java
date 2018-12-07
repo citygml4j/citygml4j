@@ -16,5 +16,5 @@ public interface CityJSONExtensionUnmarshaller {
     AbstractFeature unmarshalCityObject(AbstractCityObjectType src, CityJSON cityJSON, AbstractFeature parent);
     AbstractCityObject unmarshalSemanticSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent);
     boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEModelObject parent);
-    void unmarshalExtensionAttribute(String name, Object value, AbstractCityObject parent);
+    void unmarshalExtensionAttribute(String name, Object value, CityJSON cityJSON, AbstractCityObject parent);
 }

@@ -134,7 +134,7 @@ public class CoreUnmarshaller {
 
 			if (attributes.isSetExtensionAttributes()) {
 				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet())
-					json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, dest);
+					json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, cityJSON, dest);
 			}
 		}
 

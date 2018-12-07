@@ -105,13 +105,13 @@ public class ADEUnmarshaller {
         return false;
     }
 
-    public void unmarshalExtensionAttribute(String name, Object value, AbstractCityObjectType src, AbstractCityObject parent) {
+    public void unmarshalExtensionAttribute(String name, Object value, AbstractCityObjectType src, CityJSON cityJSON, AbstractCityObject parent) {
         if (unmarshallersByAttribute != null) {
             for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, CityJSONExtensionUnmarshaller>> entry : unmarshallersByAttribute.entrySet()) {
                 if (entry.getKey().isAssignableFrom(src.getClass())) {
                     CityJSONExtensionUnmarshaller unmarshaller = entry.getValue().get(name);
                     if (unmarshaller != null)
-                        unmarshaller.unmarshalExtensionAttribute(name, value, parent);
+                        unmarshaller.unmarshalExtensionAttribute(name, value, cityJSON, parent);
                 }
             }
         }
