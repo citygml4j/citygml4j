@@ -48,6 +48,7 @@ import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.FeatureMember;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPoint;
@@ -75,9 +76,12 @@ import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.util.walker.GeometryWalker;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -90,6 +94,9 @@ public class CoreUnmarshaller {
 	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
 	private AbstractCityObject appearanceContainer;
 	private GMLIdManager gmlIdManager;
+
+	private final String UNMARSHAL_AS_GLOBAL_FEATURE = "org.citygml4j.unmarshal.asGlobalFeature";
+	private final String GLOBAL_FEATURES = "org.citygml4j.unmarshal.globalFeature";
 
 	public CoreUnmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
@@ -106,6 +113,7 @@ public class CoreUnmarshaller {
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest, CityJSON cityJSON) {
 		dest.setId(src.getGmlId());
 
@@ -141,41 +149,80 @@ public class CoreUnmarshaller {
 		if (src.isSetChildren()) {
 			for (String child : src.getChildren()) {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(child);
-				if (cityObject != null && cityObject.getType().startsWith("+"))
-					json.getADEUnmarshaller().unmarshalCityObject(cityObject, cityJSON, dest);
+				if (cityObject != null && cityObject.getType().startsWith("+")) {
+					AbstractFeature feature = json.getADEUnmarshaller().unmarshalCityObject(cityObject, cityJSON, dest);
+					if (feature.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
+						List<AbstractFeature> features = (List<AbstractFeature>) dest.getLocalProperty(GLOBAL_FEATURES);
+						if (features == null) {
+							features = new ArrayList<>();
+							dest.setLocalProperty(GLOBAL_FEATURES, features);
+						}
+
+						features.add(feature);
+					}
+				}
 			}
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public void unmarshalCityModel(CityJSON src, CityModel dest) {
-		boolean hasGroups = false;
+		// collect nested objects
+		Set<AbstractCityObjectType> nested = Collections.newSetFromMap(new IdentityHashMap<>());
 		for (AbstractCityObjectType type : src.getCityObjects()) {
-			// skip nested city objects
-			if (type.isSetParent() && src.hasCityObject(type.getParent()))
+			if (type.isSetChildren()) {
+				for (String gmlId : type.getChildren()) {
+					AbstractCityObjectType child = src.getCityObject(gmlId);
+					if (child != null)
+						nested.add(child);
+				}
+			}
+		}
+
+		for (AbstractCityObjectType type : src.getCityObjects()) {
+			// nested objects are handled separately, so skip them here
+			if (nested.contains(type))
 				continue;
 
 			AbstractFeature cityObject;
 			if (type.getType().startsWith("+")) {
 				cityObject = json.getADEUnmarshaller().unmarshalCityObject(type, src, dest);
+				if (cityObject != null && cityObject.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
+					if (cityObject instanceof AbstractCityObject)
+						dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
+					else
+						dest.addFeatureMember(new FeatureMember(cityObject));
+				}
 			} else {
 				cityObject = citygml.unmarshal(type, src);
 				if (cityObject != null)
 					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
 			}
-
-			if (!hasGroups && cityObject instanceof CityObjectGroup)
-				hasGroups = true;
 		}
+
+		// postprocess global features
+		dest.accept(new FeatureWalker() {
+			public void visit(AbstractFeature feature) {
+				if (feature.hasLocalProperty(GLOBAL_FEATURES)) {
+					for (AbstractFeature tmp : (List<AbstractFeature>) feature.getLocalProperty(GLOBAL_FEATURES)) {
+						if (tmp instanceof AbstractCityObject)
+							dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) tmp));
+						else
+							dest.addFeatureMember(new FeatureMember(tmp));
+					}
+
+					feature.unsetLocalProperty(GLOBAL_FEATURES);
+				}
+			}
+		});
 
 		// postprocess group members
-		if (hasGroups) {
-			dest.accept(new FeatureWalker() {
-				public void visit(CityObjectGroup cityObjectGroup) {
-					citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(cityObjectGroup, dest);
-				}
-			});
-		}
-		
+		dest.accept(new FeatureWalker() {
+			public void visit(CityObjectGroup group) {
+				citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(group, dest);
+			}
+		});
+
 		if (src.isSetMetadata()) {
 			MetadataType metadata = src.getMetadata();
 
@@ -200,6 +247,10 @@ public class CoreUnmarshaller {
 		unmarshalCityModel(src, dest);
 		
 		return dest;
+	}
+
+	public void unmarshalAsGlobalFeature(AbstractFeature feature) {
+		feature.setLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE, true);
 	}
 
 	public void unmarshalGeometryInstance(GeometryInstanceType src, ImplicitGeometry dest) {
