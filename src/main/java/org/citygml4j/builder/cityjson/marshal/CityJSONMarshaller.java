@@ -45,7 +45,6 @@ public class CityJSONMarshaller {
 	public static final String GEOMETRY_XLINK = "org.citygml4j.geometry.xlink";
 	public static final String GEOMETRY_XLINK_TARGET = "org.citygml4j.geometry.xlinkTarget";
 	public static final String GEOMETRY_SURFACE_DATA = "org.citygml4j.geometry.surfaceData";
-	public static final String POSTPROCESS_GROUP_MEMBERS = "org.citygml4j.group.checkMembers";
 
 	private final CityGMLMarshaller citygml;
 	private final GMLMarshaller gml;
