@@ -31,6 +31,7 @@ import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,7 +77,7 @@ public class CityJSONConverter {
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0 file");
 		CityGMLOutputFactory out = cityGMLBuilder.createCityGMLOutputFactory();
 
-		CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Railway_v200.gml"));
+		CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Railway_v200.gml"), StandardCharsets.UTF_8.displayName());
 		writer.setIndentString("  ");
 		writer.setPrefixes(CityGMLVersion.v2_0_0);
 		writer.setDefaultNamespace(CoreModule.v2_0_0);
