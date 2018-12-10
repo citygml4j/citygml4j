@@ -35,7 +35,9 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 	public void write(CityModel cityModel) throws CityJSONWriteException {
 		CityJSON cityJSON = marshaller.marshal(cityModel);
 		if (cityJSON != null) {
+			// add metadata
 			MetadataType metadata = this.metadata != null ? this.metadata : new MetadataType();
+			cityJSON.setMetadata(metadata);
 
 			if (!metadata.isSetGeographicalExtent() && !cityJSON.getVertices().isEmpty()) {
 				List<Double> bbox = cityJSON.calcBoundingBox();
@@ -51,7 +53,10 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 			if (!metadata.isSetPresentLoDs() && cityJSON.hasCityObjects())
 				metadata.setPresentLoDs(cityJSON.calcPresentLoDs());
 
-			cityJSON.setMetadata(metadata);			
+			// add extensions
+			if (extensions != null)
+				cityJSON.setExtensions(extensions);
+
 			gson.toJson(cityJSON, CityJSON.class, writer);
 		}
 	}

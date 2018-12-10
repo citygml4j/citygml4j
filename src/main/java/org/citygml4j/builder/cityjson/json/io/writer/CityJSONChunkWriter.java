@@ -54,6 +54,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	private final String TEMPLATES = "templates";
 	private final String VERTICES_TEMPLATES = "vertices-templates";
 	private final String METADATA = "metadata";
+	private final String EXTENSIONS = "extensions";
 
 	private DocumentState documentState = DocumentState.INITIAL;
 	private Map<LoDType, Integer> lods;
@@ -259,6 +260,12 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 			writer.name(METADATA);
 			gson.toJson(metadata, MetadataType.class, writer);
+
+			// extensions
+			if (extensions != null) {
+				writer.name(EXTENSIONS);
+				gson.toJson(extensions, Map.class, writer);
+			}
 
 			writer.endObject();
 

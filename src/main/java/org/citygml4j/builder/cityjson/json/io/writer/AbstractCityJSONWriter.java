@@ -21,12 +21,19 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
 import org.citygml4j.binding.cityjson.geometry.VerticesList;
 import org.citygml4j.binding.cityjson.geometry.VerticesListAdapter;
 import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
+import org.citygml4j.model.citygml.ade.binding.ADEContext;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	protected final JsonWriter writer;
@@ -34,6 +41,7 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	protected final Gson gson;
 	
 	protected MetadataType metadata;
+	protected Map<String, String> extensions;
 	
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
@@ -59,6 +67,25 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 
 	public void setMetadata(MetadataType metadata) {
 		this.metadata = metadata;
+	}
+
+	public void setExtension(String name, String schemaURI) {
+		if (extensions == null)
+			extensions = new HashMap<>();
+
+		extensions.put(name, schemaURI);
+	}
+
+	public void setExtensions(List<ADEContext> adeContexts) {
+		for (ADEContext adeContext : adeContexts) {
+			if (adeContext instanceof CityJSONExtensionContext) {
+				CityJSONExtension extension = ((CityJSONExtensionContext) adeContext).getCityJSONExtension();
+				for (CityJSONExtensionModule module : extension.getExtensionModules()) {
+					if (module != null && module.getIdentifier() != null && module.getSchemaURI() != null)
+						setExtension(module.getIdentifier(), module.getSchemaURI());
+				}
+			}
+		}
 	}
 
 	public void setIndent(String indent) {
