@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:smil20="http://www.w3.org/2001/SMIL20/" elementFormDefault="qualified" version="3.1.1.2">
+<schema targetNamespace="http://www.opengis.net/gml" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" elementFormDefault="qualified" version="3.1.1.2">
 	<annotation>
 		<appinfo source="urn:opengis:specification:gml:schema-defaultStyle:v3.1.0">defaultStyle.xsd</appinfo>
 		<documentation>
@@ -15,7 +15,6 @@
 	============================================================== -->
 	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="measures.xsd"/>
-	<import namespace="http://www.w3.org/2001/SMIL20/" schemaLocation="../smil/smil20.xsd"/>
 	<!-- ==============================================================
       the Style property
 	============================================================== -->
@@ -141,10 +140,6 @@
 				<sequence>
 					<element name="spatialResolution" type="gml:ScaleType" minOccurs="0"/>
 					<element name="styleVariation" type="gml:StyleVariationType" minOccurs="0" maxOccurs="unbounded"/>
-					<element ref="smil20:animate" minOccurs="0" maxOccurs="unbounded"/>
-					<element ref="smil20:animateMotion" minOccurs="0" maxOccurs="unbounded"/>
-					<element ref="smil20:animateColor" minOccurs="0" maxOccurs="unbounded"/>
-					<element ref="smil20:set" minOccurs="0" maxOccurs="unbounded"/>
 				</sequence>
 			</extension>
 		</complexContent>

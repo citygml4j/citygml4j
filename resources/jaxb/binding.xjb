@@ -482,24 +482,6 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
-    <!-- ==== -->
-    <!-- SMIL -->
-    <!-- ==== -->
-
-    <!-- Specific settings for the SMIL schema file 'smil20.xsd' -->
-    <jaxb:bindings schemaLocation="gml/3.1.1/smil/smil20.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="smil20"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the SMIL schema file 'smil20-language.xsd' -->
-    <jaxb:bindings schemaLocation="gml/3.1.1/smil/smil20-language.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="smil20lang"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- =============== -->
     <!-- Dummy ADE Hooks -->
     <!-- =============== -->
