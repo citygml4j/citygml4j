@@ -1,3 +1,2 @@
 rootProject.name = 'citygml4j'
 include 'citygml4j-samples'
-enableFeaturePreview('STABLE_PUBLISHING')
