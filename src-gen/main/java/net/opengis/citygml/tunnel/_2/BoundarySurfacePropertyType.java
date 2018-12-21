@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.11.12 um 10:17:11 PM CET 
+// Generiert: 2018.12.21 um 08:38:03 AM CET 
 //
 
 
@@ -82,15 +82,15 @@ public class BoundarySurfacePropertyType {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OuterCeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
      *     
      */
@@ -103,15 +103,15 @@ public class BoundarySurfacePropertyType {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OuterCeilingSurfaceType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OuterFloorSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}
      *     
      */

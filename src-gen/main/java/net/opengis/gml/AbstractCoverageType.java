@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.11.12 um 10:17:11 PM CET 
+// Generiert: 2018.12.21 um 08:38:03 AM CET 
 //
 
 
@@ -69,12 +69,12 @@ public abstract class AbstractCoverageType
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link MultiCurveDomainType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiPointDomainType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiSurfaceDomainType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RectifiedGridDomainType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GridDomainType }{@code >}
      *     {@link JAXBElement }{@code <}{@link MultiSolidDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GridDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiPointDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiCurveDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiSurfaceDomainType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DomainSetType }{@code >}
      *     
      */
@@ -87,12 +87,12 @@ public abstract class AbstractCoverageType
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link MultiCurveDomainType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiPointDomainType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link MultiSurfaceDomainType }{@code >}
      *     {@link JAXBElement }{@code <}{@link RectifiedGridDomainType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GridDomainType }{@code >}
      *     {@link JAXBElement }{@code <}{@link MultiSolidDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GridDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiPointDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiCurveDomainType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link MultiSurfaceDomainType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DomainSetType }{@code >}
      *     
      */
