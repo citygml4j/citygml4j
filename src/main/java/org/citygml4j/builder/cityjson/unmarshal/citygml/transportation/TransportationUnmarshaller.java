@@ -25,8 +25,8 @@ import org.citygml4j.binding.cityjson.feature.RailwayType;
 import org.citygml4j.binding.cityjson.feature.RoadType;
 import org.citygml4j.binding.cityjson.feature.TransportSquareType;
 import org.citygml4j.binding.cityjson.feature.TransportationComplexAttributes;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSurfaceCollectionType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
@@ -45,13 +45,17 @@ import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
+import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
+import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TransportationUnmarshaller {
@@ -125,33 +129,39 @@ public class TransportationUnmarshaller {
 		}
 
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			MultiSurface multiSurface = null;
+			AbstractGeometry geometry = null;
 			int lod = 0;
 
-			if (geometryType instanceof AbstractSurfaceCollectionType) {
-				AbstractSurfaceCollectionType surfaceType = (AbstractSurfaceCollectionType) geometryType;
-				multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest);
-				lod = surfaceType.getLod().intValue();
+			if (geometryType instanceof AbstractGeometryObjectType) {
+				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				lod = geometryObject.getLod().intValue();
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				AbstractGeometry geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
-				if (geometry instanceof MultiSurface) {
-					multiSurface = (MultiSurface)geometry;
-					lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
-				}
+				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
 			}
 
-			if (multiSurface != null) {
-				switch (lod) {
-					case 1:
-						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 2:
-						dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 3:
-						dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
+			if (geometry != null) {
+				if (geometry instanceof MultiSurface) {
+					MultiSurface multiSurface = (MultiSurface) geometry;
+					switch (lod) {
+						case 1:
+							dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 2:
+							dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+						case 3:
+							dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+							break;
+					}
+				} else if (geometry instanceof MultiCurve && lod == 0) {
+					CompositeCurve compositeCurve = new CompositeCurve();
+					compositeCurve.setCurveMember(((MultiCurve) geometry).getCurveMember());
+
+					GeometricComplexProperty property = new GeometricComplexProperty(compositeCurve);
+					dest.setLod0Network(Collections.singletonList(property));
 				}
 			}
 		}

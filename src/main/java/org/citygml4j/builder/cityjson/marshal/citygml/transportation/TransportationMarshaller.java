@@ -26,6 +26,7 @@ import org.citygml4j.binding.cityjson.feature.RoadType;
 import org.citygml4j.binding.cityjson.feature.TransportSquareType;
 import org.citygml4j.binding.cityjson.feature.TransportationComplexAttributes;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.binding.cityjson.geometry.MultiLineStringType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
@@ -148,6 +149,14 @@ public class TransportationMarshaller {
 		
 		if (src.isSetTrafficArea() || src.isSetAuxiliaryTrafficArea())
 			preprocessGeometry(src);
+
+		if (src.isSetLod0Network()) {
+			MultiLineStringType geometry = json.getGMLMarshaller().marshalMultiLineString(src.getLod0Network());
+			if (geometry != null) {
+				geometry.setLod(0);
+				dest.addGeometry(geometry);
+			}
+		}
 		
 		if (src.isSetLod1MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());

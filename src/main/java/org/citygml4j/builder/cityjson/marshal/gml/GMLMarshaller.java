@@ -59,12 +59,15 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
+import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurveSegment;
 import org.citygml4j.model.gml.geometry.primitives.AbstractRing;
 import org.citygml4j.model.gml.geometry.primitives.AbstractRingProperty;
 import org.citygml4j.model.gml.geometry.primitives.Curve;
 import org.citygml4j.model.gml.geometry.primitives.CurveSegmentArrayProperty;
+import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
 import org.citygml4j.model.gml.geometry.primitives.LineString;
 import org.citygml4j.model.gml.geometry.primitives.LineStringSegment;
 import org.citygml4j.model.gml.geometry.primitives.LinearRing;
@@ -190,6 +193,26 @@ public class GMLMarshaller {
 		marshalMultiLineString(src, dest);
 
 		return dest;
+	}
+	public MultiLineStringType marshalMultiLineString(List<GeometricComplexProperty> src) {
+		MultiLineStringType dest = new MultiLineStringType();
+		for (GeometricComplexProperty property : src) {
+			if (property.isSetCompositeCurve())
+				marshalMultiLineString(property.getCompositeCurve(), dest);
+			else if (property.isSetGeometricComplex()) {
+				GeometricComplex complex = property.getGeometricComplex();
+				if (complex.isSetElement()) {
+					for (GeometricPrimitiveProperty element : complex.getElement()) {
+						if (element.getGeometricPrimitive() instanceof AbstractCurve) {
+							AbstractCurve curve = (AbstractCurve) element.getGeometricPrimitive();
+							marshalMultiLineString(curve, dest);
+						}
+					}
+				}
+			}
+		}
+
+		return !dest.getLineStrings().isEmpty() ? dest : null;
 	}
 
 	public void marshalMultiLineString(MultiCurve src, MultiLineStringType dest) {

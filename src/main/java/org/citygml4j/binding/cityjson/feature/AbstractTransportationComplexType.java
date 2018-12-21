@@ -41,7 +41,8 @@ public abstract class AbstractTransportationComplexType extends AbstractCityObje
 	
 	@Override
 	public boolean isValidGeometryType(GeometryTypeName type) {
-		return type == GeometryTypeName.MULTI_SURFACE
+		return type == GeometryTypeName.MULTI_LINE_STRING
+				|| type == GeometryTypeName.MULTI_SURFACE
 				|| type == GeometryTypeName.COMPOSITE_SURFACE;
 	}
 }
