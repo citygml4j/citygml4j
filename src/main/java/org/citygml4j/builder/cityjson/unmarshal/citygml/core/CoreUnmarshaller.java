@@ -151,7 +151,7 @@ public class CoreUnmarshaller {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(child);
 				if (cityObject != null && cityObject.getType().startsWith("+")) {
 					AbstractFeature feature = json.getADEUnmarshaller().unmarshalCityObject(cityObject, cityJSON, dest);
-					if (feature.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
+					if (feature != null && feature.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
 						List<AbstractFeature> features = (List<AbstractFeature>) dest.getLocalProperty(GLOBAL_FEATURES);
 						if (features == null) {
 							features = new ArrayList<>();
