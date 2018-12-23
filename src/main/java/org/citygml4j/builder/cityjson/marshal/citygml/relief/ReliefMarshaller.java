@@ -30,22 +30,38 @@ import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class ReliefMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 	
 	public ReliefMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
-		
-		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-				.with(ReliefFeature.class, this::marshalReliefFeature)
-				.with(TINRelief.class, this::marshalTINRelief);
+	}
+
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+							.with(ReliefFeature.class, this::marshalReliefFeature)
+							.with(TINRelief.class, this::marshalTINRelief);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 	
 	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return typeMapper.apply(src, cityJSON);
+		return getTypeMapper().apply(src, cityJSON);
 	}
 		
 	public AbstractCityObjectType marshalReliefFeature(ReliefFeature src, CityJSON cityJSON) {

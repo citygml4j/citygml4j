@@ -35,22 +35,38 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class VegetationMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public VegetationMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
+	}
 
-		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-				.with(PlantCover.class, this::marshalPlantCover)
-				.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+							.with(PlantCover.class, this::marshalPlantCover)
+							.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return typeMapper.apply(src, cityJSON);
+		return getTypeMapper().apply(src, cityJSON);
 	}
 
 	public void marshalAbstractVegetationObject(AbstractVegetationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {

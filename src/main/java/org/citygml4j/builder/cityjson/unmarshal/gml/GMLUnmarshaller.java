@@ -71,35 +71,50 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class GMLUnmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONUnmarshaller json;
 	private final ChildInfo info;
-	private final BiFunctionTypeMapper<AbstractCityObject, AbstractGeometry> typeMapper;
+	private BiFunctionTypeMapper<AbstractCityObject, AbstractGeometry> typeMapper;
 
 	private int numVertices;
 	private List<List<Double>> vertices;
 
 	public GMLUnmarshaller(CityJSONUnmarshaller json) {
 		this.json = json;
-
 		info = new ChildInfo();
-		typeMapper = BiFunctionTypeMapper.<AbstractCityObject, AbstractGeometry>create()
-				.with(MultiPointType.class, this::unmarshalMultiPoint)
-				.with(MultiLineStringType.class, this::unmarshalMultiLineString)
-				.with(MultiSurfaceType.class, this::unmarshalMultiSurface)
-				.with(CompositeSurfaceType.class, this::unmarshalCompositeSurface)
-				.with(SolidType.class, this::unmarshalSolid)
-				.with(MultiSolidType.class, this::unmarshalMultiSolid)
-				.with(CompositeSolidType.class, this::unmarshalCompositeSolid);
+	}
+
+	private BiFunctionTypeMapper<AbstractCityObject, AbstractGeometry> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<AbstractCityObject, AbstractGeometry>create()
+							.with(MultiPointType.class, this::unmarshalMultiPoint)
+							.with(MultiLineStringType.class, this::unmarshalMultiLineString)
+							.with(MultiSurfaceType.class, this::unmarshalMultiSurface)
+							.with(CompositeSurfaceType.class, this::unmarshalCompositeSurface)
+							.with(SolidType.class, this::unmarshalSolid)
+							.with(MultiSolidType.class, this::unmarshalMultiSolid)
+							.with(CompositeSolidType.class, this::unmarshalCompositeSolid);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry, AbstractCityObject cityObject) {
-		return typeMapper.apply(geometry, cityObject);
+		return getTypeMapper().apply(geometry, cityObject);
 	}
 
 	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry) {
-		return typeMapper.apply(geometry, null);
+		return getTypeMapper().apply(geometry, null);
 	}
 
 	public void setVertices(List<List<Double>> vertices) {

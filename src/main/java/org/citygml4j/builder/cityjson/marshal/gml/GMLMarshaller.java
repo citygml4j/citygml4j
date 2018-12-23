@@ -92,38 +92,53 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
 public class GMLMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONMarshaller json;
 	private final Supplier<VerticesBuilder> verticesBuilder;
 	private final ChildInfo childInfo;
-	private final TypeMapper<AbstractGeometryObjectType> typeMapper;
+	private TypeMapper<AbstractGeometryObjectType> typeMapper;
 
 	public GMLMarshaller(CityJSONMarshaller json, Supplier<VerticesBuilder> verticesBuilder) {
 		this.json = json;
 		this.verticesBuilder = verticesBuilder;
 		childInfo = new ChildInfo();
+	}
 
-		typeMapper = TypeMapper.<AbstractGeometryObjectType>create()
-				.with(Point.class, this::marshalPoint)
-				.with(MultiPoint.class, this::marshalMultiPoint)
-				.with(Curve.class, this::marshalMultiLineString)
-				.with(CompositeCurve.class, this::marshalMultiLineString)
-				.with(LineString.class, this::marshalMultiLineString)
-				.with(MultiCurve.class, this::marshalMultiLineString)
-				.with(Surface.class, this::marshalSurface)
-				.with(TriangulatedSurface.class, this::marshalTriangulatedSurface)
-				.with(Tin.class, this::marshalTin)
-				.with(MultiSurface.class, this::marshalMultiSurface)
-				.with(CompositeSurface.class, this::marshalCompositeSurface)
-				.with(Solid.class, this::marshalSolid)
-				.with(CompositeSolid.class, this::marshalCompositeSolid)
-				.with(MultiSolid.class, this::marshalMultiSolid);
+	private TypeMapper<AbstractGeometryObjectType> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.<AbstractGeometryObjectType>create()
+							.with(Point.class, this::marshalPoint)
+							.with(MultiPoint.class, this::marshalMultiPoint)
+							.with(Curve.class, this::marshalMultiLineString)
+							.with(CompositeCurve.class, this::marshalMultiLineString)
+							.with(LineString.class, this::marshalMultiLineString)
+							.with(MultiCurve.class, this::marshalMultiLineString)
+							.with(Surface.class, this::marshalSurface)
+							.with(TriangulatedSurface.class, this::marshalTriangulatedSurface)
+							.with(Tin.class, this::marshalTin)
+							.with(MultiSurface.class, this::marshalMultiSurface)
+							.with(CompositeSurface.class, this::marshalCompositeSurface)
+							.with(Solid.class, this::marshalSolid)
+							.with(CompositeSolid.class, this::marshalCompositeSolid)
+							.with(MultiSolid.class, this::marshalMultiSolid);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractGeometryObjectType marshal(AbstractGeometry src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public AbstractCityObjectType marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> featureProperty, CityJSON cityJSON) {

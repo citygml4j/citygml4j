@@ -46,22 +46,38 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class VegetationUnmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONUnmarshaller json;
 	private final CityGMLUnmarshaller citygml;
-	private final BiFunctionTypeMapper<CityJSON, AbstractCityObject> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObject> typeMapper;
 
 	public VegetationUnmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
+	}
 
-		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObject>create()
-				.with(PlantCoverType.class, this::unmarshalPlantCover)
-				.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject);
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObject> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObject>create()
+							.with(PlantCoverType.class, this::unmarshalPlantCover)
+							.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		return typeMapper.apply(src, cityJSON);
+		return getTypeMapper().apply(src, cityJSON);
 	}
 
 	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest, CityJSON cityJSON) {

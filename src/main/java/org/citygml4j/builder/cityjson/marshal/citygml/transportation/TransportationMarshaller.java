@@ -55,24 +55,39 @@ import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TransportationMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public TransportationMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
+	}
 
-		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-				.with(Road.class, this::marshalRoad)
-				.with(Railway.class, this::marshalRailway)
-				.with(Square.class, this::marshalSquare);
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+							.with(Road.class, this::marshalRoad)
+							.with(Railway.class, this::marshalRailway)
+							.with(Square.class, this::marshalSquare);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return typeMapper.apply(src, cityJSON);
+		return getTypeMapper().apply(src, cityJSON);
 	}
 
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {

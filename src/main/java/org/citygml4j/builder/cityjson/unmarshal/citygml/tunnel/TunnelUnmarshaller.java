@@ -68,24 +68,39 @@ import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TunnelUnmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONUnmarshaller json;
 	private final CityGMLUnmarshaller citygml;
-	private final BiFunctionTypeMapper<CityJSON, AbstractCityObject> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObject> typeMapper;
 
 	public TunnelUnmarshaller(CityGMLUnmarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
+	}
 
-		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObject>create()
-				.with(TunnelType.class, this::unmarshalTunnel)
-				.with(TunnelPartType.class, this::unmarshalTunnelPart)
-				.with(TunnelInstallationType.class, this::unmarshalTunnelInstallation);
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObject> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObject>create()
+							.with(TunnelType.class, this::unmarshalTunnel)
+							.with(TunnelPartType.class, this::unmarshalTunnelPart)
+							.with(TunnelInstallationType.class, this::unmarshalTunnelInstallation);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		return typeMapper.apply(src, cityJSON);
+		return getTypeMapper().apply(src, cityJSON);
 	}
 
 	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {

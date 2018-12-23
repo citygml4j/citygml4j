@@ -67,25 +67,40 @@ import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BridgeMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
-	private final BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
 	public BridgeMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
 		json = citygml.getCityJSONMarshaller();
+	}
 
-		typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-				.with(Bridge.class, this::marshalBridge)
-				.with(BridgePart.class, this::marshalBridgePart)
-				.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)
-				.with(BridgeInstallation.class, this::marshalBridgeInstallation);
+	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+							.with(Bridge.class, this::marshalBridge)
+							.with(BridgePart.class, this::marshalBridgePart)
+							.with(BridgeConstructionElement.class, this::marshalBridgeConstructionElement)
+							.with(BridgeInstallation.class, this::marshalBridgeInstallation);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 
 	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return typeMapper.apply(src, cityJSON);
+		return getTypeMapper().apply(src, cityJSON);
 	}
 
 	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
