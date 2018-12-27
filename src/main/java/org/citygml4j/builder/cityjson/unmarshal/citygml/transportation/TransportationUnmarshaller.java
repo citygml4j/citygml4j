@@ -104,7 +104,7 @@ public class TransportationUnmarshaller {
 		}
 
 		if (parent instanceof ADEModelObject) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(trafficArea, lod, (ADEModelObject) parent);
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(trafficArea, lod, parent);
 			if (success)
 				return trafficArea;
 		}

@@ -81,7 +81,7 @@ public class WaterBodyUnmarshaller {
 		}
 
 		if (parent instanceof ADEModelObject) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(boundarySurface, lod, (ADEModelObject) parent);
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(boundarySurface, lod, parent);
 			if (success)
 				return boundarySurface;
 		}

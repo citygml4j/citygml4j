@@ -133,7 +133,7 @@ public class TunnelUnmarshaller {
 		}
 
 		if (parent instanceof ADEModelObject) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, (ADEModelObject) parent);
+			boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, parent);
 			if (success)
 				return cityObject;
 		}

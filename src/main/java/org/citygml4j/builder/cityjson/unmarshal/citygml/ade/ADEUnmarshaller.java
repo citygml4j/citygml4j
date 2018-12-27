@@ -6,11 +6,13 @@ import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionUnmarshaller;
+import org.citygml4j.binding.cityjson.extension.CityObjectContext;
+import org.citygml4j.binding.cityjson.extension.ExtensionAttributeContext;
+import org.citygml4j.binding.cityjson.extension.SemanticSurfaceContext;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
@@ -79,7 +81,7 @@ public class ADEUnmarshaller {
         if (unmarshallersByType != null) {
             CityJSONExtensionUnmarshaller unmarshaller = unmarshallersByType.get(src.getType());
             if (unmarshaller != null)
-                return unmarshaller.unmarshalCityObject(src, cityJSON, parent);
+                return unmarshaller.unmarshalCityObject(src, new CityObjectContext(parent, cityJSON));
         }
 
         return null;
@@ -89,17 +91,17 @@ public class ADEUnmarshaller {
         if (unmarshallersByType != null) {
             CityJSONExtensionUnmarshaller unmarshaller = unmarshallersByType.get(src.getType() + "\"surface\"");
             if (unmarshaller != null)
-                return unmarshaller.unmarshalSemanticSurface(src, surfaces, lod, parent);
+                return unmarshaller.unmarshalSemanticSurface(src, new SemanticSurfaceContext(surfaces, lod, parent));
         }
 
         return null;
     }
 
-    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEModelObject parent) {
+    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, AbstractCityObject parent) {
         if (unmarshallersByPackage != null) {
             CityJSONExtensionUnmarshaller unmarshaller = unmarshallersByPackage.get(parent.getClass().getPackage().getName());
             if (unmarshaller != null)
-                return unmarshaller.assignSemanticSurface(semanticSurface, lod, parent);
+                return unmarshaller.assignSemanticSurface(semanticSurface, new SemanticSurfaceContext(lod, parent));
         }
 
         return false;
@@ -111,7 +113,7 @@ public class ADEUnmarshaller {
                 if (entry.getKey().isAssignableFrom(src.getClass())) {
                     CityJSONExtensionUnmarshaller unmarshaller = entry.getValue().get(name);
                     if (unmarshaller != null)
-                        unmarshaller.unmarshalExtensionAttribute(name, value, cityJSON, parent);
+                        unmarshaller.unmarshalExtensionAttribute(name, new ExtensionAttributeContext(value, cityJSON, parent));
                 }
             }
         }
