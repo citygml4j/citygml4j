@@ -306,12 +306,9 @@ import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
-import org.citygml4j.xml.schema.ElementDecl;
-import org.citygml4j.xml.schema.Schema;
 import org.w3c.dom.Element;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -534,22 +531,8 @@ public class GMLUnmarshaller {
 		if (src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent()) {
 				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
-
-				// evaluate the subsitutionGroup of the element
-				boolean handled = false;
-				if (dest instanceof CityGMLModuleComponent) {
-					Schema adeSchema = jaxb.getSchemaHandler().getSchema(dom.getNamespaceURI());					
-					if (adeSchema != null) {
-						ElementDecl element = adeSchema.getGlobalElementDecl(dom.getLocalName());
-						if (element != null) {
-							QName substitutionGroup = element.getRootSubsitutionGroup();
-							if (substitutionGroup != null)
-								handled = jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, substitutionGroup, (CityGMLModuleComponent)dest);	
-						}
-					}
-				}
-
-				if (!handled)
+				if (!(dest instanceof CityGMLModuleComponent) ||
+						!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, (CityGMLModuleComponent) dest))
 					dest.addGenericADEElement(ade);
 			}
 		}

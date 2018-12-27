@@ -170,8 +170,11 @@ public class Appearance200Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
 		if (src.isSet_ADEComponent()) {
-			for (Element dom : src.get_ADEComponent())
-				dest.addGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(dom));
+			for (Element dom : src.get_ADEComponent()) {
+				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
+				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, dest))
+					dest.addGenericADEElement(ade);
+			}
 		}
 
 		if (src.isSet_GenericApplicationPropertyOfTextureParameterization()) {
@@ -268,7 +271,7 @@ public class Appearance200Unmarshaller {
 	public AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyElement src) throws MissingADESchemaException {
 		AppearanceProperty dest = null;
 
-		if (src.getValue() instanceof AppearancePropertyType) {
+		if (src.getValue() != null) {
 			dest = new AppearanceProperty(module);
 			unmarshalAppearanceProperty((AppearancePropertyType)src.getValue(), dest);
 		}

@@ -167,8 +167,11 @@ public class Appearance100Unmarshaller {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
 		if (src.isSet_ADEComponent()) {
-			for (Element dom : src.get_ADEComponent())
-				dest.addGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(dom));
+			for (Element dom : src.get_ADEComponent()) {
+				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
+				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, dest))
+					dest.addGenericADEElement(ade);
+			}
 		}
 
 		if (src.isSet_GenericApplicationPropertyOfTextureParameterization()) {

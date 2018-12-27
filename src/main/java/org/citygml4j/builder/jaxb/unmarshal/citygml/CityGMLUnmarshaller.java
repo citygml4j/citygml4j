@@ -49,7 +49,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLModuleComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -71,6 +71,8 @@ import org.citygml4j.model.module.citygml.TunnelModule;
 import org.citygml4j.model.module.citygml.VegetationModule;
 import org.citygml4j.model.module.citygml.WaterBodyModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
+import org.citygml4j.xml.schema.ElementDecl;
+import org.citygml4j.xml.schema.Schema;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -315,96 +317,106 @@ public class CityGMLUnmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGMLModuleComponent dest) {
-		String namespaceURI = substitutionGroup.getNamespaceURI();		
-		CityGMLVersion version = null;		
-		
-		// try and identify CityGML version of feature 
-		if (dest.isSetCityGMLModule()) {
-			version = CityGMLVersion.fromCityGMLModule(dest.getCityGMLModule());
-		} else if (dest instanceof ADEModelObject && dest instanceof AbstractCityObject) {
-			CityGMLVersion tmp = CityGMLVersion.fromCityGMLNamespaceURI(namespaceURI);
-			
-			for (ADEModule module : Modules.getADEModules()) {
-				if (module.getCityGMLVersion() == tmp
-						&& module.getFeatureName(((AbstractCityObject)dest).getClass()) != null) {
-					version = tmp;
-					break;
-				}					
+	public boolean assignGenericProperty(ADEGenericElement ade, CityGMLModuleComponent dest) {
+		Schema adeSchema = jaxb.getSchemaHandler().getSchema(ade.getContent().getNamespaceURI());
+		if (adeSchema == null)
+			return false;
+
+		ElementDecl element = adeSchema.getGlobalElementDecl(ade.getContent().getLocalName());
+		if (element == null)
+			return false;
+
+		QName substitutionGroup = element.getRootSubsitutionGroup();
+		if (substitutionGroup != null) {
+			String namespaceURI = substitutionGroup.getNamespaceURI();
+			CityGMLVersion version = null;
+
+			// try and identify CityGML version of feature
+			if (dest.isSetCityGMLModule()) {
+				version = CityGMLVersion.fromCityGMLModule(dest.getCityGMLModule());
+			} else if (dest instanceof ADEModelObject && dest instanceof AbstractFeature) {
+				CityGMLVersion tmp = CityGMLVersion.fromCityGMLNamespaceURI(namespaceURI);
+				for (ADEModule module : Modules.getADEModules()) {
+					if (module.getCityGMLVersion() == tmp
+							&& module.getFeatureName(((AbstractFeature) dest).getClass()) != null) {
+						version = tmp;
+						break;
+					}
+				}
 			}
-		}
-		
-		if (version == CityGMLVersion.v2_0_0) {			
-			if (namespaceURI.equals(AppearanceModule.v2_0_0.getNamespaceURI()))
-				return app200.assignGenericProperty(genericProperty, substitutionGroup, dest);
-			else if (namespaceURI.equals(BridgeModule.v2_0_0.getNamespaceURI()))
-				return brid200.assignGenericProperty(genericProperty, substitutionGroup, dest);
-			else if (namespaceURI.equals(BuildingModule.v2_0_0.getNamespaceURI()))
-				return bldg200.assignGenericProperty(genericProperty, substitutionGroup, dest);
-			else if (namespaceURI.equals(CityFurnitureModule.v2_0_0.getNamespaceURI()))
-				return frn200.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(CityObjectGroupModule.v2_0_0.getNamespaceURI()))
-				return grp200.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(CoreModule.v2_0_0.getNamespaceURI()))
-				return core200.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(LandUseModule.v2_0_0.getNamespaceURI()))
-				return luse200.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(ReliefModule.v2_0_0.getNamespaceURI()))
-				return dem200.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(TransportationModule.v2_0_0.getNamespaceURI()))
-				return tran200.assignGenericProperty(genericProperty, substitutionGroup, dest);	
-			else if (namespaceURI.equals(TunnelModule.v2_0_0.getNamespaceURI()))
-				return tun200.assignGenericProperty(genericProperty, substitutionGroup, dest);	
-			else if (namespaceURI.equals(VegetationModule.v2_0_0.getNamespaceURI()))
-				return veg200.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(WaterBodyModule.v2_0_0.getNamespaceURI()))
-				return wtr200.assignGenericProperty(genericProperty, substitutionGroup, dest);	
-		}
 
-		else if (version == CityGMLVersion.v1_0_0) {			
-			if (namespaceURI.equals(AppearanceModule.v1_0_0.getNamespaceURI()))
-				return app100.assignGenericProperty(genericProperty, substitutionGroup, dest);
-			else if (namespaceURI.equals(BuildingModule.v1_0_0.getNamespaceURI()))
-				return bldg100.assignGenericProperty(genericProperty, substitutionGroup, dest);
-			else if (namespaceURI.equals(CityFurnitureModule.v1_0_0.getNamespaceURI()))
-				return frn100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(CityObjectGroupModule.v1_0_0.getNamespaceURI()))
-				return grp100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
-				return core100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(LandUseModule.v1_0_0.getNamespaceURI()))
-				return luse100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(ReliefModule.v1_0_0.getNamespaceURI()))
-				return dem100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(TransportationModule.v1_0_0.getNamespaceURI()))
-				return tran100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(VegetationModule.v1_0_0.getNamespaceURI()))
-				return veg100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-			else if (namespaceURI.equals(WaterBodyModule.v1_0_0.getNamespaceURI()))
-				return wtr100.assignGenericProperty(genericProperty, substitutionGroup, dest);	
-		
-			else if (namespaceURI.startsWith("http://www.citygml.org/citygml")) {
-				boolean success = app100.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)
-					success = bldg100.assignGenericProperty(genericProperty, substitutionGroup, dest);
-				if (!success)
-					success = frn100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = grp100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = core100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = luse100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = dem100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = tran100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = veg100.assignGenericProperty(genericProperty, substitutionGroup, dest);		
-				if (!success)
-					success = wtr100.assignGenericProperty(genericProperty, substitutionGroup, dest);	
+			if (version == CityGMLVersion.v2_0_0) {
+				if (namespaceURI.equals(AppearanceModule.v2_0_0.getNamespaceURI()))
+					return app200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(BridgeModule.v2_0_0.getNamespaceURI()))
+					return brid200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(BuildingModule.v2_0_0.getNamespaceURI()))
+					return bldg200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(CityFurnitureModule.v2_0_0.getNamespaceURI()))
+					return frn200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(CityObjectGroupModule.v2_0_0.getNamespaceURI()))
+					return grp200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(CoreModule.v2_0_0.getNamespaceURI()))
+					return core200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(LandUseModule.v2_0_0.getNamespaceURI()))
+					return luse200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(ReliefModule.v2_0_0.getNamespaceURI()))
+					return dem200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(TransportationModule.v2_0_0.getNamespaceURI()))
+					return tran200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(TunnelModule.v2_0_0.getNamespaceURI()))
+					return tun200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(VegetationModule.v2_0_0.getNamespaceURI()))
+					return veg200.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(WaterBodyModule.v2_0_0.getNamespaceURI()))
+					return wtr200.assignGenericProperty(ade, substitutionGroup, dest);
+			}
 
-				return success;
+			else if (version == CityGMLVersion.v1_0_0) {
+				if (namespaceURI.equals(AppearanceModule.v1_0_0.getNamespaceURI()))
+					return app100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(BuildingModule.v1_0_0.getNamespaceURI()))
+					return bldg100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(CityFurnitureModule.v1_0_0.getNamespaceURI()))
+					return frn100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(CityObjectGroupModule.v1_0_0.getNamespaceURI()))
+					return grp100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(CoreModule.v1_0_0.getNamespaceURI()))
+					return core100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(LandUseModule.v1_0_0.getNamespaceURI()))
+					return luse100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(ReliefModule.v1_0_0.getNamespaceURI()))
+					return dem100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(TransportationModule.v1_0_0.getNamespaceURI()))
+					return tran100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(VegetationModule.v1_0_0.getNamespaceURI()))
+					return veg100.assignGenericProperty(ade, substitutionGroup, dest);
+				else if (namespaceURI.equals(WaterBodyModule.v1_0_0.getNamespaceURI()))
+					return wtr100.assignGenericProperty(ade, substitutionGroup, dest);
+
+				else if (namespaceURI.startsWith("http://www.citygml.org/citygml")) {
+					boolean success = app100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = bldg100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = frn100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = grp100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = core100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = luse100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = dem100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = tran100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = veg100.assignGenericProperty(ade, substitutionGroup, dest);
+					if (!success)
+						success = wtr100.assignGenericProperty(ade, substitutionGroup, dest);
+
+					return success;
+				}
 			}
 		}
 
