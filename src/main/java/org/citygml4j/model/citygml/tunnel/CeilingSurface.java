@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class CeilingSurface extends AbstractBoundarySurface implements TunnelModuleComponent {
+public class CeilingSurface extends AbstractBoundarySurface {
 	private List<ADEComponent> ade;
 
 	public CeilingSurface() {

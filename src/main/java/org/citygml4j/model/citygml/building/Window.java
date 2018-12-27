@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class Window extends AbstractOpening implements BuildingModuleComponent {
+public class Window extends AbstractOpening {
 	private List<ADEComponent> ade;
 	
 	public Window() {

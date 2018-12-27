@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class OuterCeilingSurface extends AbstractBoundarySurface implements BuildingModuleComponent {
+public class OuterCeilingSurface extends AbstractBoundarySurface {
 	private List<ADEComponent> ade;
 
 	public OuterCeilingSurface() {

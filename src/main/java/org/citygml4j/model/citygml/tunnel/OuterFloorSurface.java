@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class OuterFloorSurface extends AbstractBoundarySurface implements TunnelModuleComponent {
+public class OuterFloorSurface extends AbstractBoundarySurface {
 	private List<ADEComponent> ade;
 
 	public OuterFloorSurface() {

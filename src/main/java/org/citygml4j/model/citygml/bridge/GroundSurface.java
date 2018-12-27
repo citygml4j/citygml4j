@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class GroundSurface extends AbstractBoundarySurface implements BridgeModuleComponent {
+public class GroundSurface extends AbstractBoundarySurface {
 	private List<ADEComponent> ade;
 
 	public GroundSurface() {

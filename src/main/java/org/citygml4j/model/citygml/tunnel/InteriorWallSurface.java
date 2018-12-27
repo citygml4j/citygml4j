@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class InteriorWallSurface extends AbstractBoundarySurface implements TunnelModuleComponent {
+public class InteriorWallSurface extends AbstractBoundarySurface {
 	private List<ADEComponent> ade;
 
 	public InteriorWallSurface() {

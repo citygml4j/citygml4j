@@ -36,7 +36,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class Door extends AbstractOpening implements BuildingModuleComponent {
+public class Door extends AbstractOpening {
 	private List<AddressProperty> address;
 	private List<ADEComponent> ade;
 	

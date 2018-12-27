@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class Door extends AbstractOpening implements TunnelModuleComponent {
+public class Door extends AbstractOpening {
 	private List<ADEComponent> ade;
 	
 	public Door() {

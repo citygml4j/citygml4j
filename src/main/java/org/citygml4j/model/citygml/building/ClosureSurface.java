@@ -35,7 +35,7 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public class ClosureSurface extends AbstractBoundarySurface implements BuildingModuleComponent {
+public class ClosureSurface extends AbstractBoundarySurface {
 	private List<ADEComponent> ade;
 
 	public ClosureSurface() {
