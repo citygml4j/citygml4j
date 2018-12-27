@@ -55,12 +55,12 @@ public abstract class AbstractCityGMLModule extends AbstractModule implements Ci
 
 	@Override
 	public boolean hasFeatureProperty(String name) {
-		return featureProperties != null ? featureProperties.contains(name) : false;
+		return featureProperties != null && featureProperties.contains(name);
 	}
 	
 	@Override
 	public boolean hasFeature(String name) {
-		return features != null ? features.containsKey(name) : false;
+		return features != null && features.containsKey(name);
 	}
 
 	@Override
@@ -71,9 +71,7 @@ public abstract class AbstractCityGMLModule extends AbstractModule implements Ci
 	@Override
 	public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
 		if (features != null) {
-			Iterator<Entry<String, Class<? extends AbstractFeature>>> iter = features.entrySet().iterator();
-			while (iter.hasNext()) {
-				Entry<String, Class<? extends AbstractFeature>> entry = iter.next();
+			for (Entry<String, Class<? extends AbstractFeature>> entry : features.entrySet()) {
 				if (entry.getValue() == featureClass)
 					return new QName(getNamespaceURI(), entry.getKey());
 			}
