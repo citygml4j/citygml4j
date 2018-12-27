@@ -76,7 +76,7 @@ public class ModuleContext {
 		if (!(module instanceof ADEModule))
 			return modules.values().contains(module);
 		else 
-			return adeModules != null ? adeModules.contains(module) : false;
+			return adeModules != null && adeModules.contains(module);
 	}
 
 	public List<Module> getModules() {

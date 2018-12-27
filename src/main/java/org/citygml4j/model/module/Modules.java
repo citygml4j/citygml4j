@@ -51,7 +51,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Modules {
-	static Map<String, Module> modules = new ConcurrentHashMap<>();
+	private static Map<String, Module> modules = new ConcurrentHashMap<>();
 
 	static {
 		for (Module module : CoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
@@ -81,14 +81,16 @@ public class Modules {
 		return modules.get(namespaceURI);
 	}
 	
-	public static Module getModule(Class<? extends AbstractFeature> featureClass) {
+	public static List<Module> getModule(Class<? extends AbstractFeature> featureClass) {
+		List<Module> result = new ArrayList<>();
+
 		for (Module module : modules.values()) {
 			Map<String, Class<? extends AbstractFeature>> features = module.getFeatures();
 			if (features != null && features.values().contains(featureClass))
-				return module;
+				result.add(module);
 		}
 		
-		return null;
+		return result;
 	}
 
 	public static List<Module> getModules() {
