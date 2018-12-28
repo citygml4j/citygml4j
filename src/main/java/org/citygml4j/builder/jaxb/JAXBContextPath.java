@@ -20,6 +20,7 @@ package org.citygml4j.builder.jaxb;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
+import org.citygml4j.model.module.ade.ADEModule;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,8 +88,10 @@ public class JAXBContextPath {
 		CityGMLContext context = CityGMLContext.getInstance();
 		if (context.hasADEContexts()) {
 			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-				for (String contextPath : adeContext.getJAXBPackageNames())
-					joiner.add(contextPath);
+				for (ADEModule module : adeContext.getADEModules()) {
+					for (String contextPath : module.getJAXBPackageNames())
+						joiner.add(contextPath);
+				}
 			}
 		}
 

@@ -71,7 +71,9 @@ public abstract class ADEModule extends AbstractModule {
 	public URL getSchemaResource() {
 		return null;
 	}
-	
+
+	public abstract List<String> getJAXBPackageNames();
+
 	@Override
 	public abstract boolean hasFeatureProperty(String name);
 	@Override
@@ -117,7 +119,7 @@ public abstract class ADEModule extends AbstractModule {
 
 	@Override
 	public final Module[] getDependencies() {
-		return adeDependencies.stream().toArray(Module[]::new);
+		return adeDependencies.toArray(new Module[0]);
 	}
 
 	@Override

@@ -68,10 +68,7 @@ public class CityGMLContext {
 		if (adeContext.getADEModules() == null || adeContext.getADEModules().isEmpty())
 			throw new ADEException("No ADE module defined for the ADE context.");
 
-		if (adeContext.getJAXBPackageNames() == null || adeContext.getJAXBPackageNames().isEmpty())
-			throw new ADEException("No JAXB package names defined for the ADE context.");
-
-		for (ADEModule module : adeContext.getADEModules()) {		
+		for (ADEModule module : adeContext.getADEModules()) {
 			if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty())
 				throw new ADEException("The namespace URI of the ADE module must not be null.");
 
@@ -86,6 +83,9 @@ public class CityGMLContext {
 					}
 				}
 			}
+
+			if (module.getJAXBPackageNames() == null || module.getJAXBPackageNames().isEmpty())
+				throw new ADEException("No JAXB package names defined for ADE module.");
 		}
 
 		if (adeContext instanceof CityJSONExtensionContext) {
