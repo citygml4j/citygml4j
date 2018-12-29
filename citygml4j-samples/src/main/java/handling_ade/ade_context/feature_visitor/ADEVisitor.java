@@ -62,7 +62,7 @@ public class ADEVisitor {
 		context.registerADEContext(noiseADEContext);
 
 		// step 3: create CityGMLBuilder which automatically supports the NoiseADE module
-		System.out.println(df.format(new Date()) + "creating CityGMLBuilder object");
+		System.out.println(df.format(new Date()) + "creating CityGML builder");
 		CityGMLBuilder builder = context.createCityGMLBuilder();
 
 		// read an ADE-enriched dataset. There is no need for ADE-specific code.

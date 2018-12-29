@@ -21,8 +21,6 @@ package reading_citygml.citygml_v040_reader;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.CityGMLModuleComponent;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
@@ -59,20 +57,13 @@ public class CityGML_v040_Reader {
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
-			public void visit(AbstractFeature abstractFeature) {
-				if (abstractFeature instanceof CityGML) {
-					CityGMLModuleComponent component = (CityGMLModuleComponent)abstractFeature;
-					System.out.println("Found " + component.getCityGMLClass() + " version "+
-							component.getCityGMLModule().getVersion());
+			public void visit(AbstractFeature feature) {
+				if (feature instanceof CityGML) {
+					System.out.println("Found " + ((CityGML) feature).getCityGMLClass() + " version "+
+							feature.getModule().getVersion());
 				}
 				
-				super.visit(abstractFeature);
-			}
-
-			@Override
-			public void visit(AbstractCityObject abstractCityObject) {
-				System.out.println("Found: " + abstractCityObject.getCityGMLClass() + " version " 
-						+ abstractCityObject.getCityGMLModule().getVersion());
+				super.visit(feature);
 			}
 
 		};

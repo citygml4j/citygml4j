@@ -20,7 +20,7 @@ package converting_citygml;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
-import org.citygml4j.model.citygml.CityGMLModuleComponent;
+import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.citygml.CityGMLModuleType;
@@ -54,14 +54,13 @@ public class UpgradeConverter {
 		FeatureWalker walker = new FeatureWalker() {
 
 			@Override
-			public void visit(AbstractFeature abstractFeature) {
-				if (abstractFeature instanceof CityGMLModuleComponent) {
-					CityGMLModuleComponent component = (CityGMLModuleComponent)abstractFeature;
-					System.out.println("Original CityGML version of " + component.getCityGMLClass() + " instance: "+
-							component.getCityGMLModule().getVersion());
+			public void visit(AbstractFeature feature) {
+				if (feature instanceof CityGML) {
+					System.out.println("Original CityGML version of " + ((CityGML) feature).getCityGMLClass() + " instance: "+
+							feature.getModule().getVersion());
 				}
 
-				super.visit(abstractFeature);
+				super.visit(feature);
 			}
 
 		};

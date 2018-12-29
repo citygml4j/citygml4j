@@ -51,7 +51,7 @@ public class SimpleReader {
 			if (citygml.getCityGMLClass() == CityGMLClass.CITY_MODEL) {
 				CityModel cityModel = (CityModel)citygml;
 
-				System.out.println(df.format(new Date()) + "Found " + citygml.getCityGMLClass() + " version " + cityModel.getCityGMLModule().getVersion());
+				System.out.println(df.format(new Date()) + "Found " + citygml.getCityGMLClass() + " version " + cityModel.getModule().getVersion());
 				System.out.println(df.format(new Date()) + "going through city model and counting building instances");
 
 				int count = 0;

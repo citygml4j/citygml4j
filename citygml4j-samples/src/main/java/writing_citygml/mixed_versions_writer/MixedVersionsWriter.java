@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.module.ModuleContext;
 import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.citygml.CityGMLModuleType;
 import org.citygml4j.model.module.citygml.CityGMLModuleVersion;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 import org.citygml4j.model.module.citygml.CoreModule;
@@ -78,14 +79,11 @@ public class MixedVersionsWriter {
 			if (member.isSetCityObject()) {
 				AbstractCityObject cityObject = member.getCityObject();
 				
-				switch (cityObject.getCityGMLModule().getType()) {
-				case BRIDGE:
-				case TUNNEL:
+				if (cityObject.getModule().getType() == CityGMLModuleType.BRIDGE
+						|| cityObject.getModule().getType() == CityGMLModuleType.TUNNEL)
 					writer.setModuleContext(moduleContext200);
-					break;
-				default:
+				else
 					writer.setModuleContext(moduleContext100);
-				}
 				
 				writer.writeFeatureMember(cityObject);
 			}			
