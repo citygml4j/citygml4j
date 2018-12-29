@@ -30,7 +30,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -42,8 +42,8 @@ public class ClosureSurface extends AbstractBoundarySurface {
 		
 	}
 	
-	public ClosureSurface(BuildingModule module) {
-		super(module);;
+	public ClosureSurface(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfClosureSurface(ADEComponent ade) {

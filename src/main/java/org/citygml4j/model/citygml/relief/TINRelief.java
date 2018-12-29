@@ -31,7 +31,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class TINRelief extends AbstractReliefComponent {
 
 	}
 
-	public TINRelief(ReliefModule module) {
+	public TINRelief(Module module) {
 		super(module);
 	}
 

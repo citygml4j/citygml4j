@@ -30,7 +30,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -41,14 +41,13 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	private MultiSurfaceProperty lod4MultiSurface;
 	private List<OpeningProperty> opening;
 	private List<ADEComponent> ade;
-	private TunnelModule module;
-	
+
 	public AbstractBoundarySurface() {
 		
 	}
 	
-	public AbstractBoundarySurface(TunnelModule module) {
-		this.module = module;
+	public AbstractBoundarySurface(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
@@ -181,14 +180,6 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 
 	public boolean unsetOpening(OpeningProperty opening) {
 		return isSetOpening() ? this.opening.remove(opening) : false;
-	}
-	
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.building;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.BuildingModule;
 
 public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture> implements BuildingModuleComponent {
-	private BuildingModule module;
-	
+
 	public InteriorFurnitureProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture
 	
 	public InteriorFurnitureProperty(String href) {
 		super(href);
-	}
-	
-	public InteriorFurnitureProperty(BuildingModule module) {
-		this.module = module;
 	}
 	
 	public BuildingFurniture getBuildingFurniture() {
@@ -60,14 +54,6 @@ public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIOR_BUILDING_FURNITURE_PROPERTY;
-	}
-
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

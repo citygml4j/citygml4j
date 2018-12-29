@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.landuse.LandUse;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.citygml.LandUseModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
@@ -118,7 +119,7 @@ public class LandUse100Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

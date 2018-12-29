@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class AppearanceMember extends AppearanceProperty {
 
@@ -34,10 +33,6 @@ public class AppearanceMember extends AppearanceProperty {
 	
 	public AppearanceMember(String href) {
 		super(href);
-	}
-	
-	public AppearanceMember(AppearanceModule module) {
-		super(module);
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
-import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -41,14 +41,13 @@ public class Address extends AbstractFeature implements CoreModuleComponent {
 	private XalAddressProperty xalAddress;
 	private MultiPointProperty multiPoint;
 	private List<ADEComponent> ade;
-	private CoreModule module;
-	
+
 	public Address() {
 		
 	}
 	
-	public Address(CoreModule module) {
-		this.module = module;
+	public Address(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfAddress(ADEComponent ade) {
@@ -130,14 +129,6 @@ public class Address extends AbstractFeature implements CoreModuleComponent {
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ADDRESS;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
-	}
-	
-	public final CoreModule getCityGMLModule() {
-		return module;
 	}
 	
 	@Override

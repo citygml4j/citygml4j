@@ -18,7 +18,6 @@
  */
 package org.citygml4j.model.module;
 
-import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.ade.ADEModuleType;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -79,18 +78,6 @@ public class Modules {
 
 	public static Module getModule(String namespaceURI) {
 		return modules.get(namespaceURI);
-	}
-	
-	public static List<Module> getModule(Class<? extends AbstractFeature> featureClass) {
-		List<Module> result = new ArrayList<>();
-
-		for (Module module : modules.values()) {
-			Map<String, Class<? extends AbstractFeature>> features = module.getFeatures();
-			if (features != null && features.values().contains(featureClass))
-				result.add(module);
-		}
-		
-		return result;
 	}
 
 	public static List<Module> getModules() {

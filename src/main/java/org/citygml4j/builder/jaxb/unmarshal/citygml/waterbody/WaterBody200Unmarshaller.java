@@ -39,6 +39,7 @@ import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
@@ -125,7 +126,7 @@ public class WaterBody200Unmarshaller {
 	}
 
 	public BoundedByWaterSurfaceProperty unmarshalBoundedByWaterSurfaceProperty(BoundedByWaterSurfacePropertyType src) throws MissingADESchemaException {
-		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfaceProperty(module);
+		BoundedByWaterSurfaceProperty dest = new BoundedByWaterSurfaceProperty();
 
 		if (src.isSet_WaterBoundarySurface()) {
 			ModelObject object = jaxb.unmarshal(src.get_WaterBoundarySurface());
@@ -284,7 +285,7 @@ public class WaterBody200Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

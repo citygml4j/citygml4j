@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.relief;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.ReliefModule;
 
 public class ReliefComponentProperty extends FeatureProperty<AbstractReliefComponent> implements ReliefModuleComponent {
-	private ReliefModule module;
-	
+
 	public ReliefComponentProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class ReliefComponentProperty extends FeatureProperty<AbstractReliefCompo
 	
 	public ReliefComponentProperty(String href) {
 		super(href);
-	}
-	
-	public ReliefComponentProperty(ReliefModule module) {
-		this.module = module;
 	}
 	
 	public AbstractReliefComponent getReliefComponent() {
@@ -60,14 +54,6 @@ public class ReliefComponentProperty extends FeatureProperty<AbstractReliefCompo
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELIEF_COMPONENT_PROPERTY;
-	}
-
-	public final ReliefModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

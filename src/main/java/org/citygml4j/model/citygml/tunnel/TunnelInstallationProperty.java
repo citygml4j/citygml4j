@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.tunnel;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
 
 public class TunnelInstallationProperty extends FeatureProperty<TunnelInstallation> implements TunnelModuleComponent {
-	private TunnelModule module;
-	
+
 	public TunnelInstallationProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class TunnelInstallationProperty extends FeatureProperty<TunnelInstallati
 	
 	public TunnelInstallationProperty(String href) {
 		super(href);
-	}
-	
-	public TunnelInstallationProperty(TunnelModule module) {
-		this.module = module;
 	}
 	
 	public TunnelInstallation getTunnelInstallation() {
@@ -60,14 +54,6 @@ public class TunnelInstallationProperty extends FeatureProperty<TunnelInstallati
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TUNNEL_INSTALLATION_PROPERTY;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

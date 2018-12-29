@@ -22,12 +22,10 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.primitives.Sign;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearance> implements TexturedSurfaceModuleComponent {
 	private Sign orientation;
-	private TexturedSurfaceModule module;
-	
+
 	public _AppearanceProperty() {
 		
 	}
@@ -38,10 +36,6 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 	
 	public _AppearanceProperty(String href) {
 		super(href);
-	}
-	
-	public _AppearanceProperty(TexturedSurfaceModule module) {
-		this.module = module;
 	}
 	
 	public _AbstractAppearance getAppearance() {
@@ -74,14 +68,6 @@ public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearan
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._APPEARANCE_PROPERTY;
-	}
-
-	public final TexturedSurfaceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public Class<_AbstractAppearance> getAssociableClass() {

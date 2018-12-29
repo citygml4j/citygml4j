@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.bridge;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
 
 public class InteriorBridgeRoomProperty extends FeatureProperty<BridgeRoom> implements BridgeModuleComponent {
-	private BridgeModule module;
-	
+
 	public InteriorBridgeRoomProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class InteriorBridgeRoomProperty extends FeatureProperty<BridgeRoom> impl
 	
 	public InteriorBridgeRoomProperty(String href) {
 		super(href);
-	}
-	
-	public InteriorBridgeRoomProperty(BridgeModule module) {
-		this.module = module;
 	}
 	
 	public BridgeRoom getBridgeRoom() {
@@ -60,14 +54,6 @@ public class InteriorBridgeRoomProperty extends FeatureProperty<BridgeRoom> impl
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIOR_BRIDGE_ROOM_PROPERTY;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

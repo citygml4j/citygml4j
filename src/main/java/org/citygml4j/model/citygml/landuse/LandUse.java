@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.module.citygml.LandUseModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -52,14 +52,13 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 	private MultiSurfaceProperty lod3MultiSurface;
 	private MultiSurfaceProperty lod4MultiSurface;
 	private List<ADEComponent> ade;
-	private LandUseModule module;
 
 	public LandUse() {
 		
 	}
 	
-	public LandUse(LandUseModule module) {
-		this.module = module;
+	public LandUse(Module module) {
+		super(module);
 	}
 	
 	public void addFunction(Code function) {
@@ -283,14 +282,6 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.LAND_USE;
-	}
-
-	public final LandUseModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

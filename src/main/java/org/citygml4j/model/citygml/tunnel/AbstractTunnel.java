@@ -34,7 +34,7 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.time.LocalDate;
@@ -67,14 +67,13 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	private List<TunnelPartProperty> tunnelPart;
 	private List<InteriorHollowSpaceProperty> interiorHollowSpace;
 	private List<ADEComponent> ade;
-	private TunnelModule module;	
-	
+
 	public AbstractTunnel() {
 		
 	}
 	
-	public AbstractTunnel(TunnelModule module) {
-		this.module = module;
+	public AbstractTunnel(Module module) {
+		super(module);
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
@@ -718,14 +717,6 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 
 	public void unsetYearOfDemolition() {
 		yearOfDemolition = null;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

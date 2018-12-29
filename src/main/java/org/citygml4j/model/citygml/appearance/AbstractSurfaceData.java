@@ -22,21 +22,20 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.Module;
 
 import java.util.List;
 
 public abstract class AbstractSurfaceData extends AbstractFeature implements AppearanceModuleComponent {
 	private Boolean isFront;
 	private List<ADEComponent> ade;
-	private AppearanceModule module;
 
 	public AbstractSurfaceData() {
 		
 	}
 	
-	public AbstractSurfaceData(AppearanceModule module) {
-		this.module = module;
+	public AbstractSurfaceData(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
@@ -89,14 +88,6 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements App
 
 	public void unsetIsFront() {
 		isFront = null;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

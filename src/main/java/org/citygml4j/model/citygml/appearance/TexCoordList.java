@@ -24,19 +24,19 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
-import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.Module;
 
 import java.util.List;
 
 public class TexCoordList extends AbstractTextureParameterization {
 	private List<TextureCoordinates> textureCoordinates;
 	private List<ADEComponent> ade;
-	
+
 	public TexCoordList() {
-		
+
 	}
-	
-	public TexCoordList(AppearanceModule module) {
+
+	public TexCoordList(Module module) {
 		super(module);
 	}
 	

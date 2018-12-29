@@ -23,6 +23,8 @@ import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
@@ -80,8 +82,15 @@ public class ADEUnmarshaller {
 	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		if (unmarshallers != null) {
 			org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = unmarshallers.get(src.getName().getNamespaceURI());
-			if (unmarshaller != null)
-				return unmarshaller.unmarshal(src);
+			if (unmarshaller != null) {
+				ADEModelObject ade = unmarshaller.unmarshal(src);
+
+				// set ADE module information
+				if (ade instanceof AbstractFeature && !((AbstractFeature) ade).isSetModule())
+					((AbstractFeature) ade).setModule(Modules.getModule(src.getName().getNamespaceURI()));
+
+				return ade;
+			}
 		}
 
 		return null;

@@ -25,10 +25,19 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 	private RectifiedGridDomain rectifiedGridDomain;
+
+	public RectifiedGridCoverage() {
+
+	}
+
+	public RectifiedGridCoverage(Module module) {
+		super(module);
+	}
 	
 	public RectifiedGridDomain getRectifiedGridDomain() {
 		return rectifiedGridDomain;

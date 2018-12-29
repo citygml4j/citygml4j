@@ -38,7 +38,7 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 
 	}
 
-	public WaterBody(WaterBodyModule module) {
+	public WaterBody(Module module) {
 		super(module);
 	}
 

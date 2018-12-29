@@ -23,7 +23,6 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +31,10 @@ public class Color implements AppearanceModuleComponent, Child, Copyable {
 	private Double red = 0.0;
 	private Double green = 0.0;
 	private Double blue = 0.0;
-	private AppearanceModule module;
 	private ModelObject parent;
 	
 	public Color() {
 		
-	}
-	
-	public Color(AppearanceModule module) {
-		this.module = module;
 	}
 	
 	public Color(Double defaultValue) {
@@ -120,14 +114,6 @@ public class Color implements AppearanceModuleComponent, Child, Copyable {
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.COLOR;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public ModelObject getParent() {

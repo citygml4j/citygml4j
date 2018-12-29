@@ -36,7 +36,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -51,14 +51,13 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 	private SolidProperty lod4Solid;
 	private MultiSurfaceProperty lod4MultiSurface;
 	private List<ADEComponent> ade;
-	private BridgeModule module;
-	
+
 	public BridgeRoom() {
 		
 	}
 	
-	public BridgeRoom(BridgeModule module) {
-		this.module = module;
+	public BridgeRoom(Module module) {
+		super(module);
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
@@ -311,14 +310,6 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 
 	public boolean unsetBridgeRoomInstallation(IntBridgeInstallationProperty bridgeRoomInstallation) {
 		return isSetBridgeRoomInstallation() ? this.bridgeRoomInstallation.remove(bridgeRoomInstallation) : false;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public CityGMLClass getCityGMLClass() {

@@ -46,6 +46,7 @@ import org.citygml4j.model.citygml.transportation.TrafficArea;
 import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
 import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
@@ -159,7 +160,7 @@ public class Transportation200Unmarshaller {
 	}
 
 	public AuxiliaryTrafficAreaProperty unmarshalAuxiliaryTrafficAreaProperty(AuxiliaryTrafficAreaPropertyType src) throws MissingADESchemaException {
-		AuxiliaryTrafficAreaProperty dest = new AuxiliaryTrafficAreaProperty(module);
+		AuxiliaryTrafficAreaProperty dest = new AuxiliaryTrafficAreaProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -318,7 +319,7 @@ public class Transportation200Unmarshaller {
 	}
 
 	public TrafficAreaProperty unmarshalTrafficAreaProperty(TrafficAreaPropertyType src) throws MissingADESchemaException {
-		TrafficAreaProperty dest = new TrafficAreaProperty(module);
+		TrafficAreaProperty dest = new TrafficAreaProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -415,7 +416,7 @@ public class Transportation200Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

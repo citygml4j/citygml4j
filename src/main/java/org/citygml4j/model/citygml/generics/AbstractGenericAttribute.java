@@ -22,20 +22,10 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 public abstract class AbstractGenericAttribute implements GenericsModuleComponent, Child, Copyable {
 	private String name;
-	private GenericsModule module;
 	private ModelObject parent;
-	
-	public AbstractGenericAttribute() {
-		
-	}
-	
-	public AbstractGenericAttribute(GenericsModule module) {
-		this.module = module;
-	}
 	
 	public String getName() {
 		return name;
@@ -51,14 +41,6 @@ public abstract class AbstractGenericAttribute implements GenericsModuleComponen
 
 	public void unsetName() {
 		name = null;
-	}
-
-	public final GenericsModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	public ModelObject getParent() {

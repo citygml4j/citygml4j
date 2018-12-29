@@ -23,21 +23,11 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 public class ExternalObject implements CoreModuleComponent, Child, Copyable {
 	private String name;
 	private String uri;
-	private CoreModule module;
 	private ModelObject parent;
-	
-	public ExternalObject() {
-		
-	}
-	
-	public ExternalObject(CoreModule module) {
-		this.module = module;
-	}
 	
 	public String getName() {
 		return name;
@@ -75,14 +65,6 @@ public class ExternalObject implements CoreModuleComponent, Child, Copyable {
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.EXTERNAL_OBJECT;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	public ModelObject getParent() {

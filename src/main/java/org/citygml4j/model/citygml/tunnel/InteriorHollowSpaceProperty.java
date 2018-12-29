@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.tunnel;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
 
 public class InteriorHollowSpaceProperty extends FeatureProperty<HollowSpace> implements TunnelModuleComponent {
-	private TunnelModule module;
-	
+
 	public InteriorHollowSpaceProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class InteriorHollowSpaceProperty extends FeatureProperty<HollowSpace> im
 	
 	public InteriorHollowSpaceProperty(String href) {
 		super(href);
-	}
-	
-	public InteriorHollowSpaceProperty(TunnelModule module) {
-		this.module = module;
 	}
 	
 	public HollowSpace getHollowSpace() {
@@ -60,14 +54,6 @@ public class InteriorHollowSpaceProperty extends FeatureProperty<HollowSpace> im
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIOR_HOLLOW_SPACE_PROPERTY;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

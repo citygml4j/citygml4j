@@ -20,10 +20,19 @@ package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.Module;
 
 public abstract class AbstractCoverage extends AbstractFeature {
 	private RangeSet rangeSet;
 	private Integer dimension;
+
+	public AbstractCoverage() {
+
+	}
+
+	public AbstractCoverage(Module module) {
+		super(module);
+	}
 	
 	public RangeSet getRangeSet() {
 		return rangeSet;

@@ -22,11 +22,9 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.ReliefModule;
 
 public class GridProperty extends FeatureProperty<RectifiedGridCoverage> implements ReliefModuleComponent {
-	private ReliefModule module;
-	
+
 	public GridProperty() {
 		
 	}
@@ -37,10 +35,6 @@ public class GridProperty extends FeatureProperty<RectifiedGridCoverage> impleme
 	
 	public GridProperty(String href) {
 		super(href);
-	}
-	
-	public GridProperty(ReliefModule module) {
-		this.module = module;
 	}
 	
 	public RectifiedGridCoverage getRectifiedGridCoverage() {
@@ -61,14 +55,6 @@ public class GridProperty extends FeatureProperty<RectifiedGridCoverage> impleme
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GRID_PROPERTY;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
-	}
-
-	public final ReliefModule getCityGMLModule() {
-		return module;
 	}
 
 	@Override

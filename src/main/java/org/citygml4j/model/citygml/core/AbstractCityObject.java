@@ -28,7 +28,7 @@ import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.CityGMLModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.time.LocalDate;
@@ -47,6 +47,14 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	private RelativeToWater relativeToWater;
 	private List<AppearanceProperty> appearance;
 	private List<ADEComponent> ade;
+
+	public AbstractCityObject() {
+
+	}
+
+	public AbstractCityObject(Module module) {
+		super(module);
+	}
 	
 	public void addAppearance(AppearanceProperty appearance) {
 		if (this.appearance == null)
@@ -291,16 +299,6 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 
 	public void unsetTerminationDate() {
 		terminationDate = null;
-	}
-
-	public CityGMLModule getCityGMLModule() {
-		// return null by default 
-		return null;
-	}
-
-	public boolean isSetCityGMLModule() {
-		// return false by default
-		return false;
 	}
 
 	public LodRepresentation getLodRepresentation() {

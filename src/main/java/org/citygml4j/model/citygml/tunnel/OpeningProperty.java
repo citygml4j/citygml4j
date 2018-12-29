@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.tunnel;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
 
 public class OpeningProperty extends FeatureProperty<AbstractOpening> implements TunnelModuleComponent {
-	private TunnelModule module;
-	
+
 	public OpeningProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class OpeningProperty extends FeatureProperty<AbstractOpening> implements
 	
 	public OpeningProperty(String href) {
 		super(href);
-	}
-	
-	public OpeningProperty(TunnelModule module) {
-		this.module = module;
 	}
 	
 	public AbstractOpening getOpening() {
@@ -60,14 +54,6 @@ public class OpeningProperty extends FeatureProperty<AbstractOpening> implements
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TUNNEL_OPENING_PROPERTY;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

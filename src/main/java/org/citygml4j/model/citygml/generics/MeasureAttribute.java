@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.generics;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 public class MeasureAttribute extends AbstractGenericAttribute {
 	private Measure value;
@@ -37,10 +36,6 @@ public class MeasureAttribute extends AbstractGenericAttribute {
 	public MeasureAttribute(String name, Measure value) {
 		this.value = value;
 		setName(name);
-	}
-
-	public MeasureAttribute(GenericsModule module) {
-		super(module);
 	}
 
 	public Measure getValue() {

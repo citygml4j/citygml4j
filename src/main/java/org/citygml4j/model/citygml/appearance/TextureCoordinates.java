@@ -23,7 +23,6 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +30,7 @@ import java.util.List;
 public class TextureCoordinates implements AppearanceModuleComponent, Child, Copyable {
 	private List<Double> value;
 	private String ring;
-	private AppearanceModule module;
 	private ModelObject parent;
-	
-	public TextureCoordinates() {
-		
-	}
-	
-	public TextureCoordinates(AppearanceModule module) {
-		this.module = module;
-	}
 	
 	public void addValue(Double value) {
 		if (this.value == null)
@@ -86,14 +76,6 @@ public class TextureCoordinates implements AppearanceModuleComponent, Child, Cop
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEXTURE_COORDINATES;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public ModelObject getParent() {

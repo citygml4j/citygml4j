@@ -30,7 +30,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class OuterFloorSurface extends AbstractBoundarySurface {
 		
 	}
 	
-	public OuterFloorSurface(BridgeModule module) {
+	public OuterFloorSurface(Module module) {
 		super(module);
 	}
 	

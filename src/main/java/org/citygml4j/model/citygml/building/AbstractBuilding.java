@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.measures.Length;
-import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.time.LocalDate;
@@ -79,14 +79,13 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	private List<InteriorRoomProperty> interiorRoom;
 	private List<AddressProperty> address;
 	private List<ADEComponent> ade;
-	private BuildingModule module;	
-	
+
 	public AbstractBuilding() {
 		
 	}
 	
-	public AbstractBuilding(BuildingModule module) {
-		this.module = module;
+	public AbstractBuilding(Module module) {
+		super(module);
 	}
 	
 	public void addAddress(AddressProperty address) {
@@ -923,14 +922,6 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 			lod0RoofEdge.unsetParent();
 		
 		lod0RoofEdge = null;
-	}
-
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

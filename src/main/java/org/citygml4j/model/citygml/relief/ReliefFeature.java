@@ -31,7 +31,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -40,14 +40,13 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 	private int lod;
 	private List<ReliefComponentProperty> reliefComponent;
 	private List<ADEComponent> ade;
-	private ReliefModule module;
-	
+
 	public ReliefFeature() {
 		
 	}
 	
-	public ReliefFeature(ReliefModule module) {
-		this.module = module;
+	public ReliefFeature(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
@@ -131,14 +130,6 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELIEF_FEATURE;
-	}
-
-	public final ReliefModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

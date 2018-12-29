@@ -24,22 +24,15 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.CityGMLModule;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 import java.util.List;
 
 public class TransformationMatrix2x2 implements CoreModuleComponent, Child, Copyable {
 	private Matrix matrix;
-	private CoreModule module;
 	private ModelObject parent;
 	
 	public TransformationMatrix2x2() {
 		matrix = new Matrix(2, 2);
-	}
-
-	public TransformationMatrix2x2(CoreModule module) {
-		this.module = module;
 	}
 	
 	public TransformationMatrix2x2(Matrix matrix) {
@@ -83,14 +76,6 @@ public class TransformationMatrix2x2 implements CoreModuleComponent, Child, Copy
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TRANSFORMATION_MATRIX_2X2;
-	}
-
-	public CityGMLModule getCityGMLModule() {
-		return module;
-	}
-	
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	public ModelObject getParent() {

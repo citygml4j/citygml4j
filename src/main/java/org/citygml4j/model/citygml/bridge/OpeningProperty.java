@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.bridge;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
 
 public class OpeningProperty extends FeatureProperty<AbstractOpening> implements BridgeModuleComponent {
-	private BridgeModule module;
-	
+
 	public OpeningProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class OpeningProperty extends FeatureProperty<AbstractOpening> implements
 	
 	public OpeningProperty(String href) {
 		super(href);
-	}
-	
-	public OpeningProperty(BridgeModule module) {
-		this.module = module;
 	}
 	
 	public AbstractOpening getOpening() {
@@ -60,14 +54,6 @@ public class OpeningProperty extends FeatureProperty<AbstractOpening> implements
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BRIDGE_OPENING_PROPERTY;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

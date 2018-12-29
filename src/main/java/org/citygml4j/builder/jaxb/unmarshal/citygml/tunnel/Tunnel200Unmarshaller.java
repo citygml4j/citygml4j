@@ -79,6 +79,7 @@ import org.citygml4j.model.citygml.tunnel.TunnelPartProperty;
 import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
@@ -302,7 +303,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public BoundarySurfaceProperty unmarshalBoundarySurfaceProperty(BoundarySurfacePropertyType src) throws MissingADESchemaException {
-		BoundarySurfaceProperty dest = new BoundarySurfaceProperty(module);
+		BoundarySurfaceProperty dest = new BoundarySurfaceProperty();
 
 		if (src.isSet_BoundarySurface()) {
 			ModelObject object = jaxb.unmarshal(src.get_BoundarySurface());
@@ -532,7 +533,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public IntTunnelInstallationProperty unmarshalIntTunnelInstallationProperty(IntTunnelInstallationPropertyType src) throws MissingADESchemaException {
-		IntTunnelInstallationProperty dest = new IntTunnelInstallationProperty(module);
+		IntTunnelInstallationProperty dest = new IntTunnelInstallationProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -571,7 +572,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public InteriorFurnitureProperty unmarshalInteriorFurnitureProperty(InteriorFurniturePropertyType src) throws MissingADESchemaException {
-		InteriorFurnitureProperty dest = new InteriorFurnitureProperty(module);
+		InteriorFurnitureProperty dest = new InteriorFurnitureProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -610,7 +611,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public InteriorHollowSpaceProperty unmarshalInteriorHollowSpaceProperty(InteriorHollowSpacePropertyType src) throws MissingADESchemaException {
-		InteriorHollowSpaceProperty dest = new InteriorHollowSpaceProperty(module);
+		InteriorHollowSpaceProperty dest = new InteriorHollowSpaceProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -706,7 +707,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public OpeningProperty unmarshalOpeningProperty(OpeningPropertyType src) throws MissingADESchemaException {
-		OpeningProperty dest = new OpeningProperty(module);
+		OpeningProperty dest = new OpeningProperty();
 
 		if (src.isSet_Opening()) {
 			ModelObject object = jaxb.unmarshal(src.get_Opening());
@@ -876,7 +877,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public TunnelInstallationProperty unmarshalTunnelInstallationProperty(TunnelInstallationPropertyType src) throws MissingADESchemaException {
-		TunnelInstallationProperty dest = new TunnelInstallationProperty(module);
+		TunnelInstallationProperty dest = new TunnelInstallationProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -934,7 +935,7 @@ public class Tunnel200Unmarshaller {
 	}
 
 	public TunnelPartProperty unmarshalTunnelPartProperty(TunnelPartPropertyType src) throws MissingADESchemaException {
-		TunnelPartProperty dest = new TunnelPartProperty(module);
+		TunnelPartProperty dest = new TunnelPartProperty();
 
 		if (src.isSet_AbstractTunnel()) {
 			ModelObject object = jaxb.unmarshal(src.get_AbstractTunnel());
@@ -1010,7 +1011,7 @@ public class Tunnel200Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

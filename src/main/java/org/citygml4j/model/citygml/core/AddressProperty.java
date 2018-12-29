@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 public class AddressProperty extends FeatureProperty<Address> implements CoreModuleComponent {
-	private CoreModule module;
-	
+
 	public AddressProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class AddressProperty extends FeatureProperty<Address> implements CoreMod
 	
 	public AddressProperty(String href) {
 		super(href);
-	}
-	
-	public AddressProperty(CoreModule module) {
-		this.module = module;
 	}
 	
 	public Address getAddress() {
@@ -60,14 +54,6 @@ public class AddressProperty extends FeatureProperty<Address> implements CoreMod
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.ADDRESS_PROPERTY;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

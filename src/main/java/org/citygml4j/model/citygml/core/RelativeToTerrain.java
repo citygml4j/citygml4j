@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 public enum RelativeToTerrain implements CoreModuleComponent, Copyable {
     ENTIRELY_ABOVE_TERRAIN("entirelyAboveTerrain"),
@@ -31,7 +30,6 @@ public enum RelativeToTerrain implements CoreModuleComponent, Copyable {
     ENTIRELY_BELOW_TERRAIN("entirelyBelowTerrain");
 
 	private final String value;
-	private CoreModule module;
 
 	RelativeToTerrain(String value) {
 		this.value = value;
@@ -55,14 +53,6 @@ public enum RelativeToTerrain implements CoreModuleComponent, Copyable {
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELATIVE_TO_TERRAIN;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	public String toString() {

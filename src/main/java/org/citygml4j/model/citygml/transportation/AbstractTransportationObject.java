@@ -26,21 +26,20 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
 public abstract class AbstractTransportationObject extends AbstractCityObject implements TransportationModuleComponent {
 	private List<ADEComponent> ade;
-	private TransportationModule module;
-	
+
 	public AbstractTransportationObject() {
 		
 	}
 	
-	public AbstractTransportationObject(TransportationModule module) {
-		this.module = module;
+	public AbstractTransportationObject(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfTransportationObject(ADEComponent ade) {
@@ -74,14 +73,6 @@ public abstract class AbstractTransportationObject extends AbstractCityObject im
 
 	public boolean unsetGenericApplicationPropertyOfTransportationObject(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfTransportationObject() ? this.ade.remove(ade) : false;
-	}
-
-	public final TransportationModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	@Override

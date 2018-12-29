@@ -27,21 +27,11 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 import java.util.List;
 
 public class _TexturedSurface extends OrientableSurface implements TexturedSurfaceModuleComponent {
 	private List<_AppearanceProperty> appearance;
-	private TexturedSurfaceModule module;
-	
-	public _TexturedSurface() {
-		
-	}
-	
-	public _TexturedSurface(TexturedSurfaceModule module) {
-		this.module = module;
-	}
 	
 	public void addAppearance(_AppearanceProperty appearance) {
 		if (this.appearance == null)
@@ -83,14 +73,6 @@ public class _TexturedSurface extends OrientableSurface implements TexturedSurfa
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._TEXTURED_SURFACE;
-	}
-
-	public final TexturedSurfaceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

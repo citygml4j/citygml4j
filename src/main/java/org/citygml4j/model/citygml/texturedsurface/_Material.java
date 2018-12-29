@@ -22,7 +22,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 public class _Material extends _AbstractAppearance {
 	private Double shininess;
@@ -31,14 +30,6 @@ public class _Material extends _AbstractAppearance {
 	private _Color diffuseColor;
 	private _Color emissiveColor;
 	private _Color specularColor;
-	
-	public _Material() {
-		
-	}
-	
-	public _Material(TexturedSurfaceModule module) {
-		super(module);
-	}
 	
 	public Double getAmbientIntensity() {
 		return ambientIntensity;

@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.tunnel;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
 
 public class InteriorFurnitureProperty extends FeatureProperty<TunnelFurniture> implements TunnelModuleComponent {
-	private TunnelModule module;
-	
+
 	public InteriorFurnitureProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class InteriorFurnitureProperty extends FeatureProperty<TunnelFurniture> 
 	
 	public InteriorFurnitureProperty(String href) {
 		super(href);
-	}
-	
-	public InteriorFurnitureProperty(TunnelModule module) {
-		this.module = module;
 	}
 	
 	public TunnelFurniture getTunnelFurniture() {
@@ -60,14 +54,6 @@ public class InteriorFurnitureProperty extends FeatureProperty<TunnelFurniture> 
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INTERIOR_TUNNEL_FURNITURE_PROPERTY;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

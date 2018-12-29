@@ -34,7 +34,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
-import org.citygml4j.model.module.citygml.GenericsModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -58,14 +58,13 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 	private ImplicitRepresentationProperty lod2ImplicitRepresentation;
 	private ImplicitRepresentationProperty lod3ImplicitRepresentation;
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
-	private GenericsModule module;
 
 	public GenericCityObject() {
 
 	}
 
-	public GenericCityObject(GenericsModule module) {
-		this.module = module;
+	public GenericCityObject(Module module) {
+		super(module);
 	}
 
 	public void addFunction(Code function) {
@@ -477,14 +476,6 @@ public class GenericCityObject extends AbstractCityObject implements GenericsMod
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GENERIC_CITY_OBJECT;
-	}
-
-	public final GenericsModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

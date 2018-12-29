@@ -29,7 +29,6 @@ import java.util.List;
 public interface ADEContext {
 	List<ADEModule> getADEModules();
 	List<String> getModelPackageNames();
-	List<String> getJAXBPackageNames();
 	ADEMarshaller createADEMarshaller();
 	ADEUnmarshaller createADEUnmarshaller();
 

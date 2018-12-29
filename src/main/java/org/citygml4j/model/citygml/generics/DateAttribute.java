@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -49,10 +48,6 @@ public class DateAttribute extends AbstractGenericAttribute {
 	public DateAttribute(String name, Date value) {
 		this(value);
 		setName(name);
-	}
-	
-	public DateAttribute(GenericsModule module) {
-		super(module);
 	}
 	
 	public LocalDate getValue() {

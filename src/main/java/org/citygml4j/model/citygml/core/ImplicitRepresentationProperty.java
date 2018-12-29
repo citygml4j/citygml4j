@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 public class ImplicitRepresentationProperty extends AssociationByRepOrRef<ImplicitGeometry> implements CoreModuleComponent {
-	private CoreModule module;
-	
+
 	public ImplicitRepresentationProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class ImplicitRepresentationProperty extends AssociationByRepOrRef<Implic
 	
 	public ImplicitRepresentationProperty(String href) {
 		super(href);
-	}
-	
-	public ImplicitRepresentationProperty(CoreModule module) {
-		this.module = module;
 	}
 	
 	public ImplicitGeometry getImplicitGeometry() {
@@ -60,14 +54,6 @@ public class ImplicitRepresentationProperty extends AssociationByRepOrRef<Implic
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.IMPLICIT_REPRESENTATION_PROPERTY;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	public Class<ImplicitGeometry> getAssociableClass() {

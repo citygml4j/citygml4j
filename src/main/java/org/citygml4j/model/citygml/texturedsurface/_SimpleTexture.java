@@ -22,7 +22,6 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +31,6 @@ public class _SimpleTexture extends _AbstractAppearance {
 	private List<Double> textureCoordinates;
 	private _TextureType _textureType;
 	private Boolean repeat;
-	
-	public _SimpleTexture() {
-		
-	}
-	
-	public _SimpleTexture(TexturedSurfaceModule module) {
-		super(module);
-	}
 	
 	public Boolean getRepeat() {
 		return repeat;

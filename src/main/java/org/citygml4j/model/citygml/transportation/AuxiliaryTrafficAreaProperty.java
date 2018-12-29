@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.transportation;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.TransportationModule;
 
 public class AuxiliaryTrafficAreaProperty extends FeatureProperty<AuxiliaryTrafficArea> implements TransportationModuleComponent {
-	private TransportationModule module;
-	
+
 	public AuxiliaryTrafficAreaProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class AuxiliaryTrafficAreaProperty extends FeatureProperty<AuxiliaryTraff
 	
 	public AuxiliaryTrafficAreaProperty(String href) {
 		super(href);
-	}
-	
-	public AuxiliaryTrafficAreaProperty(TransportationModule module) {
-		this.module = module;
 	}
 	
 	public AuxiliaryTrafficArea getAuxiliaryTrafficArea() {
@@ -60,14 +54,6 @@ public class AuxiliaryTrafficAreaProperty extends FeatureProperty<AuxiliaryTraff
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.AUXILIARY_TRAFFIC_AREA_PROPERTY;
-	}
-
-	public final TransportationModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

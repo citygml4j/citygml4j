@@ -22,12 +22,10 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.CityObjectGroupModule;
 
 public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> implements CityObjectGroupModuleComponent {
 	private String groupRole;
-	private CityObjectGroupModule module;
-	
+
 	public CityObjectGroupMember() {
 		
 	}
@@ -38,10 +36,6 @@ public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> i
 	
 	public CityObjectGroupMember(String href) {
 		super(href);
-	}
-	
-	public CityObjectGroupMember(CityObjectGroupModule module) {
-		this.module = module;
 	}
 	
 	public AbstractCityObject getCityObject() {
@@ -78,14 +72,6 @@ public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> i
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITY_OBJECT_GROUP_MEMBER;
-	}
-
-	public final CityObjectGroupModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

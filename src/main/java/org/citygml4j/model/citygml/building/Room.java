@@ -36,7 +36,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -51,14 +51,13 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 	private List<InteriorFurnitureProperty> interiorFurniture;
 	private List<IntBuildingInstallationProperty> roomInstallation;
 	private List<ADEComponent> ade;
-	private BuildingModule module;
-	
+
 	public Room() {
 		
 	}
 	
-	public Room(BuildingModule module) {
-		this.module = module;
+	public Room(Module module) {
+		super(module);
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
@@ -311,14 +310,6 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 
 	public boolean unsetRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
 		return isSetRoomInstallation() ? this.roomInstallation.remove(roomInstallation) : false;
-	}
-
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public CityGMLClass getCityGMLClass() {

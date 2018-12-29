@@ -21,12 +21,21 @@ package org.citygml4j.model.gml.feature;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.module.Module;
 
 import java.util.List;
 
 public abstract class AbstractFeatureCollection extends AbstractFeature {
 	private List<FeatureMember> featureMember;
 	private FeatureArrayProperty featureMembers;
+
+	public AbstractFeatureCollection() {
+
+	}
+
+	public AbstractFeatureCollection(Module module) {
+		super(module);
+	}
 	
 	public void addFeatureMember(FeatureMember featureMember) {
 		if (this.featureMember == null)

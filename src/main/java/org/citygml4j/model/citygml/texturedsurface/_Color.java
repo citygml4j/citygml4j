@@ -23,7 +23,6 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +31,10 @@ public class _Color implements TexturedSurfaceModuleComponent, Child, Copyable {
 	private Double red = 0.0;
 	private Double green = 0.0;
 	private Double blue = 0.0;
-	private TexturedSurfaceModule module;
 	private ModelObject parent;
 	
 	public _Color() {
 		
-	}
-	
-	public _Color(TexturedSurfaceModule module) {
-		this.module = module;
 	}
 	
 	public _Color(Double defaultValue) {
@@ -120,14 +114,6 @@ public class _Color implements TexturedSurfaceModuleComponent, Child, Copyable {
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass._COLOR;
-	}
-
-	public final TexturedSurfaceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public ModelObject getParent() {

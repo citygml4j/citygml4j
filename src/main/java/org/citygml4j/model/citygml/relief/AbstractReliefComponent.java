@@ -27,7 +27,7 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
-import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -36,14 +36,13 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 	private int lod;
 	private PolygonProperty extent;
 	private List<ADEComponent> ade;
-	private ReliefModule module;
 
 	public AbstractReliefComponent() {
 		
 	}
 	
-	public AbstractReliefComponent(ReliefModule module) {
-		this.module = module;
+	public AbstractReliefComponent(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
@@ -139,14 +138,6 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;
-	}
-
-	public final ReliefModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

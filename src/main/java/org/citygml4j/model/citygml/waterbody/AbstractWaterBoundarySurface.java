@@ -30,7 +30,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -40,14 +40,13 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 	private SurfaceProperty lod3Surface;
 	private SurfaceProperty lod4Surface;
 	private List<ADEComponent> ade;
-	private WaterBodyModule module;
-	
+
 	public AbstractWaterBoundarySurface() {
 
 	}
 
-	public AbstractWaterBoundarySurface(WaterBodyModule module) {
-		this.module = module;
+	public AbstractWaterBoundarySurface(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent ade) {
@@ -147,14 +146,6 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 			lod4Surface.unsetParent();
 		
 		lod4Surface = null;
-	}
-
-	public final WaterBodyModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

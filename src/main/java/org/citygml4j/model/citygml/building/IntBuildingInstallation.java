@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -50,14 +50,13 @@ public class IntBuildingInstallation extends AbstractCityObject implements Build
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<BoundarySurfaceProperty> boundedBySurface;
 	private List<ADEComponent> ade;
-	private BuildingModule module;
-	
+
 	public IntBuildingInstallation() {
 		
 	}
 	
-	public IntBuildingInstallation(BuildingModule module) {
-		this.module = module;
+	public IntBuildingInstallation(Module module) {
+		super(module);
 	}
 	
 	public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
@@ -248,14 +247,6 @@ public class IntBuildingInstallation extends AbstractCityObject implements Build
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INT_BUILDING_INSTALLATION;
-	}
-
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

@@ -26,7 +26,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
-import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.Module;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class X3DMaterial extends AbstractSurfaceData {
 		
 	}
 	
-	public X3DMaterial(AppearanceModule module) {
+	public X3DMaterial(Module module) {
 		super(module);
 	}
 	

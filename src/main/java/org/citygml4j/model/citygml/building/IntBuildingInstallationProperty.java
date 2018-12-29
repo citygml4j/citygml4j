@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.building;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.BuildingModule;
 
 public class IntBuildingInstallationProperty extends FeatureProperty<IntBuildingInstallation> implements BuildingModuleComponent {
-	private BuildingModule module;
-	
+
 	public IntBuildingInstallationProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class IntBuildingInstallationProperty extends FeatureProperty<IntBuilding
 	
 	public IntBuildingInstallationProperty(String href) {
 		super(href);
-	}
-	
-	public IntBuildingInstallationProperty(BuildingModule module) {
-		this.module = module;
 	}
 	
 	public IntBuildingInstallation getIntBuildingInstallation() {
@@ -60,14 +54,6 @@ public class IntBuildingInstallationProperty extends FeatureProperty<IntBuilding
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INT_BUILDING_INSTALLATION_PROPERTY;
-	}
-
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

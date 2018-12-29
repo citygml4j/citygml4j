@@ -19,9 +19,18 @@
 package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.module.Module;
 
 public abstract class AbstractDiscreteCoverage extends AbstractCoverage {
-	private CoverageFunction coverageFunction;	
+	private CoverageFunction coverageFunction;
+
+	public AbstractDiscreteCoverage() {
+
+	}
+
+	public AbstractDiscreteCoverage(Module module) {
+		super(module);
+	}
 
 	public CoverageFunction getCoverageFunction() {
 		return coverageFunction;

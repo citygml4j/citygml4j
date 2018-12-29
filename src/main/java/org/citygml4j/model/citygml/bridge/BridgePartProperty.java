@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.bridge;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
 
 public class BridgePartProperty extends FeatureProperty<BridgePart> implements BridgeModuleComponent {
-	private BridgeModule module;
-	
+
 	public BridgePartProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class BridgePartProperty extends FeatureProperty<BridgePart> implements B
 	
 	public BridgePartProperty(String href) {
 		super(href);
-	}
-	
-	public BridgePartProperty(BridgeModule module) {
-		this.module = module;
 	}
 	
 	public BridgePart getBridgePart() {
@@ -60,14 +54,6 @@ public class BridgePartProperty extends FeatureProperty<BridgePart> implements B
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BRIDGE_PART_PROPERTY;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

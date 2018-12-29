@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.waterbody;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.WaterBodyModule;
 
 public class BoundedByWaterSurfaceProperty extends FeatureProperty<AbstractWaterBoundarySurface> implements WaterBodyModuleComponent {
-	private WaterBodyModule module;
-	
+
 	public BoundedByWaterSurfaceProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class BoundedByWaterSurfaceProperty extends FeatureProperty<AbstractWater
 	
 	public BoundedByWaterSurfaceProperty(String href) {
 		super(href);
-	}
-	
-	public BoundedByWaterSurfaceProperty(WaterBodyModule module) {
-		this.module = module;
 	}
 	
 	public AbstractWaterBoundarySurface getWaterBoundarySurface() {
@@ -60,14 +54,6 @@ public class BoundedByWaterSurfaceProperty extends FeatureProperty<AbstractWater
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BOUNDED_BY_WATER_SURFACE_PROPERTY;
-	}
-
-	public final WaterBodyModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

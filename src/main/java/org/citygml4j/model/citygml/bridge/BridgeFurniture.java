@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -49,14 +49,13 @@ public class BridgeFurniture extends AbstractCityObject implements BridgeModuleC
 	private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<ADEComponent> ade;
-	private BridgeModule module;
 
 	public BridgeFurniture() {
 		
 	}
 	
-	public BridgeFurniture(BridgeModule module) {
-		this.module = module;
+	public BridgeFurniture(Module module) {
+		super(module);
 	}
 	
 	public void addFunction(Code function) {
@@ -214,14 +213,6 @@ public class BridgeFurniture extends AbstractCityObject implements BridgeModuleC
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BRIDGE_FURNITURE;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

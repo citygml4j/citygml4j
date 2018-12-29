@@ -35,7 +35,7 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.time.LocalDate;
@@ -71,14 +71,13 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	private List<InteriorBridgeRoomProperty> interiorBridgeRoom;
 	private List<AddressProperty> address;
 	private List<ADEComponent> ade;
-	private BridgeModule module;	
-	
+
 	public AbstractBridge() {
 		
 	}
 	
-	public AbstractBridge(BridgeModule module) {
-		this.module = module;
+	public AbstractBridge(Module module) {
+		super(module);
 	}
 	
 	public void addAddress(AddressProperty address) {
@@ -804,14 +803,6 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 
 	public void unsetYearOfDemolition() {
 		yearOfDemolition = null;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

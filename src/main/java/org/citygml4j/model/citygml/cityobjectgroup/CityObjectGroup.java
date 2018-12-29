@@ -36,7 +36,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.module.citygml.CityObjectGroupModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -49,14 +49,13 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 	private CityObjectGroupParent groupParent;
 	private GeometryProperty<? extends AbstractGeometry> geometry;
 	private List<ADEComponent> ade;
-	private CityObjectGroupModule module;
-	
+
 	public CityObjectGroup() {
 		
 	}
 	
-	public CityObjectGroup(CityObjectGroupModule module) {
-		this.module = module;
+	public CityObjectGroup(Module module) {
+		super(module);
 	}
 	
 	public void addFunction(Code function) {
@@ -247,14 +246,6 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITY_OBJECT_GROUP;
-	}
-
-	public final CityObjectGroupModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

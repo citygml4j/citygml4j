@@ -31,7 +31,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.module.citygml.BuildingModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -42,14 +42,13 @@ public abstract class AbstractOpening extends AbstractCityObject implements Buil
 	private ImplicitRepresentationProperty lod3ImplicitRepresentation;
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<ADEComponent> ade;
-	private BuildingModule module;
 
 	public AbstractOpening() {
 		
 	}
 	
-	public AbstractOpening(BuildingModule module) {
-		this.module = module;
+	public AbstractOpening(Module module) {
+		super(module);
 	}
 
 	public ImplicitRepresentationProperty getLod3ImplicitRepresentation() {
@@ -171,14 +170,6 @@ public abstract class AbstractOpening extends AbstractCityObject implements Buil
 			lod4MultiSurface.unsetParent();
 
 		lod4MultiSurface = null;
-	}
-	
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

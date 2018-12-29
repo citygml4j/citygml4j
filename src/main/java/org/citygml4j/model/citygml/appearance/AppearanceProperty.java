@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class AppearanceProperty extends FeatureProperty<Appearance> implements AppearanceModuleComponent {
-	private AppearanceModule module;
-	
+
 	public AppearanceProperty() {
 
 	}
@@ -36,10 +34,6 @@ public class AppearanceProperty extends FeatureProperty<Appearance> implements A
 	
 	public AppearanceProperty(String href) {
 		super(href);
-	}
-	
-	public AppearanceProperty(AppearanceModule module) {
-		this.module = module;
 	}
 	
 	public Appearance getAppearance() {
@@ -60,14 +54,6 @@ public class AppearanceProperty extends FeatureProperty<Appearance> implements A
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.APPEARANCE_PROPERTY;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

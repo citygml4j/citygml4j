@@ -38,7 +38,7 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.measures.Length;
-import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 
 	}
 
-	public PlantCover(VegetationModule module) {
+	public PlantCover(Module module) {
 		super(module);
 	}
 

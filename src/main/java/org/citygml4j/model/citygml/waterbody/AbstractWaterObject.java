@@ -26,21 +26,20 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.WaterBodyModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
 public abstract class AbstractWaterObject extends AbstractCityObject implements WaterBodyModuleComponent {
 	private List<ADEComponent> ade;
-	private WaterBodyModule module;
-	
+
 	public AbstractWaterObject() {
 
 	}
 
-	public AbstractWaterObject(WaterBodyModule module) {
-		this.module = module;
+	public AbstractWaterObject(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
@@ -74,14 +73,6 @@ public abstract class AbstractWaterObject extends AbstractCityObject implements 
 
 	public boolean unsetGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfWaterObject() ? this.ade.remove(ade) : false;
-	}
-
-	public final WaterBodyModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	@Override

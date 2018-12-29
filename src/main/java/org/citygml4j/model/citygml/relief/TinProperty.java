@@ -22,11 +22,9 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
-import org.citygml4j.model.module.citygml.ReliefModule;
 
 public class TinProperty extends GeometryProperty<TriangulatedSurface> implements ReliefModuleComponent {
-	private ReliefModule module;
-	
+
 	public TinProperty() {
 		
 	}
@@ -37,10 +35,6 @@ public class TinProperty extends GeometryProperty<TriangulatedSurface> implement
 
 	public TinProperty(String href) {
 		super(href);
-	}
-	
-	public TinProperty(ReliefModule module) {
-		this.module = module;
 	}
 	
 	public TriangulatedSurface getTriangulatedSurface() {
@@ -61,14 +55,6 @@ public class TinProperty extends GeometryProperty<TriangulatedSurface> implement
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TIN_PROPERTY;
-	}
-
-	public final ReliefModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

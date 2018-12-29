@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.measures.Length;
-import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -64,7 +64,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 
 	}
 
-	public SolitaryVegetationObject(VegetationModule module) {
+	public SolitaryVegetationObject(Module module) {
 		super(module);
 	}
 	

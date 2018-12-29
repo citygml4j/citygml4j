@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.generics;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.child.ChildList;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 import java.util.List;
 
@@ -40,10 +39,6 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	public GenericAttributeSet(String name, List<AbstractGenericAttribute> attributes) {
 		genericAttribute = attributes;
 		setName(name);
-	}
-
-	public GenericAttributeSet(GenericsModule module) {
-		super(module);
 	}
 
 	public CityGMLClass getCityGMLClass() {

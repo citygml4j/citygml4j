@@ -80,6 +80,7 @@ import org.citygml4j.model.citygml.building.Room;
 import org.citygml4j.model.citygml.building.WallSurface;
 import org.citygml4j.model.citygml.building.Window;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
@@ -332,7 +333,7 @@ public class Building200Unmarshaller {
 	}
 
 	public BoundarySurfaceProperty unmarshalBoundarySurfaceProperty(BoundarySurfacePropertyType src) throws MissingADESchemaException {
-		BoundarySurfaceProperty dest = new BoundarySurfaceProperty(module);
+		BoundarySurfaceProperty dest = new BoundarySurfaceProperty();
 
 		if (src.isSet_BoundarySurface()) {
 			ModelObject object = jaxb.unmarshal(src.get_BoundarySurface());
@@ -483,7 +484,7 @@ public class Building200Unmarshaller {
 	}
 
 	public BuildingInstallationProperty unmarshalBuildingInstallationProperty(BuildingInstallationPropertyType src) throws MissingADESchemaException {
-		BuildingInstallationProperty dest = new BuildingInstallationProperty(module);
+		BuildingInstallationProperty dest = new BuildingInstallationProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -541,7 +542,7 @@ public class Building200Unmarshaller {
 	}
 
 	public BuildingPartProperty unmarshalBuildingPartProperty(BuildingPartPropertyType src) throws MissingADESchemaException {
-		BuildingPartProperty dest = new BuildingPartProperty(module);
+		BuildingPartProperty dest = new BuildingPartProperty();
 
 		if (src.isSet_AbstractBuilding()) {
 			ModelObject object = jaxb.unmarshal(src.get_AbstractBuilding());
@@ -723,7 +724,7 @@ public class Building200Unmarshaller {
 	}
 
 	public IntBuildingInstallationProperty unmarshalIntBuildingInstallationProperty(IntBuildingInstallationPropertyType src) throws MissingADESchemaException {
-		IntBuildingInstallationProperty dest = new IntBuildingInstallationProperty(module);
+		IntBuildingInstallationProperty dest = new IntBuildingInstallationProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -762,7 +763,7 @@ public class Building200Unmarshaller {
 	}
 
 	public InteriorFurnitureProperty unmarshalInteriorFurnitureProperty(InteriorFurniturePropertyType src) throws MissingADESchemaException {
-		InteriorFurnitureProperty dest = new InteriorFurnitureProperty(module);
+		InteriorFurnitureProperty dest = new InteriorFurnitureProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -801,7 +802,7 @@ public class Building200Unmarshaller {
 	}
 
 	public InteriorRoomProperty unmarshalInteriorRoomProperty(InteriorRoomPropertyType src) throws MissingADESchemaException {
-		InteriorRoomProperty dest = new InteriorRoomProperty(module);
+		InteriorRoomProperty dest = new InteriorRoomProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -897,7 +898,7 @@ public class Building200Unmarshaller {
 	}
 
 	public OpeningProperty unmarshalOpeningProperty(OpeningPropertyType src) throws MissingADESchemaException {
-		OpeningProperty dest = new OpeningProperty(module);
+		OpeningProperty dest = new OpeningProperty();
 
 		if (src.isSet_Opening()) {
 			ModelObject object = jaxb.unmarshal(src.get_Opening());
@@ -1045,7 +1046,7 @@ public class Building200Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

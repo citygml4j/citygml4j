@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 public class DoubleAttribute extends AbstractGenericAttribute {
 	private Double value;
@@ -36,10 +35,6 @@ public class DoubleAttribute extends AbstractGenericAttribute {
 	public DoubleAttribute(String name, double value) {
 		this.value = value;
 		setName(name);
-	}
-
-	public DoubleAttribute(GenericsModule module) {
-		super(module);
 	}
 
 	public Double getValue() {

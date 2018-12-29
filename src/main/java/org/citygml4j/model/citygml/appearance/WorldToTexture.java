@@ -28,7 +28,6 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +37,9 @@ public class WorldToTexture extends TransformationMatrix3x4 implements Appearanc
 	private String srsName;
 	private List<String> axisLabels;
 	private List<String> uomLabels;
-	private AppearanceModule module;
-	
+
 	public WorldToTexture() {
 
-	}
-	
-	public WorldToTexture(AppearanceModule module) {
-		this.module = module;
 	}
 
 	public WorldToTexture(Matrix matrix) {
@@ -59,16 +53,6 @@ public class WorldToTexture extends TransformationMatrix3x4 implements Appearanc
 	@Override
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.WORLD_TO_TEXTURE;
-	}
-
-	@Override
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	@Override
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public Integer getSrsDimension() {

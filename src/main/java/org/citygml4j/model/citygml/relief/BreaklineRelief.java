@@ -32,7 +32,7 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
-import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 
 	}
 
-	public BreaklineRelief(ReliefModule module) {
+	public BreaklineRelief(Module module) {
 		super(module);
 	}
 

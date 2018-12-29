@@ -36,7 +36,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -51,14 +51,13 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 	private SolidProperty lod4Solid;
 	private MultiSurfaceProperty lod4MultiSurface;
 	private List<ADEComponent> ade;
-	private TunnelModule module;
-	
+
 	public HollowSpace() {
 		
 	}
 	
-	public HollowSpace(TunnelModule module) {
-		this.module = module;
+	public HollowSpace(Module module) {
+		super(module);
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
@@ -311,14 +310,6 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 
 	public boolean unsetHollowSpaceInstallation(IntTunnelInstallationProperty hollowSpaceInstallation) {
 		return isSetHollowSpaceInstallation() ? this.hollowSpaceInstallation.remove(hollowSpaceInstallation) : false;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public CityGMLClass getCityGMLClass() {

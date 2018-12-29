@@ -26,21 +26,20 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.VegetationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
 public abstract class AbstractVegetationObject extends AbstractCityObject implements VegetationModuleComponent {
 	private List<ADEComponent> ade;
-	private VegetationModule module;
-	
+
 	public AbstractVegetationObject() {
 		
 	}
 	
-	public AbstractVegetationObject(VegetationModule module) {
-		this.module = module;
+	public AbstractVegetationObject(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
@@ -74,14 +73,6 @@ public abstract class AbstractVegetationObject extends AbstractCityObject implem
 
 	public boolean unsetGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
 		return isSetGenericApplicationPropertyOfVegetationObject() ? this.ade.remove(ade) : false;
-	}
-
-	public final VegetationModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	@Override

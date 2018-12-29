@@ -23,23 +23,16 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 import java.util.List;
 
 public class ColorPlusOpacity implements AppearanceModuleComponent, Child, Copyable {
 	private Color color;
 	private Double opacity = 1.0;
-	private AppearanceModule module;
 	private ModelObject parent;
 
 	public ColorPlusOpacity() {
 		color = new Color();
-	}
-
-	public ColorPlusOpacity(AppearanceModule module) {
-		this();
-		this.module = module;
 	}
 	
 	public ColorPlusOpacity(Color color, Double opacity) {
@@ -129,14 +122,6 @@ public class ColorPlusOpacity implements AppearanceModuleComponent, Child, Copya
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.COLOR_PLUS_OPACITY;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public ModelObject getParent() {

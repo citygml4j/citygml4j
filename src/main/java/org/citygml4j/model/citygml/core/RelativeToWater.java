@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 public enum RelativeToWater implements CoreModuleComponent, Copyable {
     ENTIRELY_ABOVE_WATER_SURFACE("entirelyAboveWaterSurface"),
@@ -32,7 +31,6 @@ public enum RelativeToWater implements CoreModuleComponent, Copyable {
     TEMPORARILY_ABOVE_AND_BELOW_WATER_SURFACE("temporarilyAboveAndBelowWaterSurface");
 
 	private final String value;
-	private CoreModule module;
 
 	RelativeToWater(String value) {
 		this.value = value;
@@ -56,14 +54,6 @@ public enum RelativeToWater implements CoreModuleComponent, Copyable {
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.RELATIVE_TO_WATER;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 	
 	public String toString() {

@@ -21,12 +21,10 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class TextureAssociation extends AssociationByRepOrRef<AbstractTextureParameterization> implements AppearanceModuleComponent {
 	private String uri;
-	private AppearanceModule module;
-	
+
 	public TextureAssociation() {
 		
 	}
@@ -37,10 +35,6 @@ public class TextureAssociation extends AssociationByRepOrRef<AbstractTexturePar
 	
 	public TextureAssociation(String href) {
 		super(href);
-	}
-	
-	public TextureAssociation(AppearanceModule module) {
-		this.module = module;
 	}
 	
 	public AbstractTextureParameterization getTextureParameterization() {
@@ -77,14 +71,6 @@ public class TextureAssociation extends AssociationByRepOrRef<AbstractTexturePar
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEXTURE_ASSOCIATION;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public Class<AbstractTextureParameterization> getAssociableClass() {

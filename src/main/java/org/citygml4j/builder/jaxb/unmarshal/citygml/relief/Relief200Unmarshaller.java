@@ -42,6 +42,7 @@ import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;
 import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.coverage.RectifiedGridCoverage;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
@@ -226,7 +227,7 @@ public class Relief200Unmarshaller {
 	}
 
 	public ReliefComponentProperty unmarshalReliefComponentProperty(ReliefComponentPropertyType src) throws MissingADESchemaException {
-		ReliefComponentProperty dest = new ReliefComponentProperty(module);
+		ReliefComponentProperty dest = new ReliefComponentProperty();
 
 		if (src.isSet_ReliefComponent()) {
 			ModelObject object = jaxb.unmarshal(src.get_ReliefComponent());
@@ -292,7 +293,7 @@ public class Relief200Unmarshaller {
 	}
 
 	public TinProperty unmarshalTinProperty(TinPropertyType src) throws MissingADESchemaException {
-		TinProperty dest = new TinProperty(module);
+		TinProperty dest = new TinProperty();
 
 		if (src.isSetTriangulatedSurface()) {
 			ModelObject object = jaxb.unmarshal(src.getTriangulatedSurface());
@@ -349,7 +350,7 @@ public class Relief200Unmarshaller {
 		return dest;
 	}	
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

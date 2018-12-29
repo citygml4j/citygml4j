@@ -58,6 +58,7 @@ import org.citygml4j.model.citygml.appearance.WorldToTexture;
 import org.citygml4j.model.citygml.appearance.WrapMode;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
@@ -169,7 +170,7 @@ public class Appearance100Unmarshaller {
 		if (src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent()) {
 				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
-				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, dest))
+				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, src, dest))
 					dest.addGenericADEElement(ade);
 			}
 		}
@@ -211,7 +212,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public AppearanceMember unmarshalAppearanceMember(AppearancePropertyType src) throws MissingADESchemaException {
-		AppearanceMember dest = new AppearanceMember(module);
+		AppearanceMember dest = new AppearanceMember();
 		unmarshalAppearanceProperty(src, dest);
 
 		return dest;
@@ -231,21 +232,21 @@ public class Appearance100Unmarshaller {
 	}
 
 	public AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyType src) throws MissingADESchemaException {
-		AppearanceProperty dest = new AppearanceProperty(module);
+		AppearanceProperty dest = new AppearanceProperty();
 		unmarshalAppearanceProperty(src, dest);
 
 		return dest;
 	}
 
 	public Color unmarshalColor(List<Double> src) {
-		Color dest = new Color(module);
+		Color dest = new Color();
 		dest.setColor(src);
 
 		return dest;
 	}
 
 	public ColorPlusOpacity unmarshalColorPlusOpacity(List<Double> src) {
-		ColorPlusOpacity dest = new ColorPlusOpacity(module);
+		ColorPlusOpacity dest = new ColorPlusOpacity();
 		dest.setColorPlusOpacity(src);
 
 		return dest;
@@ -307,7 +308,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public SurfaceDataProperty unmarshalSurfaceDataProperty(SurfaceDataPropertyType src) throws MissingADESchemaException {
-		SurfaceDataProperty dest = new SurfaceDataProperty(module);
+		SurfaceDataProperty dest = new SurfaceDataProperty();
 
 		if (src.isSet_SurfaceData()) {
 			ModelObject surfaceData = jaxb.unmarshal(src.get_SurfaceData());
@@ -392,7 +393,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public TextureAssociation unmarshalTextureAssociation(TextureAssociationType src) throws MissingADESchemaException {
-		TextureAssociation dest = new TextureAssociation(module);
+		TextureAssociation dest = new TextureAssociation();
 
 		if (src.isSet_TextureParameterization()) {
 			ModelObject textureParameterization = jaxb.unmarshal(src.get_TextureParameterization());
@@ -439,7 +440,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public TextureCoordinates unmarshalTextureCoordinates(TexCoordListType.TextureCoordinates src) {
-		TextureCoordinates dest = new TextureCoordinates(module);
+		TextureCoordinates dest = new TextureCoordinates();
 		unmarshalTextureCoordinates(src, dest);
 
 		return dest;
@@ -474,7 +475,7 @@ public class Appearance100Unmarshaller {
 	}
 
 	public WorldToTexture unmarshalWorldToTexture(TexCoordGenType.WorldToTexture src) {
-		WorldToTexture dest = new WorldToTexture(module);
+		WorldToTexture dest = new WorldToTexture();
 		unmarshalWorldToTexture(src, dest);
 
 		return dest;
@@ -527,7 +528,7 @@ public class Appearance100Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

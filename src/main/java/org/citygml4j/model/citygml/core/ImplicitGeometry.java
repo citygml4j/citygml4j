@@ -30,7 +30,6 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
-import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -41,15 +40,6 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 	private String libraryObject;
 	private GeometryProperty<? extends AbstractGeometry> relativeGeometry;
 	private PointProperty referencePoint;
-	private CoreModule module;	
-
-	public ImplicitGeometry() {
-
-	}
-
-	public ImplicitGeometry(CoreModule module) {
-		this.module = module;
-	}
 
 	public String getLibraryObject() {
 		return libraryObject;
@@ -187,14 +177,6 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.IMPLICIT_GEOMETRY;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

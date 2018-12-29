@@ -142,7 +142,6 @@ import net.opengis.gml.ValuePropertyType;
 import net.opengis.gml.VectorType;
 import net.opengis.gml.VolumeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
-import org.citygml4j.model.citygml.CityGMLModuleComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.common.association.Associable;
@@ -531,8 +530,7 @@ public class GMLUnmarshaller {
 		if (src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent()) {
 				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
-				if (!(dest instanceof CityGMLModuleComponent) ||
-						!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, (CityGMLModuleComponent) dest))
+				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, src, dest))
 					dest.addGenericADEElement(ade);
 			}
 		}
@@ -2696,7 +2694,7 @@ public class GMLUnmarshaller {
 	}
 
 	public RectifiedGridCoverage unmarshalRectifiedGridCoverage(RectifiedGridCoverageType src) {
-		RectifiedGridCoverage dest = new RectifiedGridCoverage();
+		RectifiedGridCoverage dest = new RectifiedGridCoverage(GMLCoreModule.v3_1_1);
 		unmarshalAbstractDiscreteCoverage(src, dest);
 
 		if (src.isSetDomainSet()) {

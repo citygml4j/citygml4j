@@ -32,7 +32,7 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.aggregates.MultiPointProperty;
-import org.citygml4j.model.module.citygml.ReliefModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class MassPointRelief extends AbstractReliefComponent {
 
 	}
 
-	public MassPointRelief(ReliefModule module) {
+	public MassPointRelief(Module module) {
 		super(module);
 	}
 

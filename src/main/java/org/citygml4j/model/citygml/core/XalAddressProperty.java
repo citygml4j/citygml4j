@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.base.AssociationByRep;
-import org.citygml4j.model.module.citygml.CoreModule;
 import org.citygml4j.model.xal.AddressDetails;
 
 public class XalAddressProperty extends AssociationByRep<AddressDetails> implements CoreModuleComponent {
-	private CoreModule module;
 
 	public XalAddressProperty() {
 		
@@ -33,10 +31,6 @@ public class XalAddressProperty extends AssociationByRep<AddressDetails> impleme
 	
 	public XalAddressProperty(AddressDetails addressDetails) {
 		super(addressDetails);
-	}
-	
-	public XalAddressProperty(CoreModule module) {
-		this.module = module;
 	}
 	
 	public AddressDetails getAddressDetails() {
@@ -57,14 +51,6 @@ public class XalAddressProperty extends AssociationByRep<AddressDetails> impleme
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.XAL_ADDRESS_PROPERTY;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public Class<AddressDetails> getAssociableClass() {

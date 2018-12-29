@@ -167,7 +167,7 @@ public class Generics100Unmarshaller {
 	}
 
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {
-		DateAttribute dest = new DateAttribute(module);
+		DateAttribute dest = new DateAttribute();
 		unmarshalDateAttribute(src, dest);
 
 		return dest;		
@@ -181,7 +181,7 @@ public class Generics100Unmarshaller {
 	}
 
 	public DoubleAttribute unmarshalDoubleAttribute(DoubleAttributeType src) {
-		DoubleAttribute dest = new DoubleAttribute(module);
+		DoubleAttribute dest = new DoubleAttribute();
 		unmarshalDoubleAttribute(src, dest);
 
 		return dest;		
@@ -195,7 +195,7 @@ public class Generics100Unmarshaller {
 	}
 
 	public IntAttribute unmarshalIntAttribute(IntAttributeType src) {
-		IntAttribute dest = new IntAttribute(module);
+		IntAttribute dest = new IntAttribute();
 		unmarshalIntAttribute(src, dest);
 
 		return dest;		
@@ -209,7 +209,7 @@ public class Generics100Unmarshaller {
 	}
 
 	public StringAttribute unmarshalStringAttribute(StringAttributeType src) {
-		StringAttribute dest = new StringAttribute(module);
+		StringAttribute dest = new StringAttribute();
 		unmarshalStringAttribute(src, dest);
 
 		return dest;		
@@ -223,7 +223,7 @@ public class Generics100Unmarshaller {
 	}
 
 	public UriAttribute unmarshalUriAttribute(UriAttributeType src) {
-		UriAttribute dest = new UriAttribute(module);
+		UriAttribute dest = new UriAttribute();
 		unmarshalUriAttribute(src, dest);
 
 		return dest;		

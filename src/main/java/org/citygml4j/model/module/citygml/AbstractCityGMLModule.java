@@ -25,7 +25,6 @@ import org.citygml4j.model.module.Module;
 import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 

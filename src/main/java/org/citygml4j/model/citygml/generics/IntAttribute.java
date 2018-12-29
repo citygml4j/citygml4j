@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 public class IntAttribute extends AbstractGenericAttribute {
 	private Integer value;
@@ -36,10 +35,6 @@ public class IntAttribute extends AbstractGenericAttribute {
 	public IntAttribute(String name, int value) {
 		this.value = value;
 		setName(name);
-	}
-
-	public IntAttribute(GenericsModule module) {
-		super(module);
 	}
 	
 	public Integer getValue() {

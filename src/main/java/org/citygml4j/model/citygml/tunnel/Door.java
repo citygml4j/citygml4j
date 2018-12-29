@@ -30,7 +30,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class Door extends AbstractOpening {
 		
 	}
 	
-	public Door(TunnelModule module) {
+	public Door(Module module) {
 		super(module);
 	}
 	

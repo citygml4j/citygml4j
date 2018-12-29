@@ -41,7 +41,7 @@ import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.AbstractGeometricPrimitive;
 import org.citygml4j.model.gml.geometry.primitives.GeometricPrimitiveProperty;
-import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 
 	}
 
-	public TransportationComplex(TransportationModule module) {
+	public TransportationComplex(Module module) {
 		super(module);
 	}
 

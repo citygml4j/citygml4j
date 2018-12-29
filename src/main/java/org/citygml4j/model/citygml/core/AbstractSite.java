@@ -25,13 +25,22 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
 public abstract class AbstractSite extends AbstractCityObject {
 	private List<ADEComponent> ade;
-	
+
+	public AbstractSite() {
+
+	}
+
+	public AbstractSite(Module module) {
+		super(module);
+	}
+
 	public void addGenericApplicationPropertyOfSite(ADEComponent ade) {
 		if (this.ade == null)
 			this.ade = new ChildList<ADEComponent>(this);

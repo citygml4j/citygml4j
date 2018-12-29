@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -50,14 +50,13 @@ public class IntTunnelInstallation extends AbstractCityObject implements TunnelM
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<BoundarySurfaceProperty> boundedBySurface;
 	private List<ADEComponent> ade;
-	private TunnelModule module;
-	
+
 	public IntTunnelInstallation() {
 		
 	}
 	
-	public IntTunnelInstallation(TunnelModule module) {
-		this.module = module;
+	public IntTunnelInstallation(Module module) {
+		super(module);
 	}
 	
 	public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
@@ -248,14 +247,6 @@ public class IntTunnelInstallation extends AbstractCityObject implements TunnelM
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.INT_TUNNEL_INSTALLATION;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

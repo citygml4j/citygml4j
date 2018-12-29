@@ -59,6 +59,7 @@ import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
@@ -204,7 +205,7 @@ public class Core200Unmarshaller {
 	}
 
 	public AddressProperty unmarshalAddressProperty(AddressPropertyType src) throws MissingADESchemaException {
-		AddressProperty dest = new AddressProperty(module);
+		AddressProperty dest = new AddressProperty();
 
 		if (src.isSet_Feature()) {
 			ModelObject object = jaxb.unmarshal(src.get_Feature());
@@ -262,7 +263,7 @@ public class Core200Unmarshaller {
 	}
 
 	public CityObjectMember unmarshalCityObjectMember(FeaturePropertyType src) throws MissingADESchemaException {
-		CityObjectMember dest = new CityObjectMember(module);
+		CityObjectMember dest = new CityObjectMember();
 		jaxb.getGMLUnmarshaller().unmarshalFeatureProperty(src, dest);
 
 		if (src.isSet_Feature()) {
@@ -283,7 +284,7 @@ public class Core200Unmarshaller {
 	}
 
 	public ExternalReference unmarshalExternalReference(ExternalReferenceType src) {
-		ExternalReference dest = new ExternalReference(module);
+		ExternalReference dest = new ExternalReference();
 		unmarshalExternalReference(src, dest);
 
 		return dest;
@@ -298,14 +299,14 @@ public class Core200Unmarshaller {
 	}
 
 	public ExternalObject unmarshalExternalObject(ExternalObjectReferenceType src) {
-		ExternalObject dest = new ExternalObject(module);
+		ExternalObject dest = new ExternalObject();
 		unmarshalExternalObject(src, dest);
 
 		return dest;
 	}
 
 	public GeneralizationRelation unmarshalGeneralizationRelation(GeneralizationRelationType src) throws MissingADESchemaException {
-		GeneralizationRelation dest = new GeneralizationRelation(module);
+		GeneralizationRelation dest = new GeneralizationRelation();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -363,14 +364,14 @@ public class Core200Unmarshaller {
 	}
 
 	public ImplicitGeometry unmarshalImplicitGeometry(ImplicitGeometryType src) {
-		ImplicitGeometry dest = new ImplicitGeometry(module);
+		ImplicitGeometry dest = new ImplicitGeometry();
 		unmarshalImplicitGeometry(src, dest);
 
 		return dest;
 	}
 
 	public ImplicitRepresentationProperty unmarshalImplicitRepresentationProperty(ImplicitRepresentationPropertyType src) throws MissingADESchemaException {
-		ImplicitRepresentationProperty dest = new ImplicitRepresentationProperty(module);
+		ImplicitRepresentationProperty dest = new ImplicitRepresentationProperty();
 
 		if (src.isSetImplicitGeometry())
 			dest.setImplicitGeometry(unmarshalImplicitGeometry(src.getImplicitGeometry()));
@@ -405,7 +406,7 @@ public class Core200Unmarshaller {
 
 	public TransformationMatrix2x2 unmarshalTransformationMatrix2x2(List<Double> src) {
 		try {
-			TransformationMatrix2x2 dest = new TransformationMatrix2x2(module);	
+			TransformationMatrix2x2 dest = new TransformationMatrix2x2();
 
 			Matrix matrix = new Matrix(2, 2);
 			matrix.setMatrix(src);
@@ -419,7 +420,7 @@ public class Core200Unmarshaller {
 
 	public TransformationMatrix3x4 unmarshalTransformationMatrix3x4(List<Double> src) {
 		try {
-			TransformationMatrix3x4 dest = new TransformationMatrix3x4(module);	
+			TransformationMatrix3x4 dest = new TransformationMatrix3x4();
 
 			Matrix matrix = new Matrix(3, 4);
 			matrix.setMatrix(src);
@@ -433,7 +434,7 @@ public class Core200Unmarshaller {
 
 	public TransformationMatrix4x4 unmarshalTransformationMatrix4x4(List<Double> src) {
 		try {
-			TransformationMatrix4x4 dest = new TransformationMatrix4x4(module);	
+			TransformationMatrix4x4 dest = new TransformationMatrix4x4();
 
 			Matrix matrix = new Matrix(4, 4);
 			matrix.setMatrix(src);
@@ -454,7 +455,7 @@ public class Core200Unmarshaller {
 	}
 
 	public XalAddressProperty unmarshalXalAddressProperty(XalAddressPropertyType src) {
-		XalAddressProperty dest = new XalAddressProperty(module);
+		XalAddressProperty dest = new XalAddressProperty();
 
 		if (src.isSetAddressDetails())
 			dest.setAddressDetails(jaxb.getXALUnmarshaller().unmarshalAddressDetails(src.getAddressDetails()));		
@@ -462,7 +463,7 @@ public class Core200Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

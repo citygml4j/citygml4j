@@ -21,10 +21,8 @@ package org.citygml4j.model.citygml.building;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.BuildingModule;
 
 public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySurface> implements BuildingModuleComponent {
-	private BuildingModule module;
 
 	public BoundarySurfaceProperty() {
 		
@@ -36,10 +34,6 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 	
 	public BoundarySurfaceProperty(String href) {
 		super(href);
-	}
-	
-	public BoundarySurfaceProperty(BuildingModule module) {
-		this.module = module;
 	}
 	
 	public AbstractBoundarySurface getBoundarySurface() {
@@ -60,14 +54,6 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BUILDING_BOUNDARY_SURFACE_PROPERTY;
-	}
-
-	public final BuildingModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

@@ -21,7 +21,6 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.copy.Copyable;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public enum TextureType implements AppearanceModuleComponent, Copyable {
     SPECIFIC("specific"),
@@ -29,7 +28,6 @@ public enum TextureType implements AppearanceModuleComponent, Copyable {
     UNKNOWN("unknown");
     
     private final String value;
-    private AppearanceModule module;
 
     TextureType(String value) {
         this.value = value;
@@ -53,14 +51,6 @@ public enum TextureType implements AppearanceModuleComponent, Copyable {
 
     public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TEXTURE_TYPE;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public String toString() {

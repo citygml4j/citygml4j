@@ -21,10 +21,8 @@ package org.citygml4j.model.citygml.tunnel;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
 
 public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySurface> implements TunnelModuleComponent {
-	private TunnelModule module;
 
 	public BoundarySurfaceProperty() {
 		
@@ -36,10 +34,6 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 	
 	public BoundarySurfaceProperty(String href) {
 		super(href);
-	}
-	
-	public BoundarySurfaceProperty(TunnelModule module) {
-		this.module = module;
 	}
 	
 	public AbstractBoundarySurface getBoundarySurface() {
@@ -60,14 +54,6 @@ public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySur
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TUNNEL_BOUNDARY_SURFACE_PROPERTY;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

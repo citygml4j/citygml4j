@@ -20,7 +20,6 @@ package org.citygml4j.model.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
-import org.citygml4j.model.module.citygml.GenericsModule;
 
 public class UriAttribute extends AbstractGenericAttribute {
 	private String value;
@@ -36,10 +35,6 @@ public class UriAttribute extends AbstractGenericAttribute {
 	public UriAttribute(String name, String value) {
 		this.value = value;
 		setName(name);
-	}
-
-	public UriAttribute(GenericsModule module) {
-		super(module);
 	}
 	
 	public String getValue() {

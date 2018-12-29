@@ -26,7 +26,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
-import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.Module;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class ParameterizedTexture extends AbstractTexture {
 		
 	}
 	
-	public ParameterizedTexture(AppearanceModule module) {
+	public ParameterizedTexture(Module module) {
 		super(module);
 	}
 	

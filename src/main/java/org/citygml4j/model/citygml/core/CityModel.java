@@ -34,7 +34,7 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.FeatureMember;
-import org.citygml4j.model.module.citygml.CoreModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -43,14 +43,13 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 	private List<CityObjectMember> cityObjectMember;
 	private List<AppearanceMember> appearanceMember;
 	private List<ADEComponent> ade;
-	private CoreModule module;
-	
+
 	public CityModel() {
 		
 	}
 	
-	public CityModel(CoreModule module) {
-		this.module = module;
+	public CityModel(Module module) {
+		super(module);
 	}
 	
 	public void addAppearanceMember(AppearanceMember appearanceMember) {
@@ -154,14 +153,6 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITY_MODEL;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

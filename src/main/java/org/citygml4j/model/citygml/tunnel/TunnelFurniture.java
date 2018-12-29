@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.module.citygml.TunnelModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -49,14 +49,13 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 	private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<ADEComponent> ade;
-	private TunnelModule module;
 
 	public TunnelFurniture() {
 		
 	}
 	
-	public TunnelFurniture(TunnelModule module) {
-		this.module = module;
+	public TunnelFurniture(Module module) {
+		super(module);
 	}
 	
 	public void addFunction(Code function) {
@@ -214,14 +213,6 @@ public class TunnelFurniture extends AbstractCityObject implements TunnelModuleC
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.TUNNEL_FURNITURE;
-	}
-
-	public final TunnelModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

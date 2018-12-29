@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.AppearanceModule;
 
 public class SurfaceDataProperty extends FeatureProperty<AbstractSurfaceData> implements AppearanceModuleComponent {
-	private AppearanceModule module;
-	
+
 	public SurfaceDataProperty() {
 		
 	}
@@ -36,10 +34,6 @@ public class SurfaceDataProperty extends FeatureProperty<AbstractSurfaceData> im
 	
 	public SurfaceDataProperty(String href) {
 		super(href);
-	}
-	
-	public SurfaceDataProperty(AppearanceModule module) {
-		this.module = module;
 	}
 	
 	public AbstractSurfaceData getSurfaceData() {
@@ -60,14 +54,6 @@ public class SurfaceDataProperty extends FeatureProperty<AbstractSurfaceData> im
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.SURFACE_DATA_PROPERTY;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

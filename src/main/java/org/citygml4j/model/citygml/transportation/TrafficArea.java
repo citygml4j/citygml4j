@@ -36,7 +36,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class TrafficArea extends AbstractTransportationObject implements Standar
 
 	}
 
-	public TrafficArea(TransportationModule module) {
+	public TrafficArea(Module module) {
 		super(module);
 	}
 	

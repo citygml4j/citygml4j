@@ -18,6 +18,7 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml;
 
+import net.opengis.gml.AbstractGMLType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.appearance.Appearance200Unmarshaller;
@@ -46,10 +47,12 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.vegetation.Vegetation200Unma
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody100Unmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.waterbody.WaterBody200Unmarshaller;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.CityGMLModuleComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.AppearanceModule;
@@ -317,7 +320,7 @@ public class CityGMLUnmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement ade, CityGMLModuleComponent dest) {
+	public boolean assignGenericProperty(ADEGenericElement ade, AbstractGMLType src, AbstractGML dest) {
 		Schema adeSchema = jaxb.getSchemaHandler().getSchema(ade.getContent().getNamespaceURI());
 		if (adeSchema == null)
 			return false;
@@ -331,15 +334,21 @@ public class CityGMLUnmarshaller {
 			String namespaceURI = substitutionGroup.getNamespaceURI();
 			CityGMLVersion version = null;
 
-			// try and identify CityGML version of feature
-			if (dest.isSetCityGMLModule()) {
-				version = CityGMLVersion.fromCityGMLModule(dest.getCityGMLModule());
-			} else if (dest instanceof ADEModelObject && dest instanceof AbstractFeature) {
-				CityGMLVersion tmp = CityGMLVersion.fromCityGMLNamespaceURI(namespaceURI);
-				for (ADEModule module : Modules.getADEModules()) {
-					if (module.getCityGMLVersion() == tmp
-							&& module.getFeatureName(((AbstractFeature) dest).getClass()) != null) {
-						version = tmp;
+			Module module = null;
+			if (dest instanceof AbstractFeature)
+				module = ((AbstractFeature) dest).getModule();
+			else if (dest instanceof AbstractTextureParameterization)
+				module = ((AbstractTextureParameterization) dest).getModule();
+
+			if (module instanceof CityGMLModule)
+				version = CityGMLVersion.fromCityGMLModule((CityGMLModule) module);
+			else if (module instanceof ADEModule)
+				version = ((ADEModule) module).getCityGMLVersion();
+
+			if (version == null && dest instanceof ADEModelObject) {
+				for (ADEModule adeModule : Modules.getADEModules()) {
+					if (adeModule.getJAXBPackageNames().contains(src.getClass().getPackage().getName())) {
+						version = adeModule.getCityGMLVersion();
 						break;
 					}
 				}

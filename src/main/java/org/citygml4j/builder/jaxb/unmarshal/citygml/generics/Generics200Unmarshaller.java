@@ -174,7 +174,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {
-		DateAttribute dest = new DateAttribute(module);
+		DateAttribute dest = new DateAttribute();
 		unmarshalDateAttribute(src, dest);
 
 		return dest;		
@@ -196,7 +196,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public GenericAttributeSet unmarshalGenericAttributeSet(GenericAttributeSetType src) throws MissingADESchemaException {
-		GenericAttributeSet dest = new GenericAttributeSet(module);
+		GenericAttributeSet dest = new GenericAttributeSet();
 		unmarshalGenericAttributeSet(src, dest);
 
 		return dest;
@@ -210,7 +210,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public DoubleAttribute unmarshalDoubleAttribute(DoubleAttributeType src) {
-		DoubleAttribute dest = new DoubleAttribute(module);
+		DoubleAttribute dest = new DoubleAttribute();
 		unmarshalDoubleAttribute(src, dest);
 
 		return dest;		
@@ -224,7 +224,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public IntAttribute unmarshalIntAttribute(IntAttributeType src) {
-		IntAttribute dest = new IntAttribute(module);
+		IntAttribute dest = new IntAttribute();
 		unmarshalIntAttribute(src, dest);
 
 		return dest;		
@@ -238,7 +238,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public MeasureAttribute unmarshalMeasureAttribute(MeasureAttributeType src) {
-		MeasureAttribute dest = new MeasureAttribute(module);
+		MeasureAttribute dest = new MeasureAttribute();
 		unmarshalMeasureAttribute(src, dest);
 
 		return dest;
@@ -252,7 +252,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public StringAttribute unmarshalStringAttribute(StringAttributeType src) {
-		StringAttribute dest = new StringAttribute(module);
+		StringAttribute dest = new StringAttribute();
 		unmarshalStringAttribute(src, dest);
 
 		return dest;		
@@ -266,7 +266,7 @@ public class Generics200Unmarshaller {
 	}
 
 	public UriAttribute unmarshalUriAttribute(UriAttributeType src) {
-		UriAttribute dest = new UriAttribute(module);
+		UriAttribute dest = new UriAttribute();
 		unmarshalUriAttribute(src, dest);
 
 		return dest;		

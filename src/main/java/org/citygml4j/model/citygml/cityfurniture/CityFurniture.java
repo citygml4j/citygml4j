@@ -38,7 +38,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
-import org.citygml4j.model.module.citygml.CityFurnitureModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -60,14 +60,13 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 	private ImplicitRepresentationProperty lod3ImplicitRepresentation;
 	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
 	private List<ADEComponent> ade;
-	private CityFurnitureModule module;
 
 	public CityFurniture() {
 
 	}
 
-	public CityFurniture(CityFurnitureModule module) {
-		this.module = module;
+	public CityFurniture(Module module) {
+		super(module);
 	}
 
 	public void addFunction(Code function) {
@@ -445,14 +444,6 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.CITY_FURNITURE;
-	}
-
-	public final CityFurnitureModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

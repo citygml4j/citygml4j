@@ -39,7 +39,6 @@ import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
@@ -49,7 +48,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TexturedSurface200Unmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
-	private final TexturedSurfaceModule module = TexturedSurfaceModule.v2_0_0;
 	private final JAXBUnmarshaller jaxb;
 	private CheckedTypeMapper<CityGML> typeMapper;
 
@@ -91,7 +89,7 @@ public class TexturedSurface200Unmarshaller {
 	}
 
 	public _AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyType src) {
-		_AppearanceProperty dest =  new _AppearanceProperty(module);
+		_AppearanceProperty dest =  new _AppearanceProperty();
 
 		if (src.isSetOrientation())
 			dest.setOrientation(Sign.fromValue(src.getOrientation()));
@@ -134,7 +132,7 @@ public class TexturedSurface200Unmarshaller {
 	}
 
 	public _Color unmarshalColor(List<Double> src) {
-		_Color  dest = new _Color(module);
+		_Color  dest = new _Color();
 		dest.setColor(src);
 
 		return dest;
@@ -163,7 +161,7 @@ public class TexturedSurface200Unmarshaller {
 	}
 
 	public _Material unmarshalMaterial(MaterialType src) {
-		_Material dest = new _Material(module);
+		_Material dest = new _Material();
 		unmarshalMaterial(src, dest);
 
 		return dest;
@@ -186,7 +184,7 @@ public class TexturedSurface200Unmarshaller {
 	}
 
 	public _SimpleTexture unmarshalSimpleTexture(SimpleTextureType src) {
-		_SimpleTexture dest = new _SimpleTexture(module);
+		_SimpleTexture dest = new _SimpleTexture();
 		unmarshalSimpleTexture(src, dest);
 
 		return dest;
@@ -202,7 +200,7 @@ public class TexturedSurface200Unmarshaller {
 	}
 
 	public _TexturedSurface unmarshalTexturedSurface(TexturedSurfaceType src) {
-		_TexturedSurface dest = new _TexturedSurface(module);
+		_TexturedSurface dest = new _TexturedSurface();
 		unmarshalTexturedSurface(src, dest);
 
 		return dest;

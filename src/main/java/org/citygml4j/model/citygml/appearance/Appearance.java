@@ -27,7 +27,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.Module;
 
 import java.util.List;
 
@@ -35,14 +35,13 @@ public class Appearance extends AbstractFeature implements AppearanceModuleCompo
 	private String theme;
 	private List<SurfaceDataProperty> surfaceDataMember;
 	private List<ADEComponent> ade;
-	private AppearanceModule module;
-	
+
 	public Appearance() {
 		
 	}
 	
-	public Appearance(AppearanceModule module) {
-		this.module = module;
+	public Appearance(Module module) {
+		super(module);
 	}
 	
 	public void addGenericApplicationPropertyOfAppearance(ADEComponent ade) {
@@ -129,14 +128,6 @@ public class Appearance extends AbstractFeature implements AppearanceModuleCompo
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.APPEARANCE;
-	}
-
-	public final AppearanceModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

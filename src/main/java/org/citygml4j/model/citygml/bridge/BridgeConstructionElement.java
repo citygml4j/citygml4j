@@ -38,7 +38,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
-import org.citygml4j.model.module.citygml.BridgeModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -61,10 +61,13 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 	private MultiCurveProperty lod4TerrainIntersection;
 	private List<BoundarySurfaceProperty> boundedBySurface;
 	private List<ADEComponent> ade;
-	private BridgeModule module;
-	
+
 	public BridgeConstructionElement() {
 		
+	}
+
+	public BridgeConstructionElement(Module module) {
+		super(module);
 	}
 	
 	public MultiCurveProperty getLod1TerrainIntersection() {
@@ -153,10 +156,6 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 			lod4TerrainIntersection.unsetParent();
 		
 		lod4TerrainIntersection = null;
-	}
-	
-	public BridgeConstructionElement(BridgeModule module) {
-		this.module = module;
 	}
 	
 	public ImplicitRepresentationProperty getLod1ImplicitRepresentation() {
@@ -479,14 +478,6 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.BRIDGE_CONSTRUCTION_ELEMENT;
-	}
-
-	public final BridgeModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

@@ -21,11 +21,9 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.citygml.CoreModule;
 
 public class GeneralizationRelation extends FeatureProperty<AbstractCityObject> implements CoreModuleComponent {
-	private CoreModule module;
-	
+
 	public GeneralizationRelation() {
 		
 	}
@@ -36,10 +34,6 @@ public class GeneralizationRelation extends FeatureProperty<AbstractCityObject> 
 	
 	public GeneralizationRelation(String href) {
 		super(href);
-	}
-	
-	public GeneralizationRelation(CoreModule module) {
-		this.module = module;
 	}
 	
 	public AbstractCityObject getCityObject() {
@@ -60,14 +54,6 @@ public class GeneralizationRelation extends FeatureProperty<AbstractCityObject> 
 	
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.GENERALIZATION_RELATION;
-	}
-
-	public final CoreModule getCityGMLModule() {
-		return module;
-	}
-
-	public boolean isSetCityGMLModule() {
-		return module != null;
 	}
 
 	@Override

@@ -84,6 +84,7 @@ import org.citygml4j.model.citygml.bridge.RoofSurface;
 import org.citygml4j.model.citygml.bridge.WallSurface;
 import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
@@ -322,7 +323,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public BoundarySurfaceProperty unmarshalBoundarySurfaceProperty(BoundarySurfacePropertyType src) throws MissingADESchemaException {
-		BoundarySurfaceProperty dest = new BoundarySurfaceProperty(module);
+		BoundarySurfaceProperty dest = new BoundarySurfaceProperty();
 
 		if (src.isSet_BoundarySurface()) {
 			ModelObject object = jaxb.unmarshal(src.get_BoundarySurface());
@@ -453,7 +454,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public BridgeConstructionElementProperty unmarshalBridgeConstructionElementProperty(BridgeConstructionElementPropertyType src) throws MissingADESchemaException {
-		BridgeConstructionElementProperty dest = new BridgeConstructionElementProperty(module);
+		BridgeConstructionElementProperty dest = new BridgeConstructionElementProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -585,7 +586,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public BridgeInstallationProperty unmarshalBridgeInstallationProperty(BridgeInstallationPropertyType src) throws MissingADESchemaException {
-		BridgeInstallationProperty dest = new BridgeInstallationProperty(module);
+		BridgeInstallationProperty dest = new BridgeInstallationProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -643,7 +644,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public BridgePartProperty unmarshalBridgePartProperty(BridgePartPropertyType src) throws MissingADESchemaException {
-		BridgePartProperty dest = new BridgePartProperty(module);
+		BridgePartProperty dest = new BridgePartProperty();
 
 		if (src.isSet_AbstractBridge()) {
 			ModelObject object = jaxb.unmarshal(src.get_AbstractBridge());
@@ -878,7 +879,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public IntBridgeInstallationProperty unmarshalIntBridgeInstallationProperty(IntBridgeInstallationPropertyType src) throws MissingADESchemaException {
-		IntBridgeInstallationProperty dest = new IntBridgeInstallationProperty(module);
+		IntBridgeInstallationProperty dest = new IntBridgeInstallationProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -917,7 +918,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public InteriorFurnitureProperty unmarshalInteriorFurnitureProperty(InteriorFurniturePropertyType src) throws MissingADESchemaException {
-		InteriorFurnitureProperty dest = new InteriorFurnitureProperty(module);
+		InteriorFurnitureProperty dest = new InteriorFurnitureProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -956,7 +957,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public InteriorBridgeRoomProperty unmarshalInteriorBridgeRoomProperty(InteriorBridgeRoomPropertyType src) throws MissingADESchemaException {
-		InteriorBridgeRoomProperty dest = new InteriorBridgeRoomProperty(module);
+		InteriorBridgeRoomProperty dest = new InteriorBridgeRoomProperty();
 
 		if (src.isSet_CityObject()) {
 			ModelObject object = jaxb.unmarshal(src.get_CityObject());
@@ -1052,7 +1053,7 @@ public class Bridge200Unmarshaller {
 	}
 
 	public OpeningProperty unmarshalOpeningProperty(OpeningPropertyType src) throws MissingADESchemaException {
-		OpeningProperty dest = new OpeningProperty(module);
+		OpeningProperty dest = new OpeningProperty();
 
 		if (src.isSet_Opening()) {
 			ModelObject object = jaxb.unmarshal(src.get_Opening());
@@ -1147,7 +1148,7 @@ public class Bridge200Unmarshaller {
 		return dest;
 	}
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, CityGML dest) {
+	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
 		String name = substitutionGroup.getLocalPart();
 		boolean success = true;
 

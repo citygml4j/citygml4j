@@ -30,7 +30,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.module.citygml.TransportationModule;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class Road extends TransportationComplex {
 
 	}
 
-	public Road(TransportationModule module) {
+	public Road(Module module) {
 		super(module);
 	}
 

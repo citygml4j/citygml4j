@@ -25,6 +25,7 @@ import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AbstractGML;
+import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
@@ -33,6 +34,15 @@ public abstract class AbstractFeature extends AbstractGML {
 	private BoundingShape boundedBy;
 	private LocationProperty location;
 	private List<ADEGenericElement> genericADEElement;
+	private Module module;
+
+	public AbstractFeature() {
+
+	}
+
+	public AbstractFeature(Module module) {
+		this.module = module;
+	}
 
 	public void addGenericADEElement(ADEGenericElement genericADEElement) {
 		if (this.genericADEElement == null)
@@ -113,6 +123,18 @@ public abstract class AbstractFeature extends AbstractGML {
 
 	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
 		return isSetGenericADEElement() ? this.genericADEElement.remove(genericADEElement) : false;
+	}
+
+	public boolean isSetModule() {
+		return module != null;
+	}
+
+	public Module getModule() {
+		return module;
+	}
+
+	public void setModule(Module module) {
+		this.module = module;
 	}
 
 	public GMLClass getGMLClass() {

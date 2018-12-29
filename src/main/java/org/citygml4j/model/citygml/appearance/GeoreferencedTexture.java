@@ -28,7 +28,7 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
-import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.Module;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class GeoreferencedTexture extends AbstractTexture {
 		
 	}
 	
-	public GeoreferencedTexture(AppearanceModule module) {
+	public GeoreferencedTexture(Module module) {
 		super(module);
 	}
 	
