@@ -27,12 +27,18 @@ public class ADEModuleVersion implements ModuleVersion {
 		this.value = value != null ? value : "undefined";
 	}
 	
-	protected ADEModuleVersion() {
+	ADEModuleVersion() {
 		this("undefined");
 	}
 
-	public String getValue() {
+	@Override
+	public String getVersionString() {
 		return value;
 	}
-	
+
+	@Override
+	public String toString() {
+		return value;
+	}
+
 }

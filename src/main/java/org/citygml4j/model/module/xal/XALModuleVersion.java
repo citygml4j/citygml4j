@@ -28,7 +28,13 @@ public enum XALModuleVersion implements ModuleVersion {
 	XALModuleVersion(String value) {
 		this.value = value;
 	}
-		
+
+	@Override
+	public String getVersionString() {
+		return value;
+	}
+
+	@Override
 	public String toString() {
 		return value;
 	}

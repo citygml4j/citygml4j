@@ -16,17 +16,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml4j.model.module.gml;
+package org.citygml4j.binding.cityjson.extension;
 
 import org.citygml4j.model.module.ModuleVersion;
 
-public enum GMLModuleVersion implements ModuleVersion {
-	v3_1_1("3.1.1");
-	
+public class ExtensionModuleVersion implements ModuleVersion {
 	private final String value;
-	
-	GMLModuleVersion(String value) {
-		this.value = value;
+
+	public ExtensionModuleVersion(String value) {
+		this.value = value != null ? value : "undefined";
+	}
+
+	ExtensionModuleVersion() {
+		this("undefined");
 	}
 
 	@Override
@@ -38,5 +40,5 @@ public enum GMLModuleVersion implements ModuleVersion {
 	public String toString() {
 		return value;
 	}
-	
+
 }
