@@ -93,7 +93,7 @@ public class ReadingADE {
 
 				Module module = cityObject.getModule();
 				QName featureName = module.getFeatureName(cityObject.getClass());
-				
+
 				System.out.println(df.format(new Date()) + "found city object " + featureName);
 				System.out.println(df.format(new Date()) + "-- class: " + cityObject.getClass().getName());
 				System.out.println(df.format(new Date()) + "-- is ADE: " + (cityGML.getCityGMLClass() == CityGMLClass.ADE_COMPONENT));				
