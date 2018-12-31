@@ -1,15 +1,15 @@
 /*
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
- * 
- * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
+ *
+ * Copyright 2013-2018 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,8 @@ package org.citygml4j.binding.cityjson.metadata;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import org.citygml4j.binding.cityjson.feature.DateAdapter;
+import org.citygml4j.binding.cityjson.metadata.feature.AbstractFeatureDataType;
+import org.citygml4j.binding.cityjson.metadata.feature.FeatureDataAdapter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,20 +33,59 @@ import java.util.List;
 import java.util.Map;
 
 public class MetadataType {
+	private String citymodelIdentifier;
 	private String datasetTitle;
 	@JsonAdapter(DateAdapter.class)
 	private LocalDate datasetReferenceDate;
 	private String geographicLocation;
 	private String datasetLanguage;
-	private String datasetTopicCategory;
+	private String datasetCharacterSet;
+	private DatasetTopicCategoryType datasetTopicCategory;
+	private String distributionFormatVersion;
+	private SpatialRepresentationType spatialRepresentationType;
 	private String referenceSystem;
+	private String onlineResource;
+	private String fileIdentifier;
+	private ContactDetailsType datasetPointOfContact;
+	private String metadataStandard;
+	private String metadataStandardVersion;
+	private String metadataLanguage;
+	private String metadataCharacterSet;
 	@JsonAdapter(DateAdapter.class)
 	private LocalDate metadataDateStamp;
+	private ContactDetailsType metadataPointOfContact;
+	@SerializedName("lineage")
+	private List<LineageType> lineages;
 	private List<Double> geographicalExtent;
+	private TemporalExtentType temporalExtent;
 	@SerializedName("abstract")
 	private String datasetAbstract;
+	private String specificUsage;
 	private List<String> keywords;
+	private ConstraintsType constraints;
+	private List<ThematicModelType> thematicModels;
+	private PresenceType textures;
+	private PresenceType materials;
 	private Map<LoDType, Integer> presentLoDs;
+	@JsonAdapter(FeatureDataAdapter.class)
+	private Map<ThematicModelType, AbstractFeatureDataType> cityfeatureMetadata;
+
+	public boolean isSetCitymodelIdentifier() {
+		return citymodelIdentifier != null;
+	}
+
+	public String getCitymodelIdentifier() {
+		return citymodelIdentifier;
+	}
+
+	public void setCitymodelIdentifier(String citymodelIdentifier) {
+		if (citymodelIdentifier != null && citymodelIdentifier.matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"))
+			this.citymodelIdentifier = citymodelIdentifier;
+	}
+
+	public void unsetCitymodelIdentifier() {
+		citymodelIdentifier = null;
+	}
 
 	public boolean isSetDatasetTitle() {
 		return datasetTitle != null;
@@ -118,20 +159,69 @@ public class MetadataType {
 		datasetLanguage = null;
 	}
 
+	public boolean isSetDatasetCharacterSet() {
+		return datasetCharacterSet != null;
+	}
+
+	public String getDatasetCharacterSet() {
+		return datasetCharacterSet;
+	}
+
+	public void setDatasetCharacterSet(String datasetCharacterSet) {
+		this.datasetCharacterSet = datasetCharacterSet;
+	}
+
+	public void unsetDatasetCharacterSet() {
+		datasetCharacterSet = null;
+	}
+
 	public boolean isSetDatasetTopicCategory() {
 		return datasetTopicCategory != null;
 	}
 
-	public String getDatasetTopicCategory() {
+	public DatasetTopicCategoryType getDatasetTopicCategory() {
 		return datasetTopicCategory;
 	}
 
-	public void setDatasetTopicCategory(String datasetTopicCategory) {
+	public void setDatasetTopicCategory(DatasetTopicCategoryType datasetTopicCategory) {
 		this.datasetTopicCategory = datasetTopicCategory;
 	}
 
 	public void unsetDatasetTopicCategory() {
 		datasetTopicCategory = null;
+	}
+
+	public boolean isSetDistributionFormatVersion() {
+		return distributionFormatVersion != null;
+	}
+
+	public String getDistributionFormatVersion() {
+		return distributionFormatVersion;
+	}
+
+	public void setDistributionFormatVersion(String distributionFormatVersion) {
+		if (distributionFormatVersion != null && distributionFormatVersion.matches("\\d\\.\\d"))
+			this.distributionFormatVersion = distributionFormatVersion;
+	}
+
+	public void unsetDistributionFormatVersion() {
+		distributionFormatVersion = null;
+	}
+
+	public boolean isSetSpatialRepresentationType() {
+		return spatialRepresentationType != null;
+	}
+
+	public SpatialRepresentationType getSpatialRepresentationType() {
+		return spatialRepresentationType;
+	}
+
+	public void setSpatialRepresentationType(SpatialRepresentationType spatialRepresentationType) {
+		this.spatialRepresentationType = spatialRepresentationType;
+	}
+
+	public void unsetSpatialRepresentationType() {
+		spatialRepresentationType = null;
 	}
 
 	public boolean isSetReferenceSystem() {
@@ -149,6 +239,120 @@ public class MetadataType {
 
 	public void unsetReferenceSystem() {
 		referenceSystem = null;
+	}
+
+	public boolean isSetOnlineResource() {
+		return onlineResource != null;
+	}
+
+	public String getOnlineResource() {
+		return onlineResource;
+	}
+
+	public void setOnlineResource(String onlineResource) {
+		if (onlineResource != null && onlineResource.matches("^(https?|ftp)://.*"))
+			this.onlineResource = onlineResource;
+	}
+
+	public void unsetOnlineResource() {
+		onlineResource = null;
+	}
+
+	public boolean isSetFileIdentifier() {
+		return fileIdentifier != null;
+	}
+
+	public String getFileIdentifier() {
+		return fileIdentifier;
+	}
+
+	public void setFileIdentifier(String fileIdentifier) {
+		this.fileIdentifier = fileIdentifier;
+	}
+
+	public void unsetFileIdentifier() {
+		fileIdentifier = null;
+	}
+
+	public boolean isSetDatasetPointOfContact() {
+		return datasetPointOfContact != null;
+	}
+
+	public ContactDetailsType getDatasetPointOfContact() {
+		return datasetPointOfContact;
+	}
+
+	public void setDatasetPointOfContact(ContactDetailsType datasetPointOfContact) {
+		this.datasetPointOfContact = datasetPointOfContact;
+	}
+
+	public void unsetDatasetPointOfContact() {
+		datasetPointOfContact = null;
+	}
+
+	public boolean isSetMetadataStandard() {
+		return metadataStandard != null;
+	}
+
+	public String getMetadataStandard() {
+		return metadataStandard;
+	}
+
+	public void setMetadataStandard(String metadataStandard) {
+		this.metadataStandard = metadataStandard;
+	}
+
+	public void unsetMetadataStandard() {
+		metadataStandard = null;
+	}
+
+	public boolean isSetMetadataStandardVersion() {
+		return metadataStandardVersion != null;
+	}
+
+	public String getMetadataStandardVersion() {
+		return metadataStandardVersion;
+	}
+
+	public void setMetadataStandardVersion(String metadataStandardVersion) {
+		if (metadataStandardVersion != null && metadataStandardVersion.matches("\\d\\.\\d"))
+			this.metadataStandardVersion = metadataStandardVersion;
+	}
+
+	public void unsetMetadataStandardVersion() {
+		metadataStandardVersion = null;
+	}
+
+	public boolean isSetMetadataLanguage() {
+		return metadataLanguage != null;
+	}
+
+	public String getMetadataLanguage() {
+		return metadataLanguage;
+	}
+
+	public void setMetadataLanguage(String metadataLanguage) {
+		this.metadataLanguage = metadataLanguage;
+	}
+
+	public void unsetMetadataLanguage() {
+		metadataLanguage = null;
+	}
+
+	public boolean isSetMetadataCharacterSet() {
+		return metadataCharacterSet != null;
+	}
+
+	public String getMetadataCharacterSet() {
+		return metadataCharacterSet;
+	}
+
+	public void setMetadataCharacterSet(String metadataCharacterSet) {
+		this.metadataCharacterSet = metadataCharacterSet;
+	}
+
+	public void unsetMetadataCharacterSet() {
+		metadataCharacterSet = null;
 	}
 
 	public boolean isSetMetadataDateStamp() {
@@ -175,6 +379,45 @@ public class MetadataType {
 		metadataDateStamp = null;
 	}
 
+	public boolean isSetMetadataPointOfContact() {
+		return metadataPointOfContact != null;
+	}
+
+	public ContactDetailsType getMetadataPointOfContact() {
+		return metadataPointOfContact;
+	}
+
+	public void setMetadataPointOfContact(ContactDetailsType metadataPointOfContact) {
+		this.metadataPointOfContact = metadataPointOfContact;
+	}
+
+	public void unsetMetadataPointOfContact() {
+		metadataPointOfContact = null;
+	}
+
+	public boolean isSetLineages() {
+		return lineages != null && !lineages.isEmpty();
+	}
+
+	public List<LineageType> getLineages() {
+		return lineages;
+	}
+
+	public void addLineage(LineageType lineage) {
+		if (lineages == null)
+			lineages = new ArrayList<>();
+
+		lineages.add(lineage);
+	}
+
+	public void setLineages(List<LineageType> lineages) {
+		this.lineages = lineages;
+	}
+
+	public void unsetLineages() {
+		lineages = null;
+	}
+
 	public boolean isSetGeographicalExtent() {
 		return geographicalExtent != null && geographicalExtent.size() >= 6;
 	}
@@ -194,6 +437,22 @@ public class MetadataType {
 		geographicalExtent = null;
 	}
 
+	public boolean isSetTemporalExtent() {
+		return temporalExtent != null;
+	}
+
+	public TemporalExtentType getTemporalExtent() {
+		return temporalExtent;
+	}
+
+	public void setTemporalExtent(TemporalExtentType temporalExtent) {
+		this.temporalExtent = temporalExtent;
+	}
+
+	public void unsetTemporalExtent() {
+		temporalExtent = null;
+	}
+
 	public boolean isSetAbstract() {
 		return datasetAbstract != null;
 	}
@@ -208,6 +467,22 @@ public class MetadataType {
 
 	public void unsetAbstract() {
 		datasetAbstract = null;
+	}
+
+	public boolean isSetSpecificUsage() {
+		return specificUsage != null;
+	}
+
+	public String getSpecificUsage() {
+		return specificUsage;
+	}
+
+	public void setSpecificUsage(String specificUsage) {
+		this.specificUsage = specificUsage;
+	}
+
+	public void unsetSpecificUsage() {
+		specificUsage = null;
 	}
 
 	public boolean isSetKeywords() {
@@ -238,8 +513,79 @@ public class MetadataType {
 		keywords = null;
 	}
 
+	public boolean isSetConstraints() {
+		return constraints != null;
+	}
+
+	public ConstraintsType getConstraints() {
+		return constraints;
+	}
+
+	public void setConstraints(ConstraintsType constraints) {
+		this.constraints = constraints;
+	}
+
+	public void unsetConstraints() {
+		constraints = null;
+	}
+
+	public boolean isSetThematicModels() {
+		return thematicModels != null;
+	}
+
+	public List<ThematicModelType> getThematicModels() {
+		return thematicModels;
+	}
+
+	public void addThematicModel(ThematicModelType thematicModel) {
+		if (thematicModels == null)
+			thematicModels = new ArrayList<>();
+
+		thematicModels.add(thematicModel);
+	}
+
+	public void setThematicModels(List<ThematicModelType> thematicModels) {
+		this.thematicModels = thematicModels;
+	}
+
+	public void unsetThematicModels() {
+		thematicModels = null;
+	}
+
+	public boolean isSetTextures() {
+		return textures != null;
+	}
+
+	public PresenceType getTextures() {
+		return textures;
+	}
+
+	public void setTextures(PresenceType textures) {
+		this.textures = textures;
+	}
+
+	public void unsetTextures() {
+		textures = null;
+	}
+
+	public boolean isSetMaterials() {
+		return materials != null;
+	}
+
+	public PresenceType getMaterials() {
+		return materials;
+	}
+
+	public void setMaterials(PresenceType materials) {
+		this.materials = materials;
+	}
+
+	public void unsetMaterials() {
+		materials = null;
+	}
+
 	public boolean isSetPresentLoDs() {
-		return presentLoDs != null;
+		return presentLoDs != null && !presentLoDs.isEmpty();
 	}
 
 	public void addPresentLoD(LoDType lod) {
@@ -254,12 +600,33 @@ public class MetadataType {
 	}
 
 	public void setPresentLoDs(Map<LoDType, Integer> presentLoDs) {
-		if (presentLoDs != null && !presentLoDs.isEmpty())
-			this.presentLoDs = presentLoDs;
+		this.presentLoDs = presentLoDs;
 	}
 	
 	public void unsetPresentLoDs() {
 		presentLoDs = null;
 	}
 
+	public boolean isSetCityFeatureMetadata() {
+		return cityfeatureMetadata != null && !cityfeatureMetadata.isEmpty();
+	}
+
+	public void addCityFeatureMetadata(AbstractFeatureDataType featureMetadata) {
+		if (cityfeatureMetadata == null)
+			cityfeatureMetadata = new HashMap<>();
+
+		cityfeatureMetadata.put(featureMetadata.getType(), featureMetadata);
+	}
+
+	public Map<ThematicModelType, AbstractFeatureDataType> getCityFeatureMetadata() {
+		return cityfeatureMetadata;
+	}
+
+	public void setCityFeatureMetadata(Map<ThematicModelType, AbstractFeatureDataType> cityfeatureMetadata) {
+		this.cityfeatureMetadata = cityfeatureMetadata;
+	}
+
+	public void unsetCityFeatureMetadata() {
+		cityfeatureMetadata = null;
+	}
 }
