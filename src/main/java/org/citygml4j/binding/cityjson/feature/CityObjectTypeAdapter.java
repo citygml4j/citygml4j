@@ -40,6 +40,8 @@ import java.util.Map;
 
 public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectType>, JsonDeserializer<AbstractCityObjectType> {
 	private final CityJSONRegistry registry = CityJSONRegistry.getInstance();
+	private final Map<String, List<String>> predefinedAttributes = new HashMap<>();
+
 	private CityObjectTypeFilter typeFilter;
 	
 	public CityObjectTypeAdapter withTypeFilter(CityObjectTypeFilter inputFilter) {
@@ -103,7 +105,11 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 
 					// deserialize generic attributes
 					Map<String, Object> genericAttributes = new HashMap<>();
-					List<String> predefined = cityObject.attributes.getAttributeNames();
+					List<String> predefined = predefinedAttributes.get(attributesClass.getTypeName());
+					if (predefined == null) {
+						predefined = cityObject.attributes.getAttributeNames();
+						predefinedAttributes.put(attributesClass.getTypeName(), predefined);
+					}
 
 					for (Map.Entry<String, JsonElement> entry : attributes.entrySet()) {
 						// skip attributes defined by the city object type

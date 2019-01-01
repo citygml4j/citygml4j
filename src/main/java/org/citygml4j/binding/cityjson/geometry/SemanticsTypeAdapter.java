@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, JsonDeserializer<SemanticsType> {
+	private final Map<String, List<String>> predefinedAttributes = new HashMap<>();
 
 	@Override
 	public JsonElement serialize(SemanticsType semantics, Type typeOfSrc, JsonSerializationContext context) {
@@ -108,7 +109,11 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 
 				// deserialize properties
 				Map<String, Object> properties = new HashMap<>();
-				List<String> predefined = semantics.getAttributeNames();
+				List<String> predefined = predefinedAttributes.get(semantics.getClass().getTypeName());
+				if (predefined == null) {
+					predefined = semantics.getAttributeNames();
+					predefinedAttributes.put(semantics.getClass().getTypeName(), predefined);
+				}
 
 				for (Entry<String, JsonElement> entry : object.entrySet()) {
 					String key = entry.getKey();

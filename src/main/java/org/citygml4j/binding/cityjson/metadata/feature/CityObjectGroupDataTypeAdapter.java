@@ -33,7 +33,7 @@ import org.citygml4j.binding.cityjson.metadata.ThematicModelType;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-public class CityObjectGroupDataAdapter implements JsonSerializer<CityObjectGroupDataType>, JsonDeserializer<CityObjectGroupDataType> {
+public class CityObjectGroupDataTypeAdapter implements JsonSerializer<CityObjectGroupDataType>, JsonDeserializer<CityObjectGroupDataType> {
 
     @Override
     public JsonElement serialize(CityObjectGroupDataType featureMetadata, Type typeOfSrc, JsonSerializationContext context) {

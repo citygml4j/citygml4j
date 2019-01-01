@@ -31,7 +31,7 @@ import org.citygml4j.binding.cityjson.metadata.ThematicModelType;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-public class FeatureDataAdapter implements JsonSerializer<Map<ThematicModelType, AbstractFeatureDataType>>, JsonDeserializer<Map<ThematicModelType, AbstractFeatureDataType>> {
+public class FeatureDataTypeAdapter implements JsonSerializer<Map<ThematicModelType, AbstractFeatureDataType>>, JsonDeserializer<Map<ThematicModelType, AbstractFeatureDataType>> {
 
     @Override
     public JsonElement serialize(Map<ThematicModelType, AbstractFeatureDataType> featureMetadata, Type typeOfSrc, JsonSerializationContext context) {

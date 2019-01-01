@@ -25,7 +25,7 @@ import org.citygml4j.binding.cityjson.metadata.ThematicModelType;
 import java.util.HashMap;
 import java.util.Map;
 
-@JsonAdapter(CityObjectGroupDataAdapter.class)
+@JsonAdapter(CityObjectGroupDataTypeAdapter.class)
 public class CityObjectGroupDataType extends AbstractFeatureDataType {
     transient Map<ThematicModelType, AbstractFeatureDataType> memberMetadata;
 
