@@ -25,7 +25,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Attributes {
@@ -39,7 +38,6 @@ public class Attributes {
 	private String usage;
 	private transient Map<String, Object> genericAttributes;
 	private transient Map<String, Object> extensionAttributes;
-	private transient List<String> attributeNames;
 
 	public boolean isSetCreationDate() {
 		return creationDate != null;

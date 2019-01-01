@@ -31,8 +31,7 @@ public class SemanticsType {
 	private Integer parent;
 	private List<Integer> children;
 	private transient Map<String, Object> attributes;
-	private transient List<String> attributeNames;
-	
+
 	public SemanticsType() {
 		type = null;
 	}
