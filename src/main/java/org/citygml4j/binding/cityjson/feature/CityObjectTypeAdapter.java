@@ -18,7 +18,6 @@
  */
 package org.citygml4j.binding.cityjson.feature;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -28,12 +27,9 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import org.citygml4j.binding.cityjson.CityJSONRegistry;
+import org.citygml4j.binding.cityjson.util.PropertyHelper;
 
 import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +37,10 @@ import java.util.Map;
 public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectType>, JsonDeserializer<AbstractCityObjectType> {
 	private final CityJSONRegistry registry = CityJSONRegistry.getInstance();
 	private final Map<String, List<String>> predefinedAttributes = new HashMap<>();
+	private final PropertyHelper propertyHelper = new PropertyHelper();
 
 	private CityObjectTypeFilter typeFilter;
-	
+
 	public CityObjectTypeAdapter withTypeFilter(CityObjectTypeFilter inputFilter) {
 		this.typeFilter = inputFilter;
 		return this;
@@ -107,7 +104,7 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 					Map<String, Object> genericAttributes = new HashMap<>();
 					List<String> predefined = predefinedAttributes.get(attributesClass.getTypeName());
 					if (predefined == null) {
-						predefined = cityObject.attributes.getAttributeNames();
+						predefined = propertyHelper.getDeclaredProperties(attributesClass);
 						predefinedAttributes.put(attributesClass.getTypeName(), predefined);
 					}
 
@@ -130,7 +127,7 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 						}
 
 						// otherwise, map the attribute to a generic attribute
-						Object value = deserialize(entry.getValue(), context);
+						Object value = propertyHelper.deserialize(entry.getValue(), context);
 						if (value != null)
 							genericAttributes.put(key, value);
 					}
@@ -143,55 +140,6 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		}
 		
 		return cityObject;
-	}
-
-	private Object deserialize(JsonElement element, JsonDeserializationContext context) {
-		if (element.isJsonPrimitive()) {
-			JsonPrimitive primitive = element.getAsJsonPrimitive();
-			if (primitive.isBoolean())
-				return primitive.getAsBoolean();
-			else if (primitive.isNumber()) {
-				Number value = primitive.getAsNumber();
-				if (value.toString().equals(String.valueOf(value.intValue())))
-					return value.intValue();
-				else
-					return value.doubleValue();
-			} else if (primitive.isString()) {
-				String value = primitive.getAsString();
-				try {
-					return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
-				} catch (DateTimeParseException e) {
-					return value;
-				}
-			} else
-				return context.deserialize(primitive, Object.class);
-		} else if (element.isJsonObject()) {
-			JsonObject object = element.getAsJsonObject();
-			Map<String, Object> attributeSet = new HashMap<>();
-
-			for (Map.Entry<String, JsonElement> nested : object.entrySet()) {
-				Object value = deserialize(nested.getValue(), context);
-				if (value != null)
-					attributeSet.put(nested.getKey(), value);
-			}
-
-			if (!attributeSet.isEmpty())
-				return attributeSet;
-		} else if (element.isJsonArray()) {
-			JsonArray array = element.getAsJsonArray();
-			List<Object> items = new ArrayList<>();
-
-			for (int i = 0; i < array.size(); i++) {
-				Object value = deserialize(array.get(i), context);
-				if (value != null)
-					items.add(value);
-			}
-
-			if (!items.isEmpty())
-				return items;
-		}
-
-		return null;
 	}
 
 }

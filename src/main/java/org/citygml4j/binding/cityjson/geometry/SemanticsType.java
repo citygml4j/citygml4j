@@ -19,10 +19,7 @@
 package org.citygml4j.binding.cityjson.geometry;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,24 +112,4 @@ public class SemanticsType {
 	public void unsetAttributes() {
 		attributes = null;
 	}
-
-	final List<String> getAttributeNames() {
-		if (attributeNames == null) {
-			attributeNames = new ArrayList<>();
-
-			Class<?> clazz = this.getClass();
-			do {
-				for (Field field : clazz.getDeclaredFields()) {
-					if (Modifier.isTransient(field.getModifiers()))
-						continue;
-
-					SerializedName name = field.getAnnotation(SerializedName.class);
-					attributeNames.add(name != null ? name.value() : field.getName());
-				}
-			} while ((clazz = clazz.getSuperclass()) != null);
-		}
-
-		return attributeNames;
-	}
-	
 }
