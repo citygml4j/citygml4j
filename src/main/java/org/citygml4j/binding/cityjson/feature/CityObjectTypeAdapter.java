@@ -127,7 +127,7 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 						}
 
 						// otherwise, map the attribute to a generic attribute
-						Object value = propertyHelper.deserialize(entry.getValue(), context);
+						Object value = propertyHelper.deserialize(entry.getValue());
 						if (value != null)
 							genericAttributes.put(key, value);
 					}

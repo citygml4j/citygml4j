@@ -117,7 +117,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 					if (predefined.contains(key))
 						continue;
 
-					Object value = propertyHelper.deserialize(entry.getValue(), context);
+					Object value = propertyHelper.deserialize(entry.getValue());
 					if (value != null)
 						properties.put(key, value);
 				}

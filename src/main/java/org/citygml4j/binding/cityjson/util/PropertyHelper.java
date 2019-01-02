@@ -20,7 +20,6 @@
 package org.citygml4j.binding.cityjson.util;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -53,7 +52,7 @@ public class PropertyHelper {
         return attributeNames;
     }
 
-    public Object deserialize(JsonElement element, JsonDeserializationContext context) {
+    public Object deserialize(JsonElement element) {
         if (element.isJsonPrimitive()) {
             JsonPrimitive primitive = element.getAsJsonPrimitive();
             if (primitive.isBoolean())
@@ -64,21 +63,20 @@ public class PropertyHelper {
                     return value.intValue();
                 else
                     return value.doubleValue();
-            } else if (primitive.isString()) {
+            } else {
                 String value = primitive.getAsString();
                 try {
                     return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
                 } catch (DateTimeParseException e) {
                     return value;
                 }
-            } else
-                return context.deserialize(primitive, Object.class);
+            }
         } else if (element.isJsonObject()) {
             JsonObject object = element.getAsJsonObject();
             Map<String, Object> attributeSet = new HashMap<>();
 
             for (Map.Entry<String, JsonElement> nested : object.entrySet()) {
-                Object value = deserialize(nested.getValue(), context);
+                Object value = deserialize(nested.getValue());
                 if (value != null)
                     attributeSet.put(nested.getKey(), value);
             }
@@ -90,7 +88,7 @@ public class PropertyHelper {
             List<Object> items = new ArrayList<>();
 
             for (int i = 0; i < array.size(); i++) {
-                Object value = deserialize(array.get(i), context);
+                Object value = deserialize(array.get(i));
                 if (value != null)
                     items.add(value);
             }
