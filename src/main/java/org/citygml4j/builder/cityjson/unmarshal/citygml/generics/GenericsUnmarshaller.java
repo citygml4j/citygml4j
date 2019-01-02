@@ -133,14 +133,10 @@ public class GenericsUnmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalGenericAttributes(Attributes src, AbstractCityObject dest) {
-		if (src.isSetGenericAttributes()) {
-			for (Entry<String, Object> property : src.getGenericAttributes().entrySet()) {
-				AbstractGenericAttribute attribute = unmarshalGenericAttribute(property.getKey(), property.getValue());
-				if (attribute != null)
-					dest.addGenericAttribute(attribute);
-			}
-		}
+	public void unmarshalGenericAttribute(String name, Object value, AbstractCityObject dest) {
+        AbstractGenericAttribute attribute = unmarshalGenericAttribute(name, value);
+        if (attribute != null)
+            dest.addGenericAttribute(attribute);
 	}
 	
 	public void unmarshalSemanticsAttributes(Map<String, Object> src, AbstractCityObject dest) {
@@ -183,10 +179,12 @@ public class GenericsUnmarshaller {
 				AbstractGenericAttribute item = unmarshalGenericAttribute("item", object);
 				((GenericAttributeSet) attribute).addGenericAttribute(item);
 			}
-		} else
+		} else if (value != null)
 			attribute = new StringAttribute(value.toString());
 
-		attribute.setName(name.toString());
+		if (attribute != null)
+		    attribute.setName(name.toString());
+
 		return attribute;
 	}
 	

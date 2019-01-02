@@ -36,7 +36,6 @@ public class Attributes {
 	private String clazz;
 	private String function;
 	private String usage;
-	private transient Map<String, Object> genericAttributes;
 	private transient Map<String, Object> extensionAttributes;
 
 	public boolean isSetCreationDate() {
@@ -133,34 +132,6 @@ public class Attributes {
 	
 	public void unsetUsage() {
 		usage = null;
-	}
-
-	public boolean isSetGenericAttributes() {
-		return genericAttributes != null;
-	}
-
-	public void addGenericAttribute(String name, Object value) {
-		if (genericAttributes == null)
-			genericAttributes = new HashMap<>();
-
-		genericAttributes.put(name, value);
-	}
-
-	public Map<String, Object> getGenericAttributes() {
-		return genericAttributes;
-	}
-
-	public void setGenericAttributes(Map<String, Object> genericAttributes) {
-		this.genericAttributes = genericAttributes;
-	}
-	
-	public void removeGenericAttribute(String name) {
-		if (genericAttributes != null)
-			genericAttributes.remove(name);
-	}
-	
-	public void unsetGenericAttributes() {
-		genericAttributes = null;
 	}
 
 	public boolean isSetExtensionAttributes() {

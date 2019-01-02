@@ -190,6 +190,10 @@ public class CityJSONRegistry {
         return null;
     }
 
+    public boolean hasExtensionAttribute(String propertyName, AbstractCityObjectType target) {
+        return getExtensionAttributeClass(propertyName, target) != null;
+    }
+
     public void registerExtensionAttribute(String name, Type attributeType, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
         if (name == null)
             throw new ADEException("The extension attribute name must not be null.");

@@ -66,13 +66,6 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 					object.add(entry.getKey(), entry.getValue());
 			}
 
-			// serialize generic attributes
-			if (cityObject.attributes.isSetGenericAttributes()) {
-				JsonObject attributes = context.serialize(cityObject.attributes.getGenericAttributes()).getAsJsonObject();
-				for (Map.Entry<String, JsonElement> entry : attributes.entrySet())
-					object.add(entry.getKey(), entry.getValue());
-			}
-
 			// remove empty attributes
 			if (object.entrySet().isEmpty())
 				result.getAsJsonObject().remove("attributes");
@@ -101,7 +94,6 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 						cityObject.attributes = context.deserialize(attributes, attributesClass);
 
 					// deserialize generic attributes
-					Map<String, Object> genericAttributes = new HashMap<>();
 					List<String> predefined = predefinedAttributes.get(attributesClass.getTypeName());
 					if (predefined == null) {
 						predefined = propertyHelper.getDeclaredProperties(attributesClass);
@@ -109,7 +101,7 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 					}
 
 					for (Map.Entry<String, JsonElement> entry : attributes.entrySet()) {
-						// skip attributes defined by the city object type
+						// skip attributes defined by the attribute class
 						String key = entry.getKey();
 						if (predefined.contains(key))
 							continue;
@@ -129,13 +121,9 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 						// otherwise, map the attribute to a generic attribute
 						Object value = propertyHelper.deserialize(entry.getValue());
 						if (value != null)
-							genericAttributes.put(key, value);
+							cityObject.attributes.addExtensionAttribute(key, value);
 					}
-
-					if (!genericAttributes.isEmpty())
-						cityObject.attributes.setGenericAttributes(genericAttributes);
 				}
-
 			}
 		}
 		

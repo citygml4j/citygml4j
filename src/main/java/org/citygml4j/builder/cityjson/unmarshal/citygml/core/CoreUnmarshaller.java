@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import org.citygml4j.binding.cityjson.CityJSON;
+import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -89,6 +90,7 @@ public class CoreUnmarshaller {
 	private final CityJSONUnmarshaller json;
 	private final CityGMLUnmarshaller citygml;
 	private final GMLUnmarshaller implicit;
+	private final CityJSONRegistry registry;
 
 	private List<AbstractGeometryObjectType> templates;
 	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
@@ -102,6 +104,7 @@ public class CoreUnmarshaller {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
 		implicit = new GMLUnmarshaller(json);
+		registry = CityJSONRegistry.getInstance();
 	}
 
 	public void setGeometryTemplatesInfo(GeometryTemplatesType geometryTemplates) {
@@ -137,12 +140,13 @@ public class CoreUnmarshaller {
 			if (attributes.isSetTerminationDate())
 				dest.setTerminationDate(attributes.getTerminationDate());
 
-			if (attributes.isSetGenericAttributes())
-				citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(attributes, dest);
-
 			if (attributes.isSetExtensionAttributes()) {
-				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet())
-					json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, cityJSON, dest);
+				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet()) {
+					if (registry.hasExtensionAttribute(entry.getKey(), src))
+						json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, cityJSON, dest);
+					else
+						citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(),dest);
+				}
 			}
 		}
 

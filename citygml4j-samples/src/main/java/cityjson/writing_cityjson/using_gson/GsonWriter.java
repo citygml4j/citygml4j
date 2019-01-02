@@ -75,7 +75,7 @@ public class GsonWriter {
 		BuildingAttributes attributes = building.newAttributes();
 		attributes.setCreationDate(LocalDate.now());
 		attributes.setClazz("residential building");
-		attributes.addGenericAttribute("noOfInhabitants", 5);
+		attributes.addExtensionAttribute("noOfInhabitants", 5);
 
 		// create vertices lists for the outer surfaces of the building
 		List<Double> ground = Arrays.asList(0.0,0.0,0.0, 0.0,12.0,0.0, 6.0,12.0,0.0, 6.0,0.0,0.0);

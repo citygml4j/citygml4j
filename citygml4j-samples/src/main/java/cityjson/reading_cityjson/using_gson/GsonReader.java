@@ -82,7 +82,7 @@ public class GsonReader {
 				
 				// secondly, add a generic attribute to each building
 				Attributes attributes = cityObject.isSetAttributes() ? cityObject.getAttributes() : cityObject.newAttributes();
-				attributes.addGenericAttribute("gson", "added through Gson");
+				attributes.addExtensionAttribute("gson", "added through Gson");
 				
 				// thirdly, remove appearance info from geometries
 				for (AbstractGeometryType geometry : cityObject.getGeometry()) {
