@@ -41,27 +41,27 @@ public class CityJSONRegistry {
         semanticSurfaces = new ConcurrentHashMap<>();
         attributes = new ConcurrentHashMap<>();
 
-        registerType("Building", BuildingType.class);
-        registerType("BuildingPart", BuildingPartType.class);
-        registerType("BuildingInstallation", BuildingInstallationType.class);
-        registerType("Bridge", BridgeType.class);
-        registerType("BridgePart", BridgePartType.class);
-        registerType("BridgeInstallation", BridgeInstallationType.class);
-        registerType("BridgeConstructionElement", BridgeConstructionElementType.class);
-        registerType("TINRelief", TINReliefType.class);
-        registerType("WaterBody", WaterBodyType.class);
-        registerType("PlantCover", PlantCoverType.class);
-        registerType("SolitaryVegetationObject", SolitaryVegetationObjectType.class);
-        registerType("LandUse", LandUseType.class);
-        registerType("CityFurniture", CityFurnitureType.class);
-        registerType("GenericCityObject", GenericCityObjectType.class);
-        registerType("Road", RoadType.class);
-        registerType("Railway", RailwayType.class);
-        registerType("TransportSquare", TransportSquareType.class);
-        registerType("Tunnel", TunnelType.class);
-        registerType("TunnelPart", TunnelPartType.class);
-        registerType("TunnelInstallation", TunnelInstallationType.class);
-        registerType("CityObjectGroup", CityObjectGroupType.class);
+        types.put("Building", BuildingType.class);
+        types.put("BuildingPart", BuildingPartType.class);
+        types.put("BuildingInstallation", BuildingInstallationType.class);
+        types.put("Bridge", BridgeType.class);
+        types.put("BridgePart", BridgePartType.class);
+        types.put("BridgeInstallation", BridgeInstallationType.class);
+        types.put("BridgeConstructionElement", BridgeConstructionElementType.class);
+        types.put("TINRelief", TINReliefType.class);
+        types.put("WaterBody", WaterBodyType.class);
+        types.put("PlantCover", PlantCoverType.class);
+        types.put("SolitaryVegetationObject", SolitaryVegetationObjectType.class);
+        types.put("LandUse", LandUseType.class);
+        types.put("CityFurniture", CityFurnitureType.class);
+        types.put("GenericCityObject", GenericCityObjectType.class);
+        types.put("Road", RoadType.class);
+        types.put("Railway", RailwayType.class);
+        types.put("TransportSquare", TransportSquareType.class);
+        types.put("Tunnel", TunnelType.class);
+        types.put("TunnelPart", TunnelPartType.class);
+        types.put("TunnelInstallation", TunnelInstallationType.class);
+        types.put("CityObjectGroup", CityObjectGroupType.class);
     }
 
     public static synchronized CityJSONRegistry getInstance() {
@@ -117,10 +117,6 @@ public class CityJSONRegistry {
         if (!type.startsWith("+"))
             type = "+" + type;
 
-        registerType(type, typeClass);
-    }
-
-    private void registerType(String type, Class<? extends AbstractCityObjectType> typeClass) {
         types.put(type, typeClass);
     }
 
