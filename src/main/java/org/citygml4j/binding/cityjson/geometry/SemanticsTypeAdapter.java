@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, JsonDeserializer<SemanticsType> {
+	private final CityJSONRegistry registry = CityJSONRegistry.getInstance();
 	private final Map<String, List<String>> predefinedAttributes = new HashMap<>();
 	private final PropertyHelper propertyHelper = new PropertyHelper();
 
@@ -46,16 +47,14 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 			return null;
 
 		if (semantics.type == null)
-			semantics.type = CityJSONRegistry.getInstance().getSemanticSurfaceType(semantics);
+			semantics.type = registry.getSemanticSurfaceType(semantics);
 
 		JsonObject object = null;
-		if (semantics.type.startsWith("+")) {
-			Class<?> semanticsTypeClass = CityJSONRegistry.getInstance().getSemanticSurfaceClass(semantics.type);
-			if (semanticsTypeClass != null && semanticsTypeClass != SemanticsType.class) {
-				JsonElement element = context.serialize(semantics, semanticsTypeClass);
-				if (element != null && element.isJsonObject())
-					object = element.getAsJsonObject();
-			}
+		Class<?> semanticsTypeClass = registry.getSemanticSurfaceClass(semantics.type);
+		if (semanticsTypeClass != null && semanticsTypeClass != SemanticsType.class) {
+			JsonElement element = context.serialize(semantics, semanticsTypeClass);
+			if (element != null && element.isJsonObject())
+				object = element.getAsJsonObject();
 		}
 
 		if (object == null)
@@ -86,16 +85,15 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
-			if (type.getAsString().startsWith("+")) {
-				Class<?> semanticsTypeClass = CityJSONRegistry.getInstance().getSemanticSurfaceClass(type.getAsString());
-				if (semanticsTypeClass != null) {
+			Class<?> semanticsTypeClass = registry.getSemanticSurfaceClass(type.getAsString());
+			if (semanticsTypeClass != null) {
+				if (semanticsTypeClass == SemanticsType.class)
+					semantics = new SemanticsType(type.getAsString());
+				else {
 					semantics = context.deserialize(object, semanticsTypeClass);
 					semantics.type = type.getAsString();
 				}
-			} else
-				semantics = new SemanticsType(type.getAsString());
 
-			if (semantics != null) {
 				Number parent = context.deserialize(object.get("parent"), Integer.class);
 				if (parent != null)
 					semantics.setParent(parent.intValue());
@@ -105,7 +103,6 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 					semantics.setChildren(children);
 
 				// deserialize properties
-				Map<String, Object> properties = new HashMap<>();
 				List<String> predefined = predefinedAttributes.get(semantics.getClass().getTypeName());
 				if (predefined == null) {
 					predefined = propertyHelper.getDeclaredProperties(semantics.getClass());
@@ -119,11 +116,8 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 
 					Object value = propertyHelper.deserialize(entry.getValue());
 					if (value != null)
-						properties.put(key, value);
+						semantics.addAttribute(key, value);
 				}
-
-				if (!properties.isEmpty())
-					semantics.setAttributes(properties);
 			}
 		}
 

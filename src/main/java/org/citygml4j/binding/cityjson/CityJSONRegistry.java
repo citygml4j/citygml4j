@@ -62,6 +62,20 @@ public class CityJSONRegistry {
         types.put("TunnelPart", TunnelPartType.class);
         types.put("TunnelInstallation", TunnelInstallationType.class);
         types.put("CityObjectGroup", CityObjectGroupType.class);
+
+        semanticSurfaces.put("RoofSurface", SemanticsType.class);
+        semanticSurfaces.put("GroundSurface", SemanticsType.class);
+        semanticSurfaces.put("WallSurface", SemanticsType.class);
+        semanticSurfaces.put("ClosureSurface", SemanticsType.class);
+        semanticSurfaces.put("OuterCeilingSurface", SemanticsType.class);
+        semanticSurfaces.put("OuterFloorSurface", SemanticsType.class);
+        semanticSurfaces.put("Window", SemanticsType.class);
+        semanticSurfaces.put("Door", SemanticsType.class);
+        semanticSurfaces.put("TrafficArea", SemanticsType.class);
+        semanticSurfaces.put("AuxiliaryTrafficArea", SemanticsType.class);
+        semanticSurfaces.put("WaterSurface", SemanticsType.class);
+        semanticSurfaces.put("WaterGroundSurface", SemanticsType.class);
+        semanticSurfaces.put("WaterClosureSurface", SemanticsType.class);
     }
 
     public static synchronized CityJSONRegistry getInstance() {
