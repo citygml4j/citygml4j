@@ -280,7 +280,7 @@ public class BuildingUnmarshaller {
 		if (src.isSetChildren()) {
 			for (String gmlId : src.getChildren()) {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
-				if (cityObject == null || cityObject.getType().startsWith("+"))
+				if (cityObject == null || !json.getCityJSONRegistry().isCoreCityObject(cityObject.getType()))
 					continue;
 
 				if (cityObject instanceof BuildingInstallationType) {

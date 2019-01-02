@@ -19,7 +19,6 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
@@ -90,7 +89,6 @@ public class CoreUnmarshaller {
 	private final CityJSONUnmarshaller json;
 	private final CityGMLUnmarshaller citygml;
 	private final GMLUnmarshaller implicit;
-	private final CityJSONRegistry registry;
 
 	private List<AbstractGeometryObjectType> templates;
 	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
@@ -104,7 +102,6 @@ public class CoreUnmarshaller {
 		this.citygml = citygml;
 		json = citygml.getCityJSONUnmarshaller();
 		implicit = new GMLUnmarshaller(json);
-		registry = CityJSONRegistry.getInstance();
 	}
 
 	public void setGeometryTemplatesInfo(GeometryTemplatesType geometryTemplates) {
@@ -142,7 +139,7 @@ public class CoreUnmarshaller {
 
 			if (attributes.isSetExtensionAttributes()) {
 				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet()) {
-					if (registry.hasExtensionAttribute(entry.getKey(), src))
+					if (json.getCityJSONRegistry().hasExtensionAttribute(entry.getKey(), src))
 						json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, cityJSON, dest);
 					else
 						citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(),dest);
@@ -153,7 +150,7 @@ public class CoreUnmarshaller {
 		if (src.isSetChildren()) {
 			for (String child : src.getChildren()) {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(child);
-				if (cityObject != null && cityObject.getType().startsWith("+")) {
+				if (cityObject != null && !json.getCityJSONRegistry().isCoreCityObject(cityObject.getType())) {
 					AbstractFeature feature = json.getADEUnmarshaller().unmarshalCityObject(cityObject, cityJSON, dest);
 					if (feature != null && feature.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
 						List<AbstractFeature> features = (List<AbstractFeature>) dest.getLocalProperty(GLOBAL_FEATURES);
@@ -189,7 +186,7 @@ public class CoreUnmarshaller {
 				continue;
 
 			AbstractFeature cityObject;
-			if (type.getType().startsWith("+")) {
+			if (!json.getCityJSONRegistry().isCoreCityObject(type.getType())) {
 				cityObject = json.getADEUnmarshaller().unmarshalCityObject(type, src, dest);
 				if (cityObject != null && cityObject.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
 					if (cityObject instanceof AbstractCityObject)

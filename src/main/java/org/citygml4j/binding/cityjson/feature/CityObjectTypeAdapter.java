@@ -103,19 +103,11 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 							continue;
 
 						// check whether we found a registered extension attribute
-						if (entry.getKey().startsWith("+")) {
-							Type extensionAttributeType = registry.getExtensionAttributeClass(entry.getKey(), cityObject);
-							if (extensionAttributeType != null) {
-								Object value = context.deserialize(entry.getValue(), extensionAttributeType);
-								if (value != null) {
-									cityObject.attributes.addExtensionAttribute(entry.getKey(), value);
-									continue;
-								}
-							}
-						}
+						Type extensionAttributeType = registry.getExtensionAttributeClass(entry.getKey(), cityObject);
+						Object value = extensionAttributeType != null ?
+								context.deserialize(entry.getValue(), extensionAttributeType) :
+								propertyHelper.deserialize(entry.getValue());
 
-						// otherwise, map the attribute to a generic attribute
-						Object value = propertyHelper.deserialize(entry.getValue());
 						if (value != null)
 							cityObject.attributes.addExtensionAttribute(key, value);
 					}

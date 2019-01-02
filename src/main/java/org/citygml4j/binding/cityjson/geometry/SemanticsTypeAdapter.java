@@ -87,9 +87,9 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 			Class<?> semanticsTypeClass = registry.getSemanticSurfaceClass(type.getAsString());
 			if (semanticsTypeClass != null) {
 				SemanticsType semantics;
-				if (semanticsTypeClass == SemanticsType.class)
-					semantics = new SemanticsType(type.getAsString());
-				else {
+				if (semanticsTypeClass == SemanticsType.class) {
+                    semantics = new SemanticsType(type.getAsString());
+                } else {
 					semantics = context.deserialize(object, semanticsTypeClass);
 					semantics.type = type.getAsString();
 				}

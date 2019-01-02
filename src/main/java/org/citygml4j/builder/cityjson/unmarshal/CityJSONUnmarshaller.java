@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.unmarshal;
 
 import org.citygml4j.binding.cityjson.CityJSON;
+import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
@@ -36,6 +37,7 @@ public class CityJSONUnmarshaller {
 	private final CityGMLUnmarshaller citygml;
 	private final GMLUnmarshaller gml;
 	private final ADEUnmarshaller ade;
+	private final CityJSONRegistry registry;
 
 	private TextureFileHandler textureFileHandler;
 
@@ -45,6 +47,7 @@ public class CityJSONUnmarshaller {
 		citygml = new CityGMLUnmarshaller(this);
 		gml = new GMLUnmarshaller(this);
 		ade = new ADEUnmarshaller(this);
+		registry = CityJSONRegistry.getInstance();
 	}
 	
 	public CityJSONUnmarshaller() {
@@ -89,5 +92,8 @@ public class CityJSONUnmarshaller {
 	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
 		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
-	
+
+	public CityJSONRegistry getCityJSONRegistry() {
+		return registry;
+	}
 }

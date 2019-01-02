@@ -146,7 +146,7 @@ public class CityGMLUnmarshaller {
 				parent = root;
 
 			AbstractCityObject cityObject = null;
-			if (semanticsType.getType().startsWith("+")) {
+			if (semanticsType.getClass() != SemanticsType.class) {
 				cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
 			} else {
 				if (parent instanceof BridgeModuleComponent)

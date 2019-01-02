@@ -26,7 +26,9 @@ import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.ADEException;
 
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CityJSONRegistry {
@@ -35,6 +37,8 @@ public class CityJSONRegistry {
     private final Map<String, Class<? extends AbstractCityObjectType>> types;
     private final Map<String, Class<? extends SemanticsType>> semanticSurfaces;
     private final Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes;
+
+    private final Set<String> coreTypes;
 
     private CityJSONRegistry() {
         types = new ConcurrentHashMap<>();
@@ -76,6 +80,8 @@ public class CityJSONRegistry {
         semanticSurfaces.put("WaterSurface", SemanticsType.class);
         semanticSurfaces.put("WaterGroundSurface", SemanticsType.class);
         semanticSurfaces.put("WaterClosureSurface", SemanticsType.class);
+
+        coreTypes = new HashSet<>(types.keySet());
     }
 
     public static synchronized CityJSONRegistry getInstance() {
@@ -83,6 +89,10 @@ public class CityJSONRegistry {
             instance = new CityJSONRegistry();
 
         return instance;
+    }
+
+    public boolean isCoreCityObject(String type) {
+        return coreTypes.contains(type);
     }
 
     public String getCityObjectType(AbstractCityObjectType cityObject) {
@@ -127,9 +137,6 @@ public class CityJSONRegistry {
 
         if (types.containsValue(typeClass))
             throw new ADEException("The city object type class '" + typeClass.getTypeName() + "' is already registered.");
-
-        if (!type.startsWith("+"))
-            type = "+" + type;
 
         types.put(type, typeClass);
     }
@@ -181,9 +188,6 @@ public class CityJSONRegistry {
         if (semanticSurfaces.containsValue(semanticSurfaceClass))
             throw new ADEException("The semantic surface class '" + semanticSurfaceClass.getTypeName() + "' is already registered.");
 
-        if (!type.startsWith("+"))
-            type = "+" + type;
-
         semanticSurfaces.put(type, semanticSurfaceClass);
     }
 
@@ -220,9 +224,6 @@ public class CityJSONRegistry {
                     throw new ADEException("The extension attribute '" + name + "' is already registered with " + entry.getKey().getTypeName());
             }
         }
-
-        if (!name.startsWith("+"))
-            name = "+" + name;
 
         Map<String, Type> attribute = attributes.computeIfAbsent(targetClass, v -> new ConcurrentHashMap<>());
         attribute.put(name, attributeType);
