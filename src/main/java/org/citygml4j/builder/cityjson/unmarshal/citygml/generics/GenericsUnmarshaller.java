@@ -42,6 +42,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -148,8 +149,10 @@ public class GenericsUnmarshaller {
 	}
 
 	private AbstractGenericAttribute unmarshalGenericAttribute(Object name, Object value) {
-		AbstractGenericAttribute attribute = null;
+		if (value == null)
+			return null;
 
+		AbstractGenericAttribute attribute = null;
 		if (value instanceof Integer)
 			attribute = new IntAttribute((Integer) value);
 		else if (value instanceof Double)
@@ -179,12 +182,16 @@ public class GenericsUnmarshaller {
 				AbstractGenericAttribute item = unmarshalGenericAttribute("item", object);
 				((GenericAttributeSet) attribute).addGenericAttribute(item);
 			}
-		} else if (value != null)
+		} else if (value.getClass().isArray()) {
+			attribute = new GenericAttributeSet();
+			for (int i = 0; i < Array.getLength(value); i++) {
+				AbstractGenericAttribute item = unmarshalGenericAttribute("item", Array.get(value, i));
+				((GenericAttributeSet) attribute).addGenericAttribute(item);
+			}
+		} else
 			attribute = new StringAttribute(value.toString());
 
-		if (attribute != null)
-		    attribute.setName(name.toString());
-
+		attribute.setName(name.toString());
 		return attribute;
 	}
 	
