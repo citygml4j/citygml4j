@@ -76,14 +76,13 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 
 	@Override
 	public AbstractCityObjectType deserialize(JsonElement json, Type typeOfSrc, JsonDeserializationContext context) throws JsonParseException {
-		AbstractCityObjectType cityObject = null;
 		JsonObject object = json.getAsJsonObject();
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
 			Class<?> typeClass = registry.getCityObjectClass(type.getAsString());
 			if (typeClass != null && (typeFilter == null || typeFilter.accept(type.getAsString()))) {
-				cityObject = context.deserialize(object, typeClass);
+				AbstractCityObjectType cityObject = context.deserialize(object, typeClass);
 				cityObject.type = type.getAsString();
 
 				if (cityObject.attributes != null) {
@@ -94,11 +93,8 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 						cityObject.attributes = context.deserialize(attributes, attributesClass);
 
 					// deserialize generic attributes
-					List<String> predefined = predefinedAttributes.get(attributesClass.getTypeName());
-					if (predefined == null) {
-						predefined = propertyHelper.getDeclaredProperties(attributesClass);
-						predefinedAttributes.put(attributesClass.getTypeName(), predefined);
-					}
+					List<String> predefined = predefinedAttributes.computeIfAbsent(attributesClass.getTypeName(),
+							v -> propertyHelper.getDeclaredProperties(attributesClass));
 
 					for (Map.Entry<String, JsonElement> entry : attributes.entrySet()) {
 						// skip attributes defined by the attribute class
@@ -124,10 +120,12 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 							cityObject.attributes.addExtensionAttribute(key, value);
 					}
 				}
+
+				return cityObject;
 			}
 		}
 		
-		return cityObject;
+		return null;
 	}
 
 }

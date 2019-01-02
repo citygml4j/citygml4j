@@ -80,13 +80,13 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 
 	@Override
 	public SemanticsType deserialize(JsonElement json, Type typeOfSrc, JsonDeserializationContext context) throws JsonParseException {
-		SemanticsType semantics = null;
 		JsonObject object = json.getAsJsonObject();
 		JsonPrimitive type = object.getAsJsonPrimitive("type");
 
 		if (type != null && type.isString()) {
 			Class<?> semanticsTypeClass = registry.getSemanticSurfaceClass(type.getAsString());
 			if (semanticsTypeClass != null) {
+				SemanticsType semantics;
 				if (semanticsTypeClass == SemanticsType.class)
 					semantics = new SemanticsType(type.getAsString());
 				else {
@@ -103,11 +103,8 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 					semantics.setChildren(children);
 
 				// deserialize properties
-				List<String> predefined = predefinedAttributes.get(semantics.getClass().getTypeName());
-				if (predefined == null) {
-					predefined = propertyHelper.getDeclaredProperties(semantics.getClass());
-					predefinedAttributes.put(semantics.getClass().getTypeName(), predefined);
-				}
+				List<String> predefined = predefinedAttributes.computeIfAbsent(semantics.getClass().getTypeName(),
+						v -> propertyHelper.getDeclaredProperties(semantics.getClass()));
 
 				for (Entry<String, JsonElement> entry : object.entrySet()) {
 					String key = entry.getKey();
@@ -118,9 +115,11 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 					if (value != null)
 						semantics.addAttribute(key, value);
 				}
+
+				return semantics;
 			}
 		}
 
-		return semantics;
+		return null;
 	}
 }
