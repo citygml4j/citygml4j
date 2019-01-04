@@ -1,6 +1,7 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.ade;
 
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.appearance.AppearanceMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.bridge.BridgeMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.building.BuildingMarshaller;
@@ -23,8 +24,8 @@ public class ADEMarshallerHelper {
         this.json = json;
     }
 
-    public CityJSONMarshaller getCityJSONMarshaller() {
-        return json;
+    public CityGMLMarshaller getCityGMLMarshaller() {
+        return json.getCityGMLMarshaller();
     }
 
     public AppearanceMarshaller getAppearanceMarshaller() {

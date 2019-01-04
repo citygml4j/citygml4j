@@ -1,6 +1,7 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.ade;
 
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.appearance.AppearanceUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.bridge.BridgeUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.building.BuildingUnmarshaller;
@@ -22,8 +23,8 @@ public class ADEUnmarshallerHelper {
         this.json = json;
     }
 
-    public CityJSONUnmarshaller getCityJSONUnmarshaller() {
-        return json;
+    public CityGMLUnmarshaller getCityGMLUnmarshaller() {
+        return json.getCityGMLUnmarshaller();
     }
 
     public AppearanceUnmarshaller getAppearanceUnmarshaller() {

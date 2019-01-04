@@ -4,6 +4,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionMarshaller;
+import org.citygml4j.binding.cityjson.extension.ExtensionAttribute;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
