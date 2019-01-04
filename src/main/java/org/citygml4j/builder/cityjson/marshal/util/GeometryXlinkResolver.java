@@ -57,12 +57,7 @@ public class GeometryXlinkResolver {
 		public <T extends AbstractGeometry> void visit(GeometryProperty<T> property) {
 			if (state == ResolverState.GET_XLINKS && !property.isSetGeometry() && property.isSetHref()) {
 				String key = clipGMLId(property.getHref());
-				List<GeometryProperty<?>> properties = this.properties.get(key);
-				if (properties == null) {
-					properties = new ArrayList<>();
-					this.properties.put(key, properties);
-				}
-				
+				List<GeometryProperty<?>> properties = this.properties.computeIfAbsent(key, k -> new ArrayList<>());
 				properties.add(property);
 			} 
 
