@@ -5,14 +5,13 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionMarshaller;
 import org.citygml4j.binding.cityjson.extension.ExtensionAttribute;
+import org.citygml4j.binding.cityjson.extension.ADEPropertyContext;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
-import org.citygml4j.model.citygml.ade.binding.ADEGenericApplicationProperty;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
-import org.citygml4j.model.gml.feature.FeatureProperty;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,20 +44,10 @@ public class ADEMarshaller {
 
     public void marshal(List<ADEComponent> src, AbstractCityObjectType parent, CityJSON cityJSON) {
         for (ADEComponent ade : src) {
-            if (ade instanceof ADEGenericApplicationProperty<?> &&
-                    ((ADEGenericApplicationProperty<?>) ade).getValue() instanceof FeatureProperty<?>) {
-                FeatureProperty<?> property = (FeatureProperty<?>) ((ADEGenericApplicationProperty<?>) ade).getValue();
-                AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
-                if (cityObject != null) {
-                    parent.addChild(cityObject);
-                    cityJSON.addCityObject(cityObject);
-                }
-            }
-
-            else if (ade instanceof ADEModelObject && marshallers != null) {
+            if (ade instanceof ADEModelObject && marshallers != null) {
                 CityJSONExtensionMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
                 if (marshaller != null) {
-                    ExtensionAttribute attribute = marshaller.marshalExtensionAttribute((ADEModelObject) ade);
+                    ExtensionAttribute attribute = marshaller.marshalGenericApplicationProperty( (ADEModelObject) ade, new ADEPropertyContext(parent, cityJSON));
                     if (attribute != null)
                         parent.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
                 }
