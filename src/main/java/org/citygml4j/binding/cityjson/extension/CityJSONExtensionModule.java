@@ -14,7 +14,7 @@ public interface CityJSONExtensionModule {
     URL getSchemaResource();
     Map<String, Class<? extends AbstractCityObjectType>> getCityObjects();
     Map<String, Class<? extends SemanticsType>> getSemanticSurfaces();
-    Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> getExtensionAttributes();
+    Map<Class<? extends ExtensibleType>, Map<String, Type>> getExtensionProperties();
 
     default ModuleVersion getVersion() {
         return new ExtensionModuleVersion();

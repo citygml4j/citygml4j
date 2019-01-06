@@ -19,9 +19,8 @@
 
 package org.citygml4j.binding.cityjson.extension;
 
-public class ExtensionAttribute extends ExtensionProperty {
+import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 
-    public ExtensionAttribute(String name, Object value) {
-        super(name, value);
-    }
+public interface ExtensibleType {
+    void addChild(AbstractCityObjectType child);
 }

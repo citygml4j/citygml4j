@@ -2,10 +2,13 @@ package org.citygml4j.builder.cityjson.marshal.citygml.ade;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.binding.cityjson.CityJSON;
+import org.citygml4j.binding.cityjson.extension.ADEPropertyContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionMarshaller;
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
+import org.citygml4j.binding.cityjson.extension.Extension;
 import org.citygml4j.binding.cityjson.extension.ExtensionAttribute;
-import org.citygml4j.binding.cityjson.extension.ADEPropertyContext;
+import org.citygml4j.binding.cityjson.extension.ExtensionProperty;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
@@ -42,14 +45,30 @@ public class ADEMarshaller {
         }
     }
 
-    public void marshal(List<ADEComponent> src, AbstractCityObjectType parent, CityJSON cityJSON) {
+    public void marshal(List<ADEComponent> src, ExtensibleType parent, CityJSON cityJSON) {
         for (ADEComponent ade : src) {
             if (ade instanceof ADEModelObject && marshallers != null) {
                 CityJSONExtensionMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
                 if (marshaller != null) {
-                    ExtensionAttribute attribute = marshaller.marshalGenericApplicationProperty( (ADEModelObject) ade, new ADEPropertyContext(parent, cityJSON));
-                    if (attribute != null)
-                        parent.getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
+                    Extension extension = marshaller.marshalGenericApplicationProperty((ADEModelObject) ade, new ADEPropertyContext(parent, cityJSON));
+
+                    if (extension instanceof AbstractCityObjectType) {
+                        AbstractCityObjectType cityObject = (AbstractCityObjectType) extension;
+                        parent.addChild(cityObject);
+                        if (parent instanceof AbstractCityObjectType)
+                            cityJSON.addCityObject(cityObject);
+                    }
+
+                    else if (extension instanceof ExtensionAttribute && parent instanceof AbstractCityObjectType) {
+                        ExtensionAttribute attribute = (ExtensionAttribute) extension;
+                        ((AbstractCityObjectType) parent).getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
+                    }
+
+                    else if (extension instanceof ExtensionProperty) {
+                        ExtensionProperty property = (ExtensionProperty) extension;
+                        if (parent instanceof AbstractCityObjectType)
+                            ((AbstractCityObjectType) parent).addExtensionProperty(property.getName(), property.getValue());
+                    }
                 }
             }
         }

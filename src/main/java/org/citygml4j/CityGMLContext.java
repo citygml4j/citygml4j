@@ -22,6 +22,7 @@ import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
@@ -131,11 +132,11 @@ public class CityGMLContext {
 					registry.registerSemanticSurface(entry.getKey(), entry.getValue());
 			}
 
-			Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes = module.getExtensionAttributes();
-			if (attributes != null) {
-				for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
-					for (Map.Entry<String, Type> attribute : entry.getValue().entrySet())
-						registry.registerExtensionAttribute(attribute.getKey(), attribute.getValue(), entry.getKey());
+			Map<Class<? extends ExtensibleType>, Map<String, Type>> properties = module.getExtensionProperties();
+			if (properties != null) {
+				for (Map.Entry<Class<? extends ExtensibleType>, Map<String, Type>> entry : properties.entrySet()) {
+					for (Map.Entry<String, Type> property : entry.getValue().entrySet())
+						registry.registerExtensionProperty(property.getKey(), property.getValue(), entry.getKey());
 				}
 			}
 		}
@@ -166,11 +167,11 @@ public class CityGMLContext {
 					registry.unregisterSemanticSurface(type);
 			}
 
-			Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes = module.getExtensionAttributes();
-			if (attributes != null) {
-				for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+			Map<Class<? extends ExtensibleType>, Map<String, Type>> properties = module.getExtensionProperties();
+			if (properties != null) {
+				for (Map.Entry<Class<? extends ExtensibleType>, Map<String, Type>> entry : properties.entrySet()) {
 					for (String name : entry.getValue().keySet())
-						registry.unregisterExtensionAttribute(name, entry.getKey());
+						registry.unregisterExtensionProperty(name, entry.getKey());
 				}
 			}
 		}

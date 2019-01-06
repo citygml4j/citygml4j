@@ -127,6 +127,15 @@ public class CoreUnmarshaller {
 
 			dest.setBoundedBy(new BoundingShape(envelope));
 		}
+
+		if (src.isSetExtensionProperties()) {
+			for (Map.Entry<String, Object> entry : src.getExtensionProperties().entrySet()) {
+				if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
+					json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, cityJSON, dest);
+				else
+					citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(),dest);
+			}
+		}
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
@@ -139,8 +148,8 @@ public class CoreUnmarshaller {
 
 			if (attributes.isSetExtensionAttributes()) {
 				for (Map.Entry<String, Object> entry : attributes.getExtensionAttributes().entrySet()) {
-					if (json.getCityJSONRegistry().hasExtensionAttribute(entry.getKey(), src))
-						json.getADEUnmarshaller().unmarshalExtensionAttribute(entry.getKey(), entry.getValue(), src, cityJSON, dest);
+					if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
+						json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, cityJSON, dest);
 					else
 						citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(),dest);
 				}

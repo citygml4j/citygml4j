@@ -19,9 +19,22 @@
 
 package org.citygml4j.binding.cityjson.extension;
 
-public class ExtensionAttribute extends ExtensionProperty {
+import java.util.Objects;
 
-    public ExtensionAttribute(String name, Object value) {
-        super(name, value);
+public class ExtensionProperty implements Extension {
+    private final String name;
+    private final Object value;
+
+    public ExtensionProperty(String name, Object value) {
+        this.name = Objects.requireNonNull(name, "name must not be null.");
+        this.value = Objects.requireNonNull(value, "value must not be null.");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Object getValue() {
+        return value;
     }
 }

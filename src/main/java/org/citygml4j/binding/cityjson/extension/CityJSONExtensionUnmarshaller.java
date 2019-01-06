@@ -11,5 +11,5 @@ public interface CityJSONExtensionUnmarshaller {
     AbstractFeature unmarshalCityObject(AbstractCityObjectType src, CityObjectContext context);
     AbstractCityObject unmarshalSemanticSurface(SemanticsType src, SemanticSurfaceContext context);
     boolean assignSemanticSurface(AbstractCityObject semanticSurface, SemanticSurfaceContext context);
-    void unmarshalExtensionAttribute(String name, ExtensionAttributeContext context);
+    void unmarshalExtensionProperty(String name, ExtensionPropertyContext context);
 }

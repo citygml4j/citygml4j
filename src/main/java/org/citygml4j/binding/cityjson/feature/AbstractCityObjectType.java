@@ -19,6 +19,8 @@
 package org.citygml4j.binding.cityjson.feature;
 
 import com.google.gson.annotations.JsonAdapter;
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
+import org.citygml4j.binding.cityjson.extension.Extension;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
@@ -27,10 +29,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @JsonAdapter(CityObjectTypeAdapter.class)
-public abstract class AbstractCityObjectType {
+public abstract class AbstractCityObjectType implements ExtensibleType, Extension {
 	String type;
 	Attributes attributes;
 	private List<Double> geographicalExtent;
@@ -39,6 +42,7 @@ public abstract class AbstractCityObjectType {
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	private transient String gmlId;
+	private transient Map<String, Object> extensionProperties;
 	private transient HashMap<String, Object> localProperties;
 
 	public abstract Attributes newAttributes();
@@ -114,6 +118,7 @@ public abstract class AbstractCityObjectType {
 		children.add(child);
 	}
 
+	@Override
 	public void addChild(AbstractCityObjectType child) {
 		addChild(child.gmlId);
 		child.setParent(gmlId);
@@ -169,6 +174,34 @@ public abstract class AbstractCityObjectType {
 	
 	public void unsetGeometry() {
 		geometry.clear();
+	}
+
+	public boolean isSetExtensionProperties() {
+		return extensionProperties != null;
+	}
+
+	public void addExtensionProperty(String name, Object value) {
+		if (extensionProperties == null)
+			extensionProperties = new HashMap<>();
+
+		extensionProperties.put(name, value);
+	}
+
+	public Map<String, Object> getExtensionProperties() {
+		return extensionProperties;
+	}
+
+	public void setExtensionProperties(Map<String, Object> extensionProperties) {
+		this.extensionProperties = extensionProperties;
+	}
+
+	public void removeExtensionProperty(String name) {
+		if (extensionProperties != null)
+			extensionProperties.remove(name);
+	}
+
+	public void unsetExtensionProperties() {
+		extensionProperties = null;
 	}
 
 	public Object getLocalProperty(String name) {

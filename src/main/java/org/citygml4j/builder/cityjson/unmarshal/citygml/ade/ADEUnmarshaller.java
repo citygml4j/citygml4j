@@ -7,7 +7,8 @@ import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionUnmarshaller;
 import org.citygml4j.binding.cityjson.extension.CityObjectContext;
-import org.citygml4j.binding.cityjson.extension.ExtensionAttributeContext;
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
+import org.citygml4j.binding.cityjson.extension.ExtensionPropertyContext;
 import org.citygml4j.binding.cityjson.extension.SemanticSurfaceContext;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
@@ -25,14 +26,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ADEUnmarshaller {
     private Map<String, CityJSONExtensionUnmarshaller> unmarshallersByType;
-    private Map<Class<? extends AbstractCityObjectType>, Map<String, CityJSONExtensionUnmarshaller>> unmarshallersByAttribute;
+    private Map<Class<? extends ExtensibleType>, Map<String, CityJSONExtensionUnmarshaller>> unmarshallersByProperty;
     private Map<String, CityJSONExtensionUnmarshaller> unmarshallersByPackage;
 
     public ADEUnmarshaller(CityJSONUnmarshaller json) {
         CityGMLContext context = CityGMLContext.getInstance();
         if (context.hasCityJSONExtensionContexts()) {
             unmarshallersByType = new HashMap<>();
-            unmarshallersByAttribute = new HashMap<>();
+            unmarshallersByProperty = new HashMap<>();
             unmarshallersByPackage = new HashMap<>();
             ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(json);
 
@@ -58,11 +59,11 @@ public class ADEUnmarshaller {
                                 unmarshallersByType.put(type + "\"surface\"", unmarshaller);
                         }
 
-                        Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes = module.getExtensionAttributes();
-                        if (attributes != null) {
-                            for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+                        Map<Class<? extends ExtensibleType>, Map<String, Type>> properties = module.getExtensionProperties();
+                        if (properties != null) {
+                            for (Map.Entry<Class<? extends ExtensibleType>, Map<String, Type>> entry : properties.entrySet()) {
                                 for (String name : entry.getValue().keySet()) {
-                                    Map<String, CityJSONExtensionUnmarshaller> unmarshallers = unmarshallersByAttribute
+                                    Map<String, CityJSONExtensionUnmarshaller> unmarshallers = unmarshallersByProperty
                                             .computeIfAbsent(entry.getKey(), v -> new ConcurrentHashMap<>());
                                     unmarshallers.put(name, unmarshaller);
                                 }
@@ -107,13 +108,13 @@ public class ADEUnmarshaller {
         return false;
     }
 
-    public void unmarshalExtensionAttribute(String name, Object value, AbstractCityObjectType src, CityJSON cityJSON, AbstractCityObject parent) {
-        if (unmarshallersByAttribute != null) {
-            for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, CityJSONExtensionUnmarshaller>> entry : unmarshallersByAttribute.entrySet()) {
+    public void unmarshalExtensionProperty(String name, Object value, AbstractCityObjectType src, CityJSON cityJSON, AbstractFeature parent) {
+        if (unmarshallersByProperty != null) {
+            for (Map.Entry<Class<? extends ExtensibleType>, Map<String, CityJSONExtensionUnmarshaller>> entry : unmarshallersByProperty.entrySet()) {
                 if (entry.getKey().isAssignableFrom(src.getClass())) {
                     CityJSONExtensionUnmarshaller unmarshaller = entry.getValue().get(name);
                     if (unmarshaller != null)
-                        unmarshaller.unmarshalExtensionAttribute(name, new ExtensionAttributeContext(value, cityJSON, parent));
+                        unmarshaller.unmarshalExtensionProperty(name, new ExtensionPropertyContext(value, cityJSON, parent));
                 }
             }
         }

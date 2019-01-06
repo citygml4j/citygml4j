@@ -10,5 +10,5 @@ public interface CityJSONExtensionMarshaller {
     void setADEMarshallerHelper(ADEMarshallerHelper helper);
     AbstractCityObjectType marshalCityObject(ADEModelObject src, CityJSON cityJSON);
     SemanticsType marshalSemanticSurface(ADEModelObject src);
-    ExtensionAttribute marshalGenericApplicationProperty(ADEModelObject src, ADEPropertyContext context);
+    Extension marshalGenericApplicationProperty(ADEModelObject src, ADEPropertyContext context);
 }

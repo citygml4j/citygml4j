@@ -1,14 +1,14 @@
 package org.citygml4j.binding.cityjson.extension;
 
 import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 
-public class ExtensionAttributeContext {
+public class ExtensionPropertyContext {
     private final Object value;
     private final CityJSON cityJSON;
-    private final AbstractCityObject parent;
+    private final AbstractFeature parent;
 
-    public ExtensionAttributeContext(Object value, CityJSON cityJSON, AbstractCityObject parent) {
+    public ExtensionPropertyContext(Object value, CityJSON cityJSON, AbstractFeature parent) {
         this.value = value;
         this.cityJSON = cityJSON;
         this.parent = parent;
@@ -22,7 +22,7 @@ public class ExtensionAttributeContext {
         return cityJSON;
     }
 
-    public AbstractCityObject getParent() {
+    public AbstractFeature getParent() {
         return parent;
     }
 }

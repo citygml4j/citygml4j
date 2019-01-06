@@ -145,6 +145,9 @@ public class CoreMarshaller {
 			}
 		}
 
+		if (src.isSetGenericApplicationPropertyOfCityModel())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityModel(), cityJSON, cityJSON);
+
 		// postprocess group members
 		if (cityJSON.getCityObjects().stream().anyMatch(CityObjectGroupType.class::isInstance))
 			citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(src, cityJSON);

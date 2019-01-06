@@ -191,7 +191,11 @@ public class GenericsUnmarshaller {
 		} else
 			attribute = new StringAttribute(value.toString());
 
-		attribute.setName(name.toString());
+		String attrName = name.toString();
+		if (attrName.startsWith("+"))
+			attrName = attrName.substring(1);
+
+		attribute.setName(attrName);
 		return attribute;
 	}
 	

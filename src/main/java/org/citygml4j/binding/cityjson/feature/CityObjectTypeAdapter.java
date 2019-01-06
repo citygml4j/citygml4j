@@ -33,10 +33,11 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectType>, JsonDeserializer<AbstractCityObjectType> {
 	private final CityJSONRegistry registry = CityJSONRegistry.getInstance();
-	private final Map<String, List<String>> predefinedAttributes = new HashMap<>();
+	private final Map<String, List<String>> predefinedProperties = new HashMap<>();
 	private final PropertyHelper propertyHelper = new PropertyHelper();
 
 	private CityObjectTypeFilter typeFilter;
@@ -54,24 +55,34 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		if (cityObject.type == null)
 			cityObject.type = CityJSONRegistry.getInstance().getCityObjectType(cityObject);
 
-		JsonElement result = context.serialize(cityObject);
+		JsonElement element = context.serialize(cityObject);
+		if (element != null && element.isJsonObject()) {
+			JsonObject result = element.getAsJsonObject();
 
-		if (result != null && cityObject.attributes != null) {
-			JsonObject object = result.getAsJsonObject().getAsJsonObject("attributes");
-
-			// serialize extension attributes
-			if (cityObject.attributes.isSetExtensionAttributes()) {
-				JsonObject attributes = context.serialize(cityObject.attributes.getExtensionAttributes()).getAsJsonObject();
-				for (Map.Entry<String, JsonElement> entry : attributes.entrySet())
-					object.add(entry.getKey(), entry.getValue());
+			// serialize extension properties
+			if (cityObject.isSetExtensionProperties()) {
+				JsonObject properties = context.serialize(cityObject.getExtensionProperties()).getAsJsonObject();
+				for (Map.Entry<String, JsonElement> entry : properties.entrySet())
+					result.add(entry.getKey(), entry.getValue());
 			}
 
-			// remove empty attributes
-			if (object.entrySet().isEmpty())
-				result.getAsJsonObject().remove("attributes");
+			if (cityObject.attributes != null) {
+				JsonObject object = result.getAsJsonObject().getAsJsonObject("attributes");
+
+				// serialize extension attributes
+				if (cityObject.attributes.isSetExtensionAttributes()) {
+					JsonObject attributes = context.serialize(cityObject.attributes.getExtensionAttributes()).getAsJsonObject();
+					for (Map.Entry<String, JsonElement> entry : attributes.entrySet())
+						object.add(entry.getKey(), entry.getValue());
+				}
+
+				// remove empty attributes
+				if (object.entrySet().isEmpty())
+					result.getAsJsonObject().remove("attributes");
+			}
 		}
 
-		return result;
+		return element;
 	}
 
 	@Override
@@ -85,6 +96,11 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 				AbstractCityObjectType cityObject = context.deserialize(object, typeClass);
 				cityObject.type = type.getAsString();
 
+				// deserialize extension properties
+				Map<String, Object> extensionProperties = deserialize(object.entrySet(), typeClass, cityObject, context);
+				if (!extensionProperties.isEmpty())
+					cityObject.setExtensionProperties(extensionProperties);
+
 				if (cityObject.attributes != null) {
 					JsonObject attributes = object.get("attributes").getAsJsonObject();
 
@@ -92,25 +108,10 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 					if (attributesClass != Attributes.class)
 						cityObject.attributes = context.deserialize(attributes, attributesClass);
 
-					// deserialize generic attributes
-					List<String> predefined = predefinedAttributes.computeIfAbsent(attributesClass.getTypeName(),
-							v -> propertyHelper.getDeclaredProperties(attributesClass));
-
-					for (Map.Entry<String, JsonElement> entry : attributes.entrySet()) {
-						// skip attributes defined by the attribute class
-						String key = entry.getKey();
-						if (predefined.contains(key))
-							continue;
-
-						// check whether we found a registered extension attribute
-						Type extensionAttributeType = registry.getExtensionAttributeClass(entry.getKey(), cityObject);
-						Object value = extensionAttributeType != null ?
-								context.deserialize(entry.getValue(), extensionAttributeType) :
-								propertyHelper.deserialize(entry.getValue());
-
-						if (value != null)
-							cityObject.attributes.addExtensionAttribute(key, value);
-					}
+					// deserialize extension attributes
+					Map<String, Object> extensionAttributes = deserialize(attributes.entrySet(), attributesClass, cityObject, context);
+					if (!extensionAttributes.isEmpty())
+						cityObject.attributes.setExtensionAttributes(extensionAttributes);
 				}
 
 				return cityObject;
@@ -120,4 +121,28 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 		return null;
 	}
 
+	private Map<String, Object> deserialize(Set<Map.Entry<String, JsonElement>> entrySet, Class<?> typeClass, AbstractCityObjectType cityObject, JsonDeserializationContext context) {
+		Map<String, Object> properties = new HashMap<>();
+		List<String> predefined = predefinedProperties.computeIfAbsent(
+				typeClass.getTypeName(),
+				v -> propertyHelper.getDeclaredProperties(typeClass));
+
+		for (Map.Entry<String, JsonElement> entry : entrySet) {
+			// skip properties defined by the type class
+			String key = entry.getKey();
+			if (predefined.contains(key))
+				continue;
+
+			// check whether we found a registered extension property
+			Type extensionAttributeType = registry.getExtensionPropertyClass(entry.getKey(), cityObject);
+			Object value = extensionAttributeType != null ?
+					context.deserialize(entry.getValue(), extensionAttributeType) :
+					propertyHelper.deserialize(entry.getValue());
+
+			if (value != null)
+				properties.put(key, value);
+		}
+
+		return properties;
+	}
 }

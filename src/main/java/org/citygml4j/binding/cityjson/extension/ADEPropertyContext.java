@@ -20,18 +20,17 @@
 package org.citygml4j.binding.cityjson.extension;
 
 import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 
 public class ADEPropertyContext {
-    private final AbstractCityObjectType parent;
+    private final ExtensibleType parent;
     private final CityJSON cityJSON;
 
-    public ADEPropertyContext(AbstractCityObjectType parent, CityJSON cityJSON) {
+    public ADEPropertyContext(ExtensibleType parent, CityJSON cityJSON) {
         this.parent = parent;
         this.cityJSON = cityJSON;
     }
 
-    public AbstractCityObjectType getParent() {
+    public ExtensibleType getParent() {
         return parent;
     }
 

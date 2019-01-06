@@ -21,6 +21,7 @@ package org.citygml4j.binding.cityjson;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
@@ -40,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CityJSON {
+public class CityJSON implements ExtensibleType {
 	private final String type = "CityJSON";
 	private final String version = "0.9";
 	private MetadataType metadata;
@@ -116,7 +117,12 @@ public class CityJSON {
 
 		cityObjects.put(cityObject.getGmlId(), cityObject);
 	}
-	
+
+	@Override
+	public void addChild(AbstractCityObjectType child) {
+		addCityObject(child);
+	}
+
 	public AbstractCityObjectType getCityObject(String gmlId) {
 		return cityObjects.get(gmlId);
 	}

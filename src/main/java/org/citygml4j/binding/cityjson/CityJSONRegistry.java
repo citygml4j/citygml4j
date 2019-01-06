@@ -1,5 +1,6 @@
 package org.citygml4j.binding.cityjson;
 
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.BridgeConstructionElementType;
 import org.citygml4j.binding.cityjson.feature.BridgeInstallationType;
@@ -36,14 +37,14 @@ public class CityJSONRegistry {
 
     private final Map<String, Class<? extends AbstractCityObjectType>> types;
     private final Map<String, Class<? extends SemanticsType>> semanticSurfaces;
-    private final Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes;
+    private final Map<Class<? extends ExtensibleType>, Map<String, Type>> properties;
 
     private final Set<String> coreTypes;
 
     private CityJSONRegistry() {
         types = new ConcurrentHashMap<>();
         semanticSurfaces = new ConcurrentHashMap<>();
-        attributes = new ConcurrentHashMap<>();
+        properties = new ConcurrentHashMap<>();
 
         types.put("Building", BuildingType.class);
         types.put("BuildingPart", BuildingPartType.class);
@@ -195,8 +196,8 @@ public class CityJSONRegistry {
         semanticSurfaces.remove(type);
     }
 
-    public Type getExtensionAttributeClass(String propertyName, AbstractCityObjectType target) {
-        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+    public Type getExtensionPropertyClass(String propertyName, ExtensibleType target) {
+        for (Map.Entry<Class<? extends ExtensibleType>, Map<String, Type>> entry : properties.entrySet()) {
             if (entry.getKey().isInstance(target))
                 return entry.getValue().get(propertyName);
         }
@@ -204,34 +205,34 @@ public class CityJSONRegistry {
         return null;
     }
 
-    public boolean hasExtensionAttribute(String propertyName, AbstractCityObjectType target) {
-        return getExtensionAttributeClass(propertyName, target) != null;
+    public boolean hasExtensionProperty(String propertyName, ExtensibleType target) {
+        return getExtensionPropertyClass(propertyName, target) != null;
     }
 
-    public void registerExtensionAttribute(String name, Type attributeType, Class<? extends AbstractCityObjectType> targetClass) throws ADEException {
+    public void registerExtensionProperty(String name, Type attributeType, Class<? extends ExtensibleType> targetClass) throws ADEException {
         if (name == null)
-            throw new ADEException("The extension attribute name must not be null.");
+            throw new ADEException("The extension property name must not be null.");
 
         if (attributeType == null)
-            throw new ADEException("The extension attribute type must not be null.");
+            throw new ADEException("The extension property type must not be null.");
 
         if (targetClass == null)
-            throw new ADEException("The extension attribute target class must not be null.");
+            throw new ADEException("The extension property target class must not be null.");
 
-        for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+        for (Map.Entry<Class<? extends ExtensibleType>, Map<String, Type>> entry : properties.entrySet()) {
             if (entry.getKey().isAssignableFrom(targetClass) || targetClass.isAssignableFrom(entry.getKey())) {
                 if (entry.getValue().containsKey(name))
-                    throw new ADEException("The extension attribute '" + name + "' is already registered with " + entry.getKey().getTypeName());
+                    throw new ADEException("The extension property '" + name + "' is already registered with " + entry.getKey().getTypeName());
             }
         }
 
-        Map<String, Type> attribute = attributes.computeIfAbsent(targetClass, v -> new ConcurrentHashMap<>());
-        attribute.put(name, attributeType);
+        Map<String, Type> property = properties.computeIfAbsent(targetClass, v -> new ConcurrentHashMap<>());
+        property.put(name, attributeType);
     }
 
-    public void unregisterExtensionAttribute(String name, Class<? extends AbstractCityObjectType> targetClass) {
+    public void unregisterExtensionProperty(String name, Class<? extends ExtensibleType> targetClass) {
         if (targetClass != null) {
-            for (Map.Entry<Class<? extends AbstractCityObjectType>, Map<String, Type>> entry : attributes.entrySet()) {
+            for (Map.Entry<Class<? extends ExtensibleType>, Map<String, Type>> entry : properties.entrySet()) {
                 if (entry.getKey().isAssignableFrom(targetClass) || targetClass.isAssignableFrom(entry.getKey()))
                     entry.getValue().remove(name);
             }
