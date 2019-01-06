@@ -103,7 +103,7 @@ distributions.main.contents {
                 date: date.format('yyyy-MM-dd'),
                 copyright: date.format('yyyy'),
                 javaCompatibility: sourceCompatibility.toString(),
-                jar: jar.archiveName,
+                jar: jar.archiveFileName.get(),
                 groupId: project.group,
                 artifactId: project.name
         ])
