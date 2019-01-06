@@ -18,15 +18,16 @@
  */
 package handling_ade.generic.unmarshalling_ade_using_jaxb;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.bind.Binder;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.XMLGregorianCalendar;
-
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.AbstractBoundarySurfaceType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.BoundarySurfacePropertyType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.ClosureSurfaceType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.GroundSurfaceType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.RelativeToTerrainType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.RoofSurfaceType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.TunnelType;
+import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.WallSurfaceType;
+import net.opengis.gml.MultiSurfaceType;
+import net.opengis.gml.StringOrRefType;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
@@ -43,16 +44,13 @@ import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.AbstractBoundarySurfaceType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.BoundarySurfacePropertyType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.ClosureSurfaceType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.GroundSurfaceType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.RelativeToTerrainType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.RoofSurfaceType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.TunnelType;
-import handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb.WallSurfaceType;
-import net.opengis.gml.MultiSurfaceType;
-import net.opengis.gml.StringOrRefType;
+import javax.xml.bind.Binder;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UsingJAXBBinder {
 

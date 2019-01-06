@@ -27,14 +27,15 @@
 
 package handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb;
 
-import java.util.ArrayList;
-import java.util.List;
+import net.opengis.citygml._1.AbstractCityObjectType;
+import net.opengis.gml.MultiSurfacePropertyType;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import net.opengis.citygml._1.AbstractCityObjectType;
-import net.opengis.gml.MultiSurfacePropertyType;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**

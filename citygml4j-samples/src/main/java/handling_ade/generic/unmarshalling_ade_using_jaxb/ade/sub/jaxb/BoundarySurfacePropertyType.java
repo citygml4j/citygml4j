@@ -27,10 +27,11 @@
 
 package handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb;
 
+import net.opengis.gml.AssociationType;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-import net.opengis.gml.AssociationType;
 
 
 /**

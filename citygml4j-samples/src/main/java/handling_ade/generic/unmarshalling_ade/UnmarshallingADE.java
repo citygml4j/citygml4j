@@ -18,10 +18,6 @@
  */
 package handling_ade.generic.unmarshalling_ade;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
@@ -41,6 +37,10 @@ import org.citygml4j.xml.io.writer.CityModelWriter;
 import org.citygml4j.xml.schema.ElementDecl;
 import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UnmarshallingADE {
 

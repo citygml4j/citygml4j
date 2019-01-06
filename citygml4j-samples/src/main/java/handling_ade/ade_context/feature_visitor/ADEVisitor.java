@@ -18,10 +18,6 @@
  */
 package handling_ade.ade_context.feature_visitor;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.walker.NoiseADEFeatureWalker;
@@ -32,6 +28,10 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ADEVisitor {
 

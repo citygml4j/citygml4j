@@ -18,10 +18,8 @@
  */
 package handling_ade.generic.catching_schema_parse_errors;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import handling_ade.generic.catching_schema_parse_errors.util.SchemaEntityResolver;
+import handling_ade.generic.catching_schema_parse_errors.util.SchemaParseErrorHandler;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
@@ -32,8 +30,9 @@ import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
 import org.citygml4j.xml.schema.SchemaHandler;
 
-import handling_ade.generic.catching_schema_parse_errors.util.SchemaEntityResolver;
-import handling_ade.generic.catching_schema_parse_errors.util.SchemaParseErrorHandler;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class WrongSchemaLocation {
 

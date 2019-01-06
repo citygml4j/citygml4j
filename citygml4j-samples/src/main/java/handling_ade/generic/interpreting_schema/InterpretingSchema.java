@@ -18,15 +18,15 @@
  */
 package handling_ade.generic.interpreting_schema;
 
+import org.citygml4j.xml.schema.Schema;
+import org.citygml4j.xml.schema.SchemaHandler;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.citygml4j.xml.schema.Schema;
-import org.citygml4j.xml.schema.SchemaHandler;
 
 public class InterpretingSchema {
 
