@@ -23,6 +23,7 @@ import org.citygml4j.binding.cityjson.feature.TunnelInstallationType;
 import org.citygml4j.binding.cityjson.feature.TunnelPartType;
 import org.citygml4j.binding.cityjson.feature.TunnelType;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
+import org.citygml4j.binding.cityjson.geometry.InternalSemanticsType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.ADEException;
 
@@ -68,19 +69,19 @@ public class CityJSONRegistry {
         types.put("TunnelInstallation", TunnelInstallationType.class);
         types.put("CityObjectGroup", CityObjectGroupType.class);
 
-        semanticSurfaces.put("RoofSurface", SemanticsType.class);
-        semanticSurfaces.put("GroundSurface", SemanticsType.class);
-        semanticSurfaces.put("WallSurface", SemanticsType.class);
-        semanticSurfaces.put("ClosureSurface", SemanticsType.class);
-        semanticSurfaces.put("OuterCeilingSurface", SemanticsType.class);
-        semanticSurfaces.put("OuterFloorSurface", SemanticsType.class);
-        semanticSurfaces.put("Window", SemanticsType.class);
-        semanticSurfaces.put("Door", SemanticsType.class);
-        semanticSurfaces.put("TrafficArea", SemanticsType.class);
-        semanticSurfaces.put("AuxiliaryTrafficArea", SemanticsType.class);
-        semanticSurfaces.put("WaterSurface", SemanticsType.class);
-        semanticSurfaces.put("WaterGroundSurface", SemanticsType.class);
-        semanticSurfaces.put("WaterClosureSurface", SemanticsType.class);
+        semanticSurfaces.put("RoofSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("GroundSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("WallSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("ClosureSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("OuterCeilingSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("OuterFloorSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("Window", InternalSemanticsType.class);
+        semanticSurfaces.put("Door", InternalSemanticsType.class);
+        semanticSurfaces.put("TrafficArea", InternalSemanticsType.class);
+        semanticSurfaces.put("AuxiliaryTrafficArea", InternalSemanticsType.class);
+        semanticSurfaces.put("WaterSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("WaterGroundSurface", InternalSemanticsType.class);
+        semanticSurfaces.put("WaterClosureSurface", InternalSemanticsType.class);
 
         coreTypes = new HashSet<>(types.keySet());
     }

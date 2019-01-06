@@ -26,7 +26,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 import org.citygml4j.binding.cityjson.CityJSONRegistry;
 import org.citygml4j.binding.cityjson.util.PropertyHelper;
 
@@ -49,33 +48,20 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		if (semantics.type == null)
 			semantics.type = registry.getSemanticSurfaceType(semantics);
 
-		JsonObject object = null;
 		Class<?> semanticsTypeClass = registry.getSemanticSurfaceClass(semantics.type);
-		if (semanticsTypeClass != null && semanticsTypeClass != SemanticsType.class) {
-			JsonElement element = context.serialize(semantics, semanticsTypeClass);
-			if (element != null && element.isJsonObject())
-				object = element.getAsJsonObject();
+		JsonElement element = context.serialize(semantics, semanticsTypeClass);
+		if (element != null && element.isJsonObject()) {
+			JsonObject object = element.getAsJsonObject();
+
+			// serialize properties
+			if (semantics.isSetAttributes()) {
+				JsonObject properties = context.serialize(semantics.getAttributes()).getAsJsonObject();
+				for (Entry<String, JsonElement> entry : properties.entrySet())
+					object.add(entry.getKey(), entry.getValue());
+			}
 		}
 
-		if (object == null)
-			object = new JsonObject();
-
-		object.add("type", new JsonPrimitive(semantics.type));
-
-		if (semantics.isSetParent())
-			object.add("parent", new JsonPrimitive(semantics.getParent()));
-
-		if (semantics.isSetChildren())
-			object.add("children", context.serialize(semantics.getChildren()));
-
-		// serialize properties
-		if (semantics.isSetAttributes()) {
-			JsonObject properties = context.serialize(semantics.getAttributes()).getAsJsonObject();
-			for (Entry<String, JsonElement> entry : properties.entrySet())
-				object.add(entry.getKey(), entry.getValue());
-		}
-
-		return object;
+		return element;
 	}
 
 	@Override
@@ -86,21 +72,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		if (type != null && type.isString()) {
 			Class<?> semanticsTypeClass = registry.getSemanticSurfaceClass(type.getAsString());
 			if (semanticsTypeClass != null) {
-				SemanticsType semantics;
-				if (semanticsTypeClass == SemanticsType.class) {
-                    semantics = new SemanticsType(type.getAsString());
-                } else {
-					semantics = context.deserialize(object, semanticsTypeClass);
-					semantics.type = type.getAsString();
-				}
-
-				Number parent = context.deserialize(object.get("parent"), Integer.class);
-				if (parent != null)
-					semantics.setParent(parent.intValue());
-
-				List<Integer> children = context.deserialize(object.get("children"), new TypeToken<List<Integer>>(){}.getType());
-				if (children != null)
-					semantics.setChildren(children);
+				SemanticsType semantics = context.deserialize(object, semanticsTypeClass);
 
 				// deserialize properties
 				List<String> predefined = predefinedAttributes.computeIfAbsent(semantics.getClass().getTypeName(),
