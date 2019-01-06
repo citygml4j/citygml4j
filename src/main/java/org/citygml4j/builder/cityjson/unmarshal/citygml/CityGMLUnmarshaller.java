@@ -32,6 +32,7 @@ import org.citygml4j.binding.cityjson.feature.TINReliefType;
 import org.citygml4j.binding.cityjson.feature.TunnelType;
 import org.citygml4j.binding.cityjson.feature.WaterBodyType;
 import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
+import org.citygml4j.binding.cityjson.geometry.InternalSemanticsType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.appearance.AppearanceUnmarshaller;
@@ -146,7 +147,7 @@ public class CityGMLUnmarshaller {
 				parent = root;
 
 			AbstractCityObject cityObject = null;
-			if (semanticsType.getClass() != SemanticsType.class) {
+			if (semanticsType.getClass() != InternalSemanticsType.class) {
 				cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
 			} else {
 				if (parent instanceof BridgeModuleComponent)
