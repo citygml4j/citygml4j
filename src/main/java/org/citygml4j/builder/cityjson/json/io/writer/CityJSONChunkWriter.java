@@ -85,9 +85,6 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 	}
 
 	public void addRootExtensionProperty(String name, Object value) {
-		if (extensionProperties == null)
-			extensionProperties = new HashMap<>();
-
 		extensionProperties.put(name, value);
 	}
 
@@ -135,7 +132,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			write(child);
 
 		if (cityJSON.isSetExtensionProperties())
-			extensionProperties.forEach(this::addRootExtensionProperty);
+			extensionProperties.putAll(cityJSON.getExtensionProperties());
 
 		write(dest);
 	}
@@ -185,7 +182,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			writer.endObject();
 
 			// extension properties
-			if (extensionProperties != null) {
+			if (!extensionProperties.isEmpty()) {
 				for (Map.Entry<String, Object> entry : extensionProperties.entrySet()) {
 					writer.name(entry.getKey());
 					gson.toJson(entry.getValue(), Object.class, writer);
@@ -300,6 +297,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 		if (documentState == DocumentState.START_DOCUMENT)
 			writeEndDocument();
 
+		extensionProperties.clear();
 		lods.clear();
 		super.close();
 	}

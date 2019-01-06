@@ -22,6 +22,7 @@ import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.feature.AddressType;
 import org.citygml4j.binding.cityjson.feature.Attributes;
+import org.citygml4j.binding.cityjson.feature.CityObjectTypeAdapter;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTemplatesType;
@@ -45,6 +46,7 @@ import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.TransformationMatrix4x4;
 import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
+import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
@@ -161,14 +163,25 @@ public class CoreUnmarshaller {
 				AbstractCityObjectType cityObject = cityJSON.getCityObject(child);
 				if (cityObject != null && !json.getCityJSONRegistry().isCoreCityObject(cityObject.getType())) {
 					AbstractFeature feature = json.getADEUnmarshaller().unmarshalCityObject(cityObject, cityJSON, dest);
-					if (feature != null && feature.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
-						List<AbstractFeature> features = (List<AbstractFeature>) dest.getLocalProperty(GLOBAL_FEATURES);
-						if (features == null) {
-							features = new ArrayList<>();
-							dest.setLocalProperty(GLOBAL_FEATURES, features);
+
+					if (feature != null) {
+						if (feature.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
+							List<AbstractFeature> features = (List<AbstractFeature>) dest.getLocalProperty(GLOBAL_FEATURES);
+							if (features == null) {
+								features = new ArrayList<>();
+								dest.setLocalProperty(GLOBAL_FEATURES, features);
+							}
+
+							features.add(feature);
 						}
 
-						features.add(feature);
+						if (feature.hasLocalProperty(CityObjectTypeAdapter.UNKNOWN_EXTENSION)) {
+							String type = cityObject.getType();
+							if (type.startsWith("+"))
+								type = type.substring(1);
+
+							dest.addGenericAttribute(new StringAttribute(type, feature.getId()));
+						}
 					}
 				}
 			}

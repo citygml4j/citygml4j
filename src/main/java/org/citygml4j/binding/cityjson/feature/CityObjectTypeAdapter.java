@@ -36,14 +36,22 @@ import java.util.Map;
 import java.util.Set;
 
 public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectType>, JsonDeserializer<AbstractCityObjectType> {
+	public static final String UNKNOWN_EXTENSION = "org.citygml4j.unknownExtension";
+
 	private final CityJSONRegistry registry = CityJSONRegistry.getInstance();
 	private final Map<String, List<String>> predefinedProperties = new HashMap<>();
 	private final PropertyHelper propertyHelper = new PropertyHelper();
 
 	private CityObjectTypeFilter typeFilter;
+	private boolean processUnknownExtensions;
 
 	public CityObjectTypeAdapter withTypeFilter(CityObjectTypeFilter inputFilter) {
 		this.typeFilter = inputFilter;
+		return this;
+	}
+
+	public CityObjectTypeAdapter processUnknownExtensions(boolean processUnknownExtensions) {
+		this.processUnknownExtensions = processUnknownExtensions;
 		return this;
 	}
 	
@@ -92,6 +100,14 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 
 		if (type != null && type.isString()) {
 			Class<?> typeClass = registry.getCityObjectClass(type.getAsString());
+
+			// map unknown extensions to generic city objects
+			boolean unknownExtension = false;
+			if (typeClass == null && processUnknownExtensions) {
+				typeClass = GenericCityObjectType.class;
+				unknownExtension = true;
+			}
+
 			if (typeClass != null && (typeFilter == null || typeFilter.accept(type.getAsString()))) {
 				AbstractCityObjectType cityObject = context.deserialize(object, typeClass);
 				cityObject.type = type.getAsString();
@@ -113,6 +129,9 @@ public class CityObjectTypeAdapter implements JsonSerializer<AbstractCityObjectT
 					if (!extensionAttributes.isEmpty())
 						cityObject.attributes.setExtensionAttributes(extensionAttributes);
 				}
+
+				if (unknownExtension)
+					cityObject.setLocalProperty(UNKNOWN_EXTENSION, true);
 
 				return cityObject;
 			}

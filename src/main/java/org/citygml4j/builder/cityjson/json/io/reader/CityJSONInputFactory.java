@@ -31,7 +31,8 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 public class CityJSONInputFactory {
-	protected TextureFileHandler textureFileHandler;
+	TextureFileHandler textureFileHandler;
+	boolean processUnknownExtensions;
 	
 	public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
 		try {
@@ -58,4 +59,11 @@ public class CityJSONInputFactory {
 		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 
+	public boolean isProcessUnknownExtensions() {
+		return processUnknownExtensions;
+	}
+
+	public void setProcessUnknownExtensions(boolean processUnknownExtensions) {
+		this.processUnknownExtensions = processUnknownExtensions;
+	}
 }

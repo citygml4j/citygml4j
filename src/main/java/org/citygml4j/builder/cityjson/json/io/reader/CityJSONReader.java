@@ -40,15 +40,23 @@ public class CityJSONReader implements AutoCloseable {
 	private final CityJSONUnmarshaller unmarshaller;
 	
 	private MetadataType metadata;
+	private CityObjectTypeFilter filter;
+	private boolean processUnknownExtensions;
 
 	public CityJSONReader(JsonReader reader, CityJSONInputFactory factory) {
 		this.reader = reader;
 		
 		builder = new GsonBuilder();
 		unmarshaller = new CityJSONUnmarshaller(factory.textureFileHandler);
+		processUnknownExtensions = factory.processUnknownExtensions;
 	}
 
 	public CityModel read() {
+		// prepare builder
+		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter()
+				.withTypeFilter(filter)
+				.processUnknownExtensions(processUnknownExtensions));
+
 		CityJSON cityJSON = builder.create().fromJson(reader, CityJSON.class);
 		if (cityJSON != null) {
 			metadata = cityJSON.getMetadata();
@@ -80,13 +88,13 @@ public class CityJSONReader implements AutoCloseable {
 	public boolean isSetMetadata() {
 		return metadata != null;
 	}
-	
+
 	public MetadataType getMetadata() {
 		return metadata;
 	}
 
-	protected void setInputFilter(CityObjectTypeFilter filter) {
-		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter().withTypeFilter(filter));
+	void setInputFilter(CityObjectTypeFilter filter) {
+		this.filter = filter;
 	}
 	
 	@Override

@@ -11,10 +11,14 @@ import org.citygml4j.binding.cityjson.extension.ExtensibleType;
 import org.citygml4j.binding.cityjson.extension.ExtensionPropertyContext;
 import org.citygml4j.binding.cityjson.extension.SemanticSurfaceContext;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.CityObjectTypeAdapter;
+import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.generics.GenericCityObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 
@@ -25,12 +29,15 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ADEUnmarshaller {
+    private final CityJSONUnmarshaller json;
     private Map<String, CityJSONExtensionUnmarshaller> unmarshallersByType;
     private Map<Class<? extends ExtensibleType>, Map<String, CityJSONExtensionUnmarshaller>> unmarshallersByProperty;
     private Map<String, CityJSONExtensionUnmarshaller> unmarshallersByPackage;
 
     public ADEUnmarshaller(CityJSONUnmarshaller json) {
+        this.json = json;
         CityGMLContext context = CityGMLContext.getInstance();
+
         if (context.hasCityJSONExtensionContexts()) {
             unmarshallersByType = new HashMap<>();
             unmarshallersByProperty = new HashMap<>();
@@ -83,6 +90,22 @@ public class ADEUnmarshaller {
             CityJSONExtensionUnmarshaller unmarshaller = unmarshallersByType.get(src.getType());
             if (unmarshaller != null)
                 return unmarshaller.unmarshalCityObject(src, new CityObjectContext(parent, cityJSON));
+        }
+
+        else if (src.hasLocalProperty(CityObjectTypeAdapter.UNKNOWN_EXTENSION) && src instanceof GenericCityObjectType) {
+            // map unknown extension
+            GenericCityObject dest = json.getCityGMLUnmarshaller().getGenericsUnmarshaller().unmarshalGenericCityObject((GenericCityObjectType) src, cityJSON);
+
+            String type = src.getType();
+            if (type.startsWith("+"))
+                type = type.substring(1);
+
+            dest.setClazz(new Code(type));
+
+            dest.setLocalProperty(CityObjectTypeAdapter.UNKNOWN_EXTENSION, true);
+            json.getCityGMLUnmarshaller().getCoreUnmarshaller().unmarshalAsGlobalFeature(dest);
+
+            return dest;
         }
 
         return null;
