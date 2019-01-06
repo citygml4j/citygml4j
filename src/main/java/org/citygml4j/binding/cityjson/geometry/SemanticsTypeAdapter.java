@@ -53,7 +53,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 		if (element != null && element.isJsonObject()) {
 			JsonObject object = element.getAsJsonObject();
 
-			// serialize properties
+			// serialize extension properties
 			if (semantics.isSetAttributes()) {
 				JsonObject properties = context.serialize(semantics.getAttributes()).getAsJsonObject();
 				for (Entry<String, JsonElement> entry : properties.entrySet())
@@ -74,7 +74,7 @@ public class SemanticsTypeAdapter implements JsonSerializer<SemanticsType>, Json
 			if (semanticsTypeClass != null) {
 				SemanticsType semantics = context.deserialize(object, semanticsTypeClass);
 
-				// deserialize properties
+				// deserialize extension properties
 				List<String> predefined = predefinedAttributes.computeIfAbsent(semantics.getClass().getTypeName(),
 						v -> propertyHelper.getDeclaredProperties(semantics.getClass()));
 

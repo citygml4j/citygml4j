@@ -68,6 +68,8 @@ public class ADEMarshaller {
                         ExtensionProperty property = (ExtensionProperty) extension;
                         if (parent instanceof AbstractCityObjectType)
                             ((AbstractCityObjectType) parent).addExtensionProperty(property.getName(), property.getValue());
+                        else if (parent instanceof CityJSON)
+                            ((CityJSON) parent).addExtensionProperty(property.getName(), property.getValue());
                     }
                 }
             }

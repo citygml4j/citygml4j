@@ -23,6 +23,7 @@ import com.google.gson.annotations.SerializedName;
 import org.citygml4j.binding.cityjson.appearance.AppearanceType;
 import org.citygml4j.binding.cityjson.extension.ExtensibleType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.CityJSONAdapter;
 import org.citygml4j.binding.cityjson.feature.CityObjectsAdapter;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@JsonAdapter(CityJSONAdapter.class)
 public class CityJSON implements ExtensibleType {
 	private final String type = "CityJSON";
 	private final String version = "0.9";
@@ -54,6 +56,8 @@ public class CityJSON implements ExtensibleType {
 	private AppearanceType appearance;
 	@SerializedName("geometry-templates")
 	private GeometryTemplatesType geometryTemplates;
+
+	private transient Map<String, Object> extensionProperties;
 
 	public String getType() {
 		return type;
@@ -227,6 +231,34 @@ public class CityJSON implements ExtensibleType {
 
 	public void unsetGeometryTemplates() {
 		geometryTemplates = null;
+	}
+
+	public boolean isSetExtensionProperties() {
+		return extensionProperties != null;
+	}
+
+	public void addExtensionProperty(String name, Object value) {
+		if (extensionProperties == null)
+			extensionProperties = new HashMap<>();
+
+		extensionProperties.put(name, value);
+	}
+
+	public Map<String, Object> getExtensionProperties() {
+		return extensionProperties;
+	}
+
+	public void setExtensionProperties(Map<String, Object> extensionProperties) {
+		this.extensionProperties = extensionProperties;
+	}
+
+	public void removeExtensionProperty(String name) {
+		if (extensionProperties != null)
+			extensionProperties.remove(name);
+	}
+
+	public void unsetExtensionProperties() {
+		extensionProperties = null;
 	}
 
 	public List<Double> calcBoundingBox() {

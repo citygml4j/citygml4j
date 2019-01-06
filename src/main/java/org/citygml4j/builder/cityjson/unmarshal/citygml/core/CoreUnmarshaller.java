@@ -151,7 +151,7 @@ public class CoreUnmarshaller {
 					if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
 						json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, cityJSON, dest);
 					else
-						citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(),dest);
+						citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(), dest);
 				}
 			}
 		}
@@ -207,6 +207,13 @@ public class CoreUnmarshaller {
 				cityObject = citygml.unmarshal(type, src);
 				if (cityObject != null)
 					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
+			}
+		}
+
+		if (src.isSetExtensionProperties()) {
+			for (Map.Entry<String, Object> entry : src.getExtensionProperties().entrySet()) {
+				if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
+					json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, src, dest);
 			}
 		}
 

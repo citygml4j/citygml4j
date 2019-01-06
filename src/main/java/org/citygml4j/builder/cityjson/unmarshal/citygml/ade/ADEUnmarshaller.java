@@ -108,7 +108,7 @@ public class ADEUnmarshaller {
         return false;
     }
 
-    public void unmarshalExtensionProperty(String name, Object value, AbstractCityObjectType src, CityJSON cityJSON, AbstractFeature parent) {
+    public void unmarshalExtensionProperty(String name, Object value, ExtensibleType src, CityJSON cityJSON, AbstractFeature parent) {
         if (unmarshallersByProperty != null) {
             for (Map.Entry<Class<? extends ExtensibleType>, Map<String, CityJSONExtensionUnmarshaller>> entry : unmarshallersByProperty.entrySet()) {
                 if (entry.getKey().isAssignableFrom(src.getClass())) {
