@@ -40,7 +40,7 @@ public class ChunkConverter {
 		
 		/*
 		 * This example demonstrates how to write a CityJSON file chunk-wise.
-		 * Note that the chunk-wise approach faces some limitations in CityJSON v0.6:
+		 * Note that the chunk-wise approach faces some limitations in CityJSON v0.9:
 		 * 
 		 * Firstly, some CityJSON elements like the "vertices" and "vertices-texture"
 		 * arrays are global. Thus, even if we write city objects chunk-wise, these
