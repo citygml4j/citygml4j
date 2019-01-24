@@ -49,6 +49,10 @@ public class DefaultGMLIdManager implements GMLIdManager {
 			this.prefix = prefix;
 	}
 
+	public boolean isValidPrefix(String prefix) {
+		return matcher.reset(prefix).matches();
+	}
+
 	public String generateUUID(String prefix) {
 		if (!matcher.reset(prefix).matches())
 			prefix = defaultPrefix;
