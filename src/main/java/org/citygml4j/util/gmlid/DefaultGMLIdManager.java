@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class DefaultGMLIdManager implements GMLIdManager {
 	private static DefaultGMLIdManager instance = new DefaultGMLIdManager();
 	private final String defaultPrefix = "UUID_";
-	private final Matcher matcher = Pattern.compile("[_A-Za-z][-._A-Za-z0-9]*").matcher("");
+	private final Matcher matcher = Pattern.compile("[_A-Za-z][-._A-Za-z0-9]*", Pattern.UNICODE_CHARACTER_CLASS).matcher("");
 	private String prefix = defaultPrefix;
 
 	private DefaultGMLIdManager() {
