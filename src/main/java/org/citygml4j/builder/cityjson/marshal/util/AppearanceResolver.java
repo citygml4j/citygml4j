@@ -232,12 +232,7 @@ public class AppearanceResolver {
 		}
 
 		private void addSurfaceData(String key, SurfaceDataInfo info) {
-			List<SurfaceDataInfo> surfaceData = surfaceDatas.get(key);
-			if (surfaceData == null) {
-				surfaceData = new ArrayList<>();
-				surfaceDatas.put(key, surfaceData);
-			}
-
+			List<SurfaceDataInfo> surfaceData = surfaceDatas.computeIfAbsent(key, k -> new ArrayList<>());
 			surfaceData.add(info);
 		}
 
