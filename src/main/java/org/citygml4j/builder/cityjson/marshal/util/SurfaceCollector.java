@@ -70,12 +70,7 @@ public class SurfaceCollector extends GeometryWalker {
 
 	private void collect(AbstractSurface surface) {
 		if (!surface.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET)) {
-			List<AbstractSurface> tmp = surfaces.get(lod);
-			if (tmp == null) {
-				tmp = new ArrayList<>();
-				surfaces.put(lod, tmp);
-			}
-
+			List<AbstractSurface> tmp = surfaces.computeIfAbsent(lod, k -> new ArrayList<>());
 			tmp.add(surface);
 		}
 	}
