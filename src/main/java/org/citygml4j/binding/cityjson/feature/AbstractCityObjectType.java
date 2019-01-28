@@ -38,7 +38,7 @@ public abstract class AbstractCityObjectType implements ExtensibleType, Extensio
 	Attributes attributes;
 	private List<Double> geographicalExtent;
 	private Set<String> children;
-	private String parent;
+	private Set<String> parents;
 	private List<AbstractGeometryType> geometry = new ArrayList<>();
 
 	private transient String gmlId;
@@ -121,15 +121,15 @@ public abstract class AbstractCityObjectType implements ExtensibleType, Extensio
 	@Override
 	public void addChild(AbstractCityObjectType child) {
 		addChild(child.gmlId);
-		child.setParent(gmlId);
+		child.addParent(gmlId);
 	}
 
 	public Set<String> getChildren() {
 		return children;
 	}
 
-	public void setChildren(Set<String> Children) {
-		this.children = Children;
+	public void setChildren(Set<String> children) {
+		this.children = children;
 	}
 
 	public void unsetChildren() {
@@ -137,19 +137,31 @@ public abstract class AbstractCityObjectType implements ExtensibleType, Extensio
 	}
 
 	public boolean isSetParent() {
-		return parent != null;
+		return parents != null && !parents.isEmpty();
 	}
 
-	public String getParent() {
-		return parent;
+	public void addParent(String parent) {
+		if (parents == null)
+			parents = new HashSet<>();
+
+		parents.add(parent);
 	}
 
-	public void setParent(String parent) {
-		this.parent = parent;
+	public void addParent(AbstractCityObjectType parent) {
+		addParent(parent.gmlId);
+		parent.addChild(gmlId);
 	}
 
-	public void unsetParent() {
-		parent = null;
+	public Set<String> getParents() {
+		return parents;
+	}
+
+	public void setParents(Set<String> parents) {
+		this.parents = parents;
+	}
+
+	public void unsetParents() {
+		parents = null;
 	}
 		
 	public void addGeometry(AbstractGeometryType geometry) {
