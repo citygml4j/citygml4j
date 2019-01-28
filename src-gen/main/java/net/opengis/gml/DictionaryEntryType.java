@@ -1,8 +1,8 @@
 //
-// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.1 generiert 
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.12.21 um 08:38:03 AM CET 
+// Generiert: 2019.01.28 um 10:00:07 PM CET 
 //
 
 
@@ -75,65 +75,65 @@ public class DictionaryEntryType {
      * 
      * @return
      *     possible object is
+     *     {@link JAXBElement }{@code <}{@link EllipsoidType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OperationMethodType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeOrdinalReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeCoordinateSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeClockType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeCalendarType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeCalendarEraType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PrimeMeridianType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CoordinateSystemAxisType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DefinitionProxyType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DerivedUnitType }{@code >}
      *     {@link JAXBElement }{@code <}{@link BaseUnitType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ConventionalUnitType }{@code >}
      *     {@link JAXBElement }{@code <}{@link UnitDefinitionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link VerticalDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TemporalDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ConcatenatedOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PassThroughOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralConversionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EllipsoidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DefinitionProxyType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CompoundCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link VerticalCRSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeocentricCRSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeographicCRSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ImageCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ProjectedCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DerivedCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractGeneralDerivedCRSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ImageCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link EngineeringCRSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeocentricCRSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeographicCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TemporalCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CompoundCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractReferenceSystemType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link LinearCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EllipsoidalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OperationParameterGroupType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TransformationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralConversionType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PassThroughOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ConcatenatedOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeCoordinateSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeOrdinalReferenceSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeClockType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeCalendarType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeReferenceSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PrimeMeridianType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CoordinateSystemAxisType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeCalendarEraType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OperationParameterType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OperationParameterGroupType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractGeneralOperationParameterType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link EllipsoidalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LinearCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TemporalDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link VerticalDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DefinitionType }{@code >}
      *     
      */
@@ -146,65 +146,65 @@ public class DictionaryEntryType {
      * 
      * @param value
      *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link EllipsoidType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OperationMethodType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeOrdinalReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeCoordinateSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeClockType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeCalendarType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractTimeReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TimeCalendarEraType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PrimeMeridianType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CoordinateSystemAxisType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DefinitionProxyType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DerivedUnitType }{@code >}
      *     {@link JAXBElement }{@code <}{@link BaseUnitType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ConventionalUnitType }{@code >}
      *     {@link JAXBElement }{@code <}{@link UnitDefinitionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link VerticalDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TemporalDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractDatumType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ConcatenatedOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PassThroughOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralConversionType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EllipsoidType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link DefinitionProxyType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CompoundCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link VerticalCRSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeocentricCRSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeographicCRSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ImageCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link ProjectedCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DerivedCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractGeneralDerivedCRSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ImageCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link EngineeringCRSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeocentricCRSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link GeographicCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link TemporalCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CompoundCRSType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractReferenceSystemType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractReferenceSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link LinearCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link EllipsoidalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateSystemType }{@code >}
-     *     {@link JAXBElement }{@code <}{@link OperationParameterGroupType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TransformationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralTransformationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ConversionType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractGeneralConversionType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PassThroughOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ConcatenatedOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateOperationType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeCoordinateSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeOrdinalReferenceSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeClockType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeCalendarType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractTimeReferenceSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PrimeMeridianType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CoordinateSystemAxisType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TimeCalendarEraType }{@code >}
      *     {@link JAXBElement }{@code <}{@link OperationParameterType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link OperationParameterGroupType }{@code >}
      *     {@link JAXBElement }{@code <}{@link AbstractGeneralOperationParameterType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link CylindricalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link EllipsoidalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PolarCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SphericalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link UserDefinedCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TemporalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link LinearCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link VerticalCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ObliqueCartesianCSType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractCoordinateSystemType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link DictionaryType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TemporalDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeodeticDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link EngineeringDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ImageDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link VerticalDatumType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link AbstractDatumType }{@code >}
      *     {@link JAXBElement }{@code <}{@link DefinitionType }{@code >}
      *     
      */
