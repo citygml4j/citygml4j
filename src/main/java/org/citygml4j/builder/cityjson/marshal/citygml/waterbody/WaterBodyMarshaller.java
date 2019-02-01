@@ -26,23 +26,17 @@ import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
+import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
-import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
 import org.citygml4j.model.citygml.waterbody.WaterBody;
 import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
 import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
 import org.citygml4j.model.citygml.waterbody.WaterSurface;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -199,40 +193,14 @@ public class WaterBodyMarshaller {
 	}
 
 	private Map<Integer, MultiSurface> preprocessGeometry(WaterBody waterBody) {
-		Map<Integer, MultiSurface> multiSurfaces = null;
-		SurfaceCollector collector = new SurfaceCollector();
+		Map<Integer, MultiSurface> multiSurfaces = new HashMap<>();
 
-		for (BoundedByWaterSurfaceProperty property : waterBody.getBoundedBySurface()) {
-			if (property.isSetWaterBoundarySurface()) {
-				LodRepresentation lodRepresentation = property.getWaterBoundarySurface().getLodRepresentation();
-				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetGeometry(lod)) {
-						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
-							collector.visit(geometryProperty);
-					}
-				}
-			}
-		}
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
+		collector.collectSurfaces(waterBody.getBoundedBySurface(), 2, 3);
 
-		if (collector.hasSurfaces()) {
-			multiSurfaces = new HashMap<>();
-
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = new MultiSurface();
-
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-
-					multiSurfaces.put(lod, multiSurface);
-				}
-			}
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod))
+				multiSurfaces.put(lod, collector.getSurfaces(lod));
 		}
 
 		return multiSurfaces;

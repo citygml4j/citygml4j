@@ -30,6 +30,7 @@ import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
+import org.citygml4j.builder.cityjson.marshal.util.LocalPropertiesCleaner;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
@@ -45,6 +46,7 @@ public class CityJSONMarshaller {
 	public static final String GEOMETRY_XLINK = "org.citygml4j.geometry.xlink";
 	public static final String GEOMETRY_XLINK_TARGET = "org.citygml4j.geometry.xlinkTarget";
 	public static final String GEOMETRY_SURFACE_DATA = "org.citygml4j.geometry.surfaceData";
+	public static final String GEOMETRY_DUMMY = "org.citygml4j.geometry.dummy";
 
 	private final CityGMLMarshaller citygml;
 	private final GMLMarshaller gml;
@@ -124,6 +126,9 @@ public class CityJSONMarshaller {
 			}
 		}
 
+		// remove local properties from input objects
+		src.accept(new LocalPropertiesCleaner());
+
 		return dest;
 	}
 	
@@ -131,7 +136,12 @@ public class CityJSONMarshaller {
 		xlinkResolver.resolve(src);
 		appearanceResolver.resolve(src);
 
-		return citygml.marshal(src, cityJSON);
+		AbstractCityObjectType dest = citygml.marshal(src, cityJSON);
+
+		// remove local properties from input objects
+		src.accept(new LocalPropertiesCleaner());
+
+		return dest;
 	}
 
 	public CityGMLMarshaller getCityGMLMarshaller() {

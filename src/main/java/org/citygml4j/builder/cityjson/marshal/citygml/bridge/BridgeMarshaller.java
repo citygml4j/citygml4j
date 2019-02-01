@@ -32,10 +32,9 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
+import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.bridge.AbstractBridge;
-import org.citygml4j.model.citygml.bridge.AbstractOpening;
 import org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.bridge.Bridge;
 import org.citygml4j.model.citygml.bridge.BridgeConstructionElement;
@@ -47,7 +46,6 @@ import org.citygml4j.model.citygml.bridge.BridgePartProperty;
 import org.citygml4j.model.citygml.bridge.ClosureSurface;
 import org.citygml4j.model.citygml.bridge.Door;
 import org.citygml4j.model.citygml.bridge.GroundSurface;
-import org.citygml4j.model.citygml.bridge.OpeningProperty;
 import org.citygml4j.model.citygml.bridge.OuterCeilingSurface;
 import org.citygml4j.model.citygml.bridge.OuterFloorSurface;
 import org.citygml4j.model.citygml.bridge.RoofSurface;
@@ -55,17 +53,10 @@ import org.citygml4j.model.citygml.bridge.WallSurface;
 import org.citygml4j.model.citygml.bridge.Window;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AddressProperty;
-import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -166,8 +157,9 @@ public class BridgeMarshaller {
 		if (src.isSetGenericApplicationPropertyOfAbstractBridge())
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractBridge(), dest, cityJSON);
 
+		SemanticSurfaceCollector collector = null;
 		if (src.isSetBoundedBySurface())
-			preprocessGeometry(src);
+			collector = preprocessGeometry(src);
 
 		if (src.isSetLod1MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
@@ -255,6 +247,9 @@ public class BridgeMarshaller {
 				}
 			}
 		}
+
+		if (collector != null)
+			postprocessGeometry(src, collector);
 	}
 
 	public void marshalBridge(Bridge src, BridgeType dest, CityJSON cityJSON) {
@@ -313,8 +308,9 @@ public class BridgeMarshaller {
 		if (src.isSetGenericApplicationPropertyOfBridgeConstructionElement())
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBridgeConstructionElement(), dest, cityJSON);
 
+		SemanticSurfaceCollector collector = null;
 		if (src.isSetBoundedBySurface())
-			preprocessGeometry(src);
+			collector = preprocessGeometry(src);
 
 		if (src.isSetLod2Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry());
@@ -343,6 +339,9 @@ public class BridgeMarshaller {
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
+
+		if (collector != null)
+			postprocessGeometry(src, collector);
 	}
 
 	public BridgeConstructionElementType marshalBridgeConstructionElement(BridgeConstructionElement src, CityJSON cityJSON) {
@@ -380,8 +379,9 @@ public class BridgeMarshaller {
 		if (src.isSetGenericApplicationPropertyOfBridgeInstallation())
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBridgeInstallation(), dest, cityJSON);
 
+		SemanticSurfaceCollector collector = null;
 		if (src.isSetBoundedBySurface())
-			preprocessGeometry(src);
+			collector = preprocessGeometry(src);
 
 		if (src.isSetLod2Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry());
@@ -410,6 +410,9 @@ public class BridgeMarshaller {
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
+
+		if (collector != null)
+			postprocessGeometry(src, collector);
 	}
 
 	public BridgeInstallationType marshalBridgeInstallation(BridgeInstallation src, CityJSON cityJSON) {
@@ -419,144 +422,92 @@ public class BridgeMarshaller {
 		return dest;
 	}
 
-	private void preprocessGeometry(AbstractBridge bridge) {
-		SurfaceCollector collector = collectBoundarySurfaces(bridge.getBoundedBySurface());		
-		if (collector.hasSurfaces()) {		
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = null;
-					switch (lod) {
-					case 2:
-						if (bridge.isSetLod2MultiSurface() && bridge.getLod2MultiSurface().isSetMultiSurface())
-							multiSurface = bridge.getLod2MultiSurface().getMultiSurface();
-						else {
-							multiSurface = new MultiSurface();
-							bridge.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						}
-						break;
-					case 3:
-						if (bridge.isSetLod3MultiSurface() && bridge.getLod3MultiSurface().isSetMultiSurface())
-							multiSurface = bridge.getLod3MultiSurface().getMultiSurface();
-						else {
-							multiSurface = new MultiSurface();
-							bridge.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						}
-					}
+	private SemanticSurfaceCollector preprocessGeometry(AbstractBridge src) {
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
 
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-				}
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
+				else
+					collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
+			}
+		}
+
+		return collector;
+	}
+
+	private void postprocessGeometry(AbstractBridge src, SemanticSurfaceCollector collector) {
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
+				else
+					collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
 			}
 		}
 	}
 
-	private void preprocessGeometry(BridgeInstallation installation) {
-		SurfaceCollector collector = collectBoundarySurfaces(installation.getBoundedBySurface());		
-		if (collector.hasSurfaces()) {		
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = null;
-					switch (lod) {
-					case 2:
-						if (installation.isSetLod2Geometry() && installation.getLod2Geometry().getGeometry() instanceof MultiSurface)
-							multiSurface = (MultiSurface)installation.getLod2Geometry().getGeometry();
-						else {
-							multiSurface = new MultiSurface();
-							installation.setLod2Geometry(new MultiSurfaceProperty(multiSurface));
-						}
-						break;
-					case 3:
-						if (installation.isSetLod3Geometry() && installation.getLod3Geometry().getGeometry() instanceof MultiSurface)
-							multiSurface = (MultiSurface)installation.getLod3Geometry().getGeometry();
-						else {
-							multiSurface = new MultiSurface();
-							installation.setLod3Geometry(new MultiSurfaceProperty(multiSurface));
-						}
-					}
+	private SemanticSurfaceCollector preprocessGeometry(BridgeInstallation src) {
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
 
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-				}
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.assignSurfaces(src::getLod2Geometry, src::setLod2Geometry, lod);
+				else
+					collector.assignSurfaces(src::getLod3Geometry, src::setLod3Geometry, lod);
+			}
+		}
+
+		return collector;
+	}
+
+	private void postprocessGeometry(BridgeInstallation src, SemanticSurfaceCollector collector) {
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.clean(src::getLod2Geometry, src::unsetLod2Geometry);
+				else
+					collector.clean(src::getLod3Geometry, src::unsetLod3Geometry);
 			}
 		}
 	}
 	
-	private void preprocessGeometry(BridgeConstructionElement element) {
-		SurfaceCollector collector = collectBoundarySurfaces(element.getBoundedBySurface());		
-		if (collector.hasSurfaces()) {		
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = null;
-					switch (lod) {
-					case 2:
-						if (element.isSetLod2Geometry() && element.getLod2Geometry().getGeometry() instanceof MultiSurface)
-							multiSurface = (MultiSurface)element.getLod2Geometry().getGeometry();
-						else {
-							multiSurface = new MultiSurface();
-							element.setLod2Geometry(new MultiSurfaceProperty(multiSurface));
-						}
-						break;
-					case 3:
-						if (element.isSetLod3Geometry() && element.getLod3Geometry().getGeometry() instanceof MultiSurface)
-							multiSurface = (MultiSurface)element.getLod3Geometry().getGeometry();
-						else {
-							multiSurface = new MultiSurface();
-							element.setLod3Geometry(new MultiSurfaceProperty(multiSurface));
-						}
-					}
+	private SemanticSurfaceCollector preprocessGeometry(BridgeConstructionElement src) {
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
 
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-				}
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.assignSurfaces(src::getLod2Geometry, src::setLod2Geometry, lod);
+				else
+					collector.assignSurfaces(src::getLod3Geometry, src::setLod3Geometry, lod);
+			}
+		}
+
+		return collector;
+	}
+
+	private void postprocessGeometry(BridgeConstructionElement src, SemanticSurfaceCollector collector) {
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.clean(src::getLod2Geometry, src::unsetLod2Geometry);
+				else
+					collector.clean(src::getLod3Geometry, src::unsetLod3Geometry);
 			}
 		}
 	}
 
-	private SurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
-		SurfaceCollector collector = new SurfaceCollector();
+	private SemanticSurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
 
 		for (BoundarySurfaceProperty boundaryProperty : boundaryProperties) {
 			if (boundaryProperty.isSetBoundarySurface()) {
 				AbstractBoundarySurface boundarySurface = boundaryProperty.getBoundarySurface();
-				LodRepresentation lodRepresentation = boundarySurface.getLodRepresentation();
-				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetGeometry(lod)) {
-						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
-							collector.visit(geometryProperty);
-					}
-				}
-
-				if (boundarySurface.isSetOpening()) {
-					for (OpeningProperty openingProperty : boundarySurface.getOpening()) {
-						if (openingProperty.isSetOpening()) {
-							AbstractOpening opening = openingProperty.getOpening();
-							lodRepresentation = opening.getLodRepresentation();
-							for (int lod = 3; lod < 4; lod++) {
-								if (lodRepresentation.isSetGeometry(lod)) {
-									collector.setLod(lod);
-									for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
-										collector.visit(geometryProperty);
-								}
-							}
-						}
-					}
-				}
+				collector.collectSurfaces(boundarySurface, 2, 3);
+				collector.collectSurfaces(boundarySurface.getOpening(), 2, 3);
 			}
 		}
 

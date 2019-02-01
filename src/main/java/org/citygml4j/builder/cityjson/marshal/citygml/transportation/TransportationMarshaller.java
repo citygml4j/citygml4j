@@ -30,9 +30,8 @@ import org.citygml4j.binding.cityjson.geometry.MultiLineStringType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
+import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
@@ -45,15 +44,9 @@ import org.citygml4j.model.citygml.transportation.TransportationComplex;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -161,9 +154,10 @@ public class TransportationMarshaller {
 
 		if (src.isSetGenericApplicationPropertyOfTransportationComplex())
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationComplex(), dest, cityJSON);
-		
+
+		SemanticSurfaceCollector collector = null;
 		if (src.isSetTrafficArea() || src.isSetAuxiliaryTrafficArea())
-			preprocessGeometry(src);
+			collector = preprocessGeometry(src);
 
 		if (src.isSetLod0Network()) {
 			MultiLineStringType geometry = json.getGMLMarshaller().marshalMultiLineString(src.getLod0Network());
@@ -196,6 +190,9 @@ public class TransportationMarshaller {
 				dest.addGeometry(geometry);
 			}
 		}
+
+		if (collector != null)
+			postprocessGeometry(src, collector);
 	}
 
 	public void marshalRoad(Road src, RoadType dest, CityJSON cityJSON) {
@@ -292,58 +289,32 @@ public class TransportationMarshaller {
 			dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
 	}
 
+	private SemanticSurfaceCollector preprocessGeometry(TransportationComplex src) {
+		List<FeatureProperty<?>> properties = new ArrayList<>(src.getTrafficArea());
+		properties.addAll(src.getAuxiliaryTrafficArea());
 
-	private void preprocessGeometry(TransportationComplex transportationComplex) {
-		SurfaceCollector collector = new SurfaceCollector();
-		
-		List<FeatureProperty<?>> properties = new ArrayList<>(transportationComplex.getTrafficArea());
-		properties.addAll(transportationComplex.getAuxiliaryTrafficArea());
-		if (properties.isEmpty())
-			return;
-	 
-		for (FeatureProperty<?> property : properties) {
-			if (property.getFeature() instanceof AbstractCityObject) {
-				LodRepresentation lodRepresentation = ((AbstractCityObject)property.getFeature()).getLodRepresentation();
-				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetGeometry(lod)) {
-						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
-							collector.visit(geometryProperty);
-					}
-				}
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
+		collector.collectSurfaces(properties, 2, 3);
+
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
+				else
+					collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
 			}
 		}
 
-		if (collector.hasSurfaces()) {			
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = null;
-					switch (lod) {
-					case 2:
-						if (transportationComplex.isSetLod2MultiSurface() && transportationComplex.getLod2MultiSurface().isSetMultiSurface())
-							multiSurface = transportationComplex.getLod2MultiSurface().getMultiSurface();
-						else {
-							multiSurface = new MultiSurface();
-							transportationComplex.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						}
-						break;
-					case 3:
-						if (transportationComplex.isSetLod3MultiSurface() && transportationComplex.getLod3MultiSurface().isSetMultiSurface())
-							multiSurface = transportationComplex.getLod3MultiSurface().getMultiSurface();
-						else {
-							multiSurface = new MultiSurface();
-							transportationComplex.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						}
-					}
+		return collector;
+	}
 
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-				}
+	private void postprocessGeometry(TransportationComplex src, SemanticSurfaceCollector collector) {
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
+				else
+					collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
 			}
 		}
 	}

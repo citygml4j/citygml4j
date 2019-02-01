@@ -31,17 +31,14 @@ import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.util.SurfaceCollector;
+import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.tunnel.AbstractOpening;
 import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
 import org.citygml4j.model.citygml.tunnel.BoundarySurfaceProperty;
 import org.citygml4j.model.citygml.tunnel.ClosureSurface;
 import org.citygml4j.model.citygml.tunnel.Door;
 import org.citygml4j.model.citygml.tunnel.GroundSurface;
-import org.citygml4j.model.citygml.tunnel.OpeningProperty;
 import org.citygml4j.model.citygml.tunnel.OuterCeilingSurface;
 import org.citygml4j.model.citygml.tunnel.OuterFloorSurface;
 import org.citygml4j.model.citygml.tunnel.RoofSurface;
@@ -54,14 +51,8 @@ import org.citygml4j.model.citygml.tunnel.WallSurface;
 import org.citygml4j.model.citygml.tunnel.Window;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
-import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -158,8 +149,9 @@ public class TunnelMarshaller {
 		if (src.isSetGenericApplicationPropertyOfAbstractTunnel())
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractTunnel(), dest, cityJSON);
 
+		SemanticSurfaceCollector collector = null;
 		if (src.isSetBoundedBySurface())
-			preprocessGeometry(src);
+			collector = preprocessGeometry(src);
 
 		if (src.isSetLod1MultiSurface()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
@@ -228,6 +220,9 @@ public class TunnelMarshaller {
 				}
 			}
 		}
+
+		if (collector != null)
+			postprocessGeometry(src, collector);
 	}
 
 	public void marshalTunnel(Tunnel src, TunnelType dest, CityJSON cityJSON) {
@@ -286,8 +281,9 @@ public class TunnelMarshaller {
 		if (src.isSetGenericApplicationPropertyOfTunnelInstallation())
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTunnelInstallation(), dest, cityJSON);
 
+		SemanticSurfaceCollector collector = null;
 		if (src.isSetBoundedBySurface())
-			preprocessGeometry(src);
+			collector = preprocessGeometry(src);
 
 		if (src.isSetLod2Geometry()) {
 			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry());
@@ -316,6 +312,9 @@ public class TunnelMarshaller {
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
+
+		if (collector != null)
+			postprocessGeometry(src, collector);
 	}
 
 	public TunnelInstallationType marshalTunnelInstallation(TunnelInstallation src, CityJSON cityJSON) {
@@ -325,108 +324,66 @@ public class TunnelMarshaller {
 		return dest;
 	}
 
-	private void preprocessGeometry(AbstractTunnel tunnel) {
-		SurfaceCollector collector = collectBoundarySurfaces(tunnel.getBoundedBySurface());		
-		if (collector.hasSurfaces()) {		
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = null;
-					switch (lod) {
-					case 2:
-						if (tunnel.isSetLod2MultiSurface() && tunnel.getLod2MultiSurface().isSetMultiSurface())
-							multiSurface = tunnel.getLod2MultiSurface().getMultiSurface();
-						else {
-							multiSurface = new MultiSurface();
-							tunnel.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						}
-						break;
-					case 3:
-						if (tunnel.isSetLod3MultiSurface() && tunnel.getLod3MultiSurface().isSetMultiSurface())
-							multiSurface = tunnel.getLod3MultiSurface().getMultiSurface();
-						else {
-							multiSurface = new MultiSurface();
-							tunnel.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						}
-					}
+	private SemanticSurfaceCollector preprocessGeometry(AbstractTunnel src) {
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
 
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-				}
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
+				else
+					collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
+			}
+		}
+
+		return collector;
+	}
+
+	private void postprocessGeometry(AbstractTunnel src, SemanticSurfaceCollector collector) {
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
+				else
+					collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
 			}
 		}
 	}
 
-	private void preprocessGeometry(TunnelInstallation installation) {
-		SurfaceCollector collector = collectBoundarySurfaces(installation.getBoundedBySurface());		
-		if (collector.hasSurfaces()) {		
-			for (int lod = 2; lod < 4; lod++) {
-				Collection<AbstractSurface> surfaces = collector.getSurfaces(lod);
-				if (surfaces != null) {
-					MultiSurface multiSurface = null;
-					switch (lod) {
-					case 2:
-						if (installation.isSetLod2Geometry() && installation.getLod2Geometry().getGeometry() instanceof MultiSurface)
-							multiSurface = (MultiSurface)installation.getLod2Geometry().getGeometry();
-						else {
-							multiSurface = new MultiSurface();
-							installation.setLod2Geometry(new MultiSurfaceProperty(multiSurface));
-						}
-						break;
-					case 3:
-						if (installation.isSetLod3Geometry() && installation.getLod3Geometry().getGeometry() instanceof MultiSurface)
-							multiSurface = (MultiSurface)installation.getLod3Geometry().getGeometry();
-						else {
-							multiSurface = new MultiSurface();
-							installation.setLod3Geometry(new MultiSurfaceProperty(multiSurface));
-						}
-					}
+	private SemanticSurfaceCollector preprocessGeometry(TunnelInstallation src) {
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
 
-					for (AbstractSurface surface : surfaces) {					
-						SurfaceProperty dummy = new SurfaceProperty();
-						dummy.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, surface);
-						surface.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);
-						multiSurface.addSurfaceMember(dummy);
-					}
-				}
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.assignSurfaces(src::getLod2Geometry, src::setLod2Geometry, lod);
+				else
+					collector.assignSurfaces(src::getLod3Geometry, src::setLod3Geometry, lod);
+			}
+		}
+
+		return collector;
+	}
+
+	private void postprocessGeometry(TunnelInstallation src, SemanticSurfaceCollector collector) {
+		for (int lod = 2; lod < 4; lod++) {
+			if (collector.hasSurfaces(lod)) {
+				if (lod == 2)
+					collector.clean(src::getLod2Geometry, src::unsetLod2Geometry);
+				else
+					collector.clean(src::getLod3Geometry, src::unsetLod3Geometry);
 			}
 		}
 	}
 
-	private SurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
-		SurfaceCollector collector = new SurfaceCollector();
+	private SemanticSurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
 
 		for (BoundarySurfaceProperty boundaryProperty : boundaryProperties) {
 			if (boundaryProperty.isSetBoundarySurface()) {
 				AbstractBoundarySurface boundarySurface = boundaryProperty.getBoundarySurface();
-				LodRepresentation lodRepresentation = boundarySurface.getLodRepresentation();
-				for (int lod = 2; lod < 4; lod++) {
-					if (lodRepresentation.isSetGeometry(lod)) {
-						collector.setLod(lod);
-						for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
-							collector.visit(geometryProperty);
-					}
-				}
-
-				if (boundarySurface.isSetOpening()) {
-					for (OpeningProperty openingProperty : boundarySurface.getOpening()) {
-						if (openingProperty.isSetOpening()) {
-							AbstractOpening opening = openingProperty.getOpening();
-							lodRepresentation = opening.getLodRepresentation();
-							for (int lod = 3; lod < 4; lod++) {
-								if (lodRepresentation.isSetGeometry(lod)) {
-									collector.setLod(lod);
-									for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
-										collector.visit(geometryProperty);
-								}
-							}
-						}
-					}
-				}
+				collector.collectSurfaces(boundarySurface, 2, 3);
+				collector.collectSurfaces(boundarySurface.getOpening(), 2, 3);
 			}
 		}
 
