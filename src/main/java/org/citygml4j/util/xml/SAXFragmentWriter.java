@@ -113,7 +113,8 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 
 	@Override
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
-		writer.startPrefixMapping(prefix, uri);
+		if (shouldWrite)
+			writer.startPrefixMapping(prefix, uri);
 	}
 
 }

@@ -69,6 +69,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private NamespaceSupport reportedNS;
 	private LocalNamespaceContext localNS;
 
+	private boolean needNSContext = true;
 	private boolean escapeCharacters = true;
 	private boolean writeEncoding = false;
 	private boolean writeXMLDecl = true;
@@ -379,14 +380,10 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 
 			lastXMLContent = XMLContentType.END_ELEMENT;
 			localNS.popContext();
+			reportedNS.popContext();
 		} catch (IOException e) {
 			throw new SAXException(e);
 		}
-	}
-
-	@Override
-	public void endPrefixMapping(String prefix) throws SAXException {
-		reportedNS.popContext();
 	}
 
 	@Override
@@ -471,6 +468,9 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 		try {
+			if (needNSContext)
+				reportedNS.pushContext();
+
 			if (depth > 0) {
 				if (lastXMLContent == XMLContentType.START_ELEMENT)
 					writer.write(CLOSE_START_TAG);
@@ -509,13 +509,15 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 				writeNamespace(prefix, uri);
 			}
 
-			for (Enumeration<String> e = reportedNS.getDeclaredPrefixes(); e.hasMoreElements();) {
-				String reportedPrefix = e.nextElement();
-				if (!reportedPrefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
-					String reportedUri = reportedNS.getURI(reportedPrefix);
-					if (localNS.getDeclaredPrefix(reportedUri) == null) {
-						localNS.declarePrefix(reportedPrefix, reportedUri);
-						writeNamespace(reportedPrefix, reportedUri);
+			if (depth > 0) {
+				for (Enumeration e = reportedNS.getDeclaredPrefixes(); e.hasMoreElements(); ) {
+					String reportedPrefix = e.nextElement().toString();
+					if (!reportedPrefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
+						String reportedUri = reportedNS.getURI(reportedPrefix);
+						if (localNS.getDeclaredPrefix(reportedUri) == null) {
+							localNS.declarePrefix(reportedPrefix, reportedUri);
+							writeNamespace(reportedPrefix, reportedUri);
+						}
 					}
 				}
 			}
@@ -523,6 +525,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			writeAttributes(atts, uri);
 
 			lastXMLContent = XMLContentType.START_ELEMENT;
+			needNSContext = true;
 			depth++;
 		} catch (IOException e) {
 			throw new SAXException(e);
@@ -531,7 +534,11 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 
 	@Override
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
-		reportedNS.pushContext();
+		if (needNSContext) {
+			reportedNS.pushContext();
+			needNSContext = false;
+		}
+
 		if (getReportedPrefix(uri) == null)
 			reportedNS.declarePrefix(prefix, uri);
 	}
@@ -816,7 +823,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		Stack<LocalNamespaceMap> contexts;
 
 		LocalNamespaceContext() {
-			contexts = new Stack<LocalNamespaceMap>();
+			contexts = new Stack<>();
 		}
 
 		void pushContext() {
@@ -850,9 +857,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		}
 
 		String getPrefix(String uri) {
-			Iterator<LocalNamespaceMap> iter = contexts.iterator();
-			while (iter.hasNext()) {
-				LocalNamespaceMap context = iter.next();
+			for (LocalNamespaceMap context : contexts) {
 				String prefix = context.namespaces.get(uri);
 				if (prefix != null)
 					return prefix;
@@ -872,7 +877,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 
 		LocalNamespaceMap(int level) {
 			this.level = level;
-			namespaces = new HashMap<String, String>();
+			namespaces = new HashMap<>();
 		}		
 	}
 }
