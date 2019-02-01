@@ -101,6 +101,8 @@ public class TransportationUnmarshaller {
 			case "AuxiliaryTrafficArea":
 				trafficArea = unmarshalAuxiliaryTrafficArea(semanticsType, surfaces, lod);
 				break;
+			default:
+				return null;
 		}
 
 		if (parent instanceof ADEModelObject) {

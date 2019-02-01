@@ -78,6 +78,8 @@ public class WaterBodyUnmarshaller {
 			case "WaterClosureSurface":
 				boundarySurface = unmarshalWaterClosureSurface(semanticsType, surfaces, lod);
 				break;
+			default:
+				return null;
 		}
 
 		if (parent instanceof ADEModelObject) {

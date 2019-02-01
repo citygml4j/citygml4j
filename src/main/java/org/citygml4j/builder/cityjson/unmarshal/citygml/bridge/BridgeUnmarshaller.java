@@ -135,6 +135,8 @@ public class BridgeUnmarshaller {
 			case "Door":
 				cityObject = unmarshalDoor(semanticsType, surfaces, lod);
 				break;
+			default:
+				return null;
 		}
 
 		if (parent instanceof ADEModelObject) {

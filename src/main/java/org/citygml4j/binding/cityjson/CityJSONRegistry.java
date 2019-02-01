@@ -112,13 +112,13 @@ public class CityJSONRegistry {
         return type;
     }
 
-    public Class<?> getCityObjectClass(String type) {
-        Class<?> typeClass = types.get(type);
+    public Class<? extends AbstractCityObjectType> getCityObjectClass(String type) {
+        Class<? extends AbstractCityObjectType> typeClass = types.get(type);
         if (typeClass == null) {
             try {
                 Class<?> tmp = Class.forName(type);
                 if (AbstractCityObjectType.class.isAssignableFrom(tmp))
-                    typeClass = tmp;
+                    typeClass = tmp.asSubclass(AbstractCityObjectType.class);
             } catch (ClassNotFoundException e) {
                 //
             }
@@ -162,13 +162,13 @@ public class CityJSONRegistry {
         return type;
     }
 
-    public Class<?> getSemanticSurfaceClass(String type) {
-        Class<?> typeClass = semanticSurfaces.get(type);
+    public Class<? extends SemanticsType> getSemanticSurfaceClass(String type) {
+        Class<? extends SemanticsType> typeClass = semanticSurfaces.get(type);
         if (typeClass == null) {
             try {
                 Class<?> tmp = Class.forName(type);
                 if (SemanticsType.class.isAssignableFrom(tmp))
-                    typeClass = tmp;
+                    typeClass = tmp.asSubclass(SemanticsType.class);
             } catch (ClassNotFoundException e) {
                 //
             }

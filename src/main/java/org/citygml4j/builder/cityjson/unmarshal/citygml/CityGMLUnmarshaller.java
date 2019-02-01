@@ -147,7 +147,8 @@ public class CityGMLUnmarshaller {
 				parent = root;
 
 			AbstractCityObject cityObject = null;
-			if (semanticsType.getClass() != InternalSemanticsType.class) {
+			Class<?> semanticsTypeClass = json.getCityJSONRegistry().getSemanticSurfaceClass(semanticsType.getType());
+			if (semanticsTypeClass != InternalSemanticsType.class) {
 				cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
 			} else {
 				if (parent instanceof BridgeModuleComponent)
