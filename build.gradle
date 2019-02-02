@@ -69,17 +69,25 @@ task cleanJaxb(type: Delete, group: 'jaxb') {
 }
 
 javadoc {
-    options.overview "$buildDir/tmp/javadoc/overview.html"
-    options.addStringOption('doctitle', project.name + ' - ' + project.description)
     include "org/citygml4j/**"
-
+    options {
+        overview "$buildDir/tmp/javadoc/overview.html"
+        header "citygml4j $project.version"
+        bottom """
+            <a href="https://github.com/citygml4j/citygml4j/issues">Report a bug or suggest an enhancement</a><br>
+            Official website and more information at: <a target="_blank" href="https://github.com/citygml4j">https://github.com/citygml4j</a><br>
+            Copyright &copy; 2013-${date.format('yyyy')}<br>
+            Claus Nagel &lt;claus.nagel@gmail.com&gt;
+            """.replaceAll("[\r|\n]+", "")
+        addStringOption('doctitle', project.name + ' - ' + project.description)
+    }
+    
     doFirst {
         copy {
             from 'resources/javadoc/overview.html'
             into "$buildDir/tmp/javadoc"
             filter(ReplaceTokens, tokens: [
-                    version: project.version,
-                    copyright: date.format('yyyy')
+                    version: project.version
             ])
         }
     }
