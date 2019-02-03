@@ -530,7 +530,8 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			needNSContext = false;
 		}
 
-		reportedNS.declarePrefix(prefix, uri);
+		if (getReportedPrefix(uri) == null)
+			reportedNS.declarePrefix(prefix, uri);
 	}
 
 	private String getReportedPrefix(String uri) {
