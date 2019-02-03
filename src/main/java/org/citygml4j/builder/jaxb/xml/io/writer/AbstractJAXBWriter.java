@@ -135,8 +135,8 @@ public abstract class AbstractJAXBWriter implements AbstractCityGMLWriter {
 		writer.setSchemaLocation(namespaceURI, schemaLocation);
 	}
 
-	public boolean getEscapeCharacters() {
-		return writer.getEscapeCharacters();
+	public boolean isEscapeCharacters() {
+		return writer.isEscapeCharacters();
 	}
 
 	public String[] getHeaderComment() {

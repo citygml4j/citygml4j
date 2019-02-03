@@ -70,6 +70,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private LocalNamespaceContext localNS;
 
 	private boolean needNSContext = true;
+	private boolean writeReportedNamespaces = false;
 	private boolean escapeCharacters = true;
 	private boolean writeEncoding = false;
 	private boolean writeXMLDecl = true;
@@ -130,6 +131,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 
 		streamEncoding = null;
 		needNSContext = true;
+		writeReportedNamespaces = false;
 		escapeCharacters = true;
 		writeEncoding = false;
 		writeXMLDecl = true;
@@ -226,12 +228,20 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		schemaLocations.clear();
 	}
 
+	public boolean isEscapeCharacters() {
+		return escapeCharacters;
+	}
+
 	public void setEscapeCharacters(boolean escapeCharacters) {
 		this.escapeCharacters = escapeCharacters;
 	}
 
-	public boolean getEscapeCharacters() {
-		return escapeCharacters;
+	public boolean isWriteReportedNamespaces() {
+		return writeReportedNamespaces;
+	}
+
+	public void setWriteReportedNamespaces(boolean writeReportedNamespaces) {
+		this.writeReportedNamespaces = writeReportedNamespaces;
 	}
 
 	public void setNamespaceContext(CityGMLNamespaceContext context) {
@@ -512,7 +522,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 				writeNamespace(prefix, uri);
 			}
 
-			if (depth > 0)
+			if (writeReportedNamespaces && depth > 0)
 				writeReportedNamespaces();
 
 			writeAttributes(atts);

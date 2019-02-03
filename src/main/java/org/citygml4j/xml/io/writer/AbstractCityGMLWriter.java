@@ -31,7 +31,7 @@ public interface AbstractCityGMLWriter extends AutoCloseable {
 	public void flush() throws CityGMLWriteException;
 	public void reset();
 	
-	public boolean getEscapeCharacters();
+	public boolean isEscapeCharacters();
 	public CityGMLNamespaceContext getNamespaceContext();
 	public String getPrefix(String uri);
 	public String getNamespaceURI(String prefix);
