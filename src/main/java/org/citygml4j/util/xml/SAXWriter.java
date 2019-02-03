@@ -119,7 +119,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		reportedNS = new NamespaceSupport();
 		localNS = new LocalNamespaceContext();
 
-		schemaLocations = new HashMap<String, String>();
+		schemaLocations = new HashMap<>();
 		lastXMLContent = XMLContentType.UNDEFINED;
 	}
 
@@ -157,8 +157,8 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		this.writer = writer;
 
 		if (writer instanceof OutputStreamWriter) {
-			this.writer = new BufferedWriter((OutputStreamWriter)writer);			
-			String encoding = ((OutputStreamWriter)writer).getEncoding();
+			this.writer = new BufferedWriter(writer);
+			String encoding = ((OutputStreamWriter) writer).getEncoding();
 
 			if (encoding != null) {
 				Charset charset = Charset.forName(encoding);
@@ -501,7 +501,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			writeQName(prefix, localName);
 
 			if (depth == 0) {
-				writeDeclaredNamespace();
+				writeDeclaredNamespaces();
 				writeSchemaLocations();
 			}
 
@@ -510,30 +510,10 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 				writeNamespace(prefix, uri);
 			}
 
-			if (depth > 0) {
-				for (Enumeration e = reportedNS.getDeclaredPrefixes(); e.hasMoreElements(); ) {
-					String reportedPrefix = e.nextElement().toString();
-					String reportedUri = reportedNS.getURI(reportedPrefix);
+			if (depth > 0)
+				writeReportedNamespaces();
 
-					// skip if the namespace URI is already defined by the user
-					if (userDefinedNS.getPrefix(reportedUri) != null)
-						continue;
-
-					// skip if the namespace URI is already defined locally
-					if (localNS.getDeclaredPrefix(reportedUri) != null)
-						continue;
-
-					// adapt prefix if it is already in use
-					if (userDefinedNS.containsPrefix(reportedPrefix)
-							|| localNS.containsDeclaredPrefix(reportedPrefix))
-						reportedPrefix += nsCounter++;
-
-					localNS.declarePrefix(reportedPrefix, reportedUri);
-					writeNamespace(reportedPrefix, reportedUri);
-				}
-			}
-
-			writeAttributes(atts, uri);
+			writeAttributes(atts);
 
 			lastXMLContent = XMLContentType.START_ELEMENT;
 			needNSContext = true;
@@ -565,7 +545,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		return reportedNS.getURI(prefix);
 	}
 
-	private void writeAttributes(Attributes atts, String elementURI) throws SAXException {
+	private void writeAttributes(Attributes atts) throws SAXException {
 		try {
 			String localName, uri, prefix;
 
@@ -610,7 +590,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		}
 	}
 
-	private void writeDeclaredNamespace() throws SAXException {
+	private void writeDeclaredNamespaces() throws SAXException {
 		Iterator<String> iter = userDefinedNS.getNamespaceURIs();
 
 		while (iter.hasNext()) {
@@ -618,6 +598,29 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			String prefix = userDefinedNS.getPrefix(uri);
 
 			writeNamespace(prefix, uri);
+		}
+	}
+
+	private void writeReportedNamespaces() throws SAXException {
+		for (Enumeration e = reportedNS.getDeclaredPrefixes(); e.hasMoreElements(); ) {
+			String reportedPrefix = e.nextElement().toString();
+			String reportedUri = reportedNS.getURI(reportedPrefix);
+
+			// skip if the namespace URI is already defined by the user
+			if (userDefinedNS.getPrefix(reportedUri) != null)
+				continue;
+
+			// skip if the namespace URI is already defined locally
+			if (localNS.getDeclaredPrefix(reportedUri) != null)
+				continue;
+
+			// adapt prefix if it is already in use
+			if (userDefinedNS.containsPrefix(reportedPrefix)
+					|| localNS.containsDeclaredPrefix(reportedPrefix))
+				reportedPrefix += nsCounter++;
+
+			localNS.declarePrefix(reportedPrefix, reportedUri);
+			writeNamespace(reportedPrefix, reportedUri);
 		}
 	}
 
