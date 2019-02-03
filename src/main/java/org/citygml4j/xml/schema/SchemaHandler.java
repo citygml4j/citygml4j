@@ -101,10 +101,10 @@ public class SchemaHandler {
 
 	private SchemaHandler() {
 		// just to thwart instantiation
-		schemaSets = new HashSet<XSSchemaSet>();
-		schemaLocations = new HashMap<String, String>();
-		visited = new HashMap<String, String>();		
-		schemas = new HashMap<String, Schema>();
+		schemaSets = new HashSet<>();
+		schemaLocations = new HashMap<>();
+		visited = new HashMap<>();
+		schemas = new HashMap<>();
 	}
 
 	public void reset() {
@@ -213,7 +213,7 @@ public class SchemaHandler {
 			parse(schemaLocation);
 		} catch (SAXException e) {
 			if (schemaEntityResolver != null) {
-				InputSource inputSource = null;
+				InputSource inputSource;
 
 				try {
 					inputSource = schemaEntityResolver.resolveEntity(namespaceURI, schemaLocation);
@@ -260,28 +260,24 @@ public class SchemaHandler {
 			return;
 
 		XSOMParser parser = new XSOMParser(SAXParserFactory.newInstance());
-		parser.setEntityResolver(new EntityResolver() {
+		parser.setEntityResolver((publicId, systemId) -> {
+			InputSource inputSource = null;
 
-			public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-				InputSource inputSource = null;
-
-				if (publicId != null) {
-					for (Entry<String, String> entry : visited.entrySet()) {					
-						if (entry.getKey().equals(publicId)) {
-							inputSource = new InputSource(entry.getValue());
-							inputSource.setPublicId(publicId);
-							inputSource.setSystemId(entry.getValue());
-							break;
-						}
+			if (publicId != null) {
+				for (Entry<String, String> entry : visited.entrySet()) {
+					if (entry.getKey().equals(publicId)) {
+						inputSource = new InputSource(entry.getValue());
+						inputSource.setPublicId(publicId);
+						inputSource.setSystemId(entry.getValue());
+						break;
 					}
 				}
-
-				if (inputSource == null && publicId != null && schemaEntityResolver != null)
-					inputSource = schemaEntityResolver.resolveEntity(publicId, systemId);
-
-				return inputSource;
 			}
 
+			if (inputSource == null && publicId != null && schemaEntityResolver != null)
+				inputSource = schemaEntityResolver.resolveEntity(publicId, systemId);
+
+			return inputSource;
 		});
 
 		if (schemaErrorHandler != null)
@@ -295,6 +291,9 @@ public class SchemaHandler {
 
 		if (schemaSet != null) {			
 			for (XSSchema schema : schemaSet.getSchemas()) {
+				if (XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(schema.getTargetNamespace()))
+					continue;
+
 				Locator locator = schema.getLocator();
 				if (locator != null) {
 					String systemId = locator.getSystemId();
