@@ -39,7 +39,6 @@ dependencies {
 
     jaxb 'org.glassfish.jaxb:jaxb-xjc:2.3.2'
     jaxb 'org.jvnet.jaxb2_commons:jaxb2-basics:0.12.0'
-    jaxb 'org.jvnet.jaxb2_commons:jaxb2-namespace-prefix:1.3'
     jaxb 'org.slf4j:slf4j-simple:1.7.25'
 }
 
@@ -57,7 +56,7 @@ task generateJaxb(group: 'jaxb') {
                 extension: 'true',
                 encoding: 'UTF-8') {
             produces(dir: genSrcDir, includes: '**/*.java')
-            arg(line: '-Xnamespace-prefix -Xsetters -Xsetters-mode=direct')
+            arg(line: '-Xsetters -Xsetters-mode=direct')
         }
 
         delete "$genSrcDir/org/citygml4j"

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2019.01.28 um 10:00:07 PM CET 
+// Generiert: 2019.02.03 um 11:14:53 PM CET 
 //
 
 
@@ -75,13 +75,13 @@ public class GenericAttributeSetType
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link UriAttributeType }{@code >}
-     * {@link JAXBElement }{@code <}{@link MeasureAttributeType }{@code >}
-     * {@link JAXBElement }{@code <}{@link GenericAttributeSetType }{@code >}
      * {@link JAXBElement }{@code <}{@link IntAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link UriAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link StringAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link GenericAttributeSetType }{@code >}
      * {@link JAXBElement }{@code <}{@link DoubleAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link DateAttributeType }{@code >}
+     * {@link JAXBElement }{@code <}{@link MeasureAttributeType }{@code >}
      * {@link JAXBElement }{@code <}{@link AbstractGenericAttributeType }{@code >}
      * 
      * 

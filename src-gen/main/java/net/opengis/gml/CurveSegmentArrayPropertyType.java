@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2019.01.28 um 10:00:07 PM CET 
+// Generiert: 2019.02.03 um 11:14:53 PM CET 
 //
 
 
@@ -69,17 +69,17 @@ public class CurveSegmentArrayPropertyType {
      * {@link JAXBElement }{@code <}{@link ArcStringByBulgeType }{@code >}
      * {@link JAXBElement }{@code <}{@link GeodesicType }{@code >}
      * {@link JAXBElement }{@code <}{@link GeodesicStringType }{@code >}
-     * {@link JAXBElement }{@code <}{@link CircleType }{@code >}
-     * {@link JAXBElement }{@code <}{@link ArcType }{@code >}
-     * {@link JAXBElement }{@code <}{@link ArcStringType }{@code >}
+     * {@link JAXBElement }{@code <}{@link OffsetCurveType }{@code >}
      * {@link JAXBElement }{@code <}{@link CircleByCenterPointType }{@code >}
      * {@link JAXBElement }{@code <}{@link ArcByCenterPointType }{@code >}
-     * {@link JAXBElement }{@code <}{@link ClothoidType }{@code >}
-     * {@link JAXBElement }{@code <}{@link OffsetCurveType }{@code >}
-     * {@link JAXBElement }{@code <}{@link CubicSplineType }{@code >}
      * {@link JAXBElement }{@code <}{@link LineStringSegmentType }{@code >}
      * {@link JAXBElement }{@code <}{@link BezierType }{@code >}
      * {@link JAXBElement }{@code <}{@link BSplineType }{@code >}
+     * {@link JAXBElement }{@code <}{@link CircleType }{@code >}
+     * {@link JAXBElement }{@code <}{@link ArcType }{@code >}
+     * {@link JAXBElement }{@code <}{@link ArcStringType }{@code >}
+     * {@link JAXBElement }{@code <}{@link CubicSplineType }{@code >}
+     * {@link JAXBElement }{@code <}{@link ClothoidType }{@code >}
      * {@link JAXBElement }{@code <}{@link AbstractCurveSegmentType }{@code >}
      * 
      * 

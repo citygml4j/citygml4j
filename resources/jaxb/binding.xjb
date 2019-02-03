@@ -17,8 +17,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!-- Specific settings for the citygml4j mapping file -->
     <jaxb:bindings schemaLocation="citygml4j.xsd" node="/xs:schema">
@@ -33,25 +32,8 @@
     <!-- CityGML 1.0.0 -->
     <!-- ============= -->
 
-    <!-- Specific settings for the CityGML Core module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/cityGMLBase.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="core"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML Appearance module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/appearance.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="app"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML Building module schema file -->
     <jaxb:bindings schemaLocation="citygml/1.0.0/building.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="bldg"/>
-        </jaxb:bindings>
 
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
 			the property 'boundedBy' of an AbstractBuildingType with that one defined by GML. So
@@ -72,18 +54,8 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
-    <!-- Specific settings for the CityGML CityFurniture module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/cityFurniture.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="frn"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
     <jaxb:bindings schemaLocation="citygml/1.0.0/cityObjectGroup.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="grp"/>
-        </jaxb:bindings>
 
         <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
 			the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
@@ -96,9 +68,6 @@
 
     <!-- Specific settings for the CityGML Generics module schema file -->
     <jaxb:bindings schemaLocation="citygml/1.0.0/generics.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="gen"/>
-        </jaxb:bindings>
 
         <!-- changing data type of DoubleAttributeType -->
         <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
@@ -108,46 +77,8 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
-    <!-- Specific settings for the CityGML LandUse module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/landUse.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="luse"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML Relief module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/relief.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="dem"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML TexturedSurface module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/texturedSurface.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="tex"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML Transportation module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/transportation.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="tran"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML Vegetation module schema file -->
-    <jaxb:bindings schemaLocation="citygml/1.0.0/vegetation.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="veg"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML WaterBody module schema file -->
     <jaxb:bindings schemaLocation="citygml/1.0.0/waterBody.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="wtr"/>
-        </jaxb:bindings>
 
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
 			the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
@@ -163,18 +94,8 @@
     <!-- CityGML 2.0.0 -->
     <!-- ============= -->
 
-    <!-- Specific settings for the CityGML Core module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/cityGMLBase.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="core"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML Appearance module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/appearance.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="app"/>
-        </jaxb:bindings>
 
         <!-- The global elements 'Appearance' and 'appearance' cannot be automatically
             mapped to two different classes by JAXB  -->
@@ -185,9 +106,6 @@
 
     <!-- Specific settings for the CityGML Bridge module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/bridge.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="brid"/>
-        </jaxb:bindings>
 
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an AbstractBridgeType with that one defined by GML. So
@@ -237,9 +155,6 @@
 
     <!-- Specific settings for the CityGML Building module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/building.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="bldg"/>
-        </jaxb:bindings>
 
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an AbstractBuildingType with that one defined by GML. So
@@ -278,18 +193,8 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
-    <!-- Specific settings for the CityGML CityFurniture module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/cityFurniture.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="frn"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML CityObjectGroup module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/cityObjectGroup.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="grp"/>
-        </jaxb:bindings>
 
         <!-- correct error for 'role' attribute of CityObjectGroupMemberType. The error occurs because
             the GML implementation of xlink also defines an attribute 'role' for this complexType. -->
@@ -302,9 +207,6 @@
 
     <!-- Specific settings for the CityGML Generics module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/generics.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="gen"/>
-        </jaxb:bindings>
 
         <!-- changing data type of DoubleAttributeType -->
         <jaxb:bindings node="//xs:complexType[@name='DoubleAttributeType']">
@@ -314,39 +216,8 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
-    <!-- Specific settings for the CityGML LandUse module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/landUse.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="luse"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML Relief module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/relief.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="dem"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML TexturedSurface module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/texturedSurface.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="tex"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
-    <!-- Specific settings for the CityGML Transportation module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/transportation.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="tran"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML Tunnel module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/tunnel.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="tun"/>
-        </jaxb:bindings>
 
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an AbstractTunnelType with that one defined by GML. So
@@ -385,18 +256,8 @@
         </jaxb:bindings>
     </jaxb:bindings>
 
-    <!-- Specific settings for the CityGML Vegetation module schema file -->
-    <jaxb:bindings schemaLocation="citygml/2.0.0/vegetation.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="veg"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
-
     <!-- Specific settings for the CityGML WaterBody module schema file -->
     <jaxb:bindings schemaLocation="citygml/2.0.0/waterBody.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="wtr"/>
-        </jaxb:bindings>
 
         <!-- GML features do have a property called 'boundedBy'. The schema mapping mixes up
             the property 'boundedBy' of an WaterBodyType with that one defined by GML. So
@@ -411,13 +272,6 @@
     <!-- ========= -->
     <!-- GML 3.1.1 -->
     <!-- ========= -->
-
-    <!-- Specific settings for the GML schema file -->
-    <jaxb:bindings schemaLocation="gml/3.1.1/base/gml.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="gml"/>
-        </jaxb:bindings>
-    </jaxb:bindings>
 
     <!-- Specific settings for the GML schema file 'defaultStyle.xsd' -->
     <jaxb:bindings schemaLocation="gml/3.1.1/base/defaultStyle.xsd" node="/xs:schema">
@@ -446,9 +300,6 @@
 
     <!-- Specific settings for the XLink schema file -->
     <jaxb:bindings schemaLocation="gml/3.1.1/xlink/xlink.xsd" node="/xs:schema">
-        <jaxb:bindings>
-            <namespace:prefix name="xlink"/>
-        </jaxb:bindings>
 
         <jaxb:bindings schemaLocation="gml/3.1.1/xlink/xlink.xsd" node="/xs:schema">
             <!-- 'title' property is referenced both as attribute and as element. -->
@@ -477,9 +328,6 @@
                 <jaxb:elementName suffix="Element"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
-        <jaxb:bindings>
-            <namespace:prefix name="xAL"/>
-        </jaxb:bindings>
     </jaxb:bindings>
 
     <!-- =============== -->
