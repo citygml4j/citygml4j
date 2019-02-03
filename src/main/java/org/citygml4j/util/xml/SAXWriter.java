@@ -129,6 +129,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		localNS.reset();
 
 		streamEncoding = null;
+		needNSContext = true;
 		escapeCharacters = true;
 		writeEncoding = false;
 		writeXMLDecl = true;
@@ -136,6 +137,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		headerComment = null;
 		schemaLocations.clear();
 		depth = 0;
+		nsCounter = 1;
 
 		lastXMLContent = XMLContentType.UNDEFINED;
 	}
