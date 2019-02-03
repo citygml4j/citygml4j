@@ -78,6 +78,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private String[] headerComment;
 	private HashMap<String, String> schemaLocations;
 	private int depth = 0;
+	private int nsCounter = 1;
 
 	private XMLContentType lastXMLContent;
 
@@ -512,13 +513,23 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			if (depth > 0) {
 				for (Enumeration e = reportedNS.getDeclaredPrefixes(); e.hasMoreElements(); ) {
 					String reportedPrefix = e.nextElement().toString();
-					if (!reportedPrefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
-						String reportedUri = reportedNS.getURI(reportedPrefix);
-						if (localNS.getDeclaredPrefix(reportedUri) == null) {
-							localNS.declarePrefix(reportedPrefix, reportedUri);
-							writeNamespace(reportedPrefix, reportedUri);
-						}
-					}
+					String reportedUri = reportedNS.getURI(reportedPrefix);
+
+					// skip if the namespace URI is already defined by the user
+					if (userDefinedNS.getPrefix(reportedUri) != null)
+						continue;
+
+					// skip if the namespace URI is already defined locally
+					if (localNS.getDeclaredPrefix(reportedUri) != null)
+						continue;
+
+					// adapt prefix if it is already in use
+					if (userDefinedNS.containsPrefix(reportedPrefix)
+							|| localNS.containsDeclaredPrefix(reportedPrefix))
+						reportedPrefix += nsCounter++;
+
+					localNS.declarePrefix(reportedPrefix, reportedUri);
+					writeNamespace(reportedPrefix, reportedUri);
 				}
 			}
 
@@ -539,8 +550,7 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 			needNSContext = false;
 		}
 
-		if (getReportedPrefix(uri) == null)
-			reportedNS.declarePrefix(prefix, uri);
+		reportedNS.declarePrefix(prefix, uri);
 	}
 
 	private String getReportedPrefix(String uri) {
@@ -868,6 +878,10 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 
 		String getDeclaredPrefix(String uri) {
 			return contexts.peek().namespaces.get(uri);
+		}
+
+		boolean containsDeclaredPrefix(String prefix) {
+			return contexts.peek().namespaces.containsValue(prefix);
 		}
 	}
 

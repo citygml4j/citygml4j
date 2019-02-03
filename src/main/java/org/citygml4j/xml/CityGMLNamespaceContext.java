@@ -110,6 +110,10 @@ public class CityGMLNamespaceContext implements NamespaceContext {
 		return namespaces.values().iterator();
 	}
 
+	public boolean containsPrefix(String prefix) {
+		return namespaces.containsValue(prefix);
+	}
+
 	public Iterator<String> getNamespaceURIs() {
 		return namespaces.keySet().iterator();
 	}
