@@ -41,6 +41,7 @@ import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.writer.CityModelWriter;
+import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -69,8 +70,8 @@ public class UsingJAXBBinder {
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
 
-		ADEComponent ade = cityModel.getCityObjectMember().get(3).getGenericADEElement();
-		Element adeElement = ((ADEGenericElement)ade).getContent();
+		ADEGenericElement ade = cityModel.getCityObjectMember().get(3).getGenericADEElement();
+		Element adeElement = ade.getContent();
 
 		System.out.println(df.format(new Date()) + "creating JAXBContext from ADE JAXB classes");
 		String contextPath = JAXBContextPath.getContextPath("handling_ade.generic.unmarshalling_ade_using_jaxb.ade.sub.jaxb");
@@ -123,6 +124,7 @@ public class UsingJAXBBinder {
 
 		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
 		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
+		out.setSchemaHandler(in.getSchemaHandler());
 
 		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_SubsurfaceStructureADE_JAXBBinder_v100.gml"));
 		writer.setPrefixes(CityGMLVersion.v1_0_0);
