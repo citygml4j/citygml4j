@@ -36,6 +36,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -76,7 +77,7 @@ public class ApplyXSLTWhenWriting {
 		out.setTransformationTemplates(stylesheet);
 
 		// create a CityGML writer
-		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_Buildings_formatted_v200.gml"));
+		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_Buildings_formatted_v200.gml"), StandardCharsets.UTF_8.name());
 		writer.setPrefixes(CityGMLVersion.v2_0_0);
 		writer.setDefaultNamespace(CoreModule.v2_0_0);
 		writer.setSchemaLocations(CityGMLVersion.v2_0_0);

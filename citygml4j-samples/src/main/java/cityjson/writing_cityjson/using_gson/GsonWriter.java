@@ -39,6 +39,7 @@ import org.citygml4j.xml.io.writer.CityGMLWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -171,7 +172,7 @@ public class GsonWriter {
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0 file");
 		CityGMLOutputFactory out = cityGMLBuilder.createCityGMLOutputFactory();
 
-		CityGMLWriter cityGMLWriter = out.createCityGMLWriter(new File("output/LOD2_Building_v200.gml"));
+		CityGMLWriter cityGMLWriter = out.createCityGMLWriter(new File("output/LOD2_Building_v200.gml"), StandardCharsets.UTF_8.name());
 		cityGMLWriter.setIndentString("  ");
 		cityGMLWriter.setPrefixes(CityGMLVersion.v2_0_0);
 		cityGMLWriter.setDefaultNamespace(CoreModule.v2_0_0);
