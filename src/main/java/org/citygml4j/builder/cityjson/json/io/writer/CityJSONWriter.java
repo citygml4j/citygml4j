@@ -27,12 +27,21 @@ import org.citygml4j.model.citygml.core.CityModel;
 import java.util.List;
 
 public class CityJSONWriter extends AbstractCityJSONWriter {
+	private DocumentState documentState = DocumentState.INITIAL;
+
+	private enum DocumentState {
+		INITIAL,
+		END_DOCUMENT,
+	}
 
 	public CityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		super(writer, factory);
 	}
 
 	public void write(CityModel cityModel) throws CityJSONWriteException {
+		if (documentState == DocumentState.END_DOCUMENT)
+			throw new IllegalStateException("CityJSON document is already complete.");
+
 		CityJSON cityJSON = marshaller.marshal(cityModel);
 		if (cityJSON != null) {
 			// add metadata
@@ -59,6 +68,15 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 
 			gson.toJson(cityJSON, CityJSON.class, writer);
 		}
+
+		documentState = DocumentState.END_DOCUMENT;
 	}
 
+	@Override
+	public void close() throws CityJSONWriteException {
+		if (documentState == DocumentState.INITIAL)
+			gson.toJson(new CityJSON(), CityJSON.class, writer);
+
+		super.close();
+	}
 }

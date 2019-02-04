@@ -294,8 +294,13 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 	@Override
 	public void close() throws CityJSONWriteException {
-		if (documentState == DocumentState.START_DOCUMENT)
-			writeEndDocument();
+		switch (documentState) {
+			case INITIAL:
+				writeStartDocument();
+			case START_DOCUMENT:
+				writeEndDocument();
+				break;
+		}
 
 		extensionProperties.clear();
 		lods.clear();
