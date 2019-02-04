@@ -4,6 +4,8 @@ plugins {
 
 apply from: 'samples.gradle'
 
+sourceCompatibility = 1.8
+
 jar.enabled false
 javadoc.enabled false
 

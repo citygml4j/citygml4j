@@ -7,12 +7,12 @@ plugins {
     id 'com.jfrog.bintray' version '1.8.4'
 }
 
+sourceCompatibility = 1.8
+
 allprojects {
     group 'org.citygml4j'
     version '2.9.0'
     description 'The Open Source Java API for CityGML'
-
-    sourceCompatibility = 1.8
 
     repositories {
         jcenter()
