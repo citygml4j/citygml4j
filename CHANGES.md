@@ -12,14 +12,14 @@ Change Log
   * Breaking: `getCityGMLModule()` has been removed from `CityGMLModuleComponent` for this reason
 
 ##### Additions
-* Added support for CityJSON v0.9
+* Added support for CityJSON 0.9
   * This required reworking the Gson binding classes for CityJSON in `org.citygml4j.binding.cityjson` and a lof of changes
    to the CityJSON marshalling and unmarshalling process in `org.citygml4j.builder.cityjson`
   * Previous versions of CityJSON are no longer supported
 * Added support for CityJSON extensions
   * An `ADEContext` can now additionally implement the `CityJSONExtension` interface to facilitate a full mapping 
   between CityGML ADE content and CityJSON extensions
-  * The [NoiseADE citygml4j module](https://github.com/citygml4j/noise-ade-citygml4j) v2.4 is a first implementation
+  * The [NoiseADE citygml4j module](https://github.com/citygml4j/noise-ade-citygml4j) version 2.4 is a first implementation
   of the `CityJSONExtension` interface  
   * Unknown CityJSON extensions can be mapped to CityGML generic city objects and attributes if no `CityJSONExtension`
   is available
