@@ -4,7 +4,7 @@ Change Log
 ### 2.9.0 - tbd
 
 ##### Breaking changes
-* changed `ADEContext` API
+* Changed `ADEContext` API
   * `getJAXBPackageNames()` has been moved to `ADEModule` to be able to associate JAXB classes with CityGML versions
   * `getADEMarshaller()` and `getADEUnmarshaller()` have been renamed to `createADEMarshaller()` and `createADEUnmarshaller()`
 * Added `Module` information to `AbstractFeature` which is set automatically during unmarshalling
