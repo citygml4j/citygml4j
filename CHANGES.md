@@ -16,7 +16,6 @@ Change Log
   * This required reworking the Gson binding classes for CityJSON in `org.citygml4j.binding.cityjson` and a lof of changes
    to the CityJSON marshalling and unmarshalling process in `org.citygml4j.builder.cityjson`
   * Previous versions of CityJSON are no longer supported
-  * Added new examples in `cityjson/handling_extensions` to demonstrate the new capabilities
 * Added support for CityJSON extensions
   * An `ADEContext` can now additionally implement the `CityJSONExtension` interface to facilitate a full mapping 
   between CityGML ADE content and CityJSON extensions
@@ -24,7 +23,7 @@ Change Log
   `CityJSONExtension` interface and therefore can map between NoiseADE content to CityJSON extension  
   * Unknown CityJSON extensions can be mapped to CityGML generic city objects and attributes if no `ADEContext`
   is available
-  * Added example programs under `cityjson/handling_extensions` to demonstrate the new capabilities
+  * Added new examples in `cityjson/handling_extensions` to demonstrate the new capabilities
 * Added support for LoD0 curves for CityJSON transportation objects
 * Improved mapping of CityJSON attributes to and from generic attributes
 
