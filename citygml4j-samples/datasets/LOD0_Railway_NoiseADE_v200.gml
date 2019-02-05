@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
     xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:noise="http://www.citygml.org/ade/noise_de/2.0"
@@ -68,7 +68,7 @@
                     </noise:lod0BaseLine>
                     <noise:usedBy>
                         <noise:Train gml:id="CTR_0815">
-                            <gml:description>Musterzug von A nach B, verkehrt t�glich uswusw.</gml:description>
+                            <gml:description>Musterzug von A nach B, verkehrt täglich uswusw.</gml:description>
                             <gml:name>Musterzug1</gml:name>
                             <noise:trainType>Fahrzeuge mit Radscheibenbremsen</noise:trainType>
                             <noise:trainTypeCorrection uom="dB">-2.123</noise:trainTypeCorrection>
