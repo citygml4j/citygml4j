@@ -21,7 +21,7 @@ Change Log
   between CityGML ADE content and CityJSON extensions
   * The [NoiseADE citygml4j module](https://github.com/citygml4j/noise-ade-citygml4j) v2.4 is a first implementation
   of the `CityJSONExtension` interface  
-  * Unknown CityJSON extensions can be mapped to CityGML generic city objects and attributes if no `ADEContext`
+  * Unknown CityJSON extensions can be mapped to CityGML generic city objects and attributes if no `CityJSONExtension`
   is available
   * Added new examples in `cityjson/handling_extensions` to demonstrate the new capabilities
 * Added support for LoD0 curves for CityJSON transportation objects
