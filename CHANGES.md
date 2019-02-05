@@ -36,7 +36,7 @@ Change Log
 
 ##### Miscellaneous
 * Switched to JAXB 2.3.2
-* Removed `SMIL` from generated JAXB sources (never saw a GML dataset using it...)
+* Removed `SMIL` from generated JAXB sources (never have seen a GML dataset using it...)
 * Replaced `com.sun.xsom:xsom` library with `org.glassfish.jaxb:xsom`
 
 ### 2.8.1 - 2018-11-13
