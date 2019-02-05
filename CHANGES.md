@@ -28,7 +28,7 @@ Change Log
 * Improved mapping of CityJSON attributes to and from generic attributes
 
 ##### Fixes
-* Remove temporary information from citygml4j objects after CityJSON marshalling
+* Removed temporary information from citygml4j objects after CityJSON marshalling
 * Fixed unmarshalling ADE properties of `AbstractTextureParameterization`
 * Fixed CityJSON `"date-time"` adapter
 * Avoid invalid `gml:id` prefixes in `DefaultGMLIdManager`
