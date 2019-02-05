@@ -23,7 +23,7 @@ Change Log
   of the `CityJSONExtension` interface  
   * Unknown CityJSON extensions can be mapped to CityGML generic city objects and attributes if no `CityJSONExtension`
   is available
-  * Added new examples in `cityjson/handling_extensions` to demonstrate the new capabilities
+  * Added examples in `cityjson/handling_extensions` to demonstrate the new capabilities
 * Added support for LoD0 curves for CityJSON transportation objects
 * Improved mapping of CityJSON attributes to and from generic attributes
 
