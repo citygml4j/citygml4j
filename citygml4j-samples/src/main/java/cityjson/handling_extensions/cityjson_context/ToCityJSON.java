@@ -44,9 +44,9 @@ public class ToCityJSON {
 
         /*
           Converting an ADE-enriched CityGML dataset to CityJSON is easy
-          if you have a citygml4j ADE module with CityJSON support (technically speaking,
+          if you have a citygml4j ADE module with CityJSON extension support (technically speaking,
           you need an implementation of both the ADEContext and the CityJSONExtension
-          interfaces).
+          interface).
 
           For loading and using ADE modules, apply the following steps:
 
