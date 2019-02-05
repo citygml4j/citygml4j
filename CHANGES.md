@@ -19,7 +19,7 @@ Change Log
 * Added support for CityJSON extensions
   * An `ADEContext` can now additionally implement the `CityJSONExtension` interface to facilitate a full mapping 
   between CityGML ADE content and CityJSON extensions
-  * The [NoiseADE citygml4j module](https://github.com/citygml4j/noise-ade-citygml4j) version 2.4 is a first implementation
+  * The [NoiseADE citygml4j module](https://github.com/citygml4j/noise-ade-citygml4j) v2.4 is a first implementation
   of the `CityJSONExtension` interface  
   * Unknown CityJSON extensions can be mapped to CityGML generic city objects and attributes if no `ADEContext`
   is available
