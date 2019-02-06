@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-### 2.9.0 - 2018-06-02
+### 2.9.0 - 2019-02-06
 
 ##### Breaking changes
 * Changed `ADEContext` API.
