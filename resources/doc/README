@@ -51,7 +51,7 @@ Feature list:
 * Support for CityGML specific subset of GML 3.1.1
 * Support for the eXtensible Address Language (xAL)
 * Support for user-defined CityGML Application Domain Extensions (ADE)
-* Support for CityJSON 0.6
+* Support for CityJSON 0.9 and the CityJSON extension mechanism
 
 CityGML is an open data model and XML-based format for the storage and exchange
 of semantic 3D city models. It is an application schema for the Geography Markup
@@ -86,10 +86,13 @@ citygml4j is also available as Maven artifact:
 
 A collection of sample programs that demonstrate the use of the library are
 provided in the "samples" folder. The sample programs are organized into
-subfolders, each addressing a different use case of citygml4j. Ant build
-files are provided to easily run the sample programs.
+subfolders, each addressing a different use case of citygml4j.
 
-   
+Gradle tasks are provided to easily run the sample programs. Simply open a
+shell environment, change to the "samples" folder and invoke the Gradle wrapper
+using the fully qualified name of the Java class as task name.
+
+
 6. Developers
 -------------
 
