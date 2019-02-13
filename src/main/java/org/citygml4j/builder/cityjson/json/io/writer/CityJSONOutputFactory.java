@@ -26,10 +26,12 @@ import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,8 +53,25 @@ public class CityJSONOutputFactory {
 		}
 	}
 
+	public CityJSONWriter createCityJSONWriter(File file, String encoding) throws CityJSONWriteException {
+		try {
+			createParentDirectories(file.toPath());
+			return new CityJSONWriter(new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)), this);
+		} catch (IOException e) {
+			throw new CityJSONWriteException("Caused by: ", e);
+		}
+	}
+
 	public CityJSONWriter createCityJSONWriter(OutputStream outputStream) {
 		return new CityJSONWriter(new JsonWriter(new OutputStreamWriter(outputStream)), this);
+	}
+
+	public CityJSONWriter createCityJSONWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
+		try {
+			return new CityJSONWriter(new JsonWriter(new OutputStreamWriter(outputStream, encoding)), this);
+		} catch (UnsupportedEncodingException e) {
+			throw new CityJSONWriteException("Caused by: ", e);
+		}
 	}
 	
 	public CityJSONWriter createCityJSONWriter(Writer writer) {
@@ -68,8 +87,25 @@ public class CityJSONOutputFactory {
 		}
 	}
 
+	public CityJSONChunkWriter createCityJSONChunkWriter(File file, String encoding) throws CityJSONWriteException {
+		try {
+			createParentDirectories(file.toPath());
+			return new CityJSONChunkWriter(new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)), this);
+		} catch (IOException e) {
+			throw new CityJSONWriteException("Caused by: ", e);
+		}
+	}
+
 	public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream) {
 		return new CityJSONChunkWriter(new JsonWriter(new OutputStreamWriter(outputStream)), this);
+	}
+
+	public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
+		try {
+			return new CityJSONChunkWriter(new JsonWriter(new OutputStreamWriter(outputStream, encoding)), this);
+		} catch (UnsupportedEncodingException e) {
+			throw new CityJSONWriteException("Caused by: ", e);
+		}
 	}
 	
 	public CityJSONChunkWriter createCityJSONChunkWriter(Writer writer) {
