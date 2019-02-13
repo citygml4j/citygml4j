@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+### 2.9.1 - 2019-02-13
+
+##### Additions
+* The encoding to be used for CityJSON files can now be defined when creating a CityJSON writer through a `CityJSONOutputFactory`.
+
 ### 2.9.0 - 2019-02-06
 
 ##### Breaking changes
