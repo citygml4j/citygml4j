@@ -19,6 +19,8 @@
 package org.citygml4j.builder.cityjson.json.io.reader;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
@@ -51,13 +53,19 @@ public class CityJSONReader implements AutoCloseable {
 		processUnknownExtensions = factory.processUnknownExtensions;
 	}
 
-	public CityModel read() {
+	public CityModel read() throws CityJSONReadException {
 		// prepare builder
 		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter()
 				.withTypeFilter(filter)
 				.processUnknownExtensions(processUnknownExtensions));
 
-		CityJSON cityJSON = builder.create().fromJson(reader, CityJSON.class);
+		CityJSON cityJSON;
+		try {
+			cityJSON = builder.create().fromJson(reader, CityJSON.class);
+		} catch (JsonIOException | JsonSyntaxException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
+
 		if (cityJSON != null) {
 			metadata = cityJSON.getMetadata();
 			CityModel cityModel = unmarshaller.unmarshal(cityJSON);
