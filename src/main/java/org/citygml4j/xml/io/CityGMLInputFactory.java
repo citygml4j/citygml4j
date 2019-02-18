@@ -41,6 +41,7 @@ public interface CityGMLInputFactory {
 	public static final String EXCLUDE_FROM_SPLITTING = "org.citygml4j.excludeFromSplitting";
 	public static final String USE_VALIDATION = "org.citygml4j.useValidation";
 	public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
+	public static final String SKIP_GENERIC_ADE_CONTENT = "org.citygml4j.skipGenericADEContent";
 	public static final String SUPPORT_CITYGML_VERSION_0_4_0 = "org.citygml4j.supportCityGML040";
 	
 	public XMLInputFactory getXMLInputFactory();

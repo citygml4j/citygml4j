@@ -138,7 +138,7 @@ public class CityObjectGroup100Unmarshaller {
 		if (src.isSetGroupRole())
 			dest.setGroupRole(src.getGroupRole());
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -177,7 +177,7 @@ public class CityObjectGroup100Unmarshaller {
 				dest.setObject((AbstractCityObject)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())

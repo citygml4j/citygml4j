@@ -311,7 +311,7 @@ public class Tunnel200Unmarshaller {
 				dest.setObject((AbstractBoundarySurface)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -541,7 +541,7 @@ public class Tunnel200Unmarshaller {
 				dest.setIntTunnelInstallation((IntTunnelInstallation)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -580,7 +580,7 @@ public class Tunnel200Unmarshaller {
 				dest.setTunnelFurniture((TunnelFurniture)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -619,7 +619,7 @@ public class Tunnel200Unmarshaller {
 				dest.setHollowSpace((HollowSpace)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -715,7 +715,7 @@ public class Tunnel200Unmarshaller {
 				dest.setObject((AbstractOpening)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -885,7 +885,7 @@ public class Tunnel200Unmarshaller {
 				dest.setTunnelInstallation((TunnelInstallation)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -943,7 +943,7 @@ public class Tunnel200Unmarshaller {
 				dest.setTunnelPart((TunnelPart)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())

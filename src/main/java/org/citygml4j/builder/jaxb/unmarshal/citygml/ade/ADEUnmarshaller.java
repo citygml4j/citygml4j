@@ -58,6 +58,9 @@ public class ADEUnmarshaller {
 	}
 
 	public ADEGenericElement unmarshal(Element element) throws MissingADESchemaException {
+		if (jaxb.isSkipGenericADEContent())
+			return null;
+
 		if (jaxb.isParseSchema()) {
 			try {
 				jaxb.getSchemaHandler().parseSchema(element);

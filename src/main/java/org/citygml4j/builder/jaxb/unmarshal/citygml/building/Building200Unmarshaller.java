@@ -341,7 +341,7 @@ public class Building200Unmarshaller {
 				dest.setObject((AbstractBoundarySurface)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -492,7 +492,7 @@ public class Building200Unmarshaller {
 				dest.setBuildingInstallation((BuildingInstallation)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -550,7 +550,7 @@ public class Building200Unmarshaller {
 				dest.setBuildingPart((BuildingPart)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -732,7 +732,7 @@ public class Building200Unmarshaller {
 				dest.setIntBuildingInstallation((IntBuildingInstallation)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -771,7 +771,7 @@ public class Building200Unmarshaller {
 				dest.setBuildingFurniture((BuildingFurniture)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -810,7 +810,7 @@ public class Building200Unmarshaller {
 				dest.setRoom((Room)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -906,7 +906,7 @@ public class Building200Unmarshaller {
 				dest.setObject((AbstractOpening)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())

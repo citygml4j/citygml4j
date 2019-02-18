@@ -48,16 +48,15 @@ public abstract class AbstractJAXBReader {
 	TransformerChainFactory transformerChainFactory;
 
 	boolean useValidation;
-	boolean failOnMissingADESchema;
+	boolean parseSchema;
+
 	ValidationSchemaHandler validationSchemaHandler;
 	ValidationEventHandler validationEventHandler;
 	CityGMLInputFilter filter;
-
-	boolean parseSchema;
 	URI baseURI;
 
 	@SuppressWarnings("unchecked")
-	public AbstractJAXBReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {		
+	public AbstractJAXBReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
 		if ((Boolean)factory.getProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
 			reader = new CityGMLNamespaceMapper(reader);
 
@@ -69,11 +68,12 @@ public abstract class AbstractJAXBReader {
 		transformerChainFactory = factory.getTransformerChainFactory();
 		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
 		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
-		failOnMissingADESchema = (Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);
+		boolean failOnMissingADESchema = (Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);
 
 		schemaHandler = factory.getSchemaHandler();
 		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
 		jaxbUnmarshaller.setThrowMissingADESchema(failOnMissingADESchema);
+		jaxbUnmarshaller.setSkipGenericADEContent((Boolean)factory.getProperty(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT));
 
 		elementChecker = new XMLElementChecker(schemaHandler, 
 				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),

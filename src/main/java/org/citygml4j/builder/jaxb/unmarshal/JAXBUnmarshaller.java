@@ -45,6 +45,7 @@ public class JAXBUnmarshaller {
 	private final DatatypeFactory dataTypeFactory;
 	private boolean parseSchema = true;
 	private boolean throwMissingADESchema = true;
+	private boolean skipGenericADEContent;
 	private boolean releaseJAXBElements = true;
 
 	public JAXBUnmarshaller(CityGMLBuilder builder, SchemaHandler schemaHandler) {
@@ -150,6 +151,14 @@ public class JAXBUnmarshaller {
 
 	public void setThrowMissingADESchema(boolean throwMissingADESchema) {
 		this.throwMissingADESchema = throwMissingADESchema;
+	}
+
+	public boolean isSkipGenericADEContent() {
+		return skipGenericADEContent;
+	}
+
+	public void setSkipGenericADEContent(boolean skipGenericADEContent) {
+		this.skipGenericADEContent = skipGenericADEContent;
 	}
 
 	public boolean isReleaseJAXBElementsFromMemory() {

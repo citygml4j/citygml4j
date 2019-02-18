@@ -66,6 +66,7 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	private boolean parseSchema;
 	private boolean useValidation;
 	private boolean failOnMissingADESchema;
+	private boolean skipGenericADEContent;
 	private boolean supportCityGML040;
 
 	public JAXBInputFactory(CityGMLBuilder builder, SchemaHandler schemaHandler) {
@@ -78,13 +79,11 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 		validationEventHandler = null;
 		featureReadMode = FeatureReadMode.NO_SPLIT;
-		excludes = new ArrayList<QName>();
-		splitAtFeatureProperties = new ArrayList<QName>();
+		excludes = new ArrayList<>();
+		splitAtFeatureProperties = new ArrayList<>();
 		keepInlineAppearance = true;
 		parseSchema = true;
-		useValidation = false;
 		failOnMissingADESchema = true;
-		supportCityGML040 = false;
 	}
 	
 	public JAXBInputFactory(CityGMLBuilder builder) throws CityGMLBuilderException {
@@ -251,6 +250,8 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 			return splitAtFeatureProperties;
 		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
 			return failOnMissingADESchema;
+		if (name.equals(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT))
+			return skipGenericADEContent;
 		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
 			return supportCityGML040;
 
@@ -352,6 +353,13 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 				failOnMissingADESchema = (Boolean) value;
 
 			return;		
+		}
+
+		if (name.equals(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT)) {
+			if (value instanceof Boolean)
+				skipGenericADEContent = (Boolean) value;
+
+			return;
 		}
 		
 		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0)) {

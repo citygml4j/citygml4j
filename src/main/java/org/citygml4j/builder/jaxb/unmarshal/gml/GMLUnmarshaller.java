@@ -527,10 +527,10 @@ public class GMLUnmarshaller {
 			}
 		}
 
-		if (src.isSet_ADEComponent()) {
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent()) {
 				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
-				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, src, dest))
+				if (ade != null && !jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, src, dest))
 					dest.addGenericADEElement(ade);
 			}
 		}
@@ -745,7 +745,7 @@ public class GMLUnmarshaller {
 	}
 
 	public void unmarshalFeatureProperty(AssociationType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -774,7 +774,7 @@ public class GMLUnmarshaller {
 	}
 
 	public void unmarshalFeatureProperty(FeaturePropertyType src, FeatureProperty<? extends AbstractFeature> dest) throws MissingADESchemaException {
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -1487,9 +1487,12 @@ public class GMLUnmarshaller {
 			}
 		}
 
-		if (src.isSet_ADEComponent()) {
-			for (Element dom : src.get_ADEComponent())
-				dest.addGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(dom));
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent()) {
+			for (Element dom : src.get_ADEComponent()) {
+				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
+				if (ade != null)
+					dest.addGenericADEElement(ade);
+			}
 		}
 
 		return dest;
@@ -3306,7 +3309,7 @@ public class GMLUnmarshaller {
 			}
 		}
 
-		else if (src.isSet_ADEComponent()) {
+		else if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent()) {
 			value.setGenericValueObject(new GenericValueObject(src.get_ADEComponent()));
 			dest.setValue(value);
 			return dest;

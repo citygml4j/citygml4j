@@ -213,7 +213,7 @@ public class Core200Unmarshaller {
 				dest.setAddress((Address)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -314,7 +314,7 @@ public class Core200Unmarshaller {
 				dest.setObject((AbstractCityObject)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())

@@ -277,7 +277,7 @@ public class Core100Unmarshaller {
 				dest.setObject((AbstractCityObject)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())

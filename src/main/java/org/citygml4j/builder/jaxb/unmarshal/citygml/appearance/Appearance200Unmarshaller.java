@@ -170,10 +170,10 @@ public class Appearance200Unmarshaller {
 	public void unmarshalAbstractTextureParameterization(AbstractTextureParameterizationType src, AbstractTextureParameterization dest) throws MissingADESchemaException {
 		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
 
-		if (src.isSet_ADEComponent()) {
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent()) {
 			for (Element dom : src.get_ADEComponent()) {
 				ADEGenericElement ade = jaxb.getADEUnmarshaller().unmarshal(dom);
-				if (!jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, src, dest))
+				if (ade != null && !jaxb.getCityGMLUnmarshaller().assignGenericProperty(ade, src, dest))
 					dest.addGenericADEElement(ade);
 			}
 		}
@@ -234,7 +234,7 @@ public class Appearance200Unmarshaller {
 				dest.setAppearance((Appearance)object);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
@@ -371,7 +371,7 @@ public class Appearance200Unmarshaller {
 				dest.setSurfaceData((AbstractSurfaceData)surfaceData);
 		}
 
-		if (src.isSet_ADEComponent())
+		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
 			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
 		if (src.isSetRemoteSchema())
