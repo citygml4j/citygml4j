@@ -34,11 +34,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Stack;
 
 public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	private final String OPEN_COMMENT = "<!--";
@@ -624,12 +625,11 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 				continue;
 
 			// skip if the namespace URI is already defined locally
-			if (localNS.getDeclaredPrefix(reportedUri) != null)
+			if (localNS.getPrefix(reportedUri) != null)
 				continue;
 
 			// adapt prefix if it is already in use
-			if (userDefinedNS.containsPrefix(reportedPrefix)
-					|| localNS.containsDeclaredPrefix(reportedPrefix))
+			if (userDefinedNS.containsPrefix(reportedPrefix) || localNS.containsPrefix(reportedPrefix))
 				reportedPrefix += nsCounter++;
 
 			localNS.declarePrefix(reportedPrefix, reportedUri);
@@ -846,19 +846,15 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 	}
 
 	private class LocalNamespaceContext {
-		Stack<LocalNamespaceMap> contexts;
-
-		LocalNamespaceContext() {
-			contexts = new Stack<>();
-		}
+		Deque<LocalNamespaceMap> contexts = new ArrayDeque<>();
 
 		void pushContext() {
-			if (contexts.isEmpty() || contexts.peek().level != depth)
+			if (contexts.isEmpty() || contexts.getFirst().level != depth)
 				contexts.push(new LocalNamespaceMap(depth));
 		}
 
 		void popContext() {
-			if (!contexts.isEmpty() && contexts.peek().level == depth)
+			if (!contexts.isEmpty() && contexts.getFirst().level == depth)
 				contexts.pop();
 		}
 
@@ -867,37 +863,40 @@ public class SAXWriter extends XMLFilterImpl implements AutoCloseable {
 		}
 
 		void declarePrefix(String prefix, String uri) {
-			if (!contexts.isEmpty() && contexts.peek().namespaces.values().contains(prefix)) {
-				Iterator<Entry<String, String>> iter = contexts.peek().namespaces.entrySet().iterator();
-				while (iter.hasNext()) {
-					Entry<String, String> entry = iter.next();
-					if (entry.getValue().equals(prefix)) {
-						iter.remove();
-						break;
-					}				
-				}
-			}
-
 			pushContext();
-			contexts.peek().namespaces.put(uri, prefix);
+			contexts.getFirst().namespaces.put(uri, prefix);
 		}
 
 		String getPrefix(String uri) {
 			for (LocalNamespaceMap context : contexts) {
 				String prefix = context.namespaces.get(uri);
-				if (prefix != null)
+				if (prefix != null) {
+
+					// make sure the prefix has not been redefined in a more recent context
+					if (context != contexts.getFirst()) {
+						for (LocalNamespaceMap recent : contexts) {
+							if (recent == context)
+								break;
+
+							if (recent.namespaces.values().contains(prefix))
+								return null;
+						}
+					}
+
 					return prefix;
+				}
 			}
 
 			return null;
 		}
 
-		String getDeclaredPrefix(String uri) {
-			return contexts.peek().namespaces.get(uri);
-		}
+		boolean containsPrefix(String prefix) {
+			for (LocalNamespaceMap context : contexts) {
+				if (context.namespaces.containsValue(prefix))
+					return true;
+			}
 
-		boolean containsDeclaredPrefix(String prefix) {
-			return contexts.peek().namespaces.containsValue(prefix);
+			return false;
 		}
 	}
 
