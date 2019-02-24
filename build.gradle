@@ -73,7 +73,7 @@ javadoc {
         overview "$buildDir/tmp/javadoc/overview.html"
         header "citygml4j $project.version"
         bottom """
-            <a href="https://github.com/citygml4j/citygml4j/issues">Report a bug or suggest an enhancement</a><br>
+            <a target="_blank" href="https://github.com/citygml4j/citygml4j/issues">Report a bug or suggest an enhancement</a><br>
             citygml4j is open source and licensed under the <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a><br>
             Official website and more information at: <a target="_blank" href="https://github.com/citygml4j">https://github.com/citygml4j</a><br>
             Copyright &copy; 2013-${date.format('yyyy')}<br>

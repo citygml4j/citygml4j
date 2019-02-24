@@ -50,8 +50,7 @@ public class GsonReader {
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
-		// creating a Gson instance. Note that we have to define the
-		// date format as specified by CityJSON
+		// creating a Gson instance.
 		System.out.println(df.format(new Date()) + "setting up Gson builder and reader");
 		Gson gson = new Gson();
 
