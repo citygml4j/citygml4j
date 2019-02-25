@@ -34,15 +34,8 @@ public class LodRepresentation {
 	private Map<Integer, List<AssociationByRepOrRef<? extends AbstractGML>>> lods = new HashMap<>();
 
 	public void addRepresentation(int lod, AssociationByRepOrRef<? extends AbstractGML> property) {
-		if (property != null) {
-			List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
-			if (tmp == null) {
-				tmp = new ArrayList<>();
-				lods.put(lod, tmp);
-			}
-
-			tmp.add(property);
-		}
+		if (property != null)
+			lods.computeIfAbsent(lod, k -> new ArrayList<>()).add(property);
 	}
 
 	public List<AssociationByRepOrRef<? extends AbstractGML>> getRepresentation(int lod) {
@@ -58,16 +51,16 @@ public class LodRepresentation {
 		return !lods.isEmpty();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<GeometryProperty<? extends AbstractGeometry>> getGeometry(int lod) {
 		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
-		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance).map(p -> (GeometryProperty<? extends AbstractGeometry>)p).collect(Collectors.toList()) 
+		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance)
+				.map(p -> (GeometryProperty<? extends AbstractGeometry>)p).collect(Collectors.toList())
 				: Collections.emptyList();
 	}
 
 	public boolean isSetGeometry(int lod) {
 		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
-		return tmp != null ? tmp.stream().filter(GeometryProperty.class::isInstance).findFirst().isPresent() : false;
+		return tmp != null && tmp.stream().anyMatch(GeometryProperty.class::isInstance);
 	}
 
 	public boolean hasGeometries() {
@@ -81,13 +74,14 @@ public class LodRepresentation {
 
 	public List<ImplicitRepresentationProperty> getImplicitGeometry(int lod) {
 		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
-		return tmp != null ? tmp.stream().filter(ImplicitRepresentationProperty.class::isInstance).map(ImplicitRepresentationProperty.class::cast).collect(Collectors.toList()) 
+		return tmp != null ? tmp.stream().filter(ImplicitRepresentationProperty.class::isInstance)
+				.map(ImplicitRepresentationProperty.class::cast).collect(Collectors.toList())
 				: Collections.emptyList();
 	}
 
 	public boolean isSetImplicitGeometry(int lod) {
 		List<AssociationByRepOrRef<? extends AbstractGML>> tmp = lods.get(lod);
-		return tmp != null ? tmp.stream().filter(ImplicitRepresentationProperty.class::isInstance).findFirst().isPresent() : false;
+		return tmp != null && tmp.stream().anyMatch(ImplicitRepresentationProperty.class::isInstance);
 	}
 
 	public boolean hasImplicitGeometries() {
