@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
@@ -38,17 +39,11 @@ public class Curve extends AbstractCurve {
 	}
 
 	public void setSegments(CurveSegmentArrayProperty segments) {
-		if (segments != null)
-			segments.setParent(this);
-		
-		this.segments = segments;
+		this.segments = ModelObjects.setParent(segments, this);
 	}
 
 	public void unsetSegments() {
-		if (isSetSegments())
-			segments.unsetParent();
-		
-		segments = null;
+		segments = ModelObjects.setNull(segments);
 	}
 
 	public BoundingBox calcBoundingBox() {

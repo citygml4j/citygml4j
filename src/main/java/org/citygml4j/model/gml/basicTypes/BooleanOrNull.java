@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -64,15 +65,11 @@ public class BooleanOrNull implements GML, Child, Copyable {
 
 	public void setBoolean(Boolean _boolean) {
 		this._boolean = _boolean;
-		
 		unsetNull();
 	}
 
 	public void setNull(Null _null) {
-		if (_null != null)
-			_null.setParent(this);
-		
-		this._null = _null;
+		this._null = ModelObjects.setParent(_null, this);
 		unsetBoolean();
 	}
 
@@ -81,10 +78,7 @@ public class BooleanOrNull implements GML, Child, Copyable {
 	}
 	
 	public void unsetNull() {
-		if (isSetNull())
-			_null.unsetParent();
-		
-		_null = null;
+		_null = ModelObjects.setNull(_null);
 	}
 
 	public ModelObject getParent() {
@@ -111,7 +105,7 @@ public class BooleanOrNull implements GML, Child, Copyable {
 		BooleanOrNull copy = (target == null) ? new BooleanOrNull() : (BooleanOrNull)target;
 		
 		if (isSetBoolean())
-			copy.setBoolean((Boolean)copyBuilder.copy(_boolean));
+			copy.setBoolean(copyBuilder.copy(_boolean));
 			
 		if (isSetNull()) {
 			copy.setNull((Null)copyBuilder.copy(_null));

@@ -97,7 +97,7 @@ public class Coordinates implements GML, Child, Copyable {
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 		boolean isValid = false;
 
 		if (isSetValue()) {
@@ -113,7 +113,7 @@ public class Coordinates implements GML, Child, Copyable {
 			for (int i = 0; i < tupels.length && isValid ; ++i) {
 				if (tupels[i] != null && tupels[i].length() != 0) {
 					String[] coords = tupels[i].split(cs);
-					List<Double> point = new ArrayList<Double>();
+					List<Double> point = new ArrayList<>();
 
 					for (int j = 0; j < coords.length && isValid; ++j) {
 						if (coords[j] != null && coords[j].trim().length() != 0) {
@@ -150,7 +150,7 @@ public class Coordinates implements GML, Child, Copyable {
 		List<Double> tmp = toList3d();
 
 		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<Double>();
+			List<Double> reversed = new ArrayList<>();
 
 			for (int i = tmp.size() - 3; i >= 0; i -=3)
 				reversed.addAll(tmp.subList(i, i + 3));

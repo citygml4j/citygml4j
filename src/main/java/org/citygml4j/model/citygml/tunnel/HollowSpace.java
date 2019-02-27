@@ -27,6 +27,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -61,50 +62,32 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfHollowSpace(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfHollowSpace().add(ade);
 	}
 
 	public void addInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
-		if (this.interiorFurniture == null)
-			this.interiorFurniture = new ChildList<InteriorFurnitureProperty>(this);
-
-		this.interiorFurniture.add(interiorFurniture);
+		getInteriorFurniture().add(interiorFurniture);
 	}
 
 	public void addHollowSpaceInstallation(IntTunnelInstallationProperty hollowSpaceInstallation) {
-		if (this.hollowSpaceInstallation == null)
-			this.hollowSpaceInstallation = new ChildList<IntTunnelInstallationProperty>(this);
-
-		this.hollowSpaceInstallation.add(hollowSpaceInstallation);
+		getHollowSpaceInstallation().add(hollowSpaceInstallation);
 	}
 
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -115,28 +98,28 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfHollowSpace() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<InteriorFurnitureProperty> getInteriorFurniture() {
 		if (interiorFurniture == null)
-			interiorFurniture = new ChildList<InteriorFurnitureProperty>(this);
+			interiorFurniture = new ChildList<>(this);
 
 		return interiorFurniture;
 	}
@@ -151,7 +134,7 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 
 	public List<IntTunnelInstallationProperty> getHollowSpaceInstallation() {
 		if (hollowSpaceInstallation == null)
-			hollowSpaceInstallation = new ChildList<IntTunnelInstallationProperty>(this);
+			hollowSpaceInstallation = new ChildList<>(this);
 
 		return hollowSpaceInstallation;
 	}
@@ -193,123 +176,99 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 	}
 
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 	
 	public void setGenericApplicationPropertyOfHollowSpace(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setInteriorFurniture(List<InteriorFurnitureProperty> interiorFurniture) {
-		this.interiorFurniture = new ChildList<InteriorFurnitureProperty>(this, interiorFurniture);
+		this.interiorFurniture = new ChildList<>(this, interiorFurniture);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-		
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setLod4Solid(SolidProperty lod4Solid) {
-		if (lod4Solid != null)
-			lod4Solid.setParent(this);
-		
-		this.lod4Solid = lod4Solid;
+		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
 	}
 
 	public void setHollowSpaceInstallation(List<IntTunnelInstallationProperty> hollowSpaceInstallation) {
-		this.hollowSpaceInstallation = new ChildList<IntTunnelInstallationProperty>(this, hollowSpaceInstallation);
+		this.hollowSpaceInstallation = new ChildList<>(this, hollowSpaceInstallation);
 	}
 
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfHollowSpace() {
-		if (isSetGenericApplicationPropertyOfHollowSpace())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfHollowSpace(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfHollowSpace() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfHollowSpace() && this.ade.remove(ade);
 	}
 
 	public void unsetInteriorFurniture() {
-		if (isSetInteriorFurniture())
-			interiorFurniture.clear();
-
-		interiorFurniture = null;
+		interiorFurniture = ModelObjects.setNull(interiorFurniture);
 	}
 
 	public boolean unsetInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
-		return isSetInteriorFurniture() ? this.interiorFurniture.remove(interiorFurniture) : false;
+		return isSetInteriorFurniture() && this.interiorFurniture.remove(interiorFurniture);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-		
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetLod4Solid() {
-		if (isSetLod4Solid())
-			lod4Solid.unsetParent();
-		
-		lod4Solid = null;
+		lod4Solid = ModelObjects.setNull(lod4Solid);
 	}
 
 	public void unsetHollowSpaceInstallation() {
-		if (isSetHollowSpaceInstallation())
-			hollowSpaceInstallation.clear();
-
-		hollowSpaceInstallation = null;
+		hollowSpaceInstallation = ModelObjects.setNull(hollowSpaceInstallation);
 	}
 
 	public boolean unsetHollowSpaceInstallation(IntTunnelInstallationProperty hollowSpaceInstallation) {
-		return isSetHollowSpaceInstallation() ? this.hollowSpaceInstallation.remove(hollowSpaceInstallation) : false;
+		return isSetHollowSpaceInstallation() && this.hollowSpaceInstallation.remove(hollowSpaceInstallation);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -365,11 +324,8 @@ public class HollowSpace extends AbstractCityObject implements TunnelModuleCompo
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
-		if (lod4MultiSurface != null)
-			lodRepresentation.addRepresentation(4, lod4MultiSurface);
-		
-		if (lod4Solid != null)
-			lodRepresentation.addRepresentation(4, lod4Solid);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4Solid);
 		
 		return lodRepresentation;
 	}

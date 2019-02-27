@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.complexes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -49,15 +50,12 @@ public class CompositeSurface extends AbstractSurface {
 	}
 
 	public void addSurfaceMember(SurfaceProperty surfaceMember) {
-		if (this.surfaceMember == null)
-			this.surfaceMember = new ChildList<SurfaceProperty>(this);
-
-		this.surfaceMember.add(surfaceMember);
+		getSurfaceMember().add(surfaceMember);
 	}
 
 	public List<SurfaceProperty> getSurfaceMember() {
 		if (surfaceMember == null)
-			surfaceMember = new ChildList<SurfaceProperty>(this);
+			surfaceMember = new ChildList<>(this);
 
 		return surfaceMember;
 	}
@@ -67,18 +65,15 @@ public class CompositeSurface extends AbstractSurface {
 	}
 
 	public void setSurfaceMember(List<SurfaceProperty> surfaceMember) {
-		this.surfaceMember = new ChildList<SurfaceProperty>(this, surfaceMember);
+		this.surfaceMember = new ChildList<>(this, surfaceMember);
 	}
 
 	public void unsetSurfaceMember() {
-		if (isSetSurfaceMember())
-			surfaceMember.clear();
-
-		surfaceMember = null;
+		surfaceMember = ModelObjects.setNull(surfaceMember);
 	}
 
 	public boolean unsetSurfaceMember(SurfaceProperty surfaceMember) {
-		return isSetSurfaceMember() ? this.surfaceMember.remove(surfaceMember) : false;
+		return isSetSurfaceMember() && this.surfaceMember.remove(surfaceMember);
 	}
 
 	public BoundingBox calcBoundingBox() {

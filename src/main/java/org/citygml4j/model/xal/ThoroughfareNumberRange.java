@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -42,15 +43,12 @@ public class ThoroughfareNumberRange implements XAL, GrPostal, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -124,7 +122,7 @@ public class ThoroughfareNumberRange implements XAL, GrPostal, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setIndicator(String indicator) {
@@ -152,17 +150,11 @@ public class ThoroughfareNumberRange implements XAL, GrPostal, Child, Copyable {
 	}
 
 	public void setThoroughfareNumberFrom(ThoroughfareNumberFrom thoroughfareNumberFrom) {
-		if (thoroughfareNumberFrom != null)
-			thoroughfareNumberFrom.setParent(this);
-		
-		this.thoroughfareNumberFrom = thoroughfareNumberFrom;
+		this.thoroughfareNumberFrom = ModelObjects.setParent(thoroughfareNumberFrom, this);
 	}
 
 	public void setThoroughfareNumberTo(ThoroughfareNumberTo thoroughfareNumberTo) {
-		if (thoroughfareNumberTo != null)
-			thoroughfareNumberTo.setParent(this);
-		
-		this.thoroughfareNumberTo = thoroughfareNumberTo;
+		this.thoroughfareNumberTo = ModelObjects.setParent(thoroughfareNumberTo, this);
 	}
 
 	public void setType(String type) {
@@ -170,14 +162,11 @@ public class ThoroughfareNumberRange implements XAL, GrPostal, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-		
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetIndicator() {
@@ -201,17 +190,11 @@ public class ThoroughfareNumberRange implements XAL, GrPostal, Child, Copyable {
 	}
 
 	public void unsetThoroughfareNumberFrom() {
-		if (isSetThoroughfareNumberFrom())
-			thoroughfareNumberFrom.unsetParent();
-		
-		thoroughfareNumberFrom = null;
+		thoroughfareNumberFrom = ModelObjects.setNull(thoroughfareNumberFrom);
 	}
 
 	public void unsetThoroughfareNumberTo() {
-		if (isSetThoroughfareNumberTo())
-			thoroughfareNumberTo.unsetParent();
-		
-		thoroughfareNumberTo = null;
+		thoroughfareNumberTo = ModelObjects.setNull(thoroughfareNumberTo);
 	}
 
 	public void unsetType() {

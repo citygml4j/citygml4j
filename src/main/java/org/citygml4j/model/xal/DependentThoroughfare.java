@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -39,22 +40,16 @@ public class DependentThoroughfare implements XAL, Child, Copyable {
 	private ModelObject parent;
 
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addThoroughfareName(ThoroughfareName thoroughfareName) {
-		if (this.thoroughfareName == null)
-			this.thoroughfareName = new ChildList<ThoroughfareName>(this);
-
-		this.thoroughfareName.add(thoroughfareName);
+		getThoroughfareName().add(thoroughfareName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -65,7 +60,7 @@ public class DependentThoroughfare implements XAL, Child, Copyable {
 
 	public List<ThoroughfareName> getThoroughfareName() {
 		if (thoroughfareName == null)
-			thoroughfareName = new ChildList<ThoroughfareName>(this);
+			thoroughfareName = new ChildList<>(this);
 
 		return thoroughfareName;
 	}
@@ -115,39 +110,27 @@ public class DependentThoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setThoroughfareLeadingType(ThoroughfareLeadingType thoroughfareLeadingType) {
-		if (thoroughfareLeadingType != null)
-			thoroughfareLeadingType.setParent(this);
-
-		this.thoroughfareLeadingType = thoroughfareLeadingType;
+		this.thoroughfareLeadingType = ModelObjects.setParent(thoroughfareLeadingType, this);
 	}
 
 	public void setThoroughfareName(List<ThoroughfareName> thoroughfareName) {
-		this.thoroughfareName = new ChildList<ThoroughfareName>(this, thoroughfareName);
+		this.thoroughfareName = new ChildList<>(this, thoroughfareName);
 	}
 
 	public void setThoroughfarePostDirection(ThoroughfarePostDirection thoroughfarePostDirection) {
-		if (thoroughfarePostDirection != null)
-			thoroughfarePostDirection.setParent(this);
-
-		this.thoroughfarePostDirection = thoroughfarePostDirection;
+		this.thoroughfarePostDirection = ModelObjects.setParent(thoroughfarePostDirection, this);
 	}
 
 	public void setThoroughfarePreDirection(ThoroughfarePreDirection thoroughfarePreDirection) {
-		if (thoroughfarePreDirection != null)
-			thoroughfarePreDirection.setParent(this);
-
-		this.thoroughfarePreDirection = thoroughfarePreDirection;
+		this.thoroughfarePreDirection = ModelObjects.setParent(thoroughfarePreDirection, this);
 	}
 
 	public void setThoroughfareTrailingType(ThoroughfareTrailingType thoroughfareTrailingType) {
-		if (thoroughfareTrailingType != null)
-			thoroughfareTrailingType.setParent(this);
-
-		this.thoroughfareTrailingType = thoroughfareTrailingType;
+		this.thoroughfareTrailingType = ModelObjects.setParent(thoroughfareTrailingType, this);
 	}
 
 	public void setType(String type) {
@@ -155,53 +138,35 @@ public class DependentThoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetThoroughfareLeadingType() {
-		if (isSetThoroughfareLeadingType())
-			thoroughfareLeadingType.unsetParent();
-
-		thoroughfareLeadingType = null;
+		thoroughfareLeadingType = ModelObjects.setNull(thoroughfareLeadingType);
 	}
 
 	public void unsetThoroughfareName() {
-		if (isSetThoroughfareName())
-			thoroughfareName.clear();
-
-		thoroughfareName = null;
+		thoroughfareName = ModelObjects.setNull(thoroughfareName);
 	}
 
 	public boolean unsetThoroughfareName(ThoroughfareName thoroughfareName) {
-		return isSetThoroughfareName() ? this.thoroughfareName.remove(thoroughfareName) : false;
+		return isSetThoroughfareName() && this.thoroughfareName.remove(thoroughfareName);
 	}
 
 	public void unsetThoroughfarePostDirection() {
-		if (isSetThoroughfarePostDirection())
-			thoroughfarePostDirection.unsetParent();
-
-		thoroughfarePostDirection = null;
+		thoroughfarePostDirection = ModelObjects.setNull(thoroughfarePostDirection);
 	}
 
 	public void unsetThoroughfarePreDirection() {
-		if (isSetThoroughfarePreDirection())
-			thoroughfarePreDirection.unsetParent();
-
-		thoroughfarePreDirection = null;
+		thoroughfarePreDirection = ModelObjects.setNull(thoroughfarePreDirection);
 	}
 
 	public void unsetThoroughfareTrailingType() {
-		if (isSetThoroughfareTrailingType())
-			thoroughfareTrailingType.unsetParent();
-
-		thoroughfareTrailingType = null;
+		thoroughfareTrailingType = ModelObjects.setNull(thoroughfareTrailingType);
 	}
 
 	public void unsetType() {

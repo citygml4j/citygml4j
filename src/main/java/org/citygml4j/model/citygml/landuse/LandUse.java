@@ -27,6 +27,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -34,8 +35,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
@@ -62,24 +61,15 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 	}
 	
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfLandUse(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfLandUse().add(ade);
 	}
 
 	public Code getClazz() {
@@ -88,21 +78,21 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfLandUse() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -164,120 +154,87 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfLandUse(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface) {
-		if (lod0MultiSurface != null)
-			lod0MultiSurface.setParent(this);
-
-		this.lod0MultiSurface = lod0MultiSurface;
+		this.lod0MultiSurface = ModelObjects.setParent(lod0MultiSurface, this);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfLandUse() {
-		if (isSetGenericApplicationPropertyOfLandUse())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfLandUse(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfLandUse() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfLandUse() && this.ade.remove(ade);
 	}
 
 	public void unsetLod0MultiSurface() {
-		if (isSetLod0MultiSurface())
-			lod0MultiSurface.unsetParent();
-
-		lod0MultiSurface = null;
+		lod0MultiSurface = ModelObjects.setNull(lod0MultiSurface);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -335,30 +292,12 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 0; lod < 5; lod++) {
-			switch (lod) {
-			case 0:
-				property = lod0MultiSurface;
-				break;
-			case 1:
-				property = lod1MultiSurface;
-				break;
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+		lodRepresentation.addRepresentation(0, lod0MultiSurface);
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
 		
 		return lodRepresentation;
 	}

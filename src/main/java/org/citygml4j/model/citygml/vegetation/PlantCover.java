@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -33,8 +34,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSolidProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.measures.Length;
@@ -67,24 +66,15 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfPlantCover(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfPlantCover().add(ade);
 	}
 
 	public Length getAverageHeight() {
@@ -97,21 +87,21 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfPlantCover() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -201,176 +191,119 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 	}
 
 	public void setAverageHeight(Length averageHeight) {
-		if (averageHeight != null)
-			averageHeight.setParent(this);
-
-		this.averageHeight = averageHeight;
+		this.averageHeight = ModelObjects.setParent(averageHeight, this);
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfPlantCover(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod1MultiSolid(MultiSolidProperty lod1MultiSolid) {
-		if (lod1MultiSolid != null)
-			lod1MultiSolid.setParent(this);
-
-		this.lod1MultiSolid = lod1MultiSolid;
+		this.lod1MultiSolid = ModelObjects.setParent(lod1MultiSolid, this);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod2MultiSolid(MultiSolidProperty lod2MultiSolid) {
-		if (lod2MultiSolid != null)
-			lod2MultiSolid.setParent(this);
-
-		this.lod2MultiSolid = lod2MultiSolid;
+		this.lod2MultiSolid = ModelObjects.setParent(lod2MultiSolid, this);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod3MultiSolid(MultiSolidProperty lod3MultiSolid) {
-		if (lod3MultiSolid != null)
-			lod3MultiSolid.setParent(this);
-
-		this.lod3MultiSolid = lod3MultiSolid;
+		this.lod3MultiSolid = ModelObjects.setParent(lod3MultiSolid, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 	
 	public void setLod4MultiSolid(MultiSolidProperty lod4MultiSolid) {
-		if (lod4MultiSolid != null)
-			lod4MultiSolid.setParent(this);
-
-		this.lod3MultiSolid = lod4MultiSolid;
+		this.lod3MultiSolid = ModelObjects.setParent(lod4MultiSolid, this);
 	}
 
 	public void unsetAverageHeight() {
-		if (isSetAverageHeight())
-			averageHeight.unsetParent();
-
-		averageHeight = null;
+		averageHeight = ModelObjects.setNull(averageHeight);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfPlantCover() {
-		if (isSetGenericApplicationPropertyOfPlantCover())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfPlantCover(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfPlantCover() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfPlantCover() && this.ade.remove(ade);
 	}
 
 	public void unsetLod1MultiSolid() {
-		if (isSetLod1MultiSolid())
-			lod1MultiSolid.unsetParent();
-
-		lod1MultiSolid = null;
+		lod1MultiSolid = ModelObjects.setNull(lod1MultiSolid);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod2MultiSolid() {
-		if (isSetLod2MultiSolid())
-			lod2MultiSolid.unsetParent();
-
-		lod2MultiSolid = null;
+		lod2MultiSolid = ModelObjects.setNull(lod2MultiSolid);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod3MultiSolid() {
-		if (isSetLod3MultiSolid())
-			lod3MultiSolid.unsetParent();
-
-		lod3MultiSolid = null;
+		lod3MultiSolid = ModelObjects.setNull(lod3MultiSolid);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 	
 	public void unsetLod4MultiSolid() {
-		if (isSetLod4MultiSolid())
-			lod4MultiSolid.unsetParent();
-
-		lod4MultiSolid = null;
+		lod4MultiSolid = ModelObjects.setNull(lod4MultiSolid);
 	}
 
 	@Override
@@ -447,48 +380,16 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1MultiSolid;
-				break;
-			case 2:
-				property = lod2MultiSolid;
-				break;
-			case 3:
-				property = lod3MultiSolid;
-				break;
-			case 4:
-				property = lod4MultiSolid;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1MultiSurface;
-				break;
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+
+		lodRepresentation.addRepresentation(1, lod1MultiSolid);
+		lodRepresentation.addRepresentation(2, lod2MultiSolid);
+		lodRepresentation.addRepresentation(3, lod3MultiSolid);
+		lodRepresentation.addRepresentation(4, lod4MultiSolid);
+
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
 		
 		return lodRepresentation;
 	}

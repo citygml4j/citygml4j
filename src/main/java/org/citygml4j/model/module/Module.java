@@ -25,17 +25,17 @@ import java.io.Serializable;
 import java.util.Map;
 
 public interface Module extends Serializable {
-	public ModuleType getType();
-	public ModuleVersion getVersion();
-	public String getNamespaceURI();
-	public String getNamespacePrefix();
-	public String getSchemaLocation();
-	public Module[] getDependencies();
-	public boolean isDependentOn(Module module, boolean transitive);	
-	public boolean hasFeatureProperty(String name);	
-	public boolean hasFeature(String name);	
-	public Class<? extends AbstractFeature> getFeatureClass(String name);	
-	public QName getFeatureName(Class<? extends AbstractFeature> featureClass);	
-	public Map<String, Class<? extends AbstractFeature>> getFeatures();	
-	public boolean isTopLevelFeature(String name);	
+	ModuleType getType();
+	ModuleVersion getVersion();
+	String getNamespaceURI();
+	String getNamespacePrefix();
+	String getSchemaLocation();
+	Module[] getDependencies();
+	boolean isDependentOn(Module module, boolean transitive);	
+	boolean hasFeatureProperty(String name);	
+	boolean hasFeature(String name);	
+	Class<? extends AbstractFeature> getFeatureClass(String name);	
+	QName getFeatureName(Class<? extends AbstractFeature> featureClass);	
+	Map<String, Class<? extends AbstractFeature>> getFeatures();	
+	boolean isTopLevelFeature(String name);	
 }

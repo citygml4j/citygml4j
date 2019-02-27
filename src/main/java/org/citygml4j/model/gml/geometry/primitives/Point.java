@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
@@ -74,28 +75,19 @@ public class Point extends AbstractGeometricPrimitive {
 	}
 
 	public void setCoord(Coord coord) {
-		if (coord != null)
-			coord.setParent(this);
-		
-		this.coord = coord;
+		this.coord = ModelObjects.setParent(coord, this);
 	}
 
 	public void setCoordinates(Coordinates coordinates) {
-		if (coordinates != null)
-			coordinates.setParent(this);
-		
-		this.coordinates = coordinates;
+		this.coordinates = ModelObjects.setParent(coordinates, this);
 	}
 
 	public void setPos(DirectPosition pos) {
-		if (pos != null)
-			pos.setParent(this);
-		
-		this.pos = pos;
+		this.pos = ModelObjects.setParent(pos, this);
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 
 		if (isSetPos())
 			tmp.addAll(pos.toList3d());
@@ -108,24 +100,15 @@ public class Point extends AbstractGeometricPrimitive {
 	}
 
 	public void unsetCoord() {
-		if (isSetCoord())
-			coord.unsetParent();
-		
-		coord = null;
+		coord = ModelObjects.setNull(coord);
 	}
 
 	public void unsetCoordinates() {
-		if (isSetCoordinates())
-			coordinates.unsetParent();
-		
-		coordinates = null;
+		coordinates = ModelObjects.setNull(coordinates);
 	}
 
 	public void unsetPos() {
-		if (isSetPos())
-			pos.unsetParent();
-		
-		pos = null;
+		pos = ModelObjects.setNull(pos);
 	}
 
 	@Override

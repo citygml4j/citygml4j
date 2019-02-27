@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -45,10 +46,7 @@ public abstract class AbstractFeature extends AbstractGML {
 	}
 
 	public void addGenericADEElement(ADEGenericElement genericADEElement) {
-		if (this.genericADEElement == null)
-			this.genericADEElement = new ChildList<ADEGenericElement>(this);
-		
-		this.genericADEElement.add(genericADEElement);
+		getGenericADEElement().add(genericADEElement);
 	}
 	
 	public BoundingShape getBoundedBy() {
@@ -61,7 +59,7 @@ public abstract class AbstractFeature extends AbstractGML {
 	
 	public List<ADEGenericElement> getGenericADEElement() {
 		if (genericADEElement == null)
-			genericADEElement = new ChildList<ADEGenericElement>(this);
+			genericADEElement = new ChildList<>(this);
 		
 		return genericADEElement;
 	}
@@ -79,50 +77,32 @@ public abstract class AbstractFeature extends AbstractGML {
 	}
 	
 	public void setBoundedBy(BoundingShape boundingShape) {
-		if (boundingShape != null) {
-			if (boundingShape.isEmpty())
-				return;
-			
-			boundingShape.setParent(this);
-		}
-
-		boundedBy = boundingShape;
+		if (boundingShape == null || !boundingShape.isEmpty())
+			boundedBy = ModelObjects.setParent(boundingShape, this);
 	}
 
 	public void setLocation(LocationProperty location) {
-		if (location != null)
-			location.setParent(this);
-
-		this.location = location;
+		this.location = ModelObjects.setParent(location, this);
 	}
 	
 	public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
-		this.genericADEElement = new ChildList<ADEGenericElement>(this, genericADEElement);
+		this.genericADEElement = new ChildList<>(this, genericADEElement);
 	}
 
 	public void unsetBoundedBy() {
-		if (boundedBy != null)
-			boundedBy.unsetParent();
-
-		boundedBy = null;
+		boundedBy = ModelObjects.setNull(boundedBy);
 	}
 
 	public void unsetLocation() {
-		if (location != null)
-			location.unsetParent();
-
-		location = null;
+		location = ModelObjects.setNull(location);
 	}
 	
 	public void unsetGenericADEElement() {
-		if (isSetGenericADEElement())
-			genericADEElement.clear();
-		
-		genericADEElement = null;
+		genericADEElement = ModelObjects.setNull(genericADEElement);
 	}
 
 	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
-		return isSetGenericADEElement() ? this.genericADEElement.remove(genericADEElement) : false;
+		return isSetGenericADEElement() && this.genericADEElement.remove(genericADEElement);
 	}
 
 	public boolean isSetModule() {

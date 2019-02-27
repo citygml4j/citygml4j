@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -43,7 +44,7 @@ public class GridFunction implements GML, Child, Copyable {
 
 	public List<Integer> getStartPoint() {
 		if (startPoint == null)
-			startPoint = new ArrayList<Integer>();
+			startPoint = new ArrayList<>();
 		
 		return startPoint;
 	}
@@ -57,17 +58,11 @@ public class GridFunction implements GML, Child, Copyable {
 	}
 
 	public void setSequenceRule(SequenceRule sequenceRule) {
-		if (sequenceRule != null)
-			sequenceRule.setParent(this);
-		
-		this.sequenceRule = sequenceRule;
+		this.sequenceRule = ModelObjects.setParent(sequenceRule, this);
 	}
 
 	public void addStartPoint(Integer startPoint) {
-		if (this.startPoint == null)
-			this.startPoint = new ArrayList<Integer>();
-		
-		this.startPoint.add(startPoint);
+		getStartPoint().add(startPoint);
 	}
 
 	public void setStartPoint(List<Integer> startPoint) {
@@ -75,10 +70,7 @@ public class GridFunction implements GML, Child, Copyable {
 	}
 
 	public void unsetSequenceRule() {
-		if (isSetSequenceRule())
-			sequenceRule.unsetParent();
-		
-		sequenceRule = null;
+		sequenceRule = ModelObjects.setNull(sequenceRule);
 	}
 
 	public void unsetStartPoint() {

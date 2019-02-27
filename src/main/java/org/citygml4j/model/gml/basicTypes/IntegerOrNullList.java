@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -33,15 +34,12 @@ public class IntegerOrNullList implements GML, Child, Copyable {
 	private ModelObject parent;
 
 	public void addIntegerOrNull(IntegerOrNull integerOrNull) {
-		if (this.integerOrNull == null)
-			this.integerOrNull = new ChildList<IntegerOrNull>(this);
-		
-		this.integerOrNull.add(integerOrNull);
+		getIntegerOrNull().add(integerOrNull);
 	}
 
 	public List<IntegerOrNull> getIntegerOrNull() {
 		if (integerOrNull == null)
-			integerOrNull = new ChildList<IntegerOrNull>(this);
+			integerOrNull = new ChildList<>(this);
 		
 		return integerOrNull;
 	}
@@ -51,18 +49,15 @@ public class IntegerOrNullList implements GML, Child, Copyable {
 	}
 
 	public void setIntegerOrNull(List<IntegerOrNull> integerOrNull) {
-		this.integerOrNull = new ChildList<IntegerOrNull>(this, integerOrNull);
+		this.integerOrNull = new ChildList<>(this, integerOrNull);
 	}
 
 	public void unsetIntegerOrNull() {
-		if (isSetIntegerOrNull())
-			integerOrNull.clear();
-		
-		integerOrNull = null;
+		integerOrNull = ModelObjects.setNull(integerOrNull);
 	}
 
 	public boolean unsetIntegerOrNull(IntegerOrNull integerOrNull) {
-		return isSetIntegerOrNull() ? this.integerOrNull.remove(integerOrNull) : false;
+		return isSetIntegerOrNull() && this.integerOrNull.remove(integerOrNull);
 	}
 
 	public GMLClass getGMLClass() {

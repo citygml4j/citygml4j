@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
@@ -68,43 +69,28 @@ public abstract class AbstractOpening extends AbstractCityObject implements Brid
 	}
 	
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation) {
-		if (lod3ImplicitRepresentation != null)
-			lod3ImplicitRepresentation.setParent(this);
-
-		this.lod3ImplicitRepresentation = lod3ImplicitRepresentation;
+		this.lod3ImplicitRepresentation = ModelObjects.setParent(lod3ImplicitRepresentation, this);
 	}
 
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
-		if (lod4ImplicitRepresentation != null)
-			lod4ImplicitRepresentation.setParent(this);
-
-		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
+		this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
 	}
 	
 	public void unsetLod3ImplicitRepresentation() {
-		if (isSetLod3ImplicitRepresentation())
-			lod3ImplicitRepresentation.unsetParent();
-
-		lod3ImplicitRepresentation = null;
+		lod3ImplicitRepresentation = ModelObjects.setNull(lod3ImplicitRepresentation);
 	}
 	
 	public void unsetLod4ImplicitRepresentation() {
-		if (isSetLod4ImplicitRepresentation())
-			lod4ImplicitRepresentation.unsetParent();
-
-		lod4ImplicitRepresentation = null;
+		lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
 	}
 	
 	public void addGenericApplicationPropertyOfOpening(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfOpening().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfOpening() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -130,46 +116,31 @@ public abstract class AbstractOpening extends AbstractCityObject implements Brid
 	}
 
 	public void setGenericApplicationPropertyOfOpening(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfOpening() {
-		if (isSetGenericApplicationPropertyOfOpening())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfOpening() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfOpening() && this.ade.remove(ade);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	@Override
@@ -229,36 +200,12 @@ public abstract class AbstractOpening extends AbstractCityObject implements Brid
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 3; lod < 5; lod++) {
-			switch (lod) {
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		ImplicitRepresentationProperty implicitRepresentation = null;
-		for (int lod = 3; lod < 5; lod++) {
-			switch (lod) {
-			case 3:
-				implicitRepresentation = lod3ImplicitRepresentation;
-				break;
-			case 4:
-				implicitRepresentation = lod4ImplicitRepresentation;
-				break;
-			}
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
 
-			if (implicitRepresentation != null)
-				lodRepresentation.addRepresentation(lod, implicitRepresentation);
-		}
+		lodRepresentation.addRepresentation(3, lod3ImplicitRepresentation);
+		lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
 		
 		return lodRepresentation;
 	}

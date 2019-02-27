@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Rectangle extends AbstractSurfacePatch {
@@ -33,10 +34,7 @@ public class Rectangle extends AbstractSurfacePatch {
 	}
 
 	public SurfaceInterpolation getInterpolation() {
-		if (interpolation == null)
-			return SurfaceInterpolation.PLANAR;
-		else
-			return interpolation;
+		return interpolation == null ? SurfaceInterpolation.PLANAR : interpolation;
 	}
 
 	public boolean isSetExterior() {
@@ -48,10 +46,7 @@ public class Rectangle extends AbstractSurfacePatch {
 	}
 
 	public void setExterior(AbstractRingProperty exterior) {
-		if (exterior != null)
-			exterior.setParent(this);
-		
-		this.exterior = exterior;
+		this.exterior = ModelObjects.setParent(exterior, this);
 	}
 
 	public void setInterpolation(SurfaceInterpolation interpolation) {
@@ -59,10 +54,7 @@ public class Rectangle extends AbstractSurfacePatch {
 	}
 
 	public void unsetExterior() {
-		if (isSetExterior())
-			exterior.unsetParent();
-		
-		exterior = null;
+		exterior = ModelObjects.setNull(exterior);
 	}
 
 	public void unsetInterpolation() {

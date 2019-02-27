@@ -85,7 +85,7 @@ public class Measure implements GML, Child, Copyable {
 		Measure copy = (target == null) ? new Measure() : (Measure)target;
 		
 		if (isSetValue())
-			copy.setValue((Double)copyBuilder.copy(value));
+			copy.setValue(copyBuilder.copy(value));
 		
 		if (isSetUom())
 			copy.setUom(copyBuilder.copy(uom));

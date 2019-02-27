@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -38,29 +39,20 @@ public class Country implements XAL, Child, Copyable {
 	private ModelObject parent;
 
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addCountryName(CountryName countryName) {
-		if (this.countryName == null)
-			this.countryName = new ChildList<CountryName>(this);
-
-		this.countryName.add(countryName);
+		getCountryName().add(countryName);
 	}
 
 	public void addCountryNameCode(CountryNameCode countryNameCode) {
-		if (this.countryNameCode == null)
-			this.countryNameCode = new ChildList<CountryNameCode>(this);
-
-		this.countryNameCode.add(countryNameCode);
+		getCountryNameCode().add(countryNameCode);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -71,14 +63,14 @@ public class Country implements XAL, Child, Copyable {
 
 	public List<CountryName> getCountryName() {
 		if (countryName == null)
-			countryName = new ChildList<CountryName>(this);
+			countryName = new ChildList<>(this);
 
 		return countryName;
 	}
 
 	public List<CountryNameCode> getCountryNameCode() {
 		if (countryNameCode == null)
-			countryNameCode = new ChildList<CountryNameCode>(this);
+			countryNameCode = new ChildList<>(this);
 
 		return countryNameCode;
 	}
@@ -116,90 +108,63 @@ public class Country implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setAdministrativeArea(AdministrativeArea administrativeArea) {
-		if (administrativeArea != null)
-			administrativeArea.setParent(this);
-
-		this.administrativeArea = administrativeArea;
+		this.administrativeArea = ModelObjects.setParent(administrativeArea, this);
 	}
 
 	public void setCountryName(List<CountryName> countryName) {
-		this.countryName = new ChildList<CountryName>(this, countryName);
+		this.countryName = new ChildList<>(this, countryName);
 	}
 
 	public void setCountryNameCode(List<CountryNameCode> countryNameCode) {
-		this.countryNameCode = new ChildList<CountryNameCode>(this, countryNameCode);
+		this.countryNameCode = new ChildList<>(this, countryNameCode);
 	}
 
 	public void setLocality(Locality locality) {
-		if (locality != null)
-			locality.setParent(this);
-
-		this.locality = locality;
+		this.locality = ModelObjects.setParent(locality, this);
 	}
 
 	public void setThoroughfare(Thoroughfare thoroughfare) {
-		if (thoroughfare != null)
-			thoroughfare.setParent(this);
-
-		this.thoroughfare = thoroughfare;
+		this.thoroughfare = ModelObjects.setParent(thoroughfare, this);
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetAdministrativeArea() {
-		if (isSetAdministrativeArea())
-			administrativeArea.unsetParent();
-
-		administrativeArea = null;
+		administrativeArea = ModelObjects.setNull(administrativeArea);
 	}
 
 	public void unsetCountryName() {
-		if (isSetCountryName())
-			countryName.clear();
-
-		countryName = null;
+		countryName = ModelObjects.setNull(countryName);
 	}
 
 	public boolean unsetCountryName(CountryName countryName) {
-		return isSetCountryName() ? this.countryName.remove(countryName) : false;
+		return isSetCountryName() && this.countryName.remove(countryName);
 	}
 
 	public void unsetCountryNameCode() {
-		if (isSetCountryNameCode())
-			countryNameCode.clear();
-		
-		countryNameCode = null;
+		countryNameCode = ModelObjects.setNull(countryNameCode);
 	}
 
 	public boolean unsetCountryNameCode(CountryNameCode countryNameCode) {
-		return isSetCountryNameCode() ? this.countryNameCode.remove(countryNameCode) : false;
+		return isSetCountryNameCode() && this.countryNameCode.remove(countryNameCode);
 	}
 
 	public void unsetLocality() {
-		if (isSetLocality())
-			locality.unsetParent();
-
-		locality = null;
+		locality = ModelObjects.setNull(locality);
 	}
 
 	public void unsetThoroughfare() {
-		if (isSetThoroughfare())
-			thoroughfare.unsetParent();
-
-		thoroughfare = null;
+		thoroughfare = ModelObjects.setNull(thoroughfare);
 	}
 
 	public XALClass getXALClass() {

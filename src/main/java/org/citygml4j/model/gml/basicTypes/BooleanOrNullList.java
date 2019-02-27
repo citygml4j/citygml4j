@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -33,15 +34,12 @@ public class BooleanOrNullList implements GML, Child, Copyable {
 	private ModelObject parent;
 
 	public void addBooleanOrNull(BooleanOrNull booleanOrNull) {
-		if (this.booleanOrNull == null)
-			this.booleanOrNull = new ChildList<BooleanOrNull>(this);
-		
-		this.booleanOrNull.add(booleanOrNull);
+		getBooleanOrNull().add(booleanOrNull);
 	}
 
 	public List<BooleanOrNull> getBooleanOrNull() {
 		if (booleanOrNull == null)
-			booleanOrNull = new ChildList<BooleanOrNull>(this);
+			booleanOrNull = new ChildList<>(this);
 		
 		return booleanOrNull;
 	}
@@ -51,18 +49,15 @@ public class BooleanOrNullList implements GML, Child, Copyable {
 	}
 
 	public void setBooleanOrNull(List<BooleanOrNull> booleanOrNull) {
-		this.booleanOrNull = new ChildList<BooleanOrNull>(this, booleanOrNull);
+		this.booleanOrNull = new ChildList<>(this, booleanOrNull);
 	}
 
 	public void unsetBooleanOrNull() {
-		if (isSetBooleanOrNull())
-			booleanOrNull.clear();
-		
-		booleanOrNull = null;
+		booleanOrNull = ModelObjects.setNull(booleanOrNull);
 	}
 
 	public boolean unsetBooleanOrNull(BooleanOrNull booleanOrNull) {
-		return isSetBooleanOrNull() ? this.booleanOrNull.remove(booleanOrNull) : false;
+		return isSetBooleanOrNull() && this.booleanOrNull.remove(booleanOrNull);
 	}
 
 	public GMLClass getGMLClass() {

@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.valueObjects;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -92,75 +93,47 @@ public class Value implements GML, Associable, Child, Copyable {
 	}
 
 	public void setValueObject(ValueObject valueObject) {
-		if (valueObject != null)
-			valueObject.setParent(this);
-		
-		this.valueObject = valueObject;
-		
+		this.valueObject = ModelObjects.setParent(valueObject, this);
 		unsetGeometry();
 		unsetNull();
 		unsetGenericValueObject();
 	}
 
 	public void setGeometry(AbstractGeometry geometry) {
-		if (geometry != null)
-			geometry.setParent(this);
-		
-		this.geometry = geometry;
-		
+		this.geometry = ModelObjects.setParent(geometry, this);
 		unsetNull();
 		unsetValueObject();
 		unsetGenericValueObject();
 	}
 
 	public void setGenericValueObject(GenericValueObject genericValueObject) {
-		if (genericValueObject != null)
-			genericValueObject.setParent(this);
-		
-		this.genericValueObject = genericValueObject;
-		
+		this.genericValueObject = ModelObjects.setParent(genericValueObject, this);
 		unsetGeometry();
 		unsetNull();
 		unsetValueObject();
 	}
 
 	public void setNull(Null _null) {
-		if (_null != null)
-			_null.setParent(this);
-		
-		this._null = _null;
-		
+		this._null = ModelObjects.setParent(_null, this);
 		unsetGeometry();
 		unsetValueObject();
 		unsetGenericValueObject();
 	}
 
 	public void unsetValueObject() {
-		if (isSetValueObject())
-			valueObject.unsetParent();
-		
-		valueObject = null;
+		valueObject = ModelObjects.setNull(valueObject);
 	}
 
 	public void unsetGeometry() {
-		if (isSetGeometry())
-			geometry.unsetParent();
-		
-		geometry = null;
+		geometry = ModelObjects.setNull(geometry);
 	}
 
 	public void unsetGenericValueObject() {
-		if (isSetGenericValueObject())
-			genericValueObject.unsetParent();
-		
-		genericValueObject = null;
+		genericValueObject = ModelObjects.setNull(genericValueObject);
 	}
 
 	public void unsetNull() {
-		if (isSetNull())
-			_null.unsetParent();
-		
-		_null = null;
+		_null = ModelObjects.setNull(_null);
 	}
 	
 	public ModelObject getParent() {

@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.feature;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -70,11 +71,10 @@ public class BoundingShape implements GML, Child, Copyable {
 			if (envelope.isNull())
 				return;
 			
-			envelope.setParent(this);
 			_null = null;
 		}
 		
-		this.envelope = envelope;
+		this.envelope = ModelObjects.setParent(envelope, this);
 	}
 
 	public void setEnvelope(BoundingBox boundingBox) {
@@ -97,26 +97,18 @@ public class BoundingShape implements GML, Child, Copyable {
 	}
 
 	public void setNull(Null _null) {
-		if (_null != null) {
-			_null.setParent(this);
+		if (_null != null)
 			envelope = null;
-		}
 
-		this._null = _null;
+		this._null = ModelObjects.setParent(_null, this);
 	}
 
 	public void unsetEnvelope() {
-		if (isSetEnvelope())
-			envelope.unsetParent();
-
-		envelope = null;
+		envelope = ModelObjects.setNull(envelope);
 	}
 
 	public void unsetNull() {
-		if (isSetNull())
-			_null.unsetParent();
-
-		_null = null;
+		_null = ModelObjects.setNull(_null);
 	}
 
 	public GMLClass getGMLClass() {

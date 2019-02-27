@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.complexes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -50,15 +51,12 @@ public class GeometricComplex extends AbstractGeometry {
 	}
 	
 	public void addElement(GeometricPrimitiveProperty element) {
-		if (this.element == null)
-			this.element = new ChildList<GeometricPrimitiveProperty>(this);
-
-		this.element.add(element);
+		getElement().add(element);
 	}
 
 	public List<GeometricPrimitiveProperty> getElement() {
 		if (element == null)
-			element = new ChildList<GeometricPrimitiveProperty>(this);
+			element = new ChildList<>(this);
 
 		return element;
 	}
@@ -68,18 +66,15 @@ public class GeometricComplex extends AbstractGeometry {
 	}
 
 	public void setElement(List<GeometricPrimitiveProperty> element) {
-		this.element = new ChildList<GeometricPrimitiveProperty>(this, element);
+		this.element = new ChildList<>(this, element);
 	}
 
 	public void unsetElement() {
-		if (isSetElement())
-			element.clear();
-
-		element = null;
+		element = ModelObjects.setNull(element);
 	}
 
 	public boolean unsetElement(GeometricPrimitiveProperty element) {
-		return isSetElement() ? this.element.remove(element) : false;
+		return isSetElement() && this.element.remove(element);
 	}
 
 	public BoundingBox calcBoundingBox() {

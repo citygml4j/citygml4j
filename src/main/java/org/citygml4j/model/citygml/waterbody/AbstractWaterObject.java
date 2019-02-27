@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.module.Module;
@@ -43,15 +44,12 @@ public abstract class AbstractWaterObject extends AbstractCityObject implements 
 	}
 	
 	public void addGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfWaterObject().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterObject() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -61,18 +59,15 @@ public abstract class AbstractWaterObject extends AbstractCityObject implements 
 	}
 
 	public void setGenericApplicationPropertyOfWaterObject(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void unsetGenericApplicationPropertyOfWaterObject() {
-		if (isSetGenericApplicationPropertyOfWaterObject())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterObject() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfWaterObject() && this.ade.remove(ade);
 	}
 	
 	@Override

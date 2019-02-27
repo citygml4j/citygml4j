@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -49,15 +50,12 @@ public class RasterRelief extends AbstractReliefComponent {
 	}
 
 	public void addGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfRasterRelief().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -75,32 +73,23 @@ public class RasterRelief extends AbstractReliefComponent {
 	}
 
 	public void setGenericApplicationPropertyOfRasterRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setGrid(GridProperty grid) {
-		if (grid != null)
-			grid.setParent(this);
-
-		this.grid = grid;
+		this.grid = ModelObjects.setParent(grid, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfRasterRelief() {
-		if (isSetGenericApplicationPropertyOfRasterRelief())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfRasterRelief() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfRasterRelief() && this.ade.remove(ade);
 	}
 
 	public void unsetGrid() {
-		if (isSetGrid())
-			grid.unsetParent();
-
-		grid = null;
+		grid = ModelObjects.setNull(grid);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -137,9 +126,7 @@ public class RasterRelief extends AbstractReliefComponent {
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-
-		if (grid != null && grid.isSetObject() && grid.getRectifiedGridCoverage().isSetRectifiedGridDomain())
-			lodRepresentation.addRepresentation(getLod(), grid.getRectifiedGridCoverage().getRectifiedGridDomain());
+		lodRepresentation.addRepresentation(getLod(), grid.getRectifiedGridCoverage().getRectifiedGridDomain());
 
 		return lodRepresentation;
 	}

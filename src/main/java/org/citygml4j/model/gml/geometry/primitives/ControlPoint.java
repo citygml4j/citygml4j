@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -35,16 +36,13 @@ public class ControlPoint implements GML, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
-		if (this.geometricPositionGroup == null)
-			this.geometricPositionGroup = new ChildList<GeometricPositionGroup>(this);
-		
-		this.geometricPositionGroup.add(geometricPositionGroup);
+		getGeometricPositionGroup().add(geometricPositionGroup);
 		unsetPosList();
 	}
 
 	public List<GeometricPositionGroup> getGeometricPositionGroup() {
 		if (geometricPositionGroup == null)
-			geometricPositionGroup = new ChildList<GeometricPositionGroup>(this);
+			geometricPositionGroup = new ChildList<>(this);
 		
 		return geometricPositionGroup;
 	}
@@ -62,20 +60,17 @@ public class ControlPoint implements GML, Child, Copyable {
 	}
 
 	public void setGeometricPositionGroup(List<GeometricPositionGroup> geometricPositionGroup) {
-		this.geometricPositionGroup = new ChildList<GeometricPositionGroup>(this, geometricPositionGroup);
+		this.geometricPositionGroup = new ChildList<>(this, geometricPositionGroup);
 		unsetPosList();
 	}
 
 	public void setPosList(DirectPositionList posList) {
-		if (posList != null)
-			posList.setParent(this);
-		
-		this.posList = posList;
+		this.posList = ModelObjects.setParent(posList, this);
 		unsetGeometricPositionGroup();
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 		
 		if (isSetPosList())
 			tmp.addAll(posList.toList3d());
@@ -87,21 +82,15 @@ public class ControlPoint implements GML, Child, Copyable {
 	}
 
 	public void unsetGeometricPositionGroup() {
-		if (isSetGeometricPositionGroup())
-			geometricPositionGroup.clear();
-		
-		geometricPositionGroup = null;
+		geometricPositionGroup = ModelObjects.setNull(geometricPositionGroup);
 	}
 
 	public boolean unsetGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
-		return isSetGeometricPositionGroup() ? this.geometricPositionGroup.remove(geometricPositionGroup) : false;
+		return isSetGeometricPositionGroup() && this.geometricPositionGroup.remove(geometricPositionGroup);
 	}
 
 	public void unsetPosList() {
-		if (isSetPosList())
-			posList.unsetParent();
-		
-		posList = null;
+		posList = ModelObjects.setNull(posList);
 	}
 
 	public GMLClass getGMLClass() {

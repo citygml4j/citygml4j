@@ -21,6 +21,7 @@ package org.citygml4j.model.xal;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
@@ -148,10 +149,7 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void setAddress(Address address) {
-		if (address != null)
-			address.setParent(this);
-
-		this.address = address;
+		this.address = ModelObjects.setParent(address, this);
 	}
 
 	public void setAddressDetailsKey(String addressDetailsKey) {
@@ -159,10 +157,7 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void setAddressLines(AddressLines addressLines) {
-		if (addressLines != null)
-			addressLines.setParent(this);
-
-		this.addressLines = addressLines;
+		this.addressLines = ModelObjects.setParent(addressLines, this);
 	}
 
 	public void setAddressType(String addressType) {
@@ -170,17 +165,11 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void setAdministrativeArea(AdministrativeArea administrativeArea) {
-		if (administrativeArea != null)
-			administrativeArea.setParent(this);
-
-		this.administrativeArea = administrativeArea;
+		this.administrativeArea = ModelObjects.setParent(administrativeArea, this);
 	}
 
 	public void setCountry(Country country) {
-		if (country != null)
-			country.setParent(this);
-
-		this.country = country;
+		this.country = ModelObjects.setParent(country, this);
 	}
 
 	public void setCurrentStatus(String currentStatus) {
@@ -188,24 +177,15 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void setLocality(Locality locality) {
-		if (locality != null)
-			locality.setParent(this);
-
-		this.locality = locality;
+		this.locality = ModelObjects.setParent(locality, this);
 	}
 
 	public void setPostalServiceElements(PostalServiceElements postalServiceElements) {
-		if (postalServiceElements != null)
-			postalServiceElements.setParent(this);
-
-		this.postalServiceElements = postalServiceElements;
+		this.postalServiceElements = ModelObjects.setParent(postalServiceElements, this);
 	}
 
 	public void setThoroughfare(Thoroughfare thoroughfare) {
-		if (thoroughfare != null)
-			thoroughfare.setParent(this);
-
-		this.thoroughfare = thoroughfare;
+		this.thoroughfare = ModelObjects.setParent(thoroughfare, this);
 	}
 
 	public void setUsage(String usage) {
@@ -221,10 +201,7 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void unsetAddress() {
-		if (isSetAddress())
-			address.unsetParent();
-
-		address = null;
+		address = ModelObjects.setNull(address);
 	}
 
 	public void unsetAddressDetailsKey() {
@@ -232,10 +209,7 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void unsetAddressLines() {
-		if (isSetAddressLines())
-			addressLines.unsetParent();
-
-		addressLines = null;
+		addressLines = ModelObjects.setNull(addressLines);
 	}
 
 	public void unsetAddressType() {
@@ -243,17 +217,11 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void unsetAdministrativeArea() {
-		if (isSetAdministrativeArea())
-			administrativeArea.unsetParent();
-
-		administrativeArea = null;
+		administrativeArea = ModelObjects.setNull(administrativeArea);
 	}
 
 	public void unsetCountry() {
-		if (isSetCountry())
-			country.unsetParent();
-
-		country = null;
+		country = ModelObjects.setNull(country);
 	}
 
 	public void unsetCurrentStatus() {
@@ -261,24 +229,15 @@ public class AddressDetails implements XAL, GrPostal, Associable, Child, Copyabl
 	}
 
 	public void unsetLocality() {
-		if (isSetLocality())
-			locality.unsetParent();
-
-		locality = null;
+		locality = ModelObjects.setNull(locality);
 	}
 
 	public void unsetPostalServiceElements() {
-		if (isSetPostalServiceElements())
-			postalServiceElements.unsetParent();
-
-		postalServiceElements = null;
+		postalServiceElements = ModelObjects.setNull(postalServiceElements);
 	}
 
 	public void unsetThoroughfare() {
-		if (isSetThoroughfare())
-			thoroughfare.unsetParent();
-
-		thoroughfare = null;
+		thoroughfare = ModelObjects.setNull(thoroughfare);
 	}
 
 	public void unsetUsage() {

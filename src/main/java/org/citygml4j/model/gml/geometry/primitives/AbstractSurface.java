@@ -18,7 +18,6 @@
  */
 package org.citygml4j.model.gml.geometry.primitives;
 
-
 public abstract class AbstractSurface extends AbstractGeometricPrimitive {
 
 }

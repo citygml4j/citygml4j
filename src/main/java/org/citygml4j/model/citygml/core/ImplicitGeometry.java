@@ -23,6 +23,7 @@ import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.base.AbstractGML;
@@ -86,28 +87,19 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 	}
 
 	public void setMimeType(Code mimeType) {
-		this.mimeType = mimeType;
+		this.mimeType = ModelObjects.setParent(mimeType, this);
 	}
 
 	public void setReferencePoint(PointProperty referencePoint) {
-		if (referencePoint != null)
-			referencePoint.setParent(this);
-
-		this.referencePoint = referencePoint;
+		this.referencePoint = ModelObjects.setParent(referencePoint, this);
 	}
 
 	public void setRelativeGeometry(GeometryProperty<? extends AbstractGeometry> relativeGeometry) {
-		if (relativeGeometry != null)
-			relativeGeometry.setParent(this);
-
-		this.relativeGeometry = relativeGeometry;
+		this.relativeGeometry = ModelObjects.setParent(relativeGeometry, this);
 	}
 
 	public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix) {
-		if (transformationMatrix != null)
-			transformationMatrix.setParent(this);
-
-		this.transformationMatrix = transformationMatrix;
+		this.transformationMatrix = ModelObjects.setParent(transformationMatrix, this);
 	}
 
 	public void unsetLibraryObject() {
@@ -115,28 +107,19 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 	}
 
 	public void unsetMimeType() {
-		mimeType = null;
+		mimeType = ModelObjects.setNull(mimeType);
 	}
 
 	public void unsetReferencePoint() {
-		if (isSetReferencePoint())
-			referencePoint.unsetParent();
-
-		referencePoint = null;
+		referencePoint = ModelObjects.setNull(referencePoint);
 	}
 
 	public void unsetRelativeGMLGeometry() {
-		if (isSetRelativeGMLGeometry())
-			relativeGeometry.unsetParent();
-
-		relativeGeometry = null;
+		relativeGeometry = ModelObjects.setNull(relativeGeometry);
 	}
 
 	public void unsetTransformationMatrix() {
-		if (isSetTransformationMatrix())
-			transformationMatrix.unsetParent();
-
-		transformationMatrix = null;
+		transformationMatrix = ModelObjects.setNull(transformationMatrix);
 	}
 
 	public BoundingBox calcBoundingBox(BoundingBoxOptions options) {
@@ -183,7 +166,6 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 		return copyTo(new ImplicitGeometry(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		ImplicitGeometry copy = (target == null) ? new ImplicitGeometry() : (ImplicitGeometry)target;

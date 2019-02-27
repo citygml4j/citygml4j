@@ -21,6 +21,7 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
@@ -39,24 +40,18 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements App
 	}
 	
 	public void addGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfSurfaceData().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfSurfaceData() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public Boolean getIsFront() {
-		if (!isSetIsFront())
-			return true;
-		else
-			return isFront;
+		return !isSetIsFront() ? true : isFront;
 	}
 
 	public boolean isSetGenericApplicationPropertyOfSurfaceData() {
@@ -68,7 +63,7 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements App
 	}
 
 	public void setGenericApplicationPropertyOfSurfaceData(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setIsFront(Boolean isFront) {
@@ -76,14 +71,11 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements App
 	}
 
 	public void unsetGenericApplicationPropertyOfSurfaceData() {
-		if (isSetGenericApplicationPropertyOfSurfaceData())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfSurfaceData() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfSurfaceData() && this.ade.remove(ade);
 	}
 
 	public void unsetIsFront() {

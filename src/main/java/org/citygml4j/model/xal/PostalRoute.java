@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -37,22 +38,16 @@ public class PostalRoute implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addPostalRouteName(PostalRouteName postalRouteName) {
-		if (this.postalRouteName == null)
-			this.postalRouteName = new ChildList<PostalRouteName>(this);
-
-		this.postalRouteName.add(postalRouteName);
+		getPostalRouteName().add(postalRouteName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -63,7 +58,7 @@ public class PostalRoute implements XAL, Child, Copyable {
 
 	public List<PostalRouteName> getPostalRouteName() {
 		if (postalRouteName == null)
-			postalRouteName = new ChildList<PostalRouteName>(this);
+			postalRouteName = new ChildList<>(this);
 
 		return postalRouteName;
 	}
@@ -97,25 +92,19 @@ public class PostalRoute implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setPostBox(PostBox postBox) {
-		if (postBox != null)
-			postBox.setParent(this);
-		
-		this.postBox = postBox;
+		this.postBox = ModelObjects.setParent(postBox, this);
 	}
 
 	public void setPostalRouteName(List<PostalRouteName> postalRouteName) {
-		this.postalRouteName = new ChildList<PostalRouteName>(this, postalRouteName);
+		this.postalRouteName = new ChildList<>(this, postalRouteName);
 	}
 
 	public void setPostalRouteNumber(PostalRouteNumber postalRouteNumber) {
-		if (postalRouteNumber != null)
-			postalRouteNumber.setParent(this);
-		
-		this.postalRouteNumber = postalRouteNumber;
+		this.postalRouteNumber = ModelObjects.setParent(postalRouteNumber, this);
 	}
 
 	public void setType(String type) {
@@ -123,39 +112,27 @@ public class PostalRoute implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetPostBox() {
-		if (isSetPostBox())
-			postBox.unsetParent();
-		
-		postBox = null;
+		postBox = ModelObjects.setNull(postBox);
 	}
 
 	public void unsetPostalRouteName() {
-		if (isSetPostalRouteName())
-			postalRouteName.clear();
-
-		postalRouteName = null;
+		postalRouteName = ModelObjects.setNull(postalRouteName);
 	}
 
 	public boolean unsetPostalRouteName(PostalRouteName postalRouteName) {
-		return isSetPostalRouteName() ? this.postalRouteName.remove(postalRouteName) : false;
+		return isSetPostalRouteName() && this.postalRouteName.remove(postalRouteName);
 	}
 
 	public void unsetPostalRouteNumber() {
-		if (isSetPostalRouteNumber())
-			postalRouteNumber.unsetParent();
-		
-		postalRouteNumber = null;
+		postalRouteNumber = ModelObjects.setNull(postalRouteNumber);
 	}
 
 	public void unsetType() {

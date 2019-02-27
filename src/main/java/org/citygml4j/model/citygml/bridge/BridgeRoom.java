@@ -27,6 +27,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -61,50 +62,32 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfBridgeRoom(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfBridgeRoom().add(ade);
 	}
 
 	public void addInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
-		if (this.interiorFurniture == null)
-			this.interiorFurniture = new ChildList<InteriorFurnitureProperty>(this);
-
-		this.interiorFurniture.add(interiorFurniture);
+		getInteriorFurniture().add(interiorFurniture);
 	}
 
 	public void addBridgeRoomInstallation(IntBridgeInstallationProperty bridgeRoomInstallation) {
-		if (this.bridgeRoomInstallation == null)
-			this.bridgeRoomInstallation = new ChildList<IntBridgeInstallationProperty>(this);
-
-		this.bridgeRoomInstallation.add(bridgeRoomInstallation);
+		getBridgeRoomInstallation().add(bridgeRoomInstallation);
 	}
 
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -115,28 +98,28 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfBridgeRoom() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<InteriorFurnitureProperty> getInteriorFurniture() {
 		if (interiorFurniture == null)
-			interiorFurniture = new ChildList<InteriorFurnitureProperty>(this);
+			interiorFurniture = new ChildList<>(this);
 
 		return interiorFurniture;
 	}
@@ -151,7 +134,7 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 
 	public List<IntBridgeInstallationProperty> getBridgeRoomInstallation() {
 		if (bridgeRoomInstallation == null)
-			bridgeRoomInstallation = new ChildList<IntBridgeInstallationProperty>(this);
+			bridgeRoomInstallation = new ChildList<>(this);
 
 		return bridgeRoomInstallation;
 	}
@@ -193,123 +176,99 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 	}
 
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 	
 	public void setGenericApplicationPropertyOfBridgeRoom(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setInteriorFurniture(List<InteriorFurnitureProperty> interiorFurniture) {
-		this.interiorFurniture = new ChildList<InteriorFurnitureProperty>(this, interiorFurniture);
+		this.interiorFurniture = new ChildList<>(this, interiorFurniture);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-		
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setLod4Solid(SolidProperty lod4Solid) {
-		if (lod4Solid != null)
-			lod4Solid.setParent(this);
-		
-		this.lod4Solid = lod4Solid;
+		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
 	}
 
 	public void setBridgeRoomInstallation(List<IntBridgeInstallationProperty> bridgeRoomInstallation) {
-		this.bridgeRoomInstallation = new ChildList<IntBridgeInstallationProperty>(this, bridgeRoomInstallation);
+		this.bridgeRoomInstallation = new ChildList<>(this, bridgeRoomInstallation);
 	}
 
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfBridgeRoom() {
-		if (isSetGenericApplicationPropertyOfBridgeRoom())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfBridgeRoom(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBridgeRoom() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfBridgeRoom() && this.ade.remove(ade);
 	}
 
 	public void unsetInteriorFurniture() {
-		if (isSetInteriorFurniture())
-			interiorFurniture.clear();
-
-		interiorFurniture = null;
+		interiorFurniture = ModelObjects.setNull(interiorFurniture);
 	}
 
 	public boolean unsetInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
-		return isSetInteriorFurniture() ? this.interiorFurniture.remove(interiorFurniture) : false;
+		return isSetInteriorFurniture() && this.interiorFurniture.remove(interiorFurniture);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-		
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetLod4Solid() {
-		if (isSetLod4Solid())
-			lod4Solid.unsetParent();
-		
-		lod4Solid = null;
+		lod4Solid = ModelObjects.setNull(lod4Solid);
 	}
 
 	public void unsetBridgeRoomInstallation() {
-		if (isSetBridgeRoomInstallation())
-			bridgeRoomInstallation.clear();
-
-		bridgeRoomInstallation = null;
+		bridgeRoomInstallation = ModelObjects.setNull(bridgeRoomInstallation);
 	}
 
 	public boolean unsetBridgeRoomInstallation(IntBridgeInstallationProperty bridgeRoomInstallation) {
-		return isSetBridgeRoomInstallation() ? this.bridgeRoomInstallation.remove(bridgeRoomInstallation) : false;
+		return isSetBridgeRoomInstallation() && this.bridgeRoomInstallation.remove(bridgeRoomInstallation);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -365,11 +324,8 @@ public class BridgeRoom extends AbstractCityObject implements BridgeModuleCompon
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
-		if (lod4MultiSurface != null)
-			lodRepresentation.addRepresentation(4, lod4MultiSurface);
-		
-		if (lod4Solid != null)
-			lodRepresentation.addRepresentation(4, lod4Solid);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4Solid);
 		
 		return lodRepresentation;
 	}

@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -52,57 +53,36 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addThoroughfareName(ThoroughfareName thoroughfareName) {
-		if (this.thoroughfareName == null)
-			this.thoroughfareName = new ChildList<ThoroughfareName>(this);
-
-		this.thoroughfareName.add(thoroughfareName);
+		getThoroughfareName().add(thoroughfareName);
 	}
 
 	public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		if (numberOrRange == null)
-			numberOrRange = new ChildList<ThoroughfareNumberOrRange>(this);
-
-		numberOrRange.add(new ThoroughfareNumberOrRange(thoroughfareNumber));
+		getThoroughfareNumberOrThoroughfareNumberRange().add(new ThoroughfareNumberOrRange(thoroughfareNumber));
 	}
 
 	public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		if (this.thoroughfareNumberPrefix == null)
-			this.thoroughfareNumberPrefix = new ChildList<ThoroughfareNumberPrefix>(this);
-
-		this.thoroughfareNumberPrefix.add(thoroughfareNumberPrefix);
+		getThoroughfareNumberPrefix().add(thoroughfareNumberPrefix);
 	}
 
 	public void addThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange) {
-		if (numberOrRange == null)
-			numberOrRange = new ChildList<ThoroughfareNumberOrRange>(this);
-
-		numberOrRange.add(new ThoroughfareNumberOrRange(thoroughfareNumberRange));
+		getThoroughfareNumberOrThoroughfareNumberRange().add(new ThoroughfareNumberOrRange(thoroughfareNumberRange));
 	}
 
 	public void addThoroughfareNumberOrThoroughfareNumberRange(ThoroughfareNumberOrRange numberOrRange) {
-		if (this.numberOrRange == null)
-			this.numberOrRange = new ChildList<ThoroughfareNumberOrRange>(this);
-
-		this.numberOrRange.add(numberOrRange);
+		getThoroughfareNumberOrThoroughfareNumberRange().add(numberOrRange);
 	}
 
 	public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		if (this.thoroughfareNumberSuffix == null)
-			this.thoroughfareNumberSuffix = new ChildList<ThoroughfareNumberSuffix>(this);
-
-		this.thoroughfareNumberSuffix.add(thoroughfareNumberSuffix);
+		getThoroughfareNumberSuffix().add(thoroughfareNumberSuffix);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -149,28 +129,28 @@ public class Thoroughfare implements XAL, Child, Copyable {
 
 	public List<ThoroughfareName> getThoroughfareName() {
 		if (thoroughfareName == null)
-			thoroughfareName = new ChildList<ThoroughfareName>(this);
+			thoroughfareName = new ChildList<>(this);
 
 		return thoroughfareName;
 	}
 
 	public List<ThoroughfareNumberOrRange> getThoroughfareNumberOrThoroughfareNumberRange() {
 		if (numberOrRange == null)
-			numberOrRange = new ChildList<ThoroughfareNumberOrRange>(this);
+			numberOrRange = new ChildList<>(this);
 
 		return numberOrRange;
 	}
 
 	public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix() {
 		if (thoroughfareNumberPrefix == null)
-			thoroughfareNumberPrefix = new ChildList<ThoroughfareNumberPrefix>(this);
+			thoroughfareNumberPrefix = new ChildList<>(this);
 
 		return thoroughfareNumberPrefix;
 	}
 
 	public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix() {
 		if (thoroughfareNumberSuffix == null)
-			thoroughfareNumberSuffix = new ChildList<ThoroughfareNumberSuffix>(this);
+			thoroughfareNumberSuffix = new ChildList<>(this);
 
 		return thoroughfareNumberSuffix;
 	}
@@ -268,21 +248,15 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setDependentLocality(DependentLocality dependentLocality) {
-		if (dependentLocality != null)
-			dependentLocality.setParent(this);
-
-		this.dependentLocality = dependentLocality;
+		this.dependentLocality = ModelObjects.setParent(dependentLocality, this);
 	}
 
 	public void setDependentThoroughfare(DependentThoroughfare dependentThoroughfare) {
-		if (dependentThoroughfare != null)
-			dependentThoroughfare.setParent(this);
-
-		this.dependentThoroughfare = dependentThoroughfare;
+		this.dependentThoroughfare = ModelObjects.setParent(dependentThoroughfare, this);
 	}
 
 	public void setDependentThoroughfares(String dependentThoroughfares) {
@@ -303,68 +277,47 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void setFirm(Firm firm) {
-		if (firm != null)
-			firm.setParent(this);
-
-		this.firm = firm;
+		this.firm = ModelObjects.setParent(firm, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setPremise(Premise premise) {
-		if (premise != null)
-			premise.setParent(this);
-
-		this.premise = premise;
+		this.premise = ModelObjects.setParent(premise, this);
 	}
 
 	public void setThoroughfareLeadingType(ThoroughfareLeadingType thoroughfareLeadingType) {
-		if (thoroughfareLeadingType != null)
-			thoroughfareLeadingType.setParent(this);
-
-		this.thoroughfareLeadingType = thoroughfareLeadingType;
+		this.thoroughfareLeadingType = ModelObjects.setParent(thoroughfareLeadingType, this);
 	}
 
 	public void setThoroughfareName(List<ThoroughfareName> thoroughfareName) {
-		this.thoroughfareName = new ChildList<ThoroughfareName>(this, thoroughfareName);
+		this.thoroughfareName = new ChildList<>(this, thoroughfareName);
 	}
 
 	public void setThoroughfareNumberOrThoroughfareNumberRange(List<ThoroughfareNumberOrRange> numberOrRange) {
-		this.numberOrRange = new ChildList<ThoroughfareNumberOrRange>(this, numberOrRange);
+		this.numberOrRange = new ChildList<>(this, numberOrRange);
 	}
 
 	public void setThoroughfareNumberPrefix(List<ThoroughfareNumberPrefix> thoroughfareNumberPrefix) {
-		this.thoroughfareNumberPrefix = new ChildList<ThoroughfareNumberPrefix>(this, thoroughfareNumberPrefix);
+		this.thoroughfareNumberPrefix = new ChildList<>(this, thoroughfareNumberPrefix);
 	}
 
 	public void setThoroughfareNumberSuffix(List<ThoroughfareNumberSuffix> thoroughfareNumberSuffix) {
-		this.thoroughfareNumberSuffix = new ChildList<ThoroughfareNumberSuffix>(this, thoroughfareNumberSuffix);
+		this.thoroughfareNumberSuffix = new ChildList<>(this, thoroughfareNumberSuffix);
 	}
 
 	public void setThoroughfarePostDirection(ThoroughfarePostDirection thoroughfarePostDirection) {
-		if (thoroughfarePostDirection != null)
-			thoroughfarePostDirection.setParent(this);
-
-		this.thoroughfarePostDirection = thoroughfarePostDirection;
+		this.thoroughfarePostDirection = ModelObjects.setParent(thoroughfarePostDirection, this);
 	}
 
 	public void setThoroughfarePreDirection(ThoroughfarePreDirection thoroughfarePreDirection) {
-		if (thoroughfarePreDirection != null)
-			thoroughfarePreDirection.setParent(this);
-
-		this.thoroughfarePreDirection = thoroughfarePreDirection;
+		this.thoroughfarePreDirection = ModelObjects.setParent(thoroughfarePreDirection, this);
 	}
 
 	public void setThoroughfareTrailingType(ThoroughfareTrailingType thoroughfareTrailingType) {
-		if (thoroughfareTrailingType != null)
-			thoroughfareTrailingType.setParent(this);
-
-		this.thoroughfareTrailingType = thoroughfareTrailingType;
+		this.thoroughfareTrailingType = ModelObjects.setParent(thoroughfareTrailingType, this);
 	}
 
 	public void setType(String type) {
@@ -372,28 +325,19 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetDependentLocality() {
-		if (isSetDependentLocality())
-			dependentLocality.unsetParent();
-
-		dependentLocality = null;
+		dependentLocality = ModelObjects.setNull(dependentLocality);
 	}
 
 	public void unsetDependentThoroughfare() {
-		if (isSetDependentThoroughfare())
-			dependentThoroughfare.unsetParent();
-
-		dependentThoroughfare = null;
+		dependentThoroughfare = ModelObjects.setNull(dependentThoroughfare);
 	}
 
 	public void unsetDependentThoroughfares() {
@@ -413,42 +357,27 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void unsetFirm() {
-		if (isSetFirm())
-			firm.unsetParent();
-
-		firm = null;
+		firm = ModelObjects.setNull(firm);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetPremise() {
-		if (isSetPremise())
-			premise.unsetParent();
-
-		premise = null;
+		premise = ModelObjects.setNull(premise);
 	}
 
 	public void unsetThoroughfareLeadingType() {
-		if (isSetThoroughfareLeadingType())
-			thoroughfareLeadingType.unsetParent();
-
-		thoroughfareLeadingType = null;
+		thoroughfareLeadingType = ModelObjects.setNull(thoroughfareLeadingType);
 	}
 
 	public void unsetThoroughfareName() {
-		if (isSetThoroughfareName())
-			thoroughfareName.clear();
-
-		thoroughfareName = null;
+		thoroughfareName = ModelObjects.setNull(thoroughfareName);
 	}
 
 	public boolean unsetThoroughfareName(ThoroughfareName thoroughfareName) {
-		return isSetThoroughfareName() ? this.thoroughfareName.remove(thoroughfareName) : false;
+		return isSetThoroughfareName() && this.thoroughfareName.remove(thoroughfareName);
 	}
 
 	public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
@@ -457,7 +386,6 @@ public class Thoroughfare implements XAL, Child, Copyable {
 		Iterator<ThoroughfareNumberOrRange> iter = numberOrRange.iterator();
 		while (iter.hasNext()) {
 			ThoroughfareNumberOrRange numberOrRange = iter.next();
-
 			if (numberOrRange != null && numberOrRange.getThoroughfareNumber().equals(thoroughfareNumber)) {
 				iter.remove();
 				success = true;
@@ -469,25 +397,19 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void unsetThoroughfareNumberOrThoroughfareNumberRange() {
-		if (isSetThoroughfareNumberOrThoroughfareNumberRange())
-			numberOrRange.clear();
-
-		numberOrRange = null;
+		numberOrRange = ModelObjects.setNull(numberOrRange);
 	}
 
 	public boolean unsetThoroughfareNumberOrThoroughfareNumberRange(ThoroughfareNumberOrRange thoroughfareNumberOrRange) {
-		return isSetThoroughfareNumberOrThoroughfareNumberRange() ? numberOrRange.remove(thoroughfareNumberOrRange) : false;
+		return isSetThoroughfareNumberOrThoroughfareNumberRange() && numberOrRange.remove(thoroughfareNumberOrRange);
 	}
 
 	public void unsetThoroughfareNumberPrefix() {
-		if (isSetThoroughfareNumberPrefix())
-			thoroughfareNumberPrefix.clear();
-
-		thoroughfareNumberPrefix = null;
+		thoroughfareNumberPrefix = ModelObjects.setNull(thoroughfareNumberPrefix);
 	}
 
 	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		return isSetThoroughfareNumberPrefix() ? this.thoroughfareNumberPrefix.remove(thoroughfareNumberPrefix) : false;
+		return isSetThoroughfareNumberPrefix() && this.thoroughfareNumberPrefix.remove(thoroughfareNumberPrefix);
 	}
 
 	public boolean unsetThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange) {
@@ -496,7 +418,6 @@ public class Thoroughfare implements XAL, Child, Copyable {
 		Iterator<ThoroughfareNumberOrRange> iter = numberOrRange.iterator();
 		while (iter.hasNext()) {
 			ThoroughfareNumberOrRange numberOrRange = iter.next();
-
 			if (numberOrRange != null && numberOrRange.getThoroughfareNumberRange().equals(thoroughfareNumberRange)) {
 				iter.remove();
 				success = true;
@@ -508,35 +429,23 @@ public class Thoroughfare implements XAL, Child, Copyable {
 	}
 
 	public void unsetThoroughfareNumberSuffix() {
-		if (isSetThoroughfareNumberSuffix())
-			thoroughfareNumberSuffix.clear();
-
-		thoroughfareNumberSuffix = null;
+		thoroughfareNumberSuffix = ModelObjects.setNull(thoroughfareNumberSuffix);
 	}
 
 	public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		return isSetThoroughfareNumberSuffix() ? this.thoroughfareNumberSuffix.remove(thoroughfareNumberSuffix) : false;
+		return isSetThoroughfareNumberSuffix() && this.thoroughfareNumberSuffix.remove(thoroughfareNumberSuffix);
 	}
 
 	public void unsetThoroughfarePostDirection() {
-		if (isSetThoroughfarePostDirection())
-			thoroughfarePostDirection.unsetParent();
-
-		thoroughfarePostDirection = null;
+		thoroughfarePostDirection = ModelObjects.setNull(thoroughfarePostDirection);
 	}
 
 	public void unsetThoroughfarePreDirection() {
-		if (isSetThoroughfarePreDirection())
-			thoroughfarePreDirection.unsetParent();
-
-		thoroughfarePreDirection = null;
+		thoroughfarePreDirection = ModelObjects.setNull(thoroughfarePreDirection);
 	}
 
 	public void unsetThoroughfareTrailingType() {
-		if (isSetThoroughfareTrailingType())
-			thoroughfareTrailingType.unsetParent();
-
-		thoroughfareTrailingType = null;
+		thoroughfareTrailingType = ModelObjects.setNull(thoroughfareTrailingType);
 	}
 
 	public void unsetType() {

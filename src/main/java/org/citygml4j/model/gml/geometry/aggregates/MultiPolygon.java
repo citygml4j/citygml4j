@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -49,15 +50,12 @@ public class MultiPolygon extends AbstractGeometricAggregate {
 	}
 	
 	public void addPolygonMember(PolygonProperty polygonMember) {
-		if (this.polygonMember == null)
-			this.polygonMember = new ChildList<PolygonProperty>(this);
-
-		this.polygonMember.add(polygonMember);
+		getPolygonMember().add(polygonMember);
 	}
 
 	public List<PolygonProperty> getPolygonMember() {
 		if (polygonMember == null)
-			polygonMember = new ChildList<PolygonProperty>(this);
+			polygonMember = new ChildList<>(this);
 
 		return polygonMember;
 	}
@@ -67,18 +65,15 @@ public class MultiPolygon extends AbstractGeometricAggregate {
 	}
 
 	public void setPolygonMember(List<PolygonProperty> polygonMember) {
-		this.polygonMember = new ChildList<PolygonProperty>(this, polygonMember);
+		this.polygonMember = new ChildList<>(this, polygonMember);
 	}
 
 	public void unsetPolygonMember() {
-		if (isSetPolygonMember())
-			polygonMember.clear();
-			
-		polygonMember = null;
+		polygonMember = ModelObjects.setNull(polygonMember);
 	}
 
 	public boolean unsetPolygonMember(PolygonProperty polygonMember) {
-		return isSetPolygonMember() ? this.polygonMember.remove(polygonMember) : false;
+		return isSetPolygonMember() && this.polygonMember.remove(polygonMember);
 	}
 
 	public BoundingBox calcBoundingBox() {

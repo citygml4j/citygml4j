@@ -75,7 +75,7 @@ public class Coord implements GML, Child, Copyable {
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 		
 		if (isSetX() && isSetY()) {
 			tmp.add(x);

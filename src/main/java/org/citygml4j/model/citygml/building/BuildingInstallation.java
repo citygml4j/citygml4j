@@ -28,6 +28,7 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -88,57 +89,36 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 	}
 	
 	public void setLod2ImplicitRepresentation(ImplicitRepresentationProperty lod2ImplicitRepresentation) {
-		if (lod2ImplicitRepresentation != null)
-			lod2ImplicitRepresentation.setParent(this);
-
-		this.lod2ImplicitRepresentation = lod2ImplicitRepresentation;
+		this.lod2ImplicitRepresentation = ModelObjects.setParent(lod2ImplicitRepresentation, this);
 	}
 	
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation) {
-		if (lod3ImplicitRepresentation != null)
-			lod3ImplicitRepresentation.setParent(this);
-
-		this.lod3ImplicitRepresentation = lod3ImplicitRepresentation;
+		this.lod3ImplicitRepresentation = ModelObjects.setParent(lod3ImplicitRepresentation, this);
 	}
 
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
-		if (lod4ImplicitRepresentation != null)
-			lod4ImplicitRepresentation.setParent(this);
-
-		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
+		this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
 	}
 	
 	public void unsetLod2ImplicitRepresentation() {
-		if (isSetLod2ImplicitRepresentation())
-			lod2ImplicitRepresentation.unsetParent();
-
-		lod2ImplicitRepresentation = null;
+		lod2ImplicitRepresentation = ModelObjects.setNull(lod2ImplicitRepresentation);
 	}
 	
 	public void unsetLod3ImplicitRepresentation() {
-		if (isSetLod3ImplicitRepresentation())
-			lod3ImplicitRepresentation.unsetParent();
-
-		lod3ImplicitRepresentation = null;
+		lod3ImplicitRepresentation = ModelObjects.setNull(lod3ImplicitRepresentation);
 	}
 	
 	public void unsetLod4ImplicitRepresentation() {
-		if (isSetLod4ImplicitRepresentation())
-			lod4ImplicitRepresentation.unsetParent();
-
-		lod4ImplicitRepresentation = null;
+		lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 	
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -148,39 +128,27 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 	}
 	
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 	
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 	
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfBuildingInstallation(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfBuildingInstallation().add(ade);
 	}
 
 	public Code getClazz() {
@@ -189,21 +157,21 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 	
 	public List<ADEComponent> getGenericApplicationPropertyOfBuildingInstallation() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -249,92 +217,71 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfBuildingInstallation(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry) {
-		if (lod2Geometry != null)
-			lod2Geometry.setParent(this);
-		
-		this.lod2Geometry = lod2Geometry;
+		this.lod2Geometry = ModelObjects.setParent(lod2Geometry, this);
 	}
 
 	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry) {
-		if (lod3Geometry != null)
-			lod3Geometry.setParent(this);
-		
-		this.lod3Geometry = lod3Geometry;
+		this.lod3Geometry = ModelObjects.setParent(lod3Geometry, this);
 	}
 
 	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
-		if (lod4Geometry != null)
-			lod4Geometry.setParent(this);
-		
-		this.lod4Geometry = lod4Geometry;
+		this.lod4Geometry = ModelObjects.setParent(lod4Geometry, this);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfBuildingInstallation() {
-		if (isSetGenericApplicationPropertyOfBuildingInstallation())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfBuildingInstallation(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBuildingInstallation() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfBuildingInstallation() && this.ade.remove(ade);
 	}
 
 	public void unsetLod2Geometry() {
-		if (isSetLod2Geometry())
-			lod2Geometry.unsetParent();
-		
-		lod2Geometry = null;
+		lod2Geometry = ModelObjects.setNull(lod2Geometry);
 	}
 
 	public void unsetLod3Geometry() {
-		if (isSetLod3Geometry())
-			lod3Geometry.unsetParent();
-		
-		lod3Geometry = null;
+		lod3Geometry = ModelObjects.setNull(lod3Geometry);
 	}
 
 	public void unsetLod4Geometry() {
-		if (isSetLod4Geometry())
-			lod4Geometry.unsetParent();
-		
-		lod4Geometry = null;
+		lod4Geometry = ModelObjects.setNull(lod4Geometry);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -414,42 +361,14 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				property = lod2Geometry;
-				break;
-			case 3:
-				property = lod3Geometry;
-				break;
-			case 4:
-				property = lod4Geometry;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		ImplicitRepresentationProperty implicitRepresentation = null;
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				implicitRepresentation = lod2ImplicitRepresentation;
-				break;
-			case 3:
-				implicitRepresentation = lod3ImplicitRepresentation;
-				break;
-			case 4:
-				implicitRepresentation = lod4ImplicitRepresentation;
-				break;
-			}
 
-			if (implicitRepresentation != null)
-				lodRepresentation.addRepresentation(lod, implicitRepresentation);
-		}
+		lodRepresentation.addRepresentation(2, lod2Geometry);
+		lodRepresentation.addRepresentation(3, lod3Geometry);
+		lodRepresentation.addRepresentation(4, lod4Geometry);
+
+		lodRepresentation.addRepresentation(2, lod2ImplicitRepresentation);
+		lodRepresentation.addRepresentation(3, lod3ImplicitRepresentation);
+		lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
 		
 		return lodRepresentation;
 	}
@@ -458,7 +377,6 @@ public class BuildingInstallation extends AbstractCityObject implements Building
 		return copyTo(new BuildingInstallation(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		BuildingInstallation copy = (target == null) ? new BuildingInstallation() : (BuildingInstallation)target;

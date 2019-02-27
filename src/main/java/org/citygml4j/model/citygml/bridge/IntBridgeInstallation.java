@@ -28,6 +28,7 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -68,29 +69,20 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 	}
 	
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
-		if (lod4ImplicitRepresentation != null)
-			lod4ImplicitRepresentation.setParent(this);
-
-		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
+		this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
 	}
 	
 	public void unsetLod4ImplicitRepresentation() {
-		if (isSetLod4ImplicitRepresentation())
-			lod4ImplicitRepresentation.unsetParent();
-
-		lod4ImplicitRepresentation = null;
+		lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 	
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -100,39 +92,27 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 	}
 	
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 	
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 	
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfIntBridgeInstallation(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfIntBridgeInstallation().add(ade);
 	}
 
 	public Code getClazz() {
@@ -141,21 +121,21 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfIntBridgeInstallation() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -185,64 +165,55 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfIntBridgeInstallation(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
-		if (lod4Geometry != null)
-			lod4Geometry.setParent(this);
-		
-		this.lod4Geometry = lod4Geometry;
+		this.lod4Geometry = ModelObjects.setParent(lod4Geometry, this);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfIntBridgeInstallation() {
-		if (isSetGenericApplicationPropertyOfIntBridgeInstallation())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfIntBridgeInstallation(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfIntBridgeInstallation() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfIntBridgeInstallation() && this.ade.remove(ade);
 	}
 
 	public void unsetLod4Geometry() {
-		if (isSetLod4Geometry())
-			lod4Geometry.unsetParent();
-		
-		lod4Geometry = null;
+		lod4Geometry = ModelObjects.setNull(lod4Geometry);
 	}
 	
 	public CityGMLClass getCityGMLClass() {
@@ -293,11 +264,8 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
-		if (lod4Geometry != null)
-			lodRepresentation.addRepresentation(4, lod4Geometry);
-		
-		if (lod4ImplicitRepresentation != null)
-			lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
+		lodRepresentation.addRepresentation(4, lod4Geometry);
+		lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
 		
 		return lodRepresentation;
 	}
@@ -306,7 +274,6 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 		return copyTo(new IntBridgeInstallation(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		IntBridgeInstallation copy = (target == null) ? new IntBridgeInstallation() : (IntBridgeInstallation)target;

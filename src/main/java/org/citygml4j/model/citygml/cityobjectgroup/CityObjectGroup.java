@@ -27,6 +27,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -59,31 +60,19 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 	}
 	
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfCityObjectGroup(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfCityObjectGroup().add(ade);
 	}
 
 	public void addGroupMember(CityObjectGroupMember groupMember) {
-		if (this.groupMember == null)
-			this.groupMember = new ChildList<CityObjectGroupMember>(this);
-
-		this.groupMember.add(groupMember);
+		getGroupMember().add(groupMember);
 	}
 
 	public Code getClazz() {
@@ -92,21 +81,21 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObjectGroup() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -117,7 +106,7 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 
 	public List<CityObjectGroupMember> getGroupMember() {
 		if (groupMember == null)
-			groupMember = new ChildList<CityObjectGroupMember>(this);
+			groupMember = new ChildList<>(this);
 
 		return groupMember;
 	}
@@ -155,93 +144,75 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfCityObjectGroup(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setGeometry(GeometryProperty<? extends AbstractGeometry> geometry) {
-		if (geometry != null)
-			geometry.setParent(this);
-		
-		this.geometry = geometry;
+		this.geometry = ModelObjects.setParent(geometry, this);
 	}
 
 	public void setGroupMember(List<CityObjectGroupMember> groupMember) {
-		this.groupMember = new ChildList<CityObjectGroupMember>(this, groupMember);
+		this.groupMember = new ChildList<>(this, groupMember);
 	}
 
 	public void setGroupParent(CityObjectGroupParent groupParent) {
-		if (groupParent != null)
-			groupParent.setParent(this);
-		
-		this.groupParent = groupParent;
+		this.groupParent = ModelObjects.setParent(groupParent, this);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfCityObjectGroup() {
-		if (isSetGenericApplicationPropertyOfCityObjectGroup())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfCityObjectGroup(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfCityObjectGroup() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfCityObjectGroup() && this.ade.remove(ade);
 	}
 
 	public void unsetGeometry() {
-		if (isSetGeometry())
-			geometry.unsetParent();
-		
-		geometry = null;
+		geometry = ModelObjects.setNull(geometry);
 	}
 
 	public void unsetGroupMember() {
-		if (isSetGroupMember())
-			groupMember.clear();
-
-		groupMember = null;
+		groupMember = ModelObjects.setNull(groupMember);
 	}
 
 	public boolean unsetGroupMember(CityObjectGroupMember groupMember) {
-		return isSetGroupMember() ? this.groupMember.remove(groupMember) : false;
+		return isSetGroupMember() && this.groupMember.remove(groupMember);
 	}
 
 	public void unsetGroupParent() {
-		if (isSetGroupParent())
-			groupParent.unsetParent();
-		
-		groupParent = null;
+		groupParent = ModelObjects.setNull(groupParent);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -301,7 +272,6 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		return copyTo(new CityObjectGroup(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		CityObjectGroup copy = (target == null) ? new CityObjectGroup() : (CityObjectGroup)target;

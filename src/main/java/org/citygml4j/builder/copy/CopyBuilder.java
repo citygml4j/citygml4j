@@ -226,7 +226,7 @@ public abstract class CopyBuilder {
 		try {
 			method = object.getClass().getMethod("clone", (Class[]) null);
 		} catch (NoSuchMethodException nsmex) {
-			method = null;
+			//
 		}
 
 		if (method == null || !Modifier.isPublic(method.getModifiers())) {

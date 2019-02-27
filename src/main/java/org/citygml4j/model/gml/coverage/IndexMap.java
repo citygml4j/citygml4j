@@ -29,7 +29,7 @@ public class IndexMap extends GridFunction {
 	
 	public List<Integer> getLookUpTable() {
 		if (lookUpTable == null)
-			lookUpTable = new ArrayList<Integer>();
+			lookUpTable = new ArrayList<>();
 		
 		return lookUpTable;
 	}
@@ -40,7 +40,7 @@ public class IndexMap extends GridFunction {
 
 	public void addLookUpIndex(Integer lookUpIndex) {
 		if (lookUpTable == null)
-			lookUpTable = new ArrayList<Integer>();
+			lookUpTable = new ArrayList<>();
 		
 		lookUpTable.add(lookUpIndex);
 	}

@@ -22,6 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -45,29 +46,23 @@ public class Appearance extends AbstractFeature implements AppearanceModuleCompo
 	}
 	
 	public void addGenericApplicationPropertyOfAppearance(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfAppearance().add(ade);
 	}
 
 	public void addSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
-		if (this.surfaceDataMember == null)
-			this.surfaceDataMember = new ChildList<SurfaceDataProperty>(this);
-
-		this.surfaceDataMember.add(surfaceDataMember);
+		getSurfaceDataMember().add(surfaceDataMember);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfAppearance() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<SurfaceDataProperty> getSurfaceDataMember() {
 		if (surfaceDataMember == null)
-			surfaceDataMember = new ChildList<SurfaceDataProperty>(this);
+			surfaceDataMember = new ChildList<>(this);
 
 		return surfaceDataMember;
 	}
@@ -89,11 +84,11 @@ public class Appearance extends AbstractFeature implements AppearanceModuleCompo
 	}
 
 	public void setGenericApplicationPropertyOfAppearance(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setSurfaceDataMember(List<SurfaceDataProperty> surfaceDataMember) {
-		this.surfaceDataMember = new ChildList<SurfaceDataProperty>(this, surfaceDataMember);
+		this.surfaceDataMember = new ChildList<>(this, surfaceDataMember);
 	}
 
 	public void setTheme(String theme) {
@@ -101,25 +96,19 @@ public class Appearance extends AbstractFeature implements AppearanceModuleCompo
 	}
 
 	public void unsetGenericApplicationPropertyOfAppearance() {
-		if (isSetGenericApplicationPropertyOfAppearance())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfAppearance(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAppearance() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfAppearance() && this.ade.remove(ade);
 	}
 
 	public void unsetSurfaceDataMember() {
-		if (isSetSurfaceDataMember())
-			surfaceDataMember.clear();
-
-		surfaceDataMember = null;
+		surfaceDataMember = ModelObjects.setNull(surfaceDataMember);
 	}
 
 	public boolean unsetSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
-		return isSetSurfaceDataMember() ? this.surfaceDataMember.remove(surfaceDataMember) : false;
+		return isSetSurfaceDataMember() && this.surfaceDataMember.remove(surfaceDataMember);
 	}
 
 	public void unsetTheme() {

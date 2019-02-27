@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -93,75 +94,47 @@ public class ScalarValueList implements GML, Child, Copyable {
 	}
 
 	public void setBooleanList(BooleanOrNullList booleanList) {
-		if (booleanList != null)
-			booleanList.setParent(this);
-		
-		this.booleanList = booleanList;
-		
+		this.booleanList = ModelObjects.setParent(booleanList, this);
 		unsetCategoryList();
 		unsetCountList();
 		unsetQuantityList();
 	}
 
 	public void setCategoryList(CodeOrNullList categoryList) {
-		if (categoryList != null)
-			categoryList.setParent(this);
-		
-		this.categoryList = categoryList;
-		
+		this.categoryList = ModelObjects.setParent(categoryList, this);
 		unsetBooleanList();
 		unsetCountList();
 		unsetQuantityList();
 	}
 
 	public void setQuantityList(MeasureOrNullList quantityList) {
-		if (quantityList != null)
-			quantityList.setParent(this);
-		
-		this.quantityList = quantityList;
-		
+		this.quantityList = ModelObjects.setParent(quantityList, this);
 		unsetBooleanList();
 		unsetCategoryList();
 		unsetCountList();
 	}
 
 	public void setCountList(IntegerOrNullList countList) {
-		if (countList != null)
-			countList.setParent(this);
-		
-		this.countList = countList;
-		
+		this.countList = ModelObjects.setParent(countList, this);
 		unsetBooleanList();
 		unsetCategoryList();
 		unsetQuantityList();
 	}
 
 	public void unsetBooleanList() {
-		if (isSetBooleanList())
-			booleanList.unsetParent();
-		
-		booleanList = null;
+		booleanList = ModelObjects.setNull(booleanList);
 	}
 
 	public void unsetCategoryList() {
-		if (categoryList != null)
-			categoryList.unsetParent();
-		
-		categoryList = null;
+		categoryList = ModelObjects.setNull(categoryList);
 	}
 
 	public void unsetQuantityList() {
-		if (quantityList != null)
-			quantityList.unsetParent();
-		
-		quantityList = null;
+		quantityList = ModelObjects.setNull(quantityList);
 	}
 
 	public void unsetCountList() {
-		if (countList != null)
-			countList.unsetParent();
-		
-		countList = null;
+		countList = ModelObjects.setNull(countList);
 	}
 	
 	public ModelObject getParent() {

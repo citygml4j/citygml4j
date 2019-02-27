@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -34,50 +35,32 @@ public class ThoroughfareNumberFrom implements XAL, GrPostal, Child, Copyable {
 	private ModelObject parent;
 
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.content == null)
-			this.content = new ChildList<ThoroughfareNumberFromContent>(this);
-
-		this.content.add(new ThoroughfareNumberFromContent(addressLine));
+		getContent().add(new ThoroughfareNumberFromContent(addressLine));
 	}
 
 	public void addContent(ThoroughfareNumberFromContent content) {
-		if (this.content == null)
-			this.content = new ChildList<ThoroughfareNumberFromContent>(this);
-
-		this.content.add(content);
+		getContent().add(content);
 	}
 
 	public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		if (this.content == null)
-			this.content = new ChildList<ThoroughfareNumberFromContent>(this);
-
-		this.content.add(new ThoroughfareNumberFromContent(thoroughfareNumber));
+		getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumber));
 	}
 
 	public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		if (this.content == null)
-			this.content = new ChildList<ThoroughfareNumberFromContent>(this);
-
-		this.content.add(new ThoroughfareNumberFromContent(thoroughfareNumberPrefix));
+		getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumberPrefix));
 	}
 
 	public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		if (this.content == null)
-			this.content = new ChildList<ThoroughfareNumberFromContent>(this);
-
-		this.content.add(new ThoroughfareNumberFromContent(thoroughfareNumberSuffix));
+		getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumberSuffix));
 	}
 
 	public void addString(String string) {
-		if (this.content == null)
-			this.content = new ChildList<ThoroughfareNumberFromContent>(this);
-
-		this.content.add(new ThoroughfareNumberFromContent(string));
+		getContent().add(new ThoroughfareNumberFromContent(string));
 	}
 
 	public List<ThoroughfareNumberFromContent> getContent() {
 		if (content == null)
-			content = new ChildList<ThoroughfareNumberFromContent>(this);
+			content = new ChildList<>(this);
 
 		return content;
 	}
@@ -87,38 +70,35 @@ public class ThoroughfareNumberFrom implements XAL, GrPostal, Child, Copyable {
 	}
 
 	public void setContent(List<ThoroughfareNumberFromContent> content) {
-		this.content = new ChildList<ThoroughfareNumberFromContent>(this, content);
+		this.content = new ChildList<>(this, content);
 	}
 
 	public void unsetContent() {
-		if (isSetContent())
-			content.clear();
-
-		content = null;
+		content = ModelObjects.setNull(content);
 	}
 
 	public boolean unsetContent(ThoroughfareNumberFromContent content) {
-		return isSetContent() ? this.content.remove(content) : false;
+		return isSetContent() && this.content.remove(content);
 	}
 	
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetContent() ? content.removeIf(c -> c.getAddressLine() == addressLine) : false;
+		return isSetContent() && content.removeIf(c -> c.getAddressLine() == addressLine);
 	}
 
 	public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		return isSetContent() ? content.removeIf(c -> c.getThoroughfareNumber() == thoroughfareNumber) : false;
+		return isSetContent() && content.removeIf(c -> c.getThoroughfareNumber() == thoroughfareNumber);
 	}
 
 	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		return isSetContent() ? content.removeIf(c -> c.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix) : false;
+		return isSetContent() && content.removeIf(c -> c.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix);
 	}
 
 	public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		return isSetContent() ? content.removeIf(c -> c.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix) : false;
+		return isSetContent() && content.removeIf(c -> c.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix);
 	}
 
 	public boolean unsetString(String string) {
-		return isSetContent() ? content.removeIf(c -> c.isSetString() && c.getString().equals(string)) : false;
+		return isSetContent() && content.removeIf(c -> c.isSetString() && c.getString().equals(string));
 	}
 
 	public XALClass getXALClass() {

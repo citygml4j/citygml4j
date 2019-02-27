@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -78,10 +79,7 @@ public class File implements GML, Child, Copyable {
 	}
 
 	public void setRangeParameters(RangeParameters rangeParameters) {
-		if (rangeParameters != null)
-			rangeParameters.setParent(this);
-		
-		this.rangeParameters = rangeParameters;
+		this.rangeParameters = ModelObjects.setParent(rangeParameters, this);
 	}
 
 	public void setFileName(String fileName) {
@@ -101,10 +99,7 @@ public class File implements GML, Child, Copyable {
 	}
 
 	public void unsetRangeParameters() {
-		if (isSetRangeParameters())
-			rangeParameters.unsetParent();
-		
-		rangeParameters = null;
+		rangeParameters = ModelObjects.setNull(rangeParameters);
 	}
 
 	public void unsetFileName() {

@@ -19,14 +19,14 @@
 package org.citygml4j.model.gml.geometry;
 
 public interface SRSReferenceGroup extends SRSInformationGroup {
-	public String getSrsName();
-	public String getInheritedSrsName();
-	public Integer getSrsDimension();
-	public boolean isSetSrsName();
-	public boolean isSetSrsDimension();
+	String getSrsName();
+	String getInheritedSrsName();
+	Integer getSrsDimension();
+	boolean isSetSrsName();
+	boolean isSetSrsDimension();
 
-	public void setSrsName(String srsName);
-	public void setSrsDimension(Integer srsDimension);
-	public void unsetSrsName();
-	public void unsetSrsDimension();
+	void setSrsName(String srsName);
+	void setSrsDimension(Integer srsDimension);
+	void unsetSrsName();
+	void unsetSrsDimension();
 }

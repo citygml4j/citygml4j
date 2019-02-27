@@ -53,8 +53,8 @@ public class AbstractModuleConfiguration {
 	}
 
 	public boolean contains(Module module) {
-		for (Module cand : modules)
-			if (cand.equals(module))
+		for (Module candidate : modules)
+			if (candidate.equals(module))
 				return true;
 
 		return false;

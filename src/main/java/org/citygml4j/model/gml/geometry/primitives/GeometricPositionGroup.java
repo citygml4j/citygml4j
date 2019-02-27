@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -62,33 +63,21 @@ public class GeometricPositionGroup implements GML, Child, Copyable {
 	}
 
 	public void setPointProperty(PointProperty pointProperty) {
-		if (pointProperty != null)
-			pointProperty.setParent(this);
-		
-		this.pointProperty = pointProperty;
+		this.pointProperty = ModelObjects.setParent(pointProperty, this);
 		unsetPos();
 	}
 
 	public void setPos(DirectPosition pos) {
-		if (pos != null)
-			pos.setParent(this);
-		
-		this.pos = pos;
+		this.pos = ModelObjects.setParent(pos, this);
 		unsetPointProperty();
 	}
 
 	public void unsetPointProperty() {
-		if (isSetPointProperty())
-			pointProperty.unsetParent();
-		
-		pointProperty = null;
+		pointProperty = ModelObjects.setNull(pointProperty);
 	}
 
 	public void unsetPos() {
-		if (isSetPos())
-			pos.unsetParent();
-		
-		pos = null;
+		pos = ModelObjects.setNull(pos);
 	}
 
 	public GMLClass getGMLClass() {
@@ -108,7 +97,7 @@ public class GeometricPositionGroup implements GML, Child, Copyable {
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 
 		if (isSetPos())
 			tmp.addAll(pos.toList3d());

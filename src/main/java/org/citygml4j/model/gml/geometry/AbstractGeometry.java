@@ -64,7 +64,7 @@ public abstract class AbstractGeometry extends AbstractGML implements SRSReferen
 	public String getInheritedSrsName() {
 		if (srsName == null) {
 			Child child = this;
-			ModelObject parent = null;
+			ModelObject parent;
 
 			while ((parent = child.getParent()) != null) {
 				if (parent instanceof AbstractGeometry)
@@ -114,28 +114,28 @@ public abstract class AbstractGeometry extends AbstractGML implements SRSReferen
 
 	public void addAxisLabel(String axisLabel) {
 		if (axisLabels == null)
-			axisLabels = new ArrayList<String>();
+			axisLabels = new ArrayList<>();
 		
 		axisLabels.add(axisLabel);
 	}
 
 	public void addUomLabel(String uomLabel) {
 		if (uomLabels == null)
-			uomLabels = new ArrayList<String>();
+			uomLabels = new ArrayList<>();
 		
 		uomLabels.add(uomLabel);
 	}
 
 	public List<String> getAxisLabels() {
 		if (axisLabels == null)
-			axisLabels = new ArrayList<String>();
+			axisLabels = new ArrayList<>();
 
 		return axisLabels;
 	}
 
 	public List<String> getUomLabels() {
 		if (uomLabels == null)
-			uomLabels = new ArrayList<String>();
+			uomLabels = new ArrayList<>();
 
 		return uomLabels;
 	}
@@ -161,7 +161,7 @@ public abstract class AbstractGeometry extends AbstractGML implements SRSReferen
 	}
 
 	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() ? axisLabels.remove(axisLabel) : false;
+		return isSetAxisLabels() && axisLabels.remove(axisLabel);
 	}
 
 	public void unsetUomLabels() {
@@ -169,7 +169,7 @@ public abstract class AbstractGeometry extends AbstractGML implements SRSReferen
 	}
 
 	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() ? uomLabels.remove(uomLabel) : false;
+		return isSetUomLabels() && uomLabels.remove(uomLabel);
 	}
 
 	@SuppressWarnings("unchecked")

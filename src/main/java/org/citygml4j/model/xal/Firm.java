@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -38,43 +39,34 @@ public class Firm implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addDepartment(Department department) {
-		if (this.department == null)
-			this.department = new ChildList<Department>(this);
-
-		this.department.add(department);
+		getDepartment().add(department);
 	}
 
 	public void addFirmName(FirmName firmName) {
-		if (this.firmName == null)
-			this.firmName = new ChildList<FirmName>(this);
-
-		this.firmName.add(firmName);
+		getFirmName().add(firmName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
 
 	public List<Department> getDepartment() {
 		if (department == null)
-			department = new ChildList<Department>(this);
+			department = new ChildList<>(this);
 
 		return department;
 	}
 
 	public List<FirmName> getFirmName() {
 		if (firmName == null)
-			firmName = new ChildList<FirmName>(this);
+			firmName = new ChildList<>(this);
 
 		return firmName;
 	}
@@ -116,29 +108,23 @@ public class Firm implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setDepartment(List<Department> department) {
-		this.department = new ChildList<Department>(this, department);
+		this.department = new ChildList<>(this, department);
 	}
 
 	public void setFirmName(List<FirmName> firmName) {
-		this.firmName = new ChildList<FirmName>(this, firmName);
+		this.firmName = new ChildList<>(this, firmName);
 	}
 
 	public void setMailStop(MailStop mailStop) {
-		if (mailStop != null)
-			mailStop.setParent(this);
-
-		this.mailStop = mailStop;
+		this.mailStop = ModelObjects.setParent(mailStop, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setType(String type) {
@@ -146,50 +132,35 @@ public class Firm implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetDepartment() {
-		if (isSetDepartment())
-			department.clear();
-
-		department = null;
+		department = ModelObjects.setNull(department);
 	}
 
 	public boolean unsetDepartment(Department department) {
-		return isSetDepartment() ? this.department.remove(department) : false;
+		return isSetDepartment() && this.department.remove(department);
 	}
 
 	public void unsetFirmName() {
-		if (isSetFirmName())
-			firmName.clear();
-
-		firmName = null;
+		firmName = ModelObjects.setNull(firmName);
 	}
 
 	public boolean unsetFirmName(FirmName firmName) {
-		return isSetFirmName() ? this.firmName.remove(firmName) : false;
+		return isSetFirmName() && this.firmName.remove(firmName);
 	}
 
 	public void unsetMailStop() {
-		if (isSetMailStop())
-			mailStop.unsetParent();
-
-		mailStop = null;
+		mailStop = ModelObjects.setNull(mailStop);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetType() {

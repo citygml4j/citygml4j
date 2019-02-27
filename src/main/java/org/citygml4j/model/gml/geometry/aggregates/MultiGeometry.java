@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -41,25 +42,22 @@ public class MultiGeometry extends AbstractGeometricAggregate {
 		
 	}
 	
-	public MultiGeometry(List<? extends AbstractGeometry> abstractGeometrys) {
-		for (AbstractGeometry abstractGeometry : abstractGeometrys)
-			addGeometryMember(new GeometryProperty<AbstractGeometry>(abstractGeometry));
+	public MultiGeometry(List<? extends AbstractGeometry> abstractGeometries) {
+		for (AbstractGeometry abstractGeometry : abstractGeometries)
+			addGeometryMember(new GeometryProperty<>(abstractGeometry));
 	}
 	
-	public MultiGeometry(AbstractGeometry... abstractGeometrys) {
-		this(Arrays.asList(abstractGeometrys));
+	public MultiGeometry(AbstractGeometry... abstractGeometries) {
+		this(Arrays.asList(abstractGeometries));
 	}
 	
 	public void addGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
-		if (this.geometryMember == null)
-			this.geometryMember = new ChildList<GeometryProperty<? extends AbstractGeometry>>(this);
-
-		this.geometryMember.add(geometryMember);
+		getGeometryMember().add(geometryMember);
 	}
 
 	public List<GeometryProperty<? extends AbstractGeometry>> getGeometryMember() {
 		if (geometryMember == null)
-			geometryMember = new ChildList<GeometryProperty<? extends AbstractGeometry>>(this);
+			geometryMember = new ChildList<>(this);
 
 		return geometryMember;
 	}
@@ -77,32 +75,23 @@ public class MultiGeometry extends AbstractGeometricAggregate {
 	}
 
 	public void setGeometryMember(List<GeometryProperty<? extends AbstractGeometry>> geometryMember) {
-		this.geometryMember = new ChildList<GeometryProperty<? extends AbstractGeometry>>(this, geometryMember);
+		this.geometryMember = new ChildList<>(this, geometryMember);
 	}
 
 	public void setGeometryMembers(GeometryArrayProperty<? extends AbstractGeometry> geometryMembers) {
-		if (geometryMembers != null)
-			geometryMembers.setParent(this);
-
-		this.geometryMembers = geometryMembers;
+		this.geometryMembers = ModelObjects.setParent(geometryMembers, this);
 	}
 
 	public void unsetGeometryMember() {
-		if (isSetGeometryMember())
-			geometryMember.clear();
-
-		geometryMember = null;
+		geometryMember = ModelObjects.setNull(geometryMember);
 	}
 
 	public boolean unsetGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
-		return isSetGeometryMember() ? this.geometryMember.remove(geometryMember) : false;
+		return isSetGeometryMember() && this.geometryMember.remove(geometryMember);
 	}
 
 	public void unsetGeometryMembers() {
-		if (geometryMembers != null)
-			geometryMembers.unsetParent();
-
-		geometryMembers = null;
+		geometryMembers = ModelObjects.setNull(geometryMembers);
 	}
 
 	public BoundingBox calcBoundingBox() {
@@ -133,7 +122,6 @@ public class MultiGeometry extends AbstractGeometricAggregate {
 		return copyTo(new MultiGeometry(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		MultiGeometry copy = (target == null) ? new MultiGeometry() : (MultiGeometry)target;

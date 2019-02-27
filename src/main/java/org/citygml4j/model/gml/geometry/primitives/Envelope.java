@@ -22,6 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -58,22 +59,16 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void addCoord(Coord coord) {
-		if (this.coord == null)
-			this.coord = new ChildList<Coord>(this);
-
-		this.coord.add(coord);
+		getCoord().add(coord);
 	}
 
 	public void addPos(DirectPosition pos) {
-		if (this.pos == null)
-			this.pos = new ChildList<DirectPosition>(this);
-
-		this.pos.add(pos);
+		getPos().add(pos);
 	}
 
 	public List<Coord> getCoord() {
 		if (coord == null)
-			coord = new ChildList<Coord>(this);
+			coord = new ChildList<>(this);
 
 		return coord;
 	}
@@ -88,7 +83,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 
 	public List<DirectPosition> getPos() {
 		if (pos == null)
-			pos = new ChildList<DirectPosition>(this);
+			pos = new ChildList<>(this);
 
 		return pos;
 	}
@@ -118,21 +113,15 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void setCoord(List<Coord> coord) {
-		this.coord = new ChildList<Coord>(this, coord);
+		this.coord = new ChildList<>(this, coord);
 	}
 
 	public void setCoordinates(Coordinates coordinates) {
-		if (coordinates != null)
-			coordinates.setParent(this);
-
-		this.coordinates = coordinates;
+		this.coordinates = ModelObjects.setParent(coordinates, this);
 	}
 
 	public void setLowerCorner(DirectPosition lowerCorner) {
-		if (lowerCorner != null)
-			lowerCorner.setParent(this);
-
-		this.lowerCorner = lowerCorner;
+		this.lowerCorner = ModelObjects.setParent(lowerCorner, this);
 	}
 
 	public void setLowerCorner(Point lowerCorner) {
@@ -149,14 +138,11 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void setPos(List<DirectPosition> pos) {
-		this.pos = new ChildList<DirectPosition>(this, pos);
+		this.pos = new ChildList<>(this, pos);
 	}
 
 	public void setUpperCorner(DirectPosition upperCorner) {
-		if (upperCorner != null)
-			upperCorner.setParent(this);
-
-		this.upperCorner = upperCorner;
+		this.upperCorner = ModelObjects.setParent(upperCorner, this);
 	}
 
 	public void setUpperCorner(Point upperCorner) {
@@ -173,46 +159,31 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void unsetCoord() {
-		if (isSetCoord())
-			coord.clear();
-
-		coord = null;
+		coord = ModelObjects.setNull(coord);
 	}
 
 	public boolean unsetCoord(Coord coord) {
-		return isSetCoord() ? this.coord.remove(coord) : false;
+		return isSetCoord() && this.coord.remove(coord);
 	}
 
 	public void unsetCoordinates() {
-		if (isSetCoordinates())
-			coordinates.unsetParent();
-
-		coordinates = null;
+		coordinates = ModelObjects.setNull(coordinates);
 	}
 
 	public void unsetLowerCorner() {
-		if (isSetLowerCorner())
-			lowerCorner.unsetParent();
-
-		lowerCorner = null;
+		lowerCorner = ModelObjects.setNull(lowerCorner);
 	}
 
 	public void unsetPos() {
-		if (isSetPos())
-			pos.clear();
-
-		pos = null;
+		pos = ModelObjects.setNull(pos);
 	}
 
 	public boolean unsetPos(DirectPosition pos) {
-		return isSetPos() ? this.pos.remove(pos) : false;
+		return isSetPos() && this.pos.remove(pos);
 	}
 
 	public void unsetUpperCorner() {
-		if (isSetUpperCorner())
-			upperCorner.unsetParent();
-
-		upperCorner = null;
+		upperCorner = ModelObjects.setNull(upperCorner);
 	}
 
 	public GMLClass getGMLClass() {
@@ -230,7 +201,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	public String getInheritedSrsName() {
 		if (srsName == null) {
 			Child child = this;
-			ModelObject parent = null;
+			ModelObject parent;
 
 			while ((parent = child.getParent()) != null) {
 				if (parent instanceof AbstractFeature) {
@@ -277,29 +248,23 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void addAxisLabel(String axisLabel) {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<String>();
-
-		axisLabels.add(axisLabel);
+		getAxisLabels().add(axisLabel);
 	}
 
 	public void addUomLabel(String uomLabel) {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<String>();
-
-		uomLabels.add(uomLabel);
+		getUomLabels().add(uomLabel);
 	}
 
 	public List<String> getAxisLabels() {
 		if (axisLabels == null)
-			axisLabels = new ArrayList<String>();
+			axisLabels = new ArrayList<>();
 
 		return axisLabels;
 	}
 
 	public List<String> getUomLabels() {
 		if (uomLabels == null)
-			uomLabels = new ArrayList<String>();
+			uomLabels = new ArrayList<>();
 
 		return uomLabels;
 	}
@@ -325,7 +290,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() ? axisLabels.remove(axisLabel) : false;
+		return isSetAxisLabels() && axisLabels.remove(axisLabel);
 	}
 
 	public void unsetUomLabels() {
@@ -333,7 +298,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() ? uomLabels.remove(uomLabel) : false;
+		return isSetUomLabels() && uomLabels.remove(uomLabel);
 	}
 
 	public ModelObject getParent() {

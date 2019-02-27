@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
@@ -46,10 +47,7 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 	}
 	
 	public void addGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-		
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfReliefComponent().add(ade);
 	}
 
 	public PolygonProperty getExtent() {
@@ -58,7 +56,7 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefComponent() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -80,14 +78,11 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 	}
 
 	public void setExtent(PolygonProperty extent) {
-		if (extent != null)
-			extent.setParent(this);
-
-		this.extent = extent;
+		this.extent = ModelObjects.setParent(extent, this);
 	}
 
 	public void setGenericApplicationPropertyOfReliefComponent(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod(int lod) {
@@ -96,21 +91,15 @@ public abstract class AbstractReliefComponent extends AbstractCityObject impleme
 	}
 
 	public void unsetExtent() {
-		if (isSetExtent())
-			extent.unsetParent();
-
-		extent = null;
+		extent = ModelObjects.setNull(extent);
 	}
 
 	public void unsetGenericApplicationPropertyOfReliefComponent() {
-		if (isSetGenericApplicationPropertyOfReliefComponent())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfReliefComponent() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfReliefComponent() && this.ade.remove(ade);
 	}
 
 	@Override

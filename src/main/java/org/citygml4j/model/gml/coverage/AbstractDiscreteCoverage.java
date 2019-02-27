@@ -19,6 +19,7 @@
 package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.module.Module;
 
 public abstract class AbstractDiscreteCoverage extends AbstractCoverage {
@@ -41,17 +42,11 @@ public abstract class AbstractDiscreteCoverage extends AbstractCoverage {
 	}
 
 	public void setCoverageFunction(CoverageFunction coverageFunction) {
-		if (coverageFunction != null)
-			coverageFunction.setParent(this);
-		
-		this.coverageFunction = coverageFunction;
+		this.coverageFunction = ModelObjects.setParent(coverageFunction, this);
 	}
 
 	public void unsetCoverageFunction() {
-		if (isSetCoverageFunction())
-			coverageFunction.unsetParent();
-		
-		coverageFunction = null;
+		coverageFunction = ModelObjects.setNull(coverageFunction);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -33,15 +34,12 @@ public class Ring extends AbstractRing {
 	private List<CurveProperty> curveMember;
 
 	public void addCurveMember(CurveProperty curveMember) {
-		if (this.curveMember == null)
-			this.curveMember = new ChildList<CurveProperty>(this);
-
-		this.curveMember.add(curveMember);
+		getCurveMember().add(curveMember);
 	}
 
 	public List<CurveProperty> getCurveMember() {
 		if (curveMember == null)
-			curveMember = new ChildList<CurveProperty>(this);
+			curveMember = new ChildList<>(this);
 
 		return curveMember;
 	}
@@ -51,18 +49,15 @@ public class Ring extends AbstractRing {
 	}
 
 	public void setCurveMember(List<CurveProperty> curveMember) {
-		this.curveMember = new ChildList<CurveProperty>(this, curveMember);
+		this.curveMember = new ChildList<>(this, curveMember);
 	}
 
 	public void unsetCurveMember() {
-		if (isSetCurveMember())
-			curveMember.clear();
-
-		curveMember = null;
+		curveMember = ModelObjects.setNull(curveMember);
 	}
 
 	public boolean unsetCurveMember(CurveProperty curveMember) {
-		return isSetCurveMember() ? this.curveMember.remove(curveMember) : false;
+		return isSetCurveMember() && this.curveMember.remove(curveMember);
 	}	
 
 	public BoundingBox calcBoundingBox() {

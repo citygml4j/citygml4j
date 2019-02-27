@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -49,64 +50,43 @@ public class Premise implements XAL, Child, Copyable {
 	private ModelObject parent;	
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addBuildingName(BuildingName buildingName) {
-		if (this.buildingName == null)
-			this.buildingName = new ChildList<BuildingName>(this);
-
-		this.buildingName.add(buildingName);
+		getBuildingName().add(buildingName);
 	}
 
 	public void addPremiseName(PremiseName premiseName) {
-		if (this.premiseName == null)
-			this.premiseName = new ChildList<PremiseName>(this);
-
-		this.premiseName.add(premiseName);
+		getPremiseName().add(premiseName);
 	}
 
 	public void addPremiseNumber(PremiseNumber premiseNumber) {
-		if (this.premiseNumber == null)
-			this.premiseNumber = new ChildList<PremiseNumber>(this);
-
-		this.premiseNumber.add(premiseNumber);
+		getPremiseNumber().add(premiseNumber);
 	}
 
 	public void addPremiseNumberPrefix(PremiseNumberPrefix premiseNumberPrefix) {
-		if (this.premiseNumberPrefix == null)
-			this.premiseNumberPrefix = new ChildList<PremiseNumberPrefix>(this);
-
-		this.premiseNumberPrefix.add(premiseNumberPrefix);
+		getPremiseNumberPrefix().add(premiseNumberPrefix);
 	}
 
 	public void addPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix) {
-		if (this.premiseNumberSuffix == null)
-			this.premiseNumberSuffix = new ChildList<PremiseNumberSuffix>(this);
-
-		this.premiseNumberSuffix.add(premiseNumberSuffix);
+		getPremiseNumberSuffix().add(premiseNumberSuffix);
 	}
 
 	public void addSubPremise(SubPremise subPremise) {
-		if (this.subPremise == null)
-			this.subPremise = new ChildList<SubPremise>(this);
-
-		this.subPremise.add(subPremise);
+		getSubPremise().add(subPremise);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
 
 	public List<BuildingName> getBuildingName() {
 		if (buildingName == null)
-			buildingName = new ChildList<BuildingName>(this);
+			buildingName = new ChildList<>(this);
 
 		return buildingName;
 	}
@@ -141,21 +121,21 @@ public class Premise implements XAL, Child, Copyable {
 
 	public List<PremiseName> getPremiseName() {
 		if (premiseName == null)
-			premiseName = new ChildList<PremiseName>(this);
+			premiseName = new ChildList<>(this);
 
 		return premiseName;
 	}
 
 	public List<PremiseNumber> getPremiseNumber() {
 		if (premiseNumber == null)
-			premiseNumber = new ChildList<PremiseNumber>(this);
+			premiseNumber = new ChildList<>(this);
 
 		return premiseNumber;
 	}
 
 	public List<PremiseNumberPrefix> getPremiseNumberPrefix() {
 		if (premiseNumberPrefix == null)
-			premiseNumberPrefix = new ChildList<PremiseNumberPrefix>(this);
+			premiseNumberPrefix = new ChildList<>(this);
 
 		return premiseNumberPrefix;
 	}
@@ -166,7 +146,7 @@ public class Premise implements XAL, Child, Copyable {
 
 	public List<PremiseNumberSuffix> getPremiseNumberSuffix() {
 		if (premiseNumberSuffix == null)
-			premiseNumberSuffix = new ChildList<PremiseNumberSuffix>(this);
+			premiseNumberSuffix = new ChildList<>(this);
 
 		return premiseNumberSuffix;
 	}
@@ -177,7 +157,7 @@ public class Premise implements XAL, Child, Copyable {
 
 	public List<SubPremise> getSubPremise() {
 		if (subPremise == null)
-			subPremise = new ChildList<SubPremise>(this);
+			subPremise = new ChildList<>(this);
 
 		return subPremise;
 	}
@@ -255,39 +235,27 @@ public class Premise implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setBuildingName(List<BuildingName> buildingName) {
-		this.buildingName = new ChildList<BuildingName>(this, buildingName);
+		this.buildingName = new ChildList<>(this, buildingName);
 	}
 
 	public void setFirm(Firm firm) {
-		if (firm != null)
-			firm.setParent(this);
-		
-		this.firm = firm;
+		this.firm = ModelObjects.setParent(firm, this);
 	}
 
 	public void setMailStop(MailStop mailStop) {
-		if (mailStop != null)
-			mailStop.setParent(this);
-		
-		this.mailStop = mailStop;
+		this.mailStop = ModelObjects.setParent(mailStop, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-		
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setPremise(Premise premise) {
-		if (premise != null)
-			premise.setParent(this);
-		
-		this.premise = premise;
+		this.premise = ModelObjects.setParent(premise, this);
 	}
 
 	public void setPremiseDependency(String premiseDependency) {
@@ -299,33 +267,27 @@ public class Premise implements XAL, Child, Copyable {
 	}
 
 	public void setPremiseLocation(PremiseLocation premiseLocation) {
-		if (premiseLocation != null)
-			premiseLocation.setParent(this);
-		
-		this.premiseLocation = premiseLocation;
+		this.premiseLocation = ModelObjects.setParent(premiseLocation, this);
 	}
 
 	public void setPremiseName(List<PremiseName> premiseName) {
-		this.premiseName = new ChildList<PremiseName>(this, premiseName);
+		this.premiseName = new ChildList<>(this, premiseName);
 	}
 
 	public void setPremiseNumber(List<PremiseNumber> premiseNumber) {
-		this.premiseNumber = new ChildList<PremiseNumber>(this, premiseNumber);
+		this.premiseNumber = new ChildList<>(this, premiseNumber);
 	}
 
 	public void setPremiseNumberPrefix(List<PremiseNumberPrefix> premiseNumberPrefix) {
-		this.premiseNumberPrefix = new ChildList<PremiseNumberPrefix>(this, premiseNumberPrefix);
+		this.premiseNumberPrefix = new ChildList<>(this, premiseNumberPrefix);
 	}
 
 	public void setPremiseNumberRange(PremiseNumberRange premiseNumberRange) {
-		if (premiseNumberRange != null)
-			premiseNumberRange.setParent(this);
-		
-		this.premiseNumberRange = premiseNumberRange;
+		this.premiseNumberRange = ModelObjects.setParent(premiseNumberRange, this);
 	}
 
 	public void setPremiseNumberSuffix(List<PremiseNumberSuffix> premiseNumberSuffix) {
-		this.premiseNumberSuffix = new ChildList<PremiseNumberSuffix>(this, premiseNumberSuffix);
+		this.premiseNumberSuffix = new ChildList<>(this, premiseNumberSuffix);
 	}
 
 	public void setPremiseThoroughfareConnector(String premiseThoroughfareConnector) {
@@ -333,7 +295,7 @@ public class Premise implements XAL, Child, Copyable {
 	}
 
 	public void setSubPremise(List<SubPremise> subPremise) {
-		this.subPremise = new ChildList<SubPremise>(this, subPremise);
+		this.subPremise = new ChildList<>(this, subPremise);
 	}
 
 	public void setType(String type) {
@@ -341,53 +303,35 @@ public class Premise implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetBuildingName() {
-		if (isSetBuildingName())
-			buildingName.clear();
-
-		buildingName = null;
+		buildingName = ModelObjects.setNull(buildingName);
 	}
 
 	public boolean unsetBuildingName(BuildingName buildingName) {
-		return isSetBuildingName() ? this.buildingName.remove(buildingName) : false;
+		return isSetBuildingName() && this.buildingName.remove(buildingName);
 	}
 
 	public void unsetFirm() {
-		if (isSetFirm())
-			firm.unsetParent();
-		
-		firm = null;
+		firm = ModelObjects.setNull(firm);
 	}
 
 	public void unsetMailStop() {
-		if (isSetMailStop())
-			mailStop.unsetParent();
-
-		mailStop = null;
+		mailStop = ModelObjects.setNull(mailStop);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetPremise() {
-		if (isSetPremise())
-			premise.unsetParent();
-
-		premise = null;
+		premise = ModelObjects.setNull(premise);
 	}
 
 	public void unsetPremiseDependency() {
@@ -399,61 +343,43 @@ public class Premise implements XAL, Child, Copyable {
 	}
 
 	public void unsetPremiseLocation() {
-		if (isSetPremiseLocation())
-			premiseLocation.unsetParent();
-
-		premiseLocation = null;
+		premiseLocation = ModelObjects.setNull(premiseLocation);
 	}
 
 	public void unsetPremiseName() {
-		if (isSetPremiseName())
-			premiseName.clear();
-
-		premiseName = null;
+		premiseName = ModelObjects.setNull(premiseName);
 	}
 
 	public boolean unsetPremiseName(PremiseName premiseName) {
-		return isSetPremiseName() ? this.premiseName.remove(premiseName) : false;
+		return isSetPremiseName() && this.premiseName.remove(premiseName);
 	}
 
 	public void unsetPremiseNumber() {
-		if (isSetPremiseNumber())
-			premiseNumber.clear();
-
-		premiseNumber = null;
+		premiseNumber = ModelObjects.setNull(premiseNumber);
 	}
 
 	public boolean unsetPremiseNumber(PremiseNumber premiseNumber) {
-		return isSetPremiseNumber() ? this.premiseNumber.remove(premiseNumber) : false;
+		return isSetPremiseNumber() && this.premiseNumber.remove(premiseNumber);
 	}
 
 	public void unsetPremiseNumberPrefix() {
-		if (isSetPremiseNumberPrefix())
-			premiseNumberPrefix.clear();
-
-		premiseNumberPrefix = null;
+		premiseNumberPrefix = ModelObjects.setNull(premiseNumberPrefix);
 	}
 
 	public boolean unsetPremiseNumberPrefix(PremiseNumberPrefix premiseNumberPrefix) {
-		return isSetPremiseNumberPrefix() ? this.premiseNumberPrefix.remove(premiseNumberPrefix) : false;
+		return isSetPremiseNumberPrefix() && this.premiseNumberPrefix.remove(premiseNumberPrefix);
 	}
 
 	public void unsetPremiseNumberRange() {
-		if (isSetPremiseNumberRange())
-			premiseNumberRange.unsetParent();
-
-		premiseNumberRange = null;
+		premiseNumberRange = ModelObjects.setNull(premiseNumberRange);
 	}
 
 	public void unsetPremiseNumberSuffix() {
-		if (isSetPremiseNumberSuffix())
-			premiseNumberSuffix.clear();
-
-		premiseNumberSuffix = null;
+		premiseNumberSuffix = ModelObjects.setNull(premiseNumberSuffix);
 	}
 
 	public boolean unsetPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix) {
-		return isSetPremiseNumberSuffix() ? this.premiseNumberSuffix.remove(premiseNumberSuffix) : false;
+		return isSetPremiseNumberSuffix() && this.premiseNumberSuffix.remove(premiseNumberSuffix);
 	}
 
 	public void unsetPremiseThoroughfareConnector() {
@@ -461,14 +387,11 @@ public class Premise implements XAL, Child, Copyable {
 	}
 
 	public void unsetSubPremise() {
-		if (isSetSubPremise())
-			subPremise.clear();
-
-		subPremise = null;
+		subPremise = ModelObjects.setNull(subPremise);
 	}
 
 	public boolean unsetSubPremise(SubPremise subPremise) {
-		return isSetSubPremise() ? this.subPremise.remove(subPremise) : false;
+		return isSetSubPremise() && this.subPremise.remove(subPremise);
 	}
 
 	public void unsetType() {

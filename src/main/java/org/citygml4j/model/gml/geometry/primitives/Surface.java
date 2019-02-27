@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
@@ -38,17 +39,11 @@ public class Surface extends AbstractSurface {
 	}
 
 	public void setPatches(SurfacePatchArrayProperty patches) {
-		if (patches != null)
-			patches.setParent(this);
-		
-		this.patches = patches;
+		this.patches = ModelObjects.setParent(patches, this);
 	}
 
 	public void unsetPatches() {
-		if (isSetPatches())
-			patches.unsetParent();
-		
-		patches = null;
+		patches = ModelObjects.setNull(patches);
 	}
 
 	public BoundingBox calcBoundingBox() {

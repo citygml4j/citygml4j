@@ -22,16 +22,18 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.association.Association;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AssociationByRep<T extends Associable & Child> implements GML, Association<T>, Child, Copyable {
 	private T object;
-	private HashMap<String, Object> localProperties;
+	private Map<String, Object> localProperties;
 	private ModelObject parent;
 
 	public AssociationByRep() {
@@ -51,17 +53,11 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 	}
 
 	public void setObject(T object) {
-		if (object != null)
-			object.setParent(this);
-
-		this.object = object;
+		this.object = ModelObjects.setParent(object, this);
 	}
 
 	public void unsetObject() {
-		if (isSetObject())
-			object.unsetParent();
-
-		object = null;
+		object = ModelObjects.setNull(object);
 	}
 
 	public GMLClass getGMLClass() {
@@ -77,7 +73,7 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 
 	public void setLocalProperty(String name, Object value) {
 		if (localProperties == null)
-			localProperties = new HashMap<String, Object>();
+			localProperties = new HashMap<>();
 
 		localProperties.put(name, value);
 	}

@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
@@ -49,7 +50,7 @@ public class OrientableCurve extends AbstractCurve {
 	}
 
 	public Sign getOrientation() {
-		return (orientation == null) ? Sign.PLUS : orientation;
+		return orientation == null ? Sign.PLUS : orientation;
 	}
 
 	public boolean isSetBaseCurve() {
@@ -61,10 +62,7 @@ public class OrientableCurve extends AbstractCurve {
 	}
 
 	public void setBaseCurve(CurveProperty baseCurve) {
-		if (baseCurve != null)
-			baseCurve.setParent(this);
-
-		this.baseCurve = baseCurve;
+		this.baseCurve = ModelObjects.setParent(baseCurve, this);
 	}
 
 	public void setOrientation(Sign orientation) {
@@ -72,10 +70,7 @@ public class OrientableCurve extends AbstractCurve {
 	}
 
 	public void unsetBaseCurve() {
-		if (isSetBaseCurve())
-			baseCurve.unsetParent();
-		
-		baseCurve = null;
+		baseCurve = ModelObjects.setNull(baseCurve);
 	}
 
 	public void unsetOrientation() {
@@ -84,7 +79,7 @@ public class OrientableCurve extends AbstractCurve {
 
 	public BoundingBox calcBoundingBox() {
 		BoundingBox bbox = new BoundingBox();
-		
+
 		if (isSetBaseCurve() && baseCurve.isSetCurve())
 			bbox.update(baseCurve.getCurve().calcBoundingBox());
 		

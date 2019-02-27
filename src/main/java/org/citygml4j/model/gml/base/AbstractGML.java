@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.base;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -32,6 +33,7 @@ import org.citygml4j.model.gml.basicTypes.Code;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractGML implements GML, StandardObjectProperties, Associable, Child, Copyable {
 	private static final long serialVersionUID = 8038430725115673854L;
@@ -40,7 +42,7 @@ public abstract class AbstractGML implements GML, StandardObjectProperties, Asso
 	private StringOrRef description;
 	private List<Code> name;
 	private List<MetaDataProperty> metaDataProperty;
-	private HashMap<String, Object> localProperties;
+	private Map<String, Object> localProperties;
 	private ModelObject parent;
 
 	public String getId() {
@@ -60,17 +62,11 @@ public abstract class AbstractGML implements GML, StandardObjectProperties, Asso
 	}
 
 	public void addMetaDataProperty(MetaDataProperty metaDataProperty) {
-		if (this.metaDataProperty == null)
-			this.metaDataProperty = new ChildList<MetaDataProperty>(this);
-		
-		this.metaDataProperty.add(metaDataProperty);
+		getMetaDataProperty().add(metaDataProperty);
 	}
 	
 	public void addName(Code name) {
-		if (this.name == null)
-			this.name = new ChildList<Code>(this);
-
-		this.name.add(name);
+		getName().add(name);
 	}
 
 	public StringOrRef getDescription() {
@@ -79,14 +75,14 @@ public abstract class AbstractGML implements GML, StandardObjectProperties, Asso
 
 	public List<MetaDataProperty> getMetaDataProperty() {
 		if (metaDataProperty == null)
-			metaDataProperty = new ChildList<MetaDataProperty>(this);
+			metaDataProperty = new ChildList<>(this);
 		
 		return metaDataProperty;
 	}
 	
 	public List<Code> getName() {
 		if (name == null)
-			name = new ChildList<Code>(this);
+			name = new ChildList<>(this);
 
 		return name;
 	}
@@ -104,47 +100,35 @@ public abstract class AbstractGML implements GML, StandardObjectProperties, Asso
 	}
 
 	public void setDescription(StringOrRef description) {
-		if (description != null)
-			description.setParent(this);
-
-		this.description = description;
+		this.description = ModelObjects.setParent(description, this);
 	}
 
 	public void setMetaDataProperty(List<MetaDataProperty> metaDataProperty) {
-		this.metaDataProperty = new ChildList<MetaDataProperty>(this, metaDataProperty);
+		this.metaDataProperty = new ChildList<>(this, metaDataProperty);
 	}
 
 	public void setName(List<Code> name) {
-		this.name = new ChildList<Code>(this, name);
+		this.name = new ChildList<>(this, name);
 	}
 
 	public void unsetDescription() {
-		if (isSetDescription())
-			description.unsetParent();
-
-		description = null;
+		description = ModelObjects.setNull(description);
 	}
 
 	public void unsetMetaDataProperty() {
-		if (isSetMetaDataProperty())
-			metaDataProperty.clear();
-		
-		metaDataProperty = null;
+		metaDataProperty = ModelObjects.setNull(metaDataProperty);
 	}
 	
 	public boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty) {
-		return isSetMetaDataProperty() ? this.metaDataProperty.remove(metaDataProperty) : false;
+		return isSetMetaDataProperty() && this.metaDataProperty.remove(metaDataProperty);
 	}
 
 	public void unsetName() {
-		if (isSetName())
-			name.clear();
-
-		name = null;
+		name = ModelObjects.setNull(name);
 	}
 
 	public boolean unsetName(Code name) {
-		return isSetName() ? this.name.remove(name) : false;
+		return isSetName() && this.name.remove(name);
 	}
 
 	public Object getLocalProperty(String name) {
@@ -156,7 +140,7 @@ public abstract class AbstractGML implements GML, StandardObjectProperties, Asso
 
 	public void setLocalProperty(String name, Object value) {
 		if (localProperties == null)
-			localProperties = new HashMap<String, Object>();
+			localProperties = new HashMap<>();
 		
 		localProperties.put(name, value);
 	}

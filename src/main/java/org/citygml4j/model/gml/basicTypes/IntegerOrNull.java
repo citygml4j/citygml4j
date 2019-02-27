@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -64,15 +65,11 @@ public class IntegerOrNull implements GML, Child, Copyable {
 
 	public void setInteger(Integer _double) {
 		this._integer = _double;
-		
 		unsetNull();
 	}
 
 	public void setNull(Null _null) {
-		if (_null != null)
-			_null.setParent(this);
-		
-		this._null = _null;
+		this._null = ModelObjects.setParent(_null, this);
 		unsetInteger();
 	}
 
@@ -81,10 +78,7 @@ public class IntegerOrNull implements GML, Child, Copyable {
 	}
 	
 	public void unsetNull() {
-		if (isSetNull())
-			_null.unsetParent();
-		
-		_null = null;
+		_null = ModelObjects.setNull(_null);
 	}
 
 	public ModelObject getParent() {

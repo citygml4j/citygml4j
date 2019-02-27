@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -49,15 +50,12 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
 	}
 	
 	public void addGenericApplicationPropertyOfWaterSurface(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfWaterSurface().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterSurface() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -75,26 +73,23 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
 	}
 
 	public void setGenericApplicationPropertyOfWaterSurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setWaterLevel(Code waterLevel) {
-		this.waterLevel = waterLevel;
+		this.waterLevel = ModelObjects.setParent(waterLevel, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfWaterSurface() {
-		if (isSetGenericApplicationPropertyOfWaterSurface())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfWaterSurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterSurface() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfWaterSurface() && this.ade.remove(ade);
 	}
 
 	public void unsetWaterLevel() {
-		waterLevel = null;
+		waterLevel = ModelObjects.setNull(waterLevel);
 	}
 
 	public CityGMLClass getCityGMLClass() {

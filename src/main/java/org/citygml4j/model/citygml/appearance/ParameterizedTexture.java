@@ -22,6 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -43,29 +44,23 @@ public class ParameterizedTexture extends AbstractTexture {
 	}
 	
 	public void addGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfParameterizedTexture().add(ade);
 	}
 
 	public void addTarget(TextureAssociation target) {
-		if (this.target == null)
-			this.target = new ChildList<TextureAssociation>(this);
-
-		this.target.add(target);
+		getTarget().add(target);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfParameterizedTexture() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<TextureAssociation> getTarget() {
 		if (target == null)
-			target = new ChildList<TextureAssociation>(this);
+			target = new ChildList<>(this);
 
 		return target;
 	}
@@ -79,33 +74,27 @@ public class ParameterizedTexture extends AbstractTexture {
 	}
 
 	public void setGenericApplicationPropertyOfParameterizedTexture(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setTarget(List<TextureAssociation> target) {
-		this.target = new ChildList<TextureAssociation>(this, target);
+		this.target = new ChildList<>(this, target);
 	}
 
 	public void unsetGenericApplicationPropertyOfParameterizedTexture() {
-		if (isSetGenericApplicationPropertyOfParameterizedTexture())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfParameterizedTexture() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfParameterizedTexture() && this.ade.remove(ade);
 	}
 
 	public void unsetTarget() {
-		if (isSetTarget())
-			target.clear();
-
-		target = null;
+		target = ModelObjects.setNull(target);
 	}
 
 	public boolean unsetTarget(TextureAssociation target) {
-		return isSetTarget() ? this.target.remove(target) : false;
+		return isSetTarget() && this.target.remove(target);
 	}
 
 	public CityGMLClass getCityGMLClass() {

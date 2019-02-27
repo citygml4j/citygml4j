@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.grids;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -37,10 +38,7 @@ public class RectifiedGrid extends Grid {
 	private List<Vector> offsetVector;
 	
 	public void addOffsetVector(Vector offsetVector) {
-		if (this.offsetVector == null)
-			this.offsetVector = new ChildList<Vector>(this);
-		
-		this.offsetVector.add(offsetVector);
+		getOffsetVector().add(offsetVector);
 	}
 
 	public PointProperty getOrigin() {
@@ -49,7 +47,7 @@ public class RectifiedGrid extends Grid {
 
 	public List<Vector> getOffsetVector() {
 		if (offsetVector == null)
-			offsetVector = new ChildList<Vector>(this);
+			offsetVector = new ChildList<>(this);
 		
 		return offsetVector;
 	}
@@ -63,32 +61,23 @@ public class RectifiedGrid extends Grid {
 	}
 
 	public void setOrigin(PointProperty origin) {
-		if (origin != null)
-			origin.setParent(this);
-		
-		this.origin = origin;
+		this.origin = ModelObjects.setParent(origin, this);
 	}
 
 	public void setOffsetVector(List<Vector> offsetVector) {
-		this.offsetVector = new ChildList<Vector>(this, offsetVector);
+		this.offsetVector = new ChildList<>(this, offsetVector);
 	}
 
 	public void unsetOrigin() {
-		if (isSetOrigin())
-			origin.unsetParent();
-		
-		origin = null;
+		origin = ModelObjects.setNull(origin);
 	}
 
 	public boolean unsetOffsetVector(Vector offsetVector) {
-		return isSetOffsetVector() ? this.offsetVector.remove(offsetVector) : false;
+		return isSetOffsetVector() && this.offsetVector.remove(offsetVector);
 	}
 
 	public void unsetOffsetVector() {
-		if (isSetOffsetVector())
-			offsetVector.clear();
-		
-		offsetVector = null;
+		offsetVector = ModelObjects.setNull(offsetVector);
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ package org.citygml4j.model.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class MeasureAttribute extends AbstractGenericAttribute {
@@ -30,11 +31,11 @@ public class MeasureAttribute extends AbstractGenericAttribute {
 	}
 	
 	public MeasureAttribute(Measure value) {
-		this.value = value;
+		this.value = ModelObjects.setParent(value, this);
 	}
 	
 	public MeasureAttribute(String name, Measure value) {
-		this.value = value;
+		this.value = ModelObjects.setParent(value, this);
 		setName(name);
 	}
 
@@ -47,11 +48,11 @@ public class MeasureAttribute extends AbstractGenericAttribute {
 	}
 
 	public void setValue(Measure value) {
-		this.value = value;
+		this.value = ModelObjects.setParent(value, this);
 	}
 
 	public void unsetValue() {
-		value = null;
+		value = ModelObjects.setNull(value);
 	}
 
 	public CityGMLClass getCityGMLClass() {

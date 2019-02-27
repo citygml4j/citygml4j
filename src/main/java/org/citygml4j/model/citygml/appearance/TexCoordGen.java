@@ -22,6 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.Module;
@@ -41,15 +42,12 @@ public class TexCoordGen extends AbstractTextureParameterization {
 	}
 	
 	public void addGenericApplicationPropertyOfTexCoordGen(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfTexCoordGen().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordGen() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -67,32 +65,23 @@ public class TexCoordGen extends AbstractTextureParameterization {
 	}
 
 	public void setGenericApplicationPropertyOfTexCoordGen(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setWorldToTexture(WorldToTexture worldToTexture) {
-		if (worldToTexture != null)
-			worldToTexture.setParent(this);
-		
-		this.worldToTexture = worldToTexture;
+		this.worldToTexture = ModelObjects.setNull(worldToTexture);
 	}
 
 	public void unsetGenericApplicationPropertyOfTexCoordGen() {
-		if (isSetGenericApplicationPropertyOfTexCoordGen())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfTexCoordGen(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTexCoordGen() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfTexCoordGen() && this.ade.remove(ade);
 	}
 
 	public void unsetWorldToTexture() {
-		if (isSetWorldToTexture())
-			worldToTexture.unsetParent();
-		
-		worldToTexture = null;
+		worldToTexture = ModelObjects.setNull(worldToTexture);
 	}
 
 	public CityGMLClass getCityGMLClass() {

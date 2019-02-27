@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -51,15 +52,12 @@ public class MultiCurve extends AbstractGeometricAggregate {
 	}
 
 	public void addCurveMember(CurveProperty curveMember) {
-		if (this.curveMember == null)
-			this.curveMember = new ChildList<CurveProperty>(this);
-
-		this.curveMember.add(curveMember);
+		getCurveMember().add(curveMember);
 	}
 
 	public List<CurveProperty> getCurveMember() {
 		if (curveMember == null)
-			curveMember = new ChildList<CurveProperty>(this);
+			curveMember = new ChildList<>(this);
 
 		return curveMember;
 	}
@@ -77,32 +75,23 @@ public class MultiCurve extends AbstractGeometricAggregate {
 	}
 
 	public void setCurveMember(List<CurveProperty> curveMember) {
-		this.curveMember = new ChildList<CurveProperty>(this, curveMember);
+		this.curveMember = new ChildList<>(this, curveMember);
 	}
 
 	public void setCurveMembers(CurveArrayProperty curveMembers) {
-		if (curveMembers != null)
-			curveMembers.setParent(this);
-
-		this.curveMembers = curveMembers;
+		this.curveMembers = ModelObjects.setParent(curveMembers, this);
 	}
 
 	public void unsetCurveMember() {
-		if (isSetCurveMember())
-			curveMember.clear();
-
-		curveMember = null;
+		curveMember = ModelObjects.setNull(curveMember);
 	}
 
 	public boolean unsetCurveMember(CurveProperty curveMember) {
-		return isSetCurveMember() ? this.curveMember.remove(curveMember) : false;
+		return isSetCurveMember() && this.curveMember.remove(curveMember);
 	}
 
 	public void unsetCurveMembers() {
-		if (isSetCurveMembers())
-			curveMembers.unsetParent();
-
-		curveMembers = null;
+		curveMembers = ModelObjects.setNull(curveMembers);
 	}
 
 	public BoundingBox calcBoundingBox() {

@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -43,22 +44,16 @@ public class PostalServiceElements implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressIdentifier(AddressIdentifier addressIdentifier) {
-		if (this.addressIdentifier == null)
-			this.addressIdentifier = new ChildList<AddressIdentifier>(this);
-		
-		this.addressIdentifier.add(addressIdentifier);
+		getAddressIdentifier().add(addressIdentifier);
 	}
 
 	public void addSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
-		if (this.supplementaryPostalServiceData == null)
-			this.supplementaryPostalServiceData = new ChildList<SupplementaryPostalServiceData>(this);
-		
-		this.supplementaryPostalServiceData.add(supplementaryPostalServiceData);
+		getSupplementaryPostalServiceData().add(supplementaryPostalServiceData);
 	}
 
 	public List<AddressIdentifier> getAddressIdentifier() {
 		if (addressIdentifier == null)
-			addressIdentifier = new ChildList<AddressIdentifier>(this);
+			addressIdentifier = new ChildList<>(this);
 		
 		return addressIdentifier;
 	}
@@ -97,7 +92,7 @@ public class PostalServiceElements implements XAL, Child, Copyable {
 
 	public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
 		if (supplementaryPostalServiceData == null)
-			supplementaryPostalServiceData = new ChildList<SupplementaryPostalServiceData>(this);
+			supplementaryPostalServiceData = new ChildList<>(this);
 		
 		return supplementaryPostalServiceData;
 	}
@@ -111,107 +106,83 @@ public class PostalServiceElements implements XAL, Child, Copyable {
 	}
 
 	public boolean isSetAddressLatitude() {
-		return addressLatitude == null;
+		return addressLatitude != null;
 	}
 
 	public boolean isSetAddressLatitudeDirection() {
-		return addressLatitudeDirection == null;
+		return addressLatitudeDirection != null;
 	}
 
 	public boolean isSetAddressLongitude() {
-		return addressLongitude == null;
+		return addressLongitude != null;
 	}
 
 	public boolean isSetAddressLongitudeDirection() {
-		return addressLongitudeDirection == null;
+		return addressLongitudeDirection != null;
 	}
 
 	public boolean isSetBarcode() {
-		return barcode == null;
+		return barcode != null;
 	}
 
 	public boolean isSetEndorsementLineCode() {
-		return endorsementLineCode == null;
+		return endorsementLineCode != null;
 	}
 
 	public boolean isSetKeyLineCode() {
-		return keyLineCode == null;
+		return keyLineCode != null;
 	}
 
 	public boolean isSetSortingCode() {
-		return sortingCode == null;
+		return sortingCode != null;
 	}
 
 	public boolean isSetSupplementaryPostalServiceData() {
-		return supplementaryPostalServiceData == null && !supplementaryPostalServiceData.isEmpty();
+		return supplementaryPostalServiceData != null && !supplementaryPostalServiceData.isEmpty();
 	}
 
 	public boolean isSetType() {
-		return type == null;
+		return type != null;
 	}
 
 	public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier) {
-		this.addressIdentifier = new ChildList<AddressIdentifier>(this, addressIdentifier);
+		this.addressIdentifier = new ChildList<>(this, addressIdentifier);
 	}
 
 	public void setAddressLatitude(AddressLatitude addressLatitude) {
-		if (addressLatitude != null)
-			addressLatitude.setParent(this);
-		
-		this.addressLatitude = addressLatitude;
+		this.addressLatitude = ModelObjects.setParent(addressLatitude, this);
 	}
 
 	public void setAddressLatitudeDirection(AddressLatitudeDirection addressLatitudeDirection) {
-		if (addressLatitudeDirection != null)
-			addressLatitudeDirection.setParent(this);
-		
-		this.addressLatitudeDirection = addressLatitudeDirection;
+		this.addressLatitudeDirection = ModelObjects.setParent(addressLatitudeDirection, this);
 	}
 
 	public void setAddressLongitude(AddressLongitude addressLongitude) {
-		if (addressLongitude != null)
-			addressLongitude.setParent(this);
-		
-		this.addressLongitude = addressLongitude;
+		this.addressLongitude = ModelObjects.setParent(addressLongitude, this);
 	}
 
 	public void setAddressLongitudeDirection(AddressLongitudeDirection addressLongitudeDirection) {
-		if (addressLongitudeDirection != null)
-			addressLongitudeDirection.setParent(this);
-		
-		this.addressLongitudeDirection = addressLongitudeDirection;
+		this.addressLongitudeDirection = ModelObjects.setParent(addressLongitudeDirection, this);
 	}
 
 	public void setBarcode(Barcode barcode) {
-		if (barcode != null)
-			barcode.setParent(this);
-		
-		this.barcode = barcode;
+		this.barcode = ModelObjects.setParent(barcode, this);
 	}
 
 	public void setEndorsementLineCode(EndorsementLineCode endorsementLineCode) {
-		if (endorsementLineCode != null)
-			endorsementLineCode.setParent(this);
-		
-		this.endorsementLineCode = endorsementLineCode;
+		this.endorsementLineCode = ModelObjects.setParent(endorsementLineCode, this);
 	}
 
 	public void setKeyLineCode(KeyLineCode keyLineCode) {
-		if (keyLineCode != null)
-			keyLineCode.setParent(this);
-		
-		this.keyLineCode = keyLineCode;
+		this.keyLineCode = ModelObjects.setParent(keyLineCode, this);
 	}
 
 	public void setSortingCode(SortingCode sortingCode) {
-		if (sortingCode != null)
-			sortingCode.setParent(this);
-		
-		this.sortingCode = sortingCode;
+		this.sortingCode = ModelObjects.setParent(sortingCode, this);
 	}
 
 	public void setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData> supplementaryPostalServiceData) {
-		this.supplementaryPostalServiceData = new ChildList<SupplementaryPostalServiceData>(this, supplementaryPostalServiceData);
+		this.supplementaryPostalServiceData = new ChildList<>(this, supplementaryPostalServiceData);
 	}
 
 	public void setType(String type) {
@@ -219,81 +190,51 @@ public class PostalServiceElements implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressIdentifier() {
-		if (isSetAddressIdentifier())
-			addressIdentifier.clear();
-		
-		addressIdentifier = null;
+		addressIdentifier = ModelObjects.setNull(addressIdentifier);
 	}
 
 	public boolean unsetAddressIdentifier(AddressIdentifier addressIdentifier) {
-		return isSetAddressIdentifier() ? this.addressIdentifier.remove(addressIdentifier) : false;
+		return isSetAddressIdentifier() && this.addressIdentifier.remove(addressIdentifier);
 	}
 
 	public void unsetAddressLatitude() {
-		if (isSetAddressLatitude())
-			addressLatitude.unsetParent();
-		
-		addressLatitude = null;
+		addressLatitude = ModelObjects.setNull(addressLatitude);
 	}
 
 	public void unsetAddressLatitudeDirection() {
-		if (isSetAddressLatitudeDirection())
-			addressLatitudeDirection.unsetParent();
-		
-		addressLatitudeDirection = null;
+		addressLatitudeDirection = ModelObjects.setNull(addressLatitudeDirection);
 	}
 
 	public void unsetAddressLongitude() {
-		if (isSetAddressLongitude())
-			addressLongitude.unsetParent();
-		
-		addressLongitude = null;
+		addressLongitude = ModelObjects.setNull(addressLongitude);
 	}
 
 	public void unsetAddressLongitudeDirection() {
-		if (isSetAddressLongitudeDirection())
-			addressLongitudeDirection.unsetParent();
-		
-		addressLongitudeDirection = null;
+		addressLongitudeDirection = ModelObjects.setNull(addressLongitudeDirection);
 	}
 
 	public void unsetBarcode() {
-		if (isSetBarcode())
-			barcode.unsetParent();
-		
-		barcode = null;
+		barcode = ModelObjects.setNull(barcode);
 	}
 
 	public void unsetEndorsementLineCode() {
-		if (isSetEndorsementLineCode())
-			endorsementLineCode.unsetParent();
-		
-		endorsementLineCode = null;
+		endorsementLineCode = ModelObjects.setNull(endorsementLineCode);
 	}
 
 	public void unsetKeyLineCode() {
-		if (isSetKeyLineCode())
-			keyLineCode.unsetParent();
-		
-		keyLineCode = null;
+		keyLineCode = ModelObjects.setNull(keyLineCode);
 	}
 
 	public void unsetSortingCode() {
-		if (isSetSortingCode())
-			sortingCode.unsetParent();
-		
-		sortingCode = null;
+		sortingCode = ModelObjects.setNull(sortingCode);
 	}
 
 	public void unsetSupplementaryPostalServiceData() {
-		if (isSetSupplementaryPostalServiceData())
-			supplementaryPostalServiceData.clear();
-		
-		supplementaryPostalServiceData = null;
+		supplementaryPostalServiceData = ModelObjects.setNull(supplementaryPostalServiceData);
 	}
 
 	public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
-		return isSetSupplementaryPostalServiceData() ? this.supplementaryPostalServiceData.remove(supplementaryPostalServiceData) : false;
+		return isSetSupplementaryPostalServiceData() && this.supplementaryPostalServiceData.remove(supplementaryPostalServiceData);
 	}
 
 	public void unsetType() {

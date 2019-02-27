@@ -23,6 +23,7 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.core.TransformationMatrix2x2;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -49,22 +50,16 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 	
 	public void addGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfGeoreferencedTexture().add(ade);
 	}
 
 	public void addTarget(String target) {
-		if (this.target == null)
-			this.target = new ArrayList<String>();
-
-		this.target.add(target);
+		getTarget().add(target);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfGeoreferencedTexture() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -74,10 +69,7 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 
 	public Boolean getPreferWorldFile() {
-		if (!isSetPreferWorldFile())
-			return true;
-		else
-			return preferWorldFile;
+		return !isSetPreferWorldFile() ? true : preferWorldFile;
 	}
 
 	public PointProperty getReferencePoint() {
@@ -86,7 +78,7 @@ public class GeoreferencedTexture extends AbstractTexture {
 
 	public List<String> getTarget() {
 		if (target == null)
-			target = new ArrayList<String>();
+			target = new ArrayList<>();
 
 		return target;
 	}
@@ -112,14 +104,11 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 
 	public void setGenericApplicationPropertyOfGeoreferencedTexture(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setOrientation(TransformationMatrix2x2 orientation) {
-		if (orientation != null)
-			orientation.setParent(this);
-
-		this.orientation = orientation;
+		this.orientation = ModelObjects.setParent(orientation, this);
 	}
 
 	public void setPreferWorldFile(Boolean preferWorldFile) {
@@ -127,10 +116,7 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 
 	public void setReferencePoint(PointProperty referencePoint) {
-		if (referencePoint != null)
-			referencePoint.setParent(this);
-
-		this.referencePoint = referencePoint;
+		this.referencePoint = ModelObjects.setParent(referencePoint, this);
 	}
 
 	public void setTarget(List<String> target) {
@@ -138,21 +124,15 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 
 	public void unsetGenericApplicationPropertyOfGeoreferencedTexture() {
-		if (isSetGenericApplicationPropertyOfGeoreferencedTexture())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfGeoreferencedTexture() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfGeoreferencedTexture() && this.ade.remove(ade);
 	}
 
 	public void unsetOrientation() {
-		if (isSetOrientation())
-			orientation.unsetParent();
-
-		orientation = null;
+		orientation = ModelObjects.setNull(orientation);
 	}
 
 	public void unsetPreferWorldFile() {
@@ -160,10 +140,7 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 
 	public void unsetReferencePoint() {
-		if (isSetReferencePoint())
-			referencePoint.unsetParent();
-
-		referencePoint = null;
+		referencePoint = ModelObjects.setNull(referencePoint);
 	}
 
 	public void unsetTarget() {
@@ -171,7 +148,7 @@ public class GeoreferencedTexture extends AbstractTexture {
 	}
 
 	public boolean unsetTarget(String target) {
-		return isSetTarget() ? this.target.remove(target) : false;
+		return isSetTarget() && this.target.remove(target);
 	}
 
 	public CityGMLClass getCityGMLClass() {

@@ -33,10 +33,7 @@ public class TextureCoordinates implements AppearanceModuleComponent, Child, Cop
 	private ModelObject parent;
 	
 	public void addValue(Double value) {
-		if (this.value == null)
-			this.value = new ArrayList<Double>();
-		
-		this.value.add(value);
+		getValue().add(value);
 	}
 
 	public String getRing() {
@@ -45,7 +42,7 @@ public class TextureCoordinates implements AppearanceModuleComponent, Child, Cop
 
 	public List<Double> getValue() {
 		if (value == null)
-			value = new ArrayList<Double>();
+			value = new ArrayList<>();
 		
 		return value;
 	}

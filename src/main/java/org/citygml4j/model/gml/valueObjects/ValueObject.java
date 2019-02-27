@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.valueObjects;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -90,75 +91,47 @@ public class ValueObject implements GML, Associable, Child, Copyable {
 	}
 
 	public void setScalarValue(ScalarValue scalarValue) {
-		if (scalarValue != null)
-			scalarValue.setParent(this);
-		
-		this.scalarValue = scalarValue;
-		
+		this.scalarValue = ModelObjects.setParent(scalarValue, this);
 		unsetCompositeValue();
 		unsetScalarValueList();
 		unsetValueExtent();
 	}
 
 	public void setScalarValueList(ScalarValueList scalarValueList) {
-		if (scalarValueList != null)
-			scalarValueList.setParent(this);
-		
-		this.scalarValueList = scalarValueList;
-		
+		this.scalarValueList = ModelObjects.setParent(scalarValueList, this);
 		unsetCompositeValue();
 		unsetScalarValue();
 		unsetValueExtent();
 	}
 
 	public void setValueExtent(ValueExtent valueExtent) {
-		if (valueExtent != null)
-			valueExtent.setParent(this);
-		
-		this.valueExtent = valueExtent;
-		
+		this.valueExtent = ModelObjects.setParent(valueExtent, this);
 		unsetCompositeValue();
 		unsetScalarValue();
 		unsetScalarValueList();
 	}
 
 	public void setCompositeValue(CompositeValue compositeValue) {
-		if (compositeValue != null)
-			compositeValue.setParent(this);
-		
-		this.compositeValue = compositeValue;
-		
+		this.compositeValue = ModelObjects.setParent(compositeValue, this);
 		unsetScalarValue();
 		unsetScalarValueList();
 		unsetValueExtent();
 	}
 
 	public void unsetScalarValue() {
-		if (isSetScalarValue())
-			scalarValue.unsetParent();
-		
-		scalarValue = null;
+		scalarValue = ModelObjects.setNull(scalarValue);
 	}
 
 	public void unsetScalarValueList() {
-		if (isSetScalarValueList())
-			scalarValueList.unsetParent();
-		
-		scalarValueList = null;
+		scalarValueList = ModelObjects.setNull(scalarValueList);
 	}
 
 	public void unsetValueExtent() {
-		if (isSetValueExtent())
-			valueExtent.unsetParent();
-		
-		valueExtent = null;
+		valueExtent = ModelObjects.setNull(valueExtent);
 	}
 
 	public void unsetCompositeValue() {
-		if (isSetCompositeValue())
-			compositeValue.unsetParent();
-		
-		compositeValue = null;
+		compositeValue = ModelObjects.setNull(compositeValue);
 	}
 	
 	public ModelObject getParent() {

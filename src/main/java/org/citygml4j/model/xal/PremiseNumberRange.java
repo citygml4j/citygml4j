@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.common.visitor.XALFunctor;
@@ -116,17 +117,11 @@ public class PremiseNumberRange implements XAL, Child, Copyable {
 	}
 
 	public void setPremiseNumberRangeFrom(PremiseNumberRangeFrom premiseNumberRangeFrom) {
-		if (premiseNumberRangeFrom != null)
-			premiseNumberRangeFrom.setParent(this);
-		
-		this.premiseNumberRangeFrom = premiseNumberRangeFrom;
+		this.premiseNumberRangeFrom = ModelObjects.setParent(premiseNumberRangeFrom, this);
 	}
 
 	public void setPremiseNumberRangeTo(PremiseNumberRangeTo premiseNumberRangeTo) {
-		if (premiseNumberRangeTo != null)
-			premiseNumberRangeTo.setParent(this);
-		
-		this.premiseNumberRangeTo = premiseNumberRangeTo;
+		this.premiseNumberRangeTo = ModelObjects.setParent(premiseNumberRangeTo, this);
 	}
 
 	public void setRangeType(String rangeType) {
@@ -154,17 +149,11 @@ public class PremiseNumberRange implements XAL, Child, Copyable {
 	}
 
 	public void unsetPremiseNumberRangeFrom() {
-		if (isSetPremiseNumberRangeFrom())
-			premiseNumberRangeFrom.unsetParent();
-		
-		premiseNumberRangeFrom = null;
+		premiseNumberRangeFrom = ModelObjects.setNull(premiseNumberRangeFrom);
 	}
 
 	public void unsetPremiseNumberRangeTo() {
-		if (isSetPremiseNumberRangeTo())
-			premiseNumberRangeTo.unsetParent();
-		
-		premiseNumberRangeTo = null;
+		premiseNumberRangeTo = ModelObjects.setNull(premiseNumberRangeTo);
 	}
 
 	public void unsetRangeType() {

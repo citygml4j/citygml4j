@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AddressProperty;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -49,15 +50,12 @@ public class Door extends AbstractOpening {
 	}
 	
 	public void addAddress(AddressProperty address) {
-		if (this.address == null)
-			this.address = new ChildList<AddressProperty>(this);
-
-		this.address.add(address);
+		getAddress().add(address);
 	}
 
 	public List<AddressProperty> getAddress() {
 		if (address == null)
-			address = new ChildList<AddressProperty>(this);
+			address = new ChildList<>(this);
 
 		return address;
 	}
@@ -67,30 +65,24 @@ public class Door extends AbstractOpening {
 	}
 	
 	public void setAddress(List<AddressProperty> address) {
-		this.address = new ChildList<AddressProperty>(this, address);
+		this.address = new ChildList<>(this, address);
 	}
 	
 	public void unsetAddress() {
-		if (isSetAddress())
-			address.clear();
-
-		address = null;
+		address = ModelObjects.setNull(address);
 	}
 
 	public boolean unsetAddress(AddressProperty address) {
-		return isSetAddress() ? this.address.remove(address) : false;
+		return isSetAddress() && this.address.remove(address);
 	}
 	
 	public void addGenericApplicationPropertyOfDoor(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfDoor().add(ade);
 	}
 	
 	public List<ADEComponent> getGenericApplicationPropertyOfDoor() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -100,18 +92,15 @@ public class Door extends AbstractOpening {
 	}
 	
 	public void setGenericApplicationPropertyOfDoor(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 	
 	public void unsetGenericApplicationPropertyOfDoor() {
-		if (isSetGenericApplicationPropertyOfDoor())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfDoor(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfDoor() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfDoor() && this.ade.remove(ade);
 	}
 
 	public CityGMLClass getCityGMLClass() {

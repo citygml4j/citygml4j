@@ -39,14 +39,14 @@ public class GridEnvelope implements GML, Child, Copyable {
 
 	public List<Integer> getLow() {
 		if (low == null)
-			low = new ArrayList<Integer>();
+			low = new ArrayList<>();
 		
 		return low;
 	}
 
 	public List<Integer> getHigh() {
 		if (high == null)
-			high = new ArrayList<Integer>();
+			high = new ArrayList<>();
 		
 		return high;
 	}
@@ -60,17 +60,11 @@ public class GridEnvelope implements GML, Child, Copyable {
 	}
 
 	public void addLow(Integer low) {
-		if (this.low == null)
-			this.low = new ArrayList<Integer>();
-		
-		this.low.add(low);
+		getLow().add(low);
 	}
 
 	public void addHigh(Integer high) {
-		if (this.high == null)
-			this.high = new ArrayList<Integer>();
-		
-		this.high.add(high);
+		getHigh().add(high);
 	}
 
 	public void setLow(List<Integer> low) {

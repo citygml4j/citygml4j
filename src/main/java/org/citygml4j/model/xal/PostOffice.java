@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -40,22 +41,16 @@ public class PostOffice implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addPostOfficeName(PostOfficeName postOfficeName) {
-		if (this.postOfficeName == null)
-			this.postOfficeName = new ChildList<PostOfficeName>(this);
-
-		this.postOfficeName.add(postOfficeName);
+		getPostOfficeName().add(postOfficeName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -70,7 +65,7 @@ public class PostOffice implements XAL, Child, Copyable {
 
 	public List<PostOfficeName> getPostOfficeName() {
 		if (postOfficeName == null)
-			postOfficeName = new ChildList<PostOfficeName>(this);
+			postOfficeName = new ChildList<>(this);
 
 		return postOfficeName;
 	}
@@ -124,7 +119,7 @@ public class PostOffice implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setIndicator(String indicator) {
@@ -132,35 +127,23 @@ public class PostOffice implements XAL, Child, Copyable {
 	}
 
 	public void setPostBox(PostBox postBox) {
-		if (postBox != null)
-			postBox.setParent(this);
-		
-		this.postBox = postBox;
+		this.postBox = ModelObjects.setParent(postBox, this);
 	}
 
 	public void setPostOfficeName(List<PostOfficeName> postOfficeName) {
-		this.postOfficeName = new ChildList<PostOfficeName>(this, postOfficeName);
+		this.postOfficeName = new ChildList<>(this, postOfficeName);
 	}
 
 	public void setPostOfficeNumber(PostOfficeNumber postOfficeNumber) {
-		if (postOfficeNumber != null)
-			postOfficeNumber.setParent(this);
-		
-		this.postOfficeNumber = postOfficeNumber;
+		this.postOfficeNumber = ModelObjects.setParent(postOfficeNumber, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-		
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setPostalRoute(PostalRoute postalRoute) {
-		if (postalRoute != null)
-			postalRoute.setParent(this);
-		
-		this.postalRoute = postalRoute;
+		this.postalRoute = ModelObjects.setParent(postalRoute, this);
 	}
 
 	public void setType(String type) {
@@ -168,14 +151,11 @@ public class PostOffice implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetIndicator() {
@@ -183,42 +163,27 @@ public class PostOffice implements XAL, Child, Copyable {
 	}
 
 	public void unsetPostBox() {
-		if (isSetPostBox())
-			postBox.unsetParent();
-		
-		postBox = null;
+		postBox = ModelObjects.setNull(postBox);
 	}
 
 	public void unsetPostOfficeName() {
-		if (isSetPostOfficeName())
-			postOfficeName.clear();
-
-		postOfficeName = null;
+		postOfficeName = ModelObjects.setNull(postOfficeName);
 	}
 
 	public boolean unsetPostOfficeName(PostOfficeName postOfficeName) {
-		return isSetPostOfficeName() ? this.postOfficeName.remove(postOfficeName) : false;
+		return isSetPostOfficeName() && this.postOfficeName.remove(postOfficeName);
 	}
 
 	public void unsetPostOfficeNumber() {
-		if (isSetPostOfficeNumber())
-			postOfficeNumber.unsetParent();
-		
-		postOfficeNumber = null;
+		postOfficeNumber = ModelObjects.setNull(postOfficeNumber);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-		
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetPostalRoute() {
-		if (isSetPostalRoute())
-			postalRoute.unsetParent();
-		
-		postalRoute = null;
+		postalRoute = ModelObjects.setNull(postalRoute);
 	}
 
 	public void unsetType() {

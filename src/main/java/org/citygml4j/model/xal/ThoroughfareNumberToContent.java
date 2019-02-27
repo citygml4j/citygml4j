@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
@@ -100,10 +101,7 @@ public class ThoroughfareNumberToContent implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(AddressLine addressLine) {
-		if (addressLine != null)
-			addressLine.setParent(this);
-		
-		this.addressLine = addressLine;
+		this.addressLine = ModelObjects.setParent(addressLine, this);
 		unsetString();
 		unsetThoroughfareNumber();
 		unsetThoroughfareNumberPrefix();
@@ -111,10 +109,7 @@ public class ThoroughfareNumberToContent implements XAL, Child, Copyable {
 	}
 
 	public void setThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		if (thoroughfareNumber != null)
-			thoroughfareNumber.setParent(this);
-		
-		this.thoroughfareNumber = thoroughfareNumber;
+		this.thoroughfareNumber = ModelObjects.setParent(thoroughfareNumber, this);
 		unsetString();
 		unsetAddressLine();
 		unsetThoroughfareNumberPrefix();
@@ -122,10 +117,7 @@ public class ThoroughfareNumberToContent implements XAL, Child, Copyable {
 	}
 
 	public void setThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		if (thoroughfareNumberPrefix != null)
-			thoroughfareNumberPrefix.setParent(this);
-		
-		this.thoroughfareNumberPrefix = thoroughfareNumberPrefix;
+		this.thoroughfareNumberPrefix = ModelObjects.setParent(thoroughfareNumberPrefix, this);
 		unsetString();
 		unsetAddressLine();
 		unsetThoroughfareNumber();
@@ -133,10 +125,7 @@ public class ThoroughfareNumberToContent implements XAL, Child, Copyable {
 	}
 
 	public void setThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		if (thoroughfareNumberSuffix != null)
-			thoroughfareNumberSuffix.setParent(this);
-		
-		this.thoroughfareNumberSuffix = thoroughfareNumberSuffix;
+		this.thoroughfareNumberSuffix = ModelObjects.setParent(thoroughfareNumberSuffix, this);
 		unsetString();
 		unsetAddressLine();
 		unsetThoroughfareNumber();
@@ -152,10 +141,7 @@ public class ThoroughfareNumberToContent implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.unsetParent();
-		
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public void unsetString() {
@@ -163,24 +149,15 @@ public class ThoroughfareNumberToContent implements XAL, Child, Copyable {
 	}
 
 	public void unsetThoroughfareNumber() {
-		if (isSetThoroughfareNumber())
-			thoroughfareNumber.unsetParent();
-		
-		thoroughfareNumber = null;
+		thoroughfareNumber = ModelObjects.setNull(thoroughfareNumber);
 	}
 
 	public void unsetThoroughfareNumberPrefix() {
-		if (isSetThoroughfareNumberPrefix())
-			thoroughfareNumberPrefix.unsetParent();
-		
-		thoroughfareNumberPrefix = null;
+		thoroughfareNumberPrefix = ModelObjects.setNull(thoroughfareNumberPrefix);
 	}
 
 	public void unsetThoroughfareNumberSuffix() {
-		if (isSetThoroughfareNumberSuffix())
-			thoroughfareNumberSuffix.unsetParent();
-		
-		thoroughfareNumberSuffix = null;
+		thoroughfareNumberSuffix = ModelObjects.setNull(thoroughfareNumberSuffix);
 	}
 
 	public ModelObject getParent() {

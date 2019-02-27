@@ -38,7 +38,7 @@ public class _SimpleTexture extends _AbstractAppearance {
 
 	public List<Double> getTextureCoordinates() {
 		if (textureCoordinates == null)
-			textureCoordinates = new ArrayList<Double>();
+			textureCoordinates = new ArrayList<>();
 		
 		return textureCoordinates;
 	}

@@ -19,6 +19,7 @@
 package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -48,17 +49,11 @@ public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 	}
 
 	public void setRectifiedGridDomain(RectifiedGridDomain rectifiedGridDomain) {
-		if (rectifiedGridDomain != null)
-			rectifiedGridDomain.setParent(this);
-		
-		this.rectifiedGridDomain = rectifiedGridDomain;
+		this.rectifiedGridDomain = ModelObjects.setParent(rectifiedGridDomain, this);
 	}
 
 	public void unsetRectifiedGridDomain() {
-		if (isSetRectifiedGridDomain())
-			rectifiedGridDomain.unsetParent();
-		
-		rectifiedGridDomain = null;
+		rectifiedGridDomain = ModelObjects.setNull(rectifiedGridDomain);
 	}
 	
 	public GMLClass getGMLClass() {

@@ -25,10 +25,9 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
@@ -50,15 +49,12 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 	}
 	
 	public void addGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfWaterBoundarySurface().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBoundarySurface() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -92,60 +88,39 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 	}
 
 	public void setGenericApplicationPropertyOfWaterBoundarySurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod2Surface(SurfaceProperty lod2Surface) {
-		if (lod2Surface != null)
-			lod2Surface.setParent(this);
-		
-		this.lod2Surface = lod2Surface;
+		this.lod2Surface = ModelObjects.setParent(lod2Surface, this);
 	}
 
 	public void setLod3Surface(SurfaceProperty lod3Surface) {
-		if (lod3Surface != null)
-			lod3Surface.setParent(this);
-		
-		this.lod3Surface = lod3Surface;
+		this.lod3Surface = ModelObjects.setParent(lod3Surface, this);
 	}
 
 	public void setLod4Surface(SurfaceProperty lod4Surface) {
-		if (lod4Surface != null)
-			lod4Surface.setParent(this);
-		
-		this.lod4Surface = lod4Surface;
+		this.lod4Surface = ModelObjects.setParent(lod4Surface, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfWaterBoundarySurface() {
-		if (isSetGenericApplicationPropertyOfWaterBoundarySurface())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfWaterBoundarySurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterBoundarySurface() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfWaterBoundarySurface() && this.ade.remove(ade);
 	}
 
 	public void unsetLod2Surface() {
-		if (isSetLod2Surface())
-			lod2Surface.unsetParent();
-		
-		lod2Surface = null;
+		lod2Surface = ModelObjects.setNull(lod2Surface);
 	}
 
 	public void unsetLod3Surface() {
-		if (isSetLod3Surface())
-			lod3Surface.unsetParent();
-		
-		lod3Surface = null;
+		lod3Surface = ModelObjects.setNull(lod3Surface);
 	}
 
 	public void unsetLod4Surface() {
-		if (isSetLod4Surface())
-			lod4Surface.unsetParent();
-		
-		lod4Surface = null;
+		lod4Surface = ModelObjects.setNull(lod4Surface);
 	}
 
 	@Override
@@ -193,24 +168,10 @@ public abstract class AbstractWaterBoundarySurface extends AbstractCityObject im
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				property = lod2Surface;
-				break;
-			case 3:
-				property = lod3Surface;
-				break;
-			case 4:
-				property = lod4Surface;
-				break;
-			}
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+		lodRepresentation.addRepresentation(2, lod2Surface);
+		lodRepresentation.addRepresentation(3, lod3Surface);
+		lodRepresentation.addRepresentation(4, lod4Surface);
 		
 		return lodRepresentation;
 	}

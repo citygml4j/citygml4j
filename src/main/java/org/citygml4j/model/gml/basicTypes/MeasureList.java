@@ -35,17 +35,11 @@ public class MeasureList implements GML, Child, Copyable {
     private ModelObject parent;
 
     public void addValue(Double value) {
-        if (this.value == null)
-            this.value = new ArrayList<>();
-
-        this.value.add(value);
+        getValue().add(value);
     }
 
     public void addValue(List<Double> value) {
-        if (this.value == null)
-            this.value = new ArrayList<>();
-
-        this.value.addAll(value);
+        getValue().addAll(value);
     }
 
     public List<Double> getValue() {

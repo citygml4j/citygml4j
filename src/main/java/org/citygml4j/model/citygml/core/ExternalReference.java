@@ -21,6 +21,7 @@ package org.citygml4j.model.citygml.core;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
@@ -46,10 +47,7 @@ public class ExternalReference implements CoreModuleComponent, Child, Copyable {
 	}
 
 	public void setExternalObject(ExternalObject externalObject) {
-		if (externalObject != null)
-			externalObject.setParent(this);
-		
-		this.externalObject = externalObject;
+		this.externalObject = ModelObjects.setParent(externalObject, this);
 	}
 
 	public void setInformationSystem(String informationSystem) {
@@ -57,10 +55,7 @@ public class ExternalReference implements CoreModuleComponent, Child, Copyable {
 	}
 
 	public void unsetExternalObject() {
-		if (isSetExternalObject())
-			externalObject.unsetParent();
-		
-		externalObject = null;
+		externalObject = ModelObjects.setNull(externalObject);
 	}
 
 	public void unsetInformationSystem() {

@@ -20,6 +20,7 @@ package org.citygml4j.model.citygml.generics;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 
 import java.util.List;
@@ -33,11 +34,11 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	}
 
 	public GenericAttributeSet(List<AbstractGenericAttribute> attributes) {
-		genericAttribute = attributes;
+		genericAttribute = new ChildList<>(this, attributes);
 	}
 	
 	public GenericAttributeSet(String name, List<AbstractGenericAttribute> attributes) {
-		genericAttribute = attributes;
+		genericAttribute = new ChildList<>(this, attributes);
 		setName(name);
 	}
 
@@ -46,15 +47,12 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	}
 
 	public void addGenericAttribute(AbstractGenericAttribute genericAttribute) {
-		if (this.genericAttribute == null)
-			this.genericAttribute = new ChildList<AbstractGenericAttribute>(this);
-
-		this.genericAttribute.add(genericAttribute);
+		getGenericAttribute().add(genericAttribute);
 	}
 
 	public List<AbstractGenericAttribute> getGenericAttribute() {
 		if (genericAttribute == null)
-			genericAttribute = new ChildList<AbstractGenericAttribute>(this);
+			genericAttribute = new ChildList<>(this);
 
 		return genericAttribute;
 	}
@@ -72,7 +70,7 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	}
 
 	public void setGenericAttribute(List<AbstractGenericAttribute> genericAttribute) {
-		this.genericAttribute = new ChildList<AbstractGenericAttribute>(this, genericAttribute);
+		this.genericAttribute = new ChildList<>(this, genericAttribute);
 	}
 
 	public void setCodeSpace(String codeSpace) {
@@ -80,14 +78,11 @@ public class GenericAttributeSet extends AbstractGenericAttribute {
 	}
 
 	public void unsetGenericAttribute() {
-		if (isSetGenericAttribute())
-			genericAttribute.clear();
-
-		genericAttribute = null;
+		genericAttribute = ModelObjects.setNull(genericAttribute);
 	}
 
 	public boolean unsetGenericAttribute(AbstractGenericAttribute genericAttribute) {
-		return isSetGenericAttribute() ? this.genericAttribute.remove(genericAttribute) : false;
+		return isSetGenericAttribute() && this.genericAttribute.remove(genericAttribute);
 	}
 
 	public void unsetCodeSpace() {

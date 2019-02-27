@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -47,15 +48,12 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
 	}
 	
 	public void addGenericApplicationPropertyOfWaterGroundSurface(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfWaterGroundSurface().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterGroundSurface() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -65,18 +63,15 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
 	}
 
 	public void setGenericApplicationPropertyOfWaterGroundSurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void unsetGenericApplicationPropertyOfWaterGroundSurface() {
-		if (isSetGenericApplicationPropertyOfWaterGroundSurface())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfWaterGroundSurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterGroundSurface() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfWaterGroundSurface() && this.ade.remove(ade);
 	}
 
 	public CityGMLClass getCityGMLClass() {

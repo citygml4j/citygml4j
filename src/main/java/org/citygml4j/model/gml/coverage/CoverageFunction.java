@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -64,35 +65,21 @@ public class CoverageFunction implements GML, Child, Copyable {
 	}
 
 	public void setMappingRule(StringOrRef mappingRule) {
-		if (mappingRule != null)
-			mappingRule.setParent(this);
-		
-		this.mappingRule = mappingRule;
-		
+		this.mappingRule = ModelObjects.setParent(mappingRule, this);
 		unsetGridFunction();
 	}
 
 	public void setGridFunction(GridFunction gridFunction) {
-		if (gridFunction != null)
-			gridFunction.setParent(this);
-		
-		this.gridFunction = gridFunction;
-		
+		this.gridFunction = ModelObjects.setParent(gridFunction, this);
 		unsetMappingRule();
 	}
 
 	public void unsetMappingRule() {
-		if (isSetMappingRule())
-			mappingRule.unsetParent();
-		
-		mappingRule = null;
+		mappingRule = ModelObjects.setNull(mappingRule);
 	}
 
 	public void unsetGridFunction() {
-		if (isSetGridFunction())
-			gridFunction.unsetParent();
-		
-		gridFunction = null;
+		gridFunction = ModelObjects.setNull(gridFunction);
 	}
 	
 	public ModelObject getParent() {

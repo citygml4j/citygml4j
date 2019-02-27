@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -45,22 +46,16 @@ public class Locality implements XAL, Child, Copyable {
 	private ModelObject parent;	
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addLocalityName(LocalityName localityName) {
-		if (this.localityName == null)
-			this.localityName = new ChildList<LocalityName>(this);
-
-		this.localityName.add(localityName);
+		getLocalityName().add(localityName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -79,7 +74,7 @@ public class Locality implements XAL, Child, Copyable {
 
 	public List<LocalityName> getLocalityName() {
 		if (localityName == null)
-			localityName = new ChildList<LocalityName>(this);
+			localityName = new ChildList<>(this);
 
 		return localityName;
 	}
@@ -169,14 +164,11 @@ public class Locality implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setDependentLocality(DependentLocality dependentLocality) {
-		if (dependentLocality != null)
-			dependentLocality.setParent(this);
-
-		this.dependentLocality = dependentLocality;
+		this.dependentLocality = ModelObjects.setParent(dependentLocality, this);
 	}
 
 	public void setIndicator(String indicator) {
@@ -184,56 +176,35 @@ public class Locality implements XAL, Child, Copyable {
 	}
 
 	public void setLargeMailUser(LargeMailUser largeMailUser) {
-		if (largeMailUser != null)
-			largeMailUser.setParent(this);
-
-		this.largeMailUser = largeMailUser;
+		this.largeMailUser = ModelObjects.setParent(largeMailUser, this);
 	}
 
 	public void setLocalityName(List<LocalityName> localityName) {
-		this.localityName = new ChildList<LocalityName>(this, localityName);
+		this.localityName = new ChildList<>(this, localityName);
 	}
 
 	public void setPostBox(PostBox postBox) {
-		if (postBox != null)
-			postBox.setParent(this);
-
-		this.postBox = postBox;
+		this.postBox = ModelObjects.setParent(postBox, this);
 	}
 
 	public void setPostOffice(PostOffice postOffice) {
-		if (postOffice != null)
-			postOffice.setParent(this);
-
-		this.postOffice = postOffice;
+		this.postOffice = ModelObjects.setParent(postOffice, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setPostalRoute(PostalRoute postalRoute) {
-		if (postalRoute != null)
-			postalRoute.setParent(this);
-
-		this.postalRoute = postalRoute;
+		this.postalRoute = ModelObjects.setParent(postalRoute, this);
 	}
 
 	public void setPremise(Premise premise) {
-		if (premise != null)
-			premise.setParent(this);
-
-		this.premise = premise;
+		this.premise = ModelObjects.setParent(premise, this);
 	}
 
 	public void setThoroughfare(Thoroughfare thoroughfare) {
-		if (thoroughfare != null)
-			thoroughfare.setParent(this);
-
-		this.thoroughfare = thoroughfare;
+		this.thoroughfare = ModelObjects.setParent(thoroughfare, this);
 	}
 
 	public void setType(String type) {
@@ -245,21 +216,15 @@ public class Locality implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetDependentLocality() {
-		if (isSetDependentLocality())
-			dependentLocality.unsetParent();
-
-		dependentLocality = null;
+		dependentLocality = ModelObjects.setNull(dependentLocality);
 	}
 
 	public void unsetIndicator() {
@@ -267,63 +232,39 @@ public class Locality implements XAL, Child, Copyable {
 	}
 
 	public void unsetLargeMailUser() {
-		if (isSetLargeMailUser())
-			largeMailUser.unsetParent();
-
-		largeMailUser = null;
+		largeMailUser = ModelObjects.setNull(largeMailUser);
 	}
 
 	public void unsetLocalityName() {
-		if (isSetLocalityName())
-			localityName.clear();
-
-		localityName = null;
+		localityName = ModelObjects.setNull(localityName);
 	}
 
 	public boolean unsetLocalityName(LocalityName localityName) {
-		return isSetLocalityName() ? this.localityName.remove(localityName) : false;
+		return isSetLocalityName() && this.localityName.remove(localityName);
 	}
 
 	public void unsetPostBox() {
-		if (isSetPostBox())
-			postBox.unsetParent();
-
-		postBox = null;
+		postBox = ModelObjects.setNull(postBox);
 	}
 
 	public void unsetPostOffice() {
-		if (isSetPostOffice())
-			postOffice.unsetParent();
-
-		postOffice = null;
+		postOffice = ModelObjects.setNull(postOffice);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetPostalRoute() {
-		if (isSetPostalRoute())
-			postalRoute.unsetParent();
-
-		postalRoute = null;
+		postalRoute = ModelObjects.setNull(postalRoute);
 	}
 
 	public void unsetPremise() {
-		if (isSetPremise())
-			premise.unsetParent();
-
-		premise = null;
+		premise = ModelObjects.setNull(premise);
 	}
 
 	public void unsetThoroughfare() {
-		if (isSetThoroughfare())
-			thoroughfare.unsetParent();
-
-		thoroughfare = null;
+		thoroughfare = ModelObjects.setNull(thoroughfare);
 	}
 
 	public void unsetType() {

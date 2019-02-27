@@ -66,10 +66,7 @@ public class Vector implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void addValue(Double value) {
-		if (this.value == null)
-			this.value = new ArrayList<Double>();
-		
-		this.value.add(value);
+		getValue().add(value);
 	}
 
 	public void setValue(List<Double> value) {
@@ -91,7 +88,7 @@ public class Vector implements SRSReferenceGroup, Child, Copyable {
 	public String getInheritedSrsName() {
 		if (srsName == null) {
 			Child child = this;
-			ModelObject parent = null;
+			ModelObject parent;
 
 			while ((parent = child.getParent()) != null) {
 				if (parent instanceof AbstractGeometry)
@@ -140,29 +137,23 @@ public class Vector implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public void addAxisLabel(String axisLabel) {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<String>();
-		
-		axisLabels.add(axisLabel);
+		getAxisLabels().add(axisLabel);
 	}
 
 	public void addUomLabel(String uomLabel) {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<String>();
-		
-		uomLabels.add(uomLabel);
+		getUomLabels().add(uomLabel);
 	}
 
 	public List<String> getAxisLabels() {
 		if (axisLabels == null)
-			axisLabels = new ArrayList<String>();
+			axisLabels = new ArrayList<>();
 
 		return axisLabels;
 	}
 
 	public List<String> getUomLabels() {
 		if (uomLabels == null)
-			uomLabels = new ArrayList<String>();
+			uomLabels = new ArrayList<>();
 
 		return uomLabels;
 	}
@@ -188,7 +179,7 @@ public class Vector implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() ? axisLabels.remove(axisLabel) : false;
+		return isSetAxisLabels() && axisLabels.remove(axisLabel);
 	}
 
 	public void unsetUomLabels() {
@@ -196,7 +187,7 @@ public class Vector implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() ? uomLabels.remove(uomLabel) : false;
+		return isSetUomLabels() && uomLabels.remove(uomLabel);
 	}
 
 	public ModelObject getParent() {

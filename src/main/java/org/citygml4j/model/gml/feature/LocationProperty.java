@@ -19,6 +19,7 @@
 package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.StringOrRef;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -68,45 +69,27 @@ public class LocationProperty extends GeometryProperty<AbstractGeometry> {
 	}
 
 	public void setLocationKeyWord(Code locationKeyWord) {
-		if (locationKeyWord != null)
-			locationKeyWord.setParent(this);
-		
-		this.locationKeyWord = locationKeyWord;
+		this.locationKeyWord = ModelObjects.setParent(locationKeyWord, this);
 	}
 
 	public void setLocationString(StringOrRef locationString) {
-		if (locationString != null)
-			locationString.setParent(this);
-		
-		this.locationString = locationString;
+		this.locationString = ModelObjects.setParent(locationString, this);
 	}
 
 	public void setNull(Null _null) {
-		if (_null != null)
-			_null.setParent(this);
-		
-		this._null = _null;
+		this._null = ModelObjects.setParent(_null, this);
 	}
 
 	public void unsetLocationKeyWord() {
-		if (isSetLocationKeyWord())
-			locationKeyWord.unsetParent();
-		
-		locationKeyWord = null;
+		locationKeyWord = ModelObjects.setNull(locationKeyWord);
 	}
 
 	public void unsetLocationString() {
-		if (isSetLocationString())
-			locationString.unsetParent();
-		
-		locationString = null;
+		locationString = ModelObjects.setNull(locationString);
 	}
 
 	public void unsetNull() {
-		if (isSetNull())
-			_null.unsetParent();
-		
-		_null = null;
+		_null = ModelObjects.setNull(_null);
 	}
 
 	public GMLClass getGMLClass() {

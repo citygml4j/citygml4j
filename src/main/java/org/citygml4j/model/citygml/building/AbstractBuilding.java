@@ -27,12 +27,11 @@ import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -89,78 +88,51 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	}
 	
 	public void addAddress(AddressProperty address) {
-		if (this.address == null)
-			this.address = new ChildList<AddressProperty>(this);
-
-		this.address.add(address);
+		getAddress().add(address);
 	}
 
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 
 	public void addConsistsOfBuildingPart(BuildingPartProperty buildingPart) {
-		if (this.buildingPart == null)
-			this.buildingPart = new ChildList<BuildingPartProperty>(this);
-
-		this.buildingPart.add(buildingPart);
+		getConsistsOfBuildingPart().add(buildingPart);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfAbstractBuilding(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfAbstractBuilding().add(ade);
 	}
 
 	public void addInteriorBuildingInstallation(IntBuildingInstallationProperty interiorBuildingInstallation) {
-		if (this.interiorBuildingInstallation == null)
-			this.interiorBuildingInstallation = new ChildList<IntBuildingInstallationProperty>(this);
-
-		this.interiorBuildingInstallation.add(interiorBuildingInstallation);
+		getInteriorBuildingInstallation().add(interiorBuildingInstallation);
 	}
 
 	public void addInteriorRoom(InteriorRoomProperty interiorRoom) {
-		if (this.interiorRoom == null)
-			this.interiorRoom = new ChildList<InteriorRoomProperty>(this);
-
-		this.interiorRoom.add(interiorRoom);
+		getInteriorRoom().add(interiorRoom);
 	}
 
 	public void addOuterBuildingInstallation(BuildingInstallationProperty outerBuildingInstallation) {
-		if (this.outerBuildingInstallation == null)
-			this.outerBuildingInstallation = new ChildList<BuildingInstallationProperty>(this);
-
-		this.outerBuildingInstallation.add(outerBuildingInstallation);
+		getOuterBuildingInstallation().add(outerBuildingInstallation);
 	}
 
 	public List<AddressProperty> getAddress() {
 		if (address == null)
-			address = new ChildList<AddressProperty>(this);
+			address = new ChildList<>(this);
 
 		return address;
 	}
 
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -171,42 +143,42 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<BuildingPartProperty> getConsistsOfBuildingPart() {
 		if (buildingPart == null)
-			buildingPart = new ChildList<BuildingPartProperty>(this);
+			buildingPart = new ChildList<>(this);
 
 		return buildingPart;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfAbstractBuilding() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<IntBuildingInstallationProperty> getInteriorBuildingInstallation() {
 		if (interiorBuildingInstallation == null)
-			interiorBuildingInstallation = new ChildList<IntBuildingInstallationProperty>(this);
+			interiorBuildingInstallation = new ChildList<>(this);
 
 		return interiorBuildingInstallation;
 	}
 
 	public List<InteriorRoomProperty> getInteriorRoom() {
 		if (interiorRoom == null)
-			interiorRoom = new ChildList<InteriorRoomProperty>(this);
+			interiorRoom = new ChildList<>(this);
 
 		return interiorRoom;
 	}
@@ -277,7 +249,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 
 	public List<BuildingInstallationProperty> getOuterBuildingInstallation() {
 		if (outerBuildingInstallation == null)
-			outerBuildingInstallation = new ChildList<BuildingInstallationProperty>(this);
+			outerBuildingInstallation = new ChildList<>(this);
 
 		return outerBuildingInstallation;
 	}
@@ -443,173 +415,119 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	}
 
 	public void setAddress(List<AddressProperty> address) {
-		this.address = new ChildList<AddressProperty>(this, address);
+		this.address = new ChildList<>(this, address);
 	}
 
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setConsistsOfBuildingPart(List<BuildingPartProperty> buildingPart) {
-		this.buildingPart = new ChildList<BuildingPartProperty>(this, buildingPart);
+		this.buildingPart = new ChildList<>(this, buildingPart);
 	}
 
 	public void setGenericApplicationPropertyOfAbstractBuilding(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setInteriorBuildingInstallation(List<IntBuildingInstallationProperty> interiorBuildingInstallation) {
-		this.interiorBuildingInstallation = new ChildList<IntBuildingInstallationProperty>(this, interiorBuildingInstallation);
+		this.interiorBuildingInstallation = new ChildList<>(this, interiorBuildingInstallation);
 	}
 
 	public void setInteriorRoom(List<InteriorRoomProperty> interiorRoom) {
-		this.interiorRoom = new ChildList<InteriorRoomProperty>(this, interiorRoom);
+		this.interiorRoom = new ChildList<>(this, interiorRoom);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-		
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod1Solid(SolidProperty lod1Solid) {
-		if (lod1Solid != null)
-			lod1Solid.setParent(this);
-		
-		this.lod1Solid = lod1Solid;
+		this.lod1Solid = ModelObjects.setParent(lod1Solid, this);
 	}
 
 	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection) {
-		if (lod1TerrainIntersection != null)
-			lod1TerrainIntersection.setParent(this);
-		
-		this.lod1TerrainIntersection = lod1TerrainIntersection;
+		this.lod1TerrainIntersection = ModelObjects.setParent(lod1TerrainIntersection, this);
 	}
 
 	public void setLod2MultiCurve(MultiCurveProperty lod2MultiCurve) {
-		if (lod2MultiCurve != null)
-			lod2MultiCurve.setParent(this);
-		
-		this.lod2MultiCurve = lod2MultiCurve;
+		this.lod2MultiCurve = ModelObjects.setParent(lod2MultiCurve, this);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-		
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod2Solid(SolidProperty lod2Solid) {
-		if (lod2Solid != null)
-			lod2Solid.setParent(this);
-		
-		this.lod2Solid = lod2Solid;
+		this.lod2Solid = ModelObjects.setParent(lod2Solid, this);
 	}
 
 	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection) {
-		if (lod2TerrainIntersection != null)
-			lod2TerrainIntersection.setParent(this);
-		
-		this.lod2TerrainIntersection = lod2TerrainIntersection;
+		this.lod2TerrainIntersection = ModelObjects.setParent(lod2TerrainIntersection, this);
 	}
 
 	public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve) {
-		if (lod3MultiCurve != null)
-			lod3MultiCurve.setParent(this);
-		
-		this.lod3MultiCurve = lod3MultiCurve;
+		this.lod3MultiCurve = ModelObjects.setParent(lod3MultiCurve, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-		
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod3Solid(SolidProperty lod3Solid) {
-		if (lod3Solid != null)
-			lod3Solid.setParent(this);
-		
-		this.lod3Solid = lod3Solid;
+		this.lod3Solid = ModelObjects.setParent(lod3Solid, this);
 	}
 
 	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection) {
-		if (lod3TerrainIntersection != null)
-			lod3TerrainIntersection.setParent(this);
-		
-		this.lod3TerrainIntersection = lod3TerrainIntersection;
+		this.lod3TerrainIntersection = ModelObjects.setParent(lod3TerrainIntersection, this);
 	}
 
 	public void setLod4MultiCurve(MultiCurveProperty lod4MultiCurve) {
-		if (lod4MultiCurve != null)
-			lod4MultiCurve.setParent(this);
-		
-		this.lod4MultiCurve = lod4MultiCurve;
+		this.lod4MultiCurve = ModelObjects.setParent(lod4MultiCurve, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-		
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setLod4Solid(SolidProperty lod4Solid) {
-		if (lod4Solid != null)
-			lod4Solid.setParent(this);
-		
-		this.lod4Solid = lod4Solid;
+		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
 	}
 
 	public void setLod4TerrainIntersection(MultiCurveProperty lod4TerrainIntersection) {
-		if (lod4TerrainIntersection != null)
-			lod4TerrainIntersection.setParent(this);
-		
-		this.lod4TerrainIntersection = lod4TerrainIntersection;
+		this.lod4TerrainIntersection = ModelObjects.setParent(lod4TerrainIntersection, this);
 	}
 
 	public void setMeasuredHeight(Length measuredHeight) {
-		if (measuredHeight != null)
-			measuredHeight.setParent(this);
-		
-		this.measuredHeight = measuredHeight;
+		this.measuredHeight = ModelObjects.setParent(measuredHeight, this);
 	}
 
 	public void setOuterBuildingInstallation(List<BuildingInstallationProperty> outerBuildingInstallation) {
-		this.outerBuildingInstallation = new ChildList<BuildingInstallationProperty>(this, outerBuildingInstallation);
+		this.outerBuildingInstallation = new ChildList<>(this, outerBuildingInstallation);
 	}
 
 	public void setRoofType(Code roofType) {
-		this.roofType = roofType;
+		this.roofType = ModelObjects.setParent(roofType, this);
 	}
 
 	public void setStoreyHeightsAboveGround(MeasureOrNullList storeyHeightsAboveGround) {
-		if (storeyHeightsAboveGround != null)
-			storeyHeightsAboveGround.setParent(this);
-		
-		this.storeyHeightsAboveGround = storeyHeightsAboveGround;
+		this.storeyHeightsAboveGround = ModelObjects.setParent(storeyHeightsAboveGround, this);
 	}
 
 	public void setStoreyHeightsBelowGround(MeasureOrNullList storeyHeightsBelowGround) {
-		if (storeyHeightsBelowGround != null)
-			storeyHeightsBelowGround.setParent(this);
-		
-		this.storeyHeightsBelowGround = storeyHeightsBelowGround;
+		this.storeyHeightsBelowGround = ModelObjects.setParent(storeyHeightsBelowGround, this);
 	}
 
 	public void setStoreysAboveGround(Integer storeysAboveGround) {
@@ -639,229 +557,154 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	}
 
 	public void unsetAddress() {
-		if (isSetAddress())
-			address.clear();
-
-		address = null;
+		address = ModelObjects.setNull(address);
 	}
 
 	public boolean unsetAddress(AddressProperty address) {
-		return isSetAddress() ? this.address.remove(address) : false;
+		return isSetAddress() && this.address.remove(address);
 	}
 
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetConsistsOfBuildingPart() {
-		if (isSetConsistsOfBuildingPart())
-			buildingPart.clear();
-
-		buildingPart = null;
+		buildingPart = ModelObjects.setNull(buildingPart);
 	}
 
 	public boolean unsetConsistsOfBuildingPart(BuildingPartProperty buildingPart) {
-		return isSetConsistsOfBuildingPart() ? this.buildingPart.remove(buildingPart) : false;
+		return isSetConsistsOfBuildingPart() && this.buildingPart.remove(buildingPart);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfAbstractBuilding() {
-		if (isSetGenericApplicationPropertyOfAbstractBuilding())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfAbstractBuilding(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAbstractBuilding() ? this.ade.remove(ade) : false;	}
+		return isSetGenericApplicationPropertyOfAbstractBuilding() && this.ade.remove(ade);	}
 
 	public void unsetInteriorBuildingInstallation() {
-		if (isSetInteriorBuildingInstallation())
-			interiorBuildingInstallation.clear();
-
-		interiorBuildingInstallation = null;
+		interiorBuildingInstallation = ModelObjects.setNull(interiorBuildingInstallation);
 	}
 
 	public boolean unsetInteriorBuildingInstallation(IntBuildingInstallationProperty interiorBuildingInstallation) {
-		return isSetInteriorBuildingInstallation() ? this.interiorBuildingInstallation.remove(interiorBuildingInstallation) : false;
+		return isSetInteriorBuildingInstallation() && this.interiorBuildingInstallation.remove(interiorBuildingInstallation);
 	}
 
 	public void unsetInteriorRoom() {
-		if (isSetInteriorRoom())
-			interiorRoom.clear();
-
-		interiorRoom = null;
+		interiorRoom = ModelObjects.setNull(interiorRoom);
 	}
 
 	public boolean unsetInteriorRoom(InteriorRoomProperty interiorRoom) {
-		return isSetInteriorRoom() ? this.interiorRoom.remove(interiorRoom) : false;
+		return isSetInteriorRoom() && this.interiorRoom.remove(interiorRoom);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-		
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod1Solid() {
-		if (isSetLod1Solid())
-			lod1Solid.unsetParent();
-		
-		lod1Solid = null;
+		lod1Solid = ModelObjects.setNull(lod1Solid);
 	}
 
 	public void unsetLod1TerrainIntersection() {
-		if (isSetLod1TerrainIntersection())
-			lod1TerrainIntersection.unsetParent();
-		
-		lod1TerrainIntersection = null;
+		lod1TerrainIntersection = ModelObjects.setNull(lod1TerrainIntersection);
 	}
 
 	public void unsetLod2MultiCurve() {
-		if (isSetLod2MultiCurve())
-			lod2MultiCurve.unsetParent();
-		
-		lod2MultiCurve = null;
+		lod2MultiCurve = ModelObjects.setNull(lod2MultiCurve);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-		
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod2Solid() {
-		if (isSetLod2Solid())
-			lod2Solid.unsetParent();
-		
-		lod2Solid = null;
+		lod2Solid = ModelObjects.setNull(lod2Solid);
 	}
 
 	public void unsetLod2TerrainIntersection() {
-		if (isSetLod2TerrainIntersection())
-			lod2TerrainIntersection.unsetParent();
-		
-		lod2TerrainIntersection = null;
+		lod2TerrainIntersection = ModelObjects.setNull(lod2TerrainIntersection);
 	}
 
 	public void unsetLod3MultiCurve() {
-		if (isSetLod3MultiCurve())
-			lod3MultiCurve.unsetParent();
-		
-		lod3MultiCurve = null;
+		lod3MultiCurve = ModelObjects.setNull(lod3MultiCurve);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-		
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod3Solid() {
-		if (isSetLod3Solid())
-			lod3Solid.unsetParent();
-		
-		lod3Solid = null;
+		lod3Solid = ModelObjects.setNull(lod3Solid);
 	}
 
 	public void unsetLod3TerrainIntersection() {
-		if (isSetLod3TerrainIntersection())
-			lod3TerrainIntersection.unsetParent();
-		
-		lod3TerrainIntersection = null;
+		lod3TerrainIntersection = ModelObjects.setNull(lod3TerrainIntersection);
 	}
 
 	public void unsetLod4MultiCurve() {
-		if (isSetLod4MultiCurve())
-			lod4MultiCurve.unsetParent();
-		
-		lod4MultiCurve = null;
+		lod4MultiCurve = ModelObjects.setNull(lod4MultiCurve);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-		
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetLod4Solid() {
-		if (isSetLod4Solid())
-			lod4Solid.unsetParent();
-		
-		lod4Solid = null;
+		lod4Solid = ModelObjects.setNull(lod4Solid);
 	}
 
 	public void unsetLod4TerrainIntersection() {
-		if (isSetLod4TerrainIntersection())
-			lod4TerrainIntersection.unsetParent();
-		
-		lod4TerrainIntersection = null;
+		lod4TerrainIntersection = ModelObjects.setNull(lod4TerrainIntersection);
 	}
 
 	public void unsetMeasuredHeight() {
-		if (isSetMeasuredHeight())
-			measuredHeight.unsetParent();
-		
-		measuredHeight = null;
+		measuredHeight = ModelObjects.setNull(measuredHeight);
 	}
 
 	public void unsetOuterBuildingInstallation() {
-		if (isSetOuterBuildingInstallation())
-			outerBuildingInstallation.clear();
-
-		outerBuildingInstallation = null;
+		outerBuildingInstallation = ModelObjects.setNull(outerBuildingInstallation);
 	}
 
 	public boolean unsetOuterBuildingInstallation(BuildingInstallationProperty outerBuildingInstallation) {
-		return isSetOuterBuildingInstallation() ? this.outerBuildingInstallation.remove(outerBuildingInstallation) : false;
+		return isSetOuterBuildingInstallation() && this.outerBuildingInstallation.remove(outerBuildingInstallation);
 	}
 
 	public void unsetRoofType() {
-		roofType = null;
+		roofType = ModelObjects.setNull(roofType);
 	}
 
 	public void unsetStoreyHeightsAboveGround() {
-		if (isSetStoreyHeightsAboveGround())
-			storeyHeightsAboveGround.unsetParent();
-		
-		storeyHeightsAboveGround = null;
+		storeyHeightsAboveGround = ModelObjects.setNull(storeyHeightsAboveGround);
 	}
 
 	public void unsetStoreyHeightsBelowGround() {
-		if (isSetStoreyHeightsBelowGround())
-			storeyHeightsBelowGround.unsetParent();
-		
-		storeyHeightsBelowGround = null;
+		storeyHeightsBelowGround = ModelObjects.setNull(storeyHeightsBelowGround);
 	}
 
 	public void unsetStoreysAboveGround() {
@@ -897,31 +740,19 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	}
 
 	public void setLod0FootPrint(MultiSurfaceProperty lod0FootPrint) {
-		if (lod0FootPrint != null)
-			lod0FootPrint.setParent(this);
-		
-		this.lod0FootPrint = lod0FootPrint;
+		this.lod0FootPrint = ModelObjects.setParent(lod0FootPrint, this);
 	}
 
 	public void setLod0RoofEdge(MultiSurfaceProperty lod0RoofEgde) {
-		if (lod0RoofEgde != null)
-			lod0RoofEgde.setParent(this);
-		
-		this.lod0RoofEdge = lod0RoofEgde;
+		this.lod0RoofEdge = ModelObjects.setParent(lod0RoofEgde, this);
 	}
 
 	public void unsetLod0FootPrint() {
-		if (lod0FootPrint != null)
-			lod0FootPrint.unsetParent();
-		
-		lod0FootPrint = null;
+		lod0FootPrint = ModelObjects.setNull(lod0FootPrint);
 	}
 
 	public void unsetLod0RoofEdge() {
-		if (lod0RoofEdge != null)
-			lod0RoofEdge.unsetParent();
-		
-		lod0RoofEdge = null;
+		lod0RoofEdge = ModelObjects.setNull(lod0RoofEdge);
 	}
 
 	@Override
@@ -1067,72 +898,23 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		if (lod0FootPrint != null)
-			lodRepresentation.addRepresentation(0, lod0FootPrint);
-		
-		if (lod0RoofEdge != null)
-			lodRepresentation.addRepresentation(0, lod0RoofEdge);
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1Solid;
-				break;
-			case 2:
-				property = lod2Solid;
-				break;
-			case 3:
-				property = lod3Solid;
-				break;
-			case 4:
-				property = lod4Solid;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1MultiSurface;
-				break;
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				property = lod2MultiCurve;
-				break;
-			case 3:
-				property = lod3MultiCurve;
-				break;
-			case 4:
-				property = lod4MultiCurve;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+
+		lodRepresentation.addRepresentation(0, lod0FootPrint);
+		lodRepresentation.addRepresentation(0, lod0RoofEdge);
+
+		lodRepresentation.addRepresentation(1, lod1Solid);
+		lodRepresentation.addRepresentation(2, lod2Solid);
+		lodRepresentation.addRepresentation(3, lod3Solid);
+		lodRepresentation.addRepresentation(4, lod4Solid);
+
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
+
+		lodRepresentation.addRepresentation(2, lod2MultiCurve);
+		lodRepresentation.addRepresentation(3, lod3MultiCurve);
+		lodRepresentation.addRepresentation(4, lod4MultiCurve);
 		
 		return lodRepresentation;
 	}

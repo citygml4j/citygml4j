@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.appearance.AppearanceMember;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -53,43 +54,34 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 	}
 	
 	public void addAppearanceMember(AppearanceMember appearanceMember) {
-		if (this.appearanceMember == null)
-			this.appearanceMember = new ChildList<AppearanceMember>(this);
-
-		this.appearanceMember.add(appearanceMember);
+		getAppearanceMember().add(appearanceMember);
 	}
 
 	public void addCityObjectMember(CityObjectMember cityObjectMember) {
-		if (this.cityObjectMember == null)
-			this.cityObjectMember = new ChildList<CityObjectMember>(this);
-
-		this.cityObjectMember.add(cityObjectMember);
+		getCityObjectMember().add(cityObjectMember);
 	}
 
 	public void addGenericApplicationPropertyOfCityModel(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfCityModel().add(ade);
 	}
 
 	public List<AppearanceMember> getAppearanceMember() {
 		if (appearanceMember == null)
-			appearanceMember = new ChildList<AppearanceMember>(this);
+			appearanceMember = new ChildList<>(this);
 
 		return appearanceMember;
 	}
 
 	public List<CityObjectMember> getCityObjectMember() {
 		if (cityObjectMember == null)
-			cityObjectMember = new ChildList<CityObjectMember>(this);
+			cityObjectMember = new ChildList<>(this);
 
 		return cityObjectMember;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfCityModel() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -107,48 +99,39 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 	}
 
 	public void setAppearanceMember(List<AppearanceMember> appearanceMember) {
-		this.appearanceMember = new ChildList<AppearanceMember>(this, appearanceMember);
+		this.appearanceMember = new ChildList<>(this, appearanceMember);
 	}
 
 	public void setCityObjectMember(List<CityObjectMember> cityObjectMember) {
-		this.cityObjectMember = new ChildList<CityObjectMember>(this, cityObjectMember);
+		this.cityObjectMember = new ChildList<>(this, cityObjectMember);
 	}
 
 	public void setGenericApplicationPropertyOfCityModel(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void unsetAppearanceMember() {
-		if (isSetAppearanceMember())
-			appearanceMember.clear();
-
-		appearanceMember = null;
+		appearanceMember = ModelObjects.setNull(appearanceMember);
 	}
 
 	public boolean unsetAppearanceMember(AppearanceMember appearanceMember) {
-		return isSetAppearanceMember() ? this.appearanceMember.remove(appearanceMember) : false;
+		return isSetAppearanceMember() && this.appearanceMember.remove(appearanceMember);
 	}
 
 	public void unsetCityObjectMember() {
-		if (isSetCityObjectMember())
-			cityObjectMember.clear();
-
-		cityObjectMember = null;
+		cityObjectMember = ModelObjects.setNull(cityObjectMember);
 	}
 
 	public boolean unsetCityObjectMember(CityObjectMember cityObjectMember) {
-		return isSetCityObjectMember() ? this.cityObjectMember.remove(cityObjectMember) : false;
+		return isSetCityObjectMember() && this.cityObjectMember.remove(cityObjectMember);
 	}
 
 	public void unsetGenericApplicationPropertyOfCityModel() {
-		if (isSetGenericApplicationPropertyOfCityModel())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfCityModel(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfCityModel() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfCityModel() && this.ade.remove(ade);
 	}
 
 	public CityGMLClass getCityGMLClass() {

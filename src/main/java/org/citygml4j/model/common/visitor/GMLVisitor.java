@@ -27,11 +27,11 @@ import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.ValueArray;
 
 public interface GMLVisitor extends FeatureVisitor, GeometryVisitor {
-	public void visit(CompositeValue compositeValue);
-	public void visit(ValueArray valueArray);
-	public void visit(TexCoordGen texCoordGen);
-	public void visit(TexCoordList texCoordList);
-	public void visit(ImplicitGeometry implicitGeometry);
-	public void visit(_Material material);
-	public void visit(_SimpleTexture simpleTexture);
+	void visit(CompositeValue compositeValue);
+	void visit(ValueArray valueArray);
+	void visit(TexCoordGen texCoordGen);
+	void visit(TexCoordList texCoordList);
+	void visit(ImplicitGeometry implicitGeometry);
+	void visit(_Material material);
+	void visit(_SimpleTexture simpleTexture);
 }

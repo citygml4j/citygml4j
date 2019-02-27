@@ -21,6 +21,7 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.module.Module;
 
@@ -43,10 +44,7 @@ public abstract class AbstractTexture extends AbstractSurfaceData {
 	}
 	
 	public void addGenericApplicationPropertyOfTexture(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfTexture().add(ade);
 	}
 
 	public ColorPlusOpacity getBorderColor() {
@@ -55,7 +53,7 @@ public abstract class AbstractTexture extends AbstractSurfaceData {
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTexture() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -101,14 +99,11 @@ public abstract class AbstractTexture extends AbstractSurfaceData {
 	}
 
 	public void setBorderColor(ColorPlusOpacity borderColor) {
-		if (borderColor != null)
-			borderColor.setParent(this);
-		
-		this.borderColor = borderColor;
+		this.borderColor = ModelObjects.setParent(borderColor, this);
 	}
 
 	public void setGenericApplicationPropertyOfTexture(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setImageURI(String imageURI) {
@@ -116,7 +111,7 @@ public abstract class AbstractTexture extends AbstractSurfaceData {
 	}
 
 	public void setMimeType(Code mimeType) {
-		this.mimeType = mimeType;
+		this.mimeType = ModelObjects.setParent(mimeType, this);
 	}
 
 	public void setTextureType(TextureType textureType) {
@@ -128,21 +123,15 @@ public abstract class AbstractTexture extends AbstractSurfaceData {
 	}
 
 	public void unsetBorderColor() {
-		if (isSetBorderColor())
-			borderColor.unsetParent();
-		
-		borderColor = null;
+		borderColor = ModelObjects.setNull(borderColor);
 	}
 
 	public void unsetGenericApplicationPropertyOfTexture() {
-		if (isSetGenericApplicationPropertyOfTexture())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfTexture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTexture() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfTexture() && this.ade.remove(ade);
 	}
 
 	public void unsetImageURI() {

@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -40,22 +41,16 @@ public class SubAdministrativeArea implements XAL, Child, Copyable {
 	private ModelObject parent;	
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addSubAdministrativeAreaName(SubAdministrativeAreaName subAdministrativeAreaName) {
-		if (this.subAdministrativeAreaName == null)
-			this.subAdministrativeAreaName = new ChildList<SubAdministrativeAreaName>(this);
-
-		this.subAdministrativeAreaName.add(subAdministrativeAreaName);
+		getSubAdministrativeAreaName().add(subAdministrativeAreaName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
@@ -78,7 +73,7 @@ public class SubAdministrativeArea implements XAL, Child, Copyable {
 
 	public List<SubAdministrativeAreaName> getSubAdministrativeAreaName() {
 		if (subAdministrativeAreaName == null)
-			subAdministrativeAreaName = new ChildList<SubAdministrativeAreaName>(this);
+			subAdministrativeAreaName = new ChildList<>(this);
 
 		return subAdministrativeAreaName;
 	}
@@ -124,7 +119,7 @@ public class SubAdministrativeArea implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setIndicator(String indicator) {
@@ -132,28 +127,19 @@ public class SubAdministrativeArea implements XAL, Child, Copyable {
 	}
 
 	public void setLocality(Locality locality) {
-		if (locality != null)
-			locality.setParent(this);
-
-		this.locality = locality;
+		this.locality = ModelObjects.setParent(locality, this);
 	}
 
 	public void setPostOffice(PostOffice postOffice) {
-		if (postOffice != null)
-			postOffice.setParent(this);
-
-		this.postOffice = postOffice;
+		this.postOffice = ModelObjects.setParent(postOffice, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setSubAdministrativeAreaName(List<SubAdministrativeAreaName> subAdministrativeAreaName) {
-		this.subAdministrativeAreaName = new ChildList<SubAdministrativeAreaName>(this, subAdministrativeAreaName);
+		this.subAdministrativeAreaName = new ChildList<>(this, subAdministrativeAreaName);
 	}
 
 	public void setType(String type) {
@@ -165,14 +151,11 @@ public class SubAdministrativeArea implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetIndicator() {
@@ -180,35 +163,23 @@ public class SubAdministrativeArea implements XAL, Child, Copyable {
 	}
 
 	public void unsetLocality() {
-		if (isSetLocality())
-			locality.unsetParent();
-
-		locality = null;
+		locality = ModelObjects.setNull(locality);
 	}
 
 	public void unsetPostOffice() {
-		if (isSetPostOffice())
-			postOffice.unsetParent();
-
-		postOffice = null;
+		postOffice = ModelObjects.setNull(postOffice);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetSubAdministrativeAreaName() {
-		if (isSetSubAdministrativeAreaName())
-			subAdministrativeAreaName.clear();
-
-		subAdministrativeAreaName = null;
+		subAdministrativeAreaName = ModelObjects.setNull(subAdministrativeAreaName);
 	}
 
 	public boolean unsetSubAdministrativeAreaName(SubAdministrativeAreaName subAdministrativeAreaName) {
-		return isSetSubAdministrativeAreaName() ? this.subAdministrativeAreaName.remove(subAdministrativeAreaName) : false;
+		return isSetSubAdministrativeAreaName() && this.subAdministrativeAreaName.remove(subAdministrativeAreaName);
 	}
 
 	public void unsetType() {

@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -33,15 +34,12 @@ public class DoubleOrNullList implements GML, Child, Copyable {
 	private ModelObject parent;
 
 	public void addDoubleOrNull(DoubleOrNull doubleOrNull) {
-		if (this.doubleOrNull == null)
-			this.doubleOrNull = new ChildList<DoubleOrNull>(this);
-		
-		this.doubleOrNull.add(doubleOrNull);
+		getDoubleOrNull().add(doubleOrNull);
 	}
 
 	public List<DoubleOrNull> getDoubleOrNull() {
 		if (doubleOrNull == null)
-			doubleOrNull = new ChildList<DoubleOrNull>(this);
+			doubleOrNull = new ChildList<>(this);
 		
 		return doubleOrNull;
 	}
@@ -51,18 +49,15 @@ public class DoubleOrNullList implements GML, Child, Copyable {
 	}
 
 	public void setDoubleOrNull(List<DoubleOrNull> doubleOrNull) {
-		this.doubleOrNull = new ChildList<DoubleOrNull>(this, doubleOrNull);
+		this.doubleOrNull = new ChildList<>(this, doubleOrNull);
 	}
 
 	public void unsetDoubleOrNull() {
-		if (isSetDoubleOrNull())
-			doubleOrNull.clear();
-		
-		doubleOrNull = null;
+		doubleOrNull = ModelObjects.setNull(doubleOrNull);
 	}
 
 	public boolean unsetDoubleOrNull(DoubleOrNull doubleOrNull) {
-		return isSetDoubleOrNull() ? this.doubleOrNull.remove(doubleOrNull) : false;
+		return isSetDoubleOrNull() && this.doubleOrNull.remove(doubleOrNull);
 	}
 
 	public GMLClass getGMLClass() {

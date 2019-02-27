@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
@@ -61,33 +62,21 @@ public class ThoroughfareNumberOrRange implements XAL, Child, Copyable {
 	}
 
 	public void setThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		if (thoroughfareNumber != null)
-			thoroughfareNumber.setParent(this);
-		
-		this.thoroughfareNumber = thoroughfareNumber;
+		this.thoroughfareNumber = ModelObjects.setParent(thoroughfareNumber, this);
 		unsetThoroughfareNumberRange();
 	}
 
 	public void setThoroughfareNumberRange(ThoroughfareNumberRange thoroughfareNumberRange) {
-		if (thoroughfareNumberRange != null)
-			thoroughfareNumberRange.setParent(this);
-		
-		this.thoroughfareNumberRange = thoroughfareNumberRange;
+		this.thoroughfareNumberRange = ModelObjects.setParent(thoroughfareNumberRange, this);
 		unsetThoroughfareNumber();
 	}
 
 	public void unsetThoroughfareNumber() {
-		if (isSetThoroughfareNumber())
-			thoroughfareNumber.unsetParent();
-		
-		thoroughfareNumber = null;
+		thoroughfareNumber = ModelObjects.setNull(thoroughfareNumber);
 	}
 
 	public void unsetThoroughfareNumberRange() {
-		if (isSetThoroughfareNumberRange())
-			thoroughfareNumberRange.unsetParent();
-		
-		thoroughfareNumberRange = null;
+		thoroughfareNumberRange = ModelObjects.setNull(thoroughfareNumberRange);
 	}
 
 	public ModelObject getParent() {

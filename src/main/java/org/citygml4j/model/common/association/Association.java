@@ -19,10 +19,10 @@
 package org.citygml4j.model.common.association;
 
 public interface Association<T extends Associable> {
-	public Class<T> getAssociableClass();
+	Class<T> getAssociableClass();
 
-	public Object getLocalProperty(String name);
-	public boolean hasLocalProperty(String name);
-	public void setLocalProperty(String name, Object value);
-	public Object unsetLocalProperty(String name);
+	Object getLocalProperty(String name);
+	boolean hasLocalProperty(String name);
+	void setLocalProperty(String name, Object value);
+	Object unsetLocalProperty(String name);
 }

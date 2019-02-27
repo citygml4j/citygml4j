@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -33,8 +34,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -67,36 +66,24 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 	}
 
 	public void addBoundedBySurface(BoundedByWaterSurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundedByWaterSurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfWaterBody(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfWaterBody().add(ade);
 	}
 
 	public List<BoundedByWaterSurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundedByWaterSurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -107,21 +94,21 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfWaterBody() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -211,177 +198,123 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 	}
 
 	public void setBoundedBySurface(List<BoundedByWaterSurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundedByWaterSurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfWaterBody(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve) {
-		if (lod0MultiCurve != null)
-			lod0MultiCurve.setParent(this);
-
-		this.lod0MultiCurve = lod0MultiCurve;
+		this.lod0MultiCurve = ModelObjects.setParent(lod0MultiCurve, this);
 	}
 
 	public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface) {
-		if (lod0MultiSurface != null)
-			lod0MultiSurface.setParent(this);
-
-		this.lod0MultiSurface = lod0MultiSurface;
+		this.lod0MultiSurface = ModelObjects.setParent(lod0MultiSurface, this);
 	}
 
 	public void setLod1MultiCurve(MultiCurveProperty lod1MultiCurve) {
-		if (lod1MultiCurve != null)
-			lod1MultiCurve.setParent(this);
-
-		this.lod1MultiCurve = lod1MultiCurve;
+		this.lod1MultiCurve = ModelObjects.setParent(lod1MultiCurve, this);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod1Solid(SolidProperty lod1Solid) {
-		if (lod1Solid != null)
-			lod1Solid.setParent(this);
-
-		this.lod1Solid = lod1Solid;
+		this.lod1Solid = ModelObjects.setParent(lod1Solid, this);
 	}
 
 	public void setLod2Solid(SolidProperty lod2Solid) {
-		if (lod2Solid != null)
-			lod2Solid.setParent(this);
-
-		this.lod2Solid = lod2Solid;
+		this.lod2Solid = ModelObjects.setParent(lod2Solid, this);
 	}
 
 	public void setLod3Solid(SolidProperty lod3Solid) {
-		if (lod3Solid != null)
-			lod3Solid.setParent(this);
-
-		this.lod3Solid = lod3Solid;
+		this.lod3Solid = ModelObjects.setParent(lod3Solid, this);
 	}
 
 	public void setLod4Solid(SolidProperty lod4Solid) {
-		if (lod4Solid != null)
-			lod4Solid.setParent(this);
-
-		this.lod4Solid = lod4Solid;
+		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
 	}
 
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundedByWaterSurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfWaterBody() {
-		if (isSetGenericApplicationPropertyOfWaterBody())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfWaterBody(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterBody() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfWaterBody() && this.ade.remove(ade);
 	}
 
 	public void unsetLod0MultiCurve() {
-		if (isSetLod0MultiCurve())
-			lod0MultiCurve.unsetParent();
-
-		lod0MultiCurve = null;
+		lod0MultiCurve = ModelObjects.setNull(lod0MultiCurve);
 	}
 
 	public void unsetLod0MultiSurface() {
-		if (isSetLod0MultiSurface())
-			lod0MultiSurface.unsetParent();
-
-		lod0MultiSurface = null;
+		lod0MultiSurface = ModelObjects.setNull(lod0MultiSurface);
 	}
 
 	public void unsetLod1MultiCurve() {
-		if (isSetLod1MultiCurve())
-			lod1MultiCurve.unsetParent();
-
-		lod1MultiCurve = null;
+		lod1MultiCurve = ModelObjects.setNull(lod1MultiCurve);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod1Solid() {
-		if (isSetLod1Solid())
-			lod1Solid.unsetParent();
-
-		lod1Solid = null;
+		lod1Solid = ModelObjects.setNull(lod1Solid);
 	}
 
 	public void unsetLod2Solid() {
-		if (isSetLod2Solid())
-			lod2Solid.unsetParent();
-
-		lod2Solid = null;
+		lod2Solid = ModelObjects.setNull(lod2Solid);
 	}
 
 	public void unsetLod3Solid() {
-		if (isSetLod3Solid())
-			lod3Solid.unsetParent();
-
-		lod3Solid = null;
+		lod3Solid = ModelObjects.setNull(lod3Solid);
 	}
 
 	public void unsetLod4Solid() {
-		if (isSetLod4Solid())
-			lod4Solid.unsetParent();
-
-		lod4Solid = null;
+		lod4Solid = ModelObjects.setNull(lod4Solid);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -486,57 +419,17 @@ public class WaterBody extends AbstractWaterObject implements StandardObjectClas
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1Solid;
-				break;
-			case 2:
-				property = lod2Solid;
-				break;
-			case 3:
-				property = lod3Solid;
-				break;
-			case 4:
-				property = lod4Solid;
-				break;
-			}
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+		lodRepresentation.addRepresentation(1, lod1Solid);
+		lodRepresentation.addRepresentation(2, lod2Solid);
+		lodRepresentation.addRepresentation(3, lod3Solid);
+		lodRepresentation.addRepresentation(4, lod4Solid);
 
-		property = null;
-		for (int lod = 0; lod < 2; lod++) {
-			switch (lod) {
-			case 0:
-				property = lod0MultiSurface;
-				break;
-			case 1:
-				property = lod1MultiSurface;
-				break;
-			}
+		lodRepresentation.addRepresentation(0, lod0MultiSurface);
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-
-		property = null;
-		for (int lod = 0; lod < 2; lod++) {
-			switch (lod) {
-			case 0:
-				property = lod0MultiCurve;
-				break;
-			case 1:
-				property = lod1MultiCurve;
-				break;
-			}
-
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+		lodRepresentation.addRepresentation(0, lod0MultiCurve);
+		lodRepresentation.addRepresentation(1, lod1MultiCurve);
 		
 		return lodRepresentation;
 	}

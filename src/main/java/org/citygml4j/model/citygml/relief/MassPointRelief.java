@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -50,15 +51,12 @@ public class MassPointRelief extends AbstractReliefComponent {
 	}
 
 	public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfMassPointRelief().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfMassPointRelief() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -76,32 +74,23 @@ public class MassPointRelief extends AbstractReliefComponent {
 	}
 
 	public void setGenericApplicationPropertyOfMassPointRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setReliefPoints(MultiPointProperty reliefPoints) {
-		if (reliefPoints != null)
-			reliefPoints.setParent(this);
-
-		this.reliefPoints = reliefPoints;
+		this.reliefPoints = ModelObjects.setParent(reliefPoints, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfMassPointRelief() {
-		if (isSetGenericApplicationPropertyOfMassPointRelief())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfMassPointRelief() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfMassPointRelief() && this.ade.remove(ade);
 	}
 
 	public void unsetReliefPoints() {
-		if (isSetReliefPoints())
-			reliefPoints.unsetParent();
-
-		reliefPoints = null;
+		reliefPoints = ModelObjects.setNull(reliefPoints);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -142,9 +131,7 @@ public class MassPointRelief extends AbstractReliefComponent {
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		if (reliefPoints != null)
-			lodRepresentation.addRepresentation(getLod(), reliefPoints);
+		lodRepresentation.addRepresentation(getLod(), reliefPoints);
 
 		return lodRepresentation;
 	}

@@ -63,7 +63,7 @@ public class ADEWalkerHelper<T extends Walker> {
 				walker = iter.next();
 				if (walker != null) {
 					try {
-						method = walker.getClass().getMethod(methodName, new Class<?>[]{adeModelObject.getClass()});
+						method = walker.getClass().getMethod(methodName, adeModelObject.getClass());
 						method.setAccessible(true);
 						methods.put(key, new SimpleEntry<>(walker, method));
 						break;
@@ -79,7 +79,7 @@ public class ADEWalkerHelper<T extends Walker> {
 
 		if (method != null) {
 			try {
-				Object returnValue = method.invoke(walker, new Object[]{adeModelObject});
+				Object returnValue = method.invoke(walker, adeModelObject);
 				if (returnValue != null && returnType.isInstance(returnValue))
 					return returnValue;
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -100,7 +100,7 @@ public class ADEWalkerHelper<T extends Walker> {
 	}
 
 	private String getKey(ADEModelObject adeModelObject, String methodName) {
-		return new StringBuilder(adeModelObject.getClass().getName()).append('.').append(methodName).toString();
+		return adeModelObject.getClass().getName() + '.' + methodName;
 	}
 
 }

@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
@@ -63,17 +64,11 @@ public class FeatureProperty<T extends AbstractFeature> extends AssociationByRep
 	}
 	
 	public void setGenericADEElement(ADEGenericElement genericADEElement) {
-		if (genericADEElement != null)
-			genericADEElement.setParent(this);
-		
-		this.genericADEElement = genericADEElement;
+		this.genericADEElement = ModelObjects.setParent(genericADEElement, this);
 	}
 	
 	public void unsetGenericADEElement() {
-		if (isSetGenericADEElement())
-			genericADEElement.unsetParent();
-		
-		genericADEElement = null;
+		genericADEElement = ModelObjects.setNull(genericADEElement);
 	}
 
 	public GMLClass getGMLClass() {

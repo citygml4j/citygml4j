@@ -22,6 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.association.Associable;
 import org.citygml4j.model.common.association.Association;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -31,10 +32,11 @@ import org.citygml4j.model.gml.GMLClass;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class ArrayAssociation<T extends Associable & Child> implements GML, Association<T>, Child, Copyable {
 	private List<T> object;
-	private HashMap<String, Object> localProperties;
+	private Map<String, Object> localProperties;
 	private ModelObject parent;
 
 	public ArrayAssociation() {
@@ -54,10 +56,7 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 	}
 	
 	public void addObject(T object) {
-		if (this.object == null)
-			this.object = new ChildList<T>(this);
-
-		this.object.add(object);
+		getObject().add(object);
 	}
 
 	public List<T> getObject() {
@@ -76,14 +75,11 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 	}
 
 	public void unsetObject() {
-		if (isSetObject())
-			object.clear();
-
-		object = null;
+		object = ModelObjects.setNull(object);
 	}
 
 	public boolean unsetObject(T object) {
-		return isSetObject() ? this.object.remove(object) : false;
+		return isSetObject() && this.object.remove(object);
 	}
 
 	public GMLClass getGMLClass() {
@@ -99,7 +95,7 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 
 	public void setLocalProperty(String name, Object value) {
 		if (localProperties == null)
-			localProperties = new HashMap<String, Object>();
+			localProperties = new HashMap<>();
 
 		localProperties.put(name, value);
 	}

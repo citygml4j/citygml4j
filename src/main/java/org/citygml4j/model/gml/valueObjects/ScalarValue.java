@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -92,29 +93,20 @@ public class ScalarValue implements GML, Child, Copyable {
 
 	public void setBoolean(Boolean _boolean) {
 		this._boolean = _boolean;
-		
 		unsetCategory();
 		unsetCount();
 		unsetQuantity();
 	}
 
 	public void setCategory(Code category) {
-		if (category != null)
-			category.setParent(this);
-		
-		this.category = category;
-		
+		this.category = ModelObjects.setParent(category, this);
 		unsetBoolean();
 		unsetCount();
 		unsetQuantity();
 	}
 
 	public void setQuantity(Measure quantity) {
-		if (quantity != null)
-			quantity.setParent(this);
-		
-		this.quantity = quantity;
-		
+		this.quantity = ModelObjects.setParent(quantity, this);
 		unsetBoolean();
 		unsetCategory();
 		unsetCount();
@@ -122,7 +114,6 @@ public class ScalarValue implements GML, Child, Copyable {
 
 	public void setCount(Integer count) {
 		this.count = count;
-		
 		unsetBoolean();
 		unsetCategory();
 		unsetQuantity();
@@ -133,17 +124,11 @@ public class ScalarValue implements GML, Child, Copyable {
 	}
 
 	public void unsetCategory() {
-		if (isSetCategory())
-			category.unsetParent();
-		
-		category = null;
+		category = ModelObjects.setNull(category);
 	}
 
 	public void unsetQuantity() {
-		if (isSetQuantity())
-			quantity.unsetParent();
-		
-		quantity = null;
+		quantity = ModelObjects.setNull(quantity);
 	}
 
 	public void unsetCount() {

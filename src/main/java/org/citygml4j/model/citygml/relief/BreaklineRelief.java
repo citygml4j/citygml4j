@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -51,10 +52,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	}
 
 	public void addGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfBreaklineRelief().add(ade);
 	}
 
 	public MultiCurveProperty getBreaklines() {
@@ -63,7 +61,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
 
 	public List<ADEComponent> getGenericApplicationPropertyOfBreaklineRelief() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -85,46 +83,31 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	}
 
 	public void setBreaklines(MultiCurveProperty breaklines) {
-		if (breaklines != null)
-			breaklines.setParent(this);
-
-		this.breaklines = breaklines;
+		this.breaklines = ModelObjects.setParent(breaklines, this);
 	}
 
 	public void setGenericApplicationPropertyOfBreaklineRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setRidgeOrValleyLines(MultiCurveProperty ridgeOrValleyLines) {
-		if (ridgeOrValleyLines != null)
-			ridgeOrValleyLines.setParent(this);
-
-		this.ridgeOrValleyLines = ridgeOrValleyLines;
+		this.ridgeOrValleyLines = ModelObjects.setParent(ridgeOrValleyLines, this);
 	}
 
 	public void unsetBreaklines() {
-		if (isSetBreaklines())
-			breaklines.unsetParent();
-
-		breaklines = null;
+		breaklines = ModelObjects.setNull(breaklines);
 	}
 
 	public void unsetGenericApplicationPropertyOfBreaklineRelief() {
-		if (isSetGenericApplicationPropertyOfBreaklineRelief())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBreaklineRelief() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfBreaklineRelief() && this.ade.remove(ade);
 	}
 
 	public void unsetRidgeOrValleyLines() {
-		if (isSetRidgeOrValleyLines())
-			ridgeOrValleyLines.unsetParent();
-
-		ridgeOrValleyLines = null;
+		ridgeOrValleyLines = ModelObjects.setNull(ridgeOrValleyLines);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -170,11 +153,8 @@ public class BreaklineRelief extends AbstractReliefComponent {
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		if (ridgeOrValleyLines != null)
-			lodRepresentation.addRepresentation(getLod(), ridgeOrValleyLines);
-
-		if (breaklines != null)
-			lodRepresentation.addRepresentation(getLod(), breaklines);
+		lodRepresentation.addRepresentation(getLod(), ridgeOrValleyLines);
+		lodRepresentation.addRepresentation(getLod(), breaklines);
 
 		return lodRepresentation;
 	}

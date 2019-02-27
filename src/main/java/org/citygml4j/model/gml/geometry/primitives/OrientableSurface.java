@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
@@ -49,7 +50,7 @@ public class OrientableSurface extends AbstractSurface {
 	}
 
 	public Sign getOrientation() {
-		return (orientation == null) ? Sign.PLUS : orientation;
+		return orientation == null ? Sign.PLUS : orientation;
 	}
 
 	public boolean isSetBaseSurface() {
@@ -61,10 +62,7 @@ public class OrientableSurface extends AbstractSurface {
 	}
 
 	public void setBaseSurface(SurfaceProperty baseSurface) {
-		if (baseSurface != null)
-			baseSurface.setParent(this);
-
-		this.baseSurface = baseSurface;
+		this.baseSurface = ModelObjects.setParent(baseSurface, this);
 	}
 
 	public void setOrientation(Sign orientation) {
@@ -72,10 +70,7 @@ public class OrientableSurface extends AbstractSurface {
 	}
 
 	public void unsetBaseSurface() {
-		if (isSetBaseSurface())
-			baseSurface.unsetParent();
-		
-		baseSurface = null;
+		baseSurface = ModelObjects.setNull(baseSurface);
 	}
 
 	public void unsetOrientation() {

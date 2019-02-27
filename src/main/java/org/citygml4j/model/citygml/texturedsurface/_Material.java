@@ -20,6 +20,7 @@ package org.citygml4j.model.citygml.texturedsurface;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 
@@ -84,17 +85,11 @@ public class _Material extends _AbstractAppearance {
 	}
 
 	public void setDiffuseColor(_Color diffuseColor) {
-		if (diffuseColor != null)
-			diffuseColor.setParent(this);
-		
-		this.diffuseColor = diffuseColor;
+		this.diffuseColor = ModelObjects.setParent(diffuseColor, this);
 	}
 
 	public void setEmissiveColor(_Color emissiveColor) {
-		if (emissiveColor != null)
-			emissiveColor.setParent(this);
-		
-		this.emissiveColor = emissiveColor;
+		this.emissiveColor = ModelObjects.setParent(emissiveColor, this);
 	}
 
 	public void setShininess(Double shininess) {
@@ -102,10 +97,7 @@ public class _Material extends _AbstractAppearance {
 	}
 
 	public void setSpecularColor(_Color specularColor) {
-		if (specularColor != null)
-			specularColor.setParent(this);
-		
-		this.specularColor = specularColor;
+		this.specularColor = ModelObjects.setParent(specularColor, this);
 	}
 
 	public void setTransparency(Double transparency) {
@@ -117,17 +109,11 @@ public class _Material extends _AbstractAppearance {
 	}
 
 	public void unsetDiffuseColor() {
-		if (isSetDiffuseColor())
-			diffuseColor.unsetParent();
-		
-		diffuseColor = null;
+		diffuseColor = ModelObjects.setNull(diffuseColor);
 	}
 
 	public void unsetEmissiveColor() {
-		if (isSetEmissiveColor())
-			emissiveColor.unsetParent();
-		
-		emissiveColor = null;
+		emissiveColor = ModelObjects.setNull(emissiveColor);
 	}
 
 	public void unsetShininess() {
@@ -135,10 +121,7 @@ public class _Material extends _AbstractAppearance {
 	}
 
 	public void unsetSpecularColor() {
-		if (isSetSpecularColor())
-			specularColor.unsetParent();
-		
-		specularColor = null;
+		specularColor = ModelObjects.setNull(specularColor);
 	}
 
 	public void unsetTransparency() {

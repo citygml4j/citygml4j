@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.complexes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -49,15 +50,12 @@ public class CompositeSolid extends AbstractSolid {
 	}
 
 	public void addSolidMember(SolidProperty solidMember) {
-		if (this.solidMember == null)
-			this.solidMember = new ChildList<SolidProperty>(this);
-
-		this.solidMember.add(solidMember);
+		getSolidMember().add(solidMember);
 	}
 
 	public List<SolidProperty> getSolidMember() {
 		if (solidMember == null) 
-			solidMember = new ChildList<SolidProperty>(this);
+			solidMember = new ChildList<>(this);
 
 		return solidMember;
 	}
@@ -67,18 +65,15 @@ public class CompositeSolid extends AbstractSolid {
 	}
 
 	public void setSolidMember(List<SolidProperty> solidMember) {
-		this.solidMember = new ChildList<SolidProperty>(this, solidMember);
+		this.solidMember = new ChildList<>(this, solidMember);
 	}
 
 	public void unsetSolidMember() {
-		if (isSetSolidMember())
-			solidMember.clear();
-
-		solidMember = null;
+		solidMember = ModelObjects.setNull(solidMember);
 	}
 
 	public boolean unsetSolidMember(SolidProperty solidMember) {
-		return isSetSolidMember() ? this.solidMember.remove(solidMember) : false;
+		return isSetSolidMember() && this.solidMember.remove(solidMember);
 	}
 
 	public BoundingBox calcBoundingBox() {

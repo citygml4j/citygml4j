@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -49,15 +50,12 @@ public class MultiLineString extends AbstractGeometricAggregate {
 	}
 	
 	public void addLineStringMember(LineStringProperty lineStringMember) {
-		if (this.lineStringMember == null)
-			this.lineStringMember = new ChildList<LineStringProperty>(this);
-		
-		this.lineStringMember.add(lineStringMember);
+		getLineStringMember().add(lineStringMember);
 	}
 
 	public List<LineStringProperty> getLineStringMember() {
 		if (lineStringMember == null)
-			lineStringMember = new ChildList<LineStringProperty>(this);
+			lineStringMember = new ChildList<>(this);
 		
 		return lineStringMember;
 	}
@@ -67,18 +65,15 @@ public class MultiLineString extends AbstractGeometricAggregate {
 	}
 
 	public void setLineStringMember(List<LineStringProperty> lineStringMember) {
-		this.lineStringMember = new ChildList<LineStringProperty>(this, lineStringMember);
+		this.lineStringMember = new ChildList<>(this, lineStringMember);
 	}
 
 	public void unsetLineStringMember() {
-		if (isSetLineStringMember())
-			lineStringMember.clear();
-		
-		lineStringMember = null;
+		lineStringMember = ModelObjects.setNull(lineStringMember);
 	}
 
 	public boolean unsetLineStringMember(LineStringProperty lineStringMember) {
-		return isSetLineStringMember() ? this.lineStringMember.remove(lineStringMember) : false;
+		return isSetLineStringMember() && this.lineStringMember.remove(lineStringMember);
 	}
 
 	public BoundingBox calcBoundingBox() {

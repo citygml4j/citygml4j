@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
@@ -57,43 +58,28 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	}
 	
 	public void addAppearance(AppearanceProperty appearance) {
-		if (this.appearance == null)
-			this.appearance = new ChildList<AppearanceProperty>(this);
-		
-		this.appearance.add(appearance);
+		getAppearance().add(appearance);
 	}
 
 	public void addExternalReference(ExternalReference externalReference) {
-		if (this.externalReference == null)
-			this.externalReference = new ChildList<ExternalReference>(this);
-		
-		this.externalReference.add(externalReference);
+		getExternalReference().add(externalReference);
 	}
 
 	public void addGeneralizesTo(GeneralizationRelation generalizesTo) {
-		if (this.generalizesTo == null)
-			this.generalizesTo = new ChildList<GeneralizationRelation>(this);
-		
-		this.generalizesTo.add(generalizesTo);
+		getGeneralizesTo().add(generalizesTo);
 	}
 
 	public void addGenericApplicationPropertyOfCityObject(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfCityObject().add(ade);
 	}
 
 	public void addGenericAttribute(AbstractGenericAttribute genericAttribute) {
-		if (this.genericAttribute == null)
-			this.genericAttribute = new ChildList<AbstractGenericAttribute>(this);
-		
-		this.genericAttribute.add(genericAttribute);
+		getGenericAttribute().add(genericAttribute);
 	}
 
 	public List<AppearanceProperty> getAppearance() {
 		if (appearance == null)
-			appearance = new ChildList<AppearanceProperty>(this);
+			appearance = new ChildList<>(this);
 
 		return appearance;
 	}
@@ -104,28 +90,28 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 
 	public List<ExternalReference> getExternalReference() {
 		if (externalReference == null)
-			externalReference = new ChildList<ExternalReference>(this);
+			externalReference = new ChildList<>(this);
 
 		return externalReference;
 	}
 
 	public List<GeneralizationRelation> getGeneralizesTo() {
 		if (generalizesTo == null)
-			generalizesTo = new ChildList<GeneralizationRelation>(this);
+			generalizesTo = new ChildList<>(this);
 
 		return generalizesTo;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfCityObject() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<AbstractGenericAttribute> getGenericAttribute() {
 		if (genericAttribute == null)
-			genericAttribute = new ChildList<AbstractGenericAttribute>(this);
+			genericAttribute = new ChildList<>(this);
 
 		return genericAttribute;
 	}
@@ -179,7 +165,7 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	}
 
 	public void setAppearance(List<AppearanceProperty> appearance) {
-		this.appearance = new ChildList<AppearanceProperty>(this, appearance);
+		this.appearance = new ChildList<>(this, appearance);
 	}
 
 	public void setCreationDate(ZonedDateTime creationDate) {
@@ -195,19 +181,19 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	}
 
 	public void setExternalReference(List<ExternalReference> externalReference) {
-		this.externalReference = new ChildList<ExternalReference>(this, externalReference);
+		this.externalReference = new ChildList<>(this, externalReference);
 	}
 
 	public void setGeneralizesTo(List<GeneralizationRelation> generalizesTo) {
-		this.generalizesTo = new ChildList<GeneralizationRelation>(this, generalizesTo);
+		this.generalizesTo = new ChildList<>(this, generalizesTo);
 	}
 
 	public void setGenericApplicationPropertyOfCityObject(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setGenericAttribute(List<AbstractGenericAttribute> genericAttribute) {
-		this.genericAttribute = new ChildList<AbstractGenericAttribute>(this, genericAttribute);
+		this.genericAttribute = new ChildList<>(this, genericAttribute);
 	}
 
 	public void setRelativeToTerrain(RelativeToTerrain relativeToTerrain) {
@@ -231,14 +217,11 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	}
 
 	public void unsetAppearance() {
-		if (isSetAppearance())
-			appearance.clear();
-
-		appearance = null;
+		appearance = ModelObjects.setNull(appearance);
 	}
 
 	public boolean unsetAppearance(AppearanceProperty appearance) {
-		return isSetAppearance() ? this.appearance.remove(appearance) : false;
+		return isSetAppearance() && this.appearance.remove(appearance);
 	}
 
 	public void unsetCreationDate() {
@@ -246,47 +229,35 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	}
 
 	public void unsetExternalReference() {
-		if (isSetExternalReference())
-			externalReference.clear();
-
-		externalReference = null;
+		externalReference = ModelObjects.setNull(externalReference);
 	}
 
 	public boolean unsetExternalReference(ExternalReference externalReference) {
-		return isSetExternalReference() ? this.externalReference.remove(externalReference) : false;
+		return isSetExternalReference() && this.externalReference.remove(externalReference);
 	}
 
 	public void unsetGeneralizesTo() {
-		if (isSetGeneralizesTo())
-			generalizesTo.clear();
-
-		generalizesTo = null;
+		generalizesTo = ModelObjects.setNull(generalizesTo);
 	}
 
 	public boolean unsetGeneralizesTo(GeneralizationRelation generalizesTo) {
-		return isSetGeneralizesTo() ? this.generalizesTo.remove(generalizesTo) : false;
+		return isSetGeneralizesTo() && this.generalizesTo.remove(generalizesTo);
 	}
 
 	public void unsetGenericApplicationPropertyOfCityObject() {
-		if (isSetGenericApplicationPropertyOfCityObject())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfCityObject(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfCityObject() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfCityObject() && this.ade.remove(ade);
 	}
 
 	public void unsetGenericAttribute() {
-		if (isSetGenericAttribute())
-			genericAttribute.clear();
-
-		genericAttribute = null;
+		genericAttribute = ModelObjects.setNull(genericAttribute);
 	}
 
 	public boolean unsetGenericAttribute(AbstractGenericAttribute genericAttribute) {
-		return isSetGenericAttribute() ? this.genericAttribute.remove(genericAttribute) : false;
+		return isSetGenericAttribute() && this.genericAttribute.remove(genericAttribute);
 	}
 
 	public void unsetRelativeToTerrain() {

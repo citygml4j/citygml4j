@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -47,15 +48,12 @@ public class Square extends TransportationComplex {
 	}
 	
 	public void addGenericApplicationPropertyOfSquare(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfSquare().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfSquare() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -65,18 +63,15 @@ public class Square extends TransportationComplex {
 	}
 
 	public void setGenericApplicationPropertyOfSquare(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void unsetGenericApplicationPropertyOfSquare() {
-		if (isSetGenericApplicationPropertyOfSquare())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfSquare() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfSquare() && this.ade.remove(ade);
 	}
 
 	@Override

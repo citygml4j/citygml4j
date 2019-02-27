@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
@@ -49,31 +50,19 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public void addPointProperty(PointProperty pointProperty) {
-		if (controlPoints == null)
-			controlPoints = new ChildList<PosOrPointPropertyOrPointRep>(this);
-
-		controlPoints.add(new PosOrPointPropertyOrPointRep(pointProperty));
+		getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pointProperty));
 	}
 
 	public void addPointRep(PointRep pointRep) {
-		if (controlPoints == null)
-			controlPoints = new ChildList<PosOrPointPropertyOrPointRep>(this);
-
-		controlPoints.add(new PosOrPointPropertyOrPointRep(pointRep));
+		getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pointRep));
 	}
 
 	public void addPos(DirectPosition pos) {
-		if (controlPoints == null)
-			controlPoints = new ChildList<PosOrPointPropertyOrPointRep>(this);
-
-		controlPoints.add(new PosOrPointPropertyOrPointRep(pos));
+		getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pos));
 	}
 
 	public void addControlPoint(PosOrPointPropertyOrPointRep controlPoint) {
-		if (controlPoints == null)
-			controlPoints = new ChildList<PosOrPointPropertyOrPointRep>(this);
-
-		controlPoints.add(controlPoint);
+		getPosOrPointPropertyOrPointRep().add(controlPoint);
 	}
 
 	public Coordinates getCoordinates() {
@@ -81,10 +70,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public CurveInterpolation getInterpolation() {
-		if (interpolation == null)
-			return CurveInterpolation.LINEAR;
-		else 
-			return interpolation;
+		return interpolation == null ? CurveInterpolation.LINEAR : interpolation;
 	}
 
 	public DirectPositionList getPosList() {
@@ -93,7 +79,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 
 	public List<PosOrPointPropertyOrPointRep> getPosOrPointPropertyOrPointRep() {
 		if (controlPoints == null)
-			controlPoints = new ChildList<PosOrPointPropertyOrPointRep>(this);
+			controlPoints = new ChildList<>(this);
 
 		return controlPoints;
 	}
@@ -115,10 +101,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public void setCoordinates(Coordinates coordinates) {
-		if (coordinates != null)
-			coordinates.setParent(this);
-
-		this.coordinates = coordinates;
+		this.coordinates = ModelObjects.setParent(coordinates, this);
 	}
 
 	public void setInterpolation(CurveInterpolation interpolation) {
@@ -126,18 +109,15 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public void setPosList(DirectPositionList posList) {
-		if (posList != null)
-			posList.setParent(this);
-
-		this.posList = posList;
+		this.posList = ModelObjects.setParent(posList, this);
 	}
 
 	public void setPosOrPointPropertyOrPointRep(List<PosOrPointPropertyOrPointRep> controlPoints) {
-		this.controlPoints = new ChildList<PosOrPointPropertyOrPointRep>(this, controlPoints);
+		this.controlPoints = new ChildList<>(this, controlPoints);
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 
 		if (isSetPosList()) 
 			tmp.addAll(posList.toList3d());
@@ -156,7 +136,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 		List<Double> points = toList3d();
 
 		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<Double>();
+			List<Double> reversed = new ArrayList<>();
 
 			for (int i = points.size() - 3; i >= 0; i -=3)
 				reversed.addAll(points.subList(i, i + 3));
@@ -168,10 +148,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public void unsetCoordinates() {
-		if (isSetCoordinates())
-			coordinates.unsetParent();
-
-		coordinates = null;
+		coordinates = ModelObjects.setNull(coordinates);
 	}
 
 	public void unsetInterpolation() {
@@ -179,14 +156,11 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public void unsetPosList() {
-		if (isSetPosList())
-			posList.unsetParent();
-
-		posList = null;
+		posList = ModelObjects.setNull(posList);
 	}
 
 	public boolean unsetPosOrPointPropertyOrPointRep(PosOrPointPropertyOrPointRep controlPoint) {
-		return isSetPosOrPointPropertyOrPointRep() ? controlPoints.remove(controlPoint) : false;	}
+		return isSetPosOrPointPropertyOrPointRep() && controlPoints.remove(controlPoint);	}
 
 	public boolean unsetPointProperty(PointProperty pointProperty) {
 		boolean success = false;
@@ -195,7 +169,6 @@ public class LineStringSegment extends AbstractCurveSegment {
 			Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
 			while (iter.hasNext()) {
 				PosOrPointPropertyOrPointRep controlPoint = iter.next();
-
 				if (controlPoint != null && controlPoint.getPointProperty().equals(pointProperty)) {
 					iter.remove();
 					success = true;
@@ -214,7 +187,6 @@ public class LineStringSegment extends AbstractCurveSegment {
 			Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
 			while (iter.hasNext()) {
 				PosOrPointPropertyOrPointRep controlPoint = iter.next();
-
 				if (controlPoint != null && controlPoint.getPointRep().equals(pointRep)) {
 					iter.remove();
 					success = true;
@@ -233,7 +205,6 @@ public class LineStringSegment extends AbstractCurveSegment {
 			Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
 			while (iter.hasNext()) {
 				PosOrPointPropertyOrPointRep controlPoint = iter.next();
-
 				if (controlPoint != null && controlPoint.getPos().equals(pos)) {
 					iter.remove();
 					success = true;
@@ -246,10 +217,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 	}
 
 	public void unsetPosOrPointPropertyOrPointRep() {
-		if (isSetPosOrPointPropertyOrPointRep())
-			controlPoints.clear();
-
-		controlPoints = null;
+		controlPoints = ModelObjects.setNull(controlPoints);
 	}
 
 	@Override

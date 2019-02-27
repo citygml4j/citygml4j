@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -41,36 +42,27 @@ public class LargeMailUser implements XAL, Child, Copyable {
 	private ModelObject parent;	
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addBuildingName(BuildingName buildingName) {
-		if (this.buildingName == null)
-			this.buildingName = new ChildList<BuildingName>(this);
-
-		this.buildingName.add(buildingName);
+		getBuildingName().add(buildingName);
 	}
 
 	public void addLargeMailUserName(LargeMailUserName largeMailUserName) {
-		if (this.largeMailUserName == null)
-			this.largeMailUserName = new ChildList<LargeMailUserName>(this);
-
-		this.largeMailUserName.add(largeMailUserName);
+		getLargeMailUserName().add(largeMailUserName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
 
 	public List<BuildingName> getBuildingName() {
 		if (buildingName == null)
-			buildingName = new ChildList<BuildingName>(this);
+			buildingName = new ChildList<>(this);
 
 		return buildingName;
 	}
@@ -85,7 +77,7 @@ public class LargeMailUser implements XAL, Child, Copyable {
 
 	public List<LargeMailUserName> getLargeMailUserName() {
 		if (largeMailUserName == null)
-			largeMailUserName = new ChildList<LargeMailUserName>(this);
+			largeMailUserName = new ChildList<>(this);
 
 		return largeMailUserName;
 	}
@@ -143,50 +135,35 @@ public class LargeMailUser implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setBuildingName(List<BuildingName> buildingName) {
-		this.buildingName = new ChildList<BuildingName>(this, buildingName);
+		this.buildingName = new ChildList<>(this, buildingName);
 	}
 
 	public void setDepartment(Department department) {
-		if (department != null)
-			department.setParent(this);
-
-		this.department = department;
+		this.department = ModelObjects.setParent(department, this);
 	}
 
 	public void setLargeMailUserIdentifier(LargeMailUserIdentifier largeMailUserIdentifier) {
-		if (largeMailUserIdentifier != null)
-			largeMailUserIdentifier.setParent(this);
-
-		this.largeMailUserIdentifier = largeMailUserIdentifier;
+		this.largeMailUserIdentifier = ModelObjects.setParent(largeMailUserIdentifier, this);
 	}
 
 	public void setLargeMailUserName(List<LargeMailUserName> largeMailUserName) {
-		this.largeMailUserName = new ChildList<LargeMailUserName>(this, largeMailUserName);
+		this.largeMailUserName = new ChildList<>(this, largeMailUserName);
 	}
 
 	public void setPostBox(PostBox postBox) {
-		if (postBox != null)
-			postBox.setParent(this);
-
-		this.postBox = postBox;
+		this.postBox = ModelObjects.setParent(postBox, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setThoroughfare(Thoroughfare thoroughfare) {
-		if (thoroughfare != null)
-			thoroughfare.setParent(this);
-
-		this.thoroughfare = thoroughfare;
+		this.thoroughfare = ModelObjects.setParent(thoroughfare, this);
 	}
 
 	public void setType(String type) {
@@ -194,71 +171,47 @@ public class LargeMailUser implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetBuildingName() {
-		if (isSetBuildingName())
-			buildingName.clear();
-
-		buildingName = null;
+		buildingName = ModelObjects.setNull(buildingName);
 	}
 
 	public boolean unsetBuildingName(BuildingName buildingName) {
-		return isSetBuildingName() ? this.buildingName.remove(buildingName) : false;
+		return isSetBuildingName() && this.buildingName.remove(buildingName);
 	}
 
 	public void unsetDepartment() {
-		if (isSetDepartment())
-			department.unsetParent();
-
-		department = null;
+		department = ModelObjects.setNull(department);
 	}
 
 	public void unsetLargeMailUserIdentifier() {
-		if (isSetLargeMailUserIdentifier())
-			largeMailUserIdentifier.unsetParent();
-
-		largeMailUserIdentifier = null;
+		largeMailUserIdentifier = ModelObjects.setNull(largeMailUserIdentifier);
 	}
 
 	public void unsetLargeMailUserName() {
-		if (isSetLargeMailUserName())
-			largeMailUserName.clear();
-
-		largeMailUserName = null;
+		largeMailUserName = ModelObjects.setNull(largeMailUserName);
 	}
 
 	public boolean unsetLargeMailUserName(LargeMailUserName largeMailUserName) {
-		return isSetLargeMailUserName() ? this.largeMailUserName.remove(largeMailUserName) : false;
+		return isSetLargeMailUserName() && this.largeMailUserName.remove(largeMailUserName);
 	}
 
 	public void unsetPostBox() {
-		if (isSetPostBox())
-			postBox.unsetParent();
-
-		postBox = null;
+		postBox = ModelObjects.setNull(postBox);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetThoroughfare() {
-		if (isSetThoroughfare())
-			thoroughfare.unsetParent();
-
-		thoroughfare = null;
+		thoroughfare = ModelObjects.setNull(thoroughfare);
 	}
 
 	public void unsetType() {

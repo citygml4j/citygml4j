@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -34,10 +35,7 @@ public class Solid extends AbstractSolid {
 	private List<SurfaceProperty> interior;
 	
 	public void addInterior(SurfaceProperty interior) {
-		if (this.interior == null)
-			this.interior = new ChildList<SurfaceProperty>(this);
-		
-		this.interior.add(interior);
+		getInterior().add(interior);
 	}
 
 	public SurfaceProperty getExterior() {
@@ -46,7 +44,7 @@ public class Solid extends AbstractSolid {
 
 	public List<SurfaceProperty> getInterior() {
 		if (interior == null)
-			interior = new ChildList<SurfaceProperty>(this);
+			interior = new ChildList<>(this);
 		
 		return interior;
 	}
@@ -60,30 +58,23 @@ public class Solid extends AbstractSolid {
 	}
 
 	public void setExterior(SurfaceProperty exterior) {
-		if (exterior != null)
-			exterior.setParent(this);
-		
-		this.exterior = exterior;
+		this.exterior = ModelObjects.setParent(exterior, this);
 	}
 
 	public void setInterior(List<SurfaceProperty> interior) {
-		this.interior = new ChildList<SurfaceProperty>(this, interior);
+		this.interior = new ChildList<>(this, interior);
 	}
 
 	public void unsetExterior() {
-		if (exterior != null)
-			exterior.unsetParent();
+		exterior = ModelObjects.setNull(exterior);
 	}
 
 	public void unsetInterior() {
-		if (isSetInterior())
-			interior.clear();
-		
-		interior = null;
+		interior = ModelObjects.setNull(interior);
 	}
 
 	public boolean unsetInterior(SurfaceProperty interior) {
-		return (isSetInterior()) ? this.interior.remove(interior) : false;
+		return isSetInterior() && this.interior.remove(interior);
 	}
 
 	public BoundingBox calcBoundingBox() {

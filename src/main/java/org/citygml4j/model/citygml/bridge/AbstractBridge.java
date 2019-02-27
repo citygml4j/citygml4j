@@ -27,11 +27,10 @@ import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -81,85 +80,55 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	}
 	
 	public void addAddress(AddressProperty address) {
-		if (this.address == null)
-			this.address = new ChildList<AddressProperty>(this);
-
-		this.address.add(address);
+		getAddress().add(address);
 	}
 
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 
 	public void addConsistsOfBridgePart(BridgePartProperty bridgePart) {
-		if (this.bridgePart == null)
-			this.bridgePart = new ChildList<BridgePartProperty>(this);
-
-		this.bridgePart.add(bridgePart);
+		getConsistsOfBridgePart().add(bridgePart);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfAbstractBridge(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfAbstractBridge().add(ade);
 	}
 
 	public void addInteriorBridgeInstallation(IntBridgeInstallationProperty interiorBridgeInstallation) {
-		if (this.interiorBridgeInstallation == null)
-			this.interiorBridgeInstallation = new ChildList<IntBridgeInstallationProperty>(this);
-
-		this.interiorBridgeInstallation.add(interiorBridgeInstallation);
+		getInteriorBridgeInstallation().add(interiorBridgeInstallation);
 	}
 
 	public void addInteriorBridgeRoom(InteriorBridgeRoomProperty interiorBridgeRoom) {
-		if (this.interiorBridgeRoom == null)
-			this.interiorBridgeRoom = new ChildList<InteriorBridgeRoomProperty>(this);
-
-		this.interiorBridgeRoom.add(interiorBridgeRoom);
+		getInteriorBridgeRoom().add(interiorBridgeRoom);
 	}
 
 	public void addOuterBridgeInstallation(BridgeInstallationProperty outerBridgeInstallation) {
-		if (this.outerBridgeInstallation == null)
-			this.outerBridgeInstallation = new ChildList<BridgeInstallationProperty>(this);
-
-		this.outerBridgeInstallation.add(outerBridgeInstallation);
+		getOuterBridgeInstallation().add(outerBridgeInstallation);
 	}
 	
 	public void addOuterBridgeConstructionElement(BridgeConstructionElementProperty outerBridgeConstructionElement) {
-		if (this.outerBridgeConstructionElement == null)
-			this.outerBridgeConstructionElement = new ChildList<BridgeConstructionElementProperty>(this);
-
-		this.outerBridgeConstructionElement.add(outerBridgeConstructionElement);
+		getOuterBridgeConstructionElement().add(outerBridgeConstructionElement);
 	}
 
 	public List<AddressProperty> getAddress() {
 		if (address == null)
-			address = new ChildList<AddressProperty>(this);
+			address = new ChildList<>(this);
 
 		return address;
 	}
 
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -170,14 +139,14 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
@@ -188,28 +157,28 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 
 	public List<BridgePartProperty> getConsistsOfBridgePart() {
 		if (bridgePart == null)
-			bridgePart = new ChildList<BridgePartProperty>(this);
+			bridgePart = new ChildList<>(this);
 
 		return bridgePart;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfAbstractBridge() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<IntBridgeInstallationProperty> getInteriorBridgeInstallation() {
 		if (interiorBridgeInstallation == null)
-			interiorBridgeInstallation = new ChildList<IntBridgeInstallationProperty>(this);
+			interiorBridgeInstallation = new ChildList<>(this);
 
 		return interiorBridgeInstallation;
 	}
 
 	public List<InteriorBridgeRoomProperty> getInteriorBridgeRoom() {
 		if (interiorBridgeRoom == null)
-			interiorBridgeRoom = new ChildList<InteriorBridgeRoomProperty>(this);
+			interiorBridgeRoom = new ChildList<>(this);
 
 		return interiorBridgeRoom;
 	}
@@ -276,14 +245,14 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 
 	public List<BridgeInstallationProperty> getOuterBridgeInstallation() {
 		if (outerBridgeInstallation == null)
-			outerBridgeInstallation = new ChildList<BridgeInstallationProperty>(this);
+			outerBridgeInstallation = new ChildList<>(this);
 
 		return outerBridgeInstallation;
 	}
 	
 	public List<BridgeConstructionElementProperty> getOuterBridgeConstructionElement() {
 		if (outerBridgeConstructionElement == null)
-			outerBridgeConstructionElement = new ChildList<BridgeConstructionElementProperty>(this);
+			outerBridgeConstructionElement = new ChildList<>(this);
 
 		return outerBridgeConstructionElement;
 	}
@@ -413,23 +382,23 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	}
 
 	public void setAddress(List<AddressProperty> address) {
-		this.address = new ChildList<AddressProperty>(this, address);
+		this.address = new ChildList<>(this, address);
 	}
 
 	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this, boundedBySurface);
+		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 	
 	public void setIsMovable(Boolean isMovable) {
@@ -437,132 +406,87 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	}
 
 	public void setConsistsOfBridgePart(List<BridgePartProperty> bridgePart) {
-		this.bridgePart = new ChildList<BridgePartProperty>(this, bridgePart);
+		this.bridgePart = new ChildList<>(this, bridgePart);
 	}
 
 	public void setGenericApplicationPropertyOfAbstractBridge(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setInteriorBridgeInstallation(List<IntBridgeInstallationProperty> interiorBridgeInstallation) {
-		this.interiorBridgeInstallation = new ChildList<IntBridgeInstallationProperty>(this, interiorBridgeInstallation);
+		this.interiorBridgeInstallation = new ChildList<>(this, interiorBridgeInstallation);
 	}
 
 	public void setInteriorBridgeRoom(List<InteriorBridgeRoomProperty> interiorBridgeRoom) {
-		this.interiorBridgeRoom = new ChildList<InteriorBridgeRoomProperty>(this, interiorBridgeRoom);
+		this.interiorBridgeRoom = new ChildList<>(this, interiorBridgeRoom);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-		
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod1Solid(SolidProperty lod1Solid) {
-		if (lod1Solid != null)
-			lod1Solid.setParent(this);
-		
-		this.lod1Solid = lod1Solid;
+		this.lod1Solid = ModelObjects.setParent(lod1Solid, this);
 	}
 
 	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection) {
-		if (lod1TerrainIntersection != null)
-			lod1TerrainIntersection.setParent(this);
-		
-		this.lod1TerrainIntersection = lod1TerrainIntersection;
+		this.lod1TerrainIntersection = ModelObjects.setParent(lod1TerrainIntersection, this);
 	}
 
 	public void setLod2MultiCurve(MultiCurveProperty lod2MultiCurve) {
-		if (lod2MultiCurve != null)
-			lod2MultiCurve.setParent(this);
-		
-		this.lod2MultiCurve = lod2MultiCurve;
+		this.lod2MultiCurve = ModelObjects.setParent(lod2MultiCurve, this);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-		
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod2Solid(SolidProperty lod2Solid) {
-		if (lod2Solid != null)
-			lod2Solid.setParent(this);
-		
-		this.lod2Solid = lod2Solid;
+		this.lod2Solid = ModelObjects.setParent(lod2Solid, this);
 	}
 
 	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection) {
-		if (lod2TerrainIntersection != null)
-			lod2TerrainIntersection.setParent(this);
-		
-		this.lod2TerrainIntersection = lod2TerrainIntersection;
+		this.lod2TerrainIntersection = ModelObjects.setParent(lod2TerrainIntersection, this);
 	}
 
 	public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve) {
-		if (lod3MultiCurve != null)
-			lod3MultiCurve.setParent(this);
-		
-		this.lod3MultiCurve = lod3MultiCurve;
+		this.lod3MultiCurve = ModelObjects.setParent(lod3MultiCurve, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-		
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod3Solid(SolidProperty lod3Solid) {
-		if (lod3Solid != null)
-			lod3Solid.setParent(this);
-		
-		this.lod3Solid = lod3Solid;
+		this.lod3Solid = ModelObjects.setParent(lod3Solid, this);
 	}
 
 	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection) {
-		if (lod3TerrainIntersection != null)
-			lod3TerrainIntersection.setParent(this);
-		
-		this.lod3TerrainIntersection = lod3TerrainIntersection;
+		this.lod3TerrainIntersection = ModelObjects.setParent(lod3TerrainIntersection, this);
 	}
 
 	public void setLod4MultiCurve(MultiCurveProperty lod4MultiCurve) {
-		if (lod4MultiCurve != null)
-			lod4MultiCurve.setParent(this);
-		
-		this.lod4MultiCurve = lod4MultiCurve;
+		this.lod4MultiCurve = ModelObjects.setParent(lod4MultiCurve, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-		
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setLod4Solid(SolidProperty lod4Solid) {
-		if (lod4Solid != null)
-			lod4Solid.setParent(this);
-		
-		this.lod4Solid = lod4Solid;
+		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
 	}
 
 	public void setLod4TerrainIntersection(MultiCurveProperty lod4TerrainIntersection) {
-		if (lod4TerrainIntersection != null)
-			lod4TerrainIntersection.setParent(this);
-		
-		this.lod4TerrainIntersection = lod4TerrainIntersection;
+		this.lod4TerrainIntersection = ModelObjects.setParent(lod4TerrainIntersection, this);
 	}
 
 	public void setOuterBridgeInstallation(List<BridgeInstallationProperty> outerBridgeInstallation) {
-		this.outerBridgeInstallation = new ChildList<BridgeInstallationProperty>(this, outerBridgeInstallation);
+		this.outerBridgeInstallation = new ChildList<>(this, outerBridgeInstallation);
 	}
 	
 	public void setOuterBridgeConstructionElement(List<BridgeConstructionElementProperty> outerBridgeConstructionElement) {
-		this.outerBridgeConstructionElement = new ChildList<BridgeConstructionElementProperty>(this, outerBridgeConstructionElement);
+		this.outerBridgeConstructionElement = new ChildList<>(this, outerBridgeConstructionElement);
 	}
 
 	public void setYearOfConstruction(LocalDate yearOfConstruction) {
@@ -582,56 +506,47 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	}
 
 	public void unsetAddress() {
-		if (isSetAddress())
-			address.clear();
-
-		address = null;
+		address = ModelObjects.setNull(address);
 	}
 
 	public boolean unsetAddress(AddressProperty address) {
-		return isSetAddress() ? this.address.remove(address) : false;
+		return isSetAddress() && this.address.remove(address);
 	}
 
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetConsistsOfBridgePart() {
-		if (isSetConsistsOfBridgePart())
-			bridgePart.clear();
-
-		bridgePart = null;
+		bridgePart = ModelObjects.setNull(bridgePart);
 	}
 
 	public boolean unsetConsistsOfBridgePart(BridgePartProperty bridgePart) {
-		return isSetConsistsOfBridgePart() ? this.bridgePart.remove(bridgePart) : false;
+		return isSetConsistsOfBridgePart() && this.bridgePart.remove(bridgePart);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 	
 	public void unsetIsMovable() {
@@ -639,162 +554,102 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	}
 
 	public void unsetGenericApplicationPropertyOfAbstractBridge() {
-		if (isSetGenericApplicationPropertyOfAbstractBridge())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfAbstractBridge(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAbstractBridge() ? this.ade.remove(ade) : false;	}
+		return isSetGenericApplicationPropertyOfAbstractBridge() && this.ade.remove(ade);	}
 
 	public void unsetInteriorBridgeInstallation() {
-		if (isSetInteriorBridgeInstallation())
-			interiorBridgeInstallation.clear();
-
-		interiorBridgeInstallation = null;
+		interiorBridgeInstallation = ModelObjects.setNull(interiorBridgeInstallation);
 	}
 
 	public boolean unsetInteriorBridgeInstallation(IntBridgeInstallationProperty interiorBridgeInstallation) {
-		return isSetInteriorBridgeInstallation() ? this.interiorBridgeInstallation.remove(interiorBridgeInstallation) : false;
+		return isSetInteriorBridgeInstallation() && this.interiorBridgeInstallation.remove(interiorBridgeInstallation);
 	}
 
 	public void unsetInteriorBridgeRoom() {
-		if (isSetInteriorBridgeRoom())
-			interiorBridgeRoom.clear();
-
-		interiorBridgeRoom = null;
+		interiorBridgeRoom = ModelObjects.setNull(interiorBridgeRoom);
 	}
 
 	public boolean unsetInteriorBridgeRoom(InteriorBridgeRoomProperty interiorBridgeRoom) {
-		return isSetInteriorBridgeRoom() ? this.interiorBridgeRoom.remove(interiorBridgeRoom) : false;
+		return isSetInteriorBridgeRoom() && this.interiorBridgeRoom.remove(interiorBridgeRoom);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-		
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod1Solid() {
-		if (isSetLod1Solid())
-			lod1Solid.unsetParent();
-		
-		lod1Solid = null;
+		lod1Solid = ModelObjects.setNull(lod1Solid);
 	}
 
 	public void unsetLod1TerrainIntersection() {
-		if (isSetLod1TerrainIntersection())
-			lod1TerrainIntersection.unsetParent();
-		
-		lod1TerrainIntersection = null;
+		lod1TerrainIntersection = ModelObjects.setNull(lod1TerrainIntersection);
 	}
 
 	public void unsetLod2MultiCurve() {
-		if (isSetLod2MultiCurve())
-			lod2MultiCurve.unsetParent();
-		
-		lod2MultiCurve = null;
+		lod2MultiCurve = ModelObjects.setNull(lod2MultiCurve);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-		
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod2Solid() {
-		if (isSetLod2Solid())
-			lod2Solid.unsetParent();
-		
-		lod2Solid = null;
+		lod2Solid = ModelObjects.setNull(lod2Solid);
 	}
 
 	public void unsetLod2TerrainIntersection() {
-		if (isSetLod2TerrainIntersection())
-			lod2TerrainIntersection.unsetParent();
-		
-		lod2TerrainIntersection = null;
+		lod2TerrainIntersection = ModelObjects.setNull(lod2TerrainIntersection);
 	}
 
 	public void unsetLod3MultiCurve() {
-		if (isSetLod3MultiCurve())
-			lod3MultiCurve.unsetParent();
-		
-		lod3MultiCurve = null;
+		lod3MultiCurve = ModelObjects.setNull(lod3MultiCurve);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-		
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod3Solid() {
-		if (isSetLod3Solid())
-			lod3Solid.unsetParent();
-		
-		lod3Solid = null;
+		lod3Solid = ModelObjects.setNull(lod3Solid);
 	}
 
 	public void unsetLod3TerrainIntersection() {
-		if (isSetLod3TerrainIntersection())
-			lod3TerrainIntersection.unsetParent();
-		
-		lod3TerrainIntersection = null;
+		lod3TerrainIntersection = ModelObjects.setNull(lod3TerrainIntersection);
 	}
 
 	public void unsetLod4MultiCurve() {
-		if (isSetLod4MultiCurve())
-			lod4MultiCurve.unsetParent();
-		
-		lod4MultiCurve = null;
+		lod4MultiCurve = ModelObjects.setNull(lod4MultiCurve);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-		
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetLod4Solid() {
-		if (isSetLod4Solid())
-			lod4Solid.unsetParent();
-		
-		lod4Solid = null;
+		lod4Solid = ModelObjects.setNull(lod4Solid);
 	}
 
 	public void unsetLod4TerrainIntersection() {
-		if (isSetLod4TerrainIntersection())
-			lod4TerrainIntersection.unsetParent();
-		
-		lod4TerrainIntersection = null;
+		lod4TerrainIntersection = ModelObjects.setNull(lod4TerrainIntersection);
 	}
 
 	public void unsetOuterBridgeInstallation() {
-		if (isSetOuterBridgeInstallation())
-			outerBridgeInstallation.clear();
-
-		outerBridgeInstallation = null;
+		outerBridgeInstallation = ModelObjects.setNull(outerBridgeInstallation);
 	}
 	
 	public boolean unsetOuterBridgeInstallation(BridgeInstallationProperty outerBridgeInstallation) {
-		return isSetOuterBridgeInstallation() ? this.outerBridgeInstallation.remove(outerBridgeInstallation) : false;
+		return isSetOuterBridgeInstallation() && this.outerBridgeInstallation.remove(outerBridgeInstallation);
 	}
 
 	public void unsetOuterBridgeConstructionElement() {
-		if (isSetOuterBridgeConstructionElement())
-			outerBridgeConstructionElement.clear();
-
-		outerBridgeConstructionElement = null;
+		outerBridgeConstructionElement = ModelObjects.setNull(outerBridgeConstructionElement);
 	}
 	
 	public boolean unsetOuterBridgeConstructionElement(BridgeConstructionElementProperty outerBridgeConstructionElement) {
-		return isSetOuterBridgeConstructionElement() ? this.outerBridgeConstructionElement.remove(outerBridgeConstructionElement) : false;
+		return isSetOuterBridgeConstructionElement() && this.outerBridgeConstructionElement.remove(outerBridgeConstructionElement);
 	}
 
 	public void unsetYearOfConstruction() {
@@ -942,66 +797,21 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1Solid;
-				break;
-			case 2:
-				property = lod2Solid;
-				break;
-			case 3:
-				property = lod3Solid;
-				break;
-			case 4:
-				property = lod4Solid;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1MultiSurface;
-				break;
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				property = lod2MultiCurve;
-				break;
-			case 3:
-				property = lod3MultiCurve;
-				break;
-			case 4:
-				property = lod4MultiCurve;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+
+		lodRepresentation.addRepresentation(1, lod1Solid);
+		lodRepresentation.addRepresentation(2, lod2Solid);
+		lodRepresentation.addRepresentation(3, lod3Solid);
+		lodRepresentation.addRepresentation(4, lod4Solid);
+
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
+
+
+		lodRepresentation.addRepresentation(2, lod2MultiCurve);
+		lodRepresentation.addRepresentation(3, lod3MultiCurve);
+		lodRepresentation.addRepresentation(4, lod4MultiCurve);
 		
 		return lodRepresentation;
 	}

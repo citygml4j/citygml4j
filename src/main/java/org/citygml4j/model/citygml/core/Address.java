@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -51,15 +52,12 @@ public class Address extends AbstractFeature implements CoreModuleComponent {
 	}
 	
 	public void addGenericApplicationPropertyOfAddress(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfAddress().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfAddress() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -85,46 +83,31 @@ public class Address extends AbstractFeature implements CoreModuleComponent {
 	}
 
 	public void setGenericApplicationPropertyOfAddress(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setMultiPoint(MultiPointProperty multiPoint) {
-		if (multiPoint != null)
-			multiPoint.setParent(this);
-		
-		this.multiPoint = multiPoint;
+		this.multiPoint = ModelObjects.setParent(multiPoint, this);
 	}
 
 	public void setXalAddress(XalAddressProperty xalAddress) {
-		if (xalAddress != null)
-			xalAddress.setParent(this);
-		
-		this.xalAddress = xalAddress;
+		this.xalAddress = ModelObjects.setParent(xalAddress, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfAddress() {
-		if (isSetGenericApplicationPropertyOfAddress())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfAddress(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAddress() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfAddress() && this.ade.remove(ade);
 	}
 
 	public void unsetMultiPoint() {
-		if (isSetMultiPoint())
-			multiPoint.unsetParent();
-		
-		multiPoint = null;
+		multiPoint = ModelObjects.setNull(multiPoint);
 	}
 
 	public void unsetXalAddress() {
-		if (isSetXalAddress())
-			xalAddress.unsetParent();
-		
-		xalAddress = null;
+		xalAddress = ModelObjects.setNull(xalAddress);
 	}
 
 	public CityGMLClass getCityGMLClass() {

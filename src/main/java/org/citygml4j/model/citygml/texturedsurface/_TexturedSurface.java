@@ -20,6 +20,7 @@ package org.citygml4j.model.citygml.texturedsurface;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -34,15 +35,12 @@ public class _TexturedSurface extends OrientableSurface implements TexturedSurfa
 	private List<_AppearanceProperty> appearance;
 	
 	public void addAppearance(_AppearanceProperty appearance) {
-		if (this.appearance == null)
-			this.appearance = new ChildList<_AppearanceProperty>(this);
-
-		this.appearance.add(appearance);
+		getAppearance().add(appearance);
 	}
 
 	public List<_AppearanceProperty> getAppearance() {
 		if (appearance == null)
-			appearance = new ChildList<_AppearanceProperty>(this);
+			appearance = new ChildList<>(this);
 
 		return appearance;
 	}
@@ -52,18 +50,15 @@ public class _TexturedSurface extends OrientableSurface implements TexturedSurfa
 	}
 
 	public void setAppearance(List<_AppearanceProperty> appearance) {
-		this.appearance = new ChildList<_AppearanceProperty>(this, appearance);
+		this.appearance = new ChildList<>(this, appearance);
 	}
 
 	public void unsetAppearance() {
-		if (isSetAppearance())
-			appearance.clear();
-
-		appearance = null;
+		appearance = ModelObjects.setNull(appearance);
 	}
 
 	public boolean unsetAppearance(_AppearanceProperty appearance) {
-		return isSetAppearance() ? this.appearance.remove(appearance) : false;
+		return isSetAppearance() && this.appearance.remove(appearance);
 	}
 
 	@Override

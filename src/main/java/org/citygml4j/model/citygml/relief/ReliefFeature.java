@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -50,22 +51,16 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 	}
 	
 	public void addGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfReliefFeature().add(ade);
 	}
 
 	public void addReliefComponent(ReliefComponentProperty reliefComponent) {
-		if (this.reliefComponent == null)
-			this.reliefComponent = new ChildList<ReliefComponentProperty>(this);
-
-		this.reliefComponent.add(reliefComponent);
+		getReliefComponent().add(reliefComponent);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfReliefFeature() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -76,7 +71,7 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 
 	public List<ReliefComponentProperty> getReliefComponent() {
 		if (reliefComponent == null)
-			reliefComponent = new ChildList<ReliefComponentProperty>(this);
+			reliefComponent = new ChildList<>(this);
 
 		return reliefComponent;
 	}
@@ -94,7 +89,7 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 	}
 
 	public void setGenericApplicationPropertyOfReliefFeature(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod(int lod) {
@@ -103,29 +98,23 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 	}
 
 	public void setReliefComponent(List<ReliefComponentProperty> reliefComponent) {
-		this.reliefComponent = new ChildList<ReliefComponentProperty>(this, reliefComponent);
+		this.reliefComponent = new ChildList<>(this, reliefComponent);
 	}
 
 	public void unsetGenericApplicationPropertyOfReliefFeature() {
-		if (isSetGenericApplicationPropertyOfReliefFeature())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfReliefFeature() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfReliefFeature() && this.ade.remove(ade);
 	}
 
 	public void unsetReliefComponent() {
-		if (isSetReliefComponent())
-			reliefComponent.clear();
-
-		reliefComponent = null;
+		reliefComponent = ModelObjects.setNull(reliefComponent);
 	}
 
 	public boolean unsetReliefComponent(ReliefComponentProperty reliefComponent) {
-		return isSetReliefComponent() ? this.reliefComponent.remove(reliefComponent) : false;
+		return isSetReliefComponent() && this.reliefComponent.remove(reliefComponent);
 	}
 
 	public CityGMLClass getCityGMLClass() {

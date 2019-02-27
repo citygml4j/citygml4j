@@ -35,9 +35,10 @@ public class ChildList<T extends Child> extends ArrayList<T> {
 		super(c);
 		this.parent = parent;
 
-		for (final T child : this)
+		for (final T child : this) {
 			if (child != null)
 				child.setParent(parent);
+		}
 	}
 
 	public ChildList(ModelObject parent, int initialCapacity) {
@@ -63,29 +64,35 @@ public class ChildList<T extends Child> extends ArrayList<T> {
 
 	@Override
 	public boolean addAll(Collection<? extends T> c) {
-		for (final T child : c)
+		for (final T child : c) {
 			if (child != null)
 				child.setParent(parent);
+		}
 		
 		return super.addAll(c);
 	}
 
 	@Override
 	public boolean addAll(int index, Collection<? extends T> c) {
-		for (final T child : c)
+		for (final T child : c) {
 			if (child != null)
 				child.setParent(parent);
+		}
 		
 		return super.addAll(index, c);
 	}
 
 	@Override
 	public void clear() {
-		for (final T child : this)
+		unsetParent();
+		super.clear();
+	}
+
+	public void unsetParent() {
+		for (final T child : this) {
 			if (child != null)
 				child.unsetParent();
-		
-		super.clear();
+		}
 	}
 
 	@Override
@@ -112,9 +119,10 @@ public class ChildList<T extends Child> extends ArrayList<T> {
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		for (final T child : this)
+		for (final T child : this) {
 			if (child != null && c.contains(child))
 				child.unsetParent();
+		}
 		
 		return super.removeAll(c);
 	}
@@ -132,9 +140,10 @@ public class ChildList<T extends Child> extends ArrayList<T> {
 	
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		for (final T child : this)
+		for (final T child : this) {
 			if (child != null && !c.contains(child))
 				child.unsetParent();
+		}
 
 		return super.retainAll(c);
 	}

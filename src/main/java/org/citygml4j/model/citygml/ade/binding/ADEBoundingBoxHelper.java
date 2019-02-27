@@ -48,7 +48,7 @@ public class ADEBoundingBoxHelper {
 			}
 		};
 		
-		walker.visit((ADEModelObject)ade);
+		walker.visit(ade);
 		
 		return boundedBy;
 	}

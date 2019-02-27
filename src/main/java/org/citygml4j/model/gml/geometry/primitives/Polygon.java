@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -34,10 +35,7 @@ public class Polygon extends AbstractSurface {
 	private List<AbstractRingProperty> interior;
 
 	public void addInterior(AbstractRingProperty abstractRingProperty) {
-		if (interior == null)
-			interior = new ChildList<AbstractRingProperty>(this);
-
-		interior.add(abstractRingProperty);
+		getInterior().add(abstractRingProperty);
 	}
 
 	public AbstractRingProperty getExterior() {
@@ -46,7 +44,7 @@ public class Polygon extends AbstractSurface {
 
 	public List<AbstractRingProperty> getInterior() {
 		if (interior == null)
-			interior = new ChildList<AbstractRingProperty>(this);
+			interior = new ChildList<>(this);
 
 		return interior;
 	}
@@ -60,32 +58,23 @@ public class Polygon extends AbstractSurface {
 	}
 
 	public void setExterior(AbstractRingProperty abstractRingProperty) {
-		if (abstractRingProperty != null)
-			abstractRingProperty.setParent(this);
-
-		exterior = abstractRingProperty;
+		exterior = ModelObjects.setParent(abstractRingProperty, this);
 	}
 
 	public void setInterior(List<AbstractRingProperty> abstractRingProperty) {
-		interior = new ChildList<AbstractRingProperty>(this, abstractRingProperty);
+		interior = new ChildList<>(this, abstractRingProperty);
 	}
 
 	public void unsetExterior() {
-		if (isSetExterior())
-			exterior.unsetParent();
-
-		exterior = null;
+		exterior = ModelObjects.setNull(exterior);
 	}
 
 	public void unsetInterior() {
-		if (isSetInterior())
-			interior.clear();
-
-		interior = null;
+		interior = ModelObjects.setNull(interior);
 	}
 
 	public boolean unsetInterior(AbstractRingProperty abstractRingProperty) {
-		return isSetInterior() ? interior.remove(abstractRingProperty) : false;
+		return isSetInterior() && interior.remove(abstractRingProperty);
 	}
 
 	public BoundingBox calcBoundingBox() {

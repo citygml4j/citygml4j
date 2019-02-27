@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -44,57 +45,39 @@ public class SubPremise implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addBuildingName(BuildingName buildingName) {
-		if (this.buildingName == null)
-			this.buildingName = new ChildList<BuildingName>(this);
-
-		this.buildingName.add(buildingName);
+		getBuildingName().add(buildingName);
 	}
 
 	public void addSubPremiseName(SubPremiseName subPremiseName) {
-		if (this.subPremiseName == null)
-			this.subPremiseName = new ChildList<SubPremiseName>(this);
-
-		this.subPremiseName.add(subPremiseName);
+		getSubPremiseName().add(subPremiseName);
 	}
 
 	public void addSubPremiseNumber(SubPremiseNumber subPremiseNumber) {
-		if (this.subPremiseNumber == null)
-			this.subPremiseNumber = new ChildList<SubPremiseNumber>(this);
-
-		this.subPremiseNumber.add(subPremiseNumber);
+		getSubPremiseNumber().add(subPremiseNumber);
 	}
 
 	public void addSubPremiseNumberPrefix(SubPremiseNumberPrefix subPremiseNumberPrefix) {
-		if (this.subPremiseNumberPrefix == null)
-			this.subPremiseNumberPrefix = new ChildList<SubPremiseNumberPrefix>(this);
-
-		this.subPremiseNumberPrefix.add(subPremiseNumberPrefix);
+		getSubPremiseNumberPrefix().add(subPremiseNumberPrefix);
 	}
 
 	public void addSubPremiseNumberSuffix(SubPremiseNumberSuffix subPremiseNumberSuffix) {
-		if (this.subPremiseNumberSuffix == null)
-			this.subPremiseNumberSuffix = new ChildList<SubPremiseNumberSuffix>(this);
-
-		this.subPremiseNumberSuffix.add(subPremiseNumberSuffix);
+		getSubPremiseNumberSuffix().add(subPremiseNumberSuffix);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
 
 	public List<BuildingName> getBuildingName() {
 		if (buildingName == null)
-			buildingName = new ChildList<BuildingName>(this);
+			buildingName = new ChildList<>(this);
 
 		return buildingName;
 	}
@@ -121,28 +104,28 @@ public class SubPremise implements XAL, Child, Copyable {
 
 	public List<SubPremiseName> getSubPremiseName() {
 		if (subPremiseName == null)
-			subPremiseName = new ChildList<SubPremiseName>(this);
+			subPremiseName = new ChildList<>(this);
 
 		return subPremiseName;
 	}
 
 	public List<SubPremiseNumber> getSubPremiseNumber() {
 		if (subPremiseNumber == null)
-			subPremiseNumber = new ChildList<SubPremiseNumber>(this);
+			subPremiseNumber = new ChildList<>(this);
 
 		return subPremiseNumber;
 	}
 
 	public List<SubPremiseNumberPrefix> getSubPremiseNumberPrefix() {
 		if (subPremiseNumberPrefix == null)
-			subPremiseNumberPrefix = new ChildList<SubPremiseNumberPrefix>(this);
+			subPremiseNumberPrefix = new ChildList<>(this);
 
 		return subPremiseNumberPrefix;
 	}
 
 	public List<SubPremiseNumberSuffix> getSubPremiseNumberSuffix() {
 		if (subPremiseNumberSuffix == null)
-			subPremiseNumberSuffix = new ChildList<SubPremiseNumberSuffix>(this);
+			subPremiseNumberSuffix = new ChildList<>(this);
 
 		return subPremiseNumberSuffix;
 	}
@@ -200,62 +183,47 @@ public class SubPremise implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setBuildingName(List<BuildingName> buildingName) {
-		this.buildingName = new ChildList<BuildingName>(this, buildingName);
+		this.buildingName = new ChildList<>(this, buildingName);
 	}
 
 	public void setFirm(Firm firm) {
-		if (firm != null)
-			firm.setParent(this);
-		
-		this.firm = firm;
+		this.firm = ModelObjects.setParent(firm, this);
 	}
 
 	public void setMailStop(MailStop mailStop) {
-		if (mailStop != null)
-			mailStop.setParent(this);
-		
-		this.mailStop = mailStop;
+		this.mailStop = ModelObjects.setParent(mailStop, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-		
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setSubPremise(SubPremise subPremise) {
-		if (subPremise != null)
-			subPremise.setParent(this);
-		
-		this.subPremise = subPremise;
+		this.subPremise = ModelObjects.setParent(subPremise, this);
 	}
 
 	public void setSubPremiseLocation(SubPremiseLocation subPremiseLocation) {
-		if (subPremiseLocation != null)
-			subPremiseLocation.setParent(this);
-		
-		this.subPremiseLocation = subPremiseLocation;
+		this.subPremiseLocation = ModelObjects.setParent(subPremiseLocation, this);
 	}
 
 	public void setSubPremiseName(List<SubPremiseName> subPremiseName) {
-		this.subPremiseName = new ChildList<SubPremiseName>(this, subPremiseName);
+		this.subPremiseName = new ChildList<>(this, subPremiseName);
 	}
 
 	public void setSubPremiseNumber(List<SubPremiseNumber> subPremiseNumber) {
-		this.subPremiseNumber = new ChildList<SubPremiseNumber>(this, subPremiseNumber);
+		this.subPremiseNumber = new ChildList<>(this, subPremiseNumber);
 	}
 
 	public void setSubPremiseNumberPrefix(List<SubPremiseNumberPrefix> subPremiseNumberPrefix) {
-		this.subPremiseNumberPrefix = new ChildList<SubPremiseNumberPrefix>(this, subPremiseNumberPrefix);
+		this.subPremiseNumberPrefix = new ChildList<>(this, subPremiseNumberPrefix);
 	}
 
 	public void setSubPremiseNumberSuffix(List<SubPremiseNumberSuffix> subPremiseNumberSuffix) {
-		this.subPremiseNumberSuffix = new ChildList<SubPremiseNumberSuffix>(this, subPremiseNumberSuffix);
+		this.subPremiseNumberSuffix = new ChildList<>(this, subPremiseNumberSuffix);
 	}
 
 	public void setType(String type) {
@@ -263,104 +231,71 @@ public class SubPremise implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetBuildingName() {
-		if (isSetBuildingName())
-			buildingName.clear();
-
-		buildingName = null;
+		buildingName = ModelObjects.setNull(buildingName);
 	}
 
 	public boolean unsetBuildingName(BuildingName buildingName) {
-		return isSetBuildingName() ? this.buildingName.remove(buildingName) : false;
+		return isSetBuildingName() && this.buildingName.remove(buildingName);
 	}
 
 	public void unsetFirm() {
-		if (isSetFirm())
-			firm.unsetParent();
-		
-		firm = null;
+		firm = ModelObjects.setNull(firm);
 	}
 
 	public void unsetMailStop() {
-		if (isSetMailStop())
-			mailStop.unsetParent();
-
-		mailStop = null;
+		mailStop = ModelObjects.setNull(mailStop);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetSubPremise() {
-		if (isSetSubPremise())
-			subPremise.unsetParent();
-
-		subPremise = null;
+		subPremise = ModelObjects.setNull(subPremise);
 	}
 
 	public void unsetSubPremiseLocation() {
-		if (isSetSubPremiseLocation())
-			subPremiseLocation.unsetParent();
-
-		subPremiseLocation = null;
+		subPremiseLocation = ModelObjects.setNull(subPremiseLocation);
 	}
 
 	public void unsetSubPremiseName() {
-		if (isSetSubPremiseName())
-			subPremiseName.clear();
-
-		subPremiseName = null;
+		subPremiseName = ModelObjects.setNull(subPremiseName);
 	}
 
 	public boolean unsetSubPremiseName(SubPremiseName subPremiseName) {
-		return isSetSubPremiseName() ? this.subPremiseName.remove(subPremiseName) : false;
+		return isSetSubPremiseName() && this.subPremiseName.remove(subPremiseName);
 	}
 
 	public void unsetSubPremiseNumber() {
-		if (isSetSubPremiseNumber())
-			subPremiseNumber.clear();
-
-		subPremiseNumber = null;
+		subPremiseNumber = ModelObjects.setNull(subPremiseNumber);
 	}
 
 	public boolean unsetSubPremiseNumber(SubPremiseNumber subPremiseNumber) {
-		return isSetSubPremiseNumber() ? this.subPremiseNumber.remove(subPremiseNumber) : false;
+		return isSetSubPremiseNumber() && this.subPremiseNumber.remove(subPremiseNumber);
 	}
 
 	public void unsetSubPremiseNumberPrefix() {
-		if (isSetSubPremiseNumberPrefix())
-			subPremiseNumberPrefix.clear();
-
-		subPremiseNumberPrefix = null;
+		subPremiseNumberPrefix = ModelObjects.setNull(subPremiseNumberPrefix);
 	}
 
 	public boolean unsetSubPremiseNumberPrefix(SubPremiseNumberPrefix subPremiseNumberPrefix) {
-		return isSetSubPremiseNumberPrefix() ? this.subPremiseNumberPrefix.remove(subPremiseNumberPrefix) : false;
+		return isSetSubPremiseNumberPrefix() && this.subPremiseNumberPrefix.remove(subPremiseNumberPrefix);
 	}
 
 	public void unsetSubPremiseNumberSuffix() {
-		if (isSetSubPremiseNumberSuffix())
-			subPremiseNumberSuffix.clear();
-
-		subPremiseNumberSuffix = null;
+		subPremiseNumberSuffix = ModelObjects.setNull(subPremiseNumberSuffix);
 	}
 
 	public boolean unsetSubPremiseNumberSuffix(SubPremiseNumberSuffix subPremiseNumberSuffix) {
-		return isSetSubPremiseNumberSuffix() ? this.subPremiseNumberSuffix.remove(subPremiseNumberSuffix) : false;
+		return isSetSubPremiseNumberSuffix() && this.subPremiseNumberSuffix.remove(subPremiseNumberSuffix);
 	}
 
 	public void unsetType() {

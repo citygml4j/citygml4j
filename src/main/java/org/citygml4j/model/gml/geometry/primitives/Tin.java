@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
@@ -34,22 +35,16 @@ public class Tin extends TriangulatedSurface {
 	private ControlPoint controlPoint;
 
 	public void addBreakLines(LineStringSegmentArrayProperty breakLines) {
-		if (this.breakLines == null)
-			this.breakLines = new ChildList<LineStringSegmentArrayProperty>(this);
-
-		this.breakLines.add(breakLines);
+		getBreakLines().add(breakLines);
 	}
 
 	public void addStopLines(LineStringSegmentArrayProperty stopLines) {
-		if (this.stopLines == null)
-			this.stopLines = new ChildList<LineStringSegmentArrayProperty>(this);
-
-		this.stopLines.add(stopLines);
+		getStopLines().add(stopLines);
 	}
 
 	public List<LineStringSegmentArrayProperty> getBreakLines() {
 		if (breakLines == null)
-			breakLines = new ChildList<LineStringSegmentArrayProperty>(this);
+			breakLines = new ChildList<>(this);
 
 		return breakLines;
 	}
@@ -64,7 +59,7 @@ public class Tin extends TriangulatedSurface {
 
 	public List<LineStringSegmentArrayProperty> getStopLines() {
 		if (stopLines == null)
-			stopLines = new ChildList<LineStringSegmentArrayProperty>(this);
+			stopLines = new ChildList<>(this);
 
 		return stopLines;
 	}
@@ -86,61 +81,43 @@ public class Tin extends TriangulatedSurface {
 	}
 
 	public void setBreakLines(List<LineStringSegmentArrayProperty> breakLines) {
-		this.breakLines = new ChildList<LineStringSegmentArrayProperty>(this, breakLines);
+		this.breakLines = new ChildList<>(this, breakLines);
 	}
 
 	public void setControlPoint(ControlPoint controlPoint) {
-		if (controlPoint != null)
-			controlPoint.setParent(this);
-
-		this.controlPoint = controlPoint;
+		this.controlPoint = ModelObjects.setParent(controlPoint, this);
 	}
 
 	public void setMaxLength(Length maxLength) {
-		if (maxLength != null)
-			maxLength.setParent(this);
-
-		this.maxLength = maxLength;
+		this.maxLength = ModelObjects.setParent(maxLength, this);
 	}
 
 	public void setStopLines(List<LineStringSegmentArrayProperty> stopLines) {
-		this.stopLines = new ChildList<LineStringSegmentArrayProperty>(this, stopLines);
+		this.stopLines = new ChildList<>(this, stopLines);
 	}
 
 	public void unsetBreakLines() {
-		if (isSetBreakLines())
-			breakLines.clear();
-		
-		breakLines = null;
+		breakLines = ModelObjects.setNull(breakLines);
 	}
 
 	public boolean unsetBreakLines(LineStringSegmentArrayProperty breakLines) {
-		return isSetBreakLines() ? this.breakLines.remove(breakLines) : false;
+		return isSetBreakLines() && this.breakLines.remove(breakLines);
 	}
 
 	public void unsetControlPoint() {
-		if (isSetControlPoint())
-			controlPoint.unsetParent();
-		
-		controlPoint = null;
+		controlPoint = ModelObjects.setNull(controlPoint);
 	}
 
 	public void unsetMaxLength() {
-		if (isSetMaxLength())
-			maxLength.unsetParent();
-		
-		maxLength = null;
+		maxLength = ModelObjects.setNull(maxLength);
 	}
 
 	public void unsetStopLines() {
-		if (isSetStopLines())
-			stopLines.clear();
-		
-		stopLines = null;
+		stopLines = ModelObjects.setNull(stopLines);
 	}
 
 	public boolean unsetStopLines(LineStringSegmentArrayProperty stopLines) {
-		return isSetStopLines() ? this.stopLines.remove(stopLines) : false;
+		return isSetStopLines() && this.stopLines.remove(stopLines);
 	}
 
 	@Override

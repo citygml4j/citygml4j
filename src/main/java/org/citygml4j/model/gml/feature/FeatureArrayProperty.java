@@ -19,8 +19,8 @@
 package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.ArrayAssociation;
@@ -51,10 +51,7 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 	}
 	
 	public void addGenericADEElement(ADEGenericElement genericADEElement) {
-		if (this.genericADEElement == null)
-			this.genericADEElement = new ChildList<ADEGenericElement>(this);
-		
-		this.genericADEElement.add(genericADEElement);
+		getGenericADEElement().add(genericADEElement);
 	}
 
 	public List<? extends AbstractFeature> getFeature() {
@@ -63,7 +60,7 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 	
 	public List<ADEGenericElement> getGenericADEElement() {
 		if (genericADEElement == null)
-			genericADEElement = new ChildList<ADEGenericElement>(this);
+			genericADEElement = new ChildList<>(this);
 		
 		return genericADEElement;
 	}
@@ -82,7 +79,7 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 	}
 	
 	public void setGenericADEComponent(List<ADEGenericElement> genericADEComponent) {
-		this.genericADEElement = new ChildList<ADEGenericElement>(this, genericADEComponent);
+		this.genericADEElement = new ChildList<>(this, genericADEComponent);
 	}
 
 	public void unsetFeature() {
@@ -90,18 +87,15 @@ public class FeatureArrayProperty extends ArrayAssociation<AbstractFeature> {
 	}
 	
 	public void unsetGenericADEElement() {
-		if (isSetGenericADEElement())
-			genericADEElement.clear();
-		
-		genericADEElement = null;
+		genericADEElement = ModelObjects.setNull(genericADEElement);
 	}
 
 	public boolean unsetFeature(AbstractFeature feature) {
 		return super.unsetObject(feature);
 	}
 	
-	public boolean unsetGenericADEElement(ADEComponent genericADEElement) {
-		return isSetGenericADEElement() ? this.genericADEElement.remove(genericADEElement) : false;
+	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
+		return isSetGenericADEElement() && this.genericADEElement.remove(genericADEElement);
 	}
 
 	public GMLClass getGMLClass() {

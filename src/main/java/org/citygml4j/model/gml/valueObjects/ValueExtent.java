@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -76,54 +77,33 @@ public class ValueExtent implements GML, Child, Copyable {
 	}
 
 	public void setCategoryExtent(CategoryExtent categoryExtent) {
-		if (categoryExtent != null)
-			categoryExtent.setParent(this);
-		
-		this.categoryExtent = categoryExtent;
-		
+		this.categoryExtent = ModelObjects.setParent(categoryExtent, this);
 		unsetCountExtent();
 		unsetQuantityExtent();
 	}
 
 	public void setQuantityExtent(QuantityExtent quantityExtent) {
-		if (quantityExtent != null)
-			quantityExtent.setParent(this);
-		
-		this.quantityExtent = quantityExtent;
-		
+		this.quantityExtent = ModelObjects.setParent(quantityExtent, this);
 		unsetCategoryExtent();
 		unsetCountExtent();
 	}
 
 	public void setCountExtent(CountExtent countExtent) {
-		if (countExtent != null)
-			countExtent.setParent(this);
-		
-		this.countExtent = countExtent;
-		
+		this.countExtent = ModelObjects.setParent(countExtent, this);
 		unsetCategoryExtent();
 		unsetQuantityExtent();
 	}
 
 	public void unsetCategoryExtent() {
-		if (isSetCategoryExtent())
-			categoryExtent.unsetParent();
-		
-		categoryExtent = null;
+		categoryExtent = ModelObjects.setNull(categoryExtent);
 	}
 
 	public void unsetQuantityExtent() {
-		if (isSetQuantityExtent())
-			quantityExtent.unsetParent();
-		
-		quantityExtent = null;
+		quantityExtent = ModelObjects.setNull(quantityExtent);
 	}
 
 	public void unsetCountExtent() {
-		if (isSetCountExtent())
-			countExtent.unsetParent();
-		
-		countExtent = null;
+		countExtent = ModelObjects.setNull(countExtent);
 	}
 	
 	public ModelObject getParent() {

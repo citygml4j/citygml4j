@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -36,29 +37,23 @@ public class PostTown implements XAL, Child, Copyable {
 	private ModelObject parent;
 	
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addPostTownName(PostTownName postTownName) {
-		if (this.postTownName == null)
-			this.postTownName = new ChildList<PostTownName>(this);
-
-		this.postTownName.add(postTownName);
+		getPostTownName().add(postTownName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
 
 	public List<PostTownName> getPostTownName() {
 		if (postTownName == null)
-			postTownName = new ChildList<PostTownName>(this);
+			postTownName = new ChildList<>(this);
 
 		return postTownName;
 	}
@@ -88,18 +83,15 @@ public class PostTown implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setPostTownName(List<PostTownName> postTownName) {
-		this.postTownName = new ChildList<PostTownName>(this, postTownName);
+		this.postTownName = new ChildList<>(this, postTownName);
 	}
 
 	public void setPostTownSuffix(PostTownSuffix postTownSuffix) {
-		if (postTownSuffix != null)
-			postTownSuffix.setParent(this);
-		
-		this.postTownSuffix = postTownSuffix;
+		this.postTownSuffix = ModelObjects.setParent(postTownSuffix, this);
 	}
 
 	public void setType(String type) {
@@ -107,32 +99,23 @@ public class PostTown implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-		
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetPostTownName() {
-		if (isSetPostTownName())
-			postTownName.clear();
-		
-		postTownName = null;
+		postTownName = ModelObjects.setNull(postTownName);
 	}
 
 	public boolean unsetPostTownName(PostTownName postTownName) {
-		return isSetPostTownName() ? this.postTownName.remove(postTownName) : false;
+		return isSetPostTownName() && this.postTownName.remove(postTownName);
 	}
 
 	public void unsetPostTownSuffix() {
-		if (isSetPostTownSuffix())
-			postTownSuffix.unsetParent();
-		
-		postTownSuffix = null;
+		postTownSuffix = ModelObjects.setNull(postTownSuffix);
 	}
 
 	public void unsetType() {

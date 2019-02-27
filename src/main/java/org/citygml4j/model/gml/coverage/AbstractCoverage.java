@@ -19,6 +19,7 @@
 package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
@@ -51,10 +52,7 @@ public abstract class AbstractCoverage extends AbstractFeature {
 	}
 	
 	public void setRangeSet(RangeSet rangeSet) {
-		if (rangeSet != null)
-			rangeSet.setParent(this);
-		
-		this.rangeSet = rangeSet;
+		this.rangeSet = ModelObjects.setParent(rangeSet, this);
 	}
 
 	public void setDimension(Integer dimension) {
@@ -63,10 +61,7 @@ public abstract class AbstractCoverage extends AbstractFeature {
 	}
 	
 	public void unsetRangeSet() {
-		if (isSetRangeSet())
-			rangeSet.unsetParent();
-		
-		rangeSet = null;
+		rangeSet = ModelObjects.setNull(rangeSet);
 	}
 
 	public void unsetDimension() {

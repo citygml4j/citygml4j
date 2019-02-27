@@ -103,7 +103,7 @@ public class Color implements AppearanceModuleComponent, Child, Copyable {
 	}
 
 	public List<Double> toList() {
-		List<Double> color = new ArrayList<Double>();
+		List<Double> color = new ArrayList<>();
 
 		color.add(red);
 		color.add(green);

@@ -21,6 +21,7 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -51,80 +52,53 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 	
 	public void addGenericApplicationPropertyOfX3DMaterial(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		 this.ade.add(ade);
+		getGenericApplicationPropertyOfX3DMaterial().add(ade);
 	}
 
 	public void addTarget(String target) {
-		if (this.target == null)
-			this.target = new ArrayList<String>();
-
-		this.target.add(target);
+		getTarget().add(target);
 	}
 
 	public Double getAmbientIntensity() {
-		if (!isSetAmbientIntensity())
-			return 0.2;
-		else
-			return ambientIntensity;
+		return !isSetAmbientIntensity() ? 0.2 : ambientIntensity;
 	}
 
 	public Color getDiffuseColor() {
-		if (!isSetDiffuseColor())
-			return new Color(0.8);
-		else
-			return diffuseColor;
+		return !isSetDiffuseColor() ? new Color(0.8) : diffuseColor;
 	}
 
 	public Color getEmissiveColor() {
-		if (!isSetEmissiveColor())
-			return new Color(0.0);
-		else
-			return emissiveColor;
+		return !isSetEmissiveColor() ? new Color(0.0) : emissiveColor;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfX3DMaterial() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public Boolean getIsSmooth() {
-		if (!isSetIsSmooth())
-			return false;
-		else
-			return isSmooth;
+		return !isSetIsSmooth() ? false : isSmooth;
 	}
 
 	public Double getShininess() {
-		if (!isSetShininess())
-			return 0.2;
-		else
-			return shininess;
+		return !isSetShininess() ? 0.2 : shininess;
 	}
 
 	public Color getSpecularColor() {
-		if (!isSetSpecularColor())
-			return new Color(1.0);
-		else
-			return specularColor;
+		return !isSetSpecularColor() ? new Color(1.0) : specularColor;
 	}
 
 	public List<String> getTarget() {
 		if (target == null)
-			target = new ArrayList<String>();
+			target = new ArrayList<>();
 
 		return target;
 	}
 
 	public Double getTransparency() {
-		if (!isSetTransparency())
-			return 0.0;
-		else
-			return transparency;
+		return !isSetTransparency() ? 0.0 : transparency;
 	}
 
 	public boolean isSetAmbientIntensity() {
@@ -169,21 +143,15 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 
 	public void setDiffuseColor(Color diffuseColor) {
-		if (diffuseColor != null)
-			diffuseColor.setParent(this);
-		
-		this.diffuseColor = diffuseColor;
+		this.diffuseColor = ModelObjects.setParent(diffuseColor, this);
 	}
 
 	public void setEmissiveColor(Color emissiveColor) {
-		if (emissiveColor != null)
-			emissiveColor.setParent(this);
-		
-		this.emissiveColor = emissiveColor;
+		this.emissiveColor = ModelObjects.setParent(emissiveColor, this);
 	}
 
 	public void setGenericApplicationPropertyOfX3DMaterial(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setIsSmooth(Boolean isSmooth) {
@@ -196,10 +164,7 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 
 	public void setSpecularColor(Color specularColor) {
-		if (specularColor != null)
-			specularColor.setParent(this);
-		
-		this.specularColor = specularColor;
+		this.specularColor = ModelObjects.setParent(specularColor, this);
 	}
 
 	public void setTarget(List<String> target) {
@@ -216,28 +181,19 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 
 	public void unsetDiffuseColor() {
-		if (isSetDiffuseColor())
-			diffuseColor.unsetParent();
-		
-		diffuseColor = null;
+		diffuseColor = ModelObjects.setNull(diffuseColor);
 	}
 
 	public void unsetEmissiveColor() {
-		if (isSetEmissiveColor())
-			emissiveColor.unsetParent();
-		
-		emissiveColor = null;
+		emissiveColor = ModelObjects.setNull(emissiveColor);
 	}
 
 	public void unsetGenericApplicationPropertyOfX3DMaterial() {
-		if (isSetGenericApplicationPropertyOfX3DMaterial())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfX3DMaterial(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfX3DMaterial() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfX3DMaterial() && this.ade.remove(ade);
 	}
 
 	public void unsetIsSmooth() {
@@ -249,10 +205,7 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 
 	public void unsetSpecularColor() {
-		if (isSetSpecularColor())
-			specularColor.unsetParent();
-		
-		specularColor = null;
+		specularColor = ModelObjects.setNull(specularColor);
 	}
 
 	public void unsetTarget() {
@@ -260,7 +213,7 @@ public class X3DMaterial extends AbstractSurfaceData {
 	}
 
 	public boolean unsetTarget(String target) {
-		return isSetTarget() ? this.target.remove(target) : false;
+		return isSetTarget() && this.target.remove(target);
 	}
 
 	public void unsetTransparency() {

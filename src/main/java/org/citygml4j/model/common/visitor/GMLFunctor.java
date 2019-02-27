@@ -27,11 +27,11 @@ import org.citygml4j.model.gml.valueObjects.CompositeValue;
 import org.citygml4j.model.gml.valueObjects.ValueArray;
 
 public interface GMLFunctor<T> extends FeatureFunctor<T>, GeometryFunctor<T> {
-	public T apply(CompositeValue compositeValue);
-	public T apply(ValueArray valueArray);
-	public T apply(TexCoordGen texCoordGen);
-	public T apply(TexCoordList texCoordList);
-	public T apply(ImplicitGeometry implicitGeometry);
-	public T apply(_Material material);
-	public T apply(_SimpleTexture simpleTexture);
+	T apply(CompositeValue compositeValue);
+	T apply(ValueArray valueArray);
+	T apply(TexCoordGen texCoordGen);
+	T apply(TexCoordList texCoordList);
+	T apply(ImplicitGeometry implicitGeometry);
+	T apply(_Material material);
+	T apply(_SimpleTexture simpleTexture);
 }

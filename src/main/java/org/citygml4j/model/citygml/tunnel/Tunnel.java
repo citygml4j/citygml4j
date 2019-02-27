@@ -24,6 +24,7 @@ import org.citygml4j.model.citygml.ade.ADEClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -47,15 +48,12 @@ public class Tunnel extends AbstractTunnel {
 	}
 	
 	public void addGenericApplicationPropertyOfTunnel(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfTunnel().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTunnel() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -65,18 +63,15 @@ public class Tunnel extends AbstractTunnel {
 	}
 
 	public void setGenericApplicationPropertyOfTunnel(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void unsetGenericApplicationPropertyOfTunnel() {
-		if (isSetGenericApplicationPropertyOfTunnel())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfTunnel(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTunnel() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfTunnel() && this.ade.remove(ade);
 	}
 
 	public CityGMLClass getCityGMLClass() {

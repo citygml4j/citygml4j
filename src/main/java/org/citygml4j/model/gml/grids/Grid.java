@@ -21,6 +21,7 @@ package org.citygml4j.model.gml.grids;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Point;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
@@ -42,7 +43,7 @@ public class Grid extends AbstractGeometry {
 
 	public List<String> getAxisName() {
 		if (axisName == null)
-			axisName = new ArrayList<String>();
+			axisName = new ArrayList<>();
 
 		return axisName;
 	}
@@ -64,17 +65,11 @@ public class Grid extends AbstractGeometry {
 	}
 
 	public void setLimits(GridLimits limits) {
-		if (limits != null)
-			limits.setParent(this);
-
-		this.limits = limits;
+		this.limits = ModelObjects.setParent(limits, this);
 	}
 
 	public void addAxisName(String axisName) {
-		if (this.axisName == null)
-			this.axisName = new ArrayList<String>();
-
-		this.axisName.add(axisName);
+		getAxisName().add(axisName);
 	}
 
 	public void setAxisName(List<String> axisName) {
@@ -87,10 +82,7 @@ public class Grid extends AbstractGeometry {
 	}
 
 	public void unsetLimits() {
-		if (isSetLimits())
-			limits.unsetParent();
-
-		limits = null;
+		limits = ModelObjects.setNull(limits);
 	}
 
 	public void unsetAxisName() {

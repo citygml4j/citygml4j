@@ -26,6 +26,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -33,8 +34,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplex;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
@@ -68,50 +67,32 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 	}
 
 	public void addAuxiliaryTrafficArea(AuxiliaryTrafficAreaProperty auxiliaryTrafficArea) {
-		if (this.auxiliaryTrafficArea == null)
-			this.auxiliaryTrafficArea = new ChildList<AuxiliaryTrafficAreaProperty>(this);
-
-		this.auxiliaryTrafficArea.add(auxiliaryTrafficArea);
+		getAuxiliaryTrafficArea().add(auxiliaryTrafficArea);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfTransportationComplex(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfTransportationComplex().add(ade);
 	}
 
 	public void addLod0Network(GeometricComplexProperty lod0Network) {
-		if (this.lod0Network == null)
-			this.lod0Network = new ChildList<GeometricComplexProperty>(this);
-
-		this.lod0Network.add(lod0Network);
+		getLod0Network().add(lod0Network);
 	}
 
 	public void addTrafficArea(TrafficAreaProperty trafficArea) {
-		if (this.trafficArea == null)
-			this.trafficArea = new ChildList<TrafficAreaProperty>(this);
-
-		this.trafficArea.add(trafficArea);
+		getTrafficArea().add(trafficArea);
 	}
 
 	public List<AuxiliaryTrafficAreaProperty> getAuxiliaryTrafficArea() {
 		if (auxiliaryTrafficArea == null)
-			auxiliaryTrafficArea = new ChildList<AuxiliaryTrafficAreaProperty>(this);
+			auxiliaryTrafficArea = new ChildList<>(this);
 
 		return auxiliaryTrafficArea;
 	}
@@ -122,28 +103,28 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTransportationComplex() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<GeometricComplexProperty> getLod0Network() {
 		if (lod0Network == null)
-			lod0Network = new ChildList<GeometricComplexProperty>(this);
+			lod0Network = new ChildList<>(this);
 
 		return lod0Network;
 	}
@@ -166,7 +147,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 
 	public List<TrafficAreaProperty> getTrafficArea() {
 		if (trafficArea == null)
-			trafficArea = new ChildList<TrafficAreaProperty>(this);
+			trafficArea = new ChildList<>(this);
 
 		return trafficArea;
 	}
@@ -220,147 +201,111 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setGenericApplicationPropertyOfTransportationComplex(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod0Network(List<GeometricComplexProperty> lod0Network) {
-		this.lod0Network = new ChildList<GeometricComplexProperty>(this, lod0Network);
+		this.lod0Network = new ChildList<>(this, lod0Network);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setTrafficArea(List<TrafficAreaProperty> trafficArea) {
-		this.trafficArea = new ChildList<TrafficAreaProperty>(this, trafficArea);
+		this.trafficArea = new ChildList<>(this, trafficArea);
 	}
 
 	public void unsetAuxiliaryTrafficArea() {
-		if (isSetAuxiliaryTrafficArea())
-			auxiliaryTrafficArea.clear();
-
-		auxiliaryTrafficArea = null;
+		auxiliaryTrafficArea = ModelObjects.setNull(auxiliaryTrafficArea);
 	}
 
 	public boolean unsetAuxiliaryTrafficArea(AuxiliaryTrafficAreaProperty auxiliaryTrafficArea) {
-		return isSetAuxiliaryTrafficArea() ? this.auxiliaryTrafficArea.remove(auxiliaryTrafficArea) : false;
+		return isSetAuxiliaryTrafficArea() && this.auxiliaryTrafficArea.remove(auxiliaryTrafficArea);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfTransportationComplex() {
-		if (isSetGenericApplicationPropertyOfTransportationComplex())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfTransportationComplex(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTransportationComplex() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfTransportationComplex() && this.ade.remove(ade);
 	}
 
 	public void unsetLod0Network() {
-		if (isSetLod0Network())
-			lod0Network.clear();
-
-		lod0Network = null;
+		lod0Network = ModelObjects.setNull(lod0Network);
 	}
 
 	public boolean unsetLod0Network(GeometricComplexProperty lod0Network) {
-		return isSetLod0Network() ? this.lod0Network.remove(lod0Network) : false;
+		return isSetLod0Network() && this.lod0Network.remove(lod0Network);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetTrafficArea() {
-		if (isSetTrafficArea())
-			trafficArea.clear();
-
-		trafficArea = null;
+		trafficArea = ModelObjects.setNull(trafficArea);
 	}
 
 	public boolean unsetTrafficArea(TrafficAreaProperty trafficArea) {
-		return isSetTrafficArea() ? this.trafficArea.remove(trafficArea) : false;
+		return isSetTrafficArea() && this.trafficArea.remove(trafficArea);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -469,26 +414,11 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 					lodRepresentation.addRepresentation(0, property);
 			}
 		}
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1MultiSurface;
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
 
 		return lodRepresentation;
 	}

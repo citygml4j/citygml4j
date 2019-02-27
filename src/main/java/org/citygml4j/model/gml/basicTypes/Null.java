@@ -67,12 +67,8 @@ public class Null implements GML, Child, Copyable {
 					URI uri = new URI(value);
 					if (uri.toURL() != null)
 						this.value = uri.toString();
-				} catch (URISyntaxException e) {
+				} catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
 					// 
-				} catch (MalformedURLException e) {
-					//
-				} catch (IllegalArgumentException e) {
-					//
 				}
 			}
 		}

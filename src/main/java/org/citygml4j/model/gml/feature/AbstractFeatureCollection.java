@@ -19,6 +19,7 @@
 package org.citygml4j.model.gml.feature;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.module.Module;
@@ -38,15 +39,12 @@ public abstract class AbstractFeatureCollection extends AbstractFeature {
 	}
 	
 	public void addFeatureMember(FeatureMember featureMember) {
-		if (this.featureMember == null)
-			this.featureMember = new ChildList<FeatureMember>(this);
-		
-		this.featureMember.add(featureMember);
+		getFeatureMember().add(featureMember);
 	}
 
 	public List<FeatureMember> getFeatureMember() {
 		if (featureMember == null)
-			featureMember = new ChildList<FeatureMember>(this);
+			featureMember = new ChildList<>(this);
 		
 		return featureMember;
 	}
@@ -64,32 +62,23 @@ public abstract class AbstractFeatureCollection extends AbstractFeature {
 	}
 
 	public void setFeatureMember(List<FeatureMember> featureMember) {
-		this.featureMember = new ChildList<FeatureMember>(this, featureMember);
+		this.featureMember = new ChildList<>(this, featureMember);
 	}
 
 	public void setFeatureMembers(FeatureArrayProperty featureMembers) {
-		if (featureMembers != null)
-			featureMembers.setParent(this);
-		
-		this.featureMembers = featureMembers;
+		this.featureMembers = ModelObjects.setParent(featureMembers, this);
 	}
 
 	public void unsetFeatureMember() {
-		if (isSetFeatureMember())
-			featureMember.clear();
-		
-		featureMember = null;
+		featureMember = ModelObjects.setNull(featureMember);
 	}
 
 	public boolean unsetFeatureMember(FeatureMember featureMember) {
-		return isSetFeatureMember() ? this.featureMember.remove(featureMember) : false;
+		return isSetFeatureMember() && this.featureMember.remove(featureMember);
 	}
 
 	public void unsetFeatureMembers() {
-		if (isSetFeatureMembers())
-			featureMembers.unsetParent();
-		
-		featureMembers = null;
+		featureMembers = ModelObjects.setNull(featureMembers);
 	}
 
 	@Override

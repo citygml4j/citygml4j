@@ -29,6 +29,7 @@ import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Reference implements AssociationAttributeGroup, Association<AbstractGML>, Child, Copyable {
 	private XLinkActuate actuate;
@@ -39,7 +40,7 @@ public class Reference implements AssociationAttributeGroup, Association<Abstrac
 	private XLinkShow show;
 	private String title;
 	private XLinkType type;
-	private HashMap<String, Object> localProperties;
+	private Map<String, Object> localProperties;
 	private ModelObject parent;
 
 	public Reference() {

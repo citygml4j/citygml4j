@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.basicTypes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -39,7 +40,7 @@ public class CodeOrNullList implements GML, Child, Copyable {
 
 	public List<NameOrNull> getNameOrNull() {
 		if (nameOrNull == null)
-			nameOrNull = new ChildList<NameOrNull>(this);
+			nameOrNull = new ChildList<>(this);
 
 		return nameOrNull;
 	}
@@ -61,25 +62,19 @@ public class CodeOrNullList implements GML, Child, Copyable {
 	}
 
 	public void setNameOrNull(List<NameOrNull> nameOrNull) {
-		this.nameOrNull = new ChildList<NameOrNull>(this, nameOrNull);
+		this.nameOrNull = new ChildList<>(this, nameOrNull);
 	}
 
 	public void addNameOrNull(NameOrNull nameOrNull) {
-		if (this.nameOrNull == null)
-			this.nameOrNull = new ChildList<NameOrNull>(this);
-
-		this.nameOrNull.add(nameOrNull);
+		getNameOrNull().add(nameOrNull);
 	}
 
 	public void unsetNameOrNull() {
-		if (isSetNameOrNull())
-			nameOrNull.clear();
-
-		nameOrNull = null;
+		nameOrNull = ModelObjects.setNull(nameOrNull);
 	}
 
 	public boolean unsetNameOrNull(NameOrNull nameOrNull) {
-		return isSetNameOrNull() ? this.nameOrNull.remove(nameOrNull) : false;
+		return isSetNameOrNull() && this.nameOrNull.remove(nameOrNull);
 	}
 
 	public void unsetCodeSpace() {

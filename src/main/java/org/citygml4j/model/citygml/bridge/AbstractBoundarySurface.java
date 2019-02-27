@@ -25,10 +25,9 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
@@ -51,22 +50,16 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	}
 	
 	public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfBoundarySurface().add(ade);
 	}
 
 	public void addOpening(OpeningProperty opening) {
-		if (this.opening == null)
-			this.opening = new ChildList<OpeningProperty>(this);
-
-		this.opening.add(opening);
+		getOpening().add(opening);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfBoundarySurface() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -85,7 +78,7 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 
 	public List<OpeningProperty> getOpening() {
 		if (opening == null)
-			opening = new ChildList<OpeningProperty>(this);
+			opening = new ChildList<>(this);
 
 		return opening;
 	}
@@ -111,75 +104,51 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	}
 
 	public void setGenericApplicationPropertyOfBoundarySurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setOpening(List<OpeningProperty> opening) {
-		this.opening = new ChildList<OpeningProperty>(this, opening);
+		this.opening = new ChildList<>(this, opening);
 	}
 
 	public void unsetGenericApplicationPropertyOfBoundarySurface() {
-		if (isSetGenericApplicationPropertyOfBoundarySurface())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBoundarySurface() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfBoundarySurface() && this.ade.remove(ade);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetOpening() {
-		if (isSetOpening())
-			opening.clear();
-
-		opening = null;
+		opening = ModelObjects.setNull(opening);
 	}
 
 	public boolean unsetOpening(OpeningProperty opening) {
-		return isSetOpening() ? this.opening.remove(opening) : false;
+		return isSetOpening() && this.opening.remove(opening);
 	}
 
 	@Override
@@ -227,24 +196,10 @@ public abstract class AbstractBoundarySurface extends AbstractCityObject impleme
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
 		
 		return lodRepresentation;
 	}

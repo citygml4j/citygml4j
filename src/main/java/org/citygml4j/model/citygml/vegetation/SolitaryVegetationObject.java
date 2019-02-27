@@ -27,6 +27,7 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -69,24 +70,15 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 	}
 	
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
-	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+	public void addUsage(Code usage) {
+		getUsage().add(usage);
 	}
 
 	public void addGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfSolitaryVegetationObject().add(ade);
 	}
 
 	public Code getClazz() {
@@ -95,14 +87,14 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
@@ -113,7 +105,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 
 	public List<ADEComponent> getGenericApplicationPropertyOfSolitaryVegetationObject() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -227,212 +219,143 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setCrownDiameter(Length crownDiameter) {
-		if (crownDiameter != null)
-			crownDiameter.setParent(this);
-		
-		this.crownDiameter = crownDiameter;
+		this.crownDiameter = ModelObjects.setParent(crownDiameter, this);
 	}
 
 	public void setGenericApplicationPropertyOfSolitaryVegetationObject(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setHeight(Length height) {
-		if (height != null)
-			height.setParent(this);
-		
-		this.height = height;
+		this.height = ModelObjects.setParent(height, this);
 	}
 
 	public void setLod1Geometry(GeometryProperty<? extends AbstractGeometry> lod1Geometry) {
-		if (lod1Geometry != null)
-			lod1Geometry.setParent(this);
-		
-		this.lod1Geometry = lod1Geometry;
+		this.lod1Geometry = ModelObjects.setParent(lod1Geometry, this);
 	}
 
 	public void setLod1ImplicitRepresentation(ImplicitRepresentationProperty lod1ImplicitRepresentation) {
-		if (lod1ImplicitRepresentation != null)
-			lod1ImplicitRepresentation.setParent(this);
-		
-		this.lod1ImplicitRepresentation = lod1ImplicitRepresentation;
+		this.lod1ImplicitRepresentation = ModelObjects.setParent(lod1ImplicitRepresentation, this);
 	}
 
 	public void setLod2Geometry(GeometryProperty<? extends AbstractGeometry> lod2Geometry) {
-		if (lod2Geometry != null)
-			lod2Geometry.setParent(this);
-		
-		this.lod2Geometry = lod2Geometry;
+		this.lod2Geometry = ModelObjects.setParent(lod2Geometry, this);
 	}
 
 	public void setLod2ImplicitRepresentation(ImplicitRepresentationProperty lod2ImplicitRepresentation) {
-		if (lod2ImplicitRepresentation != null)
-			lod2ImplicitRepresentation.setParent(this);
-		
-		this.lod2ImplicitRepresentation = lod2ImplicitRepresentation;
+		this.lod2ImplicitRepresentation = ModelObjects.setParent(lod2ImplicitRepresentation, this);
 	}
 
 	public void setLod3Geometry(GeometryProperty<? extends AbstractGeometry> lod3Geometry) {
-		if (lod3Geometry != null)
-			lod3Geometry.setParent(this);
-		
-		this.lod3Geometry = lod3Geometry;
+		this.lod3Geometry = ModelObjects.setParent(lod3Geometry, this);
 	}
 
 	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation) {
-		if (lod3ImplicitRepresentation != null)
-			lod3ImplicitRepresentation.setParent(this);
-		
-		this.lod3ImplicitRepresentation = lod3ImplicitRepresentation;
+		this.lod3ImplicitRepresentation = ModelObjects.setParent(lod3ImplicitRepresentation, this);
 	}
 
 	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
-		if (lod4Geometry != null)
-			lod4Geometry.setParent(this);
-		
-		this.lod4Geometry = lod4Geometry;
+		this.lod4Geometry = ModelObjects.setParent(lod4Geometry, this);
 	}
 
 	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
-		if (lod4ImplicitRepresentation != null)
-			lod4ImplicitRepresentation.setParent(this);
-		
-		this.lod4ImplicitRepresentation = lod4ImplicitRepresentation;
+		this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
 	}
 
 	public void setSpecies(Code species) {
-		this.species = species;
+		this.species = ModelObjects.setParent(species, this);
 	}
 
 	public void setTrunkDiameter(Length trunkDiameter) {
-		if (trunkDiameter != null)
-			trunkDiameter.setParent(this);
-		
-		this.trunkDiameter = trunkDiameter;
+		this.trunkDiameter = ModelObjects.setParent(trunkDiameter, this);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetCrownDiameter() {
-		if (isSetCrownDiameter())
-			crownDiameter.unsetParent();
-		
-		crownDiameter = null;
+		crownDiameter = ModelObjects.setNull(crownDiameter);
 	}
 
 	public void unsetGenericApplicationPropertyOfSolitaryVegetationObject() {
-		if (isSetGenericApplicationPropertyOfSolitaryVegetationObject())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfSolitaryVegetationObject(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfSolitaryVegetationObject() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfSolitaryVegetationObject() && this.ade.remove(ade);
 	}
 
 	public void unsetHeight() {
-		if (isSetHeight())
-			height.unsetParent();
-		
-		height = null;
+		height = ModelObjects.setNull(height);
 	}
 
 	public void unsetLod1Geometry() {
-		if (isSetLod1Geometry())
-			lod1Geometry.unsetParent();
-		
-		lod1Geometry = null;
+		lod1Geometry = ModelObjects.setNull(lod1Geometry);
 	}
 
 	public void unsetLod1ImplicitRepresentation() {
-		if (isSetLod1ImplicitRepresentation())
-			lod1ImplicitRepresentation.unsetParent();
-		
-		lod1ImplicitRepresentation = null;
+		lod1ImplicitRepresentation = ModelObjects.setNull(lod1ImplicitRepresentation);
 	}
 
 	public void unsetLod2Geometry() {
-		if (isSetLod2Geometry())
-			lod2Geometry.unsetParent();
-		
-		lod2Geometry = null;
+		lod2Geometry = ModelObjects.setNull(lod2Geometry);
 	}
 
 	public void unsetLod2ImplicitRepresentation() {
-		if (isSetLod2ImplicitRepresentation())
-			lod2ImplicitRepresentation.unsetParent();
-		
-		lod2ImplicitRepresentation = null;
+		lod2ImplicitRepresentation = ModelObjects.setNull(lod2ImplicitRepresentation);
 	}
 
 	public void unsetLod3Geometry() {
-		if (isSetLod3Geometry())
-			lod3Geometry.unsetParent();
-		
-		lod3Geometry = null;
+		lod3Geometry = ModelObjects.setNull(lod3Geometry);
 	}
 
 	public void unsetLod3ImplicitRepresentation() {
-		if (isSetLod3ImplicitRepresentation())
-			lod3ImplicitRepresentation.unsetParent();
-		
-		lod3ImplicitRepresentation = null;
+		lod3ImplicitRepresentation = ModelObjects.setNull(lod3ImplicitRepresentation);
 	}
 
 	public void unsetLod4Geometry() {
-		if (isSetLod4Geometry())
-			lod4Geometry.unsetParent();
-		
-		lod4Geometry = null;
+		lod4Geometry = ModelObjects.setNull(lod4Geometry);
 	}
 
 	public void unsetLod4ImplicitRepresentation() {
-		if (isSetLod4ImplicitRepresentation())
-			lod4ImplicitRepresentation.unsetParent();
-		
-		lod4ImplicitRepresentation = null;
+		lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
 	}
 
 	public void unsetSpecies() {
-		species = null;
+		species = ModelObjects.setNull(species);
 	}
 
 	public void unsetTrunkDiameter() {
-		if (isSetTrunkDiameter())
-			trunkDiameter.unsetParent();
-		
-		trunkDiameter = null;
+		trunkDiameter = ModelObjects.setNull(trunkDiameter);
 	}
 
 	@Override
@@ -505,47 +428,15 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
 
-		GeometryProperty<? extends AbstractGeometry> property = null;
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1Geometry;
-				break;
-			case 2:
-				property = lod2Geometry;
-				break;
-			case 3:
-				property = lod3Geometry;
-				break;
-			case 4:
-				property = lod4Geometry;
-				break;
-			}
+		lodRepresentation.addRepresentation(1, lod1Geometry);
+		lodRepresentation.addRepresentation(2, lod2Geometry);
+		lodRepresentation.addRepresentation(3, lod3Geometry);
+		lodRepresentation.addRepresentation(4, lod4Geometry);
 
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-
-		ImplicitRepresentationProperty implicitRepresentation = null;
-		for (int lod = 0; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				implicitRepresentation = lod1ImplicitRepresentation;
-				break;
-			case 2:
-				implicitRepresentation = lod2ImplicitRepresentation;
-				break;
-			case 3:
-				implicitRepresentation = lod3ImplicitRepresentation;
-				break;
-			case 4:
-				implicitRepresentation = lod4ImplicitRepresentation;
-				break;
-			}
-
-			if (implicitRepresentation != null)
-				lodRepresentation.addRepresentation(lod, implicitRepresentation);
-		}
+		lodRepresentation.addRepresentation(1, lod1ImplicitRepresentation);
+		lodRepresentation.addRepresentation(2, lod2ImplicitRepresentation);
+		lodRepresentation.addRepresentation(3, lod3ImplicitRepresentation);
+		lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
 
 		return lodRepresentation;
 	}
@@ -558,7 +449,6 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 		return copyTo(new SolitaryVegetationObject(), copyBuilder);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		SolitaryVegetationObject copy = (target == null) ? new SolitaryVegetationObject() : (SolitaryVegetationObject)target;

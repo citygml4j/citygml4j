@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.aggregates;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -51,15 +52,12 @@ public class MultiPoint extends AbstractGeometricAggregate {
 	}
 	
 	public void addPointMember(PointProperty pointMember) {
-		if (this.pointMember == null)
-			this.pointMember = new ChildList<PointProperty>(this);
-		
-		this.pointMember.add(pointMember);
+		getPointMember().add(pointMember);
 	}
 
 	public List<PointProperty> getPointMember() {
 		if (pointMember == null)
-			pointMember = new ChildList<PointProperty>(this);
+			pointMember = new ChildList<>(this);
 		
 		return pointMember;
 	}
@@ -77,32 +75,23 @@ public class MultiPoint extends AbstractGeometricAggregate {
 	}
 
 	public void setPointMember(List<PointProperty> pointMember) {
-		this.pointMember = new ChildList<PointProperty>(this, pointMember);
+		this.pointMember = new ChildList<>(this, pointMember);
 	}
 
 	public void setPointMembers(PointArrayProperty pointMembers) {
-		if (pointMembers != null)
-			pointMembers.setParent(this);
-		
-		this.pointMembers = pointMembers;
+		this.pointMembers = ModelObjects.setParent(pointMembers, this);
 	}
 
 	public void unsetPointMember() {
-		if (isSetPointMember())
-			pointMember.clear();
-		
-		pointMember = null;
+		pointMember = ModelObjects.setNull(pointMember);
 	}
 
 	public boolean unsetPointMember(PointProperty pointMember) {
-		return isSetPointMember() ? this.pointMember.remove(pointMember) : false;
+		return isSetPointMember() && this.pointMember.remove(pointMember);
 	}
 
 	public void unsetPointMembers() {
-		if (isSetPointMembers())
-			pointMembers.unsetParent();
-		
-		pointMembers = null;
+		pointMembers = ModelObjects.setNull(pointMembers);
 	}
 
 	public BoundingBox calcBoundingBox() {

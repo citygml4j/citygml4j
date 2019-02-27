@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -62,49 +63,29 @@ public class DataBlock implements GML, Child, Copyable {
 	}
 
 	public void setRangeParameters(RangeParameters rangeParameters) {
-		if (rangeParameters != null)
-			rangeParameters.setParent(this);
-		
-		this.rangeParameters = rangeParameters;
+		this.rangeParameters = ModelObjects.setParent(rangeParameters, this);
 	}
 
 	public void setTupleList(Coordinates tupleList) {
-		if (tupleList != null)
-			tupleList.setParent(this);
-		
-		this.tupleList = tupleList;
-		
+		this.tupleList = ModelObjects.setParent(tupleList, this);
 		unsetDoubleOrNullTupleList();
 	}
 
 	public void setDoubleOrNullTupleList(DoubleOrNullList doubleOrNullTupleList) {
-		if (doubleOrNullTupleList != null)
-			doubleOrNullTupleList.setParent(this);
-		
-		this.doubleOrNullTupleList = doubleOrNullTupleList;
-		
+		this.doubleOrNullTupleList = ModelObjects.setParent(doubleOrNullTupleList, this);
 		unsetTupleList();
 	}
 
 	public void unsetRangeParameters() {
-		if (isSetRangeParameters())
-			rangeParameters.unsetParent();
-		
-		rangeParameters = null;
+		rangeParameters = ModelObjects.setNull(rangeParameters);
 	}
 
 	public void unsetTupleList() {
-		if (isSetTupleList())
-			tupleList.unsetParent();
-		
-		tupleList = null;
+		tupleList = ModelObjects.setNull(tupleList);
 	}
 
 	public void unsetDoubleOrNullTupleList() {
-		if (isSetDoubleOrNullTupleList())
-			doubleOrNullTupleList.unsetParent();
-		
-		doubleOrNullTupleList = null;
+		doubleOrNullTupleList = ModelObjects.setNull(doubleOrNullTupleList);
 	}
 	
 	public ModelObject getParent() {

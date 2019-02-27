@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.coverage;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -62,11 +63,7 @@ public class RangeSet implements GML, Child, Copyable {
 	}
 
 	public void addValueArray(ValueArray valueArray) {
-		if (this.valueArray == null)
-			this.valueArray = new ChildList<ValueArray>(this);
-		
-		this.valueArray.add(valueArray);
-		
+		getValueArray().add(valueArray);
 		unsetDataBlock();
 		unsetFile();
 		unsetScalarValueList();
@@ -74,17 +71,13 @@ public class RangeSet implements GML, Child, Copyable {
 
 	public List<ValueArray> getValueArray() {
 		if (valueArray == null)
-			valueArray = new ChildList<ValueArray>(this);
+			valueArray = new ChildList<>(this);
 		
 		return valueArray;
 	}
 
 	public void addScalarValueList(ScalarValueList scalarValueList) {
-		if (this.scalarValueList == null)
-			this.scalarValueList = new ChildList<ScalarValueList>(this);
-		
-		this.scalarValueList.add(scalarValueList);
-		
+		getScalarValueList().add(scalarValueList);
 		unsetDataBlock();
 		unsetFile();
 		unsetValueArray();
@@ -92,7 +85,7 @@ public class RangeSet implements GML, Child, Copyable {
 
 	public List<ScalarValueList> getScalarValueList() {
 		if (scalarValueList == null)
-			scalarValueList = new ChildList<ScalarValueList>(this);
+			scalarValueList = new ChildList<>(this);
 		
 		return scalarValueList;
 	}
@@ -122,77 +115,55 @@ public class RangeSet implements GML, Child, Copyable {
 	}
 
 	public void setValueArray(List<ValueArray> valueArray) {
-		this.valueArray = new ChildList<ValueArray>(this, valueArray);
-		
+		this.valueArray = new ChildList<>(this, valueArray);
 		unsetDataBlock();
 		unsetFile();
 		unsetScalarValueList();
 	}
 
 	public void setScalarValueList(List<ScalarValueList> scalarValueList) {
-		this.scalarValueList = new ChildList<ScalarValueList>(this, scalarValueList);
-		
+		this.scalarValueList = new ChildList<>(this, scalarValueList);
 		unsetDataBlock();
 		unsetFile();
 		unsetValueArray();
 	}
 
 	public void setDataBlock(DataBlock dataBlock) {
-		if (dataBlock != null)
-			dataBlock.setParent(this);
-		
-		this.dataBlock = dataBlock;
-		
+		this.dataBlock = ModelObjects.setParent(dataBlock, this);
 		unsetFile();
 		unsetScalarValueList();
 		unsetValueArray();
 	}
 
 	public void setFile(File file) {
-		if (file != null)
-			file.setParent(this);
-		
-		this.file = file;
-		
+		this.file = ModelObjects.setParent(file, this);
 		unsetDataBlock();
 		unsetScalarValueList();
 		unsetValueArray();
 	}
 
 	public boolean unsetValueArray(ValueArray valueArray) {
-		return isSetValueArray() ? this.valueArray.remove(valueArray) : false;
+		return isSetValueArray() && this.valueArray.remove(valueArray);
 	}
 
 	public void unsetValueArray() {
-		if (isSetValueArray())
-			valueArray.clear();
-		
-		valueArray = null;
+		valueArray = ModelObjects.setNull(valueArray);
 	}
 
 	public boolean unsetScalarValueList(ScalarValueList scalarValueList) {
-		return isSetScalarValueList() ? this.scalarValueList.remove(scalarValueList) : false;
+		return isSetScalarValueList() && this.scalarValueList.remove(scalarValueList);
 	}
 
 	public void unsetScalarValueList() {
-		if (isSetScalarValueList())
-			scalarValueList.clear();
-		
-		scalarValueList = null;
+		scalarValueList = ModelObjects.setNull(scalarValueList);
 	}
 
 	public void unsetDataBlock() {
-		if (isSetDataBlock())
-			dataBlock.unsetParent();
-		
-		dataBlock = null;
+		dataBlock = ModelObjects.setNull(dataBlock);
 	}
 
 	public void unsetFile() {
-		if (isSetFile())
-			file.unsetParent();
-		
-		file = null;
+		file = ModelObjects.setNull(file);
 	}
 	
 	public ModelObject getParent() {

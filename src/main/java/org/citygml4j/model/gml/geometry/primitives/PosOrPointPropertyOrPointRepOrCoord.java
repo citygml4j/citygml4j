@@ -20,6 +20,7 @@ package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
@@ -88,47 +89,35 @@ public class PosOrPointPropertyOrPointRepOrCoord implements GML, Child, Copyable
 	}
 
 	public void setPos(DirectPosition pos) {
-		if (pos != null)
-			pos.setParent(this);
-		
-		this.pos = pos;
+		this.pos = ModelObjects.setParent(pos, this);
 		unsetPointProperty();
 		unsetPointRep();
 		unsetCoord();
 	}
 
 	public void setPointProperty(PointProperty pointProperty) {
-		if (pointProperty != null)
-			pointProperty.setParent(this);
-		
-		this.pointProperty = pointProperty;
+		this.pointProperty = ModelObjects.setParent(pointProperty, this);
 		unsetPointRep();
 		unsetPos();
 		unsetCoord();
 	}
 
 	public void setPointRep(PointRep pointRep) {
-		if (pointRep != null)
-			pointRep.setParent(this);
-		
-		this.pointRep = pointRep;
+		this.pointRep = ModelObjects.setParent(pointRep, this);
 		unsetPointProperty();
 		unsetPos();
 		unsetCoord();
 	}
 
 	public void setCoord(Coord coord) {
-		if (coord != null)
-			coord.setParent(this);
-		
-		this.coord = coord;
+		this.coord = ModelObjects.setParent(coord, this);
 		unsetPointProperty();
 		unsetPointRep();
 		unsetPos();
 	}
 
 	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+		List<Double> tmp = new ArrayList<>();
 
 		if (isSetPos())
 			tmp.addAll(pos.toList3d());
@@ -143,31 +132,19 @@ public class PosOrPointPropertyOrPointRepOrCoord implements GML, Child, Copyable
 	}
 
 	public void unsetPointProperty() {
-		if (isSetPointProperty())
-			pointProperty.unsetParent();
-		
-		pointProperty = null;
+		pointProperty = ModelObjects.setNull(pointProperty);
 	}
 
 	public void unsetPointRep() {
-		if (isSetPointRep())
-			pointRep.unsetParent();
-		
-		pointRep = null;
+		pointRep = ModelObjects.setNull(pointRep);
 	}
 
 	public void unsetPos() {
-		if (isSetPos())
-			pos.unsetParent();
-		
-		pos = null;
+		pos = ModelObjects.setNull(pos);
 	}
 	
 	public void unsetCoord() {
-		if (isSetCoord())
-			coord.unsetParent();
-		
-		coord = null;
+		coord = ModelObjects.setNull(coord);
 	}
 
 	public ModelObject getParent() {

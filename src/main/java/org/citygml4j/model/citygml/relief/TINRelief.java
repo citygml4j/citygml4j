@@ -25,6 +25,7 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -49,15 +50,12 @@ public class TINRelief extends AbstractReliefComponent {
 	}
 
 	public void addGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfTinRelief().add(ade);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTinRelief() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
@@ -75,32 +73,23 @@ public class TINRelief extends AbstractReliefComponent {
 	}
 
 	public void setGenericApplicationPropertyOfTinRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setTin(TinProperty tin) {
-		if (tin != null)
-			tin.setParent(this);
-
-		this.tin = tin;
+		this.tin = ModelObjects.setParent(tin, this);
 	}
 
 	public void unsetGenericApplicationPropertyOfTinRelief() {
-		if (isSetGenericApplicationPropertyOfTinRelief())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTinRelief() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfTinRelief() && this.ade.remove(ade);
 	}
 
 	public void unsetTin() {
-		if (isSetTin())
-			tin.unsetParent();
-
-		tin = null;
+		tin = ModelObjects.setNull(tin);
 	}
 
 	public CityGMLClass getCityGMLClass() {
@@ -137,9 +126,7 @@ public class TINRelief extends AbstractReliefComponent {
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-
-		if (tin != null)
-			lodRepresentation.addRepresentation(getLod(), tin);
+		lodRepresentation.addRepresentation(getLod(), tin);
 		
 		return lodRepresentation;
 	}

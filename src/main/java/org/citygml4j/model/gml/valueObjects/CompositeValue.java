@@ -19,6 +19,7 @@
 package org.citygml4j.model.gml.valueObjects;
 
 import org.citygml4j.builder.copy.CopyBuilder;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
@@ -47,7 +48,7 @@ public class CompositeValue extends AbstractGML {
 
 	public List<ValueProperty> getValueComponent() {
 		if (valueComponent == null)
-			valueComponent = new ChildList<ValueProperty>(this);
+			valueComponent = new ChildList<>(this);
 		
 		return valueComponent;
 	}
@@ -65,39 +66,27 @@ public class CompositeValue extends AbstractGML {
 	}
 
 	public void addValueComponent(ValueProperty valueComponent) {
-		if (this.valueComponent == null)
-			this.valueComponent = new ChildList<ValueProperty>(this);
-		
-		this.valueComponent.add(valueComponent);
+		getValueComponent().add(valueComponent);
 	}
 
 	public void setValueComponent(List<ValueProperty> valueComponent) {
-		this.valueComponent = new ChildList<ValueProperty>(this, valueComponent);
+		this.valueComponent = new ChildList<>(this, valueComponent);
 	}
 
 	public void setValueComponents(ValueArrayProperty valueComponents) {
-		if (valueComponents != null)
-			valueComponents.setParent(this);
-		
-		this.valueComponents = valueComponents;
+		this.valueComponents = ModelObjects.setParent(valueComponents, this);
 	}
 
 	public boolean unsetValueComponent(ValueProperty valueComponent) {
-		return isSetValueComponent() ? this.valueComponent.remove(valueComponent) : false;
+		return isSetValueComponent() && this.valueComponent.remove(valueComponent);
 	}
 
 	public void unsetValueComponent() {
-		if (isSetValueComponent())
-			valueComponent.clear();
-		
-		valueComponent = null;
+		valueComponent = ModelObjects.setNull(valueComponent);
 	}
 
 	public void unsetValueComponents() {
-		if (isSetValueComponents())
-			valueComponents.unsetParent();
-		
-		valueComponents = null;
+		valueComponents = ModelObjects.setNull(valueComponents);
 	}
 
 	public GMLClass getGMLClass() {

@@ -20,6 +20,7 @@ package org.citygml4j.model.xal;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
@@ -37,29 +38,23 @@ public class Department implements XAL, Child, Copyable {
 	private ModelObject parent;
 
 	public void addAddressLine(AddressLine addressLine) {
-		if (this.addressLine == null)
-			this.addressLine = new ChildList<AddressLine>(this);
-
-		this.addressLine.add(addressLine);
+		getAddressLine().add(addressLine);
 	}
 
 	public void addDepartmentName(DepartmentName departmentName) {
-		if (this.departmentName == null)
-			this.departmentName = new ChildList<DepartmentName>(this);
-
-		this.departmentName.add(departmentName);
+		getDepartmentName().add(departmentName);
 	}
 
 	public List<AddressLine> getAddressLine() {
 		if (addressLine == null)
-			addressLine = new ChildList<AddressLine>(this);
+			addressLine = new ChildList<>(this);
 
 		return addressLine;
 	}
 
 	public List<DepartmentName> getDepartmentName() {
 		if (departmentName == null)
-			departmentName = new ChildList<DepartmentName>(this);
+			departmentName = new ChildList<>(this);
 
 		return departmentName;
 	}
@@ -97,25 +92,19 @@ public class Department implements XAL, Child, Copyable {
 	}
 
 	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<AddressLine>(this, addressLine);
+		this.addressLine = new ChildList<>(this, addressLine);
 	}
 
 	public void setDepartmentName(List<DepartmentName> departmentName) {
-		this.departmentName = new ChildList<DepartmentName>(this, departmentName);
+		this.departmentName = new ChildList<>(this, departmentName);
 	}
 
 	public void setMailStop(MailStop mailStop) {
-		if (mailStop != null)
-			mailStop.setParent(this);
-
-		this.mailStop = mailStop;
+		this.mailStop = ModelObjects.setParent(mailStop, this);
 	}
 
 	public void setPostalCode(PostalCode postalCode) {
-		if (postalCode != null)
-			postalCode.setParent(this);
-
-		this.postalCode = postalCode;
+		this.postalCode = ModelObjects.setParent(postalCode, this);
 	}
 
 	public void setType(String type) {
@@ -123,39 +112,27 @@ public class Department implements XAL, Child, Copyable {
 	}
 
 	public void unsetAddressLine() {
-		if (isSetAddressLine())
-			addressLine.clear();
-
-		addressLine = null;
+		addressLine = ModelObjects.setNull(addressLine);
 	}
 
 	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() ? this.addressLine.remove(addressLine) : false;
+		return isSetAddressLine() && this.addressLine.remove(addressLine);
 	}
 
 	public void unsetDepartmentName() {
-		if (isSetDepartmentName())
-			departmentName.clear();
-
-		departmentName = null;
+		departmentName = ModelObjects.setNull(departmentName);
 	}
 
 	public boolean unsetDepartmentName(DepartmentName departmentName) {
-		return isSetDepartmentName() ? this.departmentName.remove(departmentName) : false;
+		return isSetDepartmentName() && this.departmentName.remove(departmentName);
 	}
 
 	public void unsetMailStop() {
-		if (isSetMailStop())
-			mailStop.unsetParent();
-
-		mailStop = null;
+		mailStop = ModelObjects.setNull(mailStop);
 	}
 
 	public void unsetPostalCode() {
-		if (isSetPostalCode())
-			postalCode.unsetParent();
-
-		postalCode = null;
+		postalCode = ModelObjects.setNull(postalCode);
 	}
 
 	public void unsetType() {

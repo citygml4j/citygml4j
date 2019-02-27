@@ -26,11 +26,10 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.core.StandardObjectClassifier;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
-import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurveProperty;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
@@ -77,64 +76,40 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	}
 	
 	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		if (this.boundedBySurface == null)
-			this.boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
-
-		this.boundedBySurface.add(boundedBySurface);
+		getBoundedBySurface().add(boundedBySurface);
 	}
 
 	public void addConsistsOfTunnelPart(TunnelPartProperty tunnelPart) {
-		if (this.tunnelPart == null)
-			this.tunnelPart = new ChildList<TunnelPartProperty>(this);
-
-		this.tunnelPart.add(tunnelPart);
+		getConsistsOfTunnelPart().add(tunnelPart);
 	}
 
 	public void addFunction(Code function) {
-		if (this.function == null)
-			this.function = new ChildList<Code>(this);
-
-		this.function.add(function);
+		getFunction().add(function);
 	}
 	
 	public void addUsage(Code function) {
-		if (this.usage == null)
-			this.usage = new ChildList<Code>(this);
-
-		this.usage.add(function);
+		getUsage().add(function);
 	}
 
 	public void addGenericApplicationPropertyOfAbstractTunnel(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfAbstractTunnel().add(ade);
 	}
 
 	public void addInteriorTunnelInstallation(IntTunnelInstallationProperty interiorTunnelInstallation) {
-		if (this.interiorTunnelInstallation == null)
-			this.interiorTunnelInstallation = new ChildList<IntTunnelInstallationProperty>(this);
-
-		this.interiorTunnelInstallation.add(interiorTunnelInstallation);
+		getInteriorTunnelInstallation().add(interiorTunnelInstallation);
 	}
 
 	public void addInteriorHollowSpace(InteriorHollowSpaceProperty interiorHollowSpace) {
-		if (this.interiorHollowSpace == null)
-			this.interiorHollowSpace = new ChildList<InteriorHollowSpaceProperty>(this);
-
-		this.interiorHollowSpace.add(interiorHollowSpace);
+		getInteriorHollowSpace().add(interiorHollowSpace);
 	}
 
 	public void addOuterTunnelInstallation(TunnelInstallationProperty outerTunnelInstallation) {
-		if (this.outerTunnelInstallation == null)
-			this.outerTunnelInstallation = new ChildList<TunnelInstallationProperty>(this);
-
-		this.outerTunnelInstallation.add(outerTunnelInstallation);
+		getOuterTunnelInstallation().add(outerTunnelInstallation);
 	}
 
 	public List<BoundarySurfaceProperty> getBoundedBySurface() {
 		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<BoundarySurfaceProperty>(this);
+			boundedBySurface = new ChildList<>(this);
 
 		return boundedBySurface;
 	}
@@ -145,42 +120,42 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 
 	public List<Code> getFunction() {
 		if (function == null)
-			function = new ChildList<Code>(this);
+			function = new ChildList<>(this);
 
 		return function;
 	}
 	
 	public List<Code> getUsage() {
 		if (usage == null)
-			usage = new ChildList<Code>(this);
+			usage = new ChildList<>(this);
 
 		return usage;
 	}
 
 	public List<TunnelPartProperty> getConsistsOfTunnelPart() {
 		if (tunnelPart == null)
-			tunnelPart = new ChildList<TunnelPartProperty>(this);
+			tunnelPart = new ChildList<>(this);
 
 		return tunnelPart;
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfAbstractTunnel() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<IntTunnelInstallationProperty> getInteriorTunnelInstallation() {
 		if (interiorTunnelInstallation == null)
-			interiorTunnelInstallation = new ChildList<IntTunnelInstallationProperty>(this);
+			interiorTunnelInstallation = new ChildList<>(this);
 
 		return interiorTunnelInstallation;
 	}
 
 	public List<InteriorHollowSpaceProperty> getInteriorHollowSpace() {
 		if (interiorHollowSpace == null)
-			interiorHollowSpace = new ChildList<InteriorHollowSpaceProperty>(this);
+			interiorHollowSpace = new ChildList<>(this);
 
 		return interiorHollowSpace;
 	}
@@ -247,7 +222,7 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 
 	public List<TunnelInstallationProperty> getOuterTunnelInstallation() {
 		if (outerTunnelInstallation == null)
-			outerTunnelInstallation = new ChildList<TunnelInstallationProperty>(this);
+			outerTunnelInstallation = new ChildList<>(this);
 
 		return outerTunnelInstallation;
 	}
@@ -369,140 +344,95 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	}
 
 	public void setClazz(Code clazz) {
-		this.clazz = clazz;
+		this.clazz = ModelObjects.setParent(clazz, this);
 	}
 
 	public void setFunction(List<Code> function) {
-		this.function = new ChildList<Code>(this, function);
+		this.function = new ChildList<>(this, function);
 	}
 	
 	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<Code>(this, usage);
+		this.usage = new ChildList<>(this, usage);
 	}
 
 	public void setConsistsOfTunnelPart(List<TunnelPartProperty> tunnelPart) {
-		this.tunnelPart = new ChildList<TunnelPartProperty>(this, tunnelPart);
+		this.tunnelPart = new ChildList<>(this, tunnelPart);
 	}
 
 	public void setGenericApplicationPropertyOfAbstractTunnel(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setInteriorTunnelInstallation(List<IntTunnelInstallationProperty> interiorTunnelInstallation) {
-		this.interiorTunnelInstallation = new ChildList<IntTunnelInstallationProperty>(this, interiorTunnelInstallation);
+		this.interiorTunnelInstallation = new ChildList<>(this, interiorTunnelInstallation);
 	}
 
 	public void setInteriorHollowSpace(List<InteriorHollowSpaceProperty> interiorHollowSpace) {
-		this.interiorHollowSpace = new ChildList<InteriorHollowSpaceProperty>(this, interiorHollowSpace);
+		this.interiorHollowSpace = new ChildList<>(this, interiorHollowSpace);
 	}
 
 	public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-		if (lod1MultiSurface != null)
-			lod1MultiSurface.setParent(this);
-		
-		this.lod1MultiSurface = lod1MultiSurface;
+		this.lod1MultiSurface = ModelObjects.setParent(lod1MultiSurface, this);
 	}
 
 	public void setLod1Solid(SolidProperty lod1Solid) {
-		if (lod1Solid != null)
-			lod1Solid.setParent(this);
-		
-		this.lod1Solid = lod1Solid;
+		this.lod1Solid = ModelObjects.setParent(lod1Solid, this);
 	}
 
 	public void setLod1TerrainIntersection(MultiCurveProperty lod1TerrainIntersection) {
-		if (lod1TerrainIntersection != null)
-			lod1TerrainIntersection.setParent(this);
-		
-		this.lod1TerrainIntersection = lod1TerrainIntersection;
+		this.lod1TerrainIntersection = ModelObjects.setParent(lod1TerrainIntersection, this);
 	}
 
 	public void setLod2MultiCurve(MultiCurveProperty lod2MultiCurve) {
-		if (lod2MultiCurve != null)
-			lod2MultiCurve.setParent(this);
-		
-		this.lod2MultiCurve = lod2MultiCurve;
+		this.lod2MultiCurve = ModelObjects.setParent(lod2MultiCurve, this);
 	}
 
 	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		if (lod2MultiSurface != null)
-			lod2MultiSurface.setParent(this);
-		
-		this.lod2MultiSurface = lod2MultiSurface;
+		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
 	}
 
 	public void setLod2Solid(SolidProperty lod2Solid) {
-		if (lod2Solid != null)
-			lod2Solid.setParent(this);
-		
-		this.lod2Solid = lod2Solid;
+		this.lod2Solid = ModelObjects.setParent(lod2Solid, this);
 	}
 
 	public void setLod2TerrainIntersection(MultiCurveProperty lod2TerrainIntersection) {
-		if (lod2TerrainIntersection != null)
-			lod2TerrainIntersection.setParent(this);
-		
-		this.lod2TerrainIntersection = lod2TerrainIntersection;
+		this.lod2TerrainIntersection = ModelObjects.setParent(lod2TerrainIntersection, this);
 	}
 
 	public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve) {
-		if (lod3MultiCurve != null)
-			lod3MultiCurve.setParent(this);
-		
-		this.lod3MultiCurve = lod3MultiCurve;
+		this.lod3MultiCurve = ModelObjects.setParent(lod3MultiCurve, this);
 	}
 
 	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		if (lod3MultiSurface != null)
-			lod3MultiSurface.setParent(this);
-		
-		this.lod3MultiSurface = lod3MultiSurface;
+		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
 	}
 
 	public void setLod3Solid(SolidProperty lod3Solid) {
-		if (lod3Solid != null)
-			lod3Solid.setParent(this);
-		
-		this.lod3Solid = lod3Solid;
+		this.lod3Solid = ModelObjects.setParent(lod3Solid, this);
 	}
 
 	public void setLod3TerrainIntersection(MultiCurveProperty lod3TerrainIntersection) {
-		if (lod3TerrainIntersection != null)
-			lod3TerrainIntersection.setParent(this);
-		
-		this.lod3TerrainIntersection = lod3TerrainIntersection;
+		this.lod3TerrainIntersection = ModelObjects.setParent(lod3TerrainIntersection, this);
 	}
 
 	public void setLod4MultiCurve(MultiCurveProperty lod4MultiCurve) {
-		if (lod4MultiCurve != null)
-			lod4MultiCurve.setParent(this);
-		
-		this.lod4MultiCurve = lod4MultiCurve;
+		this.lod4MultiCurve = ModelObjects.setParent(lod4MultiCurve, this);
 	}
 
 	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		if (lod4MultiSurface != null)
-			lod4MultiSurface.setParent(this);
-		
-		this.lod4MultiSurface = lod4MultiSurface;
+		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
 	}
 
 	public void setLod4Solid(SolidProperty lod4Solid) {
-		if (lod4Solid != null)
-			lod4Solid.setParent(this);
-		
-		this.lod4Solid = lod4Solid;
+		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
 	}
 
 	public void setLod4TerrainIntersection(MultiCurveProperty lod4TerrainIntersection) {
-		if (lod4TerrainIntersection != null)
-			lod4TerrainIntersection.setParent(this);
-		
-		this.lod4TerrainIntersection = lod4TerrainIntersection;
+		this.lod4TerrainIntersection = ModelObjects.setParent(lod4TerrainIntersection, this);
 	}
 
 	public void setOuterTunnelInstallation(List<TunnelInstallationProperty> outerTunnelInstallation) {
-		this.outerTunnelInstallation = new ChildList<TunnelInstallationProperty>(this, outerTunnelInstallation);
+		this.outerTunnelInstallation = new ChildList<>(this, outerTunnelInstallation);
 	}
 
 	public void setYearOfConstruction(LocalDate yearOfConstruction) {
@@ -522,193 +452,130 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	}
 
 	public void unsetBoundedBySurface() {
-		if (isSetBoundedBySurface())
-			boundedBySurface.clear();
-
-		boundedBySurface = null;
+		boundedBySurface = ModelObjects.setNull(boundedBySurface);
 	}
 
 	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() ? this.boundedBySurface.remove(boundedBySurface) : false;
+		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
 	}
 
 	public void unsetClazz() {
-		clazz = null;
+		clazz = ModelObjects.setNull(clazz);
 	}
 
 	public void unsetConsistsOfTunnelPart() {
-		if (isSetConsistsOfTunnelPart())
-			tunnelPart.clear();
-
-		tunnelPart = null;
+		tunnelPart = ModelObjects.setNull(tunnelPart);
 	}
 
 	public boolean unsetConsistsOfTunnelPart(TunnelPartProperty tunnelPart) {
-		return isSetConsistsOfTunnelPart() ? this.tunnelPart.remove(tunnelPart) : false;
+		return isSetConsistsOfTunnelPart() && this.tunnelPart.remove(tunnelPart);
 	}
 
 	public void unsetFunction() {
-		function = null;
+		function = ModelObjects.setNull(function);
 	}
 
 	public boolean unsetFunction(Code function) {
-		return isSetFunction() ? this.function.remove(function) : false;
+		return isSetFunction() && this.function.remove(function);
 	}
 	
 	public void unsetUsage() {
-		usage = null;
+		usage = ModelObjects.setNull(usage);
 	}
 
 	public boolean unsetUsage(Code usage) {
-		return isSetUsage() ? this.usage.remove(usage) : false;
+		return isSetUsage() && this.usage.remove(usage);
 	}
 
 	public void unsetGenericApplicationPropertyOfAbstractTunnel() {
-		if (isSetGenericApplicationPropertyOfAbstractTunnel())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfAbstractTunnel(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAbstractTunnel() ? this.ade.remove(ade) : false;	}
+		return isSetGenericApplicationPropertyOfAbstractTunnel() && this.ade.remove(ade);	}
 
 	public void unsetInteriorTunnelInstallation() {
-		if (isSetInteriorTunnelInstallation())
-			interiorTunnelInstallation.clear();
-
-		interiorTunnelInstallation = null;
+		interiorTunnelInstallation = ModelObjects.setNull(interiorTunnelInstallation);
 	}
 
 	public boolean unsetInteriorTunnelInstallation(IntTunnelInstallationProperty interiorTunnelInstallation) {
-		return isSetInteriorTunnelInstallation() ? this.interiorTunnelInstallation.remove(interiorTunnelInstallation) : false;
+		return isSetInteriorTunnelInstallation() && this.interiorTunnelInstallation.remove(interiorTunnelInstallation);
 	}
 
 	public void unsetInteriorHollowSpace() {
-		if (isSetInteriorHollowSpace())
-			interiorHollowSpace.clear();
-
-		interiorHollowSpace = null;
+		interiorHollowSpace = ModelObjects.setNull(interiorHollowSpace);
 	}
 
 	public boolean unsetInteriorHollowSpace(InteriorHollowSpaceProperty interiorHollowSpace) {
-		return isSetInteriorHollowSpace() ? this.interiorHollowSpace.remove(interiorHollowSpace) : false;
+		return isSetInteriorHollowSpace() && this.interiorHollowSpace.remove(interiorHollowSpace);
 	}
 
 	public void unsetLod1MultiSurface() {
-		if (isSetLod1MultiSurface())
-			lod1MultiSurface.unsetParent();
-		
-		lod1MultiSurface = null;
+		lod1MultiSurface = ModelObjects.setNull(lod1MultiSurface);
 	}
 
 	public void unsetLod1Solid() {
-		if (isSetLod1Solid())
-			lod1Solid.unsetParent();
-		
-		lod1Solid = null;
+		lod1Solid = ModelObjects.setNull(lod1Solid);
 	}
 
 	public void unsetLod1TerrainIntersection() {
-		if (isSetLod1TerrainIntersection())
-			lod1TerrainIntersection.unsetParent();
-		
-		lod1TerrainIntersection = null;
+		lod1TerrainIntersection = ModelObjects.setNull(lod1TerrainIntersection);
 	}
 
 	public void unsetLod2MultiCurve() {
-		if (isSetLod2MultiCurve())
-			lod2MultiCurve.unsetParent();
-		
-		lod2MultiCurve = null;
+		lod2MultiCurve = ModelObjects.setNull(lod2MultiCurve);
 	}
 
 	public void unsetLod2MultiSurface() {
-		if (isSetLod2MultiSurface())
-			lod2MultiSurface.unsetParent();
-		
-		lod2MultiSurface = null;
+		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
 	}
 
 	public void unsetLod2Solid() {
-		if (isSetLod2Solid())
-			lod2Solid.unsetParent();
-		
-		lod2Solid = null;
+		lod2Solid = ModelObjects.setNull(lod2Solid);
 	}
 
 	public void unsetLod2TerrainIntersection() {
-		if (isSetLod2TerrainIntersection())
-			lod2TerrainIntersection.unsetParent();
-		
-		lod2TerrainIntersection = null;
+		lod2TerrainIntersection = ModelObjects.setNull(lod2TerrainIntersection);
 	}
 
 	public void unsetLod3MultiCurve() {
-		if (isSetLod3MultiCurve())
-			lod3MultiCurve.unsetParent();
-		
-		lod3MultiCurve = null;
+		lod3MultiCurve = ModelObjects.setNull(lod3MultiCurve);
 	}
 
 	public void unsetLod3MultiSurface() {
-		if (isSetLod3MultiSurface())
-			lod3MultiSurface.unsetParent();
-		
-		lod3MultiSurface = null;
+		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
 	}
 
 	public void unsetLod3Solid() {
-		if (isSetLod3Solid())
-			lod3Solid.unsetParent();
-		
-		lod3Solid = null;
+		lod3Solid = ModelObjects.setNull(lod3Solid);
 	}
 
 	public void unsetLod3TerrainIntersection() {
-		if (isSetLod3TerrainIntersection())
-			lod3TerrainIntersection.unsetParent();
-		
-		lod3TerrainIntersection = null;
+		lod3TerrainIntersection = ModelObjects.setNull(lod3TerrainIntersection);
 	}
 
 	public void unsetLod4MultiCurve() {
-		if (isSetLod4MultiCurve())
-			lod4MultiCurve.unsetParent();
-		
-		lod4MultiCurve = null;
+		lod4MultiCurve = ModelObjects.setNull(lod4MultiCurve);
 	}
 
 	public void unsetLod4MultiSurface() {
-		if (isSetLod4MultiSurface())
-			lod4MultiSurface.unsetParent();
-		
-		lod4MultiSurface = null;
+		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
 	}
 
 	public void unsetLod4Solid() {
-		if (isSetLod4Solid())
-			lod4Solid.unsetParent();
-		
-		lod4Solid = null;
+		lod4Solid = ModelObjects.setNull(lod4Solid);
 	}
 
 	public void unsetLod4TerrainIntersection() {
-		if (isSetLod4TerrainIntersection())
-			lod4TerrainIntersection.unsetParent();
-		
-		lod4TerrainIntersection = null;
+		lod4TerrainIntersection = ModelObjects.setNull(lod4TerrainIntersection);
 	}
 
 	public void unsetOuterTunnelInstallation() {
-		if (isSetOuterTunnelInstallation())
-			outerTunnelInstallation.clear();
-
-		outerTunnelInstallation = null;
+		outerTunnelInstallation = ModelObjects.setNull(outerTunnelInstallation);
 	}
 
 	public boolean unsetOuterTunnelInstallation(TunnelInstallationProperty outerTunnelInstallation) {
-		return isSetOuterTunnelInstallation() ? this.outerTunnelInstallation.remove(outerTunnelInstallation) : false;
+		return isSetOuterTunnelInstallation() && this.outerTunnelInstallation.remove(outerTunnelInstallation);
 	}
 
 	public void unsetYearOfConstruction() {
@@ -846,66 +713,20 @@ public abstract class AbstractTunnel extends AbstractSite implements TunnelModul
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		GeometryProperty<? extends AbstractGeometry> property = null;		
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1Solid;
-				break;
-			case 2:
-				property = lod2Solid;
-				break;
-			case 3:
-				property = lod3Solid;
-				break;
-			case 4:
-				property = lod4Solid;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 1; lod < 5; lod++) {
-			switch (lod) {
-			case 1:
-				property = lod1MultiSurface;
-				break;
-			case 2:
-				property = lod2MultiSurface;
-				break;
-			case 3:
-				property = lod3MultiSurface;
-				break;
-			case 4:
-				property = lod4MultiSurface;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
-		
-		property = null;
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				property = lod2MultiCurve;
-				break;
-			case 3:
-				property = lod3MultiCurve;
-				break;
-			case 4:
-				property = lod4MultiCurve;
-				break;
-			}
-			
-			if (property != null)
-				lodRepresentation.addRepresentation(lod, property);
-		}
+
+		lodRepresentation.addRepresentation(1, lod1Solid);
+		lodRepresentation.addRepresentation(2, lod2Solid);
+		lodRepresentation.addRepresentation(3, lod3Solid);
+		lodRepresentation.addRepresentation(4, lod4Solid);
+
+		lodRepresentation.addRepresentation(1, lod1MultiSurface);
+		lodRepresentation.addRepresentation(2, lod2MultiSurface);
+		lodRepresentation.addRepresentation(3, lod3MultiSurface);
+		lodRepresentation.addRepresentation(4, lod4MultiSurface);
+
+		lodRepresentation.addRepresentation(2, lod2MultiCurve);
+		lodRepresentation.addRepresentation(3, lod3MultiCurve);
+		lodRepresentation.addRepresentation(4, lod4MultiCurve);
 		
 		return lodRepresentation;
 	}

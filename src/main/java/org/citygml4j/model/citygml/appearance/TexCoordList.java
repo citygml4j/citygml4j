@@ -22,6 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.module.Module;
@@ -41,29 +42,23 @@ public class TexCoordList extends AbstractTextureParameterization {
 	}
 	
 	public void addGenericApplicationPropertyOfTexCoordList(ADEComponent ade) {
-		if (this.ade == null)
-			this.ade = new ChildList<ADEComponent>(this);
-
-		this.ade.add(ade);
+		getGenericApplicationPropertyOfTexCoordList().add(ade);
 	}
 
 	public void addTextureCoordinates(TextureCoordinates textureCoordinates) {
-		if (this.textureCoordinates == null)
-			this.textureCoordinates = new ChildList<TextureCoordinates>(this);
-
-		this.textureCoordinates.add(textureCoordinates);
+		getTextureCoordinates().add(textureCoordinates);
 	}
 
 	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordList() {
 		if (ade == null)
-			ade = new ChildList<ADEComponent>(this);
+			ade = new ChildList<>(this);
 
 		return ade;
 	}
 
 	public List<TextureCoordinates> getTextureCoordinates() {
 		if (textureCoordinates == null)
-			textureCoordinates = new ChildList<TextureCoordinates>(this);
+			textureCoordinates = new ChildList<>(this);
 
 		return textureCoordinates;
 	}
@@ -77,33 +72,27 @@ public class TexCoordList extends AbstractTextureParameterization {
 	}
 
 	public void setGenericApplicationPropertyOfTexCoordList(List<ADEComponent> ade) {
-		this.ade = new ChildList<ADEComponent>(this, ade);
+		this.ade = new ChildList<>(this, ade);
 	}
 
 	public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates) {
-		this.textureCoordinates = new ChildList<TextureCoordinates>(this, textureCoordinates);
+		this.textureCoordinates = new ChildList<>(this, textureCoordinates);
 	}
 
 	public void unsetGenericApplicationPropertyOfTexCoordList() {
-		if (isSetGenericApplicationPropertyOfTexCoordList())
-			ade.clear();
-
-		ade = null;
+		ade = ModelObjects.setNull(ade);
 	}
 
 	public boolean unsetGenericApplicationPropertyOfTexCoordList(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTexCoordList() ? this.ade.remove(ade) : false;
+		return isSetGenericApplicationPropertyOfTexCoordList() && this.ade.remove(ade);
 	}
 
 	public void unsetTextureCoordinates() {
-		if (isSetTextureCoordinates())
-			textureCoordinates.clear();
-
-		textureCoordinates = null;
+		textureCoordinates = ModelObjects.setNull(textureCoordinates);
 	}
 
 	public boolean unsetTextureCoordinates(TextureCoordinates textureCoordinates) {
-		return isSetTextureCoordinates() ? this.textureCoordinates.remove(textureCoordinates) : false;
+		return isSetTextureCoordinates() && this.textureCoordinates.remove(textureCoordinates);
 	}
 
 	public CityGMLClass getCityGMLClass() {
