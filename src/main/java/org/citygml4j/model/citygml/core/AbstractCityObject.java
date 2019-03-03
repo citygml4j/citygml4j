@@ -25,8 +25,10 @@ import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
+import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
+import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.SpatialRepresentation;
@@ -278,6 +280,16 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	@Override
 	public final SpatialRepresentation getSpatialRepresentation() {
 		return getLodRepresentation();
+	}
+
+	public void unsetLod(int lod) {
+		LodRepresentation representation = getLodRepresentation();
+		if (representation != null && representation.isSetRepresentation(lod)) {
+			for (AssociationByRepOrRef<?> property : representation.getRepresentation(lod)) {
+				ModelObject parent = property.getParent();
+				ModelObjects.unsetProperty(parent != null ? parent : this, property);
+			}
+		}
 	}
 
 	@Override
