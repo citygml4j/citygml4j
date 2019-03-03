@@ -259,12 +259,8 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 	@Override
 	public LodRepresentation getLodRepresentation() {
 		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		if (isSetGeometry()) {
-			for (int lod = 0; lod < 5; lod++)
-				lodRepresentation.addRepresentation(lod, geometry);
-		}
-		
+		lodRepresentation.addRepresentation(geometry);
+
 		return lodRepresentation;
 	}
 

@@ -63,14 +63,13 @@ public class LodRepresentationBuilder {
 			}
 
 			if (lod != null) {
-				if (!field.isAccessible())
-					field.setAccessible(true);
-
 				try {
-					Object property = field.get(object);
-					lods.addRepresentation(lod, (AssociationByRepOrRef<? extends AbstractGML>)property);
+					if (!field.isAccessible())
+						field.setAccessible(true);
+
+					lods.addRepresentation(lod, (AssociationByRepOrRef<? extends AbstractGML>) field.get(object));
 				} catch (IllegalArgumentException | IllegalAccessException e) {
-					continue;
+					//
 				}		
 			}
 		}

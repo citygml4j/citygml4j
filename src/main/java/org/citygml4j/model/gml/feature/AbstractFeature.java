@@ -157,7 +157,8 @@ public abstract class AbstractFeature extends AbstractGML {
 
 		return copy;
 	}
-	
+
+	public abstract SpatialRepresentation getSpatialRepresentation();
 	public abstract void accept(FeatureVisitor visitor);
 	public abstract <T> T accept(FeatureFunctor<T> visitor);
 

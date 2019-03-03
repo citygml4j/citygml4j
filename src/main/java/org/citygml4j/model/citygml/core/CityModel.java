@@ -35,6 +35,7 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.AbstractFeatureCollection;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.FeatureMember;
+import org.citygml4j.model.gml.feature.SpatialRepresentation;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
@@ -182,6 +183,11 @@ public class CityModel extends AbstractFeatureCollection implements CoreModuleCo
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;
+	}
+
+	@Override
+	public SpatialRepresentation getSpatialRepresentation() {
+		return SpatialRepresentation.emptyRepresentation();
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

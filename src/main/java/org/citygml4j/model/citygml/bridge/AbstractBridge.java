@@ -808,7 +808,6 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		lodRepresentation.addRepresentation(3, lod3MultiSurface);
 		lodRepresentation.addRepresentation(4, lod4MultiSurface);
 
-
 		lodRepresentation.addRepresentation(2, lod2MultiCurve);
 		lodRepresentation.addRepresentation(3, lod3MultiCurve);
 		lodRepresentation.addRepresentation(4, lod4MultiCurve);

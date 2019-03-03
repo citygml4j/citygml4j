@@ -29,6 +29,7 @@ import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.feature.SpatialRepresentation;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
@@ -60,6 +61,8 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	public void addAppearance(AppearanceProperty appearance) {
 		getAppearance().add(appearance);
 	}
+
+	public abstract LodRepresentation getLodRepresentation();
 
 	public void addExternalReference(ExternalReference externalReference) {
 		getExternalReference().add(externalReference);
@@ -272,9 +275,9 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		terminationDate = null;
 	}
 
-	public LodRepresentation getLodRepresentation() {
-		// return empty LodRepresentation instance by default
-		return new LodRepresentation();
+	@Override
+	public final SpatialRepresentation getSpatialRepresentation() {
+		return getLodRepresentation();
 	}
 
 	@Override
