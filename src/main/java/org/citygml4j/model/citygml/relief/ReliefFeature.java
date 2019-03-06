@@ -25,7 +25,6 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.binding.ADEBoundingBoxHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
@@ -149,11 +148,6 @@ public class ReliefFeature extends AbstractCityObject implements ReliefModuleCom
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;
-	}
-
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		return LodRepresentation.emptyRepresentation();
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

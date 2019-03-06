@@ -124,7 +124,12 @@ public abstract class AbstractFeature extends AbstractGML {
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
 		return (options.isUseExistingEnvelopes() && boundedBy != null && !boundedBy.isEmpty()) ? boundedBy : new BoundingShape();
 	}
-	
+
+	public SpatialRepresentation getSpatialRepresentation() {
+		// return an empty spatial representation per default
+		return SpatialRepresentation.emptyRepresentation();
+	}
+
 	@Override
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		if (target == null)
@@ -158,7 +163,6 @@ public abstract class AbstractFeature extends AbstractGML {
 		return copy;
 	}
 
-	public abstract SpatialRepresentation getSpatialRepresentation();
 	public abstract void accept(FeatureVisitor visitor);
 	public abstract <T> T accept(FeatureFunctor<T> visitor);
 

@@ -21,14 +21,13 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.base.ModelObjects;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.gml.feature.SpatialRepresentation;
 import org.citygml4j.model.module.Module;
 
 import java.util.List;
@@ -118,11 +117,6 @@ public class Appearance extends AbstractFeature implements AppearanceModuleCompo
 
 	public CityGMLClass getCityGMLClass() {
 		return CityGMLClass.APPEARANCE;
-	}
-
-	@Override
-	public SpatialRepresentation getSpatialRepresentation() {
-		return SpatialRepresentation.emptyRepresentation();
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {

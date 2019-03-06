@@ -11,7 +11,7 @@ sourceCompatibility = 1.8
 
 allprojects {
     group 'org.citygml4j'
-    version '2.9.1'
+    version '2.9.2'
     description 'The Open Source Java API for CityGML'
 
     repositories {

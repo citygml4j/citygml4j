@@ -64,8 +64,6 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 		getAppearance().add(appearance);
 	}
 
-	public abstract LodRepresentation getLodRepresentation();
-
 	public void addExternalReference(ExternalReference externalReference) {
 		getExternalReference().add(externalReference);
 	}
@@ -280,6 +278,11 @@ public abstract class AbstractCityObject extends AbstractFeature implements Core
 	@Override
 	public final SpatialRepresentation getSpatialRepresentation() {
 		return getLodRepresentation();
+	}
+
+	public LodRepresentation getLodRepresentation() {
+		// return an empty spatial representation per default
+		return LodRepresentation.emptyRepresentation();
 	}
 
 	public void unsetLod(int lod) {

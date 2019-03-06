@@ -26,7 +26,6 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.feature.SpatialRepresentation;
 import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
@@ -74,11 +73,6 @@ public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
 			setBoundedBy(boundedBy);
 		
 		return boundedBy;
-	}
-
-	@Override
-	public SpatialRepresentation getSpatialRepresentation() {
-		return SpatialRepresentation.emptyRepresentation();
 	}
 
 	@Override

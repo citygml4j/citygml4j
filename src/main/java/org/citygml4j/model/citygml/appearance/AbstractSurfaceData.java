@@ -20,10 +20,9 @@ package org.citygml4j.model.citygml.appearance;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.base.ModelObjects;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.gml.feature.SpatialRepresentation;
 import org.citygml4j.model.module.Module;
 
 import java.util.List;
@@ -81,11 +80,6 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements App
 
 	public void unsetIsFront() {
 		isFront = null;
-	}
-
-	@Override
-	public SpatialRepresentation getSpatialRepresentation() {
-		return SpatialRepresentation.emptyRepresentation();
 	}
 
 	@Override
