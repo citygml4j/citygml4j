@@ -19,9 +19,9 @@
 package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.geometry.TransformType;
-import org.citygml4j.binding.cityjson.metadata.MetadataType;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.core.CityModel;
 
 import java.util.List;

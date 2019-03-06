@@ -18,20 +18,20 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.tunnel;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.AbstractTunnelType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.TunnelAttributes;
-import org.citygml4j.binding.cityjson.feature.TunnelInstallationType;
-import org.citygml4j.binding.cityjson.feature.TunnelPartType;
-import org.citygml4j.binding.cityjson.feature.TunnelType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.AbstractTunnelType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.TunnelAttributes;
+import org.citygml4j.cityjson.feature.TunnelInstallationType;
+import org.citygml4j.cityjson.feature.TunnelPartType;
+import org.citygml4j.cityjson.feature.TunnelType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.cityjson.geometry.GeometryInstanceType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;

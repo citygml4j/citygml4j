@@ -9,20 +9,36 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ *     
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.citygml4j.builder.cityjson.extension;
 
-package org.citygml4j.builder.cityjson.marshal.util;
+import org.citygml4j.model.module.ModuleVersion;
 
-import org.citygml4j.cityjson.geometry.TransformType;
+public class ExtensionModuleVersion implements ModuleVersion {
+	private final String value;
 
-import java.util.List;
+	public ExtensionModuleVersion(String value) {
+		this.value = value != null ? value : "undefined";
+	}
 
-public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+	ExtensionModuleVersion() {
+		this("undefined");
+	}
+
+	@Override
+	public String getVersionString() {
+		return value;
+	}
+
+	@Override
+	public String toString() {
+		return value;
+	}
+
 }

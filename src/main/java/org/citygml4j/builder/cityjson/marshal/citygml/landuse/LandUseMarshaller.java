@@ -18,13 +18,13 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.landuse;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.LandUseType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.LandUseType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.model.citygml.landuse.LandUse;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;

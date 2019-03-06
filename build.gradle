@@ -33,9 +33,9 @@ configurations {
 }
 
 dependencies {
+    api 'org.citygml4j:citygson:0.9.0'
     api 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     api 'org.glassfish.jaxb:xsom:2.3.2'
-    api 'com.google.code.gson:gson:2.8.5'
 
     jaxb 'org.glassfish.jaxb:jaxb-xjc:2.3.2'
     jaxb 'org.jvnet.jaxb2_commons:jaxb2-basics:0.12.0'

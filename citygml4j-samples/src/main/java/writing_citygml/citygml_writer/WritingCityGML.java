@@ -23,7 +23,6 @@ import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.transportation.Road;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.citygml4j.model.module.ModuleContext;
@@ -36,7 +35,6 @@ import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.writer.AbstractCityGMLWriter;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
-import org.citygml4j.xml.io.writer.FeatureWriteMode;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

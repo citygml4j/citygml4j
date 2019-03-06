@@ -18,21 +18,21 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.bridge;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractBridgeType;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.BridgeAttributes;
-import org.citygml4j.binding.cityjson.feature.BridgeConstructionElementType;
-import org.citygml4j.binding.cityjson.feature.BridgeInstallationType;
-import org.citygml4j.binding.cityjson.feature.BridgePartType;
-import org.citygml4j.binding.cityjson.feature.BridgeType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractBridgeType;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.BridgeAttributes;
+import org.citygml4j.cityjson.feature.BridgeConstructionElementType;
+import org.citygml4j.cityjson.feature.BridgeInstallationType;
+import org.citygml4j.cityjson.feature.BridgePartType;
+import org.citygml4j.cityjson.feature.BridgeType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.cityjson.geometry.GeometryInstanceType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.bridge.AbstractBridge;

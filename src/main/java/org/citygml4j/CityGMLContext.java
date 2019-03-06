@@ -18,17 +18,18 @@
  */
 package org.citygml4j;
 
-import org.citygml4j.binding.cityjson.CityJSONRegistry;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
-import org.citygml4j.binding.cityjson.extension.ExtensibleType;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtension;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtensionContext;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.CityGMLBuilderException;
 import org.citygml4j.builder.jaxb.CityGMLBuilderFactory;
+import org.citygml4j.cityjson.CityJSONRegistry;
+import org.citygml4j.cityjson.extension.ExtensibleType;
+import org.citygml4j.cityjson.extension.ExtensionException;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.ADEException;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.module.Modules;
@@ -94,7 +95,11 @@ public class CityGMLContext {
 			if (cityJSONExtension == null)
 				throw new ADEException("The CityJSON extension must no be null.");
 
-			registerCityJSONExtension(((CityJSONExtensionContext) adeContext).getCityJSONExtension());
+			try {
+				registerCityJSONExtension(((CityJSONExtensionContext) adeContext).getCityJSONExtension());
+			} catch (ExtensionException e) {
+				throw new ADEException("Failed to register CityJSON extension.", e);
+			}
 		}
 
 		for (ADEModule module : adeContext.getADEModules())
@@ -103,9 +108,9 @@ public class CityGMLContext {
 		adeContexts.add(adeContext);
 	}
 
-	private void registerCityJSONExtension(CityJSONExtension cityJSONExtension) throws ADEException {
+	private void registerCityJSONExtension(CityJSONExtension cityJSONExtension) throws ExtensionException {
 		if (cityJSONExtension.getExtensionModules() == null || cityJSONExtension.getExtensionModules().isEmpty())
-			throw new ADEException("No extension module defined for the CityJSON extension.");
+			throw new ExtensionException("No extension module defined for the CityJSON extension.");
 
 		CityJSONRegistry registry = CityJSONRegistry.getInstance();
 		for (CityJSONExtensionModule module : cityJSONExtension.getExtensionModules()) {
@@ -114,7 +119,7 @@ public class CityGMLContext {
 					if (adeContext instanceof CityJSONExtension) {
 						for (CityJSONExtensionModule registeredModule : ((CityJSONExtension) adeContext).getExtensionModules()) {
 							if (module.getSchemaURI().equals(registeredModule.getSchemaURI()))
-								throw new ADEException("A CityJSON extension module has already been registered for the schema URI '" + module.getSchemaURI() + "'.");
+								throw new ExtensionException("A CityJSON extension module has already been registered for the schema URI '" + module.getSchemaURI() + "'.");
 						}
 					}
 				}

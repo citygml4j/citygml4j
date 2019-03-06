@@ -17,12 +17,11 @@
  * limitations under the License.
  */
 
-package org.citygml4j.builder.cityjson.marshal.util;
+package org.citygml4j.builder.cityjson.extension;
 
-import org.citygml4j.cityjson.geometry.TransformType;
+public class ExtensionAttribute extends ExtensionProperty {
 
-import java.util.List;
-
-public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+    public ExtensionAttribute(String name, Object value) {
+        super(name, value);
+    }
 }

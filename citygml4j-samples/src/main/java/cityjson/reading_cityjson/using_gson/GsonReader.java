@@ -21,14 +21,14 @@ package cityjson.reading_cityjson.using_gson;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.GeometryWithAppearance;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.cityjson.geometry.GeometryWithAppearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
@@ -58,7 +58,7 @@ public class GsonReader {
 
 		// read the CityJSON file into main memory
 		// afterwards, the Json content is accessible through the
-		// Gson binding class org.citygml4j.binding.cityjson.CityJSON
+		// Gson binding class org.citygml4j.cityjson.CityJSON
 		System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
 		CityJSON cityJSON = gson.fromJson(reader, CityJSON.class);
 		reader.close();

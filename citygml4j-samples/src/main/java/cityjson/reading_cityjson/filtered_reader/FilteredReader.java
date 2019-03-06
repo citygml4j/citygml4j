@@ -19,10 +19,10 @@
 package cityjson.reading_cityjson.filtered_reader;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.reader.CityJSONInputFactory;
 import org.citygml4j.builder.cityjson.json.io.reader.CityJSONReader;
+import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;

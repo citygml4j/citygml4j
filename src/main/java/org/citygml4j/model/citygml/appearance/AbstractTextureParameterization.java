@@ -21,8 +21,8 @@ package org.citygml4j.model.citygml.appearance;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
-import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.base.ModelObjects;
+import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.module.Module;
 

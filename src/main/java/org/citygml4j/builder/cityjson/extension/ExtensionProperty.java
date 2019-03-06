@@ -17,12 +17,26 @@
  * limitations under the License.
  */
 
-package org.citygml4j.builder.cityjson.marshal.util;
+package org.citygml4j.builder.cityjson.extension;
 
-import org.citygml4j.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.extension.Extension;
 
-import java.util.List;
+import java.util.Objects;
 
-public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+public class ExtensionProperty implements Extension {
+    private final String name;
+    private final Object value;
+
+    public ExtensionProperty(String name, Object value) {
+        this.name = Objects.requireNonNull(name, "name must not be null.");
+        this.value = Objects.requireNonNull(value, "value must not be null.");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Object getValue() {
+        return value;
+    }
 }

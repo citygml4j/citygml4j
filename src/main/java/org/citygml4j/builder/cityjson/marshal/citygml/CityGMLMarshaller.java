@@ -18,9 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.appearance.AppearanceMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.bridge.BridgeMarshaller;
@@ -35,6 +32,9 @@ import org.citygml4j.builder.cityjson.marshal.citygml.transportation.Transportat
 import org.citygml4j.builder.cityjson.marshal.citygml.tunnel.TunnelMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.vegetation.VegetationMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.waterbody.WaterBodyMarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.bridge.BridgeModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;

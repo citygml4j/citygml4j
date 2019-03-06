@@ -19,17 +19,17 @@
 package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.TransformType;
-import org.citygml4j.binding.cityjson.geometry.VerticesList;
-import org.citygml4j.binding.cityjson.metadata.LoDType;
-import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.marshal.citygml.core.CoreMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.geometry.VerticesList;
+import org.citygml4j.cityjson.metadata.LoDType;
+import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 

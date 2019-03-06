@@ -18,22 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
-import org.citygml4j.binding.cityjson.feature.AbstractVegetationObjectType;
-import org.citygml4j.binding.cityjson.feature.BridgeType;
-import org.citygml4j.binding.cityjson.feature.BuildingType;
-import org.citygml4j.binding.cityjson.feature.CityFurnitureType;
-import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
-import org.citygml4j.binding.cityjson.feature.GenericCityObjectType;
-import org.citygml4j.binding.cityjson.feature.LandUseType;
-import org.citygml4j.binding.cityjson.feature.TINReliefType;
-import org.citygml4j.binding.cityjson.feature.TunnelType;
-import org.citygml4j.binding.cityjson.feature.WaterBodyType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
-import org.citygml4j.binding.cityjson.geometry.InternalSemanticsType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.appearance.AppearanceUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.bridge.BridgeUnmarshaller;
@@ -48,6 +32,22 @@ import org.citygml4j.builder.cityjson.unmarshal.citygml.transportation.Transport
 import org.citygml4j.builder.cityjson.unmarshal.citygml.tunnel.TunnelUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.vegetation.VegetationUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.waterbody.WaterBodyUnmarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.AbstractTransportationComplexType;
+import org.citygml4j.cityjson.feature.AbstractVegetationObjectType;
+import org.citygml4j.cityjson.feature.BridgeType;
+import org.citygml4j.cityjson.feature.BuildingType;
+import org.citygml4j.cityjson.feature.CityFurnitureType;
+import org.citygml4j.cityjson.feature.CityObjectGroupType;
+import org.citygml4j.cityjson.feature.GenericCityObjectType;
+import org.citygml4j.cityjson.feature.LandUseType;
+import org.citygml4j.cityjson.feature.TINReliefType;
+import org.citygml4j.cityjson.feature.TunnelType;
+import org.citygml4j.cityjson.feature.WaterBodyType;
+import org.citygml4j.cityjson.geometry.AbstractSemanticsObject;
+import org.citygml4j.cityjson.geometry.InternalSemanticsType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.bridge.BridgeModuleComponent;
 import org.citygml4j.model.citygml.building.BuildingModuleComponent;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

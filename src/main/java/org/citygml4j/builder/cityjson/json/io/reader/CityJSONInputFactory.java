@@ -19,8 +19,8 @@
 package org.citygml4j.builder.cityjson.json.io.reader;
 
 import com.google.gson.stream.JsonReader;
-import org.citygml4j.binding.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
+import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 
 import java.io.BufferedReader;
 import java.io.File;

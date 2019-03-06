@@ -20,11 +20,11 @@
 package cityjson.handling_extensions.cityjson_context;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONWriter;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
+import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.CityGMLInputFactory;

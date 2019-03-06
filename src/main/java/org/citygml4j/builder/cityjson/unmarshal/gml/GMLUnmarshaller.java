@@ -18,22 +18,22 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.gml;
 
-import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
-import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSemanticsObject;
-import org.citygml4j.binding.cityjson.geometry.AbstractSolidCollectionType;
-import org.citygml4j.binding.cityjson.geometry.AbstractSurfaceCollectionType;
-import org.citygml4j.binding.cityjson.geometry.CompositeSolidType;
-import org.citygml4j.binding.cityjson.geometry.CompositeSurfaceType;
-import org.citygml4j.binding.cityjson.geometry.MultiLineStringType;
-import org.citygml4j.binding.cityjson.geometry.MultiPointType;
-import org.citygml4j.binding.cityjson.geometry.MultiSolidType;
-import org.citygml4j.binding.cityjson.geometry.MultiSurfaceType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
-import org.citygml4j.binding.cityjson.geometry.SolidType;
-import org.citygml4j.binding.cityjson.geometry.TransformType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.cityjson.appearance.AbstractMaterialObject;
+import org.citygml4j.cityjson.appearance.AbstractTextureObject;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.AbstractSemanticsObject;
+import org.citygml4j.cityjson.geometry.AbstractSolidCollectionType;
+import org.citygml4j.cityjson.geometry.AbstractSurfaceCollectionType;
+import org.citygml4j.cityjson.geometry.CompositeSolidType;
+import org.citygml4j.cityjson.geometry.CompositeSurfaceType;
+import org.citygml4j.cityjson.geometry.MultiLineStringType;
+import org.citygml4j.cityjson.geometry.MultiPointType;
+import org.citygml4j.cityjson.geometry.MultiSolidType;
+import org.citygml4j.cityjson.geometry.MultiSurfaceType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
+import org.citygml4j.cityjson.geometry.SolidType;
+import org.citygml4j.cityjson.geometry.TransformType;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;

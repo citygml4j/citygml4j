@@ -18,19 +18,19 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.transportation;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.AbstractTransportationComplexType;
-import org.citygml4j.binding.cityjson.feature.RailwayType;
-import org.citygml4j.binding.cityjson.feature.RoadType;
-import org.citygml4j.binding.cityjson.feature.TransportSquareType;
-import org.citygml4j.binding.cityjson.feature.TransportationComplexAttributes;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.AbstractTransportationComplexType;
+import org.citygml4j.cityjson.feature.RailwayType;
+import org.citygml4j.cityjson.feature.RoadType;
+import org.citygml4j.cityjson.feature.TransportSquareType;
+import org.citygml4j.cityjson.feature.TransportationComplexAttributes;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.cityjson.geometry.GeometryInstanceType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.generics.StringAttribute;

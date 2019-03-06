@@ -18,14 +18,14 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.appearance;
 
-import org.citygml4j.binding.cityjson.appearance.AbstractMaterialObject;
-import org.citygml4j.binding.cityjson.appearance.AbstractTextureObject;
-import org.citygml4j.binding.cityjson.appearance.AppearanceType;
-import org.citygml4j.binding.cityjson.appearance.MaterialType;
-import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
+import org.citygml4j.cityjson.appearance.AbstractMaterialObject;
+import org.citygml4j.cityjson.appearance.AbstractTextureObject;
+import org.citygml4j.cityjson.appearance.AppearanceType;
+import org.citygml4j.cityjson.appearance.MaterialType;
+import org.citygml4j.cityjson.appearance.TextureType;
 import org.citygml4j.model.citygml.appearance.AbstractSurfaceData;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;

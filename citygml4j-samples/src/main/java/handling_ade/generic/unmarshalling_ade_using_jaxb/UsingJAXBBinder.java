@@ -31,7 +31,6 @@ import net.opengis.gml.StringOrRefType;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.builder.jaxb.JAXBContextPath;
-import org.citygml4j.model.citygml.ade.ADEComponent;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.citygml.core.CityObjectMember;
@@ -41,7 +40,6 @@ import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.writer.CityModelWriter;
-import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

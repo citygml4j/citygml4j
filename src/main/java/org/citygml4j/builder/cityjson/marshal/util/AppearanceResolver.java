@@ -18,10 +18,10 @@
  */
 package org.citygml4j.builder.cityjson.marshal.util;
 
-import org.citygml4j.binding.cityjson.appearance.MaterialType;
-import org.citygml4j.binding.cityjson.appearance.TextureType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.appearance.AppearanceMarshaller;
+import org.citygml4j.cityjson.appearance.MaterialType;
+import org.citygml4j.cityjson.appearance.TextureType;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
 import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
 import org.citygml4j.model.citygml.appearance.Appearance;

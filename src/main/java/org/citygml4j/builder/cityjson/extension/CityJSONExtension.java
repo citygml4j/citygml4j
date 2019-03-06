@@ -17,12 +17,12 @@
  * limitations under the License.
  */
 
-package org.citygml4j.builder.cityjson.marshal.util;
-
-import org.citygml4j.cityjson.geometry.TransformType;
+package org.citygml4j.builder.cityjson.extension;
 
 import java.util.List;
 
-public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+public interface CityJSONExtension {
+    List<CityJSONExtensionModule> getExtensionModules();
+    CityJSONExtensionMarshaller createExtensionMarshaller();
+    CityJSONExtensionUnmarshaller createExtensionUnmarshaller();
 }

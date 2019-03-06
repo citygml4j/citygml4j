@@ -18,14 +18,14 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.appearance;
 
-import org.citygml4j.binding.cityjson.appearance.MaterialType;
-import org.citygml4j.binding.cityjson.appearance.TextureType;
-import org.citygml4j.binding.cityjson.appearance.TextureTypeName;
-import org.citygml4j.binding.cityjson.appearance.TextureTypeType;
-import org.citygml4j.binding.cityjson.appearance.WrapModeType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceDataInfo;
+import org.citygml4j.cityjson.appearance.MaterialType;
+import org.citygml4j.cityjson.appearance.TextureType;
+import org.citygml4j.cityjson.appearance.TextureTypeName;
+import org.citygml4j.cityjson.appearance.TextureTypeType;
+import org.citygml4j.cityjson.appearance.WrapModeType;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.gml.basicTypes.Code;

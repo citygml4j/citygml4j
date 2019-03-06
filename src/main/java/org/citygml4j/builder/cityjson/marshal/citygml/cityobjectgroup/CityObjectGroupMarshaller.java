@@ -19,13 +19,13 @@
 
 package org.citygml4j.builder.cityjson.marshal.citygml.cityobjectgroup;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.CityObjectGroupType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroupMember;
 import org.citygml4j.model.citygml.core.AbstractCityObject;

@@ -18,12 +18,12 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.relief;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.TINReliefType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.TINReliefType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
 import org.citygml4j.model.citygml.relief.ReliefFeature;
 import org.citygml4j.model.citygml.relief.TINRelief;

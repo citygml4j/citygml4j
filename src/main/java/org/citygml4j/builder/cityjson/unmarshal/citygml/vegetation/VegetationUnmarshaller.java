@@ -18,18 +18,18 @@
  */
 package org.citygml4j.builder.cityjson.unmarshal.citygml.vegetation;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.AbstractVegetationObjectType;
-import org.citygml4j.binding.cityjson.feature.PlantCoverAttributes;
-import org.citygml4j.binding.cityjson.feature.PlantCoverType;
-import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectAttributes;
-import org.citygml4j.binding.cityjson.feature.SolitaryVegetationObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.AbstractVegetationObjectType;
+import org.citygml4j.cityjson.feature.PlantCoverAttributes;
+import org.citygml4j.cityjson.feature.PlantCoverType;
+import org.citygml4j.cityjson.feature.SolitaryVegetationObjectAttributes;
+import org.citygml4j.cityjson.feature.SolitaryVegetationObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;

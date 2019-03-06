@@ -18,18 +18,18 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.core;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.AddressType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.CityObjectGroupType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
-import org.citygml4j.binding.cityjson.geometry.MultiPointType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.AddressType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.CityObjectGroupType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.GeometryInstanceType;
+import org.citygml4j.cityjson.geometry.GeometryTypeName;
+import org.citygml4j.cityjson.geometry.MultiPointType;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AbstractSite;

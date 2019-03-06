@@ -17,12 +17,31 @@
  * limitations under the License.
  */
 
-package org.citygml4j.builder.cityjson.marshal.util;
+package org.citygml4j.builder.cityjson.extension;
 
-import org.citygml4j.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.model.gml.feature.AbstractFeature;
 
-import java.util.List;
+public class ExtensionPropertyContext {
+    private final Object value;
+    private final CityJSON cityJSON;
+    private final AbstractFeature parent;
 
-public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+    public ExtensionPropertyContext(Object value, CityJSON cityJSON, AbstractFeature parent) {
+        this.value = value;
+        this.cityJSON = cityJSON;
+        this.parent = parent;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public CityJSON getCityJSON() {
+        return cityJSON;
+    }
+
+    public AbstractFeature getParent() {
+        return parent;
+    }
 }

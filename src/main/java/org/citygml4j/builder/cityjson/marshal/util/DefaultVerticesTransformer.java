@@ -19,7 +19,7 @@
 
 package org.citygml4j.builder.cityjson.marshal.util;
 
-import org.citygml4j.binding.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.geometry.TransformType;
 
 import java.util.Arrays;
 import java.util.List;

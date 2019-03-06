@@ -18,20 +18,20 @@
  */
 package org.citygml4j.builder.cityjson.marshal.citygml.building;
 
-import org.citygml4j.binding.cityjson.CityJSON;
-import org.citygml4j.binding.cityjson.feature.AbstractBuildingType;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.feature.BuildingAttributes;
-import org.citygml4j.binding.cityjson.feature.BuildingInstallationType;
-import org.citygml4j.binding.cityjson.feature.BuildingPartType;
-import org.citygml4j.binding.cityjson.feature.BuildingType;
-import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.binding.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.feature.AbstractBuildingType;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.BuildingAttributes;
+import org.citygml4j.cityjson.feature.BuildingInstallationType;
+import org.citygml4j.cityjson.feature.BuildingPartType;
+import org.citygml4j.cityjson.feature.BuildingType;
+import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
+import org.citygml4j.cityjson.geometry.GeometryInstanceType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;

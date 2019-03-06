@@ -19,11 +19,11 @@
 package cityjson.writing_cityjson.simple_writer;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.binding.cityjson.metadata.MetadataType;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONOutputFactory;
 import org.citygml4j.builder.cityjson.json.io.writer.CityJSONWriter;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
+import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.factory.GMLGeometryFactory;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;

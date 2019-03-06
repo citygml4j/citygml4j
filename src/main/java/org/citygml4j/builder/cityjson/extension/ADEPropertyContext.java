@@ -17,12 +17,25 @@
  * limitations under the License.
  */
 
-package org.citygml4j.builder.cityjson.marshal.util;
+package org.citygml4j.builder.cityjson.extension;
 
-import org.citygml4j.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.extension.ExtensibleType;
 
-import java.util.List;
+public class ADEPropertyContext {
+    private final ExtensibleType parent;
+    private final CityJSON cityJSON;
 
-public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+    public ADEPropertyContext(ExtensibleType parent, CityJSON cityJSON) {
+        this.parent = parent;
+        this.cityJSON = cityJSON;
+    }
+
+    public ExtensibleType getParent() {
+        return parent;
+    }
+
+    public CityJSON getCityJSON() {
+        return cityJSON;
+    }
 }
