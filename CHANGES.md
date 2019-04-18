@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-### 2.9.2 - tbd
+### 2.9.2 - 2019-04-18
 
 ##### Additions
 * Added the generic `unsetProperty(ModelObject object, Object value)` utility method to the class `ModelObjects`. This utility method is useful in cases where you have an instance of a citygml4j model class and an instance of one of its properties, but you don't know
