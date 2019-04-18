@@ -9,9 +9,21 @@ sourceCompatibility = 1.8
 jar.enabled false
 javadoc.enabled false
 
+ext {
+    noiseADEVersion = '2.4.1'
+}
+
+configurations {
+    ade
+}
+
 dependencies {
     implementation rootProject
-    implementation fileTree(dir: 'lib', include: '*.jar')
+    implementation "org.citygml4j.ade:noise-ade-citygml4j:$noiseADEVersion"
+
+    ade("org.citygml4j.ade:noise-ade-citygml4j:$noiseADEVersion") {
+        transitive = false
+    }
 }
 
 clean.dependsOn(cleanOutput)
@@ -34,7 +46,7 @@ task copySamples {
             into "$outputsDir/datasets"
         }
         copy {
-            from fileTree(dir: 'lib', include: '*.jar')
+            from configurations.ade
             into "$outputsDir/lib"
         }
         copy {
