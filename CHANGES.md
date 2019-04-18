@@ -1,6 +1,27 @@
 Change Log
 ==========
 
+### 2.9.2 - tbd
+
+##### Additions
+* Added the generic `unsetProperty(ModelObject object, Object value)` utility method to the class `ModelObjects`. This utility method is useful in cases
+where you have an instance of a citygml4j model class and an instance of one of its properties, but you don't know
+which `unsetter` method to invoke on the model object to remove the property.
+* Added the `unsetLod(int lod)` method to `AbstractCityObject`, which lets you easily remove all spatial properties
+from a city object that are associated with a given LoD level.
+* The `LodRepresentation` class now also contains spatial properties of city objects that are independent of a specific
+LoD level. It therefore provides you easy access to all spatial properties of a city object.
+  * For features that are not derived from `AbstractCityObject` but only from `AbstractFeature`, the class `SpatialRepresentation`
+  has been introduced, which serves the same purpose. 
+* Added a flag to CityGML readers to skip unknown ADE content rather than mapping it to `ADEGenericElement` objects.
+* Moved the CityJSON 0.9 Gson binding to its own `citygson` JAR library, which is now managed and maintained in a separate 
+[GitHub repository](https://github.com/citygml4j/citygson). The Gson binding is useful in its own right to parse and
+write CityJSON data independent of the citygml4j library. So, simply add the new `citygson` lib to your Java project if
+you just want to consume CityJSON data.
+
+##### Fixes
+* Fixed bug in `SAXWriter` that led to missing namespace declarations in rare situations.
+
 ### 2.9.1 - 2019-02-13
 
 ##### Additions
