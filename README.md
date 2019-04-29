@@ -13,9 +13,9 @@ Note that releases of the software before version 2.3.0 continue to be licensed 
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.9.2.
+The latest stable release of citygml4j is 2.10.0.
 
-Download the citygml4j 2.9.2 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.9.2/citygml4j-2.9.2.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.10.0 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.10.0/citygml4j-2.10.0.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
@@ -45,7 +45,7 @@ citygml4j is also available as [Maven](http://maven.apache.org/) artifact from t
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.9.2</version>
+  <version>2.10.0</version>
 </dependency>
 ```
 
@@ -57,7 +57,7 @@ repositories {
 }
 
 dependencies {
-  compile 'org.citygml4j:citygml4j:2.9.2'
+  compile 'org.citygml4j:citygml4j:2.10.0'
 }
 ```
 
