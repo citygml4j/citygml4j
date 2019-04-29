@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+### 2.10.0 - 2019-04-29
+
+##### Additions
+* Added support for CityJSON 1.0 by updating to [citygson 1.0](https://github.com/citygml4j/citygson).
+
+##### Breaking changes
+* Changed `CityJSONExtensionModule` interface to account for the version number of CityJSON Extensions as introduced in CityJSON 1.0.
+
 ### 2.9.2 - 2019-04-18
 
 ##### Additions
