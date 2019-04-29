@@ -21,10 +21,11 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtension;
 import org.citygml4j.builder.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.builder.cityjson.extension.ExtensionModuleVersion;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
+import org.citygml4j.cityjson.extension.ExtensionType;
 import org.citygml4j.cityjson.geometry.VerticesList;
 import org.citygml4j.cityjson.geometry.VerticesListAdapter;
 import org.citygml4j.cityjson.metadata.MetadataType;
@@ -41,7 +42,7 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	protected final Gson gson;
 	
 	protected MetadataType metadata;
-	protected Map<String, String> extensions;
+	protected Map<String, ExtensionType> extensions;
 	
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
@@ -69,20 +70,27 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 		this.metadata = metadata;
 	}
 
-	public void setExtension(String name, String schemaURI) {
+	public void setExtension(String name, ExtensionType extension) {
 		if (extensions == null)
 			extensions = new HashMap<>();
 
-		extensions.put(name, schemaURI);
+		extensions.put(name, extension);
 	}
 
 	public void setExtensions(List<ADEContext> adeContexts) {
 		for (ADEContext adeContext : adeContexts) {
 			if (adeContext instanceof CityJSONExtensionContext) {
-				CityJSONExtension extension = ((CityJSONExtensionContext) adeContext).getCityJSONExtension();
-				for (CityJSONExtensionModule module : extension.getExtensionModules()) {
-					if (module != null && module.getIdentifier() != null && module.getSchemaURI() != null)
-						setExtension(module.getIdentifier(), module.getSchemaURI());
+				for (CityJSONExtensionModule module : ((CityJSONExtensionContext) adeContext).getCityJSONExtension().getExtensionModules()) {
+					if (module != null) {
+						String identifier = module.getIdentifier();
+						String schemaURI = module.getSchemaURI();
+						ExtensionModuleVersion version = module.getVersion();
+
+						if (identifier != null && schemaURI != null && version != null) {
+							ExtensionType extension = new ExtensionType(schemaURI, version.getMajor(), version.getMinor());
+							setExtension(identifier, extension);
+						}
+					}
 				}
 			}
 		}

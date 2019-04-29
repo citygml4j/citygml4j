@@ -22,7 +22,6 @@ package org.citygml4j.builder.cityjson.extension;
 import org.citygml4j.cityjson.extension.ExtensibleType;
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.cityjson.geometry.SemanticsType;
-import org.citygml4j.model.module.ModuleVersion;
 
 import java.lang.reflect.Type;
 import java.net.URL;
@@ -31,12 +30,9 @@ import java.util.Map;
 public interface CityJSONExtensionModule {
     String getIdentifier();
     String getSchemaURI();
+    ExtensionModuleVersion getVersion();
     URL getSchemaResource();
     Map<String, Class<? extends AbstractCityObjectType>> getCityObjects();
     Map<String, Class<? extends SemanticsType>> getSemanticSurfaces();
     Map<Class<? extends ExtensibleType>, Map<String, Type>> getExtensionProperties();
-
-    default ModuleVersion getVersion() {
-        return new ExtensionModuleVersion();
-    }
 }

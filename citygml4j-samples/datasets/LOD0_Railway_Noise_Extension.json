@@ -1,6 +1,6 @@
 {
  "type": "CityJSON",
- "version": "0.9",
+ "version": "1.0",
  "metadata": {
   "referenceSystem": "urn:ogc:def:crs:EPSG::31466",
   "geographicalExtent": [
@@ -16,7 +16,10 @@
   }
  },
  "extensions": {
-  "Noise": "noise.json"
+  "Noise": {
+   "url": "noise.json",
+   "version": "1.0"
+  }
  },
  "CityObjects": {
   "CRW_0815": {

@@ -21,24 +21,54 @@ package org.citygml4j.builder.cityjson.extension;
 import org.citygml4j.model.module.ModuleVersion;
 
 public class ExtensionModuleVersion implements ModuleVersion {
-	private final String value;
+	private final int major;
+	private final int minor;
+	private final int patch;
+	private final String additionalLabel;
 
-	public ExtensionModuleVersion(String value) {
-		this.value = value != null ? value : "undefined";
+	public ExtensionModuleVersion(int major, int minor, int patch, String additionalLabel) {
+		this.major = major;
+		this.minor = minor;
+		this.patch = patch;
+		this.additionalLabel = additionalLabel;
 	}
 
-	ExtensionModuleVersion() {
-		this("undefined");
+	public ExtensionModuleVersion(int major, int minor, int patch) {
+		this(major, minor, patch, null);
+	}
+
+	public ExtensionModuleVersion(int major, int minor) {
+		this(major, minor, 0, null);
+	}
+
+	public int getMajor() {
+		return major;
+	}
+
+	public int getMinor() {
+		return minor;
+	}
+
+	public int getPatch() {
+		return patch;
+	}
+
+	public String getAdditionalLabel() {
+		return additionalLabel;
 	}
 
 	@Override
 	public String getVersionString() {
-		return value;
+		StringBuilder version = new StringBuilder(major).append(".").append(minor).append(patch);
+		if (additionalLabel != null)
+			version.append(additionalLabel);
+
+		return version.toString();
 	}
 
 	@Override
 	public String toString() {
-		return value;
+		return getVersionString();
 	}
 
 }
