@@ -4,7 +4,7 @@ Change Log
 ### 2.10.0 - 2019-04-29
 
 ##### Additions
-* Added support for CityJSON 1.0 by updating to [citygson 1.0](https://github.com/citygml4j/citygson).
+* Added support for CityJSON 1.0 by updating to [citygson 1.0](https://github.com/citygml4j/citygson). Note that previous versions of CityJSON are no longer supported.
 
 ##### Breaking changes
 * Changed `CityJSONExtensionModule` interface to account for the version number of CityJSON Extensions as introduced in CityJSON 1.0 (see [change log](https://github.com/tudelft3d/cityjson/blob/master/changelog.md#100---2019-04-26)).
