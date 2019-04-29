@@ -10,7 +10,7 @@ jar.enabled false
 javadoc.enabled false
 
 ext {
-    noiseADEVersion = '2.4.1'
+    noiseADEVersion = '2.5.0'
 }
 
 configurations {
