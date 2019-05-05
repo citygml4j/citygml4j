@@ -103,7 +103,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			writer.name(TYPE);
 			writer.value(CITYJSON);
 			writer.name(VERSION);
-			writer.value("0.9");
+			writer.value("1.0");
 
 			writer.name(CITY_OBJECTS);
 			writer.beginObject();
