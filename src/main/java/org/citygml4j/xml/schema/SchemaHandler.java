@@ -44,18 +44,18 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SchemaHandler {	
 	private static SchemaHandler instance = null;
 
-	private final HashSet<XSSchemaSet> schemaSets;
-	private final HashMap<String, String> schemaLocations;
-	private final HashMap<String, String> visited;
-	private final HashMap<String, Schema> schemas;
+	private final Set<XSSchemaSet> schemaSets;
+	private final Map<String, String> schemaLocations;
+	private final Map<String, String> visited;
+	private final Map<String, Schema> schemas;
 
 	private EntityResolver schemaEntityResolver;
 	private ErrorHandler schemaErrorHandler;
@@ -101,10 +101,10 @@ public class SchemaHandler {
 
 	private SchemaHandler() {
 		// just to thwart instantiation
-		schemaSets = new HashSet<>();
-		schemaLocations = new HashMap<>();
-		visited = new HashMap<>();
-		schemas = new HashMap<>();
+		schemaSets = ConcurrentHashMap.newKeySet();
+		schemaLocations = new ConcurrentHashMap<>();
+		visited = new ConcurrentHashMap<>();
+		schemas = new ConcurrentHashMap<>();
 	}
 
 	public void reset() {
