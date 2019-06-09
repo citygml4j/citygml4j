@@ -26,6 +26,7 @@ import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.CityJSONRegistry;
 import org.citygml4j.model.citygml.core.CityModel;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
 import java.util.Objects;
 
@@ -40,6 +41,7 @@ public class CityJSONUnmarshaller {
 	private final CityJSONRegistry registry;
 
 	private TextureFileHandler textureFileHandler;
+	private CityGMLInputFilter nameFilter;
 
 	public CityJSONUnmarshaller(TextureFileHandler textureFileHandler) {
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
@@ -91,6 +93,18 @@ public class CityJSONUnmarshaller {
 	
 	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
 		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
+	}
+
+	public boolean isSetCityGMLNameFilter() {
+		return nameFilter != null;
+	}
+
+	public CityGMLInputFilter getCityGMLNameFilter() {
+		return nameFilter;
+	}
+
+	public void setCityGMLNameFilter(CityGMLInputFilter nameFilter) {
+		this.nameFilter = nameFilter;
 	}
 
 	public CityJSONRegistry getCityJSONRegistry() {

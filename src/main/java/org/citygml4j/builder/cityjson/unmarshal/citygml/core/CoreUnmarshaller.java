@@ -62,6 +62,11 @@ import org.citygml4j.model.gml.geometry.primitives.Envelope;
 import org.citygml4j.model.gml.geometry.primitives.LineString;
 import org.citygml4j.model.gml.geometry.primitives.LineStringSegment;
 import org.citygml4j.model.gml.geometry.primitives.LinearRing;
+import org.citygml4j.model.module.Module;
+import org.citygml4j.model.module.Modules;
+import org.citygml4j.model.module.ade.ADEModule;
+import org.citygml4j.model.module.citygml.AppearanceModule;
+import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.model.xal.AddressDetails;
 import org.citygml4j.model.xal.Country;
 import org.citygml4j.model.xal.CountryName;
@@ -77,6 +82,7 @@ import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.util.walker.GeometryWalker;
 
+import javax.xml.namespace.QName;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -215,18 +221,22 @@ public class CoreUnmarshaller {
 			} else
 				cityObject = citygml.unmarshal(type, src);
 
-			if (cityObject instanceof AbstractCityObject)
-				dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
-			else
-				dest.addFeatureMember(new FeatureMember(cityObject));
+			if (!json.isSetCityGMLNameFilter() ||satisfiesCityGMLNameFilter(cityObject)) {
+				if (cityObject instanceof AbstractCityObject)
+					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
+				else
+					dest.addFeatureMember(new FeatureMember(cityObject));
+			}
 
 			// add additional global features
 			if (cityObject.hasLocalProperty(GLOBAL_FEATURES)) {
 				for (AbstractFeature feature : (List<AbstractFeature>) cityObject.getLocalProperty(GLOBAL_FEATURES)) {
-					if (feature instanceof AbstractCityObject)
-						dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) feature));
-					else
-						dest.addFeatureMember(new FeatureMember(feature));
+					if (!json.isSetCityGMLNameFilter() || satisfiesCityGMLNameFilter(feature)) {
+						if (feature instanceof AbstractCityObject)
+							dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) feature));
+						else
+							dest.addFeatureMember(new FeatureMember(feature));
+					}
 				}
 
 				cityObject.unsetLocalProperty(GLOBAL_FEATURES);
@@ -248,8 +258,8 @@ public class CoreUnmarshaller {
 			}
 		});
 
-		// create metadata
-		if (src.isSetMetadata()) {
+		// add metadata
+		if (src.isSetMetadata() && (dest.isSetCityObjectMember() || dest.isSetFeatureMember())) {
 			MetadataType metadata = src.getMetadata();
 
 			if (metadata.isSetGeographicalExtent()) {
@@ -452,7 +462,10 @@ public class CoreUnmarshaller {
 	}
 
 	public boolean hasGlobalAppearances() {
-		return appearanceContainer != null && appearanceContainer.isSetAppearance();
+		return appearanceContainer != null && appearanceContainer.isSetAppearance()
+				&& (!json.isSetCityGMLNameFilter()
+				|| json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v2_0_0.getNamespaceURI(), "Appearance"))
+				|| json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v1_0_0.getNamespaceURI(), "Appearance")));
 	}
 
 	public List<AppearanceMember> getGlobalAppearances() {
@@ -472,5 +485,22 @@ public class CoreUnmarshaller {
 
 		return result;
 	}
-	
+
+	private boolean satisfiesCityGMLNameFilter(AbstractFeature cityObject) {
+		boolean accept = false;
+
+		for (Module module : Modules.getModules()) {
+			if (!(module instanceof CityGMLModule) && !(module instanceof ADEModule))
+				continue;
+
+			QName name = module.getFeatureName(cityObject.getClass());
+			if (name != null && json.getCityGMLNameFilter().accept(name)) {
+				accept = true;
+				break;
+			}
+		}
+
+		return accept;
+	}
+
 }

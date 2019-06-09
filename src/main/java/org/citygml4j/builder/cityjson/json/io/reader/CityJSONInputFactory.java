@@ -21,6 +21,7 @@ package org.citygml4j.builder.cityjson.json.io.reader;
 import com.google.gson.stream.JsonReader;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -47,7 +48,12 @@ public class CityJSONInputFactory {
 	}
 	
 	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityObjectTypeFilter filter) throws CityJSONReadException {
-		reader.setInputFilter(filter);
+		reader.setObjectTypeFilter(filter);
+		return reader;
+	}
+
+	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityGMLInputFilter filter) throws CityJSONReadException {
+		reader.setCityGMLNameFilter(filter);
 		return reader;
 	}
 	

@@ -28,13 +28,10 @@ import org.citygml4j.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.cityjson.feature.CityObjectTypeAdapter;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.cityjson.metadata.MetadataType;
-import org.citygml4j.geometry.BoundingBox;
-import org.citygml4j.geometry.Point;
 import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
 import java.io.IOException;
-import java.util.List;
 
 public class CityJSONReader implements AutoCloseable {
 	private final JsonReader reader;
@@ -42,7 +39,7 @@ public class CityJSONReader implements AutoCloseable {
 	private final CityJSONUnmarshaller unmarshaller;
 	
 	private MetadataType metadata;
-	private CityObjectTypeFilter filter;
+	private CityObjectTypeFilter typeFilter;
 	private boolean processUnknownExtensions;
 
 	public CityJSONReader(JsonReader reader, CityJSONInputFactory factory) {
@@ -56,7 +53,7 @@ public class CityJSONReader implements AutoCloseable {
 	public CityModel read() throws CityJSONReadException {
 		// prepare builder
 		builder.registerTypeAdapter(AbstractCityObjectType.class, new CityObjectTypeAdapter()
-				.withTypeFilter(filter)
+				.withTypeFilter(typeFilter)
 				.processUnknownExtensions(processUnknownExtensions));
 
 		CityJSON cityJSON;
@@ -68,28 +65,9 @@ public class CityJSONReader implements AutoCloseable {
 
 		if (cityJSON != null) {
 			metadata = cityJSON.getMetadata();
-			CityModel cityModel = unmarshaller.unmarshal(cityJSON);
-			
-			if (metadata != null) {
-				if (metadata.isSetGeographicalExtent()) {
-					List<Double> bbox = metadata.getGeographicalExtent();
-					if (bbox.size() > 5) {
-						BoundingShape boundedBy = new BoundingShape();
-						boundedBy.setEnvelope(new BoundingBox(
-								new Point(bbox.get(0), bbox.get(1), bbox.get(2)), 
-								new Point(bbox.get(3), bbox.get(4), bbox.get(5))));
-						
-						if (metadata.isSetReferenceSystem())
-							boundedBy.getEnvelope().setSrsName(metadata.getReferenceSystem());
-						
-						cityModel.setBoundedBy(boundedBy);
-					}
-				}
-			}
-			
-			return cityModel;
+			return unmarshaller.unmarshal(cityJSON);
 		}
-		
+
 		return null;
 	}
 	
@@ -101,8 +79,12 @@ public class CityJSONReader implements AutoCloseable {
 		return metadata;
 	}
 
-	void setInputFilter(CityObjectTypeFilter filter) {
-		this.filter = filter;
+	void setObjectTypeFilter(CityObjectTypeFilter typeFilter) {
+		this.typeFilter = typeFilter;
+	}
+
+	void setCityGMLNameFilter(CityGMLInputFilter nameFilter) {
+		unmarshaller.setCityGMLNameFilter(nameFilter);
 	}
 	
 	@Override
