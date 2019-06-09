@@ -122,6 +122,9 @@ public class AppearanceUnmarshaller {
 							if (coords.isEmpty())
 								return;
 
+							// add first texture coordinate to close ring
+							coords.addAll(coords.subList(0, 2));
+
 							if (!linearRing.isSetId())
 								linearRing.setId(gmlIdManager.generateUUID());
 
