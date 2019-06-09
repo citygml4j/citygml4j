@@ -210,41 +210,36 @@ public class CoreUnmarshaller {
 			AbstractFeature cityObject;
 			if (!json.getCityJSONRegistry().isCoreCityObject(type.getType())) {
 				cityObject = json.getADEUnmarshaller().unmarshalCityObject(type, src, dest);
-				if (cityObject != null && cityObject.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE)) {
-					if (cityObject instanceof AbstractCityObject)
-						dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
-					else
-						dest.addFeatureMember(new FeatureMember(cityObject));
-				}
-			} else {
+				if (cityObject == null || !cityObject.hasLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE))
+					continue;
+			} else
 				cityObject = citygml.unmarshal(type, src);
-				if (cityObject != null)
-					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
+
+			if (cityObject instanceof AbstractCityObject)
+				dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
+			else
+				dest.addFeatureMember(new FeatureMember(cityObject));
+
+			// add additional global features
+			if (cityObject.hasLocalProperty(GLOBAL_FEATURES)) {
+				for (AbstractFeature feature : (List<AbstractFeature>) cityObject.getLocalProperty(GLOBAL_FEATURES)) {
+					if (feature instanceof AbstractCityObject)
+						dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) feature));
+					else
+						dest.addFeatureMember(new FeatureMember(feature));
+				}
+
+				cityObject.unsetLocalProperty(GLOBAL_FEATURES);
 			}
 		}
 
+		// handle global extension properties
 		if (src.isSetExtensionProperties()) {
 			for (Map.Entry<String, Object> entry : src.getExtensionProperties().entrySet()) {
 				if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
 					json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, src, dest);
 			}
 		}
-
-		// postprocess global features
-		dest.accept(new FeatureWalker() {
-			public void visit(AbstractFeature feature) {
-				if (feature.hasLocalProperty(GLOBAL_FEATURES)) {
-					for (AbstractFeature tmp : (List<AbstractFeature>) feature.getLocalProperty(GLOBAL_FEATURES)) {
-						if (tmp instanceof AbstractCityObject)
-							dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) tmp));
-						else
-							dest.addFeatureMember(new FeatureMember(tmp));
-					}
-
-					feature.unsetLocalProperty(GLOBAL_FEATURES);
-				}
-			}
-		});
 
 		// postprocess group members
 		dest.accept(new FeatureWalker() {
@@ -253,6 +248,7 @@ public class CoreUnmarshaller {
 			}
 		});
 
+		// create metadata
 		if (src.isSetMetadata()) {
 			MetadataType metadata = src.getMetadata();
 
