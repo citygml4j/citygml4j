@@ -186,7 +186,7 @@ public class WritingCityJSON {
 		CityGMLOutputFactory cityGMLOut = cityGMLBuilder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0);
 
 		try (CityGMLWriter writer = cityGMLOut.createCityGMLWriter(new File("output/SimpleCityGML.gml"))) {
-			writer.setPrefixes(CityGMLVersion.v2_0_0);			
+			writer.setPrefixes(CityGMLVersion.v2_0_0);
 			writer.setIndentString(" ");
 			writer.write(cityModel);
 		}

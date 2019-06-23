@@ -25,9 +25,8 @@ import org.citygml4j.builder.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
 import org.citygml4j.builder.cityjson.extension.ExtensionModuleVersion;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
+import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
 import org.citygml4j.cityjson.extension.ExtensionType;
-import org.citygml4j.cityjson.geometry.VerticesList;
-import org.citygml4j.cityjson.geometry.VerticesListAdapter;
 import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 
@@ -46,20 +45,22 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
-		
+
 		marshaller = new CityJSONMarshaller(factory.verticesBuilder,
 				factory.textureVerticesBuilder,
 				factory.textureFileHandler,
 				factory.templatesVerticesBuilder);
-		GsonBuilder builder = new GsonBuilder();
-		
+		CityJSONTypeAdapterFactory typeAdapterFactory = new CityJSONTypeAdapterFactory();
+
 		// apply transformation to vertices
 		if (factory.verticesTransformer != null) {
 			marshaller.setVerticesTransformer(factory.verticesTransformer);
-			builder.registerTypeAdapter(VerticesList.class, new VerticesListAdapter().serializeAsInteger(true));
+			typeAdapterFactory.serializeVerticesAsInteger(true);
 		}
-		
-		gson = builder.create();
+
+		gson = new GsonBuilder()
+				.registerTypeAdapterFactory(typeAdapterFactory)
+				.create();
 	}
 
 	public MetadataType getMetadata() {

@@ -20,6 +20,7 @@
 package cityjson.handling_extensions.using_gson;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -27,6 +28,7 @@ import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.CityJSONRegistry;
+import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
 import org.citygml4j.cityjson.feature.AbstractBuildingType;
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.cityjson.feature.BuildingAttributes;
@@ -54,10 +56,12 @@ public class CreateExtensions {
     public static void main(String[] args) throws Exception {
         SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-        // creating a Gson instance. Note that we have to define the
-        // date format as specified by CityJSON
+        // creating a Gson instance. Note that we have to register
+        // the CityJSONTypeAdapterFactory.
         System.out.println(df.format(new Date()) + "setting up Gson builder");
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new CityJSONTypeAdapterFactory())
+                .create();
 
         // we are using a helper class for building the CityJSON "vertices" array.
         // this helper class makes sure that there are no duplicate vertices

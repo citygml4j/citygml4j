@@ -19,12 +19,14 @@
 package cityjson.reading_cityjson.using_gson;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.CityJSONBuilder;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.cityjson.feature.Attributes;
 import org.citygml4j.cityjson.geometry.AbstractGeometryType;
@@ -50,9 +52,12 @@ public class GsonReader {
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
-		// creating a Gson instance.
+		// creating a Gson instance. Note that we have to register
+		// the CityJSONTypeAdapterFactory.
 		System.out.println(df.format(new Date()) + "setting up Gson builder and reader");
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapterFactory(new CityJSONTypeAdapterFactory())
+				.create();
 
 		JsonReader reader = new JsonReader(new FileReader(new File("datasets/LOD3_Railway.json")));
 

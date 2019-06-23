@@ -19,12 +19,14 @@
 package cityjson.writing_cityjson.using_gson;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
 import org.citygml4j.cityjson.feature.BuildingAttributes;
 import org.citygml4j.cityjson.feature.BuildingType;
 import org.citygml4j.cityjson.geometry.SemanticsType;
@@ -55,10 +57,12 @@ public class GsonWriter {
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
 
-		// creating a Gson instance. Note that we have to define the
-		// date format as specified by CityJSON
+		// creating a Gson instance. Note that we have to register
+		// the CityJSONTypeAdapterFactory.
 		System.out.println(df.format(new Date()) + "setting up Gson builder");
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapterFactory(new CityJSONTypeAdapterFactory())
+				.create();
 		
 		/*
 		 * step 1: create an LOD2 building using the Gson binding classes for CityJSON
