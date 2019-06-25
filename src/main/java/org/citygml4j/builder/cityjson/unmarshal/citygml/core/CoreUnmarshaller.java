@@ -87,6 +87,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +103,7 @@ public class CoreUnmarshaller {
 	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
 	private AbstractCityObject appearanceContainer;
 	private GMLIdManager gmlIdManager;
+	private boolean releaseCityJSONContent = true;
 
 	private final String UNMARSHAL_AS_GLOBAL_FEATURE = "org.citygml4j.unmarshal.asGlobalFeature";
 	private final String GLOBAL_FEATURES = "org.citygml4j.unmarshal.globalFeature";
@@ -196,22 +198,15 @@ public class CoreUnmarshaller {
 
 	@SuppressWarnings("unchecked")
 	public void unmarshalCityModel(CityJSON src, CityModel dest) {
-		// collect nested objects
-		Set<AbstractCityObjectType> nested = Collections.newSetFromMap(new IdentityHashMap<>());
+		// collect top-level objects
+		Set<AbstractCityObjectType> topLevel = Collections.newSetFromMap(new IdentityHashMap<>());
 		for (AbstractCityObjectType type : src.getCityObjects()) {
-			if (type.isSetChildren()) {
-				for (String gmlId : type.getChildren()) {
-					AbstractCityObjectType child = src.getCityObject(gmlId);
-					if (child != null)
-						nested.add(child);
-				}
-			}
+			if (!type.isSetParent())
+				topLevel.add(type);
 		}
 
-		for (AbstractCityObjectType type : src.getCityObjects()) {
-			// nested objects are handled separately, so skip them here
-			if (nested.contains(type))
-				continue;
+		for (Iterator<AbstractCityObjectType> iter = topLevel.iterator(); iter.hasNext(); ) {
+			AbstractCityObjectType type = iter.next();
 
 			AbstractFeature cityObject;
 			if (!json.getCityJSONRegistry().isCoreCityObject(type.getType())) {
@@ -240,6 +235,16 @@ public class CoreUnmarshaller {
 				}
 
 				cityObject.unsetLocalProperty(GLOBAL_FEATURES);
+			}
+
+			// release CityJSON content from main memory
+			if (releaseCityJSONContent) {
+				// recursively release children
+				releaseObjectHierachy(type, src);
+
+				// remove object itself
+				src.removeCityObject(type.getGmlId());
+				iter.remove();
 			}
 		}
 
@@ -486,6 +491,18 @@ public class CoreUnmarshaller {
 		return result;
 	}
 
+	private void releaseObjectHierachy(AbstractCityObjectType parent, CityJSON src) {
+		if (parent.isSetChildren()) {
+			for (String gmlId : parent.getChildren()) {
+				AbstractCityObjectType child = src.getCityObject(gmlId);
+				if (child.isSetParent() && child.getParents().size() == 1) {
+					releaseObjectHierachy(child, src);
+					src.removeCityObject(gmlId);
+				}
+			}
+		}
+	}
+
 	private boolean satisfiesCityGMLNameFilter(AbstractFeature cityObject) {
 		boolean accept = false;
 
@@ -503,4 +520,11 @@ public class CoreUnmarshaller {
 		return accept;
 	}
 
+	public boolean isReleaseCityJSONContent() {
+		return releaseCityJSONContent;
+	}
+
+	public void setReleaseCityJSONContent(boolean releaseCityJSONContent) {
+		this.releaseCityJSONContent = releaseCityJSONContent;
+	}
 }

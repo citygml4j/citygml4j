@@ -42,6 +42,7 @@ public class CityJSONUnmarshaller {
 
 	private TextureFileHandler textureFileHandler;
 	private CityGMLInputFilter nameFilter;
+	private boolean releaseCityJSONContent = true;
 
 	public CityJSONUnmarshaller(TextureFileHandler textureFileHandler) {
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
@@ -71,6 +72,17 @@ public class CityJSONUnmarshaller {
 
 		if (dest != null && citygml.getCoreUnmarshaller().hasGlobalAppearances())
 			dest.setAppearanceMember(citygml.getCoreUnmarshaller().getGlobalAppearances());
+
+		if (releaseCityJSONContent) {
+			src.unsetMetadata();
+			src.unsetExtensions();
+			src.unsetExtensionProperties();
+			src.unsetCityObjects();
+			src.unsetVertices();
+			src.unsetTransform();
+			src.unsetGeometryTemplates();
+			src.unsetAppearance();
+		}
 
 		return dest;
 	}
@@ -109,5 +121,14 @@ public class CityJSONUnmarshaller {
 
 	public CityJSONRegistry getCityJSONRegistry() {
 		return registry;
+	}
+
+	public boolean isReleaseCityJSONContent() {
+		return releaseCityJSONContent;
+	}
+
+	public void setReleaseCityJSONContent(boolean releaseCityJSONContent) {
+		this.releaseCityJSONContent = releaseCityJSONContent;
+		citygml.getCoreUnmarshaller().setReleaseCityJSONContent(releaseCityJSONContent);
 	}
 }
