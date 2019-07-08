@@ -15,7 +15,7 @@ Latest release
 --------------
 The latest stable release of citygml4j is 2.10.1.
 
-Download the citygml4j 2.10.0 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.10.1/citygml4j-2.10.1.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
+Download the citygml4j 2.10.1 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.10.1/citygml4j-2.10.1.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 Contributing
 ------------
