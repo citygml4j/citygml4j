@@ -201,7 +201,7 @@ public class CoreUnmarshaller {
 		// collect top-level objects
 		Set<AbstractCityObjectType> topLevel = Collections.newSetFromMap(new IdentityHashMap<>());
 		for (AbstractCityObjectType type : src.getCityObjects()) {
-			if (!type.isSetParent())
+			if (!type.isSetParents())
 				topLevel.add(type);
 		}
 
@@ -495,7 +495,7 @@ public class CoreUnmarshaller {
 		if (parent.isSetChildren()) {
 			for (String gmlId : parent.getChildren()) {
 				AbstractCityObjectType child = src.getCityObject(gmlId);
-				if (child.isSetParent() && child.getParents().size() == 1) {
+				if (child.isSetParents() && child.getParents().size() == 1) {
 					releaseObjectHierachy(child, src);
 					src.removeCityObject(gmlId);
 				}
