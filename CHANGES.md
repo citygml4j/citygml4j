@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+### 2.10.1 - 2019-07-08
+
+##### Additions
+* Updated to citygson version 1.1.0.
+  * This version reduces the memory footprint when reading CityJSON files.
+* CityJSON content is released from memory while mapping to citygml4j objects.
+* Added CityGML name filter to CityJSON reader.
+
+##### Fixes
+* Fixed concurrency issues in `SchemaHandler`.
+* Fixed unclosed texture coordinate rings in CityJSON to CityGML converter.
+
 ### 2.10.0 - 2019-04-29
 
 ##### Additions
