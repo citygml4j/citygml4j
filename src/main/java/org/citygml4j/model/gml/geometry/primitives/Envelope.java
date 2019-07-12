@@ -101,7 +101,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public boolean isSetLowerCorner() {
-		return lowerCorner != null;
+		return lowerCorner != null && lowerCorner.isSetValue();
 	}
 
 	public boolean isSetPos() {
@@ -109,7 +109,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 	}
 
 	public boolean isSetUpperCorner() {
-		return upperCorner != null;
+		return upperCorner != null && upperCorner.isSetValue();
 	}
 
 	public void setCoord(List<Coord> coord) {
