@@ -39,10 +39,12 @@ import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.citygml.generics.UriAttribute;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.basicTypes.Measure;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -174,7 +176,8 @@ public class GenericsMarshaller {
 	private Object marshalGenericAttribute(AbstractGenericAttribute src) {
 		switch (src.getCityGMLClass()) {
 			case DATE_ATTRIBUTE:
-				return ((DateAttribute) src).getValue().format(DateTimeFormatter.ISO_LOCAL_DATE);
+				LocalDate date = ((DateAttribute) src).getValue();
+				return date != null ? date.format(DateTimeFormatter.ISO_LOCAL_DATE) : null;
 			case DOUBLE_ATTRIBUTE:
 				return ((DoubleAttribute) src).getValue();
 			case INT_ATTRIBUTE:
@@ -184,13 +187,14 @@ public class GenericsMarshaller {
 			case URI_ATTRIBUTE:
 				return ((UriAttribute) src).getValue();
 			case MEASURE_ATTRIBUTE:
-				return ((MeasureAttribute) src).getValue();
+				Measure measure = ((MeasureAttribute) src).getValue();
+				return measure != null ? measure.getValue() : null;
 			case GENERIC_ATTRIBUTE_SET:
 				GenericAttributeSet attributeSet = (GenericAttributeSet) src;
 				boolean isObject = attributeSet.getGenericAttribute().stream().anyMatch(a -> !"item".equalsIgnoreCase(a.getName()));
 
 				if (isObject) {
-					Map<String, Object> result = new HashMap<>();
+					Map<String, Object> result = new LinkedHashMap<>();
 					for (AbstractGenericAttribute attribute : attributeSet.getGenericAttribute()) {
 						Object value = marshalGenericAttribute(attribute);
 						if (value != null)
