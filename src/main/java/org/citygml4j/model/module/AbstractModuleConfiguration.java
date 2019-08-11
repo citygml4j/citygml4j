@@ -18,10 +18,11 @@
  */
 package org.citygml4j.model.module;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class AbstractModuleConfiguration {
+public class AbstractModuleConfiguration implements Serializable {
 	protected Module[] modules;
 	
 	public <T extends Module> AbstractModuleConfiguration(T[] modules) {

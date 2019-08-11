@@ -18,6 +18,8 @@
  */
 package org.citygml4j.model.module;
 
-public interface ModuleVersion {
+import java.io.Serializable;
+
+public interface ModuleVersion extends Serializable {
     String getVersionString();
 }

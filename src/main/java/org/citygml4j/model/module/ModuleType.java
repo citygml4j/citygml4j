@@ -18,6 +18,8 @@
  */
 package org.citygml4j.model.module;
 
-public interface ModuleType {
+import java.io.Serializable;
+
+public interface ModuleType extends Serializable {
 
 }
