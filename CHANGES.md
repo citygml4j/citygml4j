@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+### 2.10.2 - 2019-08-11
+
+##### Fixes
+* Fixed `IndexOutOfBoundsException` if `gml:Envelope` is declared but empty. [citygml-tools #5](https://github.com/citygml4j/citygml-tools/issues/5)
+* Fixed converting gen:measureAttribute to CityJSON. [#22](https://github.com/citygml4j/citygml4j/issues/22)
+* Added missing `Serializable` interface to model classes and interfaces.
+
 ### 2.10.1 - 2019-07-08
 
 ##### Additions
