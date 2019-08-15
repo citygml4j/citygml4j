@@ -1,6 +1,7 @@
 package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
+import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.deprecated.WeakCityObjectReferenceAdapter;
 import org.citygml4j.adapter.xml.dynamizer.DynamizerPropertyAdapter;
 import org.citygml4j.adapter.xml.generics.AbstractGenericAttributePropertyAdapter;
@@ -18,9 +19,14 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
@@ -85,5 +91,19 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
             object.getADEPropertiesOfAbstractCityObject().add(GenericADEPropertyOfAbstractCityObject.of(reader.getDOMElement()));
         else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.writeChildElements(object, namespaces, writer);
+        String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace);
+
+        for (ExternalReferenceProperty property : object.getExternalReferences()) {
+            if (isCityGML3)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property, ExternalReferencePropertyAdapter.class, namespaces);
+            else
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
+        }
     }
 }

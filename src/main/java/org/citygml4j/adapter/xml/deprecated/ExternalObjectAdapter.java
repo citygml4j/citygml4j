@@ -1,15 +1,22 @@
 package org.citygml4j.adapter.xml.deprecated;
 
+import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.deprecated.ExternalObject;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuilder;
+import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public class ExternalObjectAdapter implements ObjectBuilder<ExternalObject> {
+public class ExternalObjectAdapter implements ObjectBuilder<ExternalObject>, ObjectSerializer<ExternalObject> {
 
     @Override
     public ExternalObject createObject(QName name) {
@@ -29,5 +36,15 @@ public class ExternalObjectAdapter implements ObjectBuilder<ExternalObject> {
                     break;
             }
         }
+    }
+
+    @Override
+    public void writeChildElements(ExternalObject object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
+
+        if (object.isSetName())
+            writer.writeElement(Element.of(coreNamespace, "name").addTextContent(object.getName()));
+        else if (object.isSetURI())
+            writer.writeElement(Element.of(coreNamespace, "uri").addTextContent(object.getURI()));
     }
 }

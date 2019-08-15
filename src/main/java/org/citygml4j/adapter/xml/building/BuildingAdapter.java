@@ -1,5 +1,6 @@
 package org.citygml4j.adapter.xml.building;
 
+import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.AbstractCityObjectAdapter;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.util.CityGMLConstants;
@@ -25,6 +26,6 @@ public class BuildingAdapter extends AbstractCityObjectAdapter<Building> {
 
     @Override
     public Element createElement(Building object, Namespaces namespaces) throws ObjectSerializeException {
-        return null;
+        return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "Building");
     }
 }

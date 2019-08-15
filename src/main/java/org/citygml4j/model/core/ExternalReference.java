@@ -5,6 +5,7 @@ import org.xmlobjects.gml.model.GMLObject;
 
 public class ExternalReference extends GMLObject implements CityGMLObject {
     private String targetResource;
+    private String externalObjectName;
     private String informationSystem;
     private String relationType;
 
@@ -15,12 +16,36 @@ public class ExternalReference extends GMLObject implements CityGMLObject {
         this.targetResource = targetResource;
     }
 
+    public static ExternalReference ofExternalObjectName(String externalObjectName) {
+        ExternalReference externalReference = new ExternalReference();
+        externalReference.setExternalObjectName(externalObjectName);
+        return externalReference;
+    }
+
     public String getTargetResource() {
         return targetResource;
     }
 
+    public boolean isSetTargetResource() {
+        return targetResource != null;
+    }
+
     public void setTargetResource(String targetResource) {
         this.targetResource = targetResource;
+        externalObjectName = null;
+    }
+
+    public String getExternalObjectName() {
+        return externalObjectName;
+    }
+
+    public boolean isSetExternalObjectName() {
+        return externalObjectName != null;
+    }
+
+    public void setExternalObjectName(String externalObjectName) {
+        this.externalObjectName = externalObjectName;
+        targetResource = null;
     }
 
     public String getInformationSystem() {

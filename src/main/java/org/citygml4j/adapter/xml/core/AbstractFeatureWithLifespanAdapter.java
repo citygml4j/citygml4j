@@ -1,6 +1,7 @@
 package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
+import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractFeatureWithLifespan;
 import org.citygml4j.model.core.ADEPropertyOfAbstractFeatureWithLifespan;
 import org.citygml4j.model.core.AbstractFeatureWithLifespan;
@@ -9,10 +10,16 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.BuildResult;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
+import org.xmlobjects.xml.TextContent;
 
 import javax.xml.namespace.QName;
 
@@ -55,5 +62,36 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
                     object.getGenericProperties().add(GenericElement.of(result.getDOMElement()));
             }
         }
+    }
+
+    @Override
+    public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.writeChildElements(object, namespaces, writer);
+        String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
+
+        if (object.getCreationDate() != null) {
+            TextContent creationDate = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace) ?
+                    TextContent.ofDateTime(object.getCreationDate()) :
+                    TextContent.ofDate(object.getCreationDate());
+            writer.writeElement(Element.of(coreNamespace, "creationDate").addTextContent(creationDate));
+        }
+
+        if (object.getTerminationDate() != null) {
+            TextContent terminationDate = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace) ?
+                    TextContent.ofDateTime(object.getTerminationDate()) :
+                    TextContent.ofDate(object.getTerminationDate());
+            writer.writeElement(Element.of(coreNamespace, "terminationDate").addTextContent(terminationDate));
+        }
+
+        if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
+            if (object.getValidFrom() != null)
+                writer.writeElement(Element.of(coreNamespace, "validFrom").addTextContent(TextContent.ofDateTime(object.getValidFrom())));
+
+            if (object.getValidTo() != null)
+                writer.writeElement(Element.of(coreNamespace, "validTo").addTextContent(TextContent.ofDateTime(object.getValidTo())));
+        }
+
+        for (ADEPropertyOfAbstractFeatureWithLifespan property : object.getADEPropertiesOfAbstractFeatureWithLifespan())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }
