@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:om="http://www.opengis.net/om/2.0" xmlns:sos="http://www.opengis.net/sos/2.0" targetNamespace="http://www.opengis.net/sos/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.1">
+	<annotation>
+		<documentation>			
+			SOS is an OGC Standard.
+			Copyright (c) 2012 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
+	</annotation>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <import namespace="http://www.opengis.net/om/2.0" schemaLocation="../../om/2.0/observation.xsd"/>
+  <import namespace="http://www.opengis.net/swes/2.0" schemaLocation="../../swes/2.0/swes.xsd"/>
+	<include schemaLocation="sos.xsd"/>
+	<!-- ================================================= -->
+	<element name="InsertObservationResponse" type="sos:InsertObservationResponseType" substitutionGroup="swes:ExtensibleResponse">
+		<annotation>
+			<documentation>return of this response indicates successful insertion of the observations</documentation>
+		</annotation>
+	</element>
+	<complexType name="InsertObservationResponseType">
+		<complexContent>
+			<extension base="swes:ExtensibleResponseType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="InsertObservationResponsePropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:InsertObservationResponse"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+	<!-- ================================================= -->
+	<element name="InsertObservation" type="sos:InsertObservationType" substitutionGroup="swes:ExtensibleRequest">
+		<annotation>
+			<documentation>request to insert new observations for a registered sensor</documentation>
+		</annotation>
+	</element>
+	<complexType name="InsertObservationType">
+		<complexContent>
+			<extension base="swes:ExtensibleRequestType">
+				<sequence>
+					<element name="offering" type="anyURI" maxOccurs="unbounded">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ObservationOffering</gml:targetElement>
+							</appinfo>
+							<documentation>pointer to an ObservationOffering to which the observation shall be added</documentation>
+						</annotation>
+					</element>
+					<element name="observation" maxOccurs="unbounded">
+						<annotation>
+							<documentation>observation to insert</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="om:OM_Observation"/>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="InsertObservationPropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:InsertObservation"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+</schema>

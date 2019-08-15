@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" targetNamespace="http://www.opengis.net/swes/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+  <annotation>
+    <documentation>All-components schema for the SWE Service Model namespace.
+    
+    SWES is an OGC Standard.
+    Copyright (c) 2010, 2011 Open Geospatial Consortium, Inc. All Rights Reserved. 
+    To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+    </documentation>
+  </annotation>
+  <include schemaLocation="swesCommon.xsd"/>
+  <include schemaLocation="swesUpdateSensorDescription.xsd"/>
+  <include schemaLocation="swesInsertSensor.xsd"/>
+  <include schemaLocation="swesContents.xsd"/>
+  <include schemaLocation="swesDescribeSensor.xsd"/>
+  <include schemaLocation="swesDeleteSensor.xsd"/>
+  <include schemaLocation="swesNotification.xsd"/>
+</schema>

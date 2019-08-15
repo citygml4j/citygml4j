@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gen="http://www.opengis.net/citygml/generics/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/generics/3.0" version="3.0.0">
+  <annotation>
+    <documentation>"SIG3D: Generic Attribute of type ""date""."</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericAttribute" substitutionGroup="gml:AbstractObject" type="gen:AbstractGenericAttributeType"/>
+  <complexType abstract="true" name="AbstractGenericAttributeType">
+    <sequence>
+      <element name="name" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="AbstractGenericAttributePropertyType">
+    <sequence>
+      <element ref="gen:AbstractGenericAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="DateAttribute" substitutionGroup="gen:AbstractGenericAttribute" type="gen:DateAttributeType">
+    <annotation>
+      <documentation>SIG3D: Generic Attribute of type "date".</documentation>
+    </annotation>
+  </element>
+  <complexType name="DateAttributeType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element name="value" type="date">
+            <annotation>
+              <documentation>SIG3D: Value of the Generic Attribute.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DateAttributePropertyType">
+    <sequence>
+      <element ref="gen:DateAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="DoubleAttribute" substitutionGroup="gen:AbstractGenericAttribute" type="gen:DoubleAttributeType">
+    <annotation>
+      <documentation>SIG3D: Generic Attribute of type "double".</documentation>
+    </annotation>
+  </element>
+  <complexType name="DoubleAttributeType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element name="value" type="double">
+            <annotation>
+              <documentation>SIG3D: Value of the Generic Attribute.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DoubleAttributePropertyType">
+    <sequence>
+      <element ref="gen:DoubleAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="GenericAttributeSet" substitutionGroup="gen:AbstractGenericAttribute" type="gen:GenericAttributeSetType">
+    <annotation>
+      <documentation>SIG3D: Set of Generic Attributes.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GenericAttributeSetType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element minOccurs="0" name="codeSpace" type="anyURI">
+            <annotation>
+              <documentation>SIG3D: Codespace idcentifier of the Generic AttributeSet.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="genericAttribute" type="gen:AbstractGenericAttributePropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericAttributeSetPropertyType">
+    <sequence>
+      <element ref="gen:GenericAttributeSet"/>
+    </sequence>
+  </complexType>
+  <element name="GenericCityObjectRelation" substitutionGroup="core:CityObjectRelation" type="gen:GenericCityObjectRelationType"/>
+  <complexType name="GenericCityObjectRelationType">
+    <complexContent>
+      <extension base="core:CityObjectRelationType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="gen:AbstractGenericAttributePropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericCityObjectRelationPropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericCityObjectRelation"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericLogicalSpace" type="anyType"/>
+  <element name="GenericLogicalSpace" substitutionGroup="core:AbstractLogicalSpace" type="gen:GenericLogicalSpaceType"/>
+  <complexType name="GenericLogicalSpaceType">
+    <complexContent>
+      <extension base="core:AbstractLogicalSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericLogicalSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericLogicalSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericLogicalSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericOccupiedSpace" type="anyType"/>
+  <element name="GenericOccupiedSpace" substitutionGroup="core:AbstractOccupiedSpace" type="gen:GenericOccupiedSpaceType"/>
+  <complexType name="GenericOccupiedSpaceType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericOccupiedSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericOccupiedSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericOccupiedSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericThematicSurface" type="anyType"/>
+  <element name="GenericThematicSurface" substitutionGroup="core:AbstractThematicSurface" type="gen:GenericThematicSurfaceType"/>
+  <complexType name="GenericThematicSurfaceType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericThematicSurface"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericThematicSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericThematicSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericUnoccupiedSpace" type="anyType"/>
+  <element name="GenericUnoccupiedSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="gen:GenericUnoccupiedSpaceType"/>
+  <complexType name="GenericUnoccupiedSpaceType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericUnoccupiedSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericUnoccupiedSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericUnoccupiedSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="IntAttribute" substitutionGroup="gen:AbstractGenericAttribute" type="gen:IntAttributeType">
+    <annotation>
+      <documentation>SIG3D: Generic Attribute of type "integer".</documentation>
+    </annotation>
+  </element>
+  <complexType name="IntAttributeType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element name="value" type="integer">
+            <annotation>
+              <documentation>SIG3D: Value of the Generic Attribute.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="IntAttributePropertyType">
+    <sequence>
+      <element ref="gen:IntAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="MeasureAttribute" substitutionGroup="gen:AbstractGenericAttribute" type="gen:MeasureAttributeType">
+    <annotation>
+      <documentation>SIG3D: Generic Attribute of type "Measure" (double-attribute with explicit specification of a unit-of-measurement).</documentation>
+    </annotation>
+  </element>
+  <complexType name="MeasureAttributeType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element name="value" type="gml:MeasureType">
+            <annotation>
+              <documentation>SIG3D: Value of the Generic Attribute.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MeasureAttributePropertyType">
+    <sequence>
+      <element ref="gen:MeasureAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="StringAttribute" substitutionGroup="gen:AbstractGenericAttribute" type="gen:StringAttributeType">
+    <annotation>
+      <documentation>SIG3D: Generic Attribute of type "string".</documentation>
+    </annotation>
+  </element>
+  <complexType name="StringAttributeType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element name="value" type="string">
+            <annotation>
+              <documentation>SIG3D: Value of the Generic Attribute.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="StringAttributePropertyType">
+    <sequence>
+      <element ref="gen:StringAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="UriAttribute" substitutionGroup="gen:AbstractGenericAttribute" type="gen:UriAttributeType">
+    <annotation>
+      <documentation>SIG3D: Generic Attribute of type "URI".</documentation>
+    </annotation>
+  </element>
+  <complexType name="UriAttributeType">
+    <complexContent>
+      <extension base="gen:AbstractGenericAttributeType">
+        <sequence>
+          <element name="value" type="anyURI">
+            <annotation>
+              <documentation>SIG3D: Value of the Generic Attribute.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UriAttributePropertyType">
+    <sequence>
+      <element ref="gen:UriAttribute"/>
+    </sequence>
+  </complexType>
+</schema>

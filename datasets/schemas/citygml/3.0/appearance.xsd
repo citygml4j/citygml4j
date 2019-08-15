@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:app="http://www.opengis.net/citygml/appearance/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/appearance/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSurfaceData" type="anyType"/>
+  <element abstract="true" name="AbstractSurfaceData" substitutionGroup="gml:AbstractFeature" type="app:AbstractSurfaceDataType">
+    <annotation>
+      <documentation>SIG3D: Abstract superclass of X3DMaterial and AbstractTexture</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractSurfaceDataType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element default="true" minOccurs="0" name="isFront" type="boolean">
+            <annotation>
+              <documentation>SIG3D: Indicates whether the X3DMaterial, GeoreferencedTexture or, ParametrizedTexture is assigned to the front side or back side of the surface</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfAbstractSurfaceData"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractSurfaceDataPropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:AbstractSurfaceData"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTexture" type="anyType"/>
+  <element abstract="true" name="AbstractTexture" substitutionGroup="app:AbstractSurfaceData" type="app:AbstractTextureType">
+    <annotation>
+      <documentation>SIG3D: Abstract super class of ParameterizedTexture and GeoreferencedTexture</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractTextureType">
+    <complexContent>
+      <extension base="app:AbstractSurfaceDataType">
+        <sequence>
+          <element name="imageURI" type="anyURI">
+            <annotation>
+              <documentation>SIG3D: URI identifying the image data resource for the texture</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="mimeType" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Mime type describing the data format of the image resource</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="textureType" type="app:TextureTypeType">
+            <annotation>
+              <documentation>"SIG3D: Distinction between prototypical (value ""typical""), object specific (value ""specific"") textures, and textures with unknown classification (value ""unknown"")."</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="wrapMode" type="app:WrapModeType">
+            <annotation>
+              <documentation>Collada: Definition of behavior when accessing the texture outside the underlying image raster</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="borderColor" type="app:ColorPlusOpacityType">
+            <annotation>
+              <documentation>SIG3D: Color definition for texture borders.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfAbstractTexture"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractTexturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:AbstractTexture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractTextureParameterization" substitutionGroup="gml:AbstractObject" type="app:AbstractTextureParameterizationType">
+    <annotation>
+      <documentation>SIG3D: Abstract superclass of TexCoordGen and TextCoordList</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractTextureParameterizationType">
+    <sequence/>
+  </complexType>
+  <complexType name="AbstractTextureParameterizationPropertyType">
+    <sequence>
+      <element ref="app:AbstractTextureParameterization"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAppearance" type="anyType"/>
+  <element name="Appearance" substitutionGroup="core:AbstractFeatureWithLifespan" type="app:AppearanceType">
+    <annotation>
+      <documentation>SIG3D: Named container for all AbstractSurfaceData</documentation>
+    </annotation>
+  </element>
+  <complexType name="AppearanceType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element minOccurs="0" name="theme" type="string">
+            <annotation>
+              <documentation>SIG3D: Theme name for all surfaceDataMembers. A theme is a catagory defining the semantics of the referenced surfaceDataMembers (e.g. infrared radiation,</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="surfaceData">
+            <annotation>
+              <documentation>SIG3D: List of surface data properties for the current appearance theme</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="app:AbstractSurfaceData"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfAppearance"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AppearancePropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:Appearance"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <simpleType name="ColorType">
+    <restriction base="core:DoubleBetween0and1ListType">
+      <length value="3"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="ColorPlusOpacityType">
+    <restriction base="core:DoubleBetween0and1ListType">
+      <minLength value="3"/>
+      <maxLength value="4"/>
+    </restriction>
+  </simpleType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGeoreferencedTexture" type="anyType"/>
+  <element name="GeoreferencedTexture" substitutionGroup="app:AbstractTexture" type="app:GeoreferencedTextureType">
+    <annotation>
+      <documentation>SIG3D: Specialized class for georeferenced textures containing an implicit parametrization that is either stored within the image file, an acompanying world file</documentation>
+    </annotation>
+  </element>
+  <complexType name="GeoreferencedTextureType">
+    <complexContent>
+      <extension base="app:AbstractTextureType">
+        <sequence>
+          <element default="true" minOccurs="0" name="preferWorldFile" type="boolean">
+            <annotation>
+              <documentation>SIG3D: Flag for defining the precedence of an accompanying worldfile before the georeference included in the image source. If this value is false, the world file</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="referencePoint" type="gml:PointPropertyType">
+            <annotation>
+              <documentation>SIG3D: Defines the location of the center of the upper left image pixel in world space.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="orientation" type="core:TransformationMatrix2x2Type">
+            <annotation>
+              <documentation>SIG3D: Defines the rotation and scaling of the image in form of a 2x2 matrix (a list of 4 doubles in row-major order).</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="target" type="anyURI">
+            <annotation>
+              <documentation>SIG3D: Geometry object which is associated with the texture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfGeoreferencedTexture"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GeoreferencedTexturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:GeoreferencedTexture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfParameterizedTexture" type="anyType"/>
+  <element name="ParameterizedTexture" substitutionGroup="app:AbstractTexture" type="app:ParameterizedTextureType">
+    <annotation>
+      <documentation>SIG3D: Specialization of AbstractTexture to describe  textures with specified transformation or texture coordinates.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ParameterizedTextureType">
+    <complexContent>
+      <extension base="app:AbstractTextureType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="textureParameterization" type="app:TextureAssociationPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfParameterizedTexture"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ParameterizedTexturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:ParameterizedTexture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="TexCoordGen" substitutionGroup="app:AbstractTextureParameterization" type="app:TexCoordGenType">
+    <annotation>
+      <documentation>SIG3D: Texture parameterization using a transformation matrix.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TexCoordGenType">
+    <complexContent>
+      <extension base="app:AbstractTextureParameterizationType">
+        <sequence>
+          <element name="worldToTexture" type="core:TransformationMatrix3x4Type">
+            <annotation>
+              <documentation>SIG3D: 3x4 Matrix that defines the transformation between world coordinates and texture coordinates.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+        <attributeGroup ref="gml:SRSReferenceGroup"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TexCoordGenPropertyType">
+    <sequence>
+      <element ref="app:TexCoordGen"/>
+    </sequence>
+  </complexType>
+  <element name="TexCoordList" substitutionGroup="app:AbstractTextureParameterization" type="app:TexCoordListType">
+    <annotation>
+      <documentation>SIG3D: Texture parameterization using explicit texture coordinates (a list of pairs of 2 double values). Each ring that is part of the surface requires a TexCoordList object.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TexCoordListType">
+    <complexContent>
+      <extension base="app:AbstractTextureParameterizationType">
+        <sequence>
+          <element maxOccurs="unbounded" name="textureCoordinates" type="gml:doubleList">
+            <annotation>
+              <documentation>SIG3D: List of texture coordinates with two doubles per ring vertex</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="ring" type="anyURI">
+            <annotation>
+              <documentation>SIG3D: gml:ids of the LinearRings that are parameterized using the given texture coordinates</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TexCoordListPropertyType">
+    <sequence>
+      <element ref="app:TexCoordList"/>
+    </sequence>
+  </complexType>
+  <element name="TextureAssociation" substitutionGroup="gml:AbstractGML" type="app:TextureAssociationType">
+    <annotation>
+      <documentation>SIG3D: Connects a surface geometry with a parameterized texture.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TextureAssociationType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="uri" type="anyURI">
+            <annotation>
+              <documentation>SIG3D: Link to the geometry object to be textured.</documentation>
+            </annotation>
+          </element>
+          <element name="textureParameterization" type="app:AbstractTextureParameterizationPropertyType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TextureAssociationPropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:TextureAssociation"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <simpleType name="TextureTypeType">
+    <annotation>
+      <documentation>SIG3D: Differentiates types of textures</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="specific">
+        <annotation>
+          <documentation>SIG3D: The texture is specific for a certain object</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="typical">
+        <annotation>
+          <documentation>SIG3D: The texture is typical for a kind of object</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="unknown">
+        <annotation>
+          <documentation>SIG3D: The texture type is unknown.</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <simpleType name="WrapModeType">
+    <annotation>
+      <documentation>SIG3D: Specification of texture wrapping adopted from COLLADA standard. Defines the bahavior when accessing a texture outside the underlaying image raster.</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="none">
+        <annotation>
+          <documentation>COLLADA: The resulting color is fully transparent</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="wrap">
+        <annotation>
+          <documentation>COLLADA: The texture is repeated</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="mirror">
+        <annotation>
+          <documentation>COLLADA: The texture is repeated and mirrored</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="clamp">
+        <annotation>
+          <documentation>COLLADA: The texture is clamped to its edges</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="border">
+        <annotation>
+          <documentation>COLLADA: The resulting color is specified by the borderColor element (RGBA)</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfX3DMaterial" type="anyType"/>
+  <element name="X3DMaterial" substitutionGroup="app:AbstractSurfaceData" type="app:X3DMaterialType">
+    <annotation>
+      <documentation>SIG3D: Definition of material properties based on X3D standard.</documentation>
+    </annotation>
+  </element>
+  <complexType name="X3DMaterialType">
+    <complexContent>
+      <extension base="app:AbstractSurfaceDataType">
+        <sequence>
+          <element default="0.2" minOccurs="0" name="ambientIntensity" type="core:DoubleBetween0and1Type">
+            <annotation>
+              <documentation>X3D: Minimum percentage of diffuseColor that is visible regardless of light sources</documentation>
+            </annotation>
+          </element>
+          <element default="0.8 0.8 0.8" minOccurs="0" name="diffuseColor" type="app:ColorType">
+            <annotation>
+              <documentation>X3D: Color of the diffusely reflected light</documentation>
+            </annotation>
+          </element>
+          <element default="0.0 0.0 0.0" minOccurs="0" name="emissiveColor" type="app:ColorType">
+            <annotation>
+              <documentation>X3D: Color of the light emitted by the surface</documentation>
+            </annotation>
+          </element>
+          <element default="1.0 1.0 1.0" minOccurs="0" name="specularColor" type="app:ColorType">
+            <annotation>
+              <documentation>X3D: Color of the directly reflected light</documentation>
+            </annotation>
+          </element>
+          <element default="0.2" minOccurs="0" name="shininess" type="core:DoubleBetween0and1Type">
+            <annotation>
+              <documentation>X3D: Controls the sharpness of specular highlights. 0 produces a soft glow. 1 produces sharp highlights.</documentation>
+            </annotation>
+          </element>
+          <element default="0.0" minOccurs="0" name="transparency" type="core:DoubleBetween0and1Type">
+            <annotation>
+              <documentation>X3D: Degree of transparency of the surface. 0 means fully opaque. 1 means fully transparent.</documentation>
+            </annotation>
+          </element>
+          <element default="false" minOccurs="0" name="isSmooth" type="boolean">
+            <annotation>
+              <documentation>X3D: Hint for normal interpolation. If true vertex normals used for shading. Otherwise normals are constant for the patch.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="target" type="anyURI">
+            <annotation>
+              <documentation>X3D: URI identifying the target surface geometry to apply the material properties</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfX3DMaterial"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="X3DMaterialPropertyType">
+    <sequence minOccurs="0">
+      <element ref="app:X3DMaterial"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

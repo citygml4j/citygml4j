@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:sos="http://www.opengis.net/sos/2.0" targetNamespace="http://www.opengis.net/sos/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.1">
+	<annotation>
+		<documentation>			
+			SOS is an OGC Standard.
+			Copyright (c) 2012 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
+	</annotation>
+	<include schemaLocation="sos.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+	<import namespace="http://www.opengis.net/swe/2.0" schemaLocation="../../sweCommon/2.0/swe.xsd"/>
+	<import namespace="http://www.opengis.net/swes/2.0" schemaLocation="../../swes/2.0/swes.xsd"/>
+	<!-- ================================================= -->
+	<element name="ObservationOffering" type="sos:ObservationOfferingType" substitutionGroup="swes:AbstractOffering">
+		<annotation>
+			<documentation>groups collections of observations produced by one procedure, e.g., a sensor system. The ObservationOffering lists the basic metadata for the associated observations including the observed properties of the observations. An observation may belong to more than one ObservationOffering</documentation>
+		</annotation>
+	</element>
+	<complexType name="ObservationOfferingType">
+		<complexContent>
+			<extension base="swes:AbstractOfferingType">
+				<sequence>
+					<element name="observedArea" minOccurs="0">
+						<annotation>
+							<documentation>spatial bounding box of the spatial extent of all features of interest that belong to observations associated with the offering</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="gml:Envelope"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="phenomenonTime" minOccurs="0">
+						<annotation>
+							<documentation>temporal bounding box of the phenomenon times of all observations belonging to the offering</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="gml:TimePeriod"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="resultTime" minOccurs="0">
+						<annotation>
+							<documentation>temporal bounding box of the result times of all observations belonging to the offering</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="gml:TimePeriod"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="responseFormat" type="anyURI" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>identifies the response format supported for observation retrieval</documentation>
+						</annotation>
+					</element>
+					<element name="observationType" type="anyURI" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ValueCode</gml:targetElement>
+							</appinfo>
+							<documentation>identifies the type of observation (with unique result type) which is used by the service to encode observations</documentation>
+						</annotation>
+					</element>
+					<element name="featureOfInterestType" type="anyURI" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ValueCode</gml:targetElement>
+							</appinfo>
+							<documentation>identifies the type of features of interest associated with the observations provided by the service</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ObservationOfferingPropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:ObservationOffering"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+	<!-- ================================================= -->
+	<element name="Contents" type="sos:ContentsType" substitutionGroup="swes:AbstractContents">
+		<annotation>
+			<documentation>describes the data offered by an SOS server</documentation>
+		</annotation>
+	</element>
+	<complexType name="ContentsType">
+		<complexContent>
+			<extension base="swes:AbstractContentsType">
+				<sequence>
+					<element name="responseFormat" type="anyURI" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>identifies the response format supported for observation retrieval</documentation>
+						</annotation>
+					</element>
+					<element name="observationType" type="anyURI" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ValueCode</gml:targetElement>
+							</appinfo>
+							<documentation>identifies the type of observation (with unique result type) which is used by the service to encode observations</documentation>
+						</annotation>
+					</element>
+					<element name="featureOfInterestType" type="anyURI" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ValueCode</gml:targetElement>
+							</appinfo>
+							<documentation>identifies the type of features of interest associated with the observations provided by the service</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ContentsPropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:Contents"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+</schema>

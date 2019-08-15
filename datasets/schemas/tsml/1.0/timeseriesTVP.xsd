@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tsml="http://www.opengis.net/tsml/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swe="http://www.opengis.net/swe/2.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/tsml/1.0" version="1.0.0">
+  <xs:annotation>
+    <xs:documentation>
+      TimeseriesML 1.0 is an OGC Standard.
+      Copyright (c) 2015, 2016 Open Geospatial Consortium.
+      To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .     
+    </xs:documentation>
+  </xs:annotation>
+  <xs:include schemaLocation="timeseriesML.xsd"/>
+  <xs:include schemaLocation="timeseriesMetadata.xsd"/>
+  <xs:import namespace="http://www.opengis.net/swe/2.0" schemaLocation="../../sweCommon/2.0/swe.xsd"/>
+  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <xs:annotation>
+    <xs:documentation>The Time Value Pair (TVP) Encoding schema contains types suitable for encoding TimeSeries (both Measurement and Categorical) in a sequence of time, value pairs.
+Note that this time, value pair encoding of timeseries encoding takes the name 'Timeseries'. The domain range encoding equivalent takes the name TimeseriesDomainRange. </xs:documentation>
+  </xs:annotation>
+  <xs:element name="CategoricalTVP" type="tsml:CategoricalTVPType" substitutionGroup="tsml:TimeValuePair">
+    <xs:annotation>
+      <xs:documentation>CategoricalTVP is the encoding for time,value pairs where the value is a category.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CategoricalTVPType">
+    <xs:complexContent>
+      <xs:extension base="tsml:TimeValuePairType">
+        <xs:sequence>
+          <xs:element name="value" type="swe:CategoryPropertyType" nillable="true">
+            <xs:annotation>
+              <xs:documentation>The categorical value of the data point (e.g. 'High')</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CategoricalTVPPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="tsml:CategoricalTVP"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="MeasurementTVP" type="tsml:MeasurementTVPType" substitutionGroup="tsml:TimeValuePair">
+    <xs:annotation>
+      <xs:documentation>MeasurementTVP is the encoding for time,value pairs where the value is a measure.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="MeasurementTVPType">
+    <xs:complexContent>
+      <xs:extension base="tsml:TimeValuePairType">
+        <xs:sequence>
+          <xs:element name="value" type="tsml:MeasureType" nillable="true">
+            <xs:annotation>
+              <xs:documentation>The measurement value for this data point (e.g. 5.3m)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MeasurementTVPPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="tsml:MeasurementTVP"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="TimeseriesTVP" type="tsml:TimeseriesTVPType" substitutionGroup="gml:AbstractGML">
+    <xs:annotation>
+      <xs:documentation>The core class for the timeseries time, value pair encoding.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="TimeseriesTVPType">
+    <xs:complexContent>
+      <xs:extension base="gml:AbstractGMLType">
+        <xs:sequence>
+          <xs:element name="metadata" type="tsml:TimeseriesMetadataPropertyType" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Metadata about the timeseries</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="defaultPointMetadata" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Default metadata for each point in the timeseries (can be over-ridden on a per-point basis).</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="gml:AbstractMemberType">
+                  <xs:sequence>
+                    <xs:element ref="tsml:PointMetadata"/>
+                  </xs:sequence>
+                </xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="point" type="tsml:TimeValuePairPropertyType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Data points (time, value pairs) for the timeseries.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TimeseriesTVPPropertyType">
+    <xs:sequence minOccurs="0">
+      <xs:element ref="tsml:TimeseriesTVP"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="TimeValuePair" type="tsml:TimeValuePairType" substitutionGroup="gml:AbstractObject" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A base class for different time, value pair implementations.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="TimeValuePairType" abstract="true">
+    <xs:sequence>
+      <xs:element name="metadata" type="tsml:PointMetadataPropertyType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Point metadata for this point (over-rides any default point metadata for the timeseries).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="time" type="gml:TimePositionType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Time component of the time value pair. (A point on the timeseries).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TimeValuePairPropertyType">
+    <xs:sequence>
+      <xs:element ref="tsml:TimeValuePair"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="MeasureType">
+    <xs:annotation>
+      <xs:documentation>gml:MeasureType supports recording an amount encoded as a value of XML Schema double, together with a units of measure indicated by an attribute uom, short for "units Of measure". The value of the uom attribute identifies a reference system for the amount, usually a ratio or interval scale. OGC TimeSeriesML alters this definition to make uom optional as this value is defaulted for a series.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:double">
+        <xs:attribute name="uom" type="gml:UomSymbol"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

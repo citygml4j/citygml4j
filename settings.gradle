@@ -1,1 +1,3 @@
 rootProject.name = 'citygml-objects'
+includeBuild '../gml-objects'
+includeBuild '../xml-objects'
