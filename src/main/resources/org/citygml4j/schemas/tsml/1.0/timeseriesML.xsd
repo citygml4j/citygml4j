@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/tsml/1.0" xmlns:tsml="http://www.opengis.net/tsml/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation>
+			TimeseriesML 1.0 is an OGC Standard.
+			Copyright (c) 2015, 2016 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .     
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="timeseriesDR.xsd"/>
+	<xs:include schemaLocation="timeseriesTVP.xsd"/>
+	<xs:include schemaLocation="timeseriesMetadata.xsd"/>
+	<xs:include schemaLocation="observationProcess.xsd"/>
+	<xs:include schemaLocation="monitoringFeature.xsd"/>
+	<xs:include schemaLocation="collection.xsd"/>
+  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+	<xs:annotation>
+		<xs:documentation>TimeseriesML 1.0 is designed as an extensible schema to allow encoding of data to be used in a variety of exchange scenarios. Example areas of usage are: exchange of data for operational climate or hydrological monitoring programs; supporting operation of infrastructure (e.g. dams, supply systems); cross-border exchange of observational data; release of data for public dissemination; enhancing disaster management through data exchange; and exchange in support of national reporting. 
+The core aspect of the model is in the correct, precise description of time series. Interpretation of time series relies on understanding the nature of the process that generated them. This standard provides the framework under which time series can be exchanged with appropriate metadata to allow correct machine interpretation and thus correct use for further analysis. Existing systems should be able to use this model as a conceptual bridge between existing schema or systems, allowing consistency of the data to maintained.
+The GML application schema supports both an inter-leaved encoding and a domain-range type encoding, the later being based on the GMLCov schemas.</xs:documentation>
+	</xs:annotation>
+</xs:schema>

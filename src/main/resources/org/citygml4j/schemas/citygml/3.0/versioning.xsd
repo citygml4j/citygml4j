@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/versioning/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element name="Transaction" substitutionGroup="gml:AbstractObject" type="vers:TransactionType"/>
+  <complexType name="TransactionType">
+    <sequence>
+      <element name="type" type="vers:TransactionValueType"/>
+      <element minOccurs="0" name="oldFeature" type="core:AbstractFeatureWithLifespanPropertyType"/>
+      <element minOccurs="0" name="newFeature" type="core:AbstractFeatureWithLifespanPropertyType"/>
+    </sequence>
+  </complexType>
+  <complexType name="TransactionPropertyType">
+    <sequence>
+      <element ref="vers:Transaction"/>
+    </sequence>
+  </complexType>
+  <simpleType name="TransactionValueType">
+    <restriction base="string">
+      <enumeration value="insert"/>
+      <enumeration value="delete"/>
+      <enumeration value="replace"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="TransitionValueType">
+    <restriction base="string">
+      <enumeration value="planned"/>
+      <enumeration value="realized"/>
+      <enumeration value="historicalSuccession"/>
+      <enumeration value="fork"/>
+      <enumeration value="merge"/>
+    </restriction>
+  </simpleType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersion" type="anyType"/>
+  <element name="Version" substitutionGroup="core:AbstractFeatureWithLifespan" type="vers:VersionType"/>
+  <complexType name="VersionType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="tag" type="string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="versionMember">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="core:AbstractFeatureWithLifespan"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="vers:AbstractGenericApplicationPropertyOfVersion"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VersionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="vers:Version"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersionTransition" type="anyType"/>
+  <element name="VersionTransition" substitutionGroup="core:AbstractFeatureWithLifespan" type="vers:VersionTransitionType"/>
+  <complexType name="VersionTransitionType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element minOccurs="0" name="reason" type="string"/>
+          <element name="clonePredecessor" type="boolean"/>
+          <element minOccurs="0" name="type" type="vers:TransitionValueType"/>
+          <element minOccurs="0" name="from" type="vers:VersionPropertyType"/>
+          <element minOccurs="0" name="to" type="vers:VersionPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="transaction" type="vers:TransactionPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="vers:AbstractGenericApplicationPropertyOfVersionTransition"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VersionTransitionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="vers:VersionTransition"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

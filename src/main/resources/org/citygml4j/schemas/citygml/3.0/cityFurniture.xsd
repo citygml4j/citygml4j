@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:frn="http://www.opengis.net/citygml/cityfurniture/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/cityfurniture/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityFurniture" type="anyType"/>
+  <element name="CityFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="frn:CityFurnitureType">
+    <annotation>
+      <documentation>City furniture is a collective term for objects and pieces of equipment installed on streets and roads for various purposes. It includes benches, traffic barriers, bollards, post boxes, phone boxes, streetlamps, traffic lights, traffic signs, bus stops, tram stops, taxi stands, public lavatories, fountains, watering troughs, memorials, public sculptures, and waste receptacles. [Wikipedia]</documentation>
+    </annotation>
+  </element>
+  <complexType name="CityFurnitureType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Classification of CityFurniture as given by the relevant national regulations, information communities, or specific applications. [SIG3D]</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specified function of CityFurniture as given by the relevant national regulations, information communities, or specific applications. [SIG3D]</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Actual usage of CityFurniture as given by the relevant national regulations, information communities, or specific applications. [SIG3D]</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="frn:AbstractGenericApplicationPropertyOfCityFurniture"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CityFurniturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="frn:CityFurniture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

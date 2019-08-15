@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:tran="http://www.opengis.net/citygml/transportation/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/transportation/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea" type="anyType"/>
+  <element name="AuxiliaryTrafficArea" substitutionGroup="core:AbstractThematicSurface" type="tran:AuxiliaryTrafficAreaType"/>
+  <complexType name="AuxiliaryTrafficAreaType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AuxiliaryTrafficAreaPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:AuxiliaryTrafficArea"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace" type="anyType"/>
+  <element name="AuxiliaryTrafficSpace" substitutionGroup="core:AbstractPhysicalSpace" type="tran:AuxiliaryTrafficSpaceType">
+    <annotation>
+      <documentation>SIG3D: Space within the transport area not intended for traffic purposes</documentation>
+    </annotation>
+  </element>
+  <complexType name="AuxiliaryTrafficSpaceType">
+    <complexContent>
+      <extension base="core:AbstractPhysicalSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Classification of AuxiliaryTrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Specified function of AuxiliaryTrafficSpace given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Actual usage of AuxiliaryTrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="surfaceMaterial" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Surface material covering the AuxiliaryTrafficSpace as given by the relevant national regulations, information communities or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="auxiliaryTraffixArea" type="tran:AuxiliaryTrafficAreaPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AuxiliaryTrafficSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:AuxiliaryTrafficSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfClearanceSpace" type="anyType"/>
+  <element name="ClearanceSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:ClearanceSpaceType"/>
+  <complexType name="ClearanceSpaceType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfClearanceSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ClearanceSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:ClearanceSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfDrain" type="anyType"/>
+  <element name="Drain" substitutionGroup="tran:Hole" type="tran:DrainType"/>
+  <complexType name="DrainType">
+    <complexContent>
+      <extension base="tran:HoleType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfDrain"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DrainPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Drain"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfHole" type="anyType"/>
+  <element name="Hole" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:HoleType"/>
+  <complexType name="HoleType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfHole"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="HolePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Hole"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfManhole" type="anyType"/>
+  <element name="Manhole" substitutionGroup="tran:Hole" type="tran:ManholeType"/>
+  <complexType name="ManholeType">
+    <complexContent>
+      <extension base="tran:HoleType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfManhole"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ManholePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Manhole"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfRailway" type="anyType"/>
+  <element name="Railway" substitutionGroup="tran:TransportationComplex" type="tran:RailwayType">
+    <annotation>
+      <documentation>ISO 6707-1: National or regional transport system for guided passage of wheeled vehicles on rails</documentation>
+    </annotation>
+  </element>
+  <complexType name="RailwayType">
+    <complexContent>
+      <extension base="tran:TransportationComplexType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="section">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:Section"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfRailway"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RailwayPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Railway"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfRoad" type="anyType"/>
+  <element name="Road" substitutionGroup="tran:TransportationComplex" type="tran:RoadType">
+    <annotation>
+      <documentation>ISO 6707-1: Way mainly for vehicles</documentation>
+    </annotation>
+  </element>
+  <complexType name="RoadType">
+    <complexContent>
+      <extension base="tran:TransportationComplexType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="section">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:Section"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfRoad"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RoadPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Road"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfRoadwayDamage" type="anyType"/>
+  <element name="RoadwayDamage" substitutionGroup="tran:Hole" type="tran:RoadwayDamageType"/>
+  <complexType name="RoadwayDamageType">
+    <complexContent>
+      <extension base="tran:HoleType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfRoadwayDamage"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RoadwayDamagePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:RoadwayDamage"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfSection" type="anyType"/>
+  <element name="Section" substitutionGroup="tran:TransportationComplex" type="tran:SectionType"/>
+  <complexType name="SectionType">
+    <complexContent>
+      <extension base="tran:TransportationComplexType">
+        <sequence>
+          <element name="trafficFlow" type="integer"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfSection"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SectionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Section"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfSquare" type="anyType"/>
+  <element name="Square" substitutionGroup="tran:TransportationComplex" type="tran:SquareType">
+    <annotation>
+      <documentation>SIG3D: Accessible, paved open space in a built-up area</documentation>
+    </annotation>
+  </element>
+  <complexType name="SquareType">
+    <complexContent>
+      <extension base="tran:TransportationComplexType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfSquare"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SquarePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Square"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTrack" type="anyType"/>
+  <element name="Track" substitutionGroup="tran:TransportationComplex" type="tran:TrackType">
+    <annotation>
+      <documentation>SIG3D: Way mainly for pedestrians or bicycle rider</documentation>
+    </annotation>
+  </element>
+  <complexType name="TrackType">
+    <complexContent>
+      <extension base="tran:TransportationComplexType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="section">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:Section"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrack"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TrackPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:Track"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficArea" type="anyType"/>
+  <element name="TrafficArea" substitutionGroup="core:AbstractThematicSurface" type="tran:TrafficAreaType"/>
+  <complexType name="TrafficAreaType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrafficArea"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TrafficAreaPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:TrafficArea"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficSpace" type="anyType"/>
+  <element name="TrafficSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:TrafficSpaceType">
+    <annotation>
+      <documentation>SIG3D: Space of movement for either trains, vehicles or pedestrians</documentation>
+    </annotation>
+  </element>
+  <complexType name="TrafficSpaceType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="core:Occupancy"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Classification of TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Specified function of TrafficSpace given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Actual usage of TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="surfaceMaterial" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Surface material covering the TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="predecessor" type="tran:TrafficSpacePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="successor" type="tran:TrafficSpacePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="clearanceSpace">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:ClearanceSpace"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="trafficArea">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:TrafficArea"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="lod2Network" type="gml:GeometricComplexPropertyType"/>
+          <element minOccurs="0" name="lod3Network" type="gml:GeometricComplexPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrafficSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TrafficSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:TrafficSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTransportationComplex" type="anyType"/>
+  <element name="TransportationComplex" substitutionGroup="core:AbstractCityObject" type="tran:TransportationComplexType">
+    <annotation>
+      <documentation>SIG3D: Aggregation of TrafficSpaces and AuxiliaryTrafficSpaces, e.g the different lanes of a multi-lane road.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TransportationComplexType">
+    <complexContent>
+      <extension base="core:AbstractCityObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="core:Occupancy"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Classification of TransportationComplex, Railway, Road, Square, or Track as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Specified function of TransportationComplex, Railway, Road, Square, or Track given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>SIG3D: Actual usage of TransportationComplex, Railway, Road, Square or Track as given by the relevant national regulations, information communities, or specific applications.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="transportationSpace">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:TransportationSpace"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="trafficSpace">
+            <annotation>
+              <documentation>SIG3D: Relation between TransportationComplex and TrafficSpace</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:TrafficSpace"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="auxiliaryTrafficSpace">
+            <annotation>
+              <documentation>SIG3D: Relation between TransportationComplex and AuxiliaryTrafficSpace.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:AuxiliaryTrafficSpace"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="hole">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="tran:Hole"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="lod0Network" type="gml:GeometricComplexPropertyType">
+            <annotation>
+              <documentation>SIG3D: gml:GeometricComplex to represent the 3D network of a TransportationComplex. The LOD concept for transportation objects is defined in chapter ...</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lod1Network" type="gml:GeometricComplexPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTransportationComplex"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TransportationComplexPropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:TransportationComplex"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTransportationSpace" type="anyType"/>
+  <element name="TransportationSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:TransportationSpaceType"/>
+  <complexType name="TransportationSpaceType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTransportationSpace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TransportationSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="tran:TransportationSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

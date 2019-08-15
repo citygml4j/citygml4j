@@ -1,0 +1,18 @@
+.gradle/
+gradle.properties
+build/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+out/
+
+# samples
+citygml4j-samples/output/

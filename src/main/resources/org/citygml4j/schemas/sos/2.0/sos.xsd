@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:sos="http://www.opengis.net/sos/2.0" targetNamespace="http://www.opengis.net/sos/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.1">
+	<annotation>
+		<documentation>All-components schema for the Sensor Observation Service namespace.
+			
+			SOS is an OGC Standard.
+			Copyright (c) 2012 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
+	</annotation>
+	<import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+	<include schemaLocation="sosContents.xsd"/>
+	<include schemaLocation="sosGetResult.xsd"/>
+	<include schemaLocation="sosGetObservation.xsd"/>
+	<include schemaLocation="sosGetFeatureOfInterest.xsd"/>
+	<include schemaLocation="sosInsertResultTemplate.xsd"/>
+	<include schemaLocation="sosInsertObservation.xsd"/>
+	<include schemaLocation="sosGetObservationById.xsd"/>
+	<include schemaLocation="sosGetResultTemplate.xsd"/>
+	<include schemaLocation="sosInsertSensor.xsd"/>
+	<include schemaLocation="sosGetCapabilities.xsd"/>
+	<include schemaLocation="sosInsertResult.xsd"/>
+	<include schemaLocation="sosInsertionCapabilities.xsd"/>
+</schema>

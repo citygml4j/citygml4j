@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:dyn="http://www.opengis.net/citygml/dynamizer/3.0" xmlns:gen="http://www.opengis.net/citygml/generics/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:tsml="http://www.opengis.net/tsml/1.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/dynamizer/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/generics/3.0" schemaLocation="./generics.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <import namespace="http://www.opengis.net/sos/2.0" schemaLocation="../../sos/2.0/sosGetObservation.xsd"/>
+  <import namespace="http://www.opengis.net/tsml/1.0" schemaLocation="../../tsml/1.0/timeseriesML.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTimeseries" type="anyType"/>
+  <element abstract="true" name="AbstractTimeseries" substitutionGroup="gml:AbstractFeature" type="dyn:AbstractTimeseriesType"/>
+  <complexType abstract="true" name="AbstractTimeseriesType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractTimeseries"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractTimeseriesPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dyn:AbstractTimeseries"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAtomicTimeseries" type="anyType"/>
+  <element name="AtomicTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:AtomicTimeseriesType"/>
+  <complexType name="AtomicTimeseriesType">
+    <complexContent>
+      <extension base="dyn:AbstractTimeseriesType">
+        <sequence>
+          <element minOccurs="0" name="timeseriesDomainRange" type="tsml:TimeseriesDomainRangePropertyType"/>
+          <element minOccurs="0" name="timeseriesTVP" type="tsml:TimeseriesTVPPropertyType"/>
+          <element minOccurs="0" name="observationData" type="sos:GetObservationResponsePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAtomicTimeseries"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AtomicTimeseriesPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dyn:AtomicTimeseries"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfCompositeTimeseries" type="anyType"/>
+  <element name="CompositeTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:CompositeTimeseriesType"/>
+  <complexType name="CompositeTimeseriesType">
+    <complexContent>
+      <extension base="dyn:AbstractTimeseriesType">
+        <sequence>
+          <element maxOccurs="unbounded" name="timeseriesComponent">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="dyn:TimeseriesComponent"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfCompositeTimeseries"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CompositeTimeseriesPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dyn:CompositeTimeseries"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfDynamizer" type="anyType"/>
+  <element name="Dynamizer" substitutionGroup="core:AbstractFeatureWithLifespan" type="dyn:DynamizerType"/>
+  <complexType name="DynamizerType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element name="attributeRef" type="anyURI"/>
+          <element name="startTime" type="gml:TimePositionType"/>
+          <element name="endTime" type="gml:TimePositionType"/>
+          <element minOccurs="0" name="timeseries">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="dyn:AbstractTimeseries"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="sensorConnection" type="dyn:SensorConnectionPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfDynamizer"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DynamizerPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dyn:Dynamizer"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="SensorConnection" substitutionGroup="gml:AbstractObject" type="dyn:SensorConnectionType"/>
+  <complexType name="SensorConnectionType">
+    <sequence>
+      <element name="sensorID" type="gen:StringAttributePropertyType"/>
+      <element name="serviceType" type="gen:StringAttributePropertyType"/>
+      <element minOccurs="0" name="linkToObservation" type="anyURI"/>
+      <element minOccurs="0" name="linkToSensorML" type="anyURI"/>
+      <element minOccurs="0" name="sensorLocation" type="core:AbstractCityObjectPropertyType"/>
+    </sequence>
+  </complexType>
+  <complexType name="SensorConnectionPropertyType">
+    <sequence>
+      <element ref="dyn:SensorConnection"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTimeseriesComponent" type="anyType"/>
+  <element name="TimeseriesComponent" substitutionGroup="gml:AbstractFeature" type="dyn:TimeseriesComponentType"/>
+  <complexType name="TimeseriesComponentType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="repetitions" type="integer"/>
+          <element minOccurs="0" name="additionalGap" type="duration"/>
+          <element name="timeseries" type="dyn:AbstractTimeseriesPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfTimeseriesComponent"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TimeseriesComponentPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dyn:TimeseriesComponent"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tsml="http://www.opengis.net/tsml/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:om="http://www.opengis.net/om/2.0" targetNamespace="http://www.opengis.net/tsml/1.0" elementFormDefault="qualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation>
+			TimeseriesML 1.0 is an OGC Standard.
+			Copyright (c) 2015, 2016 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .     
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="timeseriesML.xsd"/>
+  <xs:import namespace="http://www.opengis.net/om/2.0" schemaLocation="../../om/2.0/observation.xsd"/>
+  <xs:import namespace="http://www.opengis.net/swe/2.0" schemaLocation="../../sweCommon/2.0/swe.xsd"/>
+  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+	<xs:element name="CommentBlock" type="tsml:CommentBlockType" substitutionGroup="gml:AbstractObject">
+		<xs:annotation>
+			<xs:documentation>Comment blocks may be used to make comment about the timeseries. Each comment applies to a specified period of the timeseries (it could apply to the whole timeseries).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CommentBlockType">
+		<xs:sequence>
+			<xs:element name="applicablePeriod" type="gml:TimePeriodPropertyType">
+				<xs:annotation>
+					<xs:documentation>The time period to which the comment applies.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comment" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Free text comment about some aspect of the timeseries.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommentBlockPropertyType">
+		<xs:sequence>
+			<xs:element ref="tsml:CommentBlock"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</xs:complexType>
+	<xs:element name="PointMetadata" type="tsml:PointMetadataType" substitutionGroup="gml:AbstractObject">
+		<xs:annotation>
+			<xs:documentation>Metadata relating to individual data points (can be set to a default for the whole timeseries).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PointMetadataType">
+		<xs:sequence>
+			<xs:element name="quality" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This property is for specifying a quality assertion using the TimeseriesML 1.0 defined concepts of quality as described in the DataQualityCode list. When a non-standard quality code is required a SWE Qualifier property shall be used.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uom" type="swe:UnitReference" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Unit of measure for the point data (typically a default will apply to the whole timeseries).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interpolationType" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Defines the nature of the relationship between the time instant and the recorded value. For example, the value may represent an average across the time period since the last point (average in preceding interval). This value should be taken from the InterpolationCode list.
+The interpolation type is defined per point within the time series as it is possible for this to change mid series. Within the XML encoding it is possible to set a default interpolation for the series. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nilReason" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This property describes the reason that a point has been identified as null. This provides context for interpreting null points (e.g. missing, withheld etc.). </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="censoredReason" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Used to indicate the reason the value has been censored (e.g. below a threshold). </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Context information that does not fit into a controlled list of qualifiers, processing or quality information is often provided in free text per point. The comment property provides a placeholder for such textual information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uncertainty" type="swe:QuantityPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This property allows for a quantitative assertion of the estimated uncertainty of the measurement value. The term uncertainty is used here in line with 'measurement uncertainty' as defined in the International Vocabulary of Metrology (VIM3, http://www.bipm.org/en/publications/guides/vim.html), however it is acknowledged that it is still quite common practice (e.g. in instrument specifications) for the word accuracy to be used in place of uncertainty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="relatedObservation" type="om:OM_ObservationPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This property allows individual points to be associated with related observations. This is used when a timeseries consists of interleaved observations from different sources and understanding the relationship to existing observation(s) is important. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aggregationDuration" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Specifies the time period over which the values have been aggregated. E.g. 15 minutely. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qualifier" type="swe:QuantityPropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A more loosely-typed qualifier that allows assertions using the SWE Common union (quality, categories etc.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="processing" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A code item indicating the processing that has occurred to the point. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="source" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A code item indicating the processing that has occurred to the point. By reference only.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PointMetadataPropertyType">
+		<xs:sequence>
+			<xs:element ref="tsml:PointMetadata"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</xs:complexType>
+	<xs:element name="TimeseriesMetadata" type="tsml:TimeseriesMetadataType" substitutionGroup="gml:AbstractObject">
+		<xs:annotation>
+			<xs:documentation>Metadata applicable to the whole timeseries.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TimeseriesMetadataType">
+		<xs:sequence>
+			<xs:element name="temporalExtent" type="gml:TimePeriodPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The extent of the temporal domain of the timeseries. As the domain of the timeseries is temporal, the temporalExtent is a time period defining the start and end of its temporal domain (i.e. the start and end of the timeseries). Note that this often the same as the phenomenon time as specified in the OM_Observation; it is still useful here for timeseries that are described separately from an OM_Observation header. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="baseTime" type="gml:TimePositionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Timeseries that are regularly spaced, such as those that are generated from automatic sensors, can be represented without specifying the individual time instant for each point. The spacing property of the time series is used to specify the time between points. This is then used as the spacing for each point encountered, starting from the time set by baseTime.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="spacing" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time between points in a regularly spaced timeseries.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commentBlock" type="tsml:CommentBlockPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="intendedObservationSpacing" type="gml:TimePeriodPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Defines the expected spacing between observations e.g. daily.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicates the statues of the observation. E.g. unreleased, verified etc.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cumulative" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This boolean property indicates whether the series is  sequentially increasing and accumulates over time; i.e. each value is added to the last so the value represents the total of a value since accumulation began.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accumulationAnchorTime" type="gml:TimeInstantPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Defines the time at which accumulation begins. e.g. 9am.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sampledMedium" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicates the medium that was sampled. E.g. water, air, etc. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accumulationIntervalLength" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Defines the length of time over which accumulation is recorded e.g. 24 hours</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startAnchorPoint" type="gml:TimePositionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>StartAnchorPoint specifies a ‘ghost’ point to allow the first value of the timeseries to be interpolated correctly.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endAnchorPoint" type="gml:TimePositionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>EndAnchorPoint specifies a ‘ghost’ point to allow the last value of the timeseries to be interpolated correctly.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxGapPeriod" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When any analysis is run over a timeseries it is important to know if it is possible to interpolate between any two adjoining points. If the join period between two adjoining points is greater than the maxGapPeriod then the series should not be interpolated between these adjoining points. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parameter" type="om:NamedValuePropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This is a named value extension point that allows extra metadata to be added at the timeseries level. The parameters here are soft-typed (i.e. this standard does not define the properties semantics). Commonly used parameters here would be future candidates for definition within later versions or community extensions.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeseriesMetadataPropertyType">
+		<xs:sequence>
+			<xs:element ref="tsml:TimeseriesMetadata"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

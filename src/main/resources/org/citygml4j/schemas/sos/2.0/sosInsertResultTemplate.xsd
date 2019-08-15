@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:om="http://www.opengis.net/om/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:sos="http://www.opengis.net/sos/2.0" targetNamespace="http://www.opengis.net/sos/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.1">
+	<annotation>
+		<documentation>			
+			SOS is an OGC Standard.
+			Copyright (c) 2012 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
+	</annotation>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <import namespace="http://www.opengis.net/swe/2.0" schemaLocation="../../sweCommon/2.0/swe.xsd"/>
+  <import namespace="http://www.opengis.net/om/2.0" schemaLocation="../../om/2.0/observation.xsd"/>
+  <import namespace="http://www.opengis.net/swes/2.0" schemaLocation="../../swes/2.0/swes.xsd"/>
+	<include schemaLocation="sos.xsd"/>
+	<!-- ================================================= -->
+	<element name="ResultTemplate" type="sos:ResultTemplateType" substitutionGroup="swes:AbstractSWES">
+		<annotation>
+			<documentation>contains not only the description of the result structure and encoding but also an observation template with the complete observation metadata such as procedure, feature of interest and observed property for the observations corresponding to the results</documentation>
+		</annotation>
+	</element>
+	<complexType name="ResultTemplateType">
+		<complexContent>
+			<extension base="swes:AbstractSWESType">
+				<sequence>
+					<element name="offering" type="anyURI">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ObservationOffering</gml:targetElement>
+							</appinfo>
+							<documentation>pointer to ObservationOffering to which the results and corresponding observations shall be added</documentation>
+						</annotation>
+					</element>
+					<element name="observationTemplate">
+						<annotation>
+							<documentation>template which contains observation metadata that is used to form complete observation together with result values that are inserted later on</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="om:OM_Observation"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="resultStructure">
+						<annotation>
+							<documentation>specifies the structure of the results which will be inserted in subsequent InsertResult calls for the observationTemplate</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="swe:AbstractDataComponent"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="resultEncoding">
+						<annotation>
+							<documentation>specifies the encoding of the results which will be inserted in subsequent InsertResult calls for the observationTemplate</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="swe:AbstractEncoding"/>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ResultTemplatePropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:ResultTemplate"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+	<!-- ================================================= -->
+	<element name="InsertResultTemplate" type="sos:InsertResultTemplateType" substitutionGroup="swes:ExtensibleRequest">
+		<annotation>
+			<documentation>request to upload a template for result values</documentation>
+		</annotation>
+	</element>
+	<complexType name="InsertResultTemplateType">
+		<complexContent>
+			<extension base="swes:ExtensibleRequestType">
+				<sequence>
+					<element name="proposedTemplate">
+						<annotation>
+							<documentation>specifies the observation metadata and also information about the structure and encoding of the result, but no result value</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element ref="sos:ResultTemplate"/>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="InsertResultTemplatePropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:InsertResultTemplate"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+	<!-- ================================================= -->
+	<element name="InsertResultTemplateResponse" type="sos:InsertResultTemplateResponseType" substitutionGroup="swes:ExtensibleResponse">
+		<annotation>
+			<documentation>response that indicates the outcome of the requested</documentation>
+		</annotation>
+	</element>
+	<complexType name="InsertResultTemplateResponseType">
+		<complexContent>
+			<extension base="swes:ExtensibleResponseType">
+				<sequence>
+					<element name="acceptedTemplate" type="anyURI">
+						<annotation>
+							<appinfo>
+								<gml:targetElement>sos:ResultTemplate</gml:targetElement>
+							</appinfo>
+							<documentation>pointer to the ResultTemplate which has been accepted and registered at the SOS server. This ResultTemplate can be used in subsequent InsertResult requests.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="InsertResultTemplateResponsePropertyType">
+		<sequence minOccurs="0">
+			<element ref="sos:InsertResultTemplateResponse"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+	</complexType>
+</schema>

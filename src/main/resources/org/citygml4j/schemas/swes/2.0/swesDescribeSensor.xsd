@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:om="http://www.opengis.net/om/2.0" targetNamespace="http://www.opengis.net/swes/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+  <annotation>
+    <documentation>
+      SWES is an OGC Standard.
+      Copyright (c) 2010, 2011 Open Geospatial Consortium, Inc. All Rights Reserved. 
+      To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+    </documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <include schemaLocation="swes.xsd"/>
+  <include schemaLocation="swesCommon.xsd"/>
+  <!-- ================================================= -->
+  <element name="DescribeSensorResponse" type="swes:DescribeSensorResponseType" substitutionGroup="swes:ExtensibleResponse"/>
+  <complexType name="DescribeSensorResponseType">
+    <complexContent>
+      <extension base="swes:ExtensibleResponseType">
+        <sequence>
+          <element name="procedureDescriptionFormat" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>swes:FormatCode</gml:targetElement>
+              </appinfo>
+              <documentation>identifier of the returned procedure / sensor description format</documentation>
+            </annotation>
+          </element>
+          <element name="description" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation>container element that provides the description that is currently valid or was valid at a given time</documentation>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element ref="swes:SensorDescription"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DescribeSensorResponsePropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:DescribeSensorResponse"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <!-- ================================================= -->
+  <element name="DescribeSensor" type="swes:DescribeSensorType" substitutionGroup="swes:ExtensibleRequest"/>
+  <complexType name="DescribeSensorType">
+    <complexContent>
+      <extension base="swes:ExtensibleRequestType">
+        <sequence>
+          <element name="procedure" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>unknown</gml:targetElement>
+              </appinfo>
+              <documentation>Pointer to the procedure / sensor of which the description shall be returned.</documentation>
+            </annotation>
+          </element>
+          <element name="procedureDescriptionFormat" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>swes:FormatCode</gml:targetElement>
+              </appinfo>
+              <documentation>identifier of the requested procedure / sensor description format</documentation>
+            </annotation>
+          </element>
+          <element name="validTime" minOccurs="0">
+            <annotation>
+              <documentation>Time instant or time period for which the then valid sensor description shall be retrieved.</documentation>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element ref="gml:AbstractTimeGeometricPrimitive"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DescribeSensorPropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:DescribeSensor"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

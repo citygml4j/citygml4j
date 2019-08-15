@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:om="http://www.opengis.net/om/2.0" targetNamespace="http://www.opengis.net/swes/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+  <annotation>
+    <documentation>
+      SWES is an OGC Standard.
+      Copyright (c) 2010, 2011 Open Geospatial Consortium, Inc. All Rights Reserved. 
+      To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+    </documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <include schemaLocation="swes.xsd"/>
+  <include schemaLocation="swesCommon.xsd"/>
+  <!-- ================================================= -->
+  <element name="DeleteSensor" type="swes:DeleteSensorType" substitutionGroup="swes:ExtensibleRequest"/>
+  <complexType name="DeleteSensorType">
+    <complexContent>
+      <extension base="swes:ExtensibleRequestType">
+        <sequence>
+          <element name="procedure" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>unknown</gml:targetElement>
+              </appinfo>
+              <documentation>Pointer to the procedure / sensor that shall be deleted.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DeleteSensorPropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:DeleteSensor"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <!-- ================================================= -->
+  <element name="DeleteSensorResponse" type="swes:DeleteSensorResponseType" substitutionGroup="swes:ExtensibleResponse"/>
+  <complexType name="DeleteSensorResponseType">
+    <complexContent>
+      <extension base="swes:ExtensibleResponseType">
+        <sequence>
+          <element name="deletedProcedure" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>unknown</gml:targetElement>
+              </appinfo>
+              <documentation>Pointer used to reference the procedure that has been deleted by the service.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DeleteSensorResponsePropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:DeleteSensorResponse"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:dem="http://www.opengis.net/citygml/relief/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/relief/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractReliefComponent" type="anyType"/>
+  <element abstract="true" name="AbstractReliefComponent" substitutionGroup="core:AbstractThematicSurface" type="dem:AbstractReliefComponentType">
+    <annotation>
+      <documentation>SIG3D: Abstract superclass of TINRelief, MassPointRelief, RasterRelief and BreaklineRelief</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractReliefComponentType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element name="lod" type="core:IntegerBetween0and3Type">
+            <annotation>
+              <documentation>SIG3D: Number denoting the LOD of the relief component. The LOD concept for the relief is defined in chapter ...</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="extent" type="gml:SurfacePropertyType">
+            <annotation>
+              <documentation>SIG3D: Polygon (optionally with holes) denoting the extent where the relief component is valid.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfAbstractReliefComponent"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractReliefComponentPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:AbstractReliefComponent"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBreaklineRelief" type="anyType"/>
+  <element name="BreaklineRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:BreaklineReliefType">
+    <annotation>
+      <documentation>SIG3D: Relief component represented by 3D lines denoting break lines or ridge/valley lines</documentation>
+    </annotation>
+  </element>
+  <complexType name="BreaklineReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element minOccurs="0" name="ridgeOrValleyLines" type="gml:MultiCurvePropertyType">
+            <annotation>
+              <documentation>SIG3D: Relation to 3D lines (gml:MultiCurve) denoting ridge or valley lines.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="breaklines" type="gml:MultiCurvePropertyType">
+            <annotation>
+              <documentation>SIG3D: Relation to 3D lines (gml:MultiCurve) denoting break lines.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfBreaklineRelief"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BreaklineReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:BreaklineRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfMassPointRelief" type="anyType"/>
+  <element name="MassPointRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:MassPointReliefType">
+    <annotation>
+      <documentation>SIG3D: Relief component represented by 3D points.</documentation>
+    </annotation>
+  </element>
+  <complexType name="MassPointReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfMassPointRelief"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MassPointReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:MassPointRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfRasterRelief" type="anyType"/>
+  <element name="RasterRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:RasterReliefType">
+    <annotation>
+      <documentation>SIG3D: Relief component represented by a (GML) raster/grid.</documentation>
+    </annotation>
+  </element>
+  <complexType name="RasterReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element name="grid">
+            <complexType>
+              <sequence minOccurs="0">
+                <element ref="gml:RectifiedGridCoverage"/>
+              </sequence>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+              <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfRasterRelief"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RasterReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:RasterRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfReliefFeature" type="anyType"/>
+  <element name="ReliefFeature" substitutionGroup="core:AbstractCityObject" type="dem:ReliefFeatureType">
+    <annotation>
+      <documentation>SIG3D: Feature aggregating the relief components which belong together.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ReliefFeatureType">
+    <complexContent>
+      <extension base="core:AbstractCityObjectType">
+        <sequence>
+          <element name="lod" type="core:IntegerBetween0and3Type">
+            <annotation>
+              <documentation>SIG3D: Number denoting the LOD of the relief feature. The LOD concept for the relief is defined in chapter ...</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="reliefComponent">
+            <annotation>
+              <documentation>SIG3D: Relation of a ReliefFeature to its components.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="dem:AbstractReliefComponent"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfReliefFeature"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ReliefFeaturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:ReliefFeature"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTINRelief" type="anyType"/>
+  <element name="TINRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:TINReliefType">
+    <annotation>
+      <documentation>SIG3D: Relief component represented as triangulated irregular network.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TINReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfTINRelief"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TINReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:TINRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

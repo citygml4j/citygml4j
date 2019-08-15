@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:om="http://www.opengis.net/om/2.0" targetNamespace="http://www.opengis.net/swes/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+  <annotation>
+    <documentation>
+      SWES is an OGC Standard.
+      Copyright (c) 2010, 2011 Open Geospatial Consortium, Inc. All Rights Reserved. 
+      To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+    </documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <include schemaLocation="swes.xsd"/>
+  <include schemaLocation="swesCommon.xsd"/>
+  <!-- ================================================= -->
+  <element name="InsertSensor" type="swes:InsertSensorType" substitutionGroup="swes:ExtensibleRequest"/>
+  <complexType name="InsertSensorType">
+    <complexContent>
+      <extension base="swes:ExtensibleRequestType">
+        <sequence>
+          <element name="procedureDescriptionFormat" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>swes:FormatCode</gml:targetElement>
+              </appinfo>
+              <documentation>identifier of the format in which the procedure / sensor description is given in</documentation>
+            </annotation>
+          </element>
+          <element name="procedureDescription">
+            <annotation>
+              <documentation>the current description of the procedure</documentation>
+            </annotation>
+            <complexType>
+              <sequence>
+                <any namespace="##any" processContents="lax"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="observableProperty" type="anyURI" maxOccurs="unbounded">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>unknown</gml:targetElement>
+              </appinfo>
+              <documentation>Pointer to a property that can be observed by the procedure, not a property that has already been observed.</documentation>
+            </annotation>
+          </element>
+          <element name="relatedFeature" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation>feature that is directly or indirectly observed / observable by the procedure; can be any feature which the requestor thinks the procedure can make valuable observations for</documentation>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element ref="swes:FeatureRelationship"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="metadata" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation>additional information required for inserting the sensor at a specific service (like SOS or SPS)</documentation>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element ref="swes:InsertionMetadata"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="InsertSensorPropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:InsertSensor"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <!-- ================================================= -->
+  <element name="InsertionMetadata" type="swes:InsertionMetadataType" abstract="true">
+    <annotation>
+      <documentation>placeholder for all information required by SWE service implementation specifications that realize the InsertSensor operation</documentation>
+    </annotation>
+  </element>
+  <complexType name="InsertionMetadataType" abstract="true"/>
+  <complexType name="InsertionMetadataPropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:InsertionMetadata"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+  <!-- ================================================= -->
+  <element name="InsertSensorResponse" type="swes:InsertSensorResponseType" substitutionGroup="swes:ExtensibleResponse"/>
+  <complexType name="InsertSensorResponseType">
+    <complexContent>
+      <extension base="swes:ExtensibleResponseType">
+        <sequence>
+          <element name="assignedProcedure" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>unknown</gml:targetElement>
+              </appinfo>
+              <documentation>Pointer created by the service for the procedure / sensor that was successfully inserted.</documentation>
+            </annotation>
+          </element>
+          <element name="assignedOffering" type="anyURI">
+            <annotation>
+              <appinfo>
+                <gml:targetElement>swes:AbstractOffering</gml:targetElement>
+              </appinfo>
+              <documentation>Pointer to the offering created by the service to host the new procedure.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="InsertSensorResponsePropertyType">
+    <sequence minOccurs="0">
+      <element ref="swes:InsertSensorResponse"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>
