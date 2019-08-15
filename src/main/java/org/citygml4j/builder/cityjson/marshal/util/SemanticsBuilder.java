@@ -54,7 +54,8 @@ public class SemanticsBuilder {
 
 				// add parent and children relationships
 				Child child = cityObject;
-				while ((child = childInfo.getParentCityObject(child)) != parent) {
+				do  {
+					child = childInfo.getParentCityObject(child);
 					Integer parentIndex = cityObjects.get(child);
 					if (parentIndex != null && parentIndex < surfaces.size()) {
 						SemanticsType parent = surfaces.get(parentIndex);
@@ -62,7 +63,7 @@ public class SemanticsBuilder {
 						semantics.setParent(parentIndex);
 						break;
 					}
-				}
+				} while (child != null && child != parent);
 			}
 			
 			cityObjects.put(cityObject, index);
