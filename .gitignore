@@ -15,4 +15,6 @@ bin/
 out/
 
 # samples
+datasets/
 citygml4j-samples/output/
+src/test
