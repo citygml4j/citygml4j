@@ -6,8 +6,11 @@ import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractGMLAdapter;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
@@ -40,5 +43,16 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
     @Override
     public Element createElement(CityObjectRelation object, Namespaces namespaces) {
         return Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "CityObjectRelation");
+    }
+
+    @Override
+    public void writeChildElements(CityObjectRelation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.writeChildElements(object, namespaces, writer);
+
+        if (object.getRelationType() != null)
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relationType"), object.getRelationType(), ReferenceAdapter.class, namespaces);
+
+        if (object.getRelatedTo() != null)
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relatedTo"), object.getRelatedTo(), AbstractCityObjectPropertyAdapter.class, namespaces);
     }
 }

@@ -19,6 +19,15 @@ public class CityGMLSerializerHelper {
             return CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE;
     }
 
+    public static String getGenericsNamespace(Namespaces namespaces) {
+        if (namespaces.contains(CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE))
+            return CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE;
+        else if (namespaces.contains(CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE))
+            return CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE;
+        else
+            return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE;
+    }
+
     public static String getCoreNamespace(Namespaces namespaces) {
         if (namespaces.contains(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE))
             return CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE;

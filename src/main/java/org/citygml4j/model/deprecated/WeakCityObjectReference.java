@@ -3,6 +3,7 @@ package org.citygml4j.model.deprecated;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AssociationAttributes;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.NilReason;
 import org.xmlobjects.gml.model.xlink.ActuateType;
 import org.xmlobjects.gml.model.xlink.ShowType;
@@ -52,6 +53,10 @@ public class WeakCityObjectReference extends AbstractAssociation<AbstractCityObj
         actuate = reference.getActuate();
         nilReason = reference.getNilReason();
         remoteSchema = reference.getRemoteSchema();
+    }
+
+    public Reference asReference() {
+        return new Reference(this);
     }
 
     @Override

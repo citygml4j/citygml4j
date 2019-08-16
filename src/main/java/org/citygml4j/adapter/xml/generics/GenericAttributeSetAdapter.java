@@ -1,5 +1,6 @@
 package org.citygml4j.adapter.xml.generics;
 
+import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.generics.AbstractGenericAttribute;
 import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
 import org.citygml4j.model.generics.GenericAttributeSet;
@@ -7,9 +8,14 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
@@ -44,9 +50,29 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
                     object.getValue().add(reader.getObjectUsingBuilder(AbstractGenericAttributePropertyAdapter.class));
                     break;
             }
-        } else if (CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())
-                || CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())) {
+        } else
             object.getValue().add(new AbstractGenericAttributeProperty(reader.getObject(AbstractGenericAttribute.class)));
+    }
+
+    @Override
+    public Element createElement(GenericAttributeSet object, Namespaces namespaces) {
+        String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
+        return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
+                Element.of(genericsNamespace, "GenericAttributeSet") :
+                Element.of(genericsNamespace, "genericAttributeSet");
+    }
+
+    @Override
+    public void writeChildElements(GenericAttributeSet object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.writeChildElements(object, namespaces, writer);
+        String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace);
+
+        for (AbstractGenericAttributeProperty property : object.getValue()) {
+            if (isCityGML3)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
+            else if (property.getObject() != null)
+                writer.writeObject(property.getObject(), namespaces);
         }
     }
 }

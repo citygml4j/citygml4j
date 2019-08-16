@@ -8,11 +8,14 @@ import org.citygml4j.adapter.xml.generics.AbstractGenericAttributePropertyAdapte
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.ADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObject;
+import org.citygml4j.model.core.AppearanceMember;
+import org.citygml4j.model.core.CityObjectRelationProperty;
 import org.citygml4j.model.core.ExternalReference;
 import org.citygml4j.model.core.ExternalReferenceProperty;
 import org.citygml4j.model.core.RelativeToTerrain;
 import org.citygml4j.model.core.RelativeToWater;
 import org.citygml4j.model.deprecated.WeakCityObjectReference;
+import org.citygml4j.model.dynamizer.DynamizerProperty;
 import org.citygml4j.model.generics.AbstractGenericAttribute;
 import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
 import org.citygml4j.util.CityGMLConstants;
@@ -105,5 +108,49 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
             else
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
         }
+
+        for (WeakCityObjectReference reference : object.getGeneralizesTo()) {
+            if (isCityGML3)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference.asReference(), ReferenceAdapter.class, namespaces);
+            else
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, WeakCityObjectReferenceAdapter.class, namespaces);
+        }
+
+        if (object.getRelativeToTerrain() != null)
+            writer.writeElement(Element.of(coreNamespace, "relativeToTerrain").addTextContent(object.getRelativeToTerrain().toValue()));
+
+        if (object.getRelativeToWater() != null)
+            writer.writeElement(Element.of(coreNamespace, "relativeToWater").addTextContent(object.getRelativeToWater().toValue()));
+
+        if (isCityGML3) {
+            for (CityObjectRelationProperty property : object.getRelatedTo())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "relatedTo"), property, CityObjectRelationPropertyAdapter.class, namespaces);
+        }
+
+        for (AppearanceMember member : object.getAppearances()) {
+            if (isCityGML3)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AppearanceMemberAdapter.class, namespaces);
+            else {
+                String namespace = namespaces.contains(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE) ?
+                        CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE :
+                        CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE;
+                writer.writeElementUsingSerializer(Element.of(namespace, "appearance"), member, AppearanceMemberAdapter.class, namespaces);
+            }
+        }
+
+        for (AbstractGenericAttributeProperty property : object.getGenericAttributes()) {
+            if (isCityGML3)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
+            else if (property.getObject() != null)
+                writer.writeObject(property.getObject(), namespaces);
+        }
+
+        if (isCityGML3) {
+            for (DynamizerProperty property : object.getDynamizers())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, DynamizerPropertyAdapter.class, namespaces);
+        }
+
+        for (ADEPropertyOfAbstractCityObject property : object.getADEPropertiesOfAbstractCityObject())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }
