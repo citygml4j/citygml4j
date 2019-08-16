@@ -1,19 +1,23 @@
 package org.citygml4j.model.dynamizer;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractProperty;
+import org.xmlobjects.gml.model.feature.FeatureProperty;
 
-public class DynamizerProperty extends AbstractProperty<Dynamizer> implements CityGMLObject {
+public class DynamizerProperty extends FeatureProperty<AbstractDynamizer> implements CityGMLObject {
 
     public DynamizerProperty() {
     }
 
-    public DynamizerProperty(Dynamizer object) {
+    public DynamizerProperty(AbstractDynamizer object) {
         super(object);
     }
 
+    public DynamizerProperty(String href) {
+        super(href);
+    }
+
     @Override
-    public Class<Dynamizer> getTargetType() {
-        return Dynamizer.class;
+    public Class<AbstractDynamizer> getTargetType() {
+        return AbstractDynamizer.class;
     }
 }
