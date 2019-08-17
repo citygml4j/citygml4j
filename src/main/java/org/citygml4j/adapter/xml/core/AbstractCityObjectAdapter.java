@@ -111,7 +111,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
 
         for (WeakCityObjectReference reference : object.getGeneralizesTo()) {
             if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference.asReference(), ReferenceAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, ReferenceAdapter.class, namespaces);
             else
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, WeakCityObjectReferenceAdapter.class, namespaces);
         }
