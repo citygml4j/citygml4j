@@ -131,7 +131,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
             if (isCityGML3)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AppearanceMemberAdapter.class, namespaces);
             else {
-                String namespace = namespaces.contains(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE) ?
+                String namespace = namespaces.contains(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE) ?
                         CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE :
                         CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE;
                 writer.writeElementUsingSerializer(Element.of(namespace, "appearance"), member, AppearanceMemberAdapter.class, namespaces);
