@@ -18,7 +18,7 @@ import javax.xml.namespace.QName;
 public class WeakCityObjectReferenceAdapter extends AbstractWeakReferenceAdapter<WeakCityObjectReference> {
 
     @Override
-    public WeakCityObjectReference createObject(QName name) throws ObjectBuildException {
+    public WeakCityObjectReference createObject(QName name) {
         return new WeakCityObjectReference();
     }
 

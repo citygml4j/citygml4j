@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 public abstract class AbstractWeakReferenceAdapter<T extends AbstractWeakReference> implements ObjectBuilder<T>, ObjectSerializer<T> {
 
     @Override
-    public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) {
+    public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException  {
         GMLBuilderHelper.buildAssociationAttributes(object, attributes);
         GMLBuilderHelper.buildOwnershipAttributes(object, attributes);
     }
@@ -33,7 +33,7 @@ public abstract class AbstractWeakReferenceAdapter<T extends AbstractWeakReferen
     }
 
     @Override
-    public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) {
+    public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         GMLSerializerHelper.serializeAssociationAttributes(element, object, namespaces);
         GMLSerializerHelper.serializeOwnershipAttributes(element, object, namespaces);
     }
