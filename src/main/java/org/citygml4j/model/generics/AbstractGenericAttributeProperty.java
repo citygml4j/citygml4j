@@ -1,9 +1,9 @@
 package org.citygml4j.model.generics;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractInlineAssociation;
+import org.xmlobjects.gml.model.base.AbstractInlineProperty;
 
-public class AbstractGenericAttributeProperty extends AbstractInlineAssociation<AbstractGenericAttribute> implements CityGMLObject {
+public class AbstractGenericAttributeProperty extends AbstractInlineProperty<AbstractGenericAttribute> implements CityGMLObject {
 
     public AbstractGenericAttributeProperty() {
     }
