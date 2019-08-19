@@ -1,0 +1,23 @@
+package org.citygml4j.model.core;
+
+import org.citygml4j.model.CityGMLObject;
+import org.xmlobjects.gml.model.feature.FeatureProperty;
+
+public class AbstractThematicSurfaceProperty extends FeatureProperty<AbstractThematicSurface> implements CityGMLObject {
+
+    public AbstractThematicSurfaceProperty() {
+    }
+
+    public AbstractThematicSurfaceProperty(AbstractThematicSurface object) {
+        super(object);
+    }
+
+    public AbstractThematicSurfaceProperty(String href) {
+        super(href);
+    }
+
+    @Override
+    public Class<AbstractThematicSurface> getTargetType() {
+        return AbstractThematicSurface.class;
+    }
+}

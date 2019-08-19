@@ -13,5 +13,6 @@ repositories {
 
 dependencies {
     api 'org.xml-objects:gml-objects:0.2.0'
+    api 'gov.nist.math:jama:1.0.3'
     annotationProcessor 'org.xml-objects:gml-objects:0.2.0'
 }

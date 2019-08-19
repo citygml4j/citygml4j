@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.appearance.AppearanceProperty;
 import org.citygml4j.model.deprecated.WeakCityObjectReference;
 import org.citygml4j.model.dynamizer.DynamizerProperty;
 import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
@@ -13,7 +14,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private RelativeToTerrain relativeToTerrain;
     private RelativeToWater relativeToWater;
     private List<CityObjectRelationProperty> relatedTo;
-    private List<AppearanceMember> appearances;
+    private List<AppearanceProperty> appearances;
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private List<DynamizerProperty> dynamizers;
     private List<ADEPropertyOfAbstractCityObject> adeProperties;
@@ -67,14 +68,14 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         this.relatedTo = asChild(relatedTo);
     }
 
-    public List<AppearanceMember> getAppearances() {
+    public List<AppearanceProperty> getAppearances() {
         if (appearances == null)
             appearances = new ChildList<>(this);
 
         return appearances;
     }
 
-    public void setAppearances(List<AppearanceMember> appearances) {
+    public void setAppearances(List<AppearanceProperty> appearances) {
         this.appearances = asChild(appearances);
     }
 

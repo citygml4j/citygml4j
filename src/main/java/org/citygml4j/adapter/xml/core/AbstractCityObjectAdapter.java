@@ -2,13 +2,14 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.appearance.AppearancePropertyAdapter;
 import org.citygml4j.adapter.xml.deprecated.WeakCityObjectReferenceAdapter;
 import org.citygml4j.adapter.xml.dynamizer.DynamizerPropertyAdapter;
 import org.citygml4j.adapter.xml.generics.AbstractGenericAttributePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractCityObject;
+import org.citygml4j.model.appearance.AppearanceProperty;
 import org.citygml4j.model.core.ADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AppearanceMember;
 import org.citygml4j.model.core.CityObjectRelationProperty;
 import org.citygml4j.model.core.ExternalReference;
 import org.citygml4j.model.core.ExternalReferenceProperty;
@@ -68,7 +69,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                     object.getRelatedTo().add(reader.getObjectUsingBuilder(CityObjectRelationPropertyAdapter.class));
                     return;
                 case "appearance":
-                    object.getAppearances().add(reader.getObjectUsingBuilder(AppearanceMemberAdapter.class));
+                    object.getAppearances().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
                     return;
                 case "genericAttribute":
                     object.getGenericAttributes().add(reader.getObjectUsingBuilder(AbstractGenericAttributePropertyAdapter.class));
@@ -79,7 +80,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
             }
         } else if (CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())
                 || CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())) {
-            object.getAppearances().add(reader.getObjectUsingBuilder(AppearanceMemberAdapter.class));
+            object.getAppearances().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
             return;
         } else if (CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())
                 || CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())) {
@@ -127,14 +128,14 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "relatedTo"), property, CityObjectRelationPropertyAdapter.class, namespaces);
         }
 
-        for (AppearanceMember member : object.getAppearances()) {
+        for (AppearanceProperty member : object.getAppearances()) {
             if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AppearanceMemberAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AppearancePropertyAdapter.class, namespaces);
             else {
                 String namespace = namespaces.contains(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE) ?
                         CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE :
                         CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE;
-                writer.writeElementUsingSerializer(Element.of(namespace, "appearance"), member, AppearanceMemberAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(namespace, "appearance"), member, AppearancePropertyAdapter.class, namespaces);
             }
         }
 
