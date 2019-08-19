@@ -21,7 +21,7 @@ public abstract class AbstractSpace<T extends AbstractThematicSurface> extends A
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
-    private List<T> boundaries;
+    private List<T> boundarySurfaces;
     private List<ADEPropertyOfAbstractSpace> adeProperties;
 
     public SpaceType getSpaceType() {
@@ -126,15 +126,15 @@ public abstract class AbstractSpace<T extends AbstractThematicSurface> extends A
         this.lod3MultiCurve = asChild(lod3MultiCurve);
     }
 
-    public List<T> getBoundaries() {
-        if (boundaries == null)
-            boundaries = new ChildList<>(this);
+    public List<T> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
 
-        return boundaries;
+        return boundarySurfaces;
     }
 
-    public void setBoundaries(List<T> boundaries) {
-        this.boundaries = asChild(boundaries);
+    public void setBoundarySurfaces(List<T> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
     }
 
     public List<ADEPropertyOfAbstractSpace> getADEPropertyOfAbstractSpace() {
