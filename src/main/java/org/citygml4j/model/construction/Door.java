@@ -5,7 +5,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class Door extends AbstractFillingElement<DoorSurface> {
+public class Door extends AbstractFillingElement<DoorSurfaceProperty> {
     private List<AddressProperty> addresses;
     private List<ADEPropertyOfDoor> adeProperties;
 

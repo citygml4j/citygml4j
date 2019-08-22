@@ -1,16 +1,18 @@
-package org.citygml4j.model.construction;
+package org.citygml4j.model.building;
 
+import org.citygml4j.model.construction.AbstractInstallation;
+import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class OtherConstruction extends AbstractConstruction implements StandardObjectClassifier {
+public class BuildingInstallation extends AbstractInstallation<AbstractThematicSurfaceProperty> implements StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfOtherConstruction> adeProperties;
+    private List<ADEPropertyOfBuildingInstallation> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -48,14 +50,14 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfOtherConstruction> getADEPropertyOfOtherConstruction() {
+    public List<ADEPropertyOfBuildingInstallation> getADEPropertyOfBuildingInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfOtherConstruction(List<ADEPropertyOfOtherConstruction> adeProperties) {
+    public void setADEPropertyOfBuildingInstallation(List<ADEPropertyOfBuildingInstallation> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

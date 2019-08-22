@@ -4,7 +4,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class Window extends AbstractFillingElement<WindowSurface> {
+public class Window extends AbstractFillingElement<WindowSurfaceProperty> {
     private List<ADEPropertyOfWindow> adeProperties;
 
     public List<ADEPropertyOfWindow> getADEPropertyOfWindow() {

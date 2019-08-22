@@ -4,7 +4,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractOccupiedSpace<T extends AbstractThematicSurface> extends AbstractPhysicalSpace<T> {
+public abstract class AbstractOccupiedSpace<T extends SpaceBoundaryProperty> extends AbstractPhysicalSpace<T> {
     private ImplicitGeometryProperty lod1ImplicitRepresentation;
     private ImplicitGeometryProperty lod2ImplicitRepresentation;
     private ImplicitGeometryProperty lod3ImplicitRepresentation;
