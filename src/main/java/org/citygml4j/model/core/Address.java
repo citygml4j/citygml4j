@@ -19,14 +19,14 @@ public class Address extends AbstractFeature implements CityGMLObject {
         this.multiPoint = asChild(multiPoint);
     }
 
-    public List<ADEPropertyOfAddress> getADEPropertyOfAddress() {
+    public List<ADEPropertyOfAddress> getADEPropertiesOfAddress() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAddress(List<ADEPropertyOfAddress> adeProperties) {
+    public void setADEPropertiesOfAddress(List<ADEPropertyOfAddress> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

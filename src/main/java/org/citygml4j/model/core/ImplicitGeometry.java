@@ -71,14 +71,14 @@ public class ImplicitGeometry extends AbstractFeature implements CityGMLObject {
         this.appearances = asChild(appearances);
     }
 
-    public List<ADEPropertyOfImplicitGeometry> getADEPropertyOfImplicitGeometry() {
+    public List<ADEPropertyOfImplicitGeometry> getADEPropertiesOfImplicitGeometry() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfImplicitGeometry(List<ADEPropertyOfImplicitGeometry> adeProperties) {
+    public void setADEPropertiesOfImplicitGeometry(List<ADEPropertyOfImplicitGeometry> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

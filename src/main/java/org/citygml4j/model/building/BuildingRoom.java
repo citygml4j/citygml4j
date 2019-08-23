@@ -86,14 +86,14 @@ public class BuildingRoom extends AbstractOccupiedSpace<AbstractThematicSurfaceP
         this.buildingInstallations = asChild(buildingInstallations);
     }
 
-    public List<ADEPropertyOfBuildingRoom> getADEPropertyOfBuildingRoom() {
+    public List<ADEPropertyOfBuildingRoom> getADEPropertiesOfBuildingRoom() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuildingRoom(List<ADEPropertyOfBuildingRoom> adeProperties) {
+    public void setADEPropertiesOfBuildingRoom(List<ADEPropertyOfBuildingRoom> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

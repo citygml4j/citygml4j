@@ -67,14 +67,14 @@ public abstract class AbstractThematicSurface extends AbstractCityObject {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfAbstractThematicSurface> getADEPropertyOfAbstractThematicSurface() {
+    public List<ADEPropertyOfAbstractThematicSurface> getADEPropertiesOfAbstractThematicSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractThematicSurface(List<ADEPropertyOfAbstractThematicSurface> adeProperties) {
+    public void setADEPropertiesOfAbstractThematicSurface(List<ADEPropertyOfAbstractThematicSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

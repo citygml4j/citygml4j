@@ -168,14 +168,14 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfAbstractBuilding> getADEPropertyOfAbstractBuilding() {
+    public List<ADEPropertyOfAbstractBuilding> getADEPropertiesOfAbstractBuilding() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractBuilding(List<ADEPropertyOfAbstractBuilding> adeProperties) {
+    public void setADEPropertiesOfAbstractBuilding(List<ADEPropertyOfAbstractBuilding> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -21,14 +21,14 @@ public class Storey extends AbstractBuildingSubdivision<SpaceBoundaryReference> 
         this.buildingUnits = asChild(buildingUnits);
     }
 
-    public List<ADEPropertyOfStorey> getADEPropertyOfStorey() {
+    public List<ADEPropertyOfStorey> getADEPropertiesOfStorey() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfStorey(List<ADEPropertyOfStorey> adeProperties) {
+    public void setADEPropertiesOfStorey(List<ADEPropertyOfStorey> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

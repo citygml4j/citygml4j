@@ -50,14 +50,14 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement<Abs
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingConstructiveElement> getADEPropertyOfBuildingConstructiveElement() {
+    public List<ADEPropertyOfBuildingConstructiveElement> getADEPropertiesOfBuildingConstructiveElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuildingConstructiveElement(List<ADEPropertyOfBuildingConstructiveElement> adeProperties) {
+    public void setADEPropertiesOfBuildingConstructiveElement(List<ADEPropertyOfBuildingConstructiveElement> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

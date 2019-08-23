@@ -121,14 +121,14 @@ public abstract class AbstractBuildingSubdivision<T extends SpaceBoundaryPropert
         this.buildingRooms = asChild(buildingRooms);
     }
 
-    public List<ADEPropertyOfAbstractBuildingSubdivision> getADEPropertyOfAbstractBuildingSubdivision() {
+    public List<ADEPropertyOfAbstractBuildingSubdivision> getADEPropertiesOfAbstractBuildingSubdivision() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractBuildingSubdivision(List<ADEPropertyOfAbstractBuildingSubdivision> adeProperties) {
+    public void setADEPropertiesOfAbstractBuildingSubdivision(List<ADEPropertyOfAbstractBuildingSubdivision> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -7,14 +7,14 @@ import java.util.List;
 public abstract class ClosureSurface extends AbstractThematicSurface {
     private List<ADEPropertyOfClosureSurface> adeProperties;
 
-    public List<ADEPropertyOfClosureSurface> getADEPropertyOfClosureSurface() {
+    public List<ADEPropertyOfClosureSurface> getADEPropertiesOfClosureSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfClosureSurface(List<ADEPropertyOfClosureSurface> adeProperties) {
+    public void setADEPropertiesOfClosureSurface(List<ADEPropertyOfClosureSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

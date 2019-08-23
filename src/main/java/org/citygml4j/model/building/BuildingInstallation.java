@@ -50,14 +50,14 @@ public class BuildingInstallation extends AbstractInstallation<AbstractThematicS
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingInstallation> getADEPropertyOfBuildingInstallation() {
+    public List<ADEPropertyOfBuildingInstallation> getADEPropertiesOfBuildingInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuildingInstallation(List<ADEPropertyOfBuildingInstallation> adeProperties) {
+    public void setADEPropertiesOfBuildingInstallation(List<ADEPropertyOfBuildingInstallation> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

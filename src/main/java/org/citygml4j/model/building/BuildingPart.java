@@ -7,14 +7,14 @@ import java.util.List;
 public class BuildingPart extends AbstractBuilding {
     private List<ADEPropertyOfBuildingPart> adeProperties;
 
-    public List<ADEPropertyOfBuildingPart> getADEPropertyOfBuildingPart() {
+    public List<ADEPropertyOfBuildingPart> getADEPropertiesOfBuildingPart() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuildingPart(List<ADEPropertyOfBuildingPart> adeProperties) {
+    public void setADEPropertiesOfBuildingPart(List<ADEPropertyOfBuildingPart> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

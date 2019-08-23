@@ -18,14 +18,14 @@ public abstract class AbstractInstallation<T extends SpaceBoundaryProperty> exte
         this.relationToConstruction = relationToConstruction;
     }
 
-    public List<ADEPropertyOfAbstractInstallation> getADEPropertyOfAbstractInstallation() {
+    public List<ADEPropertyOfAbstractInstallation> getADEPropertiesOfAbstractInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractInstallation(List<ADEPropertyOfAbstractInstallation> adeProperties) {
+    public void setADEPropertiesOfAbstractInstallation(List<ADEPropertyOfAbstractInstallation> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

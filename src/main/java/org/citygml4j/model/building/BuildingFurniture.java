@@ -50,14 +50,14 @@ public class BuildingFurniture extends AbstractFurniture<AbstractThematicSurface
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingFurniture> getADEPropertyOfBuildingFurniture() {
+    public List<ADEPropertyOfBuildingFurniture> getADEPropertiesOfBuildingFurniture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuildingFurniture(List<ADEPropertyOfBuildingFurniture> adeProperties) {
+    public void setADEPropertiesOfBuildingFurniture(List<ADEPropertyOfBuildingFurniture> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

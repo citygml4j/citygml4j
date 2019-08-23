@@ -9,14 +9,14 @@ import java.util.List;
 public abstract class AbstractFillingElement<T extends SpaceBoundaryProperty> extends AbstractOccupiedSpace<T> {
     private List<ADEPropertyOfAbstractFillingElement> adeProperties;
 
-    public List<ADEPropertyOfAbstractFillingElement> getADEPropertyOfAbstractFillingElement() {
+    public List<ADEPropertyOfAbstractFillingElement> getADEPropertiesOfAbstractFillingElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractFillingElement(List<ADEPropertyOfAbstractFillingElement> adeProperties) {
+    public void setADEPropertiesOfAbstractFillingElement(List<ADEPropertyOfAbstractFillingElement> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

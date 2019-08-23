@@ -20,14 +20,14 @@ public class DoorSurface extends AbstractFillingSurface {
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfDoorSurface> getADEPropertyOfDoorSurface() {
+    public List<ADEPropertyOfDoorSurface> getADEPropertiesOfDoorSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfDoorSurface(List<ADEPropertyOfDoorSurface> adeProperties) {
+    public void setADEPropertiesOfDoorSurface(List<ADEPropertyOfDoorSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

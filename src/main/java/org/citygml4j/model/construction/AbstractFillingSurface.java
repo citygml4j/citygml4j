@@ -8,14 +8,14 @@ import java.util.List;
 public abstract class AbstractFillingSurface extends AbstractThematicSurface {
     private List<ADEPropertyOfAbstractFillingSurface> adeProperties;
 
-    public List<ADEPropertyOfAbstractFillingSurface> getADEPropertyOfAbstractFillingSurface() {
+    public List<ADEPropertyOfAbstractFillingSurface> getADEPropertiesOfAbstractFillingSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractFillingSurface(List<ADEPropertyOfAbstractFillingSurface> adeProperties) {
+    public void setADEPropertiesOfAbstractFillingSurface(List<ADEPropertyOfAbstractFillingSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -7,14 +7,14 @@ import java.util.List;
 public abstract class AbstractUnoccupiedSpace<T extends SpaceBoundaryProperty> extends AbstractSpace<T> {
     private List<ADEPropertyOfAbstractUnoccupiedSpace> adeProperties;
 
-    public List<ADEPropertyOfAbstractUnoccupiedSpace> getADEPropertyOfAbstractUnoccupiedSpace() {
+    public List<ADEPropertyOfAbstractUnoccupiedSpace> getADEPropertiesOfAbstractUnoccupiedSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractUnoccupiedSpace(List<ADEPropertyOfAbstractUnoccupiedSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractUnoccupiedSpace(List<ADEPropertyOfAbstractUnoccupiedSpace> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

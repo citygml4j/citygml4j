@@ -20,14 +20,14 @@ public class Door extends AbstractFillingElement<DoorSurfaceProperty> {
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfDoor> getADEPropertyOfDoor() {
+    public List<ADEPropertyOfDoor> getADEPropertiesOfDoor() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfDoor(List<ADEPropertyOfDoor> adeProperties) {
+    public void setADEPropertiesOfDoor(List<ADEPropertyOfDoor> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

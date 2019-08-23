@@ -85,14 +85,14 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace<Abstrac
         this.heights = asChild(heights);
     }
 
-    public List<ADEPropertyOfAbstractConstruction> getADEPropertyOfAbstractConstruction() {
+    public List<ADEPropertyOfAbstractConstruction> getADEPropertiesOfAbstractConstruction() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractConstruction(List<ADEPropertyOfAbstractConstruction> adeProperties) {
+    public void setADEPropertiesOfAbstractConstruction(List<ADEPropertyOfAbstractConstruction> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

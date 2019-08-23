@@ -48,14 +48,14 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfOtherConstruction> getADEPropertyOfOtherConstruction() {
+    public List<ADEPropertyOfOtherConstruction> getADEPropertiesOfOtherConstruction() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfOtherConstruction(List<ADEPropertyOfOtherConstruction> adeProperties) {
+    public void setADEPropertiesOfOtherConstruction(List<ADEPropertyOfOtherConstruction> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

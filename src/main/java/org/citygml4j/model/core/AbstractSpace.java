@@ -137,14 +137,14 @@ public abstract class AbstractSpace<T extends SpaceBoundaryProperty> extends Abs
         this.boundarySurfaces = asChild(boundarySurfaces);
     }
 
-    public List<ADEPropertyOfAbstractSpace> getADEPropertyOfAbstractSpace() {
+    public List<ADEPropertyOfAbstractSpace> getADEPropertiesOfAbstractSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractSpace(List<ADEPropertyOfAbstractSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractSpace(List<ADEPropertyOfAbstractSpace> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

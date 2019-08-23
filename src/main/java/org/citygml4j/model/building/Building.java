@@ -19,14 +19,14 @@ public class Building extends AbstractBuilding {
         this.buildingParts = asChild(buildingParts);
     }
 
-    public List<ADEPropertyOfBuilding> getADEPropertyOfBuilding() {
+    public List<ADEPropertyOfBuilding> getADEPropertiesOfBuilding() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuilding(List<ADEPropertyOfBuilding> adeProperties) {
+    public void setADEPropertiesOfBuilding(List<ADEPropertyOfBuilding> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

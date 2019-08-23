@@ -7,14 +7,14 @@ import java.util.List;
 public class OuterFloorSurface extends AbstractConstructionSurface {
     private List<ADEPropertyOfOuterFloorSurface> adeProperties;
 
-    public List<ADEPropertyOfOuterFloorSurface> getADEPropertyOfOuterFloorSurface() {
+    public List<ADEPropertyOfOuterFloorSurface> getADEPropertiesOfOuterFloorSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfOuterFloorSurface(List<ADEPropertyOfOuterFloorSurface> adeProperties) {
+    public void setADEPropertiesOfOuterFloorSurface(List<ADEPropertyOfOuterFloorSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

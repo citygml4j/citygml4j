@@ -33,14 +33,14 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
         this.closureSurfaces = asChild(closureSurfaces);
     }
 
-    public List<ADEPropertyOfAbstractConstructionSurface> getADEPropertyOfAbstractConstructionSurface() {
+    public List<ADEPropertyOfAbstractConstructionSurface> getADEPropertiesOfAbstractConstructionSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractConstructionSurface(List<ADEPropertyOfAbstractConstructionSurface> adeProperties) {
+    public void setADEPropertiesOfAbstractConstructionSurface(List<ADEPropertyOfAbstractConstructionSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

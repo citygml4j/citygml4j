@@ -45,14 +45,14 @@ public abstract class AbstractPhysicalSpace<T extends SpaceBoundaryProperty> ext
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfAbstractPhysicalSpace> getADEPropertyOfAbstractPhysicalSpace() {
+    public List<ADEPropertyOfAbstractPhysicalSpace> getADEPropertiesOfAbstractPhysicalSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractPhysicalSpace(List<ADEPropertyOfAbstractPhysicalSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractPhysicalSpace(List<ADEPropertyOfAbstractPhysicalSpace> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

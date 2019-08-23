@@ -7,14 +7,14 @@ import java.util.List;
 public class RoofSurface extends AbstractConstructionSurface {
     private List<ADEPropertyOfRoofSurface> adeProperties;
 
-    public List<ADEPropertyOfRoofSurface> getADEPropertyOfRoofSurface() {
+    public List<ADEPropertyOfRoofSurface> getADEPropertiesOfRoofSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfRoofSurface(List<ADEPropertyOfRoofSurface> adeProperties) {
+    public void setADEPropertiesOfRoofSurface(List<ADEPropertyOfRoofSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

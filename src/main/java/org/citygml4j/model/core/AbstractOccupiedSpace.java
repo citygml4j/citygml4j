@@ -34,14 +34,14 @@ public abstract class AbstractOccupiedSpace<T extends SpaceBoundaryProperty> ext
         this.lod3ImplicitRepresentation = asChild(lod3ImplicitRepresentation);
     }
 
-    public List<ADEPropertyOfAbstractOccupiedSpace> getADEPropertyOfAbstractOccupiedSpace() {
+    public List<ADEPropertyOfAbstractOccupiedSpace> getADEPropertiesOfAbstractOccupiedSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractOccupiedSpace(List<ADEPropertyOfAbstractOccupiedSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractOccupiedSpace(List<ADEPropertyOfAbstractOccupiedSpace> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

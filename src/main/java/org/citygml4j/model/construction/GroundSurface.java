@@ -7,14 +7,14 @@ import java.util.List;
 public class GroundSurface extends AbstractConstructionSurface {
     private List<ADEPropertyOfGroundSurface> adeProperties;
 
-    public List<ADEPropertyOfGroundSurface> getADEPropertyOfGroundSurface() {
+    public List<ADEPropertyOfGroundSurface> getADEPropertiesOfGroundSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfGroundSurface(List<ADEPropertyOfGroundSurface> adeProperties) {
+    public void setADEPropertiesOfGroundSurface(List<ADEPropertyOfGroundSurface> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

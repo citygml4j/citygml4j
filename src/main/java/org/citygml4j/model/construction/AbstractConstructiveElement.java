@@ -34,14 +34,14 @@ public abstract class AbstractConstructiveElement<T extends SpaceBoundaryPropert
         this.fillings = asChild(fillings);
     }
 
-    public List<ADEPropertyOfAbstractConstructiveElement> getADEPropertyOfAbstractConstructiveElement() {
+    public List<ADEPropertyOfAbstractConstructiveElement> getADEPropertiesOfAbstractConstructiveElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfAbstractConstructiveElement(List<ADEPropertyOfAbstractConstructiveElement> adeProperties) {
+    public void setADEPropertiesOfAbstractConstructiveElement(List<ADEPropertyOfAbstractConstructiveElement> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

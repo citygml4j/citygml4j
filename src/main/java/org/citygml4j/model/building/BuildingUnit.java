@@ -34,14 +34,14 @@ public class BuildingUnit extends AbstractBuildingSubdivision<AbstractThematicSu
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfBuildingUnit> getADEPropertyOfBuildingUnit() {
+    public List<ADEPropertyOfBuildingUnit> getADEPropertiesOfBuildingUnit() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertyOfBuildingUnit(List<ADEPropertyOfBuildingUnit> adeProperties) {
+    public void setADEPropertiesOfBuildingUnit(List<ADEPropertyOfBuildingUnit> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }
