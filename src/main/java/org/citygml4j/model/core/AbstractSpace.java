@@ -10,8 +10,8 @@ import java.util.List;
 
 public abstract class AbstractSpace<T extends SpaceBoundaryProperty> extends AbstractCityObject {
     private SpaceType spaceType;
-    private List<QualifiedVolume> volumes;
-    private List<QualifiedArea> areas;
+    private List<QualifiedVolumeProperty> volumes;
+    private List<QualifiedAreaProperty> areas;
     private PointProperty lod0Point;
     private MultiSurfaceProperty lod0MultiSurface;
     private SolidProperty lod1Solid;
@@ -32,25 +32,25 @@ public abstract class AbstractSpace<T extends SpaceBoundaryProperty> extends Abs
         this.spaceType = spaceType;
     }
 
-    public List<QualifiedVolume> getVolumes() {
+    public List<QualifiedVolumeProperty> getVolumes() {
         if (volumes == null)
             volumes = new ChildList<>(this);
 
         return volumes;
     }
 
-    public void setVolumes(List<QualifiedVolume> volumes) {
+    public void setVolumes(List<QualifiedVolumeProperty> volumes) {
         this.volumes = asChild(volumes);
     }
 
-    public List<QualifiedArea> getAreas() {
+    public List<QualifiedAreaProperty> getAreas() {
         if (areas == null)
             areas = new ChildList<>(this);
 
         return areas;
     }
 
-    public void setAreas(List<QualifiedArea> areas) {
+    public void setAreas(List<QualifiedAreaProperty> areas) {
         this.areas = areas;
     }
 
