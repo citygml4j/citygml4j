@@ -7,7 +7,8 @@ import org.xmlobjects.gml.model.common.ChildList;
 import java.time.LocalDate;
 import java.util.List;
 
-public abstract class AbstractConstruction extends AbstractOccupiedSpace<AbstractConstructionSurfaceProperty> {
+public abstract class AbstractConstruction extends AbstractOccupiedSpace {
+    private List<AbstractConstructionSurfaceProperty> boundarySurfaces;
     private List<OccupancyProperty> occupancies;
     private ConditionOfConstructionValue conditionOfConstruction;
     private LocalDate dateOfConstruction;
@@ -16,6 +17,18 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace<Abstrac
     private List<ElevationProperty> elevations;
     private List<HeightProperty> heights;
     private List<ADEPropertyOfAbstractConstruction> adeProperties;
+
+    @Override
+    public List<AbstractConstructionSurfaceProperty> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<AbstractConstructionSurfaceProperty> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
+    }
 
     public List<OccupancyProperty> getOccupancies() {
         if (occupancies == null)

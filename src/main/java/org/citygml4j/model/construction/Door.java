@@ -5,9 +5,22 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class Door extends AbstractFillingElement<DoorSurfaceProperty> {
+public class Door extends AbstractFillingElement {
+    private List<DoorSurfaceProperty> boundarySurfaces;
     private List<AddressProperty> addresses;
     private List<ADEPropertyOfDoor> adeProperties;
+
+    @Override
+    public List<DoorSurfaceProperty> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<DoorSurfaceProperty> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
+    }
 
     public List<AddressProperty> getAddresses() {
         if (addresses == null)

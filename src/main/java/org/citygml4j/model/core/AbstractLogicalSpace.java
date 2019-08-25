@@ -4,7 +4,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractLogicalSpace<T extends BoundarySurfaceProperty> extends AbstractSpace<T> {
+public abstract class AbstractLogicalSpace extends AbstractSpace {
     private List<ADEPropertyOfAbstractLogicalSpace> adeProperties;
 
     public List<ADEPropertyOfAbstractLogicalSpace> getADEPropertiesOfAbstractLogicalSpace() {

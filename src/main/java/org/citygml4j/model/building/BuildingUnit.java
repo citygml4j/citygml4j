@@ -7,10 +7,23 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class BuildingUnit extends AbstractBuildingSubdivision<AbstractThematicSurfaceProperty> {
+public class BuildingUnit extends AbstractBuildingSubdivision {
+    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private List<Reference> storeys;
     private List<AddressProperty> addresses;
     private List<ADEPropertyOfBuildingUnit> adeProperties;
+
+    @Override
+    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
+    }
 
     public List<Reference> getStoreys() {
         if (storeys == null)

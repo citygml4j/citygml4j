@@ -8,7 +8,7 @@ import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 
 import java.util.List;
 
-public abstract class AbstractSpace<T extends BoundarySurfaceProperty> extends AbstractCityObject {
+public abstract class AbstractSpace extends AbstractCityObject {
     private SpaceType spaceType;
     private List<QualifiedVolumeProperty> volumes;
     private List<QualifiedAreaProperty> areas;
@@ -21,8 +21,9 @@ public abstract class AbstractSpace<T extends BoundarySurfaceProperty> extends A
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
-    private List<T> boundarySurfaces;
     private List<ADEPropertyOfAbstractSpace> adeProperties;
+
+    public abstract List<? extends BoundarySurfaceProperty> getBoundarySurfaces();
 
     public SpaceType getSpaceType() {
         return spaceType;
@@ -124,17 +125,6 @@ public abstract class AbstractSpace<T extends BoundarySurfaceProperty> extends A
 
     public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve) {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
-    }
-
-    public List<T> getBoundarySurfaces() {
-        if (boundarySurfaces == null)
-            boundarySurfaces = new ChildList<>(this);
-
-        return boundarySurfaces;
-    }
-
-    public void setBoundarySurfaces(List<T> boundarySurfaces) {
-        this.boundarySurfaces = asChild(boundarySurfaces);
     }
 
     public List<ADEPropertyOfAbstractSpace> getADEPropertiesOfAbstractSpace() {

@@ -8,7 +8,8 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class BuildingRoom extends AbstractOccupiedSpace<AbstractThematicSurfaceProperty> implements StandardObjectClassifier {
+public class BuildingRoom extends AbstractOccupiedSpace implements StandardObjectClassifier {
+    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
@@ -16,6 +17,18 @@ public class BuildingRoom extends AbstractOccupiedSpace<AbstractThematicSurfaceP
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
     private List<ADEPropertyOfBuildingRoom> adeProperties;
+
+    @Override
+    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
+    }
 
     @Override
     public Code getClassifier() {

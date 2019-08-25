@@ -1,12 +1,11 @@
 package org.citygml4j.model.construction;
 
 import org.citygml4j.model.core.AbstractOccupiedSpace;
-import org.citygml4j.model.core.BoundarySurfaceProperty;
 import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractConstructiveElement<T extends BoundarySurfaceProperty> extends AbstractOccupiedSpace<T> {
+public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace {
     private Boolean isStructuralElement;
     private List<AbstractFillingElementProperty> fillings;
     private List<ADEPropertyOfAbstractConstructiveElement> adeProperties;

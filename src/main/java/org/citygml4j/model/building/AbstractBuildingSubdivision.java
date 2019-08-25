@@ -2,7 +2,6 @@ package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.BoundarySurfaceProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -10,7 +9,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractBuildingSubdivision<T extends BoundarySurfaceProperty> extends AbstractLogicalSpace<T> implements StandardObjectClassifier {
+public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace implements StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;

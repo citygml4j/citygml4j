@@ -6,9 +6,22 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class Storey extends AbstractBuildingSubdivision<BoundarySurfaceReference> {
+public class Storey extends AbstractBuildingSubdivision {
+    private List<BoundarySurfaceReference> boundarySurfaces;
     private List<Reference> buildingUnits;
     private List<ADEPropertyOfStorey> adeProperties;
+
+    @Override
+    public List<BoundarySurfaceReference> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<BoundarySurfaceReference> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
+    }
 
     public List<Reference> getBuildingUnits() {
         if (buildingUnits == null)
