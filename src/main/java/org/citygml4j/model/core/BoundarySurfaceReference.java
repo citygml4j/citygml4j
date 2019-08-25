@@ -4,20 +4,20 @@ import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AssociationAttributes;
 import org.xmlobjects.gml.model.base.Reference;
 
-public class SpaceBoundaryReference extends Reference implements SpaceBoundaryProperty {
+public class BoundarySurfaceReference extends Reference implements BoundarySurfaceProperty {
 
-    public SpaceBoundaryReference() {
+    public BoundarySurfaceReference() {
     }
 
-    public SpaceBoundaryReference(String href) {
+    public BoundarySurfaceReference(String href) {
         super(href);
     }
 
-    public SpaceBoundaryReference(AbstractGML object) {
+    public BoundarySurfaceReference(AbstractGML object) {
         super(object);
     }
 
-    public SpaceBoundaryReference(AssociationAttributes reference) {
+    public BoundarySurfaceReference(AssociationAttributes reference) {
         super(reference);
     }
 

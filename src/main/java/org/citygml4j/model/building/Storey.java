@@ -1,12 +1,12 @@
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.core.SpaceBoundaryReference;
+import org.citygml4j.model.core.BoundarySurfaceReference;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class Storey extends AbstractBuildingSubdivision<SpaceBoundaryReference> {
+public class Storey extends AbstractBuildingSubdivision<BoundarySurfaceReference> {
     private List<Reference> buildingUnits;
     private List<ADEPropertyOfStorey> adeProperties;
 

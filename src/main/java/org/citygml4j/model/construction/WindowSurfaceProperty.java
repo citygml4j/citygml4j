@@ -1,9 +1,9 @@
 package org.citygml4j.model.construction;
 
-import org.citygml4j.model.core.SpaceBoundaryProperty;
+import org.citygml4j.model.core.BoundarySurfaceProperty;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 
-public class WindowSurfaceProperty extends FeatureProperty<WindowSurface> implements SpaceBoundaryProperty<WindowSurface> {
+public class WindowSurfaceProperty extends FeatureProperty<WindowSurface> implements BoundarySurfaceProperty<WindowSurface> {
 
     public WindowSurfaceProperty() {
     }

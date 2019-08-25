@@ -8,7 +8,7 @@ import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 
 import java.util.List;
 
-public abstract class AbstractSpace<T extends SpaceBoundaryProperty> extends AbstractCityObject {
+public abstract class AbstractSpace<T extends BoundarySurfaceProperty> extends AbstractCityObject {
     private SpaceType spaceType;
     private List<QualifiedVolumeProperty> volumes;
     private List<QualifiedAreaProperty> areas;

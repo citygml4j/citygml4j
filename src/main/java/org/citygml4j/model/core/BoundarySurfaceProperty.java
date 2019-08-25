@@ -4,6 +4,6 @@ import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.base.AssociationAttributes;
 import org.xmlobjects.gml.model.base.OwnershipAttributes;
 
-public interface SpaceBoundaryProperty<T extends AbstractThematicSurface> extends AssociationAttributes, OwnershipAttributes, CityGMLObject {
+public interface BoundarySurfaceProperty<T extends AbstractThematicSurface> extends AssociationAttributes, OwnershipAttributes, CityGMLObject {
     T getObject();
 }

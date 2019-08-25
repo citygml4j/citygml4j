@@ -6,7 +6,7 @@ import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 
 import java.util.List;
 
-public abstract class AbstractPhysicalSpace<T extends SpaceBoundaryProperty> extends AbstractSpace<T> {
+public abstract class AbstractPhysicalSpace<T extends BoundarySurfaceProperty> extends AbstractSpace<T> {
     private MultiCurveProperty lod1TerrainIntersectionCurve;
     private MultiCurveProperty lod2TerrainIntersectionCurve;
     private MultiCurveProperty lod3TerrainIntersectionCurve;

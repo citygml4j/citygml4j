@@ -4,7 +4,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractUnoccupiedSpace<T extends SpaceBoundaryProperty> extends AbstractSpace<T> {
+public abstract class AbstractUnoccupiedSpace<T extends BoundarySurfaceProperty> extends AbstractSpace<T> {
     private List<ADEPropertyOfAbstractUnoccupiedSpace> adeProperties;
 
     public List<ADEPropertyOfAbstractUnoccupiedSpace> getADEPropertiesOfAbstractUnoccupiedSpace() {
