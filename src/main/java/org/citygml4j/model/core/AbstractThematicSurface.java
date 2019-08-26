@@ -8,7 +8,7 @@ import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import java.util.List;
 
 public abstract class AbstractThematicSurface extends AbstractCityObject {
-    private List<QualifiedArea> areas;
+    private List<QualifiedAreaProperty> areas;
     private MultiCurveProperty lod0MultiCurve;
     private MultiSurfaceProperty lod1MultiSurface;
     private MultiSurfaceProperty lod2MultiSurface;
@@ -16,14 +16,14 @@ public abstract class AbstractThematicSurface extends AbstractCityObject {
     private PointCloudProperty pointCloud;
     private List<ADEPropertyOfAbstractThematicSurface> adeProperties;
 
-    public List<QualifiedArea> getAreas() {
+    public List<QualifiedAreaProperty> getAreas() {
         if (areas == null)
             areas = new ChildList<>(this);
 
         return areas;
     }
 
-    public void setAreas(List<QualifiedArea> areas) {
+    public void setAreas(List<QualifiedAreaProperty> areas) {
         this.areas = asChild(areas);
     }
 

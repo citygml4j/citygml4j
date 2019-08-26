@@ -5,7 +5,6 @@ import org.citygml4j.model.appearance.AppearanceProperty;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
-import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 
@@ -16,7 +15,7 @@ public class ImplicitGeometry extends AbstractFeature implements CityGMLObject {
     private Code mimeType;
     private String libraryObject;
     private PointProperty referencePoint;
-    private GeometryProperty<AbstractGeometry> relativeGMLGeometry;
+    private GeometryProperty relativeGMLGeometry;
     private List<AppearanceProperty> appearances;
     private List<ADEPropertyOfImplicitGeometry> adeProperties;
 
@@ -52,11 +51,11 @@ public class ImplicitGeometry extends AbstractFeature implements CityGMLObject {
         this.referencePoint = asChild(referencePoint);
     }
 
-    public GeometryProperty<AbstractGeometry> getRelativeGMLGeometry() {
+    public GeometryProperty getRelativeGMLGeometry() {
         return relativeGMLGeometry;
     }
 
-    public void setRelativeGMLGeometry(GeometryProperty<AbstractGeometry> relativeGMLGeometry) {
+    public void setRelativeGMLGeometry(GeometryProperty relativeGMLGeometry) {
         this.relativeGMLGeometry = asChild(relativeGMLGeometry);
     }
 

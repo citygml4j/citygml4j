@@ -17,13 +17,23 @@ public class TransformationMatrix2x2 extends AbstractMatrix {
 
     public static TransformationMatrix2x2 ofRowMajorList(List<Double> values) {
         TransformationMatrix2x2 matrix = new TransformationMatrix2x2();
-        matrix.fromRowMajorList(values);
+        try {
+            matrix.fromRowMajorList(values);
+        } catch (Throwable e) {
+            //
+        }
+
         return matrix;
     }
 
     public static TransformationMatrix2x2 ofColumnMajorList(List<Double> values) {
         TransformationMatrix2x2 matrix = new TransformationMatrix2x2();
-        matrix.fromColumnMajorList(values);
+        try {
+            matrix.fromColumnMajorList(values);
+        } catch (Throwable e) {
+            //
+        }
+
         return matrix;
     }
 }

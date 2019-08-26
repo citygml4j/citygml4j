@@ -17,13 +17,23 @@ public class TransformationMatrix4x4 extends AbstractMatrix {
 
     public static TransformationMatrix4x4 ofRowMajorList(List<Double> values) {
         TransformationMatrix4x4 matrix = new TransformationMatrix4x4();
-        matrix.fromRowMajorList(values);
+        try {
+            matrix.fromRowMajorList(values);
+        } catch (Throwable e) {
+            //
+        }
+
         return matrix;
     }
 
     public static TransformationMatrix4x4 ofColumnMajorList(List<Double> values) {
         TransformationMatrix4x4 matrix = new TransformationMatrix4x4();
-        matrix.fromColumnMajorList(values);
+        try {
+            matrix.fromColumnMajorList(values);
+        } catch (Throwable e) {
+            //
+        }
+
         return matrix;
     }
 }

@@ -4,7 +4,6 @@ import org.citygml4j.model.appearance.AppearanceProperty;
 import org.citygml4j.model.versioning.VersionProperty;
 import org.citygml4j.model.versioning.VersionTransitionProperty;
 import org.xmlobjects.gml.model.common.ChildList;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 public class CityModel extends AbstractFeatureWithLifespan {
     private List<AbstractCityObjectProperty> cityObjectMembers;
     private List<AppearanceProperty> appearanceMembers;
-    private List<FeatureProperty<AbstractFeature>> featureMembers;
+    private List<FeatureProperty> featureMembers;
     private List<VersionProperty> versionMembers;
     private List<VersionTransitionProperty> versionTransitionMembers;
     private List<ADEPropertyOfCityModel> adeProperties;
@@ -39,14 +38,14 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.appearanceMembers = asChild(appearanceMembers);
     }
 
-    public List<FeatureProperty<AbstractFeature>> getFeatureMembers() {
+    public List<FeatureProperty> getFeatureMembers() {
         if (featureMembers == null)
             featureMembers = new ChildList<>(this);
 
         return featureMembers;
     }
 
-    public void setFeatureMembers(List<FeatureProperty<AbstractFeature>> featureMembers) {
+    public void setFeatureMembers(List<FeatureProperty> featureMembers) {
         this.featureMembers = asChild(featureMembers);
     }
 
