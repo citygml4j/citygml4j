@@ -71,14 +71,14 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.versionTransitionMembers = asChild(versionTransitionMembers);
     }
 
-    public List<ADEPropertyOfCityModel> getAdeProperties() {
+    public List<ADEPropertyOfCityModel> getADEPropertiesOfCityModel() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setAdeProperties(List<ADEPropertyOfCityModel> adeProperties) {
+    public void setADEPropertiesOfCityModel(List<ADEPropertyOfCityModel> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }
