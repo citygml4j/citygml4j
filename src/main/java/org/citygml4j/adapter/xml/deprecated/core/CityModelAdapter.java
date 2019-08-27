@@ -73,6 +73,9 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
                     for (GenericElement element : featureMembers.getGenericElements())
                         object.getFeatureMembers().add(new FeatureProperty(element));
                     return;
+                default:
+                    super.buildChildObject(object, name, attributes, reader);
+                    return;
             }
         }
 
@@ -81,8 +84,6 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
             object.getADEPropertiesOfCityModel().add(reader.getObjectUsingBuilder(builder));
         else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
             object.getADEPropertiesOfCityModel().add(GenericADEPropertyOfCityModel.of(reader.getDOMElement()));
-        else
-            super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override
