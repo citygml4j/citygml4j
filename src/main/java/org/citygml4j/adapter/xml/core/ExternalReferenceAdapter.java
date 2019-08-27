@@ -2,9 +2,9 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.deprecated.ExternalObjectAdapter;
+import org.citygml4j.adapter.xml.deprecated.core.ExternalObjectAdapter;
 import org.citygml4j.model.core.ExternalReference;
-import org.citygml4j.model.deprecated.ExternalObject;
+import org.citygml4j.model.deprecated.core.ExternalObject;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;

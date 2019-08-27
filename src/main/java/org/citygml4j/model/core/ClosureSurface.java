@@ -4,7 +4,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public abstract class ClosureSurface extends AbstractThematicSurface {
+public class ClosureSurface extends AbstractThematicSurface {
     private List<ADEPropertyOfClosureSurface> adeProperties;
 
     public List<ADEPropertyOfClosureSurface> getADEPropertiesOfClosureSurface() {

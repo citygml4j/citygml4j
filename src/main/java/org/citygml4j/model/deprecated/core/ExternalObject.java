@@ -1,4 +1,4 @@
-package org.citygml4j.model.deprecated;
+package org.citygml4j.model.deprecated.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;

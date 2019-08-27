@@ -1,7 +1,7 @@
-package org.citygml4j.adapter.xml.deprecated;
+package org.citygml4j.adapter.xml.deprecated.core;
 
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.model.deprecated.ExternalObject;
+import org.citygml4j.model.deprecated.core.ExternalObject;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
