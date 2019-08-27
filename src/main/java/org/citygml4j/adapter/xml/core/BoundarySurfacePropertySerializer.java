@@ -12,7 +12,7 @@ import org.xmlobjects.xml.Namespaces;
 public class BoundarySurfacePropertySerializer implements ObjectSerializer<BoundarySurfaceProperty> {
 
     @Override
-    public void initializeElement(Element element, BoundarySurfaceProperty object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public void initializeElement(Element element, BoundarySurfaceProperty object, Namespaces namespaces, XMLWriter writer) {
         GMLSerializerHelper.serializeAssociationAttributes(element, object, namespaces);
         GMLSerializerHelper.serializeOwnershipAttributes(element, object, namespaces);
     }
