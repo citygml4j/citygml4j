@@ -2,9 +2,12 @@ package org.citygml4j.adapter.xml;
 
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchemaSet;
+import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.reader.xml.CityGMLInputFactory;
 import org.citygml4j.reader.xml.MissingADESchemaException;
 import org.citygml4j.util.CityGMLConstants;
+import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.schema.SchemaHandler;
 import org.xmlobjects.schema.SchemaHandlerException;
 import org.xmlobjects.stream.XMLReadException;
@@ -24,6 +27,22 @@ public class CityGMLBuilderHelper {
         return CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE.equals(namespaceURI);
+    }
+
+    public static boolean buildStandardObjectClassifier(StandardObjectClassifier object, String localName, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        switch (localName) {
+            case "class":
+                object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
+                return true;
+            case "function":
+                object.getFunctions().add(reader.getObjectUsingBuilder(CodeAdapter.class));
+                return true;
+            case "usage":
+                object.getUsages().add(reader.getObjectUsingBuilder(CodeAdapter.class));
+                return true;
+            default:
+                return false;
+        }
     }
 
     public static boolean createAsGenericADEProperty(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {
