@@ -43,12 +43,13 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
             }
         }
 
-        ObjectBuilder<ADEPropertyOfAbstractPhysicalSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractPhysicalSpace.class);
-        if (builder != null)
-            object.getADEPropertiesOfAbstractPhysicalSpace().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-            object.getADEPropertiesOfAbstractPhysicalSpace().add(GenericADEPropertyOfAbstractPhysicalSpace.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfAbstractPhysicalSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractPhysicalSpace.class);
+            if (builder != null)
+                object.getADEPropertiesOfAbstractPhysicalSpace().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+                object.getADEPropertiesOfAbstractPhysicalSpace().add(GenericADEPropertyOfAbstractPhysicalSpace.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 

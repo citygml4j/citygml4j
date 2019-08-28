@@ -88,12 +88,13 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
             return;
         }
 
-        ObjectBuilder<ADEPropertyOfAbstractCityObject> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractCityObject.class);
-        if (builder != null)
-            object.getADEPropertiesOfAbstractCityObject().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-            object.getADEPropertiesOfAbstractCityObject().add(GenericADEPropertyOfAbstractCityObject.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfAbstractCityObject> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractCityObject.class);
+            if (builder != null)
+                object.getADEPropertiesOfAbstractCityObject().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
+                object.getADEPropertiesOfAbstractCityObject().add(GenericADEPropertyOfAbstractCityObject.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 

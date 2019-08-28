@@ -27,9 +27,7 @@ public class CityGMLBuilderHelper {
     }
 
     public static boolean createAsGenericADEProperty(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {
-        if (reader.isCreateDOMAsFallback()
-                && reader.getSchemaHandler() != null
-                && !name.getNamespaceURI().startsWith("http://www.opengis.net")) {
+        if (reader.isCreateDOMAsFallback() && reader.getSchemaHandler() != null) {
             try {
                 SchemaHandler schemaHandler = reader.getSchemaHandler();
                 schemaHandler.resolveAndParseSchema(name.getNamespaceURI());
@@ -56,5 +54,9 @@ public class CityGMLBuilderHelper {
         }
 
         return false;
+    }
+
+    public static boolean isADENamespace(String namespaceURI) {
+        return !namespaceURI.startsWith("http://www.opengis.net");
     }
 }

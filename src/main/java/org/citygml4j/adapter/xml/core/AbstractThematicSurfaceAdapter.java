@@ -51,12 +51,13 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
             }
         }
 
-        ObjectBuilder<ADEPropertyOfAbstractThematicSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractThematicSurface.class);
-        if (builder != null)
-            object.getADEPropertiesOfAbstractThematicSurface().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-            object.getADEPropertiesOfAbstractThematicSurface().add(GenericADEPropertyOfAbstractThematicSurface.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfAbstractThematicSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractThematicSurface.class);
+            if (builder != null)
+                object.getADEPropertiesOfAbstractThematicSurface().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+                object.getADEPropertiesOfAbstractThematicSurface().add(GenericADEPropertyOfAbstractThematicSurface.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 

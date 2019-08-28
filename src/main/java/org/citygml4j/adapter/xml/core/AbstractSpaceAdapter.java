@@ -73,12 +73,13 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             }
         }
 
-        ObjectBuilder<ADEPropertyOfAbstractSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractSpace.class);
-        if (builder != null)
-            object.getADEPropertiesOfAbstractSpace().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-            object.getADEPropertiesOfAbstractSpace().add(GenericADEPropertyOfAbstractSpace.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfAbstractSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractSpace.class);
+            if (builder != null)
+                object.getADEPropertiesOfAbstractSpace().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+                object.getADEPropertiesOfAbstractSpace().add(GenericADEPropertyOfAbstractSpace.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 

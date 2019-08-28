@@ -23,12 +23,13 @@ public abstract class AbstractUnoccupiedSpaceAdapter<T extends AbstractUnoccupie
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        ObjectBuilder<ADEPropertyOfAbstractUnoccupiedSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractUnoccupiedSpace.class);
-        if (builder != null)
-            object.getADEPropertiesOfAbstractUnoccupiedSpace().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-            object.getADEPropertiesOfAbstractUnoccupiedSpace().add(GenericADEPropertyOfAbstractUnoccupiedSpace.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfAbstractUnoccupiedSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractUnoccupiedSpace.class);
+            if (builder != null)
+                object.getADEPropertiesOfAbstractUnoccupiedSpace().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+                object.getADEPropertiesOfAbstractUnoccupiedSpace().add(GenericADEPropertyOfAbstractUnoccupiedSpace.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 

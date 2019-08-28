@@ -31,12 +31,13 @@ public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<Closur
 
     @Override
     public void buildChildObject(ClosureSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        ObjectBuilder<ADEPropertyOfClosureSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfClosureSurface.class);
-        if (builder != null)
-            object.getADEPropertiesOfClosureSurface().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-            object.getADEPropertiesOfClosureSurface().add(GenericADEPropertyOfClosureSurface.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfClosureSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfClosureSurface.class);
+            if (builder != null)
+                object.getADEPropertiesOfClosureSurface().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+                object.getADEPropertiesOfClosureSurface().add(GenericADEPropertyOfClosureSurface.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 

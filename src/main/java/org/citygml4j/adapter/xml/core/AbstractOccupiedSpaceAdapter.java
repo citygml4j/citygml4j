@@ -38,12 +38,13 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
             }
         }
 
-        ObjectBuilder<ADEPropertyOfAbstractOccupiedSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractOccupiedSpace.class);
-        if (builder != null)
-            object.getADEPropertiesOfAbstractOccupiedSpace().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-            object.getADEPropertiesOfAbstractOccupiedSpace().add(GenericADEPropertyOfAbstractOccupiedSpace.of(reader.getDOMElement()));
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            ObjectBuilder<ADEPropertyOfAbstractOccupiedSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractOccupiedSpace.class);
+            if (builder != null)
+                object.getADEPropertiesOfAbstractOccupiedSpace().add(reader.getObjectUsingBuilder(builder));
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+                object.getADEPropertiesOfAbstractOccupiedSpace().add(GenericADEPropertyOfAbstractOccupiedSpace.of(reader.getDOMElement()));
+        } else
             super.buildChildObject(object, name, attributes, reader);
     }
 
