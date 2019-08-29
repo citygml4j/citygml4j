@@ -1,16 +1,16 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.appearance.AppearanceProperty;
-import org.citygml4j.model.deprecated.WeakCityObjectReference;
 import org.citygml4j.model.dynamizer.DynamizerProperty;
 import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
 public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<ExternalReferenceProperty> externalReferences;
-    private List<WeakCityObjectReference> generalizesTo;
+    private List<Reference> generalizesTo;
     private RelativeToTerrain relativeToTerrain;
     private RelativeToWater relativeToWater;
     private List<CityObjectRelationProperty> relatedTo;
@@ -30,14 +30,14 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         this.externalReferences = asChild(externalReferences);
     }
 
-    public List<WeakCityObjectReference> getGeneralizesTo() {
+    public List<Reference> getGeneralizesTo() {
         if (generalizesTo == null)
             generalizesTo = new ChildList<>(this);
 
         return generalizesTo;
     }
 
-    public void setGeneralizesTo(List<WeakCityObjectReference> generalizesTo) {
+    public void setGeneralizesTo(List<Reference> generalizesTo) {
         this.generalizesTo = asChild(generalizesTo);
     }
 
