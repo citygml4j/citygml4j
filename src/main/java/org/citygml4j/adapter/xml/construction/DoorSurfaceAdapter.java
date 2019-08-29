@@ -57,12 +57,10 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
     public void writeChildElements(DoorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (AddressProperty property : object.getAddresses())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        for (AddressProperty property : object.getAddresses())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfDoorSurface property : object.getADEPropertiesOfDoorSurface())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
-        }
+        for (ADEPropertyOfDoorSurface property : object.getADEPropertiesOfDoorSurface())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

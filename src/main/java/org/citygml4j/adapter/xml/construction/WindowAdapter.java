@@ -58,9 +58,7 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
     public void writeChildElements(Window object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (ADEPropertyOfWindow property : object.getADEPropertiesOfWindow())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
-        }
+        for (ADEPropertyOfWindow property : object.getADEPropertiesOfWindow())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

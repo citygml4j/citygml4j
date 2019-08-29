@@ -66,12 +66,10 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
     public void writeChildElements(Door object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (AddressProperty property : object.getAddresses())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        for (AddressProperty property : object.getAddresses())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfDoor property : object.getADEPropertiesOfDoor())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
-        }
+        for (ADEPropertyOfDoor property : object.getADEPropertiesOfDoor())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

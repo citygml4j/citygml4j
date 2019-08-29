@@ -6,7 +6,6 @@ import org.citygml4j.model.building.Building;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
-import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
 
@@ -25,7 +24,7 @@ public class BuildingAdapter extends AbstractConstructionAdapter<Building> {
     }
 
     @Override
-    public Element createElement(Building object, Namespaces namespaces) throws ObjectSerializeException {
+    public Element createElement(Building object, Namespaces namespaces) {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "Building");
     }
 }

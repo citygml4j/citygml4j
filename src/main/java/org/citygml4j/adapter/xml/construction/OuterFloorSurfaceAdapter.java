@@ -50,9 +50,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     public void writeChildElements(OuterFloorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (ADEPropertyOfOuterFloorSurface property : object.getADEPropertiesOfOuterFloorSurface())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
-        }
+        for (ADEPropertyOfOuterFloorSurface property : object.getADEPropertiesOfOuterFloorSurface())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -17,6 +17,12 @@ import javax.xml.namespace.QName;
 
 public class CityGMLBuilderHelper {
 
+    public static boolean isCityGMLBuildingNamespace(String namespaceURI) {
+        return CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE.equals(namespaceURI);
+    }
+
     public static boolean isCityGMLGenericsNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE.equals(namespaceURI)
