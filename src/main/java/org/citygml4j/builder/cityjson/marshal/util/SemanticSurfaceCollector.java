@@ -43,12 +43,12 @@ import java.util.Map;
 public class SemanticSurfaceCollector {
 	private final SurfaceWalker walker = new SurfaceWalker();
 
-	public void collectSurfaces(AbstractCityObject cityObject, int minLod, int maxLod) {
-		LodRepresentation lodRepresentation = cityObject.getLodRepresentation();
+	public void collectSurfaces(AbstractCityObject boundarySurface, int minLod, int maxLod) {
+		LodRepresentation lods = boundarySurface.getLodRepresentation();
 		for (int lod = minLod; lod <= maxLod; lod++) {
-			if (lodRepresentation.isSetGeometry(lod)) {
+			if (lods.isSetGeometry(lod)) {
 				walker.lod = lod;
-				for (GeometryProperty<?> geometryProperty : lodRepresentation.getGeometry(lod))
+				for (GeometryProperty<?> geometryProperty : lods.getGeometry(lod))
 					walker.visit(geometryProperty);
 			}
 		}
@@ -118,7 +118,7 @@ public class SemanticSurfaceCollector {
 		return properties;
 	}
 
-	private final class SurfaceWalker extends GMLWalker {
+	private static final class SurfaceWalker extends GMLWalker {
 		private int lod;
 		private Map<Integer, List<AbstractSurface>> surfaces = new HashMap<>();
 

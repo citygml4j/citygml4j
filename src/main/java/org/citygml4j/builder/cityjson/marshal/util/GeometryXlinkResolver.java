@@ -49,7 +49,7 @@ public class GeometryXlinkResolver {
 		}
 	}
 
-	private class Walker extends GMLWalker {
+	private static class Walker extends GMLWalker {
 		private ResolverState state = ResolverState.GET_XLINKS;
 		private Map<String, List<GeometryProperty<?>>> properties = new HashMap<>();
 
