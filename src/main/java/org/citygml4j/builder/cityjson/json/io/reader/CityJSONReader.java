@@ -25,8 +25,6 @@ import com.google.gson.stream.JsonReader;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
-import org.citygml4j.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.cityjson.feature.CityObjectTypeAdapter;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.core.CityModel;
