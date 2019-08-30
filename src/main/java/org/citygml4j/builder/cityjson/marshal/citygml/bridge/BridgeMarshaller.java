@@ -423,7 +423,7 @@ public class BridgeMarshaller {
 	}
 
 	private SemanticSurfaceCollector preprocessGeometry(AbstractBridge src) {
-		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
 
 		for (int lod = 2; lod < 4; lod++) {
 			if (collector.hasSurfaces(lod)) {
@@ -449,7 +449,7 @@ public class BridgeMarshaller {
 	}
 
 	private SemanticSurfaceCollector preprocessGeometry(BridgeInstallation src) {
-		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
 
 		for (int lod = 2; lod < 4; lod++) {
 			if (collector.hasSurfaces(lod)) {
@@ -475,7 +475,7 @@ public class BridgeMarshaller {
 	}
 	
 	private SemanticSurfaceCollector preprocessGeometry(BridgeConstructionElement src) {
-		SemanticSurfaceCollector collector = collectBoundarySurfaces(src.getBoundedBySurface());
+		SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
 
 		for (int lod = 2; lod < 4; lod++) {
 			if (collector.hasSurfaces(lod)) {
@@ -500,8 +500,8 @@ public class BridgeMarshaller {
 		}
 	}
 
-	private SemanticSurfaceCollector collectBoundarySurfaces(List<BoundarySurfaceProperty> boundaryProperties) {
-		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
+	private SemanticSurfaceCollector collectBoundarySurfaces(AbstractCityObject cityObject, List<BoundarySurfaceProperty> boundaryProperties) {
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector(cityObject);
 
 		for (BoundarySurfaceProperty boundaryProperty : boundaryProperties) {
 			if (boundaryProperty.isSetBoundarySurface()) {

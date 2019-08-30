@@ -28,7 +28,6 @@ public class LocalPropertiesCleaner extends GMLWalker {
 
     @Override
     public void visit(AbstractGeometry geometry) {
-        geometry.unsetLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET);
         geometry.unsetLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA);
         super.visit(geometry);
     }

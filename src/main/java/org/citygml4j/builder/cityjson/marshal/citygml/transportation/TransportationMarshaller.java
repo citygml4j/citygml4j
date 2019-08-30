@@ -293,7 +293,7 @@ public class TransportationMarshaller {
 		List<FeatureProperty<?>> properties = new ArrayList<>(src.getTrafficArea());
 		properties.addAll(src.getAuxiliaryTrafficArea());
 
-		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector(src);
 		collector.collectSurfaces(properties, 2, 3);
 
 		for (int lod = 2; lod < 4; lod++) {

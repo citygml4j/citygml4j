@@ -70,10 +70,8 @@ public class GeometryXlinkResolver {
 				List<GeometryProperty<?>> properties = this.properties.get(geometry.getId());
 				if (properties != null) {
 					for (GeometryProperty<?> property : properties) {
-						if (property.getAssociableClass().isAssignableFrom(geometry.getClass())) {
+						if (property.getAssociableClass().isAssignableFrom(geometry.getClass()))
 							property.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, geometry);
-							geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK_TARGET, true);							
-						}
 					}
 				}
 			}

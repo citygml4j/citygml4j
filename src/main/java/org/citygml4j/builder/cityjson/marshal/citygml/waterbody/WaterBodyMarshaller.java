@@ -192,11 +192,11 @@ public class WaterBodyMarshaller {
 			dest.addAttribute("waterLevel", src.getWaterLevel().getValue());
 	}
 
-	private Map<Integer, MultiSurface> preprocessGeometry(WaterBody waterBody) {
+	private Map<Integer, MultiSurface> preprocessGeometry(WaterBody src) {
 		Map<Integer, MultiSurface> multiSurfaces = new HashMap<>();
 
-		SemanticSurfaceCollector collector = new SemanticSurfaceCollector();
-		collector.collectSurfaces(waterBody.getBoundedBySurface(), 2, 3);
+		SemanticSurfaceCollector collector = new SemanticSurfaceCollector(src);
+		collector.collectSurfaces(src.getBoundedBySurface(), 2, 3);
 
 		for (int lod = 2; lod < 4; lod++) {
 			if (collector.hasSurfaces(lod))
