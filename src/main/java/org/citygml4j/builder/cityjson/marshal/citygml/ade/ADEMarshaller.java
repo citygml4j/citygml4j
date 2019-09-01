@@ -26,6 +26,7 @@ import org.citygml4j.builder.cityjson.extension.CityJSONExtensionMarshaller;
 import org.citygml4j.builder.cityjson.extension.ExtensionAttribute;
 import org.citygml4j.builder.cityjson.extension.ExtensionProperty;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
+import org.citygml4j.builder.cityjson.marshal.util.DuplicateGeometryRemover;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.extension.ExtensibleType;
 import org.citygml4j.cityjson.extension.Extension;
@@ -73,9 +74,18 @@ public class ADEMarshaller {
 
                     if (extension instanceof AbstractCityObjectType) {
                         AbstractCityObjectType cityObject = (AbstractCityObjectType) extension;
-                        parent.addChild(cityObject);
-                        if (parent instanceof AbstractCityObjectType)
+                        if (parent instanceof AbstractCityObjectType) {
+                            if (json.isRemoveDuplicateChildGeometries()) {
+                                DuplicateGeometryRemover remover = new DuplicateGeometryRemover((AbstractCityObjectType) parent);
+                                remover.removeDuplicateGeometries(cityObject);
+                                if (!cityObject.isSetGeometry())
+                                    continue;
+                            }
+
                             cityJSON.addCityObject(cityObject);
+                        }
+
+                        parent.addChild(cityObject);
                     }
 
                     else if (extension instanceof ExtensionAttribute && parent instanceof AbstractCityObjectType) {

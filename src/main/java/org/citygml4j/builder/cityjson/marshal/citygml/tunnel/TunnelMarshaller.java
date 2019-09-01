@@ -20,6 +20,7 @@ package org.citygml4j.builder.cityjson.marshal.citygml.tunnel;
 
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.util.DuplicateGeometryRemover;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
@@ -201,10 +202,20 @@ public class TunnelMarshaller {
 			}
 		}
 
+		DuplicateGeometryRemover remover = null;
+		if (json.isRemoveDuplicateChildGeometries())
+			remover = new DuplicateGeometryRemover(dest);
+
 		if (src.isSetOuterTunnelInstallation()) {
 			for (TunnelInstallationProperty property : src.getOuterTunnelInstallation()) {
 				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof TunnelInstallationType) {
+					if (remover != null) {
+						remover.removeDuplicateGeometries(cityObject);
+						if (!cityObject.isSetGeometry())
+							continue;
+					}
+
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
 				}
@@ -215,6 +226,12 @@ public class TunnelMarshaller {
 			for (TunnelPartProperty property : src.getConsistsOfTunnelPart()) {
 				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof TunnelPartType) {
+					if (remover != null) {
+						remover.removeDuplicateGeometries(cityObject);
+						if (!cityObject.isSetGeometry())
+							continue;
+					}
+
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
 				}

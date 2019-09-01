@@ -38,12 +38,13 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public class CityJSONOutputFactory {
-	protected VerticesBuilder verticesBuilder;
-	protected VerticesTransformer verticesTransformer;
-	protected TextureVerticesBuilder textureVerticesBuilder;
-	protected TextureFileHandler textureFileHandler;
-	protected VerticesBuilder templatesVerticesBuilder;
-	
+	VerticesBuilder verticesBuilder;
+	VerticesTransformer verticesTransformer;
+	TextureVerticesBuilder textureVerticesBuilder;
+	TextureFileHandler textureFileHandler;
+	VerticesBuilder templatesVerticesBuilder;
+	boolean removeDuplicateChildGeometries;
+
 	public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
 		try {
 			createParentDirectories(file.toPath());
@@ -150,6 +151,14 @@ public class CityJSONOutputFactory {
 
 	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
 		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
+	}
+
+	public boolean isRemoveDuplicateChildGeometries() {
+		return removeDuplicateChildGeometries;
+	}
+
+	public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
+		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
 	}
 
 	private void createParentDirectories(Path path) throws IOException {

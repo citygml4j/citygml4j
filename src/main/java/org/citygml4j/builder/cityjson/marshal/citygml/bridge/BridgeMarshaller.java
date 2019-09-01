@@ -20,6 +20,7 @@ package org.citygml4j.builder.cityjson.marshal.citygml.bridge;
 
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.builder.cityjson.marshal.util.DuplicateGeometryRemover;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.feature.AbstractBridgeType;
@@ -209,10 +210,20 @@ public class BridgeMarshaller {
 			}
 		}
 
+		DuplicateGeometryRemover remover = null;
+		if (json.isRemoveDuplicateChildGeometries())
+			remover = new DuplicateGeometryRemover(dest);
+
 		if (src.isSetOuterBridgeConstructionElement()) {
 			for (BridgeConstructionElementProperty property : src.getOuterBridgeConstructionElement()) {
 				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BridgeConstructionElementType) {
+					if (remover != null) {
+						remover.removeDuplicateGeometries(cityObject);
+						if (!cityObject.isSetGeometry())
+							continue;
+					}
+
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
 				}
@@ -223,6 +234,12 @@ public class BridgeMarshaller {
 			for (BridgeInstallationProperty property : src.getOuterBridgeInstallation()) {
 				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BridgeInstallationType) {
+					if (remover != null) {
+						remover.removeDuplicateGeometries(cityObject);
+						if (!cityObject.isSetGeometry())
+							continue;
+					}
+
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
 				}
@@ -233,6 +250,12 @@ public class BridgeMarshaller {
 			for (BridgePartProperty property : src.getConsistsOfBridgePart()) {
 				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
 				if (cityObject instanceof BridgePartType) {
+					if (remover != null) {
+						remover.removeDuplicateGeometries(cityObject);
+						if (!cityObject.isSetGeometry())
+							continue;
+					}
+
 					dest.addChild(cityObject);
 					cityJSON.addCityObject(cityObject);
 				}

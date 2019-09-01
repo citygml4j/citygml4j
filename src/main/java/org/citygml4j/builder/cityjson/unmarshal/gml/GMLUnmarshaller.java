@@ -442,7 +442,7 @@ public class GMLUnmarshaller {
 
 		if (indexes != null && !indexes.isEmpty()) {
 			List<Double> vertices = getVertices(indexes.get(0));
-			if (vertices.isEmpty() || vertices.size() != 9)
+			if (vertices.size() != 9)
 				return null;
 
 			// add first vertex to close ring

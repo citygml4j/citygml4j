@@ -58,16 +58,20 @@ public class CityJSONMarshaller {
 	private TextureVerticesBuilder textureVerticesBuilder;
 	private TextureFileHandler textureFileHandler;
 	private VerticesBuilder templatesVerticesBuilder;
+	private boolean removeDuplicateChildGeometries;
+
 	private String defaultTheme = "";
 
 	public CityJSONMarshaller(VerticesBuilder verticesBuilder,
 							  TextureVerticesBuilder textureVerticesBuilder,
 							  TextureFileHandler textureFileHandler,
-							  VerticesBuilder templatesVerticesBuilder) {
+							  VerticesBuilder templatesVerticesBuilder,
+							  boolean removeDuplicateChildGeometries) {
 		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new DefaultVerticesBuilder();
 		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new DefaultTextureVerticesBuilder();
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
 		this.templatesVerticesBuilder = templatesVerticesBuilder != null ? templatesVerticesBuilder : new DefaultVerticesBuilder();
+		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this, this::getVerticesBuilder);
@@ -78,7 +82,8 @@ public class CityJSONMarshaller {
 	}
 
 	public CityJSONMarshaller() {
-		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler(), new DefaultVerticesBuilder());
+		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler(),
+				new DefaultVerticesBuilder(), false);
 	}
 	
 	public CityJSON marshal(CityModel src) {
@@ -201,5 +206,13 @@ public class CityJSONMarshaller {
 
 	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
 		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
+	}
+
+	public boolean isRemoveDuplicateChildGeometries() {
+		return removeDuplicateChildGeometries;
+	}
+
+	public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
+		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
 	}
 }
