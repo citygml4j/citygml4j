@@ -69,7 +69,7 @@ public class WaterBodyMarshaller {
 			semantics = new SemanticsType("WaterClosureSurface");
 
 		if (semantics != null)
-			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
+			citygml.getGenericsMarshaller().marshalGenericAttributes(cityObject, semantics);
 
 		return semantics;
 	}

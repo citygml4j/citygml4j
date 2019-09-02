@@ -46,7 +46,6 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 import java.util.List;
 
@@ -172,10 +171,7 @@ public class WaterBodyUnmarshaller {
 	}
 	
 	public void unmarshalAbstractWaterBoundarySurface(SemanticsType src, AbstractWaterBoundarySurface dest, List<AbstractSurface> surfaces, Number lod) {
-		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		
-		if (src.isSetAttributes())
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
+		citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
 		
 		CompositeSurface compositeSurface = new CompositeSurface();
 		for (AbstractSurface surface : surfaces)

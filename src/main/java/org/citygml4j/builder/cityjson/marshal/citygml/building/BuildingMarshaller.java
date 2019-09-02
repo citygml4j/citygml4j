@@ -114,7 +114,7 @@ public class BuildingMarshaller {
 			semantics = new SemanticsType("Door");
 
 		if (semantics != null)
-			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
+			citygml.getCoreMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}

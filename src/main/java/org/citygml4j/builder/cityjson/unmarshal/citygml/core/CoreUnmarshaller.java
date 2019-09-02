@@ -31,6 +31,7 @@ import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.cityjson.geometry.GeometryTemplatesType;
 import org.citygml4j.cityjson.geometry.MultiPointType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
@@ -48,6 +49,8 @@ import org.citygml4j.model.citygml.core.XalAddressProperty;
 import org.citygml4j.model.citygml.generics.GenericCityObject;
 import org.citygml4j.model.citygml.generics.StringAttribute;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.base.StringOrRef;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.feature.FeatureMember;
@@ -149,6 +152,12 @@ public class CoreUnmarshaller {
 		
 		if (src.isSetAttributes()) {
 			Attributes attributes = src.getAttributes();
+
+			if (attributes.isSetDescription())
+				dest.setDescription(new StringOrRef(attributes.getDescription()));
+
+			if (attributes.isSetName())
+				dest.addName(new Code(attributes.getName()));
 			
 			if (attributes.isSetCreationDate())
 				dest.setCreationDate(attributes.getCreationDate());
@@ -240,7 +249,7 @@ public class CoreUnmarshaller {
 			// release CityJSON content from main memory
 			if (releaseCityJSONContent) {
 				// recursively release children
-				releaseObjectHierachy(type, src);
+				releaseObjectHierarchy(type, src);
 
 				// remove object itself
 				src.removeCityObject(type.getGmlId());
@@ -466,6 +475,25 @@ public class CoreUnmarshaller {
 		return dest;
 	}
 
+	public void unmarshalSemanticsAttributes(SemanticsType src, AbstractCityObject dest) {
+		dest.setId(src.isSetId() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
+
+		if (src.isSetDescription())
+			dest.setDescription(new StringOrRef(src.getDescription()));
+
+		if (src.isSetName())
+			dest.addName(new Code(src.getName()));
+
+		if (src.isSetCreationDate())
+			dest.setCreationDate(src.getCreationDate());
+
+		if (src.isSetTerminationDate())
+			dest.setTerminationDate(src.getTerminationDate());
+
+		if (src.isSetAttributes())
+			citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(src.getAttributes(), dest);
+	}
+
 	public boolean hasGlobalAppearances() {
 		return appearanceContainer != null && appearanceContainer.isSetAppearance()
 				&& (!json.isSetCityGMLNameFilter()
@@ -491,12 +519,12 @@ public class CoreUnmarshaller {
 		return result;
 	}
 
-	private void releaseObjectHierachy(AbstractCityObjectType parent, CityJSON src) {
+	private void releaseObjectHierarchy(AbstractCityObjectType parent, CityJSON src) {
 		if (parent.isSetChildren()) {
 			for (String gmlId : parent.getChildren()) {
 				AbstractCityObjectType child = src.getCityObject(gmlId);
 				if (child.isSetParents() && child.getParents().size() == 1) {
-					releaseObjectHierachy(child, src);
+					releaseObjectHierarchy(child, src);
 					src.removeCityObject(gmlId);
 				}
 			}

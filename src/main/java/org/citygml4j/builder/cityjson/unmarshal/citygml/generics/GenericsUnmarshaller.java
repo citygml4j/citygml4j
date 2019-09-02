@@ -140,7 +140,7 @@ public class GenericsUnmarshaller {
             dest.addGenericAttribute(attribute);
 	}
 	
-	public void unmarshalSemanticsAttributes(Map<String, Object> src, AbstractCityObject dest) {
+	public void unmarshalGenericAttributes(Map<String, Object> src, AbstractCityObject dest) {
 		for (Entry<String, Object> property : src.entrySet()) {
 			AbstractGenericAttribute attribute = unmarshalGenericAttribute(property.getKey(), property.getValue());
 			if (attribute != null)

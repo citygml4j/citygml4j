@@ -30,6 +30,7 @@ import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.cityjson.geometry.MultiPointType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AbstractSite;
@@ -39,6 +40,7 @@ import org.citygml4j.model.citygml.core.CityObjectMember;
 import org.citygml4j.model.citygml.core.ImplicitGeometry;
 import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
 import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.FeatureArrayProperty;
 import org.citygml4j.model.gml.feature.FeatureProperty;
@@ -91,6 +93,18 @@ public class CoreMarshaller {
 			dest.setGeographicalExtent(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
 		Attributes attributes = dest.getAttributes();
+		if (src.isSetDescription() && src.getDescription().isSetValue())
+			attributes.setDescription(src.getDescription().getValue());
+
+		if (src.isSetName()) {
+			for (Code name : src.getName()) {
+				if (name.isSetValue()) {
+					attributes.setName(name.getValue());
+					break;
+				}
+			}
+		}
+
 		if (src.isSetCreationDate())
 			attributes.setCreationDate(src.getCreationDate());
 
@@ -279,6 +293,31 @@ public class CoreMarshaller {
 		marshalAddress(src, dest);
 		
 		return dest;
+	}
+
+	public void marshalSemanticSurfaceAttributes(AbstractCityObject src, SemanticsType dest) {
+		if (src.isSetId())
+			dest.setId(src.getId());
+
+		if (src.isSetDescription() && src.getDescription().isSetValue())
+			dest.setDescription(src.getDescription().getValue());
+
+		if (src.isSetName()) {
+			for (Code name : src.getName()) {
+				if (name.isSetValue()) {
+					dest.setName(name.getValue());
+					break;
+				}
+			}
+		}
+
+		if (src.isSetCreationDate())
+			dest.setCreationDate(src.getCreationDate());
+
+		if (src.isSetTerminationDate())
+			dest.setTerminationDate(src.getTerminationDate());
+
+		citygml.getGenericsMarshaller().marshalGenericAttributes(src, dest);
 	}
 
 	public boolean hasGeometryTemplates() {

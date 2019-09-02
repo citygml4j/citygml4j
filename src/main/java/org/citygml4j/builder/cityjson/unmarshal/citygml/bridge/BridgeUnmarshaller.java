@@ -67,7 +67,6 @@ import org.citygml4j.model.gml.geometry.primitives.AbstractSolid;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.time.LocalDate;
@@ -415,10 +414,7 @@ public class BridgeUnmarshaller {
 	}
 
 	public void unmarshalAbstractBoundarySurface(SemanticsType src, AbstractBoundarySurface dest, List<AbstractSurface> surfaces, Number lod) {
-		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		
-		if (src.isSetAttributes())
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
+		citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
 
 		MultiSurface multiSurface = new MultiSurface();
 		for (AbstractSurface surface : surfaces)
@@ -477,8 +473,7 @@ public class BridgeUnmarshaller {
 	}
 
 	public void unmarshalAbstractOpening(SemanticsType src, AbstractOpening dest, List<AbstractSurface> surfaces, Number lod) {
-		if (src.isSetAttributes())
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
+		citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
 
 		if (lod.intValue() == 3) {
 			MultiSurface multiSurface = new MultiSurface();

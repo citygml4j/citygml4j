@@ -163,7 +163,7 @@ public class GenericsMarshaller {
 		}
 	}
 	
-	public void marshalSemanticSurfaceAttributes(AbstractCityObject src, SemanticsType dest) {
+	public void marshalGenericAttributes(AbstractCityObject src, SemanticsType dest) {
 		if (src.isSetGenericAttribute()) {
 			for (AbstractGenericAttribute attribute : src.getGenericAttribute()) {
 				Object value = marshalGenericAttribute(attribute);

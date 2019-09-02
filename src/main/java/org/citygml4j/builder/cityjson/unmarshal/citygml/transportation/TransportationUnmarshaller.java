@@ -52,7 +52,6 @@ import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;
 import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.util.Collections;
@@ -218,8 +217,6 @@ public class TransportationUnmarshaller {
 	}
 
 	public void unmarshalTrafficArea(SemanticsType src, TrafficArea dest, List<AbstractSurface> surfaces, Number lod) {
-		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		
 		if (src.isSetAttributes()) {
 			Object attribute = src.getAttributes().get("surfaceMaterial");
 			if (attribute instanceof String) {
@@ -244,8 +241,8 @@ public class TransportationUnmarshaller {
 				dest.addFunction(new Code((String)attribute));
 				src.getAttributes().remove("usage");
 			}
-			
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
+
+			citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
 		}
 		
 		MultiSurface multiSurface = new MultiSurface();
@@ -270,8 +267,6 @@ public class TransportationUnmarshaller {
 	}
 
 	public void unmarshalAuxiliaryTrafficArea(SemanticsType src, AuxiliaryTrafficArea dest, List<AbstractSurface> surfaces, Number lod) {
-		dest.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		
 		if (src.isSetAttributes()) {
 			Object attribute = src.getAttributes().get("surfaceMaterial");
 			if (attribute instanceof String) {
@@ -296,8 +291,8 @@ public class TransportationUnmarshaller {
 				dest.addFunction(new Code((String)attribute));
 				src.getAttributes().remove("usage");
 			}
-			
-			citygml.getGenericsUnmarshaller().unmarshalSemanticsAttributes(src.getAttributes(), dest);
+
+			citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
 		}
 		
 		MultiSurface multiSurface = new MultiSurface();

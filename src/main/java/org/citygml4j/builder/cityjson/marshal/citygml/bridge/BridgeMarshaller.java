@@ -116,7 +116,7 @@ public class BridgeMarshaller {
 			semantics = new SemanticsType("Door");
 
 		if (semantics != null)
-			citygml.getGenericsMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
+			citygml.getGenericsMarshaller().marshalGenericAttributes(cityObject, semantics);
 
 		return semantics;
 	}
