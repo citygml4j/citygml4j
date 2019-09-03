@@ -40,9 +40,10 @@ public class CityJSONBuilder {
 													   TextureVerticesBuilder textureVerticesBuilder,
 													   TextureFileHandler textureFileHandler,
 													   VerticesBuilder templatesVerticesBuilder,
-													   boolean removeDuplicateChildGeometries) {
+													   boolean removeDuplicateChildGeometries,
+													   boolean generateCityGMLMetadata) {
 		return new CityJSONMarshaller(verticesBuilder, textureVerticesBuilder, textureFileHandler,
-				templatesVerticesBuilder, removeDuplicateChildGeometries);
+				templatesVerticesBuilder, removeDuplicateChildGeometries, generateCityGMLMetadata);
 	}
 	
 	public CityJSONInputFactory createCityJSONInputFactory() throws CityJSONBuilderException {

@@ -29,6 +29,7 @@ import org.citygml4j.builder.cityjson.marshal.util.LocalPropertiesCleaner;
 import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.builder.cityjson.util.CityGMLMetadata;
 import org.citygml4j.builder.cityjson.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
@@ -59,6 +60,7 @@ public class CityJSONMarshaller {
 	private TextureFileHandler textureFileHandler;
 	private VerticesBuilder templatesVerticesBuilder;
 	private boolean removeDuplicateChildGeometries;
+	private boolean generateCityGMLMetadata;
 
 	private String defaultTheme = "";
 
@@ -66,12 +68,14 @@ public class CityJSONMarshaller {
 							  TextureVerticesBuilder textureVerticesBuilder,
 							  TextureFileHandler textureFileHandler,
 							  VerticesBuilder templatesVerticesBuilder,
-							  boolean removeDuplicateChildGeometries) {
+							  boolean removeDuplicateChildGeometries,
+							  boolean generateCityGMLMetadata) {
 		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new DefaultVerticesBuilder();
 		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new DefaultTextureVerticesBuilder();
 		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
 		this.templatesVerticesBuilder = templatesVerticesBuilder != null ? templatesVerticesBuilder : new DefaultVerticesBuilder();
 		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
+		this.generateCityGMLMetadata = generateCityGMLMetadata;
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this, this::getVerticesBuilder);
@@ -83,7 +87,7 @@ public class CityJSONMarshaller {
 
 	public CityJSONMarshaller() {
 		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler(),
-				new DefaultVerticesBuilder(), false);
+				new DefaultVerticesBuilder(), false, false);
 	}
 	
 	public CityJSON marshal(CityModel src) {
@@ -127,6 +131,12 @@ public class CityJSONMarshaller {
 
 				geometryTemplates.setTemplates(citygml.getCoreMarshaller().getGeometryTemplates());
 				geometryTemplates.setTemplatesVertices(templatesVerticesBuilder.build());
+			}
+
+			if (citygml.getGenericsMarshaller().hasGenericAttributeTypes()) {
+				CityGMLMetadata metadata = new CityGMLMetadata();
+				metadata.setGenericAttributeTypes(citygml.getGenericsMarshaller().getGenericAttributeTypes());
+				dest.addExtensionProperty(CityGMLMetadata.JSON_KEY, metadata);
 			}
 		}
 
@@ -214,5 +224,13 @@ public class CityJSONMarshaller {
 
 	public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
 		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
+	}
+
+	public boolean isGenerateCityGMLMetadata() {
+		return generateCityGMLMetadata;
+	}
+
+	public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
+		this.generateCityGMLMetadata = generateCityGMLMetadata;
 	}
 }

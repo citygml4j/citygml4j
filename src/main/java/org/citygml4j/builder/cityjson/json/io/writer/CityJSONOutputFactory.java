@@ -44,6 +44,7 @@ public class CityJSONOutputFactory {
 	TextureFileHandler textureFileHandler;
 	VerticesBuilder templatesVerticesBuilder;
 	boolean removeDuplicateChildGeometries;
+	boolean generateCityGMLMetadata;
 
 	public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
 		try {
@@ -159,6 +160,14 @@ public class CityJSONOutputFactory {
 
 	public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
 		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
+	}
+
+	public boolean isGenerateCityGMLMetadata() {
+		return generateCityGMLMetadata;
+	}
+
+	public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
+		this.generateCityGMLMetadata = generateCityGMLMetadata;
 	}
 
 	private void createParentDirectories(Path path) throws IOException {

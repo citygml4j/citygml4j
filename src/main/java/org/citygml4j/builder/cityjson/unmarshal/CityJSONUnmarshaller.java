@@ -21,10 +21,12 @@ package org.citygml4j.builder.cityjson.unmarshal;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
+import org.citygml4j.builder.cityjson.util.CityGMLMetadata;
 import org.citygml4j.builder.cityjson.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.CityJSONRegistry;
+import org.citygml4j.cityjson.extension.ExtensionException;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
@@ -51,6 +53,12 @@ public class CityJSONUnmarshaller {
 		gml = new GMLUnmarshaller(this);
 		ade = new ADEUnmarshaller(this);
 		registry = CityJSONRegistry.getInstance();
+
+		try {
+			registry.registerExtensionProperty(CityGMLMetadata.JSON_KEY, CityGMLMetadata.class, CityJSON.class);
+		} catch (ExtensionException e) {
+			//
+		}
 	}
 	
 	public CityJSONUnmarshaller() {
@@ -67,6 +75,12 @@ public class CityJSONUnmarshaller {
 
 		if (src.isSetGeometryTemplates())
 			citygml.getCoreUnmarshaller().setGeometryTemplatesInfo(src.getGeometryTemplates());
+
+		if (src.isSetExtensionProperties()) {
+			Object metadata = src.getExtensionProperties().get(CityGMLMetadata.JSON_KEY);
+			if (metadata instanceof CityGMLMetadata)
+				citygml.getGenericsUnmarshaller().setGenericAttributeTypes(((CityGMLMetadata) metadata).getGenericAttributeTypes());
+		}
 
 		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
 

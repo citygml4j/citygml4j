@@ -20,8 +20,10 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
 import org.citygml4j.builder.cityjson.marshal.citygml.core.CoreMarshaller;
+import org.citygml4j.builder.cityjson.marshal.citygml.generics.GenericsMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
 import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.builder.cityjson.util.CityGMLMetadata;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
@@ -277,6 +279,15 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 			writer.name(METADATA);
 			gson.toJson(metadata, MetadataType.class, writer);
+
+			// CityGML metadata
+			GenericsMarshaller genericsMarshaller = marshaller.getCityGMLMarshaller().getGenericsMarshaller();
+			if (genericsMarshaller.hasGenericAttributeTypes()) {
+				CityGMLMetadata cityGMLMetadata = new CityGMLMetadata();
+				cityGMLMetadata.setGenericAttributeTypes(genericsMarshaller.getGenericAttributeTypes());
+				writer.name(CityGMLMetadata.JSON_KEY);
+				gson.toJson(cityGMLMetadata, CityGMLMetadata.class, writer);
+			}
 
 			// extensions
 			if (extensions != null) {

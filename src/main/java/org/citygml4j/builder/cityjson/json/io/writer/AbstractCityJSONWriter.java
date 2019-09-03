@@ -50,7 +50,8 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 				factory.textureVerticesBuilder,
 				factory.textureFileHandler,
 				factory.templatesVerticesBuilder,
-				factory.removeDuplicateChildGeometries);
+				factory.removeDuplicateChildGeometries,
+				factory.generateCityGMLMetadata);
 		CityJSONTypeAdapterFactory typeAdapterFactory = new CityJSONTypeAdapterFactory();
 
 		// apply transformation to vertices
