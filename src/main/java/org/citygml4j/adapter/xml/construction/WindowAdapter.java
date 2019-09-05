@@ -31,14 +31,6 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
 
     @Override
     public void buildChildObject(Window object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "windowSurface".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(WindowSurfacePropertyAdapter.class));
-            return;
-        } else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(WindowSurfacePropertyAdapter.class));
-            return;
-        }
-
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             ObjectBuilder<ADEPropertyOfWindow> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfWindow.class);
             if (builder != null)

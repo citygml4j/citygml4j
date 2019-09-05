@@ -1,7 +1,6 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractInstallation;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.common.ChildList;
@@ -9,23 +8,10 @@ import org.xmlobjects.gml.model.common.ChildList;
 import java.util.List;
 
 public class BuildingInstallation extends AbstractInstallation implements StandardObjectClassifier {
-    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
     private List<ADEPropertyOfBuildingInstallation> adeProperties;
-
-    @Override
-    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
-        if (boundarySurfaces == null)
-            boundarySurfaces = new ChildList<>(this);
-
-        return boundarySurfaces;
-    }
-
-    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
-        this.boundarySurfaces = asChild(boundarySurfaces);
-    }
 
     @Override
     public Code getClassifier() {

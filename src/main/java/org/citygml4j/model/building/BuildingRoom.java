@@ -1,7 +1,6 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.core.AbstractOccupiedSpace;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.common.ChildList;
@@ -9,7 +8,6 @@ import org.xmlobjects.gml.model.common.ChildList;
 import java.util.List;
 
 public class BuildingRoom extends AbstractOccupiedSpace implements StandardObjectClassifier {
-    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
@@ -17,18 +15,6 @@ public class BuildingRoom extends AbstractOccupiedSpace implements StandardObjec
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
     private List<ADEPropertyOfBuildingRoom> adeProperties;
-
-    @Override
-    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
-        if (boundarySurfaces == null)
-            boundarySurfaces = new ChildList<>(this);
-
-        return boundarySurfaces;
-    }
-
-    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
-        this.boundarySurfaces = asChild(boundarySurfaces);
-    }
 
     @Override
     public Code getClassifier() {

@@ -1,9 +1,8 @@
 package org.citygml4j.model.construction;
 
-import org.citygml4j.model.core.BoundarySurfaceProperty;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 
-public class AbstractConstructionSurfaceProperty extends FeatureProperty<AbstractConstructionSurface> implements BoundarySurfaceProperty<AbstractConstructionSurface> {
+public class AbstractConstructionSurfaceProperty extends FeatureProperty<AbstractConstructionSurface> {
 
     public AbstractConstructionSurfaceProperty() {
     }

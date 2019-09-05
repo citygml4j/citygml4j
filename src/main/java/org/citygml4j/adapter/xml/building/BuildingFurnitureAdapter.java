@@ -3,7 +3,6 @@ package org.citygml4j.adapter.xml.building;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.construction.AbstractFurnitureAdapter;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingFurniture;
 import org.citygml4j.model.building.ADEPropertyOfBuildingFurniture;
@@ -59,9 +58,6 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
                     object.getLocalProperties().set(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
-        } else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
-            return;
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {

@@ -5,7 +5,7 @@ import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractSpace;
 import org.citygml4j.model.core.ADEPropertyOfAbstractSpace;
 import org.citygml4j.model.core.AbstractSpace;
-import org.citygml4j.model.core.BoundarySurfaceProperty;
+import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
 import org.citygml4j.model.core.QualifiedAreaProperty;
 import org.citygml4j.model.core.QualifiedVolumeProperty;
 import org.citygml4j.model.core.SpaceType;
@@ -70,6 +70,9 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                 case "lod3MultiCurve":
                     object.setLod3MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
+                case "boundary":
+                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    return;
             }
         }
 
@@ -116,8 +119,8 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             if (object.getLod2MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod2MultiCurve"), object.getLod2MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (BoundarySurfaceProperty property : object.getBoundarySurfaces())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, BoundarySurfacePropertySerializer.class, namespaces);
+            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
 
             if (object.getLod3Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);

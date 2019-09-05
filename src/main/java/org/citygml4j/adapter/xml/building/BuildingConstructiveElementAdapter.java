@@ -3,7 +3,6 @@ package org.citygml4j.adapter.xml.building;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.construction.AbstractConstructiveElementAdapter;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingConstructiveElement;
 import org.citygml4j.model.building.ADEPropertyOfBuildingConstructiveElement;
 import org.citygml4j.model.building.BuildingConstructiveElement;
@@ -36,10 +35,6 @@ public class BuildingConstructiveElementAdapter extends AbstractConstructiveElem
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI())
                 && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
             return;
-        else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
-            return;
-        }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             ObjectBuilder<ADEPropertyOfBuildingConstructiveElement> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBuildingConstructiveElement.class);

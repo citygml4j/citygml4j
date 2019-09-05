@@ -2,7 +2,7 @@ package org.citygml4j.model.core;
 
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 
-public class AbstractThematicSurfaceProperty extends FeatureProperty<AbstractThematicSurface> implements BoundarySurfaceProperty<AbstractThematicSurface> {
+public class AbstractThematicSurfaceProperty extends FeatureProperty<AbstractThematicSurface> {
 
     public AbstractThematicSurfaceProperty() {
     }

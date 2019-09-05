@@ -83,9 +83,6 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                     object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
                     return;
             }
-        } else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
-            return;
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {

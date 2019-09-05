@@ -21,9 +21,8 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
+    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private List<ADEPropertyOfAbstractSpace> adeProperties;
-
-    public abstract List<? extends BoundarySurfaceProperty> getBoundarySurfaces();
 
     public SpaceType getSpaceType() {
         return spaceType;
@@ -125,6 +124,17 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve) {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
+    }
+
+    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
     }
 
     public List<ADEPropertyOfAbstractSpace> getADEPropertiesOfAbstractSpace() {

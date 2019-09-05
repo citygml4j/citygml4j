@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public abstract class AbstractConstruction extends AbstractOccupiedSpace {
-    private List<AbstractConstructionSurfaceProperty> boundarySurfaces;
     private ConditionOfConstructionValue conditionOfConstruction;
     private LocalDate dateOfConstruction;
     private LocalDate dateOfDemolition;
@@ -17,18 +16,6 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     private List<HeightProperty> heights;
     private List<OccupancyProperty> occupancies;
     private List<ADEPropertyOfAbstractConstruction> adeProperties;
-
-    @Override
-    public List<AbstractConstructionSurfaceProperty> getBoundarySurfaces() {
-        if (boundarySurfaces == null)
-            boundarySurfaces = new ChildList<>(this);
-
-        return boundarySurfaces;
-    }
-
-    public void setBoundarySurfaces(List<AbstractConstructionSurfaceProperty> boundarySurfaces) {
-        this.boundarySurfaces = asChild(boundarySurfaces);
-    }
 
     public ConditionOfConstructionValue getConditionOfConstruction() {
         return conditionOfConstruction;

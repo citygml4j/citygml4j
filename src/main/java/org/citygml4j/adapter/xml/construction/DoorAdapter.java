@@ -33,17 +33,8 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
 
     @Override
     public void buildChildObject(Door object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
-            switch (name.getLocalPart()) {
-                case "doorSurface":
-                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(DoorSurfacePropertyAdapter.class));
-                    return;
-                case "address":
-                    object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
-                    return;
-            }
-        } else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(DoorSurfacePropertyAdapter.class));
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "address".equals(name.getLocalPart())) {
+            object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
             return;
         }
 

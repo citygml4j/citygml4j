@@ -55,16 +55,10 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
                 case "height":
                     object.getHeights().add(reader.getObjectUsingBuilder(HeightPropertyAdapter.class));
                     return;
-                case "constructionSurface":
-                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractConstructionSurfacePropertyAdapter.class));
-                    return;
                 case "occupancy":
                     object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
             }
-        } else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
-            object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractConstructionSurfacePropertyAdapter.class));
-            return;
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
