@@ -4,10 +4,11 @@ import org.citygml4j.model.core.QualifiedVolume;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.AbstractGMLAdapter;
+import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.measures.VolumeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
@@ -19,7 +20,7 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 @XMLElement(name = "QualifiedVolume", namespaceURI = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE)
-public class QualifiedVolumeAdapter extends AbstractGMLAdapter<QualifiedVolume> {
+public class QualifiedVolumeAdapter implements ObjectBuilder<QualifiedVolume>, ObjectSerializer<QualifiedVolume> {
 
     @Override
     public QualifiedVolume createObject(QName name) {
@@ -37,8 +38,7 @@ public class QualifiedVolumeAdapter extends AbstractGMLAdapter<QualifiedVolume> 
                     object.setTypeOfVolume(reader.getObjectUsingBuilder(ReferenceAdapter.class));
                     break;
             }
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        }
     }
 
     @Override
@@ -48,8 +48,6 @@ public class QualifiedVolumeAdapter extends AbstractGMLAdapter<QualifiedVolume> 
 
     @Override
     public void writeChildElements(QualifiedVolume object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        super.writeChildElements(object, namespaces, writer);
-
         if (object.getVolume() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "volume"), object.getVolume(), VolumeAdapter.class, namespaces);
 

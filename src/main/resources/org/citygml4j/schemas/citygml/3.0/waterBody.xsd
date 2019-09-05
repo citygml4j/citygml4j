@@ -49,18 +49,6 @@
               <documentation>SIG3D: Actual usage of WaterBody as given by the relevant national regulations, information communities, or specific applications.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="WaterBoundarySurface">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractFeatureMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="wtr:AbstractWaterBoundarySurface"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfWaterBody"/>
         </sequence>
       </extension>

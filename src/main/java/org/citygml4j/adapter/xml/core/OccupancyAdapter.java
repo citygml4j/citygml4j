@@ -4,9 +4,10 @@ import org.citygml4j.model.core.Occupancy;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.AbstractGMLAdapter;
+import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
@@ -19,7 +20,7 @@ import org.xmlobjects.xml.TextContent;
 import javax.xml.namespace.QName;
 
 @XMLElement(name = "Occupancy", namespaceURI = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE)
-public class OccupancyAdapter extends AbstractGMLAdapter<Occupancy> {
+public class OccupancyAdapter implements ObjectBuilder<Occupancy>, ObjectSerializer<Occupancy> {
 
     @Override
     public Occupancy createObject(QName name) {
@@ -40,8 +41,7 @@ public class OccupancyAdapter extends AbstractGMLAdapter<Occupancy> {
                     object.setOccupantType(reader.getObjectUsingBuilder(ReferenceAdapter.class));
                     break;
             }
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        }
     }
 
     @Override
@@ -51,8 +51,6 @@ public class OccupancyAdapter extends AbstractGMLAdapter<Occupancy> {
 
     @Override
     public void writeChildElements(Occupancy object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        super.writeChildElements(object, namespaces, writer);
-
         if (object.getNumberOfOccupants() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "numberOfOccupants").addTextContent(TextContent.ofInteger(object.getNumberOfOccupants())));
 

@@ -46,7 +46,6 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="constructionSurface" type="con:AbstractConstructionSurfacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractConstruction"/>
         </sequence>
       </extension>
@@ -66,7 +65,6 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
       <extension base="core:AbstractThematicSurfaceType">
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="fillingSurface" type="con:AbstractFillingSurfacePropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="closureSurface" type="core:ClosureSurfacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractConstructionSurface"/>
         </sequence>
       </extension>
@@ -260,7 +258,6 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <complexContent>
       <extension base="con:AbstractFillingElementType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="doorSurface" type="con:DoorSurfacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
             <annotation>
               <documentation>SIG3D: Relation between Door and Address.</documentation>
@@ -655,7 +652,6 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <complexContent>
       <extension base="con:AbstractFillingElementType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="windowSurface" type="con:WindowSurfacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfWindow"/>
         </sequence>
       </extension>

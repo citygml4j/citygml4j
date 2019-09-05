@@ -28,15 +28,9 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (name.getNamespaceURI().equals(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            switch (name.getLocalPart()) {
-                case "fillingSurface":
-                    object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
-                    return;
-                case "closureSurface":
-                    object.getClosureSurfaces().add(reader.getObjectUsingBuilder(ClosureSurfacePropertyAdapter.class));
-                    return;
-            }
+        if (name.getNamespaceURI().equals(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE) && "fillingSurface".equals(name.getLocalPart())) {
+            object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
+            return;
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -56,9 +50,6 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
         if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
             for (AbstractFillingSurfaceProperty property : object.getFillingSurfaces())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "fillingSurface"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
-
-            for (ClosureSurfaceProperty property : object.getClosureSurfaces())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "closureSurface"), property, ClosureSurfacePropertyAdapter.class, namespaces);
 
             for (ADEPropertyOfAbstractConstructionSurface property : object.getADEPropertiesOfAbstractConstructionSurface())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
