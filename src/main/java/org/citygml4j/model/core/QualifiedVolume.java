@@ -1,11 +1,11 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractGML;
+import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.measures.Volume;
 
-public class QualifiedVolume extends AbstractGML implements CityGMLObject {
+public class QualifiedVolume extends GMLObject implements CityGMLObject {
     private Volume volume;
     private Reference typeOfVolume;
 

@@ -37,9 +37,6 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "occupancy":
-                    object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
-                    return;
                 case "conditionOfConstruction":
                     reader.getTextContent().ifPresent(v -> object.setConditionOfConstruction(ConditionOfConstructionValue.fromValue(v)));
                     return;
@@ -60,6 +57,9 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
                     return;
                 case "constructionSurface":
                     object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractConstructionSurfacePropertyAdapter.class));
+                    return;
+                case "occupancy":
+                    object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
             }
         } else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "boundary".equals(name.getLocalPart())) {
@@ -82,9 +82,6 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
         super.writeChildElements(object, namespaces, writer);
 
         if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (OccupancyProperty property : object.getOccupancies())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
-
             if (object.getConditionOfConstruction() != null)
                 writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "conditionOfConstruction").addTextContent(object.getConditionOfConstruction().toValue()));
 
@@ -102,6 +99,9 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
 
             for (HeightProperty property : object.getHeights())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "height"), property, HeightPropertyAdapter.class, namespaces);
+
+            for (OccupancyProperty property : object.getOccupancies())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
 
             for (ADEPropertyOfAbstractConstruction property : object.getADEPropertiesOfAbstractConstruction())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

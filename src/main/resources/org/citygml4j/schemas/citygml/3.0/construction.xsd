@@ -15,18 +15,6 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="occupancy">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:Occupancy"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
           <element minOccurs="0" name="conditionOfConstruction" type="con:ConditionOfConstructionValueType">
             <annotation>
               <documentation>[INSPIRE] Status of the construction.</documentation>
@@ -57,6 +45,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
               <documentation>[INSPIRE] Height above ground.</documentation>
             </annotation>
           </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="constructionSurface" type="con:AbstractConstructionSurfacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractConstruction"/>
         </sequence>

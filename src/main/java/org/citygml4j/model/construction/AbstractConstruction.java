@@ -9,13 +9,13 @@ import java.util.List;
 
 public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     private List<AbstractConstructionSurfaceProperty> boundarySurfaces;
-    private List<OccupancyProperty> occupancies;
     private ConditionOfConstructionValue conditionOfConstruction;
     private LocalDate dateOfConstruction;
     private LocalDate dateOfDemolition;
     private List<ConstructionEventProperty> constructionEvents;
     private List<ElevationProperty> elevations;
     private List<HeightProperty> heights;
+    private List<OccupancyProperty> occupancies;
     private List<ADEPropertyOfAbstractConstruction> adeProperties;
 
     @Override
@@ -28,17 +28,6 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
 
     public void setBoundarySurfaces(List<AbstractConstructionSurfaceProperty> boundarySurfaces) {
         this.boundarySurfaces = asChild(boundarySurfaces);
-    }
-
-    public List<OccupancyProperty> getOccupancies() {
-        if (occupancies == null)
-            occupancies = new ChildList<>(this);
-
-        return occupancies;
-    }
-
-    public void setOccupancies(List<OccupancyProperty> occupancies) {
-        this.occupancies = asChild(occupancies);
     }
 
     public ConditionOfConstructionValue getConditionOfConstruction() {
@@ -96,6 +85,17 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
 
     public void setHeights(List<HeightProperty> heights) {
         this.heights = asChild(heights);
+    }
+
+    public List<OccupancyProperty> getOccupancies() {
+        if (occupancies == null)
+            occupancies = new ChildList<>(this);
+
+        return occupancies;
+    }
+
+    public void setOccupancies(List<OccupancyProperty> occupancies) {
+        this.occupancies = asChild(occupancies);
     }
 
     public List<ADEPropertyOfAbstractConstruction> getADEPropertiesOfAbstractConstruction() {

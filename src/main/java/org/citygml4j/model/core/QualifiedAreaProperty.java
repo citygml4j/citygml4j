@@ -1,9 +1,9 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractProperty;
+import org.xmlobjects.gml.model.base.AbstractInlineProperty;
 
-public class QualifiedAreaProperty extends AbstractProperty<QualifiedArea> implements CityGMLObject {
+public class QualifiedAreaProperty extends AbstractInlineProperty<QualifiedArea> implements CityGMLObject {
 
     public QualifiedAreaProperty() {
     }

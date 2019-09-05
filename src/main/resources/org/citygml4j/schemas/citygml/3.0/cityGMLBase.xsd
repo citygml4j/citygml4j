@@ -182,30 +182,8 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <documentation>Degree of openness of an abstract space.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="volume">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:QualifiedVolume"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="area">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:QualifiedArea"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="volume" type="core:QualifiedVolumePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType"/>
           <element minOccurs="0" name="lod0Point" type="gml:PointPropertyType">
             <annotation>
               <documentation>Relation to a  LOD0 point geometry of AbstractSpace.</documentation>
@@ -276,18 +254,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <complexContent>
       <extension base="core:AbstractCityObjectType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="area">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:QualifiedArea"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType"/>
           <element minOccurs="0" name="lod0MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
               <documentation>Relation to a  LOD0 curve geometry of AbstractSpace.</documentation>
@@ -587,84 +554,66 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
       <maxInclusive value="3"/>
     </restriction>
   </simpleType>
-  <element name="Occupancy" substitutionGroup="gml:AbstractGML" type="core:OccupancyType"/>
+  <element name="Occupancy" substitutionGroup="gml:AbstractObject" type="core:OccupancyType"/>
   <complexType name="OccupancyType">
-    <complexContent>
-      <extension base="gml:AbstractGMLType">
-        <sequence>
-          <element name="numberOfOccupants" type="integer"/>
-          <element minOccurs="0" name="interval" type="gml:ReferenceType">
-            <annotation>
-              <appinfo>
-                <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">IntervalValue</targetCodeList>
-              </appinfo>
-            </annotation>
-          </element>
-          <element minOccurs="0" name="occupantType" type="gml:ReferenceType">
-            <annotation>
-              <appinfo>
-                <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">OccupantTypeValue</targetCodeList>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </extension>
-    </complexContent>
+    <sequence>
+      <element name="numberOfOccupants" type="integer"/>
+      <element minOccurs="0" name="interval" type="gml:ReferenceType">
+        <annotation>
+          <appinfo>
+            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">IntervalValue</targetCodeList>
+          </appinfo>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="occupantType" type="gml:ReferenceType">
+        <annotation>
+          <appinfo>
+            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">OccupantTypeValue</targetCodeList>
+          </appinfo>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="OccupancyPropertyType">
-    <sequence minOccurs="0">
+    <sequence>
       <element ref="core:Occupancy"/>
     </sequence>
-    <attributeGroup ref="gml:AssociationAttributeGroup"/>
-    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element name="QualifiedArea" substitutionGroup="gml:AbstractGML" type="core:QualifiedAreaType"/>
+  <element name="QualifiedArea" substitutionGroup="gml:AbstractObject" type="core:QualifiedAreaType"/>
   <complexType name="QualifiedAreaType">
-    <complexContent>
-      <extension base="gml:AbstractGMLType">
-        <sequence>
-          <element name="area" type="gml:AreaType"/>
-          <element name="typeOfArea" type="gml:ReferenceType">
-            <annotation>
-              <appinfo>
-                <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">QualifiedAreaValue</targetCodeList>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </extension>
-    </complexContent>
+    <sequence>
+      <element name="area" type="gml:AreaType"/>
+      <element name="typeOfArea" type="gml:ReferenceType">
+        <annotation>
+          <appinfo>
+            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">QualifiedAreaValue</targetCodeList>
+          </appinfo>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="QualifiedAreaPropertyType">
-    <sequence minOccurs="0">
+    <sequence>
       <element ref="core:QualifiedArea"/>
     </sequence>
-    <attributeGroup ref="gml:AssociationAttributeGroup"/>
-    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element name="QualifiedVolume" substitutionGroup="gml:AbstractGML" type="core:QualifiedVolumeType"/>
+  <element name="QualifiedVolume" substitutionGroup="gml:AbstractObject" type="core:QualifiedVolumeType"/>
   <complexType name="QualifiedVolumeType">
-    <complexContent>
-      <extension base="gml:AbstractGMLType">
-        <sequence>
-          <element name="volume" type="gml:VolumeType"/>
-          <element name="typeOfVolume" type="gml:ReferenceType">
-            <annotation>
-              <appinfo>
-                <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">QualifiedVolumeValue</targetCodeList>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </extension>
-    </complexContent>
+    <sequence>
+      <element name="volume" type="gml:VolumeType"/>
+      <element name="typeOfVolume" type="gml:ReferenceType">
+        <annotation>
+          <appinfo>
+            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">QualifiedVolumeValue</targetCodeList>
+          </appinfo>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="QualifiedVolumePropertyType">
-    <sequence minOccurs="0">
+    <sequence>
       <element ref="core:QualifiedVolume"/>
     </sequence>
-    <attributeGroup ref="gml:AssociationAttributeGroup"/>
-    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <simpleType name="RelativeToTerrainType">
     <annotation>

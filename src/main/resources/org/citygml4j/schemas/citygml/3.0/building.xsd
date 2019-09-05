@@ -389,20 +389,10 @@
               <documentation>SIG3D: Usage of Room as given by the relevant national regulations, information communities, or specific applications.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="roomHeight">
+          <element maxOccurs="unbounded" minOccurs="0" name="roomHeight" type="bldg:RoomHeightPropertyType">
             <annotation>
               <documentation>Height of the room.</documentation>
             </annotation>
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="bldg:RoomHeight"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
             <annotation>
@@ -491,45 +481,39 @@
       <enumeration value="tbd"/>
     </restriction>
   </simpleType>
-  <element name="RoomHeight" substitutionGroup="gml:AbstractGML" type="bldg:RoomHeightType">
+  <element name="RoomHeight" substitutionGroup="gml:AbstractObject" type="bldg:RoomHeightType">
     <annotation>
       <documentation>[INSPIRE] Vertical distance (measured or estimated) between a low reference and a high reference.</documentation>
     </annotation>
   </element>
   <complexType name="RoomHeightType">
-    <complexContent>
-      <extension base="gml:AbstractGMLType">
-        <sequence>
-          <element name="highReference" type="bldg:RoomElevationReferenceValueType">
-            <annotation>
-              <documentation>[INSPIRE] Element used as the high reference.</documentation>
-            </annotation>
-          </element>
-          <element name="lowReference" type="bldg:RoomElevationReferenceValueType">
-            <annotation>
-              <documentation>[INSPIRE] Element as the low reference.</documentation>
-            </annotation>
-          </element>
-          <element name="status" type="con:HeightStatusValueType">
-            <annotation>
-              <documentation>[INSPIRE] The way the height has been captured.</documentation>
-            </annotation>
-          </element>
-          <element name="value" type="gml:LengthType">
-            <annotation>
-              <documentation>Value of the room height.</documentation>
-            </annotation>
-          </element>
-        </sequence>
-      </extension>
-    </complexContent>
+    <sequence>
+      <element name="highReference" type="bldg:RoomElevationReferenceValueType">
+        <annotation>
+          <documentation>[INSPIRE] Element used as the high reference.</documentation>
+        </annotation>
+      </element>
+      <element name="lowReference" type="bldg:RoomElevationReferenceValueType">
+        <annotation>
+          <documentation>[INSPIRE] Element as the low reference.</documentation>
+        </annotation>
+      </element>
+      <element name="status" type="con:HeightStatusValueType">
+        <annotation>
+          <documentation>[INSPIRE] The way the height has been captured.</documentation>
+        </annotation>
+      </element>
+      <element name="value" type="gml:LengthType">
+        <annotation>
+          <documentation>Value of the room height.</documentation>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="RoomHeightPropertyType">
-    <sequence minOccurs="0">
+    <sequence>
       <element ref="bldg:RoomHeight"/>
     </sequence>
-    <attributeGroup ref="gml:AssociationAttributeGroup"/>
-    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfStorey" type="anyType"/>
   <element name="Storey" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:StoreyType">

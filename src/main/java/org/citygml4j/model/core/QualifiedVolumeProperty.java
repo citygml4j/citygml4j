@@ -1,9 +1,9 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractProperty;
+import org.xmlobjects.gml.model.base.AbstractInlineProperty;
 
-public class QualifiedVolumeProperty extends AbstractProperty<QualifiedVolume> implements CityGMLObject {
+public class QualifiedVolumeProperty extends AbstractInlineProperty<QualifiedVolume> implements CityGMLObject {
 
     public QualifiedVolumeProperty() {
     }

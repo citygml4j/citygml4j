@@ -331,18 +331,6 @@
     <complexContent>
       <extension base="core:AbstractUnoccupiedSpaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="occupancy">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:Occupancy"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
               <documentation>SIG3D: Classification of TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
@@ -363,6 +351,7 @@
               <documentation>SIG3D: Surface material covering the TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
             </annotation>
           </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="predecessor" type="tran:TrafficSpacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="successor" type="tran:TrafficSpacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="clearanceSpace">
@@ -413,18 +402,6 @@
     <complexContent>
       <extension base="core:AbstractCityObjectType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="occupancy">
-            <complexType>
-              <complexContent>
-                <extension base="gml:AbstractMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:Occupancy"/>
-                  </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                </extension>
-              </complexContent>
-            </complexType>
-          </element>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
               <documentation>SIG3D: Classification of TransportationComplex, Railway, Road, Square, or Track as given by the relevant national regulations, information communities, or specific applications.</documentation>
@@ -440,6 +417,7 @@
               <documentation>SIG3D: Actual usage of TransportationComplex, Railway, Road, Square or Track as given by the relevant national regulations, information communities, or specific applications.</documentation>
             </annotation>
           </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="transportationSpace">
             <complexType>
               <complexContent>
