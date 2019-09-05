@@ -1,6 +1,9 @@
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
@@ -8,6 +11,13 @@ import java.util.List;
 public class Door extends AbstractFillingElement {
     private List<AddressProperty> addresses;
     private List<ADEPropertyOfDoor> adeProperties;
+
+    @Override
+    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
+        return boundarySurface instanceof DoorSurface
+                || boundarySurface instanceof ClosureSurface
+                || boundarySurface instanceof GenericThematicSurface;
+    }
 
     public List<AddressProperty> getAddresses() {
         if (addresses == null)

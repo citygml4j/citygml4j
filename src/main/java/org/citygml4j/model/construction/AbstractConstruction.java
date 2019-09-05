@@ -1,7 +1,10 @@
 package org.citygml4j.model.construction;
 
 import org.citygml4j.model.core.AbstractOccupiedSpace;
+import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
+import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.common.ChildList;
 
 import java.time.LocalDate;
@@ -16,6 +19,13 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     private List<HeightProperty> heights;
     private List<OccupancyProperty> occupancies;
     private List<ADEPropertyOfAbstractConstruction> adeProperties;
+
+    @Override
+    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
+        return boundarySurface instanceof AbstractConstructionSurface
+                || boundarySurface instanceof ClosureSurface
+                || boundarySurface instanceof GenericThematicSurface;
+    }
 
     public ConditionOfConstructionValue getConditionOfConstruction() {
         return conditionOfConstruction;

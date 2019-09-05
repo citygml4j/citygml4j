@@ -24,6 +24,8 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private List<ADEPropertyOfAbstractSpace> adeProperties;
 
+    public abstract boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface);
+
     public SpaceType getSpaceType() {
         return spaceType;
     }
@@ -126,6 +128,10 @@ public abstract class AbstractSpace extends AbstractCityObject {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
     }
 
+    public boolean isValidBoundarySurface(AbstractThematicSurfaceProperty property) {
+        return property == null || property.getObject() == null || isValidBoundarySurface(property.getObject());
+    }
+
     public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
         if (boundarySurfaces == null)
             boundarySurfaces = new ChildList<>(this);
@@ -135,6 +141,13 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
         this.boundarySurfaces = asChild(boundarySurfaces);
+        if (boundarySurfaces != null)
+            boundarySurfaces.removeIf(property -> !isValidBoundarySurface(property));
+    }
+
+    public void addBoundarySurface(AbstractThematicSurfaceProperty property) {
+        if (isValidBoundarySurface(property))
+            getBoundarySurfaces().add(property);
     }
 
     public List<ADEPropertyOfAbstractSpace> getADEPropertiesOfAbstractSpace() {

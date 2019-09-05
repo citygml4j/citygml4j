@@ -71,7 +71,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                     object.setLod3MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "boundary":
-                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
                     return;
             }
         }

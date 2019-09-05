@@ -1,7 +1,11 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
+import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.common.ChildList;
 
@@ -15,6 +19,13 @@ public class BuildingRoom extends AbstractOccupiedSpace implements StandardObjec
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
     private List<ADEPropertyOfBuildingRoom> adeProperties;
+
+    @Override
+    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
+        return boundarySurface instanceof AbstractConstructionSurface
+                || boundarySurface instanceof ClosureSurface
+                || boundarySurface instanceof GenericThematicSurface;
+    }
 
     @Override
     public Code getClassifier() {

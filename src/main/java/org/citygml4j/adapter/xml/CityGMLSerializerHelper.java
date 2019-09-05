@@ -20,7 +20,7 @@ public class CityGMLSerializerHelper {
         else if (namespaces.contains(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE))
             return CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE;
         else
-            return CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE;
+            return CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE;
     }
 
     public static String getGenericsNamespace(Namespaces namespaces) {
