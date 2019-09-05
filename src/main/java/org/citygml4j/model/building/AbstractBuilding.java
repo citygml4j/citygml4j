@@ -18,11 +18,11 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
     private Integer storeysBelowGround;
     private MeasureOrNilReasonList storeyHeightsAboveGround;
     private MeasureOrNilReasonList storeyHeightsBelowGround;
-    private List<BuildingConstructiveElementProperty> buildingConstructiveElements;
-    private List<BuildingInstallationProperty> buildingInstallations;
-    private List<BuildingRoomProperty> buildingRooms;
-    private List<BuildingFurnitureProperty> buildingFurniture;
-    private List<AbstractBuildingSubdivisionProperty> buildingSubdivisions;
+    private List<BuildingConstructiveElementMember> buildingConstructiveElements;
+    private List<BuildingInstallationMember> buildingInstallations;
+    private List<BuildingRoomMember> buildingRooms;
+    private List<BuildingFurnitureMember> buildingFurniture;
+    private List<AbstractBuildingSubdivisionMember> buildingSubdivisions;
     private List<AddressProperty> addresses;
     private List<ADEPropertyOfAbstractBuilding> adeProperties;
 
@@ -102,58 +102,58 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         this.storeyHeightsBelowGround = asChild(storeyHeightsBelowGround);
     }
 
-    public List<BuildingConstructiveElementProperty> getBuildingConstructiveElements() {
+    public List<BuildingConstructiveElementMember> getBuildingConstructiveElements() {
         if (buildingConstructiveElements == null)
             buildingConstructiveElements = new ChildList<>(this);
 
         return buildingConstructiveElements;
     }
 
-    public void setBuildingConstructiveElements(List<BuildingConstructiveElementProperty> buildingConstructiveElements) {
+    public void setBuildingConstructiveElements(List<BuildingConstructiveElementMember> buildingConstructiveElements) {
         this.buildingConstructiveElements = asChild(buildingConstructiveElements);
     }
 
-    public List<BuildingInstallationProperty> getBuildingInstallations() {
+    public List<BuildingInstallationMember> getBuildingInstallations() {
         if (buildingInstallations == null)
             buildingInstallations = new ChildList<>(this);
 
         return buildingInstallations;
     }
 
-    public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
+    public void setBuildingInstallations(List<BuildingInstallationMember> buildingInstallations) {
         this.buildingInstallations = asChild(buildingInstallations);
     }
 
-    public List<BuildingRoomProperty> getBuildingRooms() {
+    public List<BuildingRoomMember> getBuildingRooms() {
         if (buildingRooms == null)
             buildingRooms = new ChildList<>(this);
 
         return buildingRooms;
     }
 
-    public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
+    public void setBuildingRooms(List<BuildingRoomMember> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
     }
 
-    public List<BuildingFurnitureProperty> getBuildingFurniture() {
+    public List<BuildingFurnitureMember> getBuildingFurniture() {
         if (buildingFurniture == null)
             buildingFurniture = new ChildList<>(this);
 
         return buildingFurniture;
     }
 
-    public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
+    public void setBuildingFurniture(List<BuildingFurnitureMember> buildingFurniture) {
         this.buildingFurniture = asChild(buildingFurniture);
     }
 
-    public List<AbstractBuildingSubdivisionProperty> getBuildingSubdivisions() {
+    public List<AbstractBuildingSubdivisionMember> getBuildingSubdivisions() {
         if (buildingSubdivisions == null)
             buildingSubdivisions = new ChildList<>(this);
 
         return buildingSubdivisions;
     }
 
-    public void setBuildingSubdivisions(List<AbstractBuildingSubdivisionProperty> buildingSubdivisions) {
+    public void setBuildingSubdivisions(List<AbstractBuildingSubdivisionMember> buildingSubdivisions) {
         this.buildingSubdivisions = asChild(buildingSubdivisions);
     }
 
