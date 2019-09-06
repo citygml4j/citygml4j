@@ -20,9 +20,9 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<ElevationProperty> elevations;
     private Double sortKey;
     private List<Reference> buildingConstructiveElements;
-    private List<BuildingFurnitureProperty> buildingFurniture;
-    private List<BuildingInstallationProperty> buildingInstallations;
-    private List<BuildingRoomProperty> buildingRooms;
+    private List<Reference> buildingFurniture;
+    private List<Reference> buildingInstallations;
+    private List<Reference> buildingRooms;
     private List<ADEPropertyOfAbstractBuildingSubdivision> adeProperties;
 
     @Override
@@ -98,36 +98,36 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         this.buildingConstructiveElements = asChild(buildingConstructiveElements);
     }
 
-    public List<BuildingFurnitureProperty> getBuildingFurniture() {
+    public List<Reference> getBuildingFurniture() {
         if (buildingFurniture == null)
             buildingFurniture = new ChildList<>(this);
 
         return buildingFurniture;
     }
 
-    public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
+    public void setBuildingFurniture(List<Reference> buildingFurniture) {
         this.buildingFurniture = asChild(buildingFurniture);
     }
 
-    public List<BuildingInstallationProperty> getBuildingInstallations() {
+    public List<Reference> getBuildingInstallations() {
         if (buildingInstallations == null)
             buildingInstallations = new ChildList<>(this);
 
         return buildingInstallations;
     }
 
-    public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
+    public void setBuildingInstallations(List<Reference> buildingInstallations) {
         this.buildingInstallations = asChild(buildingInstallations);
     }
 
-    public List<BuildingRoomProperty> getBuildingRooms() {
+    public List<Reference> getBuildingRooms() {
         if (buildingRooms == null)
             buildingRooms = new ChildList<>(this);
 
         return buildingRooms;
     }
 
-    public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
+    public void setBuildingRooms(List<Reference> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
     }
 
