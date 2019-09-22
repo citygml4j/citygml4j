@@ -18,6 +18,10 @@ public class GeoreferencedTexture extends AbstractTexture {
         return preferWorldFile;
     }
 
+    public boolean isSetPreferWorldFile() {
+        return preferWorldFile != null;
+    }
+
     public void setPreferWorldFile(Boolean preferWorldFile) {
         this.preferWorldFile = preferWorldFile;
     }

@@ -10,11 +10,15 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements Cit
     private Boolean isFront;
     private List<ADEPropertyOfAbstractSurfaceData> adeProperties;
 
-    public Boolean getFront() {
+    public Boolean getIsFront() {
         return isFront != null ? isFront : true;
     }
 
-    public void setFront(Boolean front) {
+    public boolean isSetIsFront() {
+        return isFront != null;
+    }
+
+    public void setIsFront(Boolean front) {
         isFront = front;
     }
 

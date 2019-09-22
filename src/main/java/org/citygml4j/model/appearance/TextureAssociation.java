@@ -15,11 +15,11 @@ public class TextureAssociation extends AbstractGML implements CityGMLObject {
         setTextureParameterization(textureParameterization);
     }
 
-    public String getUri() {
+    public String getURI() {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setURI(String uri) {
         this.uri = uri;
     }
 

@@ -20,6 +20,10 @@ public class X3DMaterial extends AbstractSurfaceData {
         return ambientIntensity != null ? ambientIntensity : 0.2;
     }
 
+    public boolean isSetAmbientIntensity() {
+        return ambientIntensity != null;
+    }
+
     public void setAmbientIntensity(Double ambientIntensity) {
         if (ambientIntensity == null || (ambientIntensity >= 0 && ambientIntensity <= 1))
             this.ambientIntensity = ambientIntensity;
@@ -27,6 +31,10 @@ public class X3DMaterial extends AbstractSurfaceData {
 
     public Color getDiffuseColor() {
         return diffuseColor != null ? diffuseColor : new Color(0.8);
+    }
+
+    public boolean isSetDiffuseColor() {
+        return diffuseColor != null;
     }
 
     public void setDiffuseColor(Color diffuseColor) {
@@ -37,6 +45,10 @@ public class X3DMaterial extends AbstractSurfaceData {
         return emissiveColor != null ? emissiveColor : new Color(0);
     }
 
+    public boolean isSetEmissiveColor() {
+        return emissiveColor != null;
+    }
+
     public void setEmissiveColor(Color emissiveColor) {
         this.emissiveColor = emissiveColor;
     }
@@ -45,12 +57,20 @@ public class X3DMaterial extends AbstractSurfaceData {
         return specularColor != null ? specularColor : new Color(1);
     }
 
+    public boolean isSetSpecularColor() {
+        return specularColor != null;
+    }
+
     public void setSpecularColor(Color specularColor) {
         this.specularColor = specularColor;
     }
 
     public Double getShininess() {
         return shininess != null ? shininess : 0.2;
+    }
+
+    public boolean isSetShininess() {
+        return shininess != null;
     }
 
     public void setShininess(Double shininess) {
@@ -62,16 +82,24 @@ public class X3DMaterial extends AbstractSurfaceData {
         return transparency != null ? transparency : 0;
     }
 
+    public boolean isSetTransparency() {
+        return transparency != null;
+    }
+
     public void setTransparency(Double transparency) {
         if (transparency == null || (transparency >= 0 && transparency <= 1))
             this.transparency = transparency;
     }
 
-    public Boolean getSmooth() {
+    public Boolean getIsSmooth() {
         return isSmooth != null ? isSmooth : false;
     }
 
-    public void setSmooth(Boolean smooth) {
+    public boolean isSetIsSmooth() {
+        return isSmooth != null;
+    }
+
+    public void setIsSmooth(Boolean smooth) {
         isSmooth = smooth;
     }
 

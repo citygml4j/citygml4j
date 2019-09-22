@@ -29,6 +29,12 @@ public class CityGMLBuilderHelper {
                 || CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE.equals(namespaceURI);
     }
 
+    public static boolean isCityGMLAppearanceNamespace(String namespaceURI) {
+        return CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE.equals(namespaceURI);
+    }
+
     public static boolean isCityGMLCoreNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE.equals(namespaceURI)

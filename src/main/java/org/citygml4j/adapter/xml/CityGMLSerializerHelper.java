@@ -32,6 +32,15 @@ public class CityGMLSerializerHelper {
             return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE;
     }
 
+    public static String getAppearanceNamespace(Namespaces namespaces) {
+        if (namespaces.contains(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE))
+            return CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE;
+        else if (namespaces.contains(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE))
+            return CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE;
+        else
+            return CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE;
+    }
+
     public static String getCoreNamespace(Namespaces namespaces) {
         if (namespaces.contains(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE))
             return CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE;

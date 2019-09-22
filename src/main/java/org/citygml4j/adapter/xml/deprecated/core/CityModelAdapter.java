@@ -51,15 +51,12 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
 
     @Override
     public void buildChildObject(CityModel object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLCoreNamespace(name.getNamespaceURI())) {
-            switch (name.getLocalPart()) {
-                case "cityObjectMember":
-                    object.getCityObjectMembers().add(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
-                    return;
-                case "appearanceMember":
-                    object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
-                    return;
-            }
+        if (CityGMLBuilderHelper.isCityGMLCoreNamespace(name.getNamespaceURI()) && "cityObjectMember".equals(name.getLocalPart())) {
+            object.getCityObjectMembers().add(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+            return;
+        } else if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI()) && "appearanceMember".equals(name.getLocalPart())) {
+            object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
+            return;
         } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "featureMember":
