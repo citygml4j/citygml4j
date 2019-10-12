@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.dynamizer.DynamizerProperty;
 import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.common.ChildList;
@@ -15,7 +14,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<CityObjectRelationProperty> relatedTo;
     private List<AbstractAppearanceProperty> appearances;
     private List<AbstractGenericAttributeProperty> genericAttributes;
-    private List<DynamizerProperty> dynamizers;
+    private List<AbstractDynamizerProperty> dynamizers;
     private List<ADEPropertyOfAbstractCityObject> adeProperties;
 
     public List<ExternalReferenceProperty> getExternalReferences() {
@@ -89,14 +88,14 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         this.genericAttributes = asChild(genericAttributes);
     }
 
-    public List<DynamizerProperty> getDynamizers() {
+    public List<AbstractDynamizerProperty> getDynamizers() {
         if (dynamizers == null)
             dynamizers = new ChildList<>(this);
 
         return dynamizers;
     }
 
-    public void setDynamizers(List<DynamizerProperty> dynamizers) {
+    public void setDynamizers(List<AbstractDynamizerProperty> dynamizers) {
         this.dynamizers = asChild(dynamizers);
     }
 

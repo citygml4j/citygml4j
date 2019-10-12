@@ -69,7 +69,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
             </complexType>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="gen:AbstractGenericAttributePropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="dynamizer" type="dyn:DynamizerPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="dynamizer" type="core:AbstractDynamizerPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractCityObject"/>
         </sequence>
       </extension>
@@ -78,6 +78,24 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
   <complexType name="AbstractCityObjectPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractCityObject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractDynamizer" type="anyType"/>
+  <element abstract="true" name="AbstractDynamizer" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractDynamizerType"/>
+  <complexType abstract="true" name="AbstractDynamizerType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractDynamizer"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractDynamizerPropertyType">
+    <sequence minOccurs="0">
+      <element ref="core:AbstractDynamizer"/>
     </sequence>
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>

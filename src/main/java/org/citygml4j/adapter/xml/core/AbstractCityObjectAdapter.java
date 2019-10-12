@@ -2,20 +2,19 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.dynamizer.DynamizerPropertyAdapter;
 import org.citygml4j.adapter.xml.generics.AbstractGenericAttributePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.ADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
+import org.citygml4j.model.core.AbstractDynamizerProperty;
 import org.citygml4j.model.core.CityObjectRelationProperty;
 import org.citygml4j.model.core.ExternalReference;
 import org.citygml4j.model.core.ExternalReferenceProperty;
 import org.citygml4j.model.core.RelativeToTerrain;
 import org.citygml4j.model.core.RelativeToWater;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
-import org.citygml4j.model.dynamizer.DynamizerProperty;
 import org.citygml4j.model.generics.AbstractGenericAttribute;
 import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
 import org.citygml4j.util.CityGMLConstants;
@@ -79,7 +78,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                     object.getGenericAttributes().add(reader.getObjectUsingBuilder(AbstractGenericAttributePropertyAdapter.class));
                     return;
                 case "dynamizer":
-                    object.getDynamizers().add(reader.getObjectUsingBuilder(DynamizerPropertyAdapter.class));
+                    object.getDynamizers().add(reader.getObjectUsingBuilder(AbstractDynamizerPropertyAdapter.class));
                     return;
             }
         } else if (CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())
@@ -156,8 +155,8 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
         }
 
         if (isCityGML3) {
-            for (DynamizerProperty property : object.getDynamizers())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, DynamizerPropertyAdapter.class, namespaces);
+            for (AbstractDynamizerProperty property : object.getDynamizers())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, AbstractDynamizerPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfAbstractCityObject property : object.getADEPropertiesOfAbstractCityObject())
