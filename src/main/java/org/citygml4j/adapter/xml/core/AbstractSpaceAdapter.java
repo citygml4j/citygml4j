@@ -43,6 +43,9 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                 case "area":
                     object.getAreas().add(reader.getObjectUsingBuilder(QualifiedAreaPropertyAdapter.class));
                     return;
+                case "boundary":
+                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    return;
                 case "lod0Point":
                     object.setLod0Point(reader.getObjectUsingBuilder(PointPropertyAdapter.class));
                     return;
@@ -69,9 +72,6 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                     return;
                 case "lod3MultiCurve":
                     object.setLod3MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
-                    return;
-                case "boundary":
-                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
                     return;
             }
         }
@@ -101,6 +101,9 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             for (QualifiedAreaProperty property : object.getAreas())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "area"), property, QualifiedAreaPropertyAdapter.class, namespaces);
 
+            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+
             if (object.getLod0Point() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0Point"), object.getLod0Point(), PointPropertyAdapter.class, namespaces);
 
@@ -118,9 +121,6 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
 
             if (object.getLod2MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod2MultiCurve"), object.getLod2MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
-
-            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
 
             if (object.getLod3Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);

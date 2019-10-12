@@ -202,6 +202,13 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="volume" type="core:QualifiedVolumePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="boundary" type="core:AbstractThematicSurfacePropertyType">
+            <annotation>
+              <appinfo>
+                <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">core:bounds</reversePropertyName>
+              </appinfo>
+            </annotation>
+          </element>
           <element minOccurs="0" name="lod0Point" type="gml:PointPropertyType">
             <annotation>
               <documentation>Relation to a  LOD0 point geometry of AbstractSpace.</documentation>
@@ -230,13 +237,6 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
           <element minOccurs="0" name="lod2MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
               <documentation>Relation to a  LOD2 curve geometry of AbstractSpace.</documentation>
-            </annotation>
-          </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="boundary" type="core:AbstractThematicSurfacePropertyType">
-            <annotation>
-              <appinfo>
-                <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">core:bounds</reversePropertyName>
-              </appinfo>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3Solid" type="gml:SolidPropertyType">

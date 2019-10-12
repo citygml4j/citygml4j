@@ -12,6 +12,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private SpaceType spaceType;
     private List<QualifiedVolumeProperty> volumes;
     private List<QualifiedAreaProperty> areas;
+    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private PointProperty lod0Point;
     private MultiSurfaceProperty lod0MultiSurface;
     private SolidProperty lod1Solid;
@@ -21,7 +22,6 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
-    private List<AbstractThematicSurfaceProperty> boundarySurfaces;
     private List<ADEPropertyOfAbstractSpace> adeProperties;
 
     public abstract boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface);
@@ -54,6 +54,28 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public void setAreas(List<QualifiedAreaProperty> areas) {
         this.areas = areas;
+    }
+
+    public boolean isValidBoundarySurface(AbstractThematicSurfaceProperty property) {
+        return property == null || property.getObject() == null || isValidBoundarySurface(property.getObject());
+    }
+
+    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
+        if (boundarySurfaces == null)
+            boundarySurfaces = new ChildList<>(this);
+
+        return boundarySurfaces;
+    }
+
+    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
+        this.boundarySurfaces = asChild(boundarySurfaces);
+        if (boundarySurfaces != null)
+            boundarySurfaces.removeIf(property -> !isValidBoundarySurface(property));
+    }
+
+    public void addBoundarySurface(AbstractThematicSurfaceProperty property) {
+        if (isValidBoundarySurface(property))
+            getBoundarySurfaces().add(property);
     }
 
     public PointProperty getLod0Point() {
@@ -126,28 +148,6 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public void setLod3MultiCurve(MultiCurveProperty lod3MultiCurve) {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
-    }
-
-    public boolean isValidBoundarySurface(AbstractThematicSurfaceProperty property) {
-        return property == null || property.getObject() == null || isValidBoundarySurface(property.getObject());
-    }
-
-    public List<AbstractThematicSurfaceProperty> getBoundarySurfaces() {
-        if (boundarySurfaces == null)
-            boundarySurfaces = new ChildList<>(this);
-
-        return boundarySurfaces;
-    }
-
-    public void setBoundarySurfaces(List<AbstractThematicSurfaceProperty> boundarySurfaces) {
-        this.boundarySurfaces = asChild(boundarySurfaces);
-        if (boundarySurfaces != null)
-            boundarySurfaces.removeIf(property -> !isValidBoundarySurface(property));
-    }
-
-    public void addBoundarySurface(AbstractThematicSurfaceProperty property) {
-        if (isValidBoundarySurface(property))
-            getBoundarySurfaces().add(property);
     }
 
     public List<ADEPropertyOfAbstractSpace> getADEPropertiesOfAbstractSpace() {
