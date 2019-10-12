@@ -2,11 +2,11 @@ package org.citygml4j.adapter.xml.deprecated.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.appearance.AppearancePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractAppearancePropertyAdapter;
 import org.citygml4j.adapter.xml.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
-import org.citygml4j.model.appearance.AppearanceProperty;
 import org.citygml4j.model.core.ADEPropertyOfCityModel;
+import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.util.CityGMLConstants;
@@ -55,7 +55,7 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
             object.getCityObjectMembers().add(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
             return;
         } else if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI()) && "appearanceMember".equals(name.getLocalPart())) {
-            object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
+            object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AbstractAppearancePropertyAdapter.class));
             return;
         } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
@@ -96,8 +96,8 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
         for (AbstractCityObjectProperty property : object.getCityObjectMembers())
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
 
-        for (AppearanceProperty property : object.getAppearanceMembers())
-            writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearanceMember"), property, AppearancePropertyAdapter.class, namespaces);
+        for (AbstractAppearanceProperty property : object.getAppearanceMembers())
+            writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
 
         for (FeatureProperty property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, FeaturePropertyAdapter.class, namespaces);

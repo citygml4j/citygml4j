@@ -2,7 +2,7 @@ package org.citygml4j.adapter.xml.appearance;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.core.AbstractFeatureWithLifespanAdapter;
+import org.citygml4j.adapter.xml.core.AbstractAppearanceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAppearance;
 import org.citygml4j.model.appearance.ADEPropertyOfAppearance;
 import org.citygml4j.model.appearance.AbstractSurfaceDataProperty;
@@ -12,7 +12,6 @@ import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -29,7 +28,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "Appearance", namespaceURI = CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE),
         @XMLElement(name = "Appearance", namespaceURI = CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE)
 })
-public class AppearanceAdapter extends AbstractFeatureWithLifespanAdapter<Appearance> {
+public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfAppearance"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfAppearance"),

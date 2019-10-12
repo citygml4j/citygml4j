@@ -8,6 +8,24 @@
   <import namespace="http://www.opengis.net/gml/3.3/exr" schemaLocation="../../gml/3.3/extdEncRule.xsd"/>
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xal/2.0/xAL.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAppearance" type="anyType"/>
+  <element abstract="true" name="AbstractAppearance" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractAppearanceType"/>
+  <complexType abstract="true" name="AbstractAppearanceType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractAppearance"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractAppearancePropertyType">
+    <sequence minOccurs="0">
+      <element ref="core:AbstractAppearance"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractCityObject" type="anyType"/>
   <element abstract="true" name="AbstractCityObject" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractCityObjectType">
     <annotation>
@@ -43,7 +61,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
                   <sequence minOccurs="0">
-                    <element ref="app:Appearance"/>
+                    <element ref="core:AbstractAppearance"/>
                   </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
@@ -380,7 +398,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
                   <sequence minOccurs="0">
-                    <element ref="app:Appearance"/>
+                    <element ref="core:AbstractAppearance"/>
                   </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
@@ -535,7 +553,6 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <documentation>SIG3D: Geometry of the prototype, specified in a local coordinate system.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="appearance" type="app:AppearancePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfImplicitGeometry"/>
         </sequence>
       </extension>

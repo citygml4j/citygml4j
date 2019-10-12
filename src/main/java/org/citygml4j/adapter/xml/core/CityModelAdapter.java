@@ -2,12 +2,11 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.appearance.AppearancePropertyAdapter;
 import org.citygml4j.adapter.xml.versioning.VersionPropertyAdapter;
 import org.citygml4j.adapter.xml.versioning.VersionTransitionPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
-import org.citygml4j.model.appearance.AppearanceProperty;
 import org.citygml4j.model.core.ADEPropertyOfCityModel;
+import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.model.versioning.VersionProperty;
@@ -46,7 +45,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                     object.getCityObjectMembers().add(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
                     return;
                 case "appearanceMember":
-                    object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
+                    object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AbstractAppearancePropertyAdapter.class));
                     return;
                 case "versionMember":
                     object.getVersionMembers().add(reader.getObjectUsingBuilder(VersionPropertyAdapter.class));
@@ -82,8 +81,8 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
         for (AbstractCityObjectProperty property : object.getCityObjectMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
 
-        for (AppearanceProperty property : object.getAppearanceMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "appearanceMember"), property, AppearancePropertyAdapter.class, namespaces);
+        for (AbstractAppearanceProperty property : object.getAppearanceMembers())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
 
         for (VersionProperty property : object.getVersionMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionMember"), property, VersionPropertyAdapter.class, namespaces);

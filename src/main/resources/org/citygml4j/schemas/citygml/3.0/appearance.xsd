@@ -90,14 +90,14 @@
     </sequence>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAppearance" type="anyType"/>
-  <element name="Appearance" substitutionGroup="core:AbstractFeatureWithLifespan" type="app:AppearanceType">
+  <element name="Appearance" substitutionGroup="core:AbstractAppearance" type="app:AppearanceType">
     <annotation>
       <documentation>SIG3D: Named container for all AbstractSurfaceData</documentation>
     </annotation>
   </element>
   <complexType name="AppearanceType">
     <complexContent>
-      <extension base="core:AbstractFeatureWithLifespanType">
+      <extension base="core:AbstractAppearanceType">
         <sequence>
           <element minOccurs="0" name="theme" type="string">
             <annotation>

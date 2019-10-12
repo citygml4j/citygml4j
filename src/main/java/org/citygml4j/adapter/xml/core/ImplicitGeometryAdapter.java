@@ -2,9 +2,7 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.appearance.AppearancePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfImplicitGeometry;
-import org.citygml4j.model.appearance.AppearanceProperty;
 import org.citygml4j.model.core.ADEPropertyOfImplicitGeometry;
 import org.citygml4j.model.core.ImplicitGeometry;
 import org.citygml4j.model.core.TransformationMatrix4x4;
@@ -57,9 +55,6 @@ public class ImplicitGeometryAdapter extends AbstractFeatureAdapter<ImplicitGeom
                 case "relativeGMLGeometry":
                     object.setRelativeGMLGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     break;
-                case "appearance":
-                    object.getAppearances().add(reader.getObjectUsingBuilder(AppearancePropertyAdapter.class));
-                    break;
             }
         } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
             super.buildChildObject(object, name, attributes, reader);
@@ -95,9 +90,6 @@ public class ImplicitGeometryAdapter extends AbstractFeatureAdapter<ImplicitGeom
 
         if (object.getRelativeGMLGeometry() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relativeGMLGeometry"), object.getRelativeGMLGeometry(), GeometryPropertyAdapter.class, namespaces);
-
-        for (AppearanceProperty property : object.getAppearances())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "appearance"), property, AppearancePropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfImplicitGeometry property : object.getADEPropertiesOfImplicitGeometry())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
