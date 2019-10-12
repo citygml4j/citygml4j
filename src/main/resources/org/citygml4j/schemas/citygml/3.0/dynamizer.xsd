@@ -75,10 +75,10 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfDynamizer" type="anyType"/>
-  <element name="Dynamizer" substitutionGroup="core:AbstractFeatureWithLifespan" type="dyn:DynamizerType"/>
+  <element name="Dynamizer" substitutionGroup="core:AbstractDynamizer" type="dyn:DynamizerType"/>
   <complexType name="DynamizerType">
     <complexContent>
-      <extension base="core:AbstractFeatureWithLifespanType">
+      <extension base="core:AbstractDynamizerType">
         <sequence>
           <element name="attributeRef" type="anyURI"/>
           <element name="startTime" type="gml:TimePositionType"/>
