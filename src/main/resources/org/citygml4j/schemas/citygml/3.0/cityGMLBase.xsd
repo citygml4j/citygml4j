@@ -465,13 +465,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <complexContent>
       <extension base="gml:AbstractGMLType">
         <sequence>
-          <element name="relationType" type="gml:ReferenceType">
-            <annotation>
-              <appinfo>
-                <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">RelationType</targetCodeList>
-              </appinfo>
-            </annotation>
-          </element>
+          <element name="relationType" type="gml:CodeType"/>
           <element name="relatedTo" type="core:AbstractCityObjectPropertyType"/>
         </sequence>
       </extension>
@@ -593,20 +587,8 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
   <complexType name="OccupancyType">
     <sequence>
       <element name="numberOfOccupants" type="integer"/>
-      <element minOccurs="0" name="interval" type="gml:ReferenceType">
-        <annotation>
-          <appinfo>
-            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">IntervalValue</targetCodeList>
-          </appinfo>
-        </annotation>
-      </element>
-      <element minOccurs="0" name="occupantType" type="gml:ReferenceType">
-        <annotation>
-          <appinfo>
-            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">OccupantTypeValue</targetCodeList>
-          </appinfo>
-        </annotation>
-      </element>
+      <element minOccurs="0" name="interval" type="gml:CodeType"/>
+      <element minOccurs="0" name="occupantType" type="gml:CodeType"/>
     </sequence>
   </complexType>
   <complexType name="OccupancyPropertyType">
@@ -618,13 +600,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
   <complexType name="QualifiedAreaType">
     <sequence>
       <element name="area" type="gml:AreaType"/>
-      <element name="typeOfArea" type="gml:ReferenceType">
-        <annotation>
-          <appinfo>
-            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">QualifiedAreaValue</targetCodeList>
-          </appinfo>
-        </annotation>
-      </element>
+      <element name="typeOfArea" type="gml:CodeType"/>
     </sequence>
   </complexType>
   <complexType name="QualifiedAreaPropertyType">
@@ -636,13 +612,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
   <complexType name="QualifiedVolumeType">
     <sequence>
       <element name="volume" type="gml:VolumeType"/>
-      <element name="typeOfVolume" type="gml:ReferenceType">
-        <annotation>
-          <appinfo>
-            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">QualifiedVolumeValue</targetCodeList>
-          </appinfo>
-        </annotation>
-      </element>
+      <element name="typeOfVolume" type="gml:CodeType"/>
     </sequence>
   </complexType>
   <complexType name="QualifiedVolumePropertyType">

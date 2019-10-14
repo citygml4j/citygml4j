@@ -2,12 +2,12 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.basictypes.Code;
 
 public class Occupancy extends GMLObject implements CityGMLObject {
     private Integer numberOfOccupants;
-    private Reference interval;
-    private Reference occupantType;
+    private Code interval;
+    private Code occupantType;
 
     public Occupancy() {
     }
@@ -24,19 +24,19 @@ public class Occupancy extends GMLObject implements CityGMLObject {
         this.numberOfOccupants = numberOfOccupants;
     }
 
-    public Reference getInterval() {
+    public Code getInterval() {
         return interval;
     }
 
-    public void setInterval(Reference interval) {
+    public void setInterval(Code interval) {
         this.interval = asChild(interval);
     }
 
-    public Reference getOccupantType() {
+    public Code getOccupantType() {
         return occupantType;
     }
 
-    public void setOccupantType(Reference occupantType) {
+    public void setOccupantType(Code occupantType) {
         this.occupantType = asChild(occupantType);
     }
 }

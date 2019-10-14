@@ -2,10 +2,10 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.base.AbstractGML;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.basictypes.Code;
 
 public class CityObjectRelation extends AbstractGML implements CityGMLObject {
-    private Reference relationType;
+    private Code relationType;
     private AbstractCityObjectProperty relatedTo;
 
     public CityObjectRelation() {
@@ -19,11 +19,11 @@ public class CityObjectRelation extends AbstractGML implements CityGMLObject {
         setRelatedTo(new AbstractCityObjectProperty(href));
     }
 
-    public Reference getRelationType() {
+    public Code getRelationType() {
         return relationType;
     }
 
-    public void setRelationType(Reference relationType) {
+    public void setRelationType(Code relationType) {
         this.relationType = asChild(relationType);
     }
 

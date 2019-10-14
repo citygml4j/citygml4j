@@ -232,13 +232,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element name="ConstructionEvent" substitutionGroup="gml:AbstractObject" type="con:ConstructionEventType"/>
   <complexType name="ConstructionEventType">
     <sequence>
-      <element name="event" type="gml:ReferenceType">
-        <annotation>
-          <appinfo>
-            <targetCodeList xmlns="http://www.opengis.net/gml/3.3/exr">EventValue</targetCodeList>
-          </appinfo>
-        </annotation>
-      </element>
+      <element name="event" type="gml:CodeType"/>
       <element name="dateOfEvent" type="date"/>
       <element minOccurs="0" name="description" type="string"/>
     </sequence>
@@ -532,7 +526,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <complexContent>
       <extension base="con:AbstractConstructionType">
         <sequence>
-          <element name="class" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfOtherConstruction"/>

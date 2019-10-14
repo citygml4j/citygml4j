@@ -5,7 +5,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
@@ -35,10 +35,10 @@ public class OccupancyAdapter implements ObjectBuilder<Occupancy>, ObjectSeriali
                     reader.getTextContent().ifInteger(object::setNumberOfOccupants);
                     break;
                 case "interval":
-                    object.setInterval(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.setInterval(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "occupantType":
-                    object.setOccupantType(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.setOccupantType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
             }
         }
@@ -55,9 +55,9 @@ public class OccupancyAdapter implements ObjectBuilder<Occupancy>, ObjectSeriali
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "numberOfOccupants").addTextContent(TextContent.ofInteger(object.getNumberOfOccupants())));
 
         if (object.getInterval() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "interval"), object.getInterval(), ReferenceAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "interval"), object.getInterval(), CodeAdapter.class, namespaces);
 
         if (object.getOccupantType() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "occupantType"), object.getOccupantType(), ReferenceAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "occupantType"), object.getOccupantType(), CodeAdapter.class, namespaces);
     }
 }

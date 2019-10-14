@@ -2,12 +2,12 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Volume;
 
 public class QualifiedVolume extends GMLObject implements CityGMLObject {
     private Volume volume;
-    private Reference typeOfVolume;
+    private Code typeOfVolume;
 
     public QualifiedVolume() {
     }
@@ -24,11 +24,11 @@ public class QualifiedVolume extends GMLObject implements CityGMLObject {
         this.volume = asChild(volume);
     }
 
-    public Reference getTypeOfVolume() {
+    public Code getTypeOfVolume() {
         return typeOfVolume;
     }
 
-    public void setTypeOfVolume(Reference typeOfVolume) {
+    public void setTypeOfVolume(Code typeOfVolume) {
         this.typeOfVolume = asChild(typeOfVolume);
     }
 }

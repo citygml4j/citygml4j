@@ -5,7 +5,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
@@ -35,7 +35,7 @@ public class ConstructionEventAdapter implements ObjectBuilder<ConstructionEvent
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "event":
-                    object.setEvent(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.setEvent(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "dateOfEvent":
                     reader.getTextContent().ifDate(v -> object.setDateOfEvent(v.toLocalDate()));
@@ -55,7 +55,7 @@ public class ConstructionEventAdapter implements ObjectBuilder<ConstructionEvent
     @Override
     public void writeChildElements(ConstructionEvent object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getEvent() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "event"), object.getEvent(), ReferenceAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "event"), object.getEvent(), CodeAdapter.class, namespaces);
 
         if (object.getDateOfEvent() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "dateOfEvent").addTextContent(TextContent.ofDate(OffsetDateTime.of(object.getDateOfEvent(), LocalTime.MIN, ZoneOffset.UTC))));

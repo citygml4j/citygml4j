@@ -2,12 +2,12 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Area;
 
 public class QualifiedArea extends GMLObject implements CityGMLObject {
     private Area area;
-    private Reference typeOfArea;
+    private Code typeOfArea;
 
     public QualifiedArea() {
     }
@@ -24,11 +24,11 @@ public class QualifiedArea extends GMLObject implements CityGMLObject {
         this.area = asChild(area);
     }
 
-    public Reference getTypeOfArea() {
+    public Code getTypeOfArea() {
         return typeOfArea;
     }
 
-    public void setTypeOfArea(Reference typeOfArea) {
+    public void setTypeOfArea(Code typeOfArea) {
         this.typeOfArea = asChild(typeOfArea);
     }
 }

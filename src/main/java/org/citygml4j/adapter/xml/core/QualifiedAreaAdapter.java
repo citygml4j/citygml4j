@@ -5,7 +5,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.measures.AreaAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
@@ -35,7 +35,7 @@ public class QualifiedAreaAdapter implements ObjectBuilder<QualifiedArea>, Objec
                     object.setArea(reader.getObjectUsingBuilder(AreaAdapter.class));
                     break;
                 case "typeOfArea":
-                    object.setTypeOfArea(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.setTypeOfArea(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
             }
         }
@@ -52,6 +52,6 @@ public class QualifiedAreaAdapter implements ObjectBuilder<QualifiedArea>, Objec
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "area"), object.getArea(), AreaAdapter.class, namespaces);
 
         if (object.getTypeOfArea() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "typeOfArea"), object.getTypeOfArea(), ReferenceAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "typeOfArea"), object.getTypeOfArea(), CodeAdapter.class, namespaces);
     }
 }

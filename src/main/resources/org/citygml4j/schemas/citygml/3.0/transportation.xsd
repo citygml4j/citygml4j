@@ -11,6 +11,7 @@
           <element minOccurs="0" name="class" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="surfaceMaterial" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea"/>
         </sequence>
       </extension>
@@ -46,11 +47,6 @@
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
               <documentation>SIG3D: Actual usage of AuxiliaryTrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
-            </annotation>
-          </element>
-          <element minOccurs="0" name="surfaceMaterial" type="gml:CodeType">
-            <annotation>
-              <documentation>SIG3D: Surface material covering the AuxiliaryTrafficSpace as given by the relevant national regulations, information communities or specific applications.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace"/>
@@ -308,6 +304,7 @@
           <element minOccurs="0" name="class" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="surfaceMaterial" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrafficArea"/>
         </sequence>
       </extension>
@@ -343,11 +340,6 @@
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
               <documentation>SIG3D: Actual usage of TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
-            </annotation>
-          </element>
-          <element minOccurs="0" name="surfaceMaterial" type="gml:CodeType">
-            <annotation>
-              <documentation>SIG3D: Surface material covering the TrafficSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
@@ -483,7 +475,7 @@
     <complexContent>
       <extension base="core:AbstractUnoccupiedSpaceType">
         <sequence>
-          <element name="class" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTransportationSpace"/>

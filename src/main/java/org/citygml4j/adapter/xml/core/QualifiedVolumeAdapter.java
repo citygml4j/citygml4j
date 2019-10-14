@@ -5,7 +5,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.measures.VolumeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
@@ -35,7 +35,7 @@ public class QualifiedVolumeAdapter implements ObjectBuilder<QualifiedVolume>, O
                     object.setVolume(reader.getObjectUsingBuilder(VolumeAdapter.class));
                     break;
                 case "typeOfVolume":
-                    object.setTypeOfVolume(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.setTypeOfVolume(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
             }
         }
@@ -52,6 +52,6 @@ public class QualifiedVolumeAdapter implements ObjectBuilder<QualifiedVolume>, O
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "volume"), object.getVolume(), VolumeAdapter.class, namespaces);
 
         if (object.getTypeOfVolume() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "typeOfVolume"), object.getTypeOfVolume(), ReferenceAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "typeOfVolume"), object.getTypeOfVolume(), CodeAdapter.class, namespaces);
     }
 }
