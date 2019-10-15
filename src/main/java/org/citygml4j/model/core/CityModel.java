@@ -1,7 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.versioning.VersionProperty;
-import org.citygml4j.model.versioning.VersionTransitionProperty;
 import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 
@@ -11,8 +9,8 @@ public class CityModel extends AbstractFeatureWithLifespan {
     private List<AbstractCityObjectProperty> cityObjectMembers;
     private List<AbstractAppearanceProperty> appearanceMembers;
     private List<FeatureProperty> featureMembers;
-    private List<VersionProperty> versionMembers;
-    private List<VersionTransitionProperty> versionTransitionMembers;
+    private List<AbstractVersionProperty> versionMembers;
+    private List<AbstractVersionTransitionProperty> versionTransitionMembers;
     private List<ADEPropertyOfCityModel> adeProperties;
 
     public List<AbstractCityObjectProperty> getCityObjectMembers() {
@@ -48,25 +46,25 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.featureMembers = asChild(featureMembers);
     }
 
-    public List<VersionProperty> getVersionMembers() {
+    public List<AbstractVersionProperty> getVersionMembers() {
         if (versionMembers == null)
             versionMembers = new ChildList<>(this);
 
         return versionMembers;
     }
 
-    public void setVersionMembers(List<VersionProperty> versionMembers) {
+    public void setVersionMembers(List<AbstractVersionProperty> versionMembers) {
         this.versionMembers = asChild(versionMembers);
     }
 
-    public List<VersionTransitionProperty> getVersionTransitionMembers() {
+    public List<AbstractVersionTransitionProperty> getVersionTransitionMembers() {
         if (versionTransitionMembers == null)
             versionTransitionMembers = new ChildList<>(this);
 
         return versionTransitionMembers;
     }
 
-    public void setVersionTransitionMembers(List<VersionTransitionProperty> versionTransitionMembers) {
+    public void setVersionTransitionMembers(List<AbstractVersionTransitionProperty> versionTransitionMembers) {
         this.versionTransitionMembers = asChild(versionTransitionMembers);
     }
 

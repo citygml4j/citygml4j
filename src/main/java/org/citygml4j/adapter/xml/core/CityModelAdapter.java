@@ -2,15 +2,13 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.versioning.VersionPropertyAdapter;
-import org.citygml4j.adapter.xml.versioning.VersionTransitionPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
 import org.citygml4j.model.core.ADEPropertyOfCityModel;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
+import org.citygml4j.model.core.AbstractVersionProperty;
+import org.citygml4j.model.core.AbstractVersionTransitionProperty;
 import org.citygml4j.model.core.CityModel;
-import org.citygml4j.model.versioning.VersionProperty;
-import org.citygml4j.model.versioning.VersionTransitionProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -48,10 +46,10 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                     object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AbstractAppearancePropertyAdapter.class));
                     return;
                 case "versionMember":
-                    object.getVersionMembers().add(reader.getObjectUsingBuilder(VersionPropertyAdapter.class));
+                    object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractVersionPropertyAdapter.class));
                     return;
                 case "versionTransitionMember":
-                    object.getVersionTransitionMembers().add(reader.getObjectUsingBuilder(VersionTransitionPropertyAdapter.class));
+                    object.getVersionTransitionMembers().add(reader.getObjectUsingBuilder(AbstractVersionTransitionPropertyAdapter.class));
                     return;
                 case "featureMember":
                     object.getFeatureMembers().add(reader.getObjectUsingBuilder(FeaturePropertyAdapter.class));
@@ -84,11 +82,11 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
         for (AbstractAppearanceProperty property : object.getAppearanceMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
 
-        for (VersionProperty property : object.getVersionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionMember"), property, VersionPropertyAdapter.class, namespaces);
+        for (AbstractVersionProperty property : object.getVersionMembers())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionMember"), property, AbstractVersionPropertyAdapter.class, namespaces);
 
-        for (VersionTransitionProperty property : object.getVersionTransitionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionTransitionMember"), property, VersionTransitionPropertyAdapter.class, namespaces);
+        for (AbstractVersionTransitionProperty property : object.getVersionTransitionMembers())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionTransitionMember"), property, AbstractVersionTransitionPropertyAdapter.class, namespaces);
 
         for (FeatureProperty property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "featureMember"), property, FeaturePropertyAdapter.class, namespaces);

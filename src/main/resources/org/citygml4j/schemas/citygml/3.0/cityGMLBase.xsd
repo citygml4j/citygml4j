@@ -367,6 +367,42 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersion" type="anyType"/>
+  <element abstract="true" name="AbstractVersion" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractVersionType"/>
+  <complexType abstract="true" name="AbstractVersionType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractVersion"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractVersionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="core:AbstractVersion"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersionTransition" type="anyType"/>
+  <element abstract="true" name="AbstractVersionTransition" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractVersionTransitionType"/>
+  <complexType abstract="true" name="AbstractVersionTransitionType">
+    <complexContent>
+      <extension base="core:AbstractFeatureWithLifespanType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractVersionTransition"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractVersionTransitionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="core:AbstractVersionTransition"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAddress" type="anyType"/>
   <element name="Address" substitutionGroup="gml:AbstractFeature" type="core:AddressType">
     <annotation>
@@ -446,7 +482,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
                   <sequence minOccurs="0">
-                    <element ref="vers:Version"/>
+                    <element ref="core:AbstractVersion"/>
                   </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
@@ -458,7 +494,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
                   <sequence minOccurs="0">
-                    <element ref="vers:VersionTransition"/>
+                    <element ref="core:AbstractVersionTransition"/>
                   </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
