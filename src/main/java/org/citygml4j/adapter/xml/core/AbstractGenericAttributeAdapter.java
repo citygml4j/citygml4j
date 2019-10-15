@@ -1,6 +1,6 @@
-package org.citygml4j.adapter.xml.generics;
+package org.citygml4j.adapter.xml.core;
 
-import org.citygml4j.model.generics.AbstractGenericAttribute;
+import org.citygml4j.model.core.AbstractGenericAttribute;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;

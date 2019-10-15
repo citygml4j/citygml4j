@@ -1,5 +1,6 @@
 package org.citygml4j.model.generics;
 
+import org.citygml4j.model.core.AbstractGenericAttribute;
 import org.xmlobjects.gml.model.basictypes.Measure;
 
 public class MeasureAttribute extends AbstractGenericAttribute<Measure> {

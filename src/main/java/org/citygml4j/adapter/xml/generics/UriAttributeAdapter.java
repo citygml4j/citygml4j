@@ -2,6 +2,7 @@ package org.citygml4j.adapter.xml.generics;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.core.AbstractGenericAttributeAdapter;
 import org.citygml4j.model.generics.UriAttribute;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;

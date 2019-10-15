@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.common.ChildList;
 

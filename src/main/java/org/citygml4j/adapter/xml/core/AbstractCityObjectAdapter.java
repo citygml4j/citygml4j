@@ -2,7 +2,6 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.generics.AbstractGenericAttributePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.ADEPropertyOfAbstractCityObject;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
@@ -15,8 +14,8 @@ import org.citygml4j.model.core.ExternalReferenceProperty;
 import org.citygml4j.model.core.RelativeToTerrain;
 import org.citygml4j.model.core.RelativeToWater;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
-import org.citygml4j.model.generics.AbstractGenericAttribute;
-import org.citygml4j.model.generics.AbstractGenericAttributeProperty;
+import org.citygml4j.model.core.AbstractGenericAttribute;
+import org.citygml4j.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
