@@ -530,52 +530,44 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
       <element ref="core:ExternalReference"/>
     </sequence>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfImplicitGeometry" type="anyType"/>
-  <element name="ImplicitGeometry" substitutionGroup="gml:AbstractFeature" type="core:ImplicitGeometryType">
+  <element name="ImplicitGeometry" substitutionGroup="gml:AbstractObject" type="core:ImplicitGeometryType">
     <annotation>
       <documentation>SIG3D: A  geometric representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model.</documentation>
     </annotation>
   </element>
   <complexType name="ImplicitGeometryType">
-    <complexContent>
-      <extension base="gml:AbstractFeatureType">
-        <sequence>
-          <element minOccurs="0" name="transformationMatrix" type="core:TransformationMatrix4x4Type">
-            <annotation>
-              <documentation>SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object.</documentation>
-            </annotation>
-          </element>
-          <element minOccurs="0" name="mimeType" type="gml:CodeType">
-            <annotation>
-              <documentation>SIG3D: Mime type of the referenced external geometric object (attribute libraryObject).</documentation>
-            </annotation>
-          </element>
-          <element minOccurs="0" name="libraryObject" type="anyURI">
-            <annotation>
-              <documentation>SIG3D: External link to a prototype geometry.</documentation>
-            </annotation>
-          </element>
-          <element name="referencePoint" type="gml:PointPropertyType">
-            <annotation>
-              <documentation>SIG3D: Base point of the object in the world coordinate system.</documentation>
-            </annotation>
-          </element>
-          <element minOccurs="0" name="relativeGMLGeometry" type="gml:GeometryPropertyType">
-            <annotation>
-              <documentation>SIG3D: Geometry of the prototype, specified in a local coordinate system.</documentation>
-            </annotation>
-          </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfImplicitGeometry"/>
-        </sequence>
-      </extension>
-    </complexContent>
+    <sequence>
+      <element name="transformationMatrix" type="core:TransformationMatrix4x4Type">
+        <annotation>
+          <documentation>SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="mimeType" type="gml:CodeType">
+        <annotation>
+          <documentation>SIG3D: Mime type of the referenced external geometric object (attribute libraryObject).</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="libraryObject" type="anyURI">
+        <annotation>
+          <documentation>SIG3D: External link to a prototype geometry.</documentation>
+        </annotation>
+      </element>
+      <element name="referencePoint" type="gml:PointPropertyType">
+        <annotation>
+          <documentation>SIG3D: Base point of the object in the world coordinate system.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="relativeGMLGeometry" type="gml:GeometryPropertyType">
+        <annotation>
+          <documentation>SIG3D: Geometry of the prototype, specified in a local coordinate system.</documentation>
+        </annotation>
+      </element>
+    </sequence>
   </complexType>
   <complexType name="ImplicitGeometryPropertyType">
-    <sequence minOccurs="0">
+    <sequence>
       <element ref="core:ImplicitGeometry"/>
     </sequence>
-    <attributeGroup ref="gml:AssociationAttributeGroup"/>
-    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <simpleType name="IntegerBetween0and3Type">
     <restriction base="integer">
