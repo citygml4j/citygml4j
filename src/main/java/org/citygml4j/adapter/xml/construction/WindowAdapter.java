@@ -31,6 +31,10 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
 
     @Override
     public void buildChildObject(Window object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())
+                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+            return;
+
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             ObjectBuilder<ADEPropertyOfWindow> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfWindow.class);
             if (builder != null)
@@ -49,6 +53,8 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
     @Override
     public void writeChildElements(Window object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
+
+        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, namespaces, writer);
 
         for (ADEPropertyOfWindow property : object.getADEPropertiesOfWindow())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

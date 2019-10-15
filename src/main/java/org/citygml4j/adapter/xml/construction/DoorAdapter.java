@@ -33,9 +33,13 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
 
     @Override
     public void buildChildObject(Door object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "address".equals(name.getLocalPart())) {
-            object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
-            return;
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+            else if ("address".equals(name.getLocalPart())) {
+                object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
+                return;
+            }
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -56,6 +60,8 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
     @Override
     public void writeChildElements(Door object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
+
+        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, namespaces, writer);
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
