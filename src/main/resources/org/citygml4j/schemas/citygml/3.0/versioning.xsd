@@ -32,10 +32,10 @@
     </restriction>
   </simpleType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfVersion" type="anyType"/>
-  <element name="Version" substitutionGroup="core:AbstractFeatureWithLifespan" type="vers:VersionType"/>
+  <element name="Version" substitutionGroup="core:AbstractVersion" type="vers:VersionType"/>
   <complexType name="VersionType">
     <complexContent>
-      <extension base="core:AbstractFeatureWithLifespanType">
+      <extension base="core:AbstractVersionType">
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="tag" type="string"/>
           <element maxOccurs="unbounded" minOccurs="0" name="versionMember">
@@ -63,10 +63,10 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfVersionTransition" type="anyType"/>
-  <element name="VersionTransition" substitutionGroup="core:AbstractFeatureWithLifespan" type="vers:VersionTransitionType"/>
+  <element name="VersionTransition" substitutionGroup="core:AbstractVersionTransition" type="vers:VersionTransitionType"/>
   <complexType name="VersionTransitionType">
     <complexContent>
-      <extension base="core:AbstractFeatureWithLifespanType">
+      <extension base="core:AbstractVersionTransitionType">
         <sequence>
           <element minOccurs="0" name="reason" type="string"/>
           <element name="clonePredecessor" type="boolean"/>

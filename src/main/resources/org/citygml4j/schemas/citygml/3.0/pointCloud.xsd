@@ -3,10 +3,10 @@
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="AbstractGenericApplicationPropertyOfPointCloud" type="anyType"/>
-  <element name="PointCloud" substitutionGroup="gml:AbstractFeature" type="pcl:PointCloudType"/>
+  <element name="PointCloud" substitutionGroup="core:AbstractPointCloud" type="pcl:PointCloudType"/>
   <complexType name="PointCloudType">
     <complexContent>
-      <extension base="gml:AbstractFeatureType">
+      <extension base="core:AbstractPointCloudType">
         <sequence>
           <element minOccurs="0" name="mimeType" type="gml:CodeType"/>
           <element minOccurs="0" name="pointFile" type="anyURI"/>
