@@ -2,7 +2,6 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.pointcloud.PointCloudPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
@@ -46,7 +45,7 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "pointCloud":
-                    object.setPointCloud(reader.getObjectUsingBuilder(PointCloudPropertyAdapter.class));
+                    object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
             }
         }
@@ -83,7 +82,7 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             if (object.getPointCloud() != null)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), PointCloudPropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())

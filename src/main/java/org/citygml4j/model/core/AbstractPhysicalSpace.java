@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.pointcloud.PointCloudProperty;
 import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 
@@ -10,7 +9,7 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
     private MultiCurveProperty lod1TerrainIntersectionCurve;
     private MultiCurveProperty lod2TerrainIntersectionCurve;
     private MultiCurveProperty lod3TerrainIntersectionCurve;
-    private PointCloudProperty pointCloud;
+    private AbstractPointCloudProperty pointCloud;
     private List<ADEPropertyOfAbstractPhysicalSpace> adeProperties;
 
     public MultiCurveProperty getLod1TerrainIntersectionCurve() {
@@ -37,11 +36,11 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
         this.lod3TerrainIntersectionCurve = asChild(lod3TerrainIntersectionCurve);
     }
 
-    public PointCloudProperty getPointCloud() {
+    public AbstractPointCloudProperty getPointCloud() {
         return pointCloud;
     }
 
-    public void setPointCloud(PointCloudProperty pointCloud) {
+    public void setPointCloud(AbstractPointCloudProperty pointCloud) {
         this.pointCloud = asChild(pointCloud);
     }
 

@@ -2,6 +2,7 @@ package org.citygml4j.adapter.xml.pointcloud;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.core.AbstractPointCloudAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfPointCloud;
 import org.citygml4j.model.pointcloud.ADEPropertyOfPointCloud;
 import org.citygml4j.model.pointcloud.PointCloud;
@@ -11,7 +12,6 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiPointPropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -25,7 +25,7 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 @XMLElement(name = "PointCloud", namespaceURI = CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE)
-public class PointCloudAdapter extends AbstractFeatureAdapter<PointCloud> {
+public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "AbstractGenericApplicationPropertyOfPointCloud");
 
     @Override

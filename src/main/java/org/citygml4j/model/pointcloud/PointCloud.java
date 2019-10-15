@@ -1,14 +1,13 @@
 package org.citygml4j.model.pointcloud;
 
-import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.core.AbstractPointCloud;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.common.ChildList;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 
 import java.util.List;
 
-public class PointCloud extends AbstractFeature implements CityGMLObject {
+public class PointCloud extends AbstractPointCloud {
     private Code mimeType;
     private String pointFile;
     private String pointFileSrsName;

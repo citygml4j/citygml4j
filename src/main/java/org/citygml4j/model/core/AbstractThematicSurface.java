@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.pointcloud.PointCloudProperty;
 import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
@@ -13,7 +12,7 @@ public abstract class AbstractThematicSurface extends AbstractCityObject {
     private MultiSurfaceProperty lod1MultiSurface;
     private MultiSurfaceProperty lod2MultiSurface;
     private MultiSurfaceProperty lod3MultiSurface;
-    private PointCloudProperty pointCloud;
+    private AbstractPointCloudProperty pointCloud;
     private List<ADEPropertyOfAbstractThematicSurface> adeProperties;
 
     public List<QualifiedAreaProperty> getAreas() {
@@ -59,11 +58,11 @@ public abstract class AbstractThematicSurface extends AbstractCityObject {
         this.lod3MultiSurface = asChild(lod3MultiSurface);
     }
 
-    public PointCloudProperty getPointCloud() {
+    public AbstractPointCloudProperty getPointCloud() {
         return pointCloud;
     }
 
-    public void setPointCloud(PointCloudProperty pointCloud) {
+    public void setPointCloud(AbstractPointCloudProperty pointCloud) {
         this.pointCloud = asChild(pointCloud);
     }
 

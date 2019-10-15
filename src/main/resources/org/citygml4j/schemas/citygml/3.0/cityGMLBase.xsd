@@ -194,7 +194,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <documentation>SIG 3D: Relation to intersection curve(s) between an LOD3 AbstractPhysicalSpace and a terrain (LOD1 or LOD2 or LOD3).</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="pointCloud" type="pcl:PointCloudPropertyType"/>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractPhysicalSpace"/>
         </sequence>
       </extension>
@@ -203,6 +203,24 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
   <complexType name="AbstractPhysicalSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractPhysicalSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPointCloud" type="anyType"/>
+  <element abstract="true" name="AbstractPointCloud" substitutionGroup="gml:AbstractFeature" type="core:AbstractPointCloudType"/>
+  <complexType abstract="true" name="AbstractPointCloudType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractPointCloud"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractPointCloudPropertyType">
+    <sequence minOccurs="0">
+      <element ref="core:AbstractPointCloud"/>
     </sequence>
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
@@ -318,7 +336,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               </appinfo>
             </annotation>
           </element>
-          <element minOccurs="0" name="pointCloud" type="pcl:PointCloudPropertyType"/>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractThematicSurface"/>
         </sequence>
       </extension>

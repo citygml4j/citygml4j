@@ -2,7 +2,6 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.pointcloud.PointCloudPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractPhysicalSpace;
 import org.citygml4j.model.core.ADEPropertyOfAbstractPhysicalSpace;
 import org.citygml4j.model.core.AbstractPhysicalSpace;
@@ -38,7 +37,7 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
                     object.setLod3TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "pointCloud":
-                    object.setPointCloud(reader.getObjectUsingBuilder(PointCloudPropertyAdapter.class));
+                    object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
             }
         }
