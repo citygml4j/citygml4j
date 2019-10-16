@@ -13,9 +13,8 @@ import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
-import org.xmlobjects.gml.model.geometry.GeometryProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -52,7 +51,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
 
             switch (name.getLocalPart()) {
                 case "lod0MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_MULTI_SURFACE, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getLocalProperties().set(DeprecatedProperties.LOD0_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1MultiSurface":
                     object.setLod1MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
@@ -64,7 +63,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.getLocalProperties().set(DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
             }
         }
@@ -93,8 +92,8 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
 
         if (!CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(landUseNamespace)) {
             if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_MULTI_SURFACE)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_MULTI_SURFACE, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod0MultiSurface"), property, GeometryPropertyAdapter.class, namespaces);
+                MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_MULTI_SURFACE, MultiSurfaceProperty.class);
+                writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod0MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
             }
 
             if (object.getLod1MultiSurface() != null)
@@ -107,8 +106,8 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_MULTI_SURFACE, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod4MultiSurface"), property, GeometryPropertyAdapter.class, namespaces);
+                MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
+                writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
             }
         }
 
