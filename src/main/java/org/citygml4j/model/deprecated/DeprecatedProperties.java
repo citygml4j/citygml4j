@@ -18,6 +18,7 @@ public class DeprecatedProperties {
     public static final String LOD1_MULTI_SURFACE = "lod1MultiSurface";
     public static final String LOD4_MULTI_SURFACE = "lod4MultiSurface";
     public static final String LOD4_SOLID = "lod4Solid";
+    public static final String LOD1_GEOMETRY = "lod1Geometry";
     public static final String LOD2_GEOMETRY = "lod2Geometry";
     public static final String LOD3_GEOMETRY = "lod3Geometry";
     public static final String LOD4_GEOMETRY = "lod4Geometry";

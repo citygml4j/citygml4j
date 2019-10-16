@@ -3,7 +3,6 @@ package org.citygml4j.adapter.xml.landuse;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.AbstractThematicSurfaceAdapter;
-import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfLandUse;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.landuse.ADEPropertyOfLandUse;
