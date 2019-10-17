@@ -3,6 +3,7 @@ package org.citygml4j.model.deprecated;
 public class DeprecatedProperties {
     public static final String GML_ID = "id";
     public static final String TARGET_URI = "uri";
+    public static final String ROLE = "role";
     public static final String INT_BUILDING_INSTALLATION = "IntBuildingInstallation";
     public static final String CONSISTS_OF_BUILDING_PART_REFERENCE = "consistsOfBuildingPart";
     public static final String OUTER_BUILDING_INSTALLATION_REFERENCE = "outerBuildingInstallation";
@@ -25,4 +26,5 @@ public class DeprecatedProperties {
     public static final String LOD2_IMPLICIT_REPRESENTATION = "lod2ImplicitRepresentation";
     public static final String LOD3_IMPLICIT_REPRESENTATION = "lod3ImplicitRepresentation";
     public static final String LOD4_IMPLICIT_REPRESENTATION = "lod4ImplicitRepresentation";
+    public static final String GEOMETRY = "geometry";
 }

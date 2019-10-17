@@ -9,6 +9,10 @@ public class CityGMLConstants {
     public static final String CITYGML_2_0_CITYFURNITURE_NAMESPACE = "http://www.opengis.net/citygml/cityfurniture/2.0";
     public static final String CITYGML_1_0_CITYFURNITURE_NAMESPACE = "http://www.opengis.net/citygml/cityfurniture/1.0";
 
+    public static final String CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE = "http://www.opengis.net/citygml/cityobjectgroup/3.0";
+    public static final String CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE = "http://www.opengis.net/citygml/cityobjectgroup/2.0";
+    public static final String CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE = "http://www.opengis.net/citygml/cityobjectgroup/1.0";
+
     public static final String CITYGML_3_0_LANDUSE_NAMESPACE = "http://www.opengis.net/citygml/landuse/3.0";
     public static final String CITYGML_2_0_LANDUSE_NAMESPACE = "http://www.opengis.net/citygml/landuse/2.0";
     public static final String CITYGML_1_0_LANDUSE_NAMESPACE = "http://www.opengis.net/citygml/landuse/1.0";

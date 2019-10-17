@@ -32,6 +32,15 @@ public class CityGMLSerializerHelper {
             return CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE;
     }
 
+    public static String getCityObjectGroupNamespace(Namespaces namespaces) {
+        if (namespaces.contains(CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE))
+            return CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE;
+        else if (namespaces.contains(CityGMLConstants.CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE))
+            return CityGMLConstants.CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE;
+        else
+            return CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE;
+    }
+
     public static String getLandUseNamespace(Namespaces namespaces) {
         if (namespaces.contains(CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE))
             return CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE;
