@@ -1,6 +1,7 @@
 package org.citygml4j.model.appearance;
 
-import java.util.ArrayList;
+import org.xmlobjects.gml.model.common.ChildList;
+
 import java.util.List;
 
 public class TexCoordList extends AbstractTextureParameterization {
@@ -8,12 +9,12 @@ public class TexCoordList extends AbstractTextureParameterization {
 
     public List<TextureCoordinates> getTextureCoordinates() {
         if (textureCoordinates == null)
-            textureCoordinates = new ArrayList<>();
+            textureCoordinates = new ChildList<>(this);
 
         return textureCoordinates;
     }
 
     public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates) {
-        this.textureCoordinates = textureCoordinates;
+        this.textureCoordinates = asChild(textureCoordinates);
     }
 }

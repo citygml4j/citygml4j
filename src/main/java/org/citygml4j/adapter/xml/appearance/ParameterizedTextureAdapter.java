@@ -44,10 +44,10 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
         if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "textureParameterization":
-                    object.getTextureParameterization().add(reader.getObjectUsingBuilder(TextureAssociationPropertyAdapter.class));
+                    object.getTextureParameterizations().add(reader.getObjectUsingBuilder(TextureAssociationPropertyAdapter.class));
                     return;
                 case "target":
-                    object.getTextureParameterization().add(reader.getObjectUsingBuilder(org.citygml4j.adapter.xml.deprecated.appearance.TextureAssociationPropertyAdapter.class));
+                    object.getTextureParameterizations().add(reader.getObjectUsingBuilder(org.citygml4j.adapter.xml.deprecated.appearance.TextureAssociationPropertyAdapter.class));
                     return;
             }
         }
@@ -73,7 +73,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace);
 
-        for (TextureAssociationProperty property : object.getTextureParameterization()) {
+        for (TextureAssociationProperty property : object.getTextureParameterizations()) {
             if (isCityGML3)
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "textureParameterization"), property, TextureAssociationPropertyAdapter.class, namespaces);
             else

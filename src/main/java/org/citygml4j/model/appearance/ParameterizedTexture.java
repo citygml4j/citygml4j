@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParameterizedTexture extends AbstractTexture {
-    private List<TextureAssociationProperty> textureParameterization;
+    private List<TextureAssociationProperty> textureParameterizations;
     private List<ADEPropertyOfParameterizedTexture> adeProperties;
 
-    public List<TextureAssociationProperty> getTextureParameterization() {
-        if (textureParameterization == null)
-            textureParameterization = new ArrayList<>();
+    public List<TextureAssociationProperty> getTextureParameterizations() {
+        if (textureParameterizations == null)
+            textureParameterizations = new ArrayList<>();
 
-        return textureParameterization;
+        return textureParameterizations;
     }
 
-    public void setTextureParameterization(List<TextureAssociationProperty> textureParameterization) {
-        this.textureParameterization = asChild(textureParameterization);
+    public void setTextureParameterizations(List<TextureAssociationProperty> textureParameterizations) {
+        this.textureParameterizations = asChild(textureParameterizations);
     }
 
     public List<ADEPropertyOfParameterizedTexture> getADEPropertiesOfParameterizedTexture() {
