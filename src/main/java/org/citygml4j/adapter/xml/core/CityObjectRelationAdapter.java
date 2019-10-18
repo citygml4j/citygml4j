@@ -1,5 +1,6 @@
 package org.citygml4j.adapter.xml.core;
 
+import org.citygml4j.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.model.core.CityObjectRelation;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
@@ -29,6 +30,9 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
     public void buildChildObject(CityObjectRelation object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
+                case "genericAttribute":
+                    object.getGenericAttributes().add(reader.getObjectUsingBuilder(AbstractGenericAttributePropertyAdapter.class));
+                    return;
                 case "relationType":
                     object.setRelationType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
@@ -48,6 +52,9 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
     @Override
     public void writeChildElements(CityObjectRelation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
+
+        for (AbstractGenericAttributeProperty property : object.getGenericAttributes())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
 
         if (object.getRelationType() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relationType"), object.getRelationType(), CodeAdapter.class, namespaces);

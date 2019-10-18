@@ -556,6 +556,7 @@ Space Boundaries are objects that bound a Space. They also realize the contact b
     <complexContent>
       <extension base="gml:AbstractGMLType">
         <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="core:AbstractGenericAttributePropertyType"/>
           <element name="relationType" type="gml:CodeType"/>
           <element name="relatedTo" type="core:AbstractCityObjectPropertyType"/>
         </sequence>
