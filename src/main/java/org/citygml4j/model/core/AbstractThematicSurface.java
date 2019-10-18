@@ -9,6 +9,7 @@ import java.util.List;
 public abstract class AbstractThematicSurface extends AbstractCityObject {
     private List<QualifiedAreaProperty> areas;
     private MultiCurveProperty lod0MultiCurve;
+    private MultiSurfaceProperty lod0MultiSurface;
     private MultiSurfaceProperty lod1MultiSurface;
     private MultiSurfaceProperty lod2MultiSurface;
     private MultiSurfaceProperty lod3MultiSurface;
@@ -32,6 +33,14 @@ public abstract class AbstractThematicSurface extends AbstractCityObject {
 
     public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve) {
         this.lod0MultiCurve = asChild(lod0MultiCurve);
+    }
+
+    public MultiSurfaceProperty getLod0MultiSurface() {
+        return lod0MultiSurface;
+    }
+
+    public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface) {
+        this.lod0MultiSurface = asChild(lod0MultiSurface);
     }
 
     public MultiSurfaceProperty getLod1MultiSurface() {

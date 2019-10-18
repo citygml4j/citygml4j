@@ -50,7 +50,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
 
             switch (name.getLocalPart()) {
                 case "lod0MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1MultiSurface":
                     object.setLod1MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
@@ -90,10 +90,8 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, landUseNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(landUseNamespace)) {
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_MULTI_SURFACE)) {
-                MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_MULTI_SURFACE, MultiSurfaceProperty.class);
-                writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod0MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-            }
+            if (object.getLod0MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             if (object.getLod1MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod1MultiSurface"), object.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
