@@ -1,17 +1,21 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 
-public class ImplicitGeometry extends GMLObject implements CityGMLObject {
+import java.util.List;
+
+public class ImplicitGeometry extends AbstractGML implements CityGMLObject {
     private TransformationMatrix4x4 transformationMatrix;
     private Code mimeType;
     private String libraryObject;
     private PointProperty referencePoint;
     private GeometryProperty relativeGMLGeometry;
+    private List<AbstractAppearanceProperty> appearances;
 
     public ImplicitGeometry() {
     }
@@ -58,5 +62,16 @@ public class ImplicitGeometry extends GMLObject implements CityGMLObject {
 
     public void setRelativeGMLGeometry(GeometryProperty relativeGMLGeometry) {
         this.relativeGMLGeometry = asChild(relativeGMLGeometry);
+    }
+
+    public List<AbstractAppearanceProperty> getAppearances() {
+        if (appearances == null)
+            appearances = new ChildList<>(this);
+
+        return appearances;
+    }
+
+    public void setAppearances(List<AbstractAppearanceProperty> appearances) {
+        this.appearances = asChild(appearances);
     }
 }
