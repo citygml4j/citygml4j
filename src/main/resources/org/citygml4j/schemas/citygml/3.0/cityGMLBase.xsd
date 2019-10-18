@@ -68,7 +68,7 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="gen:AbstractGenericAttributePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="core:AbstractGenericAttributePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="dynamizer" type="core:AbstractDynamizerPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractCityObject"/>
         </sequence>
@@ -122,8 +122,23 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
+  <element abstract="true" name="AbstractGenericAttribute" substitutionGroup="gml:AbstractObject" type="core:AbstractGenericAttributeType"/>
+  <complexType abstract="true" name="AbstractGenericAttributeType">
+    <sequence>
+      <element name="name" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="AbstractGenericAttributePropertyType">
+    <sequence>
+      <element ref="core:AbstractGenericAttribute"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractLogicalSpace" type="anyType"/>
-  <element abstract="true" name="AbstractLogicalSpace" substitutionGroup="core:AbstractSpace" type="core:AbstractLogicalSpaceType"/>
+  <element abstract="true" name="AbstractLogicalSpace" substitutionGroup="core:AbstractSpace" type="core:AbstractLogicalSpaceType">
+    <annotation>
+      <documentation>A logical space is a space that is not bounded by physical surfaces but is defined according to thematic considerations.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractLogicalSpaceType">
     <complexContent>
       <extension base="core:AbstractSpaceType">
@@ -141,7 +156,11 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractOccupiedSpace" type="anyType"/>
-  <element abstract="true" name="AbstractOccupiedSpace" substitutionGroup="core:AbstractPhysicalSpace" type="core:AbstractOccupiedSpaceType"/>
+  <element abstract="true" name="AbstractOccupiedSpace" substitutionGroup="core:AbstractPhysicalSpace" type="core:AbstractOccupiedSpaceType">
+    <annotation>
+      <documentation>An occupied space represents a physical volumetric object that is partially or entirely filled with matter.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractOccupiedSpaceType">
     <complexContent>
       <extension base="core:AbstractPhysicalSpaceType">
@@ -174,7 +193,11 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPhysicalSpace" type="anyType"/>
-  <element abstract="true" name="AbstractPhysicalSpace" substitutionGroup="core:AbstractSpace" type="core:AbstractPhysicalSpaceType"/>
+  <element abstract="true" name="AbstractPhysicalSpace" substitutionGroup="core:AbstractSpace" type="core:AbstractPhysicalSpaceType">
+    <annotation>
+      <documentation>A physical space is a space that is fully or partially bounded by physical objects.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractPhysicalSpaceType">
     <complexContent>
       <extension base="core:AbstractSpaceType">
@@ -226,7 +249,11 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpace" type="anyType"/>
-  <element abstract="true" name="AbstractSpace" substitutionGroup="core:AbstractCityObject" type="core:AbstractSpaceType"/>
+  <element abstract="true" name="AbstractSpace" substitutionGroup="core:AbstractCityObject" type="core:AbstractSpaceType">
+    <annotation>
+      <documentation>A Space is an entity of volumetric extent in the real world.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractSpaceType">
     <complexContent>
       <extension base="core:AbstractCityObjectType">
@@ -303,11 +330,23 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractThematicSurface" type="anyType"/>
-  <element abstract="true" name="AbstractThematicSurface" substitutionGroup="core:AbstractCityObject" type="core:AbstractThematicSurfaceType"/>
+  <element abstract="true" name="AbstractThematicSurface" substitutionGroup="core:AbstractCityObject" type="core:AbstractThematicSurfaceType">
+    <annotation>
+      <documentation>A Space Boundary is an entity with areal extent in the real world.
+Space Boundaries are objects that bound a Space. They also realize the contact between adjacent spaces.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractThematicSurfaceType">
     <complexContent>
       <extension base="core:AbstractCityObjectType">
         <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="bounds" type="core:AbstractSpacePropertyType">
+            <annotation>
+              <appinfo>
+                <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">core:boundary</reversePropertyName>
+              </appinfo>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType"/>
           <element minOccurs="0" name="lod0MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
@@ -329,13 +368,6 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
               <documentation>Relation to a  LOD3 surface geometry of AbstractSpaceBoundary.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="bounds" type="core:AbstractSpacePropertyType">
-            <annotation>
-              <appinfo>
-                <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">core:boundary</reversePropertyName>
-              </appinfo>
-            </annotation>
-          </element>
           <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractThematicSurface"/>
         </sequence>
@@ -350,7 +382,11 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractUnoccupiedSpace" type="anyType"/>
-  <element abstract="true" name="AbstractUnoccupiedSpace" substitutionGroup="core:AbstractPhysicalSpace" type="core:AbstractUnoccupiedSpaceType"/>
+  <element abstract="true" name="AbstractUnoccupiedSpace" substitutionGroup="core:AbstractPhysicalSpace" type="core:AbstractUnoccupiedSpaceType">
+    <annotation>
+      <documentation>An unoccupied space represents physical volumetric entity that is entirely or mostly free of matter.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractUnoccupiedSpaceType">
     <complexContent>
       <extension base="core:AbstractPhysicalSpaceType">
@@ -533,7 +569,11 @@ AbstractCityObject relative to the surrounding terrain.</documentation>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfClosureSurface" type="anyType"/>
-  <element name="ClosureSurface" substitutionGroup="core:AbstractThematicSurface" type="core:ClosureSurfaceType"/>
+  <element name="ClosureSurface" substitutionGroup="core:AbstractThematicSurface" type="core:ClosureSurfaceType">
+    <annotation>
+      <documentation>SIG3D: Exterior or interior boundary surface providing virtual boundaries, typically used to seal holes in volumetric objects.</documentation>
+    </annotation>
+  </element>
   <complexType name="ClosureSurfaceType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
