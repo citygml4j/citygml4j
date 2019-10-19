@@ -35,6 +35,9 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                 case "lod0MultiCurve":
                     object.setLod0MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
+                case "lod0MultiSurface":
+                    object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    return;
                 case "lod1MultiSurface":
                     object.setLod1MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
@@ -71,6 +74,9 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
 
             if (object.getLod0MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0MultiCurve"), object.getLod0MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+
+            if (object.getLod0MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             if (object.getLod1MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod1MultiSurface"), object.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
