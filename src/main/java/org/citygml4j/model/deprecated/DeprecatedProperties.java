@@ -13,11 +13,14 @@ public class DeprecatedProperties {
     public static final String OPENING = "opening";
     public static final String LOD0_FOOTPRINT = "lod0FootPrint";
     public static final String LOD0_ROOFEDGE = "lod0RoofEdge";
+    public static final String LOD0_MULTI_CURVE = "lod0MultiCurve";
+    public static final String LOD1_MULTI_CURVE = "lod1MultiCurve";
     public static final String LOD4_MULTI_CURVE = "lod4MultiCurve";
     public static final String LOD0_TERRAIN_INTERSECTION = "lod0TerrainIntersection";
     public static final String LOD4_TERRAIN_INTERSECTION = "lod4TerrainIntersection";
     public static final String LOD1_MULTI_SURFACE = "lod1MultiSurface";
     public static final String LOD4_MULTI_SURFACE = "lod4MultiSurface";
+    public static final String LOD4_SURFACE = "lod4Surface";
     public static final String LOD4_SOLID = "lod4Solid";
     public static final String LOD0_GEOMETRY = "lod0Geometry";
     public static final String LOD1_GEOMETRY = "lod1Geometry";

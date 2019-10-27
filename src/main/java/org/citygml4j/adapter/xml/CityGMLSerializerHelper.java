@@ -50,6 +50,15 @@ public class CityGMLSerializerHelper {
             return CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE;
     }
 
+    public static String getWaterBodyNamespace(Namespaces namespaces) {
+        if (namespaces.contains(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE))
+            return CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE;
+        else if (namespaces.contains(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE))
+            return CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE;
+        else
+            return CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE;
+    }
+
     public static String getGenericsNamespace(Namespaces namespaces) {
         if (namespaces.contains(CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE))
             return CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE;
