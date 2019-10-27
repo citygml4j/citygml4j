@@ -14,11 +14,9 @@ import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
@@ -142,16 +140,6 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
             if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_SOLID)) {
                 SolidProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
-            }
-
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD3_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
-
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
             }
 
             for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
