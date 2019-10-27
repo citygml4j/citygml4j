@@ -139,7 +139,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                         object.getLocalProperties().getOrSet(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION_REFERENCE, List.class, ArrayList::new).add(interiorBuildingInstallation);
                     return;
                 case "boundedBy":
-                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
                     return;
                 case "lod3Solid":
                     object.setLod3Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
