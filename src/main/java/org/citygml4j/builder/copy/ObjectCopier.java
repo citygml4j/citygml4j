@@ -58,7 +58,6 @@ public class ObjectCopier {
 			} catch (Exception e) {
 				// 
 			}
-			
 		}
 		
 		if (copyBuilder instanceof DeepCopyBuilder)

@@ -20,6 +20,7 @@ package org.citygml4j.builder.copy;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public abstract class CopyBuilder {
@@ -48,13 +49,11 @@ public abstract class CopyBuilder {
 	}
 
 	public void setShallowCopy(final Class<?>... c) {
-		for (final Class<?> item : c)
-			shallowCopy.add(item);
+		shallowCopy.addAll(Arrays.asList(c));
 	}
 
 	public void setNullCopy(final Class<?>... c) {
-		for (final Class<?> item : c)
-			nullCopy.add(item);
+		nullCopy.addAll(Arrays.asList(c));
 	}
 
 	public void unsetShallowCopy(final Class<?>... c) {
@@ -113,11 +112,11 @@ public abstract class CopyBuilder {
 	}
 
 	public Void copy(Void value) {
-		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
+		return null;
 	}
 
 	public Class<?> copy(Class<?> value) {
-		return value != null ? (nullCopy.contains(value.getClass()) ? null : value) : null;
+		return value != null ? (nullCopy.contains(value) ? null : value) : null;
 	}
 
 	public long copy(long value) {

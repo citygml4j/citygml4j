@@ -105,14 +105,13 @@ public class DeepCopyBuilder extends CopyBuilder {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Object copy(Map map) {
 		final Map copy = new HashMap(map.size());
-		
-		Iterator it = map.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry entry = (Map.Entry)it.next();
-	        final Object copyKey = copy(entry.getKey());
-	        final Object copyValue = copy(entry.getValue());
-	        map.put(copyKey, copyValue);
-	    }
+
+		for (Object object : map.entrySet()) {
+			Map.Entry entry = (Map.Entry) object;
+			final Object copyKey = copy(entry.getKey());
+			final Object copyValue = copy(entry.getValue());
+			copy.put(copyKey, copyValue);
+		}
 		
 	    return copy;
 	}
