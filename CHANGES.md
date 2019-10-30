@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+### 2.10.3 - 2019-10-30
+
+##### Additions
+* Updated to citygson version 1.1.1.
+* Added option to remove duplicate child geometries when mapping to CityJSON. [citygml-tools #7](https://github.com/citygml4j/citygml-tools/issues/7)
+* Data types of generic attributes can be added as additional metadata property for CityJSON files.
+
+##### Fixes
+* Fixed possible endless loop in CityJSON semantics builder. [citygml-tools #8](https://github.com/citygml4j/citygml-tools/issues/8)
+* Reworked creation of geometries for CityJSON city objects with nested boundary surfaces. [citygml-tools #7](https://github.com/citygml4j/citygml-tools/issues/7)
+* Added missing attributes to CityJSON city objects and semantic surfaces.
+* Fixed bug in `DeepCopyBuilder` when copying maps.
+
 ### 2.10.2 - 2019-08-11
 
 ##### Fixes
