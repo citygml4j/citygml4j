@@ -28,7 +28,6 @@ public class DeprecatedProperties {
     public static final String LOD3_GEOMETRY = "lod3Geometry";
     public static final String LOD4_GEOMETRY = "lod4Geometry";
     public static final String LOD0_IMPLICIT_REPRESENTATION = "lod0ImplicitRepresentation";
-    public static final String LOD2_IMPLICIT_REPRESENTATION = "lod2ImplicitRepresentation";
     public static final String LOD3_IMPLICIT_REPRESENTATION = "lod3ImplicitRepresentation";
     public static final String LOD4_IMPLICIT_REPRESENTATION = "lod4ImplicitRepresentation";
     public static final String GEOMETRY = "geometry";
