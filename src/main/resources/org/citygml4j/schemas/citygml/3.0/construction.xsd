@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmlexr="http://www.opengis.net/gml/3.3/exr" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/construction/3.0" version="3.0.0">
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/construction/3.0" version="3.0.0">
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
-  <import namespace="http://www.opengis.net/gml/3.3/exr" schemaLocation="../../gml/3.3/extdEncRule.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstruction" type="anyType"/>
   <element abstract="true" name="AbstractConstruction" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructionType">

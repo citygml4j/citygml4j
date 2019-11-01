@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:app="http://www.opengis.net/citygml/appearance/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:dyn="http://www.opengis.net/citygml/dynamizer/3.0" xmlns:gen="http://www.opengis.net/citygml/generics/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmlexr="http://www.opengis.net/gml/3.3/exr" xmlns:pcl="http://www.opengis.net/citygml/pointcloud/3.0" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/3.0" version="3.0.0">
-  <import namespace="http://www.opengis.net/citygml/appearance/3.0" schemaLocation="./appearance.xsd"/>
-  <import namespace="http://www.opengis.net/citygml/dynamizer/3.0" schemaLocation="./dynamizer.xsd"/>
-  <import namespace="http://www.opengis.net/citygml/generics/3.0" schemaLocation="./generics.xsd"/>
-  <import namespace="http://www.opengis.net/citygml/pointcloud/3.0" schemaLocation="./pointCloud.xsd"/>
-  <import namespace="http://www.opengis.net/citygml/versioning/3.0" schemaLocation="./versioning.xsd"/>
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/3.0" version="3.0.0">
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
-  <import namespace="http://www.opengis.net/gml/3.3/exr" schemaLocation="../../gml/3.3/extdEncRule.xsd"/>
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xal/2.0/xAL.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAppearance" type="anyType"/>
@@ -487,6 +481,18 @@ Space Boundaries are objects that bound a Space. They also realize the contact b
     <complexContent>
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
+          <element minOccurs="0" name="engineeringCRS">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractMetadataPropertyType">
+                  <sequence minOccurs="0">
+                    <element ref="gml:EngineeringCRS"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="cityObjectMember">
             <annotation>
               <documentation>SIG3D: Relation of CityModel to AbstractTopLevelCityObject.</documentation>
