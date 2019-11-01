@@ -52,7 +52,8 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
                     object.getValue().add(reader.getObjectUsingBuilder(AbstractGenericAttributePropertyAdapter.class));
                     break;
             }
-        } else
+        } else if (CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())
+                || CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI()))
             object.getValue().add(new AbstractGenericAttributeProperty(reader.getObject(AbstractGenericAttribute.class)));
     }
 
@@ -65,10 +66,20 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
     }
 
     @Override
+    public void initializeElement(Element element, GenericAttributeSet object, Namespaces namespaces, XMLWriter writer) {
+        super.initializeElement(element, object, namespaces, writer);
+        if (object.getCodeSpace() != null && !namespaces.contains(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE))
+            element.addAttribute("codeSpace", object.getName());
+    }
+
+    @Override
     public void writeChildElements(GenericAttributeSet object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace);
+
+        if (isCityGML3 && object.getCodeSpace() != null)
+            writer.writeElement(Element.of(genericsNamespace, "codeSpace").addTextContent(object.getCodeSpace()));
 
         for (AbstractGenericAttributeProperty property : object.getValue()) {
             if (isCityGML3)
