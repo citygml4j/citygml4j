@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+### 2.10.4 - 2019-11-01
+
+##### Fixes
+* Hotfix: Updated to citygson 1.1.2 to avoid unmarshalling of empty `"attributes"` properties in CityJSON. Only a small
+fix and not really an error wrt. the CityJSON schema, but still I thought it's worth publishing a new release shortly
+after 2.10.3.
+
 ### 2.10.3 - 2019-10-30
 
 ##### Additions
