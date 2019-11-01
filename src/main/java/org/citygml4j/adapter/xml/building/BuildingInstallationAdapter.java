@@ -71,10 +71,10 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                     object.getLocalProperties().set(DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "lod2ImplicitRepresentation":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD2_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.setLod2ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "lod3ImplicitRepresentation":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD3_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "lod4ImplicitRepresentation":
                     object.getLocalProperties().set(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
@@ -132,15 +132,11 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
             }
 
             if (!isInterior) {
-                if (object.getLocalProperties().contains(DeprecatedProperties.LOD2_IMPLICIT_REPRESENTATION)) {
-                    ImplicitGeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD2_IMPLICIT_REPRESENTATION, ImplicitGeometryProperty.class);
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
-                }
+                if (object.getLod2ImplicitRepresentation() != null)
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2ImplicitRepresentation"), object.getLod2ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-                if (object.getLocalProperties().contains(DeprecatedProperties.LOD3_IMPLICIT_REPRESENTATION)) {
-                    ImplicitGeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD3_IMPLICIT_REPRESENTATION, ImplicitGeometryProperty.class);
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
-                }
+                if (object.getLod3ImplicitRepresentation() != null)
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
             }
 
             if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION)) {
