@@ -6,12 +6,21 @@ import org.xmlobjects.gml.model.feature.FeatureProperty;
 import java.util.List;
 
 public class CityModel extends AbstractFeatureWithLifespan {
+    private EngineeringCRSProperty engineeringCRS;
     private List<AbstractCityObjectProperty> cityObjectMembers;
     private List<AbstractAppearanceProperty> appearanceMembers;
     private List<FeatureProperty> featureMembers;
     private List<AbstractVersionProperty> versionMembers;
     private List<AbstractVersionTransitionProperty> versionTransitionMembers;
     private List<ADEPropertyOfCityModel> adeProperties;
+
+    public EngineeringCRSProperty getEngineeringCRS() {
+        return engineeringCRS;
+    }
+
+    public void setEngineeringCRS(EngineeringCRSProperty engineeringCRS) {
+        this.engineeringCRS = asChild(engineeringCRS);
+    }
 
     public List<AbstractCityObjectProperty> getCityObjectMembers() {
         if (cityObjectMembers == null)

@@ -54,6 +54,9 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                 case "featureMember":
                     object.getFeatureMembers().add(reader.getObjectUsingBuilder(FeaturePropertyAdapter.class));
                     return;
+                case "engineeringCRS":
+                    object.setEngineeringCRS(reader.getObjectUsingBuilder(EngineeringCRSPropertyAdapter.class));
+                    return;
             }
         }
 
@@ -75,6 +78,9 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
     @Override
     public void writeChildElements(CityModel object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
+
+        if (object.getEngineeringCRS() != null)
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "engineeringCRS"), object.getEngineeringCRS(), EngineeringCRSPropertyAdapter.class, namespaces);
 
         for (AbstractCityObjectProperty property : object.getCityObjectMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
