@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class StringAttributeAdapter extends AbstractGenericAttributeAdapter<StringAttribute> {
 
     @Override
-    public StringAttribute createObject(QName name) {
+    public StringAttribute createObject(QName name) throws ObjectBuildException {
         return new StringAttribute();
     }
 
@@ -39,7 +39,7 @@ public class StringAttributeAdapter extends AbstractGenericAttributeAdapter<Stri
     }
 
     @Override
-    public Element createElement(StringAttribute object, Namespaces namespaces) {
+    public Element createElement(StringAttribute object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "StringAttribute") :

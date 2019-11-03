@@ -27,7 +27,7 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfStorey");
 
     @Override
-    public Storey createObject(QName name) {
+    public Storey createObject(QName name) throws ObjectBuildException {
         return new Storey();
     }
 

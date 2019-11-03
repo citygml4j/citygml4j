@@ -42,7 +42,7 @@ public class BuildingRoomAdapter extends AbstractOccupiedSpaceAdapter<BuildingRo
     };
 
     @Override
-    public BuildingRoom createObject(QName name) {
+    public BuildingRoom createObject(QName name) throws ObjectBuildException {
         return new BuildingRoom();
     }
 
@@ -87,7 +87,7 @@ public class BuildingRoomAdapter extends AbstractOccupiedSpaceAdapter<BuildingRo
     }
 
     @Override
-    public Element createElement(BuildingRoom object, Namespaces namespaces) {
+    public Element createElement(BuildingRoom object, Namespaces namespaces) throws ObjectSerializeException {
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace) ?
                 Element.of(buildingNamespace, "BuildingRoom") :

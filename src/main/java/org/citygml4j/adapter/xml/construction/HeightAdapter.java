@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class HeightAdapter implements ObjectBuilder<Height>, ObjectSerializer<Height> {
 
     @Override
-    public Height createObject(QName name) {
+    public Height createObject(QName name) throws ObjectBuildException {
         return new Height();
     }
 
@@ -49,7 +49,7 @@ public class HeightAdapter implements ObjectBuilder<Height>, ObjectSerializer<He
     }
 
     @Override
-    public Element createElement(Height object, Namespaces namespaces) {
+    public Element createElement(Height object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "Height");
     }
 

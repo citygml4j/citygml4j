@@ -27,7 +27,7 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfDoorSurface");
 
     @Override
-    public DoorSurface createObject(QName name) {
+    public DoorSurface createObject(QName name) throws ObjectBuildException {
         return new DoorSurface();
     }
 
@@ -49,7 +49,7 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
     }
 
     @Override
-    public Element createElement(DoorSurface object, Namespaces namespaces) {
+    public Element createElement(DoorSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "DoorSurface");
     }
 

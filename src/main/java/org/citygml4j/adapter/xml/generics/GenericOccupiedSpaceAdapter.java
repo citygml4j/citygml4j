@@ -38,7 +38,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericOccupiedSpace");
 
     @Override
-    public GenericOccupiedSpace createObject(QName name) {
+    public GenericOccupiedSpace createObject(QName name) throws ObjectBuildException {
         return new GenericOccupiedSpace();
     }
 
@@ -116,7 +116,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
     }
 
     @Override
-    public Element createElement(GenericOccupiedSpace object, Namespaces namespaces) {
+    public Element createElement(GenericOccupiedSpace object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "GenericOccupiedSpace") :

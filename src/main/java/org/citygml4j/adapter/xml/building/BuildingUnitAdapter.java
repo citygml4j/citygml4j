@@ -29,7 +29,7 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingUnit");
 
     @Override
-    public BuildingUnit createObject(QName name) {
+    public BuildingUnit createObject(QName name) throws ObjectBuildException {
         return new BuildingUnit();
     }
 

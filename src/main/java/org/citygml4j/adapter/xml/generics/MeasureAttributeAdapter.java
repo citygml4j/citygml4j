@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class MeasureAttributeAdapter extends AbstractGenericAttributeAdapter<MeasureAttribute> {
 
     @Override
-    public MeasureAttribute createObject(QName name) {
+    public MeasureAttribute createObject(QName name) throws ObjectBuildException {
         return new MeasureAttribute();
     }
 
@@ -40,7 +40,7 @@ public class MeasureAttributeAdapter extends AbstractGenericAttributeAdapter<Mea
     }
 
     @Override
-    public Element createElement(MeasureAttribute object, Namespaces namespaces) {
+    public Element createElement(MeasureAttribute object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "MeasureAttribute") :

@@ -26,7 +26,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericUnoccupiedSpace");
 
     @Override
-    public GenericUnoccupiedSpace createObject(QName name) {
+    public GenericUnoccupiedSpace createObject(QName name) throws ObjectBuildException {
         return new GenericUnoccupiedSpace();
     }
 
@@ -47,7 +47,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
     }
 
     @Override
-    public Element createElement(GenericUnoccupiedSpace object, Namespaces namespaces) {
+    public Element createElement(GenericUnoccupiedSpace object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "GenericUnoccupiedSpace");
     }
 

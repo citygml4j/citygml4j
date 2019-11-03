@@ -40,7 +40,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
     };
 
     @Override
-    public CityObjectGroup createObject(QName name) {
+    public CityObjectGroup createObject(QName name) throws ObjectBuildException {
         return new CityObjectGroup();
     }
 
@@ -77,7 +77,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
     }
 
     @Override
-    public Element createElement(CityObjectGroup object, Namespaces namespaces) {
+    public Element createElement(CityObjectGroup object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getCityObjectGroupNamespace(namespaces), "CityObjectGroup");
     }
 

@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 public class RoleAdapter extends AbstractGMLAdapter<Role> {
 
     @Override
-    public Role createObject(QName name) {
+    public Role createObject(QName name) throws ObjectBuildException {
         return new Role();
     }
 
@@ -41,7 +41,7 @@ public class RoleAdapter extends AbstractGMLAdapter<Role> {
     }
 
     @Override
-    public Element createElement(Role object, Namespaces namespaces) {
+    public Element createElement(Role object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "Role");
     }
 

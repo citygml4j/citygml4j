@@ -32,7 +32,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     };
 
     @Override
-    public WallSurface createObject(QName name) {
+    public WallSurface createObject(QName name) throws ObjectBuildException {
         return new WallSurface();
     }
 
@@ -49,7 +49,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     }
 
     @Override
-    public Element createElement(WallSurface object, Namespaces namespaces) {
+    public Element createElement(WallSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "WallSurface");
     }
 

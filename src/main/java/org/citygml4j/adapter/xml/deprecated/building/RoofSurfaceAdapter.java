@@ -32,7 +32,7 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
     };
 
     @Override
-    public RoofSurface createObject(QName name) {
+    public RoofSurface createObject(QName name) throws ObjectBuildException {
         return new RoofSurface();
     }
 
@@ -49,7 +49,7 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
     }
 
     @Override
-    public Element createElement(RoofSurface object, Namespaces namespaces) {
+    public Element createElement(RoofSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "RoofSurface");
     }
 

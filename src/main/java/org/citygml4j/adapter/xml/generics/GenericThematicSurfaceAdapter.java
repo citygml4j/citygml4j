@@ -26,7 +26,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericThematicSurface");
 
     @Override
-    public GenericThematicSurface createObject(QName name) {
+    public GenericThematicSurface createObject(QName name) throws ObjectBuildException {
         return new GenericThematicSurface();
     }
 
@@ -43,7 +43,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
     }
 
     @Override
-    public Element createElement(GenericThematicSurface object, Namespaces namespaces) {
+    public Element createElement(GenericThematicSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "GenericThematicSurface");
     }
 

@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference>, ObjectSerializer<ExternalReference> {
 
     @Override
-    public ExternalReference createObject(QName name) {
+    public ExternalReference createObject(QName name) throws ObjectBuildException {
         return new ExternalReference();
     }
 
@@ -56,7 +56,7 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
     }
 
     @Override
-    public Element createElement(ExternalReference object, Namespaces namespaces) {
+    public Element createElement(ExternalReference object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getCoreNamespace(namespaces), "ExternalReference");
     }
 

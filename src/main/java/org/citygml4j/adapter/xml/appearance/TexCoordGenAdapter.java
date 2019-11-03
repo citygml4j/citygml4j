@@ -30,7 +30,7 @@ import javax.xml.namespace.QName;
 public class TexCoordGenAdapter extends AbstractTextureParameterizationAdapter<TexCoordGen> {
 
     @Override
-    public TexCoordGen createObject(QName name) {
+    public TexCoordGen createObject(QName name) throws ObjectBuildException {
         return new TexCoordGen();
     }
 
@@ -49,7 +49,7 @@ public class TexCoordGenAdapter extends AbstractTextureParameterizationAdapter<T
     }
 
     @Override
-    public Element createElement(TexCoordGen object, Namespaces namespaces) {
+    public Element createElement(TexCoordGen object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "TexCoordGen");
     }
 

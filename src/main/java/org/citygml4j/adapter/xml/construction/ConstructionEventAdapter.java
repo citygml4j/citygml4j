@@ -26,7 +26,7 @@ import java.time.ZoneOffset;
 public class ConstructionEventAdapter implements ObjectBuilder<ConstructionEvent>, ObjectSerializer<ConstructionEvent> {
 
     @Override
-    public ConstructionEvent createObject(QName name) {
+    public ConstructionEvent createObject(QName name) throws ObjectBuildException {
         return new ConstructionEvent();
     }
 
@@ -48,7 +48,7 @@ public class ConstructionEventAdapter implements ObjectBuilder<ConstructionEvent
     }
 
     @Override
-    public Element createElement(ConstructionEvent object, Namespaces namespaces) {
+    public Element createElement(ConstructionEvent object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "ConstructionEvent");
     }
 

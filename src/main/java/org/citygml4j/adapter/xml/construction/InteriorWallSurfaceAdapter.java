@@ -25,7 +25,7 @@ public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfInteriorWallSurface");
 
     @Override
-    public InteriorWallSurface createObject(QName name) {
+    public InteriorWallSurface createObject(QName name) throws ObjectBuildException {
         return new InteriorWallSurface();
     }
 
@@ -42,7 +42,7 @@ public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     }
 
     @Override
-    public Element createElement(InteriorWallSurface object, Namespaces namespaces) {
+    public Element createElement(InteriorWallSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "InteriorWallSurface");
     }
 

@@ -3,6 +3,7 @@ package org.citygml4j.adapter.xml.deprecated.core;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.deprecated.core.ExternalObject;
 import org.citygml4j.util.CityGMLConstants;
+import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
@@ -19,12 +20,12 @@ import javax.xml.namespace.QName;
 public class ExternalObjectAdapter implements ObjectBuilder<ExternalObject>, ObjectSerializer<ExternalObject> {
 
     @Override
-    public ExternalObject createObject(QName name) {
+    public ExternalObject createObject(QName name) throws ObjectBuildException {
         return new ExternalObject();
     }
 
     @Override
-    public void buildChildObject(ExternalObject object, QName name, Attributes attributes, XMLReader reader) throws XMLReadException {
+    public void buildChildObject(ExternalObject object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE.equals(name.getNamespaceURI())
                 || CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {

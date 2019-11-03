@@ -38,7 +38,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
     };
 
     @Override
-    public LandUse createObject(QName name) {
+    public LandUse createObject(QName name) throws ObjectBuildException {
         return new LandUse();
     }
 
@@ -78,7 +78,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
     }
 
     @Override
-    public Element createElement(LandUse object, Namespaces namespaces) {
+    public Element createElement(LandUse object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getLandUseNamespace(namespaces), "LandUse");
     }
 

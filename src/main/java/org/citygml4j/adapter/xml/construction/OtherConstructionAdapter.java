@@ -23,7 +23,7 @@ public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherC
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfOtherConstruction");
 
     @Override
-    public OtherConstruction createObject(QName name) {
+    public OtherConstruction createObject(QName name) throws ObjectBuildException {
         return new OtherConstruction();
     }
 
@@ -44,7 +44,7 @@ public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherC
     }
 
     @Override
-    public Element createElement(OtherConstruction object, Namespaces namespaces) {
+    public Element createElement(OtherConstruction object, Namespaces namespaces) throws ObjectSerializeException {
         return null;
     }
 

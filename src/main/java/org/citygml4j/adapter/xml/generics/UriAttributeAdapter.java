@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class UriAttributeAdapter extends AbstractGenericAttributeAdapter<UriAttribute> {
 
     @Override
-    public UriAttribute createObject(QName name) {
+    public UriAttribute createObject(QName name) throws ObjectBuildException {
         return new UriAttribute();
     }
 
@@ -39,7 +39,7 @@ public class UriAttributeAdapter extends AbstractGenericAttributeAdapter<UriAttr
     }
 
     @Override
-    public Element createElement(UriAttribute object, Namespaces namespaces) {
+    public Element createElement(UriAttribute object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "UriAttribute") :

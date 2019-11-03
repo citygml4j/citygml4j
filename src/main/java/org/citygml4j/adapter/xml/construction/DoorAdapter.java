@@ -27,7 +27,7 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfDoor");
 
     @Override
-    public Door createObject(QName name) {
+    public Door createObject(QName name) throws ObjectBuildException {
         return new Door();
     }
 
@@ -53,7 +53,7 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
     }
 
     @Override
-    public Element createElement(Door object, Namespaces namespaces) {
+    public Element createElement(Door object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "Door");
     }
 

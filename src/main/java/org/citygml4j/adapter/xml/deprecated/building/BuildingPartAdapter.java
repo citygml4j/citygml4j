@@ -32,7 +32,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     };
 
     @Override
-    public BuildingPart createObject(QName name) {
+    public BuildingPart createObject(QName name) throws ObjectBuildException {
         return new BuildingPart();
     }
 
@@ -49,7 +49,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     }
 
     @Override
-    public Element createElement(BuildingPart object, Namespaces namespaces) {
+    public Element createElement(BuildingPart object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "BuildingPart");
     }
 

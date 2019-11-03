@@ -32,7 +32,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     };
 
     @Override
-    public WindowSurface createObject(QName name) {
+    public WindowSurface createObject(QName name) throws ObjectBuildException {
         return new WindowSurface();
     }
 
@@ -49,7 +49,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     }
 
     @Override
-    public Element createElement(WindowSurface object, Namespaces namespaces) {
+    public Element createElement(WindowSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "Window");
     }
 

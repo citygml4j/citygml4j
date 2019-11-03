@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 public class TextureAssociationPropertyAdapter extends AbstractPropertyAdapter<TextureAssociationProperty> {
 
     @Override
-    public TextureAssociationProperty createObject(QName name) {
+    public TextureAssociationProperty createObject(QName name) throws ObjectBuildException {
         return new TextureAssociationProperty();
     }
 

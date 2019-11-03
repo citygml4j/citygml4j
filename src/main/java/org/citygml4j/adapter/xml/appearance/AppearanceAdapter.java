@@ -36,7 +36,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     };
 
     @Override
-    public Appearance createObject(QName name) {
+    public Appearance createObject(QName name) throws ObjectBuildException {
         return new Appearance();
     }
 
@@ -65,7 +65,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     }
 
     @Override
-    public Element createElement(Appearance object, Namespaces namespaces) {
+    public Element createElement(Appearance object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "Appearance");
     }
 

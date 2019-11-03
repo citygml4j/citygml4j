@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class OccupancyAdapter implements ObjectBuilder<Occupancy>, ObjectSerializer<Occupancy> {
 
     @Override
-    public Occupancy createObject(QName name) {
+    public Occupancy createObject(QName name) throws ObjectBuildException {
         return new Occupancy();
     }
 
@@ -45,7 +45,7 @@ public class OccupancyAdapter implements ObjectBuilder<Occupancy>, ObjectSeriali
     }
 
     @Override
-    public Element createElement(Occupancy object, Namespaces namespaces) {
+    public Element createElement(Occupancy object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "Occupancy");
     }
 

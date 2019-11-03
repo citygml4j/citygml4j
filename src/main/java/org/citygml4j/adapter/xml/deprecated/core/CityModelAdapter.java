@@ -45,7 +45,7 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
     };
 
     @Override
-    public CityModel createObject(QName name) {
+    public CityModel createObject(QName name) throws ObjectBuildException {
         return new CityModel();
     }
 
@@ -84,7 +84,7 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
     }
 
     @Override
-    public Element createElement(CityModel object, Namespaces namespaces) {
+    public Element createElement(CityModel object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getCoreNamespace(namespaces), "CityModel");
     }
 

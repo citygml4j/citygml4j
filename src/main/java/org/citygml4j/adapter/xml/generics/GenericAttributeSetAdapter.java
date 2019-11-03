@@ -29,12 +29,12 @@ import javax.xml.namespace.QName;
 public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<GenericAttributeSet> {
 
     @Override
-    public GenericAttributeSet createObject(QName name) {
+    public GenericAttributeSet createObject(QName name) throws ObjectBuildException {
         return new GenericAttributeSet();
     }
 
     @Override
-    public void initializeObject(GenericAttributeSet object, QName name, Attributes attributes, XMLReader reader) {
+    public void initializeObject(GenericAttributeSet object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.initializeObject(object, name, attributes, reader);
         attributes.getValue("codeSpace").ifPresent(object::setCodeSpace);
     }
@@ -58,7 +58,7 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
     }
 
     @Override
-    public Element createElement(GenericAttributeSet object, Namespaces namespaces) {
+    public Element createElement(GenericAttributeSet object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "GenericAttributeSet") :
@@ -66,7 +66,7 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
     }
 
     @Override
-    public void initializeElement(Element element, GenericAttributeSet object, Namespaces namespaces, XMLWriter writer) {
+    public void initializeElement(Element element, GenericAttributeSet object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.initializeElement(element, object, namespaces, writer);
         if (object.getCodeSpace() != null && !namespaces.contains(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE))
             element.addAttribute("codeSpace", object.getName());

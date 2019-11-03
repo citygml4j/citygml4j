@@ -33,7 +33,7 @@ import java.util.Map;
 public final class TexCoordListAdapter extends AbstractTextureParameterizationAdapter<TexCoordList> {
 
     @Override
-    public TexCoordList createObject(QName name) {
+    public TexCoordList createObject(QName name) throws ObjectBuildException {
         return new TexCoordList();
     }
 
@@ -75,7 +75,7 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
     }
 
     @Override
-    public Element createElement(TexCoordList object, Namespaces namespaces) {
+    public Element createElement(TexCoordList object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "TexCoordList");
     }
 

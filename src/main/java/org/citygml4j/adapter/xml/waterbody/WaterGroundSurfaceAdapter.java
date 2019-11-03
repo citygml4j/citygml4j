@@ -34,7 +34,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     };
 
     @Override
-    public WaterGroundSurface createObject(QName name) {
+    public WaterGroundSurface createObject(QName name) throws ObjectBuildException {
         return new WaterGroundSurface();
     }
 
@@ -51,7 +51,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     }
 
     @Override
-    public Element createElement(WaterGroundSurface object, Namespaces namespaces) {
+    public Element createElement(WaterGroundSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getWaterBodyNamespace(namespaces), "WaterGroundSurface");
     }
 

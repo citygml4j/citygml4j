@@ -25,7 +25,7 @@ public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<Closur
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfClosureSurface");
 
     @Override
-    public ClosureSurface createObject(QName name) {
+    public ClosureSurface createObject(QName name) throws ObjectBuildException {
         return new ClosureSurface();
     }
 

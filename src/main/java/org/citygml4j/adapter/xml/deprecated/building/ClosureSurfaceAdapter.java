@@ -32,7 +32,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
     };
 
     @Override
-    public ClosureSurface createObject(QName name) {
+    public ClosureSurface createObject(QName name) throws ObjectBuildException {
         return new ClosureSurface();
     }
 
@@ -49,7 +49,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
     }
 
     @Override
-    public Element createElement(ClosureSurface object, Namespaces namespaces) {
+    public Element createElement(ClosureSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "ClosureSurface");
     }
 

@@ -31,7 +31,7 @@ import java.time.ZoneOffset;
 public class DateAttributeAdapter extends AbstractGenericAttributeAdapter<DateAttribute> {
 
     @Override
-    public DateAttribute createObject(QName name) {
+    public DateAttribute createObject(QName name) throws ObjectBuildException {
         return new DateAttribute();
     }
 
@@ -43,7 +43,7 @@ public class DateAttributeAdapter extends AbstractGenericAttributeAdapter<DateAt
     }
 
     @Override
-    public Element createElement(DateAttribute object, Namespaces namespaces) {
+    public Element createElement(DateAttribute object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "DateAttribute") :

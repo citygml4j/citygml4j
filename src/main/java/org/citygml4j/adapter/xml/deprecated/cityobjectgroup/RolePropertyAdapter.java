@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 public class RolePropertyAdapter extends AbstractPropertyAdapter<RoleProperty> {
 
     @Override
-    public RoleProperty createObject(QName name) {
+    public RoleProperty createObject(QName name) throws ObjectBuildException {
         return new RoleProperty();
     }
 

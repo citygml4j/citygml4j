@@ -32,7 +32,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     };
 
     @Override
-    public CeilingSurface createObject(QName name) {
+    public CeilingSurface createObject(QName name) throws ObjectBuildException {
         return new CeilingSurface();
     }
 
@@ -49,7 +49,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     }
 
     @Override
-    public Element createElement(CeilingSurface object, Namespaces namespaces) {
+    public Element createElement(CeilingSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "CeilingSurface");
     }
 

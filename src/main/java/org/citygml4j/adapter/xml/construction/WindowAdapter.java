@@ -25,7 +25,7 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfWindow");
 
     @Override
-    public Window createObject(QName name) {
+    public Window createObject(QName name) throws ObjectBuildException {
         return new Window();
     }
 
@@ -46,7 +46,7 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
     }
 
     @Override
-    public Element createElement(Window object, Namespaces namespaces) {
+    public Element createElement(Window object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "Window");
     }
 

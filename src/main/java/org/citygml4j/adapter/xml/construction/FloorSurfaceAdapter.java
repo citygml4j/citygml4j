@@ -25,7 +25,7 @@ public class FloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Floo
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfFloorSurface");
 
     @Override
-    public FloorSurface createObject(QName name) {
+    public FloorSurface createObject(QName name) throws ObjectBuildException {
         return new FloorSurface();
     }
 
@@ -42,7 +42,7 @@ public class FloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Floo
     }
 
     @Override
-    public Element createElement(FloorSurface object, Namespaces namespaces) {
+    public Element createElement(FloorSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "FloorSurface");
     }
 

@@ -26,7 +26,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuilding");
 
     @Override
-    public Building createObject(QName name) {
+    public Building createObject(QName name) throws ObjectBuildException {
         return new Building();
     }
 
@@ -48,7 +48,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     }
 
     @Override
-    public Element createElement(Building object, Namespaces namespaces) {
+    public Element createElement(Building object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "Building");
     }
 

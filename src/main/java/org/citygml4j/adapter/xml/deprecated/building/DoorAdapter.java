@@ -34,7 +34,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
     };
 
     @Override
-    public DoorSurface createObject(QName name) {
+    public DoorSurface createObject(QName name) throws ObjectBuildException {
         return new DoorSurface();
     }
 
@@ -56,7 +56,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
     }
 
     @Override
-    public Element createElement(DoorSurface object, Namespaces namespaces) {
+    public Element createElement(DoorSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "Door");
     }
 

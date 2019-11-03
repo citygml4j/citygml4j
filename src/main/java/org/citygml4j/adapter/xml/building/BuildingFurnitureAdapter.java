@@ -40,7 +40,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
     };
 
     @Override
-    public BuildingFurniture createObject(QName name) {
+    public BuildingFurniture createObject(QName name) throws ObjectBuildException {
         return new BuildingFurniture();
     }
 
@@ -71,7 +71,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
     }
 
     @Override
-    public Element createElement(BuildingFurniture object, Namespaces namespaces) {
+    public Element createElement(BuildingFurniture object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "BuildingFurniture");
     }
 

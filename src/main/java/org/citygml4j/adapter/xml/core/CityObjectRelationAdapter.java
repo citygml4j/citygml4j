@@ -22,7 +22,7 @@ import javax.xml.namespace.QName;
 public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRelation> {
 
     @Override
-    public CityObjectRelation createObject(QName name) {
+    public CityObjectRelation createObject(QName name) throws ObjectBuildException {
         return new CityObjectRelation();
     }
 
@@ -45,7 +45,7 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
     }
 
     @Override
-    public Element createElement(CityObjectRelation object, Namespaces namespaces) {
+    public Element createElement(CityObjectRelation object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "CityObjectRelation");
     }
 

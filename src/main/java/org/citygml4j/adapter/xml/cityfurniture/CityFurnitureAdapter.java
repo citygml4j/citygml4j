@@ -42,7 +42,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
     };
 
     @Override
-    public CityFurniture createObject(QName name) {
+    public CityFurniture createObject(QName name) throws ObjectBuildException {
         return new CityFurniture();
     }
 
@@ -109,7 +109,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
     }
 
     @Override
-    public Element createElement(CityFurniture object, Namespaces namespaces) {
+    public Element createElement(CityFurniture object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getCityFurnitureNamespace(namespaces), "CityFurniture");
     }
 

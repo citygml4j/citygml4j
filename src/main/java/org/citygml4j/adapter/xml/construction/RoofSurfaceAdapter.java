@@ -25,7 +25,7 @@ public class RoofSurfaceAdapter extends AbstractConstructionSurfaceAdapter<RoofS
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfRoofSurface");
 
     @Override
-    public RoofSurface createObject(QName name) {
+    public RoofSurface createObject(QName name) throws ObjectBuildException {
         return new RoofSurface();
     }
 
@@ -42,7 +42,7 @@ public class RoofSurfaceAdapter extends AbstractConstructionSurfaceAdapter<RoofS
     }
 
     @Override
-    public Element createElement(RoofSurface object, Namespaces namespaces) {
+    public Element createElement(RoofSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "RoofSurface");
     }
 

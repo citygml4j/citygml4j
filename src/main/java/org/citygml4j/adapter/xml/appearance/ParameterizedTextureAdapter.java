@@ -35,7 +35,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
     };
 
     @Override
-    public ParameterizedTexture createObject(QName name) {
+    public ParameterizedTexture createObject(QName name) throws ObjectBuildException {
         return new ParameterizedTexture();
     }
 
@@ -63,7 +63,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
     }
 
     @Override
-    public Element createElement(ParameterizedTexture object, Namespaces namespaces) {
+    public Element createElement(ParameterizedTexture object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "ParameterizedTexture");
     }
 

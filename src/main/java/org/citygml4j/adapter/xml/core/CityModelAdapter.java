@@ -31,7 +31,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfCityModel");
 
     @Override
-    public CityModel createObject(QName name) {
+    public CityModel createObject(QName name) throws ObjectBuildException {
         return new CityModel();
     }
 
@@ -71,7 +71,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
     }
 
     @Override
-    public Element createElement(CityModel object, Namespaces namespaces) {
+    public Element createElement(CityModel object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "CityModel");
     }
 

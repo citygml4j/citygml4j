@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class QualifiedAreaAdapter implements ObjectBuilder<QualifiedArea>, ObjectSerializer<QualifiedArea> {
 
     @Override
-    public QualifiedArea createObject(QName name) {
+    public QualifiedArea createObject(QName name) throws ObjectBuildException {
         return new QualifiedArea();
     }
 
@@ -42,7 +42,7 @@ public class QualifiedAreaAdapter implements ObjectBuilder<QualifiedArea>, Objec
     }
 
     @Override
-    public Element createElement(QualifiedArea object, Namespaces namespaces) {
+    public Element createElement(QualifiedArea object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "QualifiedArea");
     }
 

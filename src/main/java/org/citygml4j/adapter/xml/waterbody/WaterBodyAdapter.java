@@ -46,7 +46,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
     };
 
     @Override
-    public WaterBody createObject(QName name) {
+    public WaterBody createObject(QName name) throws ObjectBuildException {
         return new WaterBody();
     }
 
@@ -98,7 +98,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
     }
 
     @Override
-    public Element createElement(WaterBody object, Namespaces namespaces) {
+    public Element createElement(WaterBody object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getWaterBodyNamespace(namespaces), "WaterBody");
     }
 

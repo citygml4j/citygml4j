@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 public class TextureAssociationAdapter extends AbstractGMLAdapter<TextureAssociation> {
 
     @Override
-    public TextureAssociation createObject(QName name) {
+    public TextureAssociation createObject(QName name) throws ObjectBuildException {
         return new TextureAssociation();
     }
 
@@ -40,7 +40,7 @@ public class TextureAssociationAdapter extends AbstractGMLAdapter<TextureAssocia
     }
 
     @Override
-    public Element createElement(TextureAssociation object, Namespaces namespaces) {
+    public Element createElement(TextureAssociation object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "TextureAssociation");
     }
 

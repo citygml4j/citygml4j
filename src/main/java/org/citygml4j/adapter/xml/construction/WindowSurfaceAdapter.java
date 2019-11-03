@@ -25,7 +25,7 @@ public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSu
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfWindowSurface");
 
     @Override
-    public WindowSurface createObject(QName name) {
+    public WindowSurface createObject(QName name) throws ObjectBuildException {
         return new WindowSurface();
     }
 
@@ -42,7 +42,7 @@ public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSu
     }
 
     @Override
-    public Element createElement(WindowSurface object, Namespaces namespaces) {
+    public Element createElement(WindowSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "WindowSurface");
     }
 

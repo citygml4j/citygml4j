@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class ElevationAdapter implements ObjectBuilder<Elevation>, ObjectSerializer<Elevation> {
 
     @Override
-    public Elevation createObject(QName name) {
+    public Elevation createObject(QName name) throws ObjectBuildException {
         return new Elevation();
     }
 
@@ -42,7 +42,7 @@ public class ElevationAdapter implements ObjectBuilder<Elevation>, ObjectSeriali
     }
 
     @Override
-    public Element createElement(Elevation object, Namespaces namespaces) {
+    public Element createElement(Elevation object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "Elevation");
     }
 

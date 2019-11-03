@@ -46,7 +46,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
     };
 
     @Override
-    public BuildingInstallation createObject(QName name) {
+    public BuildingInstallation createObject(QName name) throws ObjectBuildException {
         BuildingInstallation object = new BuildingInstallation();
         if ("IntBuildingInstallation".equals(name.getLocalPart()))
             object.getLocalProperties().set(DeprecatedProperties.INT_BUILDING_INSTALLATION, true);
@@ -100,7 +100,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
     }
 
     @Override
-    public Element createElement(BuildingInstallation object, Namespaces namespaces) {
+    public Element createElement(BuildingInstallation object, Namespaces namespaces) throws ObjectSerializeException {
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
         return !CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)
                 && object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_BUILDING_INSTALLATION, true) ?

@@ -25,7 +25,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfOuterFloorSurface");
 
     @Override
-    public OuterFloorSurface createObject(QName name) {
+    public OuterFloorSurface createObject(QName name) throws ObjectBuildException {
         return new OuterFloorSurface();
     }
 
@@ -42,7 +42,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     }
 
     @Override
-    public Element createElement(OuterFloorSurface object, Namespaces namespaces) {
+    public Element createElement(OuterFloorSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "OuterFloorSurface");
     }
 

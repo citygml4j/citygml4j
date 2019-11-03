@@ -32,7 +32,7 @@ public class GroundSurfaceAdapter extends AbstractBoundarySurfaceAdapter<GroundS
     };
 
     @Override
-    public GroundSurface createObject(QName name) {
+    public GroundSurface createObject(QName name) throws ObjectBuildException {
         return new GroundSurface();
     }
 
@@ -49,7 +49,7 @@ public class GroundSurfaceAdapter extends AbstractBoundarySurfaceAdapter<GroundS
     }
 
     @Override
-    public Element createElement(GroundSurface object, Namespaces namespaces) {
+    public Element createElement(GroundSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "GroundSurface");
     }
 

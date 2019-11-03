@@ -32,7 +32,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     };
 
     @Override
-    public InteriorWallSurface createObject(QName name) {
+    public InteriorWallSurface createObject(QName name) throws ObjectBuildException {
         return new InteriorWallSurface();
     }
 
@@ -49,7 +49,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     }
 
     @Override
-    public Element createElement(InteriorWallSurface object, Namespaces namespaces) {
+    public Element createElement(InteriorWallSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "InteriorWallSurface");
     }
 

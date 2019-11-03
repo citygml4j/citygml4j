@@ -25,7 +25,7 @@ public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallS
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfWallSurface");
 
     @Override
-    public WallSurface createObject(QName name) {
+    public WallSurface createObject(QName name) throws ObjectBuildException {
         return new WallSurface();
     }
 
@@ -42,7 +42,7 @@ public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallS
     }
 
     @Override
-    public Element createElement(WallSurface object, Namespaces namespaces) {
+    public Element createElement(WallSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "WallSurface");
     }
 

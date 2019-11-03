@@ -33,7 +33,7 @@ import javax.xml.namespace.QName;
 public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry> {
 
     @Override
-    public ImplicitGeometry createObject(QName name) {
+    public ImplicitGeometry createObject(QName name) throws ObjectBuildException {
         return new ImplicitGeometry();
     }
 
@@ -65,7 +65,7 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
     }
 
     @Override
-    public Element createElement(ImplicitGeometry object, Namespaces namespaces) {
+    public Element createElement(ImplicitGeometry object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getCoreNamespace(namespaces), "ImplicitGeometry");
     }
 

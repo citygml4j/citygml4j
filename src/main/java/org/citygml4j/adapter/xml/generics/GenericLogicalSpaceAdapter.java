@@ -26,7 +26,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericLogicalSpace");
 
     @Override
-    public GenericLogicalSpace createObject(QName name) {
+    public GenericLogicalSpace createObject(QName name) throws ObjectBuildException {
         return new GenericLogicalSpace();
     }
 
@@ -47,7 +47,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
     }
 
     @Override
-    public Element createElement(GenericLogicalSpace object, Namespaces namespaces) {
+    public Element createElement(GenericLogicalSpace object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "GenericLogicalSpace");
     }
 

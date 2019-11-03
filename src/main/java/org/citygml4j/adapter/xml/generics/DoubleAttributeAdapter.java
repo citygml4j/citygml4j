@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class DoubleAttributeAdapter extends AbstractGenericAttributeAdapter<DoubleAttribute> {
 
     @Override
-    public DoubleAttribute createObject(QName name) {
+    public DoubleAttribute createObject(QName name) throws ObjectBuildException {
         return new DoubleAttribute();
     }
 
@@ -40,7 +40,7 @@ public class DoubleAttributeAdapter extends AbstractGenericAttributeAdapter<Doub
     }
 
     @Override
-    public Element createElement(DoubleAttribute object, Namespaces namespaces) {
+    public Element createElement(DoubleAttribute object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "DoubleAttribute") :

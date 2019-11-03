@@ -25,7 +25,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<O
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfOuterCeilingSurface");
 
     @Override
-    public OuterCeilingSurface createObject(QName name) {
+    public OuterCeilingSurface createObject(QName name) throws ObjectBuildException {
         return new OuterCeilingSurface();
     }
 
@@ -42,7 +42,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<O
     }
 
     @Override
-    public Element createElement(OuterCeilingSurface object, Namespaces namespaces) {
+    public Element createElement(OuterCeilingSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "OuterCeilingSurface");
     }
 

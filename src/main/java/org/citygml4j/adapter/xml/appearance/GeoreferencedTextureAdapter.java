@@ -37,7 +37,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
     };
 
     @Override
-    public GeoreferencedTexture createObject(QName name) {
+    public GeoreferencedTexture createObject(QName name) throws ObjectBuildException {
         return new GeoreferencedTexture();
     }
 
@@ -71,7 +71,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
     }
 
     @Override
-    public Element createElement(GeoreferencedTexture object, Namespaces namespaces) {
+    public Element createElement(GeoreferencedTexture object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "GeoreferencedTexture");
     }
 

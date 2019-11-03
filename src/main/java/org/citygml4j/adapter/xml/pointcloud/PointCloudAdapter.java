@@ -29,7 +29,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "AbstractGenericApplicationPropertyOfPointCloud");
 
     @Override
-    public PointCloud createObject(QName name) {
+    public PointCloud createObject(QName name) throws ObjectBuildException {
         return new PointCloud();
     }
 
@@ -62,7 +62,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
     }
 
     @Override
-    public Element createElement(PointCloud object, Namespaces namespaces) {
+    public Element createElement(PointCloud object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "PointCloud");
     }
 

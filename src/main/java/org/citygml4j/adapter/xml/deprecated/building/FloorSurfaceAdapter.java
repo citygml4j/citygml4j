@@ -32,7 +32,7 @@ public class FloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<FloorSur
     };
 
     @Override
-    public FloorSurface createObject(QName name) {
+    public FloorSurface createObject(QName name) throws ObjectBuildException {
         return new FloorSurface();
     }
 
@@ -49,7 +49,7 @@ public class FloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<FloorSur
     }
 
     @Override
-    public Element createElement(FloorSurface object, Namespaces namespaces) {
+    public Element createElement(FloorSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "FloorSurface");
     }
 

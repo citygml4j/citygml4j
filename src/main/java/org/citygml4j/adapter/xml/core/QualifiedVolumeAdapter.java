@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class QualifiedVolumeAdapter implements ObjectBuilder<QualifiedVolume>, ObjectSerializer<QualifiedVolume> {
 
     @Override
-    public QualifiedVolume createObject(QName name) {
+    public QualifiedVolume createObject(QName name) throws ObjectBuildException {
         return new QualifiedVolume();
     }
 
@@ -42,7 +42,7 @@ public class QualifiedVolumeAdapter implements ObjectBuilder<QualifiedVolume>, O
     }
 
     @Override
-    public Element createElement(QualifiedVolume object, Namespaces namespaces) {
+    public Element createElement(QualifiedVolume object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "QualifiedVolume");
     }
 

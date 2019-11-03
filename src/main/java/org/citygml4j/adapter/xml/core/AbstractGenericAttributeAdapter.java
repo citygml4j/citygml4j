@@ -19,7 +19,7 @@ import javax.xml.namespace.QName;
 public abstract class AbstractGenericAttributeAdapter<T extends AbstractGenericAttribute> implements ObjectBuilder<T>, ObjectSerializer<T> {
 
     @Override
-    public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) {
+    public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         attributes.getValue("name").ifPresent(object::setName);
     }
 
@@ -30,7 +30,7 @@ public abstract class AbstractGenericAttributeAdapter<T extends AbstractGenericA
     }
 
     @Override
-    public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) {
+    public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getName() != null && !namespaces.contains(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE))
             element.addAttribute("name", object.getName());
     }

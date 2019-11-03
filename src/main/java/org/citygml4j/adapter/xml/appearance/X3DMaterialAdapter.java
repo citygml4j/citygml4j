@@ -36,7 +36,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
     };
 
     @Override
-    public X3DMaterial createObject(QName name) {
+    public X3DMaterial createObject(QName name) throws ObjectBuildException {
         return new X3DMaterial();
     }
 
@@ -82,7 +82,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
     }
 
     @Override
-    public Element createElement(X3DMaterial object, Namespaces namespaces) {
+    public Element createElement(X3DMaterial object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "X3DMaterial");
     }
 

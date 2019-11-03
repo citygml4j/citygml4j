@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class IntAttributeAdapter extends AbstractGenericAttributeAdapter<IntAttribute> {
 
     @Override
-    public IntAttribute createObject(QName name) {
+    public IntAttribute createObject(QName name) throws ObjectBuildException {
         return new IntAttribute();
     }
 
@@ -40,7 +40,7 @@ public class IntAttributeAdapter extends AbstractGenericAttributeAdapter<IntAttr
     }
 
     @Override
-    public Element createElement(IntAttribute object, Namespaces namespaces) {
+    public Element createElement(IntAttribute object, Namespaces namespaces) throws ObjectSerializeException {
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace) ?
                 Element.of(genericsNamespace, "IntAttribute") :

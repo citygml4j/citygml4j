@@ -25,7 +25,7 @@ public class CeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Ce
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfCeilingSurface");
 
     @Override
-    public CeilingSurface createObject(QName name) {
+    public CeilingSurface createObject(QName name) throws ObjectBuildException {
         return new CeilingSurface();
     }
 
@@ -42,7 +42,7 @@ public class CeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Ce
     }
 
     @Override
-    public Element createElement(CeilingSurface object, Namespaces namespaces) {
+    public Element createElement(CeilingSurface object, Namespaces namespaces) throws ObjectSerializeException {
         return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "CeilingSurface");
     }
 
