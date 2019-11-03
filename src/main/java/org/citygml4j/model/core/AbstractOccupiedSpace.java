@@ -44,4 +44,33 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
     public void setADEPropertiesOfAbstractOccupiedSpace(List<ADEPropertyOfAbstractOccupiedSpace> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
+
+    public ImplicitGeometryProperty getImplicitRepresentation(int lod) {
+        switch (lod) {
+            case 1:
+                return getLod1ImplicitRepresentation();
+            case 2:
+                return getLod2ImplicitRepresentation();
+            case 3:
+                return getLod3ImplicitRepresentation();
+            default:
+                return null;
+        }
+    }
+
+    public boolean setImplicitRepresentation(int lod, ImplicitGeometryProperty property) {
+        switch (lod) {
+            case 1:
+                setLod1ImplicitRepresentation(property);
+                return true;
+            case 2:
+                setLod2ImplicitRepresentation(property);
+                return true;
+            case 3:
+                setLod3ImplicitRepresentation(property);
+                return true;
+            default:
+                return false;
+        }
+    }
 }

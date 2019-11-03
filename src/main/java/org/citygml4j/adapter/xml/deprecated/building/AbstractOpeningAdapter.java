@@ -39,13 +39,13 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod3ImplicitRepresentation":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD3_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "lod4ImplicitRepresentation":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
         }
@@ -68,18 +68,18 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
         if (object.getLod3MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
+        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
+            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD3_IMPLICIT_REPRESENTATION)) {
-            ImplicitGeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD3_IMPLICIT_REPRESENTATION, ImplicitGeometryProperty.class);
+        if (object.getDeprecatedProperties().getLod3ImplicitRepresentation() != null) {
+            ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod3ImplicitRepresentation();
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION)) {
-            ImplicitGeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION, ImplicitGeometryProperty.class);
+        if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null) {
+            ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod4ImplicitRepresentation();
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 

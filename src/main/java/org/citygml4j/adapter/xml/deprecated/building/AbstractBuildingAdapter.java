@@ -52,8 +52,6 @@ import javax.xml.namespace.QName;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extends AbstractSiteAdapter<T> {
     private final QName[] substitutionGroups = new QName[] {
@@ -98,16 +96,16 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.setStoreyHeightsBelowGround(reader.getObjectUsingBuilder(MeasureOrNilReasonListAdapter.class));
                     return;
                 case "lod0FootPrint":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_FOOTPRINT, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod0RoofEdge":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_ROOFEDGE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(0, DeprecatedProperties.LOD0_ROOF_EDGE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1Solid":
                     object.setLod1Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod1MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1TerrainIntersection":
                     object.setLod1TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
@@ -129,14 +127,14 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     if (outerBuildingInstallation.getObject() != null)
                         object.getBuildingInstallations().add(new BuildingInstallationMember(outerBuildingInstallation.getObject()));
                     else
-                        object.getLocalProperties().getOrSet(DeprecatedProperties.OUTER_BUILDING_INSTALLATION_REFERENCE, List.class, ArrayList::new).add(outerBuildingInstallation);
+                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.OUTER_BUILDING_INSTALLATION, outerBuildingInstallation);
                     return;
                 case "interiorBuildingInstallation":
                     BuildingInstallationProperty interiorBuildingInstallation = reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class);
                     if (interiorBuildingInstallation.getObject() != null)
                         object.getBuildingInstallations().add(new BuildingInstallationMember(interiorBuildingInstallation.getObject()));
                     else
-                        object.getLocalProperties().getOrSet(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION_REFERENCE, List.class, ArrayList::new).add(interiorBuildingInstallation);
+                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION, interiorBuildingInstallation);
                     return;
                 case "boundedBy":
                     object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
@@ -154,30 +152,30 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.setLod3TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod4Solid":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiCurve":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod4TerrainIntersection":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_TERRAIN_INTERSECTION, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "interiorRoom":
                     BuildingRoomProperty interiorRoom = reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class);
                     if (interiorRoom.getObject() != null)
                         object.getBuildingRooms().add(new BuildingRoomMember(interiorRoom.getObject()));
                     else
-                        object.getLocalProperties().getOrSet(DeprecatedProperties.INTERIOR_ROOM_REFERENCE, List.class, ArrayList::new).add(interiorRoom);
+                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.INTERIOR_ROOM, interiorRoom);
                     return;
                 case "consistsOfBuildingPart":
                     BuildingPartProperty consistsOfBuildingPart = reader.getObjectUsingBuilder(BuildingPartPropertyAdapter.class);
                     if (consistsOfBuildingPart.getObject() != null && object instanceof Building)
                         ((Building) object).getBuildingParts().add(consistsOfBuildingPart);
                     else
-                        object.getLocalProperties().getOrSet(DeprecatedProperties.CONSISTS_OF_BUILDING_PART_REFERENCE, List.class, ArrayList::new).add(consistsOfBuildingPart);
+                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.CONSISTS_OF_BUILDING_PART, consistsOfBuildingPart);
                     return;
                 case "address":
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
@@ -199,6 +197,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+
+        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
             writer.writeElement(Element.of(buildingNamespace, "yearOfConstruction").addTextContent(TextContent.ofGYear(OffsetDateTime.of(object.getDateOfConstruction(), LocalTime.MIN, ZoneOffset.UTC))));
@@ -227,21 +227,19 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getStoreyHeightsBelowGround() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "storeyHeightsBelowGround"), object.getStoreyHeightsBelowGround(), MeasureOrNilReasonListAdapter.class, namespaces);
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_FOOTPRINT)) {
-            MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_FOOTPRINT, MultiSurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0FootPrint"), property, MultiSurfacePropertyAdapter.class, namespaces);
-        }
+        if (object.getLod0MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0FootPrint"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_ROOFEDGE)) {
-            MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_ROOFEDGE, MultiSurfaceProperty.class);
+        if (object.getDeprecatedProperties().containsGeometry(0, DeprecatedProperties.LOD0_ROOF_EDGE)) {
+            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(0, DeprecatedProperties.LOD0_ROOF_EDGE, MultiSurfaceProperty.class);
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0RoofEdge"), property, MultiSurfacePropertyAdapter.class, namespaces);
         }
 
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD1_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
+        if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE)) {
+            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
         }
 
@@ -265,14 +263,9 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.OUTER_BUILDING_INSTALLATION_REFERENCE)) {
-            List properties = object.getLocalProperties().get(DeprecatedProperties.OUTER_BUILDING_INSTALLATION_REFERENCE, List.class);
-            if (properties != null) {
-                for (Object property : properties) {
-                    if (property instanceof BuildingInstallationProperty)
-                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), (BuildingInstallationProperty) property, BuildingInstallationPropertyAdapter.class, namespaces);
-                }
-            }
+        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.OUTER_BUILDING_INSTALLATION)) {
+            for (BuildingInstallationProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.OUTER_BUILDING_INSTALLATION, BuildingInstallationProperty.class))
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
         }
 
         for (BuildingInstallationMember member : object.getBuildingInstallations()) {
@@ -280,14 +273,9 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION_REFERENCE)) {
-            List properties = object.getLocalProperties().get(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION_REFERENCE, List.class);
-            if (properties != null) {
-                for (Object property : properties) {
-                    if (property instanceof BuildingInstallationProperty)
-                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), (BuildingInstallationProperty) property, BuildingInstallationPropertyAdapter.class, namespaces);
-                }
-            }
+        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION)) {
+            for (BuildingInstallationProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION, BuildingInstallationProperty.class))
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
         }
 
         for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
@@ -305,37 +293,32 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getLod3TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_SOLID)) {
-            SolidProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
+        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SOLID)) {
+            SolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
+        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
+            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_MULTI_CURVE)) {
-            MultiCurveProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_MULTI_CURVE, MultiCurveProperty.class);
+        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_CURVE)) {
+            MultiCurveProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_CURVE, MultiCurveProperty.class);
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiCurve"), property, MultiCurvePropertyAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_TERRAIN_INTERSECTION)) {
-            MultiCurveProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_TERRAIN_INTERSECTION, MultiCurveProperty.class);
+        if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null) {
+            MultiCurveProperty property = object.getDeprecatedProperties().getLod4TerrainIntersectionCurve();
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4TerrainIntersection"), property, MultiCurvePropertyAdapter.class, namespaces);
         }
 
         for (BuildingRoomMember member : object.getBuildingRooms())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), member, BuildingRoomMemberAdapter.class, namespaces);
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.INTERIOR_ROOM_REFERENCE)) {
-            List properties = object.getLocalProperties().get(DeprecatedProperties.INTERIOR_ROOM_REFERENCE, List.class);
-            if (properties != null) {
-                for (Object property : properties) {
-                    if (property instanceof BuildingRoomProperty)
-                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), (BuildingRoomProperty) property, BuildingRoomPropertyAdapter.class, namespaces);
-                }
-            }
+        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.INTERIOR_ROOM)) {
+            for (BuildingRoomProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.INTERIOR_ROOM, BuildingRoomProperty.class))
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
         }
 
         if (object instanceof Building) {
@@ -343,14 +326,9 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
         }
 
-        if (object.getLocalProperties().contains(DeprecatedProperties.CONSISTS_OF_BUILDING_PART_REFERENCE)) {
-            List properties = object.getLocalProperties().get(DeprecatedProperties.CONSISTS_OF_BUILDING_PART_REFERENCE, List.class);
-            if (properties != null) {
-                for (Object property : properties) {
-                    if (property instanceof BuildingPartProperty)
-                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), (BuildingPartProperty) property, BuildingPartPropertyAdapter.class, namespaces);
-                }
-            }
+        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.CONSISTS_OF_BUILDING_PART)) {
+            for (BuildingPartProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.CONSISTS_OF_BUILDING_PART, BuildingPartProperty.class))
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
         }
 
         for (AddressProperty property : object.getAddresses())

@@ -54,12 +54,8 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 case "generalizesTo":
                     if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()))
                         object.getGeneralizesTo().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
-                    else {
-                        AbstractCityObjectProperty property = reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class);
-                        Reference reference = new Reference(property);
-                        reference.getLocalProperties().set(DeprecatedProperties.GENERALIZES_TO_OBJECT, property.getObject());
-                        object.getGeneralizesTo().add(reference);
-                    }
+                    else
+                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.GENERALIZES_TO_OBJECT, reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
                     return;
                 case "relativeToTerrain":
                     reader.getTextContent().ifPresent(v -> object.setRelativeToTerrain(RelativeToTerrain.fromValue(v)));
@@ -113,15 +109,12 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
         }
 
-        for (Reference reference : object.getGeneralizesTo()) {
-            if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, ReferenceAdapter.class, namespaces);
-            else {
-                AbstractCityObjectProperty property = new AbstractCityObjectProperty();
-                property.setObject((AbstractCityObject) reference.getLocalProperties().get(DeprecatedProperties.GENERALIZES_TO_OBJECT));
-                property.setReference(reference);
+        for (Reference reference : object.getGeneralizesTo())
+            writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, ReferenceAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.GENERALIZES_TO_OBJECT)) {
+            for (AbstractCityObjectProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.GENERALIZES_TO_OBJECT, AbstractCityObjectProperty.class))
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
-            }
         }
 
         if (object.getRelativeToTerrain() != null)

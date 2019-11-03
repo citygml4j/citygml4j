@@ -61,16 +61,16 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
                     object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
                     return;
                 case "lod0MultiCurve":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod0MultiSurface":
                     object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1MultiCurve":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD1_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod1MultiSurface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1Solid":
                     object.setLod1Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
@@ -82,7 +82,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
                     object.setLod3Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod4Solid":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
             }
         }
@@ -110,21 +110,21 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, waterBodyNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(waterBodyNamespace)) {
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_MULTI_CURVE)) {
-                MultiCurveProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_MULTI_CURVE, MultiCurveProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE)) {
+                MultiCurveProperty property = object.getDeprecatedProperties().getGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE, MultiCurveProperty.class);
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiCurve"), property, MultiCurvePropertyAdapter.class, namespaces);
             }
 
             if (object.getLod0MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD1_MULTI_CURVE)) {
-                MultiCurveProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD1_MULTI_CURVE, MultiCurveProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_CURVE)) {
+                MultiCurveProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_CURVE, MultiCurveProperty.class);
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiCurve"), property, MultiCurvePropertyAdapter.class, namespaces);
             }
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD1_MULTI_SURFACE)) {
-                MultiSurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE)) {
+                MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
             }
 
@@ -137,8 +137,8 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
             if (object.getLod3Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_SOLID)) {
-                SolidProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SOLID)) {
+                SolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
             }
 

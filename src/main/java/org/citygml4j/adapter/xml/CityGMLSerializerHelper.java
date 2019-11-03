@@ -2,9 +2,13 @@ package org.citygml4j.adapter.xml;
 
 import org.citygml4j.model.ade.ADEProperty;
 import org.citygml4j.model.ade.generic.ADEGenericProperty;
+import org.citygml4j.model.core.AbstractSpace;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
+import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
+import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
+import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
@@ -95,6 +99,21 @@ public class CityGMLSerializerHelper {
 
         for (Code usage : object.getUsages())
             writer.writeElementUsingSerializer(Element.of(namespaceURI, "usage"), usage, CodeAdapter.class, namespaces);
+    }
+
+    public static boolean serializeDefaultGeometry(AbstractSpace object, int lod, String propertyName, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        if (object.getSolid(lod) != null) {
+            writer.writeElementUsingSerializer(Element.of(namespaceURI, propertyName), object.getSolid(lod), SolidPropertyAdapter.class, namespaces);
+            return true;
+        } else if (object.getMultiSurface(lod) != null) {
+            writer.writeElementUsingSerializer(Element.of(namespaceURI, propertyName), object.getMultiSurface(lod), MultiSurfacePropertyAdapter.class, namespaces);
+            return true;
+        } else if (object.getMultiCurve(lod) != null) {
+            writer.writeElementUsingSerializer(Element.of(namespaceURI, propertyName), object.getMultiCurve(lod), MultiCurvePropertyAdapter.class, namespaces);
+            return true;
+        }
+
+        return false;
     }
 
     public static void serializeADEProperty(ADEProperty property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {

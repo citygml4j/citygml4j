@@ -61,7 +61,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                     object.setGroupParent(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
                     return;
                 case "geometry":
-                    object.getLocalProperties().set(DeprecatedProperties.GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().addNonLodGeometry(DeprecatedProperties.GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
             }
         }
@@ -99,8 +99,8 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         if (object.getGroupParent() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getGroupParent(), AbstractCityObjectPropertyAdapter.class, namespaces);
 
-        if (!isCityGML3 && object.getLocalProperties().contains(DeprecatedProperties.GEOMETRY)) {
-            GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.GEOMETRY, GeometryProperty.class);
+        if (!isCityGML3 && object.getDeprecatedProperties().containsNonLodGeometry(DeprecatedProperties.GEOMETRY)) {
+            GeometryProperty property = object.getDeprecatedProperties().getNonLodGeometry(DeprecatedProperties.GEOMETRY, GeometryProperty.class);
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), property, GeometryPropertyAdapter.class, namespaces);
         }
 

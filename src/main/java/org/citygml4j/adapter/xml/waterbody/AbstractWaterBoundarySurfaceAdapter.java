@@ -49,7 +49,7 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractWate
                     object.setLod3MultiSurface(getMultiSurfaceProperty(reader.getObjectUsingBuilder(SurfacePropertyAdapter.class)));
                     return;
                 case "lod4Surface":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_SURFACE, reader.getObjectUsingBuilder(SurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SURFACE, reader.getObjectUsingBuilder(SurfacePropertyAdapter.class));
                     return;
             }
         }
@@ -76,8 +76,8 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractWate
             if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Surface"), getSurfaceProperty(object.getLod3MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_SURFACE)) {
-                SurfaceProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_SURFACE, SurfaceProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SURFACE)) {
+                SurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SURFACE, SurfaceProperty.class);
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Surface"), property, SurfacePropertyAdapter.class, namespaces);
             }
         }
@@ -89,7 +89,6 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractWate
     private MultiSurfaceProperty getMultiSurfaceProperty(SurfaceProperty src) {
         MultiSurface multiSurface = new MultiSurface();
         multiSurface.getSurfaceMember().add(src);
-
         return new MultiSurfaceProperty(multiSurface);
     }
 
@@ -117,7 +116,6 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractWate
         } else
             dest = new SurfaceProperty();
 
-        dest.setReference(src);
         return dest;
     }
 }

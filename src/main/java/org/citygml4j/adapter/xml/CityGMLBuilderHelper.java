@@ -2,12 +2,21 @@ package org.citygml4j.adapter.xml;
 
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchemaSet;
+import org.citygml4j.model.core.AbstractSpace;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.reader.xml.CityGMLInputFactory;
 import org.citygml4j.reader.xml.MissingADESchemaException;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
+import org.xmlobjects.gml.model.geometry.GeometryProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.primitives.AbstractSolid;
+import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.schema.SchemaHandler;
 import org.xmlobjects.schema.SchemaHandlerException;
 import org.xmlobjects.stream.XMLReadException;
@@ -79,6 +88,20 @@ public class CityGMLBuilderHelper {
             default:
                 return false;
         }
+    }
+
+    public static boolean assignDefaultGeometry(AbstractSpace object, int lod, GeometryProperty property) {
+        if (property != null && property.getObject() != null) {
+            AbstractGeometry geometry = property.getObject();
+            if (geometry instanceof AbstractSolid)
+                return object.setSolid(lod, new SolidProperty((AbstractSolid) geometry));
+            else if (geometry instanceof MultiSurface)
+                return object.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
+            else if (geometry instanceof MultiCurve)
+                return object.setMultiCurve(lod, new MultiCurveProperty((MultiCurve) geometry));
+        }
+
+        return false;
     }
 
     public static boolean createAsGenericADEProperty(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {

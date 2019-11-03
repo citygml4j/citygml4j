@@ -50,22 +50,30 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
 
             switch (name.getLocalPart()) {
                 case "lod0Geometry":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    GeometryProperty lod0Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 0, lod0Geometry))
+                        object.getDeprecatedProperties().addGeometry(0, DeprecatedProperties.LOD0_GEOMETRY, lod0Geometry);
                     return;
                 case "lod1Geometry":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD1_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    GeometryProperty lod1Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 1, lod1Geometry))
+                        object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_GEOMETRY, lod1Geometry);
                     return;
                 case "lod2Geometry":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD2_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    GeometryProperty lod2Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 2, lod2Geometry))
+                        object.getDeprecatedProperties().addGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, lod2Geometry);
                     return;
                 case "lod3Geometry":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD3_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    GeometryProperty lod3Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod3Geometry))
+                        object.getDeprecatedProperties().addGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, lod3Geometry);
                     return;
                 case "lod4Geometry":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "lod0TerrainIntersection":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_TERRAIN_INTERSECTION, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod0TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod1TerrainIntersection":
                     object.setLod1TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
@@ -77,10 +85,10 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
                     object.setLod3TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod4TerrainIntersection":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_TERRAIN_INTERSECTION, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod0ImplicitRepresentation":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD0_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod0ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "lod1ImplicitRepresentation":
                     object.setLod1ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
@@ -92,7 +100,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "lod4ImplicitRepresentation":
-                    object.getLocalProperties().set(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION, reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
         }
@@ -123,33 +131,37 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, genericsNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace)) {
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_GEOMETRY, GeometryProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(0, DeprecatedProperties.LOD0_GEOMETRY)) {
+                GeometryProperty property = object.getDeprecatedProperties().getGeometry(0, DeprecatedProperties.LOD0_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            } else
+                CityGMLSerializerHelper.serializeDefaultGeometry(object, 0, "lod0Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD1_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD1_GEOMETRY, GeometryProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_GEOMETRY)) {
+                GeometryProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod1Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            } else
+                CityGMLSerializerHelper.serializeDefaultGeometry(object, 1, "lod1Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD2_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD2_GEOMETRY, GeometryProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {
+                GeometryProperty property = object.getDeprecatedProperties().getGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod2Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            } else
+                CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD3_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(3, DeprecatedProperties.LOD3_GEOMETRY)) {
+                GeometryProperty property = object.getDeprecatedProperties().getGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            } else
+                CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
+            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
+                GeometryProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
             }
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_TERRAIN_INTERSECTION)) {
-                MultiCurveProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_TERRAIN_INTERSECTION, MultiCurveProperty.class);
+            if (object.getDeprecatedProperties().getLod0TerrainIntersectionCurve() != null) {
+                MultiCurveProperty property = object.getDeprecatedProperties().getLod0TerrainIntersectionCurve();
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0TerrainIntersection"), property, MultiCurvePropertyAdapter.class, namespaces);
             }
 
@@ -162,13 +174,13 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_TERRAIN_INTERSECTION)) {
-                MultiCurveProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_TERRAIN_INTERSECTION, MultiCurveProperty.class);
+            if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null) {
+                MultiCurveProperty property = object.getDeprecatedProperties().getLod4TerrainIntersectionCurve();
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4TerrainIntersection"), property, MultiCurvePropertyAdapter.class, namespaces);
             }
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD0_IMPLICIT_REPRESENTATION)) {
-                ImplicitGeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD0_IMPLICIT_REPRESENTATION, ImplicitGeometryProperty.class);
+            if (object.getDeprecatedProperties().getLod0ImplicitRepresentation() != null) {
+                ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod0ImplicitRepresentation();
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
             }
 
@@ -181,8 +193,8 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.getLocalProperties().contains(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION)) {
-                ImplicitGeometryProperty property = object.getLocalProperties().get(DeprecatedProperties.LOD4_IMPLICIT_REPRESENTATION, ImplicitGeometryProperty.class);
+            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null) {
+                ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod4ImplicitRepresentation();
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
             }
         } else {
