@@ -13,6 +13,7 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSolid;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.AbstractSolid;
@@ -23,6 +24,8 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 
 import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CityGMLBuilderHelper {
 
@@ -48,6 +51,12 @@ public class CityGMLBuilderHelper {
         return CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_LANDUSE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE.equals(namespaceURI);
+    }
+
+    public static boolean isCityGMLVegetationNamespace(String namespaceURI) {
+        return CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE.equals(namespaceURI);
     }
 
     public static boolean isCityGMLWaterBodyNamespace(String namespaceURI) {
@@ -99,6 +108,21 @@ public class CityGMLBuilderHelper {
                 return object.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
             else if (geometry instanceof MultiCurve)
                 return object.setMultiCurve(lod, new MultiCurveProperty((MultiCurve) geometry));
+            else if (geometry instanceof MultiSolid) {
+                MultiSolid multiSolid = (MultiSolid) geometry;
+
+                List<SolidProperty> properties = new ArrayList<>();
+                for (SolidProperty solidProperty : multiSolid.getSolidMember())
+                    properties.add(solidProperty);
+
+                if (multiSolid.getSolidMembers() != null) {
+                    for (AbstractSolid solid : multiSolid.getSolidMembers().getObjects())
+                        properties.add(new SolidProperty(solid));
+                }
+
+                if (properties.size() == 1)
+                    return object.setSolid(lod, properties.get(0));
+            }
         }
 
         return false;

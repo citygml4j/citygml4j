@@ -41,6 +41,10 @@ public class DeprecatedProperties extends GMLObject {
     public static final String LOD2_GEOMETRY = "lod2Geometry";
     public static final String LOD3_GEOMETRY = "lod3Geometry";
     public static final String LOD4_GEOMETRY = "lod4Geometry";
+    public static final String LOD1_MULTI_SOLID = "lod1MultiSolid";
+    public static final String LOD2_MULTI_SOLID = "lod2MultiSolid";
+    public static final String LOD3_MULTI_SOLID = "lod3MultiSolid";
+    public static final String LOD4_MULTI_SOLID = "lod4MultiSolid";
     public static final String GEOMETRY = "geometry";
 
     private Map<String, List<FeatureProperty>> features;
