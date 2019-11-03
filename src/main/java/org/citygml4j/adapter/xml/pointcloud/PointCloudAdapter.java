@@ -10,7 +10,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiPointPropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -39,26 +38,27 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
             switch (name.getLocalPart()) {
                 case "mimeType":
                     object.setMimeType(reader.getObjectUsingBuilder(CodeAdapter.class));
-                    break;
+                    return;
                 case "pointFile":
                     reader.getTextContent().ifPresent(object::setPointFile);
-                    break;
+                    return;
                 case "pointFileSrsName":
                     reader.getTextContent().ifPresent(object::setPointFileSrsName);
-                    break;
+                    return;
                 case "points":
                     object.setPoints(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
-                    break;
+                    return;
             }
-        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
-            super.buildChildObject(object, name, attributes, reader);
-        } else {
+        }
+
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             ObjectBuilder<ADEPropertyOfPointCloud> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfPointCloud.class);
             if (builder != null)
                 object.getADEPropertiesOfPointCloud().add(reader.getObjectUsingBuilder(builder));
             else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
                 object.getADEPropertiesOfPointCloud().add(GenericADEPropertyOfPointCloud.of(reader.getDOMElement()));
-        }
+        } else
+            super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override
