@@ -1,8 +1,8 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractConstructionSurface;
-import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -11,7 +11,7 @@ import org.xmlobjects.gml.model.common.ChildList;
 
 import java.util.List;
 
-public class BuildingRoom extends AbstractOccupiedSpace implements StandardObjectClassifier {
+public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;

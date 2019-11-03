@@ -2,8 +2,8 @@ package org.citygml4j.adapter.xml.building;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingRoom;
 import org.citygml4j.model.building.ADEPropertyOfBuildingRoom;
 import org.citygml4j.model.building.BuildingFurnitureProperty;
@@ -34,7 +34,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "Room", namespaceURI = CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE),
         @XMLElement(name = "Room", namespaceURI = CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE)
 })
-public class BuildingRoomAdapter extends AbstractOccupiedSpaceAdapter<BuildingRoom> {
+public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BuildingRoom> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingRoom"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom"),
