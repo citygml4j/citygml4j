@@ -19,12 +19,18 @@ public class DeprecatedProperties extends GMLObject {
     public static final String GML_ID = "id";
     public static final String TARGET_URI = "uri";
     public static final String ROLE = "role";
+    public static final String INT_BRIDGE_INSTALLATION = "IntBridgeInstallation";
     public static final String INT_BUILDING_INSTALLATION = "IntBuildingInstallation";
 
     public static final String CONSISTS_OF_BUILDING_PART = "consistsOfBuildingPart";
     public static final String OUTER_BUILDING_INSTALLATION = "outerBuildingInstallation";
     public static final String INTERIOR_BUILDING_INSTALLATION = "interiorBuildingInstallation";
     public static final String INTERIOR_ROOM = "interiorRoom";
+    public static final String CONSISTS_OF_BRIDGE_PART = "consistsOfBridgePart";
+    public static final String OUTER_BRIDGE_CONSTRUCTION = "outerBridgeConstruction";
+    public static final String OUTER_BRIDGE_INSTALLATION = "outerBridgeInstallation";
+    public static final String INTERIOR_BRIDGE_INSTALLATION = "interiorBridgeInstallation";
+    public static final String INTERIOR_BRIDGE_ROOM = "interiorBridgeRoom";
     public static final String GENERALIZES_TO_OBJECT = "generalizesTo";
     public static final String OPENING = "opening";
 

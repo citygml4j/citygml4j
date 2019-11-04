@@ -59,7 +59,6 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfAbstractBuilding")
     };
 
-    @SuppressWarnings("unchecked")
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLBuilderHelper.isCityGMLBuildingNamespace(name.getNamespaceURI())) {

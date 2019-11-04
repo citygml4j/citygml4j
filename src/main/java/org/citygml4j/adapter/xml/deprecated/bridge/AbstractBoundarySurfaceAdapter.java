@@ -1,4 +1,4 @@
-package org.citygml4j.adapter.xml.deprecated.building;
+package org.citygml4j.adapter.xml.deprecated.bridge;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
@@ -27,14 +27,11 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicSurface> extends AbstractCityObjectAdapter<T> {
-    private final QName[] substitutionGroups = new QName[] {
-            new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBoundarySurface"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBoundarySurface")
-    };
+    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBoundarySurface");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBuildingNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isCityGMLBridgeNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "lod2MultiSurface":
                     object.setLod2MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
@@ -58,7 +55,7 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
             ObjectBuilder<ADEPropertyOfAbstractThematicSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractThematicSurface.class);
             if (builder != null)
                 object.getADEPropertiesOfAbstractThematicSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
                 object.getADEPropertiesOfAbstractThematicSurface().add(GenericADEPropertyOfAbstractThematicSurface.of(reader.getDOMElement()));
         } else
             super.buildChildObject(object, name, attributes, reader);
@@ -67,25 +64,25 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
     @Override
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
-        String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+        String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
 
         if (object.getLod2MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2MultiSurface"), object.getLod2MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2MultiSurface"), object.getLod2MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod3MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
             MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
         }
 
         if (object instanceof AbstractConstructionSurface) {
             for (AbstractFillingSurfaceProperty property : ((AbstractConstructionSurface) object).getFillingSurfaces())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
         } else if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.OPENING)) {
             for (AbstractFillingSurfaceProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.OPENING, AbstractFillingSurfaceProperty.class))
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())

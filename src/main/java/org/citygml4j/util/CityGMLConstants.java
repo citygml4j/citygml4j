@@ -1,6 +1,9 @@
 package org.citygml4j.util;
 
 public class CityGMLConstants {
+    public static final String CITYGML_3_0_BRIDGE_NAMESPACE = "http://www.opengis.net/citygml/bridge/3.0";
+    public static final String CITYGML_2_0_BRIDGE_NAMESPACE = "http://www.opengis.net/citygml/bridge/2.0";
+
     public static final String CITYGML_3_0_BUILDING_NAMESPACE = "http://www.opengis.net/citygml/building/3.0";
     public static final String CITYGML_2_0_BUILDING_NAMESPACE = "http://www.opengis.net/citygml/building/2.0";
     public static final String CITYGML_1_0_BUILDING_NAMESPACE = "http://www.opengis.net/citygml/building/1.0";

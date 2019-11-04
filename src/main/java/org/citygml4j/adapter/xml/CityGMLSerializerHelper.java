@@ -18,6 +18,13 @@ import org.xmlobjects.xml.Namespaces;
 
 public class CityGMLSerializerHelper {
 
+    public static String getBridgeNamespace(Namespaces namespaces) {
+        if (namespaces.contains(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE))
+            return CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE;
+        else
+            return CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE;
+    }
+
     public static String getBuildingNamespace(Namespaces namespaces) {
         if (namespaces.contains(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE))
             return CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE;
