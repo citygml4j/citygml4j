@@ -41,7 +41,7 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
 
     @Override
     public void buildChildObject(WaterSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLWaterBodyNamespace(name.getNamespaceURI()) && "waterLevel".equals(name.getLocalPart())) {
+        if (CityGMLBuilderHelper.isWaterBodyNamespace(name.getNamespaceURI()) && "waterLevel".equals(name.getLocalPart())) {
             object.setWaterLevel(reader.getObjectUsingBuilder(CodeAdapter.class));
             return;
         }

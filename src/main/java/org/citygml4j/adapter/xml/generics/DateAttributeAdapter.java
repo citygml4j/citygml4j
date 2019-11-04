@@ -38,7 +38,7 @@ public class DateAttributeAdapter extends AbstractGenericAttributeAdapter<DateAt
     @Override
     public void buildChildObject(DateAttribute object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.buildChildObject(object, name, attributes, reader);
-        if (CityGMLBuilderHelper.isCityGMLGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
+        if (CityGMLBuilderHelper.isGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
             reader.getTextContent().ifDate(v -> object.setValue(v.toLocalDate()));
     }
 

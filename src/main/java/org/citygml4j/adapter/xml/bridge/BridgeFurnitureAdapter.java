@@ -44,7 +44,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
 
     @Override
     public void buildChildObject(BridgeFurniture object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBridgeNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBridgeNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

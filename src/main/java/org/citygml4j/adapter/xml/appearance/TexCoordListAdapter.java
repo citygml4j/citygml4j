@@ -51,7 +51,7 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
             attributes = reader.getAttributes();
             TextureCoordinates textureCoordinates;
 
-            if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI())) {
                 switch (name.getLocalPart()) {
                     case "textureCoordinates":
                         textureCoordinates = result.computeIfAbsent(textureCoordinatesNo++, v -> new TextureCoordinates());

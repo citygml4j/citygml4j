@@ -34,7 +34,7 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBuildingNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBuildingNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "lod2MultiSurface":
                     object.setLod2MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));

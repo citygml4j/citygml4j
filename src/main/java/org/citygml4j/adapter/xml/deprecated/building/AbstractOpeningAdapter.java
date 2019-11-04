@@ -33,7 +33,7 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBuildingNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBuildingNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "lod3MultiSurface":
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));

@@ -29,60 +29,65 @@ import java.util.List;
 
 public class CityGMLBuilderHelper {
 
-    public static boolean isCityGMLBridgeNamespace(String namespaceURI) {
+    public static boolean isBridgeNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLBuildingNamespace(String namespaceURI) {
+    public static boolean isBuildingNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLCityFurnitureNamespace(String namespaceURI) {
+    public static boolean isCityFurnitureNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_CITYFURNITURE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLCityObjectGroupNamespace(String namespaceURI) {
+    public static boolean isCityObjectGroupNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLLandUseNamespace(String namespaceURI) {
+    public static boolean isLandUseNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_LANDUSE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLVegetationNamespace(String namespaceURI) {
+    public static boolean isTunnelNamespace(String namespaceURI) {
+        return CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE.equals(namespaceURI);
+    }
+
+    public static boolean isVegetationNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLWaterBodyNamespace(String namespaceURI) {
+    public static boolean isWaterBodyNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLGenericsNamespace(String namespaceURI) {
+    public static boolean isGenericsNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLAppearanceNamespace(String namespaceURI) {
+    public static boolean isAppearanceNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE.equals(namespaceURI);
     }
 
-    public static boolean isCityGMLCoreNamespace(String namespaceURI) {
+    public static boolean isCoreNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE.equals(namespaceURI);

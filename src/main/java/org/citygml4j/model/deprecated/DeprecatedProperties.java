@@ -21,6 +21,7 @@ public class DeprecatedProperties extends GMLObject {
     public static final String ROLE = "role";
     public static final String INT_BRIDGE_INSTALLATION = "IntBridgeInstallation";
     public static final String INT_BUILDING_INSTALLATION = "IntBuildingInstallation";
+    public static final String INT_TUNNEL_INSTALLATION = "IntTunnelInstallation";
 
     public static final String CONSISTS_OF_BUILDING_PART = "consistsOfBuildingPart";
     public static final String OUTER_BUILDING_INSTALLATION = "outerBuildingInstallation";
@@ -31,6 +32,10 @@ public class DeprecatedProperties extends GMLObject {
     public static final String OUTER_BRIDGE_INSTALLATION = "outerBridgeInstallation";
     public static final String INTERIOR_BRIDGE_INSTALLATION = "interiorBridgeInstallation";
     public static final String INTERIOR_BRIDGE_ROOM = "interiorBridgeRoom";
+    public static final String CONSISTS_OF_TUNNEL_PART = "consistsOfTunnelPart";
+    public static final String OUTER_TUNNEL_INSTALLATION = "outerTunnelInstallation";
+    public static final String INTERIOR_TUNNEL_INSTALLATION = "interiorTunnelInstallation";
+    public static final String INTERIOR_HOLLOW_SPACE = "interiorHollowSpace";
     public static final String GENERALIZES_TO_OBJECT = "generalizesTo";
     public static final String OPENING = "opening";
 

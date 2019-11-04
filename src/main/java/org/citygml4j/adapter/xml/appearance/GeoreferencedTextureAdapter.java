@@ -43,7 +43,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
 
     @Override
     public void buildChildObject(GeoreferencedTexture object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "preferWorldFile":
                     reader.getTextContent().ifBoolean(object::setPreferWorldFile);

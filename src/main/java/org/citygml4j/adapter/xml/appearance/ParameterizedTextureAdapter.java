@@ -41,7 +41,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
 
     @Override
     public void buildChildObject(ParameterizedTexture object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "textureParameterization":
                     object.getTextureParameterizations().add(reader.getObjectUsingBuilder(TextureAssociationPropertyAdapter.class));

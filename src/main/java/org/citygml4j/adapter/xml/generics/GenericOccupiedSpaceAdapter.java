@@ -44,7 +44,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
 
     @Override
     public void buildChildObject(GenericOccupiedSpace object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLGenericsNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isGenericsNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

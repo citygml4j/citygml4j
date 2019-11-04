@@ -33,7 +33,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "imageURI":
                     reader.getTextContent().ifPresent(object::setImageURI);

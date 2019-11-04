@@ -34,7 +34,7 @@ public class StringAttributeAdapter extends AbstractGenericAttributeAdapter<Stri
     @Override
     public void buildChildObject(StringAttribute object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.buildChildObject(object, name, attributes, reader);
-        if (CityGMLBuilderHelper.isCityGMLGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
+        if (CityGMLBuilderHelper.isGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
             reader.getTextContent().ifPresent(object::setValue);
     }
 

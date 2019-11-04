@@ -61,7 +61,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBuildingNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBuildingNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

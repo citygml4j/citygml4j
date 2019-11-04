@@ -34,7 +34,7 @@ public class UriAttributeAdapter extends AbstractGenericAttributeAdapter<UriAttr
     @Override
     public void buildChildObject(UriAttribute object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.buildChildObject(object, name, attributes, reader);
-        if (CityGMLBuilderHelper.isCityGMLGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
+        if (CityGMLBuilderHelper.isGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
             reader.getTextContent().ifPresent(object::setValue);
     }
 

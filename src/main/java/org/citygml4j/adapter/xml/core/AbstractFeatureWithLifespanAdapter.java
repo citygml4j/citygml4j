@@ -28,7 +28,7 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLCoreNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isCoreNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "creationDate":
                     if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()))

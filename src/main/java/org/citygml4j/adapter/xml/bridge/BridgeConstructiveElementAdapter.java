@@ -48,7 +48,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
 
     @Override
     public void buildChildObject(BridgeConstructiveElement object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBridgeNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBridgeNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

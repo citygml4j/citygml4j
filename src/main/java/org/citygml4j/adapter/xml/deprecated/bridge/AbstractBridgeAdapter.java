@@ -55,7 +55,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBridgeNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBridgeNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

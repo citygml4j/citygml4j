@@ -56,7 +56,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
 
     @Override
     public void buildChildObject(BuildingInstallation object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBuildingNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBuildingNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

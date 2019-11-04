@@ -52,7 +52,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
 
     @Override
     public void buildChildObject(WaterBody object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLWaterBodyNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isWaterBodyNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

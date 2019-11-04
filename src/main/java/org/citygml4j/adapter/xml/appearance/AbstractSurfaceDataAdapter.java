@@ -30,7 +30,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI()) && "isFront".equals(name.getLocalPart())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI()) && "isFront".equals(name.getLocalPart())) {
             reader.getTextContent().ifBoolean(object::setIsFront);
             return;
         }

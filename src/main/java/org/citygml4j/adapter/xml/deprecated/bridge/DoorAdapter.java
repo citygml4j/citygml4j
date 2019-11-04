@@ -33,7 +33,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
 
     @Override
     public void buildChildObject(DoorSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBridgeNamespace(name.getNamespaceURI()) && "address".equals(name.getLocalPart())) {
+        if (CityGMLBuilderHelper.isBridgeNamespace(name.getNamespaceURI()) && "address".equals(name.getLocalPart())) {
             object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
             return;
         }

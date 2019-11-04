@@ -39,7 +39,7 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
 
     @Override
     public void buildChildObject(ImplicitGeometry object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLCoreNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isCoreNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "transformationMatrix":
                     reader.getTextContent().ifDoubleList(v -> object.setTransformationMatrix(TransformationMatrix4x4.ofRowMajorList(v)));

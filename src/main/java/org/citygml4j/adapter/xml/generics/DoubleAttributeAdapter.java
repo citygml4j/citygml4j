@@ -35,7 +35,7 @@ public class DoubleAttributeAdapter extends AbstractGenericAttributeAdapter<Doub
     @Override
     public void buildChildObject(DoubleAttribute object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.buildChildObject(object, name, attributes, reader);
-        if (CityGMLBuilderHelper.isCityGMLGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
+        if (CityGMLBuilderHelper.isGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
             reader.getTextContent().ifDouble(object::setValue);
     }
 

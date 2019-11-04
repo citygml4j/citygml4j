@@ -44,7 +44,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
 
     @Override
     public void buildChildObject(LandUse object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLLandUseNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isLandUseNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

@@ -48,7 +48,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
 
     @Override
     public void buildChildObject(CityFurniture object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLCityFurnitureNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isCityFurnitureNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

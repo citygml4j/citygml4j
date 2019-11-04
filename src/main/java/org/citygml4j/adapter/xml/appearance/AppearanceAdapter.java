@@ -42,7 +42,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
 
     @Override
     public void buildChildObject(Appearance object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "theme":
                     reader.getTextContent().ifPresent(object::setTheme);

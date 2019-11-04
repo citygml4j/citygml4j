@@ -50,7 +50,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
 
     @Override
     public void buildChildObject(PlantCover object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLVegetationNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isVegetationNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

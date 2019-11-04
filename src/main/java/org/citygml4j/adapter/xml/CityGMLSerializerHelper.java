@@ -61,6 +61,13 @@ public class CityGMLSerializerHelper {
             return CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE;
     }
 
+    public static String getTunnelNamespace(Namespaces namespaces) {
+        if (namespaces.contains(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE))
+            return CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE;
+        else
+            return CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE;
+    }
+
     public static String getVegetationNamespace(Namespaces namespaces) {
         if (namespaces.contains(CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE))
             return CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE;

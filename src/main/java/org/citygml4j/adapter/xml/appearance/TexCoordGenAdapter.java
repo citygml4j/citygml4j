@@ -42,7 +42,7 @@ public class TexCoordGenAdapter extends AbstractTextureParameterizationAdapter<T
 
     @Override
     public void buildChildObject(TexCoordGen object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI()) && "worldToTexture".equals(name.getLocalPart())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI()) && "worldToTexture".equals(name.getLocalPart())) {
             reader.getTextContent().ifDoubleList(v -> object.setWorldToTexture(TransformationMatrix3x4.ofRowMajorList(v)));
             GMLBuilderHelper.buildSRSReference(object, attributes);
         }

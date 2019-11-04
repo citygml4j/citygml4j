@@ -42,7 +42,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
 
     @Override
     public void buildChildObject(X3DMaterial object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLAppearanceNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "ambientIntensity":
                     reader.getTextContent().ifDouble(object::setAmbientIntensity);

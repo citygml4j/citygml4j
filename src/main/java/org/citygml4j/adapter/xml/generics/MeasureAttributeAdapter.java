@@ -35,7 +35,7 @@ public class MeasureAttributeAdapter extends AbstractGenericAttributeAdapter<Mea
     @Override
     public void buildChildObject(MeasureAttribute object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.buildChildObject(object, name, attributes, reader);
-        if (CityGMLBuilderHelper.isCityGMLGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
+        if (CityGMLBuilderHelper.isGenericsNamespace(name.getNamespaceURI()) && "value".equals(name.getLocalPart()))
             object.setValue(reader.getObjectUsingBuilder(MeasureAdapter.class));
     }
 

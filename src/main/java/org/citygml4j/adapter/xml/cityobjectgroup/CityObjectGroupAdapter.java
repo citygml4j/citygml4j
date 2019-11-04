@@ -46,7 +46,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
 
     @Override
     public void buildChildObject(CityObjectGroup object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLCityObjectGroupNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isCityObjectGroupNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 

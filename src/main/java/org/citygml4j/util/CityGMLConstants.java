@@ -20,6 +20,9 @@ public class CityGMLConstants {
     public static final String CITYGML_2_0_LANDUSE_NAMESPACE = "http://www.opengis.net/citygml/landuse/2.0";
     public static final String CITYGML_1_0_LANDUSE_NAMESPACE = "http://www.opengis.net/citygml/landuse/1.0";
 
+    public static final String CITYGML_3_0_TUNNEL_NAMESPACE = "http://www.opengis.net/citygml/tunnel/3.0";
+    public static final String CITYGML_2_0_TUNNEL_NAMESPACE = "http://www.opengis.net/citygml/tunnel/2.0";
+
     public static final String CITYGML_3_0_VEGETATION_NAMESPACE = "http://www.opengis.net/citygml/vegetation/3.0";
     public static final String CITYGML_2_0_VEGETATION_NAMESPACE = "http://www.opengis.net/citygml/vegetation/2.0";
     public static final String CITYGML_1_0_VEGETATION_NAMESPACE = "http://www.opengis.net/citygml/vegetation/1.0";

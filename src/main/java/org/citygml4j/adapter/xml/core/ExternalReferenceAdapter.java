@@ -31,7 +31,7 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
 
     @Override
     public void buildChildObject(ExternalReference object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLCoreNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isCoreNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "targetResource":
                     reader.getTextContent().ifPresent(object::setTargetResource);

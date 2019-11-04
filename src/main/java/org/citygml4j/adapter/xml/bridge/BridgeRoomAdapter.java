@@ -45,7 +45,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
 
     @Override
     public void buildChildObject(BridgeRoom object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isCityGMLBridgeNamespace(name.getNamespaceURI())) {
+        if (CityGMLBuilderHelper.isBridgeNamespace(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 
