@@ -30,7 +30,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "AbstractGenericApplicationPropertyOfWaterGroundSurface"),
             new QName(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterGroundSurface"),
-            new QName(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterGroundSurface"),
+            new QName(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterGroundSurface")
     };
 
     @Override

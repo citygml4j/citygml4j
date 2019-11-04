@@ -38,7 +38,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingRoom"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom")
     };
 
     @Override

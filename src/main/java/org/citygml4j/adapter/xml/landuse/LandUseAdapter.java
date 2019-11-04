@@ -34,7 +34,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE, "AbstractGenericApplicationPropertyOfLandUse"),
             new QName(CityGMLConstants.CITYGML_2_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse"),
-            new QName(CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse"),
+            new QName(CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse")
     };
 
     @Override

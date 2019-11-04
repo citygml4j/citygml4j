@@ -28,7 +28,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractTexture"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfTexture"),
-            new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfTexture"),
+            new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfTexture")
     };
 
     @Override

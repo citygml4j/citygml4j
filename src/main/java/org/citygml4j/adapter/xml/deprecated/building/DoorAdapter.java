@@ -30,7 +30,7 @@ import javax.xml.namespace.QName;
 public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfDoor"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfDoor"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfDoor")
     };
 
     @Override

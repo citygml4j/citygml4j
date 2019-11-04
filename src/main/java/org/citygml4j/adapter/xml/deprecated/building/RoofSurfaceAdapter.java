@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurface> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoofSurface"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoofSurface"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoofSurface")
     };
 
     @Override

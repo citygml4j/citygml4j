@@ -33,7 +33,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfGeoreferencedTexture"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfGeoreferencedTexture"),
-            new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfGeoreferencedTexture"),
+            new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfGeoreferencedTexture")
     };
 
     @Override

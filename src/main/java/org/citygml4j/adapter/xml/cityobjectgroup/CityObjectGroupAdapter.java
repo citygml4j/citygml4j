@@ -36,7 +36,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "AbstractGenericApplicationPropertyOfCityObjectGroup"),
             new QName(CityGMLConstants.CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE, "_GenericApplicationPropertyOfCityObjectGroup"),
-            new QName(CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE, "_GenericApplicationPropertyOfCityObjectGroup"),
+            new QName(CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE, "_GenericApplicationPropertyOfCityObjectGroup")
     };
 
     @Override

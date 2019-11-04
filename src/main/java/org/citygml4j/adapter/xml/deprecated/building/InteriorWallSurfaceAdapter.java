@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<InteriorWallSurface> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfInteriorWallSurface"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfInteriorWallSurface"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfInteriorWallSurface")
     };
 
     @Override

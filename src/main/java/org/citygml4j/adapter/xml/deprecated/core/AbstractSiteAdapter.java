@@ -22,7 +22,7 @@ import javax.xml.namespace.QName;
 public abstract class AbstractSiteAdapter<T extends AbstractConstruction> extends AbstractCityObjectAdapter<T> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfSite"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfSite"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfSite")
     };
 
     @Override

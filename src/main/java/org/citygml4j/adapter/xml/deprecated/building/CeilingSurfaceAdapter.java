@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<CeilingSurface> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfCeilingSurface"),
-            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfCeilingSurface"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfCeilingSurface")
     };
 
     @Override

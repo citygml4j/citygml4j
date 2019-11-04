@@ -38,7 +38,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE, "AbstractGenericApplicationPropertyOfCityFurniture"),
             new QName(CityGMLConstants.CITYGML_2_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture"),
-            new QName(CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture"),
+            new QName(CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture")
     };
 
     @Override
