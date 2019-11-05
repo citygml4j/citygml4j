@@ -10,8 +10,6 @@
         <sequence>
           <element name="observationProperty" type="string"/>
           <element minOccurs="0" name="uom" type="string"/>
-          <element minOccurs="0" name="firstTimestamp" type="gml:TimePositionType"/>
-          <element minOccurs="0" name="lastTimestamp" type="gml:TimePositionType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries"/>
         </sequence>
       </extension>
@@ -30,6 +28,8 @@
     <complexContent>
       <extension base="gml:AbstractFeatureType">
         <sequence>
+          <element minOccurs="0" name="firstTimestamp" type="gml:TimePositionType"/>
+          <element minOccurs="0" name="lastTimestamp" type="gml:TimePositionType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractTimeseries"/>
         </sequence>
       </extension>
@@ -182,9 +182,13 @@
           <element minOccurs="0" name="numberOfHeaderLines" type="integer"/>
           <element name="fieldSeparator" type="string"/>
           <element minOccurs="0" name="decimalSymbol" type="string"/>
-          <element minOccurs="0" name="idColumn" type="integer"/>
-          <element name="timeColumn" type="integer"/>
-          <element name="valueColumn" type="integer"/>
+          <element minOccurs="0" name="idColumnNo" type="integer"/>
+          <element minOccurs="0" name="idColumnName" type="string"/>
+          <element minOccurs="0" name="idValue" type="string"/>
+          <element minOccurs="0" name="timeColumnNo" type="integer"/>
+          <element minOccurs="0" name="timeColumnName" type="string"/>
+          <element minOccurs="0" name="valueColumnNo" type="integer"/>
+          <element minOccurs="0" name="valueColumnName" type="string"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfTabulatedFileTimeseries"/>
         </sequence>
       </extension>

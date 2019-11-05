@@ -12,6 +12,7 @@
     <complexContent>
       <extension base="core:AbstractUnoccupiedSpaceType">
         <sequence>
+          <element minOccurs="0" name="trafficDirection" type="tran:TrafficDirectionValueType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="trafficSpace">
             <annotation>
@@ -349,7 +350,6 @@
       <extension base="tran:AbstractTransportationSpaceType">
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element name="trafficFlow" type="integer"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfSection"/>
         </sequence>
       </extension>
@@ -458,6 +458,13 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
+  <simpleType name="TrafficDirectionValueType">
+    <restriction base="string">
+      <enumeration value="forwards"/>
+      <enumeration value="backwards"/>
+      <enumeration value="both"/>
+    </restriction>
+  </simpleType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficSpace" type="anyType"/>
   <element name="TrafficSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:TrafficSpaceType">
     <annotation>
@@ -484,6 +491,7 @@
             </annotation>
           </element>
           <element name="granularity" type="tran:GranularityValueType"/>
+          <element minOccurs="0" name="trafficDirection" type="tran:TrafficDirectionValueType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="predecessor" type="tran:TrafficSpacePropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" name="successor" type="tran:TrafficSpacePropertyType"/>
