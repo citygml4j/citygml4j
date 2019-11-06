@@ -52,10 +52,12 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
 
             switch (name.getLocalPart()) {
                 case "lod4Geometry":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    GeometryProperty lod4Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod4Geometry))
+                        object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "lod4ImplicitRepresentation":
-                    object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
         }
@@ -86,12 +88,14 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
             if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
                 GeometryProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            } else
+                CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod4Geometry", buildingNamespace, namespaces, writer);
 
             if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null) {
                 ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod4ImplicitRepresentation();
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
-            }
+            } else if (object.getLod3ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfBuildingFurniture property : object.getADEPropertiesOfBuildingFurniture())

@@ -11,6 +11,7 @@ import org.citygml4j.model.building.BuildingInstallationProperty;
 import org.citygml4j.model.building.BuildingRoom;
 import org.citygml4j.model.building.RoomHeightProperty;
 import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -18,6 +19,8 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -106,10 +109,16 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
             for (RoomHeightProperty property : object.getRoomHeights())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roomHeight"), property, RoomHeightPropertyAdapter.class, namespaces);
         } else {
-            if (object.getLod3Solid() != null)
+            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SOLID)) {
+                SolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
+            } else if (object.getLod3Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
 
-            if (object.getLod3MultiSurface() != null)
+            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
+                MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
+            } else if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
