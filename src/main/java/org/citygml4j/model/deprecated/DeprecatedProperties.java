@@ -22,6 +22,7 @@ public class DeprecatedProperties extends GMLObject {
     public static final String INT_BRIDGE_INSTALLATION = "IntBridgeInstallation";
     public static final String INT_BUILDING_INSTALLATION = "IntBuildingInstallation";
     public static final String INT_TUNNEL_INSTALLATION = "IntTunnelInstallation";
+    public static final String TRANSPORTATION_COMPLEX = "TransportationComplex";
 
     public static final String CONSISTS_OF_BUILDING_PART = "consistsOfBuildingPart";
     public static final String OUTER_BUILDING_INSTALLATION = "outerBuildingInstallation";
