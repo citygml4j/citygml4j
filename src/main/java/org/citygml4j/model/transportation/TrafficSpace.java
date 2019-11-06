@@ -1,0 +1,156 @@
+package org.citygml4j.model.transportation;
+
+import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractUnoccupiedSpace;
+import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.OccupancyProperty;
+import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.generics.GenericThematicSurface;
+import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.gml.model.geometry.complexes.GeometricComplexProperty;
+
+import java.util.List;
+
+public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObjectClassifier {
+    private Code classifier;
+    private List<Code> functions;
+    private List<Code> usages;
+    private GranularityValue granularity;
+    private TrafficDirectionValue trafficDirection;
+    private List<OccupancyProperty> occupancies;
+    private List<TrafficSpaceProperty> predecessors;
+    private List<TrafficSpaceProperty> successors;
+    private List<ClearanceSpaceProperty> clearanceSpaces;
+    private GeometricComplexProperty network;
+    private List<ADEPropertyOfTrafficSpace> adeProperties;
+
+    public TrafficSpace() {
+    }
+
+    public TrafficSpace(GranularityValue granularity) {
+        this.granularity = granularity;
+    }
+
+    @Override
+    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
+        return boundarySurface instanceof TrafficArea
+                || boundarySurface instanceof ClosureSurface
+                || boundarySurface instanceof GenericThematicSurface;
+    }
+
+    @Override
+    public Code getClassifier() {
+        return classifier;
+    }
+
+    @Override
+    public void setClassifier(Code classifier) {
+        this.classifier = asChild(classifier);
+    }
+
+    @Override
+    public List<Code> getFunctions() {
+        if (functions == null)
+            functions = new ChildList<>(this);
+
+        return functions;
+    }
+
+    @Override
+    public void setFunctions(List<Code> functions) {
+        this.functions = asChild(functions);
+    }
+
+    @Override
+    public List<Code> getUsages() {
+        if (usages == null)
+            usages = new ChildList<>(this);
+
+        return usages;
+    }
+
+    @Override
+    public void setUsages(List<Code> usages) {
+        this.usages = asChild(usages);
+    }
+
+    public GranularityValue getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(GranularityValue granularity) {
+        this.granularity = granularity;
+    }
+
+    public TrafficDirectionValue getTrafficDirection() {
+        return trafficDirection;
+    }
+
+    public void setTrafficDirection(TrafficDirectionValue trafficDirection) {
+        this.trafficDirection = trafficDirection;
+    }
+
+    public List<OccupancyProperty> getOccupancies() {
+        if (occupancies == null)
+            occupancies = new ChildList<>(this);
+
+        return occupancies;
+    }
+
+    public void setOccupancies(List<OccupancyProperty> occupancies) {
+        this.occupancies = asChild(occupancies);
+    }
+
+    public List<TrafficSpaceProperty> getPredecessors() {
+        if (predecessors == null)
+            predecessors = new ChildList<>(this);
+
+        return predecessors;
+    }
+
+    public void setPredecessors(List<TrafficSpaceProperty> predecessors) {
+        this.predecessors = asChild(predecessors);
+    }
+
+    public List<TrafficSpaceProperty> getSuccessors() {
+        if (successors == null)
+            successors = new ChildList<>(this);
+
+        return successors;
+    }
+
+    public void setSuccessors(List<TrafficSpaceProperty> successors) {
+        this.successors = asChild(successors);
+    }
+
+    public List<ClearanceSpaceProperty> getClearanceSpaces() {
+        if (clearanceSpaces == null)
+            clearanceSpaces = new ChildList<>(this);
+
+        return clearanceSpaces;
+    }
+
+    public void setClearanceSpaces(List<ClearanceSpaceProperty> clearanceSpaces) {
+        this.clearanceSpaces = asChild(clearanceSpaces);
+    }
+
+    public GeometricComplexProperty getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(GeometricComplexProperty network) {
+        this.network = asChild(network);
+    }
+
+    public List<ADEPropertyOfTrafficSpace> getADEPropertiesOfTrafficSpace() {
+        if (adeProperties == null)
+            adeProperties = new ChildList<>(this);
+
+        return adeProperties;
+    }
+
+    public void setADEPropertiesOfTrafficSpace(List<ADEPropertyOfTrafficSpace> adeProperties) {
+        this.adeProperties = asChild(adeProperties);
+    }
+}

@@ -24,6 +24,10 @@ public class CityGMLConstants {
     public static final String CITYGML_2_0_RELIEF_NAMESPACE = "http://www.opengis.net/citygml/relief/2.0";
     public static final String CITYGML_1_0_RELIEF_NAMESPACE = "http://www.opengis.net/citygml/relief/1.0";
 
+    public static final String CITYGML_3_0_TRANSPORTATION_NAMESPACE = "http://www.opengis.net/citygml/transportation/3.0";
+    public static final String CITYGML_2_0_TRANSPORTATION_NAMESPACE = "http://www.opengis.net/citygml/transportation/2.0";
+    public static final String CITYGML_1_0_TRANSPORTATION_NAMESPACE = "http://www.opengis.net/citygml/transportation/1.0";
+
     public static final String CITYGML_3_0_TUNNEL_NAMESPACE = "http://www.opengis.net/citygml/tunnel/3.0";
     public static final String CITYGML_2_0_TUNNEL_NAMESPACE = "http://www.opengis.net/citygml/tunnel/2.0";
 

@@ -64,6 +64,12 @@ public class CityGMLBuilderHelper {
                 || CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE.equals(namespaceURI);
     }
 
+    public static boolean isTransportationNamespace(String namespaceURI) {
+        return CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE.equals(namespaceURI)
+                || CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE.equals(namespaceURI);
+    }
+
     public static boolean isTunnelNamespace(String namespaceURI) {
         return CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(namespaceURI)
                 || CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE.equals(namespaceURI);
