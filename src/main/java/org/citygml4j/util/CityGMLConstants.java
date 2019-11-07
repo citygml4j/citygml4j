@@ -35,14 +35,14 @@ public class CityGMLConstants {
     public static final String CITYGML_2_0_VEGETATION_NAMESPACE = "http://www.opengis.net/citygml/vegetation/2.0";
     public static final String CITYGML_1_0_VEGETATION_NAMESPACE = "http://www.opengis.net/citygml/vegetation/1.0";
 
-    public static final String CITYGML_3_0_VERSIONING_NAMESPACE = "http://www.opengis.net/citygml/versioning/3.0";
-
     public static final String CITYGML_3_0_WATERBODY_NAMESPACE = "http://www.opengis.net/citygml/waterbody/3.0";
     public static final String CITYGML_2_0_WATERBODY_NAMESPACE = "http://www.opengis.net/citygml/waterbody/2.0";
     public static final String CITYGML_1_0_WATERBODY_NAMESPACE = "http://www.opengis.net/citygml/waterbody/1.0";
 
     public static final String CITYGML_3_0_CONSTRUCTION_NAMESPACE = "http://www.opengis.net/citygml/construction/3.0";
+    public static final String CITYGML_3_0_DYNAMIZER_NAMESPACE = "http://www.opengis.net/citygml/dynamizer/3.0";
     public static final String CITYGML_3_0_POINTCLOUD_NAMESPACE = "http://www.opengis.net/citygml/pointcloud/3.0";
+    public static final String CITYGML_3_0_VERSIONING_NAMESPACE = "http://www.opengis.net/citygml/versioning/3.0";
 
     public static final String CITYGML_3_0_APPEARANCE_NAMESPACE = "http://www.opengis.net/citygml/appearance/3.0";
     public static final String CITYGML_2_0_APPEARANCE_NAMESPACE = "http://www.opengis.net/citygml/appearance/2.0";

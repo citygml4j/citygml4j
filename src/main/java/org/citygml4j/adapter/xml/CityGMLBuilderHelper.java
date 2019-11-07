@@ -133,10 +133,7 @@ public class CityGMLBuilderHelper {
             else if (geometry instanceof MultiSolid) {
                 MultiSolid multiSolid = (MultiSolid) geometry;
 
-                List<SolidProperty> properties = new ArrayList<>();
-                for (SolidProperty solidProperty : multiSolid.getSolidMember())
-                    properties.add(solidProperty);
-
+                List<SolidProperty> properties = new ArrayList<>(multiSolid.getSolidMember());
                 if (multiSolid.getSolidMembers() != null) {
                     for (AbstractSolid solid : multiSolid.getSolidMembers().getObjects())
                         properties.add(new SolidProperty(solid));
