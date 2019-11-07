@@ -2,7 +2,7 @@ package org.citygml4j.model.versioning;
 
 import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
 import org.citygml4j.model.core.AbstractVersion;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.ArrayList;
 import java.util.List;

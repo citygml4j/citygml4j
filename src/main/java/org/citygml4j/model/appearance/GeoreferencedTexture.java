@@ -1,8 +1,8 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.core.TransformationMatrix2x2;
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
+import org.xmlobjects.model.ChildList;
 
 import java.util.ArrayList;
 import java.util.List;

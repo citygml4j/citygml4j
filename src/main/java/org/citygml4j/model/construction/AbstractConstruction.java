@@ -5,7 +5,7 @@ import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.time.LocalDate;
 import java.util.List;

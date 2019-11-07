@@ -1,7 +1,7 @@
 package org.citygml4j.model.construction;
 
 import org.citygml4j.model.core.AddressProperty;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

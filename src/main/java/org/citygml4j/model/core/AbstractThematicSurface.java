@@ -1,8 +1,8 @@
 package org.citygml4j.model.core;
 
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

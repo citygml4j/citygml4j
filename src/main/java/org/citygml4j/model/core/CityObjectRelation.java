@@ -3,7 +3,7 @@ package org.citygml4j.model.core;
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package org.citygml4j.model.construction;
 
 import org.citygml4j.model.core.AbstractThematicSurface;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

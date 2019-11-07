@@ -5,8 +5,8 @@ import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.complexes.GeometricComplexProperty;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

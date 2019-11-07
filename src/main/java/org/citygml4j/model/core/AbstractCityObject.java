@@ -2,7 +2,7 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.xmlobjects.gml.model.base.Reference;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

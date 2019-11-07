@@ -2,7 +2,7 @@ package org.citygml4j.model.generics;
 
 import org.citygml4j.model.core.AbstractGenericAttribute;
 import org.citygml4j.model.core.AbstractGenericAttributeProperty;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package org.citygml4j.model.tunnel;
 
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

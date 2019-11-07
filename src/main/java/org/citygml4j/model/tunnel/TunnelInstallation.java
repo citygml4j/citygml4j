@@ -3,7 +3,7 @@ package org.citygml4j.model.tunnel;
 import org.citygml4j.model.construction.AbstractInstallation;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

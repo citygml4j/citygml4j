@@ -2,8 +2,8 @@ package org.citygml4j.model.pointcloud;
 
 import org.citygml4j.model.core.AbstractPointCloud;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

@@ -2,8 +2,8 @@ package org.citygml4j.model.vegetation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.measures.Length;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

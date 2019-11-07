@@ -1,9 +1,9 @@
 package org.citygml4j.model.dynamizer;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.temporal.TimePosition;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.core.AbstractAppearance;
-import org.xmlobjects.gml.model.common.ChildList;
+import org.xmlobjects.model.ChildList;
 
 import java.util.ArrayList;
 import java.util.List;

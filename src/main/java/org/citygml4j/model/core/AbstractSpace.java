@@ -1,10 +1,10 @@
 package org.citygml4j.model.core;
 
-import org.xmlobjects.gml.model.common.ChildList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
+import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
