@@ -77,21 +77,21 @@ public class TimeValuePairAdapter implements ObjectBuilder<TimeValuePair>, Objec
         if (object.getTimestamp() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "timestamp"), object.getTimestamp(), TimePositionAdapter.class, namespaces);
 
-        if (object.isSetIntValue())
+        if (object.getIntValue() != null)
             writer.writeElement(Element.of(dynamizerNamespace, "intValue").addTextContent(TextContent.ofInteger(object.getIntValue())));
-        else if (object.isSetDoubleValue())
+        else if (object.getDoubleValue() != null)
             writer.writeElement(Element.of(dynamizerNamespace, "doubleValue").addTextContent(TextContent.ofDouble(object.getDoubleValue())));
-        else if (object.isSetStringValue())
+        else if (object.getStringValue() != null)
             writer.writeElement(Element.of(dynamizerNamespace, "stringValue").addTextContent(object.getStringValue()));
-        else if (object.isSetGeometryValue())
+        else if (object.getGeometryValue() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "geometryValue"), object.getGeometryValue(), GeometryPropertyAdapter.class, namespaces);
-        else if (object.isSetUriValue())
+        else if (object.getUriValue() != null)
             writer.writeElement(Element.of(dynamizerNamespace, "uriValue").addTextContent(object.getUriValue()));
-        else if (object.isSetBoolValue())
+        else if (object.getBoolValue() != null)
             writer.writeElement(Element.of(dynamizerNamespace, "boolValue").addTextContent(TextContent.ofBoolean(object.getBoolValue())));
-        else if (object.isSetImplicitGeometryValue())
+        else if (object.getImplicitGeometryValue() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "implicitGeometryValue"), object.getImplicitGeometryValue(), ImplicitGeometryPropertyAdapter.class, namespaces);
-        else if (object.isSetAppearanceValue())
+        else if (object.getAppearanceValue() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "appearanceValue"), object.getAppearanceValue(), AbstractAppearancePropertyAdapter.class, namespaces);
     }
 }

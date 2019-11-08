@@ -45,9 +45,9 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
                 case "externalObject":
                     if (object.getTargetResource() == null) {
                         ExternalObject externalObject = reader.getObjectUsingBuilder(ExternalObjectAdapter.class);
-                        if (externalObject.isSetURI())
+                        if (externalObject.getURI() != null)
                             object.setTargetResource(externalObject.getURI());
-                        else if (externalObject.isSetName())
+                        else if (externalObject.getName() != null)
                             object.setExternalObjectName(externalObject.getName());
                     }
                     break;
@@ -65,7 +65,7 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            String targetResource = object.isSetTargetResource() ? object.getTargetResource() : object.getExternalObjectName();
+            String targetResource = object.getTargetResource() != null ? object.getTargetResource() : object.getExternalObjectName();
             if (targetResource != null)
                 writer.writeElement(Element.of(coreNamespace, "targetResource").addTextContent(targetResource));
 
@@ -78,9 +78,9 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
             if (object.getInformationSystem() != null)
                 writer.writeElement(Element.of(coreNamespace, "informationSystem").addTextContent(object.getInformationSystem()));
 
-            if (object.isSetTargetResource())
+            if (object.getTargetResource() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalObject"), ExternalObject.ofURI(object.getTargetResource()), ExternalObjectAdapter.class, namespaces);
-            else if (object.isSetExternalObjectName())
+            else if (object.getExternalObjectName() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalObject"), ExternalObject.ofName(object.getExternalObjectName()), ExternalObjectAdapter.class, namespaces);
         }
     }
