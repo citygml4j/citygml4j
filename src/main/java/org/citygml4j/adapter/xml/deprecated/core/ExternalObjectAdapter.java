@@ -43,9 +43,9 @@ public class ExternalObjectAdapter implements ObjectBuilder<ExternalObject>, Obj
     public void writeChildElements(ExternalObject object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
-        if (object.getName() != null)
+        if (object.isSetName())
             writer.writeElement(Element.of(coreNamespace, "name").addTextContent(object.getName()));
-        else if (object.getURI() != null)
+        else if (object.isSetURI())
             writer.writeElement(Element.of(coreNamespace, "uri").addTextContent(object.getURI()));
     }
 }

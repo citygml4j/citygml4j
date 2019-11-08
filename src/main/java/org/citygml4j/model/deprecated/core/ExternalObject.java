@@ -26,6 +26,10 @@ public class ExternalObject extends GMLObject implements CityGMLObject {
         return name;
     }
 
+    public boolean isSetName() {
+        return name != null;
+    }
+
     public void setName(String name) {
         this.name = name;
         uri = null;
@@ -33,6 +37,10 @@ public class ExternalObject extends GMLObject implements CityGMLObject {
 
     public String getURI() {
         return uri;
+    }
+
+    public boolean isSetURI() {
+        return uri != null;
     }
 
     public void setURI(String uri) {

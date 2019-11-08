@@ -26,6 +26,10 @@ public class ExternalReference extends GMLObject implements CityGMLObject {
         return targetResource;
     }
 
+    public boolean isSetTargetResource() {
+        return targetResource != null;
+    }
+
     public void setTargetResource(String targetResource) {
         this.targetResource = targetResource;
         externalObjectName = null;
@@ -33,6 +37,10 @@ public class ExternalReference extends GMLObject implements CityGMLObject {
 
     public String getExternalObjectName() {
         return externalObjectName;
+    }
+
+    public boolean isSetExternalObjectName() {
+        return externalObjectName != null;
     }
 
     public void setExternalObjectName(String externalObjectName) {

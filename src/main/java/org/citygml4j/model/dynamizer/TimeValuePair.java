@@ -43,6 +43,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
         return intValue;
     }
 
+    public boolean isSetIntValue() {
+        return intValue != null;
+    }
+
     public void setIntValue(Integer intValue) {
         clearValue();
         this.intValue = intValue;
@@ -50,6 +54,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
 
     public Double getDoubleValue() {
         return doubleValue;
+    }
+
+    public boolean isSetDoubleValue() {
+        return doubleValue != null;
     }
 
     public void setDoubleValue(Double doubleValue) {
@@ -61,6 +69,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
         return stringValue;
     }
 
+    public boolean isSetStringValue() {
+        return stringValue != null;
+    }
+
     public void setStringValue(String stringValue) {
         clearValue();
         this.stringValue = stringValue;
@@ -68,6 +80,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
 
     public GeometryProperty getGeometryValue() {
         return geometryValue;
+    }
+
+    public boolean isSetGeometryValue() {
+        return geometryValue != null;
     }
 
     public void setGeometryValue(GeometryProperty geometryValue) {
@@ -79,6 +95,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
         return uriValue;
     }
 
+    public boolean isSetUriValue() {
+        return uriValue != null;
+    }
+
     public void setUriValue(String uriValue) {
         clearValue();
         this.uriValue = uriValue;
@@ -86,6 +106,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
 
     public Boolean getBoolValue() {
         return boolValue;
+    }
+
+    public boolean isSetBoolValue() {
+        return boolValue != null;
     }
 
     public void setBoolValue(Boolean boolValue) {
@@ -97,6 +121,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
         return implicitGeometryValue;
     }
 
+    public boolean isSetImplicitGeometryValue() {
+        return implicitGeometryValue != null;
+    }
+
     public void setImplicitGeometryValue(ImplicitGeometryProperty implicitGeometryValue) {
         clearValue();
         this.implicitGeometryValue = asChild(implicitGeometryValue);
@@ -104,6 +132,10 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
 
     public AbstractAppearanceProperty getAppearanceValue() {
         return appearanceValue;
+    }
+
+    public boolean isSetAppearanceValue() {
+        return appearanceValue != null;
     }
 
     public void setAppearanceValue(AbstractAppearanceProperty appearanceValue) {
@@ -137,21 +169,21 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
     public boolean isSetValue(TimeseriesValue valueType) {
         switch (valueType) {
             case INTEGER:
-                return intValue != null;
+                return isSetIntValue();
             case DOUBLE:
-                return doubleValue != null;
+                return isSetDoubleValue();
             case STRING:
-                return stringValue != null;
+                return isSetStringValue();
             case GEOMETRY:
-                return geometryValue != null;
+                return isSetGeometryValue();
             case URI:
-                return uriValue != null;
+                return isSetUriValue();
             case BOOL:
-                return boolValue != null;
+                return isSetBoolValue();
             case IMPLICIT_GEOMETRY:
-                return implicitGeometryValue != null;
+                return isSetImplicitGeometryValue();
             case APPEARANCE:
-                return appearanceValue != null;
+                return isSetAppearanceValue();
             default:
                 return false;
         }
