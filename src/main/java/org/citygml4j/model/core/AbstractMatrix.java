@@ -3,14 +3,16 @@ package org.citygml4j.model.core;
 import Jama.Matrix;
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.util.copy.CopyBuilder;
+import org.xmlobjects.util.copy.Copyable;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 public abstract class AbstractMatrix extends GMLObject implements CityGMLObject {
-    private final int rows;
-    private final int columns;
+    private int rows;
+    private int columns;
     private Matrix matrix;
 
     AbstractMatrix(int rows, int columns) {
@@ -65,5 +67,10 @@ public abstract class AbstractMatrix extends GMLObject implements CityGMLObject 
                 matrix.set(i, j, value);
             }
         }
+    }
+
+    @Override
+    public Copyable deepCopy(CopyBuilder builder) {
+        return super.deepCopy(builder.withClone(matrix, () -> matrix.copy()));
     }
 }
