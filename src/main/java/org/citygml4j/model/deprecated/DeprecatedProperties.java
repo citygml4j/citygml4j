@@ -40,6 +40,7 @@ public class DeprecatedProperties extends GMLObject {
     public static final String GENERALIZES_TO_OBJECT = "generalizesTo";
     public static final String OPENING = "opening";
 
+    public static final String LOD0_NETWORK = "lod0Network";
     public static final String LOD0_ROOF_EDGE = "lod0RoofEdge";
     public static final String LOD0_MULTI_CURVE = "lod0MultiCurve";
     public static final String LOD1_MULTI_CURVE = "lod1MultiCurve";

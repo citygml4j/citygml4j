@@ -7,7 +7,6 @@ import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.complexes.GeometricComplexProperty;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     private List<TrafficSpaceProperty> predecessors;
     private List<TrafficSpaceProperty> successors;
     private List<ClearanceSpaceProperty> clearanceSpaces;
-    private GeometricComplexProperty network;
     private List<ADEPropertyOfTrafficSpace> adeProperties;
 
     public TrafficSpace() {
@@ -133,14 +131,6 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
 
     public void setClearanceSpaces(List<ClearanceSpaceProperty> clearanceSpaces) {
         this.clearanceSpaces = asChild(clearanceSpaces);
-    }
-
-    public GeometricComplexProperty getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(GeometricComplexProperty network) {
-        this.network = asChild(network);
     }
 
     public List<ADEPropertyOfTrafficSpace> getADEPropertiesOfTrafficSpace() {

@@ -16,7 +16,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.geometry.complexes.GeometricComplexPropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -62,9 +61,6 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                 case "clearanceSpace":
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
                     return;
-                case "network":
-                    object.setNetwork(reader.getObjectUsingBuilder(GeometricComplexPropertyAdapter.class));
-                    return;
             }
         }
 
@@ -105,9 +101,6 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
 
         for (ClearanceSpaceProperty property : object.getClearanceSpaces())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);
-
-        if (object.getNetwork() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "network"), object.getNetwork(), GeometricComplexPropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfTrafficSpace property : object.getADEPropertiesOfTrafficSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

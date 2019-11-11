@@ -22,19 +22,29 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.complexes.GeometricComplexPropertyAdapter;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.complexes.CompositeCurve;
+import org.xmlobjects.gml.model.geometry.complexes.GeometricComplexProperty;
+import org.xmlobjects.gml.model.geometry.primitives.AbstractCurve;
+import org.xmlobjects.gml.model.geometry.primitives.CurveProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractTransportationObjectAdapter<T extends AbstractTransportationSpace> extends AbstractCityObjectAdapter<T> {
+    private final CopyBuilder copyBuilder = new CopyBuilder();
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTransportationObject"),
             new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTransportationObject")
@@ -61,7 +71,11 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
                     object.getAuxiliaryTrafficSpaces().add(new AuxiliaryTrafficSpaceProperty(auxiliaryTrafficSpace));
                     return;
                 case "lod0Network":
-                    object.setNetwork(reader.getObjectUsingBuilder(GeometricComplexPropertyAdapter.class));
+                    GeometricComplexProperty property = reader.getObjectUsingBuilder(GeometricComplexPropertyAdapter.class);
+                    if (property.isSetCompositeCurve())
+                        object.setLod0MultiCurve(getMultiCurveProperty(property.getCompositeCurve()));
+                    else
+                        object.getDeprecatedProperties().addGeometry(0, DeprecatedProperties.LOD0_NETWORK, property);
                     return;
                 case "lod1MultiSurface":
                     object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
@@ -116,8 +130,11 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
             }
         }
 
-        if (object.getNetwork() != null)
-            writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod0Network"), object.getNetwork(), GeometricComplexPropertyAdapter.class, namespaces);
+        if (object.getDeprecatedProperties().containsGeometry(0, DeprecatedProperties.LOD0_NETWORK)) {
+            GeometricComplexProperty property = object.getDeprecatedProperties().getGeometry(0, DeprecatedProperties.LOD0_NETWORK, GeometricComplexProperty.class);
+            writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod0Network"), property, GeometricComplexPropertyAdapter.class, namespaces);
+        } else if (object.getLod0MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod0Network"), getGeometricComplexProperty(object.getLod0MultiCurve()), GeometricComplexPropertyAdapter.class, namespaces);
 
         if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE)) {
             MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
@@ -137,5 +154,36 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
 
         for (ADEPropertyOfAbstractTransportationSpace property : object.getADEPropertiesOfAbstractTransportationSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+    }
+
+    private MultiCurveProperty getMultiCurveProperty(CompositeCurve src) {
+        MultiCurve multiCurve = new MultiCurve();
+        multiCurve.setCurveMember(src.getCurveMembers());
+        return new MultiCurveProperty(multiCurve);
+    }
+
+    private GeometricComplexProperty getGeometricComplexProperty(MultiCurveProperty src) {
+        GeometricComplexProperty dest;
+
+        if (src.getObject() != null) {
+            MultiCurve multiCurve = src.getObject();
+
+            List<CurveProperty> properties = new ArrayList<>();
+            for (CurveProperty property : multiCurve.getCurveMember())
+                properties.add((CurveProperty) property.shallowCopy(copyBuilder));
+
+            if (multiCurve.getCurveMembers() != null) {
+                for (AbstractCurve curve : multiCurve.getCurveMembers().getObjects())
+                    properties.add(new CurveProperty((AbstractCurve) curve.shallowCopy(copyBuilder)));
+            }
+
+            if (properties.size() == 0)
+                dest = new GeometricComplexProperty();
+            else
+                dest = new GeometricComplexProperty(new CompositeCurve(properties));
+        } else
+            dest = new GeometricComplexProperty();
+
+        return dest;
     }
 }

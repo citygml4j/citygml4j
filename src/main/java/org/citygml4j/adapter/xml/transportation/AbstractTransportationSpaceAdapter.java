@@ -16,7 +16,6 @@ import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.adapter.geometry.complexes.GeometricComplexPropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -53,9 +52,6 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
                 case "marking":
                     object.getMarkings().add(reader.getObjectUsingBuilder(MarkingPropertyAdapter.class));
                     return;
-                case "network":
-                    object.setNetwork(reader.getObjectUsingBuilder(GeometricComplexPropertyAdapter.class));
-                    return;
             }
         }
 
@@ -90,9 +86,6 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
 
         for (MarkingProperty property : object.getMarkings())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
-
-        if (object.getNetwork() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "network"), object.getNetwork(), GeometricComplexPropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfAbstractTransportationSpace property : object.getADEPropertiesOfAbstractTransportationSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

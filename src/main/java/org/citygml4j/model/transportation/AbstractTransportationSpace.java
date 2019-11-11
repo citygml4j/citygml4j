@@ -5,7 +5,6 @@ import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.xmlobjects.gml.model.geometry.complexes.GeometricComplexProperty;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
     private List<AuxiliaryTrafficSpaceProperty> auxiliaryTrafficSpaces;
     private List<HoleProperty> holes;
     private List<MarkingProperty> markings;
-    private GeometricComplexProperty network;
     private List<ADEPropertyOfAbstractTransportationSpace> adeProperties;
 
     @Override
@@ -87,14 +85,6 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
     public void setMarkings(List<MarkingProperty> markings) {
         this.markings = asChild(markings);
-    }
-
-    public GeometricComplexProperty getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(GeometricComplexProperty network) {
-        this.network = asChild(network);
     }
 
     public List<ADEPropertyOfAbstractTransportationSpace> getADEPropertiesOfAbstractTransportationSpace() {
