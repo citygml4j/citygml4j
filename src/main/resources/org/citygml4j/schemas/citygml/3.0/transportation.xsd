@@ -68,11 +68,6 @@
               </complexContent>
             </complexType>
           </element>
-          <element minOccurs="0" name="network" type="gml:GeometricComplexPropertyType">
-            <annotation>
-              <documentation>SIG3D: gml:GeometricComplex to represent the 3D network of a TransportationComplex. The LOD concept for transportation objects is defined in chapter ...</documentation>
-            </annotation>
-          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAbstractTransportationSpace"/>
         </sequence>
       </extension>
@@ -507,7 +502,6 @@
               </complexContent>
             </complexType>
           </element>
-          <element minOccurs="0" name="network" type="gml:GeometricComplexPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrafficSpace"/>
         </sequence>
       </extension>
@@ -541,7 +535,7 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="intersction">
+          <element maxOccurs="unbounded" minOccurs="0" name="intersection">
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
