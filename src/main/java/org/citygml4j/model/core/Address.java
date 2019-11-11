@@ -8,8 +8,24 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class Address extends AbstractFeature implements CityGMLObject {
+    private XALAddressProperty xalAddress;
     private MultiPointProperty multiPoint;
     private List<ADEPropertyOfAddress> adeProperties;
+
+    public Address() {
+    }
+
+    public Address(XALAddressProperty xalAddress) {
+        setXALAddress(xalAddress);
+    }
+
+    public XALAddressProperty getXALAddress() {
+        return xalAddress;
+    }
+
+    public void setXALAddress(XALAddressProperty xalAddress) {
+        this.xalAddress = asChild(xalAddress);
+    }
 
     public MultiPointProperty getMultiPoint() {
         return multiPoint;
