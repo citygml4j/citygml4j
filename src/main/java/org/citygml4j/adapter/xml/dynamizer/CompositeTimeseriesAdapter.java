@@ -32,7 +32,7 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
 
     @Override
     public void buildChildObject(CompositeTimeseries object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE.equals(name.getNamespaceURI()) && "isComponent".equals(name.getLocalPart())) {
+        if (CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE.equals(name.getNamespaceURI()) && "component".equals(name.getLocalPart())) {
             object.getComponents().add(reader.getObjectUsingBuilder(TimeseriesComponentPropertyAdapter.class));
             return;
         }
@@ -57,7 +57,7 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
         super.writeChildElements(object, namespaces, writer);
 
         for (TimeseriesComponentProperty property : object.getComponents())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "isComponent"), property, TimeseriesComponentPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "component"), property, TimeseriesComponentPropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfCompositeTimeseries property : object.getADEPropertiesOfCompositeTimeseries())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

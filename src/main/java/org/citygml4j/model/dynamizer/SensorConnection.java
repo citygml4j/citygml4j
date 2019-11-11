@@ -14,7 +14,7 @@ public class SensorConnection extends GMLObject implements CityGMLObject {
     private String observationID;
     private String datastreamID;
     private String baseURL;
-    private AuthenticationValue authType;
+    private Code authType;
     private String mqttServer;
     private String mqttTopic;
     private String linkToObservation;
@@ -93,12 +93,12 @@ public class SensorConnection extends GMLObject implements CityGMLObject {
         this.baseURL = baseURL;
     }
 
-    public AuthenticationValue getAuthType() {
+    public Code getAuthType() {
         return authType;
     }
 
-    public void setAuthType(AuthenticationValue authType) {
-        this.authType = authType;
+    public void setAuthType(Code authType) {
+        this.authType = asChild(authType);
     }
 
     public String getMqttServer() {

@@ -1,7 +1,6 @@
 package org.citygml4j.adapter.xml.dynamizer;
 
 import org.citygml4j.adapter.xml.core.AbstractCityObjectPropertyAdapter;
-import org.citygml4j.model.dynamizer.AuthenticationValue;
 import org.citygml4j.model.dynamizer.SensorConnection;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
@@ -57,7 +56,7 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
                     reader.getTextContent().ifPresent(object::setBaseURL);
                     break;
                 case "authType":
-                    reader.getTextContent().ifPresent(v -> object.setAuthType(AuthenticationValue.fromValue(v)));
+                    object.setAuthType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "mqttServer":
                     reader.getTextContent().ifPresent(object::setMqttServer);
@@ -112,7 +111,7 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
             writer.writeElement(Element.of(dynamizerNamespace, "baseURL").addTextContent(object.getBaseURL()));
 
         if (object.getAuthType() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "authType").addTextContent(object.getAuthType().toValue()));
+            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "authType"), object.getAuthType(), CodeAdapter.class, namespaces);
 
         if (object.getMqttServer() != null)
             writer.writeElement(Element.of(dynamizerNamespace, "mqttServer").addTextContent(object.getMqttServer()));

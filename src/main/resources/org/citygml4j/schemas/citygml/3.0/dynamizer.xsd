@@ -42,22 +42,13 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <simpleType name="AuthenticationValueType">
-    <restriction base="string">
-      <enumeration value="none"/>
-      <enumeration value="basic"/>
-      <enumeration value="oAuth2"/>
-      <enumeration value="apiKey"/>
-      <enumeration value="accessToken"/>
-    </restriction>
-  </simpleType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfCompositeTimeseries" type="anyType"/>
   <element name="CompositeTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:CompositeTimeseriesType"/>
   <complexType name="CompositeTimeseriesType">
     <complexContent>
       <extension base="dyn:AbstractTimeseriesType">
         <sequence>
-          <element maxOccurs="unbounded" name="isComponent" type="dyn:TimeseriesComponentPropertyType"/>
+          <element maxOccurs="unbounded" name="component" type="dyn:TimeseriesComponentPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfCompositeTimeseries"/>
         </sequence>
       </extension>
@@ -76,7 +67,7 @@
     <complexContent>
       <extension base="core:AbstractDynamizerType">
         <sequence>
-          <element name="attributeRef" type="anyURI"/>
+          <element name="attributeRef" type="string"/>
           <element minOccurs="0" name="startTime" type="gml:TimePositionType"/>
           <element minOccurs="0" name="endTime" type="gml:TimePositionType"/>
           <element minOccurs="0" name="dynamicData">
@@ -135,11 +126,11 @@
       <element minOccurs="0" name="observationID" type="string"/>
       <element minOccurs="0" name="datastreamID" type="string"/>
       <element minOccurs="0" name="baseURL" type="anyURI"/>
-      <element minOccurs="0" name="authType" type="dyn:AuthenticationValueType"/>
+      <element minOccurs="0" name="authType" type="gml:CodeType"/>
       <element minOccurs="0" name="mqttServer" type="string"/>
       <element minOccurs="0" name="mqttTopic" type="string"/>
-      <element minOccurs="0" name="linkToObservation" type="anyURI"/>
-      <element minOccurs="0" name="linkToSensorDescription" type="anyURI"/>
+      <element minOccurs="0" name="linkToObservation" type="string"/>
+      <element minOccurs="0" name="linkToSensorDescription" type="string"/>
       <element minOccurs="0" name="sensorLocation" type="core:AbstractCityObjectPropertyType"/>
     </sequence>
   </complexType>
