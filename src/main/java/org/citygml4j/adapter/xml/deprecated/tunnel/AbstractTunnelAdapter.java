@@ -2,7 +2,7 @@ package org.citygml4j.adapter.xml.deprecated.tunnel;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.deprecated.core.AbstractSiteAdapter;
 import org.citygml4j.adapter.xml.tunnel.HollowSpaceMemberAdapter;
 import org.citygml4j.adapter.xml.tunnel.HollowSpacePropertyAdapter;
@@ -10,7 +10,7 @@ import org.citygml4j.adapter.xml.tunnel.TunnelInstallationMemberAdapter;
 import org.citygml4j.adapter.xml.tunnel.TunnelInstallationPropertyAdapter;
 import org.citygml4j.adapter.xml.tunnel.TunnelPartPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTunnel;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.tunnel.ADEPropertyOfAbstractTunnel;
 import org.citygml4j.model.tunnel.AbstractTunnel;
@@ -96,7 +96,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                         object.getDeprecatedProperties().addFeature(DeprecatedProperties.INTERIOR_TUNNEL_INSTALLATION, interiorTunnelInstallation);
                     return;
                 case "boundedBy":
-                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "lod3Solid":
                     object.setLod3Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
@@ -205,8 +205,8 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
         }
 
-        for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
 
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);

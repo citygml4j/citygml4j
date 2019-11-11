@@ -3,9 +3,9 @@ package org.citygml4j.adapter.xml.deprecated.transportation;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.AbstractCityObjectAdapter;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTransportationSpace;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.transportation.ADEPropertyOfAbstractTransportationSpace;
@@ -49,15 +49,15 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
 
             switch (name.getLocalPart()) {
                 case "trafficArea":
-                    AbstractThematicSurfaceProperty trafficArea = reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class);
+                    AbstractSpaceBoundaryProperty trafficArea = reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class);
                     TrafficSpace trafficSpace = new TrafficSpace(GranularityValue.WAY);
-                    trafficSpace.addBoundarySurface(trafficArea);
+                    trafficSpace.addBoundary(trafficArea);
                     object.getTrafficSpaces().add(new TrafficSpaceProperty(trafficSpace));
                     return;
                 case "auxiliaryTrafficArea":
-                    AbstractThematicSurfaceProperty auxiliaryTrafficArea = reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class);
+                    AbstractSpaceBoundaryProperty auxiliaryTrafficArea = reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class);
                     AuxiliaryTrafficSpace auxiliaryTrafficSpace = new AuxiliaryTrafficSpace(GranularityValue.WAY);
-                    auxiliaryTrafficSpace.addBoundarySurface(auxiliaryTrafficArea);
+                    auxiliaryTrafficSpace.addBoundary(auxiliaryTrafficArea);
                     object.getAuxiliaryTrafficSpaces().add(new AuxiliaryTrafficSpaceProperty(auxiliaryTrafficSpace));
                     return;
                 case "lod0Network":
@@ -99,9 +99,9 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         for (TrafficSpaceProperty property : object.getTrafficSpaces()) {
             if (property.getObject() != null) {
                 TrafficSpace trafficSpace = property.getObject();
-                for (AbstractThematicSurfaceProperty boundary : trafficSpace.getBoundarySurfaces()) {
+                for (AbstractSpaceBoundaryProperty boundary : trafficSpace.getBoundaries()) {
                     if (boundary.getObject() == null || boundary.getObject() instanceof TrafficArea)
-                        writer.writeElementUsingSerializer(Element.of(transportationNamespace, "trafficArea"), boundary, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+                        writer.writeElementUsingSerializer(Element.of(transportationNamespace, "trafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
                 }
             }
         }
@@ -109,9 +109,9 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         for (AuxiliaryTrafficSpaceProperty property : object.getAuxiliaryTrafficSpaces()) {
             if (property.getObject() != null) {
                 AuxiliaryTrafficSpace auxiliaryTrafficSpace = property.getObject();
-                for (AbstractThematicSurfaceProperty boundary : auxiliaryTrafficSpace.getBoundarySurfaces()) {
+                for (AbstractSpaceBoundaryProperty boundary : auxiliaryTrafficSpace.getBoundaries()) {
                     if (boundary.getObject() == null || boundary.getObject() instanceof AuxiliaryTrafficArea)
-                        writer.writeElementUsingSerializer(Element.of(transportationNamespace, "auxiliaryTrafficArea"), boundary, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+                        writer.writeElementUsingSerializer(Element.of(transportationNamespace, "auxiliaryTrafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
                 }
             }
         }

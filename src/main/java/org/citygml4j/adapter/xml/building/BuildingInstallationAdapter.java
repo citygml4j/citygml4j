@@ -3,12 +3,12 @@ package org.citygml4j.adapter.xml.building;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.construction.AbstractInstallationAdapter;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingInstallation;
 import org.citygml4j.model.building.ADEPropertyOfBuildingInstallation;
 import org.citygml4j.model.building.BuildingInstallation;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
@@ -84,7 +84,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "boundedBy":
-                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
             }
         }
@@ -150,8 +150,8 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
             }
 
-            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfBuildingInstallation property : object.getADEPropertiesOfBuildingInstallation())

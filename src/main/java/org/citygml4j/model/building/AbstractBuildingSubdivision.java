@@ -3,7 +3,7 @@ package org.citygml4j.model.building;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -26,10 +26,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<ADEPropertyOfAbstractBuildingSubdivision> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof AbstractConstructionSurface
-                || boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof AbstractConstructionSurface
+                || boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     @Override

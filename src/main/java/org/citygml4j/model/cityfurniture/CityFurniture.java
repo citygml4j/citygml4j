@@ -1,7 +1,7 @@
 package org.citygml4j.model.cityfurniture;
 
 import org.citygml4j.model.core.AbstractOccupiedSpace;
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -17,9 +17,9 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
     private List<ADEPropertyOfCityFurniture> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     @Override

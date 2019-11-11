@@ -1,6 +1,6 @@
 package org.citygml4j.model.construction;
 
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -16,10 +16,10 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
     private List<ADEPropertyOfWindow> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof WindowSurface
-                || boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof WindowSurface
+                || boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     @Override

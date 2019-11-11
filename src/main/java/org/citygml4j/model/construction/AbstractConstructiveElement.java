@@ -1,7 +1,7 @@
 package org.citygml4j.model.construction;
 
 import org.citygml4j.model.core.AbstractOccupiedSpace;
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.model.ChildList;
@@ -14,10 +14,10 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
     private List<ADEPropertyOfAbstractConstructiveElement> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof AbstractConstructionSurface
-                || boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof AbstractConstructionSurface
+                || boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     public Boolean getIsStructuralElement() {

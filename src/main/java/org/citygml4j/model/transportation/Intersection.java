@@ -1,6 +1,6 @@
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -13,10 +13,10 @@ public class Intersection extends AbstractTransportationSpace {
     private List<ADEPropertyOfIntersection> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof HoleSurface
-                || boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof HoleSurface
+                || boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     public Code getClassifier() {

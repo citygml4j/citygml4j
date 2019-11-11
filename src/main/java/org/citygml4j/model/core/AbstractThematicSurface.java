@@ -6,7 +6,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractThematicSurface extends AbstractCityObject {
+public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
     private List<QualifiedAreaProperty> areas;
     private MultiCurveProperty lod0MultiCurve;
     private MultiSurfaceProperty lod0MultiSurface;

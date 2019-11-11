@@ -1,7 +1,7 @@
 package org.citygml4j.model.tunnel;
 
 import org.citygml4j.model.construction.AbstractConstructionSurface;
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
@@ -20,10 +20,10 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     private List<ADEPropertyOfHollowSpace> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof AbstractConstructionSurface
-                || boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof AbstractConstructionSurface
+                || boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     @Override

@@ -3,9 +3,9 @@ package org.citygml4j.adapter.xml.waterbody;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.AbstractOccupiedSpaceAdapter;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfWaterBody;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.waterbody.ADEPropertyOfWaterBody;
 import org.citygml4j.model.waterbody.WaterBody;
@@ -58,7 +58,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
 
             switch (name.getLocalPart()) {
                 case "boundedBy":
-                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "lod0MultiCurve":
                     object.getDeprecatedProperties().addGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
@@ -142,8 +142,8 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
                 writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
             }
 
-            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-                writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfWaterBody property : object.getADEPropertiesOfWaterBody())

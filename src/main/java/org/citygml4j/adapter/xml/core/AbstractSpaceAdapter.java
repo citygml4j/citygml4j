@@ -5,7 +5,7 @@ import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractSpace;
 import org.citygml4j.model.core.ADEPropertyOfAbstractSpace;
 import org.citygml4j.model.core.AbstractSpace;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.QualifiedAreaProperty;
 import org.citygml4j.model.core.QualifiedVolumeProperty;
 import org.citygml4j.model.core.SpaceType;
@@ -44,7 +44,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                     object.getAreas().add(reader.getObjectUsingBuilder(QualifiedAreaPropertyAdapter.class));
                     return;
                 case "boundary":
-                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "lod0Point":
                     object.setLod0Point(reader.getObjectUsingBuilder(PointPropertyAdapter.class));
@@ -52,6 +52,8 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                 case "lod0MultiSurface":
                     object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
+                case "lod0MultiCurve":
+                    object.setLod0MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                 case "lod1Solid":
                     object.setLod1Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
@@ -101,14 +103,17 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             for (QualifiedAreaProperty property : object.getAreas())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "area"), property, QualifiedAreaPropertyAdapter.class, namespaces);
 
-            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
 
             if (object.getLod0Point() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0Point"), object.getLod0Point(), PointPropertyAdapter.class, namespaces);
 
             if (object.getLod0MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+
+            if (object.getLod0MultiCurve() != null)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0MultiCurve"), object.getLod0MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
             if (object.getLod1Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);

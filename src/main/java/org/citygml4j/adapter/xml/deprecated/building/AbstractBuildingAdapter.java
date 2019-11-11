@@ -7,7 +7,7 @@ import org.citygml4j.adapter.xml.building.BuildingInstallationPropertyAdapter;
 import org.citygml4j.adapter.xml.building.BuildingPartPropertyAdapter;
 import org.citygml4j.adapter.xml.building.BuildingRoomMemberAdapter;
 import org.citygml4j.adapter.xml.building.BuildingRoomPropertyAdapter;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.AddressPropertyAdapter;
 import org.citygml4j.adapter.xml.deprecated.core.AbstractSiteAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuilding;
@@ -23,7 +23,7 @@ import org.citygml4j.model.construction.ElevationReferenceValue;
 import org.citygml4j.model.construction.Height;
 import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.construction.HeightStatusValue;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
@@ -136,7 +136,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                         object.getDeprecatedProperties().addFeature(DeprecatedProperties.INTERIOR_BUILDING_INSTALLATION, interiorBuildingInstallation);
                     return;
                 case "boundedBy":
-                    object.addBoundarySurface(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "lod3Solid":
                     object.setLod3Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
@@ -277,8 +277,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
         }
 
-        for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
 
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);

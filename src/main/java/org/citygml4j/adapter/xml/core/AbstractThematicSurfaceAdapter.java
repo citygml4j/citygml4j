@@ -22,7 +22,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicSurface> extends AbstractCityObjectAdapter<T> {
+public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicSurface> extends AbstractSpaceBoundaryAdapter<T> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractThematicSurface");
 
     @Override
@@ -89,9 +89,9 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
 
             if (object.getPointCloud() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
-        }
 
-        for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())
+                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        }
     }
 }

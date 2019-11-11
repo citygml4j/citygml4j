@@ -1,6 +1,6 @@
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
@@ -21,9 +21,9 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
     private List<ADEPropertyOfAbstractTransportationSpace> adeProperties;
 
     @Override
-    public boolean isValidBoundarySurface(AbstractThematicSurface boundarySurface) {
-        return boundarySurface instanceof ClosureSurface
-                || boundarySurface instanceof GenericThematicSurface;
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface;
     }
 
     public TrafficDirectionValue getTrafficDirection() {

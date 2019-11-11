@@ -2,7 +2,7 @@ package org.citygml4j.adapter.xml.building;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfacePropertyAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingRoom;
 import org.citygml4j.model.building.ADEPropertyOfBuildingRoom;
@@ -10,7 +10,7 @@ import org.citygml4j.model.building.BuildingFurnitureProperty;
 import org.citygml4j.model.building.BuildingInstallationProperty;
 import org.citygml4j.model.building.BuildingRoom;
 import org.citygml4j.model.building.RoomHeightProperty;
-import org.citygml4j.model.core.AbstractThematicSurfaceProperty;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
@@ -74,7 +74,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "boundedBy":
-                    object.getBoundarySurfaces().add(reader.getObjectUsingBuilder(AbstractThematicSurfacePropertyAdapter.class));
+                    object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
             }
         }
@@ -121,8 +121,8 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
             } else if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            for (AbstractThematicSurfaceProperty property : object.getBoundarySurfaces())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractThematicSurfacePropertyAdapter.class, namespaces);
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
         }
 
         for (BuildingFurnitureProperty property : object.getBuildingFurniture())
