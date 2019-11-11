@@ -2,7 +2,7 @@ package org.citygml4j.adapter.xml.relief;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
-import org.citygml4j.adapter.xml.core.AbstractThematicSurfaceAdapter;
+import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractReliefComponent;
 import org.citygml4j.model.relief.ADEPropertyOfAbstractReliefComponent;
 import org.citygml4j.model.relief.AbstractReliefComponent;
@@ -21,7 +21,7 @@ import org.xmlobjects.xml.TextContent;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefComponent> extends AbstractThematicSurfaceAdapter<T> {
+public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefComponent> extends AbstractSpaceBoundaryAdapter<T> {
     private final QName[] substitutionGroups = new QName[] {
             new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractReliefComponent"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfReliefComponent"),

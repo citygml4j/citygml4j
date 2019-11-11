@@ -1,11 +1,11 @@
 package org.citygml4j.model.relief;
 
-import org.citygml4j.model.core.AbstractThematicSurface;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractReliefComponent extends AbstractThematicSurface {
+public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
     private int lod;
     private ExtentProperty extent;
     private List<ADEPropertyOfAbstractReliefComponent> adeProperties;

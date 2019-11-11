@@ -1,16 +1,22 @@
 package org.citygml4j.model.relief;
 
 import org.citygml4j.model.core.AbstractPointCloudProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
 public class MassPointRelief extends AbstractReliefComponent {
+    private MultiPointProperty reliefPoints;
+    private AbstractPointCloudProperty pointCloud;
     private List<ADEPropertyOfMassPointRelief> adeProperties;
 
     public MassPointRelief() {
+    }
+
+    public MassPointRelief(int lod, MultiPointProperty reliefPoints) {
+        super(lod);
+        setReliefPoints(reliefPoints);
     }
 
     public MassPointRelief(int lod, AbstractPointCloudProperty pointCloud) {
@@ -18,35 +24,20 @@ public class MassPointRelief extends AbstractReliefComponent {
         setPointCloud(pointCloud);
     }
 
-    @Override
-    public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve) {
-        // not supported
+    public MultiPointProperty getReliefPoints() {
+        return reliefPoints;
     }
 
-    @Override
-    public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface) {
-        // not supported
+    public void setReliefPoints(MultiPointProperty reliefPoints) {
+        this.reliefPoints = asChild(reliefPoints);
     }
 
-    @Override
-    public void setLod1MultiSurface(MultiSurfaceProperty lod1MultiSurface) {
-        // not supported
+    public AbstractPointCloudProperty getPointCloud() {
+        return pointCloud;
     }
 
-    @Override
-    public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-        // not supported
-    }
-
-    @Override
-    public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-        // not supported
-    }
-
-    @Override
-    public boolean setMultiSurface(int lod, MultiSurfaceProperty property) {
-        // not supported
-        return false;
+    public void setPointCloud(AbstractPointCloudProperty pointCloud) {
+        this.pointCloud = asChild(pointCloud);
     }
 
     public List<ADEPropertyOfMassPointRelief> getADEPropertiesOfMassPointRelief() {

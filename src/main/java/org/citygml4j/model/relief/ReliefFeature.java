@@ -1,11 +1,11 @@
 package org.citygml4j.model.relief;
 
-import org.citygml4j.model.core.AbstractCityObject;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class ReliefFeature extends AbstractCityObject {
+public class ReliefFeature extends AbstractSpaceBoundary {
     private int lod;
     private List<AbstractReliefComponentProperty> reliefComponents;
     private List<ADEPropertyOfReliefFeature> adeProperties;

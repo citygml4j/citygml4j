@@ -3,14 +3,14 @@
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractReliefComponent" type="anyType"/>
-  <element abstract="true" name="AbstractReliefComponent" substitutionGroup="core:AbstractThematicSurface" type="dem:AbstractReliefComponentType">
+  <element abstract="true" name="AbstractReliefComponent" substitutionGroup="core:AbstractSpaceBoundary" type="dem:AbstractReliefComponentType">
     <annotation>
       <documentation>SIG3D: Abstract superclass of TINRelief, MassPointRelief, RasterRelief and BreaklineRelief</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractReliefComponentType">
     <complexContent>
-      <extension base="core:AbstractThematicSurfaceType">
+      <extension base="core:AbstractSpaceBoundaryType">
         <sequence>
           <element name="lod" type="core:IntegerBetween0and3Type">
             <annotation>
@@ -76,6 +76,8 @@
     <complexContent>
       <extension base="dem:AbstractReliefComponentType">
         <sequence>
+          <element minOccurs="0" name="reliefPoints" type="gml:MultiPointPropertyType"/>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfMassPointRelief"/>
         </sequence>
       </extension>
@@ -120,14 +122,14 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfReliefFeature" type="anyType"/>
-  <element name="ReliefFeature" substitutionGroup="core:AbstractCityObject" type="dem:ReliefFeatureType">
+  <element name="ReliefFeature" substitutionGroup="core:AbstractSpaceBoundary" type="dem:ReliefFeatureType">
     <annotation>
       <documentation>SIG3D: Feature aggregating the relief components which belong together.</documentation>
     </annotation>
   </element>
   <complexType name="ReliefFeatureType">
     <complexContent>
-      <extension base="core:AbstractCityObjectType">
+      <extension base="core:AbstractSpaceBoundaryType">
         <sequence>
           <element name="lod" type="core:IntegerBetween0and3Type">
             <annotation>
@@ -171,6 +173,15 @@
     <complexContent>
       <extension base="dem:AbstractReliefComponentType">
         <sequence>
+          <element name="tin">
+            <complexType>
+              <sequence minOccurs="0">
+                <element ref="gml:TriangulatedSurface"/>
+              </sequence>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+              <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+            </complexType>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfTINRelief"/>
         </sequence>
       </extension>

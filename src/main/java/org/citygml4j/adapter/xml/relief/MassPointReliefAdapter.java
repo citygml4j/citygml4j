@@ -2,9 +2,8 @@ package org.citygml4j.adapter.xml.relief;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.core.AbstractPointCloudPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfMassPointRelief;
-import org.citygml4j.model.core.AbstractPointCloudProperty;
-import org.citygml4j.model.pointcloud.PointCloud;
 import org.citygml4j.model.relief.ADEPropertyOfMassPointRelief;
 import org.citygml4j.model.relief.MassPointRelief;
 import org.citygml4j.util.CityGMLConstants;
@@ -13,7 +12,6 @@ import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiPointPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -44,10 +42,15 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
 
     @Override
     public void buildChildObject(MassPointRelief object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isReliefNamespace(name.getNamespaceURI()) && "reliefPoints".equals(name.getLocalPart())) {
-            MultiPointProperty reliefPoints = reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class);
-            object.setPointCloud(new AbstractPointCloudProperty(new PointCloud(reliefPoints)));
-            return;
+        if (CityGMLBuilderHelper.isReliefNamespace(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "reliefPoints":
+                    object.setReliefPoints(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
+                    return;
+                case "pointCloud":
+                    object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
+                    return;
+            }
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -70,13 +73,11 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
 
-        if (!CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace)
-                && object.getPointCloud() != null
-                && object.getPointCloud().getObject() instanceof PointCloud
-                && ((PointCloud) object.getPointCloud().getObject()).getPoints() != null) {
-            MultiPointProperty property = ((PointCloud) object.getPointCloud().getObject()).getPoints();
-            writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefPoints"), property, MultiPointPropertyAdapter.class, namespaces);
-        }
+        if (object.getReliefPoints() != null)
+            writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefPoints"), object.getReliefPoints(), MultiPointPropertyAdapter.class, namespaces);
+
+        if (object.getPointCloud() != null && CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace))
+            writer.writeElementUsingSerializer(Element.of(reliefNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfMassPointRelief property : object.getADEPropertiesOfMassPointRelief())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
