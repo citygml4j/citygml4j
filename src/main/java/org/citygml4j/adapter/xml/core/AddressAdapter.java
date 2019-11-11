@@ -30,7 +30,7 @@ import javax.xml.namespace.QName;
 })
 public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     private final QName[] substitutionGroups = new QName[] {
-            new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfAddress"),
+            new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAddress"),
             new QName(CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfAddress"),
             new QName(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfAddress")
     };
