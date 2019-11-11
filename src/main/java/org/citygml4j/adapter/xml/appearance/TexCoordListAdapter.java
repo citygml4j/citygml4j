@@ -20,7 +20,7 @@ import org.xmlobjects.xml.Namespaces;
 import org.xmlobjects.xml.TextContent;
 
 import javax.xml.namespace.QName;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +56,7 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
                     case "textureCoordinates":
                         textureCoordinates = result.computeIfAbsent(textureCoordinatesNo++, v -> new TextureCoordinates());
                         List<Double> value = reader.getTextContent().getAsDoubleList();
-                        textureCoordinates.setValue(value != null ? value : Collections.emptyList());
+                        textureCoordinates.setValue(value != null ? value : new ArrayList<>());
                         if (!CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())) {
                             String ring = attributes.getValue("ring").get();
                             textureCoordinates.setRing(ring != null ? ring : "");
