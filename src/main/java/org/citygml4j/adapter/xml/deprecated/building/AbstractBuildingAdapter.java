@@ -19,7 +19,6 @@ import org.citygml4j.model.building.BuildingInstallationProperty;
 import org.citygml4j.model.building.BuildingPartProperty;
 import org.citygml4j.model.building.BuildingRoomMember;
 import org.citygml4j.model.building.BuildingRoomProperty;
-import org.citygml4j.model.construction.ElevationReferenceValue;
 import org.citygml4j.model.construction.Height;
 import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.construction.HeightStatusValue;
@@ -35,6 +34,7 @@ import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
+import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
@@ -77,8 +77,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     return;
                 case "measuredHeight":
                     object.getHeights().add(new HeightProperty(new Height(
-                            ElevationReferenceValue.HIGHEST_ROOF_EDGE,
-                            ElevationReferenceValue.LOWEST_GROUND_POINT,
+                            new Code("highestRoofEdge"),
+                            new Code("lowestGroundPoint"),
                             HeightStatusValue.MEASURED,
                             reader.getObjectUsingBuilder(LengthAdapter.class))));
                     return;

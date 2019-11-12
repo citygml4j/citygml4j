@@ -1,11 +1,11 @@
 package org.citygml4j.adapter.xml.construction;
 
 import org.citygml4j.model.construction.Elevation;
-import org.citygml4j.model.construction.ElevationReferenceValue;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.geometry.DirectPositionAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
@@ -32,7 +32,7 @@ public class ElevationAdapter implements ObjectBuilder<Elevation>, ObjectSeriali
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "elevationReference":
-                    reader.getTextContent().ifPresent(v -> object.setElevationReference(ElevationReferenceValue.fromValue(v)));
+                    object.setElevationReference(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "elevationValue":
                     object.setElevationValue(reader.getObjectUsingBuilder(DirectPositionAdapter.class));
@@ -49,7 +49,7 @@ public class ElevationAdapter implements ObjectBuilder<Elevation>, ObjectSeriali
     @Override
     public void writeChildElements(Elevation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getElevationReference() != null)
-            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "elevationReference").addTextContent(object.getElevationReference().toValue()));
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "elevationReference"), object.getElevationReference(), CodeAdapter.class, namespaces);
 
         if (object.getElevationValue() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "elevationValue"), object.getElevationValue(), DirectPositionAdapter.class, namespaces);

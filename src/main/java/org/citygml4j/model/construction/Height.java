@@ -2,38 +2,39 @@ package org.citygml4j.model.construction;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Length;
 
 public class Height extends GMLObject implements CityGMLObject {
-    private ElevationReferenceValue highReference;
-    private ElevationReferenceValue lowReference;
+    private Code highReference;
+    private Code lowReference;
     private HeightStatusValue status;
     private Length value;
 
     public Height() {
     }
 
-    public Height(ElevationReferenceValue highReference, ElevationReferenceValue lowReference, HeightStatusValue status, Length value) {
-        this.highReference = highReference;
-        this.lowReference = lowReference;
+    public Height(Code highReference, Code lowReference, HeightStatusValue status, Length value) {
+        setHighReference(highReference);
+        setLowReference(lowReference);
         this.status = status;
         setValue(value);
     }
 
-    public ElevationReferenceValue getHighReference() {
+    public Code getHighReference() {
         return highReference;
     }
 
-    public void setHighReference(ElevationReferenceValue highReference) {
-        this.highReference = highReference;
+    public void setHighReference(Code highReference) {
+        this.highReference = asChild(highReference);
     }
 
-    public ElevationReferenceValue getLowReference() {
+    public Code getLowReference() {
         return lowReference;
     }
 
-    public void setLowReference(ElevationReferenceValue lowReference) {
-        this.lowReference = lowReference;
+    public void setLowReference(Code lowReference) {
+        this.lowReference = asChild(lowReference);
     }
 
     public HeightStatusValue getStatus() {

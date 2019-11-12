@@ -297,7 +297,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   </element>
   <complexType name="ElevationType">
     <sequence>
-      <element name="elevationReference" type="con:ElevationReferenceValueType">
+      <element name="elevationReference" type="gml:CodeType">
         <annotation>
           <documentation>[INSPIRE] Element where the elevation was measured.</documentation>
         </annotation>
@@ -314,93 +314,6 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
       <element ref="con:Elevation"/>
     </sequence>
   </complexType>
-  <simpleType name="ElevationReferenceValueType">
-    <annotation>
-      <documentation>[INSPIRE] List of possible elements considered to capture a vertical geometry.</documentation>
-    </annotation>
-    <restriction base="string">
-      <enumeration value="aboveGroundEnvelope">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the level of the maximum extent of the above ground envelope of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="bottomOfConstruction">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the bottom of the usable part of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="entrancePoint">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the entrance of the construction, generally the bottom of entrance door.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="generalEave">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at eave level, anywhere between the lowest and the highest eave levels of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="generalGround">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at ground level, anywhere between the lowest and the highest ground points of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="generalRoof">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at roof level, anywhere between the lowest edge roof level and the top of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="generalRoofEdge">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at roof edge level, anywhere between the lowest and the highest roof edges of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="highestEave">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the highest eave level of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="highestGroundPoint">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the highest ground point of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="highestPoint">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the highest point of the construction, including the installations, such as chimneys and antennas.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="highestRoofEdge">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the highest roof edge level of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="lowestEave">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the lowest eave level of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="lowestFloorAboveGround">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the level of the lowest floor above ground.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="lowestGroundPoint">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the lowest ground point level of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="lowestRoofEdge">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the lowest roof edge level of the construction.</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="topOfConstruction">
-        <annotation>
-          <documentation>[INSPIRE] The elevation has been captured at the top level of the construction.</documentation>
-        </annotation>
-      </enumeration>
-    </restriction>
-  </simpleType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfFloorSurface" type="anyType"/>
   <element name="FloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:FloorSurfaceType">
     <annotation>
@@ -452,12 +365,12 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   </element>
   <complexType name="HeightType">
     <sequence>
-      <element name="highReference" type="con:ElevationReferenceValueType">
+      <element name="highReference" type="gml:CodeType">
         <annotation>
           <documentation>[INSPIRE] Element used as the high reference.</documentation>
         </annotation>
       </element>
-      <element name="lowReference" type="con:ElevationReferenceValueType">
+      <element name="lowReference" type="gml:CodeType">
         <annotation>
           <documentation>[INSPIRE] Element as the low reference.</documentation>
         </annotation>
