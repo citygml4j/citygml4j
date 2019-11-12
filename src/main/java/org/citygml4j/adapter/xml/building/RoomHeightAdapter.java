@@ -1,12 +1,12 @@
 package org.citygml4j.adapter.xml.building;
 
-import org.citygml4j.model.building.RoomElevationReferenceValue;
 import org.citygml4j.model.building.RoomHeight;
 import org.citygml4j.model.construction.HeightStatusValue;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
+import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
@@ -33,10 +33,10 @@ public class RoomHeightAdapter implements ObjectBuilder<RoomHeight>, ObjectSeria
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "highReference":
-                    reader.getTextContent().ifPresent(v -> object.setHighReference(RoomElevationReferenceValue.fromValue(v)));
+                    object.setHighReference(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "lowReference":
-                    reader.getTextContent().ifPresent(v -> object.setLowReference(RoomElevationReferenceValue.fromValue(v)));
+                    object.setLowReference(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "status":
                     reader.getTextContent().ifPresent(v -> object.setStatus(HeightStatusValue.fromValue(v)));
@@ -56,10 +56,10 @@ public class RoomHeightAdapter implements ObjectBuilder<RoomHeight>, ObjectSeria
     @Override
     public void writeChildElements(RoomHeight object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getHighReference() != null)
-            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "highReference").addTextContent(object.getHighReference().toValue()));
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "highReference"), object.getHighReference(), CodeAdapter.class, namespaces);
 
         if (object.getLowReference() != null)
-            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "lowReference").addTextContent(object.getLowReference().toValue()));
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "lowReference"), object.getLowReference(), CodeAdapter.class, namespaces);
 
         if (object.getStatus() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "status").addTextContent(object.getStatus().toValue()));

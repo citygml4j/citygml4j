@@ -473,14 +473,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <simpleType name="RoomElevationReferenceValueType">
-    <annotation>
-      <documentation>List of possible elements considered to capture a vertical geometry for measuring the room height.</documentation>
-    </annotation>
-    <restriction base="string">
-      <enumeration value="tbd"/>
-    </restriction>
-  </simpleType>
   <element name="RoomHeight" substitutionGroup="gml:AbstractObject" type="bldg:RoomHeightType">
     <annotation>
       <documentation>[INSPIRE] Vertical distance (measured or estimated) between a low reference and a high reference.</documentation>
@@ -488,12 +480,12 @@
   </element>
   <complexType name="RoomHeightType">
     <sequence>
-      <element name="highReference" type="bldg:RoomElevationReferenceValueType">
+      <element name="highReference" type="gml:CodeType">
         <annotation>
           <documentation>[INSPIRE] Element used as the high reference.</documentation>
         </annotation>
       </element>
-      <element name="lowReference" type="bldg:RoomElevationReferenceValueType">
+      <element name="lowReference" type="gml:CodeType">
         <annotation>
           <documentation>[INSPIRE] Element as the low reference.</documentation>
         </annotation>
