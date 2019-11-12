@@ -117,9 +117,7 @@
   </complexType>
   <element abstract="true" name="AbstractGenericAttribute" substitutionGroup="gml:AbstractObject" type="core:AbstractGenericAttributeType"/>
   <complexType abstract="true" name="AbstractGenericAttributeType">
-    <sequence>
-      <element name="name" type="string"/>
-    </sequence>
+    <sequence/>
   </complexType>
   <complexType name="AbstractGenericAttributePropertyType">
     <sequence>
