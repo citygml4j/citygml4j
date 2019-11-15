@@ -51,9 +51,6 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
                     reader.getTextContent().ifDoubleList(v -> object.setBorderColor(ColorPlusOpacity.fromList(v)));
                     return;
             }
-
-            reader.getTextContent().ifBoolean(object::setIsFront);
-            return;
         }
 
         if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
