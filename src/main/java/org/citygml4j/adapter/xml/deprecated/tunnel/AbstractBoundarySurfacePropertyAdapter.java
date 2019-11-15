@@ -16,8 +16,8 @@ public class AbstractBoundarySurfacePropertyAdapter extends AbstractSpaceBoundar
                 CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE,
                 CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE,
                 CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE,
-                CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE,
-                CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE
+                CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE,
+                CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE
         );
 
         super.writeChildElements(object, namespaces, writer);
