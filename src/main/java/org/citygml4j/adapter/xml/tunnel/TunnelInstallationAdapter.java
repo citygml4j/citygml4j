@@ -5,6 +5,7 @@ import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.construction.AbstractInstallationAdapter;
 import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
+import org.citygml4j.adapter.xml.deprecated.tunnel.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnelInstallation;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.ImplicitGeometryProperty;
@@ -147,7 +148,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
             }
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfTunnelInstallation property : object.getADEPropertiesOfTunnelInstallation())

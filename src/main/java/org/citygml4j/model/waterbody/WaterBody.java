@@ -2,6 +2,7 @@ package org.citygml4j.model.waterbody;
 
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
+import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -18,6 +19,7 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof AbstractWaterBoundarySurface
+                || boundary instanceof ClosureSurface
                 || boundary instanceof GenericThematicSurface;
     }
 

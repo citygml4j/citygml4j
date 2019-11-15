@@ -1,4 +1,4 @@
-package org.citygml4j.adapter.xml.waterbody;
+package org.citygml4j.adapter.xml.deprecated.waterbody;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
@@ -7,6 +7,7 @@ import org.citygml4j.model.waterbody.ADEPropertyOfWaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
+import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -20,9 +21,15 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "WaterGroundSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE)
+@XMLElements({
+        @XMLElement(name = "WaterGroundSurface", namespaceURI = CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE),
+        @XMLElement(name = "WaterGroundSurface", namespaceURI = CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE)
+})
 public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<WaterGroundSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "AbstractGenericApplicationPropertyOfWaterGroundSurface");
+    private final QName[] substitutionGroups = new QName[] {
+            new QName(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterGroundSurface"),
+            new QName(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterGroundSurface")
+    };
 
     @Override
     public WaterGroundSurface createObject(QName name) throws ObjectBuildException {
@@ -35,7 +42,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
             ObjectBuilder<ADEPropertyOfWaterGroundSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfWaterGroundSurface.class);
             if (builder != null)
                 object.getADEPropertiesOfWaterGroundSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
                 object.getADEPropertiesOfWaterGroundSurface().add(GenericADEPropertyOfWaterGroundSurface.of(reader.getDOMElement()));
         } else
             super.buildChildObject(object, name, attributes, reader);

@@ -5,6 +5,7 @@ import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.construction.AbstractInstallationAdapter;
 import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
+import org.citygml4j.adapter.xml.deprecated.building.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingInstallation;
 import org.citygml4j.model.building.ADEPropertyOfBuildingInstallation;
 import org.citygml4j.model.building.BuildingInstallation;
@@ -151,7 +152,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
             }
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfBuildingInstallation property : object.getADEPropertiesOfBuildingInstallation())

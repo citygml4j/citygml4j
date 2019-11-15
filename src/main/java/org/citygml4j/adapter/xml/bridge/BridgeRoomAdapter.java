@@ -4,6 +4,7 @@ import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.AbstractUnoccupiedSpaceAdapter;
+import org.citygml4j.adapter.xml.deprecated.bridge.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeRoom;
 import org.citygml4j.model.bridge.ADEPropertyOfBridgeRoom;
 import org.citygml4j.model.bridge.BridgeFurnitureProperty;
@@ -110,7 +111,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
         for (BridgeFurnitureProperty property : object.getBridgeFurniture())

@@ -236,7 +236,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         }
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);

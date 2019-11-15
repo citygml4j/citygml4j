@@ -5,6 +5,7 @@ import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.construction.AbstractConstructiveElementAdapter;
 import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
+import org.citygml4j.adapter.xml.deprecated.bridge.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeConstructiveElement;
 import org.citygml4j.model.bridge.ADEPropertyOfBridgeConstructiveElement;
 import org.citygml4j.model.bridge.BridgeConstructiveElement;
@@ -179,7 +180,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             }
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfBridgeConstructiveElement property : object.getADEPropertiesOfBridgeConstructiveElement())

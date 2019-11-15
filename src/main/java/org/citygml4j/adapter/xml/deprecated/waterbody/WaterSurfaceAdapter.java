@@ -1,4 +1,4 @@
-package org.citygml4j.adapter.xml.waterbody;
+package org.citygml4j.adapter.xml.deprecated.waterbody;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
@@ -7,6 +7,7 @@ import org.citygml4j.model.waterbody.ADEPropertyOfWaterSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
+import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
@@ -21,9 +22,15 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "WaterSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE)
+@XMLElements({
+        @XMLElement(name = "WaterSurface", namespaceURI = CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE),
+        @XMLElement(name = "WaterSurface", namespaceURI = CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE)
+})
 public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<WaterSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "AbstractGenericApplicationPropertyOfWaterSurface");
+    private final QName[] substitutionGroups = new QName[] {
+            new QName(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterSurface"),
+            new QName(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterSurface")
+    };
 
     @Override
     public WaterSurface createObject(QName name) throws ObjectBuildException {
@@ -32,7 +39,7 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
 
     @Override
     public void buildChildObject(WaterSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(name.getNamespaceURI()) && "waterLevel".equals(name.getLocalPart())) {
+        if (CityGMLBuilderHelper.isWaterBodyNamespace(name.getNamespaceURI()) && "waterLevel".equals(name.getLocalPart())) {
             object.setWaterLevel(reader.getObjectUsingBuilder(CodeAdapter.class));
             return;
         }
@@ -41,7 +48,7 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
             ObjectBuilder<ADEPropertyOfWaterSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfWaterSurface.class);
             if (builder != null)
                 object.getADEPropertiesOfWaterSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
+            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
                 object.getADEPropertiesOfWaterSurface().add(GenericADEPropertyOfWaterSurface.of(reader.getDOMElement()));
         } else
             super.buildChildObject(object, name, attributes, reader);
