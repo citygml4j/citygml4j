@@ -27,7 +27,6 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.basictypes.MeasureOrNilReasonListAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
@@ -54,7 +53,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extends AbstractSiteAdapter<T> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfAbstractBuilding"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfAbstractBuilding")
     };
@@ -180,16 +179,19 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractBuilding> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractBuilding.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractBuilding().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfAbstractBuilding().add(GenericADEPropertyOfAbstractBuilding.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractBuilding.class, object.getADEPropertiesOfAbstractBuilding(),
+                GenericADEPropertyOfAbstractBuilding::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

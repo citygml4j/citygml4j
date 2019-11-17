@@ -7,7 +7,6 @@ import org.citygml4j.model.construction.ADEPropertyOfOtherConstruction;
 import org.citygml4j.model.construction.OtherConstruction;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -30,17 +29,21 @@ public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherC
     @Override
     public void buildChildObject(OtherConstruction object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())
-                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader)) {
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
+        }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfOtherConstruction> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfOtherConstruction.class);
-            if (builder != null)
-                object.getADEPropertiesOfOtherConstruction().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfOtherConstruction().add(GenericADEPropertyOfOtherConstruction.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(OtherConstruction object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfOtherConstruction.class, object.getADEPropertiesOfOtherConstruction(),
+                GenericADEPropertyOfOtherConstruction::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

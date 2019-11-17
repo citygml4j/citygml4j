@@ -13,7 +13,6 @@ import org.citygml4j.model.waterbody.ADEPropertyOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.primitives.SurfacePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
@@ -55,26 +54,26 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
                     object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SURFACE, reader.getObjectUsingBuilder(SurfacePropertyAdapter.class));
                     return;
             }
-        }
-
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             if (object instanceof AbstractWaterBoundarySurface) {
                 AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;
-                ObjectBuilder<ADEPropertyOfAbstractWaterBoundarySurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractWaterBoundarySurface.class);
-                if (builder != null)
-                    boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface().add(reader.getObjectUsingBuilder(builder));
-                else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                    boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface().add(GenericADEPropertyOfAbstractWaterBoundarySurface.of(reader.getDOMElement()));
-            } else if (object instanceof ClosureSurface) {
-                ObjectBuilder<ADEPropertyOfAbstractThematicSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractThematicSurface.class);
-                if (builder != null)
-                    object.getADEPropertiesOfAbstractThematicSurface().add(reader.getObjectUsingBuilder(builder));
-                else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                    object.getADEPropertiesOfAbstractThematicSurface().add(GenericADEPropertyOfAbstractThematicSurface.of(reader.getDOMElement()));
-
+                if (CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractWaterBoundarySurface.class, boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface(),
+                        GenericADEPropertyOfAbstractWaterBoundarySurface::of, reader, substitutionGroups))
+                    return;
+            } else {
+                buildADEProperty(object, name, reader);
+                return;
             }
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        }
+
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractThematicSurface.class, object.getADEPropertiesOfAbstractThematicSurface(),
+                GenericADEPropertyOfAbstractThematicSurface::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -10,7 +10,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSolidPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
@@ -37,7 +36,7 @@ import javax.xml.namespace.QName;
 })
 public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCover> {
     private final CopyBuilder copyBuilder = new CopyBuilder();
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE, "AbstractGenericApplicationPropertyOfPlantCover"),
             new QName(CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfPlantCover"),
             new QName(CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfPlantCover")
@@ -95,16 +94,19 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                     object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SOLID, reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfPlantCover> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfPlantCover.class);
-            if (builder != null)
-                object.getADEPropertiesOfPlantCover().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfPlantCover().add(GenericADEPropertyOfPlantCover.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(PlantCover object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfPlantCover.class, object.getADEPropertiesOfPlantCover(),
+                GenericADEPropertyOfPlantCover::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

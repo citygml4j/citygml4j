@@ -11,7 +11,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -29,7 +28,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "Appearance", namespaceURI = CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE)
 })
 public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfAppearance"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfAppearance"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfAppearance")
@@ -52,16 +51,19 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                     object.getSurfaceData().add(reader.getObjectUsingBuilder(AbstractSurfaceDataPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAppearance> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAppearance.class);
-            if (builder != null)
-                object.getADEPropertiesOfAppearance().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfAppearance().add(GenericADEPropertyOfAppearance.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(Appearance object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAppearance.class, object.getADEPropertiesOfAppearance(),
+                GenericADEPropertyOfAppearance::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

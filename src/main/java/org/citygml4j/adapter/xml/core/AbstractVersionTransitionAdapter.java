@@ -7,7 +7,6 @@ import org.citygml4j.model.core.ADEPropertyOfAbstractVersionTransition;
 import org.citygml4j.model.core.AbstractVersionTransition;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -23,14 +22,17 @@ public abstract class AbstractVersionTransitionAdapter<T extends AbstractVersion
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractVersionTransition> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractVersionTransition.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractVersionTransition().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractVersionTransition().add(GenericADEPropertyOfAbstractVersionTransition.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractVersionTransition.class, object.getADEPropertiesOfAbstractVersionTransition(),
+                GenericADEPropertyOfAbstractVersionTransition::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

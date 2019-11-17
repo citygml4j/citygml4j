@@ -16,7 +16,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
@@ -37,7 +36,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "BridgeConstructionElement", namespaceURI = CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE)
 })
 public class BridgeConstructiveElementAdapter extends AbstractConstructiveElementAdapter<BridgeConstructiveElement> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "AbstractGenericApplicationPropertyOfBridgeConstructiveElement"),
             new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeConstructionElement")
     };
@@ -100,16 +99,19 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBridgeConstructiveElement> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBridgeConstructiveElement.class);
-            if (builder != null)
-                object.getADEPropertiesOfBridgeConstructiveElement().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfBridgeConstructiveElement().add(GenericADEPropertyOfBridgeConstructiveElement.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(BridgeConstructiveElement object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridgeConstructiveElement.class, object.getADEPropertiesOfBridgeConstructiveElement(),
+                GenericADEPropertyOfBridgeConstructiveElement::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

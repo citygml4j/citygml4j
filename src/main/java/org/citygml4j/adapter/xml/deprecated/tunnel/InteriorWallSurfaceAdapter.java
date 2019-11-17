@@ -8,7 +8,6 @@ import org.citygml4j.model.construction.InteriorWallSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -31,14 +30,17 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
 
     @Override
     public void buildChildObject(InteriorWallSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfInteriorWallSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfInteriorWallSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfInteriorWallSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfInteriorWallSurface().add(GenericADEPropertyOfInteriorWallSurface.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(InteriorWallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfInteriorWallSurface.class, object.getADEPropertiesOfInteriorWallSurface(),
+                GenericADEPropertyOfInteriorWallSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

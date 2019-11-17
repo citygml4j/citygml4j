@@ -10,7 +10,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -29,7 +28,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "X3DMaterial", namespaceURI = CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE)
 })
 public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfX3DMaterial"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfX3DMaterial"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfX3DMaterial")
@@ -69,16 +68,19 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                     reader.getTextContent().ifPresent(object.getTargets()::add);
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfX3DMaterial> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfX3DMaterial.class);
-            if (builder != null)
-                object.getADEPropertiesOfX3DMaterial().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfX3DMaterial().add(GenericADEPropertyOfX3DMaterial.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(X3DMaterial object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfX3DMaterial.class, object.getADEPropertiesOfX3DMaterial(),
+                GenericADEPropertyOfX3DMaterial::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

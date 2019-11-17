@@ -9,7 +9,6 @@ import org.citygml4j.model.building.BuildingPartProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -35,16 +34,19 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI()) && "buildingPart".equals(name.getLocalPart())) {
             object.getBuildingParts().add(reader.getObjectUsingBuilder(BuildingPartPropertyAdapter.class));
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBuilding> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBuilding.class);
-            if (builder != null)
-                object.getADEPropertiesOfBuilding().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfBuilding().add(GenericADEPropertyOfBuilding.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(Building object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuilding.class, object.getADEPropertiesOfBuilding(),
+                GenericADEPropertyOfBuilding::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

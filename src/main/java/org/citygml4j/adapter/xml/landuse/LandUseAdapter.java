@@ -11,7 +11,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -31,7 +30,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "LandUse", namespaceURI = CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE)
 })
 public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE, "AbstractGenericApplicationPropertyOfLandUse"),
             new QName(CityGMLConstants.CITYGML_2_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse"),
             new QName(CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse")
@@ -65,16 +64,19 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                     object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfLandUse> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfLandUse.class);
-            if (builder != null)
-                object.getADEPropertiesOfLandUse().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfLandUse().add(GenericADEPropertyOfLandUse.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(LandUse object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfLandUse.class, object.getADEPropertiesOfLandUse(),
+                GenericADEPropertyOfLandUse::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

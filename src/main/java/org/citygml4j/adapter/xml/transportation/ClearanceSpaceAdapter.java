@@ -9,7 +9,6 @@ import org.citygml4j.model.transportation.ClearanceSpace;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -36,16 +35,19 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
         if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "class".equals(name.getLocalPart())) {
             object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfClearanceSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfClearanceSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfClearanceSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfClearanceSpace().add(GenericADEPropertyOfClearanceSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(ClearanceSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfClearanceSpace.class, object.getADEPropertiesOfClearanceSpace(),
+                GenericADEPropertyOfClearanceSpace::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

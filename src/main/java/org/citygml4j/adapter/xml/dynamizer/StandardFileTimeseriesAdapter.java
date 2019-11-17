@@ -8,7 +8,6 @@ import org.citygml4j.model.dynamizer.StandardFileTimeseries;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -44,16 +43,19 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
                     object.setMimeType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfStandardFileTimeseries> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfStandardFileTimeseries.class);
-            if (builder != null)
-                object.getADEPropertiesOfStandardFileTimeseries().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfStandardFileTimeseries().add(GenericADEPropertyOfStandardFileTimeseries.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(StandardFileTimeseries object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfStandardFileTimeseries.class, object.getADEPropertiesOfStandardFileTimeseries(),
+                GenericADEPropertyOfStandardFileTimeseries::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

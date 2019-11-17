@@ -56,7 +56,7 @@ public abstract class AbstractMatrix extends GMLObject implements CityGMLObject 
             throw new IllegalArgumentException("Matrix value list must not be null.");
 
         if (values.size() < rows * columns)
-            throw new IllegalArgumentException("Matrix value list must contain " + (rows * columns) + " elements." );
+            throw new IllegalArgumentException("Matrix value list must contain " + (rows * columns) + " elements.");
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {

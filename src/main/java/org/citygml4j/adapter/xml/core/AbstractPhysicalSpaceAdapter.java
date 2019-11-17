@@ -7,7 +7,6 @@ import org.citygml4j.model.core.ADEPropertyOfAbstractPhysicalSpace;
 import org.citygml4j.model.core.AbstractPhysicalSpace;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -40,16 +39,19 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractPhysicalSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractPhysicalSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractPhysicalSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractPhysicalSpace().add(GenericADEPropertyOfAbstractPhysicalSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractPhysicalSpace.class, object.getADEPropertiesOfAbstractPhysicalSpace(),
+                GenericADEPropertyOfAbstractPhysicalSpace::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

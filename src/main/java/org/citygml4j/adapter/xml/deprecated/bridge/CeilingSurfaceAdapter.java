@@ -8,7 +8,6 @@ import org.citygml4j.model.construction.CeilingSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -31,14 +30,17 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
 
     @Override
     public void buildChildObject(CeilingSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfCeilingSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfCeilingSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfCeilingSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfCeilingSurface().add(GenericADEPropertyOfCeilingSurface.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(CeilingSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCeilingSurface.class, object.getADEPropertiesOfCeilingSurface(),
+                GenericADEPropertyOfCeilingSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

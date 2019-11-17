@@ -7,7 +7,9 @@ import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.reader.xml.CityGMLInputFactory;
 import org.citygml4j.reader.xml.MissingADESchemaException;
 import org.citygml4j.util.CityGMLConstants;
+import org.w3c.dom.Element;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
@@ -26,6 +28,7 @@ import org.xmlobjects.stream.XMLReader;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class CityGMLBuilderHelper {
 
@@ -147,7 +150,20 @@ public class CityGMLBuilderHelper {
         return false;
     }
 
-    public static boolean createAsGenericADEProperty(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {
+    public static <T> boolean addADEProperty(QName name, Class<T> type, List<T> properties, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
+        ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
+        if (builder != null) {
+            properties.add(reader.getObjectUsingBuilder(builder));
+            return true;
+        } else if (CityGMLBuilderHelper.substitutes(name, reader, substitutionGroups)) {
+            properties.add(creator.apply(reader.getDOMElement()));
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean substitutes(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {
         if (reader.isCreateDOMAsFallback() && reader.getSchemaHandler() != null) {
             try {
                 SchemaHandler schemaHandler = reader.getSchemaHandler();

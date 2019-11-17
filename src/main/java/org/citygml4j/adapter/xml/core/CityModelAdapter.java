@@ -12,7 +12,6 @@ import org.citygml4j.model.core.CityModel;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.feature.FeaturePropertyAdapter;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -58,16 +57,19 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                     object.setEngineeringCRS(reader.getObjectUsingBuilder(EngineeringCRSPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfCityModel> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfCityModel.class);
-            if (builder != null)
-                object.getADEPropertiesOfCityModel().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfCityModel().add(GenericADEPropertyOfCityModel.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(CityModel object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCityModel.class, object.getADEPropertiesOfCityModel(),
+                GenericADEPropertyOfCityModel::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

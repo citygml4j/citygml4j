@@ -9,7 +9,6 @@ import org.citygml4j.model.bridge.BridgePartProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -35,16 +34,19 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
         if (CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(name.getNamespaceURI()) && "bridgePart".equals(name.getLocalPart())) {
             object.getBridgeParts().add(reader.getObjectUsingBuilder(BridgePartPropertyAdapter.class));
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBridge> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBridge.class);
-            if (builder != null)
-                object.getADEPropertiesOfBridge().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfBridge().add(GenericADEPropertyOfBridge.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(Bridge object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridge.class, object.getADEPropertiesOfBridge(),
+                GenericADEPropertyOfBridge::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

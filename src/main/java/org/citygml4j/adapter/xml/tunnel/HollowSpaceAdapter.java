@@ -16,7 +16,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
@@ -37,7 +36,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "HollowSpace", namespaceURI = CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE)
 })
 public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpace> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "AbstractGenericApplicationPropertyOfHollowSpace"),
             new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfHollowSpace")
     };
@@ -72,16 +71,19 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfHollowSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfHollowSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfHollowSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfHollowSpace().add(GenericADEPropertyOfHollowSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(HollowSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfHollowSpace.class, object.getADEPropertiesOfHollowSpace(),
+                GenericADEPropertyOfHollowSpace::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

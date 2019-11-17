@@ -22,7 +22,6 @@ import org.citygml4j.model.tunnel.TunnelInstallationProperty;
 import org.citygml4j.model.tunnel.TunnelPartProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
@@ -137,16 +136,19 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                         object.getDeprecatedProperties().addFeature(DeprecatedProperties.CONSISTS_OF_TUNNEL_PART, consistsOfTunnelPart);
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractTunnel> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractTunnel.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractTunnel().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractTunnel().add(GenericADEPropertyOfAbstractTunnel.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTunnel.class, object.getADEPropertiesOfAbstractTunnel(),
+                GenericADEPropertyOfAbstractTunnel::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

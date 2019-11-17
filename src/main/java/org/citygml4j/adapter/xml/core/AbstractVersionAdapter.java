@@ -7,7 +7,6 @@ import org.citygml4j.model.core.ADEPropertyOfAbstractVersion;
 import org.citygml4j.model.core.AbstractVersion;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -23,14 +22,17 @@ public abstract class AbstractVersionAdapter<T extends AbstractVersion> extends 
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractVersion> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractVersion.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractVersion().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractVersion().add(GenericADEPropertyOfAbstractVersion.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractVersion.class, object.getADEPropertiesOfAbstractVersion(),
+                GenericADEPropertyOfAbstractVersion::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

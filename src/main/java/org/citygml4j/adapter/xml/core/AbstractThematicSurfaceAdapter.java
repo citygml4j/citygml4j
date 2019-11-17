@@ -8,7 +8,6 @@ import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.QualifiedAreaProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -51,16 +50,19 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractThematicSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractThematicSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractThematicSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractThematicSurface().add(GenericADEPropertyOfAbstractThematicSurface.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractThematicSurface.class, object.getADEPropertiesOfAbstractThematicSurface(),
+                GenericADEPropertyOfAbstractThematicSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

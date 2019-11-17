@@ -9,7 +9,6 @@ import org.citygml4j.model.dynamizer.Dynamizer;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.temporal.TimePositionAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -51,16 +50,19 @@ public class DynamizerAdapter extends AbstractDynamizerAdapter<Dynamizer> {
                     object.setSensorConnection(reader.getObjectUsingBuilder(SensorConnectionPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfDynamizer> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfDynamizer.class);
-            if (builder != null)
-                object.getADEPropertiesOfDynamizer().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfDynamizer().add(GenericADEPropertyOfDynamizer.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(Dynamizer object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfDynamizer.class, object.getADEPropertiesOfDynamizer(),
+                GenericADEPropertyOfDynamizer::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -11,7 +11,6 @@ import org.citygml4j.model.versioning.VersionTransition;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -56,16 +55,19 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
                     object.getTransactions().add(reader.getObjectUsingBuilder(TransactionPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfVersionTransition> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfVersionTransition.class);
-            if (builder != null)
-                object.getADEPropertiesOfVersionTransition().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfVersionTransition().add(GenericADEPropertyOfVersionTransition.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(VersionTransition object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfVersionTransition.class, object.getADEPropertiesOfVersionTransition(),
+                GenericADEPropertyOfVersionTransition::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

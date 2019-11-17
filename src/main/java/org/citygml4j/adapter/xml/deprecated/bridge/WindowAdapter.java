@@ -8,7 +8,6 @@ import org.citygml4j.model.construction.WindowSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -31,14 +30,17 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
 
     @Override
     public void buildChildObject(WindowSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfWindowSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfWindowSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfWindowSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfWindowSurface().add(GenericADEPropertyOfWindowSurface.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(WindowSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWindowSurface.class, object.getADEPropertiesOfWindowSurface(),
+                GenericADEPropertyOfWindowSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

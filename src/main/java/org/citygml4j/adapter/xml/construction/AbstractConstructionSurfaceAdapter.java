@@ -9,7 +9,6 @@ import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractFillingSurfaceProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -29,16 +28,19 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
         if (name.getNamespaceURI().equals(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE) && "fillingSurface".equals(name.getLocalPart())) {
             object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractConstructionSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractConstructionSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractConstructionSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractConstructionSurface().add(GenericADEPropertyOfAbstractConstructionSurface.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractConstructionSurface.class, object.getADEPropertiesOfAbstractConstructionSurface(),
+                GenericADEPropertyOfAbstractConstructionSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

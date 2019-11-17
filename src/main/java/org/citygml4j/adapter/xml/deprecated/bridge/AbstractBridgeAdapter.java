@@ -28,7 +28,6 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
@@ -156,16 +155,19 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractBridge> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractBridge.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractBridge().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractBridge().add(GenericADEPropertyOfAbstractBridge.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractBridge.class, object.getADEPropertiesOfAbstractBridge(),
+                GenericADEPropertyOfAbstractBridge::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

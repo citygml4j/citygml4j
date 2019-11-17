@@ -12,7 +12,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
@@ -34,7 +33,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "SolitaryVegetationObject", namespaceURI = CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE)
 })
 public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAdapter<SolitaryVegetationObject> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE, "AbstractGenericApplicationPropertyOfSolitaryVegetationObject"),
             new QName(CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfSolitaryVegetationObject"),
             new QName(CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfSolitaryVegetationObject")
@@ -101,16 +100,19 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfSolitaryVegetationObject> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfSolitaryVegetationObject.class);
-            if (builder != null)
-                object.getADEPropertiesOfSolitaryVegetationObject().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfSolitaryVegetationObject().add(GenericADEPropertyOfSolitaryVegetationObject.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(SolitaryVegetationObject object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfSolitaryVegetationObject.class, object.getADEPropertiesOfSolitaryVegetationObject(),
+                GenericADEPropertyOfSolitaryVegetationObject::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

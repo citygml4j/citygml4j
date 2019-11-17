@@ -8,7 +8,6 @@ import org.citygml4j.model.construction.OuterCeilingSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -31,14 +30,17 @@ public class OuterCeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapt
 
     @Override
     public void buildChildObject(OuterCeilingSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfOuterCeilingSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfOuterCeilingSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfOuterCeilingSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfOuterCeilingSurface().add(GenericADEPropertyOfOuterCeilingSurface.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(OuterCeilingSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfOuterCeilingSurface.class, object.getADEPropertiesOfOuterCeilingSurface(),
+                GenericADEPropertyOfOuterCeilingSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

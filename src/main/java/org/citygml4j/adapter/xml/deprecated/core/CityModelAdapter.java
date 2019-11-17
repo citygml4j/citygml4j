@@ -2,6 +2,7 @@ package org.citygml4j.adapter.xml.deprecated.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.ade.ADEPropertyBuilder;
 import org.citygml4j.adapter.xml.core.AbstractAppearancePropertyAdapter;
 import org.citygml4j.adapter.xml.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
@@ -13,7 +14,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.adapter.feature.FeatureArrayPropertyAdapter;
@@ -38,8 +38,8 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "CityModel", namespaceURI = CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE),
         @XMLElement(name = "CityModel", namespaceURI = CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE)
 })
-public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
-    private final QName[] substitutionGroups = new QName[] {
+public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> implements ADEPropertyBuilder<CityModel> {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfCityModel"),
             new QName(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfCityModel")
     };
@@ -53,15 +53,13 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
     public void buildChildObject(CityModel object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLBuilderHelper.isCoreNamespace(name.getNamespaceURI()) && "cityObjectMember".equals(name.getLocalPart())) {
             object.getCityObjectMembers().add(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
-            return;
         } else if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI()) && "appearanceMember".equals(name.getLocalPart())) {
             object.getAppearanceMembers().add(reader.getObjectUsingBuilder(AbstractAppearancePropertyAdapter.class));
-            return;
         } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "featureMember":
                     object.getFeatureMembers().add(reader.getObjectUsingBuilder(FeaturePropertyAdapter.class));
-                    return;
+                    break;
                 case "featureMembers":
                     FeatureArrayProperty<AbstractFeature> featureMembers = reader.getObjectUsingBuilder(FeatureArrayPropertyAdapter.class);
                     for (AbstractFeature feature : featureMembers.getObjects())
@@ -69,18 +67,20 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
 
                     for (GenericElement element : featureMembers.getGenericElements())
                         object.getFeatureMembers().add(new FeatureProperty(element));
-                    return;
+                    break;
                 default:
                     super.buildChildObject(object, name, attributes, reader);
-                    return;
+                    break;
             }
-        }
+        } else
+            buildADEProperty(object, name, reader);
+    }
 
-        ObjectBuilder<ADEPropertyOfCityModel> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfCityModel.class);
-        if (builder != null)
-            object.getADEPropertiesOfCityModel().add(reader.getObjectUsingBuilder(builder));
-        else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-            object.getADEPropertiesOfCityModel().add(GenericADEPropertyOfCityModel.of(reader.getDOMElement()));
+    @Override
+    public void buildADEProperty(CityModel object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCityModel.class, object.getADEPropertiesOfCityModel(),
+                GenericADEPropertyOfCityModel::of, reader, substitutionGroups))
+            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
     }
 
     @Override

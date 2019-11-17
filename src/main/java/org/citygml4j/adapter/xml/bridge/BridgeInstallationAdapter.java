@@ -15,7 +15,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -83,16 +82,19 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBridgeInstallation> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBridgeInstallation.class);
-            if (builder != null)
-                object.getADEPropertiesOfBridgeInstallation().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfBridgeInstallation().add(GenericADEPropertyOfBridgeInstallation.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(BridgeInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridgeInstallation.class, object.getADEPropertiesOfBridgeInstallation(),
+                GenericADEPropertyOfBridgeInstallation::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

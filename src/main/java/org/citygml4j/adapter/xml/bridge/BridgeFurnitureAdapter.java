@@ -13,7 +13,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -32,7 +31,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "BridgeFurniture", namespaceURI = CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE)
 })
 public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurniture> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "AbstractGenericApplicationPropertyOfBridgeFurniture"),
             new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeFurniture")
     };
@@ -58,16 +57,19 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBridgeFurniture> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBridgeFurniture.class);
-            if (builder != null)
-                object.getADEPropertiesOfBridgeFurniture().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfBridgeFurniture().add(GenericADEPropertyOfBridgeFurniture.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(BridgeFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridgeFurniture.class, object.getADEPropertiesOfBridgeFurniture(),
+                GenericADEPropertyOfBridgeFurniture::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

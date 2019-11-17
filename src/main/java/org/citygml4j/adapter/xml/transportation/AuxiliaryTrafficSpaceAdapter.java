@@ -10,7 +10,6 @@ import org.citygml4j.model.transportation.GranularityValue;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -41,16 +40,19 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
                 reader.getTextContent().ifPresent(v -> object.setGranularity(GranularityValue.fromValue(v)));
                 return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAuxiliaryTrafficSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAuxiliaryTrafficSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfAuxiliaryTrafficSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAuxiliaryTrafficSpace().add(GenericADEPropertyOfAuxiliaryTrafficSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(AuxiliaryTrafficSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAuxiliaryTrafficSpace.class, object.getADEPropertiesOfAuxiliaryTrafficSpace(),
+                GenericADEPropertyOfAuxiliaryTrafficSpace::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -12,7 +12,6 @@ import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -27,7 +26,7 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicSurface> extends AbstractCityObjectAdapter<T> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBoundarySurface"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBoundarySurface")
     };
@@ -52,16 +51,19 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
                         object.getDeprecatedProperties().addFeature(DeprecatedProperties.OPENING, reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractThematicSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractThematicSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractThematicSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfAbstractThematicSurface().add(GenericADEPropertyOfAbstractThematicSurface.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractThematicSurface.class, object.getADEPropertiesOfAbstractThematicSurface(),
+                GenericADEPropertyOfAbstractThematicSurface::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

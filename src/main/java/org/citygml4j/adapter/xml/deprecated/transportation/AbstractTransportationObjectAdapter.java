@@ -19,7 +19,6 @@ import org.citygml4j.model.transportation.TrafficSpace;
 import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.complexes.GeometricComplexPropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
@@ -45,7 +44,7 @@ import java.util.List;
 
 public abstract class AbstractTransportationObjectAdapter<T extends AbstractTransportationSpace> extends AbstractCityObjectAdapter<T> {
     private final CopyBuilder copyBuilder = new CopyBuilder();
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTransportationObject"),
             new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTransportationObject")
     };
@@ -90,16 +89,19 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
                     object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractTransportationSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractTransportationSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractTransportationSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfAbstractTransportationSpace().add(GenericADEPropertyOfAbstractTransportationSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTransportationSpace.class, object.getADEPropertiesOfAbstractTransportationSpace(),
+                GenericADEPropertyOfAbstractTransportationSpace::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

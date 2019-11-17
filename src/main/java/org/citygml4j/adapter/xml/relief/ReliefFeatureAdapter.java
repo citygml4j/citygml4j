@@ -11,7 +11,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -30,7 +29,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "ReliefFeature", namespaceURI = CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE)
 })
 public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFeature> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfReliefFeature"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfReliefFeature"),
             new QName(CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfReliefFeature")
@@ -52,16 +51,19 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
                     object.getReliefComponents().add(reader.getObjectUsingBuilder(AbstractReliefComponentPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfReliefFeature> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfReliefFeature.class);
-            if (builder != null)
-                object.getADEPropertiesOfReliefFeature().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfReliefFeature().add(GenericADEPropertyOfReliefFeature.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(ReliefFeature object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfReliefFeature.class, object.getADEPropertiesOfReliefFeature(),
+                GenericADEPropertyOfReliefFeature::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

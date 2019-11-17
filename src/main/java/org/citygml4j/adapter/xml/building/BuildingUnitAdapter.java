@@ -10,7 +10,6 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -44,16 +43,19 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBuildingUnit> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBuildingUnit.class);
-            if (builder != null)
-                object.getADEPropertiesOfBuildingUnit().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfBuildingUnit().add(GenericADEPropertyOfBuildingUnit.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(BuildingUnit object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingUnit.class, object.getADEPropertiesOfBuildingUnit(),
+                GenericADEPropertyOfBuildingUnit::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -66,10 +68,10 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
         super.writeChildElements(object, namespaces, writer);
 
         for (Reference reference : object.getStoreys())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storey"), reference, ReferenceAdapter.class,namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storey"), reference, ReferenceAdapter.class, namespaces);
 
         for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class,namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfBuildingUnit property : object.getADEPropertiesOfBuildingUnit())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

@@ -8,7 +8,6 @@ import org.citygml4j.model.construction.ADEPropertyOfAbstractFurniture;
 import org.citygml4j.model.construction.AbstractFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -24,14 +23,17 @@ public abstract class AbstractFurnitureAdapter<T extends AbstractFurniture> exte
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractFurniture> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractFurniture.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractFurniture().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractFurniture().add(GenericADEPropertyOfAbstractFurniture.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractFurniture.class, object.getADEPropertiesOfAbstractFurniture(),
+                GenericADEPropertyOfAbstractFurniture::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

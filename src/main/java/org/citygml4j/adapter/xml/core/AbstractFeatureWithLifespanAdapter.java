@@ -2,6 +2,7 @@ package org.citygml4j.adapter.xml.core;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.ade.ADEPropertyBuilder;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractFeatureWithLifespan;
 import org.citygml4j.model.core.ADEPropertyOfAbstractFeatureWithLifespan;
 import org.citygml4j.model.core.AbstractFeatureWithLifespan;
@@ -11,7 +12,6 @@ import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
-import org.xmlobjects.stream.BuildResult;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
@@ -23,7 +23,7 @@ import org.xmlobjects.xml.TextContent;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatureWithLifespan> extends AbstractFeatureAdapter<T> {
+public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatureWithLifespan> extends AbstractFeatureAdapter<T> implements ADEPropertyBuilder<T> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractCityObject");
 
     @Override
@@ -49,19 +49,17 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
                     reader.getTextContent().ifDateTime(object::setValidTo);
                     break;
             }
-        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
+        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
             super.buildChildObject(object, name, attributes, reader);
-        } else {
-            BuildResult<ADEPropertyOfAbstractFeatureWithLifespan> result = reader.getObjectOrDOMElement(ADEPropertyOfAbstractFeatureWithLifespan.class);
-            if (result.isSetObject())
-                object.getADEPropertiesOfAbstractFeatureWithLifespan().add(result.getObject());
-            else if (result.isSetDOMElement()) {
-                if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                    object.getADEPropertiesOfAbstractFeatureWithLifespan().add(GenericADEPropertyOfAbstractFeatureWithLifespan.of(result.getDOMElement()));
-                else
-                    object.getGenericProperties().add(GenericElement.of(result.getDOMElement()));
-            }
-        }
+        else
+            buildADEProperty(object, name, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractFeatureWithLifespan.class, object.getADEPropertiesOfAbstractFeatureWithLifespan(),
+                GenericADEPropertyOfAbstractFeatureWithLifespan::of, reader, substitutionGroup))
+            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
     }
 
     @Override

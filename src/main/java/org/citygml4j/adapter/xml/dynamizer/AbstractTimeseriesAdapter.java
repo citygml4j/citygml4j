@@ -2,14 +2,16 @@ package org.citygml4j.adapter.xml.dynamizer;
 
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
+import org.citygml4j.adapter.xml.ade.ADEPropertyBuilder;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTimeseries;
 import org.citygml4j.model.dynamizer.ADEPropertyOfAbstractTimeseries;
 import org.citygml4j.model.dynamizer.AbstractTimeseries;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
+import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.adapter.temporal.TimePositionAdapter;
+import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -21,7 +23,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> extends AbstractFeatureAdapter<T> {
+public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> extends AbstractFeatureAdapter<T> implements ADEPropertyBuilder<T> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractTimeseries");
 
     @Override
@@ -30,21 +32,22 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
             switch (name.getLocalPart()) {
                 case "firstTimestamp":
                     object.setFirstTimestamp(reader.getObjectUsingBuilder(TimePositionAdapter.class));
-                    return;
+                    break;
                 case "lastTimestamp":
                     object.setLastTimestamp(reader.getObjectUsingBuilder(TimePositionAdapter.class));
-                    return;
+                    break;
             }
-        }
-
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractTimeseries> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractTimeseries.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractTimeseries().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractTimeseries().add(GenericADEPropertyOfAbstractTimeseries.of(reader.getDOMElement()));
-        } else
+        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
             super.buildChildObject(object, name, attributes, reader);
+        else
+            buildADEProperty(object, name, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTimeseries.class, object.getADEPropertiesOfAbstractTimeseries(),
+                GenericADEPropertyOfAbstractTimeseries::of, reader, substitutionGroup))
+            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
     }
 
     @Override

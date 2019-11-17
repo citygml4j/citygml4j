@@ -15,7 +15,6 @@ import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -62,16 +61,19 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfTrafficSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfTrafficSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfTrafficSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfTrafficSpace().add(GenericADEPropertyOfTrafficSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(TrafficSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTrafficSpace.class, object.getADEPropertiesOfTrafficSpace(),
+                GenericADEPropertyOfTrafficSpace::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

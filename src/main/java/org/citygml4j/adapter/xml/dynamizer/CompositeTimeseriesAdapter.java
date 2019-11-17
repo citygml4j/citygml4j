@@ -9,7 +9,6 @@ import org.citygml4j.model.dynamizer.TimeseriesComponentProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -35,16 +34,19 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
         if (CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE.equals(name.getNamespaceURI()) && "component".equals(name.getLocalPart())) {
             object.getComponents().add(reader.getObjectUsingBuilder(TimeseriesComponentPropertyAdapter.class));
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfCompositeTimeseries> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfCompositeTimeseries.class);
-            if (builder != null)
-                object.getADEPropertiesOfCompositeTimeseries().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfCompositeTimeseries().add(GenericADEPropertyOfCompositeTimeseries.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(CompositeTimeseries object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCompositeTimeseries.class, object.getADEPropertiesOfCompositeTimeseries(),
+                GenericADEPropertyOfCompositeTimeseries::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

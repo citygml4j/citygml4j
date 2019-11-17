@@ -13,7 +13,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
@@ -36,7 +35,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "WaterBody", namespaceURI = CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE)
 })
 public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterObject"),
             new QName(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterBody"),
             new QName(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterObject"),
@@ -83,16 +82,19 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
                     object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfWaterBody> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfWaterBody.class);
-            if (builder != null)
-                object.getADEPropertiesOfWaterBody().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfWaterBody().add(GenericADEPropertyOfWaterBody.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(WaterBody object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWaterBody.class, object.getADEPropertiesOfWaterBody(),
+                GenericADEPropertyOfWaterBody::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

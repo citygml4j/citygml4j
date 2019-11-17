@@ -17,7 +17,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
@@ -39,7 +38,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "Room", namespaceURI = CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE)
 })
 public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BuildingRoom> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingRoom"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom")
@@ -78,16 +77,19 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfBuildingRoom> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfBuildingRoom.class);
-            if (builder != null)
-                object.getADEPropertiesOfBuildingRoom().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfBuildingRoom().add(GenericADEPropertyOfBuildingRoom.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(BuildingRoom object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingRoom.class, object.getADEPropertiesOfBuildingRoom(),
+                GenericADEPropertyOfBuildingRoom::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -9,7 +9,6 @@ import org.citygml4j.model.pointcloud.PointCloud;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiPointPropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -49,16 +48,19 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
                     object.setPoints(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfPointCloud> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfPointCloud.class);
-            if (builder != null)
-                object.getADEPropertiesOfPointCloud().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfPointCloud().add(GenericADEPropertyOfPointCloud.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(PointCloud object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfPointCloud.class, object.getADEPropertiesOfPointCloud(),
+                GenericADEPropertyOfPointCloud::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

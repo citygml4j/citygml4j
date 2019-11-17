@@ -14,7 +14,6 @@ import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -59,16 +58,19 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
                     object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractConstruction> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractConstruction.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractConstruction().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractConstruction().add(GenericADEPropertyOfAbstractConstruction.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractConstruction.class, object.getADEPropertiesOfAbstractConstruction(),
+                GenericADEPropertyOfAbstractConstruction::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

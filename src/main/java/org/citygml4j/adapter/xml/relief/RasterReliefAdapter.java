@@ -9,7 +9,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -27,7 +26,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "RasterRelief", namespaceURI = CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE)
 })
 public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRelief> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfRasterRelief"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfRasterRelief"),
             new QName(CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfRasterRelief")
@@ -43,16 +42,19 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
         if (CityGMLBuilderHelper.isReliefNamespace(name.getNamespaceURI()) && "grid".equals(name.getLocalPart())) {
             object.setGrid(reader.getObjectUsingBuilder(GridPropertyAdapter.class));
             return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfRasterRelief> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfRasterRelief.class);
-            if (builder != null)
-                object.getADEPropertiesOfRasterRelief().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfRasterRelief().add(GenericADEPropertyOfRasterRelief.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(RasterRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfRasterRelief.class, object.getADEPropertiesOfRasterRelief(),
+                GenericADEPropertyOfRasterRelief::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

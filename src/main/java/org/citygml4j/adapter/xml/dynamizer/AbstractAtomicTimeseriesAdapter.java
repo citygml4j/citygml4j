@@ -6,7 +6,6 @@ import org.citygml4j.model.dynamizer.ADEPropertyOfAbstractAtomicTimeseries;
 import org.citygml4j.model.dynamizer.AbstractAtomicTimeseries;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -32,16 +31,19 @@ public abstract class AbstractAtomicTimeseriesAdapter<T extends AbstractAtomicTi
                     reader.getTextContent().ifPresent(object::setUom);
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractAtomicTimeseries> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractAtomicTimeseries.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractAtomicTimeseries().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractAtomicTimeseries().add(GenericADEPropertyOfAbstractAtomicTimeseries.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractAtomicTimeseries.class, object.getADEPropertiesOfAbstractAtomicTimeseries(),
+                GenericADEPropertyOfAbstractAtomicTimeseries::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -11,7 +11,6 @@ import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -26,7 +25,7 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> extends AbstractCityObjectAdapter<T> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfOpening"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfOpening")
     };
@@ -48,16 +47,19 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractFillingSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractFillingSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractFillingSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfAbstractFillingSurface().add(GenericADEPropertyOfAbstractFillingSurface.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractFillingSurface.class, object.getADEPropertiesOfAbstractFillingSurface(),
+                GenericADEPropertyOfAbstractFillingSurface::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

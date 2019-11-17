@@ -13,7 +13,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -32,7 +31,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "TunnelFurniture", namespaceURI = CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE)
 })
 public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurniture> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "AbstractGenericApplicationPropertyOfTunnelFurniture"),
             new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfTunnelFurniture")
     };
@@ -58,16 +57,19 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfTunnelFurniture> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfTunnelFurniture.class);
-            if (builder != null)
-                object.getADEPropertiesOfTunnelFurniture().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfTunnelFurniture().add(GenericADEPropertyOfTunnelFurniture.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(TunnelFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTunnelFurniture.class, object.getADEPropertiesOfTunnelFurniture(),
+                GenericADEPropertyOfTunnelFurniture::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

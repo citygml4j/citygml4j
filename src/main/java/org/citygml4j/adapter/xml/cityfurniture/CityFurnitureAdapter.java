@@ -13,7 +13,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
@@ -35,7 +34,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "CityFurniture", namespaceURI = CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE)
 })
 public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurniture> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE, "AbstractGenericApplicationPropertyOfCityFurniture"),
             new QName(CityGMLConstants.CITYGML_2_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture"),
             new QName(CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture")
@@ -96,16 +95,19 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfCityFurniture> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfCityFurniture.class);
-            if (builder != null)
-                object.getADEPropertiesOfCityFurniture().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfCityFurniture().add(GenericADEPropertyOfCityFurniture.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(CityFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCityFurniture.class, object.getADEPropertiesOfCityFurniture(),
+                GenericADEPropertyOfCityFurniture::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

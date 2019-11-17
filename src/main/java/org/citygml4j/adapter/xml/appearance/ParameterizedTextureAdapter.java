@@ -10,7 +10,6 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -28,7 +27,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "ParameterizedTexture", namespaceURI = CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE)
 })
 public class ParameterizedTextureAdapter extends AbstractTextureAdapter<ParameterizedTexture> {
-    private final QName[] substitutionGroups = new QName[] {
+    private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfParameterizedTexture"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfParameterizedTexture"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfParameterizedTexture")
@@ -50,16 +49,19 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                     object.getTextureParameterizations().add(reader.getObjectUsingBuilder(org.citygml4j.adapter.xml.deprecated.appearance.TextureAssociationPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfParameterizedTexture> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfParameterizedTexture.class);
-            if (builder != null)
-                object.getADEPropertiesOfParameterizedTexture().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroups))
-                object.getADEPropertiesOfParameterizedTexture().add(GenericADEPropertyOfParameterizedTexture.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(ParameterizedTexture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfParameterizedTexture.class, object.getADEPropertiesOfParameterizedTexture(),
+                GenericADEPropertyOfParameterizedTexture::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

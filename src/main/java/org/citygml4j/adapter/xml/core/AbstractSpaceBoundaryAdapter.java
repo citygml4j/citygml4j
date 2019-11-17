@@ -7,7 +7,6 @@ import org.citygml4j.model.core.ADEPropertyOfAbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -23,14 +22,17 @@ public abstract class AbstractSpaceBoundaryAdapter<T extends AbstractSpaceBounda
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractSpaceBoundary> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractSpaceBoundary.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractSpaceBoundary().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractSpaceBoundary().add(GenericADEPropertyOfAbstractSpaceBoundary.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractSpaceBoundary.class, object.getADEPropertiesOfAbstractSpaceBoundary(),
+                GenericADEPropertyOfAbstractSpaceBoundary::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

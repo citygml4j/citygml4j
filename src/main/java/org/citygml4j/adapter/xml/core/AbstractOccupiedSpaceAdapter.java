@@ -7,7 +7,6 @@ import org.citygml4j.model.core.ADEPropertyOfAbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -36,16 +35,19 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractOccupiedSpace> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractOccupiedSpace.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractOccupiedSpace().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractOccupiedSpace().add(GenericADEPropertyOfAbstractOccupiedSpace.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractOccupiedSpace.class, object.getADEPropertiesOfAbstractOccupiedSpace(),
+                GenericADEPropertyOfAbstractOccupiedSpace::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

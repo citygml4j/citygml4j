@@ -12,7 +12,6 @@ import org.citygml4j.model.tunnel.TunnelFurnitureMember;
 import org.citygml4j.model.tunnel.TunnelInstallationMember;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -47,16 +46,19 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     object.getTunnelFurniture().add(reader.getObjectUsingBuilder(TunnelFurnitureMemberAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractTunnel> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractTunnel.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractTunnel().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractTunnel().add(GenericADEPropertyOfAbstractTunnel.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTunnel.class, object.getADEPropertiesOfAbstractTunnel(),
+                GenericADEPropertyOfAbstractTunnel::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

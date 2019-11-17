@@ -8,7 +8,6 @@ import org.citygml4j.model.construction.ADEPropertyOfAbstractFillingElement;
 import org.citygml4j.model.construction.AbstractFillingElement;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -24,14 +23,17 @@ public abstract class AbstractFillingElementAdapter<T extends AbstractFillingEle
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfAbstractFillingElement> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfAbstractFillingElement.class);
-            if (builder != null)
-                object.getADEPropertiesOfAbstractFillingElement().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfAbstractFillingElement().add(GenericADEPropertyOfAbstractFillingElement.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractFillingElement.class, object.getADEPropertiesOfAbstractFillingElement(),
+                GenericADEPropertyOfAbstractFillingElement::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -10,7 +10,6 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -33,19 +32,17 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
 
     @Override
     public void buildChildObject(DoorSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isTunnelNamespace(name.getNamespaceURI()) && "address".equals(name.getLocalPart())) {
-            object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
-            return;
-        }
-
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfDoorSurface> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfDoorSurface.class);
-            if (builder != null)
-                object.getADEPropertiesOfDoorSurface().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfDoorSurface().add(GenericADEPropertyOfDoorSurface.of(reader.getDOMElement()));
-        } else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+            buildADEProperty(object, name, reader);
+        else
             super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(DoorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfDoorSurface.class, object.getADEPropertiesOfDoorSurface(),
+                GenericADEPropertyOfDoorSurface::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

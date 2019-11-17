@@ -10,7 +10,6 @@ import org.citygml4j.model.dynamizer.TimeseriesValue;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -42,16 +41,19 @@ public class GenericTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<Ge
                     object.getTimeValuePairs().add(reader.getObjectUsingBuilder(TimeValuePairPropertyAdapter.class));
                     return;
             }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
         }
 
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            ObjectBuilder<ADEPropertyOfGenericTimeseries> builder = reader.getXMLObjects().getBuilder(name, ADEPropertyOfGenericTimeseries.class);
-            if (builder != null)
-                object.getADEPropertiesOfGenericTimeseries().add(reader.getObjectUsingBuilder(builder));
-            else if (CityGMLBuilderHelper.createAsGenericADEProperty(name, reader, substitutionGroup))
-                object.getADEPropertiesOfGenericTimeseries().add(GenericADEPropertyOfGenericTimeseries.of(reader.getDOMElement()));
-        } else
-            super.buildChildObject(object, name, attributes, reader);
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(GenericTimeseries object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfGenericTimeseries.class, object.getADEPropertiesOfGenericTimeseries(),
+                GenericADEPropertyOfGenericTimeseries::of, reader, substitutionGroup))
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override
