@@ -39,7 +39,6 @@ public class DeprecatedProperties extends GMLObject {
 
     public static final String LOD0_NETWORK = "lod0Network";
     public static final String LOD0_ROOF_EDGE = "lod0RoofEdge";
-    public static final String LOD0_MULTI_CURVE = "lod0MultiCurve";
     public static final String LOD1_MULTI_CURVE = "lod1MultiCurve";
     public static final String LOD4_MULTI_CURVE = "lod4MultiCurve";
     public static final String LOD1_MULTI_SURFACE = "lod1MultiSurface";

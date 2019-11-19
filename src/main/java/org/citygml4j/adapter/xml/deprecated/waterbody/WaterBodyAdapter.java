@@ -58,7 +58,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "lod0MultiCurve":
-                    object.getDeprecatedProperties().addGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.setLod0MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod0MultiSurface":
                     object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
@@ -109,10 +109,8 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, waterBodyNamespace, namespaces, writer);
 
-        if (object.getDeprecatedProperties().containsGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE)) {
-            MultiCurveProperty property = object.getDeprecatedProperties().getGeometry(0, DeprecatedProperties.LOD0_MULTI_CURVE, MultiCurveProperty.class);
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiCurve"), property, MultiCurvePropertyAdapter.class, namespaces);
-        }
+        if (object.getLod0MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiCurve"), object.getLod0MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         if (object.getLod0MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
