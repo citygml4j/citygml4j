@@ -7,6 +7,7 @@ import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.adapter.xml.deprecated.tunnel.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnelInstallation;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
@@ -45,7 +46,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
     public TunnelInstallation createObject(QName name) throws ObjectBuildException {
         TunnelInstallation object = new TunnelInstallation();
         if ("IntTunnelInstallation".equals(name.getLocalPart()))
-            object.getLocalProperties().set(DeprecatedProperties.INT_TUNNEL_INSTALLATION, true);
+            object.setRelationToConstruction(RelationToConstruction.INSIDE);
 
         return object;
     }
@@ -102,7 +103,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
     public Element createElement(TunnelInstallation object, Namespaces namespaces) throws ObjectSerializeException {
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
         return !CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace)
-                && object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_TUNNEL_INSTALLATION, true) ?
+                && object.getRelationToConstruction() == RelationToConstruction.INSIDE ?
                 Element.of(tunnelNamespace, "IntTunnelInstallation") :
                 Element.of(tunnelNamespace, "TunnelInstallation");
     }
@@ -115,7 +116,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace)) {
-            boolean isInterior = object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_TUNNEL_INSTALLATION, true);
+            boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
 
             if (!isInterior) {
                 if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {

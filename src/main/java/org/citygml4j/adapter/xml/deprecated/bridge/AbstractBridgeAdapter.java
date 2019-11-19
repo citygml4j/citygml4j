@@ -23,6 +23,7 @@ import org.citygml4j.model.bridge.BridgeInstallationProperty;
 import org.citygml4j.model.bridge.BridgePartProperty;
 import org.citygml4j.model.bridge.BridgeRoomMember;
 import org.citygml4j.model.bridge.BridgeRoomProperty;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
@@ -218,7 +219,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         }
 
         for (BridgeInstallationMember member : object.getBridgeInstallations()) {
-            if (member.getObject() != null && !member.getObject().getLocalProperties().getAndCompare(DeprecatedProperties.INT_BRIDGE_INSTALLATION, true))
+            if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
         }
 
@@ -228,7 +229,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         }
 
         for (BridgeInstallationMember member : object.getBridgeInstallations()) {
-            if (member.getObject() != null && member.getObject().getLocalProperties().getAndCompare(DeprecatedProperties.INT_BRIDGE_INSTALLATION, true))
+            if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
         }
 

@@ -8,6 +8,7 @@ import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeInstallation;
 import org.citygml4j.model.bridge.ADEPropertyOfBridgeInstallation;
 import org.citygml4j.model.bridge.BridgeInstallation;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
@@ -44,7 +45,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
     public BridgeInstallation createObject(QName name) throws ObjectBuildException {
         BridgeInstallation object = new BridgeInstallation();
         if ("IntBridgeInstallation".equals(name.getLocalPart()))
-            object.getLocalProperties().set(DeprecatedProperties.INT_BRIDGE_INSTALLATION, true);
+            object.setRelationToConstruction(RelationToConstruction.INSIDE);
 
         return object;
     }
@@ -101,7 +102,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
     public Element createElement(BridgeInstallation object, Namespaces namespaces) throws ObjectSerializeException {
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
         return !CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace)
-                && object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_BRIDGE_INSTALLATION, true) ?
+                && object.getRelationToConstruction() == RelationToConstruction.INSIDE ?
                 Element.of(bridgeNamespace, "IntBridgeInstallation") :
                 Element.of(bridgeNamespace, "BridgeInstallation");
     }
@@ -114,7 +115,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace)) {
-            boolean isInterior = object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_BRIDGE_INSTALLATION, true);
+            boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
 
             if (!isInterior) {
                 if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {

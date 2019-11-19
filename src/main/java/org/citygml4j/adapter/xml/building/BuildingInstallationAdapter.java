@@ -9,6 +9,7 @@ import org.citygml4j.adapter.xml.deprecated.building.AbstractBoundarySurfaceProp
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingInstallation;
 import org.citygml4j.model.building.ADEPropertyOfBuildingInstallation;
 import org.citygml4j.model.building.BuildingInstallation;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
@@ -49,7 +50,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
     public BuildingInstallation createObject(QName name) throws ObjectBuildException {
         BuildingInstallation object = new BuildingInstallation();
         if ("IntBuildingInstallation".equals(name.getLocalPart()))
-            object.getLocalProperties().set(DeprecatedProperties.INT_BUILDING_INSTALLATION, true);
+            object.setRelationToConstruction(RelationToConstruction.INSIDE);
 
         return object;
     }
@@ -106,7 +107,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
     public Element createElement(BuildingInstallation object, Namespaces namespaces) throws ObjectSerializeException {
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
         return !CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)
-                && object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_BUILDING_INSTALLATION, true) ?
+                && object.getRelationToConstruction() == RelationToConstruction.INSIDE ?
                 Element.of(buildingNamespace, "IntBuildingInstallation") :
                 Element.of(buildingNamespace, "BuildingInstallation");
     }
@@ -119,7 +120,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)) {
-            boolean isInterior = object.getLocalProperties().getAndCompare(DeprecatedProperties.INT_BUILDING_INSTALLATION, true);
+            boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
 
             if (!isInterior) {
                 if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {

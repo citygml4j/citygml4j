@@ -22,6 +22,7 @@ import org.citygml4j.model.building.BuildingRoomProperty;
 import org.citygml4j.model.construction.Height;
 import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.construction.HeightStatusValue;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
@@ -260,7 +261,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         for (BuildingInstallationMember member : object.getBuildingInstallations()) {
-            if (member.getObject() != null && !member.getObject().getLocalProperties().getAndCompare(DeprecatedProperties.INT_BUILDING_INSTALLATION, true))
+            if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
         }
 
@@ -270,7 +271,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         }
 
         for (BuildingInstallationMember member : object.getBuildingInstallations()) {
-            if (member.getObject() != null && member.getObject().getLocalProperties().getAndCompare(DeprecatedProperties.INT_BUILDING_INSTALLATION, true))
+            if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
         }
 

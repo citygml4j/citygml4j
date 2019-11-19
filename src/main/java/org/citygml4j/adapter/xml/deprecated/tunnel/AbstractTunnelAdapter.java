@@ -10,6 +10,7 @@ import org.citygml4j.adapter.xml.tunnel.TunnelInstallationMemberAdapter;
 import org.citygml4j.adapter.xml.tunnel.TunnelInstallationPropertyAdapter;
 import org.citygml4j.adapter.xml.tunnel.TunnelPartPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTunnel;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.tunnel.ADEPropertyOfAbstractTunnel;
@@ -188,7 +189,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         for (TunnelInstallationMember member : object.getTunnelInstallations()) {
-            if (member.getObject() != null && !member.getObject().getLocalProperties().getAndCompare(DeprecatedProperties.INT_TUNNEL_INSTALLATION, true))
+            if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
         }
 
@@ -198,7 +199,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         }
 
         for (TunnelInstallationMember member : object.getTunnelInstallations()) {
-            if (member.getObject() != null && member.getObject().getLocalProperties().getAndCompare(DeprecatedProperties.INT_TUNNEL_INSTALLATION, true))
+            if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
         }
 
