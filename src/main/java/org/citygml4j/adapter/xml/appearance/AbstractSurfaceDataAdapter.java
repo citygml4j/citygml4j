@@ -54,7 +54,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
         if (object.isSetIsFront())
             writer.writeElement(Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "isFront").addTextContent(TextContent.ofBoolean(object.getIsFront())));
 
-        for (ADEPropertyOfAbstractSurfaceData property : object.getADEPropertiesOfAbstractSurfaceData())
+        for (ADEPropertyOfAbstractSurfaceData<?> property : object.getADEPropertiesOfAbstractSurfaceData())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

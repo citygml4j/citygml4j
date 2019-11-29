@@ -102,11 +102,11 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getGroupParent(), AbstractCityObjectPropertyAdapter.class, namespaces);
 
         if (!isCityGML3 && object.getDeprecatedProperties().containsNonLodGeometry(DeprecatedProperties.GEOMETRY)) {
-            GeometryProperty property = object.getDeprecatedProperties().getNonLodGeometry(DeprecatedProperties.GEOMETRY, GeometryProperty.class);
+            GeometryProperty<?> property = object.getDeprecatedProperties().getNonLodGeometry(DeprecatedProperties.GEOMETRY, GeometryProperty.class);
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), property, GeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfCityObjectGroup property : object.getADEPropertiesOfCityObjectGroup())
+        for (ADEPropertyOfCityObjectGroup<?> property : object.getADEPropertiesOfCityObjectGroup())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

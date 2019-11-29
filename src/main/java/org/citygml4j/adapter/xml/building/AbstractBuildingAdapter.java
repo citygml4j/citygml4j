@@ -127,7 +127,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBuilding property : object.getADEPropertiesOfAbstractBuilding())
+        for (ADEPropertyOfAbstractBuilding<?> property : object.getADEPropertiesOfAbstractBuilding())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

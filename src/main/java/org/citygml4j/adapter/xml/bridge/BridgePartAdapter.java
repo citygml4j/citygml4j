@@ -52,7 +52,7 @@ public class BridgePartAdapter extends AbstractBridgeAdapter<BridgePart> {
     public void writeChildElements(BridgePart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfBridgePart property : object.getADEPropertiesOfBridgePart())
+        for (ADEPropertyOfBridgePart<?> property : object.getADEPropertiesOfBridgePart())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -44,7 +44,7 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfAbstractVegetationObject property : object.getADEPropertiesOfAbstractVegetationObject())
+        for (ADEPropertyOfAbstractVegetationObject<?> property : object.getADEPropertiesOfAbstractVegetationObject())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -92,7 +92,7 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
         for (Reference reference : object.getBuildingRooms())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), reference, ReferenceAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBuildingSubdivision property : object.getADEPropertiesOfAbstractBuildingSubdivision())
+        for (ADEPropertyOfAbstractBuildingSubdivision<?> property : object.getADEPropertiesOfAbstractBuildingSubdivision())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

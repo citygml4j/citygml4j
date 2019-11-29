@@ -59,7 +59,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     public void writeChildElements(CeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfCeilingSurface property : object.getADEPropertiesOfCeilingSurface())
+        for (ADEPropertyOfCeilingSurface<?> property : object.getADEPropertiesOfCeilingSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

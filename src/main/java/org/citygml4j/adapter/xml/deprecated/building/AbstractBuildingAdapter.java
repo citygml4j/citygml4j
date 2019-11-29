@@ -336,7 +336,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBuilding property : object.getADEPropertiesOfAbstractBuilding())
+        for (ADEPropertyOfAbstractBuilding<?> property : object.getADEPropertiesOfAbstractBuilding())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

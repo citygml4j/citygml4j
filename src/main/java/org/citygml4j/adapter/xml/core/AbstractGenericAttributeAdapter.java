@@ -16,7 +16,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractGenericAttributeAdapter<T extends AbstractGenericAttribute> implements ObjectBuilder<T>, ObjectSerializer<T> {
+public abstract class AbstractGenericAttributeAdapter<T extends AbstractGenericAttribute<?>> implements ObjectBuilder<T>, ObjectSerializer<T> {
 
     @Override
     public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {

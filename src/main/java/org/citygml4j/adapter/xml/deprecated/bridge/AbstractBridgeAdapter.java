@@ -294,7 +294,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBridge property : object.getADEPropertiesOfAbstractBridge())
+        for (ADEPropertyOfAbstractBridge<?> property : object.getADEPropertiesOfAbstractBridge())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

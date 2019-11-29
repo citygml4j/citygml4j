@@ -110,7 +110,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
             }
         }
 
-        for (ADEPropertyOfLandUse property : object.getADEPropertiesOfLandUse())
+        for (ADEPropertyOfLandUse<?> property : object.getADEPropertiesOfLandUse())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

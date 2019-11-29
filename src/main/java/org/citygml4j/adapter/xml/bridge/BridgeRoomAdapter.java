@@ -122,7 +122,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
         for (BridgeInstallationProperty property : object.getBridgeInstallations())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeInstallation" : "bridgeRoomInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBridgeRoom property : object.getADEPropertiesOfBridgeRoom())
+        for (ADEPropertyOfBridgeRoom<?> property : object.getADEPropertiesOfBridgeRoom())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

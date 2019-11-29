@@ -81,7 +81,7 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
         for (AbstractReliefComponentProperty property : object.getReliefComponents())
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefComponent"), property, AbstractReliefComponentPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfReliefFeature property : object.getADEPropertiesOfReliefFeature())
+        for (ADEPropertyOfReliefFeature<?> property : object.getADEPropertiesOfReliefFeature())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

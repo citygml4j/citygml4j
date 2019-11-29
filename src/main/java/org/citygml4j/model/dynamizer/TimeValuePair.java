@@ -12,7 +12,7 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
     private Integer intValue;
     private Double doubleValue;
     private String stringValue;
-    private GeometryProperty geometryValue;
+    private GeometryProperty<?> geometryValue;
     private String uriValue;
     private Boolean boolValue;
     private ImplicitGeometryProperty implicitGeometryValue;
@@ -78,7 +78,7 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
         this.stringValue = stringValue;
     }
 
-    public GeometryProperty getGeometryValue() {
+    public GeometryProperty<?> getGeometryValue() {
         return geometryValue;
     }
 
@@ -86,7 +86,7 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
         return geometryValue != null;
     }
 
-    public void setGeometryValue(GeometryProperty geometryValue) {
+    public void setGeometryValue(GeometryProperty<?> geometryValue) {
         clearValue();
         this.geometryValue = asChild(geometryValue);
     }
@@ -202,7 +202,7 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
                     setStringValue((String) value);
                     break;
                 case GEOMETRY:
-                    setGeometryValue((GeometryProperty) value);
+                    setGeometryValue((GeometryProperty<?>) value);
                     break;
                 case URI:
                     setUriValue((String) value);

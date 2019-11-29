@@ -154,7 +154,7 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
             writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfAbstractTransportationSpace property : object.getADEPropertiesOfAbstractTransportationSpace())
+        for (ADEPropertyOfAbstractTransportationSpace<?> property : object.getADEPropertiesOfAbstractTransportationSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 

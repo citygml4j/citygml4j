@@ -69,7 +69,7 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3TerrainIntersectionCurve"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractPhysicalSpace property : object.getADEPropertiesOfAbstractPhysicalSpace())
+            for (ADEPropertyOfAbstractPhysicalSpace<?> property : object.getADEPropertiesOfAbstractPhysicalSpace())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

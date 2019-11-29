@@ -90,7 +90,7 @@ public class DynamizerAdapter extends AbstractDynamizerAdapter<Dynamizer> {
         if (object.getSensorConnection() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "sensorConnection"), object.getSensorConnection(), SensorConnectionPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfDynamizer property : object.getADEPropertiesOfDynamizer())
+        for (ADEPropertyOfDynamizer<?> property : object.getADEPropertiesOfDynamizer())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

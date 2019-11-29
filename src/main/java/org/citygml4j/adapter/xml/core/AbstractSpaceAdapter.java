@@ -138,7 +138,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             if (object.getLod3MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3MultiCurve"), object.getLod3MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractSpace property : object.getADEPropertiesOfAbstractSpace())
+            for (ADEPropertyOfAbstractSpace<?> property : object.getADEPropertiesOfAbstractSpace())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

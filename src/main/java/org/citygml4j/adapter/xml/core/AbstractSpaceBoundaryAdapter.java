@@ -41,7 +41,7 @@ public abstract class AbstractSpaceBoundaryAdapter<T extends AbstractSpaceBounda
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEPropertyOfAbstractSpaceBoundary property : object.getADEPropertiesOfAbstractSpaceBoundary())
+            for (ADEPropertyOfAbstractSpaceBoundary<?> property : object.getADEPropertiesOfAbstractSpaceBoundary())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

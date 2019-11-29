@@ -79,7 +79,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         for (TunnelFurnitureMember member : object.getTunnelFurniture())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelFurniture"), member, TunnelFurnitureMemberAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractTunnel property : object.getADEPropertiesOfAbstractTunnel())
+        for (ADEPropertyOfAbstractTunnel<?> property : object.getADEPropertiesOfAbstractTunnel())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

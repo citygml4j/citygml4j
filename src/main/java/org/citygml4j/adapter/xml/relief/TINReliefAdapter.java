@@ -70,7 +70,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
         if (object.getTin() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "tin"), object.getTin(), TinPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfTINRelief property : object.getADEPropertiesOfTINRelief())
+        for (ADEPropertyOfTINRelief<?> property : object.getADEPropertiesOfTINRelief())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -39,7 +39,7 @@ public abstract class AbstractVersionTransitionAdapter<T extends AbstractVersion
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfAbstractVersionTransition property : object.getADEPropertiesOfAbstractVersionTransition())
+        for (ADEPropertyOfAbstractVersionTransition<?> property : object.getADEPropertiesOfAbstractVersionTransition())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

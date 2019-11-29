@@ -89,7 +89,7 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
         for (MarkingProperty property : object.getMarkings())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractTransportationSpace property : object.getADEPropertiesOfAbstractTransportationSpace())
+        for (ADEPropertyOfAbstractTransportationSpace<?> property : object.getADEPropertiesOfAbstractTransportationSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

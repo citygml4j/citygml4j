@@ -134,7 +134,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
         for (BuildingInstallationProperty property : object.getBuildingInstallations())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingInstallation" : "roomInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBuildingRoom property : object.getADEPropertiesOfBuildingRoom())
+        for (ADEPropertyOfBuildingRoom<?> property : object.getADEPropertiesOfBuildingRoom())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

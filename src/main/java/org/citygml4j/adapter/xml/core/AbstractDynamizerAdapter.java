@@ -39,7 +39,7 @@ public abstract class AbstractDynamizerAdapter<T extends AbstractDynamizer> exte
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfAbstractDynamizer property : object.getADEPropertiesOfAbstractDynamizer())
+        for (ADEPropertyOfAbstractDynamizer<?> property : object.getADEPropertiesOfAbstractDynamizer())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

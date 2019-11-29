@@ -41,7 +41,7 @@ public abstract class AbstractAppearanceAdapter<T extends AbstractAppearance> ex
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEPropertyOfAbstractAppearance property : object.getADEPropertiesOfAbstractAppearance())
+            for (ADEPropertyOfAbstractAppearance<?> property : object.getADEPropertiesOfAbstractAppearance())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

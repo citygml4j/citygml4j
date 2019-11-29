@@ -84,7 +84,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                     Element.of(appearanceNamespace, CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace) ? "surfaceData" : "surfaceDataMember"),
                     property, AbstractSurfaceDataPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAppearance property : object.getADEPropertiesOfAppearance())
+        for (ADEPropertyOfAppearance<?> property : object.getADEPropertiesOfAppearance())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

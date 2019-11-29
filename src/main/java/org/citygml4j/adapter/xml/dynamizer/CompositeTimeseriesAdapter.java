@@ -61,7 +61,7 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
         for (TimeseriesComponentProperty property : object.getComponents())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "component"), property, TimeseriesComponentPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfCompositeTimeseries property : object.getADEPropertiesOfCompositeTimeseries())
+        for (ADEPropertyOfCompositeTimeseries<?> property : object.getADEPropertiesOfCompositeTimeseries())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

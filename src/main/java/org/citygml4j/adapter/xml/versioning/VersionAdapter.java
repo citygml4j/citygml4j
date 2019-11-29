@@ -72,7 +72,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
         for (AbstractFeatureWithLifespanProperty property : object.getVersionMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), property, AbstractFeatureWithLifespanPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfVersion property : object.getADEPropertiesOfVersion())
+        for (ADEPropertyOfVersion<?> property : object.getADEPropertiesOfVersion())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

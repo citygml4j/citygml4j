@@ -105,7 +105,7 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
             }
         }
 
-        for (ADEPropertyOfTrafficArea property : object.getADEPropertiesOfTrafficArea())
+        for (ADEPropertyOfTrafficArea<?> property : object.getADEPropertiesOfTrafficArea())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

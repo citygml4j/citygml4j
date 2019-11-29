@@ -84,7 +84,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
         if (object.getPoints() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "points"), object.getPoints(), MultiPointPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfPointCloud property : object.getADEPropertiesOfPointCloud())
+        for (ADEPropertyOfPointCloud<?> property : object.getADEPropertiesOfPointCloud())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

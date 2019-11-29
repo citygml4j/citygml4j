@@ -90,7 +90,7 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())
+        for (ADEPropertyOfAbstractThematicSurface<?> property : object.getADEPropertiesOfAbstractThematicSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

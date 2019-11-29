@@ -62,7 +62,7 @@ public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfHole property : object.getADEPropertiesOfHole())
+        for (ADEPropertyOfHole<?> property : object.getADEPropertiesOfHole())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

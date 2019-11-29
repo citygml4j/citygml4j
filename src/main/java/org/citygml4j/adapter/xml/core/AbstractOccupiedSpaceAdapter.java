@@ -65,7 +65,7 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractOccupiedSpace property : object.getADEPropertiesOfAbstractOccupiedSpace())
+            for (ADEPropertyOfAbstractOccupiedSpace<?> property : object.getADEPropertiesOfAbstractOccupiedSpace())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

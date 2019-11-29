@@ -61,7 +61,7 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
         for (BridgePartProperty property : object.getBridgeParts())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBridge property : object.getADEPropertiesOfBridge())
+        for (ADEPropertyOfBridge<?> property : object.getADEPropertiesOfBridge())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

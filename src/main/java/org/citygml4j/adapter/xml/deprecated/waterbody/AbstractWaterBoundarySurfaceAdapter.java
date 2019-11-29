@@ -94,10 +94,10 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
         if (object instanceof AbstractWaterBoundarySurface) {
             AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;
-            for (ADEPropertyOfAbstractWaterBoundarySurface property : boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface())
+            for (ADEPropertyOfAbstractWaterBoundarySurface<?> property : boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         } else if (object instanceof ClosureSurface) {
-            for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())
+            for (ADEPropertyOfAbstractThematicSurface<?> property : object.getADEPropertiesOfAbstractThematicSurface())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

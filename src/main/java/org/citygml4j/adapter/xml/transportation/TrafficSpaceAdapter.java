@@ -104,7 +104,7 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
         for (ClearanceSpaceProperty property : object.getClearanceSpaces())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfTrafficSpace property : object.getADEPropertiesOfTrafficSpace())
+        for (ADEPropertyOfTrafficSpace<?> property : object.getADEPropertiesOfTrafficSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

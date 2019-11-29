@@ -41,7 +41,7 @@ public abstract class AbstractFurnitureAdapter<T extends AbstractFurniture> exte
         super.writeChildElements(object, namespaces, writer);
 
         if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (ADEPropertyOfAbstractFurniture property : object.getADEPropertiesOfAbstractFurniture())
+            for (ADEPropertyOfAbstractFurniture<?> property : object.getADEPropertiesOfAbstractFurniture())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

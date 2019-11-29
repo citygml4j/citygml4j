@@ -51,7 +51,7 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
             for (AbstractFillingSurfaceProperty property : object.getFillingSurfaces())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "fillingSurface"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractConstructionSurface property : object.getADEPropertiesOfAbstractConstructionSurface())
+            for (ADEPropertyOfAbstractConstructionSurface<?> property : object.getADEPropertiesOfAbstractConstructionSurface())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

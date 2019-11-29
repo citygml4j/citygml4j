@@ -174,7 +174,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
             }
         }
 
-        for (ADEPropertyOfPlantCover property : object.getADEPropertiesOfPlantCover())
+        for (ADEPropertyOfPlantCover<?> property : object.getADEPropertiesOfPlantCover())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 

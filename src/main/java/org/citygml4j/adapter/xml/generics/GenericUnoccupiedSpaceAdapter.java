@@ -60,7 +60,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfGenericUnoccupiedSpace property : object.getADEPropertiesOfGenericUnoccupiedSpace())
+        for (ADEPropertyOfGenericUnoccupiedSpace<?> property : object.getADEPropertiesOfGenericUnoccupiedSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

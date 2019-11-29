@@ -105,7 +105,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
             }
         }
 
-        for (ADEPropertyOfAuxiliaryTrafficArea property : object.getADEPropertiesOfAuxiliaryTrafficArea())
+        for (ADEPropertyOfAuxiliaryTrafficArea<?> property : object.getADEPropertiesOfAuxiliaryTrafficArea())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

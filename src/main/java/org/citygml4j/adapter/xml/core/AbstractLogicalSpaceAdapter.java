@@ -41,7 +41,7 @@ public abstract class AbstractLogicalSpaceAdapter<T extends AbstractLogicalSpace
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEPropertyOfAbstractLogicalSpace property : object.getADEPropertiesOfAbstractLogicalSpace())
+            for (ADEPropertyOfAbstractLogicalSpace<?> property : object.getADEPropertiesOfAbstractLogicalSpace())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

@@ -49,7 +49,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
 
             switch (name.getLocalPart()) {
                 case "lod4Geometry":
-                    GeometryProperty lod4Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    GeometryProperty<?> lod4Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod4Geometry))
                         object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
@@ -86,7 +86,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
 
         if (!CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace)) {
             if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
+                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
             } else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod4Geometry", tunnelNamespace, namespaces, writer);
@@ -98,7 +98,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfTunnelFurniture property : object.getADEPropertiesOfTunnelFurniture())
+        for (ADEPropertyOfTunnelFurniture<?> property : object.getADEPropertiesOfTunnelFurniture())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

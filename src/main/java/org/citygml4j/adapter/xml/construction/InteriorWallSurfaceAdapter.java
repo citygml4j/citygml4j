@@ -52,7 +52,7 @@ public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     public void writeChildElements(InteriorWallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfInteriorWallSurface property : object.getADEPropertiesOfInteriorWallSurface())
+        for (ADEPropertyOfInteriorWallSurface<?> property : object.getADEPropertiesOfInteriorWallSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -52,7 +52,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     public void writeChildElements(OuterCeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfOuterCeilingSurface property : object.getADEPropertiesOfOuterCeilingSurface())
+        for (ADEPropertyOfOuterCeilingSurface<?> property : object.getADEPropertiesOfOuterCeilingSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

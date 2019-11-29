@@ -62,7 +62,7 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfClearanceSpace property : object.getADEPropertiesOfClearanceSpace())
+        for (ADEPropertyOfClearanceSpace<?> property : object.getADEPropertiesOfClearanceSpace())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

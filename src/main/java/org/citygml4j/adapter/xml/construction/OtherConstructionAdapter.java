@@ -57,7 +57,7 @@ public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherC
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfOtherConstruction property : object.getADEPropertiesOfOtherConstruction())
+        for (ADEPropertyOfOtherConstruction<?> property : object.getADEPropertiesOfOtherConstruction())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

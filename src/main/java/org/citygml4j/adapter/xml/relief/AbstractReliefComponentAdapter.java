@@ -63,7 +63,7 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
         if (object.getExtent() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "extent"), object.getExtent(), ExtentPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractReliefComponent property : object.getADEPropertiesOfAbstractReliefComponent())
+        for (ADEPropertyOfAbstractReliefComponent<?> property : object.getADEPropertiesOfAbstractReliefComponent())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

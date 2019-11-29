@@ -59,7 +59,7 @@ public class RailwayAdapter extends AbstractTransportationObjectAdapter<Railway>
     public void writeChildElements(Railway object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfRailway property : object.getADEPropertiesOfRailway())
+        for (ADEPropertyOfRailway<?> property : object.getADEPropertiesOfRailway())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -58,12 +58,12 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
 
             switch (name.getLocalPart()) {
                 case "lod2Geometry":
-                    GeometryProperty lod2Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    GeometryProperty<?> lod2Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 2, lod2Geometry))
                         object.getDeprecatedProperties().addGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, lod2Geometry);
                     return;
                 case "lod3Geometry":
-                    GeometryProperty lod3Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    GeometryProperty<?> lod3Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod3Geometry))
                         object.getDeprecatedProperties().addGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, lod3Geometry);
                     return;
@@ -119,20 +119,20 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
 
             if (!isInterior) {
                 if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {
-                    GeometryProperty property = object.getDeprecatedProperties().getGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, GeometryProperty.class);
+                    GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, GeometryProperty.class);
                     writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), property, GeometryPropertyAdapter.class, namespaces);
                 } else
                     CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", bridgeNamespace, namespaces, writer);
 
                 if (object.getDeprecatedProperties().containsGeometry(3, DeprecatedProperties.LOD3_GEOMETRY)) {
-                    GeometryProperty property = object.getDeprecatedProperties().getGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
+                    GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
                     writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), property, GeometryPropertyAdapter.class, namespaces);
                 } else
                     CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", bridgeNamespace, namespaces, writer);
             }
 
             if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
+                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
             }
 
@@ -153,7 +153,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfBridgeInstallation property : object.getADEPropertiesOfBridgeInstallation())
+        for (ADEPropertyOfBridgeInstallation<?> property : object.getADEPropertiesOfBridgeInstallation())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -261,7 +261,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfAbstractTunnel property : object.getADEPropertiesOfAbstractTunnel())
+        for (ADEPropertyOfAbstractTunnel<?> property : object.getADEPropertiesOfAbstractTunnel())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

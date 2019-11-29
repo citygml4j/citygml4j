@@ -14,7 +14,7 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject {
     private Code mimeType;
     private String libraryObject;
     private PointProperty referencePoint;
-    private GeometryProperty relativeGMLGeometry;
+    private GeometryProperty<?> relativeGMLGeometry;
     private List<AbstractAppearanceProperty> appearances;
 
     public ImplicitGeometry() {
@@ -56,11 +56,11 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject {
         this.referencePoint = asChild(referencePoint);
     }
 
-    public GeometryProperty getRelativeGMLGeometry() {
+    public GeometryProperty<?> getRelativeGMLGeometry() {
         return relativeGMLGeometry;
     }
 
-    public void setRelativeGMLGeometry(GeometryProperty relativeGMLGeometry) {
+    public void setRelativeGMLGeometry(GeometryProperty<?> relativeGMLGeometry) {
         this.relativeGMLGeometry = asChild(relativeGMLGeometry);
     }
 

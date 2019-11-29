@@ -9,7 +9,7 @@ public class CityModel extends AbstractFeatureWithLifespan {
     private EngineeringCRSProperty engineeringCRS;
     private List<AbstractCityObjectProperty> cityObjectMembers;
     private List<AbstractAppearanceProperty> appearanceMembers;
-    private List<FeatureProperty> featureMembers;
+    private List<FeatureProperty<?>> featureMembers;
     private List<AbstractVersionProperty> versionMembers;
     private List<AbstractVersionTransitionProperty> versionTransitionMembers;
     private List<ADEPropertyOfCityModel<?>> adeProperties;
@@ -44,14 +44,14 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.appearanceMembers = asChild(appearanceMembers);
     }
 
-    public List<FeatureProperty> getFeatureMembers() {
+    public List<FeatureProperty<?>> getFeatureMembers() {
         if (featureMembers == null)
             featureMembers = new ChildList<>(this);
 
         return featureMembers;
     }
 
-    public void setFeatureMembers(List<FeatureProperty> featureMembers) {
+    public void setFeatureMembers(List<FeatureProperty<?>> featureMembers) {
         this.featureMembers = asChild(featureMembers);
     }
 

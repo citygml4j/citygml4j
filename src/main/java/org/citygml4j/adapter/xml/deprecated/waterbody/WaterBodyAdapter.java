@@ -142,7 +142,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfWaterBody property : object.getADEPropertiesOfWaterBody())
+        for (ADEPropertyOfWaterBody<?> property : object.getADEPropertiesOfWaterBody())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

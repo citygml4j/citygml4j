@@ -73,7 +73,7 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBuildingUnit property : object.getADEPropertiesOfBuildingUnit())
+        for (ADEPropertyOfBuildingUnit<?> property : object.getADEPropertiesOfBuildingUnit())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -60,7 +60,7 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
     public void writeChildElements(Track object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTrack property : object.getADEPropertiesOfTrack())
+        for (ADEPropertyOfTrack<?> property : object.getADEPropertiesOfTrack())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

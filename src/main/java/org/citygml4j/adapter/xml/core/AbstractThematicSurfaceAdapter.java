@@ -92,7 +92,7 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
             if (object.getPointCloud() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractThematicSurface property : object.getADEPropertiesOfAbstractThematicSurface())
+            for (ADEPropertyOfAbstractThematicSurface<?> property : object.getADEPropertiesOfAbstractThematicSurface())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

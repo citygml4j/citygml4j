@@ -94,7 +94,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
         for (String target : object.getTargets())
             writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target));
 
-        for (ADEPropertyOfGeoreferencedTexture property : object.getADEPropertiesOfGeoreferencedTexture())
+        for (ADEPropertyOfGeoreferencedTexture<?> property : object.getADEPropertiesOfGeoreferencedTexture())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

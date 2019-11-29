@@ -82,7 +82,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), property, org.citygml4j.adapter.xml.deprecated.appearance.TextureAssociationPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfParameterizedTexture property : object.getADEPropertiesOfParameterizedTexture())
+        for (ADEPropertyOfParameterizedTexture<?> property : object.getADEPropertiesOfParameterizedTexture())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

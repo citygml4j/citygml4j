@@ -41,7 +41,7 @@ public abstract class AbstractFillingElementAdapter<T extends AbstractFillingEle
         super.writeChildElements(object, namespaces, writer);
 
         if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (ADEPropertyOfAbstractFillingElement property : object.getADEPropertiesOfAbstractFillingElement())
+            for (ADEPropertyOfAbstractFillingElement<?> property : object.getADEPropertiesOfAbstractFillingElement())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

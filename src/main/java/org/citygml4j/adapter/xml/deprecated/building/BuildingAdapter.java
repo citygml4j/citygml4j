@@ -59,7 +59,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     public void writeChildElements(Building object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfBuilding property : object.getADEPropertiesOfBuilding())
+        for (ADEPropertyOfBuilding<?> property : object.getADEPropertiesOfBuilding())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

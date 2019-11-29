@@ -51,7 +51,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
 
             switch (name.getLocalPart()) {
                 case "lod4Geometry":
-                    GeometryProperty lod4Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
+                    GeometryProperty<?> lod4Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod4Geometry))
                         object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
@@ -88,7 +88,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
 
         if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)) {
             if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
+                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
             } else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod4Geometry", buildingNamespace, namespaces, writer);
@@ -100,7 +100,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfBuildingFurniture property : object.getADEPropertiesOfBuildingFurniture())
+        for (ADEPropertyOfBuildingFurniture<?> property : object.getADEPropertiesOfBuildingFurniture())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -40,7 +40,7 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractWate
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfAbstractWaterBoundarySurface property : object.getADEPropertiesOfAbstractWaterBoundarySurface())
+        for (ADEPropertyOfAbstractWaterBoundarySurface<?> property : object.getADEPropertiesOfAbstractWaterBoundarySurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

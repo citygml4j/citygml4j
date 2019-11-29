@@ -62,7 +62,7 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
         for (Reference reference : object.getBuildingUnits())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingUnit"), reference, ReferenceAdapter.class, namespaces);
 
-        for (ADEPropertyOfStorey property : object.getADEPropertiesOfStorey())
+        for (ADEPropertyOfStorey<?> property : object.getADEPropertiesOfStorey())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

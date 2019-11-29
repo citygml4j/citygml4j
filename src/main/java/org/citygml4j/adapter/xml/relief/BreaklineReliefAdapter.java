@@ -80,7 +80,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
         if (object.getBreaklines() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "breaklines"), object.getBreaklines(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBreaklineRelief property : object.getADEPropertiesOfBreaklineRelief())
+        for (ADEPropertyOfBreaklineRelief<?> property : object.getADEPropertiesOfBreaklineRelief())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -60,7 +60,7 @@ public class BuildingConstructiveElementAdapter extends AbstractConstructiveElem
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfBuildingConstructiveElement property : object.getADEPropertiesOfBuildingConstructiveElement())
+        for (ADEPropertyOfBuildingConstructiveElement<?> property : object.getADEPropertiesOfBuildingConstructiveElement())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

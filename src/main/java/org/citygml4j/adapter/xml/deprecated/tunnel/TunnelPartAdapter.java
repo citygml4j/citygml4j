@@ -52,7 +52,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     public void writeChildElements(TunnelPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTunnelPart property : object.getADEPropertiesOfTunnelPart())
+        for (ADEPropertyOfTunnelPart<?> property : object.getADEPropertiesOfTunnelPart())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

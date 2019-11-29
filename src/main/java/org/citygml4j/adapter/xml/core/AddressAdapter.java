@@ -82,7 +82,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> implements A
         if (object.getMultiPoint() != null)
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "multiPoint"), object.getMultiPoint(), MultiPointPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAddress property : object.getADEPropertiesOfAddress())
+        for (ADEPropertyOfAddress<?> property : object.getADEPropertiesOfAddress())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -61,7 +61,7 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
         if (object.getLastTimestamp() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "lastTimestamp"), object.getLastTimestamp(), TimePositionAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractTimeseries property : object.getADEPropertiesOfAbstractTimeseries())
+        for (ADEPropertyOfAbstractTimeseries<?> property : object.getADEPropertiesOfAbstractTimeseries())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

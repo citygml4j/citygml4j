@@ -76,7 +76,7 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
         for (IntersectionProperty property : object.getIntersections())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfRoad property : object.getADEPropertiesOfRoad())
+        for (ADEPropertyOfRoad<?> property : object.getADEPropertiesOfRoad())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

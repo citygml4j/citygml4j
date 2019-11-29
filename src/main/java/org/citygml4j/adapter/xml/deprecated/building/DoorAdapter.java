@@ -70,7 +70,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfDoorSurface property : object.getADEPropertiesOfDoorSurface())
+        for (ADEPropertyOfDoorSurface<?> property : object.getADEPropertiesOfDoorSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

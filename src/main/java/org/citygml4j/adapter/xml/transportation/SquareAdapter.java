@@ -59,7 +59,7 @@ public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfSquare property : object.getADEPropertiesOfSquare())
+        for (ADEPropertyOfSquare<?> property : object.getADEPropertiesOfSquare())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

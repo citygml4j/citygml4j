@@ -43,7 +43,7 @@ public abstract class AbstractSiteAdapter<T extends AbstractConstruction> extend
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfAbstractConstruction property : object.getADEPropertiesOfAbstractConstruction())
+        for (ADEPropertyOfAbstractConstruction<?> property : object.getADEPropertiesOfAbstractConstruction())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

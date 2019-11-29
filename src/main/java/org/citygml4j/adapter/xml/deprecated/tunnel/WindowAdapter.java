@@ -52,7 +52,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     public void writeChildElements(WindowSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWindowSurface property : object.getADEPropertiesOfWindowSurface())
+        for (ADEPropertyOfWindowSurface<?> property : object.getADEPropertiesOfWindowSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

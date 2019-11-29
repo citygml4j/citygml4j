@@ -61,7 +61,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, waterBodyNamespace, namespaces, writer);
 
-        for (ADEPropertyOfWaterBody property : object.getADEPropertiesOfWaterBody())
+        for (ADEPropertyOfWaterBody<?> property : object.getADEPropertiesOfWaterBody())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

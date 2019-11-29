@@ -117,7 +117,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
         for (String target : object.getTargets())
             writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target));
 
-        for (ADEPropertyOfX3DMaterial property : object.getADEPropertiesOfX3DMaterial())
+        for (ADEPropertyOfX3DMaterial<?> property : object.getADEPropertiesOfX3DMaterial())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

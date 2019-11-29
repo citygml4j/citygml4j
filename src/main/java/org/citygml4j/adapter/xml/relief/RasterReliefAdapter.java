@@ -70,7 +70,7 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
         if (object.getGrid() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "grid"), object.getGrid(), GridPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfRasterRelief property : object.getADEPropertiesOfRasterRelief())
+        for (ADEPropertyOfRasterRelief<?> property : object.getADEPropertiesOfRasterRelief())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

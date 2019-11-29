@@ -59,7 +59,7 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfWindow property : object.getADEPropertiesOfWindow())
+        for (ADEPropertyOfWindow<?> property : object.getADEPropertiesOfWindow())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -77,7 +77,7 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
         if (object.getMimeType() != null)
             writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfStandardFileTimeseries property : object.getADEPropertiesOfStandardFileTimeseries())
+        for (ADEPropertyOfStandardFileTimeseries<?> property : object.getADEPropertiesOfStandardFileTimeseries())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

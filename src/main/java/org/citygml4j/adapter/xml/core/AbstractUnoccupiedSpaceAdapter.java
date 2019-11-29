@@ -41,7 +41,7 @@ public abstract class AbstractUnoccupiedSpaceAdapter<T extends AbstractUnoccupie
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEPropertyOfAbstractUnoccupiedSpace property : object.getADEPropertiesOfAbstractUnoccupiedSpace())
+            for (ADEPropertyOfAbstractUnoccupiedSpace<?> property : object.getADEPropertiesOfAbstractUnoccupiedSpace())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }

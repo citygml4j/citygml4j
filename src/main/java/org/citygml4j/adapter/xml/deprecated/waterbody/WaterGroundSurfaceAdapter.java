@@ -59,7 +59,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     public void writeChildElements(WaterGroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWaterGroundSurface property : object.getADEPropertiesOfWaterGroundSurface())
+        for (ADEPropertyOfWaterGroundSurface<?> property : object.getADEPropertiesOfWaterGroundSurface())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

@@ -71,7 +71,7 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
     public void writeChildElements(Road object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfRoad property : object.getADEPropertiesOfRoad())
+        for (ADEPropertyOfRoad<?> property : object.getADEPropertiesOfRoad())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

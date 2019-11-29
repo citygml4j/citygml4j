@@ -99,7 +99,7 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
             for (OccupancyProperty property : object.getOccupancies())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractConstruction property : object.getADEPropertiesOfAbstractConstruction())
+            for (ADEPropertyOfAbstractConstruction<?> property : object.getADEPropertiesOfAbstractConstruction())
                 CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
         }
     }
