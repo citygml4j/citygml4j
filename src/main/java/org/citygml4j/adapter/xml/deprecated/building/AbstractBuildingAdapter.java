@@ -164,9 +164,11 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     BuildingRoomProperty interiorRoom = reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class);
                     if (interiorRoom.getObject() != null)
                         object.getBuildingRooms().add(new BuildingRoomMember(interiorRoom.getObject()));
-                    //else if (interiorRoom.getGenericElement() != null)
-                      //  object.getBuildingRooms().add(new BuildingRoomMember(interiorRoom.getGenericElement()));
-                    else
+                    else if (interiorRoom.getGenericElement() != null) {
+                        BuildingRoomMember member = new BuildingRoomMember();
+                        member.setGenericElement(interiorRoom.getGenericElement());
+                        object.getBuildingRooms().add(member);
+                    } else
                         object.getDeprecatedProperties().getInteriorRooms().add(new Reference(interiorRoom));
                     return;
                 case "consistsOfBuildingPart":

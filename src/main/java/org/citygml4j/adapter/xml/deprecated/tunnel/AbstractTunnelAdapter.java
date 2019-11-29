@@ -124,9 +124,11 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     HollowSpaceProperty interiorHollowSpace = reader.getObjectUsingBuilder(HollowSpacePropertyAdapter.class);
                     if (interiorHollowSpace.getObject() != null)
                         object.getHollowSpaces().add(new HollowSpaceMember(interiorHollowSpace.getObject()));
-                    //else if (interiorHollowSpace.getGenericElement() != null)
-                      //  object.getHollowSpaces().add(new HollowSpaceMember(interiorHollowSpace.getGenericElement()));
-                    else
+                    else if (interiorHollowSpace.getGenericElement() != null) {
+                        HollowSpaceMember member = new HollowSpaceMember();
+                        member.setGenericElement(interiorHollowSpace.getGenericElement());
+                        object.getHollowSpaces().add(member);
+                    } else
                         object.getDeprecatedProperties().getInteriorHollowSpaces().add(new Reference(interiorHollowSpace));
                     return;
                 case "consistsOfTunnelPart":

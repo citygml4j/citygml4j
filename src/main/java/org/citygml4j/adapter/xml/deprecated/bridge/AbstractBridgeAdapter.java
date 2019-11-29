@@ -92,9 +92,11 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     BridgeConstructiveElementProperty bridgeConstructiveElement = reader.getObjectUsingBuilder(BridgeConstructiveElementPropertyAdapter.class);
                     if (bridgeConstructiveElement.getObject() != null)
                         object.getBridgeConstructiveElements().add(new BridgeConstructiveElementMember(bridgeConstructiveElement.getObject()));
-                    //else if (bridgeConstructiveElement.getGenericElement() != null)
-                    //    object.getBridgeConstructiveElements().add(new BridgeConstructiveElementMember(bridgeConstructiveElement.getGenericElement()));
-                    else
+                    else if (bridgeConstructiveElement.getGenericElement() != null) {
+                        BridgeConstructiveElementMember member = new BridgeConstructiveElementMember();
+                        member.setGenericElement(bridgeConstructiveElement.getGenericElement());
+                        object.getBridgeConstructiveElements().add(member);
+                    } else
                         object.getDeprecatedProperties().getOuterBridgeConstructions().add(new Reference(bridgeConstructiveElement));
                     return;
                 case "outerBridgeInstallation":
@@ -142,9 +144,11 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     BridgeRoomProperty interiorBridgeRoom = reader.getObjectUsingBuilder(BridgeRoomPropertyAdapter.class);
                     if (interiorBridgeRoom.getObject() != null)
                         object.getBridgeRooms().add(new BridgeRoomMember(interiorBridgeRoom.getObject()));
-                    //else if (interiorBridgeRoom.getGenericElement() != null)
-                     //   object.getBridgeRooms().add(new BridgeRoomMember(interiorBridgeRoom.getGenericElement()));
-                    else
+                    else if (interiorBridgeRoom.getGenericElement() != null) {
+                        BridgeRoomMember member = new BridgeRoomMember();
+                        member.setGenericElement(interiorBridgeRoom.getGenericElement());
+                        object.getBridgeRooms().add(member);
+                    } else
                         object.getDeprecatedProperties().getInteriorBridgeRooms().add(new Reference(interiorBridgeRoom));
                     return;
                 case "consistsOfBridgePart":
