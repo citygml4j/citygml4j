@@ -10,7 +10,7 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfOtherConstruction> adeProperties;
+    private List<ADEPropertyOfOtherConstruction<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -48,14 +48,14 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfOtherConstruction> getADEPropertiesOfOtherConstruction() {
+    public List<ADEPropertyOfOtherConstruction<?>> getADEPropertiesOfOtherConstruction() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfOtherConstruction(List<ADEPropertyOfOtherConstruction> adeProperties) {
+    public void setADEPropertiesOfOtherConstruction(List<ADEPropertyOfOtherConstruction<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

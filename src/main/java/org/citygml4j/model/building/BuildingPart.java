@@ -5,16 +5,16 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class BuildingPart extends AbstractBuilding {
-    private List<ADEPropertyOfBuildingPart> adeProperties;
+    private List<ADEPropertyOfBuildingPart<?>> adeProperties;
 
-    public List<ADEPropertyOfBuildingPart> getADEPropertiesOfBuildingPart() {
+    public List<ADEPropertyOfBuildingPart<?>> getADEPropertiesOfBuildingPart() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuildingPart(List<ADEPropertyOfBuildingPart> adeProperties) {
+    public void setADEPropertiesOfBuildingPart(List<ADEPropertyOfBuildingPart<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

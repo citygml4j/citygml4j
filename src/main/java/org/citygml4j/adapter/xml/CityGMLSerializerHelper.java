@@ -157,7 +157,7 @@ public class CityGMLSerializerHelper {
         return false;
     }
 
-    public static void serializeADEProperty(ADEProperty property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public static void serializeADEProperty(ADEProperty<?> property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (property instanceof ADEGenericProperty)
             writer.writeDOMElement(((ADEGenericProperty) property).getValue());
         else

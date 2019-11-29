@@ -12,7 +12,7 @@ public class Track extends AbstractTransportationSpace implements StandardObject
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfTrack> adeProperties;
+    private List<ADEPropertyOfTrack<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -72,14 +72,14 @@ public class Track extends AbstractTransportationSpace implements StandardObject
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfTrack> getADEPropertiesOfTrack() {
+    public List<ADEPropertyOfTrack<?>> getADEPropertiesOfTrack() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTrack(List<ADEPropertyOfTrack> adeProperties) {
+    public void setADEPropertiesOfTrack(List<ADEPropertyOfTrack<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

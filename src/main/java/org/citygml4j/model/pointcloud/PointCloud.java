@@ -12,7 +12,7 @@ public class PointCloud extends AbstractPointCloud {
     private String pointFile;
     private String pointFileSrsName;
     private MultiPointProperty points;
-    private List<ADEPropertyOfPointCloud> adeProperties;
+    private List<ADEPropertyOfPointCloud<?>> adeProperties;
 
     public PointCloud() {
     }
@@ -59,14 +59,14 @@ public class PointCloud extends AbstractPointCloud {
         this.points = asChild(points);
     }
 
-    public List<ADEPropertyOfPointCloud> getADEPropertiesOfPointCloud() {
+    public List<ADEPropertyOfPointCloud<?>> getADEPropertiesOfPointCloud() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfPointCloud(List<ADEPropertyOfPointCloud> adeProperties) {
+    public void setADEPropertiesOfPointCloud(List<ADEPropertyOfPointCloud<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

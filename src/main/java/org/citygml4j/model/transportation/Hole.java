@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Hole extends AbstractUnoccupiedSpace {
     private Code classifier;
-    private List<ADEPropertyOfHole> adeProperties;
+    private List<ADEPropertyOfHole<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -28,14 +28,14 @@ public class Hole extends AbstractUnoccupiedSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfHole> getADEPropertiesOfHole() {
+    public List<ADEPropertyOfHole<?>> getADEPropertiesOfHole() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfHole(List<ADEPropertyOfHole> adeProperties) {
+    public void setADEPropertiesOfHole(List<ADEPropertyOfHole<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

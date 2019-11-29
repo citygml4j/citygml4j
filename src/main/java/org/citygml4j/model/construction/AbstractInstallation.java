@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class AbstractInstallation extends AbstractOccupiedSpace {
     private RelationToConstruction relationToConstruction;
-    private List<ADEPropertyOfAbstractInstallation> adeProperties;
+    private List<ADEPropertyOfAbstractInstallation<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -27,14 +27,14 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
         this.relationToConstruction = relationToConstruction;
     }
 
-    public List<ADEPropertyOfAbstractInstallation> getADEPropertiesOfAbstractInstallation() {
+    public List<ADEPropertyOfAbstractInstallation<?>> getADEPropertiesOfAbstractInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractInstallation(List<ADEPropertyOfAbstractInstallation> adeProperties) {
+    public void setADEPropertiesOfAbstractInstallation(List<ADEPropertyOfAbstractInstallation<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

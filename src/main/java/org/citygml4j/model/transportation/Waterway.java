@@ -12,7 +12,7 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfWaterway> adeProperties;
+    private List<ADEPropertyOfWaterway<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -72,14 +72,14 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfWaterway> getADEPropertiesOfWaterway() {
+    public List<ADEPropertyOfWaterway<?>> getADEPropertiesOfWaterway() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfWaterway(List<ADEPropertyOfWaterway> adeProperties) {
+    public void setADEPropertiesOfWaterway(List<ADEPropertyOfWaterway<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

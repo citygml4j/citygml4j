@@ -12,7 +12,7 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfRailway> adeProperties;
+    private List<ADEPropertyOfRailway<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -72,14 +72,14 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfRailway> getADEPropertiesOfRailway() {
+    public List<ADEPropertyOfRailway<?>> getADEPropertiesOfRailway() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfRailway(List<ADEPropertyOfRailway> adeProperties) {
+    public void setADEPropertiesOfRailway(List<ADEPropertyOfRailway<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

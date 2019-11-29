@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Bridge extends AbstractBridge {
     private List<BridgePartProperty> bridgeParts;
-    private List<ADEPropertyOfBridge> adeProperties;
+    private List<ADEPropertyOfBridge<?>> adeProperties;
 
     public List<BridgePartProperty> getBridgeParts() {
         if (bridgeParts == null)
@@ -19,14 +19,14 @@ public class Bridge extends AbstractBridge {
         this.bridgeParts = asChild(bridgeParts);
     }
 
-    public List<ADEPropertyOfBridge> getADEPropertiesOfBridge() {
+    public List<ADEPropertyOfBridge<?>> getADEPropertiesOfBridge() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBridge(List<ADEPropertyOfBridge> adeProperties) {
+    public void setADEPropertiesOfBridge(List<ADEPropertyOfBridge<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

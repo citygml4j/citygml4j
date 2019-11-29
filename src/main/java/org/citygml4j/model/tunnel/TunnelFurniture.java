@@ -11,7 +11,7 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfTunnelFurniture> adeProperties;
+    private List<ADEPropertyOfTunnelFurniture<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfTunnelFurniture> getADEPropertiesOfTunnelFurniture() {
+    public List<ADEPropertyOfTunnelFurniture<?>> getADEPropertiesOfTunnelFurniture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTunnelFurniture(List<ADEPropertyOfTunnelFurniture> adeProperties) {
+    public void setADEPropertiesOfTunnelFurniture(List<ADEPropertyOfTunnelFurniture<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

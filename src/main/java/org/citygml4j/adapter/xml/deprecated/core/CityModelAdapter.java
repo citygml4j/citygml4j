@@ -61,12 +61,12 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> implemen
                     object.getFeatureMembers().add(reader.getObjectUsingBuilder(FeaturePropertyAdapter.class));
                     break;
                 case "featureMembers":
-                    FeatureArrayProperty<AbstractFeature> featureMembers = reader.getObjectUsingBuilder(FeatureArrayPropertyAdapter.class);
+                    FeatureArrayProperty<?> featureMembers = reader.getObjectUsingBuilder(FeatureArrayPropertyAdapter.class);
                     for (AbstractFeature feature : featureMembers.getObjects())
                         object.getFeatureMembers().add(new FeatureProperty<>(feature));
 
                     for (GenericElement element : featureMembers.getGenericElements())
-                        object.getFeatureMembers().add(new FeatureProperty(element));
+                        object.getFeatureMembers().add(new FeatureProperty<>(element));
                     break;
                 default:
                     super.buildChildObject(object, name, attributes, reader);
@@ -99,10 +99,10 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> implemen
         for (AbstractAppearanceProperty property : object.getAppearanceMembers())
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
 
-        for (FeatureProperty property : object.getFeatureMembers())
+        for (FeatureProperty<?> property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, FeaturePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfCityModel property : object.getADEPropertiesOfCityModel())
+        for (ADEPropertyOfCityModel<?> property : object.getADEPropertiesOfCityModel())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

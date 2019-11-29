@@ -11,7 +11,7 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfTunnelConstructiveElement> adeProperties;
+    private List<ADEPropertyOfTunnelConstructiveElement<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfTunnelConstructiveElement> getADEPropertiesOfTunnelConstructiveElement() {
+    public List<ADEPropertyOfTunnelConstructiveElement<?>> getADEPropertiesOfTunnelConstructiveElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTunnelConstructiveElement(List<ADEPropertyOfTunnelConstructiveElement> adeProperties) {
+    public void setADEPropertiesOfTunnelConstructiveElement(List<ADEPropertyOfTunnelConstructiveElement<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -12,7 +12,7 @@ public class CityModel extends AbstractFeatureWithLifespan {
     private List<FeatureProperty> featureMembers;
     private List<AbstractVersionProperty> versionMembers;
     private List<AbstractVersionTransitionProperty> versionTransitionMembers;
-    private List<ADEPropertyOfCityModel> adeProperties;
+    private List<ADEPropertyOfCityModel<?>> adeProperties;
 
     public EngineeringCRSProperty getEngineeringCRS() {
         return engineeringCRS;
@@ -77,14 +77,14 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.versionTransitionMembers = asChild(versionTransitionMembers);
     }
 
-    public List<ADEPropertyOfCityModel> getADEPropertiesOfCityModel() {
+    public List<ADEPropertyOfCityModel<?>> getADEPropertiesOfCityModel() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfCityModel(List<ADEPropertyOfCityModel> adeProperties) {
+    public void setADEPropertiesOfCityModel(List<ADEPropertyOfCityModel<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

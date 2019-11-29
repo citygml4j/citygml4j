@@ -15,7 +15,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
     private List<TunnelInstallationMember> tunnelInstallations;
     private List<HollowSpaceMember> hollowSpaces;
     private List<TunnelFurnitureMember> tunnelFurniture;
-    private List<ADEPropertyOfAbstractTunnel> adeProperties;
+    private List<ADEPropertyOfAbstractTunnel<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -97,14 +97,14 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         this.tunnelFurniture = asChild(tunnelFurniture);
     }
 
-    public List<ADEPropertyOfAbstractTunnel> getADEPropertiesOfAbstractTunnel() {
+    public List<ADEPropertyOfAbstractTunnel<?>> getADEPropertiesOfAbstractTunnel() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractTunnel(List<ADEPropertyOfAbstractTunnel> adeProperties) {
+    public void setADEPropertiesOfAbstractTunnel(List<ADEPropertyOfAbstractTunnel<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

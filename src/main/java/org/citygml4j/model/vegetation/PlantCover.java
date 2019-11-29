@@ -14,7 +14,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
     private Length averageHeight;
     private Length minHeight;
     private Length maxHeight;
-    private List<ADEPropertyOfPlantCover> adeProperties;
+    private List<ADEPropertyOfPlantCover<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -76,14 +76,14 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
         this.maxHeight = asChild(maxHeight);
     }
 
-    public List<ADEPropertyOfPlantCover> getADEPropertiesOfPlantCover() {
+    public List<ADEPropertyOfPlantCover<?>> getADEPropertiesOfPlantCover() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfPlantCover(List<ADEPropertyOfPlantCover> adeProperties) {
+    public void setADEPropertiesOfPlantCover(List<ADEPropertyOfPlantCover<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

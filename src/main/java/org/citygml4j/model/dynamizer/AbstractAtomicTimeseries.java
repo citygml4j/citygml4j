@@ -7,7 +7,7 @@ import java.util.List;
 public abstract class AbstractAtomicTimeseries extends AbstractTimeseries {
     private String observationProperty;
     private String uom;
-    private List<ADEPropertyOfAbstractAtomicTimeseries> adeProperties;
+    private List<ADEPropertyOfAbstractAtomicTimeseries<?>> adeProperties;
 
     public AbstractAtomicTimeseries() {
     }
@@ -32,14 +32,14 @@ public abstract class AbstractAtomicTimeseries extends AbstractTimeseries {
         this.uom = uom;
     }
 
-    public List<ADEPropertyOfAbstractAtomicTimeseries> getADEPropertiesOfAbstractAtomicTimeseries() {
+    public List<ADEPropertyOfAbstractAtomicTimeseries<?>> getADEPropertiesOfAbstractAtomicTimeseries() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractAtomicTimeseries(List<ADEPropertyOfAbstractAtomicTimeseries> adeProperties) {
+    public void setADEPropertiesOfAbstractAtomicTimeseries(List<ADEPropertyOfAbstractAtomicTimeseries<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

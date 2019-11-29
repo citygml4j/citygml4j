@@ -14,7 +14,7 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfCityFurniture> adeProperties;
+    private List<ADEPropertyOfCityFurniture<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -58,14 +58,14 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfCityFurniture> getADEPropertiesOfCityFurniture() {
+    public List<ADEPropertyOfCityFurniture<?>> getADEPropertiesOfCityFurniture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfCityFurniture(List<ADEPropertyOfCityFurniture> adeProperties) {
+    public void setADEPropertiesOfCityFurniture(List<ADEPropertyOfCityFurniture<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

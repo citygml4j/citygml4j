@@ -13,7 +13,7 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericLogicalSpace> adeProperties;
+    private List<ADEPropertyOfGenericLogicalSpace<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -57,14 +57,14 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfGenericLogicalSpace> getADEPropertiesOfGenericLogicalSpace() {
+    public List<ADEPropertyOfGenericLogicalSpace<?>> getADEPropertiesOfGenericLogicalSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfGenericLogicalSpace(List<ADEPropertyOfGenericLogicalSpace> adeProperties) {
+    public void setADEPropertiesOfGenericLogicalSpace(List<ADEPropertyOfGenericLogicalSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

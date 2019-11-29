@@ -11,7 +11,7 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBridgeConstructiveElement> adeProperties;
+    private List<ADEPropertyOfBridgeConstructiveElement<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBridgeConstructiveElement> getADEPropertiesOfBridgeConstructiveElement() {
+    public List<ADEPropertyOfBridgeConstructiveElement<?>> getADEPropertiesOfBridgeConstructiveElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBridgeConstructiveElement(List<ADEPropertyOfBridgeConstructiveElement> adeProperties) {
+    public void setADEPropertiesOfBridgeConstructiveElement(List<ADEPropertyOfBridgeConstructiveElement<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

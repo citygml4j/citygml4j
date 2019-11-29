@@ -12,7 +12,7 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
     private List<Code> functions;
     private List<Code> usages;
     private Code surfaceMaterial;
-    private List<ADEPropertyOfAuxiliaryTrafficArea> adeProperties;
+    private List<ADEPropertyOfAuxiliaryTrafficArea<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -58,14 +58,14 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
         this.surfaceMaterial = asChild(surfaceMaterial);
     }
 
-    public List<ADEPropertyOfAuxiliaryTrafficArea> getADEPropertiesOfAuxiliaryTrafficArea() {
+    public List<ADEPropertyOfAuxiliaryTrafficArea<?>> getADEPropertiesOfAuxiliaryTrafficArea() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAuxiliaryTrafficArea(List<ADEPropertyOfAuxiliaryTrafficArea> adeProperties) {
+    public void setADEPropertiesOfAuxiliaryTrafficArea(List<ADEPropertyOfAuxiliaryTrafficArea<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

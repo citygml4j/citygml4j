@@ -17,7 +17,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
     private Length crownDiameter;
     private Length rootBallDiameter;
     private Length maxRootBallDepth;
-    private List<ADEPropertyOfSolitaryVegetationObject> adeProperties;
+    private List<ADEPropertyOfSolitaryVegetationObject<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -103,14 +103,14 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
         this.maxRootBallDepth = asChild(maxRootBallDepth);
     }
 
-    public List<ADEPropertyOfSolitaryVegetationObject> getADEPropertiesOfSolitaryVegetationObject() {
+    public List<ADEPropertyOfSolitaryVegetationObject<?>> getADEPropertiesOfSolitaryVegetationObject() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfSolitaryVegetationObject(List<ADEPropertyOfSolitaryVegetationObject> adeProperties) {
+    public void setADEPropertiesOfSolitaryVegetationObject(List<ADEPropertyOfSolitaryVegetationObject<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -13,7 +13,7 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericUnoccupiedSpace> adeProperties;
+    private List<ADEPropertyOfGenericUnoccupiedSpace<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -57,14 +57,14 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfGenericUnoccupiedSpace> getADEPropertiesOfGenericUnoccupiedSpace() {
+    public List<ADEPropertyOfGenericUnoccupiedSpace<?>> getADEPropertiesOfGenericUnoccupiedSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfGenericUnoccupiedSpace(List<ADEPropertyOfGenericUnoccupiedSpace> adeProperties) {
+    public void setADEPropertiesOfGenericUnoccupiedSpace(List<ADEPropertyOfGenericUnoccupiedSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

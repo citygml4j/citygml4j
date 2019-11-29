@@ -13,7 +13,7 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfWindow> adeProperties;
+    private List<ADEPropertyOfWindow<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -58,14 +58,14 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfWindow> getADEPropertiesOfWindow() {
+    public List<ADEPropertyOfWindow<?>> getADEPropertiesOfWindow() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfWindow(List<ADEPropertyOfWindow> adeProperties) {
+    public void setADEPropertiesOfWindow(List<ADEPropertyOfWindow<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

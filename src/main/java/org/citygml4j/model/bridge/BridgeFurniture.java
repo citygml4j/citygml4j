@@ -11,7 +11,7 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBridgeFurniture> adeProperties;
+    private List<ADEPropertyOfBridgeFurniture<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBridgeFurniture> getADEPropertiesOfBridgeFurniture() {
+    public List<ADEPropertyOfBridgeFurniture<?>> getADEPropertiesOfBridgeFurniture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBridgeFurniture(List<ADEPropertyOfBridgeFurniture> adeProperties) {
+    public void setADEPropertiesOfBridgeFurniture(List<ADEPropertyOfBridgeFurniture<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

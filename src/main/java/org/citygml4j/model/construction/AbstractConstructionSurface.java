@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class AbstractConstructionSurface extends AbstractThematicSurface {
     private List<AbstractFillingSurfaceProperty> fillingSurfaces;
-    private List<ADEPropertyOfAbstractConstructionSurface> adeProperties;
+    private List<ADEPropertyOfAbstractConstructionSurface<?>> adeProperties;
 
     public List<AbstractFillingSurfaceProperty> getFillingSurfaces() {
         if (fillingSurfaces == null)
@@ -20,14 +20,14 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
         this.fillingSurfaces = asChild(fillingSurfaces);
     }
 
-    public List<ADEPropertyOfAbstractConstructionSurface> getADEPropertiesOfAbstractConstructionSurface() {
+    public List<ADEPropertyOfAbstractConstructionSurface<?>> getADEPropertiesOfAbstractConstructionSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractConstructionSurface(List<ADEPropertyOfAbstractConstructionSurface> adeProperties) {
+    public void setADEPropertiesOfAbstractConstructionSurface(List<ADEPropertyOfAbstractConstructionSurface<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

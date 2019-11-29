@@ -11,7 +11,7 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericThematicSurface> adeProperties;
+    private List<ADEPropertyOfGenericThematicSurface<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfGenericThematicSurface> getADEPropertiesOfGenericThematicSurface() {
+    public List<ADEPropertyOfGenericThematicSurface<?>> getADEPropertiesOfGenericThematicSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfGenericThematicSurface(List<ADEPropertyOfGenericThematicSurface> adeProperties) {
+    public void setADEPropertiesOfGenericThematicSurface(List<ADEPropertyOfGenericThematicSurface<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

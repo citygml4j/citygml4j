@@ -8,7 +8,7 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
     private ImplicitGeometryProperty lod1ImplicitRepresentation;
     private ImplicitGeometryProperty lod2ImplicitRepresentation;
     private ImplicitGeometryProperty lod3ImplicitRepresentation;
-    private List<ADEPropertyOfAbstractOccupiedSpace> adeProperties;
+    private List<ADEPropertyOfAbstractOccupiedSpace<?>> adeProperties;
 
     public ImplicitGeometryProperty getLod1ImplicitRepresentation() {
         return lod1ImplicitRepresentation;
@@ -34,14 +34,14 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
         this.lod3ImplicitRepresentation = asChild(lod3ImplicitRepresentation);
     }
 
-    public List<ADEPropertyOfAbstractOccupiedSpace> getADEPropertiesOfAbstractOccupiedSpace() {
+    public List<ADEPropertyOfAbstractOccupiedSpace<?>> getADEPropertiesOfAbstractOccupiedSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractOccupiedSpace(List<ADEPropertyOfAbstractOccupiedSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractOccupiedSpace(List<ADEPropertyOfAbstractOccupiedSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 

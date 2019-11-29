@@ -12,7 +12,7 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfRoad> adeProperties;
+    private List<ADEPropertyOfRoad<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -72,14 +72,14 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfRoad> getADEPropertiesOfRoad() {
+    public List<ADEPropertyOfRoad<?>> getADEPropertiesOfRoad() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfRoad(List<ADEPropertyOfRoad> adeProperties) {
+    public void setADEPropertiesOfRoad(List<ADEPropertyOfRoad<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

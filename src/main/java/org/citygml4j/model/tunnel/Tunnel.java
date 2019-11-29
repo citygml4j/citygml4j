@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Tunnel extends AbstractTunnel {
     private List<TunnelPartProperty> tunnelParts;
-    private List<ADEPropertyOfTunnel> adeProperties;
+    private List<ADEPropertyOfTunnel<?>> adeProperties;
 
     public List<TunnelPartProperty> getTunnelParts() {
         if (tunnelParts == null)
@@ -19,14 +19,14 @@ public class Tunnel extends AbstractTunnel {
         this.tunnelParts = asChild(tunnelParts);
     }
 
-    public List<ADEPropertyOfTunnel> getADEPropertiesOfTunnel() {
+    public List<ADEPropertyOfTunnel<?>> getADEPropertiesOfTunnel() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTunnel(List<ADEPropertyOfTunnel> adeProperties) {
+    public void setADEPropertiesOfTunnel(List<ADEPropertyOfTunnel<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

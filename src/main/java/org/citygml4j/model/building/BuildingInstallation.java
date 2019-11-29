@@ -11,7 +11,7 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBuildingInstallation> adeProperties;
+    private List<ADEPropertyOfBuildingInstallation<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingInstallation> getADEPropertiesOfBuildingInstallation() {
+    public List<ADEPropertyOfBuildingInstallation<?>> getADEPropertiesOfBuildingInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuildingInstallation(List<ADEPropertyOfBuildingInstallation> adeProperties) {
+    public void setADEPropertiesOfBuildingInstallation(List<ADEPropertyOfBuildingInstallation<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

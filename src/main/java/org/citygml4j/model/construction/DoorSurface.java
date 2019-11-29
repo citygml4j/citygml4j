@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DoorSurface extends AbstractFillingSurface {
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfDoorSurface> adeProperties;
+    private List<ADEPropertyOfDoorSurface<?>> adeProperties;
 
     public List<AddressProperty> getAddresses() {
         if (addresses == null)
@@ -20,14 +20,14 @@ public class DoorSurface extends AbstractFillingSurface {
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfDoorSurface> getADEPropertiesOfDoorSurface() {
+    public List<ADEPropertyOfDoorSurface<?>> getADEPropertiesOfDoorSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfDoorSurface(List<ADEPropertyOfDoorSurface> adeProperties) {
+    public void setADEPropertiesOfDoorSurface(List<ADEPropertyOfDoorSurface<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

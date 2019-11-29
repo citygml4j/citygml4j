@@ -6,7 +6,7 @@ import java.util.List;
 
 public class RasterRelief extends AbstractReliefComponent {
     private GridProperty grid;
-    private List<ADEPropertyOfRasterRelief> adeProperties;
+    private List<ADEPropertyOfRasterRelief<?>> adeProperties;
 
     public RasterRelief() {
     }
@@ -24,14 +24,14 @@ public class RasterRelief extends AbstractReliefComponent {
         this.grid = asChild(grid);
     }
 
-    public List<ADEPropertyOfRasterRelief> getADEPropertiesOfRasterRelief() {
+    public List<ADEPropertyOfRasterRelief<?>> getADEPropertiesOfRasterRelief() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfRasterRelief(List<ADEPropertyOfRasterRelief> adeProperties) {
+    public void setADEPropertiesOfRasterRelief(List<ADEPropertyOfRasterRelief<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

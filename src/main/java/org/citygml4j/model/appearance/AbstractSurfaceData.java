@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class AbstractSurfaceData extends AbstractFeature implements CityGMLObject {
     private Boolean isFront;
-    private List<ADEPropertyOfAbstractSurfaceData> adeProperties;
+    private List<ADEPropertyOfAbstractSurfaceData<?>> adeProperties;
 
     public Boolean getIsFront() {
         return isFront != null ? isFront : true;
@@ -22,14 +22,14 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements Cit
         isFront = front;
     }
 
-    public List<ADEPropertyOfAbstractSurfaceData> getADEPropertiesOfAbstractSurfaceData() {
+    public List<ADEPropertyOfAbstractSurfaceData<?>> getADEPropertiesOfAbstractSurfaceData() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractSurfaceData(List<ADEPropertyOfAbstractSurfaceData> adeProperties) {
+    public void setADEPropertiesOfAbstractSurfaceData(List<ADEPropertyOfAbstractSurfaceData<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

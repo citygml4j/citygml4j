@@ -7,7 +7,7 @@ import java.util.List;
 
 public class WaterSurface extends AbstractWaterBoundarySurface {
     private Code waterLevel;
-    private List<ADEPropertyOfWaterSurface> adeProperties;
+    private List<ADEPropertyOfWaterSurface<?>> adeProperties;
 
     public Code getWaterLevel() {
         return waterLevel;
@@ -17,14 +17,14 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
         this.waterLevel = asChild(waterLevel);
     }
 
-    public List<ADEPropertyOfWaterSurface> getADEPropertiesOfWaterSurface() {
+    public List<ADEPropertyOfWaterSurface<?>> getADEPropertiesOfWaterSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfWaterSurface(List<ADEPropertyOfWaterSurface> adeProperties) {
+    public void setADEPropertiesOfWaterSurface(List<ADEPropertyOfWaterSurface<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -17,7 +17,7 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     private List<Code> usages;
     private List<TunnelFurnitureProperty> tunnelFurniture;
     private List<TunnelInstallationProperty> tunnelInstallations;
-    private List<ADEPropertyOfHollowSpace> adeProperties;
+    private List<ADEPropertyOfHollowSpace<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -84,14 +84,14 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         this.tunnelInstallations = asChild(tunnelInstallations);
     }
 
-    public List<ADEPropertyOfHollowSpace> getADEPropertiesOfHollowSpace() {
+    public List<ADEPropertyOfHollowSpace<?>> getADEPropertiesOfHollowSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfHollowSpace(List<ADEPropertyOfHollowSpace> adeProperties) {
+    public void setADEPropertiesOfHollowSpace(List<ADEPropertyOfHollowSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

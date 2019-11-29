@@ -11,7 +11,7 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBuildingConstructiveElement> adeProperties;
+    private List<ADEPropertyOfBuildingConstructiveElement<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingConstructiveElement> getADEPropertiesOfBuildingConstructiveElement() {
+    public List<ADEPropertyOfBuildingConstructiveElement<?>> getADEPropertiesOfBuildingConstructiveElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuildingConstructiveElement(List<ADEPropertyOfBuildingConstructiveElement> adeProperties) {
+    public void setADEPropertiesOfBuildingConstructiveElement(List<ADEPropertyOfBuildingConstructiveElement<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

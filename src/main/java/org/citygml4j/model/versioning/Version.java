@@ -10,7 +10,7 @@ import java.util.List;
 public class Version extends AbstractVersion {
     private List<String> tags;
     private List<AbstractFeatureWithLifespanProperty> versionMembers;
-    private List<ADEPropertyOfVersion> adeProperties;
+    private List<ADEPropertyOfVersion<?>> adeProperties;
 
     public List<String> getTags() {
         if (tags == null)
@@ -34,14 +34,14 @@ public class Version extends AbstractVersion {
         this.versionMembers = asChild(versionMembers);
     }
 
-    public List<ADEPropertyOfVersion> getADEPropertiesOfVersion() {
+    public List<ADEPropertyOfVersion<?>> getADEPropertiesOfVersion() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfVersion(List<ADEPropertyOfVersion> adeProperties) {
+    public void setADEPropertiesOfVersion(List<ADEPropertyOfVersion<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

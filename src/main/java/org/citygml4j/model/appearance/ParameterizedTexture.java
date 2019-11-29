@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ParameterizedTexture extends AbstractTexture {
     private List<TextureAssociationProperty> textureParameterizations;
-    private List<ADEPropertyOfParameterizedTexture> adeProperties;
+    private List<ADEPropertyOfParameterizedTexture<?>> adeProperties;
 
     public List<TextureAssociationProperty> getTextureParameterizations() {
         if (textureParameterizations == null)
@@ -20,14 +20,14 @@ public class ParameterizedTexture extends AbstractTexture {
         this.textureParameterizations = asChild(textureParameterizations);
     }
 
-    public List<ADEPropertyOfParameterizedTexture> getADEPropertiesOfParameterizedTexture() {
+    public List<ADEPropertyOfParameterizedTexture<?>> getADEPropertiesOfParameterizedTexture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfParameterizedTexture(List<ADEPropertyOfParameterizedTexture> adeProperties) {
+    public void setADEPropertiesOfParameterizedTexture(List<ADEPropertyOfParameterizedTexture<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

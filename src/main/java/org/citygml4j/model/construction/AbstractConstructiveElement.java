@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace {
     private Boolean isStructuralElement;
     private List<AbstractFillingElementProperty> fillings;
-    private List<ADEPropertyOfAbstractConstructiveElement> adeProperties;
+    private List<ADEPropertyOfAbstractConstructiveElement<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -43,14 +43,14 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
         this.fillings = asChild(fillings);
     }
 
-    public List<ADEPropertyOfAbstractConstructiveElement> getADEPropertiesOfAbstractConstructiveElement() {
+    public List<ADEPropertyOfAbstractConstructiveElement<?>> getADEPropertiesOfAbstractConstructiveElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractConstructiveElement(List<ADEPropertyOfAbstractConstructiveElement> adeProperties) {
+    public void setADEPropertiesOfAbstractConstructiveElement(List<ADEPropertyOfAbstractConstructiveElement<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

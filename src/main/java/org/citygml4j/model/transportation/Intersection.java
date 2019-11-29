@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Intersection extends AbstractTransportationSpace {
     private Code classifier;
-    private List<ADEPropertyOfIntersection> adeProperties;
+    private List<ADEPropertyOfIntersection<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -27,14 +27,14 @@ public class Intersection extends AbstractTransportationSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfIntersection> getADEPropertiesOfIntersection() {
+    public List<ADEPropertyOfIntersection<?>> getADEPropertiesOfIntersection() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfIntersection(List<ADEPropertyOfIntersection> adeProperties) {
+    public void setADEPropertiesOfIntersection(List<ADEPropertyOfIntersection<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

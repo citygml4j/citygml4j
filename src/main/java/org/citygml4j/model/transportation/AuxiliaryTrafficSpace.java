@@ -15,7 +15,7 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     private List<Code> functions;
     private List<Code> usages;
     private GranularityValue granularity;
-    private List<ADEPropertyOfAuxiliaryTrafficSpace> adeProperties;
+    private List<ADEPropertyOfAuxiliaryTrafficSpace<?>> adeProperties;
 
     public AuxiliaryTrafficSpace() {
     }
@@ -75,14 +75,14 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
         this.granularity = granularity;
     }
 
-    public List<ADEPropertyOfAuxiliaryTrafficSpace> getADEPropertiesOfAuxiliaryTrafficSpace() {
+    public List<ADEPropertyOfAuxiliaryTrafficSpace<?>> getADEPropertiesOfAuxiliaryTrafficSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAuxiliaryTrafficSpace(List<ADEPropertyOfAuxiliaryTrafficSpace> adeProperties) {
+    public void setADEPropertiesOfAuxiliaryTrafficSpace(List<ADEPropertyOfAuxiliaryTrafficSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

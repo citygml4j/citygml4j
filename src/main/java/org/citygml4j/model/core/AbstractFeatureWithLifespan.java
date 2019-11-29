@@ -12,7 +12,7 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature implem
     private OffsetDateTime terminationDate;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private List<ADEPropertyOfAbstractFeatureWithLifespan> adeProperties;
+    private List<ADEPropertyOfAbstractFeatureWithLifespan<?>> adeProperties;
 
     public OffsetDateTime getCreationDate() {
         return creationDate;
@@ -46,14 +46,14 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature implem
         this.validTo = validTo;
     }
 
-    public List<ADEPropertyOfAbstractFeatureWithLifespan> getADEPropertiesOfAbstractFeatureWithLifespan() {
+    public List<ADEPropertyOfAbstractFeatureWithLifespan<?>> getADEPropertiesOfAbstractFeatureWithLifespan() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractFeatureWithLifespan(List<ADEPropertyOfAbstractFeatureWithLifespan> adeProperties) {
+    public void setADEPropertiesOfAbstractFeatureWithLifespan(List<ADEPropertyOfAbstractFeatureWithLifespan<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

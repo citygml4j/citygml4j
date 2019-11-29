@@ -7,16 +7,16 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractPointCloud extends AbstractFeature implements CityGMLObject {
-    private List<ADEPropertyOfAbstractPointCloud> adeProperties;
+    private List<ADEPropertyOfAbstractPointCloud<?>> adeProperties;
 
-    public List<ADEPropertyOfAbstractPointCloud> getADEPropertiesOfAbstractPointCloud() {
+    public List<ADEPropertyOfAbstractPointCloud<?>> getADEPropertiesOfAbstractPointCloud() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractPointCloud(List<ADEPropertyOfAbstractPointCloud> adeProperties) {
+    public void setADEPropertiesOfAbstractPointCloud(List<ADEPropertyOfAbstractPointCloud<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

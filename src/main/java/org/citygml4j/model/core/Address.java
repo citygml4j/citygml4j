@@ -10,7 +10,7 @@ import java.util.List;
 public class Address extends AbstractFeature implements CityGMLObject {
     private XALAddressProperty xalAddress;
     private MultiPointProperty multiPoint;
-    private List<ADEPropertyOfAddress> adeProperties;
+    private List<ADEPropertyOfAddress<?>> adeProperties;
 
     public Address() {
     }
@@ -35,14 +35,14 @@ public class Address extends AbstractFeature implements CityGMLObject {
         this.multiPoint = asChild(multiPoint);
     }
 
-    public List<ADEPropertyOfAddress> getADEPropertiesOfAddress() {
+    public List<ADEPropertyOfAddress<?>> getADEPropertiesOfAddress() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAddress(List<ADEPropertyOfAddress> adeProperties) {
+    public void setADEPropertiesOfAddress(List<ADEPropertyOfAddress<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

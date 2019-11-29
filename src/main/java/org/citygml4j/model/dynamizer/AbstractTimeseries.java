@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class AbstractTimeseries extends AbstractFeature implements CityGMLObject {
     private TimePosition firstTimestamp;
     private TimePosition lastTimestamp;
-    private List<ADEPropertyOfAbstractTimeseries> adeProperties;
+    private List<ADEPropertyOfAbstractTimeseries<?>> adeProperties;
 
     public TimePosition getFirstTimestamp() {
         return firstTimestamp;
@@ -28,14 +28,14 @@ public abstract class AbstractTimeseries extends AbstractFeature implements City
         this.lastTimestamp = asChild(lastTimestamp);
     }
 
-    public List<ADEPropertyOfAbstractTimeseries> getADEPropertiesOfAbstractTimeseries() {
+    public List<ADEPropertyOfAbstractTimeseries<?>> getADEPropertiesOfAbstractTimeseries() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractTimeseries(List<ADEPropertyOfAbstractTimeseries> adeProperties) {
+    public void setADEPropertiesOfAbstractTimeseries(List<ADEPropertyOfAbstractTimeseries<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

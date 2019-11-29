@@ -23,7 +23,7 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<Reference> buildingFurniture;
     private List<Reference> buildingInstallations;
     private List<Reference> buildingRooms;
-    private List<ADEPropertyOfAbstractBuildingSubdivision> adeProperties;
+    private List<ADEPropertyOfAbstractBuildingSubdivision<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -131,14 +131,14 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         this.buildingRooms = asChild(buildingRooms);
     }
 
-    public List<ADEPropertyOfAbstractBuildingSubdivision> getADEPropertiesOfAbstractBuildingSubdivision() {
+    public List<ADEPropertyOfAbstractBuildingSubdivision<?>> getADEPropertiesOfAbstractBuildingSubdivision() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractBuildingSubdivision(List<ADEPropertyOfAbstractBuildingSubdivision> adeProperties) {
+    public void setADEPropertiesOfAbstractBuildingSubdivision(List<ADEPropertyOfAbstractBuildingSubdivision<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

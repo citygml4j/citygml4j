@@ -12,7 +12,7 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
     private List<Code> functions;
     private List<Code> usages;
     private Code surfaceMaterial;
-    private List<ADEPropertyOfTrafficArea> adeProperties;
+    private List<ADEPropertyOfTrafficArea<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -58,14 +58,14 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
         this.surfaceMaterial = asChild(surfaceMaterial);
     }
 
-    public List<ADEPropertyOfTrafficArea> getADEPropertiesOfTrafficArea() {
+    public List<ADEPropertyOfTrafficArea<?>> getADEPropertiesOfTrafficArea() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTrafficArea(List<ADEPropertyOfTrafficArea> adeProperties) {
+    public void setADEPropertiesOfTrafficArea(List<ADEPropertyOfTrafficArea<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

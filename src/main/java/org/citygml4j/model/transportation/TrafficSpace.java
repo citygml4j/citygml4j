@@ -21,7 +21,7 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     private List<TrafficSpaceProperty> predecessors;
     private List<TrafficSpaceProperty> successors;
     private List<ClearanceSpaceProperty> clearanceSpaces;
-    private List<ADEPropertyOfTrafficSpace> adeProperties;
+    private List<ADEPropertyOfTrafficSpace<?>> adeProperties;
 
     public TrafficSpace() {
     }
@@ -133,14 +133,14 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         this.clearanceSpaces = asChild(clearanceSpaces);
     }
 
-    public List<ADEPropertyOfTrafficSpace> getADEPropertiesOfTrafficSpace() {
+    public List<ADEPropertyOfTrafficSpace<?>> getADEPropertiesOfTrafficSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTrafficSpace(List<ADEPropertyOfTrafficSpace> adeProperties) {
+    public void setADEPropertiesOfTrafficSpace(List<ADEPropertyOfTrafficSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

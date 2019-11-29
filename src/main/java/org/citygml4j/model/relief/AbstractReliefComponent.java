@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
     private int lod;
     private ExtentProperty extent;
-    private List<ADEPropertyOfAbstractReliefComponent> adeProperties;
+    private List<ADEPropertyOfAbstractReliefComponent<?>> adeProperties;
 
     public AbstractReliefComponent() {
     }
@@ -34,14 +34,14 @@ public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
         this.extent = asChild(extent);
     }
 
-    public List<ADEPropertyOfAbstractReliefComponent> getADEPropertiesOfAbstractReliefComponent() {
+    public List<ADEPropertyOfAbstractReliefComponent<?>> getADEPropertiesOfAbstractReliefComponent() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractReliefComponent(List<ADEPropertyOfAbstractReliefComponent> adeProperties) {
+    public void setADEPropertiesOfAbstractReliefComponent(List<ADEPropertyOfAbstractReliefComponent<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

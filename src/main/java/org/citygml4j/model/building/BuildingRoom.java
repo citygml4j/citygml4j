@@ -18,7 +18,7 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
     private List<RoomHeightProperty> roomHeights;
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
-    private List<ADEPropertyOfBuildingRoom> adeProperties;
+    private List<ADEPropertyOfBuildingRoom<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -96,14 +96,14 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         this.buildingInstallations = asChild(buildingInstallations);
     }
 
-    public List<ADEPropertyOfBuildingRoom> getADEPropertiesOfBuildingRoom() {
+    public List<ADEPropertyOfBuildingRoom<?>> getADEPropertiesOfBuildingRoom() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuildingRoom(List<ADEPropertyOfBuildingRoom> adeProperties) {
+    public void setADEPropertiesOfBuildingRoom(List<ADEPropertyOfBuildingRoom<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

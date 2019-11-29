@@ -15,7 +15,7 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     private List<Code> functions;
     private List<Code> usages;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfDoor> adeProperties;
+    private List<ADEPropertyOfDoor<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -71,14 +71,14 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfDoor> getADEPropertiesOfDoor() {
+    public List<ADEPropertyOfDoor<?>> getADEPropertiesOfDoor() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfDoor(List<ADEPropertyOfDoor> adeProperties) {
+    public void setADEPropertiesOfDoor(List<ADEPropertyOfDoor<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -14,7 +14,7 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfWaterBody> adeProperties;
+    private List<ADEPropertyOfWaterBody<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -59,14 +59,14 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfWaterBody> getADEPropertiesOfWaterBody() {
+    public List<ADEPropertyOfWaterBody<?>> getADEPropertiesOfWaterBody() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfWaterBody(List<ADEPropertyOfWaterBody> adeProperties) {
+    public void setADEPropertiesOfWaterBody(List<ADEPropertyOfWaterBody<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

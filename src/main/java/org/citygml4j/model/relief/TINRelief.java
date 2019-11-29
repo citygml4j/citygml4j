@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TINRelief extends AbstractReliefComponent {
     private TinProperty tin;
-    private List<ADEPropertyOfTINRelief> adeProperties;
+    private List<ADEPropertyOfTINRelief<?>> adeProperties;
 
     public TINRelief() {
     }
@@ -24,14 +24,14 @@ public class TINRelief extends AbstractReliefComponent {
         this.tin = asChild(tin);
     }
 
-    public List<ADEPropertyOfTINRelief> getADEPropertiesOfTINRelief() {
+    public List<ADEPropertyOfTINRelief<?>> getADEPropertiesOfTINRelief() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTINRelief(List<ADEPropertyOfTINRelief> adeProperties) {
+    public void setADEPropertiesOfTINRelief(List<ADEPropertyOfTINRelief<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

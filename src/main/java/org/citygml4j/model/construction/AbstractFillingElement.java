@@ -9,7 +9,7 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
-    private List<ADEPropertyOfAbstractFillingElement> adeProperties;
+    private List<ADEPropertyOfAbstractFillingElement<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -18,14 +18,14 @@ public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
                 || boundary instanceof GenericThematicSurface;
     }
 
-    public List<ADEPropertyOfAbstractFillingElement> getADEPropertiesOfAbstractFillingElement() {
+    public List<ADEPropertyOfAbstractFillingElement<?>> getADEPropertiesOfAbstractFillingElement() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractFillingElement(List<ADEPropertyOfAbstractFillingElement> adeProperties) {
+    public void setADEPropertiesOfAbstractFillingElement(List<ADEPropertyOfAbstractFillingElement<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -11,7 +11,7 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfLandUse> adeProperties;
+    private List<ADEPropertyOfLandUse<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfLandUse> getADEPropertiesOfLandUse() {
+    public List<ADEPropertyOfLandUse<?>> getADEPropertiesOfLandUse() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfLandUse(List<ADEPropertyOfLandUse> adeProperties) {
+    public void setADEPropertiesOfLandUse(List<ADEPropertyOfLandUse<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

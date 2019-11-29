@@ -14,7 +14,7 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
     private MultiSurfaceProperty lod2MultiSurface;
     private MultiSurfaceProperty lod3MultiSurface;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEPropertyOfAbstractThematicSurface> adeProperties;
+    private List<ADEPropertyOfAbstractThematicSurface<?>> adeProperties;
 
     public List<QualifiedAreaProperty> getAreas() {
         if (areas == null)
@@ -75,14 +75,14 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfAbstractThematicSurface> getADEPropertiesOfAbstractThematicSurface() {
+    public List<ADEPropertyOfAbstractThematicSurface<?>> getADEPropertiesOfAbstractThematicSurface() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractThematicSurface(List<ADEPropertyOfAbstractThematicSurface> adeProperties) {
+    public void setADEPropertiesOfAbstractThematicSurface(List<ADEPropertyOfAbstractThematicSurface<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 

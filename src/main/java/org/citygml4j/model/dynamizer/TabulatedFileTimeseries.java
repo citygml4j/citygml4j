@@ -20,7 +20,7 @@ public class TabulatedFileTimeseries extends AbstractAtomicTimeseries {
     private String timeColumnName;
     private Integer valueColumnNo;
     private String valueColumnName;
-    private List<ADEPropertyOfTabulatedFileTimeseries> adeProperties;
+    private List<ADEPropertyOfTabulatedFileTimeseries<?>> adeProperties;
 
     public TabulatedFileTimeseries() {
     }
@@ -145,14 +145,14 @@ public class TabulatedFileTimeseries extends AbstractAtomicTimeseries {
         this.valueColumnName = valueColumnName;
     }
 
-    public List<ADEPropertyOfTabulatedFileTimeseries> getADEPropertiesOfTabulatedFileTimeseries() {
+    public List<ADEPropertyOfTabulatedFileTimeseries<?>> getADEPropertiesOfTabulatedFileTimeseries() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTabulatedFileTimeseries(List<ADEPropertyOfTabulatedFileTimeseries> adeProperties) {
+    public void setADEPropertiesOfTabulatedFileTimeseries(List<ADEPropertyOfTabulatedFileTimeseries<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

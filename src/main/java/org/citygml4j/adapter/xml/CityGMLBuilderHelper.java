@@ -124,7 +124,7 @@ public class CityGMLBuilderHelper {
         }
     }
 
-    public static boolean assignDefaultGeometry(AbstractSpace object, int lod, GeometryProperty property) {
+    public static boolean assignDefaultGeometry(AbstractSpace object, int lod, GeometryProperty<?> property) {
         if (property != null && property.getObject() != null) {
             AbstractGeometry geometry = property.getObject();
             if (geometry instanceof AbstractSolid)
@@ -150,10 +150,11 @@ public class CityGMLBuilderHelper {
         return false;
     }
 
-    public static <T> boolean addADEProperty(QName name, Class<T> type, List<T> properties, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
-        ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
+    @SuppressWarnings("unchecked")
+    public static <T> boolean addADEProperty(QName name, Class<? super T> type, List<? super T> properties, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
+        ObjectBuilder<? super T> builder = reader.getXMLObjects().getBuilder(name, type);
         if (builder != null) {
-            properties.add(reader.getObjectUsingBuilder(builder));
+            properties.add((T) reader.getObjectUsingBuilder(builder));
             return true;
         } else if (CityGMLBuilderHelper.substitutes(name, reader, substitutionGroups)) {
             properties.add(creator.apply(reader.getDOMElement()));

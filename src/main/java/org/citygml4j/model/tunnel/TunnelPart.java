@@ -5,16 +5,16 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class TunnelPart extends AbstractTunnel {
-    private List<ADEPropertyOfTunnelPart> adeProperties;
+    private List<ADEPropertyOfTunnelPart<?>> adeProperties;
 
-    public List<ADEPropertyOfTunnelPart> getADEPropertiesOfTunnelPart() {
+    public List<ADEPropertyOfTunnelPart<?>> getADEPropertiesOfTunnelPart() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTunnelPart(List<ADEPropertyOfTunnelPart> adeProperties) {
+    public void setADEPropertiesOfTunnelPart(List<ADEPropertyOfTunnelPart<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

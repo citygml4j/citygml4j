@@ -11,7 +11,7 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfTunnelInstallation> adeProperties;
+    private List<ADEPropertyOfTunnelInstallation<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfTunnelInstallation> getADEPropertiesOfTunnelInstallation() {
+    public List<ADEPropertyOfTunnelInstallation<?>> getADEPropertiesOfTunnelInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfTunnelInstallation(List<ADEPropertyOfTunnelInstallation> adeProperties) {
+    public void setADEPropertiesOfTunnelInstallation(List<ADEPropertyOfTunnelInstallation<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -11,7 +11,7 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBuildingFurniture> adeProperties;
+    private List<ADEPropertyOfBuildingFurniture<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingFurniture> getADEPropertiesOfBuildingFurniture() {
+    public List<ADEPropertyOfBuildingFurniture<?>> getADEPropertiesOfBuildingFurniture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuildingFurniture(List<ADEPropertyOfBuildingFurniture> adeProperties) {
+    public void setADEPropertiesOfBuildingFurniture(List<ADEPropertyOfBuildingFurniture<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

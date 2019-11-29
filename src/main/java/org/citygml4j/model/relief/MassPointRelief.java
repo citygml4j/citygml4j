@@ -9,7 +9,7 @@ import java.util.List;
 public class MassPointRelief extends AbstractReliefComponent {
     private MultiPointProperty reliefPoints;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEPropertyOfMassPointRelief> adeProperties;
+    private List<ADEPropertyOfMassPointRelief<?>> adeProperties;
 
     public MassPointRelief() {
     }
@@ -40,14 +40,14 @@ public class MassPointRelief extends AbstractReliefComponent {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfMassPointRelief> getADEPropertiesOfMassPointRelief() {
+    public List<ADEPropertyOfMassPointRelief<?>> getADEPropertiesOfMassPointRelief() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfMassPointRelief(List<ADEPropertyOfMassPointRelief> adeProperties) {
+    public void setADEPropertiesOfMassPointRelief(List<ADEPropertyOfMassPointRelief<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

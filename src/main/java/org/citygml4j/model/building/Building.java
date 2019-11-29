@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Building extends AbstractBuilding {
     private List<BuildingPartProperty> buildingParts;
-    private List<ADEPropertyOfBuilding> adeProperties;
+    private List<ADEPropertyOfBuilding<?>> adeProperties;
 
     public List<BuildingPartProperty> getBuildingParts() {
         if (buildingParts == null)
@@ -19,14 +19,14 @@ public class Building extends AbstractBuilding {
         this.buildingParts = asChild(buildingParts);
     }
 
-    public List<ADEPropertyOfBuilding> getADEPropertiesOfBuilding() {
+    public List<ADEPropertyOfBuilding<?>> getADEPropertiesOfBuilding() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuilding(List<ADEPropertyOfBuilding> adeProperties) {
+    public void setADEPropertiesOfBuilding(List<ADEPropertyOfBuilding<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

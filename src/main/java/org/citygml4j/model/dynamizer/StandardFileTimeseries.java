@@ -9,7 +9,7 @@ public class StandardFileTimeseries extends AbstractAtomicTimeseries {
     private String fileLocation;
     private Code fileType;
     private Code mimeType;
-    private List<ADEPropertyOfStandardFileTimeseries> adeProperties;
+    private List<ADEPropertyOfStandardFileTimeseries<?>> adeProperties;
 
     public StandardFileTimeseries() {
     }
@@ -44,14 +44,14 @@ public class StandardFileTimeseries extends AbstractAtomicTimeseries {
         this.mimeType = asChild(mimeType);
     }
 
-    public List<ADEPropertyOfStandardFileTimeseries> getADEPropertiesOfStandardFileTimeseries() {
+    public List<ADEPropertyOfStandardFileTimeseries<?>> getADEPropertiesOfStandardFileTimeseries() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfStandardFileTimeseries(List<ADEPropertyOfStandardFileTimeseries> adeProperties) {
+    public void setADEPropertiesOfStandardFileTimeseries(List<ADEPropertyOfStandardFileTimeseries<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

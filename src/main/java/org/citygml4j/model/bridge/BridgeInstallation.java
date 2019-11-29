@@ -11,7 +11,7 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBridgeInstallation> adeProperties;
+    private List<ADEPropertyOfBridgeInstallation<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -49,14 +49,14 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBridgeInstallation> getADEPropertiesOfBridgeInstallation() {
+    public List<ADEPropertyOfBridgeInstallation<?>> getADEPropertiesOfBridgeInstallation() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBridgeInstallation(List<ADEPropertyOfBridgeInstallation> adeProperties) {
+    public void setADEPropertiesOfBridgeInstallation(List<ADEPropertyOfBridgeInstallation<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

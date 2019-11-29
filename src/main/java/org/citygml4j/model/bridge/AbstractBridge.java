@@ -18,7 +18,7 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
     private List<BridgeRoomMember> bridgeRooms;
     private List<BridgeFurnitureMember> bridgeFurniture;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfAbstractBridge> adeProperties;
+    private List<ADEPropertyOfAbstractBridge<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -123,14 +123,14 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfAbstractBridge> getADEPropertiesOfAbstractBridge() {
+    public List<ADEPropertyOfAbstractBridge<?>> getADEPropertiesOfAbstractBridge() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractBridge(List<ADEPropertyOfAbstractBridge> adeProperties) {
+    public void setADEPropertiesOfAbstractBridge(List<ADEPropertyOfAbstractBridge<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

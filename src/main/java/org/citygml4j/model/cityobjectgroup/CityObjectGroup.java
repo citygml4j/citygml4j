@@ -17,7 +17,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
     private List<Code> usages;
     private List<RoleProperty> groupMembers;
     private AbstractCityObjectProperty groupParent;
-    private List<ADEPropertyOfCityObjectGroup> adeProperties;
+    private List<ADEPropertyOfCityObjectGroup<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -80,14 +80,14 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
         this.groupParent = asChild(groupParent);
     }
 
-    public List<ADEPropertyOfCityObjectGroup> getADEPropertiesOfCityObjectGroup() {
+    public List<ADEPropertyOfCityObjectGroup<?>> getADEPropertiesOfCityObjectGroup() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfCityObjectGroup(List<ADEPropertyOfCityObjectGroup> adeProperties) {
+    public void setADEPropertiesOfCityObjectGroup(List<ADEPropertyOfCityObjectGroup<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -23,7 +23,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
-    private List<ADEPropertyOfAbstractSpace> adeProperties;
+    private List<ADEPropertyOfAbstractSpace<?>> adeProperties;
 
     public abstract boolean isValidBoundary(AbstractSpaceBoundary boundary);
 
@@ -159,14 +159,14 @@ public abstract class AbstractSpace extends AbstractCityObject {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
     }
 
-    public List<ADEPropertyOfAbstractSpace> getADEPropertiesOfAbstractSpace() {
+    public List<ADEPropertyOfAbstractSpace<?>> getADEPropertiesOfAbstractSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractSpace(List<ADEPropertyOfAbstractSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractSpace(List<ADEPropertyOfAbstractSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 

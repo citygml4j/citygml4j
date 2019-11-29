@@ -18,7 +18,7 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     private List<ElevationProperty> elevations;
     private List<HeightProperty> heights;
     private List<OccupancyProperty> occupancies;
-    private List<ADEPropertyOfAbstractConstruction> adeProperties;
+    private List<ADEPropertyOfAbstractConstruction<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -95,14 +95,14 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
         this.occupancies = asChild(occupancies);
     }
 
-    public List<ADEPropertyOfAbstractConstruction> getADEPropertiesOfAbstractConstruction() {
+    public List<ADEPropertyOfAbstractConstruction<?>> getADEPropertiesOfAbstractConstruction() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractConstruction(List<ADEPropertyOfAbstractConstruction> adeProperties) {
+    public void setADEPropertiesOfAbstractConstruction(List<ADEPropertyOfAbstractConstruction<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

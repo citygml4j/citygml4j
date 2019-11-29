@@ -24,7 +24,7 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
     private List<BuildingFurnitureMember> buildingFurniture;
     private List<AbstractBuildingSubdivisionMember> buildingSubdivisions;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfAbstractBuilding> adeProperties;
+    private List<ADEPropertyOfAbstractBuilding<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -168,14 +168,14 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfAbstractBuilding> getADEPropertiesOfAbstractBuilding() {
+    public List<ADEPropertyOfAbstractBuilding<?>> getADEPropertiesOfAbstractBuilding() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractBuilding(List<ADEPropertyOfAbstractBuilding> adeProperties) {
+    public void setADEPropertiesOfAbstractBuilding(List<ADEPropertyOfAbstractBuilding<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -12,7 +12,7 @@ public class Dynamizer extends AbstractDynamizer {
     private TimePosition endTime;
     private AbstractTimeseriesProperty dynamicData;
     private SensorConnectionProperty sensorConnection;
-    private List<ADEPropertyOfDynamizer> adeProperties;
+    private List<ADEPropertyOfDynamizer<?>> adeProperties;
 
     public Dynamizer() {
     }
@@ -61,14 +61,14 @@ public class Dynamizer extends AbstractDynamizer {
         this.sensorConnection = asChild(sensorConnection);
     }
 
-    public List<ADEPropertyOfDynamizer> getADEPropertiesOfDynamizer() {
+    public List<ADEPropertyOfDynamizer<?>> getADEPropertiesOfDynamizer() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfDynamizer(List<ADEPropertyOfDynamizer> adeProperties) {
+    public void setADEPropertiesOfDynamizer(List<ADEPropertyOfDynamizer<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

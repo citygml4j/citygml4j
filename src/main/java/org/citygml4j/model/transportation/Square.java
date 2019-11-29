@@ -10,7 +10,7 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfSquare> adeProperties;
+    private List<ADEPropertyOfSquare<?>> adeProperties;
 
     @Override
     public Code getClassifier() {
@@ -48,14 +48,14 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfSquare> getADEPropertiesOfSquare() {
+    public List<ADEPropertyOfSquare<?>> getADEPropertiesOfSquare() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfSquare(List<ADEPropertyOfSquare> adeProperties) {
+    public void setADEPropertiesOfSquare(List<ADEPropertyOfSquare<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

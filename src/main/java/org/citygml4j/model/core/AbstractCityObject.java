@@ -16,7 +16,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private List<AbstractDynamizerProperty> dynamizers;
     private DeprecatedProperties deprecatedProperties;
-    private List<ADEPropertyOfAbstractCityObject> adeProperties;
+    private List<ADEPropertyOfAbstractCityObject<?>> adeProperties;
 
     public List<ExternalReferenceProperty> getExternalReferences() {
         if (externalReferences == null)
@@ -107,14 +107,14 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         return deprecatedProperties;
     }
 
-    public List<ADEPropertyOfAbstractCityObject> getADEPropertiesOfAbstractCityObject() {
+    public List<ADEPropertyOfAbstractCityObject<?>> getADEPropertiesOfAbstractCityObject() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractCityObject(List<ADEPropertyOfAbstractCityObject> adeProperties) {
+    public void setADEPropertiesOfAbstractCityObject(List<ADEPropertyOfAbstractCityObject<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

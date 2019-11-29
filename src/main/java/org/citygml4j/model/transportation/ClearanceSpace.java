@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ClearanceSpace extends AbstractUnoccupiedSpace {
     private Code classifier;
-    private List<ADEPropertyOfClearanceSpace> adeProperties;
+    private List<ADEPropertyOfClearanceSpace<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -27,14 +27,14 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfClearanceSpace> getADEPropertiesOfClearanceSpace() {
+    public List<ADEPropertyOfClearanceSpace<?>> getADEPropertiesOfClearanceSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfClearanceSpace(List<ADEPropertyOfClearanceSpace> adeProperties) {
+    public void setADEPropertiesOfClearanceSpace(List<ADEPropertyOfClearanceSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public class BreaklineRelief extends AbstractReliefComponent {
     private MultiCurveProperty ridgeOrValleyLines;
     private MultiCurveProperty breaklines;
-    private List<ADEPropertyOfBreaklineRelief> adeProperties;
+    private List<ADEPropertyOfBreaklineRelief<?>> adeProperties;
 
     public BreaklineRelief() {
     }
@@ -45,14 +45,14 @@ public class BreaklineRelief extends AbstractReliefComponent {
         this.breaklines = asChild(breaklines);
     }
 
-    public List<ADEPropertyOfBreaklineRelief> getADEPropertiesOfBreaklineRelief() {
+    public List<ADEPropertyOfBreaklineRelief<?>> getADEPropertiesOfBreaklineRelief() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBreaklineRelief(List<ADEPropertyOfBreaklineRelief> adeProperties) {
+    public void setADEPropertiesOfBreaklineRelief(List<ADEPropertyOfBreaklineRelief<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

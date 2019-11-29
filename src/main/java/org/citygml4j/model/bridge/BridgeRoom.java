@@ -17,7 +17,7 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
     private List<Code> usages;
     private List<BridgeFurnitureProperty> bridgeFurniture;
     private List<BridgeInstallationProperty> bridgeInstallations;
-    private List<ADEPropertyOfBridgeRoom> adeProperties;
+    private List<ADEPropertyOfBridgeRoom<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -84,14 +84,14 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         this.bridgeInstallations = asChild(bridgeInstallations);
     }
 
-    public List<ADEPropertyOfBridgeRoom> getADEPropertiesOfBridgeRoom() {
+    public List<ADEPropertyOfBridgeRoom<?>> getADEPropertiesOfBridgeRoom() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBridgeRoom(List<ADEPropertyOfBridgeRoom> adeProperties) {
+    public void setADEPropertiesOfBridgeRoom(List<ADEPropertyOfBridgeRoom<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

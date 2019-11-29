@@ -16,7 +16,7 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
     private List<AuxiliaryTrafficSpaceProperty> auxiliaryTrafficSpaces;
     private List<HoleProperty> holes;
     private List<MarkingProperty> markings;
-    private List<ADEPropertyOfAbstractTransportationSpace> adeProperties;
+    private List<ADEPropertyOfAbstractTransportationSpace<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -87,14 +87,14 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         this.markings = asChild(markings);
     }
 
-    public List<ADEPropertyOfAbstractTransportationSpace> getADEPropertiesOfAbstractTransportationSpace() {
+    public List<ADEPropertyOfAbstractTransportationSpace<?>> getADEPropertiesOfAbstractTransportationSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractTransportationSpace(List<ADEPropertyOfAbstractTransportationSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractTransportationSpace(List<ADEPropertyOfAbstractTransportationSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

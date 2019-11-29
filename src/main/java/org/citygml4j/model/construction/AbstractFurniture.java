@@ -9,7 +9,7 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractFurniture extends AbstractOccupiedSpace {
-    private List<ADEPropertyOfAbstractFurniture> adeProperties;
+    private List<ADEPropertyOfAbstractFurniture<?>> adeProperties;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -17,14 +17,14 @@ public abstract class AbstractFurniture extends AbstractOccupiedSpace {
                 || boundary instanceof GenericThematicSurface;
     }
 
-    public List<ADEPropertyOfAbstractFurniture> getADEPropertiesOfAbstractFurniture() {
+    public List<ADEPropertyOfAbstractFurniture<?>> getADEPropertiesOfAbstractFurniture() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractFurniture(List<ADEPropertyOfAbstractFurniture> adeProperties) {
+    public void setADEPropertiesOfAbstractFurniture(List<ADEPropertyOfAbstractFurniture<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

@@ -10,7 +10,7 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
     private MultiCurveProperty lod2TerrainIntersectionCurve;
     private MultiCurveProperty lod3TerrainIntersectionCurve;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEPropertyOfAbstractPhysicalSpace> adeProperties;
+    private List<ADEPropertyOfAbstractPhysicalSpace<?>> adeProperties;
 
     public MultiCurveProperty getLod1TerrainIntersectionCurve() {
         return lod1TerrainIntersectionCurve;
@@ -44,14 +44,14 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfAbstractPhysicalSpace> getADEPropertiesOfAbstractPhysicalSpace() {
+    public List<ADEPropertyOfAbstractPhysicalSpace<?>> getADEPropertiesOfAbstractPhysicalSpace() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfAbstractPhysicalSpace(List<ADEPropertyOfAbstractPhysicalSpace> adeProperties) {
+    public void setADEPropertiesOfAbstractPhysicalSpace(List<ADEPropertyOfAbstractPhysicalSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 

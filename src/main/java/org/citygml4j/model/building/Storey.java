@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Storey extends AbstractBuildingSubdivision {
     private List<Reference> buildingUnits;
-    private List<ADEPropertyOfStorey> adeProperties;
+    private List<ADEPropertyOfStorey<?>> adeProperties;
 
     public List<Reference> getBuildingUnits() {
         if (buildingUnits == null)
@@ -20,14 +20,14 @@ public class Storey extends AbstractBuildingSubdivision {
         this.buildingUnits = asChild(buildingUnits);
     }
 
-    public List<ADEPropertyOfStorey> getADEPropertiesOfStorey() {
+    public List<ADEPropertyOfStorey<?>> getADEPropertiesOfStorey() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfStorey(List<ADEPropertyOfStorey> adeProperties) {
+    public void setADEPropertiesOfStorey(List<ADEPropertyOfStorey<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }

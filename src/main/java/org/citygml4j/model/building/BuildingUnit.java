@@ -9,7 +9,7 @@ import java.util.List;
 public class BuildingUnit extends AbstractBuildingSubdivision {
     private List<Reference> storeys;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfBuildingUnit> adeProperties;
+    private List<ADEPropertyOfBuildingUnit<?>> adeProperties;
 
     public List<Reference> getStoreys() {
         if (storeys == null)
@@ -33,14 +33,14 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfBuildingUnit> getADEPropertiesOfBuildingUnit() {
+    public List<ADEPropertyOfBuildingUnit<?>> getADEPropertiesOfBuildingUnit() {
         if (adeProperties == null)
             adeProperties = new ChildList<>(this);
 
         return adeProperties;
     }
 
-    public void setADEPropertiesOfBuildingUnit(List<ADEPropertyOfBuildingUnit> adeProperties) {
+    public void setADEPropertiesOfBuildingUnit(List<ADEPropertyOfBuildingUnit<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
     }
 }
