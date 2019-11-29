@@ -6,7 +6,6 @@ import org.citygml4j.adapter.xml.core.AbstractCityObjectAdapter;
 import org.citygml4j.adapter.xml.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfWaterBody;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.waterbody.ADEPropertyOfWaterBody;
 import org.citygml4j.model.waterbody.WaterBody;
 import org.citygml4j.util.CityGMLConstants;
@@ -16,9 +15,6 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
-import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -64,10 +60,10 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
                     object.setLod0MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1MultiCurve":
-                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod1MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod1MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod1MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1Solid":
                     object.setLod1Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
@@ -79,7 +75,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
                     object.setLod3Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod4Solid":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -115,15 +111,11 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         if (object.getLod0MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_CURVE)) {
-            MultiCurveProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_CURVE, MultiCurveProperty.class);
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiCurve"), property, MultiCurvePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod1MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiCurve"), object.getDeprecatedProperties().getLod1MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
@@ -134,10 +126,8 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SOLID)) {
-            SolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4Solid() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);

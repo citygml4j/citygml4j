@@ -5,6 +5,7 @@ import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeRoom;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -82,6 +83,16 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
 
     public void setBridgeInstallations(List<BridgeInstallationProperty> bridgeInstallations) {
         this.bridgeInstallations = asChild(bridgeInstallations);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfBridgeRoom getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfBridgeRoom) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfBridgeRoom createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfBridgeRoom();
     }
 
     public List<ADEPropertyOfBridgeRoom<?>> getADEPropertiesOfBridgeRoom() {

@@ -1,6 +1,7 @@
 package org.citygml4j.model.vegetation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfPlantCover;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Length;
 import org.xmlobjects.model.ChildList;
@@ -74,6 +75,16 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 
     public void setMaxHeight(Length maxHeight) {
         this.maxHeight = asChild(maxHeight);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfPlantCover getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfPlantCover) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfPlantCover createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfPlantCover();
     }
 
     public List<ADEPropertyOfPlantCover<?>> getADEPropertiesOfPlantCover() {

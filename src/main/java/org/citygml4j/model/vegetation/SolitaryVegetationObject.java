@@ -1,6 +1,7 @@
 package org.citygml4j.model.vegetation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Length;
 import org.xmlobjects.model.ChildList;
@@ -101,6 +102,16 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 
     public void setMaxRootBallDepth(Length maxRootBallDepth) {
         this.maxRootBallDepth = asChild(maxRootBallDepth);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfSolitaryVegetationObject getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfSolitaryVegetationObject) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfSolitaryVegetationObject createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfSolitaryVegetationObject();
     }
 
     public List<ADEPropertyOfSolitaryVegetationObject<?>> getADEPropertiesOfSolitaryVegetationObject() {

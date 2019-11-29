@@ -5,6 +5,7 @@ import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfHollowSpace;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -82,6 +83,16 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
 
     public void setTunnelInstallations(List<TunnelInstallationProperty> tunnelInstallations) {
         this.tunnelInstallations = asChild(tunnelInstallations);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfHollowSpace getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfHollowSpace) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfHollowSpace createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfHollowSpace();
     }
 
     public List<ADEPropertyOfHollowSpace<?>> getADEPropertiesOfHollowSpace() {

@@ -4,6 +4,7 @@ import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.generics.DeprecatedPropertiesOfGenericOccupiedSpace;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -55,6 +56,16 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfGenericOccupiedSpace getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfGenericOccupiedSpace) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfGenericOccupiedSpace createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfGenericOccupiedSpace();
     }
 
     public List<ADEPropertyOfGenericOccupiedSpace<?>> getADEPropertiesOfGenericOccupiedSpace() {

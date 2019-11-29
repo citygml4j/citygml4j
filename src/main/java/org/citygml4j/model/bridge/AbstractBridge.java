@@ -3,6 +3,7 @@ package org.citygml4j.model.bridge;
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfAbstractBridge;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -121,6 +122,16 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
 
     public void setAddresses(List<AddressProperty> addresses) {
         this.addresses = asChild(addresses);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAbstractBridge getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAbstractBridge) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfAbstractBridge createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractBridge();
     }
 
     public List<ADEPropertyOfAbstractBridge<?>> getADEPropertiesOfAbstractBridge() {

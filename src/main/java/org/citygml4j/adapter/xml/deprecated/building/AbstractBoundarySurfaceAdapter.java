@@ -9,11 +9,9 @@ import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractFillingSurfaceProperty;
 import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -42,13 +40,11 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "opening":
                     if (object instanceof AbstractConstructionSurface)
                         ((AbstractConstructionSurface) object).getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
-                    else
-                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.OPENING, reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -77,16 +73,11 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
         if (object.getLod3MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object instanceof AbstractConstructionSurface) {
             for (AbstractFillingSurfaceProperty property : ((AbstractConstructionSurface) object).getFillingSurfaces())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
-        } else if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.OPENING)) {
-            for (AbstractFillingSurfaceProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.OPENING, AbstractFillingSurfaceProperty.class))
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
         }
 

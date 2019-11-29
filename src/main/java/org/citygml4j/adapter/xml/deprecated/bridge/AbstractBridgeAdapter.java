@@ -26,15 +26,13 @@ import org.citygml4j.model.bridge.BridgeRoomProperty;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
-import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -73,7 +71,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.setLod1Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod1MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod1MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1TerrainIntersection":
                     object.setLod1TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
@@ -94,22 +92,24 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     BridgeConstructiveElementProperty bridgeConstructiveElement = reader.getObjectUsingBuilder(BridgeConstructiveElementPropertyAdapter.class);
                     if (bridgeConstructiveElement.getObject() != null)
                         object.getBridgeConstructiveElements().add(new BridgeConstructiveElementMember(bridgeConstructiveElement.getObject()));
+                    //else if (bridgeConstructiveElement.getGenericElement() != null)
+                    //    object.getBridgeConstructiveElements().add(new BridgeConstructiveElementMember(bridgeConstructiveElement.getGenericElement()));
                     else
-                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.OUTER_BRIDGE_CONSTRUCTION, bridgeConstructiveElement);
+                        object.getDeprecatedProperties().getOuterBridgeConstructions().add(new Reference(bridgeConstructiveElement));
                     return;
                 case "outerBridgeInstallation":
                     BridgeInstallationProperty outerBridgeInstallation = reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class);
                     if (outerBridgeInstallation.getObject() != null)
                         object.getBridgeInstallations().add(new BridgeInstallationMember(outerBridgeInstallation.getObject()));
                     else
-                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.OUTER_BRIDGE_INSTALLATION, outerBridgeInstallation);
+                        object.getDeprecatedProperties().getOuterBridgeInstallations().add(outerBridgeInstallation);
                     return;
                 case "interiorBridgeInstallation":
                     BridgeInstallationProperty interiorBridgeInstallation = reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class);
                     if (interiorBridgeInstallation.getObject() != null)
                         object.getBridgeInstallations().add(new BridgeInstallationMember(interiorBridgeInstallation.getObject()));
                     else
-                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.INTERIOR_BRIDGE_INSTALLATION, interiorBridgeInstallation);
+                        object.getDeprecatedProperties().getInteriorBridgeInstallations().add(interiorBridgeInstallation);
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -127,13 +127,13 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.setLod3TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod4Solid":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SOLID, reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiCurve":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_CURVE, reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "lod4TerrainIntersection":
                     object.getDeprecatedProperties().setLod4TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
@@ -142,15 +142,17 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     BridgeRoomProperty interiorBridgeRoom = reader.getObjectUsingBuilder(BridgeRoomPropertyAdapter.class);
                     if (interiorBridgeRoom.getObject() != null)
                         object.getBridgeRooms().add(new BridgeRoomMember(interiorBridgeRoom.getObject()));
+                    //else if (interiorBridgeRoom.getGenericElement() != null)
+                     //   object.getBridgeRooms().add(new BridgeRoomMember(interiorBridgeRoom.getGenericElement()));
                     else
-                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.INTERIOR_BRIDGE_ROOM, interiorBridgeRoom);
+                        object.getDeprecatedProperties().getInteriorBridgeRooms().add(new Reference(interiorBridgeRoom));
                     return;
                 case "consistsOfBridgePart":
                     BridgePartProperty consistsOfBridgePart = reader.getObjectUsingBuilder(BridgePartPropertyAdapter.class);
-                    if (consistsOfBridgePart.getObject() != null && object instanceof Bridge)
+                    if ((consistsOfBridgePart.getObject() != null || consistsOfBridgePart.getGenericElement() != null) && object instanceof Bridge)
                         ((Bridge) object).getBridgeParts().add(consistsOfBridgePart);
                     else
-                        object.getDeprecatedProperties().addFeature(DeprecatedProperties.CONSISTS_OF_BRIDGE_PART, consistsOfBridgePart);
+                        object.getDeprecatedProperties().getConsistsOfBridgeParts().add(consistsOfBridgePart);
                     return;
                 case "address":
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
@@ -190,10 +192,8 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -213,30 +213,24 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (BridgeConstructiveElementMember member : object.getBridgeConstructiveElements())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), member, BridgeConstructiveElementMemberAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.OUTER_BRIDGE_CONSTRUCTION)) {
-            for (BridgeConstructiveElementProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.OUTER_BRIDGE_CONSTRUCTION, BridgeConstructiveElementProperty.class))
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
-        }
+        for (Reference reference : object.getDeprecatedProperties().getOuterBridgeConstructions())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), reference, ReferenceAdapter.class, namespaces);
 
         for (BridgeInstallationMember member : object.getBridgeInstallations()) {
             if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
         }
 
-        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.OUTER_BRIDGE_INSTALLATION)) {
-            for (BridgeInstallationProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.OUTER_BRIDGE_INSTALLATION, BridgeInstallationProperty.class))
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
-        }
+        for (BridgeInstallationProperty property : object.getDeprecatedProperties().getOuterBridgeInstallations())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
 
         for (BridgeInstallationMember member : object.getBridgeInstallations()) {
             if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
         }
 
-        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.INTERIOR_BRIDGE_INSTALLATION)) {
-            for (BridgeInstallationProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.INTERIOR_BRIDGE_INSTALLATION, BridgeInstallationProperty.class))
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
-        }
+        for (BridgeInstallationProperty property : object.getDeprecatedProperties().getInteriorBridgeInstallations())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
@@ -253,43 +247,31 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getLod3TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SOLID)) {
-            SolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4Solid() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-            MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_CURVE)) {
-            MultiCurveProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_CURVE, MultiCurveProperty.class);
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiCurve"), property, MultiCurvePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiCurve"), object.getDeprecatedProperties().getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null) {
-            MultiCurveProperty property = object.getDeprecatedProperties().getLod4TerrainIntersectionCurve();
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), property, MultiCurvePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         for (BridgeRoomMember member : object.getBridgeRooms())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), member, BridgeRoomMemberAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.INTERIOR_BRIDGE_ROOM)) {
-            for (BridgeRoomProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.INTERIOR_BRIDGE_ROOM, BridgeRoomProperty.class))
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
-        }
+        for (Reference reference : object.getDeprecatedProperties().getInteriorBridgeRooms())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), reference, ReferenceAdapter.class, namespaces);
 
         if (object instanceof Bridge) {
             for (BridgePartProperty property : ((Bridge) object).getBridgeParts())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
         }
 
-        if (object.getDeprecatedProperties().containsFeatures(DeprecatedProperties.CONSISTS_OF_BRIDGE_PART)) {
-            for (BridgePartProperty property : object.getDeprecatedProperties().getFeatures(DeprecatedProperties.CONSISTS_OF_BRIDGE_PART, BridgePartProperty.class))
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
-        }
+        for (BridgePartProperty property : object.getDeprecatedProperties().getConsistsOfBridgeParts())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);

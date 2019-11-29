@@ -4,6 +4,7 @@ import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
+import org.citygml4j.model.deprecated.transportation.DeprecatedPropertiesOfAbstractTransportationSpace;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.model.ChildList;
 
@@ -85,6 +86,16 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
     public void setMarkings(List<MarkingProperty> markings) {
         this.markings = asChild(markings);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAbstractTransportationSpace getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAbstractTransportationSpace) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfAbstractTransportationSpace createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractTransportationSpace();
     }
 
     public List<ADEPropertyOfAbstractTransportationSpace<?>> getADEPropertiesOfAbstractTransportationSpace() {

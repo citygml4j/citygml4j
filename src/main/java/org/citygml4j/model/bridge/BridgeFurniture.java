@@ -2,6 +2,7 @@ package org.citygml4j.model.bridge;
 
 import org.citygml4j.model.construction.AbstractFurniture;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeFurniture;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -47,6 +48,16 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfBridgeFurniture getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfBridgeFurniture) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfBridgeFurniture createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfBridgeFurniture();
     }
 
     public List<ADEPropertyOfBridgeFurniture<?>> getADEPropertiesOfBridgeFurniture() {

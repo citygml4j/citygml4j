@@ -12,15 +12,12 @@ import org.citygml4j.model.building.BuildingInstallationProperty;
 import org.citygml4j.model.building.BuildingRoom;
 import org.citygml4j.model.building.RoomHeightProperty;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
-import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -68,10 +65,10 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
                     object.getBuildingInstallations().add(reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class));
                     return;
                 case "lod4Solid":
-                    object.setLod3Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -112,17 +109,11 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
             for (RoomHeightProperty property : object.getRoomHeights())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roomHeight"), property, RoomHeightPropertyAdapter.class, namespaces);
         } else {
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SOLID)) {
-                SolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SOLID, SolidProperty.class);
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), property, SolidPropertyAdapter.class, namespaces);
-            } else if (object.getLod3Solid() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
+            if (object.getDeprecatedProperties().getLod4Solid() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-                MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-            } else if (object.getLod3MultiSurface() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

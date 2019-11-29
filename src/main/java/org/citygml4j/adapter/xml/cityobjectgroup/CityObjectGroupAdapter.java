@@ -8,13 +8,11 @@ import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.ADEPropertyOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -60,7 +58,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                     object.setGroupParent(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
                     return;
                 case "geometry":
-                    object.getDeprecatedProperties().addNonLodGeometry(DeprecatedProperties.GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -101,10 +99,8 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         if (object.getGroupParent() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getGroupParent(), AbstractCityObjectPropertyAdapter.class, namespaces);
 
-        if (!isCityGML3 && object.getDeprecatedProperties().containsNonLodGeometry(DeprecatedProperties.GEOMETRY)) {
-            GeometryProperty<?> property = object.getDeprecatedProperties().getNonLodGeometry(DeprecatedProperties.GEOMETRY, GeometryProperty.class);
-            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), property, GeometryPropertyAdapter.class, namespaces);
-        }
+        if (!isCityGML3 && object.getDeprecatedProperties().getGeometry() != null)
+            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), object.getDeprecatedProperties().getGeometry(), GeometryPropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfCityObjectGroup<?> property : object.getADEPropertiesOfCityObjectGroup())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

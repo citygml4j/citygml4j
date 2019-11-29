@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractThematicSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.model.ChildList;
@@ -73,6 +74,16 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
 
     public void setPointCloud(AbstractPointCloudProperty pointCloud) {
         this.pointCloud = asChild(pointCloud);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAbstractThematicSurface getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAbstractThematicSurface) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfAbstractThematicSurface createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractThematicSurface();
     }
 
     public List<ADEPropertyOfAbstractThematicSurface<?>> getADEPropertiesOfAbstractThematicSurface() {

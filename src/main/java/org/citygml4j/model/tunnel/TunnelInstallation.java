@@ -2,6 +2,7 @@ package org.citygml4j.model.tunnel;
 
 import org.citygml4j.model.construction.AbstractInstallation;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelInstallation;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -47,6 +48,16 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfTunnelInstallation getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfTunnelInstallation) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfTunnelInstallation createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfTunnelInstallation();
     }
 
     public List<ADEPropertyOfTunnelInstallation<?>> getADEPropertiesOfTunnelInstallation() {

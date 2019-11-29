@@ -5,6 +5,7 @@ import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -78,6 +79,16 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
 
     public void setGroupParent(AbstractCityObjectProperty groupParent) {
         this.groupParent = asChild(groupParent);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfCityObjectGroup getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfCityObjectGroup) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfCityObjectGroup createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfCityObjectGroup();
     }
 
     public List<ADEPropertyOfCityObjectGroup<?>> getADEPropertiesOfCityObjectGroup() {

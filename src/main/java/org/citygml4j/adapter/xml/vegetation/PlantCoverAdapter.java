@@ -3,7 +3,6 @@ package org.citygml4j.adapter.xml.vegetation;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfPlantCover;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.vegetation.ADEPropertyOfPlantCover;
 import org.citygml4j.model.vegetation.PlantCover;
 import org.citygml4j.util.CityGMLConstants;
@@ -15,7 +14,6 @@ import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapte
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSolid;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSolidProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -64,7 +62,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                     object.setMaxHeight(reader.getObjectUsingBuilder(LengthAdapter.class));
                     return;
                 case "lod1MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod1MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod2MultiSurface":
                     object.setLod2MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
@@ -73,25 +71,25 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod1MultiSolid":
                     MultiSolidProperty lod1MultiSolid = reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 1, lod1MultiSolid))
-                        object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_MULTI_SOLID, lod1MultiSolid);
+                        object.getDeprecatedProperties().setLod1MultiSolid(lod1MultiSolid);
                     return;
                 case "lod2MultiSolid":
                     MultiSolidProperty lod2MultiSolid = reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 2, lod2MultiSolid))
-                        object.getDeprecatedProperties().addGeometry(2, DeprecatedProperties.LOD2_MULTI_SOLID, lod2MultiSolid);
+                        object.getDeprecatedProperties().setLod2MultiSolid(lod2MultiSolid);
                     return;
                 case "lod3MultiSolid":
                     MultiSolidProperty lod3MultiSolid = reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod3MultiSolid))
-                        object.getDeprecatedProperties().addGeometry(3, DeprecatedProperties.LOD3_MULTI_SOLID, lod3MultiSolid);
+                        object.getDeprecatedProperties().setLod3MultiSolid(lod3MultiSolid);
                     return;
                 case "lod4MultiSolid":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SOLID, reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSolid(reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -134,10 +132,8 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
         }
 
         if (!isCityGML3) {
-            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE)) {
-                MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SURFACE, MultiSurfaceProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             if (object.getLod2MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2MultiSurface"), object.getLod2MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
@@ -145,33 +141,26 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
             if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-                MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_MULTI_SOLID)) {
-                MultiSolidProperty property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_MULTI_SOLID, MultiSolidProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1MultiSolid"), property, MultiSolidPropertyAdapter.class, namespaces);
-            } else if (object.getLod1Solid() != null)
+            if (object.getDeprecatedProperties().getLod1MultiSolid() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1MultiSolid"), object.getDeprecatedProperties().getLod1MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
+            else if (object.getLod1Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1MultiSolid"), getMultiSolidProperty(object.getLod1Solid()), MultiSolidPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_MULTI_SOLID)) {
-                MultiSolidProperty property = object.getDeprecatedProperties().getGeometry(2, DeprecatedProperties.LOD2_MULTI_SOLID, MultiSolidProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2MultiSolid"), property, MultiSolidPropertyAdapter.class, namespaces);
-            } else if (object.getLod2Solid() != null)
+            if (object.getDeprecatedProperties().getLod2MultiSolid() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2MultiSolid"), object.getDeprecatedProperties().getLod2MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
+            else if (object.getLod2Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2MultiSolid"), getMultiSolidProperty(object.getLod2Solid()), MultiSolidPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(3, DeprecatedProperties.LOD3_MULTI_SOLID)) {
-                MultiSolidProperty property = object.getDeprecatedProperties().getGeometry(3, DeprecatedProperties.LOD3_MULTI_SOLID, MultiSolidProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3MultiSolid"), property, MultiSolidPropertyAdapter.class, namespaces);
-            } else if (object.getLod3Solid() != null)
+            if (object.getDeprecatedProperties().getLod3MultiSolid() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3MultiSolid"), object.getDeprecatedProperties().getLod3MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
+            else if (object.getLod3Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3MultiSolid"), getMultiSolidProperty(object.getLod3Solid()), MultiSolidPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SOLID)) {
-                MultiSolidProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SOLID, MultiSolidProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSolid"), property, MultiSolidPropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4MultiSolid() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSolid"), object.getDeprecatedProperties().getLod4MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfPlantCover<?> property : object.getADEPropertiesOfPlantCover())

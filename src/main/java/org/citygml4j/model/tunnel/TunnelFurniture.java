@@ -2,6 +2,7 @@ package org.citygml4j.model.tunnel;
 
 import org.citygml4j.model.construction.AbstractFurniture;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelFurniture;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -47,6 +48,16 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfTunnelFurniture getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfTunnelFurniture) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfTunnelFurniture createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfTunnelFurniture();
     }
 
     public List<ADEPropertyOfTunnelFurniture<?>> getADEPropertiesOfTunnelFurniture() {

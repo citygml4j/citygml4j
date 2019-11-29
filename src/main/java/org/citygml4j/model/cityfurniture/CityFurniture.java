@@ -4,6 +4,7 @@ import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.cityfurniture.DeprecatedPropertiesOfCityFurniture;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -56,6 +57,16 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfCityFurniture getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfCityFurniture) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfCityFurniture createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfCityFurniture();
     }
 
     public List<ADEPropertyOfCityFurniture<?>> getADEPropertiesOfCityFurniture() {

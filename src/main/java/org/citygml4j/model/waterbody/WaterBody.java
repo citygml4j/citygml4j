@@ -4,6 +4,7 @@ import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.waterbody.DeprecatedPropertiesOfWaterBody;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -57,6 +58,16 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfWaterBody getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfWaterBody) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfWaterBody createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfWaterBody();
     }
 
     public List<ADEPropertyOfWaterBody<?>> getADEPropertiesOfWaterBody() {

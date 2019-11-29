@@ -2,6 +2,7 @@ package org.citygml4j.model.bridge;
 
 import org.citygml4j.model.construction.AbstractConstructiveElement;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeConstructiveElement;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -47,6 +48,16 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfBridgeConstructiveElement getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfBridgeConstructiveElement) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfBridgeConstructiveElement createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfBridgeConstructiveElement();
     }
 
     public List<ADEPropertyOfBridgeConstructiveElement<?>> getADEPropertiesOfBridgeConstructiveElement() {

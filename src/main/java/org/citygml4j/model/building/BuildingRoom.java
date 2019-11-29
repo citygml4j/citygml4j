@@ -5,6 +5,7 @@ import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingRoom;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -94,6 +95,16 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
 
     public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
         this.buildingInstallations = asChild(buildingInstallations);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfBuildingRoom getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfBuildingRoom) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfBuildingRoom createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfBuildingRoom();
     }
 
     public List<ADEPropertyOfBuildingRoom<?>> getADEPropertiesOfBuildingRoom() {

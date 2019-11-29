@@ -8,7 +8,6 @@ import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractWaterBoundary
 import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.waterbody.ADEPropertyOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.util.CityGMLConstants;
@@ -51,7 +50,7 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
                     object.setLod3MultiSurface(getMultiSurfaceProperty(reader.getObjectUsingBuilder(SurfacePropertyAdapter.class)));
                     return;
                 case "lod4Surface":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_SURFACE, reader.getObjectUsingBuilder(SurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSurface(getMultiSurfaceProperty(reader.getObjectUsingBuilder(SurfacePropertyAdapter.class)));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -87,10 +86,8 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
         if (object.getLod3MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Surface"), getSurfaceProperty(object.getLod3MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_SURFACE)) {
-            SurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_SURFACE, SurfaceProperty.class);
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Surface"), property, SurfacePropertyAdapter.class, namespaces);
-        }
+        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Surface"), getSurfaceProperty(object.getDeprecatedProperties().getLod4MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
         if (object instanceof AbstractWaterBoundarySurface) {
             AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;

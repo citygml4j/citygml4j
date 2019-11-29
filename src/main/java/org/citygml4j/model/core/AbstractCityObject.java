@@ -1,6 +1,6 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.deprecated.DeprecatedProperties;
+import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.model.ChildList;
 
@@ -15,7 +15,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<AbstractAppearanceProperty> appearances;
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private List<AbstractDynamizerProperty> dynamizers;
-    private DeprecatedProperties deprecatedProperties;
+    private DeprecatedPropertiesOfAbstractCityObject deprecatedProperties;
     private List<ADEPropertyOfAbstractCityObject<?>> adeProperties;
 
     public List<ExternalReferenceProperty> getExternalReferences() {
@@ -100,11 +100,15 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         this.dynamizers = asChild(dynamizers);
     }
 
-    public DeprecatedProperties getDeprecatedProperties() {
+    public DeprecatedPropertiesOfAbstractCityObject getDeprecatedProperties() {
         if (deprecatedProperties == null)
-            deprecatedProperties = asChild(new DeprecatedProperties());
+            deprecatedProperties = asChild(createDeprecatedProperties());
 
         return deprecatedProperties;
+    }
+
+    protected DeprecatedPropertiesOfAbstractCityObject createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractCityObject();
     }
 
     public List<ADEPropertyOfAbstractCityObject<?>> getADEPropertiesOfAbstractCityObject() {

@@ -4,7 +4,6 @@ import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfTrafficArea;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.transportation.ADEPropertyOfTrafficArea;
 import org.citygml4j.model.transportation.TrafficArea;
 import org.citygml4j.util.CityGMLConstants;
@@ -13,7 +12,6 @@ import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -59,7 +57,7 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
                     object.setLod3MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "lod4MultiSurface":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -99,10 +97,8 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
             if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE)) {
-                MultiSurfaceProperty property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_MULTI_SURFACE, MultiSurfaceProperty.class);
-                writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), property, MultiSurfacePropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfTrafficArea<?> property : object.getADEPropertiesOfTrafficArea())

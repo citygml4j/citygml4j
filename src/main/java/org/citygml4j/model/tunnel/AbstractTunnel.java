@@ -2,6 +2,7 @@ package org.citygml4j.model.tunnel;
 
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfAbstractTunnel;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -95,6 +96,16 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
 
     public void setTunnelFurniture(List<TunnelFurnitureMember> tunnelFurniture) {
         this.tunnelFurniture = asChild(tunnelFurniture);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAbstractTunnel getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAbstractTunnel) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfAbstractTunnel createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractTunnel();
     }
 
     public List<ADEPropertyOfAbstractTunnel<?>> getADEPropertiesOfAbstractTunnel() {

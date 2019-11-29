@@ -4,8 +4,6 @@ import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfSolitaryVegetationObject;
-import org.citygml4j.model.core.ImplicitGeometryProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.vegetation.ADEPropertyOfSolitaryVegetationObject;
 import org.citygml4j.model.vegetation.SolitaryVegetationObject;
 import org.citygml4j.util.CityGMLConstants;
@@ -72,20 +70,20 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
                 case "lod1Geometry":
                     GeometryProperty<?> lod1Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 1, lod1Geometry))
-                        object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_GEOMETRY, lod1Geometry);
+                        object.getDeprecatedProperties().setLod1Geometry(lod1Geometry);
                     return;
                 case "lod2Geometry":
                     GeometryProperty<?> lod2Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 2, lod2Geometry))
-                        object.getDeprecatedProperties().addGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, lod2Geometry);
+                        object.getDeprecatedProperties().setLod2Geometry(lod2Geometry);
                     return;
                 case "lod3Geometry":
                     GeometryProperty<?> lod3Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod3Geometry))
-                        object.getDeprecatedProperties().addGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, lod3Geometry);
+                        object.getDeprecatedProperties().setLod3Geometry(lod3Geometry);
                     return;
                 case "lod4Geometry":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4Geometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "lod1ImplicitRepresentation":
                     object.setLod1ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
@@ -149,28 +147,23 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
         }
 
         if (!isCityGML3) {
-            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
+            if (object.getDeprecatedProperties().getLod1Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
+            else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 1, "lod1Geometry", vegetationNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
+            if (object.getDeprecatedProperties().getLod2Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+            else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", vegetationNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().containsGeometry(3, DeprecatedProperties.LOD3_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
+            if (object.getDeprecatedProperties().getLod3Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+            else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", vegetationNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (object.getLod1ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1ImplicitRepresentation"), object.getLod1ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
@@ -181,10 +174,8 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null) {
-                ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod4ImplicitRepresentation();
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfSolitaryVegetationObject<?> property : object.getADEPropertiesOfSolitaryVegetationObject())

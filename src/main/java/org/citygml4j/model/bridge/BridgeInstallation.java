@@ -2,6 +2,7 @@ package org.citygml4j.model.bridge;
 
 import org.citygml4j.model.construction.AbstractInstallation;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeInstallation;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -47,6 +48,16 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfBridgeInstallation getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfBridgeInstallation) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfBridgeInstallation createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfBridgeInstallation();
     }
 
     public List<ADEPropertyOfBridgeInstallation<?>> getADEPropertiesOfBridgeInstallation() {

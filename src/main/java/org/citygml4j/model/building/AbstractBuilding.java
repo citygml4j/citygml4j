@@ -3,6 +3,7 @@ package org.citygml4j.model.building;
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.MeasureOrNilReasonList;
 import org.xmlobjects.model.ChildList;
@@ -166,6 +167,16 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
 
     public void setAddresses(List<AddressProperty> addresses) {
         this.addresses = asChild(addresses);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAbstractBuilding getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAbstractBuilding) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfAbstractBuilding createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractBuilding();
     }
 
     public List<ADEPropertyOfAbstractBuilding<?>> getADEPropertiesOfAbstractBuilding() {

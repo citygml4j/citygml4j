@@ -7,14 +7,11 @@ import org.citygml4j.adapter.xml.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingFurniture;
 import org.citygml4j.model.building.ADEPropertyOfBuildingFurniture;
 import org.citygml4j.model.building.BuildingFurniture;
-import org.citygml4j.model.core.ImplicitGeometryProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
-import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -51,12 +48,10 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
 
             switch (name.getLocalPart()) {
                 case "lod4Geometry":
-                    GeometryProperty<?> lod4Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
-                    if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod4Geometry))
-                        object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4Geometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "lod4ImplicitRepresentation":
-                    object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -87,17 +82,11 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)) {
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
-                CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod4Geometry", buildingNamespace, namespaces, writer);
+            if (object.getDeprecatedProperties().getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null) {
-                ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod4ImplicitRepresentation();
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
-            } else if (object.getLod3ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEPropertyOfBuildingFurniture<?> property : object.getADEPropertiesOfBuildingFurniture())

@@ -2,6 +2,8 @@ package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractFurniture;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingFurniture;
+import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -47,6 +49,16 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfBuildingFurniture getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfBuildingFurniture) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfAbstractCityObject createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfBuildingFurniture();
     }
 
     public List<ADEPropertyOfBuildingFurniture<?>> getADEPropertiesOfBuildingFurniture() {

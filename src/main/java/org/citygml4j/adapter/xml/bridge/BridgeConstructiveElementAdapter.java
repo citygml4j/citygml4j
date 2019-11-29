@@ -10,8 +10,6 @@ import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeConstructiveEle
 import org.citygml4j.model.bridge.ADEPropertyOfBridgeConstructiveElement;
 import org.citygml4j.model.bridge.BridgeConstructiveElement;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.core.ImplicitGeometryProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -19,7 +17,6 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -56,20 +53,20 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
                 case "lod1Geometry":
                     GeometryProperty<?> lod1Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 1, lod1Geometry))
-                        object.getDeprecatedProperties().addGeometry(1, DeprecatedProperties.LOD1_GEOMETRY, lod1Geometry);
+                        object.getDeprecatedProperties().setLod1Geometry(lod1Geometry);
                     return;
                 case "lod2Geometry":
                     GeometryProperty<?> lod2Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 2, lod2Geometry))
-                        object.getDeprecatedProperties().addGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, lod2Geometry);
+                        object.getDeprecatedProperties().setLod2Geometry(lod2Geometry);
                     return;
                 case "lod3Geometry":
                     GeometryProperty<?> lod3Geometry = reader.getObjectUsingBuilder(GeometryPropertyAdapter.class);
                     if (!CityGMLBuilderHelper.assignDefaultGeometry(object, 3, lod3Geometry))
-                        object.getDeprecatedProperties().addGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, lod3Geometry);
+                        object.getDeprecatedProperties().setLod3Geometry(lod3Geometry);
                     return;
                 case "lod4Geometry":
-                    object.getDeprecatedProperties().addGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.getDeprecatedProperties().setLod4Geometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "lod1TerrainIntersection":
                     object.setLod1TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
@@ -130,28 +127,23 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace)) {
-            if (object.getDeprecatedProperties().containsGeometry(1, DeprecatedProperties.LOD1_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(1, DeprecatedProperties.LOD1_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
+            if (object.getDeprecatedProperties().getLod1Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
+            else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 1, "lod1Geometry", bridgeNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().containsGeometry(2, DeprecatedProperties.LOD2_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(2, DeprecatedProperties.LOD2_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
+            if (object.getDeprecatedProperties().getLod2Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+            else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", bridgeNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().containsGeometry(3, DeprecatedProperties.LOD3_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(3, DeprecatedProperties.LOD3_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            } else
+            if (object.getDeprecatedProperties().getLod3Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+            else
                 CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", bridgeNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().containsGeometry(4, DeprecatedProperties.LOD4_GEOMETRY)) {
-                GeometryProperty<?> property = object.getDeprecatedProperties().getGeometry(4, DeprecatedProperties.LOD4_GEOMETRY, GeometryProperty.class);
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), property, GeometryPropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (object.getLod1TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -162,10 +154,8 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null) {
-                MultiCurveProperty property = object.getDeprecatedProperties().getLod4TerrainIntersectionCurve();
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), property, MultiCurvePropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
             if (object.getLod1ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1ImplicitRepresentation"), object.getLod1ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
@@ -176,10 +166,8 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null) {
-                ImplicitGeometryProperty property = object.getDeprecatedProperties().getLod4ImplicitRepresentation();
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), property, ImplicitGeometryPropertyAdapter.class, namespaces);
-            }
+            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
