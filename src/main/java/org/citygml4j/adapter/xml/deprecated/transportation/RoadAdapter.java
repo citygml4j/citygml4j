@@ -3,7 +3,6 @@ package org.citygml4j.adapter.xml.deprecated.transportation;
 import org.citygml4j.adapter.xml.CityGMLBuilderHelper;
 import org.citygml4j.adapter.xml.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfRoad;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.citygml4j.model.transportation.ADEPropertyOfRoad;
 import org.citygml4j.model.transportation.Road;
 import org.citygml4j.util.CityGMLConstants;
@@ -22,26 +21,18 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 @XMLElements({
-        @XMLElement(name = "TransportationComplex", namespaceURI = CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE),
-        @XMLElement(name = "TransportationComplex", namespaceURI = CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE),
         @XMLElement(name = "Road", namespaceURI = CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE),
         @XMLElement(name = "Road", namespaceURI = CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE)
 })
 public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTransportationComplex"),
-            new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTransportationComplex"),
             new QName(CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfRoad"),
             new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfRoad")
     };
 
     @Override
     public Road createObject(QName name) throws ObjectBuildException {
-        Road object = new Road();
-        if ("TransportationComplex".equals(name.getLocalPart()))
-            object.getLocalProperties().set(DeprecatedProperties.TRANSPORTATION_COMPLEX, true);
-
-        return object;
+        return new Road();
     }
 
     @Override
@@ -61,10 +52,7 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
 
     @Override
     public Element createElement(Road object, Namespaces namespaces) throws ObjectSerializeException {
-        String transportationNamespace = CityGMLSerializerHelper.getTransportationNamespace(namespaces);
-        return object.getLocalProperties().getAndCompare(DeprecatedProperties.TRANSPORTATION_COMPLEX, true) ?
-                Element.of(transportationNamespace, "TransportationComplex") :
-                Element.of(transportationNamespace, "Road");
+        return Element.of(CityGMLSerializerHelper.getTransportationNamespace(namespaces), "Road");
     }
 
     @Override

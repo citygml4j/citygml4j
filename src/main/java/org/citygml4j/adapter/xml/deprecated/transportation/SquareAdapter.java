@@ -30,7 +30,6 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
             new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfSquare")
     };
 
-
     @Override
     public Square createObject(QName name) throws ObjectBuildException {
         return new Square();

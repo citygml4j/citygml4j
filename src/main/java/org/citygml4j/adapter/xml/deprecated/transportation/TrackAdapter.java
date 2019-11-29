@@ -30,7 +30,6 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
             new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfTrack")
     };
 
-
     @Override
     public Track createObject(QName name) throws ObjectBuildException {
         return new Track();
