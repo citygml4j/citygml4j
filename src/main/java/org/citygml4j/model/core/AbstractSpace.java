@@ -14,8 +14,8 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private List<QualifiedAreaProperty> areas;
     private List<AbstractSpaceBoundaryProperty> boundaries;
     private PointProperty lod0Point;
-    private MultiCurveProperty lod0MultiCurve;
     private MultiSurfaceProperty lod0MultiSurface;
+    private MultiCurveProperty lod0MultiCurve;
     private SolidProperty lod1Solid;
     private SolidProperty lod2Solid;
     private MultiSurfaceProperty lod2MultiSurface;
@@ -87,20 +87,20 @@ public abstract class AbstractSpace extends AbstractCityObject {
         this.lod0Point = asChild(lod0Point);
     }
 
-    public MultiCurveProperty getLod0MultiCurve() {
-        return lod0MultiCurve;
-    }
-
-    public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve) {
-        this.lod0MultiCurve = asChild(lod0MultiCurve);
-    }
-
     public MultiSurfaceProperty getLod0MultiSurface() {
         return lod0MultiSurface;
     }
 
     public void setLod0MultiSurface(MultiSurfaceProperty lod0MultiSurface) {
         this.lod0MultiSurface = asChild(lod0MultiSurface);
+    }
+
+    public MultiCurveProperty getLod0MultiCurve() {
+        return lod0MultiCurve;
+    }
+
+    public void setLod0MultiCurve(MultiCurveProperty lod0MultiCurve) {
+        this.lod0MultiCurve = asChild(lod0MultiCurve);
     }
 
     public SolidProperty getLod1Solid() {

@@ -185,7 +185,7 @@ import org.xmlobjects.gml.model.feature.FeatureProperty;
 import java.util.ArrayList;
 
 public abstract class FeatureWalker implements FeatureVisitor {
-    private boolean shouldWalk = true;
+    boolean shouldWalk = true;
 
     public boolean shouldWalk() {
         return shouldWalk;
@@ -200,6 +200,8 @@ public abstract class FeatureWalker implements FeatureVisitor {
     }
 
     public void visit(AbstractFeature feature) {
+        for (GenericElement genericElement : feature.getGenericProperties())
+            visit(genericElement);
     }
 
     public void visit(AbstractAppearance appearance) {
