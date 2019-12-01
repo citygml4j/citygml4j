@@ -1,5 +1,7 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -16,5 +18,15 @@ public class BuildingPart extends AbstractBuilding {
 
     public void setADEPropertiesOfBuildingPart(List<ADEPropertyOfBuildingPart<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

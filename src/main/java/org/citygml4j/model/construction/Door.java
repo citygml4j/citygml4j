@@ -5,6 +5,8 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -80,5 +82,15 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
 
     public void setADEPropertiesOfDoor(List<ADEPropertyOfDoor<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

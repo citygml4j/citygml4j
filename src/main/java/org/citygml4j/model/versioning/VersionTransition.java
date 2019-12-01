@@ -1,6 +1,8 @@
 package org.citygml4j.model.versioning;
 
 import org.citygml4j.model.core.AbstractVersionTransition;
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -87,5 +89,15 @@ public class VersionTransition extends AbstractVersionTransition {
 
     public void setADEPropertiesOfVersionTransition(List<ADEPropertyOfVersionTransition<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -1,13 +1,15 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.common.VisitableObject;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class CityObjectRelation extends AbstractGML implements CityGMLObject {
+public class CityObjectRelation extends AbstractGML implements CityGMLObject, VisitableObject {
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private Code relationType;
     private AbstractCityObjectProperty relatedTo;
@@ -48,5 +50,10 @@ public class CityObjectRelation extends AbstractGML implements CityGMLObject {
 
     public void setRelatedTo(AbstractCityObjectProperty relatedTo) {
         this.relatedTo = asChild(relatedTo);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

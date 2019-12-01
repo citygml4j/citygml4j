@@ -1,5 +1,7 @@
 package org.citygml4j.model.relief;
 
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.model.ChildList;
 
@@ -54,5 +56,15 @@ public class BreaklineRelief extends AbstractReliefComponent {
 
     public void setADEPropertiesOfBreaklineRelief(List<ADEPropertyOfBreaklineRelief<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

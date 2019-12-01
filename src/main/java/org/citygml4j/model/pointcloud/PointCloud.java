@@ -1,6 +1,8 @@
 package org.citygml4j.model.pointcloud;
 
 import org.citygml4j.model.core.AbstractPointCloud;
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 import org.xmlobjects.model.ChildList;
@@ -68,5 +70,15 @@ public class PointCloud extends AbstractPointCloud {
 
     public void setADEPropertiesOfPointCloud(List<ADEPropertyOfPointCloud<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

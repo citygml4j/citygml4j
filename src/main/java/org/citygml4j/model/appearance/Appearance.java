@@ -1,6 +1,8 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.core.AbstractAppearance;
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
 import java.util.ArrayList;
@@ -39,5 +41,15 @@ public class Appearance extends AbstractAppearance {
 
     public void setADEPropertiesOfAppearance(List<ADEPropertyOfAppearance<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

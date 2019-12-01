@@ -1,5 +1,7 @@
 package org.citygml4j.model.appearance;
 
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
 import java.util.ArrayList;
@@ -123,5 +125,15 @@ public class X3DMaterial extends AbstractSurfaceData {
 
     public void setADEPropertiesOfX3DMaterial(List<ADEPropertyOfX3DMaterial<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

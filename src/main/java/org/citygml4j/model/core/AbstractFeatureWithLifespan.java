@@ -1,13 +1,14 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.common.VisitableFeature;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.model.ChildList;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
-public abstract class AbstractFeatureWithLifespan extends AbstractFeature implements CityGMLObject {
+public abstract class AbstractFeatureWithLifespan extends AbstractFeature implements CityGMLObject, VisitableFeature {
     private OffsetDateTime creationDate;
     private OffsetDateTime terminationDate;
     private OffsetDateTime validFrom;

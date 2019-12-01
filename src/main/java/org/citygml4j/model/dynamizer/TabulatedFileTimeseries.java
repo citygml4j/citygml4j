@@ -1,5 +1,7 @@
 package org.citygml4j.model.dynamizer;
 
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -154,5 +156,15 @@ public class TabulatedFileTimeseries extends AbstractAtomicTimeseries {
 
     public void setADEPropertiesOfTabulatedFileTimeseries(List<ADEPropertyOfTabulatedFileTimeseries<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

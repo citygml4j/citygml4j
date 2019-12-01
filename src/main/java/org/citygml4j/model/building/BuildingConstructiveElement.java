@@ -2,6 +2,8 @@ package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractConstructiveElement;
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -58,5 +60,15 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
 
     public void setADEPropertiesOfBuildingConstructiveElement(List<ADEPropertyOfBuildingConstructiveElement<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

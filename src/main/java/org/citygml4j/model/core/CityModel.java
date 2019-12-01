@@ -1,5 +1,7 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.model.ChildList;
 
@@ -86,5 +88,15 @@ public class CityModel extends AbstractFeatureWithLifespan {
 
     public void setADEPropertiesOfCityModel(List<ADEPropertyOfCityModel<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

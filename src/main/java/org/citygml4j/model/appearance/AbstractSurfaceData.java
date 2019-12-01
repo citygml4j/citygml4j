@@ -1,12 +1,13 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.common.VisitableFeature;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractSurfaceData extends AbstractFeature implements CityGMLObject {
+public abstract class AbstractSurfaceData extends AbstractFeature implements CityGMLObject, VisitableFeature {
     private Boolean isFront;
     private List<ADEPropertyOfAbstractSurfaceData<?>> adeProperties;
 

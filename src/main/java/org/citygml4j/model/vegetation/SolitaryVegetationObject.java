@@ -2,6 +2,8 @@ package org.citygml4j.model.vegetation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
+import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Length;
 import org.xmlobjects.model.ChildList;
@@ -123,5 +125,15 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 
     public void setADEPropertiesOfSolitaryVegetationObject(List<ADEPropertyOfSolitaryVegetationObject<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
     }
 }

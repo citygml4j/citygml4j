@@ -1,9 +1,11 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.common.VisitableObject;
+import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.base.AbstractGML;
 
-public class TextureAssociation extends AbstractGML implements CityGMLObject {
+public class TextureAssociation extends AbstractGML implements CityGMLObject, VisitableObject {
     private String uri;
     private AbstractTextureParameterizationProperty textureParameterization;
 
@@ -29,5 +31,10 @@ public class TextureAssociation extends AbstractGML implements CityGMLObject {
 
     public void setTextureParameterization(AbstractTextureParameterizationProperty textureParameterization) {
         this.textureParameterization = asChild(textureParameterization);
+    }
+
+    @Override
+    public void accept(ObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }
