@@ -163,5 +163,5 @@ public interface FeatureVisitor extends org.xmlobjects.gml.visitor.FeatureVisito
     void visit(Waterway waterway);
     void visit(Window window);
     void visit(WindowSurface windowSurface);
-    void visit(X3DMaterial x3DMaterial);
+    void visit(X3DMaterial x3dMaterial);
 }

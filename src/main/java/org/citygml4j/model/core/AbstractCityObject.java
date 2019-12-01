@@ -107,6 +107,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         return deprecatedProperties;
     }
 
+    public boolean hasDeprecatedProperties() {
+        return deprecatedProperties != null;
+    }
+
     protected DeprecatedPropertiesOfAbstractCityObject createDeprecatedProperties() {
         return new DeprecatedPropertiesOfAbstractCityObject();
     }
