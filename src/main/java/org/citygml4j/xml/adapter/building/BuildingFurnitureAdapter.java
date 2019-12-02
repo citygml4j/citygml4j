@@ -1,0 +1,95 @@
+package org.citygml4j.xml.adapter.building;
+
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.construction.AbstractFurnitureAdapter;
+import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
+import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingFurniture;
+import org.citygml4j.model.building.ADEPropertyOfBuildingFurniture;
+import org.citygml4j.model.building.BuildingFurniture;
+import org.citygml4j.util.CityGMLConstants;
+import org.xmlobjects.annotation.XMLElement;
+import org.xmlobjects.annotation.XMLElements;
+import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
+import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.stream.XMLReadException;
+import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
+
+import javax.xml.namespace.QName;
+
+@XMLElements({
+        @XMLElement(name = "BuildingFurniture", namespaceURI = CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE),
+        @XMLElement(name = "BuildingFurniture", namespaceURI = CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE),
+        @XMLElement(name = "BuildingFurniture", namespaceURI = CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE)
+})
+public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingFurniture> {
+    private final QName[] substitutionGroups = new QName[]{
+            new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingFurniture"),
+            new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBuildingFurniture"),
+            new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBuildingFurniture")
+    };
+
+    @Override
+    public BuildingFurniture createObject(QName name) throws ObjectBuildException {
+        return new BuildingFurniture();
+    }
+
+    @Override
+    public void buildChildObject(BuildingFurniture object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (CityGMLBuilderHelper.isBuildingNamespace(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+
+            switch (name.getLocalPart()) {
+                case "lod4Geometry":
+                    object.getDeprecatedProperties().setLod4Geometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    return;
+                case "lod4ImplicitRepresentation":
+                    object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
+                    return;
+            }
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
+            buildADEProperty(object, name, reader);
+            return;
+        }
+
+        super.buildChildObject(object, name, attributes, reader);
+    }
+
+    @Override
+    public void buildADEProperty(BuildingFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingFurniture.class, object.getADEPropertiesOfBuildingFurniture(),
+                GenericADEPropertyOfBuildingFurniture::of, reader, substitutionGroups))
+            super.buildADEProperty(object, name, reader);
+    }
+
+    @Override
+    public Element createElement(BuildingFurniture object, Namespaces namespaces) throws ObjectSerializeException {
+        return Element.of(CityGMLSerializerHelper.getBuildingNamespace(namespaces), "BuildingFurniture");
+    }
+
+    @Override
+    public void writeChildElements(BuildingFurniture object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.writeChildElements(object, namespaces, writer);
+        String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+
+        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
+
+        if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)) {
+            if (object.getDeprecatedProperties().getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+
+            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+        }
+
+        for (ADEPropertyOfBuildingFurniture<?> property : object.getADEPropertiesOfBuildingFurniture())
+            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+    }
+}
