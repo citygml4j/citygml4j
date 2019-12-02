@@ -1,16 +1,16 @@
 package org.citygml4j.xml.adapter.deprecated.core;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
-import org.citygml4j.xml.adapter.core.AbstractAppearancePropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
 import org.citygml4j.model.core.ADEPropertyOfCityModel;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
+import org.citygml4j.xml.adapter.core.AbstractAppearancePropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

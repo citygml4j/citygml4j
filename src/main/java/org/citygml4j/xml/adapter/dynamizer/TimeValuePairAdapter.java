@@ -1,9 +1,9 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.xml.adapter.core.AbstractAppearancePropertyAdapter;
-import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.dynamizer.TimeValuePair;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.core.AbstractAppearancePropertyAdapter;
+import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;

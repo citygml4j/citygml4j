@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfInteriorWallSurface;
 import org.citygml4j.model.construction.ADEPropertyOfInteriorWallSurface;
 import org.citygml4j.model.construction.InteriorWallSurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.tunnel;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnel;
 import org.citygml4j.model.tunnel.ADEPropertyOfTunnel;
 import org.citygml4j.model.tunnel.Tunnel;
 import org.citygml4j.model.tunnel.TunnelPartProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

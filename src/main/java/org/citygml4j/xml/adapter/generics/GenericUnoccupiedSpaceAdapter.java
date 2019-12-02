@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericUnoccupiedSpace;
 import org.citygml4j.model.generics.ADEPropertyOfGenericUnoccupiedSpace;
 import org.citygml4j.model.generics.GenericUnoccupiedSpace;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

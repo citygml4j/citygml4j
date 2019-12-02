@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGroundSurface;
 import org.citygml4j.model.construction.ADEPropertyOfGroundSurface;
 import org.citygml4j.model.construction.GroundSurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

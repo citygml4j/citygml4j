@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericTimeseries;
 import org.citygml4j.model.dynamizer.ADEPropertyOfGenericTimeseries;
 import org.citygml4j.model.dynamizer.GenericTimeseries;
 import org.citygml4j.model.dynamizer.TimeValuePairProperty;
 import org.citygml4j.model.dynamizer.TimeseriesValue;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

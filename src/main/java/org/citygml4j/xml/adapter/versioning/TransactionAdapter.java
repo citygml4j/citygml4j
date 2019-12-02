@@ -1,9 +1,9 @@
 package org.citygml4j.xml.adapter.versioning;
 
-import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanPropertyAdapter;
 import org.citygml4j.model.versioning.Transaction;
 import org.citygml4j.model.versioning.TransactionValue;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;

@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCompositeTimeseries;
 import org.citygml4j.model.dynamizer.ADEPropertyOfCompositeTimeseries;
 import org.citygml4j.model.dynamizer.CompositeTimeseries;
 import org.citygml4j.model.dynamizer.TimeseriesComponentProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

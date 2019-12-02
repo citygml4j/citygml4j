@@ -1,14 +1,14 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.construction.ElevationPropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuildingSubdivision;
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuildingSubdivision;
 import org.citygml4j.model.building.AbstractBuildingSubdivision;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.construction.ElevationPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.model.base.Reference;

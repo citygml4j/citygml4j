@@ -1,16 +1,16 @@
 package org.citygml4j.xml.adapter.bridge;
 
+import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeConstructiveElement;
+import org.citygml4j.model.bridge.ADEPropertyOfBridgeConstructiveElement;
+import org.citygml4j.model.bridge.BridgeConstructiveElement;
+import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractConstructiveElementAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.bridge.AbstractBoundarySurfacePropertyAdapter;
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeConstructiveElement;
-import org.citygml4j.model.bridge.ADEPropertyOfBridgeConstructiveElement;
-import org.citygml4j.model.bridge.BridgeConstructiveElement;
-import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

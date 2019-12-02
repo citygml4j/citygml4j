@@ -1,10 +1,10 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractAtomicTimeseries;
 import org.citygml4j.model.dynamizer.ADEPropertyOfAbstractAtomicTimeseries;
 import org.citygml4j.model.dynamizer.AbstractAtomicTimeseries;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;

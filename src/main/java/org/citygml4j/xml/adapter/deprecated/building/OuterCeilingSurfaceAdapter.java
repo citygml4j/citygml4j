@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfOuterCeilingSurface;
 import org.citygml4j.model.construction.ADEPropertyOfOuterCeilingSurface;
 import org.citygml4j.model.construction.OuterCeilingSurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

@@ -1,10 +1,5 @@
 package org.citygml4j.xml.adapter.tunnel;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
-import org.citygml4j.xml.adapter.deprecated.tunnel.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfHollowSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.tunnel.ADEPropertyOfHollowSpace;
@@ -12,6 +7,11 @@ import org.citygml4j.model.tunnel.HollowSpace;
 import org.citygml4j.model.tunnel.TunnelFurnitureProperty;
 import org.citygml4j.model.tunnel.TunnelInstallationProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
+import org.citygml4j.xml.adapter.deprecated.tunnel.AbstractBoundarySurfacePropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

@@ -1,9 +1,5 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
-import org.citygml4j.xml.adapter.core.OccupancyPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfTrafficSpace;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.transportation.ADEPropertyOfTrafficSpace;
@@ -13,6 +9,10 @@ import org.citygml4j.model.transportation.TrafficDirectionValue;
 import org.citygml4j.model.transportation.TrafficSpace;
 import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
+import org.citygml4j.xml.adapter.core.OccupancyPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

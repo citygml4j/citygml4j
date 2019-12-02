@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.cityfurniture;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
-import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityFurniture;
 import org.citygml4j.model.cityfurniture.ADEPropertyOfCityFurniture;
 import org.citygml4j.model.cityfurniture.CityFurniture;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
+import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

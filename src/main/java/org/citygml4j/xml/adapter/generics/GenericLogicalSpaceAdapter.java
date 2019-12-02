@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericLogicalSpace;
 import org.citygml4j.model.generics.ADEPropertyOfGenericLogicalSpace;
 import org.citygml4j.model.generics.GenericLogicalSpace;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

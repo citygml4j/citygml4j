@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
-import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericOccupiedSpace;
 import org.citygml4j.model.generics.ADEPropertyOfGenericOccupiedSpace;
 import org.citygml4j.model.generics.GenericOccupiedSpace;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
+import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

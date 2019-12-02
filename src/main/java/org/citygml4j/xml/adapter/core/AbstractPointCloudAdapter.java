@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractPointCloud;
 import org.citygml4j.model.core.ADEPropertyOfAbstractPointCloud;
 import org.citygml4j.model.core.AbstractPointCloud;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;

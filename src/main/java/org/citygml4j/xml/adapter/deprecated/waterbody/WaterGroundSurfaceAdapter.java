@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.deprecated.waterbody;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfWaterGroundSurface;
 import org.citygml4j.model.waterbody.ADEPropertyOfWaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

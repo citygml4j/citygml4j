@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAuxiliaryTrafficSpace;
 import org.citygml4j.model.transportation.ADEPropertyOfAuxiliaryTrafficSpace;
 import org.citygml4j.model.transportation.AuxiliaryTrafficSpace;
 import org.citygml4j.model.transportation.GranularityValue;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

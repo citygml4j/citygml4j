@@ -1,14 +1,14 @@
 package org.citygml4j.xml.adapter.versioning;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanPropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractVersionAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfVersion;
 import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
 import org.citygml4j.model.versioning.ADEPropertyOfVersion;
 import org.citygml4j.model.versioning.Version;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractVersionAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

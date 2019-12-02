@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfDoorSurface;
 import org.citygml4j.model.construction.ADEPropertyOfDoorSurface;
 import org.citygml4j.model.construction.DoorSurface;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

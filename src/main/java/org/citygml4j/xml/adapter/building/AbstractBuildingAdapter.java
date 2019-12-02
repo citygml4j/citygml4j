@@ -1,9 +1,5 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.construction.AbstractConstructionAdapter;
-import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuilding;
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
 import org.citygml4j.model.building.AbstractBuilding;
@@ -14,6 +10,10 @@ import org.citygml4j.model.building.BuildingInstallationMember;
 import org.citygml4j.model.building.BuildingRoomMember;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.construction.AbstractConstructionAdapter;
+import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.basictypes.MeasureOrNilReasonListAdapter;

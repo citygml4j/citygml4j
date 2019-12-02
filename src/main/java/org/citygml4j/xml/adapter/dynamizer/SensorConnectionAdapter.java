@@ -1,8 +1,8 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.model.dynamizer.SensorConnection;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;

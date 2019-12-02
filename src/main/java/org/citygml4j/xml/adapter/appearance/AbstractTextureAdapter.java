@@ -1,7 +1,5 @@
 package org.citygml4j.xml.adapter.appearance;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTexture;
 import org.citygml4j.model.appearance.ADEPropertyOfAbstractTexture;
 import org.citygml4j.model.appearance.AbstractTexture;
@@ -9,6 +7,8 @@ import org.citygml4j.model.appearance.ColorPlusOpacity;
 import org.citygml4j.model.appearance.TextureType;
 import org.citygml4j.model.appearance.WrapMode;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;

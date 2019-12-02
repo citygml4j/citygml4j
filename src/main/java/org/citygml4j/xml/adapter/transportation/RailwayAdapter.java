@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfRailway;
 import org.citygml4j.model.transportation.ADEPropertyOfRailway;
 import org.citygml4j.model.transportation.IntersectionProperty;
 import org.citygml4j.model.transportation.Railway;
 import org.citygml4j.model.transportation.SectionProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

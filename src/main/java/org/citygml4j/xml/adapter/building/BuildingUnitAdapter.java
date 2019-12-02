@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingUnit;
 import org.citygml4j.model.building.ADEPropertyOfBuildingUnit;
 import org.citygml4j.model.building.BuildingUnit;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;

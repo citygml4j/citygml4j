@@ -1,7 +1,5 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractSpace;
 import org.citygml4j.model.core.ADEPropertyOfAbstractSpace;
 import org.citygml4j.model.core.AbstractSpace;
@@ -10,6 +8,8 @@ import org.citygml4j.model.core.QualifiedAreaProperty;
 import org.citygml4j.model.core.QualifiedVolumeProperty;
 import org.citygml4j.model.core.SpaceType;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;

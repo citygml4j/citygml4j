@@ -1,15 +1,15 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.construction.AbstractFillingSurfacePropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractFillingSurfaceProperty;
 import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.construction.AbstractFillingSurfacePropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;

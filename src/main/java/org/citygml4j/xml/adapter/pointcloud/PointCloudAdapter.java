@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.pointcloud;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractPointCloudAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfPointCloud;
 import org.citygml4j.model.pointcloud.ADEPropertyOfPointCloud;
 import org.citygml4j.model.pointcloud.PointCloud;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractPointCloudAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;

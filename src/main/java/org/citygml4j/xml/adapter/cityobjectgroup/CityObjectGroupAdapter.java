@@ -1,14 +1,14 @@
 package org.citygml4j.xml.adapter.cityobjectgroup;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.ADEPropertyOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

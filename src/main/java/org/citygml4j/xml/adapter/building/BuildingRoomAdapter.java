@@ -1,10 +1,5 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
-import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
-import org.citygml4j.xml.adapter.deprecated.building.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingRoom;
 import org.citygml4j.model.building.ADEPropertyOfBuildingRoom;
 import org.citygml4j.model.building.BuildingFurnitureProperty;
@@ -13,6 +8,11 @@ import org.citygml4j.model.building.BuildingRoom;
 import org.citygml4j.model.building.RoomHeightProperty;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
+import org.citygml4j.xml.adapter.deprecated.building.AbstractBoundarySurfacePropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

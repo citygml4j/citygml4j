@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfHole;
 import org.citygml4j.model.transportation.ADEPropertyOfHole;
 import org.citygml4j.model.transportation.Hole;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;

@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericThematicSurface;
 import org.citygml4j.model.generics.ADEPropertyOfGenericThematicSurface;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;

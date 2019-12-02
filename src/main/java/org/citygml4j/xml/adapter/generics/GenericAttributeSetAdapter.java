@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractGenericAttributeAdapter;
-import org.citygml4j.xml.adapter.core.AbstractGenericAttributePropertyAdapter;
 import org.citygml4j.model.core.AbstractGenericAttribute;
 import org.citygml4j.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.model.generics.GenericAttributeSet;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractGenericAttributeAdapter;
+import org.citygml4j.xml.adapter.core.AbstractGenericAttributePropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

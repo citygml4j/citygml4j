@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.relief;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfReliefFeature;
 import org.citygml4j.model.relief.ADEPropertyOfReliefFeature;
 import org.citygml4j.model.relief.AbstractReliefComponentProperty;
 import org.citygml4j.model.relief.ReliefFeature;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

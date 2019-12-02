@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAuxiliaryTrafficArea;
 import org.citygml4j.model.transportation.ADEPropertyOfAuxiliaryTrafficArea;
 import org.citygml4j.model.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

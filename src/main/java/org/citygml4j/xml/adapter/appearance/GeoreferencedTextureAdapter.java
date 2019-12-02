@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.appearance;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGeoreferencedTexture;
 import org.citygml4j.model.appearance.ADEPropertyOfGeoreferencedTexture;
 import org.citygml4j.model.appearance.GeoreferencedTexture;
 import org.citygml4j.model.core.TransformationMatrix2x2;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.waterbody;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.ADEPropertyOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;

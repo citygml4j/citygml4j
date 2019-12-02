@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.relief;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractPointCloudPropertyAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfMassPointRelief;
 import org.citygml4j.model.relief.ADEPropertyOfMassPointRelief;
 import org.citygml4j.model.relief.MassPointRelief;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractPointCloudPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;

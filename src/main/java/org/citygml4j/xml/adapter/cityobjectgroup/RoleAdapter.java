@@ -1,8 +1,8 @@
 package org.citygml4j.xml.adapter.cityobjectgroup;
 
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractGMLAdapter;

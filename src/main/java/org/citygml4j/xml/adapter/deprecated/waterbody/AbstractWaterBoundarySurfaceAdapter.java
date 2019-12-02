@@ -1,8 +1,5 @@
 package org.citygml4j.xml.adapter.deprecated.waterbody;
 
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractThematicSurface;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
@@ -11,6 +8,9 @@ import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.waterbody.ADEPropertyOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
+import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.primitives.SurfacePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
