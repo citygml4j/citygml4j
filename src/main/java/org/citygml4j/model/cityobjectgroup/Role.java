@@ -1,9 +1,9 @@
 package org.citygml4j.model.cityobjectgroup;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.visitor.Visitable;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.visitor.ObjectVisitor;
+import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
 
 public class Role extends AbstractGML implements CityGMLObject, Visitable {
