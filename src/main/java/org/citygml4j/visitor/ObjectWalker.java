@@ -47,7 +47,6 @@ import org.citygml4j.model.cityfurniture.CityFurniture;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
-import org.citygml4j.model.common.Visitable;
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractConstructiveElement;

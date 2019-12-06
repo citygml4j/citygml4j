@@ -1,4 +1,4 @@
-package org.citygml4j.model.common;
+package org.citygml4j.visitor;
 
 import org.citygml4j.visitor.ObjectVisitor;
 

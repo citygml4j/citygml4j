@@ -1,7 +1,7 @@
 package org.citygml4j.model.dynamizer;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.common.Visitable;
+import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.temporal.TimePosition;
 import org.xmlobjects.model.ChildList;
