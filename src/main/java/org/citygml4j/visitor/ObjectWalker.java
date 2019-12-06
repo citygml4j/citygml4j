@@ -226,10 +226,10 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     boolean shouldWalk = true;
 
     public ObjectWalker() {
-        ADERegistry adeRegistry = ADERegistry.getInstance();
-        if (adeRegistry.hasADEContexts()) {
-            for (ADEContext adeContext : ADERegistry.getInstance().getADEContexts())
-                withADEWalker(adeContext.getADEWalker());
+        ADERegistry regi = ADERegistry.getInstance();
+        if (regi.hasADEContexts()) {
+            for (ADEContext context : ADERegistry.getInstance().getADEContexts())
+                withADEWalker(context.getADEWalker());
         }
     }
 
