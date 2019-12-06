@@ -1,7 +1,7 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.common.VisitableObject;
+import org.citygml4j.model.common.Visitable;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -9,7 +9,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class CityObjectRelation extends AbstractGML implements CityGMLObject, VisitableObject {
+public class CityObjectRelation extends AbstractGML implements CityGMLObject, Visitable {
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private Code relationType;
     private AbstractCityObjectProperty relatedTo;

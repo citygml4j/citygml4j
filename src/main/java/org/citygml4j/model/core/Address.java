@@ -1,8 +1,7 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.common.VisitableFeature;
-import org.citygml4j.visitor.FeatureVisitor;
+import org.citygml4j.model.common.Visitable;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
@@ -10,7 +9,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class Address extends AbstractFeature implements CityGMLObject, VisitableFeature {
+public class Address extends AbstractFeature implements CityGMLObject, Visitable {
     private XALAddressProperty xalAddress;
     private MultiPointProperty multiPoint;
     private List<ADEPropertyOfAddress<?>> adeProperties;
@@ -51,11 +50,6 @@ public class Address extends AbstractFeature implements CityGMLObject, Visitable
 
     @Override
     public void accept(ObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void accept(FeatureVisitor visitor) {
         visitor.visit(this);
     }
 }

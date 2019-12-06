@@ -2,9 +2,8 @@ package org.citygml4j.xml.module.citygml;
 
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.module.AbstractModule;
 
-public class VegetationModule extends AbstractModule implements CityGMLModule {
+public class VegetationModule extends CityGMLModule {
     public static final VegetationModule v3_0;
     public static final VegetationModule v2_0;
     public static final VegetationModule v1_0;

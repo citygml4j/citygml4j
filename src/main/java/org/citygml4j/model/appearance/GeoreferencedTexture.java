@@ -1,7 +1,6 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.core.TransformationMatrix2x2;
-import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 import org.xmlobjects.model.ChildList;
@@ -68,11 +67,6 @@ public class GeoreferencedTexture extends AbstractTexture {
 
     @Override
     public void accept(ObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void accept(FeatureVisitor visitor) {
         visitor.visit(this);
     }
 }

@@ -1,6 +1,5 @@
 package org.citygml4j.model.bridge;
 
-import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
@@ -34,11 +33,6 @@ public class Bridge extends AbstractBridge {
 
     @Override
     public void accept(ObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void accept(FeatureVisitor visitor) {
         visitor.visit(this);
     }
 }

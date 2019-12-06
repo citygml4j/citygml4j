@@ -2,9 +2,8 @@ package org.citygml4j.xml.module.citygml;
 
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.module.AbstractModule;
 
-public class ReliefModule extends AbstractModule implements CityGMLModule {
+public class ReliefModule extends CityGMLModule {
     public static final ReliefModule v3_0;
     public static final ReliefModule v2_0;
     public static final ReliefModule v1_0;

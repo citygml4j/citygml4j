@@ -2,9 +2,8 @@ package org.citygml4j.xml.module.citygml;
 
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.module.AbstractModule;
 
-public class LandUseModule extends AbstractModule implements CityGMLModule {
+public class LandUseModule extends CityGMLModule {
     public static final LandUseModule v3_0;
     public static final LandUseModule v2_0;
     public static final LandUseModule v1_0;

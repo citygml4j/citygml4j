@@ -1,10 +1,9 @@
 package org.citygml4j.model.ade;
 
-import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.model.Child;
 
-public abstract class ADEProperty<T> extends GMLObject implements CityGMLObject {
+public abstract class ADEProperty<T> extends GMLObject implements ADEObject {
     private T value;
 
     public ADEProperty() {

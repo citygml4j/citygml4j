@@ -1,7 +1,6 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
-import org.citygml4j.visitor.FeatureVisitor;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
@@ -87,11 +86,6 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
 
     @Override
     public void accept(ObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void accept(FeatureVisitor visitor) {
         visitor.visit(this);
     }
 }

@@ -1,12 +1,14 @@
 package org.citygml4j.xml.module.citygml;
 
+import org.citygml4j.ADERegistry;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.xml.module.Module;
-import org.citygml4j.xml.module.gml.GMLBaseModule;
+import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.module.gml.XLinkModule;
-import org.citygml4j.xml.module.xal.XALBaseModule;
+import org.citygml4j.xml.module.xal.XALCoreModule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +41,9 @@ public class CityGMLModules {
                 VegetationModule.v3_0,
                 VersioningModule.v3_0,
                 WaterBodyModule.v3_0,
-                GMLBaseModule.v3_2,
+                GMLCoreModule.v3_2,
                 XLinkModule.INSTANCE,
-                XALBaseModule.v2_0
+                XALCoreModule.v2_0
         );
 
         v2_0 = new CityGMLModules(
@@ -59,9 +61,9 @@ public class CityGMLModules {
                 TunnelModule.v2_0,
                 VegetationModule.v2_0,
                 WaterBodyModule.v2_0,
-                GMLBaseModule.v3_1,
+                GMLCoreModule.v3_1,
                 XLinkModule.INSTANCE,
-                XALBaseModule.v2_0
+                XALCoreModule.v2_0
         );
 
         v1_0 = new CityGMLModules(
@@ -77,9 +79,9 @@ public class CityGMLModules {
                 TransportationModule.v1_0,
                 VegetationModule.v1_0,
                 WaterBodyModule.v1_0,
-                GMLBaseModule.v3_1,
+                GMLCoreModule.v3_1,
                 XLinkModule.INSTANCE,
-                XALBaseModule.v2_0
+                XALCoreModule.v2_0
         );
     }
 
@@ -101,7 +103,7 @@ public class CityGMLModules {
     }
 
     public static CityGMLModule getCityGMLModule(String namespaceURI) {
-        for (CityGMLModules context : new CityGMLModules[] {v3_0, v2_0, v1_0}) {
+        for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
             Module module = context.modules.get(namespaceURI);
             if (module instanceof CityGMLModule)
                 return (CityGMLModule) module;
@@ -110,8 +112,22 @@ public class CityGMLModules {
         return null;
     }
 
+    public static boolean isCityGMLNamespace(String namespaceURI) {
+        return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
+    }
+
     public List<Module> getModules() {
-        return new ArrayList<>(modules.values());
+        List<Module> modules = new ArrayList<>(this.modules.values());
+        modules.addAll(ADERegistry.getInstance().getADEModules(version));
+        return modules;
+    }
+
+    public Module getModule(String namespaceURI) {
+        Module module = modules.get(namespaceURI);
+        if (module == null)
+            module = ADERegistry.getInstance().getADEModule(namespaceURI, version);
+
+        return module;
     }
 
     public CityGMLVersion getCityGMLVersion() {

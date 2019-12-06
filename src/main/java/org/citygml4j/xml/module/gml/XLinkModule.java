@@ -1,9 +1,8 @@
 package org.citygml4j.xml.module.gml;
 
-import org.citygml4j.xml.module.AbstractModule;
 import org.xmlobjects.gml.util.GMLConstants;
 
-public class XLinkModule extends AbstractModule implements GMLModule {
+public class XLinkModule extends GMLModule {
     public static final XLinkModule INSTANCE;
 
     static {
