@@ -6,9 +6,9 @@ import org.xml.sax.SAXException;
 import org.xmlobjects.util.xml.SAXBuffer;
 import org.xmlobjects.util.xml.StAXStream2SAX;
 
-import javax.xml.crypto.dsig.TransformException;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXResult;
 
 public class CityGMLChunk {
@@ -53,7 +53,7 @@ public class CityGMLChunk {
         buffer.send(handler, release);
     }
 
-    public void transform(TransformerPipeline pipeline, boolean release) throws TransformException {
+    public void transform(TransformerPipeline pipeline, boolean release) throws TransformerException {
         try {
             SAXBuffer buffer = new TransformerBuffer().assumeMixedContent(false);
             pipeline.setResult(new SAXResult(buffer));
@@ -65,7 +65,7 @@ public class CityGMLChunk {
             this.buffer = buffer;
             mapper = new StAXStream2SAX(buffer);
         } catch (SAXException e) {
-            throw new TransformException("Caused by:", e);
+            throw new TransformerException("Caused by:", e);
         }
     }
 
