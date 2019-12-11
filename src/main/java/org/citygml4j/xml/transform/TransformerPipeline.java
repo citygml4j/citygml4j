@@ -70,6 +70,8 @@ public class TransformerPipeline {
                 handlers[0].endDocument();
         } catch (SAXException e) {
             throw new TransformerException("Caused by:", e);
+        } finally {
+            reset();
         }
     }
 
