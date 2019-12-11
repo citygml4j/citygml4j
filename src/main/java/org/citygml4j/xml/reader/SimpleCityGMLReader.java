@@ -89,7 +89,7 @@ public class SimpleCityGMLReader extends CityGMLReader {
                 } while (reader.hasNext() && reader.next() >= 0);
 
                 if (transformer != null)
-                    chunk.transform(transformer, true);
+                    chunk.transform(transformer);
 
                 return chunk;
             } catch (XMLStreamException | SAXException | TransformerException e) {
