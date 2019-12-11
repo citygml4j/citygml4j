@@ -2,6 +2,7 @@ package org.citygml4j;
 
 import org.citygml4j.xml.ade.ADEException;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
+import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.xmlobjects.XMLObjects;
@@ -35,7 +36,7 @@ public class CityGMLContext {
         return xmlObjects;
     }
 
-    public CityGMLInputFactory createCityGMLInputFactory() {
+    public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException {
         return new CityGMLInputFactory(this);
     }
 
