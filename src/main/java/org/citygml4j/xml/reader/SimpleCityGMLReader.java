@@ -11,9 +11,9 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
 
-import javax.xml.crypto.dsig.TransformException;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.TransformerException;
 import java.util.NoSuchElementException;
 
 public class SimpleCityGMLReader extends CityGMLReader {
@@ -92,7 +92,7 @@ public class SimpleCityGMLReader extends CityGMLReader {
                     chunk.transform(transformer, true);
 
                 return chunk;
-            } catch (XMLStreamException | SAXException | TransformException e) {
+            } catch (XMLStreamException | SAXException | TransformerException e) {
                 throw new CityGMLReadException("Caused by:", e);
             } finally {
                 hasNext = false;
