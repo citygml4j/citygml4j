@@ -190,15 +190,12 @@ public class CityGMLInputFactory {
     }
 
     public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter) {
-        if (!(reader instanceof AbstractCityGMLReader))
-            throw new IllegalArgumentException("Invalid CityGML reader.");
-
-        ((AbstractCityGMLReader) reader).filter = filter;
+        reader.filter = filter;
         return reader;
     }
 
     private CityGMLReader createReader(XMLReader xmlReader) {
-        AbstractCityGMLReader reader = new SimpleCityGMLReader(xmlReader, factory);
+        CityGMLReader reader = new SimpleCityGMLReader(xmlReader, factory);
         reader.transformer = transformer;
 
         return reader;

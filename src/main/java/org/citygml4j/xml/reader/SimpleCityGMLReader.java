@@ -16,7 +16,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.NoSuchElementException;
 
-public class SimpleCityGMLReader extends AbstractCityGMLReader {
+public class SimpleCityGMLReader extends CityGMLReader {
     private final XMLReaderFactory factory;
 
     private volatile boolean hasNext = false;
@@ -24,10 +24,6 @@ public class SimpleCityGMLReader extends AbstractCityGMLReader {
     public SimpleCityGMLReader(XMLReader reader, XMLReaderFactory factory) {
         super(reader);
         this.factory = factory;
-    }
-
-    public XMLReader getReader() {
-        return reader;
     }
 
     @Override
