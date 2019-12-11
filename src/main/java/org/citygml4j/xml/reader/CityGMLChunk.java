@@ -53,13 +53,13 @@ public class CityGMLChunk {
         buffer.send(handler, release);
     }
 
-    public void transform(TransformerPipeline pipeline, boolean release) throws TransformerException {
+    public void transform(TransformerPipeline pipeline) throws TransformerException {
         try {
             SAXBuffer buffer = new TransformerBuffer().assumeMixedContent(false);
             pipeline.setResult(new SAXResult(buffer));
 
             pipeline.getRootHandler().startDocument();
-            send(pipeline.getRootHandler(), release);
+            send(pipeline.getRootHandler(), true);
             pipeline.getRootHandler().endDocument();
 
             this.buffer = buffer;
