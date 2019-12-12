@@ -46,6 +46,10 @@ public class DeepCopyBuilder extends CopyBuilder {
 		target = null;
 	}
 
+	public void withClone(Object source, Object target) {
+		visited.put(source, target);
+	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object copy(final Object target) {
