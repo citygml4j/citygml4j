@@ -28,8 +28,13 @@ public class ObjectCopier {
 	private ObjectCopier() {
 		// just to thwart instantiation
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public static <T> T copyTo(T source, T target, CopyBuilder copyBuilder) {
+		return copyTo(source, target, (Class<T>) source.getClass(), copyBuilder);
+	}
+	
+	public static <T> T copyTo(T source, T target, Class<T> type, CopyBuilder copyBuilder) {
 		ModelObject tmp = null;
 		if (copyBuilder instanceof DeepCopyBuilder && target instanceof ModelObject) {
 			DeepCopyBuilder deepCopyBuilder = (DeepCopyBuilder)copyBuilder;
@@ -37,9 +42,9 @@ public class ObjectCopier {
 			deepCopyBuilder.setTarget((ModelObject)target);
 		}
 		
-		for (Field sourceField : source.getClass().getDeclaredFields()) {
+		for (Field sourceField : type.getDeclaredFields()) {
 			try {
-				Field targetField = target.getClass().getDeclaredField(sourceField.getName());
+				Field targetField = type.getDeclaredField(sourceField.getName());
 				if (targetField == null)
 					continue;
 				
