@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class DeepCopyBuilder extends CopyBuilder {
@@ -44,10 +43,6 @@ public class DeepCopyBuilder extends CopyBuilder {
 	
 	public void unsetTarget() {
 		target = null;
-	}
-
-	public void withClone(Object source, Object target) {
-		visited.put(source, target);
 	}
 
 	@SuppressWarnings("rawtypes")

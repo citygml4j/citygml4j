@@ -38,8 +38,6 @@ public class ObjectCopier {
 		ModelObject tmp = null;
 		if (copyBuilder instanceof DeepCopyBuilder && target instanceof ModelObject) {
 			DeepCopyBuilder deepCopyBuilder = (DeepCopyBuilder)copyBuilder;
-			deepCopyBuilder.withClone(source, target);
-
 			tmp = deepCopyBuilder.getTarget();
 			deepCopyBuilder.setTarget((ModelObject)target);
 		}
