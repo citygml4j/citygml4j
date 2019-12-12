@@ -13,6 +13,7 @@ import javax.xml.stream.XMLReporter;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
+import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
@@ -67,7 +68,7 @@ public class CityGMLInputFactory {
         return transformer;
     }
 
-    public CityGMLInputFactory withTransformer(TransformerPipeline transformer) throws CityGMLReadException {
+    public CityGMLInputFactory withTransformer(TransformerPipeline transformer) {
         this.transformer = transformer;
         return this;
     }
@@ -194,11 +195,15 @@ public class CityGMLInputFactory {
         return reader;
     }
 
-    private CityGMLReader createReader(XMLReader xmlReader) {
-        CityGMLReader reader = new SimpleCityGMLReader(xmlReader, factory);
-        reader.transformer = transformer;
+    private CityGMLReader createReader(XMLReader xmlReader) throws CityGMLReadException {
+        try {
+            CityGMLReader reader = new SimpleCityGMLReader(xmlReader, factory);
+            reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
 
-        return reader;
+            return reader;
+        } catch (TransformerConfigurationException e) {
+            throw new CityGMLReadException("Caused by:", e);
+        }
     }
 
     private void validate() throws SchemaHandlerException {

@@ -13,6 +13,7 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
+import java.util.Objects;
 
 public class TransformerPipeline {
     private static SAXTransformerFactory factory;
@@ -21,6 +22,13 @@ public class TransformerPipeline {
 
     private TransformerPipeline(Templates[] templates) throws TransformerConfigurationException {
         this.templates = templates;
+        buildPipeline();
+    }
+
+    public TransformerPipeline(TransformerPipeline other) throws TransformerConfigurationException {
+        Objects.requireNonNull(other, "Transformation pipeline must not be null.");
+        templates = other.templates;
+        handlers = other.handlers;
         buildPipeline();
     }
 
@@ -70,8 +78,6 @@ public class TransformerPipeline {
                 handlers[0].endDocument();
         } catch (SAXException e) {
             throw new TransformerException("Caused by:", e);
-        } finally {
-            reset();
         }
     }
 

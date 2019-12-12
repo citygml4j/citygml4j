@@ -66,8 +66,6 @@ public class CityGMLChunk {
             mapper = new StAXStream2SAX(buffer);
         } catch (SAXException e) {
             throw new TransformerException("Caused by:", e);
-        } finally {
-            pipeline.reset();
         }
     }
 
