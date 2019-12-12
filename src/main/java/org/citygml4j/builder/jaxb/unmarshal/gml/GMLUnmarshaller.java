@@ -106,6 +106,8 @@ import net.opengis.gml.OrientableSurfaceType;
 import net.opengis.gml.PointArrayPropertyType;
 import net.opengis.gml.PointPropertyType;
 import net.opengis.gml.PointType;
+import net.opengis.gml.PolygonPatchArrayPropertyType;
+import net.opengis.gml.PolygonPatchType;
 import net.opengis.gml.PolygonPropertyType;
 import net.opengis.gml.PolygonType;
 import net.opengis.gml.PriorityLocationPropertyType;
@@ -253,6 +255,8 @@ import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointRep;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatch;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatchArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
@@ -408,7 +412,9 @@ public class GMLUnmarshaller {
 							.with(PointArrayPropertyType.class, this::unmarshalPointArrayProperty)
 							.with(PointPropertyType.class, this::unmarshalPointProperty)
 							.with(PolygonType.class, this::unmarshalPolygon)
+							.with(PolygonPatchType.class, this::unmarshalPolygonPatch)
 							.with(PolygonPropertyType.class, this::unmarshalPolygonProperty)
+							.with(PolygonPatchArrayPropertyType.class, this::unmarshalPolygonPatchArrayProperty)
 							.with(RangeParametersType.class, this::unmarshalRangeParameters)
 							.with(RangeSetType.class, this::unmarshalRangeSet)
 							.with(RectangleType.class, this::unmarshalRectangle)
@@ -464,6 +470,10 @@ public class GMLUnmarshaller {
 				dest = unmarshalOuterBoundaryIs((AbstractRingPropertyType)value);
 			else if (localPart.equals("pointRep"))
 				dest = unmarshalPointRep((PointPropertyType)value);
+			else if (localPart.equals("polygonPatches"))
+				dest = unmarshalPolygonPatchArrayProperty((PolygonPatchArrayPropertyType)value);
+			else if (localPart.equals("trianglePatches"))
+				dest = unmarshalTrianglePatchArrayProperty((TrianglePatchArrayPropertyType)value);
 			else
 				dest = unmarshal(value);
 		}
@@ -2473,6 +2483,35 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
+	public PolygonPatch unmarshalPolygonPatch(PolygonPatchType src) {
+		PolygonPatch dest = new PolygonPatch();
+		unmarshalAbstractSurfacePatch(src, dest);
+
+		if (src.isSetExterior()) {
+			try {
+				ModelObject exterior = jaxb.unmarshal(src.getExterior());
+				if (exterior instanceof AbstractRingProperty)
+					dest.setExterior((AbstractRingProperty)exterior);
+			} catch (MissingADESchemaException e) {
+				//
+			}
+		}
+
+		if (src.isSetInterior()) {
+			for (JAXBElement<? extends AbstractRingPropertyType> elem : src.getInterior()) {
+				try {
+					ModelObject interior = jaxb.unmarshal(elem);
+					if (interior instanceof AbstractRingProperty)
+						dest.addInterior((AbstractRingProperty)interior);
+				} catch (MissingADESchemaException e) {
+					//
+				}
+			}
+		}
+
+		return dest;
+	}
+
 	public PolygonProperty unmarshalPolygonProperty(PolygonPropertyType src) {
 		PolygonProperty dest = new PolygonProperty();
 
@@ -2502,6 +2541,13 @@ public class GMLUnmarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
+
+		return dest;
+	}
+
+	public PolygonPatchArrayProperty unmarshalPolygonPatchArrayProperty(PolygonPatchArrayPropertyType src) {
+		PolygonPatchArrayProperty dest = new PolygonPatchArrayProperty();
+		unmarshalSurfacePatchArrayProperty(src, dest);
 
 		return dest;
 	}
@@ -2674,9 +2720,6 @@ public class GMLUnmarshaller {
 				//
 			}
 		}
-
-		if (src.isSetInterpolation())
-			dest.setInterpolation(unmarshalSurfaceInterpolation(src.getInterpolation()));
 
 		return dest;
 	}
@@ -3056,9 +3099,6 @@ public class GMLUnmarshaller {
 				//
 			}
 		}
-
-		if (src.isSetInterpolation())
-			dest.setInterpolation(unmarshalSurfaceInterpolation(src.getInterpolation()));
 
 		return dest;
 	}

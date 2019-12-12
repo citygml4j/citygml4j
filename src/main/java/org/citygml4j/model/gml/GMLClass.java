@@ -132,6 +132,8 @@ import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointRep;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatch;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatchArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
@@ -310,7 +312,9 @@ public enum GMLClass implements ModelClassEnum {
 	POINT_PROPERTY(PointProperty.class),
 	POINT_REP(PointRep.class),
 	POLYGON(Polygon.class),
+	POLYGON_PATCH(PolygonPatch.class),
 	POLYGON_PROPERTY(PolygonProperty.class),
+	POLYGON_PATCH_ARRAY_PROPERTY(PolygonPatchArrayProperty.class),
 	POS_OR_POINT_PROPERTY_OR_POINT_REP(PosOrPointPropertyOrPointRep.class),
 	POS_OR_POINT_PROPERTY_OR_POINT_REP_OR_COORD(PosOrPointPropertyOrPointRepOrCoord.class),
 	RECTANGLE(Rectangle.class),

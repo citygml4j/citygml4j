@@ -26,7 +26,6 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class Triangle extends AbstractSurfacePatch {
 	private AbstractRingProperty exterior;
-	private SurfaceInterpolation interpolation;
 	private ModelObject parent;
 
 	public AbstractRingProperty getExterior() {
@@ -34,31 +33,19 @@ public class Triangle extends AbstractSurfacePatch {
 	}
 
 	public SurfaceInterpolation getInterpolation() {
-		return interpolation == null ? SurfaceInterpolation.PLANAR : interpolation;
+		return SurfaceInterpolation.PLANAR;
 	}
 
 	public boolean isSetExterior() {
 		return exterior != null;
 	}
 
-	public boolean isSetInterpolation() {
-		return interpolation != null;
-	}
-
 	public void setExterior(AbstractRingProperty exterior) {
 		this.exterior = ModelObjects.setParent(exterior, this);
 	}
 
-	public void setInterpolation(SurfaceInterpolation interpolation) {
-		this.interpolation = SurfaceInterpolation.PLANAR;
-	}
-
 	public void unsetExterior() {
 		exterior = ModelObjects.setNull(exterior);
-	}
-
-	public void unsetInterpolation() {
-		interpolation = null;
 	}
 
 	public BoundingBox calcBoundingBox() {
@@ -104,9 +91,6 @@ public class Triangle extends AbstractSurfacePatch {
 			if (copy.getExterior() == exterior)
 				exterior.setParent(this);
 		}
-
-		if (isSetInterpolation())
-			copy.setInterpolation((SurfaceInterpolation)copyBuilder.copy(interpolation));
 
 		return copy;
 	}

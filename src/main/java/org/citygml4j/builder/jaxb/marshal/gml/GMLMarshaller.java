@@ -107,6 +107,8 @@ import net.opengis.gml.OrientableSurfaceType;
 import net.opengis.gml.PointArrayPropertyType;
 import net.opengis.gml.PointPropertyType;
 import net.opengis.gml.PointType;
+import net.opengis.gml.PolygonPatchArrayPropertyType;
+import net.opengis.gml.PolygonPatchType;
 import net.opengis.gml.PolygonPropertyType;
 import net.opengis.gml.PolygonType;
 import net.opengis.gml.PriorityLocationPropertyType;
@@ -251,6 +253,8 @@ import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointRep;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatch;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatchArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRep;
 import org.citygml4j.model.gml.geometry.primitives.PosOrPointPropertyOrPointRepOrCoord;
@@ -389,6 +393,8 @@ public class GMLMarshaller {
 							.with(PointProperty.class, this::createPointMember)
 							.with(Polygon.class, this::createPolygon)
 							.with(PolygonProperty.class, this::createPolygonMember)
+							.with(PolygonPatch.class, this::createPolygonPatch)
+							.with(PolygonPatchArrayProperty.class, this::createPolygonPatches)
 							.with(QuantityExtent.class, this::createQuantityExtent)
 							.with(MeasureOrNullList.class, this::createQuantityList)
 							.with(RangeParameters.class, this::createRangeParameters)
@@ -509,7 +515,9 @@ public class GMLMarshaller {
 							.with(PointArrayProperty.class, this::marshalPointArrayProperty)
 							.with(PointProperty.class, this::marshalPointProperty)
 							.with(Polygon.class, this::marshalPolygon)
+							.with(PolygonPatch.class, this::marshalPolygonPatch)
 							.with(PolygonProperty.class, this::marshalPolygonProperty)
+							.with(PolygonPatchArrayProperty.class, this::marshalPolygonPatchArrayProperty)
 							.with(PriorityLocationProperty.class, this::marshalPriorityLocationProperty)
 							.with(QuantityExtent.class, this::marshalQuantityExtent)
 							.with(RangeParameters.class, this::marshalRangeParameters)
@@ -2531,6 +2539,28 @@ public class GMLMarshaller {
 		return dest;
 	}
 
+	@SuppressWarnings("unchecked")
+	public PolygonPatchType marshalPolygonPatch(PolygonPatch src) {
+		PolygonPatchType dest = gml.createPolygonPatchType();
+		marshalAbstractSurfacePatch(src, dest);
+
+		if (src.isSetExterior()) {
+			JAXBElement<?> elem = jaxb.marshalJAXBElement(src.getExterior());
+			if (elem != null && elem.getValue() instanceof AbstractRingPropertyType)
+				dest.setExterior((JAXBElement<AbstractRingPropertyType>)elem);
+		}
+
+		if (src.isSetInterior()) {
+			for (AbstractRingProperty interior : src.getInterior()) {
+				JAXBElement<?> elem = jaxb.marshalJAXBElement(interior);
+				if (elem != null && elem.getValue() instanceof AbstractRingPropertyType)
+					dest.getInterior().add((JAXBElement<AbstractRingPropertyType>)elem);
+			}
+		}
+
+		return dest;
+	}
+
 	public PolygonPropertyType marshalPolygonProperty(PolygonProperty src) {
 		PolygonPropertyType dest = gml.createPolygonPropertyType();
 
@@ -2560,6 +2590,13 @@ public class GMLMarshaller {
 
 		if (src.isSetActuate())
 			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
+
+		return dest;
+	}
+
+	public PolygonPatchArrayPropertyType marshalPolygonPatchArrayProperty(PolygonPatchArrayProperty src) {
+		PolygonPatchArrayPropertyType dest = gml.createPolygonPatchArrayPropertyType();
+		marshalSurfacePatchArrayProperty(src, dest);
 
 		return dest;
 	}
@@ -2649,9 +2686,6 @@ public class GMLMarshaller {
 			if (elem != null && elem.getValue() instanceof AbstractRingPropertyType)
 				dest.setExterior((JAXBElement<AbstractRingPropertyType>)elem);
 		}
-
-		if (src.isSetInterpolation())
-			dest.setInterpolation(marshalSurfaceInterpolation(src.getInterpolation()));
 
 		return dest;
 	}
@@ -3010,9 +3044,6 @@ public class GMLMarshaller {
 				dest.setExterior((JAXBElement<AbstractRingPropertyType>)elem);
 		}
 
-		if (src.isSetInterpolation())
-			dest.setInterpolation(marshalSurfaceInterpolation(src.getInterpolation()));
-
 		return dest;
 	}
 
@@ -3365,6 +3396,14 @@ public class GMLMarshaller {
 
 	private JAXBElement<?> createPolygonMember(PolygonProperty src) {
 		return gml.createPolygonMember(marshalPolygonProperty(src));
+	}
+
+	private JAXBElement<?> createPolygonPatch(PolygonPatch src) {
+		return gml.createPolygonPatch(marshalPolygonPatch(src));
+	}
+
+	private JAXBElement<?> createPolygonPatches(PolygonPatchArrayProperty src) {
+		return gml.createPolygonPatches(marshalPolygonPatchArrayProperty(src));
 	}
 
 	private JAXBElement<?> createQuantityExtent(QuantityExtent src) {
