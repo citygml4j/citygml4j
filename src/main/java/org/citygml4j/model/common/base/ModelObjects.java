@@ -37,6 +37,10 @@ public class ModelObjects {
         return child;
     }
 
+    public static <T extends Child> List<T> setParent(List<T> child, ModelObject parent) {
+        return child != null ? new ChildList<>(parent, child) : null;
+    }
+
     public static <T extends ModelObject> T setNull(T object) {
         if (object instanceof Child)
             ((Child) object).unsetParent();
@@ -46,7 +50,7 @@ public class ModelObjects {
 
     public static <T extends List<?>> T setNull(T list) {
         if (list instanceof ChildList)
-            ((ChildList) list).unsetParent();
+            ((ChildList<?>) list).unsetParent();
 
         return null;
     }
