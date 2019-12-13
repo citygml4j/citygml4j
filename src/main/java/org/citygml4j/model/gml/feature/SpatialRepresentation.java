@@ -41,21 +41,21 @@ public class SpatialRepresentation {
         return EMPTY_REPRESENTATION;
     }
 
-    protected void addRepresentation(int lod, AssociationByRepOrRef<? extends AbstractGML> property) {
+    protected final void add(int lod, AssociationByRepOrRef<? extends AbstractGML> property) {
         if (property instanceof GeometryProperty<?> || property instanceof ImplicitRepresentationProperty)
             representations.computeIfAbsent(lod, k -> new ArrayList<>()).add(property);
     }
 
     public void addRepresentation(AssociationByRepOrRef<? extends AbstractGML> property) {
-        addRepresentation(-1, property);
+        add(-1, property);
     }
 
     public void addRepresentation(GeometryProperty<? extends AbstractGeometry> property) {
-        addRepresentation(-1, property);
+        add(-1, property);
     }
 
     public void addRepresentation(ImplicitRepresentationProperty property) {
-        addRepresentation(-1, property);
+        add(-1, property);
     }
 
     protected boolean isSetRepresentation(int lod) {

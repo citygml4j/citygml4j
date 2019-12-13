@@ -36,17 +36,17 @@ public class LodRepresentation extends SpatialRepresentation {
 
 	public void addRepresentation(int lod, AssociationByRepOrRef<? extends AbstractGML> property) {
 		if (lod >= 0)
-			super.addRepresentation(lod, property);
+			add(lod, property);
 	}
 
 	public void addRepresentation(int lod, GeometryProperty<? extends AbstractGeometry> property) {
 		if (lod >= 0)
-			super.addRepresentation(lod, property);
+			add(lod, property);
 	}
 
 	public void addRepresentation(int lod, ImplicitRepresentationProperty property) {
 		if (lod >= 0)
-			super.addRepresentation(lod, property);
+			add(lod, property);
 	}
 
 	public boolean isSetRepresentation(int lod) {
