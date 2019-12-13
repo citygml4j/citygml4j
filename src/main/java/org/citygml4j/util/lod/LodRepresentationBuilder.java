@@ -40,39 +40,44 @@ public class LodRepresentationBuilder {
 	
 	@SuppressWarnings("unchecked")
 	public static LodRepresentation buildFor(Object object, boolean getLodFromAttributeName) {
-		LodRepresentation lods = new LodRepresentation();		
+		LodRepresentation lods = new LodRepresentation();
+		Class<?> objectType = object.getClass();
 
-		for (Field field : object.getClass().getDeclaredFields()) {
-			Class<?> type = field.getType();
-			if (!GeometryProperty.class.isAssignableFrom(type) && !ImplicitRepresentationProperty.class.isAssignableFrom(type))
-				continue;
+		do {
+			for (Field field : objectType.getDeclaredFields()) {
+				Class<?> type = field.getType();
+				if (!GeometryProperty.class.isAssignableFrom(type) && !ImplicitRepresentationProperty.class.isAssignableFrom(type))
+					continue;
 
-			Integer lod = null;
-			if (field.isAnnotationPresent(Lod.class)) {
-				Lod lodProperty = field.getAnnotation(Lod.class);
-				lod = lodProperty.value();
-			} else if (getLodFromAttributeName) {
-				String name = field.getName();
-				if (name.length() > 3 && name.toLowerCase().startsWith("lod")) {
-					try {
-						lod = Integer.valueOf(name.substring(3, 4));
-					} catch (NumberFormatException e) {
-						continue;
+				Integer lod = null;
+				if (field.isAnnotationPresent(Lod.class)) {
+					Lod lodProperty = field.getAnnotation(Lod.class);
+					lod = lodProperty.value();
+				} else if (getLodFromAttributeName) {
+					String name = field.getName();
+					if (name.length() > 3 && name.toLowerCase().startsWith("lod")) {
+						try {
+							lod = Integer.valueOf(name.substring(3, 4));
+						} catch (NumberFormatException e) {
+							continue;
+						}
 					}
 				}
-			}
 
-			if (lod != null) {
 				try {
 					if (!field.isAccessible())
 						field.setAccessible(true);
 
-					lods.addRepresentation(lod, (AssociationByRepOrRef<? extends AbstractGML>) field.get(object));
+					AssociationByRepOrRef<? extends AbstractGML> property = (AssociationByRepOrRef<? extends AbstractGML>) field.get(object);
+					if (lod != null)
+						lods.addRepresentation(lod, property);
+					else
+						lods.addRepresentation(property);
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					//
-				}		
+				}
 			}
-		}
+		} while ((objectType = objectType.getSuperclass()) != Object.class && objectType != null);
 
 		return lods;
 	}
