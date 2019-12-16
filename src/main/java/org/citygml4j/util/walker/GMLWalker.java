@@ -167,6 +167,7 @@ import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
 import org.citygml4j.model.gml.geometry.primitives.Point;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatch;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.gml.geometry.primitives.Rectangle;
 import org.citygml4j.model.gml.geometry.primitives.Ring;
@@ -277,14 +278,32 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 		visit((AbstractGeometry)abstractRing);
 	}
 
+	public void visit(AbstractSurfacePatch surfacePatch) {
+	}
+
 	public void visit(Triangle triangle) {
+		visit((AbstractSurfacePatch) triangle);
+
 		if (triangle.isSetExterior())
 			visit(triangle.getExterior());
 	}
 
 	public void visit(Rectangle rectangle) {
+		visit((AbstractSurfacePatch) rectangle);
+
 		if (rectangle.isSetExterior())
 			visit(rectangle.getExterior());
+	}
+
+	public void visit(PolygonPatch polygonPatch) {
+		visit((AbstractSurfacePatch) polygonPatch);
+
+		if (polygonPatch.isSetExterior())
+			visit(polygonPatch.getExterior());
+
+		if (polygonPatch.isSetInterior())
+			for (AbstractRingProperty interior : new ArrayList<>(polygonPatch.getInterior()))
+				visit(interior);
 	}
 
 	public void visit(CompositeCurve compositeCurve) {
@@ -2233,6 +2252,8 @@ public abstract class GMLWalker extends Walker implements GMLVisitor {
 						visit((Triangle)abstractSurfacePatch);
 					else if (abstractSurfacePatch instanceof Rectangle)
 						visit((Rectangle)abstractSurfacePatch);
+					else if (abstractSurfacePatch instanceof PolygonPatch)
+						visit((PolygonPatch)abstractSurfacePatch);
 				}
 			}
 	}

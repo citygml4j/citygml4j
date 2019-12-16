@@ -169,6 +169,7 @@ import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
 import org.citygml4j.model.gml.geometry.primitives.Point;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatch;
 import org.citygml4j.model.gml.geometry.primitives.PolygonProperty;
 import org.citygml4j.model.gml.geometry.primitives.Rectangle;
 import org.citygml4j.model.gml.geometry.primitives.Ring;
@@ -287,9 +288,17 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 		return apply((AbstractGeometry)abstractRing);
 	}
 
+	public T apply(AbstractSurfacePatch surfacePatch) {
+		return null;
+	}
+
 	public T apply(Triangle triangle) {
+		T object = apply((AbstractSurfacePatch) triangle);
+		if (object != null)
+			return object;
+
 		if (triangle.isSetExterior()) {
-			T object = apply(triangle.getExterior());
+			object = apply(triangle.getExterior());
 			if (object != null)
 				return object;
 		}
@@ -298,10 +307,36 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 	}
 
 	public T apply(Rectangle rectangle) {
+		T object = apply((AbstractSurfacePatch) rectangle);
+		if (object != null)
+			return object;
+
 		if (rectangle.isSetExterior()) {
-			T object = apply(rectangle.getExterior());
+			object = apply(rectangle.getExterior());
 			if (object != null)
 				return object;
+		}
+
+		return null;
+	}
+
+	public T apply(PolygonPatch polygonPatch) {
+		T object = apply((AbstractSurfacePatch)polygonPatch);
+		if (object != null)
+			return object;
+
+		if (polygonPatch.isSetExterior()) {
+			object = apply(polygonPatch.getExterior());
+			if (object != null)
+				return object;
+		}
+
+		if (polygonPatch.isSetInterior()) {
+			for (AbstractRingProperty abstractRingProperty : new ArrayList<>(polygonPatch.getInterior())) {
+				object = apply(abstractRingProperty);
+				if (object != null)
+					return object;
+			}
 		}
 
 		return null;
@@ -4130,6 +4165,10 @@ public abstract class GMLFunctionWalker<T> extends Walker implements GMLFunctor<
 							return object;
 					} else if (abstractSurfacePatch instanceof Rectangle) {
 						object = apply((Rectangle)abstractSurfacePatch);
+						if (object != null)
+							return object;
+					} else if (abstractSurfacePatch instanceof PolygonPatch) {
+						object = apply((PolygonPatch)abstractSurfacePatch);
 						if (object != null)
 							return object;
 					}
