@@ -58,13 +58,9 @@ public class CityGMLSimpleReader extends CityGMLReader {
     public CityGMLObject next() throws CityGMLReadException {
         if (hasNext()) {
             try {
-                if (transformer == null)
-                    return reader.getObject(CityGMLObject.class);
-                else {
-                    XMLReader reader = factory.createReader(nextChunk().toXMLStreamReader(true));
-                    reader.nextTag();
-                    return reader.getObject(CityGMLObject.class);
-                }
+                return transformer == null ?
+                        reader.getObject(CityGMLObject.class) :
+                        nextChunk().toCityGMLObject(true);
             } catch (ObjectBuildException | XMLReadException e) {
                 throw new CityGMLReadException("Caused by:", e);
             } finally {
@@ -80,7 +76,7 @@ public class CityGMLSimpleReader extends CityGMLReader {
         if (hasNext()) {
             try {
                 XMLStreamReader reader = this.reader.getStreamReader();
-                CityGMLChunk chunk = new CityGMLChunk(reader.getName());
+                CityGMLChunk chunk = new CityGMLChunk(reader.getName(), factory);
 
                 do {
                     chunk.bufferEvent(reader);

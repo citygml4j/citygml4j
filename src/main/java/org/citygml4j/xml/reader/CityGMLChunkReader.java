@@ -69,10 +69,10 @@ public class CityGMLChunkReader extends CityGMLReader {
                         ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
                         if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))) {
                             if (current == null)
-                                current = new CityGMLChunk(reader.getName());
+                                current = new CityGMLChunk(reader.getName(), factory);
                             else if (shouldChunk(reader.getName())) {
                                 chunks.push(current);
-                                current = new CityGMLChunk(reader.getName());
+                                current = new CityGMLChunk(reader.getName(), factory);
                                 initialize = true;
                             }
                         }
@@ -107,9 +107,7 @@ public class CityGMLChunkReader extends CityGMLReader {
     public CityGMLObject next() throws CityGMLReadException {
         if (hasNext()) {
             try {
-                XMLReader reader = factory.createReader(nextChunk().toXMLStreamReader(true));
-                reader.nextTag();
-                return reader.getObject(CityGMLObject.class);
+                return nextChunk().toCityGMLObject(true);
             } catch (XMLReadException | ObjectBuildException e) {
                 throw new CityGMLReadException("Caused by:", e);
             } finally {

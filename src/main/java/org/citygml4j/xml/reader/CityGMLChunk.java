@@ -1,8 +1,13 @@
 package org.citygml4j.xml.reader;
 
+import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
+import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.stream.XMLReadException;
+import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLReaderFactory;
 import org.xmlobjects.util.xml.SAXBuffer;
 import org.xmlobjects.util.xml.StAXStream2SAX;
 
@@ -14,14 +19,16 @@ import javax.xml.transform.sax.SAXResult;
 
 public class CityGMLChunk {
     private final QName firstElement;
+    private final XMLReaderFactory factory;
+
     private SAXBuffer buffer;
     private StAXStream2SAX mapper;
-
     private QName lastElement;
     private int depth = 0;
 
-    CityGMLChunk(QName firstElement) {
+    CityGMLChunk(QName firstElement, XMLReaderFactory factory) {
         this.firstElement = lastElement = firstElement;
+        this.factory = factory;
         buffer = new SAXBuffer().assumeMixedContent(false);
         mapper = new StAXStream2SAX(buffer);
     }
@@ -74,7 +81,13 @@ public class CityGMLChunk {
         buffer.send(handler, release);
     }
 
-    public void transform(TransformerPipeline pipeline) throws TransformerException {
+    public CityGMLObject toCityGMLObject(boolean release) throws XMLReadException, ObjectBuildException {
+        XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release));
+        reader.nextTag();
+        return reader.getObject(CityGMLObject.class);
+    }
+
+    void transform(TransformerPipeline pipeline) throws TransformerException {
         try {
             SAXBuffer buffer = new TransformerBuffer().assumeMixedContent(false);
             pipeline.setResult(new SAXResult(buffer));
