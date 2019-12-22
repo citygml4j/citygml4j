@@ -81,10 +81,14 @@ public class CityGMLChunk {
         buffer.send(handler, release);
     }
 
-    public CityGMLObject toCityGMLObject(boolean release) throws XMLReadException, ObjectBuildException {
-        XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release));
-        reader.nextTag();
-        return reader.getObject(CityGMLObject.class);
+    public CityGMLObject toCityGMLObject(boolean release) throws CityGMLReadException {
+        try {
+            XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release));
+            reader.nextTag();
+            return reader.getObject(CityGMLObject.class);
+        } catch (XMLReadException | ObjectBuildException e) {
+            throw new CityGMLReadException("Caused by:", e);
+        }
     }
 
     void transform(TransformerPipeline pipeline) throws TransformerException {

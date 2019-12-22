@@ -10,7 +10,6 @@ import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.module.gml.XLinkModule;
 import org.xml.sax.SAXException;
 import org.xmlobjects.XMLObjects;
-import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.stream.XMLReadException;
@@ -108,8 +107,6 @@ public class CityGMLChunkReader extends CityGMLReader {
         if (hasNext()) {
             try {
                 return nextChunk().toCityGMLObject(true);
-            } catch (XMLReadException | ObjectBuildException e) {
-                throw new CityGMLReadException("Caused by:", e);
             } finally {
                 hasNext = false;
             }
