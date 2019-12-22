@@ -87,6 +87,8 @@ public class CityGMLChunk {
             mapper = new StAXStream2SAX(buffer);
         } catch (SAXException e) {
             throw new TransformerException("Caused by:", e);
+        } finally {
+            pipeline.reset();
         }
     }
 
@@ -97,12 +99,6 @@ public class CityGMLChunk {
 
         @Override
         public void addEndDocument() {
-        }
-
-        @Override
-        public void startPrefixMapping(String prefix, String uri) throws SAXException {
-            if (!isEmpty())
-                super.startPrefixMapping(prefix, uri);
         }
     }
 }

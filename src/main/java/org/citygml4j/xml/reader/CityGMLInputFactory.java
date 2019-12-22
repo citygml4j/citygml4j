@@ -1,6 +1,8 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.util.DefaultIdCreator;
+import org.citygml4j.util.IdCreator;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.schema.SchemaHandlerException;
@@ -9,6 +11,7 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
 import org.xmlobjects.util.Properties;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLReporter;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamReader;
@@ -18,6 +21,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CityGMLInputFactory {
     public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
@@ -25,7 +30,12 @@ public class CityGMLInputFactory {
     private final CityGMLContext context;
     private final XMLReaderFactory factory;
 
+    private ChunkMode chunkMode = ChunkMode.NO_CHUNKING;
+    private boolean keepInlineAppearance = true;
+    private Set<QName> excludes = new HashSet<>();
+    private Set<QName> properties = new HashSet<>();
     private TransformerPipeline transformer;
+    private IdCreator idCreator;
 
     public CityGMLInputFactory(CityGMLContext context) throws CityGMLReadException {
         this.context = context;
@@ -64,12 +74,65 @@ public class CityGMLInputFactory {
         return this;
     }
 
+    public ChunkMode getChunkMode() {
+        return chunkMode;
+    }
+
+    public CityGMLInputFactory useChunkMode(ChunkMode chunkMode) {
+        this.chunkMode = chunkMode;
+        return this;
+    }
+
+    public boolean isKeepInlineAppearance() {
+        return keepInlineAppearance;
+    }
+
+    public CityGMLInputFactory keepInlineAppearance(boolean keepInlineAppearance) {
+        this.keepInlineAppearance = keepInlineAppearance;
+        return this;
+    }
+
+    public Set<QName> getExlcudesFromChunking() {
+        return excludes;
+    }
+
+    public CityGMLInputFactory excludeFromChunking(QName name) {
+        excludes.add(name);
+        return this;
+    }
+
+    public CityGMLInputFactory excludeFromChunking(String namespaceURI, String localPart) {
+        return excludeFromChunking(new QName(namespaceURI, localPart));
+    }
+
+    public Set<QName> getPropertiesForChunking() {
+        return properties;
+    }
+
+    public CityGMLInputFactory chunkAtProperty(QName name) {
+        properties.add(name);
+        return this;
+    }
+
+    public CityGMLInputFactory chunkAtProperty(String namespaceURI, String localPart) {
+        return chunkAtProperty(new QName(namespaceURI, localPart));
+    }
+
     public TransformerPipeline getTransformer() {
         return transformer;
     }
 
     public CityGMLInputFactory withTransformer(TransformerPipeline transformer) {
         this.transformer = transformer;
+        return this;
+    }
+
+    public IdCreator getIdCreator() {
+        return idCreator;
+    }
+
+    public CityGMLInputFactory withIdCreator(IdCreator idCreator) {
+        this.idCreator = idCreator;
         return this;
     }
 
@@ -197,7 +260,17 @@ public class CityGMLInputFactory {
 
     private CityGMLReader createReader(XMLReader xmlReader) throws CityGMLReadException {
         try {
-            CityGMLReader reader = new CityGMLSimpleReader(xmlReader, factory);
+            CityGMLReader reader;
+            if (chunkMode == ChunkMode.NO_CHUNKING)
+                reader = new CityGMLSimpleReader(xmlReader, factory);
+            else {
+                reader = new CityGMLChunkReader(xmlReader, chunkMode, factory)
+                        .keepInlineAppearance(keepInlineAppearance)
+                        .excludeFromChunking(excludes)
+                        .chunkAtProperties(properties)
+                        .withIdCreator(idCreator);
+            }
+
             reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
 
             return reader;
@@ -209,5 +282,8 @@ public class CityGMLInputFactory {
     private void validate() throws SchemaHandlerException {
         if (isCreateGenericADEContent() && getSchemaHandler() == null)
             factory.withSchemaHandler(context.getDefaultSchemaHandler());
+
+        if (chunkMode != ChunkMode.NO_CHUNKING && idCreator == null)
+            idCreator = DefaultIdCreator.newInstance();
     }
 }
