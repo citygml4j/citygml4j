@@ -6,18 +6,22 @@ import org.xml.sax.SAXException;
 import org.xmlobjects.util.xml.SAXBuffer;
 import org.xmlobjects.util.xml.StAXStream2SAX;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXResult;
 
 public class CityGMLChunk {
+    private final QName firstElement;
     private SAXBuffer buffer;
     private StAXStream2SAX mapper;
 
+    private QName lastElement;
     private int depth = 0;
 
-    CityGMLChunk() {
+    CityGMLChunk(QName firstElement) {
+        this.firstElement = lastElement = firstElement;
         buffer = new SAXBuffer().assumeMixedContent(false);
         mapper = new StAXStream2SAX(buffer);
     }
@@ -32,17 +36,34 @@ public class CityGMLChunk {
         if (buffer.isEmpty() && eventType != XMLStreamConstants.START_ELEMENT)
             throw new SAXException("A START_ELEMENT is expected as first element.");
         else if (isComplete() && (eventType == XMLStreamConstants.START_ELEMENT || eventType == XMLStreamConstants.END_ELEMENT))
-            throw new SAXException("Chunk is complete and cannot buffer any more events.");
+            throw new SAXException("Chunk is complete and cannot buffer more events.");
 
         mapper.bridgeEvent(reader);
         switch (eventType) {
             case XMLStreamConstants.START_ELEMENT:
+                lastElement = reader.getName();
                 depth++;
                 break;
             case XMLStreamConstants.END_ELEMENT:
                 depth--;
                 break;
         }
+    }
+
+    SAXBuffer getSAXBuffer() {
+        return buffer;
+    }
+
+    public QName getFirstElement() {
+        return firstElement;
+    }
+
+    public QName getLastElement() {
+        return lastElement;
+    }
+
+    void removeTrailingCharacters() {
+        buffer.removeTrailingCharacters();
     }
 
     public XMLStreamReader toXMLStreamReader(boolean release) {

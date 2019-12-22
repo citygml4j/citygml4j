@@ -16,12 +16,12 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.TransformerException;
 import java.util.NoSuchElementException;
 
-public class SimpleCityGMLReader extends CityGMLReader {
+public class CityGMLSimpleReader extends CityGMLReader {
     private final XMLReaderFactory factory;
 
-    private volatile boolean hasNext = false;
+    private boolean hasNext = false;
 
-    public SimpleCityGMLReader(XMLReader reader, XMLReaderFactory factory) {
+    public CityGMLSimpleReader(XMLReader reader, XMLReaderFactory factory) {
         super(reader);
         this.factory = factory;
     }
@@ -79,8 +79,8 @@ public class SimpleCityGMLReader extends CityGMLReader {
     public CityGMLChunk nextChunk() throws CityGMLReadException {
         if (hasNext()) {
             try {
-                CityGMLChunk chunk = new CityGMLChunk();
                 XMLStreamReader reader = this.reader.getStreamReader();
+                CityGMLChunk chunk = new CityGMLChunk(reader.getName());
 
                 do {
                     chunk.bufferEvent(reader);

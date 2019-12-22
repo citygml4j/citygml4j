@@ -5,6 +5,7 @@ import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 
+import javax.xml.namespace.QName;
 import java.net.URI;
 
 public abstract class CityGMLReader implements AutoCloseable {
@@ -23,6 +24,14 @@ public abstract class CityGMLReader implements AutoCloseable {
 
     public URI getBaseURI() {
         return reader.getBaseURI();
+    }
+
+    public QName getName() {
+        try {
+            return reader.getName();
+        } catch (XMLReadException e) {
+            return null;
+        }
     }
 
     @Override

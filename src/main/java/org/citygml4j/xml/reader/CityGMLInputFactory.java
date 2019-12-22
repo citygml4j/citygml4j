@@ -197,7 +197,7 @@ public class CityGMLInputFactory {
 
     private CityGMLReader createReader(XMLReader xmlReader) throws CityGMLReadException {
         try {
-            CityGMLReader reader = new SimpleCityGMLReader(xmlReader, factory);
+            CityGMLReader reader = new CityGMLSimpleReader(xmlReader, factory);
             reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
 
             return reader;
