@@ -1,6 +1,5 @@
 package org.citygml4j.xml.reader;
 
-import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.util.IdCreator;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
@@ -66,7 +65,7 @@ public class CityGMLChunkReader extends CityGMLReader {
 
                     if (eventType == XMLStreamConstants.START_ELEMENT) {
                         ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
-                        if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))) {
+                        if (builder != null) {
                             if (current == null)
                                 current = new CityGMLChunk(reader.getName(), factory);
                             else if (shouldChunk(reader.getName())) {
@@ -103,10 +102,10 @@ public class CityGMLChunkReader extends CityGMLReader {
     }
 
     @Override
-    public CityGMLObject next() throws CityGMLReadException {
+    public AbstractFeature next() throws CityGMLReadException {
         if (hasNext()) {
             try {
-                return nextChunk().toCityGMLObject(true);
+                return nextChunk().build(true);
             } finally {
                 hasNext = false;
             }

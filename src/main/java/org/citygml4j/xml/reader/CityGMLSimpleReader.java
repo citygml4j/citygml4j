@@ -1,6 +1,5 @@
 package org.citygml4j.xml.reader;
 
-import org.citygml4j.model.CityGMLObject;
 import org.xml.sax.SAXException;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -35,7 +34,7 @@ public class CityGMLSimpleReader extends CityGMLReader {
                     if (reader.nextTag() == EventType.START_ELEMENT) {
                         if (filter == null || filter.accept(reader.getName())) {
                             ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
-                            if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))) {
+                            if (builder != null) {
                                 hasNext = true;
                                 break;
                             }
@@ -55,12 +54,12 @@ public class CityGMLSimpleReader extends CityGMLReader {
     }
 
     @Override
-    public CityGMLObject next() throws CityGMLReadException {
+    public AbstractFeature next() throws CityGMLReadException {
         if (hasNext()) {
             try {
                 return transformer == null ?
-                        reader.getObject(CityGMLObject.class) :
-                        nextChunk().toCityGMLObject(true);
+                        reader.getObject(AbstractFeature.class) :
+                        nextChunk().build(true);
             } catch (ObjectBuildException | XMLReadException e) {
                 throw new CityGMLReadException("Caused by:", e);
             } finally {
