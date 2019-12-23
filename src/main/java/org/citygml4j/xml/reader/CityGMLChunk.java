@@ -1,10 +1,13 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.transform.TransformerPipeline;
+import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
@@ -20,17 +23,25 @@ import javax.xml.transform.sax.SAXResult;
 public class CityGMLChunk {
     private final QName firstElement;
     private final XMLReaderFactory factory;
+    private final CityGMLChunk parent;
 
+    private ObjectInfo objectInfo;
     private SAXBuffer buffer;
     private StAXStream2SAX mapper;
     private QName lastElement;
     private int depth = 0;
 
-    CityGMLChunk(QName firstElement, XMLReaderFactory factory) {
+    CityGMLChunk(QName firstElement, XMLReaderFactory factory, CityGMLChunk parent) {
         this.firstElement = lastElement = firstElement;
         this.factory = factory;
+        this.parent = parent;
+
         buffer = new SAXBuffer().assumeMixedContent(false);
         mapper = new StAXStream2SAX(buffer);
+    }
+
+    CityGMLChunk(QName firstElement, XMLReaderFactory factory) {
+        this(firstElement, factory, null);
     }
 
     boolean isComplete() {
@@ -91,6 +102,26 @@ public class CityGMLChunk {
         }
     }
 
+    ObjectInfo getObjectInfo() throws CityGMLReadException {
+        if (objectInfo == null) {
+            try {
+                ObjectInfoBuffer buffer = new ObjectInfoBuffer();
+                send(buffer, false);
+                buffer.complete();
+
+                XMLReader reader = factory.createReader(buffer.toXMLStreamReader(true));
+                reader.nextTag();
+                AbstractGML object = reader.getObject(AbstractGML.class);
+                if (object != null)
+                    objectInfo = new ObjectInfo(firstElement, object, parent);
+            } catch (SAXException | XMLReadException | ObjectBuildException e) {
+                throw new CityGMLReadException("Caused by:", e);
+            }
+        }
+
+        return objectInfo;
+    }
+
     void transform(TransformerPipeline pipeline) throws TransformerException {
         try {
             SAXBuffer buffer = new TransformerBuffer().assumeMixedContent(false);
@@ -116,6 +147,58 @@ public class CityGMLChunk {
 
         @Override
         public void addEndDocument() {
+        }
+    }
+
+    private static class ObjectInfoBuffer extends SAXBuffer {
+        int depth = 0;
+        boolean shouldBuffer = true;
+
+        @Override
+        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+            if (shouldBuffer)
+                super.startPrefixMapping(prefix, uri);
+        }
+
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+            if (depth == 1) {
+                shouldBuffer = (CityGMLModules.isGMLNamespace(uri)
+                        && ("description".equals(localName)
+                        || "descriptionReference".equals(localName)
+                        || "identifier".equals(localName)
+                        || "name".equals(localName)
+                        || "metaDataProperty".equals(localName)
+                        || "boundedBy".equals(localName)))
+                        || (CityGMLModules.isCityGMLNamespace(uri)
+                        && ("engineeringCRS".equals(localName)
+                        || "appearance".equals(localName)
+                        || "appearanceMember".equals(localName)));
+            }
+
+            if (shouldBuffer)
+                super.startElement(uri, localName, qName, attributes);
+
+            depth++;
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+            if (shouldBuffer)
+                super.endElement(uri, localName, qName);
+
+            depth--;
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            if (shouldBuffer)
+                super.characters(ch, start, length);
+        }
+
+        void complete() {
+            while (depth-- >= 0)
+                addEndElement();
         }
     }
 }

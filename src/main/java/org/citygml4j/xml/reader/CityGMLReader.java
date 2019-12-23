@@ -34,6 +34,14 @@ public abstract class CityGMLReader implements AutoCloseable {
         }
     }
 
+    public boolean hasParentInfo() {
+        return false;
+    }
+
+    public ObjectInfo getParentInfo() throws CityGMLReadException {
+        return null;
+    }
+
     @Override
     public void close() throws CityGMLReadException {
         try {

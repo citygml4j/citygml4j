@@ -71,7 +71,7 @@ public class CityGMLChunkReader extends CityGMLReader {
                                 current = new CityGMLChunk(reader.getName(), factory);
                             else if (shouldChunk(reader.getName())) {
                                 chunks.push(current);
-                                current = new CityGMLChunk(reader.getName(), factory);
+                                current = new CityGMLChunk(reader.getName(), factory, current);
                                 initialize = true;
                             }
                         }
@@ -139,6 +139,20 @@ public class CityGMLChunkReader extends CityGMLReader {
     }
 
     @Override
+    public boolean hasParentInfo() {
+        try {
+            return getParentInfo() != null;
+        } catch (CityGMLReadException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public ObjectInfo getParentInfo() throws CityGMLReadException {
+        return current != null ? current.getObjectInfo() : null;
+    }
+
+    @Override
     public void close() throws CityGMLReadException {
         super.close();
         current = null;
@@ -182,7 +196,7 @@ public class CityGMLChunkReader extends CityGMLReader {
         }
 
         chunks.getFirst().getSAXBuffer().removeTrailingCharacters();
-        chunks.getFirst().getSAXBuffer().addAttribute(XLinkModule.INSTANCE.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
+        chunks.getFirst().getSAXBuffer().addAttribute(XLinkModule.v1_0.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
     }
 
     public CityGMLChunkReader chunkAtProperty(String namespaceURI, String localName) {

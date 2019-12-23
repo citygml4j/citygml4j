@@ -42,7 +42,7 @@ public class CityGMLModules {
                 VersioningModule.v3_0,
                 WaterBodyModule.v3_0,
                 GMLCoreModule.v3_2,
-                XLinkModule.INSTANCE,
+                XLinkModule.v1_0,
                 XALCoreModule.v2_0
         );
 
@@ -62,7 +62,7 @@ public class CityGMLModules {
                 VegetationModule.v2_0,
                 WaterBodyModule.v2_0,
                 GMLCoreModule.v3_1,
-                XLinkModule.INSTANCE,
+                XLinkModule.v1_0,
                 XALCoreModule.v2_0
         );
 
@@ -80,7 +80,7 @@ public class CityGMLModules {
                 VegetationModule.v1_0,
                 WaterBodyModule.v1_0,
                 GMLCoreModule.v3_1,
-                XLinkModule.INSTANCE,
+                XLinkModule.v1_0,
                 XALCoreModule.v2_0
         );
     }
@@ -114,6 +114,10 @@ public class CityGMLModules {
 
     public static boolean isCityGMLNamespace(String namespaceURI) {
         return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
+    }
+
+    public static boolean isGMLNamespace(String namespaceURI) {
+        return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/gml");
     }
 
     public List<Module> getModules() {
