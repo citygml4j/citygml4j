@@ -88,16 +88,8 @@ public class CityGMLChunk {
         return buffer.toXMLStreamReader(release);
     }
 
-    public XMLStreamReader toXMLStreamReader() {
-        return toXMLStreamReader(true);
-    }
-
     public void send(ContentHandler handler, boolean release) throws SAXException {
         buffer.send(handler, release);
-    }
-
-    public void send(ContentHandler handler) throws SAXException {
-        send(handler, true);
     }
 
     public CityGMLObject build(boolean release) throws CityGMLReadException {
@@ -108,10 +100,6 @@ public class CityGMLChunk {
         } catch (XMLReadException | ObjectBuildException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
-    }
-
-    public CityGMLObject build() throws CityGMLReadException {
-        return build(true);
     }
 
     ObjectInfo getObjectInfo() throws CityGMLReadException {
