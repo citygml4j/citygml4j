@@ -39,11 +39,11 @@ public class CityGMLChunkReader extends CityGMLReader {
     private final Map<String, Set<String>> properties = new HashMap<>();
     private final Map<String, Set<String>> excludes = new HashMap<>();
 
-    private boolean hasNext = false;
-    private boolean keepNestedElements = false;
-    private boolean keepInlineAppearance = true;
-    private IdCreator idCreator;
     private CityGMLChunk current;
+    private IdCreator idCreator;
+    private boolean keepInlineAppearance = true;
+    private boolean hasNext = false;
+    private int skipUntil = 0;
 
     public CityGMLChunkReader(XMLReader reader, ChunkMode chunkMode, XMLReaderFactory factory) {
         super(reader);
@@ -64,7 +64,7 @@ public class CityGMLChunkReader extends CityGMLReader {
                 while (streamReader.hasNext()) {
                     int eventType = streamReader.next();
 
-                    if (eventType == XMLStreamConstants.START_ELEMENT) {
+                    if (skipUntil == 0 && eventType == XMLStreamConstants.START_ELEMENT) {
                         ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
                         if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))) {
                             if (current == null)
@@ -75,7 +75,10 @@ public class CityGMLChunkReader extends CityGMLReader {
                                 initialize = true;
                             }
                         }
-                    }
+                    } else if (skipUntil > 0
+                            && eventType == XMLStreamConstants.END_ELEMENT
+                            && skipUntil == reader.getDepth() + 1)
+                        skipUntil = 0;
 
                     if (current != null) {
                         current.bufferEvent(streamReader);
@@ -88,7 +91,6 @@ public class CityGMLChunkReader extends CityGMLReader {
                                 current = !chunks.isEmpty() ? chunks.pop() : null;
                             else {
                                 hasNext = true;
-                                keepNestedElements = false;
                                 break;
                             }
                         }
@@ -144,9 +146,6 @@ public class CityGMLChunkReader extends CityGMLReader {
     }
 
     private boolean shouldChunk(QName name) {
-        if (keepNestedElements)
-            return false;
-
         QName property = current.getLastElement();
         if (chunkMode == ChunkMode.PER_COLLECTION_MEMBER) {
             Set<String> properties = this.properties.get(property.getNamespaceURI());
@@ -159,7 +158,7 @@ public class CityGMLChunkReader extends CityGMLReader {
                 && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI())
                 && (!property.getLocalPart().equals("appearanceMember")
                 || !CityGMLModules.isCityGMLNamespace(property.getNamespaceURI()))) {
-            keepNestedElements = true;
+            skipUntil = reader.getDepth();
             return false;
         }
 
@@ -182,8 +181,8 @@ public class CityGMLChunkReader extends CityGMLReader {
             current.getSAXBuffer().addAttribute(GMLCoreModule.v3_2.getNamespaceURI(), "id", "gml:id", "CDATA", gmlId);
         }
 
-        chunks.getLast().getSAXBuffer().removeTrailingCharacters();
-        chunks.getLast().getSAXBuffer().addAttribute(XLinkModule.INSTANCE.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
+        chunks.getFirst().getSAXBuffer().removeTrailingCharacters();
+        chunks.getFirst().getSAXBuffer().addAttribute(XLinkModule.INSTANCE.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
     }
 
     public CityGMLChunkReader chunkAtProperty(String namespaceURI, String localName) {
