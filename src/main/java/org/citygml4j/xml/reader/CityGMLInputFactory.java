@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class CityGMLInputFactory {
@@ -79,7 +80,7 @@ public class CityGMLInputFactory {
     }
 
     public CityGMLInputFactory useChunkMode(ChunkMode chunkMode) {
-        this.chunkMode = chunkMode;
+        this.chunkMode = Objects.requireNonNull(chunkMode, "The chunk mode must not be null.");
         return this;
     }
 
