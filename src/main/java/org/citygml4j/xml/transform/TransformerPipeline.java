@@ -1,5 +1,6 @@
 package org.citygml4j.xml.transform;
 
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.ErrorListener;
@@ -58,7 +59,7 @@ public class TransformerPipeline {
         return factory;
     }
 
-    public TransformerHandler getRootHandler() {
+    public ContentHandler getRootHandler() {
         return handlers[0];
     }
 
