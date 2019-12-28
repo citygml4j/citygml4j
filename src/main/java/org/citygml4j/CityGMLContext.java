@@ -1,5 +1,6 @@
 package org.citygml4j;
 
+import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.xml.ade.ADEException;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
@@ -40,8 +41,8 @@ public class CityGMLContext {
         return new CityGMLInputFactory(this);
     }
 
-    public CityGMLOutputFactory createCityGMLOutputFactory() {
-        return new CityGMLOutputFactory(this);
+    public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) {
+        return new CityGMLOutputFactory(version, this);
     }
 
     public CityGMLSchemaHandler getDefaultSchemaHandler() throws SchemaHandlerException {

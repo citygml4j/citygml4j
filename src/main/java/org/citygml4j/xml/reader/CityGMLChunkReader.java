@@ -199,48 +199,33 @@ public class CityGMLChunkReader extends CityGMLReader {
         chunks.getFirst().getSAXBuffer().addAttribute(XLinkModule.v1_0.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
     }
 
-    public CityGMLChunkReader chunkAtProperty(String namespaceURI, String localName) {
+    CityGMLChunkReader chunkAtProperty(String namespaceURI, String localName) {
         properties.computeIfAbsent(namespaceURI, v -> new HashSet<>()).add(localName);
         return this;
     }
 
-    public CityGMLChunkReader chunkAtProperty(QName name) {
-        return chunkAtProperty(name.getNamespaceURI(), name.getLocalPart());
-    }
-
-    public CityGMLChunkReader chunkAtProperties(Collection<QName> properties) {
+    CityGMLChunkReader chunkAtProperties(Collection<QName> properties) {
         if (properties != null)
-            properties.forEach(this::chunkAtProperty);
+            properties.forEach(p -> chunkAtProperty(p.getNamespaceURI(), p.getLocalPart()));
 
         return this;
     }
 
-    public CityGMLChunkReader excludeFromChunking(String namespaceURI, String localName) {
-        excludes.computeIfAbsent(namespaceURI, v -> new HashSet<>()).add(localName);
-        return this;
-    }
-
-    public CityGMLChunkReader excludeFromChunking(QName name) {
-        return excludeFromChunking(name.getNamespaceURI(), name.getLocalPart());
-    }
-
-    public CityGMLChunkReader excludeFromChunking(Collection<QName> properties) {
-        if (properties != null)
-            properties.forEach(this::excludeFromChunking);
+    CityGMLChunkReader excludeFromChunking(Collection<QName> properties) {
+        if (properties != null) {
+            for (QName property : properties)
+                excludes.computeIfAbsent(property.getNamespaceURI(), v -> new HashSet<>()).add(property.getLocalPart());
+        }
 
         return this;
     }
 
-    public CityGMLChunkReader keepInlineAppearance(boolean keepInlineAppearance) {
+    CityGMLChunkReader keepInlineAppearance(boolean keepInlineAppearance) {
         this.keepInlineAppearance = keepInlineAppearance;
         return this;
     }
 
-    public IdCreator getIdCreator() {
-        return idCreator;
-    }
-
-    public CityGMLChunkReader withIdCreator(IdCreator idCreator) {
+    CityGMLChunkReader withIdCreator(IdCreator idCreator) {
         this.idCreator = idCreator;
         return this;
     }

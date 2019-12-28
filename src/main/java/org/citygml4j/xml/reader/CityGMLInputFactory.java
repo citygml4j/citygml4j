@@ -166,8 +166,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(file));
+            return validate().createReader(factory.createReader(file));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -175,8 +174,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(Path path) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(path));
+            return validate().createReader(factory.createReader(path));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -184,8 +182,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(InputStream stream) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(stream));
+            return validate().createReader(factory.createReader(stream));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -193,8 +190,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(InputStream stream, String encoding) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(stream, encoding));
+            return validate().createReader(factory.createReader(stream, encoding));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -202,8 +198,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(String systemId, InputStream stream) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(systemId, stream));
+            return validate().createReader(factory.createReader(systemId, stream));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -211,8 +206,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(String systemId, InputStream stream, String encoding) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(systemId, stream, encoding));
+            return validate().createReader(factory.createReader(systemId, stream, encoding));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -220,8 +214,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(Reader reader) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(reader));
+            return validate().createReader(factory.createReader(reader));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -229,8 +222,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(String systemId, Reader reader) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(systemId, reader));
+            return validate().createReader(factory.createReader(systemId, reader));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -238,8 +230,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(Source source) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(source));
+            return validate().createReader(factory.createReader(source));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -247,8 +238,7 @@ public class CityGMLInputFactory {
 
     public CityGMLReader createCityGMLReader(XMLStreamReader reader) throws CityGMLReadException {
         try {
-            validate();
-            return createReader(factory.createReader(reader));
+            return validate().createReader(factory.createReader(reader));
         } catch (SchemaHandlerException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
@@ -280,11 +270,13 @@ public class CityGMLInputFactory {
         }
     }
 
-    private void validate() throws SchemaHandlerException {
+    private CityGMLInputFactory validate() throws SchemaHandlerException {
         if (isCreateGenericADEContent() && getSchemaHandler() == null)
             factory.withSchemaHandler(context.getDefaultSchemaHandler());
 
         if (chunkMode != ChunkMode.NO_CHUNKING && idCreator == null)
             idCreator = DefaultIdCreator.newInstance();
+
+        return this;
     }
 }

@@ -141,6 +141,7 @@ public class CityGMLChunk {
     }
 
     private static class TransformerBuffer extends SAXBuffer {
+
         @Override
         public void startDocument() {
         }
