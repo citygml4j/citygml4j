@@ -13,6 +13,10 @@ public abstract class ADEModule extends Module {
         this.version = version;
     }
 
+    public ADEModule(String namespaceURI, String namespacePrefix, CityGMLVersion version) {
+        this(namespaceURI, namespacePrefix, null, version);
+    }
+
     public final CityGMLVersion getCityGMLVersion() {
         return version;
     }

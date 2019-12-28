@@ -30,14 +30,12 @@ public class CoreModule extends CityGMLModule {
 
     public static CoreModule of(CityGMLVersion version) {
         switch (version) {
-            case v3_0:
-                return v3_0;
             case v2_0:
                 return v2_0;
             case v1_0:
                 return v1_0;
             default:
-                return null;
+                return v3_0;
         }
     }
 
