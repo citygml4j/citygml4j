@@ -21,18 +21,15 @@ public class CityGMLWriter extends AbstractCityGMLWriter<CityGMLWriter> {
             throw new CityGMLWriteException("CityGMLWriter cannot be used to write more than one object.");
 
         try {
+            XMLWriter writer;
+            if (transformer != null) {
+                writer = factory.createWriter(transformer.getRootHandler());
+                transformer.setResult(new SAXResult(this.writer.getContentHandler()));
+            } else
+                writer = this.writer;
+
             writer.writeStartDocument();
-
-            if (transformer == null)
-                writer.writeObject(object, namespaces);
-            else {
-                XMLWriter tmp = factory.createWriter(transformer.getRootHandler());
-                transformer.setResult(new SAXResult(writer.getContentHandler()));
-                tmp.writeStartDocument();
-                tmp.writeObject(object, namespaces);
-                tmp.writeEndDocument();
-            }
-
+            writer.writeObject(object, namespaces);
             writer.writeEndDocument();
         } catch (ObjectSerializeException | XMLWriteException e) {
             throw new CityGMLWriteException("Caused by:", e);
