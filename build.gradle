@@ -5,7 +5,9 @@ plugins {
 group 'org.citygml4j'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     jcenter()
@@ -13,6 +15,7 @@ repositories {
 
 dependencies {
     api 'org.xml-objects:gml-objects:0.2.0'
+    api 'org.xml-objects:xal-objects:0.2.0'
     api 'gov.nist.math:jama:1.0.3'
     annotationProcessor 'org.xml-objects:gml-objects:0.2.0'
 }
