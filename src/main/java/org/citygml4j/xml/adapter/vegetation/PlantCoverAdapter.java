@@ -20,7 +20,6 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
-import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
@@ -33,7 +32,6 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "PlantCover", namespaceURI = CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE)
 })
 public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCover> {
-    private final CopyBuilder copyBuilder = new CopyBuilder();
     private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE, "AbstractGenericApplicationPropertyOfPlantCover"),
             new QName(CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfPlantCover"),
