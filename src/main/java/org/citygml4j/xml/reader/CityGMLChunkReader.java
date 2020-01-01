@@ -1,7 +1,7 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.util.IdCreator;
+import org.xmlobjects.gml.util.id.IdCreator;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CityObjectGroupModule;
