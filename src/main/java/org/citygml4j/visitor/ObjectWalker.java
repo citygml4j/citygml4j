@@ -257,7 +257,12 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         shouldWalk = true;
     }
 
-    public void visit(AbstractGML gml) {
+    public void visit(AbstractGML object) {
+    }
+
+    @Override
+    public void visit(AbstractGeometry geometry) {
+        visit((AbstractGML) geometry);
     }
 
     public void visit(AbstractFeature feature) {
