@@ -53,12 +53,12 @@ public class ADEWalkerHelper {
         if (method != null) {
             try {
                 method.invoke(walker, adeObject);
-                return true;
-            } catch (IllegalAccessException | InvocationTargetException e) {
+            } catch (InvocationTargetException | IllegalAccessException e) {
                 // ignore
             }
-        }
 
-        return false;
+            return true;
+        } else
+            return false;
     }
 }

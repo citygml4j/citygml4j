@@ -192,6 +192,7 @@ import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
 import org.citygml4j.xml.ade.ADEContext;
 import org.xmlobjects.gml.model.base.AbstractArrayProperty;
+import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractInlineProperty;
@@ -1946,6 +1947,13 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             visit((AbstractFeature) adeObject);
         else if (adeObject instanceof AbstractGML)
             visit((AbstractGML) adeObject);
+        else if (adeObject instanceof ADEProperty<?>) {
+            Object value = ((ADEProperty<?>) adeObject).getValue();
+            if (value instanceof AbstractAssociation<?>)
+                visitProperty((AbstractAssociation<?>) value);
+            else
+                visitObject(value);
+        }
     }
 
     public void visit(GenericElement genericElement) {
@@ -1953,75 +1961,61 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
 
     public void visit(AbstractArrayProperty<?> property) {
         for (Object object : property.getObjects()) {
-            if (shouldWalk) {
-                if (object instanceof ADEObject)
-                    visit((ADEObject) object);
-                else if (object instanceof Visitable)
-                    ((Visitable) object).accept(this);
-                else if (object instanceof AbstractGeometry)
-                    ((AbstractGeometry) object).accept(this);
-                else if (object instanceof AbstractCoverage)
-                    ((AbstractCoverage<?>) object).accept(this);
-            }
+            if (shouldWalk)
+                visitObject(object);
         }
     }
 
     public void visit(AbstractInlineOrByReferenceProperty<?> property) {
-        if (shouldWalk && property.getObject() != null) {
-            Object object = property.getObject();
-            if (object instanceof ADEObject)
-                visit((ADEObject) object);
-            else if (object instanceof Visitable)
-                ((Visitable) object).accept(this);
-            else if (object instanceof AbstractGeometry)
-                ((AbstractGeometry) object).accept(this);
-            else if (object instanceof AbstractCoverage)
-                ((AbstractCoverage<?>) object).accept(this);
-        }
+        if (shouldWalk && property.getObject() != null)
+            visitObject(property.getObject());
     }
 
     public void visit(AbstractInlineProperty<?> property) {
-        if (shouldWalk && property.getObject() != null) {
-            Object object = property.getObject();
-            if (object instanceof ADEObject)
-                visit((ADEObject) object);
-            else if (object instanceof Visitable)
-                ((Visitable) object).accept(this);
-            else if (object instanceof AbstractGeometry)
-                ((AbstractGeometry) object).accept(this);
-            else if (object instanceof AbstractCoverage)
-                ((AbstractCoverage<?>) object).accept(this);
-        }
+        if (shouldWalk && property.getObject() != null)
+            visitObject(property.getObject());
     }
 
     public void visit(FeatureProperty<?> property) {
         if (shouldWalk) {
-            if (property.getObject() != null) {
-                AbstractFeature feature = property.getObject();
-                if (feature instanceof ADEObject)
-                    visit((ADEObject) feature);
-                else if (feature instanceof Visitable)
-                    ((Visitable) feature).accept(this);
-                else if (feature instanceof AbstractCoverage)
-                    ((AbstractCoverage<?>) feature).accept(this);
-            } else if (property.getGenericElement() != null)
+            if (property.getObject() != null)
+                visitObject(property.getObject());
+            else if (property.getGenericElement() != null)
                 visit(property.getGenericElement());
         }
     }
 
     public void visit(AbstractFeatureMember<?> member) {
         if (shouldWalk) {
-            if (member.getObject() != null) {
-                AbstractFeature feature = member.getObject();
-                if (feature instanceof ADEObject)
-                    visit((ADEObject) feature);
-                else if (feature instanceof Visitable)
-                    ((Visitable) feature).accept(this);
-                else if (feature instanceof AbstractCoverage)
-                    ((AbstractCoverage<?>) feature).accept(this);
-            } else if (member.getGenericElement() != null)
+            if (member.getObject() != null)
+                visitObject(member.getObject());
+            else if (member.getGenericElement() != null)
                 visit(member.getGenericElement());
         }
+    }
+
+    private void visitObject(Object object) {
+        if (object instanceof ADEObject)
+            visit((ADEObject) object);
+        else if (object instanceof Visitable)
+            ((Visitable) object).accept(this);
+        else if (object instanceof AbstractCoverage)
+            ((AbstractCoverage<?>) object).accept(this);
+        else if (object instanceof AbstractGeometry)
+            ((AbstractGeometry) object).accept(this);
+    }
+
+    private void visitProperty(AbstractAssociation<?> property) {
+        if (property instanceof FeatureProperty<?>)
+            visit((FeatureProperty<?>) property);
+        else if (property instanceof AbstractFeatureMember<?>)
+            visit((AbstractFeatureMember<?>) property);
+        else if (property instanceof AbstractArrayProperty<?>)
+            visit((AbstractArrayProperty<?>) property);
+        else if (property instanceof AbstractInlineOrByReferenceProperty<?>)
+            visit((AbstractInlineOrByReferenceProperty<?>) property);
+        else if (property instanceof AbstractInlineProperty<?>)
+            visit((AbstractInlineProperty<?>) property);
     }
 
     private void visit(Value value) {
