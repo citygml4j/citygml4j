@@ -1,10 +1,10 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.CityGMLContext;
-import org.xmlobjects.gml.util.id.DefaultIdCreator;
-import org.xmlobjects.gml.util.id.IdCreator;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.citygml4j.xml.transform.TransformerPipeline;
+import org.xmlobjects.gml.util.id.DefaultIdCreator;
+import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.schema.SchemaHandlerException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;

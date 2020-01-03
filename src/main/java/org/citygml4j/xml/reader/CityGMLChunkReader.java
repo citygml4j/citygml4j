@@ -1,7 +1,6 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.util.id.IdCreator;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CityObjectGroupModule;
@@ -12,6 +11,7 @@ import org.xml.sax.SAXException;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
+import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;

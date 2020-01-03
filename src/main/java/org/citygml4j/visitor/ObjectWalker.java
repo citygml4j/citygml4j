@@ -191,9 +191,10 @@ import org.citygml4j.model.waterbody.WaterBody;
 import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
 import org.citygml4j.xml.ade.ADEContext;
+import org.xmlobjects.gml.model.base.AbstractArrayProperty;
 import org.xmlobjects.gml.model.base.AbstractGML;
+import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractInlineProperty;
-import org.xmlobjects.gml.model.base.AbstractProperty;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.gml.model.coverage.AbstractContinuousCoverage;
 import org.xmlobjects.gml.model.coverage.AbstractCoverage;
@@ -1950,7 +1951,22 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GenericElement genericElement) {
     }
 
-    public void visit(AbstractProperty<?> property) {
+    public void visit(AbstractArrayProperty<?> property) {
+        for (Object object : property.getObjects()) {
+            if (shouldWalk) {
+                if (object instanceof ADEObject)
+                    visit((ADEObject) object);
+                else if (object instanceof Visitable)
+                    ((Visitable) object).accept(this);
+                else if (object instanceof AbstractGeometry)
+                    ((AbstractGeometry) object).accept(this);
+                else if (object instanceof AbstractCoverage)
+                    ((AbstractCoverage<?>) object).accept(this);
+            }
+        }
+    }
+
+    public void visit(AbstractInlineOrByReferenceProperty<?> property) {
         if (shouldWalk && property.getObject() != null) {
             Object object = property.getObject();
             if (object instanceof ADEObject)
