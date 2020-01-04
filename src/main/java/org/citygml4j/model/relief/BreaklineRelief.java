@@ -61,7 +61,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (ridgeOrValleyLines != null && ridgeOrValleyLines.getObject() != null)

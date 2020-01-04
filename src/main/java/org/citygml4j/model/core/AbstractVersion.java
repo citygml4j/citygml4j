@@ -21,6 +21,6 @@ public abstract class AbstractVersion extends AbstractFeatureWithLifespan {
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
     }
 }

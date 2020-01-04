@@ -23,7 +23,7 @@ public class InteriorWallSurface extends AbstractConstructionSurface {
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {

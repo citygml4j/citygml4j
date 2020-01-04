@@ -76,7 +76,7 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (hasDeprecatedProperties()) {

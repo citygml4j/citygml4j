@@ -75,7 +75,7 @@ public class PointCloud extends AbstractPointCloud {
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (points != null && points.getObject() != null)

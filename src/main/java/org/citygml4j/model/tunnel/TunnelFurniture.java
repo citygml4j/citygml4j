@@ -76,7 +76,7 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (hasDeprecatedProperties()) {

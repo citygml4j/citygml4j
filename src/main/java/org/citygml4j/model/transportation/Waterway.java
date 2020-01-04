@@ -88,7 +88,7 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (sections != null) {

@@ -135,7 +135,7 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (lod0MultiCurve != null && lod0MultiCurve.getObject() != null)

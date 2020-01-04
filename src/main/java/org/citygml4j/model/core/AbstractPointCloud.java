@@ -25,7 +25,7 @@ public abstract class AbstractPointCloud extends AbstractFeature implements City
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractPointCloud<?> property : adeProperties)
                 Envelopes.updateEnvelope(property, envelope, options);

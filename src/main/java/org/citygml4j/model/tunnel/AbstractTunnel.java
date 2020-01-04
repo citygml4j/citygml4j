@@ -124,7 +124,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (tunnelConstructiveElements != null) {

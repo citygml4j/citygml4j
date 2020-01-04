@@ -78,7 +78,7 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         for (int lod = 1; lod < 4; lod++) {

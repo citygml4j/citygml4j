@@ -37,6 +37,6 @@ public abstract class AbstractSurfaceData extends AbstractFeature implements Cit
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
     }
 }

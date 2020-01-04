@@ -21,6 +21,6 @@ public abstract class AbstractVersionTransition extends AbstractFeatureWithLifes
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
     }
 }

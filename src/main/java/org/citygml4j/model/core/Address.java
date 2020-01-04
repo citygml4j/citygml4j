@@ -52,7 +52,7 @@ public class Address extends AbstractFeature implements CityGMLObject, Visitable
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         if (multiPoint != null && multiPoint.getObject() != null)
             envelope.include(multiPoint.getObject().computeEnvelope());
 

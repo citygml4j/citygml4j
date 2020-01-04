@@ -43,6 +43,6 @@ public abstract class AbstractTimeseries extends AbstractFeature implements City
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
     }
 }

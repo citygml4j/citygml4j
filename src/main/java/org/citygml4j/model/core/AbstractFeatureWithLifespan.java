@@ -62,7 +62,7 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature implem
     }
 
     @Override
-    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractFeatureWithLifespan<?> property : adeProperties)
                 Envelopes.updateEnvelope(property, envelope, options);
