@@ -1,9 +1,12 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.util.Envelopes;
+import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -230,6 +233,8 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public MultiCurveProperty getMultiCurve(int lod) {
         switch (lod) {
+            case 0:
+                return getLod0MultiCurve();
             case 2:
                 return getLod2MultiCurve();
             case 3:
@@ -241,6 +246,9 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public boolean setMultiCurve(int lod, MultiCurveProperty property) {
         switch (lod) {
+            case 0:
+                setLod0MultiCurve(property);
+                return true;
             case 2:
                 setLod2MultiCurve(property);
                 return true;
@@ -249,6 +257,44 @@ public abstract class AbstractSpace extends AbstractCityObject {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (boundaries != null) {
+            for (AbstractSpaceBoundaryProperty property : boundaries) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (lod0Point != null && lod0Point.getObject() != null)
+            envelope.include(lod0Point.getObject().computeEnvelope());
+
+        for (int lod = 0; lod < 4; lod++) {
+            MultiCurveProperty curveProperty = getMultiCurve(lod);
+            if (curveProperty != null && curveProperty.getObject() != null)
+                envelope.include(curveProperty.getObject().computeEnvelope());
+        }
+
+        for (int lod = 0; lod < 4; lod++) {
+            MultiSurfaceProperty surfaceProperty = getMultiSurface(lod);
+            if (surfaceProperty != null && surfaceProperty.getObject() != null)
+                envelope.include(surfaceProperty.getObject().computeEnvelope());
+        }
+
+        for (int lod = 0; lod < 4; lod++) {
+            SolidProperty solidProperty = getSolid(lod);
+            if (solidProperty != null && solidProperty.getObject() != null)
+                envelope.include(solidProperty.getObject().computeEnvelope());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractSpace<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
         }
     }
 }

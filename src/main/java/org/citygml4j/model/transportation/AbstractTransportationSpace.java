@@ -6,6 +6,9 @@ import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.deprecated.transportation.DeprecatedPropertiesOfAbstractTransportationSpace;
 import org.citygml4j.model.generics.GenericThematicSurface;
+import org.citygml4j.util.Envelopes;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -107,5 +110,43 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
     public void setADEPropertiesOfAbstractTransportationSpace(List<ADEPropertyOfAbstractTransportationSpace<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (trafficSpaces != null) {
+            for (TrafficSpaceProperty property : trafficSpaces) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (auxiliaryTrafficSpaces != null) {
+            for (AuxiliaryTrafficSpaceProperty property : auxiliaryTrafficSpaces) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractTransportationSpace properties = getDeprecatedProperties();
+
+            if (properties.getLod0Network() != null && properties.getLod0Network().getObject() != null)
+                envelope.include(properties.getLod0Network().getObject().computeEnvelope());
+
+            if (properties.getLod1MultiSurface() != null && properties.getLod1MultiSurface().getObject() != null)
+                envelope.include(properties.getLod1MultiSurface().getObject().computeEnvelope());
+
+            if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
+                envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
+
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractTransportationSpace<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 }

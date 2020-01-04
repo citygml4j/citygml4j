@@ -1,9 +1,12 @@
 package org.citygml4j.model.pointcloud;
 
 import org.citygml4j.model.core.AbstractPointCloud;
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -69,6 +72,19 @@ public class PointCloud extends AbstractPointCloud {
 
     public void setADEPropertiesOfPointCloud(List<ADEPropertyOfPointCloud<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (points != null && points.getObject() != null)
+            envelope.include(points.getObject().computeEnvelope());
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfPointCloud<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

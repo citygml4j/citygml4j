@@ -1,6 +1,9 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.util.Envelopes;
+import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -81,6 +84,19 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (pointCloud != null && pointCloud.getObject() != null)
+            envelope.include(pointCloud.getObject().computeEnvelope(options));
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractPhysicalSpace<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
         }
     }
 }

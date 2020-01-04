@@ -1,8 +1,11 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.time.OffsetDateTime;
@@ -56,5 +59,13 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature implem
 
     public void setADEPropertiesOfAbstractFeatureWithLifespan(List<ADEPropertyOfAbstractFeatureWithLifespan<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractFeatureWithLifespan<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 }

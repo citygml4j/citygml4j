@@ -1,6 +1,9 @@
 package org.citygml4j.model.bridge;
 
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -17,6 +20,16 @@ public class BridgePart extends AbstractBridge {
 
     public void setADEPropertiesOfBridgePart(List<ADEPropertyOfBridgePart<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBridgePart<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

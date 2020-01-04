@@ -1,7 +1,10 @@
 package org.citygml4j.model.relief;
 
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
+import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -55,6 +58,22 @@ public class BreaklineRelief extends AbstractReliefComponent {
 
     public void setADEPropertiesOfBreaklineRelief(List<ADEPropertyOfBreaklineRelief<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (ridgeOrValleyLines != null && ridgeOrValleyLines.getObject() != null)
+            envelope.include(ridgeOrValleyLines.getObject().computeEnvelope());
+
+        if (breaklines != null && breaklines.getObject() != null)
+            envelope.include(breaklines.getObject().computeEnvelope());
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBreaklineRelief<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

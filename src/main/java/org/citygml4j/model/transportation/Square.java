@@ -1,8 +1,11 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -58,6 +61,16 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
 
     public void setADEPropertiesOfSquare(List<ADEPropertyOfSquare<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfSquare<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

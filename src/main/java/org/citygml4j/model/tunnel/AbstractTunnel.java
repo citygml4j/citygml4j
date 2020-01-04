@@ -1,9 +1,13 @@
 package org.citygml4j.model.tunnel;
 
 import org.citygml4j.model.construction.AbstractConstruction;
+import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfAbstractTunnel;
+import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -117,5 +121,50 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
 
     public void setADEPropertiesOfAbstractTunnel(List<ADEPropertyOfAbstractTunnel<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (tunnelConstructiveElements != null) {
+            for (TunnelConstructiveElementMember member : tunnelConstructiveElements) {
+                if (member.getObject() != null)
+                    envelope.include(member.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (tunnelInstallations != null) {
+            for (TunnelInstallationMember member : tunnelInstallations) {
+                if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                    envelope.include(member.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractTunnel properties = getDeprecatedProperties();
+
+            for (TunnelPartProperty property : properties.getConsistsOfTunnelParts()) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+
+            if (properties.getLod1MultiSurface() != null && properties.getLod1MultiSurface().getObject() != null)
+                envelope.include(properties.getLod1MultiSurface().getObject().computeEnvelope());
+
+            if (properties.getLod4MultiCurve() != null && properties.getLod4MultiCurve().getObject() != null)
+                envelope.include(properties.getLod4MultiCurve().getObject().computeEnvelope());
+
+            if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
+                envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
+
+            if (properties.getLod4Solid() != null && properties.getLod4Solid().getObject() != null)
+                envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractTunnel<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 }

@@ -1,8 +1,11 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -82,6 +85,30 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
 
     public void setADEPropertiesOfRailway(List<ADEPropertyOfRailway<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (sections != null) {
+            for (SectionProperty property : sections) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (intersections != null) {
+            for (IntersectionProperty property : intersections) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfRailway<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

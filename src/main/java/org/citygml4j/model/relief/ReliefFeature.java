@@ -1,7 +1,10 @@
 package org.citygml4j.model.relief;
 
 import org.citygml4j.model.core.AbstractSpaceBoundary;
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -48,6 +51,23 @@ public class ReliefFeature extends AbstractSpaceBoundary {
 
     public void setADEPropertiesOfReliefFeature(List<ADEPropertyOfReliefFeature<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (reliefComponents != null) {
+            for (AbstractReliefComponentProperty property : reliefComponents) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
+            }
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfReliefFeature<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

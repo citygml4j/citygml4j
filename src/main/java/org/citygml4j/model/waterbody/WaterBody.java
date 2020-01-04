@@ -6,8 +6,11 @@ import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.waterbody.DeprecatedPropertiesOfWaterBody;
 import org.citygml4j.model.generics.GenericThematicSurface;
+import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -80,6 +83,29 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
 
     public void setADEPropertiesOfWaterBody(List<ADEPropertyOfWaterBody<?>> adeProperties) {
         this.adeProperties = asChild(adeProperties);
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfWaterBody properties = getDeprecatedProperties();
+
+            if (properties.getLod1MultiCurve() != null && properties.getLod1MultiCurve().getObject() != null)
+                envelope.include(properties.getLod1MultiCurve().getObject().computeEnvelope());
+
+            if (properties.getLod1MultiSurface() != null && properties.getLod1MultiSurface().getObject() != null)
+                envelope.include(properties.getLod1MultiSurface().getObject().computeEnvelope());
+
+            if (properties.getLod4Solid() != null && properties.getLod4Solid().getObject() != null)
+                envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfWaterBody<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
+        }
     }
 
     @Override

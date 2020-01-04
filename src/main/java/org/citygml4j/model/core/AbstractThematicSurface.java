@@ -1,8 +1,11 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractThematicSurface;
+import org.citygml4j.util.Envelopes;
+import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -128,6 +131,35 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    @Override
+    public void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (lod0MultiCurve != null && lod0MultiCurve.getObject() != null)
+            envelope.include(lod0MultiCurve.getObject().computeEnvelope());
+
+        for (int lod = 0; lod < 4; lod++) {
+            MultiSurfaceProperty property = getMultiSurface(lod);
+            if (property != null && property.getObject() != null)
+                envelope.include(property.getObject().computeEnvelope());
+        }
+
+        if (pointCloud != null && pointCloud.getObject() != null)
+            envelope.include(pointCloud.getObject().computeEnvelope(options));
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractThematicSurface properties = getDeprecatedProperties();
+
+            if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
+                envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractThematicSurface<?> property : adeProperties)
+                Envelopes.updateEnvelope(property, envelope, options);
         }
     }
 }

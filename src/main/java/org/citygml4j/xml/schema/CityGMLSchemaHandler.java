@@ -38,5 +38,4 @@ public class CityGMLSchemaHandler extends SchemaHandler {
 
         return schemaHandler;
     }
-
 }
