@@ -1,7 +1,6 @@
 package org.citygml4j.model.deprecated.tunnel;
 
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
-import org.citygml4j.model.tunnel.TunnelInstallationProperty;
 import org.citygml4j.model.tunnel.TunnelPartProperty;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
@@ -12,8 +11,8 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class DeprecatedPropertiesOfAbstractTunnel extends DeprecatedPropertiesOfAbstractCityObject {
-    private List<TunnelInstallationProperty> outerTunnelInstallations;
-    private List<TunnelInstallationProperty> interiorTunnelInstallations;
+    private List<Reference> outerTunnelInstallations;
+    private List<Reference> interiorTunnelInstallations;
     private List<Reference> interiorHollowSpaces;
     private List<TunnelPartProperty> consistsOfTunnelParts;
     private MultiSurfaceProperty lod1MultiSurface;
@@ -22,25 +21,25 @@ public class DeprecatedPropertiesOfAbstractTunnel extends DeprecatedPropertiesOf
     private SolidProperty lod4Solid;
     private MultiCurveProperty lod4TerrainIntersectionCurve;
 
-    public List<TunnelInstallationProperty> getOuterTunnelInstallations() {
+    public List<Reference> getOuterTunnelInstallations() {
         if (outerTunnelInstallations == null)
             outerTunnelInstallations = new ChildList<>(this);
 
         return outerTunnelInstallations;
     }
 
-    public void setOuterTunnelInstallations(List<TunnelInstallationProperty> outerTunnelInstallations) {
+    public void setOuterTunnelInstallations(List<Reference> outerTunnelInstallations) {
         this.outerTunnelInstallations = asChild(outerTunnelInstallations);
     }
 
-    public List<TunnelInstallationProperty> getInteriorTunnelInstallations() {
+    public List<Reference> getInteriorTunnelInstallations() {
         if (interiorTunnelInstallations == null)
             interiorTunnelInstallations = new ChildList<>(this);
 
         return interiorTunnelInstallations;
     }
 
-    public void setInteriorTunnelInstallations(List<TunnelInstallationProperty> interiorTunnelInstallations) {
+    public void setInteriorTunnelInstallations(List<Reference> interiorTunnelInstallations) {
         this.interiorTunnelInstallations = asChild(interiorTunnelInstallations);
     }
 

@@ -1,6 +1,5 @@
 package org.citygml4j.model.deprecated.building;
 
-import org.citygml4j.model.building.BuildingInstallationProperty;
 import org.citygml4j.model.building.BuildingPartProperty;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.xmlobjects.gml.model.base.Reference;
@@ -12,8 +11,8 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class DeprecatedPropertiesOfAbstractBuilding extends DeprecatedPropertiesOfAbstractCityObject {
-    private List<BuildingInstallationProperty> outerBuildingInstallations;
-    private List<BuildingInstallationProperty> interiorBuildingInstallations;
+    private List<Reference> outerBuildingInstallations;
+    private List<Reference> interiorBuildingInstallations;
     private List<Reference> interiorRooms;
     private List<BuildingPartProperty> consistsOfBuildingParts;
     private MultiSurfaceProperty lod0RoofEdge;
@@ -23,25 +22,25 @@ public class DeprecatedPropertiesOfAbstractBuilding extends DeprecatedProperties
     private SolidProperty lod4Solid;
     private MultiCurveProperty lod4TerrainIntersectionCurve;
 
-    public List<BuildingInstallationProperty> getOuterBuildingInstallations() {
+    public List<Reference> getOuterBuildingInstallations() {
         if (outerBuildingInstallations == null)
             outerBuildingInstallations = new ChildList<>(this);
 
         return outerBuildingInstallations;
     }
 
-    public void setOuterBuildingInstallations(List<BuildingInstallationProperty> outerBuildingInstallations) {
+    public void setOuterBuildingInstallations(List<Reference> outerBuildingInstallations) {
         this.outerBuildingInstallations = asChild(outerBuildingInstallations);
     }
 
-    public List<BuildingInstallationProperty> getInteriorBuildingInstallations() {
+    public List<Reference> getInteriorBuildingInstallations() {
         if (interiorBuildingInstallations == null)
             interiorBuildingInstallations = new ChildList<>(this);
 
         return interiorBuildingInstallations;
     }
 
-    public void setInteriorBuildingInstallations(List<BuildingInstallationProperty> interiorBuildingInstallations) {
+    public void setInteriorBuildingInstallations(List<Reference> interiorBuildingInstallations) {
         this.interiorBuildingInstallations = asChild(interiorBuildingInstallations);
     }
 

@@ -103,15 +103,23 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     BridgeInstallationProperty outerBridgeInstallation = reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class);
                     if (outerBridgeInstallation.getObject() != null)
                         object.getBridgeInstallations().add(new BridgeInstallationMember(outerBridgeInstallation.getObject()));
-                    else
-                        object.getDeprecatedProperties().getOuterBridgeInstallations().add(outerBridgeInstallation);
+                    else if (outerBridgeInstallation.getGenericElement() != null) {
+                        BridgeInstallationMember member = new BridgeInstallationMember();
+                        member.setGenericElement(outerBridgeInstallation.getGenericElement());
+                        object.getBridgeInstallations().add(member);
+                    } else
+                        object.getDeprecatedProperties().getOuterBridgeInstallations().add(new Reference(outerBridgeInstallation));
                     return;
                 case "interiorBridgeInstallation":
                     BridgeInstallationProperty interiorBridgeInstallation = reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class);
                     if (interiorBridgeInstallation.getObject() != null)
                         object.getBridgeInstallations().add(new BridgeInstallationMember(interiorBridgeInstallation.getObject()));
-                    else
-                        object.getDeprecatedProperties().getInteriorBridgeInstallations().add(interiorBridgeInstallation);
+                    else if (interiorBridgeInstallation.getGenericElement() != null) {
+                        BridgeInstallationMember member = new BridgeInstallationMember();
+                        member.setGenericElement(interiorBridgeInstallation.getGenericElement());
+                        object.getBridgeInstallations().add(member);
+                    } else
+                        object.getDeprecatedProperties().getInteriorBridgeInstallations().add(new Reference(interiorBridgeInstallation));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -225,16 +233,16 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
         }
 
-        for (BridgeInstallationProperty property : object.getDeprecatedProperties().getOuterBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        for (Reference reference : object.getDeprecatedProperties().getOuterBridgeInstallations())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (BridgeInstallationMember member : object.getBridgeInstallations()) {
             if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
         }
 
-        for (BridgeInstallationProperty property : object.getDeprecatedProperties().getInteriorBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        for (Reference reference : object.getDeprecatedProperties().getInteriorBridgeInstallations())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

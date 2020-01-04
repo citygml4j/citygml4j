@@ -45,6 +45,8 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
         TunnelInstallation object = new TunnelInstallation();
         if ("IntTunnelInstallation".equals(name.getLocalPart()))
             object.setRelationToConstruction(RelationToConstruction.INSIDE);
+        else if (CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE.equals(name.getNamespaceURI()))
+            object.setRelationToConstruction(RelationToConstruction.OUTSIDE);
 
         return object;
     }

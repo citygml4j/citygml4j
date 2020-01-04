@@ -1,6 +1,5 @@
 package org.citygml4j.model.deprecated.bridge;
 
-import org.citygml4j.model.bridge.BridgeInstallationProperty;
 import org.citygml4j.model.bridge.BridgePartProperty;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.xmlobjects.gml.model.base.Reference;
@@ -13,8 +12,8 @@ import java.util.List;
 
 public class DeprecatedPropertiesOfAbstractBridge extends DeprecatedPropertiesOfAbstractCityObject {
     private List<Reference> outerBridgeConstructions;
-    private List<BridgeInstallationProperty> outerBridgeInstallations;
-    private List<BridgeInstallationProperty> interiorBridgeInstallations;
+    private List<Reference> outerBridgeInstallations;
+    private List<Reference> interiorBridgeInstallations;
     private List<Reference> interiorBridgeRooms;
     private List<BridgePartProperty> consistsOfBridgeParts;
     private MultiSurfaceProperty lod1MultiSurface;
@@ -34,25 +33,25 @@ public class DeprecatedPropertiesOfAbstractBridge extends DeprecatedPropertiesOf
         this.outerBridgeConstructions = asChild(outerBridgeConstructions);
     }
 
-    public List<BridgeInstallationProperty> getOuterBridgeInstallations() {
+    public List<Reference> getOuterBridgeInstallations() {
         if (outerBridgeInstallations == null)
             outerBridgeInstallations = new ChildList<>(this);
 
         return outerBridgeInstallations;
     }
 
-    public void setOuterBridgeInstallations(List<BridgeInstallationProperty> outerBridgeInstallations) {
+    public void setOuterBridgeInstallations(List<Reference> outerBridgeInstallations) {
         this.outerBridgeInstallations = asChild(outerBridgeInstallations);
     }
 
-    public List<BridgeInstallationProperty> getInteriorBridgeInstallations() {
+    public List<Reference> getInteriorBridgeInstallations() {
         if (interiorBridgeInstallations == null)
             interiorBridgeInstallations = new ChildList<>(this);
 
         return interiorBridgeInstallations;
     }
 
-    public void setInteriorBridgeInstallations(List<BridgeInstallationProperty> interiorBridgeInstallations) {
+    public void setInteriorBridgeInstallations(List<Reference> interiorBridgeInstallations) {
         this.interiorBridgeInstallations = asChild(interiorBridgeInstallations);
     }
 

@@ -83,15 +83,23 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     TunnelInstallationProperty outerTunnelInstallation = reader.getObjectUsingBuilder(TunnelInstallationPropertyAdapter.class);
                     if (outerTunnelInstallation.getObject() != null)
                         object.getTunnelInstallations().add(new TunnelInstallationMember(outerTunnelInstallation.getObject()));
-                    else
-                        object.getDeprecatedProperties().getOuterTunnelInstallations().add(outerTunnelInstallation);
+                    else if (outerTunnelInstallation.getGenericElement() != null) {
+                        TunnelInstallationMember member = new TunnelInstallationMember();
+                        member.setGenericElement(outerTunnelInstallation.getGenericElement());
+                        object.getTunnelInstallations().add(member);
+                    } else
+                        object.getDeprecatedProperties().getOuterTunnelInstallations().add(new Reference(outerTunnelInstallation));
                     return;
                 case "interiorTunnelInstallation":
                     TunnelInstallationProperty interiorTunnelInstallation = reader.getObjectUsingBuilder(TunnelInstallationPropertyAdapter.class);
                     if (interiorTunnelInstallation.getObject() != null)
                         object.getTunnelInstallations().add(new TunnelInstallationMember(interiorTunnelInstallation.getObject()));
-                    else
-                        object.getDeprecatedProperties().getInteriorTunnelInstallations().add(interiorTunnelInstallation);
+                    else if (interiorTunnelInstallation.getGenericElement() != null) {
+                        TunnelInstallationMember member = new TunnelInstallationMember();
+                        member.setGenericElement(interiorTunnelInstallation.getGenericElement());
+                        object.getTunnelInstallations().add(member);
+                    } else
+                        object.getDeprecatedProperties().getInteriorTunnelInstallations().add(new Reference(interiorTunnelInstallation));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -193,16 +201,16 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
         }
 
-        for (TunnelInstallationProperty property : object.getDeprecatedProperties().getOuterTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        for (Reference reference : object.getDeprecatedProperties().getOuterTunnelInstallations())
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (TunnelInstallationMember member : object.getTunnelInstallations()) {
             if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
         }
 
-        for (TunnelInstallationProperty property : object.getDeprecatedProperties().getInteriorTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        for (Reference reference : object.getDeprecatedProperties().getInteriorTunnelInstallations())
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

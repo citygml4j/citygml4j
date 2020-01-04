@@ -310,12 +310,6 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (bridge.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBridge deprecatedProperties = bridge.getDeprecatedProperties();
 
-            for (BridgeInstallationProperty property : new ArrayList<>(deprecatedProperties.getOuterBridgeInstallations()))
-                visit(property);
-
-            for (BridgeInstallationProperty property : new ArrayList<>(deprecatedProperties.getInteriorBridgeInstallations()))
-                visit(property);
-
             for (BridgePartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBridgeParts()))
                 visit(property);
 
@@ -353,12 +347,6 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
 
         if (building.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBuilding deprecatedProperties = building.getDeprecatedProperties();
-
-            for (BuildingInstallationProperty property : new ArrayList<>(deprecatedProperties.getOuterBuildingInstallations()))
-                visit(property);
-
-            for (BuildingInstallationProperty property : new ArrayList<>(deprecatedProperties.getInteriorBuildingInstallations()))
-                visit(property);
 
             for (BuildingPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBuildingParts()))
                 visit(property);
@@ -661,12 +649,6 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
 
         if (tunnel.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTunnel deprecatedProperties = tunnel.getDeprecatedProperties();
-
-            for (TunnelInstallationProperty property : new ArrayList<>(deprecatedProperties.getOuterTunnelInstallations()))
-                visit(property);
-
-            for (TunnelInstallationProperty property : new ArrayList<>(deprecatedProperties.getInteriorTunnelInstallations()))
-                visit(property);
 
             for (TunnelPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfTunnelParts()))
                 visit(property);

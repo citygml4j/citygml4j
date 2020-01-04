@@ -49,6 +49,8 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
         BuildingInstallation object = new BuildingInstallation();
         if ("IntBuildingInstallation".equals(name.getLocalPart()))
             object.setRelationToConstruction(RelationToConstruction.INSIDE);
+        else if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI()))
+            object.setRelationToConstruction(RelationToConstruction.OUTSIDE);
 
         return object;
     }

@@ -123,15 +123,23 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     BuildingInstallationProperty outerBuildingInstallation = reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class);
                     if (outerBuildingInstallation.getObject() != null)
                         object.getBuildingInstallations().add(new BuildingInstallationMember(outerBuildingInstallation.getObject()));
-                    else
-                        object.getDeprecatedProperties().getOuterBuildingInstallations().add(outerBuildingInstallation);
+                    else if (outerBuildingInstallation.getGenericElement() != null) {
+                        BuildingInstallationMember member = new BuildingInstallationMember();
+                        member.setGenericElement(outerBuildingInstallation.getGenericElement());
+                        object.getBuildingInstallations().add(member);
+                    } else
+                        object.getDeprecatedProperties().getOuterBuildingInstallations().add(new Reference(outerBuildingInstallation));
                     return;
                 case "interiorBuildingInstallation":
                     BuildingInstallationProperty interiorBuildingInstallation = reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class);
                     if (interiorBuildingInstallation.getObject() != null)
                         object.getBuildingInstallations().add(new BuildingInstallationMember(interiorBuildingInstallation.getObject()));
-                    else
-                        object.getDeprecatedProperties().getInteriorBuildingInstallations().add(interiorBuildingInstallation);
+                    else if (interiorBuildingInstallation.getGenericElement() != null) {
+                        BuildingInstallationMember member = new BuildingInstallationMember();
+                        member.setGenericElement(interiorBuildingInstallation.getGenericElement());
+                        object.getBuildingInstallations().add(member);
+                    } else
+                        object.getDeprecatedProperties().getInteriorBuildingInstallations().add(new Reference(interiorBuildingInstallation));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -263,16 +271,16 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
         }
 
-        for (BuildingInstallationProperty property : object.getDeprecatedProperties().getOuterBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        for (Reference reference : object.getDeprecatedProperties().getOuterBuildingInstallations())
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (BuildingInstallationMember member : object.getBuildingInstallations()) {
             if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
         }
 
-        for (BuildingInstallationProperty property : object.getDeprecatedProperties().getInteriorBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        for (Reference reference : object.getDeprecatedProperties().getInteriorBuildingInstallations())
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

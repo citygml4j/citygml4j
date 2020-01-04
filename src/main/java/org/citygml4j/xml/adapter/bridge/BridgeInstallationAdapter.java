@@ -44,6 +44,8 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
         BridgeInstallation object = new BridgeInstallation();
         if ("IntBridgeInstallation".equals(name.getLocalPart()))
             object.setRelationToConstruction(RelationToConstruction.INSIDE);
+        else if (CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE.equals(name.getNamespaceURI()))
+            object.setRelationToConstruction(RelationToConstruction.OUTSIDE);
 
         return object;
     }
