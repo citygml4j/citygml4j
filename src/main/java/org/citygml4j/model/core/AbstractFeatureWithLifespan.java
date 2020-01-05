@@ -1,6 +1,7 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.feature.AbstractFeature;
@@ -63,6 +64,9 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature implem
 
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        if (this instanceof ADEObject)
+            Envelopes.updateEnvelope((ADEObject) this, envelope, options);
+
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractFeatureWithLifespan<?> property : adeProperties)
                 Envelopes.updateEnvelope(property, envelope, options);
