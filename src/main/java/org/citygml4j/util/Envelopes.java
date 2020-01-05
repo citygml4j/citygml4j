@@ -25,7 +25,7 @@ public class Envelopes {
             try {
                 method = object.getClass().getDeclaredMethod("updateEnvelope", Envelope.class, EnvelopeOptions.class);
             } catch (NoSuchMethodException e) {
-                // ignore
+                //
             }
 
             if (method == null) {
