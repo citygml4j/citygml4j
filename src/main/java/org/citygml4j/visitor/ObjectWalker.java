@@ -1714,7 +1714,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             return;
 
         if (adeObject instanceof AbstractFeature)
-            visit((AbstractFeature) adeObject);
+            adeObject.accept(this);
         else if (adeObject instanceof AbstractGML)
             visit((AbstractGML) adeObject);
         else if (adeObject instanceof ADEProperty<?>) {
