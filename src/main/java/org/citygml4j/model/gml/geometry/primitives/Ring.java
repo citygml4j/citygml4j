@@ -28,10 +28,7 @@ import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Ring extends AbstractRing {
 	private List<CurveProperty> curveMember;
@@ -73,14 +70,29 @@ public class Ring extends AbstractRing {
 
 	@Override
 	public List<Double> toList3d() {
-		if (isSetCurveMember())
-			return curveMember.stream()
-					.map(CurveProperty::getCurve)
-					.filter(Objects::nonNull)
-					.map(AbstractCurve::toList3d)
-					.flatMap(Collection::stream)
-					.collect(Collectors.toList());
-		else
+		if (isSetCurveMember()) {
+			List<Double> coordinates = new ArrayList<>();
+			for (CurveProperty property : curveMember) {
+				if (property.isSetCurve()) {
+					List<Double> candidates = property.getCurve().toList3d();
+					if (!candidates.isEmpty()) {
+						int size = coordinates.size();
+						if (size == 0)
+							coordinates.addAll(candidates);
+						else {
+							if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
+									&& candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
+									&& candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
+								coordinates.addAll(candidates.subList(3, candidates.size()));
+							else
+								coordinates.addAll(candidates);
+						}
+					}
+				}
+			}
+
+			return coordinates;
+		} else
 			return new ArrayList<>();
 	}
 
