@@ -27,6 +27,8 @@ import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.base.CoordinateListProvider;
 
+import java.util.List;
+
 public abstract class AbstractCurveSegment implements GML, Associable, Child, Copyable, CoordinateListProvider {
 	private Integer numDerivativesAtStart;
 	private Integer numDerivativesAtEnd;
@@ -125,6 +127,13 @@ public abstract class AbstractCurveSegment implements GML, Associable, Child, Co
 	public void unsetParent() {
 		parent = null;
 	}
-	
-	public abstract BoundingBox calcBoundingBox();
+
+	public BoundingBox calcBoundingBox() {
+		BoundingBox bbox = new BoundingBox();
+		List<Double> coordinates = toList3d();
+		for (int i = 0; i < coordinates.size(); i += 3)
+			bbox.update(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
+
+		return bbox;
+	}
 }

@@ -89,7 +89,7 @@ public class CompositeCurve extends AbstractCurve {
 		if (isSetCurveMember()) {
 			List<Double> coordinates = new ArrayList<>();
 			for (CurveProperty property : curveMember) {
-				if (property.isSetCurve()) {
+				if (property != null && property.isSetCurve()) {
 					List<Double> candidates = property.getCurve().toList3d();
 					if (!candidates.isEmpty()) {
 						int size = coordinates.size();

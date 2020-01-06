@@ -61,18 +61,20 @@ public class Curve extends AbstractCurve {
 		if (segments != null) {
 			List<Double> coordinates = new ArrayList<>();
 			for (AbstractCurveSegment segment : segments.getCurveSegment()) {
-				List<Double> candidates = segment.toList3d();
-				if (!candidates.isEmpty()) {
-					int size = coordinates.size();
-					if (size == 0)
-						coordinates.addAll(candidates);
-					else {
-						if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
-								&& candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
-								&& candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
-							coordinates.addAll(candidates.subList(3, candidates.size()));
-						else
+				if (segment != null) {
+					List<Double> candidates = segment.toList3d();
+					if (!candidates.isEmpty()) {
+						int size = coordinates.size();
+						if (size == 0)
 							coordinates.addAll(candidates);
+						else {
+							if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
+									&& candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
+									&& candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
+								coordinates.addAll(candidates.subList(3, candidates.size()));
+							else
+								coordinates.addAll(candidates);
+						}
 					}
 				}
 			}

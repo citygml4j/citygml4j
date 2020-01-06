@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.gml.GMLClass;
@@ -37,16 +36,6 @@ public class LineStringSegment extends AbstractCurveSegment {
 
 	public GMLClass getGMLClass() {
 		return GMLClass.LINE_STRING_SEGMENT;
-	}
-
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		List<Double> points = toList3d();
-
-		for (int i = 0; i < points.size(); i += 3)
-			bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
-
-		return bbox;
 	}
 
 	public void addPointProperty(PointProperty pointProperty) {
