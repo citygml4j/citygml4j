@@ -77,6 +77,7 @@ import org.citygml4j.model.gml.geometry.primitives.Point;
 import org.citygml4j.model.gml.geometry.primitives.PointArrayProperty;
 import org.citygml4j.model.gml.geometry.primitives.PointProperty;
 import org.citygml4j.model.gml.geometry.primitives.Polygon;
+import org.citygml4j.model.gml.geometry.primitives.PolygonPatch;
 import org.citygml4j.model.gml.geometry.primitives.Sign;
 import org.citygml4j.model.gml.geometry.primitives.Solid;
 import org.citygml4j.model.gml.geometry.primitives.Surface;
@@ -524,6 +525,14 @@ public class GMLMarshaller {
 
 				addSurface(surface, semanticsIndex, materials, textures);
 			}
+		}
+
+		@Override
+		public void visit(PolygonPatch polygonPatch) {
+			Polygon polygon = new Polygon();
+			polygon.setExterior(polygonPatch.getExterior());
+			polygon.setInterior(polygonPatch.getInterior());
+			visit(polygon);
 		}
 
 		@Override
