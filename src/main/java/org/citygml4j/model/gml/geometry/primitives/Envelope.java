@@ -198,6 +198,7 @@ public class Envelope implements SRSReferenceGroup, Child, Copyable {
 		return srsName;
 	}
 
+	@Override
 	public String getInheritedSrsName() {
 		if (srsName == null) {
 			Child child = this;

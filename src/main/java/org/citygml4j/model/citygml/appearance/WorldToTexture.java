@@ -22,11 +22,7 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.TransformationMatrix3x4;
-import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.GMLClass;
-import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
 
 import java.util.ArrayList;
@@ -63,32 +59,6 @@ public class WorldToTexture extends TransformationMatrix3x4 implements Appearanc
 		return srsName;
 	}
 
-	public String getInheritedSrsName() {
-		if (srsName == null) {
-			Child child = this;
-			ModelObject parent;
-
-			while ((parent = child.getParent()) != null) {
-				if (parent instanceof AbstractGeometry)
-					return ((AbstractGeometry)parent).getInheritedSrsName();
-				else if (parent instanceof AbstractFeature) {
-					AbstractFeature feature = (AbstractFeature)parent;
-					if (feature.isSetBoundedBy() 
-							&& feature.getBoundedBy().isSetEnvelope()
-							&& feature.getBoundedBy().getEnvelope().isSetSrsName())
-						return feature.getBoundedBy().getEnvelope().getSrsName();
-				}
-
-				if (parent instanceof Child)
-					child = (Child)parent;
-				else 
-					break;
-			}
-		} 
-
-		return srsName;
-	}
-	
 	public boolean isSetSrsDimension() {
 		return srsDimension != null;
 	}

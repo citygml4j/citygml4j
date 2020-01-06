@@ -25,8 +25,6 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.CoordinateListProvider;
-import org.citygml4j.model.gml.feature.AbstractFeature;
-import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
 
 import java.util.ArrayList;
@@ -83,32 +81,6 @@ public class Vector implements SRSReferenceGroup, Child, Copyable, CoordinateLis
 	}
 
 	public String getSrsName() {
-		return srsName;
-	}
-	
-	public String getInheritedSrsName() {
-		if (srsName == null) {
-			Child child = this;
-			ModelObject parent;
-
-			while ((parent = child.getParent()) != null) {
-				if (parent instanceof AbstractGeometry)
-					return ((AbstractGeometry)parent).getInheritedSrsName();
-				else if (parent instanceof AbstractFeature) {
-					AbstractFeature feature = (AbstractFeature)parent;
-					if (feature.isSetBoundedBy() 
-							&& feature.getBoundedBy().isSetEnvelope()
-							&& feature.getBoundedBy().getEnvelope().isSetSrsName())
-						return feature.getBoundedBy().getEnvelope().getSrsName();
-				}
-
-				if (parent instanceof Child)
-					child = (Child)parent;
-				else 
-					break;
-			}
-		} 
-
 		return srsName;
 	}
 

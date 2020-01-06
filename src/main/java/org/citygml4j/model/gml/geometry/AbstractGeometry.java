@@ -20,12 +20,9 @@ package org.citygml4j.model.gml.geometry;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.geometry.BoundingBox;
-import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.base.AbstractGML;
-import org.citygml4j.model.gml.feature.AbstractFeature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,32 +55,6 @@ public abstract class AbstractGeometry extends AbstractGML implements SRSReferen
 	}
 
 	public String getSrsName() {
-		return srsName;
-	}
-
-	public String getInheritedSrsName() {
-		if (srsName == null) {
-			Child child = this;
-			ModelObject parent;
-
-			while ((parent = child.getParent()) != null) {
-				if (parent instanceof AbstractGeometry)
-					return ((AbstractGeometry)parent).getInheritedSrsName();
-				else if (parent instanceof AbstractFeature) {
-					AbstractFeature feature = (AbstractFeature)parent;
-					if (feature.isSetBoundedBy() 
-							&& feature.getBoundedBy().isSetEnvelope()
-							&& feature.getBoundedBy().getEnvelope().isSetSrsName())
-						return feature.getBoundedBy().getEnvelope().getSrsName();
-				}
-
-				if (parent instanceof Child)
-					child = (Child)parent;
-				else 
-					break;
-			}
-		} 
-
 		return srsName;
 	}
 

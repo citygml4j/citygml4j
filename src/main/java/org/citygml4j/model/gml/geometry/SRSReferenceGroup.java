@@ -18,9 +18,12 @@
  */
 package org.citygml4j.model.gml.geometry;
 
+import org.citygml4j.model.common.base.ModelObject;
+import org.citygml4j.model.common.child.Child;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+
 public interface SRSReferenceGroup extends SRSInformationGroup {
 	String getSrsName();
-	String getInheritedSrsName();
 	Integer getSrsDimension();
 	boolean isSetSrsName();
 	boolean isSetSrsDimension();
@@ -29,4 +32,30 @@ public interface SRSReferenceGroup extends SRSInformationGroup {
 	void setSrsDimension(Integer srsDimension);
 	void unsetSrsName();
 	void unsetSrsDimension();
+
+	default String getInheritedSrsName() {
+		if (getSrsName() == null && this instanceof Child) {
+			Child child = (Child) this;
+			ModelObject parent;
+
+			while ((parent = child.getParent()) != null) {
+				if (parent instanceof AbstractGeometry)
+					return ((AbstractGeometry)parent).getInheritedSrsName();
+				else if (parent instanceof AbstractFeature) {
+					AbstractFeature feature = (AbstractFeature)parent;
+					if (feature.isSetBoundedBy()
+							&& feature.getBoundedBy().isSetEnvelope()
+							&& feature.getBoundedBy().getEnvelope().isSetSrsName())
+						return feature.getBoundedBy().getEnvelope().getSrsName();
+				}
+
+				if (parent instanceof Child)
+					child = (Child) parent;
+				else
+					break;
+			}
+		}
+
+		return getSrsName();
+	}
 }
