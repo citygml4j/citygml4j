@@ -25,8 +25,9 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
+import org.citygml4j.model.gml.base.CoordinateListProvider;
 
-public abstract class AbstractCurveSegment implements GML, Associable, Child, Copyable {
+public abstract class AbstractCurveSegment implements GML, Associable, Child, Copyable, CoordinateListProvider {
 	private Integer numDerivativesAtStart;
 	private Integer numDerivativesAtEnd;
 	private Integer numDerivativeInterior;	

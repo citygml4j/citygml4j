@@ -24,11 +24,12 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.base.CoordinateListProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coordinates implements GML, Child, Copyable {
+public class Coordinates implements GML, Child, Copyable, CoordinateListProvider {
 	private String value;
 	private String decimal;
 	private String cs;
@@ -96,6 +97,7 @@ public class Coordinates implements GML, Child, Copyable {
 		this.value = value;
 	}
 
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<>();
 		boolean isValid = false;
@@ -142,21 +144,6 @@ public class Coordinates implements GML, Child, Copyable {
 
 		if (!isValid || tmp.size() == 0)
 			tmp.clear();
-
-		return tmp;
-	}
-
-	public List<Double> toList3d(boolean reverseOrder) {
-		List<Double> tmp = toList3d();
-
-		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<>();
-
-			for (int i = tmp.size() - 3; i >= 0; i -=3)
-				reversed.addAll(tmp.subList(i, i + 3));
-
-			tmp = reversed;
-		}
 
 		return tmp;
 	}

@@ -24,6 +24,7 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.base.CoordinateListProvider;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
@@ -31,7 +32,7 @@ import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vector implements SRSReferenceGroup, Child, Copyable {
+public class Vector implements SRSReferenceGroup, Child, Copyable, CoordinateListProvider {
 	private List<Double> value;
 	private Integer srsDimension;
 	private String srsName;
@@ -210,6 +211,7 @@ public class Vector implements SRSReferenceGroup, Child, Copyable {
 		return (isSetValue()) ? new Matrix(value, value.size()) : null;
 	}
 
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<Double>();
 

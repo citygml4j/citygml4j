@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.complexes;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -30,8 +29,12 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CompositeCurve extends AbstractCurve {
 	private List<CurveProperty> curveMember;
@@ -76,24 +79,25 @@ public class CompositeCurve extends AbstractCurve {
 		return isSetCurveMember() && this.curveMember.remove(curveMember);
 	}
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetCurveMember()) {
-			for (CurveProperty curvePropery : getCurveMember())
-				if (curvePropery.isSetCurve())
-					bbox.update(curvePropery.getCurve().calcBoundingBox());
-		}
-		
-		return bbox;
-	}
-
 	public GMLClass getGMLClass() {
 		return GMLClass.COMPOSITE_CURVE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new CompositeCurve(), copyBuilder);
+	}
+
+	@Override
+	public List<Double> toList3d() {
+		if (isSetCurveMember())
+			return curveMember.stream()
+					.map(CurveProperty::getCurve)
+					.filter(Objects::nonNull)
+					.map(AbstractCurve::toList3d)
+					.flatMap(Collection::stream)
+					.collect(Collectors.toList());
+		else
+			return new ArrayList<>();
 	}
 
 	@Override

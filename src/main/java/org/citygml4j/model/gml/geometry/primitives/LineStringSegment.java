@@ -116,6 +116,7 @@ public class LineStringSegment extends AbstractCurveSegment {
 		this.controlPoints = new ChildList<>(this, controlPoints);
 	}
 
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<>();
 
@@ -130,21 +131,6 @@ public class LineStringSegment extends AbstractCurveSegment {
 			tmp.addAll(coordinates.toList3d());
 
 		return tmp;
-	}
-
-	public List<Double> toList3d(boolean reverseOrder) {
-		List<Double> points = toList3d();
-
-		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<>();
-
-			for (int i = points.size() - 3; i >= 0; i -=3)
-				reversed.addAll(points.subList(i, i + 3));
-
-			points = reversed;
-		}
-
-		return points;
 	}
 
 	public void unsetCoordinates() {

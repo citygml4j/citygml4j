@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -41,16 +40,6 @@ public class LinearRing extends AbstractRing {
 
 	public GMLClass getGMLClass() {
 		return GMLClass.LINEAR_RING;
-	}
-
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		List<Double> points = toList3d();
-
-		for (int i = 0; i < points.size(); i += 3)
-			bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
-
-		return bbox;
 	}
 
 	public void addCoord(Coord coord) {
@@ -127,6 +116,7 @@ public class LinearRing extends AbstractRing {
 		this.controlPoints = new ChildList<>(this, controlPoints);
 	}
 
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<>();
 
@@ -145,21 +135,6 @@ public class LinearRing extends AbstractRing {
 			tmp.addAll(coordinates.toList3d());
 
 		return tmp;
-	}
-
-	public List<Double> toList3d(boolean reverseOrder) {
-		List<Double> points = toList3d();
-
-		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<>();
-
-			for (int i = points.size() - 3; i >= 0; i -=3)
-				reversed.addAll(points.subList(i, i + 3));
-
-			points = reversed;
-		}
-
-		return points;
 	}
 
 	public void unsetCoord() {

@@ -19,13 +19,18 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Curve extends AbstractCurve {
 	private CurveSegmentArrayProperty segments;
@@ -46,26 +51,24 @@ public class Curve extends AbstractCurve {
 		segments = ModelObjects.setNull(segments);
 	}
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetSegments()) {
-			CurveSegmentArrayProperty arrayProperty = getSegments();
-			
-			if (arrayProperty.isSetCurveSegment())
-				for (AbstractCurveSegment curveSegment : arrayProperty.getCurveSegment())
-					bbox.update(curveSegment.calcBoundingBox());
-		}
-		
-		return bbox;
-	}
-
 	public GMLClass getGMLClass() {
 		return GMLClass.CURVE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new Curve(), copyBuilder);
+	}
+
+	@Override
+	public List<Double> toList3d() {
+		if (segments != null)
+			return segments.getCurveSegment().stream()
+					.filter(Objects::nonNull)
+					.map(AbstractCurveSegment::toList3d)
+					.flatMap(Collection::stream)
+					.collect(Collectors.toList());
+		else
+			return new ArrayList<>();
 	}
 
 	@Override

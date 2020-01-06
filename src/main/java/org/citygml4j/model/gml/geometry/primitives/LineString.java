@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -37,16 +36,6 @@ public class LineString extends AbstractCurve {
 	private List<PosOrPointPropertyOrPointRepOrCoord> controlPoints;
 	private DirectPositionList posList;
 	private Coordinates coordinates;
-
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		List<Double> points = toList3d();
-
-		for (int i = 0; i < points.size(); i += 3)
-			bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
-
-		return bbox;
-	}
 
 	public GMLClass getGMLClass() {
 		return GMLClass.LINE_STRING;
@@ -125,21 +114,6 @@ public class LineString extends AbstractCurve {
 			tmp.addAll(coordinates.toList3d());
 
 		return tmp;
-	}
-
-	public List<Double> toList3d(boolean reverseOrder) {
-		List<Double> points = toList3d();
-
-		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<>();
-
-			for (int i = points.size() - 3; i >= 0; i -=3)
-				reversed.addAll(points.subList(i, i + 3));
-
-			points = reversed;
-		}
-
-		return points;
 	}
 
 	public void unsetCoordinates() {

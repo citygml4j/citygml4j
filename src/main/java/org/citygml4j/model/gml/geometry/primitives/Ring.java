@@ -19,7 +19,6 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.GMLFunctor;
@@ -28,7 +27,11 @@ import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Ring extends AbstractRing {
 	private List<CurveProperty> curveMember;
@@ -58,18 +61,6 @@ public class Ring extends AbstractRing {
 
 	public boolean unsetCurveMember(CurveProperty curveMember) {
 		return isSetCurveMember() && this.curveMember.remove(curveMember);
-	}	
-
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-
-		if (isSetCurveMember()) {
-			for (CurveProperty curvePropery : getCurveMember())
-				if (curvePropery.isSetCurve())
-					bbox.update(curvePropery.getCurve().calcBoundingBox());
-		}
-
-		return bbox;
 	}
 
 	public GMLClass getGMLClass() {
@@ -78,6 +69,19 @@ public class Ring extends AbstractRing {
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new Ring(), copyBuilder);
+	}
+
+	@Override
+	public List<Double> toList3d() {
+		if (isSetCurveMember())
+			return curveMember.stream()
+					.map(CurveProperty::getCurve)
+					.filter(Objects::nonNull)
+					.map(AbstractCurve::toList3d)
+					.flatMap(Collection::stream)
+					.collect(Collectors.toList());
+		else
+			return new ArrayList<>();
 	}
 
 	@Override

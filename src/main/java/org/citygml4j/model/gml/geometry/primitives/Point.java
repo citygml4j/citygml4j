@@ -26,12 +26,13 @@ import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.base.CoordinateListProvider;
 import org.citygml4j.model.gml.basicTypes.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Point extends AbstractGeometricPrimitive {
+public class Point extends AbstractGeometricPrimitive implements CoordinateListProvider {
 	private DirectPosition pos;
 	private Coordinates coordinates;
 	private Coord coord;
@@ -86,6 +87,7 @@ public class Point extends AbstractGeometricPrimitive {
 		this.pos = ModelObjects.setParent(pos, this);
 	}
 
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<>();
 

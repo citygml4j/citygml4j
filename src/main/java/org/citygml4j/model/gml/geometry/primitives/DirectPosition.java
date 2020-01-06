@@ -23,6 +23,7 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.base.CoordinateListProvider;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
@@ -30,7 +31,7 @@ import org.citygml4j.model.gml.geometry.SRSReferenceGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DirectPosition implements SRSReferenceGroup, Child, Copyable {
+public class DirectPosition implements SRSReferenceGroup, Child, Copyable, CoordinateListProvider {
 	private List<Double> value;
 	private Integer srsDimension;
 	private String srsName;
@@ -60,7 +61,8 @@ public class DirectPosition implements SRSReferenceGroup, Child, Copyable {
 	public void setValue(List<Double> value) {
 		this.value = value;
 	}
-	
+
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<>();
 
@@ -70,21 +72,6 @@ public class DirectPosition implements SRSReferenceGroup, Child, Copyable {
 				tmp.add(0.0);
 
 			tmp = tmp.subList(0, 3);
-		}
-
-		return tmp;
-	}
-
-	public List<Double> toList3d(boolean reverseOrder) {
-		List<Double> tmp = toList3d();
-
-		if (reverseOrder) {
-			List<Double> reversed = new ArrayList<>();
-
-			for (int i = tmp.size() - 3; i >= 0; i -=3)
-				reversed.addAll(tmp.subList(i, i + 3));
-
-			tmp = reversed;
 		}
 
 		return tmp;

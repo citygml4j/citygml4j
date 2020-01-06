@@ -25,11 +25,12 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
+import org.citygml4j.model.gml.base.CoordinateListProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeometricPositionGroup implements GML, Child, Copyable {
+public class GeometricPositionGroup implements GML, Child, Copyable, CoordinateListProvider {
 	private DirectPosition pos;
 	private PointProperty pointProperty;
 	private ModelObject parent;
@@ -96,6 +97,7 @@ public class GeometricPositionGroup implements GML, Child, Copyable {
 		return parent != null;
 	}
 
+	@Override
 	public List<Double> toList3d() {
 		List<Double> tmp = new ArrayList<>();
 

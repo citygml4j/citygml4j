@@ -19,13 +19,15 @@
 package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 import org.citygml4j.model.common.visitor.GeometryFunctor;
 import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrientableCurve extends AbstractCurve {
 	private CurveProperty baseCurve;
@@ -77,21 +79,19 @@ public class OrientableCurve extends AbstractCurve {
 		orientation = null;
 	}
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-
-		if (isSetBaseCurve() && baseCurve.isSetCurve())
-			bbox.update(baseCurve.getCurve().calcBoundingBox());
-		
-		return bbox;
-	}
-
 	public GMLClass getGMLClass() {
 		return GMLClass.ORIENTABLE_CURVE;
 	}
 
 	public Object copy(CopyBuilder copyBuilder) {
 		return copyTo(new OrientableCurve(), copyBuilder);
+	}
+
+	@Override
+	public List<Double> toList3d() {
+		return isSetBaseCurve() && baseCurve.isSetCurve() ?
+				baseCurve.getCurve().toList3d(getOrientation() == Sign.MINUS) :
+				new ArrayList<>();
 	}
 
 	@Override
