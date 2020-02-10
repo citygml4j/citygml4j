@@ -80,29 +80,20 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         return this;
     }
 
-    public void writeCityObjectMember(AbstractCityObject cityObject) throws CityGMLWriteException {
-        writeMember(cityObject, CoreModule.of(version).getNamespaceURI(), "cityObjectMember");
-    }
-
-    public void writeAppearanceMember(AbstractAppearance appearance) throws CityGMLWriteException {
-        writeMember(appearance, AppearanceModule.of(version).getNamespaceURI(), "appearanceMember");
-    }
-
-    public void writeFeatureMember(AbstractFeature feature) throws CityGMLWriteException {
-        if (version == CityGMLVersion.v3_0)
-            writeMember(feature, CoreModule.of(version).getNamespaceURI(), "featureMember");
-        else
+    public void writeMember(AbstractFeature feature) throws CityGMLWriteException {
+        if (feature instanceof AbstractCityObject)
+            writeMember(feature, CoreModule.of(version).getNamespaceURI(), "cityObjectMember");
+        else if (feature instanceof AbstractAppearance)
+            writeMember(feature, AppearanceModule.of(version).getNamespaceURI(), "appearanceMember");
+        else if (version == CityGMLVersion.v3_0) {
+            if (feature instanceof AbstractVersion)
+                writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "versionMember");
+            else if (feature instanceof AbstractVersionTransition)
+                writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
+            else
+                writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "featureMember");
+        } else
             writeMember(feature, GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
-    }
-
-    public void writeVersionMember(AbstractVersion versionObject) throws CityGMLWriteException {
-        if (version == CityGMLVersion.v3_0)
-            writeMember(versionObject, CoreModule.of(version).getNamespaceURI(), "versionMember");
-    }
-
-    public void writeVersionTransitionMember(AbstractVersionTransition versionTransition) throws CityGMLWriteException {
-        if (version == CityGMLVersion.v3_0)
-            writeMember(versionTransition, CoreModule.of(version).getNamespaceURI(), "versionTransitionMember");
     }
 
     private void writeMember(AbstractFeature feature, String namespaceURI, String propertyName) throws CityGMLWriteException {
