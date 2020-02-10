@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTransportationSpace" type="anyType"/>
   <element abstract="true" name="AbstractTransportationSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:AbstractTransportationSpaceType">
     <annotation>
-      <documentation>SIG3D: Aggregation of TrafficSpaces and AuxiliaryTrafficSpaces, e.g the different lanes of a multi-lane road.</documentation>
+      <documentation>AbstractTransportationSpace is the abstract superclass of transportation objects such as Roads, Tracks, Railways, Waterways or Squares.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractTransportationSpaceType">
@@ -81,7 +81,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea" type="anyType"/>
-  <element name="AuxiliaryTrafficArea" substitutionGroup="core:AbstractThematicSurface" type="tran:AuxiliaryTrafficAreaType"/>
+  <element name="AuxiliaryTrafficArea" substitutionGroup="core:AbstractThematicSurface" type="tran:AuxiliaryTrafficAreaType">
+    <annotation>
+      <documentation>An AuxiliaryTrafficArea is the ground surface of an AuxiliaryTrafficSpace.</documentation>
+    </annotation>
+  </element>
   <complexType name="AuxiliaryTrafficAreaType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -105,7 +109,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace" type="anyType"/>
   <element name="AuxiliaryTrafficSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:AuxiliaryTrafficSpaceType">
     <annotation>
-      <documentation>SIG3D: Space within the transport area not intended for traffic purposes</documentation>
+      <documentation>An AuxiliaryTrafficSpace is a space within the transportation space not intended for traffic purposes.</documentation>
     </annotation>
   </element>
   <complexType name="AuxiliaryTrafficSpaceType">
@@ -141,7 +145,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfClearanceSpace" type="anyType"/>
-  <element name="ClearanceSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:ClearanceSpaceType"/>
+  <element name="ClearanceSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:ClearanceSpaceType">
+    <annotation>
+      <documentation>A ClearanceSpace represents the actual free space above a TrafficArea within which a mobile object can move without contacting an obstruction.</documentation>
+    </annotation>
+  </element>
   <complexType name="ClearanceSpaceType">
     <complexContent>
       <extension base="core:AbstractUnoccupiedSpaceType">
@@ -160,13 +168,20 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <simpleType name="GranularityValueType">
+    <annotation>
+      <documentation>GranularityValue is a code list that enumerates the different levels of granularity in which transportation objects are represented.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="lane"/>
       <enumeration value="way"/>
     </restriction>
   </simpleType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfHole" type="anyType"/>
-  <element name="Hole" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:HoleType"/>
+  <element name="Hole" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:HoleType">
+    <annotation>
+      <documentation>A Hole is an opening in the surface of a Road, Track or Square such as road damages, manholes or drains. Holes can span multiple transportation objects.</documentation>
+    </annotation>
+  </element>
   <complexType name="HoleType">
     <complexContent>
       <extension base="core:AbstractUnoccupiedSpaceType">
@@ -185,7 +200,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfHoleSurface" type="anyType"/>
-  <element name="HoleSurface" substitutionGroup="core:AbstractThematicSurface" type="tran:HoleSurfaceType"/>
+  <element name="HoleSurface" substitutionGroup="core:AbstractThematicSurface" type="tran:HoleSurfaceType">
+    <annotation>
+      <documentation>A HoleSurface is a representation of the ground surface of a hole.</documentation>
+    </annotation>
+  </element>
   <complexType name="HoleSurfaceType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -203,7 +222,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfIntersection" type="anyType"/>
-  <element name="Intersection" substitutionGroup="tran:AbstractTransportationSpace" type="tran:IntersectionType"/>
+  <element name="Intersection" substitutionGroup="tran:AbstractTransportationSpace" type="tran:IntersectionType">
+    <annotation>
+      <documentation>An Intersection is a transportation space that is a shared segment of multiple Road, Track, Railway, or Waterway objects (e.g. a crossing of two roads or a level crossing of a road and a railway).</documentation>
+    </annotation>
+  </element>
   <complexType name="IntersectionType">
     <complexContent>
       <extension base="tran:AbstractTransportationSpaceType">
@@ -222,7 +245,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfMarking" type="anyType"/>
-  <element name="Marking" substitutionGroup="core:AbstractThematicSurface" type="tran:MarkingType"/>
+  <element name="Marking" substitutionGroup="core:AbstractThematicSurface" type="tran:MarkingType">
+    <annotation>
+      <documentation>A Marking is a visible pattern on a transportation area relevant to the structuring or restriction of traffic. Examples are road markings and markings related to railway or waterway traffic.</documentation>
+    </annotation>
+  </element>
   <complexType name="MarkingType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -243,7 +270,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfRailway" type="anyType"/>
   <element name="Railway" substitutionGroup="tran:AbstractTransportationSpace" type="tran:RailwayType">
     <annotation>
-      <documentation>ISO 6707-1: National or regional transport system for guided passage of wheeled vehicles on rails</documentation>
+      <documentation>A Railway is a transportation space used by wheeled vehicles on rails.</documentation>
     </annotation>
   </element>
   <complexType name="RailwayType">
@@ -292,7 +319,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfRoad" type="anyType"/>
   <element name="Road" substitutionGroup="tran:AbstractTransportationSpace" type="tran:RoadType">
     <annotation>
-      <documentation>ISO 6707-1: Way mainly for vehicles</documentation>
+      <documentation>A Road is a transportation space used by vehicles, bicycles and/or pedestrians.</documentation>
     </annotation>
   </element>
   <complexType name="RoadType">
@@ -339,7 +366,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfSection" type="anyType"/>
-  <element name="Section" substitutionGroup="tran:AbstractTransportationSpace" type="tran:SectionType"/>
+  <element name="Section" substitutionGroup="tran:AbstractTransportationSpace" type="tran:SectionType">
+    <annotation>
+      <documentation>A Section is a transportation space that is a segment of a Road, Railway, Track, or Waterway.</documentation>
+    </annotation>
+  </element>
   <complexType name="SectionType">
     <complexContent>
       <extension base="tran:AbstractTransportationSpaceType">
@@ -360,7 +391,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfSquare" type="anyType"/>
   <element name="Square" substitutionGroup="tran:AbstractTransportationSpace" type="tran:SquareType">
     <annotation>
-      <documentation>SIG3D: Accessible, paved open space in a built-up area</documentation>
+      <documentation>A Square is a transportation space for unrestricted movement for vehicles, bicycles and/or pedestrians. This includes plazas as well as large sealed surfaces such as parking lots.</documentation>
     </annotation>
   </element>
   <complexType name="SquareType">
@@ -385,7 +416,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTrack" type="anyType"/>
   <element name="Track" substitutionGroup="tran:AbstractTransportationSpace" type="tran:TrackType">
     <annotation>
-      <documentation>SIG3D: Way mainly for pedestrians or bicycle rider</documentation>
+      <documentation>A Track is a small path mainly used by pedestrians. Tracks can be segmented into Sections and Intersections.</documentation>
     </annotation>
   </element>
   <complexType name="TrackType">
@@ -432,7 +463,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficArea" type="anyType"/>
-  <element name="TrafficArea" substitutionGroup="core:AbstractThematicSurface" type="tran:TrafficAreaType"/>
+  <element name="TrafficArea" substitutionGroup="core:AbstractThematicSurface" type="tran:TrafficAreaType">
+    <annotation>
+      <documentation>A TrafficArea is the ground surface of a TrafficSpace. Traffic areas are the surfaces upon which traffic actually takes place.</documentation>
+    </annotation>
+  </element>
   <complexType name="TrafficAreaType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -454,6 +489,9 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <simpleType name="TrafficDirectionValueType">
+    <annotation>
+      <documentation>TrafficDirectionValue is a code list specifying the allowed direction of travel of a mobile object.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="forwards"/>
       <enumeration value="backwards"/>
@@ -463,7 +501,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficSpace" type="anyType"/>
   <element name="TrafficSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:TrafficSpaceType">
     <annotation>
-      <documentation>SIG3D: Space of movement for either trains, vehicles or pedestrians</documentation>
+      <documentation>A TrafficSpace is a space in which traffic takes place. Traffic includes the movement of entities such as trains, vehicles, pedestrians, ships, or other transportation types.</documentation>
     </annotation>
   </element>
   <complexType name="TrafficSpaceType">
@@ -515,7 +553,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterway" type="anyType"/>
-  <element name="Waterway" substitutionGroup="tran:AbstractTransportationSpace" type="tran:WaterwayType"/>
+  <element name="Waterway" substitutionGroup="tran:AbstractTransportationSpace" type="tran:WaterwayType">
+    <annotation>
+      <documentation>A Waterway is a transportation space used for the movement of vessels upon or within a water body.</documentation>
+    </annotation>
+  </element>
   <complexType name="WaterwayType">
     <complexContent>
       <extension base="tran:AbstractTransportationSpaceType">

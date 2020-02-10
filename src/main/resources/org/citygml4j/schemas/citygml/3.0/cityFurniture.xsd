@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfCityFurniture" type="anyType"/>
   <element name="CityFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="frn:CityFurnitureType">
     <annotation>
-      <documentation>City furniture is a collective term for objects and pieces of equipment installed on streets and roads for various purposes. It includes benches, traffic barriers, bollards, post boxes, phone boxes, streetlamps, traffic lights, traffic signs, bus stops, tram stops, taxi stands, public lavatories, fountains, watering troughs, memorials, public sculptures, and waste receptacles. [Wikipedia]</documentation>
+      <documentation>CityFurniture is an object or piece of equipment installed in the outdoor environment for various purposes. Examples include street signs, traffic signals, street lamps, benches, fountains.</documentation>
     </annotation>
   </element>
   <complexType name="CityFurnitureType">

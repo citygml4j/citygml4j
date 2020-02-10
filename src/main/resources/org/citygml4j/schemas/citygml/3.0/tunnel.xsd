@@ -6,7 +6,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTunnel" type="anyType"/>
   <element abstract="true" name="AbstractTunnel" substitutionGroup="con:AbstractConstruction" type="tun:AbstractTunnelType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of Tunnel and TunnelPart</documentation>
+      <documentation>AbstractTunnel is an abstract superclass representing the common attributes and associations of the classes Tunnel and TunnelPart.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractTunnelType">
@@ -93,7 +93,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfHollowSpace" type="anyType"/>
   <element name="HollowSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tun:HollowSpaceType">
     <annotation>
-      <documentation>SIG3D: A HollowSpace represents a volume bounded actually or theoretically. HollowSpaces are volumes that provide for certain functions within a tunnel.</documentation>
+      <documentation>A HollowSpace is a space within a Tunnel or TunnelPart intended for certain functions (e.g. transport or passage ways, service rooms, emergency shelters). A HollowSpace is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
     </annotation>
   </element>
   <complexType name="HollowSpaceType">
@@ -162,7 +162,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnel" type="anyType"/>
   <element name="Tunnel" substitutionGroup="tun:AbstractTunnel" type="tun:TunnelType">
     <annotation>
-      <documentation>SIG3D: horizontal or sloping enclosed passage way of some length, mainly underground or underwater (cf. ISO 6707-1).</documentation>
+      <documentation>A Tunnel represents a horizontal or sloping enclosed passage way of a certain length, mainly underground or underwater. [cf. ISO 6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="TunnelType">
@@ -197,7 +197,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelConstructiveElement" type="anyType"/>
-  <element name="TunnelConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="tun:TunnelConstructiveElementType"/>
+  <element name="TunnelConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="tun:TunnelConstructiveElementType">
+    <annotation>
+      <documentation>A TunnelConstructiveElement is an element of a Tunnel which is essential from a structural point of view. Examples are walls, slabs, beams.</documentation>
+    </annotation>
+  </element>
   <complexType name="TunnelConstructiveElementType">
     <complexContent>
       <extension base="con:AbstractConstructiveElementType">
@@ -220,7 +224,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelFurniture" type="anyType"/>
   <element name="TunnelFurniture" substitutionGroup="con:AbstractFurniture" type="tun:TunnelFurnitureType">
     <annotation>
-      <documentation>SIG3D: Equipment for occupant use, usually not fixed to the building (cf. ISO 6707-1) .</documentation>
+      <documentation>A TunnelFurniture is an equipment for occupant use, usually not fixed to the tunnel. [cf. ISO 6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="TunnelFurnitureType">
@@ -257,7 +261,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelInstallation" type="anyType"/>
   <element name="TunnelInstallation" substitutionGroup="con:AbstractInstallation" type="tun:TunnelInstallationType">
     <annotation>
-      <documentation>SIG3D: Permanently installed parts of the tunnel outer shell which are accessory for the tunnel structure. Doors and windows are modeled by the corresponding CityGML classes.</documentation>
+      <documentation>A TunnelInstallation is a permanent part of a Tunnel (inside and/or outside) which does not have the significance of a TunnelPart. In contrast to TunnelConstructiveElement, a TunnelInstallation is not essential from a structural point of view. Examples are stairs, antennas or railings.</documentation>
     </annotation>
   </element>
   <complexType name="TunnelInstallationType">
@@ -294,7 +298,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelPart" type="anyType"/>
   <element name="TunnelPart" substitutionGroup="tun:AbstractTunnel" type="tun:TunnelPartType">
     <annotation>
-      <documentation>SIG3D: A tunnel part is a sub-division of a Tunnel that is homogeneous related to its physical, functional, or temporal aspects and may be considered as a Tunnel.</documentation>
+      <documentation>A TunnelPart is a physical or functional subdivision of a Tunnel. It would be considered a Tunnel, if it were not part of a collection of other TunnelParts.</documentation>
     </annotation>
   </element>
   <complexType name="TunnelPartType">

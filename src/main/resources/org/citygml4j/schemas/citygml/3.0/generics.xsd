@@ -7,7 +7,7 @@
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element name="DateAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:DateAttributeType">
     <annotation>
-      <documentation>SIG3D: Generic Attribute of type "date".</documentation>
+      <documentation>DateAttribute is a data type used to define generic attributes of type “Date”.</documentation>
     </annotation>
   </element>
   <complexType name="DateAttributeType">
@@ -31,7 +31,7 @@
   </complexType>
   <element name="DoubleAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:DoubleAttributeType">
     <annotation>
-      <documentation>SIG3D: Generic Attribute of type "double".</documentation>
+      <documentation>DoubleAttribute is a data type used to define generic attributes of type “Double”.</documentation>
     </annotation>
   </element>
   <complexType name="DoubleAttributeType">
@@ -55,7 +55,7 @@
   </complexType>
   <element name="GenericAttributeSet" substitutionGroup="core:AbstractGenericAttribute" type="gen:GenericAttributeSetType">
     <annotation>
-      <documentation>SIG3D: Set of Generic Attributes.</documentation>
+      <documentation>A GenericAttributeSet is a named collection of generic attributes.</documentation>
     </annotation>
   </element>
   <complexType name="GenericAttributeSetType">
@@ -79,7 +79,11 @@
     </sequence>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericLogicalSpace" type="anyType"/>
-  <element name="GenericLogicalSpace" substitutionGroup="core:AbstractLogicalSpace" type="gen:GenericLogicalSpaceType"/>
+  <element name="GenericLogicalSpace" substitutionGroup="core:AbstractLogicalSpace" type="gen:GenericLogicalSpaceType">
+    <annotation>
+      <documentation>A GenericLogicalSpace is a space that is not represented by any explicitly modelled AbstractLogicalSpace subclass within CityGML.</documentation>
+    </annotation>
+  </element>
   <complexType name="GenericLogicalSpaceType">
     <complexContent>
       <extension base="core:AbstractLogicalSpaceType">
@@ -100,7 +104,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericOccupiedSpace" type="anyType"/>
-  <element name="GenericOccupiedSpace" substitutionGroup="core:AbstractOccupiedSpace" type="gen:GenericOccupiedSpaceType"/>
+  <element name="GenericOccupiedSpace" substitutionGroup="core:AbstractOccupiedSpace" type="gen:GenericOccupiedSpaceType">
+    <annotation>
+      <documentation>A GenericOccupiedSpace is a space that is not represented by any explicitly modelled AbstractOccupiedSpace subclass within CityGML.</documentation>
+    </annotation>
+  </element>
   <complexType name="GenericOccupiedSpaceType">
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
@@ -121,7 +129,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericThematicSurface" type="anyType"/>
-  <element name="GenericThematicSurface" substitutionGroup="core:AbstractThematicSurface" type="gen:GenericThematicSurfaceType"/>
+  <element name="GenericThematicSurface" substitutionGroup="core:AbstractThematicSurface" type="gen:GenericThematicSurfaceType">
+    <annotation>
+      <documentation>A GenericThematicSurface is a surface that is not represented by any explicitly modelled AbstractThematicSurface subclass within CityGML.</documentation>
+    </annotation>
+  </element>
   <complexType name="GenericThematicSurfaceType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -142,7 +154,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericUnoccupiedSpace" type="anyType"/>
-  <element name="GenericUnoccupiedSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="gen:GenericUnoccupiedSpaceType"/>
+  <element name="GenericUnoccupiedSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="gen:GenericUnoccupiedSpaceType">
+    <annotation>
+      <documentation>A GenericUnoccupiedSpace is a space that is not represented by any explicitly modelled AbstractUnoccupiedSpace subclass within CityGML.</documentation>
+    </annotation>
+  </element>
   <complexType name="GenericUnoccupiedSpaceType">
     <complexContent>
       <extension base="core:AbstractUnoccupiedSpaceType">
@@ -164,7 +180,7 @@
   </complexType>
   <element name="IntAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:IntAttributeType">
     <annotation>
-      <documentation>SIG3D: Generic Attribute of type "integer".</documentation>
+      <documentation>IntAttribute is a data type used to define generic attributes of type “Integer”.</documentation>
     </annotation>
   </element>
   <complexType name="IntAttributeType">
@@ -188,7 +204,7 @@
   </complexType>
   <element name="MeasureAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:MeasureAttributeType">
     <annotation>
-      <documentation>SIG3D: Generic Attribute of type "Measure" (double-attribute with explicit specification of a unit-of-measurement).</documentation>
+      <documentation>MeasureAttribute is a data type used to define generic attributes of type “Measure”.</documentation>
     </annotation>
   </element>
   <complexType name="MeasureAttributeType">
@@ -212,7 +228,7 @@
   </complexType>
   <element name="StringAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:StringAttributeType">
     <annotation>
-      <documentation>SIG3D: Generic Attribute of type "string".</documentation>
+      <documentation>StringAttribute is a data type used to define generic attributes of type “String”.</documentation>
     </annotation>
   </element>
   <complexType name="StringAttributeType">
@@ -236,7 +252,7 @@
   </complexType>
   <element name="UriAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:UriAttributeType">
     <annotation>
-      <documentation>SIG3D: Generic Attribute of type "URI".</documentation>
+      <documentation>UriAttribute is a data type used to define generic attributes of type “URI”.</documentation>
     </annotation>
   </element>
   <complexType name="UriAttributeType">

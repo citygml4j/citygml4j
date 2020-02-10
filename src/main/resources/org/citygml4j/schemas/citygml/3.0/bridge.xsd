@@ -6,7 +6,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBridge" type="anyType"/>
   <element abstract="true" name="AbstractBridge" substitutionGroup="con:AbstractConstruction" type="brid:AbstractBridgeType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of Bridge and BridgePart</documentation>
+      <documentation>AbstractBridge is an abstract superclass representing the common attributes and associations of the classes Bridge and BridgePart.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractBridgeType">
@@ -106,7 +106,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBridge" type="anyType"/>
   <element name="Bridge" substitutionGroup="brid:AbstractBridge" type="brid:BridgeType">
     <annotation>
-      <documentation>SIG3D: Civil engineering works that affords passage to pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground (cf. ISO 6707-1).</documentation>
+      <documentation>A Bridge represents a structure that affords the passage of pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground. [cf. ISO 6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="BridgeType">
@@ -143,7 +143,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeConstructiveElement" type="anyType"/>
   <element name="BridgeConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="brid:BridgeConstructiveElementType">
     <annotation>
-      <documentation>SIG3D: Element of a bridge which is essential from a structural point of view.</documentation>
+      <documentation>A BridgeConstructiveElement is an element of a bridge which is essential from a structural point of view. Examples are pylons, anchorages, slabs, beams.</documentation>
     </annotation>
   </element>
   <complexType name="BridgeConstructiveElementType">
@@ -180,7 +180,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeFurniture" type="anyType"/>
   <element name="BridgeFurniture" substitutionGroup="con:AbstractFurniture" type="brid:BridgeFurnitureType">
     <annotation>
-      <documentation>SIG3D: equipment for occupant use, not usually fixed to the bridge or bridge part (cf. ISO 6707-1)</documentation>
+      <documentation>A BridgeFurniture is an equipment for occupant use, usually not fixed to the bridge. [cf. ISO 6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="BridgeFurnitureType">
@@ -217,7 +217,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeInstallation" type="anyType"/>
   <element name="BridgeInstallation" substitutionGroup="con:AbstractInstallation" type="brid:BridgeInstallationType">
     <annotation>
-      <documentation>SIG3D: Permanently installed parts of the bridge outer shell, which are accessory for the bridge structure. Doors and windows are modeled by the corresponding CityGML classes.</documentation>
+      <documentation>A BridgeInstallation is a permanent part of a Bridge (inside and/or outside) which does not have the significance of a BridgePart. In contrast to BridgeConstructiveElements, a BridgeInstallation is not essential from a structural point of view. Examples are stairs, antennas or railways.</documentation>
     </annotation>
   </element>
   <complexType name="BridgeInstallationType">
@@ -254,7 +254,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgePart" type="anyType"/>
   <element name="BridgePart" substitutionGroup="brid:AbstractBridge" type="brid:BridgePartType">
     <annotation>
-      <documentation>SIG3D: A bridge part is a sub-division of a Bridge that is homogeneous related to its physical, functional or temporal aspects and may be considered as a bridge.</documentation>
+      <documentation>A BridgePart is a physical or functional subdivision of a Bridge. It would be considered a Bridge, if it were not part of a collection of other BridgeParts.</documentation>
     </annotation>
   </element>
   <complexType name="BridgePartType">
@@ -276,7 +276,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeRoom" type="anyType"/>
   <element name="BridgeRoom" substitutionGroup="core:AbstractUnoccupiedSpace" type="brid:BridgeRoomType">
     <annotation>
-      <documentation>SIG3D: A Room represents a volume bounded actually or theoretically. Rooms are volumes that provide for certain functions within a bridge.</documentation>
+      <documentation>A BridgeRoom is a space within a Bridge or BridgePart intended for human occupancy (e.g. a place of work or recreation) and/or containment (storage) of animals or things. A BridgeRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
     </annotation>
   </element>
   <complexType name="BridgeRoomType">

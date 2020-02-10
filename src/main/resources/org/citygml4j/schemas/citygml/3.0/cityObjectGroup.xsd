@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfCityObjectGroup" type="anyType"/>
   <element name="CityObjectGroup" substitutionGroup="core:AbstractLogicalSpace" type="grp:CityObjectGroupType">
     <annotation>
-      <documentation>SIG3D: Aggregation of city objects according to user defined criteria (e.g. grouping of rooms belonging to a certain storey).</documentation>
+      <documentation>A CityObjectGroup represents an application-specific aggregation of city objects according to some user-defined criteria. Examples for groups are the buildings in a specific region, the result of a query, or objects put together for visualization purposes. Each member of a group may be qualified by a role name, reflecting the role each city object plays in the context of the group.</documentation>
     </annotation>
   </element>
   <complexType name="CityObjectGroupType">
@@ -61,7 +61,7 @@
   </complexType>
   <element name="Role" substitutionGroup="gml:AbstractGML" type="grp:RoleType">
     <annotation>
-      <documentation>SIG3D: Specification of a CityObject and its specific role in a CityObjectGroup.</documentation>
+      <documentation>Role qualifies the function of the city object within the CityObjectGroup.</documentation>
     </annotation>
   </element>
   <complexType name="RoleType">

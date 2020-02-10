@@ -3,7 +3,11 @@
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries" type="anyType"/>
-  <element abstract="true" name="AbstractAtomicTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:AbstractAtomicTimeseriesType"/>
+  <element abstract="true" name="AbstractAtomicTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:AbstractAtomicTimeseriesType">
+    <annotation>
+      <documentation>AbstractAtomicTimeseries represents the attributes and relationships that are common to all kinds of atomic timeseries (GenericTimeseries, TabulatedFileTimeseries, StandardFileTimeseries). An atomic timeseries represents time-varying data of a specific data type for a single contiguous time interval.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractAtomicTimeseriesType">
     <complexContent>
       <extension base="dyn:AbstractTimeseriesType">
@@ -23,7 +27,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTimeseries" type="anyType"/>
-  <element abstract="true" name="AbstractTimeseries" substitutionGroup="gml:AbstractFeature" type="dyn:AbstractTimeseriesType"/>
+  <element abstract="true" name="AbstractTimeseries" substitutionGroup="gml:AbstractFeature" type="dyn:AbstractTimeseriesType">
+    <annotation>
+      <documentation>AbstractTimeseries is the abstract superclass representing any type of timeseries data.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractTimeseriesType">
     <complexContent>
       <extension base="gml:AbstractFeatureType">
@@ -43,7 +51,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfCompositeTimeseries" type="anyType"/>
-  <element name="CompositeTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:CompositeTimeseriesType"/>
+  <element name="CompositeTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:CompositeTimeseriesType">
+    <annotation>
+      <documentation>A CompositeTimeseries is a (possibly recursive) aggregation of atomic and composite timeseries. The components of a composite timeseries must have non-overlapping time intervals.</documentation>
+    </annotation>
+  </element>
   <complexType name="CompositeTimeseriesType">
     <complexContent>
       <extension base="dyn:AbstractTimeseriesType">
@@ -62,7 +74,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfDynamizer" type="anyType"/>
-  <element name="Dynamizer" substitutionGroup="core:AbstractDynamizer" type="dyn:DynamizerType"/>
+  <element name="Dynamizer" substitutionGroup="core:AbstractDynamizer" type="dyn:DynamizerType">
+    <annotation>
+      <documentation>A Dynamizer is an object that injects timeseries data for an individual attribute of the city object in which it is included. The timeseries data overrides the static value of the referenced city object attribute in order to represent dynamic, i.e. time-dependent, variations of its value.</documentation>
+    </annotation>
+  </element>
   <complexType name="DynamizerType">
     <complexContent>
       <extension base="core:AbstractDynamizerType">
@@ -96,12 +112,16 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericTimeseries" type="anyType"/>
-  <element name="GenericTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:GenericTimeseriesType"/>
+  <element name="GenericTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:GenericTimeseriesType">
+    <annotation>
+      <documentation>A GenericTimeseries represents time-varying data in the form of embedded time-value-pairs of a specific data type for a single contiguous time interval.</documentation>
+    </annotation>
+  </element>
   <complexType name="GenericTimeseriesType">
     <complexContent>
       <extension base="dyn:AbstractAtomicTimeseriesType">
         <sequence>
-          <element name="valueType" type="dyn:TimeseriesValueType"/>
+          <element name="valueType" type="dyn:TimeseriesTypeValueType"/>
           <element maxOccurs="unbounded" name="timeValuePair" type="dyn:TimeValuePairPropertyType"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfGenericTimeseries"/>
         </sequence>
@@ -115,7 +135,11 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element name="SensorConnection" substitutionGroup="gml:AbstractObject" type="dyn:SensorConnectionType"/>
+  <element name="SensorConnection" substitutionGroup="gml:AbstractObject" type="dyn:SensorConnectionType">
+    <annotation>
+      <documentation>A SensorConnection provides all details that are required to retrieve a specific datastream from an external sensor web service. It comprises the service type (e.g. OGC SensorThings API, OGC Sensor Observation Services, MQTT, proprietary platforms), the URL of the sensor service, the identifier for the sensor or thing and its observed property as well as information about the required authentication method.</documentation>
+    </annotation>
+  </element>
   <complexType name="SensorConnectionType">
     <sequence>
       <element name="connectionType" type="gml:CodeType"/>
@@ -140,7 +164,11 @@
     </sequence>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfStandardFileTimeseries" type="anyType"/>
-  <element name="StandardFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:StandardFileTimeseriesType"/>
+  <element name="StandardFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:StandardFileTimeseriesType">
+    <annotation>
+      <documentation>A StandardFileTimeseries represents time-varying data for a single contiguous time interval. The data is provided in an external file referenced in the StandardFileTimeseries. The data within the external file shall be encoded according to a dedicated format for the representation of timeseries data, for example, the OGC TimeseriesML or OGC Observations &amp; Measurements standard. The data type of the data has to be specified within the external file.</documentation>
+    </annotation>
+  </element>
   <complexType name="StandardFileTimeseriesType">
     <complexContent>
       <extension base="dyn:AbstractAtomicTimeseriesType">
@@ -161,7 +189,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTabulatedFileTimeseries" type="anyType"/>
-  <element name="TabulatedFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:TabulatedFileTimeseriesType"/>
+  <element name="TabulatedFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:TabulatedFileTimeseriesType">
+    <annotation>
+      <documentation>A TabulatedFileTimeseries represents time-varying data of a specific data type for a single contiguous time interval. The data is provided in an external file referenced in the TabulatedFileTimeseries. The file shall contain table structured data using an appropriate file format like comma separated values (CSV), Microsoft Excel (XLSX) or Google Spreadsheet. The timestamps and the values are given in specific columns of the table. Each row represents a single time-value-pair. A subset of rows can be selected using the idColumn and idValue attributes.</documentation>
+    </annotation>
+  </element>
   <complexType name="TabulatedFileTimeseriesType">
     <complexContent>
       <extension base="dyn:AbstractAtomicTimeseriesType">
@@ -169,7 +201,7 @@
           <element name="fileLocation" type="anyURI"/>
           <element name="fileType" type="gml:CodeType"/>
           <element minOccurs="0" name="mimeType" type="gml:CodeType"/>
-          <element name="valueType" type="dyn:TimeseriesValueType"/>
+          <element name="valueType" type="dyn:TimeseriesTypeValueType"/>
           <element minOccurs="0" name="numberOfHeaderLines" type="integer"/>
           <element name="fieldSeparator" type="string"/>
           <element minOccurs="0" name="decimalSymbol" type="string"/>
@@ -192,7 +224,11 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element name="TimeValuePair" substitutionGroup="gml:AbstractObject" type="dyn:TimeValuePairType"/>
+  <element name="TimeValuePair" substitutionGroup="gml:AbstractObject" type="dyn:TimeValuePairType">
+    <annotation>
+      <documentation>A TimeValuePair represents a value that is valid for a given timepoint. For each TimeValuePair only one of the value properties can be used mutually exclusive. Which value property has to be provided depends on the selected value type in the GenericTimeSeries feature, in which the TimeValuePair is included.</documentation>
+    </annotation>
+  </element>
   <complexType name="TimeValuePairType">
     <sequence>
       <element name="timestamp" type="gml:TimePositionType"/>
@@ -233,7 +269,11 @@
       <element ref="dyn:TimeValuePair"/>
     </sequence>
   </complexType>
-  <element name="TimeseriesComponent" substitutionGroup="gml:AbstractObject" type="dyn:TimeseriesComponentType"/>
+  <element name="TimeseriesComponent" substitutionGroup="gml:AbstractObject" type="dyn:TimeseriesComponentType">
+    <annotation>
+      <documentation>TimeseriesComponent represents an element of a CompositeTimeseries.</documentation>
+    </annotation>
+  </element>
   <complexType name="TimeseriesComponentType">
     <sequence>
       <element name="repetitions" type="integer"/>
@@ -246,7 +286,10 @@
       <element ref="dyn:TimeseriesComponent"/>
     </sequence>
   </complexType>
-  <simpleType name="TimeseriesValueType">
+  <simpleType name="TimeseriesTypeValueType">
+    <annotation>
+      <documentation>TimeseriesTypeValue enumerates the possible value types for GenericTimeseries and TimeValuePair.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="integer"/>
       <enumeration value="double"/>

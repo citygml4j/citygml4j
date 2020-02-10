@@ -5,9 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstruction" type="anyType"/>
   <element abstract="true" name="AbstractConstruction" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructionType">
     <annotation>
-      <documentation>An object, manufactured by humans from construction materials, which is connected to earth and intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary.
-Note: Everything that is covered by other CityGML modules, e.g. Transportation or Water body, is not an 
-AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConstruction.</documentation>
+      <documentation>AbstractConstruction is the abstract superclass for objects that are manufactured by humans from construction materials, are connected to earth and are intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractConstructionType">
@@ -58,7 +56,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstructionSurface" type="anyType"/>
-  <element abstract="true" name="AbstractConstructionSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractConstructionSurfaceType"/>
+  <element abstract="true" name="AbstractConstructionSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractConstructionSurfaceType">
+    <annotation>
+      <documentation>AbstractConstructionSurface is the abstract superclass for different kinds of surfaces that bound a construction.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractConstructionSurfaceType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -77,7 +79,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstructiveElement" type="anyType"/>
-  <element abstract="true" name="AbstractConstructiveElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructiveElementType"/>
+  <element abstract="true" name="AbstractConstructiveElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructiveElementType">
+    <annotation>
+      <documentation>AbstractConstructiveElement is the abstract superclass for the representation of volumetric elements of a construction. Examples are walls, beams, slabs.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractConstructiveElementType">
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
@@ -97,7 +103,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFillingElement" type="anyType"/>
-  <element abstract="true" name="AbstractFillingElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFillingElementType"/>
+  <element abstract="true" name="AbstractFillingElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFillingElementType">
+    <annotation>
+      <documentation>AbstractFillingElement is the abstract superclass for different kinds of elements that fill the openings of constructive elements.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractFillingElementType">
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
@@ -115,7 +125,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFillingSurface" type="anyType"/>
-  <element abstract="true" name="AbstractFillingSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractFillingSurfaceType"/>
+  <element abstract="true" name="AbstractFillingSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractFillingSurfaceType">
+    <annotation>
+      <documentation>AbstractFillingSurface is the abstract superclass for different kinds of surfaces that seal openings filled by filling elements.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractFillingSurfaceType">
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
@@ -133,7 +147,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFurniture" type="anyType"/>
-  <element abstract="true" name="AbstractFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFurnitureType"/>
+  <element abstract="true" name="AbstractFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFurnitureType">
+    <annotation>
+      <documentation>AbstractFurniture is the abstract superclass for the representation of furniture objects of a construction.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractFurnitureType">
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
@@ -151,7 +169,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractInstallation" type="anyType"/>
-  <element abstract="true" name="AbstractInstallation" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractInstallationType"/>
+  <element abstract="true" name="AbstractInstallation" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractInstallationType">
+    <annotation>
+      <documentation>AbstractInstallation is the abstract superclass for the representation of installation objects of a construction.</documentation>
+    </annotation>
+  </element>
   <complexType abstract="true" name="AbstractInstallationType">
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
@@ -172,7 +194,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfCeilingSurface" type="anyType"/>
   <element name="CeilingSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:CeilingSurfaceType">
     <annotation>
-      <documentation>SIG3D: Overhead boundary surface of a construction space, covering the upper limit of the construction space.</documentation>
+      <documentation>A CeilingSurface is a surface that represents the interior ceiling of a construction. An example is the ceiling of a room.</documentation>
     </annotation>
   </element>
   <complexType name="CeilingSurfaceType">
@@ -193,7 +215,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   </complexType>
   <simpleType name="ConditionOfConstructionValueType">
     <annotation>
-      <documentation>[INSPIRE] Values indicating the condition of a construction.</documentation>
+      <documentation>ConditionOfConstructionValue enumerates different conditions of a construction. [cf. INSPIRE]</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="declined">
@@ -228,7 +250,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
       </enumeration>
     </restriction>
   </simpleType>
-  <element name="ConstructionEvent" substitutionGroup="gml:AbstractObject" type="con:ConstructionEventType"/>
+  <element name="ConstructionEvent" substitutionGroup="gml:AbstractObject" type="con:ConstructionEventType">
+    <annotation>
+      <documentation>A ConstructionEvent is a data type used to describe a specific event that is associated with a construction. Examples are the issuing of a building permit or the renovation of a building.</documentation>
+    </annotation>
+  </element>
   <complexType name="ConstructionEventType">
     <sequence>
       <element name="event" type="gml:CodeType"/>
@@ -244,7 +270,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfDoor" type="anyType"/>
   <element name="Door" substitutionGroup="con:AbstractFillingElement" type="con:DoorType">
     <annotation>
-      <documentation>ISO 6707-1: Construction for closing an opening intended primarily for access or egress or both.</documentation>
+      <documentation>A Door is a construction for closing an opening intended primarily for access or egress or both. [cf. ISO 6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="DoorType">
@@ -272,7 +298,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfDoorSurface" type="anyType"/>
-  <element name="DoorSurface" substitutionGroup="con:AbstractFillingSurface" type="con:DoorSurfaceType"/>
+  <element name="DoorSurface" substitutionGroup="con:AbstractFillingSurface" type="con:DoorSurfaceType">
+    <annotation>
+      <documentation>A DoorSurface is either a boundary surface of a Door feature or a surface that seals an opening filled by a door.</documentation>
+    </annotation>
+  </element>
   <complexType name="DoorSurfaceType">
     <complexContent>
       <extension base="con:AbstractFillingSurfaceType">
@@ -292,7 +322,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   </complexType>
   <element name="Elevation" substitutionGroup="gml:AbstractObject" type="con:ElevationType">
     <annotation>
-      <documentation>[INSPIRE] This data types includes the elevation value itself and information on how this elevation was measured.</documentation>
+      <documentation>Elevation is a data type that includes the elevation value itself and information on how this elevation was measured. [cf. INSPIRE]</documentation>
     </annotation>
   </element>
   <complexType name="ElevationType">
@@ -317,7 +347,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfFloorSurface" type="anyType"/>
   <element name="FloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:FloorSurfaceType">
     <annotation>
-      <documentation>SIG3D: Lower boundary surface of a construction space, covering the lower limit of a construction space.</documentation>
+      <documentation>A FloorSurface is surface that represents the interior floor of a construction. An example is the floor of a room.</documentation>
     </annotation>
   </element>
   <complexType name="FloorSurfaceType">
@@ -339,7 +369,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGroundSurface" type="anyType"/>
   <element name="GroundSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:GroundSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior, lower boundary surface of a construction space bounded by soil or water.</documentation>
+      <documentation>A GroundSurface is a surface that represents the ground plate of a construction. The polygon defining the ground plate is congruent with the footprint of the construction.</documentation>
     </annotation>
   </element>
   <complexType name="GroundSurfaceType">
@@ -360,7 +390,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   </complexType>
   <element name="Height" substitutionGroup="gml:AbstractObject" type="con:HeightType">
     <annotation>
-      <documentation>[INSPIRE] Vertical distance (measured or estimated) between a low reference and a high reference.</documentation>
+      <documentation>Height represents a vertical distance (measured or estimated) between a low reference and a high reference. [cf. INSPIRE]</documentation>
     </annotation>
   </element>
   <complexType name="HeightType">
@@ -394,7 +424,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   </complexType>
   <simpleType name="HeightStatusValueType">
     <annotation>
-      <documentation>[INSPIRE] Values indicating the method used to capture a height.</documentation>
+      <documentation>HeightStatusValue enumerates the different methods used to capture a height. [cf. INSPIRE]</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="estimated">
@@ -412,7 +442,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfInteriorWallSurface" type="anyType"/>
   <element name="InteriorWallSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:InteriorWallSurfaceType">
     <annotation>
-      <documentation>SIG3D: Lateral boundary surface of a construction space, covering the lateral limit of the construction space.</documentation>
+      <documentation>An InteriorWallSurface is a surface that is visible from inside a construction. An example is the wall of a room.</documentation>
     </annotation>
   </element>
   <complexType name="InteriorWallSurfaceType">
@@ -434,7 +464,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfOtherConstruction" type="anyType"/>
   <element name="OtherConstruction" substitutionGroup="con:AbstractConstruction" type="con:OtherConstructionType">
     <annotation>
-      <documentation>Every construction which is not covered by any of the other subclasses of AbstractConstruction.</documentation>
+      <documentation>An OtherConstruction is a construction that is not covered by any of the other subclasses of AbstractConstruction.</documentation>
     </annotation>
   </element>
   <complexType name="OtherConstructionType">
@@ -459,7 +489,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfOuterCeilingSurface" type="anyType"/>
   <element name="OuterCeilingSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:OuterCeilingSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior, lower boundary surface of a construction space bounded by air.</documentation>
+      <documentation>An OuterCeilingSurface is a surface that belongs to the outer building shell with the orientation pointing downwards. An example is the ceiling of a loggia.</documentation>
     </annotation>
   </element>
   <complexType name="OuterCeilingSurfaceType">
@@ -481,7 +511,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfOuterFloorSurface" type="anyType"/>
   <element name="OuterFloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:OuterFloorSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior, upper boundary surface of a construction space which is not a roof.</documentation>
+      <documentation>An OuterFloorSurface is a surface that belongs to the outer construction shell with the orientation pointing upwards. An example is the floor of a loggia.</documentation>
     </annotation>
   </element>
   <complexType name="OuterFloorSurfaceType">
@@ -501,6 +531,9 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <simpleType name="RelationToConstructionType">
+    <annotation>
+      <documentation>RelationToConstruction is an enumeration used to describe whether an installation is positioned inside and/or outside of a construction.</documentation>
+    </annotation>
     <restriction base="string">
       <enumeration value="inside"/>
       <enumeration value="outside"/>
@@ -510,7 +543,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfRoofSurface" type="anyType"/>
   <element name="RoofSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:RoofSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior, upper boundary surface of a construction space, whose primary function is to protect from the effects of weather.</documentation>
+      <documentation>A RoofSurface is a surface that delimits major roof parts of a construction.</documentation>
     </annotation>
   </element>
   <complexType name="RoofSurfaceType">
@@ -532,7 +565,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWallSurface" type="anyType"/>
   <element name="WallSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:WallSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior, lateral boundary surface of a construction space.</documentation>
+      <documentation>A WallSurface is a surface that is part of the building facade visible from the outside.</documentation>
     </annotation>
   </element>
   <complexType name="WallSurfaceType">
@@ -554,7 +587,7 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWindow" type="anyType"/>
   <element name="Window" substitutionGroup="con:AbstractFillingElement" type="con:WindowType">
     <annotation>
-      <documentation>SIG3D: Construction for closing an opening in a wall or roof, primarily intended to admit light and/or provide ventilation (cf. ISO 6707).</documentation>
+      <documentation>A Window is a construction for closing an opening in a wall  or roof, primarily intended to admit light and/or provide ventilation. [cf. ISO  6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="WindowType">
@@ -577,7 +610,11 @@ AbstractConstruction. E.g. a road or canal is man made, but not an AbstractConst
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWindowSurface" type="anyType"/>
-  <element name="WindowSurface" substitutionGroup="con:AbstractFillingSurface" type="con:WindowSurfaceType"/>
+  <element name="WindowSurface" substitutionGroup="con:AbstractFillingSurface" type="con:WindowSurfaceType">
+    <annotation>
+      <documentation>A WindowSurface is either a boundary surface of a Window feature or a surface that seals an opening filled by a window.</documentation>
+    </annotation>
+  </element>
   <complexType name="WindowSurfaceType">
     <complexContent>
       <extension base="con:AbstractFillingSurfaceType">

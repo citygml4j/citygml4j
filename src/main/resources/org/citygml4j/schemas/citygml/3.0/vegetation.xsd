@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVegetationObject" type="anyType"/>
   <element abstract="true" name="AbstractVegetationObject" substitutionGroup="core:AbstractOccupiedSpace" type="veg:AbstractVegetationObjectType">
     <annotation>
-      <documentation>SIG3D: Abstract super class of SolitaryVegetationObject and PlantCover</documentation>
+      <documentation>AbstractVegetationObject is the abstract superclass for all kinds of vegetation objects.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractVegetationObjectType">
@@ -27,7 +27,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfPlantCover" type="anyType"/>
   <element name="PlantCover" substitutionGroup="veg:AbstractVegetationObject" type="veg:PlantCoverType">
     <annotation>
-      <documentation>SIG3D: Area filled with a specific vegetation</documentation>
+      <documentation>A PlantCover represents a space covered by vegetation.</documentation>
     </annotation>
   </element>
   <complexType name="PlantCoverType">
@@ -71,7 +71,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfSolitaryVegetationObject" type="anyType"/>
   <element name="SolitaryVegetationObject" substitutionGroup="veg:AbstractVegetationObject" type="veg:SolitaryVegetationObjectType">
     <annotation>
-      <documentation>SIG3D: Single vegetation object</documentation>
+      <documentation>A SolitaryVegetationObject represents individual vegetation objects, e.g. trees or bushes.</documentation>
     </annotation>
   </element>
   <complexType name="SolitaryVegetationObjectType">

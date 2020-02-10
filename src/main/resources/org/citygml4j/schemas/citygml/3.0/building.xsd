@@ -6,7 +6,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuilding" type="anyType"/>
   <element abstract="true" name="AbstractBuilding" substitutionGroup="con:AbstractConstruction" type="bldg:AbstractBuildingType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of Building and BuildingPart.</documentation>
+      <documentation>AbstractBuilding is an abstract superclass representing the common attributes and associations of the classes Building and BuildingPart.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractBuildingType">
@@ -134,7 +134,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuildingSubdivision" type="anyType"/>
   <element abstract="true" name="AbstractBuildingSubdivision" substitutionGroup="core:AbstractLogicalSpace" type="bldg:AbstractBuildingSubdivisionType">
     <annotation>
-      <documentation>The abstract superclass for representing various types of subdivisions a building can contain. The superclass provides several attributes for providing specific information about the subdivision such as the function and usage, the height, the space type (i.e., whether the subdivision is closed, open or semi-open) and the number of occupants.</documentation>
+      <documentation>AbstractBuildingSubdivision is the abstract superclass for different kinds of logical building subdivisions.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractBuildingSubdivisionType">
@@ -213,7 +213,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuilding" type="anyType"/>
   <element name="Building" substitutionGroup="bldg:AbstractBuilding" type="bldg:BuildingType">
     <annotation>
-      <documentation>SIG3D: A free-standing, self-supporting construction that is roofed, usually walled, and can be entered by humans and is normally designed to stand permanently in one place. It is intended for human occupancy (for example: a place of work or recreation), habitation and/or shelter of humans, animals or things.</documentation>
+      <documentation>A Building is a free-standing, self-supporting construction that is roofed, usually walled, and can be entered by humans and is normally designed to stand permanently in one place. It is intended for human occupancy (e.g. a place of work or recreation), habitation and/or shelter of humans, animals or things.</documentation>
     </annotation>
   </element>
   <complexType name="BuildingType">
@@ -248,7 +248,11 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingConstructiveElement" type="anyType"/>
-  <element name="BuildingConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="bldg:BuildingConstructiveElementType"/>
+  <element name="BuildingConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="bldg:BuildingConstructiveElementType">
+    <annotation>
+      <documentation>A BuildingConstructiveElement is an element of a Building which is essential from a structural point of view. Examples are walls, slabs, staircases, beams.</documentation>
+    </annotation>
+  </element>
   <complexType name="BuildingConstructiveElementType">
     <complexContent>
       <extension base="con:AbstractConstructiveElementType">
@@ -271,7 +275,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingFurniture" type="anyType"/>
   <element name="BuildingFurniture" substitutionGroup="con:AbstractFurniture" type="bldg:BuildingFurnitureType">
     <annotation>
-      <documentation>SIG3D: Equipment for occupant use, usually not fixed to the building (cf. ISO 6707-1) .</documentation>
+      <documentation>A BuildingFurniture is an equipment for occupant use, usually not fixed to the building. [cf. ISO 6707-1]</documentation>
     </annotation>
   </element>
   <complexType name="BuildingFurnitureType">
@@ -308,7 +312,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingInstallation" type="anyType"/>
   <element name="BuildingInstallation" substitutionGroup="con:AbstractInstallation" type="bldg:BuildingInstallationType">
     <annotation>
-      <documentation>SIG3D: Permanently installed parts of the building's outer shell which are accessory for the building structure including loggia, dormer, etc. Doors and windows are modeled by the corresponding CityGML classes.</documentation>
+      <documentation>A BuildingInstallation is a permanent part of a Building (inside and/or outside) which has not the significance of a BuildingPart. Examples are stairs, antennas, balconies or small roofs.</documentation>
     </annotation>
   </element>
   <complexType name="BuildingInstallationType">
@@ -345,7 +349,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingPart" type="anyType"/>
   <element name="BuildingPart" substitutionGroup="bldg:AbstractBuilding" type="bldg:BuildingPartType">
     <annotation>
-      <documentation>SIG3D: A BuildingPart is a sub-division of a Building that is homogeneous related to its physical, functional, or temporal aspects and may be considered as a Building.</documentation>
+      <documentation>A BuildingPart is a physical or functional subdivision of a Building. It would be considered a Building, if it were not part of a collection of other BuildingParts.</documentation>
     </annotation>
   </element>
   <complexType name="BuildingPartType">
@@ -367,7 +371,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingRoom" type="anyType"/>
   <element name="BuildingRoom" substitutionGroup="core:AbstractUnoccupiedSpace" type="bldg:BuildingRoomType">
     <annotation>
-      <documentation>A semantic object for modelling the free space inside a building. This object corresponds to "Room" in CityGML 2.0. The inherited attribute spaceType allows for defining the closedness of a room. A room with ceiling, for instance, would be defined as closed, whereas an room representing an atrium would be defined as open or semi-open.</documentation>
+      <documentation>A BuildingRoom is a space within a Building or BuildingPart intended for human occupancy (e.g. a place of work or recreation) and/or containment of animals or things. A BuildingRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
     </annotation>
   </element>
   <complexType name="BuildingRoomType">
@@ -441,7 +445,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingUnit" type="anyType"/>
   <element name="BuildingUnit" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:BuildingUnitType">
     <annotation>
-      <documentation>This object corresponds to "BuildingUnit" from INSPIRE: A semantic object for representing subdivisions of a building with their own lockable access from the outside or from a common area (i.e. not from another BuildingUnit), which are atomic, functionally independent, and may be separately sold, rented out, inherited, etc. [INSPIRE D2.8.III.2_v3.0].</documentation>
+      <documentation>A BuildingUnit is a logical subdivision of a Building. BuildingUnits are formed according to some homogeneous property like function, ownership, management, or accessability. They may be separately sold, rented out, inherited, managed, etc.</documentation>
     </annotation>
   </element>
   <complexType name="BuildingUnitType">
@@ -475,7 +479,7 @@
   </complexType>
   <element name="RoomHeight" substitutionGroup="gml:AbstractObject" type="bldg:RoomHeightType">
     <annotation>
-      <documentation>[INSPIRE] Vertical distance (measured or estimated) between a low reference and a high reference.</documentation>
+      <documentation>The RoomHeight represents a vertical distance (measured or estimated) between a low reference and a high reference. [cf. INSPIRE]</documentation>
     </annotation>
   </element>
   <complexType name="RoomHeightType">
@@ -510,7 +514,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfStorey" type="anyType"/>
   <element name="Storey" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:StoreyType">
     <annotation>
-      <documentation>A semantic object for representing storeys of a building.</documentation>
+      <documentation>A Storey is a horizontal section of a Building.</documentation>
     </annotation>
   </element>
   <complexType name="StoreyType">

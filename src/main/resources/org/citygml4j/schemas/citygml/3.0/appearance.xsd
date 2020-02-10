@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSurfaceData" type="anyType"/>
   <element abstract="true" name="AbstractSurfaceData" substitutionGroup="gml:AbstractFeature" type="app:AbstractSurfaceDataType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of X3DMaterial and AbstractTexture</documentation>
+      <documentation>AbstractSurfaceData is the abstract superclass for different kinds of textures and material.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractSurfaceDataType">
@@ -32,7 +32,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTexture" type="anyType"/>
   <element abstract="true" name="AbstractTexture" substitutionGroup="app:AbstractSurfaceData" type="app:AbstractTextureType">
     <annotation>
-      <documentation>SIG3D: Abstract super class of ParameterizedTexture and GeoreferencedTexture</documentation>
+      <documentation>AbstractTexture is the abstract superclass to represent the common attributes of the classes ParameterizedTexture and GeoreferencedTexture.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractTextureType">
@@ -78,7 +78,7 @@
   </complexType>
   <element abstract="true" name="AbstractTextureParameterization" substitutionGroup="gml:AbstractObject" type="app:AbstractTextureParameterizationType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of TexCoordGen and TextCoordList</documentation>
+      <documentation>AbstractTextureParameterization is the abstract superclass for different kinds of texture parameterizations.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractTextureParameterizationType">
@@ -92,7 +92,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAppearance" type="anyType"/>
   <element name="Appearance" substitutionGroup="core:AbstractAppearance" type="app:AppearanceType">
     <annotation>
-      <documentation>SIG3D: Named container for all AbstractSurfaceData</documentation>
+      <documentation>An Appearance is a collection of surface data, i.e. observable properties for surface geometry objects in the form of textures and material.</documentation>
     </annotation>
   </element>
   <complexType name="AppearanceType">
@@ -132,11 +132,17 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <simpleType name="ColorType">
+    <annotation>
+      <documentation>Color is a list of three double values between 0 and 1 defining an RGB color value.</documentation>
+    </annotation>
     <restriction base="core:DoubleBetween0and1ListType">
       <length value="3"/>
     </restriction>
   </simpleType>
   <simpleType name="ColorPlusOpacityType">
+    <annotation>
+      <documentation>Color is a list of four double values between 0 and 1 defining an RGBA color value. Opacity value of 0 means transparent.</documentation>
+    </annotation>
     <restriction base="core:DoubleBetween0and1ListType">
       <minLength value="3"/>
       <maxLength value="4"/>
@@ -145,7 +151,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfGeoreferencedTexture" type="anyType"/>
   <element name="GeoreferencedTexture" substitutionGroup="app:AbstractTexture" type="app:GeoreferencedTextureType">
     <annotation>
-      <documentation>SIG3D: Specialized class for georeferenced textures containing an implicit parametrization that is either stored within the image file, an acompanying world file</documentation>
+      <documentation>A GeoreferencedTexture is a texture that uses a planimetric projection. It contains an implicit parameterization that is either stored within the image file, an acompanying world file or specified using the orientation and referencePoint elements.</documentation>
     </annotation>
   </element>
   <complexType name="GeoreferencedTextureType">
@@ -187,7 +193,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfParameterizedTexture" type="anyType"/>
   <element name="ParameterizedTexture" substitutionGroup="app:AbstractTexture" type="app:ParameterizedTextureType">
     <annotation>
-      <documentation>SIG3D: Specialization of AbstractTexture to describe  textures with specified transformation or texture coordinates.</documentation>
+      <documentation>A ParameterizedTexture is a texture that uses texture coordinates or a transformation matrix for parameterization.</documentation>
     </annotation>
   </element>
   <complexType name="ParameterizedTextureType">
@@ -209,7 +215,7 @@
   </complexType>
   <element name="TexCoordGen" substitutionGroup="app:AbstractTextureParameterization" type="app:TexCoordGenType">
     <annotation>
-      <documentation>SIG3D: Texture parameterization using a transformation matrix.</documentation>
+      <documentation>TexCoordGen defines texture parameterization using a transformation matrix.</documentation>
     </annotation>
   </element>
   <complexType name="TexCoordGenType">
@@ -233,7 +239,7 @@
   </complexType>
   <element name="TexCoordList" substitutionGroup="app:AbstractTextureParameterization" type="app:TexCoordListType">
     <annotation>
-      <documentation>SIG3D: Texture parameterization using explicit texture coordinates (a list of pairs of 2 double values). Each ring that is part of the surface requires a TexCoordList object.</documentation>
+      <documentation>TexCoordList defines texture parameterization using texture coordinates.</documentation>
     </annotation>
   </element>
   <complexType name="TexCoordListType">
@@ -261,7 +267,7 @@
   </complexType>
   <element name="TextureAssociation" substitutionGroup="gml:AbstractGML" type="app:TextureAssociationType">
     <annotation>
-      <documentation>SIG3D: Connects a surface geometry with a parameterized texture.</documentation>
+      <documentation>TextureAssociation denotes the relation of a texture to a surface geometry object.</documentation>
     </annotation>
   </element>
   <complexType name="TextureAssociationType">
@@ -287,7 +293,7 @@
   </complexType>
   <simpleType name="TextureTypeType">
     <annotation>
-      <documentation>SIG3D: Differentiates types of textures</documentation>
+      <documentation>TextureType enumerates the different texture types.</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="specific">
@@ -309,7 +315,7 @@
   </simpleType>
   <simpleType name="WrapModeType">
     <annotation>
-      <documentation>SIG3D: Specification of texture wrapping adopted from COLLADA standard. Defines the bahavior when accessing a texture outside the underlaying image raster.</documentation>
+      <documentation>WrapMode enumerates the different fill modes for textures.</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="none">
@@ -342,7 +348,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfX3DMaterial" type="anyType"/>
   <element name="X3DMaterial" substitutionGroup="app:AbstractSurfaceData" type="app:X3DMaterialType">
     <annotation>
-      <documentation>SIG3D: Definition of material properties based on X3D standard.</documentation>
+      <documentation>X3DMaterial defines properties for surface geometry objects based on the material definitions from the standards X3D and COLLADA.</documentation>
     </annotation>
   </element>
   <complexType name="X3DMaterialType">

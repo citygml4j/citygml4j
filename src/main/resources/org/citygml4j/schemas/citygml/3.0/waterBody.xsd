@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractWaterBoundarySurface" type="anyType"/>
   <element abstract="true" name="AbstractWaterBoundarySurface" substitutionGroup="core:AbstractThematicSurface" type="wtr:AbstractWaterBoundarySurfaceType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of boundary surfaces of WaterBody.</documentation>
+      <documentation>AbstractWaterBoundarySurface is the abstract superclass for all kinds of thematic surfaces bounding a water body.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractWaterBoundarySurfaceType">
@@ -27,7 +27,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterBody" type="anyType"/>
   <element name="WaterBody" substitutionGroup="core:AbstractOccupiedSpace" type="wtr:WaterBodyType">
     <annotation>
-      <documentation>SIG3D: Any significant accumulation of water, usually covering a part of the Earth</documentation>
+      <documentation>A WaterBody represents significant and permanent or semi-permanent accumulations of surface water, usually covering a part of the Earth.</documentation>
     </annotation>
   </element>
   <complexType name="WaterBodyType">
@@ -64,7 +64,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterGroundSurface" type="anyType"/>
   <element name="WaterGroundSurface" substitutionGroup="wtr:AbstractWaterBoundarySurface" type="wtr:WaterGroundSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior boundary surface of the submerged bottom of a water body, used to describe parts of the outer shell of WaterBody.</documentation>
+      <documentation>A WaterGroundSurface represents the exterior boundary surface of the submerged bottom of a water body.</documentation>
     </annotation>
   </element>
   <complexType name="WaterGroundSurfaceType">
@@ -86,7 +86,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterSurface" type="anyType"/>
   <element name="WaterSurface" substitutionGroup="wtr:AbstractWaterBoundarySurface" type="wtr:WaterSurfaceType">
     <annotation>
-      <documentation>SIG3D: Exterior boundary surface of a boundary layer between water and the atmosphere, used to describe parts of the outer shell of WaterBody.</documentation>
+      <documentation>A WaterSurface represents the upper exterior interface between a water body and the atmosphere.</documentation>
     </annotation>
   </element>
   <complexType name="WaterSurfaceType">

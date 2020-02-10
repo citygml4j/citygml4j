@@ -5,7 +5,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractReliefComponent" type="anyType"/>
   <element abstract="true" name="AbstractReliefComponent" substitutionGroup="core:AbstractSpaceBoundary" type="dem:AbstractReliefComponentType">
     <annotation>
-      <documentation>SIG3D: Abstract superclass of TINRelief, MassPointRelief, RasterRelief and BreaklineRelief</documentation>
+      <documentation>An AbstractReliefComponent represents an element of the terrain surface - either a TIN, a Grid, mass points or break lines.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractReliefComponentType">
@@ -37,7 +37,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfBreaklineRelief" type="anyType"/>
   <element name="BreaklineRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:BreaklineReliefType">
     <annotation>
-      <documentation>SIG3D: Relief component represented by 3D lines denoting break lines or ridge/valley lines</documentation>
+      <documentation>A BreaklineRelief represents a terrain component with 3D lines. These lines denote break lines or ridge/valley lines.</documentation>
     </annotation>
   </element>
   <complexType name="BreaklineReliefType">
@@ -69,7 +69,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfMassPointRelief" type="anyType"/>
   <element name="MassPointRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:MassPointReliefType">
     <annotation>
-      <documentation>SIG3D: Relief component represented by 3D points.</documentation>
+      <documentation>A MassPointRelief represents a terrain component as a collection of 3D points.</documentation>
     </annotation>
   </element>
   <complexType name="MassPointReliefType">
@@ -93,7 +93,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfRasterRelief" type="anyType"/>
   <element name="RasterRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:RasterReliefType">
     <annotation>
-      <documentation>SIG3D: Relief component represented by a (GML) raster/grid.</documentation>
+      <documentation>A RasterRelief represents a terrain component as a regular raster or grid.</documentation>
     </annotation>
   </element>
   <complexType name="RasterReliefType">
@@ -124,7 +124,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfReliefFeature" type="anyType"/>
   <element name="ReliefFeature" substitutionGroup="core:AbstractSpaceBoundary" type="dem:ReliefFeatureType">
     <annotation>
-      <documentation>SIG3D: Feature aggregating the relief components which belong together.</documentation>
+      <documentation>A ReliefFeature is a collection of terrain components representing the Earth's surface, a.k.a. the Digital Terrain Model.</documentation>
     </annotation>
   </element>
   <complexType name="ReliefFeatureType">
@@ -166,7 +166,7 @@
   <element abstract="true" name="AbstractGenericApplicationPropertyOfTINRelief" type="anyType"/>
   <element name="TINRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:TINReliefType">
     <annotation>
-      <documentation>SIG3D: Relief component represented as triangulated irregular network.</documentation>
+      <documentation>A TINRelief represents a terrain component as a triangulated irregular network.</documentation>
     </annotation>
   </element>
   <complexType name="TINReliefType">
