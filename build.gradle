@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'org.citygml4j'
-version '1.0-SNAPSHOT'
+version '0.9.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    api 'org.xml-objects:gml-objects:0.2.0'
-    api 'org.xml-objects:xal-objects:0.2.0'
-    annotationProcessor 'org.xml-objects:gml-objects:0.2.0'
+    api 'org.xmlobjects.gml:gml-objects:0.9.0'
+    api 'org.xmlobjects.xal:xal-objects:0.9.0'
+    annotationProcessor 'org.xmlobjects.gml:gml-objects:0.9.0'
 }
