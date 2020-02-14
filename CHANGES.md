@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+### 2.10.5 - 2020-02-14
+
+##### Additions
+* Added support for `gml:PolygonPatch`. [#24](https://github.com/citygml4j/citygml4j/issues/24)
+* `ObjectCopier` can now be used to only copy the properties of a common super class from the source to the target object.
+
+##### Fixes
+* Fixed `toList3d()` for curve geometries. If a curve geometry consists of multiple curve members or segments, then interior
+start and end points of these segments are now removed from the result of the `toList3d()` method.
+* Fixed `SchemaHandler` to correctly consider already parsed schemas.
+* Fixed `LodRepresentationBuilder` to include inherited spatial properties when building the LoD representation for a given object.
+* Fixed bounding box calculation for `gml:RectifiedGrid`.
+
 ### 2.10.4 - 2019-11-01
 
 ##### Fixes
