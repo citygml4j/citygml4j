@@ -2,15 +2,17 @@ plugins {
     id 'java-library'
 }
 
-group 'org.citygml4j'
-version '0.9.0'
+allprojects {
+    group 'org.citygml4j'
+    version '0.9.0'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
 
-repositories {
-    jcenter()
+    repositories {
+        jcenter()
+    }
 }
 
 dependencies {

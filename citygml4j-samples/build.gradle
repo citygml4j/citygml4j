@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+apply from: 'samples.gradle'
+
+dependencies {
+    implementation rootProject
+}
+
+clean.dependsOn(cleanOutput)
