@@ -86,7 +86,7 @@ public class WallSurface extends AbstractBoundarySurface {
 		if (isSetGenericApplicationPropertyOfWallSurface()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfWallSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

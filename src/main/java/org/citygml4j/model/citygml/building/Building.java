@@ -87,7 +87,7 @@ public class Building extends AbstractBuilding {
 		if (isSetGenericApplicationPropertyOfBuilding()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfBuilding()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

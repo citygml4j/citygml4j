@@ -310,7 +310,7 @@ public class Room extends AbstractCityObject implements BuildingModuleComponent,
 		if (isSetGenericApplicationPropertyOfRoom()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfRoom()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

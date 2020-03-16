@@ -88,7 +88,7 @@ public class Track extends TransportationComplex {
 		if (isSetGenericApplicationPropertyOfTrack()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTrack()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

@@ -348,7 +348,7 @@ public class BridgeInstallation extends AbstractCityObject implements BridgeModu
 		if (isSetGenericApplicationPropertyOfBridgeInstallation()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfBridgeInstallation()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

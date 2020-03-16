@@ -87,7 +87,7 @@ public class Door extends AbstractOpening {
 		if (isSetGenericApplicationPropertyOfDoor()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfDoor()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

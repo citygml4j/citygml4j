@@ -87,7 +87,7 @@ public class TunnelPart extends AbstractTunnel {
 		if (isSetGenericApplicationPropertyOfTunnelPart()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTunnelPart()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

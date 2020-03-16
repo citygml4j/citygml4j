@@ -79,7 +79,7 @@ public abstract class AbstractTransportationObject extends AbstractCityObject im
 		if (isSetGenericApplicationPropertyOfTransportationObject()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTransportationObject()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

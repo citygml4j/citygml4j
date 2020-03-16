@@ -250,7 +250,7 @@ public class IntBridgeInstallation extends AbstractCityObject implements BridgeM
 		if (isSetGenericApplicationPropertyOfIntBridgeInstallation()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfIntBridgeInstallation()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

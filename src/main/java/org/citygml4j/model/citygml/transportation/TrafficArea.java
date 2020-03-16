@@ -255,7 +255,7 @@ public class TrafficArea extends AbstractTransportationObject implements Standar
 		if (isSetGenericApplicationPropertyOfTrafficArea()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTrafficArea()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

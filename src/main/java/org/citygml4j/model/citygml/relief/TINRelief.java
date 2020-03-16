@@ -113,7 +113,7 @@ public class TINRelief extends AbstractReliefComponent {
 		if (isSetGenericApplicationPropertyOfTinRelief()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTinRelief()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

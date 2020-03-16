@@ -784,7 +784,7 @@ public abstract class AbstractBridge extends AbstractSite implements BridgeModul
 		if (isSetGenericApplicationPropertyOfAbstractBridge()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfAbstractBridge()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

@@ -18,39 +18,39 @@
  */
 package org.citygml4j.model.citygml.ade.binding;
 
-import org.citygml4j.model.citygml.appearance.Appearance;
+import org.citygml4j.model.gml.base.ArrayAssociation;
+import org.citygml4j.model.gml.base.AssociationByRep;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.feature.BoundingShape;
+import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
-import org.citygml4j.util.child.ChildInfo;
-import org.citygml4j.util.walker.FeatureWalker;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 public class ADEBoundingBoxHelper {
 	
-	public static BoundingShape calcBoundedBy(ADEModelObject ade, AbstractFeature parent, BoundingBoxOptions options) {
-		ChildInfo info = new ChildInfo();
+	public static BoundingShape calcBoundedBy(ADEModelObject ade, BoundingBoxOptions options) {
 		BoundingShape boundedBy = new BoundingShape();
-		
-		FeatureWalker walker = new FeatureWalker() {
-			
-			@Override
-			public void visit(AbstractFeature nested) {
-				// skip grandchildren
-				if (info.getParentFeature(nested) != parent)
-					return;
-
-				boundedBy.updateEnvelope(nested.calcBoundedBy(options).getEnvelope());
-			}
-
-			@Override
-			public void visit(Appearance appearance) {
-				// skip appearances
-			}
-		};
-		
-		walker.visit(ade);
-		
+		updateEnvelope(ade, boundedBy, options);
 		return boundedBy;
 	}
 
+	private static void updateEnvelope(Object object, BoundingShape boundedBy, BoundingBoxOptions options) {
+		if (object instanceof AbstractGeometry) {
+			boundedBy.updateEnvelope(((AbstractGeometry) object).calcBoundingBox());
+		} else if (object instanceof AbstractFeature) {
+			boundedBy.updateEnvelope(((AbstractFeature) object).calcBoundedBy(options).getEnvelope());
+		} else if (object instanceof ADEGenericApplicationProperty<?>) {
+			updateEnvelope(((ADEGenericApplicationProperty<?>) object).getValue(), boundedBy, options);
+		} else if (object instanceof ArrayAssociation<?>) {
+			((ArrayAssociation<?>) object).getObject().forEach(v -> updateEnvelope(v, boundedBy, options));
+		} else if (object instanceof AssociationByRep<?>) {
+			updateEnvelope(((AssociationByRep<?>) object).getObject(), boundedBy, options);
+		} else if (object instanceof Collection<?>) {
+			((Collection<?>) object).forEach(v -> updateEnvelope(v, boundedBy, options));
+		} else if (object instanceof Object[]) {
+			Arrays.stream(((Object[]) object)).forEach(v -> updateEnvelope(v, boundedBy, options));
+		}
+	}
 }

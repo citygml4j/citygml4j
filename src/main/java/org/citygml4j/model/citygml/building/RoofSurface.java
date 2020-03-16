@@ -87,7 +87,7 @@ public class RoofSurface extends AbstractBoundarySurface {
 		if (isSetGenericApplicationPropertyOfRoofSurface()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfRoofSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

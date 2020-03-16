@@ -88,7 +88,7 @@ public class Road extends TransportationComplex {
 		if (isSetGenericApplicationPropertyOfRoad()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfRoad()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

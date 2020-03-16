@@ -457,7 +457,7 @@ public class BridgeConstructionElement extends AbstractCityObject implements Bri
 		if (isSetGenericApplicationPropertyOfBridgeConstructionElement()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfBridgeConstructionElement()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

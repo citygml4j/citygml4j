@@ -87,7 +87,7 @@ public class CeilingSurface extends AbstractBoundarySurface {
 		if (isSetGenericApplicationPropertyOfCeilingSurface()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfCeilingSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

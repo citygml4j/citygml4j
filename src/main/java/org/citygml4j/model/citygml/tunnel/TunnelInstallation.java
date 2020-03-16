@@ -348,7 +348,7 @@ public class TunnelInstallation extends AbstractCityObject implements TunnelModu
 		if (isSetGenericApplicationPropertyOfTunnelInstallation()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTunnelInstallation()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

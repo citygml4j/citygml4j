@@ -367,7 +367,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
 		if (isSetGenericApplicationPropertyOfPlantCover()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfPlantCover()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

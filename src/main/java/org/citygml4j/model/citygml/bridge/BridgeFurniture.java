@@ -212,7 +212,7 @@ public class BridgeFurniture extends AbstractCityObject implements BridgeModuleC
 		if (isSetGenericApplicationPropertyOfBridgeFurniture()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfBridgeFurniture()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

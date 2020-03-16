@@ -246,7 +246,7 @@ public class CityObjectGroup extends AbstractCityObject implements CityObjectGro
 		if (isSetGenericApplicationPropertyOfCityObjectGroup()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfCityObjectGroup()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

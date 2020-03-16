@@ -87,7 +87,7 @@ public class FloorSurface extends AbstractBoundarySurface {
 		if (isSetGenericApplicationPropertyOfFloorSurface()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfFloorSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

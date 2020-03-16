@@ -187,7 +187,7 @@ public abstract class AbstractOpening extends AbstractCityObject implements Buil
 		if (isSetGenericApplicationPropertyOfOpening()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfOpening()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

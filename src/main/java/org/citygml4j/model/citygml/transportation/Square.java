@@ -88,7 +88,7 @@ public class Square extends TransportationComplex {
 		if (isSetGenericApplicationPropertyOfSquare()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfSquare()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

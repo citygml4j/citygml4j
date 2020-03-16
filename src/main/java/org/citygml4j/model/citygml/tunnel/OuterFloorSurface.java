@@ -87,7 +87,7 @@ public class OuterFloorSurface extends AbstractBoundarySurface {
 		if (isSetGenericApplicationPropertyOfOuterFloorSurface()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfOuterFloorSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

@@ -87,7 +87,7 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
 		if (isSetGenericApplicationPropertyOfWaterGroundSurface()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfWaterGroundSurface()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

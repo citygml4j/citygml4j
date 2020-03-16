@@ -885,7 +885,7 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		if (isSetGenericApplicationPropertyOfAbstractBuilding()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfAbstractBuilding()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

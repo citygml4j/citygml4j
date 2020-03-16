@@ -87,7 +87,7 @@ public class Bridge extends AbstractBridge {
 		if (isSetGenericApplicationPropertyOfBridge()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfBridge()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

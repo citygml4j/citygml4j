@@ -394,7 +394,7 @@ public class TransportationComplex extends AbstractTransportationObject implemen
 		if (isSetGenericApplicationPropertyOfTransportationComplex()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfTransportationComplex()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

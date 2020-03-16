@@ -212,7 +212,7 @@ public class BuildingFurniture extends AbstractCityObject implements BuildingMod
 		if (isSetGenericApplicationPropertyOfBuildingFurniture()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfBuildingFurniture()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

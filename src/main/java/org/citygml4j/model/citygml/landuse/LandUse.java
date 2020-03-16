@@ -279,7 +279,7 @@ public class LandUse extends AbstractCityObject implements LandUseModuleComponen
 		if (isSetGenericApplicationPropertyOfLandUse()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfLandUse()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 

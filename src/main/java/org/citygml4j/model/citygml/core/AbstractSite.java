@@ -78,7 +78,7 @@ public abstract class AbstractSite extends AbstractCityObject {
 		if (isSetGenericApplicationPropertyOfSite()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfSite()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 		

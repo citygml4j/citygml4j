@@ -419,7 +419,7 @@ public class CityFurniture extends AbstractCityObject implements CityFurnitureMo
 		if (isSetGenericApplicationPropertyOfCityFurniture()) {
 			for (ADEComponent ade : getGenericApplicationPropertyOfCityFurniture()) {
 				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, this, options).getEnvelope());
+					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
 			}
 		}
 
